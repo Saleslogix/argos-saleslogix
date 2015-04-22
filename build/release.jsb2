@@ -157,7 +157,6 @@
         }
       ]
     },
-,
     {
       "name": "Core Mobile Localization (zh-CHT)",
       "file": "localization/zh-CHT.js",
