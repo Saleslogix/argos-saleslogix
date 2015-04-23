@@ -1,22 +1,22 @@
 /**
- * @class Mobile.SalesLogix.Views.Offline.List
+ * @class crm.Views.Offline.List
  *
- * @extends Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.List
+ * @extends argos._ListBase
+ * @requires argos._ListBase
  *
  *
  */
-define('Mobile/SalesLogix/Views/Offline/List', [
+define('crm/Views/Offline/List', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/_ListBase',
-    'Sage/Platform/Mobile/Store/PouchDB'
+    'argos/_ListBase',
+    'argos/Store/PouchDB'
 ], function(
     declare,
     _ListBase,
     Store
     ) {
 
-    return declare('Mobile.SalesLogix.Views.Offline.List', [_ListBase], {
+    return declare('crm.Views.Offline.List', [_ListBase], {
         id: 'offline_list',
         idProperty: 'id',
         detailView: 'offline_detail',
@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/Offline/List', [
         _buildQueryExpression: function() {
             return function(doc, emit) {
                 emit(doc);
-            }
+            };
         },
         _applyStateToQueryOptions: function(queryOptions) {
             queryOptions.include_docs = true;

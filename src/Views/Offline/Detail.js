@@ -1,22 +1,22 @@
 /**
- * @class Mobile.SalesLogix.Views.Offline.Detail
+ * @class crm.Views.Offline.Detail
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile.Detail
+ * @extends argos._DetailBase
+ * @requires argos._DetailBase
  *
  */
-define('Mobile/SalesLogix/Views/Offline/Detail', [
+define('crm/Views/Offline/Detail', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/_DetailBase',
-    'Sage/Platform/Mobile/Store/PouchDB'
+    'argos/_DetailBase',
+    'argos/Store/PouchDB'
 ], function(
     declare,
     _DetailBase,
     Store
     ) {
 
-    return declare('Mobile.SalesLogix.Views.Offline.Detail', [_DetailBase], {
+    return declare('crm.Views.Offline.Detail', [_DetailBase], {
         id: 'offline_detail',
         titleText: 'Following Detail',
 
@@ -27,16 +27,17 @@ define('Mobile/SalesLogix/Views/Offline/Detail', [
         createStore: function() {
             return new Store({databaseName: this.OFFLINE_DB_NAME});
         },
-        _applyStateToGetOptions: function(getOptions) {
+        _applyStateToGetOptions: function() {
         },
         _buildGetExpression: function() {
             var options = this.options;
             return options && (options.id || options.key);
         },
         processEntry: function(offlineEntry) {
+            var arg = arguments[0];
             this.offlineDoc = offlineEntry;
 
-            arguments[0] = this.offlineDoc.entity;
+            arg = this.offlineDoc.entity;
             this.inherited(arguments);
         },
         createLayout: function() {
