@@ -46,21 +46,23 @@
         packages: [
             { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
-            { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-            { name: 'Mobile/SalesLogix', location: '.grunt/grunt-contrib-jasmine/src' },
+            { name: 'argos', location: '../../argos-sdk/src' },
+            { name: 'crm', location: '.grunt/grunt-contrib-jasmine/src' },
             { name: 'spec', location: 'tests/src' },
             { name: 'localization', location: '.grunt/grunt-contrib-jasmine/localization' },
             { name: 'configuration', location: '.grunt/grunt-contrib-jasmine/configuration' }
         ],
         paths: {
-            'Mobile/SalesLogix': '.grunt/grunt-contrib-jasmine/src',
-            'Sage/Platform/Mobile': '../../argos-sdk/src',
             'configuration': '.grunt/grunt-contrib-jasmine/configuration',
             'localization': '.grunt/grunt-contrib-jasmine/localization',
-            'Mobile/SalesLogix/DefaultMetrics.txt': 'src/DefaultMetrics.txt'
+        },
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm'
+            }
         }
   });
   </script>

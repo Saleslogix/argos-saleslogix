@@ -3,24 +3,26 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.ExchangeRateLookup
+ * @class crm.Views.ExchangeRateLookup
  *
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos._LegacySDataListMixin
  *
  */
-define('Mobile/SalesLogix/Views/ExchangeRateLookup', [
+define('crm/Views/ExchangeRateLookup', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin'
+    'dojo/_base/lang',
+    'argos/List',
+    'argos/_LegacySDataListMixin'
 ], function(
     declare,
+    lang,
     List,
     _LegacySDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$key %} ({%: $.Rate %})</h3>'
@@ -61,11 +63,14 @@ define('Mobile/SalesLogix/Views/ExchangeRateLookup', [
         hasMoreData: function() {
             return false;
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             return true;
         },
-        formatSearchQuery: function(searchQuery) {
+        formatSearchQuery: function() {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.ExchangeRateLookup', __class);
+    return __class;
 });
 

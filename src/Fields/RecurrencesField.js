@@ -1,16 +1,18 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Fields/RecurrencesField', [
+define('crm/Fields/RecurrencesField', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/FieldManager'
+    'dojo/_base/lang',
+    'argos/Fields/EditorField',
+    'argos/FieldManager'
 ], function(
     declare,
+    lang,
     EditorField,
     FieldManager
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.RecurrencesField', [EditorField], {
+    var control = declare('crm.Fields.RecurrencesField', [EditorField], {
         // Localization
         titleText: 'Recurring',
         emptyText: '',
@@ -33,5 +35,6 @@ define('Mobile/SalesLogix/Fields/RecurrencesField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.RecurrencesField', control);
     return FieldManager.register('recurrences', control);
 });

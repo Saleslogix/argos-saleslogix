@@ -3,37 +3,39 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contact.List
+ * @class crm.Views.Contact.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._MetricListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._MetricListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Format
- * @requires Sage.Platform.Mobile.Convert
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
- * @requires Mobile.SalesLogix.Views._GroupListMixin
- * @requires Mobile.SalesLogix.Views._MetricListMixin
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
- * @requires Mobile.SalesLogix.Action
+ * @requires argos.List
+ * @requires argos.Format
+ * @requires argos.Convert
+ * @requires crm.Views._RightDrawerListMixin
+ * @requires crm.Views._GroupListMixin
+ * @requires crm.Views._MetricListMixin
+ * @requires crm.Views._CardLayoutListMixin
+ * @requires crm.Action
  *
  */
-define('Mobile/SalesLogix/Views/Contact/List', [
+define('crm/Views/Contact/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/array',
-    'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
+    'crm/Action',
+    'argos/Format',
+    'argos/Convert',
+    'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     '../_RightDrawerListMixin'
 ], function(
     declare,
+    lang,
     string,
     array,
     action,
@@ -46,7 +48,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Template
         //Card Layout
         itemIconClass: 'fa fa-user fa-2x',
@@ -56,12 +58,12 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             '<h4>{%: $.WebAddress %}</h4>',
             '{% if ($.WorkPhone) { %}',
                 '<h4>',
-                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.WorkPhone) %}</span>',
+                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Mobile) { %}',
                 '<h4>',
-                    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.Mobile) %}</span>',
+                    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Email) { %}',
@@ -110,12 +112,12 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         entityName: 'Contact',
         groupsEnabled: true,
         enableActions: true,
-        callWork: function(params, evt, el) {
+        callWork: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'callWork';
             }, params.key);
         },
-        callMobile: function(params, evt, el) {
+        callMobile: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'callMobile';
             }, params.key);
@@ -180,5 +182,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.List', __class);
+    return __class;
 });
 

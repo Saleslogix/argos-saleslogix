@@ -3,39 +3,42 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.MainToolbar
+ * @class crm.Views.MainToolbar
  *
  *
- * @extends Sage.Platform.Mobile.MainToolbar
+ * @extends argos.MainToolbar
  *
  */
-define('Mobile/SalesLogix/Views/MainToolbar', [
+define('crm/Views/MainToolbar', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-style',
     'dojo/has',
-    'dojox/mobile/sniff',
-    'Sage/Platform/Mobile/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
+    lang,
     domStyle,
     has,
-    mobileSniff,
     MainToolbar
 ) {
 
-    return declare('Mobile.SalesLogix.Views.MainToolbar', [MainToolbar], {
+    var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
         showTools: function(tools) {
-            var hasLeftDrawer, isOnFirstView, isOnEdit;
+            var hasLeftDrawer,
+                isOnFirstView,
+                i,
+                isOnEdit;
 
             isOnFirstView = App.isOnFirstView();
 
             if (tools) {
-                for (var i = 0; i < tools.length; i++) {
-                    if (tools[i].id == 'toggleLeftDrawer') {
+                for (i = 0; i < tools.length; i++) {
+                    if (tools[i].id === 'toggleLeftDrawer') {
                         hasLeftDrawer = true;
                     }
 
-                    if (tools[i].id == 'back') {
+                    if (tools[i].id === 'back') {
                         hasLeftDrawer = true;
                     }
 
@@ -111,5 +114,8 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);
+    return __class;
 });
 

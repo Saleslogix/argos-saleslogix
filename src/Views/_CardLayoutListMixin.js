@@ -1,16 +1,16 @@
 /* Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.*/
 
 /**
- * @class Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @class crm.Views._CardLayoutListMixin
  *
  * Mixin for card list layouts.
  *
  * @since 3.0
  *
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.Convert
  *
  */
-define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
+define('crm/Views/_CardLayoutListMixin', [
     'dojo/_base/array',
     'dojo/_base/declare',
     'dojo/_base/event',
@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     'dojo/dom-construct',
     'dojo/query',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/Convert',
+    'argos/Convert',
     'moment'
 ], function(
     array,
@@ -36,9 +36,12 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
+    var mixinName,
+        __class;
 
-    return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
+    mixinName = 'crm.Views._CardLayoutListMixin';
+
+    __class = declare('crm.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
         itemIconClass: '',
@@ -104,7 +107,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
             this.inherited(arguments);
         },
-        _intFooter: function(){
+        _intFooter: function() {
             if (!this.actions.length) {
                 this.itemFooterTemplate = new Simplate(['']);
             }
@@ -115,13 +118,13 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor || entry[this.labelProperty];
         },
-        getItemIconClass: function(entry, owner) {
+        getItemIconClass: function() {
             return this.itemIconClass;
         },
-        getItemIconSource: function(entry) {
+        getItemIconSource: function() {
             return this.itemIcon || this.icon || this.selectIcon;
         },
-        getItemIconAlt: function(entry) {
+        getItemIconAlt: function() {
             return this.itemIconAltText;
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
@@ -130,11 +133,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             for (i = 0; i < indicators.length; i++) {
                 (function(indicator) {
                     iconPath = indicator.iconPath || self.itemIndicatorIconPath;
-
                     if (indicator.onApply) {
-                        try{
+                        try {
                             indicator.onApply(entry, self);
-                        }catch(err){
+                        } catch(err) {
                             indicator.isEnabled = false;
                         }
                     }
@@ -161,7 +163,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                         }
                     } else {
                         indicator.indicatorIcon = indicator.icon
-                            ? iconPath + indicator.icon 
+                            ? iconPath + indicator.icon
                             : '';
                     }
 
@@ -188,11 +190,13 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         },
         onApplyRowTemplate: function(entry, rowNode) {
             if (this.options && this.options.simpleMode && ( this.options.simpleMode === true)) {
-               return;
+                return;
             }
+
             this.applyRowIndicators(entry, rowNode);
+            this.inherited(arguments);
         },
-        applyRowIndicators:function(entry, rowNode){
+        applyRowIndicators: function(entry, rowNode) {
             var topIndicatorsNode, bottomIndicatorsNode;
             if (this.itemIndicators && this.itemIndicators.length > 0) {
                 topIndicatorsNode = query('> #top_item_indicators', rowNode);
@@ -205,7 +209,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = []);
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'touched',
+                cls: 'fa fa-hand-o-up fa-lg',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
@@ -219,14 +230,28 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
             return false;
         },
-        requestData: function(){
+        requestData: function() {
             var mixin = lang.getObject(mixinName);
             if (this.searchWidget) {
                 this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;
             }
 
             this.inherited(arguments);
+        },
+        /**
+         * Returns a rendered html snap shot of the entry.
+         */
+        getContextSnapShot: function(options) {
+            var snapShot, entry = this.entries[options.key];
+            if (entry) {
+                snapShot = this.itemRowContainerTemplate.apply(entry, this);
+            }
+
+            return snapShot;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._CardLayoutListMixin', __class);
+    return __class;
 });
 

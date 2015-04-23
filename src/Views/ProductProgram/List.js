@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.ProductProgram.List
+ * @class crm.Views.ProductProgram.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/ProductProgram/List', [
+define('crm/Views/ProductProgram/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'crm/Format',
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ProductProgram.List', [List], {
+    var __class = declare('crm.Views.ProductProgram.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Program %}</h3>',
@@ -33,7 +35,7 @@ define('Mobile/SalesLogix/Views/ProductProgram/List', [
         //Localization
         titleText: 'Product Programs',
 
-        //View Properties       
+        //View Properties
         id: 'productprogram_list',
         security: 'Entities/ProductProgram/View',
         queryOrderBy: 'Program',
@@ -48,5 +50,8 @@ define('Mobile/SalesLogix/Views/ProductProgram/List', [
             return string.substitute('(upper(Program) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.ProductProgram.List', __class);
+    return __class;
 });
 

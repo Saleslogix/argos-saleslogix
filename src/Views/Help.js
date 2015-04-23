@@ -3,24 +3,26 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Help
+ * @class crm.Views.Help
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  *
  */
-define('Mobile/SalesLogix/Views/Help', [
+define('crm/Views/Help', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/dom-class',
     'dojo/dom-construct',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail',
+    'argos/ErrorManager',
+    'argos/Detail',
     'dojo/NodeList-manipulate',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     string,
     domClass,
     domConstruct,
@@ -29,7 +31,7 @@ define('Mobile/SalesLogix/Views/Help', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Help', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
         //Templates
         errorTemplate: new Simplate([
             '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',
@@ -59,7 +61,7 @@ define('Mobile/SalesLogix/Views/Help', [
 
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onLocalizedRequestFirstFailure: function(response, o) {
+        onLocalizedRequestFirstFailure: function() {
             Sage.SData.Client.Ajax.request({
                 url: this.resolveGenericLocalizedUrl(),
                 cache: true,
@@ -68,7 +70,7 @@ define('Mobile/SalesLogix/Views/Help', [
                 scope: this
             });
         },
-        onLocalizedRequestSecondFailure: function(response, o) {
+        onLocalizedRequestSecondFailure: function() {
             Sage.SData.Client.Ajax.request({
                 url: this.url,
                 cache: true,
@@ -82,13 +84,13 @@ define('Mobile/SalesLogix/Views/Help', [
             domClass.remove(this.domNode, 'panel-loading');
         },
         resolveLocalizedUrl: function() {
-            var localizedUrl = string.substitute("help/help_${0}.html", [Mobile.CultureInfo['name']]);
+            var localizedUrl = string.substitute('help/help_${0}.html', [Mobile.CultureInfo['name']]);
             return localizedUrl;
         },
         resolveGenericLocalizedUrl: function() {
             var languageSpec = Mobile.CultureInfo['name'],
                 languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec,
-                localizedUrl = string.substitute("help/help_${0}.html", [languageGen]);
+                localizedUrl = string.substitute('help/help_${0}.html', [languageGen]);
             return localizedUrl;
         },
         requestData: function() {
@@ -102,9 +104,12 @@ define('Mobile/SalesLogix/Views/Help', [
                 scope: this
             });
         },
-        processContent: function(xhr, o) {
+        processContent: function(xhr) {
             domConstruct.place(xhr.responseText, this.contentNode, 'last');
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Help', __class);
+    return __class;
 });
 

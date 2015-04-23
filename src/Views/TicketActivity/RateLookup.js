@@ -3,21 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivity.RateLookup
+ * @class crm.Views.TicketActivity.RateLookup
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
+define('crm/Views/TicketActivity/RateLookup', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.RateLookup', [List], {
+    var __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',
@@ -42,5 +44,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
             return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.RateLookup', __class);
+    return __class;
 });
 

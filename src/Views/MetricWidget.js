@@ -3,14 +3,14 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.MetricWidget
+ * @class crm.Views.MetricWidget
  *
  *
- * @requires Sage.Platform.Mobile._Templated
- * @requires Sage.Platform.Mobile.Store.SData
+ * @requires argos._Templated
+ * @requires argos.Store.SData
  *
  */
-define('Mobile/SalesLogix/Views/MetricWidget', [
+define('crm/Views/MetricWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -18,10 +18,9 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     'dojo/when',
     'dojo/promise/all',
     'dojo/dom-construct',
-    'dojo/aspect',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_Templated',
-    'Sage/Platform/Mobile/Store/SData'
+    'argos/_Templated',
+    'argos/Store/SData'
 ], function(
     declare,
     lang,
@@ -30,12 +29,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     when,
     all,
     domConstruct,
-    aspect,
     _Widget,
     _Templated,
     SDataStore
 ) {
-    return declare('Mobile.SalesLogix.Views.MetricWidget', [_Widget, _Templated], {
+    var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
         /**
          * @property {Simplate}
          * Simple that defines the HTML Markup
@@ -55,8 +53,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          * HTML markup for the metric detail (name/value)
         */
         itemTemplate: new Simplate([
-            '<div class="metric-title">{%: $$.title %}</div>',
-            '<div class="metric-value">{%: $$.formatter($.value) %}</div>'
+            '<h1 class="metric-value">{%: $$.formatter($.value) %}</h1>',
+            '<span class="metric-title">{%: $$.title %}</span>'
         ]),
 
         /**
@@ -97,6 +95,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         store: null,
 
         _data: null,
+        value: null,
         requestDataDeferred: null,
         metricDetailNode: null,
         currentSearchExpression: '',
@@ -105,11 +104,12 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         chartType: null,
         chartTypeMapping: {
             'pie': 'chart_generic_pie',
-            'bar': 'chart_generic_bar'
+            'bar': 'chart_generic_bar',
+            'line': 'chart_generic_line'
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-        formatModule: 'Mobile/SalesLogix/Format',// AMD Module
+        formatModule: 'crm/Format',// AMD Module
         formatter: 'bigNumber',// Function of formatModule module
 
         /**
@@ -142,7 +142,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-        aggregateModule: 'Mobile/SalesLogix/Aggregate',
+        aggregateModule: 'crm/Aggregate',
         aggregate: null,//'valueFn',
 
         /**
@@ -173,7 +173,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                         def.resolve(mod[fn]);
                     }
                 }));
-            } catch (err) {
+            } catch(err) {
                 def.reject(err);
             }
 
@@ -217,7 +217,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     this.formatter = formatterFn;
                 }
 
-                value = this.valueFn.call(this, data);
+                value = this.value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
             }), lang.hitch(this, function(err) {
                 // Error
@@ -226,18 +226,12 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }));
         },
         navToReportView: function() {
-            var view, signal;
+            var view;
             view = App.getView(this.chartTypeMapping[this.chartType]);
 
             if (view) {
+                view.parent = this;
                 view.formatter = this.formatter;
-                signal = aspect.after(view, 'show', lang.hitch(this, function() {
-                    setTimeout(lang.hitch(this, function() {
-                        view.createChart(this._data);
-                        signal.remove();
-                    }), 100);
-                }));
-
                 view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression, title: this.title});
             }
         },
@@ -253,12 +247,15 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
             when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
         },
-        _onQuerySuccess: function(queryResults, items) {
-            var total = queryResults.total;
+        _onQuerySuccess: function(queryResults) {
+            var total,
+                left;
+
+            total = queryResults.total;
 
             queryResults.forEach(lang.hitch(this, this._processItem));
 
-            var left = -1;
+            left = -1;
             if (total > -1) {
                 left = total - (this.position + this.pageSize);
             }
@@ -299,4 +296,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             return this.store || (this.store = this.createStore());
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);
+    return __class;
 });

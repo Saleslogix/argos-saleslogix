@@ -3,39 +3,46 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Settings
+ * @class crm.Views.Settings
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/Settings', [
+define('crm/Views/Settings', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
-    'Sage/Platform/Mobile/List'
+    './_CardLayoutListMixin',
+    'argos/List'
 ], function(
     declare,
+    lang,
     connect,
+    _CardLayoutListMixin,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Settings', [List], {
+    var __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
         //Templates
-        rowTemplate: new Simplate([
-        '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-        '<div class="list-item-static-selector">',
-            '{% if ($.cls) { %}',
-                '<span class="{%= $.cls %}"></span>',
-            '{% } else if ($.icon) { %}',
-                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+        itemIconTemplate: new Simplate([
+            '<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">',
+            '{% if ($$.getItemIconClass($)) { %}',
+                '<span class="{%= $$.getItemIconClass($) %}"></span>',
+            '{% } else { %}',
+                '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
             '{% } %}',
-        '</div>',
-        '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-        '</li>'
+            '</button>'
         ]),
 
         itemTemplate: new Simplate([
             '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>'
+        ]),
+
+        itemRowContainerTemplate: new Simplate([
+        '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
+            '{%! $$.itemRowContentTemplate %}',
+        '</li>'
         ]),
 
         //Localization
@@ -50,6 +57,7 @@ define('Mobile/SalesLogix/Views/Settings', [
         id: 'settings',
         expose: false,
         enableSearch: false,
+        enablePullToRefresh: false,
         selectionOnly: true,
         allowSelection: false,
         actions: null,
@@ -62,17 +70,23 @@ define('Mobile/SalesLogix/Views/Settings', [
             this.actions = {
                 'clearLocalStorage': {
                     title: this.clearLocalStorageTitleText,
-                    cls: 'fa fa-database'
+                    cls: 'fa fa-database fa-2x'
                 },
                 'clearAuthentication': {
                     title: this.clearAuthenticationTitleText,
-                    cls: 'fa fa-unlock'
+                    cls: 'fa fa-unlock fa-2x'
                 },
                 'viewErrorLogs': {
                     title: this.errorLogTitleText,
-                    cls: 'fa fa-list-alt'
+                    cls: 'fa fa-list-alt fa-2x'
                 }
             };
+        },
+        getItemIconClass: function(entry) {
+            return entry.cls;
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = []);
         },
         viewErrorLogs: function() {
             var view = App.getView('errorlog_list');
@@ -102,10 +116,14 @@ define('Mobile/SalesLogix/Views/Settings', [
             return false;
         },
         requestData: function() {
-            var list = [];
+            var list,
+                i,
+                action;
 
-            for (var i = 0; i < this.actionOrder.length; i++) {
-                var action = this.actions[this.actionOrder[i]];
+            list = [];
+
+            for (i = 0; i < this.actionOrder.length; i++) {
+                action = this.actions[this.actionOrder[i]];
                 if (action) {
                     list.push({
                         action: this.actionOrder[i],
@@ -128,5 +146,8 @@ define('Mobile/SalesLogix/Views/Settings', [
             });
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Settings', __class);
+    return __class;
 });
 

@@ -3,19 +3,19 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Format
+ * @class crm.Format
  *
- * @extends Sage.Platform.Mobile.Format
- * @requires Mobile.SalesLogix.Template
+ * @extends argos.Format
+ * @requires crm.Template
  *
  */
-define('Mobile/SalesLogix/Format', [
+define('crm/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/number',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Format',
+    './Template',
+    'argos/Format',
     'moment'
 ], function(
     lang,
@@ -26,9 +26,9 @@ define('Mobile/SalesLogix/Format', [
     format,
     moment
 ) {
-    return lang.setObject('Mobile.SalesLogix.Format', lang.mixin({}, format, {
+    var __class = lang.setObject('crm.Format', lang.mixin({}, format, {
         /**
-         * Address Culture Formats as defined by Mobile.SalesLogix.Format.address
+         * Address Culture Formats as defined by crm.Format.address
          * http://msdn.microsoft.com/en-us/library/cc195167.aspx
          */
         addressCultureFormats: {
@@ -93,24 +93,31 @@ define('Mobile/SalesLogix/Format', [
          @return {string} Formatted address
         */
         address: function(o, asText, separator, fmt) {
-            var isEmpty = function(line) {
+            var isEmpty,
+                self,
+                lines,
+                address,
+                culture;
+
+            isEmpty = function(line) {
                 var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
                 return filterSymbols === '';
-            },
-                _this = Mobile.SalesLogix.Format;
+            };
+
+            self = crm.Format;
 
             if (!fmt) {
-                var culture = _this.resolveAddressCulture(o);
-                fmt = _this.addressCultureFormats[culture] || _this.addressCultureFormats['en'];
+                culture = self.resolveAddressCulture(o);
+                fmt = self.addressCultureFormats[culture] || self.addressCultureFormats['en'];
             }
 
-            var lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|'),
-                address = [];
+            lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
+            address = [];
 
             array.forEach(lines, function(line) {
-                line = _this.replaceAddressPart(line, o);
+                line = self.replaceAddressPart(line, o);
                 if (!isEmpty(line)) {
-                    this.push(_this.encode(_this.collapseSpace(line)));
+                    this.push(self.encode(self.collapseSpace(line)));
                 }
             }, address);
 
@@ -123,50 +130,50 @@ define('Mobile/SalesLogix/Format', [
 
             return string.substitute(
                 '<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
-                [address.join('<br />'), encodeURIComponent(_this.decode(address.join(' ')))]
+                [address.join('<br />'), encodeURIComponent(self.decode(address.join(' ')))]
             );
         },
         collapseSpace: function(text) {
             return lang.trim(text.replace(/\s+/g, ' '));
         },
         resolveAddressCulture: function(o) {
-            return Mobile.SalesLogix.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
+            return crm.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
         },
         replaceAddressPart: function(fmt, o) {
             return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
                 function(part) {
                     switch (part) {
-                        case "s":
+                        case 's':
                             return o.Salutation || '';
-                        case "S":
+                        case 'S':
                             return (o.Salutation && o.Salutation.toUpperCase()) || '';
-                        case "a1":
+                        case 'a1':
                             return o.Address1 || '';
-                        case "a2":
+                        case 'a2':
                             return o.Address2 || '';
-                        case "a3":
+                        case 'a3':
                             return o.Address3 || '';
-                        case "a4":
+                        case 'a4':
                             return o.Address4 || '';
-                        case "m":
+                        case 'm':
                             return o.City || '';
-                        case "M":
+                        case 'M':
                             return (o.City && o.City.toUpperCase()) || '';
-                        case "z":
+                        case 'z':
                             return o.County || '';
-                        case "Z":
+                        case 'Z':
                             return (o.County && o.County.toUpperCase()) || '';
-                        case "r":
+                        case 'r':
                             return o.State || '';
-                        case "R":
+                        case 'R':
                             return (o.State && o.State.toUpperCase()) || '';
-                        case "p":
+                        case 'p':
                             return o.PostalCode || '';
-                        case "P":
+                        case 'P':
                             return (o.PostalCode && o.PostalCode.toUpperCase()) || '';
-                        case "c":
+                        case 'c':
                             return o.Country || '';
-                        case "C":
+                        case 'C':
                             return (o.Country && o.Country.toUpperCase()) || '';
                     }
                 }
@@ -189,7 +196,7 @@ define('Mobile/SalesLogix/Format', [
                 '${0}'
                     + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
                     + '${1}', [
-                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.", '.')),
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')),
                         (f.toString().length < 2) ? '0' + f.toString() : f.toString()
                     ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
@@ -201,7 +208,7 @@ define('Mobile/SalesLogix/Format', [
         },
         bigNumber: function(val) {
             var numParse = isNaN(val) ? parseFloat(val) : val,
-                text = Mobile.SalesLogix.Format.bigNumberAbbrText;
+                text = crm.Format.bigNumberAbbrText;
 
             if (numParse && numParse >= 1000000000) {
                 numParse = numParse / 1000000000;
@@ -217,10 +224,9 @@ define('Mobile/SalesLogix/Format', [
             return val;
         },
         relativeDate: function(date, timeless) {
-            var now;
             date = moment(date);
             if (!date || !date.isValid()) {
-                throw new Error('Invalid date passed into Mobile.SalesLogix.Format.relativeDate');
+                throw new Error('Invalid date passed into crm.Format.relativeDate');
             }
 
             if (timeless) {
@@ -231,7 +237,7 @@ define('Mobile/SalesLogix/Format', [
             return date.fromNow();
         },
         multiCurrency: function(val, code) {
-            return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);
+            return string.substitute('${0} ${1}', [crm.Format.currency(val), code]);
         },
         nameLF: function(val) {
             if (!val) {
@@ -255,7 +261,7 @@ define('Mobile/SalesLogix/Format', [
             'asDeclned': 'Declined'
         },
         userActivityStatus: function(val) {
-            return Mobile.SalesLogix.Format.userActivityFormatText[val];
+            return crm.Format.userActivityFormatText[val];
         },
         /**
          * Takes a string input and converts name to First amd Last initials
@@ -290,9 +296,12 @@ define('Mobile/SalesLogix/Format', [
        * @returns {String}
        */
         resolveFirstLast: function(name) {
-            var firstLast = [];
+            var firstLast,
+                names;
+
+            firstLast = [];
             if (name.indexOf(' ') !== -1) {
-                var names = name.split(' ');
+                names = name.split(' ');
                 if (names[0].indexOf(',') !== -1) {
                     firstLast = [names[1], names[0].slice(0, -1)];
                 }
@@ -321,26 +330,29 @@ define('Mobile/SalesLogix/Format', [
                 v = val.toFixed(d); // only d decimal places
                 f = Math.floor((p * (v - Math.floor(v))).toPrecision(d)); // for fractional part, only need d significant digits
                 if (f === 0) {
-                    f = (p + "").slice(1);
+                    f = (String(p)).slice(1);
                 }
             } else {  //zero decimal palces
-               p = Math.pow(10, 0);
-               v = (Math.round(val * p) / p);
-               f = 0;
+                p = Math.pow(10, 0);
+                v = (Math.round(val * p) / p);
+                f = 0;
             }
             num = Math.floor(v).toString();
-            num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace("\\.", '.'));
+            num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace('\\.', '.'));
             if (d > 0) {
                 frac = (f.toString().length < d) ? '' : f.toString();
                 fVal = string.substitute(
                     '${0}'
                         + Mobile.CultureInfo.numberFormat.numberDecimalSeparator
-                        + '${1}', [num, frac]); 
+                        + '${1}', [num, frac]);
             } else {
                 fVal = num;
             }
             return fVal.replace(/ /g, '\u00A0'); //keep numbers from breaking
         }
     }));
+
+    lang.setObject('Mobile.SalesLogix.Format', __class);
+    return __class;
 });
 

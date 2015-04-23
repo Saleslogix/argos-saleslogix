@@ -3,26 +3,28 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityContact.Detail
+ * @class crm.Views.OpportunityContact.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  */
-define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
+define('crm/Views/OpportunityContact/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/string',
-    'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    'argos/Detail',
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     connect,
     string,
     Detail,
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         titleText: 'Opportunity Contact',
         accountText: 'account',
@@ -68,13 +70,18 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
             return entry;
         },
         removeContact: function() {
-            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+            var confirmMessage,
+                entry,
+                request;
+
+            confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
             if (!confirm(confirmMessage)) {
                 return;
             }
 
-            var entry = this.createEntryForDelete(),
-                request = this.createRequest();
+            entry = this.createEntryForDelete();
+            request = this.createRequest();
+
             if (request) {
                 request['delete'](entry, {
                     success: this.onDeleteSuccess,
@@ -159,5 +166,8 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Detail', __class);
+    return __class;
 });
 

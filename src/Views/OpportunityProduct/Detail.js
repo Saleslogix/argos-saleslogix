@@ -3,23 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityProduct.Detail
+ * @class crm.Views.OpportunityProduct.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
+define('crm/Views/OpportunityProduct/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    '../../Format',
+    'argos/Detail',
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     string,
     connect,
     array,
@@ -28,7 +30,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Details',
         opportunityText: 'opportunity',
@@ -81,14 +83,18 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             return entry;
         },
         removeOpportunityProduct: function() {
-            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+            var confirmMessage,
+                request,
+                entry;
+
+            confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
 
             if (!confirm(confirmMessage)) {
                 return;
             }
 
-            var entry = this.createEntryForDelete(this.entry),
-                request = this.createRequest();
+            entry = this.createEntryForDelete(this.entry);
+            request = this.createRequest();
 
             if (request) {
                 request['delete'](entry, {
@@ -132,7 +138,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             });
         },
         createLayout: function() {
-            var layout, details, multiCurrency, extendedPrice, adjustedPrice;
+            var layout, details, extendedPrice, adjustedPrice;
             layout = this.layout || (this.layout = []);
 
             if (layout.length > 0) {
@@ -276,5 +282,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Detail', __class);
+    return __class;
 });
 

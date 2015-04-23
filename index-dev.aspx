@@ -16,6 +16,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
     <title>Infor CRM</title>
 
@@ -108,9 +109,6 @@
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
-    <!-- Overthrow -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/overthrow/overthrow.js"></script>
-
     <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
     <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
 
@@ -123,6 +121,9 @@
     <!-- bluebird -->
     <script type="text/javascript" src="../../argos-sdk/libraries/bluebird.js"></script>
 
+    <!-- Chart.js -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -131,17 +132,18 @@
         packages: [
             { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
-            { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-            { name: 'Mobile/SalesLogix', location: 'src' },
+            { name: 'argos', location: '../../argos-sdk/src' },
+            { name: 'crm', location: 'src' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
         ],
-        paths: {
-            'Mobile/SalesLogix': './src',
-            'Sage/Platform/Mobile': '../../argos-sdk/src'
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm'
+            }
         }
     });
     </script>
@@ -199,8 +201,8 @@
     </script>
 </head>
 <body>
-    <!-- Run "grunt watch" to enable this script -->
-    <script src="http://localhost:35729/livereload.js"></script>
+    <!-- Run "grunt watch" to enable this script
+    <script src="http://localhost:35729/livereload.js"></script>-->
 </body>
 </html>
 

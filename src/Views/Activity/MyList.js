@@ -3,42 +3,44 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.MyList
+ * @class crm.Views.Activity.MyList
  *
- * @extends Mobile.SalesLogix.Views.Activity.List
- * @mixins Mobile.SalesLogix.Views.Activity.List
+ * @extends crm.Views.Activity.List
+ * @mixins crm.Views.Activity.List
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Format
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.List
+ * @requires argos.Format
+ * @requires argos.Utility
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Views.Activity.List
- * @requires Mobile.SalesLogix.Action
+ * @requires crm.Format
+ * @requires crm.Environment
+ * @requires crm.Views.Activity.List
+ * @requires crm.Action
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/MyList', [
+define('crm/Views/Activity/MyList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/query',
     'dojo/_base/connect',
-    'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/Format',
-    'Mobile/SalesLogix/Views/Activity/List',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/ErrorManager',
+    'argos/List',
+    '../../Format',
+    '../../Environment',
+    'argos/Format',
+    './List',
+    'argos/Utility',
+    'argos/Convert',
+    'argos/ErrorManager',
     'moment',
-    'Mobile/SalesLogix/Action'
+    '../../Action'
 ], function(
     declare,
+    lang,
     string,
     query,
     connect,
@@ -54,7 +56,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     action
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
+    var __class = declare('crm.Views.Activity.MyList', [ActivityList], {
 
         //Templates
         //Card View
@@ -64,11 +66,15 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
           '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.relativeDate($.Activity.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
+            '{% if ($$.isTimelessToday($)) { %}',
+                '{%: $$.allDayText %}',
+            '{% } else { %}',
+                '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}',
+            '{% } %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
-                '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
+                '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: crm.Format.userActivityStatus($.Status) %}) {% } %}</span>',
             '</h3>',
             '<h4>',
                 '{%! $$.activityTimeTemplate %}',
@@ -76,7 +82,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '<h4>{%! $$.nameTemplate %}</h4>',
             '<h4>',
                 '{% if ($.Activity.PhoneNumber) { %}',
-                    '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.Activity.PhoneNumber) %}</span>',
+                    '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>',
                 '{% } %}',
             '</h4>'
         ]),
@@ -214,9 +220,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
-        createToolLayout: function(tools) {
+        createToolLayout: function() {
             this.inherited(arguments);
-            if (this.tools && this.tools.tbar && !this._refreshAdded) {
+            if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
                 this.tools.tbar.push({
                     id: 'refresh',
                     cls: 'fa fa-refresh fa-fw fa-lg',
@@ -460,7 +466,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             this._postUserNotifications(notification, 'Accept');
         },
         _postUserNotifications: function(notification, operation) {
-            if (!notification || typeof operation !== "string") {
+            if (!notification || typeof operation !== 'string') {
                 return;
             }
 
@@ -471,10 +477,10 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
              * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
             */
             payload = {
-                "$name": operation,
-                "request": {
-                    "entity": notification,
-                    "UserNotificationId": notification['$key']
+                '$name': operation,
+                'request': {
+                    'entity': notification,
+                    'UserNotificationId': notification['$key']
                 }
             };
 
@@ -492,16 +498,16 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             });
         },
         completeActivity: function(entry) {
-            var completeActivity, request, completeActivityEntry;
+            var request, completeActivityEntry;
 
             completeActivityEntry = {
-                "$name": "ActivityComplete",
-                "request": {
-                    "entity": {'$key': entry['$key']},
-                    "ActivityId": entry['$key'],
-                    "userId": entry['Leader']['$key'],
-                    "result": entry['Result'],
-                    "completeDate": entry['CompletedDate']
+                '$name': 'ActivityComplete',
+                'request': {
+                    'entity': {'$key': entry['$key']},
+                    'ActivityId': entry['$key'],
+                    'userId': entry['Leader']['$key'],
+                    'result': entry['Result'],
+                    'completeDate': entry['CompletedDate']
                 }
             };
 
@@ -548,8 +554,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return false;
         },
         isImportant: function(entry) {
-            if (entry["Activity"]['Priority']) {
-                if (entry["Activity"]['Priority'] === 'High') {
+            if (entry['Activity']['Priority']) {
+                if (entry['Activity']['Priority'] === 'High') {
                     return true;
                 }
             }
@@ -557,7 +563,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return false;
         },
         isOverdue: function(entry) {
-            var startDate, currentDate, seconds, mins, days;
+            var startDate, currentDate, seconds, mins;
             if (entry['Activity']['StartDate']) {
                 startDate = convert.toDateFromString(entry['Activity']['StartDate']);
                 currentDate = new Date();
@@ -569,10 +575,19 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }
             return false;
         },
+        isTimelessToday: function(entry) {
+            if (!entry || !entry.Activity || !entry.Activity.Timeless) {
+                return false;
+            }
+
+            var start = moment(entry.Activity.StartDate);
+            return this._isTimelessToday(start);
+        },
         isRecurring: function(entry) {
             if (entry['Activity']['Recurring']) {
-                   return true;
+                return true;
             }
+
             return false;
         },
         getItemIconClass: function(entry) {
@@ -589,9 +604,10 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);
         },
         navigateToContactOrLead: function(action, selection) {
-            var entry = selection.data["Activity"],
+            var entry = selection.data['Activity'],
                 entity = this.resolveContactOrLeadEntity(entry),
                 viewId,
+                view,
                 options;
 
             switch (entity) {
@@ -611,7 +627,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     break;
             }
 
-            var view = App.getView(viewId);
+            view = App.getView(viewId);
 
             if (view && options) {
                 view.show(options);
@@ -637,7 +653,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 'ContactId': entry['Activity']['ContactId'],
                 'AccountName': entry['Activity']['AccountName'],
                 'AccountId': entry['Activity']['AccountId'],
-                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['Activity']['ContactName'] || '')]),
+                'Description': string.substitute('${0} ${1}', [this.calledText, (entry['Activity']['ContactName'] || '')]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -662,5 +678,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
+    return __class;
 });
 

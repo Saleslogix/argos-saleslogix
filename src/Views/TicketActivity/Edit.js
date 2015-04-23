@@ -3,32 +3,32 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivity.Edit
+ * @class crm.Views.TicketActivity.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Template
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
+define('crm/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit'
+    '../../Template',
+    '../../Validator',
+    'argos/ErrorManager',
+    'argos/Edit'
 ], function(
     declare,
     lang,
     template,
-	validator,
+    validator,
     ErrorManager,
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
+    var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
         //Localization
         titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
@@ -64,11 +64,13 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             }
         },
         createPicklistRequest: function(name) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+            var request,
+                uri;
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
 
-            var uri = request.getUri();
+            uri = request.getUri();
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
             uri.setCollectionPredicate(name);
 
@@ -92,10 +94,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             ErrorManager.addError(response, o, this.options, 'failure');
         },
         processCodeDataFeed: function(feed, currentValue, options) {
-            var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-            var textProperty = options && options.textProperty ? options.textProperty : 'text';
+            var keyProperty,
+                textProperty,
+                i;
 
-            for (var i = 0; i < feed.$resources.length; i++) {
+            keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+            textProperty = options && options.textProperty ? options.textProperty : 'text';
+
+            for (i = 0; i < feed.$resources.length; i++) {
                 if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
                 }
@@ -127,8 +133,13 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     name: 'TicketId',
                     property: 'Ticket.$key',
                     type: 'hidden'
-                },
-                {
+                }, {
+                    label: this.commentsText,
+                    name: 'ActivityDescription',
+                    property: 'ActivityDescription',
+                    rows: 6,
+                    type: 'textarea'
+                }, {
                     label: this.activityTypeText,
                     name: 'ActivityTypeCode',
                     property: 'ActivityTypeCode',
@@ -177,15 +188,12 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                         validator.exists,
                         validator.isDateInRange
                     ]
-                }, {
-                    label: this.commentsText,
-                    name: 'ActivityDescription',
-                    property: 'ActivityDescription',
-                    rows: 6,
-                    type: 'textarea'
                 }
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
+    return __class;
 });
 

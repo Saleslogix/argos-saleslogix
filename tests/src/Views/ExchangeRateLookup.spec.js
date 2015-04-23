@@ -15,6 +15,18 @@ define('spec/Views/ExchangeRateLookup.spec', [
     var data = json.parse(feed);
 
     describe('Mobile.SalesLogix.Views.ExchangeRateLookup', function() {
+        var _app = window.App;
+        beforeEach(function() {
+            window.App = {
+                supportsTouch: function() {
+                }
+            };
+        });
+
+        afterEach(function() {
+            window.App = _app;
+        });
+
         it('should be true', function() {
             var widget = new ExchangeRateLookup();
         });

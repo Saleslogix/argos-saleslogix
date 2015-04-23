@@ -3,36 +3,38 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Edit
+ * @class crm.Views.Activity.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Sage.Platform.Mobile.Utility
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Recurrence
+ * @requires argos.Edit
+ * @requires argos.Utility
+ * @requires crm.Format
+ * @requires crm.Validator
+ * @requires crm.Template
+ * @requires crm.Environment
+ * @requires crm.Recurrence
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Edit', [
+define('crm/Views/Activity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence',
-    'Sage/Platform/Mobile/Format',
+    '../../Environment',
+    '../../Template',
+    '../../Validator',
+    'argos/Utility',
+    'argos/Edit',
+    '../../Recurrence',
+    'argos/Format',
     'moment'
 ], function(
     declare,
+    lang,
     connect,
     array,
     string,
@@ -46,14 +48,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
+    var __class = declare('crm.Views.Activity.Edit', [Edit], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
         locationText: 'location',
         activityTypeTitleText: 'Activity Type',
         alarmText: 'alarm',
-        reminderText: '',
+        reminderText: 'reminder',
         categoryText: 'category',
         durationText: 'duration',
         durationTitleText: 'Duration',
@@ -104,6 +106,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             90: '1.5 hours',
             120: '2 hours'
         },
+
+        /**
+         * @property {Number}
+         * The number of minutes that should be rounded to as a default start when creating a new activity
+         */
+        ROUND_MINUTES: 15,
 
         //View Properties
         id: 'activity_edit',
@@ -192,9 +200,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.inherited(arguments);
 
             this.recurrence = {
-                RecurIterations: "0",
-                RecurPeriod: "-1",
-                RecurPeriodSpec: "0"
+                RecurIterations: '0',
+                RecurPeriod: '-1',
+                RecurPeriodSpec: '0'
             };
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
@@ -211,7 +219,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
         },
-        onAddComplete: function(entry) {
+        onAddComplete: function() {
             environment.refreshActivityLists();
             this.inherited(arguments);
         },
@@ -228,7 +236,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 data: entry
             }]);
 
-            if (entry['$key'] != originalKey && view) {
+            if (entry['$key'] !== originalKey && view) {
                 // Editing single occurrence results in new $key/record
                 view.show({
                     key: entry['$key']
@@ -264,7 +272,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 scope: this
             });
         },
-        requestLeaderFailure: function(xhr, o) {
+        requestLeaderFailure: function() {
         },
         processLeader: function(leader) {
             if (leader) {
@@ -281,7 +289,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        isActivityRecurring: function(entry) {
+        isActivityRecurring: function() {
             return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
@@ -294,7 +302,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 isLeadContext = true;
             }
 
-            lead = (insert && isLeadContext )|| this.isActivityForLead(entry);
+            lead = (insert && isLeadContext ) || this.isActivityForLead(entry);
 
             return !!lead;
         },
@@ -329,7 +337,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 }
             }
         },
-        onIsLeadChange: function(value, field) {
+        onIsLeadChange: function(value) {
             this.options.isForLead = value;
 
             if (this.options.isForLead) {
@@ -371,7 +379,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 field.enable();
             }
         },
-        onTimelessChange: function(value, field) {
+        onTimelessChange: function(value) {
             this.toggleSelectField(this.fields['Duration'], value);
             var startDate, startDateField;
 
@@ -448,6 +456,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onAccountChange: function(value, field) {
+            if (value === null || typeof value === 'undefined') {
+                return;
+            }
+
             var fields, entry, phoneField;
 
             fields = this.fields;
@@ -457,7 +469,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
-                        fields[f].currentSelection['Account']['$key'] != (value['AccountId'] || value['key'])) {
+                        fields[f].currentSelection['Account']['$key'] !== (value['AccountId'] || value['key'])) {
 
                         fields[f].setValue(false);
                     }
@@ -525,7 +537,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onAccountChange(accountField.getValue(), accountField);
             }
         },
-        onStartDateChange: function(value, field) {
+        onStartDateChange: function(value) {
             this.recurrence.StartDate = value;
             // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
             this.recurrence.RecurPeriodSpec = recur.getRecurPeriodSpec(
@@ -538,7 +550,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             recur.createSimplifiedOptions(value);
 
-            var repeats = ('rstMaster' == this.recurrence.RecurrenceState);
+            var repeats = ('rstMaster' === this.recurrence.RecurrenceState);
             this.fields['RecurrenceUI'].setValue(recur.getPanel(repeats && this.recurrence.RecurPeriod));
         },
         onRecurrenceUIChange: function(value, field) {
@@ -554,12 +566,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.resetRecurrence(opt);
             this._previousRecurrence = key;
         },
-        onRecurrenceChange: function(value, field) {
+        onRecurrenceChange: function(value) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']),
+            var startDate = argos.Convert.toDateFromString(value['StartDate']),
                 currentDate = this.fields['StartDate'].getValue();
 
-            if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
+            if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
                 this.fields['StartDate'].setValue(startDate);
             }
 
@@ -568,11 +580,26 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         resetRecurrence: function(o) {
             this.recurrence.StartDate = this.fields['StartDate'].getValue();
 
-            this.recurrence.Recurring = o.Recurring;
-            this.recurrence.RecurrenceState = o.RecurrenceState;
-            this.recurrence.RecurPeriod = o.RecurPeriod;
-            this.recurrence.RecurPeriodSpec = o.RecurPeriodSpec;
-            this.recurrence.RecurIterations = o.RecurIterations;
+            if (typeof o.Recurring !== 'undefined' && o.Recurring !== null) {
+                this.recurrence.Recurring = o.Recurring;
+            }
+
+            if (typeof o.RecurrenceState !== 'undefined' && o.RecurrenceState !== null) {
+                this.recurrence.RecurrenceState = o.RecurrenceState;
+            }
+
+            if (typeof o.RecurPeriod !== 'undefined' && o.RecurPeriod !== null) {
+                this.recurrence.RecurPeriod = o.RecurPeriod;
+            }
+
+            if (typeof o.RecurPeriodSpec !== 'undefined' && o.RecurPeriodSpec !== null) {
+                this.recurrence.RecurPeriodSpec = o.RecurPeriodSpec;
+            }
+
+            if (typeof o.RecurIterations !== 'undefined' && o.RecurIterations !== null) {
+                this.recurrence.RecurIterations = o.RecurIterations;
+            }
+
             this.recurrence.EndDate = recur.calcEndDate(this.recurrence.StartDate, this.recurrence);
 
             this.fields['RecurrenceUI'].setValue(recur.getPanel(this.recurrence.RecurPeriod));
@@ -603,44 +630,48 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             return recur.toString(recurrence, true);
         },
-        applyUserActivityContext: function(context) {
-            var view = App.getView(context.id);
-            if (view && view.currentDate)
-            {
-                var currentDate = view.currentDate.startOf('day'),
-                    userOptions = App.context['userOptions'],
-                    startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
-                    startDate;
+        _getCalculatedStartTime: function(selectedDate) {
+            var now = moment(),
+                startDate;
 
-                if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
-                {
-                    startDate = currentDate.clone()
-                        .hours(startTime.hours())
-                        .minutes(startTime.minutes());
-                }
-                else
-                {
-                    startTime = moment();
-                    startDate = currentDate.startOf('day').hours(startTime.hours())
-                        .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
-                }
-
-                this.fields['StartDate'].setValue(startDate.toDate());
+            if (!moment.isMoment(selectedDate)) {
+                selectedDate = moment(selectedDate);
             }
+
+            // Take the start of the selected date, add the *current* time to it,
+            // and round it up to the nearest ROUND_MINUTES
+            // Examples:
+            // 11:24 -> 11:30
+            // 11:12 -> 11:15
+            // 11:31 -> 11:45
+            startDate = selectedDate.startOf('day').hours(now.hours())
+                .add({'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES});
+
+            return startDate;
+
+        },
+        applyUserActivityContext: function(optionsDate) {
+            return this._getCalculatedStartTime(optionsDate);
         },
         applyContext: function() {
             this.inherited(arguments);
 
-            var startTime = moment(),
-                startDate = moment().startOf('day').hours(startTime.hours()).add({
-                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
-                }),
+            var startDate = this._getCalculatedStartTime(moment()),
+                user,
+                found,
+                accountField,
+                leaderField,
+                context,
+                lookup,
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
                 activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
+
+            if (this.options && this.options.currentDate) {
+                startDate = this.applyUserActivityContext(moment(this.options.currentDate));
+            }
 
             this.fields['StartDate'].setValue(startDate.toDate());
             this.fields['Type'].setValue(activityType);
@@ -648,30 +679,28 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['Alarm'].setValue(alarmEnabled);
             this.fields['Reminder'].setValue(alarmDuration);
 
-            var user = App.context['user'];
+            user = App.context['user'];
             if (user) {
                 this.fields['UserId'].setValue(user['$key']);
 
-                var leaderField = this.fields['Leader'];
+                leaderField = this.fields['Leader'];
                 leaderField.setValue(user);
                 this.onLeaderChange(user, leaderField);
             }
 
-            var found = this._getNavContext();
+            found = this._getNavContext();
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             this.onAccountChange(accountField.getValue(), accountField);
 
-            var context = (found && found.options && found.options.source) || found,
-                lookup = {
+            context = (found && found.options && found.options.source) || found;
+            lookup = {
                     'accounts': this.applyAccountContext,
                     'contacts': this.applyContactContext,
                     'opportunities': this.applyOpportunityContext,
                     'tickets': this.applyTicketContext,
-                    'leads': this.applyLeadContext,
-                    'useractivities': this.applyUserActivityContext,
-                    'activities': this.applyUserActivityContext
-                };
+                    'leads': this.applyLeadContext
+            };
 
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);
@@ -685,27 +714,20 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     return true;
                 }
 
-                if (/^(useractivities)$/.test(context.resourceKind)) {
-                    return true;
-                }
-
-                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
-                    return true;
-                }
-
                 return false;
             });
             return navContext;
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
+                accountField,
                 entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setSelection(entry);
             accountField.setValue({
                 'AccountId': entry['$key'],
@@ -787,21 +809,24 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry),
+                opportunityField,
+                accountField,
                 phoneField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var opportunityField = this.fields['Opportunity'];
+            opportunityField = this.fields['Opportunity'];
             opportunityField.setSelection(entry);
             opportunityField.setValue({
                 'OpportunityId': entry['$key'],
                 'OpportunityName': entry['$descriptor']
             });
+
             this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
@@ -815,13 +840,15 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry),
+                leadField,
+                isLeadField,
                 phoneField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var leadField = this.fields['Lead'];
+            leadField = this.fields['Lead'];
             leadField.setSelection(entry);
             leadField.setValue({
                 'LeadId': entry['$key'],
@@ -831,8 +858,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             this.fields['AccountName'].setValue(entry['Company']);
 
-            var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(context.resourceKind == 'leads');
+            isLeadField = this.fields['IsLead'];
+            isLeadField.setValue(context.resourceKind === 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
             if (entry.WorkPhone) {
@@ -841,15 +868,23 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         setValues: function(values) {
+            var startTime,
+                span,
+                isLeadField,
+                entry,
+                denyEdit,
+                allowSetAlarm,
+                reminder;
+
             if (values['StartDate'] && values['AlarmTime']) {
-                var startTime = (this.isDateTimeless(values['StartDate']))
+                startTime = (this.isDateTimeless(values['StartDate']))
                     ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
                     : values['StartDate'].getTime();
 
-                var span = startTime - values['AlarmTime'].getTime(), // ms
-                    reminder = span / (1000 * 60);
+                span = startTime - values['AlarmTime'].getTime(); // ms
+                reminder = span / (1000 * 60);
 
-                values['Reminder'] = format.fixed(reminder,0);
+                values['Reminder'] = format.fixed(reminder, 0);
             }
 
             this.inherited(arguments);
@@ -871,16 +906,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             if (this.isInLeadContext()) {
-                var isLeadField = this.fields['IsLead'];
+                isLeadField = this.fields['IsLead'];
                 isLeadField.setValue(true);
                 this.onIsLeadChange(isLeadField.getValue(), isLeadField);
                 this.fields['Lead'].setValue(values, true);
                 this.fields['AccountName'].setValue(values['AccountName']);
             }
 
-            var entry = this.options.entry || this.entry,
-                denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
-                allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
+            entry = this.options.entry || this.entry;
+            denyEdit = !this.options.insert && !this.currentUserCanEdit(entry);
+            allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
             if (denyEdit) {
                 this.disableFields();
@@ -892,7 +927,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 });
             }
 
-            this.recurrence.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values.StartDate);
+            this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate);
             this.resetRecurrence(values);
             this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate']);
             if (this.isActivityRecurring) {
@@ -940,6 +975,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 timeless = this.fields['Timeless'].getValue(),
                 alarmTime;
 
+            // Fix timeless if necessary (The date picker won't add 5 seconds)
+            if (timeless) {
+                values['StartDate'] = startDate = this._getNewStartDate(startDate, true);
+            }
+
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
@@ -950,25 +990,29 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return values;
         },
         createReminderData: function() {
-            var list = [];
+            var list = [], duration;
 
-            for (var duration in this.reminderValueText) {
-                list.push({
-                    '$key': duration,
-                    '$descriptor': this.reminderValueText[duration]
-                });
+            for (duration in this.reminderValueText) {
+                if (this.reminderValueText.hasOwnProperty(duration)) {
+                    list.push({
+                        '$key': duration,
+                        '$descriptor': this.reminderValueText[duration]
+                    });
+                }
             }
 
             return {'$resources': list};
         },
         createDurationData: function() {
-            var list = [];
+            var list = [], duration;
 
-            for (var duration in this.durationValueText) {
-                list.push({
-                    '$key': duration,
-                    '$descriptor': this.durationValueText[duration]
-                });
+            for (duration in this.durationValueText) {
+                if (this.durationValueText.hasOwnProperty(duration)) {
+                    list.push({
+                        '$key': duration,
+                        '$descriptor': this.durationValueText[duration]
+                    });
+                }
             }
 
             return {'$resources': list};
@@ -979,37 +1023,37 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         formatDependentQuery: function(dependentValue, format, property) {
             return string.substitute(format, [utility.getValue(dependentValue, property || '$key')]);
         },
-        _getNewStartDate: function (orginalStartDate, timeless){
+        _getNewStartDate: function(orginalStartDate, timeless) {
             var startDate,
                 currentTime,
                 wrapped,
                 isTimeLessDate;
 
-                if (!orginalStartDate) {
-                    return null;
-                }
+            if (!orginalStartDate) {
+                return null;
+            }
 
-                startDate = orginalStartDate;
-                isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
+            startDate = orginalStartDate;
+            isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
 
-                if (timeless) {
-                    if (!isTimeLessDate) {
-                        wrapped = moment(startDate);
-                        wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
-                        wrapped.add('seconds', 5);
-                        startDate = wrapped.toDate();
-                    }
-                } else {
-                    if (isTimeLessDate) {
-                        currentTime = moment();
-                        wrapped = moment(startDate);
-                        wrapped.add({ minutes: wrapped.zone() });
-                        wrapped.hours(currentTime.hours());
-                        wrapped.minutes(currentTime.minutes());
-                        wrapped.seconds(0);
-                        startDate = wrapped.toDate();
-                    }
+            if (timeless) {
+                if (!isTimeLessDate) {
+                    wrapped = moment(startDate);
+                    wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
+                    wrapped.add('seconds', 5);
+                    startDate = wrapped.toDate();
                 }
+            } else {
+                if (isTimeLessDate) {
+                    currentTime = moment();
+                    wrapped = moment(startDate);
+                    wrapped.add({ minutes: wrapped.zone() });
+                    wrapped.hours(currentTime.hours());
+                    wrapped.minutes(currentTime.minutes());
+                    wrapped.seconds(0);
+                    startDate = wrapped.toDate();
+                }
+            }
 
             return startDate;
         },
@@ -1293,5 +1337,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Edit', __class);
+    return __class;
 });
 

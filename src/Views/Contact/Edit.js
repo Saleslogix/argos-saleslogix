@@ -3,26 +3,28 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contact.Edit
+ * @class crm.Views.Contact.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Template
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/Contact/Edit', [
+define('crm/Views/Contact/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/Utility'
+    'crm/Format',
+    'crm/Template',
+    'crm/Validator',
+    'argos/Edit',
+    'argos/Utility'
 ], function(
     declare,
+    lang,
     dString,
     format,
     template,
@@ -31,12 +33,12 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     utility
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit], {
+    var __class = declare('crm.Views.Contact.Edit', [Edit], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',
-        workText: 'phone',
-        mobileText: 'mobile',
+        workText: 'work phone',
+        mobileText: 'mobile phone',
         emailText: 'email',
         webText: 'web',
         acctMgrText: 'acct mgr',
@@ -95,19 +97,22 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 this.fields['Account'].disable();
             }
         },
-        onAccountChange: function(value, field) {
+        onAccountChange: function(value) {
             if (value && value.text) {
                 this.fields['AccountName'].setValue(value.text);
             }
             this.requestAccount(value['key']);
         },
         applyContext: function() {
-            var found = App.queryNavigationContext(function(o) {
+            var found,
+                lookup;
+
+            found = App.queryNavigationContext(function(o) {
                 o = (o.options && o.options.source) || o;
                 return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
             });
 
-            var lookup = {
+            lookup = {
                 'accounts': this.applyAccountContext,
                 'opportunities': this.applyOpportunityContext
             };
@@ -148,7 +153,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 scope: this
             });
         },
-        requestAccountFailure: function(xhr, o) {
+        requestAccountFailure: function() {
         },
         processAccount: function(entry) {
             var account = entry,
@@ -179,9 +184,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry;
-
-            var opportunityId = utility.getValue(entry, '$key'),
+                entry = view && view.entry,
+                opportunityId = utility.getValue(entry, '$key'),
                 account = utility.getValue(entry, 'Account'),
                 accountName = utility.getValue(entry, 'Account.AccountName'),
                 webAddress = utility.getValue(entry, 'Account.WebAddress'),
@@ -223,11 +227,14 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                         'ModifyUser': true,
                         'CreateDate': true,
                         'CreateUser': true
-                    };
+                    },
+                    name;
 
-                for (var name in address) {
-                    if (!skip[name]) {
-                        clean[name] = address[name];
+                for (name in address) {
+                    if (address.hasOwnProperty(name)) {
+                        if (!skip[name]) {
+                            clean[name] = address[name];
+                        }
                     }
                 }
 
@@ -357,5 +364,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
+    return __class;
 });
 

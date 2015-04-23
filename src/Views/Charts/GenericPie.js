@@ -3,117 +3,115 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericPie
+ * @class crm.Views.Charts.GenericPie
  *
- * @extends Sage.Platform.Mobile.View
- * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @extends argos.View
+ * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile.View
+ * @requires argos.View
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericPie', [
+define('crm/Views/Charts/GenericPie', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
-    'dojox/charting/Chart',
-    'dojox/charting/plot2d/Pie',
-    'dojox/charting/axis2d/Default',
-    'dojox/charting/widget/Legend',
-    'Sage/Platform/Mobile/View',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
     lang,
     array,
     domGeo,
-    Chart,
-    PlotType,
-    Default,
-    Legend,
     View,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View, _ChartMixin], {
+
+    var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
-        otherText: 'Other',
         expose: false,
         chart: null,
-        MAX_ITEMS: 5,
-        pieColor: '#13a3f7',
+
         seriesColors: [
-            '#13a3f7',
-            '#61c5ff'
+            '#1c9a18',
+            '#6ec90d',
+            '#bff485',
+            '#bce8fc',
+            '#47b2f0',
+            '#0c7ad8'
         ],
-        otherColor: '#005ce6',
+
+        chartOptions: {
+            segmentShowStroke: true,
+            segmentStrokeColor: '#EBEBEB',
+            segmentStrokeWidth: 1,
+            animateScale: false,
+            legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li data-segment="<%= i %>"><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+        },
+
+        /**
+         * @property {String}
+         * The type of chart that should be rendered. Can either be Pie or Doughnut. A bad or unknown value will result in a default of Doughnut.
+         */
+        renderAs: 'Doughnut',
 
         formatter: function(val) {
             return val;
         },
 
-        attributeMap: {
-            chartContent: {node: 'contentNode', type: 'innerHTML'}
-        },
-
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
-                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
-                '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
-            '</div>'
-        ]),
-        createChart: function (feedData) {
+        createChart: function(rawData) {
             this.inherited(arguments);
 
-            var labels, box, searchExpressionHeight;
+            var ctx, box, data, chart, defaultRenderAs;
 
-            if (this.chart) {
-                this.chart.destroy(true);
-            }
+            defaultRenderAs = 'Doughnut';
 
             this.showSearchExpression();
-            searchExpressionHeight = this.getSearchExpressionHeight();
 
-            labels = this._labels(feedData);
+            data = array.map(rawData, function(item, idx) {
+                return {
+                    value: Math.round(item.value),
+                    color: this._getItemColor(idx),
+                    highlight: '',
+                    label: item.name
+
+                };
+            }.bind(this));
+
+            if (this.chart) {
+                this.chart.destroy();
+            }
+
             box = domGeo.getMarginBox(this.domNode);
-            box.h = box.h - searchExpressionHeight;
+            this.contentNode.width = box.w;
+            this.contentNode.height = box.h;
 
-            this.chart = new Chart(this.contentNode);
-            this.chart.addPlot('default', {
-                type: PlotType,
-                fontColor: 'black',
-                labelOffset: 50,
-                radius: box.w >= box.h /* check lanscape or portrait mode */ ?
-                    Math.floor(box.h / 2) - 10 :
-                    Math.floor(box.w / 2) - 10
-            });
+            ctx = this.contentNode.getContext('2d');
 
-            this.chart.addSeries('default', labels, {stroke :{color: this.pieColor}, fill: this.pieColor});
-            this.chart.render();
-            this.chart.resize(box.w, box.h);
+            chart = new window.Chart(ctx);
+
+            // Ensure the chart has the ability to render this type
+            this.renderAs = window.Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
+
+            this.chart = chart[this.renderAs](data, this.chartOptions);
+            this.showLegend();
         },
-        _labels: function(feedData) {
-            var data = [], otherY = 0, otherText;
-            array.forEach(feedData, function(item, index) {
-                if (index < this.MAX_ITEMS) {
-                    data.push({
-                        y: item.value,
-                        text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
-                        value: index,
-                        color: this.seriesColors[index % 2]
-                    });
-                } else {
-                    otherY = otherY + item.value;
-                    otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
-                    data[this.MAX_ITEMS] = {
-                        y: otherY,
-                        text: otherText,
-                        color: this.otherColor
-                    };
-                }
-            }, this);
+        _getItemColor: function(index) {
+            var len, n;
+            len = this.seriesColors.length;
+            n = Math.floor(index / len);
 
-            return data;
+            // if n is 0, the index will fall within the seriesColor array,
+            // otherwise we will need to re-scale the index to fall within that array.
+            if (n > 0) {
+                index = index - (len * n);
+            }
+
+            return this.seriesColors[index];
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
+    return __class;
 });

@@ -11,7 +11,7 @@
     }
 
     > .panel {
-        background-color: @panel-content-bg-color;
+        background-color: @body-bg-color;
     }
 }
 
@@ -35,6 +35,16 @@
 
 /* login view */
 #login {
+    /* hide the toolbar on the login page */
+    &[selected="true"] + .toolbar {
+        display: none;
+    }
+
+    &.login-active > .button {
+        background-color: @color-azure;
+        color: #fff;
+    }
+
     .logo {
         margin: 0;
 
@@ -51,81 +61,40 @@
     }
 
     padding: 0px 2px;
+    top: 0px;
+
+    input[name="username"],
+    input[name="password"] {
+        background: #fff no-repeat 10px center;
+        padding-left: 40px;
+    }
+
+    input[name="username"] {
+        background-image: url('../images/icons/username.png');
+    }
+
+    input[name="password"] {
+        background-image: url('../images/icons/password.png');
+    }
 
     .panel-content {
+        width: 200px;
+        margin: auto;
         background-color: transparent;
         border-bottom: none 0px black;
     }
 
     .button {
-        width: 100%;
-        margin: 12px 0 12px 0;
-        height: 40px;
-        line-height: 40px;
+        width: 192px;
+        margin: 0 auto 10px;
+        display: block;
         cursor: pointer;
+        border: none;
         .box-sizing(border-box);
     }
 
     h2 {
         display: none;
-    }
-
-    /* larger than typical phone, put styles that apply to tablet AND desktop here */
-    @media only screen and (min-width: @tablet-portrait) {
-        background-color: @gray2-lighter;
-
-        .panel-content {
-            background-color: #fff;
-            padding: 25px;
-        }
-
-        .button {
-            margin-left: 25%;
-            width: auto;
-            padding: 0 50px 0 50px;
-        }
-    }
-
-    /*
-        desktop style only
-    */
-    @media only screen and (min-width: @desktop) {
-        .panel-content {
-            width: 30%;
-        }
-
-        .button {
-            margin-left: 35%;
-            width: 30%;
-        }
-
-        .panel-content {
-            margin: auto;
-        }
-
-        .clear-button {
-            right: 35%;
-        }
-    }
-
-    /* Tablet */
-    @media only screen and (min-width: @tablet-portrait) and (max-width: @desktop) {
-        .panel-content {
-            width: 50%;
-        }
-
-        .button {
-            margin-left: 25%;
-            width: 50%;
-        }
-
-        .panel-content {
-            margin: auto;
-        }
-
-        .clear-button {
-            right: 25%;
-        }
     }
 }
 
@@ -156,7 +125,7 @@
 }
 
 .note-text-item {
-    max-height: 2em;
+    max-height: 5em;
     overflow: hidden;
 }
 
@@ -166,6 +135,7 @@
 
 .note-text-wrap {
     font-weight: normal;
+    font-size: 14px;
     line-height: 1.25em;
     margin-top: 0;
     font-style: italic;
@@ -212,55 +182,6 @@
     }
 }
 
-#configure {
-    .list-content {
-        > li {
-            color: #aaa;
-            padding-right: 6px;
-
-            .resource {
-                display: block;
-                margin: -8px 0 -8px -10px;
-                padding: 8px 32px 8px 36px;
-            }
-
-            h3 {
-                > span {
-                    &:first-child {
-                        float: left;
-                    }
-                }
-
-                > [data-action="moveUp"],
-                > [data-action="moveDown"] {
-                    float: right;
-                    display: block;
-                    width: 48px;
-                    height: 24px;
-                    cursor: pointer;
-                }
-
-                > .icon {
-                    opacity: 0.5;
-                    margin-right: .2em;
-                }
-            }
-
-            &:first-child h3 > [data-action="moveUp"],
-            &:last-child h3 > [data-action="moveDown"] {
-                visibility: hidden;
-            }
-        }
-
-        > li.list-item-selected {
-            color: #000;
-            h3 > .icon {
-                opacity: 1.0;
-            }
-        }
-    }
-}
-
 #note_edit .row label,
 #note_detail .row label {
     display: none
@@ -282,8 +203,12 @@
 }
 
 #help span.fa {
-    float: left;
+    display: inline;
     padding: 5px;
+}
+
+#help span {
+    font-size: inherit;
 }
 
 #help > .panel-content > ul > li {
@@ -291,10 +216,11 @@
     line-height: inherit;
 }
 
+
 #help > .panel-content > ul > li > div {
     line-height: 24px;
-    margin-left: 32px;
     vertical-align: middle;
+    display: inline;
 }
 
 #help_search > li > h3 {
@@ -342,11 +268,6 @@
 
     width: 45px;
     height: 36px;
-    /*
-    position:absolute;
-    top:3px;
-    right:3px;
-    */
     z-index: 500;
 }
 
@@ -354,26 +275,47 @@
 .metric-detail {
     display: inline-block;
     padding: 0px;
-    margin: 0 0 0 2px;
 }
 
 .metric-widget > button {
     padding: 5px 2px 5px 2px;
-    border-color: #000;
-    border-width: 0px;
+    border: 0px #000;
     width: 100%;
-    background-color: @color-emerald;
+    background-color: @color-deep-azure;
     color: #fff;
-    .border-radius(3px);
+    vertical-align: top;
 }
 
 .metric-widget {
-    width: 32.7%;
+    width: 100px;
+    margin: 0 2px;
+
+    /*
+    These styles are optimized for 3 KPI widgets on the top.
+    The total margin for 3 widgets will be 12px.
+    The ideal width for each widget will be slightly less than: (minWidth - 12px) / 3
+    */
+    @media (min-width: @mobile-landscape) {
+        width: 155px;
+    }
+
+    @media (min-width: @tablet-portrait) {
+        width: 250px;
+    }
+
+    @media (min-width: @tablet-landscape) {
+        width: 335px;
+    }
+
+    @media (min-width: @desktop) {
+        width: 420px;
+    }
 }
 
 .metric-list {
     width: 100%;
     .box-sizing(border-box);
+    background-color: @color-deep-azure;
 }
 
 .groups-notice {
@@ -386,9 +328,12 @@
 }
 
 .metric-title {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    white-space: normal;
+}
+
+.metric-wrapper {
+    display: table;
+    margin: auto;
 }
 
 .metric-title > .list-loading-indicator {
@@ -396,7 +341,7 @@
 }
 
 .metric-value {
-    font-weight: bold;
+    font-weight: normal;
     padding-top: 5px;
 }
 
@@ -410,7 +355,8 @@ li[data-ticket-status] .list-item-selector,
 
 .row-edit[data-field-type="multiCurrency"] div > span {
     position: absolute;
-    right: 4px;
+    right: 12px;
+    line-height: 44px;
 }
 
 .row-edit[data-field-type="lookup"] > div > .button span,
@@ -423,6 +369,13 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="date"] > div > .button span {
     visibility: hidden;
     display: none;
+}
+
+.row-edit[data-field-type="address"] > div > div {
+    padding: 8px 44px 8px 8px;
+    border: @form-border;
+    min-height: 44px;
+    .box-sizing(border-box);
 }
 
 .row-edit[data-field-type="name"] > div > .button span,
@@ -440,6 +393,8 @@ li[data-ticket-status] .list-item-selector,
     position: absolute;
     right: 5px;
     display: block;
+    width: 44px;
+    height: 44px;
 }
 
 .row-edit[data-field-type="recurrences"] > div > input {
@@ -633,13 +588,6 @@ body.transition > .viewContainer > .footer-toolbar {
     }
 }
 
-/* Tablets */
-@media only screen and (min-width: 768px) {
-    .metric-widget {
-        width: 24.7%;
-    }
-}
-
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table {
         float: left;
@@ -718,6 +666,20 @@ body.transition > .viewContainer > .footer-toolbar {
     color: #000;
     text-shadow: #fff 0px 1px 0px;
     font-weight: bold;
+}
+
+.event-content > h2 > button {
+    float: right;
+    background-color: transparent;
+    border: none;
+    height: 32px;
+}
+
+#calendar_daylist,
+#calendar_monthlist,
+#calendar_weeklist {
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #calendar_daylist .event-content > h2,
@@ -915,6 +877,7 @@ td.entry-table-description {
     padding-right: 10px;
     height: 34px;
     outline: none;
+    .border-radius(0px);
 }
 
 .split-buttons > .button[data-tool="day"],
@@ -952,6 +915,8 @@ td.entry-table-description {
 }
 
 .update-toolbar {
+    @height: 44px;
+
     display: none;
     position: absolute;
     top: 0;
@@ -961,44 +926,36 @@ td.entry-table-description {
 
     .box-sizing(border-box);
 
-    height: 45px;
     width: 100%;
-    padding: 4px 4px;
+    padding: 0px 0px 10px 0px;
 
     z-index: 10;
 
-    border-width: 0 0 1px 0;
-    border-style: solid;
-    border-color: @black-darker;
+    background-color: @color-emerald;
 
-    background-color: @color-deep-amber;
+    height: @height;
 
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
+    > h1 {
+        width: 100%;
+        line-height: @height;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: normal;
+        color: #fff;
 
-.update-toolbar > h1 {
-    overflow: hidden;
-    display: block;
-    margin: 0;
-    padding: 0;
-    line-height: 34px;
-    font-weight: normal;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #000;
+        position: absolute;
+        z-index: 0;
+    }
 
-    position: absolute;
-    z-index: 0;
-}
+    > .toolButton {
+        background: transparent;
+        border: none 0 black;
 
-.update-toolbar > .toolButton {
-    background: transparent;
-    border: none 0 black;
-
-    .box-shadow(none);
+        .box-shadow(none);
+    }
 }
 
 .update-available /* body */
@@ -1086,15 +1043,30 @@ td.entry-table-description {
 
 }
 
-.card-layout {
+.card-layout, .context-snapshot {
+
     .group-label {
         color: @form-label-color;
+        font-weight: @form-label-font-weight;
     }
-
     .group-entry {
-        font-weight: bold;
+        color: @form-value-color;
+        font-weight: @form-value-font-weight;
     }
-
+    .group-entry-header {
+        font-weight: normal;
+        font-size: 16px;
+    }
+    .group-currency {
+        color: @currency-color;
+    }
+    .group-column {
+        overflow: hidden;
+        display: inline-block;
+        padding-right: 4px;
+        min-width: 225px;
+        vertical-align: top;
+    }
     .list-content {
         margin: 0;
         padding: 0;
@@ -1104,7 +1076,7 @@ td.entry-table-description {
         }
 
         > li.actions-row {
-            background-color: @color-emerald;
+            background-color: @color-azure;
         }
 
         > li {
@@ -1114,13 +1086,17 @@ td.entry-table-description {
             padding: 8px 0px 8px 10px;
             position: relative;
             cursor: pointer;
+            .border-radius(3px);
+            margin: 3px;
 
             > img.icon,
             * > img.icon {
                 border: none 0 black;
                 margin: 0 .5em 0 0;
-                width: 48px;
-                height: 48px;
+                width: 32px;
+                height: 32px;
+                left: 8px;
+                top: 6px;
                 float: left;
             }
 
@@ -1143,23 +1119,39 @@ td.entry-table-description {
         padding-left: 90px;
     }
 
-    .list-show-selectors .list-item-content,
-    .list-item-static-selector + .list-item-content,
-    .list-item-content,
-    .actions-enabled + .list-item-content {
-        padding-left: 70px;
+        .list-show-selectors .list-item-content,
+        .list-item-static-selector + .list-item-content,
+        .list-item-content,
+        .actions-enabled + .list-item-content {
+            padding-left: 58px;
+        }
+
+    .list-item-content {
+        > h4 {
+          font-weight:normal;
+        }
+        > h4 > span {
+          font-weight:normal;
+        }
     }
 
     .list-item-selector {
         visibility: hidden;
-        width: 61px;
-        height: 61px;
+        width: 44px;
+        /* todo: remove !important in the SDK */
+        height: 44px !important;
         position: absolute;
         top: 6px;
+        left: 10px;
         z-index: 10;
-        background: none;
         border: 0 none #000;
-        padding: 0 2px 0 0px;
+        border-radius: 48px;
+        background: @gray1-light none;
+        font-size: 10px;
+
+        > span {
+            line-height: 44px;
+        }
     }
 
     .list-show-actions {
@@ -1168,23 +1160,14 @@ td.entry-table-description {
             width: 62px;
             height: 50px;
             left: 6px;
-
             line-height: 30px;
             padding: 0 2px 0 2px;
-
             color: #000;
             text-shadow: #fff 0px 1px 0px;
             border: 1px solid #ececec;
-
             background-color: #ffffff;
             background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
-            background-image: -webkit-gradient(
-                    linear,
-                    left top,
-                    left bottom,
-                    color-stop(0, #ffffff),
-                    color-stop(1, #ececec)
-            );
+            background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ececec) );
             background-image: -moz-linear-gradient(top, #ffffff, #ececec);
 
             > img {
@@ -1229,15 +1212,23 @@ td.entry-table-description {
 
     .actions-row {
         > button {
-            background: #FFFFFF;
+            background: @color-azure;
             border: 0 solid #000000;
-            float: right;
-            height: 48px;
+            height: 44px;
             margin: 5px !important;
             padding: 0 !important;
             position: relative;
             text-align: center;
-            width: 64px;
+            width: 10%;
+            min-width: 68px;
+            border-radius: 5px;
+            color:  #fff;
+            >  span {
+               font-size: 25px;
+            }
+            >  label {
+               font-size: 10px;
+            }
         }
     }
 
@@ -1247,18 +1238,19 @@ td.entry-table-description {
         }
 
         > .list-item-selector {
-            border-color: #AAAAAA;
-            background-color: #AAAAAA !important;
-            background-image: none !important;
-            border-bottom: 0px none #AAAAAA !important;
-            bottom: -1px;
-            height: 62px !important;
-            .box-shadow(none) !important;
 
+            border-color: #AAAAAA;
+            background-image: none !important;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            .box-sizing(border-box);
+
             margin: 0;
+            background-color: @color-azure;
+            color: #fff;
+            text-shadow: none;
+            .border-radius(22px);
+            .box-sizing(border-box);
+            .box-shadow(none) !important;
         }
     }
 
@@ -1444,3 +1436,73 @@ td.entry-table-description {
     border: none;
     height: 32px;
 }
+
+#left_drawer .search-widget > .table-layout > div {
+    padding: 5px;
+}
+
+.card-layout .list-item-selector.visible {
+    visibility: visible;
+}
+
+.legend {
+    .pie-legend, .doughnut-legend {
+        background-color: #fff;
+        .border-radius(6px);
+        .box-sizing(border-box);
+        padding: 3px;
+        margin: 3px;
+        list-style: none;
+        border: 1px solid @black-light;
+
+        > li {
+            display: inline-block;
+            > span {
+                width: 14px;
+                height: 14px;
+                margin: 0 2px;
+                display: inline-block;
+            }
+        }
+
+    }
+
+    @media (min-width: @mobile-landscape) {
+        position: absolute;
+        .pie-legend, .doughnut-legend {
+            > li {
+                display: block;
+            }
+        }
+    }
+}
+
+canvas,
+.legend {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* ios */
+    -webkit-tap-highlight-color: transparent; /* android */
+}
+
+.related-edit-widget {
+    padding: 5px 5px 0px 5px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+.related-context-widget {
+    background-color: #fff;
+
+    .context-snapshot {
+        border-radius: 3px;
+        padding: 5px;
+        line-height: initial;
+        > li {
+          display: inherit;
+        }
+
+        .list-item-selector {
+            visibility: visible;
+        }
+    }
+}
+
+

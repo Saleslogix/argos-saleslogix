@@ -3,30 +3,31 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Account.List
+ * @class crm.Views.Account.List
  *
- * @extends Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Format
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
+ * @extends argos.List
+ * @requires argos.List
+ * @requires argos.Format
+ * @requires argos.Utility
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Views._GroupListMixin
- * @requires Mobile.SalesLogix.Views._MetricListMixin
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires crm.Action
+ * @requires crm.Views._GroupListMixin
+ * @requires crm.Views._MetricListMixin
+ * @requires crm.Views._CardLayoutListMixin
+ * @requires crm.Views._RightDrawerListMixin
  *
  */
-define('Mobile/SalesLogix/Views/Account/List', [
+define('crm/Views/Account/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
+    '../../Action',
+    'argos/Format',
+    'argos/Utility',
+    'argos/Convert',
+    'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
@@ -34,6 +35,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     '../../OfflineManager'
 ], function(
     declare,
+    lang,
     array,
     string,
     action,
@@ -48,7 +50,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     OfflineManager
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -60,15 +62,27 @@ define('Mobile/SalesLogix/Views/Account/List', [
             '<h4>{%: $.WebAddress %}</h4>',
             '{% if ($.MainPhone) { %}',
                 '<h4>',
-                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.MainPhone) %}</span>',
+                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Fax) { %}',
                 '<h4>',
-                    '{%: $$.faxAbbreviationText + Sage.Platform.Mobile.Format.phone($.Fax) %}',
+                    '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}',
                 '</h4>',
             '{% } %}'
         ]),
+        groupsEnabled: true,
+        enableDynamicGroupLayout: true,
+        groupLayoutItemTemplate: new Simplate([
+         '<div style="float:left; ">',
+         '<h3><span class="group-label">{%= $$.getGroupFieldLabelByName($,"AccountName") %} </span><span class="group-entry"><strong>{%= $$.getGroupFieldValueByName($,"AccountName") %}</strong></span></h2>',
+         '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"MainPhone") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "MainPhone") %}</span></h4>',
+         '</div><div style="float:left;">',
+         '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></h4>',
+         '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></h4>',
+         '</div>'
+        ]),
+
 
         joinFields: function(sep, fields) {
             return utility.joinFields(sep, fields);
@@ -115,7 +129,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
-        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
@@ -164,7 +177,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
             }]
-
             );
         },
         createIndicatorLayout: function() {
@@ -192,5 +204,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Account.List', __class);
+    return __class;
 });
 

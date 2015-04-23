@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.Edit
+ * @class crm.Views.History.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Environment
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/History/Edit', [
+define('crm/Views/History/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    '../../Environment',
+    '../../Validator',
+    'argos/Utility',
+    'argos/Edit'
 ], function(
     declare,
+    lang,
     array,
     string,
     environment,
@@ -30,7 +32,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.Edit', [Edit], {
+    var __class = declare('crm.Views.History.Edit', [Edit], {
         //Localization
         accountText: 'account',
         noteDescriptionTitleText: 'Note Description',
@@ -42,7 +44,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         regardingText: 'regarding',
         isLeadText: 'for lead',
         startingText: 'time',
-        startingFormatText : 'M/D/YYYY h:mm A',
+        startingFormatText: 'M/D/YYYY h:mm A',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
@@ -132,7 +134,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 this.showFieldsForStandard();
             }
         },
-        onIsLeadChange: function(value, field) {
+        onIsLeadChange: function(value) {
             this.options.isForLead = value;
 
             if (this.options.isForLead) {
@@ -148,7 +150,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 this.fields['AccountName'].setValue(utility.getValue(selection, 'Company'));
             }
         },
-        onAccountChange: function(value, field) {
+        onAccountChange: function(value) {
             var fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
                 if (value) {
@@ -156,7 +158,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
-                        fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
+                        fields[f].currentSelection.Account['$key'] !== (value['AccountId'] || value['key'])) {
 
                         fields[f].setValue(false);
                     }
@@ -210,10 +212,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.inherited(arguments);
         },
         applyContext: function() {
-            var found ; 
+            var found,
+                user,
+                lookup;
+
             found = this._getNavContext();
 
-            var lookup = {
+            lookup = {
                 'accounts': this.applyAccountContext,
                 'contacts': this.applyContactContext,
                 'opportunities': this.applyOpportunityContext,
@@ -225,7 +230,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 lookup[found.resourceKind].call(this, found);
             }
 
-            var user = App.context && App.context.user;
+            user = App.context && App.context.user;
 
             this.fields['Type'].setValue('atNote');
             this.fields['UserId'].setValue(user && user['$key']);
@@ -235,11 +240,11 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         },
         _getNavContext: function() {
             var found;
-                found = App.queryNavigationContext(function(o) {
-                    var context = (o.options && o.options.source) || o;
-                    return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
-                });
-             found = (found && found.options && found.options.source) || found;
+            found = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+                return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
+            });
+            found = (found && found.options && found.options.source) || found;
             return found;
         },
         applyAccountContext: function(context) {
@@ -253,45 +258,55 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
+                leadField,
+                leadValue,
+                isLeadField,
                 entry = context.entry || (view && view.entry);
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var leadField = this.fields['Lead'],
-                leadValue = {
+            leadField = this.fields['Lead'];
+            leadValue = {
                     'LeadId': entry['$key'],
                     'LeadName': entry['$descriptor']
-                };
+            };
+
             leadField.setValue(leadValue);
             this.onLeadChange(leadValue, leadField);
 
             this.fields['AccountName'].setValue(entry['Company']);
 
-            var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(context.resourceKind == 'leads');
+            isLeadField = this.fields['IsLead'];
+            isLeadField.setValue(context.resourceKind === 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
         },
         applyOpportunityContext: function(context) {
-            var opportunityField = this.fields['Opportunity'];
+            var opportunityField,
+                accountEntry,
+                accountField,
+                view,
+                entry;
+
+            opportunityField = this.fields['Opportunity'];
             opportunityField.setValue({
                 'OpportunityId': context.key,
                 'OpportunityName': context.descriptor
             });
+
             this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
-            var accountEntry;
             if (context.entry && context.entry['Account']) {
                 accountEntry = context.entry['Account'];
             } else {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                view = App.getView(context.id);
+                entry = view && view.entry;
                 accountEntry = entry && entry['Account'];
             }
 
             if (accountEntry) {
-                var accountField = this.fields['Account'];
+                accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': accountEntry['$key'],
                     'AccountName': accountEntry['AccountName']
@@ -302,24 +317,30 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             // todo: find a good way to get the primary contact and apply
         },
         applyContactContext: function(context) {
-            var contactField = this.fields['Contact'];
+            var contactField,
+                accountEntry,
+                view,
+                entry,
+                accountField;
+
+            contactField = this.fields['Contact'];
             contactField.setValue({
                 'ContactId': context.key,
                 'ContactName': context.descriptor
             });
+
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            var accountEntry;
             if (context.entry && context.entry['Account']) {
                 accountEntry = context.entry['Account'];
             } else {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                view = App.getView(context.id);
+                entry = view && view.entry;
                 accountEntry = entry && entry['Account'];
             }
 
             if (accountEntry) {
-                var accountField = this.fields['Account'];
+                accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': accountEntry['$key'],
                     'AccountName': accountEntry['AccountName']
@@ -328,26 +349,33 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         applyTicketContext: function(context) {
-            var ticketField = this.fields['Ticket'];
+            var ticketField,
+                accountEntry,
+                accountField,
+                contactEntry,
+                contactField,
+                view,
+                entry;
+
+            ticketField = this.fields['Ticket'];
             ticketField.setValue({
                 'TicketId': context.key,
                 'TicketNumber': context.descriptor
             });
             this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-            var accountEntry, contactEntry;
             if (context.entry && context.entry['Account']) {
                 accountEntry = context.entry['Account'];
                 contactEntry = context.entry['Contact'];
             } else {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                view = App.getView(context.id);
+                entry = view && view.entry;
                 accountEntry = entry && entry['Account'];
                 contactEntry = entry && entry['Contact'];
             }
 
             if (accountEntry) {
-                var accountField = this.fields['Account'];
+                accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': accountEntry['$key'],
                     'AccountName': accountEntry['AccountName']
@@ -356,7 +384,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
 
             if (contactEntry) {
-                var contactField = this.fields['Contact'];
+                contactField = this.fields['Contact'];
                 contactField.setValue({
                     'ContactId': contactEntry['$key'],
                     'ContactName': contactEntry['NameLF']
@@ -365,7 +393,14 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         setValues: function(values) {
-            var isLeadField, field, value, leadCompany, longNotes, insert, denyEdit;
+            var isLeadField,
+                field,
+                value,
+                leadCompany,
+                longNotes,
+                insert,
+                lookup,
+                denyEdit;
 
             this.inherited(arguments);
             isLeadField = this.fields['IsLead'];
@@ -392,7 +427,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.context = this._getNavContext();
             // entry may have been passed as full entry, reapply context logic to extract properties
             if (insert && this.context && this.context.resourceKind) {
-                var lookup = {
+                lookup = {
                     'accounts': this.applyAccountContext,
                     'contacts': this.applyContactContext,
                     'opportunities': this.applyOpportunityContext,
@@ -404,9 +439,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.enableFields();
             denyEdit = !this.currentUserCanEdit();
             if (denyEdit) {
-               this.disableFields();
+                this.disableFields();
             }
-            
         },
         disableFields: function(predicate) {
             for (var name in this.fields) {
@@ -443,10 +477,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             return '';
         },
         getValues: function() {
-            var values = this.inherited(arguments);
+            var values,
+                text;
+
+            values = this.inherited(arguments);
 
             if (this.fields['Text'].isDirty()) {
-                var text = this.fields['Text'].getValue();
+                text = this.fields['Text'].getValue();
 
                 values = values || {};
                 values['LongNotes'] = text;
@@ -462,168 +499,171 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 payload[this.valueKeyProperty] = null;
                 payload[this.valueTextProperty] = null;
             }
-       },
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                    title: this.detailsText,
-                    name: 'DetailsSection',
-                    children: [{
-                            name: 'Type',
-                            property: 'Type',
-                            type: 'hidden'
-                        }, {
-                            name: 'UserId',
-                            property: 'UserId',
-                            type: 'hidden'
-                        }, {
-                            name: 'UserName',
-                            property: 'UserName',
-                            type: 'hidden'
-                        }, {
-                            label: this.startingText,
-                            name: 'StartDate',
-                            property: 'StartDate',
-                            type: 'date',
-                            showTimePicker: true,
-                            dateFormatText: this.startingFormatText,
-                            minValue: (new Date(1900, 0, 1)),
-                            validator: [
-                                validator.exists,
-                                validator.isDateInRange
-                            ]
-                        }, {
-                            dependsOn: 'Type',
-                            label: this.regardingText,
-                            name: 'Description',
-                            property: 'Description',
-                            picklist: 'Note Regarding',
-                            orderBy: 'text asc',
-                            title: this.noteDescriptionTitleText,
-                            type: 'picklist'
-                        }]
+                title: this.longNotesTitleText,
+                name: 'NotesSection',
+                children: [{
+                    name: 'Text',
+                    property: 'Text',
+                    label: this.longNotesText,
+                    cls: 'row-edit-text',
+                    type: 'textarea',
+                    autoFocus: true
+                }]
+            }, {
+                title: this.detailsText,
+                name: 'DetailsSection',
+                children: [{
+                    name: 'Type',
+                    property: 'Type',
+                    type: 'hidden'
                 }, {
-                    title: this.longNotesTitleText,
-                    name: 'NotesSection',
-                    children: [{
-                        name: 'Text',
-                        property: 'Text',
-                        label: this.longNotesText,
-                        cls: 'row-edit-text',
-                        type: 'textarea',
-                        autoFocus: true
-                    }]
+                    name: 'UserId',
+                    property: 'UserId',
+                    type: 'hidden'
                 }, {
-                    title: this.relatedItemsText,
-                    name: 'RelatedItemsSection',
-                    children: [{
-                            label: this.isLeadText,
-                            name: 'IsLead',
-                            include: false,
-                            type: 'boolean',
-                            onText: this.yesText,
-                            offText: this.noText
-                        }, {
-                            label: this.accountText,
-                            name: 'Account',
-                            property: 'Account',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo,
-                            valueKeyProperty: 'AccountId',
-                            valueTextProperty: 'AccountName',
-                            view: 'account_related',
-                            validator: {
-                                fn: (function(value, field) {
-                                    var insert = field.owner.options && field.owner.options.insert;
-                                    if ((insert) && (!value)) {
-                                        return true;
-                                    }
-                                    return false;
-                                }).bindDelegate(this),
-                                message: this.validationText 
+                    name: 'UserName',
+                    property: 'UserName',
+                    type: 'hidden'
+                }, {
+                    label: this.startingText,
+                    name: 'StartDate',
+                    property: 'StartDate',
+                    type: 'date',
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                }, {
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    property: 'Description',
+                    picklist: 'Note Regarding',
+                    orderBy: 'text asc',
+                    title: this.noteDescriptionTitleText,
+                    type: 'picklist'
+                }]
+            }, {
+                title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
+                children: [{
+                    label: this.isLeadText,
+                    name: 'IsLead',
+                    include: false,
+                    type: 'boolean',
+                    onText: this.yesText,
+                    offText: this.noText
+                }, {
+                    label: this.accountText,
+                    name: 'Account',
+                    property: 'Account',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'AccountId',
+                    valueTextProperty: 'AccountName',
+                    view: 'account_related',
+                    validator: {
+                        fn: (function(value, field) {
+                            var insert = field.owner.options && field.owner.options.insert;
+                            if ((insert) && (!value)) {
+                                return true;
                             }
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.contactText,
-                            name: 'Contact',
-                            property: 'Contact',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'ContactId',
-                            valueTextProperty: 'ContactName',
-                            view: 'contact_related',
-                            where: this.formatDependentQuery.bindDelegate(
-                                this, 'Account.Id eq "${0}"', 'AccountId'
-                            )
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.opportunityText,
-                            name: 'Opportunity',
-                            property: 'Opportunity',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'OpportunityId',
-                            valueTextProperty: 'OpportunityName',
-                            view: 'opportunity_related',
-                            where: this.formatDependentQuery.bindDelegate(
-                                this, 'Account.Id eq "${0}"', 'AccountId'
-                            )
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.ticketNumberText,
-                            name: 'Ticket',
-                            property: 'Ticket',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'TicketId',
-                            valueTextProperty: 'TicketNumber',
-                            view: 'ticket_related',
-                            where: this.formatDependentQuery.bindDelegate(
-                                this, 'Account.Id eq "${0}"', 'AccountId'
-                            )
-                        }, {
-                            label: this.leadText,
-                            name: 'Lead',
-                            property: 'Lead',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'LeadId',
-                            valueTextProperty: 'LeadName',
-                            view: 'lead_related',
-                            validator: validator.exists
-                        }, {
-                            label: this.companyText,
-                            name: 'AccountName',
-                            property: 'AccountName',
-                            type: 'text'
-                        }, {
-                            label: 'UserId',
-                            name: 'UserId',
-                            property: 'UserId',
-                            type: 'hidden',
-                            validator: {
-                                fn: (function(value, field) {
-                                    var canEdit;
-                                    canEdit = field.owner.currentUserCanEdit();
-                                    if (!canEdit) {
-                                        return true;
-                                    }
-                                    return false;
-                                }).bindDelegate(this),
-                                message: this.validationCanEditText
+                            return false;
+                        }).bindDelegate(this),
+                        message: this.validationText
+                    }
+                }, {
+                    dependsOn: 'Account',
+                    label: this.contactText,
+                    name: 'Contact',
+                    property: 'Contact',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'ContactId',
+                    valueTextProperty: 'ContactName',
+                    view: 'contact_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    dependsOn: 'Account',
+                    label: this.opportunityText,
+                    name: 'Opportunity',
+                    property: 'Opportunity',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'OpportunityId',
+                    valueTextProperty: 'OpportunityName',
+                    view: 'opportunity_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    dependsOn: 'Account',
+                    label: this.ticketNumberText,
+                    name: 'Ticket',
+                    property: 'Ticket',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'TicketId',
+                    valueTextProperty: 'TicketNumber',
+                    view: 'ticket_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    label: this.leadText,
+                    name: 'Lead',
+                    property: 'Lead',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'LeadId',
+                    valueTextProperty: 'LeadName',
+                    view: 'lead_related',
+                    validator: validator.exists
+                }, {
+                    label: this.companyText,
+                    name: 'AccountName',
+                    property: 'AccountName',
+                    type: 'text'
+                }, {
+                    label: 'UserId',
+                    name: 'UserId',
+                    property: 'UserId',
+                    type: 'hidden',
+                    validator: {
+                        fn: (function(value, field) {
+                            var canEdit;
+                            canEdit = field.owner.currentUserCanEdit();
+                            if (!canEdit) {
+                                return true;
                             }
-                        }]
-                }]);
+                            return false;
+                        }).bindDelegate(this),
+                        message: this.validationCanEditText
+                    }
+                }]
+            }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.Edit', __class);
+    return __class;
 });
 

@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Groups.Selector
+ * @class crm.Views.Groups.Selector
  *
- * @extends Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.List
+ * @extends argos.List
+ * @requires argos.List
  *
  */
-define('Mobile/SalesLogix/Views/Groups/Selector', [
+define('crm/Views/Groups/Selector', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/Store/SData'
+    'argos/List',
+    'argos/Store/SData'
 ], function(
     declare,
+    lang,
     string,
     List,
     SDataStore
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Groups.Selector', [List], {
+    var __class = declare('crm.Views.Groups.Selector', [List], {
         id: 'groups_configure',
         expose: false,
         enableSearch: false,
@@ -42,7 +44,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         },
 
         activateEntry: function(params) {
-            var key, descriptor, entry, view;
+            var key;
 
             key = params.key;
 
@@ -71,7 +73,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
                     resourceKind: 'groups',
                     contractName: 'system',
                     where: "upper(family) eq '" + entityName.toUpperCase() + "'",
-                    orderBy: "name asc",
+                    orderBy: 'name asc',
                     include: ['layout', 'tableAliases'],
                     idProperty: '$key',
                     applicationName: 'slx',
@@ -85,5 +87,8 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
             return string.substitute('name like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Groups.Selector', __class);
+    return __class;
 });
 

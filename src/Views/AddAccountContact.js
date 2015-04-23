@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.AddAccountContact
+ * @class crm.Views.AddAccountContact
  *
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
  */
-define('Mobile/SalesLogix/Views/AddAccountContact', [
+define('crm/Views/AddAccountContact', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    '../Format',
+    '../Validator',
+    '../Template',
+    'argos/Utility',
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.AddAccountContact', [Edit], {
+    var __class = declare('crm.Views.AddAccountContact', [Edit], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',
@@ -93,7 +93,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
 
             this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
         },
-        getValues: function(all) {
+        getValues: function() {
             var values = this.inherited(arguments);
 
             utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
@@ -120,7 +120,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                 this.inherited(arguments);
             }
         },
-        onContactAddressChange: function(value, field) {
+        onContactAddressChange: function(value) {
             // Copy contact address down into the account address if the account address is not set
             var address, address1;
             if (this.fields['Address']) {
@@ -324,5 +324,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
+    return __class;
 });
 

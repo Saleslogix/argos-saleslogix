@@ -67,14 +67,6 @@
     <description/>
     <value>Scope non salvato nel report degli errori</value>
   </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
-    <description/>
-    <value>Attivo</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
-    <description/>
-    <value>Disattivo</value>
-  </data>
   <data class="Sage.Platform.Mobile.Fields.DateField" property="emptyText" type="text">
     <description/>
     <value/>
@@ -721,7 +713,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[5]" type="text">
     <description/>
-    <value>Ultimo</value>
+    <value>Cognome</value>
   </data>
   <data class="Mobile.SalesLogix.SpeedSearchWidget" property="searchText" type="text">
     <description/>
@@ -1145,7 +1137,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
-    <value>Senza orario</value>
+    <value>Senza_orario</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="text">
     <description/>
@@ -1277,7 +1269,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="timelessText" type="text">
     <description/>
-    <value>Senza orario</value>
+    <value>Senza_orario</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="titleText" type="text">
     <description/>
@@ -1343,6 +1335,10 @@
     <description/>
     <value>Telefono</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>Altri dettagli</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityCategoryTitleText" type="text">
     <description/>
     <value>Categoria attività</value>
@@ -1365,7 +1361,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderText" type="text">
     <description/>
-    <value/>
+    <value>Promemoria</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="categoryText" type="text">
     <description/>
@@ -1701,7 +1697,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Senza_orario</value>
+    <value>Senza-orario</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1761,7 +1757,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="summaryText" type="text">
     <description/>
-    <value>Sommario</value>
+    <value>Riepilogo</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[0]" type="text">
     <description/>
@@ -1969,7 +1965,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Cognome</value>
+    <value>Ultimo</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -2421,7 +2417,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="workText" type="text">
     <description/>
-    <value>Telefono</value>
+    <value>Telefono Ufficio</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
     <description/>
@@ -2433,7 +2429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callWorkNumberText" type="text">
     <description/>
-    <value>Chiama numero principale</value>
+    <value>Chiama ufficio</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="calledText" type="text">
     <description/>
@@ -2469,7 +2465,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="workText" type="text">
     <description/>
-    <value>Telefono</value>
+    <value>Telefono Ufficio</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="mobileText" type="text">
     <description/>
@@ -2789,7 +2785,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="timelessText" type="text">
     <description/>
-    <value>Senza orario</value>
+    <value>Senza-orario</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="companyText" type="text">
     <description/>
@@ -3413,7 +3409,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>Copyright &amp;copy; 2014 Infor. Tutti i diritti riservati. www.infor.com</value>
+    <value>Copyright &amp;copy; 2015 Infor. Tutti i diritti riservati. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
@@ -3425,7 +3421,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
     <description/>
-    <value>Ricorda Password</value>
+    <value>Ricorda</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
     <description/>
@@ -3433,7 +3429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="userText" type="text">
     <description/>
-    <value>Nome Utente</value>
+    <value>ID Utente</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="invalidUserText" type="text">
     <description/>
@@ -4641,11 +4637,19 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Gruppo predefinito non impostato. Per impostare i gruppi, aprire il menu a destra e premere configura nella sezione dei gruppi.</value>
+    <value>Nessun gruppo predefinito impostato. fare clic qui per configurare i gruppi.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>
     <value>Gruppo corrente non trovato.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateSummaryText" type="text">
+    <description/>
+    <value>Riepilogo</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateDetailText" type="text">
+    <description/>
+    <value>Dettaglio</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
     <description/>
@@ -4670,6 +4674,10 @@
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="text">
     <description/>
     <value>Aggiorna</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="layoutsText" type="text">
+    <description/>
+    <value>Layouts</value>
   </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>

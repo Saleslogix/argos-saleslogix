@@ -3,33 +3,35 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Calendar.DayView
+ * @class crm.Views.Calendar.DayView
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos.List
+ * @mixins argos._LegacySDataListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Calendar/DayView', [
+define('crm/Views/Calendar/DayView', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
     'dojo/dom-construct',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
+    'argos/ErrorManager',
+    'argos/Convert',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
     'moment'
 ], function(
     declare,
+    lang,
     string,
     query,
     domClass,
@@ -41,7 +43,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
         // Localization
         titleText: 'Calendar',
         eventDateFormatText: 'M/D/YYYY',
@@ -56,6 +58,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         activityHeaderText: 'Activities',
         eventMoreText: 'View More Event(s)',
         toggleCollapseText: 'toggle collapse',
+        enablePullToRefresh: false,
+        toggleCollapseClass: 'fa fa-chevron-down',
+        toggleExpandClass: 'fa fa-chevron-right',
 
         // Templates
         widgetTemplate: new Simplate([
@@ -64,7 +69,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 '{%! $.navigationTemplate %}',
                 '<div style="clear:both"></div>',
                 '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-                '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
                 '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                 '{%! $.eventMoreTemplate %}',
                 '</div>',
@@ -100,7 +105,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '{% if ($.Timeless) { %}',
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+            '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
@@ -121,9 +126,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
-            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
+            '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}'
         ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
@@ -231,10 +236,20 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.currentDate = moment().startOf('day');
         },
         toggleGroup: function(params) {
-            var node = params.$source;
+            var node,
+                button;
+
+            node = params.$source;
             if (node && node.parentNode) {
                 domClass.toggle(node, 'collapsed');
                 domClass.toggle(node.parentNode, 'collapsed-event');
+
+                button = this.collapseButton;
+
+                if (button) {
+                    domClass.toggle(button, this.toggleCollapseClass);
+                    domClass.toggle(button, this.toggleExpandClass);
+                }
             }
         },
         refresh: function() {
@@ -262,7 +277,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             alert(string.substitute(this.requestErrorText, [response, o]));
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onRequestEventDataAborted: function(response, o) {
+        onRequestEventDataAborted: function() {
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
@@ -295,10 +310,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             );
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
+            var view = App.getView('event_related'),
                 where = this.getEventQuery();
             if (view) {
-                view.show({"where": where});
+                view.show({'where': where});
             }
         },
         hideEventList: function() {
@@ -310,6 +325,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         processEventFeed: function(feed) {
             var r = feed['$resources'],
                 feedLength = r.length,
+                i,
+                row,
                 o = [];
             this.eventFeed = feed;
 
@@ -320,8 +337,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 this.showEventList();
             }
 
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
@@ -340,11 +357,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         processFeed: function(feed) {
             var r = feed['$resources'],
                 feedLength = r.length,
-                o = [], remaining;
+                i,
+                row,
+                o = [];
 
             this.feed = feed;
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = false;
                 this.entries[row.$key] = row;
                 o.push(this.rowTemplate.apply(row, this));
@@ -383,8 +402,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.inherited(arguments, [options]);
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
-            {
+            if (options.currentDate) {
                 this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
@@ -401,8 +419,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.refresh();
         },
         getToday: function() {
-            if (this.isLoading()) return;
-            if (this.currentDate == moment().startOf('day')) return;
+            if (this.isLoading()) {
+                return;
+            }
+
+            if (this.currentDate === moment().startOf('day')) {
+                return;
+            }
 
             this.currentDate = moment().startOf('day');
             this.refresh();
@@ -416,14 +439,18 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.refresh();
         },
         formatQueryForActivities: function() {
-            var queryWhere = [
+            var queryWhere,
+                startDate,
+                endDate;
+
+            queryWhere = [
                 'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                 '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
 
-            var startDate = this.currentDate.clone().startOf('day').toDate(),
-                endDate = this.currentDate.clone().endOf('day').toDate();
+            startDate = this.currentDate.clone().startOf('day').toDate();
+            endDate = this.currentDate.clone().endOf('day').toDate();
 
             return string.substitute(
                 queryWhere,
@@ -483,7 +510,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 options = {currentDate: navDate.valueOf()};
             view.show(options);
         },
-        navigateToInsertView: function(el) {
+        navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
@@ -491,7 +518,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 view.show({
                     negateHistory: true,
                     returnTo: this.id,
-                    insert: true
+                    insert: true,
+                    currentDate: this.options.currentDate.valueOf()
                 });
             }
         },
@@ -509,5 +537,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);
+    return __class;
 });
 

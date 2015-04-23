@@ -3,39 +3,41 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.List
+ * @class crm.Views.History.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._MetricListMixin
- * @mixins Mobile.SalesLogix.Views._GroupListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._MetricListMixin
+ * @mixins crm.Views._GroupListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Action
+ * @requires crm.Format
+ * @requires crm.Action
  *
  * @requires moment
  */
-define('Mobile/SalesLogix/Views/History/List', [
+define('crm/Views/History/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List',
+    '../../Format',
+    'argos/Convert',
+    '../../Action',
+    'argos/List',
     '../_RightDrawerListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     domStyle,
@@ -52,7 +54,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>',
@@ -96,7 +98,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
-        hourMinuteFormatText: "h:mm A",
+        hourMinuteFormatText: 'h:mm A',
         hashTagQueriesText: {
             'my-history': 'my-history',
             'note': 'note',
@@ -105,7 +107,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'personal': 'personal',
             'email': 'email'
         },
-        dateFormatText: "M/D/YY",
+        dateFormatText: 'M/D/YY',
         titleText: 'Notes/History',
         viewAccountActionText: 'Account',
         viewOpportunityActionText: 'Opp.',
@@ -115,7 +117,7 @@ define('Mobile/SalesLogix/Views/History/List', [
 
         //View Properties
         detailView: 'history_detail',
-        iconClass: 'fa fa-archive fa-lg',
+        itemIconClass: 'fa fa-archive fa-2x',
         id: 'history_list',
         security: null, //'Entities/History/View',
         existsRE: /^[\w]{12}$/,
@@ -154,14 +156,14 @@ define('Mobile/SalesLogix/Views/History/List', [
             'email': 'Type eq "atEMail"'
         },
         activityIndicatorIconByType: {
-            'atToDo': 'fa fa-list-ul fa-lg',
-            'atPhoneCall': 'fa fa-phone fa-lg',
-            'atAppointment': 'fa fa-calendar-o fa-lg',
-            'atLiterature': 'fa fa-book fa-lg',
-            'atPersonal': 'fa fa-check-square-o fa-lg',
-            'atQuestion': 'fa fa-question-circle fa-lg',
-            'atNote': 'fa fa-file-text-o fa-lg',
-            'atEMail': 'fa fa-envelope fa-lg'
+            'atToDo': 'fa fa-list-ul fa-2x',
+            'atPhoneCall': 'fa fa-phone fa-2x',
+            'atAppointment': 'fa fa-calendar-o fa-2x',
+            'atLiterature': 'fa fa-book fa-2x',
+            'atPersonal': 'fa fa-check-square-o fa-2x',
+            'atQuestion': 'fa fa-question-circle fa-2x',
+            'atNote': 'fa fa-file-text-o fa-2x',
+            'atEMail': 'fa fa-envelope fa-2x'
         },
         allowSelection: true,
         enableActions: true,
@@ -204,6 +206,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         navigateToContactOrLead: function(action, selection) {
             var entity = this.resolveContactOrLeadEntity(selection.data),
                 viewId,
+                view,
                 options;
 
             switch (entity) {
@@ -223,7 +226,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     break;
             }
 
-            var view = App.getView(viewId);
+            view = App.getView(viewId);
 
             if (view && options) {
                 view.show(options);
@@ -246,8 +249,9 @@ define('Mobile/SalesLogix/Views/History/List', [
                 nextDate = startDate.clone().add({hours: 24}),
                 fmt = this.dateFormatText;
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
                 fmt = this.hourMinuteFormatText;
+            }
 
             return format.date(startDate.toDate(), fmt);
         },
@@ -271,12 +275,15 @@ define('Mobile/SalesLogix/Views/History/List', [
         },
         _getItemIconClass: function(type) {
             var cls = this.activityIndicatorIconByType[type];
-            if (cls) {
-                cls = cls + ' fa-2x';
+            if (!cls) {
+                cls = this.itemIconClass;
             }
 
             return cls;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
+    return __class;
 });
 

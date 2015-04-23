@@ -3,21 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityContact.List
+ * @class crm.Views.OpportunityContact.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/OpportunityContact/List', [
+define('crm/Views/OpportunityContact/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List], {
+    var __class = declare('crm.Views.OpportunityContact.List', [List], {
         //Template
         itemTemplate: new Simplate([
             '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
@@ -55,6 +57,9 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
 
         complete: function() {
             var view = App.getPrimaryActiveView(),
+                context,
+                selections,
+                selectionKey,
                 selectionModel = view && view.get('selectionModel'),
                 entry;
             if (!selectionModel) {
@@ -65,13 +70,16 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                 ReUI.back();
             }
 
-            var context = App.isNavigationFromResourceKind(['opportunities']),
-                selections = selectionModel.getSelections();
-            for (var selectionKey in selections) {
-                entry = {
-                    'Opportunity': {'$key': context.key},
-                    'Contact': view.entries[selectionKey]
-                };
+            context = App.isNavigationFromResourceKind(['opportunities']);
+            selections = selectionModel.getSelections();
+
+            for (selectionKey in selections) {
+                if (selections.hasOwnProperty(selectionKey)) {
+                    entry = {
+                        'Opportunity': {'$key': context.key},
+                        'Contact': view.entries[selectionKey]
+                    };
+                }
             }
 
             if (entry) {
@@ -140,5 +148,8 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
             return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
+    return __class;
 });
 

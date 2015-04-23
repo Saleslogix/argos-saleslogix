@@ -3,21 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Ticket.UrgencyLookup
+ * @class crm.Views.Ticket.UrgencyLookup
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
+define('crm/Views/Ticket/UrgencyLookup', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [List], {
+    var __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
         //Localization
         titleText: 'Ticket Urgency',
 
@@ -36,8 +38,14 @@ define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
         resourceKind: 'urgencies',
 
         formatSearchQuery: function(searchQuery) {
-            return string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(searchQuery.toUpperCase()));
+            var escaped, toUpper;
+            toUpper = searchQuery && searchQuery.toUpperCase() || '';
+            escaped = this.escapeSearchQuery(toUpper);
+            return string.substitute('upper(Description) like "%${0}%"', [escaped]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', __class);
+    return __class;
 });
 

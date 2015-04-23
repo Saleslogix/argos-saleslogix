@@ -23,7 +23,5 @@ xcopy index.aspx .\deploy /Y /Q
 xcopy index-nocache.html .\deploy /Y /Q
 xcopy index-nocache.aspx .\deploy /Y /Q
 xcopy unsupported.html .\deploy /Y /Q
-xcopy index.manifest .\deploy /Y /Q
-xcopy template.manifest .\deploy /Y /Q
-xcopy index.manifest.ashx .\deploy /Y /Q
+xcopy manifest.appcache .\deploy /Y /Q
 xcopy web.config .\deploy /Y /Q

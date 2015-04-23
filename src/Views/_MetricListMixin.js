@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._MetricListMixin
+ * @class crm.Views._MetricListMixin
  *
  * Mixin for adding KPI widgets to list views.
  *
  * @since 3.0
  *
- * @requires Mobile.SalesLogix.Views.MetricWidget
+ * @requires crm.Views.MetricWidget
  *
  */
-define('Mobile/SalesLogix/Views/_MetricListMixin', [
+define('crm/Views/_MetricListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/aspect',
     './MetricWidget',
-    'Mobile/SalesLogix/GroupUtility'
+    '../GroupUtility'
 ], function(
     declare,
     array,
@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
     MetricWidget,
     GroupUtility
 ) {
-    return declare('Mobile.SalesLogix.Views._MetricListMixin', null, {
+    var __class = declare('crm.Views._MetricListMixin', null, {
         // Metrics
         metricNode: null,
         metricWidgets: null,
@@ -42,7 +42,9 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                     '<div data-dojo-attach-point="searchNode"></div>',
                     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-                        '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
+                        '<div class="metric-list">',
+                            '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
+                        '</div>',
                         '{%! $.emptySelectionTemplate %}',
                         '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
                         '{%! $.moreTemplate %}',
@@ -111,7 +113,6 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                         options.currentSearchExpression = this._currentGroup && this._currentGroup.displayName;
                     } else {
                         options.request = null;
-                        options.parentResourceKind = this.resourceKind;
                         options.resourceKind = this.resourceKind;
                         options.currentSearchExpression = this.currentSearchExpression;
                         options.queryArgs._activeFilter = this._getCurrentQuery();
@@ -141,5 +142,8 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 && options.queryArgs._metricName;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);
+    return __class;
 });
 

@@ -3,15 +3,15 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @class crm.Views._RightDrawerListMixin
  *
  * List mixin for right drawers.
  *
  * @since 3.0
- * @mixins Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ * @mixins crm.Views._RightDrawerBaseMixin
  *
  */
-define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
+define('crm/Views/_RightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
@@ -20,9 +20,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/dom-attr',
     'dojo/dom-style',
     'dojo/aspect',
-    'Mobile/SalesLogix/GroupUtility',
-    'Mobile/SalesLogix/Views/_RightDrawerBaseMixin',
-    'Sage/Platform/Mobile/Fields/LookupField'
+    '../GroupUtility',
+    './_RightDrawerBaseMixin',
+    'argos/Fields/LookupField'
 ], function(
     declare,
     array,
@@ -37,15 +37,19 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     LookupField
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._RightDrawerListMixin';
+    var mixinName,
+        __class;
 
-    return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    mixinName = 'crm.Views._RightDrawerListMixin';
+
+    __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
         kpiSectionText: 'KPI',
         configureGroupsText: 'Configure',
         refreshGroupsText: 'Refresh',
+        layoutsText: 'Layouts',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
         groupList: null,
@@ -90,7 +94,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.setLayout([]);
-                drawer.getGroupForEntry = function(entry) {};
+                drawer.getGroupForEntry = function() {};
                 App.snapper.off('close');
             }
         },
@@ -142,11 +146,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 }.bind(this),
                 groupClicked: function(params) {
                     var group,
-                        groupList,
-                        template = [],
-                        selectColumns,
-                        extraSelectColumns = [],
-                        original = this._originalProps,
                         groupId;
 
                     this._startGroupMode();
@@ -157,12 +156,20 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     })[0];
 
                     if (!group) {
-                        throw new Error("Expected a group.");
+                        throw new Error('Expected a group.');
                     }
                     this.setCurrentGroup(group);
                     this.refresh();
                     this.toggleRightDrawer();
+                }.bind(this),
+                layoutSelectedClicked: function(params) {
+                    var name = params.name;
+                    GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
+                    this._groupInitalized = false;
+                    this.refresh();
+                    this.toggleRightDrawer();
                 }.bind(this)
+
             };
 
             return actions;
@@ -185,26 +192,27 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             });
 
             handle = aspect.after(field, 'complete', function() {
-                var field = this,
+                var self = this,
                     list = this.owner,
                     groupId,
                     entry,
                     currentGroup,
                     items = [],
-                    transitionHandle;
+                    transitionHandle,
+                    hasDefaultGroup;
 
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
-                for (groupId in field.currentValue) {
-                    if (field.currentValue.hasOwnProperty(groupId)) {
-                        entry = field.currentValue[groupId].data;
+                for (groupId in self.currentValue) {
+                    if (self.currentValue.hasOwnProperty(groupId)) {
+                        entry = self.currentValue[groupId].data;
                         if (entry) {
                             items.push(entry);
                         }
                     }
                 }
 
-
+                hasDefaultGroup = list.hasDefaultGroup;
                 GroupUtility.addToGroupPreferences(items, list.entityName, true);
                 currentGroup = GroupUtility.getDefaultGroup(list.entityName);
                 if (currentGroup) {
@@ -212,13 +220,23 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 }
 
                 handle.remove();
-                field.destroy();
+                self.destroy();
 
-                // We will transition back to the list, pop back open the right drawer so the user is back where they started
-                transitionHandle = aspect.after(list, 'processData', function() {
-                    this.toggleRightDrawer();
-                    transitionHandle.remove();
-                }.bind(list));
+                if (hasDefaultGroup) {
+                    // We will transition back to the list, pop back open the right drawer so the user is back where they started
+                    transitionHandle = aspect.after(list, 'processData', function() {
+                        this.toggleRightDrawer();
+                        transitionHandle.remove();
+                    }.bind(list));
+                } else {
+                    // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
+                    transitionHandle = aspect.after(list, 'onTransitionTo', function() {
+                        this.refreshRequired = true;
+                        this.clear();
+                        this.refresh();
+                        transitionHandle.remove();
+                    }.bind(list));
+                }
 
             }.bind(field));
 
@@ -239,14 +257,28 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     title: mixin.prototype.groupsSectionText
                 };
             }
-
+            if ((entry.action === 'layoutSelectedClicked') && this.groupsEnabled) {
+                return {
+                    tag: 'layoutTemplates',
+                    title:  mixin.prototype.layoutsText
+                };
+            }
             return {
                 tag: 'kpi',
                 title: mixin.prototype.kpiSectionText
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, mixin = lang.getObject(mixinName);
+            var groupsSection,
+                layoutSection,
+                hashTagsSection,
+                hashTag,
+                kpiSection,
+                layout,
+                metrics,
+                i,
+                len,
+                mixin = lang.getObject(mixinName);
 
             layout = [];
 
@@ -278,9 +310,28 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         });
                     });
                 }
+                layoutSection = {
+                    id: 'actions',
+                    children: []
+                };
+                if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
+                    array.forEach(this.groupTemplateLayouts, function(layout) {
+
+                        layoutSection.children.push({
+                            'name': layout.name,
+                            'action': 'layoutSelectedClicked',
+                            'title': layout.displayName,
+                            'dataProps': {
+                                'name': layout.name,
+                                'title': layout.displayName
+                            }
+                        });
+                    });
+                }
 
                 if (this.entityName) {
                     layout.push(groupsSection);
+                    layout.push(layoutSection);
                 }
             }
 
@@ -339,5 +390,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
+    return __class;
 });
 

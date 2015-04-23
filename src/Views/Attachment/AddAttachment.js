@@ -3,27 +3,29 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachment.AddAttachment
+ * @class crm.Views.Attachment.AddAttachment
  *
- * @extends Sage.Platform.Mobile.Views.FileSelect
+ * @extends argos.Views.FileSelect
  *
- * @requires Sage.Platform.Mobile.Views.FileSelect
- * @requires Sage.Platform.Mobile.Format
+ * @requires argos.Views.FileSelect
+ * @requires argos.Format
  *
- * @requires Mobile.SalesLogix.AttachmentManager
- * @requires Mobile.SalesLogix.Environment
+ * @requires crm.AttachmentManager
+ * @requires crm.Environment
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
+define('crm/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Views/FileSelect',
-    'Mobile/SalesLogix/AttachmentManager',
-    'Mobile/SalesLogix/Environment'
+    '../../Format',
+    'argos/Format',
+    'argos/Views/FileSelect',
+    '../../AttachmentManager',
+    '../../Environment'
 ], function(
     declare,
+    lang,
     string,
     format,
     sdkFormat,
@@ -32,7 +34,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     Environment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.AddAttachment', [FileSelect], {
+    var __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
         //Localization
         titleText: 'Add Attachments',
 
@@ -40,12 +42,15 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         id: 'attachment_Add',
 
         onUploadFiles: function() {
-            var fileItems, self;
+            var fileItems,
+                am,
+                self;
+
             self = this;
             if (this._files && this._files.length > 0) {
                 this.inherited(arguments);
                 fileItems = this.getFileItems();
-                var am = new AttachmentManager();
+                am = new AttachmentManager();
 
                 am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();
@@ -70,5 +75,8 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
             ReUI.back();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
+    return __class;
 });
 

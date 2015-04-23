@@ -3,36 +3,38 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Calendar.WeekView
+ * @class crm.Views.Calendar.WeekView
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos.List
+ * @mixins argos._LegacySDataListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Calendar/WeekView', [
+define('crm/Views/Calendar/WeekView', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/query',
     'dojo/string',
     'dojo/dom-construct',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
-    'Mobile/SalesLogix/Format',
+    'argos/ErrorManager',
+    'argos/Convert',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
+    'crm/Format',
     'moment'
 ], function(
     declare,
+    lang,
     query,
     string,
     domConstruct,
@@ -45,7 +47,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM D, YYYY',
@@ -61,6 +63,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         eventHeaderText: 'Events',
         eventMoreText: 'View ${0} More Event(s)',
         toggleCollapseText: 'toggle collapse',
+        toggleCollapseClass: 'fa fa-chevron-down',
+        toggleExpandClass: 'fa fa-chevron-right',
+
+        enablePullToRefresh: false,
 
         // Templates
         widgetTemplate: new Simplate([
@@ -69,7 +75,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 '{%! $.navigationTemplate %}',
                 '<div style="clear:both"></div>',
                 '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-                    '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                    '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
                     '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                     '{%! $.eventMoreTemplate %}',
                 '</div>',
@@ -129,7 +135,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '{% if ($.Timeless) { %}',
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+            '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
@@ -255,10 +261,20 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.currentDate = this.todayDate.clone();
         },
         toggleGroup: function(params) {
-            var node = query(params.$source);
-            if (node && node.parent()) {
+            var node,
+                button;
+
+            node = params.$source;
+            if (node && node.parentNode) {
                 domClass.toggle(node, 'collapsed');
-                domClass.toggle(node.parent(), 'collapsed-event');
+                domClass.toggle(node.parentNode, 'collapsed-event');
+
+                button = this.collapseButton;
+
+                if (button) {
+                    domClass.toggle(button, this.toggleCollapseClass);
+                    domClass.toggle(button, this.toggleExpandClass);
+                }
             }
         },
         activateDayHeader: function(params) {
@@ -306,7 +322,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var start = this.getStartDay(this.currentDate),
                 end = this.getEndDay(this.currentDate);
 
-            this.set('dateContent', string.substitute('${0}-${1}',[
+            this.set('dateContent', string.substitute('${0}-${1}', [
                 start.format(this.weekTitleFormatText),
                 end.format(this.weekTitleFormatText)
                 ]));
@@ -326,7 +342,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 i,
                 currentEntry,
                 entryOrderLength,
-                remaining,
+                entryGroup,
+                currentDateCompareKey,
+                currentGroup,
                 startDate;
 
             // If we fetched a page that has no data due to un-reliable counts,
@@ -349,8 +367,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     currentEntry['isEvent'] = false;
                     this.entries[currentEntry.$key] = currentEntry;
 
-                    var currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
-                    var currentGroup = entryGroups[currentDateCompareKey];
+                    currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
+                    currentGroup = entryGroups[currentDateCompareKey];
                     if (currentGroup) {
                         if (currentEntry.Timeless) {
                             currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
@@ -364,8 +382,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     entryGroups[currentDateCompareKey] = currentGroup;
                 }
 
-                for (var entryGroup in entryGroups) {
-                    entryOrder.push(moment(entryGroup, dateCompareString));
+                for (entryGroup in entryGroups) {
+                    if (entryGroups.hasOwnProperty(entryGroup)) {
+                        entryOrder.push(moment(entryGroup, dateCompareString));
+                    }
                 }
 
                 entryOrder.sort(function(a, b) {
@@ -427,7 +447,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             alert(string.substitute(this.requestErrorText, [response, o]));
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onRequestEventDataAborted: function(response, o) {
+        onRequestEventDataAborted: function() {
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
@@ -467,6 +487,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         processEventFeed: function(feed) {
             var o = [],
+                i,
+                event,
                 feedLength = feed['$resources'].length;
 
             if (feedLength === 0) {
@@ -476,8 +498,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 this.showEventList();
             }
 
-            for (var i = 0; i < feedLength; i++) {
-                var event = feed['$resources'][i];
+            for (i = 0; i < feedLength; i++) {
+                event = feed['$resources'][i];
                 event['isEvent'] = true;
                 event['StartDate'] = moment(convert.toDateFromString(event.StartDate));
                 event['EndDate'] = moment(convert.toDateFromString(event.EndDate));
@@ -493,7 +515,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 domConstruct.empty(this.eventRemainingContentNode);
             }
 
-             this.set('eventListContent', o.join(''));
+            this.set('eventListContent', o.join(''));
         },
         refresh: function() {
             var startDate = this.currentDate.clone();
@@ -521,10 +543,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             }
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
+            var view = App.getView('event_related'),
                 where = this.getEventQuery();
             if (view) {
-                view.show({"where": where});
+                view.show({'where': where});
             }
         },
         clear: function() {
@@ -580,7 +602,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 options = {currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()};
             view.show(options);
         },
-        navigateToInsertView: function(el) {
+        navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
@@ -588,7 +610,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 view.show({
                     negateHistory: true,
                     returnTo: this.id,
-                    insert: true
+                    insert: true,
+                    currentDate: this.options.currentDate.valueOf()
                 });
             }
         },
@@ -607,5 +630,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.WeekView', __class);
+    return __class;
 });
 

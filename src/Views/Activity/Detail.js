@@ -3,37 +3,39 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Detail
+ * @class crm.Views.Activity.Detail
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
+ * @mixins argos.Detail
  *
- * @requires Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Recurrence
- * @requires Mobile.SalesLogix.Utility
+ * @requires argos.Detail
+ * @requires argos.Utility
+ * @requires argos.Convert
+ * @requires crm.Format
+ * @requires crm.Template
+ * @requires crm.Environment
+ * @requires crm.Recurrence
+ * @requires crm.Utility
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Detail', [
+define('crm/Views/Activity/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/Detail',
-    'Mobile/SalesLogix/Recurrence',
-    'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/Utility'
+    '../../Template',
+    '../../Format',
+    '../../Environment',
+    'argos/Convert',
+    'argos/Detail',
+    '../../Recurrence',
+    '../../Utility',
+    'argos/Utility'
 ], function(
     declare,
+    lang,
     string,
     query,
     domClass,
@@ -47,7 +49,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     platformUtility
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
+    var __class = declare('crm.Views.Activity.Detail', [Detail], {
         //Templates
         leaderTemplate: template.nameLF,
 
@@ -95,6 +97,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
         phoneText: 'phone',
+        moreDetailsText: 'More Details',
 
         //View Properties
         id: 'activity_detail',
@@ -147,7 +150,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        navigateToEditView: function(el) {
+        navigateToEditView: function() {
             var view = App.getView(this.editView);
 
             if (view) {
@@ -210,6 +213,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         processOccurance: function(feed) {
             if (feed && feed.$resources && feed.$resources.length > 0) {
+                if (this.entry.Leader) {
+                    feed.$resources[0].Leader = this.entry.Leader;
+                }
                 this.entry = feed.$resources[0];
                 this.navigateToCompleteView(this.completeOccurrenceText);
             }
@@ -218,7 +224,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             this.navigateToCompleteView(this.completeSeriesText, true);
         },
         isActivityRecurring: function(entry) {
-            return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
+            return entry && (entry['Recurring'] || entry['RecurrenceState'] === 'rstOccurrence');
         },
         isActivityRecurringSeries: function(entry) {
             return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
@@ -247,7 +253,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 scope: this
             });
         },
-        requestLeaderFailure: function(xhr, o) {
+        requestLeaderFailure: function() {
         },
         processLeader: function(leader) {
             if (leader) {
@@ -301,7 +307,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 }
             }
         },
-        requestRecurrenceFailure: function(xhr, o) {
+        requestRecurrenceFailure: function() {
         },
         checkCanComplete: function(entry) {
             return !(entry && (entry['AllowComplete']));
@@ -318,10 +324,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         formatRelatedQuery: function(entry, fmt, property) {
             if (property === 'activityId') {
-                  return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
+                return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
             } else {
                 property = property || '$key';
-                return string.substitute(fmt, [platformUtility.getValue(entry, property, "")]);
+                return string.substitute(fmt, [platformUtility.getValue(entry, property, '')]);
             }
         },
         createLayout: function() {
@@ -369,26 +375,14 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             property: 'Description',
                             label: this.regardingText
                         }, {
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            label: this.longNotesText
-                        }, {
-                            name: 'Category',
-                            property: 'Category',
-                            label: this.categoryText
-                        }, {
-                            name: 'Location',
-                            property: 'Location',
-                            label: this.locationText
-                        }, {
-                            name: 'Priority',
-                            property: 'Priority',
-                            label: this.priorityText
-                        }, {
                             name: 'PhoneNumber',
                             property: 'PhoneNumber',
                             label: this.phoneText,
                             renderer: format.phone.bindDelegate(this, false)
+                        }, {
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            label: this.longNotesText
                         }]
                 }, {
                     title: this.whenText,
@@ -498,7 +492,24 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             include: this.isActivityForLead,
                             label: this.companyText
                         }]
-                },{
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
+                            name: 'Category',
+                            property: 'Category',
+                            label: this.categoryText
+                        }, {
+                            name: 'Location',
+                            property: 'Location',
+                            label: this.locationText
+                        }, {
+                            name: 'Priority',
+                            property: 'Priority',
+                            label: this.priorityText
+                        }]
+                }, {
                     title: this.relatedItemsText,
                     list: true,
                     name: 'RelatedItemsSection',
@@ -512,5 +523,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
+    return __class;
 });
 

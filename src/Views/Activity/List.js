@@ -3,41 +3,43 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.List
+ * @class crm.Views.Activity.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
- * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires argos.List
+ * @requires argos.Utility
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
+ * @requires crm.Action
+ * @requires crm.Environment
+ * @requires crm.Format
+ * @requires crm.Views._CardLayoutListMixin
+ * @requires crm.Views._RightDrawerListMixin
  *
  */
-define('Mobile/SalesLogix/Views/Activity/List', [
+define('crm/Views/Activity/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Views/_RightDrawerListMixin',
-    'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Action',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/ErrorManager',
+    '../_RightDrawerListMixin',
+    'argos/List',
+    '../_CardLayoutListMixin',
+    '../../Format',
+    'argos/Utility',
+    'argos/Convert',
+    '../../Action',
+    '../../Environment',
+    'argos/ErrorManager',
     'moment'
 ], function(
     declare,
+    lang,
     connect,
     string,
     query,
@@ -54,9 +56,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         // Localization
-        allDayText: 'All-Day',
+        allDayText: 'Timeless',
         completeActivityText: 'Complete',
         callText: 'Call',
         calledText: 'Called',
@@ -78,7 +80,11 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
+            '{% if ($$.isTimelessToday($)) { %}',
+                '{%: $$.allDayText %}',
+            '{% } else { %}',
+                '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}',
+            '{% } %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -239,7 +245,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        formatDateTime: function(dateTime) {
+        formatDateTime: function() {
             return 'StartTime';
         },
         getItemActionKey: function(entry) {
@@ -308,7 +314,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             return false;
         },
         isOverdue: function(entry) {
-            var startDate, currentDate, seconds, mins, days;
+            var startDate, currentDate, seconds, mins;
             if (entry['StartDate']) {
                 startDate = convert.toDateFromString(entry['StartDate']);
                 currentDate = new Date();
@@ -319,6 +325,19 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 }
             }
             return false;
+        },
+        isTimelessToday: function(entry) {
+            if (!entry || !entry.Timeless) {
+                return false;
+            }
+
+            var start = moment(entry.StartDate);
+            return this._isTimelessToday(start);
+        },
+        _isTimelessToday: function(start) {
+            // Start is UTC, convert it to local time so we can compare it against "now"
+            start.add({ minutes: start.zone() });
+            return start.isAfter(moment().startOf('day')) && start.isBefore(moment().endOf('day'));
         },
         isRecurring: function(entry) {
             if (entry['RecurrenceState']) {
@@ -347,127 +366,129 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             return cls;
         },
         createActionLayout: function() {
-           return this.actions || (this.actions = [{
-               id: 'complete',
-               cls: 'fa fa-check-square fa-2x',
-               label: this.completeActivityText,
-               enabled: function(action, selection) {
-                   var recur, entry = selection && selection.data;
-                   if (!entry) {
-                       return false;
-                   }
-                   recur = false;
-                   if (entry['RecurrenceState'] === 'rstOccurrence') {
-                       recur = true;
-                   }
+            return this.actions || (this.actions = [{
+                id: 'complete',
+                cls: 'fa fa-check-square fa-2x',
+                label: this.completeActivityText,
+                enabled: function(action, selection) {
+                    var recur, entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
+                    recur = false;
+                    if (entry['RecurrenceState'] === 'rstOccurrence') {
+                        recur = true;
+                    }
 
-                   return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
-               },
-               fn: (function(action, selection) {
-                   var entry;
+                    return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
+                },
+                fn: (function(action, selection) {
+                    var entry;
 
-                   entry = selection && selection.data && selection.data;
+                    entry = selection && selection.data && selection.data;
 
-                   entry['CompletedDate'] = new Date();
-                   entry['Result'] = 'Complete';
+                    entry['CompletedDate'] = new Date();
+                    entry['Result'] = 'Complete';
 
-                   environment.refreshActivityLists();
-                   this.completeActivity(entry);
+                    environment.refreshActivityLists();
+                    this.completeActivity(entry);
 
-               }).bindDelegate(this)
-           }, {
-               id: 'call',
-               cls: 'fa fa-phone-square fa-2x',
-               label: this.callText,
-               enabled: function(action, selection) {
-                   var entry;
-                   entry = selection && selection.data;
-                   return entry && entry.PhoneNumber;
-               },
-               fn: function(action, selection) {
-                   var entry, phone;
-                   entry = selection && selection.data;
-                   phone = entry && entry.PhoneNumber;
-                   if (phone) {
-                       this.recordCallToHistory(function() {
-                           App.initiateCall(phone);
-                       }.bindDelegate(this), entry);
-                   }
-               }.bindDelegate(this)
-           }, {
-               id: 'addAttachment',
-               cls: 'fa fa-paperclip fa-2x',
-               label: this.addAttachmentActionText,
-               fn: action.addAttachment.bindDelegate(this)
-           }]
-           );
+                }).bindDelegate(this)
+            }, {
+                id: 'call',
+                cls: 'fa fa-phone-square fa-2x',
+                label: this.callText,
+                enabled: function(action, selection) {
+                    var entry;
+                    entry = selection && selection.data;
+                    return entry && entry.PhoneNumber;
+                },
+                fn: function(action, selection) {
+                    var entry, phone;
+                    entry = selection && selection.data;
+                    phone = entry && entry.PhoneNumber;
+                    if (phone) {
+                        this.recordCallToHistory(function() {
+                            App.initiateCall(phone);
+                        }.bindDelegate(this), entry);
+                    }
+                }.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                cls: 'fa fa-paperclip fa-2x',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]);
         },
         recordCallToHistory: function(complete, entry) {
-           var tempEntry = {
-               '$name': 'History',
-               'Type': 'atPhoneCall',
-               'ContactName': entry['ContactName'],
-               'ContactId': entry['ContactId'],
-               'AccountName': entry['AccountName'],
-               'AccountId': entry['AccountId'],
-               'Description': string.substitute("${0} ${1}", [this.calledText, (entry['ContactName'] || '')]),
-               'UserId': App.context && App.context.user['$key'],
-               'UserName': App.context && App.context.user['UserName'],
-               'Duration': 15,
-               'CompletedDate': (new Date())
-           };
+            var tempEntry = {
+                '$name': 'History',
+                'Type': 'atPhoneCall',
+                'ContactName': entry['ContactName'],
+                'ContactId': entry['ContactId'],
+                'AccountName': entry['AccountName'],
+                'AccountId': entry['AccountId'],
+                'Description': string.substitute('${0} ${1}', [this.calledText, (entry['ContactName'] || '')]),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
+                'Duration': 15,
+                'CompletedDate': (new Date())
+            };
 
-           this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
+            this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
         },
         navigateToHistoryInsert: function(type, entry, complete) {
-           var view = App.getView(this.historyEditView);
-           if (view) {
-               environment.refreshActivityLists();
-               view.show({
-                   title: this.activityTypeText[type],
-                   template: {},
-                   entry: entry,
-                   insert: true
-               }, {
-                   complete: complete
-               });
-           }
+            var view = App.getView(this.historyEditView);
+            if (view) {
+                environment.refreshActivityLists();
+                view.show({
+                    title: this.activityTypeText[type],
+                    template: {},
+                    entry: entry,
+                    insert: true
+                }, {
+                    complete: complete
+                });
+            }
         },
         completeActivity: function(entry) {
-           var completeActivity, request, completeActivityEntry;
+            var request, completeActivityEntry;
 
-           completeActivityEntry = {
-               "$name": "ActivityComplete",
-               "request": {
-                   "entity": { '$key': entry['$key'] },
-                   "ActivityId": entry['$key'],
-                   "userId": entry['Leader']['$key'],
-                   "result": entry['Result'],
-                   "completeDate": entry['CompletedDate']
-               }
-           };
+            completeActivityEntry = {
+                '$name': 'ActivityComplete',
+                'request': {
+                    'entity': { '$key': entry['$key'] },
+                    'ActivityId': entry['$key'],
+                    'userId': entry['Leader']['$key'],
+                    'result': entry['Result'],
+                    'completeDate': entry['CompletedDate']
+                }
+            };
 
-           request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-               .setResourceKind('activities')
-               .setContractName('system')
-               .setOperationName('Complete');
+            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+                .setResourceKind('activities')
+                .setContractName('system')
+                .setOperationName('Complete');
 
-           request.execute(completeActivityEntry, {
-               success: function() {
-                   connect.publish('/app/refresh', [{
-                       resourceKind: 'history'
-                   }]);
+            request.execute(completeActivityEntry, {
+                success: function() {
+                    connect.publish('/app/refresh', [{
+                        resourceKind: 'history'
+                    }]);
 
-                   this.clear();
-                   this.refresh();
-               },
-               failure: this.onRequestFailure,
-               scope: this
-           });
+                    this.clear();
+                    this.refresh();
+                },
+                failure: this.onRequestFailure,
+                scope: this
+            });
         },
         onRequestFailure: function(response, o) {
-           ErrorManager.addError(response, o, {}, 'failure');
+            ErrorManager.addError(response, o, {}, 'failure');
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.List', __class);
+    return __class;
 });
 

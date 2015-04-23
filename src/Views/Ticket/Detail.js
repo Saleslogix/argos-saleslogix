@@ -3,23 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Ticket.Detail
+ * @class crm.Views.Ticket.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Ticket/Detail', [
+define('crm/Views/Ticket/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail',
-    'dojo/NodeList-manipulate'
+    '../../Format',
+    'argos/ErrorManager',
+    'argos/Detail'
 ], function(
     declare,
     lang,
@@ -27,11 +26,10 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     domClass,
     format,
     ErrorManager,
-    Detail,
-    NodeList
+    Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.Detail', [Detail], {
+    var __class = declare('crm.Views.Ticket.Detail', [Detail], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -98,10 +96,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         },
 
         createPicklistRequest: function(predicate) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+            var request,
+                uri;
+
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
-            var uri = request.getUri();
+            uri = request.getUri();
 
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
             uri.setCollectionPredicate(predicate);
@@ -131,10 +132,14 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         },
 
         processCodeDataFeed: function(feed, currentValue, options) {
-            var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-            var textProperty = options && options.textProperty ? options.textProperty : 'text';
+            var keyProperty,
+                textProperty,
+                i;
 
-            for (var i = 0; i < feed.$resources.length; i++) {
+            keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+            textProperty = options && options.textProperty ? options.textProperty : 'text';
+
+            for (i = 0; i < feed.$resources.length; i++) {
                 if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
                 }
@@ -179,6 +184,24 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             view: 'contact_detail',
                             key: 'Contact.$key'
                         }, {
+                            label: this.assignedToText,
+                            name: 'AssignedTo.OwnerDescription',
+                            property: 'AssignedTo.OwnerDescription'
+                        }, {
+                            label: this.urgencyText,
+                            name: 'Urgency.Description',
+                            property: 'Urgency.Description'
+                        }, {
+                            label: this.needByText,
+                            name: 'NeededByDate',
+                            property: 'NeededByDate',
+                            renderer: format.date
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
                             label: this.areaText,
                             name: 'Area',
                             property: 'Area'
@@ -206,28 +229,10 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             property: 'StatusCode',
                             onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Status"')
                         }, {
-                            label: this.urgencyText,
-                            name: 'Urgency.Description',
-                            property: 'Urgency.Description'
-                        }, {
-                            label: this.needByText,
-                            name: 'NeededByDate',
-                            property: 'NeededByDate',
-                            renderer: format.date
-                        }, {
-                            label: this.assignedToText,
-                            name: 'AssignedTo.OwnerDescription',
-                            property: 'AssignedTo.OwnerDescription'
-                        }, {
                             label: this.completedByText,
                             name: 'CompletedBy.OwnerDescription',
                             property: 'CompletedBy.OwnerDescription'
-                        }]
-                }, {
-                    title: this.moreDetailsText,
-                    name: 'MoreDetailsSection',
-                    collapsed: true,
-                    children: [{
+                        }, {
                             label: this.contractText,
                             name: 'Contract.ReferenceNumber',
                             property: 'Contract.ReferenceNumber'
@@ -276,5 +281,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
+    return __class;
 });
 

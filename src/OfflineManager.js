@@ -2,10 +2,12 @@
  * @class Mobile.SalesLogix.OfflineManager
  *
  */
-define('Mobile/SalesLogix/OfflineManager', [
-    'Sage/Platform/Mobile/Store/PouchDB'
+define('crm/OfflineManager', [
+    'argos/Store/PouchDB',
+    'moment'
 ], function(
-    Store
+    Store,
+    moment
     ) {
     var store;
 
@@ -16,7 +18,7 @@ define('Mobile/SalesLogix/OfflineManager', [
             // The results from this query should just get cached/updated/stored
             // globally when the application goes offline. This will
             // prevent some timing issues with calling this async on list loads.
-            return store.query(function(doc, emit){
+            return store.query(function(doc, emit) {
                 emit(doc._id);
             });
         },
@@ -27,7 +29,7 @@ define('Mobile/SalesLogix/OfflineManager', [
          */
         saveOffline: function(detailView) {
             if (!detailView) {
-                return Promise.reject("A detail view must be specified.");
+                return Promise.reject('A detail view must be specified.');
             }
 
             var doc, id = detailView.entry[detailView.idProperty || '$key'];
@@ -64,7 +66,7 @@ define('Mobile/SalesLogix/OfflineManager', [
          */
         removeOffline: function(detailView) {
             if (!detailView) {
-                return Promise.reject("A detail view must be specified.");
+                return Promise.reject('A detail view must be specified.');
             }
 
             var id = detailView.entry[detailView.idProperty || '$key'];

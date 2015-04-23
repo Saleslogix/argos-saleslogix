@@ -3,38 +3,40 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Calendar.MonthView
+ * @class crm.Views.Calendar.MonthView
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos.List
+ * @mixins argos._LegacySDataListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Calendar/MonthView', [
+define('crm/Views/Calendar/MonthView', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/query',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/dom-construct',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
+    'crm/Format',
+    'argos/ErrorManager',
+    'argos/Convert',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     query,
@@ -49,7 +51,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',
@@ -66,6 +68,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         countMoreText: 'View More',
         activityHeaderText: 'Activities',
         toggleCollapseText: 'toggle collapse',
+        toggleCollapseClass: 'fa fa-chevron-down',
+        toggleExpandClass: 'fa fa-chevron-right',
         weekDaysShortText: [
             'Sun',
             'Mon',
@@ -75,6 +79,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             'Fri',
             'Sat'
         ],
+
+        enablePullToRefresh: false,
 
         //Templates
         widgetTemplate: new Simplate([
@@ -89,7 +95,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '<div class="day-content">',
             '<h2 class="date-day-text" data-dojo-attach-point="dayTitleNode"></h2>',
             '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-            '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+            '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
             '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
             '{%! $.eventMoreTemplate %}',
             '</div>',
@@ -145,7 +151,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '{% if ($.Timeless) { %}',
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+            '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
             '{% } %}'
         ]),
         activityItemTemplate: new Simplate([
@@ -166,9 +172,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
-            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
+            '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}'
         ]),
         activityMoreTemplate: new Simplate([
             '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
@@ -322,18 +328,27 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.navigateToDayView();
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
+            var view = App.getView('event_related'),
                 where = this.getSelectedDateEventQuery();
             if (view) {
-                view.show({"where": where});
+                view.show({'where': where});
             }
         },
         toggleGroup: function(params) {
-            var node = params.$source;
-            if (node && node.parentNode)
-            {
+            var node,
+                button;
+
+            node = params.$source;
+            if (node && node.parentNode) {
                 domClass.toggle(node, 'collapsed');
                 domClass.toggle(node.parentNode, 'collapsed-event');
+
+                button = this.collapseButton;
+
+                if (button) {
+                    domClass.toggle(button, this.toggleCollapseClass);
+                    domClass.toggle(button, this.toggleExpandClass);
+                }
             }
         },
         selectDay: function(params, evt, el) {
@@ -355,8 +370,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
         getTodayMonthActivities: function() {
             var today = moment().startOf('day');
-            if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM'))
-            {
+
+            if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
                 this.currentDate = today;
                 this.highlightCurrentDate();
                 this.getSelectedDate();
@@ -366,8 +381,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             }
         },
         goToNextMonth: function() {
-             this.currentDate.add({months: 1});
-             this.refresh();
+            this.currentDate.add({months: 1});
+            this.refresh();
         },
         goToPreviousMonth: function() {
             this.currentDate.subtract({months: 1});
@@ -386,10 +401,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.cancelRequests(this.monthRequests);
             this.monthRequests = [];
 
-            var request = this.createRequest();
+            var request,
+                xhr;
+
+            request = this.createRequest();
             request.setContractName(this.contractName || 'system');
 
-            var xhr = request.read({
+            xhr = request.read({
                 success: this.onRequestDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
@@ -413,8 +431,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.cancelRequests(this.monthEventRequests);
             this.monthEventRequests = [];
 
-            var request = this.createEventRequest();
-            var xhr = request.read({
+            var request,
+                xhr;
+
+            request = this.createEventRequest();
+            xhr = request.read({
                 success: this.onRequestEventDataSuccess,
                 failure: this.onRequestEventDataFailure,
                 aborted: this.onRequestEventDataAborted,
@@ -426,7 +447,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             alert(string.substitute(this.requestErrorText, [response, o]));
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onRequestEventDataAborted: function(response, o) {
+        onRequestEventDataAborted: function() {
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
@@ -485,8 +506,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 this.entries[row.$key] = row;
 
                 startDay = moment(convert.toDateFromString(row.StartDate));
-                if (r[i].Timeless)
+                if (r[i].Timeless) {
                     startDay.add({minutes: startDay.zone()});
+                }
 
                 dateIndex = startDay.format('YYYY-MM-DD');
                 this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
@@ -522,8 +544,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 startDay = moment(convert.toDateFromString(row.StartDate));
                 endDay = convert.toDateFromString(row.EndDate);
 
-                while(startDay.valueOf() <= endDay.valueOf())
-                {
+                while (startDay.valueOf() <= endDay.valueOf()) {
                     dateIndex = startDay.format('YYYY-MM-DD');
                     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                         ? this.dateCounts[dateIndex] + 1
@@ -537,16 +558,19 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
         highlightActivities: function() {
             query('.calendar-day').forEach(function(node) {
-                var dataDate = domAttr.get(node, 'data-date');
+                var dataDate,
+                    countMarkup,
+                    existingCount;
+
+                dataDate = domAttr.get(node, 'data-date');
                 if (!this.dateCounts[dataDate]) {
                     return;
                 }
 
-                domClass.add(node, "activeDay");
+                domClass.add(node, 'activeDay');
 
-                var countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
-
-                var existingCount = query(node).children('div');
+                countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
+                existingCount = query(node).children('div');
 
                 if (existingCount.length > 0) {
                     domConstruct.place(countMarkup, existingCount[0], 'only');
@@ -579,9 +603,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             if (!requests) {
                 return;
             }
+
             array.forEach(requests, function(xhr) {
-                if (xhr) // if request was fulfilled by offline storage, xhr will be undefined
-                {
+                if (xhr) {// if request was fulfilled by offline storage, xhr will be undefined
                     xhr.abort();
                 }
             });
@@ -590,14 +614,18 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.cancelRequests(this.selectedDateRequests);
             this.selectedDateRequests = [];
 
-            var request = this.createSelectedDateRequest({
+            var request,
+                xhr;
+
+            request = this.createSelectedDateRequest({
                 pageSize: this.activityPageSize,
                 resourceKind: 'activities',
                 contractName: 'system',
                 querySelect: this.activityQuerySelect,
                 queryWhere: this.getSelectedDateActivityQuery()
             });
-            var xhr = request.read({
+
+            xhr = request.read({
                 success: this.onRequestSelectedDateActivityDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
@@ -609,14 +637,18 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.cancelRequests(this.selectedDateEventRequests);
             this.selectedDateEventRequests = [];
 
-            var request = this.createSelectedDateRequest({
+            var request,
+                xhr;
+
+            request = this.createSelectedDateRequest({
                 pageSize: this.eventPageSize,
                 resourceKind: 'events',
                 contractName: 'dynamic',
                 querySelect: this.eventQuerySelect,
                 queryWhere: this.getSelectedDateEventQuery()
             });
-            var xhr = request.read({
+
+            xhr = request.read({
                 success: this.onRequestSelectedDateEventDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
@@ -636,20 +668,24 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             return request;
         },
         getSelectedDateActivityQuery: function() {
-            var activityQuery = [
+            var activityQuery, results;
+
+            activityQuery = [
                 'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                 '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
-            return string.substitute(
+
+            results = string.substitute(
                 activityQuery,
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(this.currentDate.toDate()),
                 convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
                 this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
                 this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')
-                ]
-            );
+                ]);
+
+            return results;
         },
         getSelectedDateEventQuery: function() {
             return string.substitute(
@@ -675,10 +711,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             var r = feed['$resources'],
                 feedLength = r.length,
+                row,
+                i,
                 o = [];
 
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = false;
                 this.entries[row.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
@@ -706,7 +744,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             var r = feed['$resources'],
                 feedLength = r.length,
+                i,
+                row,
                 o = [];
+
             this.eventFeed = feed;
 
             if (feedLength === 0) {
@@ -716,8 +757,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 this.showEventList();
             }
 
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
@@ -737,14 +778,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         renderCalendar: function() {
             var calHTML = [],
                 startingDay = this.getFirstDayOfCurrentMonth().day(),
-                dayClass = '',
                 weekendClass = '',
                 day = 1,
                 dayDate = this.currentDate.clone().startOf('month'),
-                today = moment().startOf('day'),
                 monthLength = this.currentDate.daysInMonth(),
-                weekEnds = [0,6],
-                i;
+                weekEnds = [0, 6],
+                i,
+                j;
 
             calHTML.push(this.calendarStartTemplate);
 
@@ -758,23 +798,18 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             for (i = 0; i <= 6; i++) {
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (var j = 0; j <= 6; j++)
-                {
-                    if (day <= monthLength && (i > 0 || j >= startingDay))
-                    {
+                for (j = 0; j <= 6; j++) {
+                    if (day <= monthLength && (i > 0 || j >= startingDay)) {
                         dayDate.date(day);
-                        dayClass = (dayDate.valueOf() == today.valueOf()) ? 'today' : '';
                         weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
                         calHTML.push(string.substitute(this.calendarDayTemplate,
                                                     [
                                                         day,
-                                                        (dayClass + weekendClass),
+                                                        weekendClass,
                                                         dayDate.format('YYYY-MM-DD')
                                                     ]));
                         day++;
-                    }
-                    else
-                    {
+                    } else {
                         calHTML.push(this.calendarEmptyDayTemplate);
                     }
 
@@ -804,8 +839,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             }
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
-            {
+            if (options.currentDate) {
                 this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
@@ -823,6 +857,25 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             }
 
             this.getSelectedDate();
+            this.highlightToday();
+        },
+        highlightToday: function() {
+            var todayCls, todayNode;
+
+            // Remove the existing "today" highlight class because it might be out of date,
+            // like when we tick past midnight.
+            todayCls = '.calendar-day.today';
+            todayNode = query(todayCls, this.contentNode)[0];
+            if (todayNode) {
+                domClass.remove(todayNode, 'today');
+            }
+
+            // Get the updated "today"
+            todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment().format('YYYY-MM-DD')]);
+            todayNode = query(todayCls, this.contentNode)[0];
+            if (todayNode) {
+                domClass.add(todayNode, 'today');
+            }
         },
         selectEntry: function(params) {
             var row = query(params.$source).closest('[data-key]')[0],
@@ -871,7 +924,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 options = {currentDate: this.currentDate.valueOf() || moment().startOf('day')};
             view.show(options);
         },
-        navigateToInsertView: function(el) {
+        navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
@@ -879,7 +932,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 view.show({
                     negateHistory: true,
                     returnTo: this.id,
-                    insert: true
+                    insert: true,
+                    currentDate: this.options.currentDate.valueOf()
                 });
             }
         },
@@ -896,5 +950,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
+    return __class;
 });
 

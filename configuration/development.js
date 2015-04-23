@@ -12,6 +12,7 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
                 isDefault: true,
                 offline: true,
                 url: 'http://localhost/sdata/slx/dynamic/-/',
+                timeout: 30000,
                 json: true
             }
         },

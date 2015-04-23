@@ -21,7 +21,5 @@ cp index.aspx ./deploy
 cp index-nocache.html ./deploy
 cp index-nocache.aspx ./deploy
 cp unsupported.html ./deploy
-cp index.manifest ./deploy
-cp index.manifest.ashx ./deploy
-cp template.manifest ./deploy
+cp manfiest.appcache ./deploy
 cp web.config ./deploy

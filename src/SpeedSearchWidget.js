@@ -3,18 +3,18 @@
  */
 
 /**
- * @class Mobile.SalesLogix.SpeedSearchWidget
+ * @class crm.SpeedSearchWidget
  *
- * @mixins Sage.Platform.Mobile._Templated
+ * @mixins argos._Templated
  *
  */
-define('Mobile/SalesLogix/SpeedSearchWidget', [
+define('crm/SpeedSearchWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/event',
     'dojo/dom-class',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_Templated'
+    'argos/_Templated'
 ], function(
     declare,
     lang,
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
     _Widget,
     _Templated
 ) {
-    return declare('Mobile.SalesLogix.SpeedSearchWidget', [_Widget, _Templated], {
+    var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
         /**
          * @property {Object} attributeMap
          */
@@ -37,9 +37,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         widgetTemplate: new Simplate([
             '<div class="search-widget">',
             '<div class="table-layout">',
-                '<div><input type="text" placeholder="{%= $.searchText %}" name="query" class="query" autocorrect="off" autocapitalize="off" data-dojo-attach-point="queryNode" data-dojo-attach-event="onfocus:_onFocus,onblur:_onBlur,onkeypress:_onKeyPress" /></div>',
-                '<div class="hasButton"><button class="clear-button" tabindex="-1" data-dojo-attach-event="onclick: _onClearClick"></button></div>',
-                '<div class="hasButton"><button class="subHeaderButton searchButton" data-dojo-attach-event="click: search">{%= $.searchText %}</button></div>',
+                '<div><input type="text" placeholder="{%= $.searchText %}" name="query" class="query" autocorrect="off" autocapitalize="off" data-dojo-attach-point="queryNode" data-dojo-attach-event="onfocus:_onFocus,onblur:_onBlur,onkeypress:_onKeyPress,onmouseup: _onMouseUp" /></div>',
             '</div>',
             '</div>'
         ]),
@@ -97,8 +95,14 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         _onFocus: function() {
             domClass.add(this.domNode, 'search-active');
         },
+        _onMouseUp: function() {
+            // Work around a chrome issue where mouseup after a focus will de-select the text
+            setTimeout(function() {
+                this.queryNode.setSelectionRange(0, 9999);
+            }.bind(this), 50);
+        },
         _onKeyPress: function(evt) {
-            if (evt.keyCode == 13 || evt.keyCode == 10) {
+            if (evt.keyCode === 13 || evt.keyCode === 10) {
                 event.stop(evt);
                 this.queryNode.blur();
                 this.search();
@@ -109,8 +113,14 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
          * @param {String} expression
          * @param {Object} widget
          */
-        onSearchExpression: function(expression, widget) {
+        onSearchExpression: function() {
+        },
+        getFormattedSearchQuery: function() {
+            return null;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.SpeedSearchWidget', __class);
+    return __class;
 });
 

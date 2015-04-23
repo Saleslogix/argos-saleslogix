@@ -3,32 +3,34 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Lead.List
+ * @class crm.Views.Lead.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._MetricListMixin
- * @mixins Mobile.SalesLogix.Views._GroupListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._MetricListMixin
+ * @mixins crm.Views._GroupListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.Format
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Format
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Action
+ * @requires crm.Action
  */
-define('Mobile/SalesLogix/Views/Lead/List', [
+define('crm/Views/Lead/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/List',
+    '../../Action',
+    'argos/Format',
+    'argos/Utility',
+    'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
 ], function(
     declare,
+    lang,
     string,
     action,
     format,
@@ -40,7 +42,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -49,17 +51,17 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             '</h4>',
             '{% if ($.WorkPhone) { %}',
                 '<h4>',
-                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.WorkPhone) %}</span>',
+                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Mobile) { %}',
                 '<h4>',
-                    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.Mobile) %}</span>',
+                    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.TollFree) { %}',
                 '<h4>',
-                    '{%: $$.tollFreeAbbreviationText %} {%: Sage.Platform.Mobile.Format.phone($.TollFree) %}',
+                    '{%: $$.tollFreeAbbreviationText %} {%: argos.Format.phone($.TollFree) %}',
                 '</h4>',
             '{% } %}',
             '<h4>{%: $.WebAddress %}</h4>',
@@ -183,5 +185,8 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%" or upper(LeadNameLastFirst) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Lead.List', __class);
+    return __class;
 });
 

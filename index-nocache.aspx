@@ -78,7 +78,7 @@
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
-    <!-- Global namespace dependencies. Important to load these before the AMD loader -->
+    <!-- Global (window) dependencies. Load these before the AMD loader -->
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
     <!-- Dojo -->
@@ -89,10 +89,15 @@
         packages: [
             { name: 'dojo', location: 'content/dojo/dojo' },
             { name: 'dijit', location: 'content/dojo/dijit' },
-            { name: 'dojox', location: 'content/dojo/dojox' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
-        ]
+        ],
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm'
+            }
+        }
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
@@ -139,16 +144,17 @@
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
 
+            fallBackLocalization = <%= Serialize(
+                EnumerateLocalizations(string.Empty, "localization", "en")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
+
             require.on('error', function(error) {
                 console.log('Error loading localization, falling back to "en"');
                 bootstrap(fallBackLocalization);
             });
 
             if (localization.length === 0) {
-                fallBackLocalization = <%= Serialize(
-                        EnumerateLocalizations(string.Empty, "localization", "en")
-                            .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-                    ) %>;
                 bootstrap(fallBackLocalization);
             } else {
                 bootstrap(localization);

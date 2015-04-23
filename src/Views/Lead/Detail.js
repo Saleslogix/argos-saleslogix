@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Lead.Detail
+ * @class crm.Views.Lead.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Lead/Detail', [
+define('crm/Views/Lead/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    '../../Format',
+    'argos/Detail'
 ], function(
     declare,
+    lang,
     string,
     format,
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.Detail', [Detail], {
+    var __class = declare('crm.Views.Lead.Detail', [Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -233,15 +235,15 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             name: 'Company',
                             property: 'Company'
                         }, {
-                            label: this.webText,
-                            name: 'WebAddress',
-                            property: 'WebAddress',
-                            renderer: format.link
-                        }, {
                             label: this.leadTitleText,
                             name: 'Title',
                             property: 'Title'
-                        }, {
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
                             label: this.workText,
                             name: 'WorkPhone',
                             property: 'WorkPhone',
@@ -260,12 +262,12 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             label: this.leadSourceText,
                             name: 'LeadSource.Description',
                             property: 'LeadSource.Description'
-                        }]
-                }, {
-                    title: this.moreDetailsText,
-                    name: 'MoreDetailsSection',
-                    collapsed: true,
-                    children: [{
+                        }, {
+                            label: this.webText,
+                            name: 'WebAddress',
+                            property: 'WebAddress',
+                            renderer: format.link
+                        }, {
                             label: this.interestsText,
                             name: 'Interests',
                             property: 'Interests'
@@ -315,5 +317,8 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Lead.Detail', __class);
+    return __class;
 });
 

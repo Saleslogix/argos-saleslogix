@@ -3,29 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.RightDrawer
+ * @class crm.Views.RightDrawer
  *
  *
- * @extends Sage.Platform.Mobile.GroupedList
+ * @extends argos.GroupedList
  *
  */
-define('Mobile/SalesLogix/Views/RightDrawer', [
+define('crm/Views/RightDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/store/Memory',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/GroupedList'
+    'argos/GroupedList'
 ], function(
     declare,
     array,
     lang,
     Memory,
-    SpeedSearchWidget,
     GroupedList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.RightDrawer', [GroupedList],  {
+    var __class = declare('crm.Views.RightDrawer', [GroupedList],  {
         //Templates
         cls: ' contextualContent',
         rowTemplate: new Simplate([
@@ -63,7 +61,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
         hasMoreData: function() {
             return false;
         },
-        getGroupForEntry: function(entry) {
+        getGroupForEntry: function() {
         },
         init: function() {
             this.inherited(arguments);
@@ -81,7 +79,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
                 store,
                 section,
                 row,
-                i, 
+                i,
                 j;
 
             for (i = 0; i < layout.length; i++) {
@@ -114,7 +112,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             this.requestData();
         },
         show: function() {
-            if (this.onShow(this) === false){
+            if (this.onShow(this) === false) {
                 return;
             }
 
@@ -124,5 +122,8 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             this.refreshRequired = true;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.RightDrawer', __class);
+    return __class;
 });
 

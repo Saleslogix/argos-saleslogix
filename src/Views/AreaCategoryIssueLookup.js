@@ -3,24 +3,26 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.AreaCategoryIssueLookup
+ * @class crm.Views.AreaCategoryIssueLookup
  *
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos._LegacySDataListMixin
  *
  */
-define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
+define('crm/Views/AreaCategoryIssueLookup', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin'
+    'dojo/_base/lang',
+    'argos/List',
+    'argos/_LegacySDataListMixin'
 ], function(
     declare,
+    lang,
     List,
     _LegacySDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -33,6 +35,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
         pageSize: 200,
         expose: false,
         enableSearch: false,
+        enablePullToRefresh: false,
         id: 'areacategoryissue_lookup',
         queryOrderBy: 'Area,Category,Issue',
         querySelect: [
@@ -76,25 +79,33 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
             this.inherited(arguments, [feed]);
         },
         createCacheFrom: function(feed) {
-            var feedLength = feed['$resources'].length;
+            var feedLength,
+                i,
+                entry,
+                area,
+                category;
+
+            feedLength = feed['$resources'].length;
             this.cache = {};
 
-            for (var i = 0; i < feedLength; i += 1) {
-                var entry = feed['$resources'][i],
-                    area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
-                    category = area[entry['Category']] || (area[entry['Category']] = {});
+            for (i = 0; i < feedLength; i += 1) {
+                entry = feed['$resources'][i];
+                area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {});
+                category = area[entry['Category']] || (area[entry['Category']] = {});
 
                 category[entry['Issue']] = true;
             }
         },
         buildFeedFrom: function(segment) {
-            var list = [];
+            var list = [], n;
 
-            for (var n in segment) {
-                list.push({
-                    '$key': n,
-                    '$descriptor': n
-                });
+            for (n in segment) {
+                if (segment.hasOwnProperty(n)) {
+                    list.push({
+                        '$key': n,
+                        '$descriptor': n
+                    });
+                }
             }
 
             return {'$resources': list};
@@ -102,11 +113,14 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
         hasMoreData: function() {
             return false; // todo: implement paging?
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             return true; // todo: implement refresh detection?
         },
-        formatSearchQuery: function(searchQuery) {
+        formatSearchQuery: function() {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
+    return __class;
 });
 

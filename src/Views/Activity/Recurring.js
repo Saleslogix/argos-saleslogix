@@ -3,32 +3,34 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Recurring
+ * @class crm.Views.Activity.Recurring
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Edit
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Recurrence
+ * @requires crm.Format
+ * @requires crm.Validator
+ * @requires crm.Recurrence
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Recurring', [
+define('crm/Views/Activity/Recurring', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence',
+    '../../Format',
+    '../../Validator',
+    'argos/Utility',
+    'argos/Edit',
+    '../../Recurrence',
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     format,
@@ -38,7 +40,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     recur,
     moment
 ) {
-    return declare('Mobile.SalesLogix.Views.Activity.Recurring', [Edit], {
+    var __class = declare('crm.Views.Activity.Recurring', [Edit], {
         //Localization
         startingText: 'start date',
         endingText: 'end date',
@@ -110,7 +112,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10),
                 startDate = this.fields['StartDate'].getValue(),
                 interval = this.fields['RecurPeriodSpec'].getValue() % 65536,
-                showthese = 'Interval,AfterCompletion,';
+                showthese = 'Interval,AfterCompletion,',
+                i;
 
             if (!recur.isAfterCompletion(rp)) {
                 showthese += 'RecurIterations,EndDate,';
@@ -154,7 +157,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     showthese = '';
             }
 
-            for (var i in this.fields) {
+            for (i in this.fields) {
                 if (0 <= showthese.indexOf(i)) {
                     this.fields[i].show();
                 } else {
@@ -177,7 +180,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.fields['Summary'].setValue(recur.toString(this.getRecurrence()));
             this.fields['Scale'].setValue(recur.getPanel(parseInt(this.fields['RecurPeriod'].getValue(), 10), true));
         },
-        onAfterCompletionChange: function(value, field) {
+        onAfterCompletionChange: function(value) {
             var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10);
 
             if (value) {
@@ -207,13 +210,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             this.summarize();
         },
-        onRecurIterationsChange: function(value, field) {
+        onRecurIterationsChange: function(value) {
             value = parseInt(value, 10);
             if (value && 0 < value) {
                 this.entry.RecurIterations = value;
                 var newEndDate = recur.calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate();
 
-                if (newEndDate != this.fields['EndDate'].getValue()) {
+                if (newEndDate !== this.fields['EndDate'].getValue()) {
                     this.fields['EndDate'].setValue(newEndDate);
                 }
 
@@ -224,7 +227,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             this.summarize();
         },
-        onEndDateChange: function(value, field) {
+        onEndDateChange: function(value) {
             if (value > this.fields['StartDate'].getValue()) {
                 var iterations = recur.calcRecurIterations(
                     value,
@@ -268,13 +271,14 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 weekday = startDate.getDay(),
                 weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue(), 10)),
                 ordWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1,
-                panel = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+                panel = parseInt(this.fields['RecurPeriod'].getValue(), 10),
+                wd;
 
             value = parseInt(value.key || value, 10);
             switch (field.name) {
                 case 'Weekdays':
                     // only change StartDate if original weekday not included
-                    for (var wd = 0; wd < 7; wd++) {
+                    for (wd = 0; wd < 7; wd++) {
                         if (weekdays[wd] && !weekdays[weekday]) {
                             weekday = wd;
                         }
@@ -287,11 +291,11 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 case 'OrdWeek':
                     if (value) {
                         ordWeek = value;
-                        if (panel == 4 || panel == 7) {
+                        if (panel === 4 || panel === 7) {
                             this.fields['RecurPeriod'].setValue(panel + 1);
                             this.resetUI();
                         }
-                    } else if (panel == 5 || panel == 8) {
+                    } else if (panel === 5 || panel === 8) {
                         this.fields['RecurPeriod'].setValue(panel - 1);
                         this.resetUI();
                     }
@@ -312,7 +316,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             this.summarize();
         },
-        onScaleChange: function(value, field) {
+        onScaleChange: function(value) {
             var startDate = this.fields['StartDate'].getValue(),
                 afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0,
                 interval = parseInt(this.fields['Interval'].getValue(), 10),
@@ -363,9 +367,10 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
         formatWeekdays: function(selections) {
             var values = [],
+                key,
                 weekdays = [0, 0, 0, 0, 0, 0, 0];
 
-            for (var key in selections) {
+            for (key in selections) {
                 if (selections[key]) {
                     values.push(this.weekDaysText[key]);
                     weekdays[key] = 1;
@@ -403,9 +408,10 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         preselectWeekdays: function() {
             var previousSelections = [],
+                i,
                 weekdays = recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue());
 
-            for (var i = 0; i < weekdays.length; i++) {
+            for (i = 0; i < weekdays.length; i++) {
                 if (weekdays[i]) {
                     previousSelections.push(i);
                 }
@@ -413,13 +419,16 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             return previousSelections;
         },
         createScaleData: function() {
-            var list = [];
-            for (var opt in this.frequencyOptionsText) {
-                list.push({
-                    '$key': opt,
-                    '$descriptor': this.frequencyOptionsText[opt]
-                });
+            var list = [], opt;
+            for (opt in this.frequencyOptionsText) {
+                if (this.frequencyOptionsText.hasOwnProperty(opt)) {
+                    list.push({
+                        '$key': opt,
+                        '$descriptor': this.frequencyOptionsText[opt]
+                    });
+                }
             }
+
             return {'$resources': list};
         },
         createWeekdaysData: function() {
@@ -445,22 +454,27 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             return {'$resources': list};
         },
         createOrdData: function() {
-            var list = [];
-            for (var ord in recur.ordText) {
-                list.push({
-                    '$key': ord,
-                    '$descriptor': recur.ordText[ord]
-                });
+            var list = [], ord;
+            for (ord in recur.ordText) {
+                if (recur.ordText.hasOwnProperty(ord)) {
+                    list.push({
+                        '$key': ord,
+                        '$descriptor': recur.ordText[ord]
+                    });
+                }
             }
+
             return {'$resources': list};
         },
-        setValues: function(values, initial) {
+        setValues: function(values) {
             this.inherited(arguments);
-            var field, ord;
+            var field,
+                name,
+                ord;
 
             // calculate some values from the ones provided
             this.entry = values;
-            this.entry.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values['StartDate']);
+            this.entry.StartDate = argos.Convert.toDateFromString(values['StartDate']);
             this.entry.EndDate = recur.calcEndDate(values.StartDate, values).toDate();
             this.entry.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
             ord = recur.getOrd(this.entry);
@@ -473,17 +487,19 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.entry.OrdMonth = ord.month;
 
             // Even hidden and falsy fields need their values set (not from parent)
-            for (var name in this.fields) {
-                field = this.fields[name];
-                // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
-                if (undefined !== this.entry[name]) {
-                    field.setValue(this.entry[name]);
+            for (name in this.fields) {
+                if (this.fields.hasOwnProperty(name)) {
+                    field = this.fields[name];
+                    // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
+                    if (typeof this.entry[name] !== 'undefined') {
+                        field.setValue(this.entry[name]);
+                    }
                 }
             }
 
             this.resetUI();
         },
-        getValues: function(all) {
+        getValues: function() {
             var o = this.getRecurrence();
 
             o['Recurring'] = (0 <= o['RecurPeriod']);
@@ -639,5 +655,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
+    return __class;
 });
 

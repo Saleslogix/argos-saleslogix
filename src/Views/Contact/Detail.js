@@ -3,28 +3,30 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contact.Detail
+ * @class crm.Views.Contact.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Format
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/Contact/Detail', [
+define('crm/Views/Contact/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail'
+    '../../Format',
+    '../../Template',
+    'argos/Detail'
 ], function(
     declare,
+    lang,
     string,
     format,
     template,
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Detail', [Detail], {
+    var __class = declare('crm.Views.Contact.Detail', [Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -54,10 +56,10 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         relatedAttachmentTitleText: 'Contact Attachments',
         titleText: 'Contact',
         webText: 'web',
-        workText: 'phone',
+        workText: 'work phone',
         cuisinePreferenceText: 'cuisine',
         callMobileNumberText: 'Call mobile',
-        callWorkNumberText: 'Call main number',
+        callWorkNumberText: 'Call work',
         calledText: 'Called',
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
@@ -121,7 +123,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                 'ContactId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
                 'AccountId': this.entry['Account']['$key'],
-                'Description': string.substitute("${0} ${1}", [this.calledText, this.entry['NameLF']]),
+                'Description': string.substitute('${0} ${1}', [this.calledText, this.entry['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -138,7 +140,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                 'ContactId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
                 'AccountId': this.entry['Account']['$key'],
-                'Description': string.substitute("Emailed ${0}", [this.entry['NameLF']]),
+                'Description': string.substitute('Emailed ${0}', [this.entry['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -202,16 +204,9 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             property: 'Mobile',
                             label: this.callMobileNumberText,
                             action: 'callMobilePhone',
-                            iconClass: 'fa fa-mobile fa-2x',
+                            iconClass: 'fa fa-mobile fa-lg',
                             disabled: this.checkValueExists,
                             renderer: format.phone.bindDelegate(this, false)
-                        }, {
-                            name: 'SendEmailAction',
-                            property: 'Email',
-                            label: this.sendEmailText,
-                            action: 'sendEmail',
-                            iconClass: 'fa fa-envelope fa-lg',
-                            disabled: this.checkValueExists
                         }, {
                             name: 'ScheduleActivityAction',
                             label: this.scheduleActivityText,
@@ -226,6 +221,13 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             label: this.addNoteText,
                             action: 'addNote',
                             iconClass: 'fa fa-edit fa-lg'
+                        }, {
+                            name: 'SendEmailAction',
+                            property: 'Email',
+                            label: this.sendEmailText,
+                            action: 'sendEmail',
+                            iconClass: 'fa fa-envelope fa-lg',
+                            disabled: this.checkValueExists
                         }, {
                             name: 'ViewAddressAction',
                             property: 'Address',
@@ -250,14 +252,15 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             view: 'account_detail',
                             key: 'Account.$key'
                         }, {
-                            name: 'WebAddress',
-                            property: 'WebAddress',
-                            label: this.webText,
-                            renderer: format.link
+                            name: 'WorkPhone',
+                            property: 'WorkPhone',
+                            label: this.workText,
+                            renderer: format.phone
                         }, {
-                            name: 'Title',
-                            property: 'Title',
-                            label: this.contactTitleText
+                            name: 'AccountManager.UserInfo',
+                            property: 'AccountManager.UserInfo',
+                            label: this.acctMgrText,
+                            tpl: template.nameLF
                         }]
                 }, {
                     title: this.moreDetailsText,
@@ -269,15 +272,19 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             label: this.homeText,
                             renderer: format.phone
                         }, {
+                            name: 'WebAddress',
+                            property: 'WebAddress',
+                            label: this.webText,
+                            renderer: format.link
+                        }, {
+                            name: 'Title',
+                            property: 'Title',
+                            label: this.contactTitleText
+                        }, {
                             name: 'Fax',
                             property: 'Fax',
                             label: this.faxText,
                             renderer: format.phone
-                        }, {
-                            name: 'AccountManager.UserInfo',
-                            property: 'AccountManager.UserInfo',
-                            label: this.acctMgrText,
-                            tpl: template.nameLF
                         }, {
                             name: 'Owner.OwnerDescription',
                             property: 'Owner.OwnerDescription',
@@ -326,5 +333,8 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);
+    return __class;
 });
 

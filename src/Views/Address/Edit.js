@@ -3,30 +3,32 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Address.Edit
+ * @class crm.Views.Address.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
+ * @requires argos.Edit
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Validator
  *
  */
-define('Mobile/SalesLogix/Views/Address/Edit', [
+define('crm/Views/Address/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    '../../Format',
+    '../../Validator',
+    'argos/Edit'
 ], function(
     declare,
+    lang,
     string,
     format,
     validator,
     Edit
 ) {
-    return declare('Mobile.SalesLogix.Views.Address.Edit', [Edit], {
+    var __class = declare('crm.Views.Address.Edit', [Edit], {
         //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',
@@ -49,12 +51,12 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
          * Set to null to skip and leave all fields visible
          */
         localeFieldHidden: {
-            "en-US": null,
-            "en-GB": ['State'],
-            "fr-FR": ['State'],
-            "de-DE": ['State'],
-            "it-IT": null,
-            "ru-RU": ['State']
+            'en-US': null,
+            'en-GB': ['State'],
+            'fr-FR': ['State'],
+            'de-DE': ['State'],
+            'it-IT': null,
+            'ru-RU': ['State']
         },
 
         //View Properties
@@ -64,7 +66,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
             this.inherited(arguments);
             this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
         },
-        onCountryChange: function(value, field) {
+        onCountryChange: function(value) {
             var locale = format.countryCultures[value] || 'en-US';
             this.hideFieldsForLocale(locale);
         },
@@ -74,13 +76,17 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
          * @param locale Localization string (Ex: 'en-US' or 'de-DE')
          */
         hideFieldsForLocale: function(locale) {
-            var fieldsToHide = this.localeFieldHidden[locale];
+            var fieldsToHide,
+                i,
+                field;
+
+            fieldsToHide = this.localeFieldHidden[locale];
             if (!fieldsToHide) {
                 return;
             }
 
-            for (var i = 0; i < fieldsToHide.length; i++) {
-                var field = this.fields[fieldsToHide[i]];
+            for (i = 0; i < fieldsToHide.length; i++) {
+                field = this.fields[fieldsToHide[i]];
                 if (field) {
                     field.hide();
                 }
@@ -187,5 +193,8 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Address.Edit', __class);
+    return __class;
 });
 

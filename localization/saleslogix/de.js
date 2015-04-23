@@ -83,7 +83,7 @@ localize("Mobile.SalesLogix.Recurrence", {
     "2": "Zweiten",
     "3": "Dritten",
     "4": "Vierten",
-    "5": "Letzte"
+    "5": "Nachname"
   }
 });
 
@@ -119,7 +119,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Ergebnis",
   "resultTitleText": "Ergebnis",
   "startingText": "Startdatum",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "Ohne_Zeitangabe",
   "durationValueText": {
     "0": "unbegrenzt",
     "15": "15 Minuten",
@@ -164,7 +164,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "Auto-Rollover",
   "startTimeText": "Anfangszeit",
   "allDayText": "den gesamten Tag",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "Ohne_Zeitangabe",
   "titleText": "Aktivität",
   "typeText": "Typ",
   "companyText": "Unternehmen",
@@ -180,7 +180,8 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "relatedAttachmentText": "Anlagen",
   "relatedAttachmentTitleText": "Anlagen mit Tätigkeiten",
   "relatedItemsText": "Verknüpfte Elemente",
-  "phoneText": "Telefon"
+  "phoneText": "Telefon",
+  "moreDetailsText": "Weitere Informationen"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
@@ -191,7 +192,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "locationText": "Standort",
   "activityTypeTitleText": "Aktivitätstyp",
   "alarmText": "Alarm",
-  "reminderText": "",
+  "reminderText": "Erinnerung",
   "categoryText": "Kategorie",
   "durationText": "Dauer",
   "durationTitleText": "Dauer",
@@ -394,7 +395,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Betreff",
   "completedByText": "Abgeschlossen von",
   "scheduledText": "Geplant",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "Ohne-Zeitangabe",
   "companyText": "Unternehmen",
   "leadText": "Interessent",
   "titleText": "Historie",
@@ -555,11 +556,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.List", {
 localize("Sage.Platform.Mobile.ErrorManager", {
   "abortedText": "Abgebrochen",
   "scopeSaveText": "Umfang wird nicht in Fehlerbericht gespeichert."
-});
-
-localize("Sage.Platform.Mobile.Fields.BooleanField", {
-  "onText": "An",
-  "offText": "Aus"
 });
 
 localize("Sage.Platform.Mobile.Fields.DurationField", {
@@ -900,7 +896,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "alarmText": "Alarm",
   "touchedText": "Zuletzt bearbeitet von",
   "importantText": "wichtig",
-  "recurringText": "Sich wiederholende Aktivität",
+  "recurringText": "Sich_wiederholende_Aktivität",
   "activityTypeText": {
     "atToDo": "Aufgabe",
     "atPhoneCall": "Anruf",
@@ -915,7 +911,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Alarm",
     "recurring": "Sich_wiederholende_Aktivität",
-    "timeless": "Ohne_Zeitangabe",
+    "timeless": "Ohne-Zeitangabe",
     "today": "Heute",
     "this-week": "diese-Woche",
     "yesterday": "Gestern"
@@ -939,7 +935,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "Status-akzeptiert",
     "status-declined": "Status-abgelehnt",
     "recurring": "Sich_wiederholende_Aktivität",
-    "timeless": "Ohne_Zeitangabe",
+    "timeless": "Ohne-Zeitangabe",
     "today": "Heute",
     "this-week": "diese-Woche",
     "yesterday": "Gestern"
@@ -1024,7 +1020,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "homePhoneText": "Privat",
   "industryText": "Branche",
   "ownerText": "Zugriffsberechtigter",
-  "lastNameText": "Nachname",
+  "lastNameText": "Letzte",
   "mobileText": "Mobil",
   "nameText": "Name",
   "statusText": "Status",
@@ -1119,10 +1115,10 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "relatedAttachmentTitleText": "Anlagen mit Kontakten",
   "titleText": "Kontakt",
   "webText": "Web",
-  "workText": "Telefon",
+  "workText": "Geschäftliche Telefonnummer",
   "cuisinePreferenceText": "Kulinarische Vorlieben",
   "callMobileNumberText": "Mobilnr. anrufen",
-  "callWorkNumberText": "Hauptnr. anrufen",
+  "callWorkNumberText": "Geschäftsnr. anrufen",
   "calledText": "Angerufen",
   "scheduleActivityText": "Aktivität planen",
   "addNoteText": "Notiz hinzufügen",
@@ -1134,8 +1130,8 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
 localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "titleText": "Kontakt",
   "nameText": "Name",
-  "workText": "Telefon",
-  "mobileText": "Mobil",
+  "workText": "Geschäftliche Telefonnummer",
+  "mobileText": "Mobiltelefon",
   "emailText": "E-Mail",
   "webText": "Web",
   "acctMgrText": "Acct. Mgr.",
@@ -1316,12 +1312,12 @@ localize("Mobile.SalesLogix.Views.LogOff", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "Copyright &copy; 2014 Infor. Alle Rechte vorbehalten. www.infor.com",
+  "copyrightText": "Copyright &copy; 2015 Infor. Alle Rechte vorbehalten. www.infor.com",
   "logOnText": "Anmelden",
   "passText": "Passwort",
-  "rememberText": "speichern",
+  "rememberText": "Speichern",
   "titleText": "Anmelden",
-  "userText": "Benutzername",
+  "userText": "Benutzer-ID",
   "invalidUserText": "Der Benutzername oder das Passwort ist ungültig.",
   "missingUserText": "Der Benutzerdatensatz konnte nicht gefunden werden.",
   "serverProblemText": "Auf dem Server ist ein Problem aufgetreten.",
@@ -1648,8 +1644,10 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Keine Standardgruppe eingestellt. Öffnen Sie das Menü rechts und wählen Sie unter dem Gruppenbereich \"Konfigurieren\", um die Gruppen einzurichten.",
+  "noDefaultGroupText": "Keine Standardgruppe eingerichtet. Klicken Sie hier, um Gruppen zu konfigurieren.",
   "currentGroupNotFoundText": "Die aktuelle Gruppe wurde nicht gefunden.",
+  "groupTemplateSummaryText": "Zusammenfassung",
+  "groupTemplateDetailText": "Detail",
   "groupsModeText": "Sie befinden sich momentan im Gruppenmodus. Führen Sie eine Suche aus oder klicken Sie auf einen Hashtag, um den Gruppenmodus zu verlassen."
 });
 
@@ -1658,7 +1656,8 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "groupsSectionText": "Gruppen",
   "kpiSectionText": "KPI",
   "configureGroupsText": "Konfigurieren",
-  "refreshGroupsText": "Aktualisieren"
+  "refreshGroupsText": "Aktualisieren",
+  "layoutsText": "Layouts"
 });
 
 localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {

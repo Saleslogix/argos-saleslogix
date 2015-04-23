@@ -3,19 +3,19 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.LeftDrawer
+ * @class crm.Views.LeftDrawer
  *
  *
- * @extends Sage.Platform.Mobile.GroupedList
+ * @extends argos.GroupedList
  *
  */
-define('Mobile/SalesLogix/Views/LeftDrawer', [
+define('crm/Views/LeftDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/store/Memory',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/GroupedList'
+    '../SpeedSearchWidget',
+    'argos/GroupedList'
 ], function(
     declare,
     array,
@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
     GroupedList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.LeftDrawer', [GroupedList], {
+    var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         //Templates
         cls: ' contextualContent',
         rowTemplate: new Simplate([
@@ -82,7 +82,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 App.logOut();
             }
         },
-        loadAndNavigateToView: function (params) {
+        loadAndNavigateToView: function(params) {
             var view = App.getView(params && params.view);
             this.navigateToView(view);
         },
@@ -92,7 +92,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 view.show();
             }
         },
-        addAccountContact: function(params) {
+        addAccountContact: function() {
             App.snapper.close();
             var view = App.getView('add_account_contact');
             if (view) {
@@ -157,7 +157,14 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 return this.layout;
             }
 
-            var quickActions, goTo, footer, layout, configured;
+            var quickActions,
+                goTo,
+                footer,
+                layout,
+                configured,
+                view,
+                i;
+
             layout = [];
 
             quickActions = {
@@ -180,8 +187,8 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             };
 
             configured = lang.getObject('preferences.home.visible', false, window.App);
-            for (var i = 0; i < configured.length; i++) {
-                var view = App.getView(configured[i]);
+            for (i = 0; i < configured.length; i++) {
+                view = App.getView(configured[i]);
                 if (view) {
                     goTo.children.push({
                         'action': 'loadAndNavigateToView',
@@ -272,22 +279,23 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             this.store = null;
         },
         show: function() {
-            if (this.onShow(this) === false){
+            if (this.onShow(this) === false) {
                 return;
             }
 
             this.refresh();
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                i,
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length != shown.length)) {
+            if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
 
-            for (var i = 0; i < visible.length; i++) {
-                if (visible[i] != shown[i]['$key']) {
+            for (i = 0; i < visible.length; i++) {
+                if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }
             }
@@ -297,7 +305,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         _onRegistered: function() {
             this.refreshRequired = true;
         },
-        _onSearchExpression: function(expression, widget) {
+        _onSearchExpression: function(expression) {
             var view, current;
             view = App.getView(this.searchView);
             current = App.getPrimaryActiveView();
@@ -323,5 +331,8 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             App.snapper.close();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);
+    return __class;
 });
 

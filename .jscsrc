@@ -1,0 +1,53 @@
+{
+    "safeContextKeyword": "self",
+    "validateIndentation": 4,
+    "validateParameterSeparator": ", ",
+    "validateQuoteMarks": {
+        "mark": "'",
+        "escape": true
+    },
+
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "requireMultipleVarDecl": "onevar",
+    "requireSpaceAfterKeywords": [
+        "do",
+        "for",
+        "if",
+        "else",
+        "switch",
+        "case",
+        "try",
+        "void",
+        "while",
+        "typeof"
+    ],
+    "requireSpaceBeforeKeywords": [
+        "else",
+        "catch"
+    ],
+    "requireSpacesInNamedFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpacesInFunction": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpaceBeforeBlockStatements": true,
+    "requireBlocksOnNewline": true,
+
+    "disallowNewlineBeforeBlockStatements": true,
+    "disallowSpacesInFunction": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInCallExpression": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+    "disallowTrailingComma": true,
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowKeywords": ["with"],
+    "disallowSpacesInsideObjectBrackets": null,
+    "disallowImplicitTypeConversion": ["string", "numeric", "binary"]
+}

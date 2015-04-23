@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Action
+ * @class crm.Action
  *
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
  */
-define('Mobile/SalesLogix/Action', [
+define('crm/Action', [
     'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/Utility'
+    'argos/Utility'
 ], function(
     lang,
     string,
     utility
 ) {
-    return lang.setObject('Mobile.SalesLogix.Action', {
+    var __class = lang.setObject('crm.Action', {
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
@@ -47,6 +47,10 @@ define('Mobile/SalesLogix/Action', [
             this.navigateToHistoryInsert(entry, complete);
         },
         callPhone: function(action, selection, phoneProperty) {
+            var value;
+            if (!selection || !selection.data) {
+                return;
+            }
             this.setSource({
                 entry: selection.data,
                 descriptor: selection.data['$descriptor'],
@@ -55,27 +59,32 @@ define('Mobile/SalesLogix/Action', [
 
             lang.mixin(selection.data, {
                 'Type': 'atPhoneCall',
-                'Description': string.substitute(Mobile.SalesLogix.Action.calledText, [selection.data['$descriptor']])
+                'Description': string.substitute(crm.Action.calledText, [selection.data['$descriptor']])
             });
-
-            Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateCall(selection.data[phoneProperty]);
+            value = utility.getValue(selection.data, phoneProperty, '');
+            crm.Action.recordToHistory(function() {
+                App.initiateCall(value);
             }.bindDelegate(this), selection.data);
         },
         sendEmail: function(action, selection, emailProperty) {
+            var value;
+            if (!selection || !selection.data) {
+                return;
+            }
             lang.mixin(selection.data, {
                 'Type': 'atEmail',
-                'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
+                'Description': string.substitute(crm.Action.emailedText, [selection.data['$descriptor']])
             });
-
-            Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateEmail(selection.data[emailProperty]);
+            value = utility.getValue(selection.data, emailProperty, '');
+            crm.Action.recordToHistory(function() {
+                App.initiateEmail(value);
             }.bindDelegate(this), selection.data);
         },
 
         addNote: function(action, selection) {
             var entry = selection.data,
                 key = selection.data.$key,
+                view,
                 desc = selection.data.$descriptor;
 
             this.setSource({
@@ -84,8 +93,7 @@ define('Mobile/SalesLogix/Action', [
                 key: key
             });
 
-            var view = App.getView('history_edit'),
-                route;
+            view = App.getView('history_edit');
 
             if (view) {
                 view.show({insert: true});
@@ -128,5 +136,8 @@ define('Mobile/SalesLogix/Action', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Action', __class);
+    return __class;
 });
 

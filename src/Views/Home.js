@@ -3,18 +3,18 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Home
+ * @class crm.Views.Home
  *
  *
- * @extends Sage.Platform.Mobile.GroupedList
+ * @extends argos.GroupedList
  *
  */
-define('Mobile/SalesLogix/Views/Home', [
+define('crm/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/GroupedList'
+    '../SpeedSearchWidget',
+    'argos/GroupedList'
 ], function(
     declare,
     array,
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Home', [
     GroupedList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Home', [GroupedList], {
+    var __class = declare('crm.Views.Home', [GroupedList], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/Home', [
                 view.show();
             }
         },
-        addAccountContact: function(params) {
+        addAccountContact: function() {
             var view = App.getView(this.addAccountContactView);
             if (view) {
                 view.show({
@@ -108,23 +108,29 @@ define('Mobile/SalesLogix/Views/Home', [
         },
         createLayout: function() {
             // don't need to cache as it is only re-rendered when there is a change
-            var configured = lang.getObject('preferences.home.visible', false, App) || [],
-                layout = [{
+            var configured,
+                layout,
+                visible,
+                i,
+                view;
+
+            configured = lang.getObject('preferences.home.visible', false, App) || [];
+            layout = [{
                     id: 'actions',
                     children: [{
                         'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
                         'title': this.addAccountContactText
                     }]
-                }];
+            }];
 
-            var visible = {
+            visible = {
                 id: 'views',
                 children: []
             };
 
-            for (var i = 0; i < configured.length; i++) {
-                var view = App.getView(configured[i]);
+            for (i = 0; i < configured.length; i++) {
+                view = App.getView(configured[i]);
                 if (view) {
                     visible.children.push({
                         'action': 'navigateToView',
@@ -142,13 +148,17 @@ define('Mobile/SalesLogix/Views/Home', [
         },
         requestData: function() {
             var layout = this._createCustomizedLayout(this.createLayout()),
+                i,
+                j,
+                row,
+                section,
                 list = [];
 
-            for (var i = 0; i < layout.length; i++) {
-                var section = layout[i].children;
+            for (i = 0; i < layout.length; i++) {
+                section = layout[i].children;
 
-                for (var j = 0; j < section.length; j++) {
-                    var row = section[j];
+                for (j = 0; j < section.length; j++) {
+                    row = section[j];
 
                     if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
@@ -162,7 +172,7 @@ define('Mobile/SalesLogix/Views/Home', [
             this.processData(list);
         },
 
-        _onSearchExpression: function(expression, widget) {
+        _onSearchExpression: function(expression) {
             var view = App.getView(this.searchView);
 
             if (view) {
@@ -181,16 +191,17 @@ define('Mobile/SalesLogix/Views/Home', [
         _onRegistered: function() {
             this.refreshRequired = true;
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                i,
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length != shown.length)) {
+            if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
 
-            for (var i = 0; i < visible.length; i++) {
-                if (visible[i] != shown[i]['$key']) {
+            for (i = 0; i < visible.length; i++) {
+                if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }
             }
@@ -198,5 +209,8 @@ define('Mobile/SalesLogix/Views/Home', [
             return this.inherited(arguments);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Home', __class);
+    return __class;
 });
 

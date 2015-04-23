@@ -3,20 +3,20 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin
+ * @class crm.Views._SpeedSearchRightDrawerListMixin
  *
  * Speedsearch specific mixin for right drawer functionality.
  *
- * @mixins Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ * @mixins crm.Views._RightDrawerBaseMixin
  *
  */
-define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
+define('crm/Views/_SpeedSearchRightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/dom-attr',
-    'Mobile/SalesLogix/Views/_RightDrawerBaseMixin'
+    './_RightDrawerBaseMixin'
 ], function(
     declare,
     array,
@@ -26,9 +26,12 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
     _RightDrawerBaseMixin
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin';
+    var mixinName,
+        __class;
 
-    return declare('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
+    mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
+
+    __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         indexSectionText: 'Indexes',
 
@@ -56,7 +59,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             return defaults;
         },
         setupRightDrawer: function() {
-            var drawer = App.getView('right_drawer'), handle;
+            var drawer = App.getView('right_drawer');
             if (drawer) {
                 lang.mixin(drawer, this._createActions());
                 drawer.setLayout(this.createRightDrawerLayout());
@@ -78,7 +81,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.setLayout([]);
-                drawer.getGroupForEntry = function(entry) {};
+                drawer.getGroupForEntry = function() {};
                 App.snapper.off('close');
             }
         },
@@ -119,7 +122,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             }
         },
         createRightDrawerLayout: function() {
-            var indexSection, index, indexName, layout, prefs, indexPref, i;
+            var indexSection, index, layout, prefs, indexPref, i;
             layout = [];
 
             indexSection = {
@@ -129,28 +132,33 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             prefs = App.preferences && App.preferences.speedSearchIndexes;
             if (this.indexes) {
                 for (i in this.indexes) {
-                    index = this.indexes[i];
-                    indexPref = array.filter(prefs, function(pref) {
-                        return pref.indexName === index.indexName; 
+                    if (this.indexes.hasOwnProperty(i)) {
+                        index = this.indexes[i];
+                        indexPref = array.filter(prefs, function(pref) {
+                            return pref.indexName === index.indexName;
                         });
-                    index = this.indexes[i];
-                    if (index.hasOwnProperty("indexName")) {
-                        indexSection.children.push({
-                            'name': index.indexName,
-                            'action': 'indexClicked', 
-                            'title': this.indexesText[index.indexName] || index.indexName,
-                            'dataProps': {
-                                'indexname': index.indexName,
-                                'enabled':!!indexPref[0].enabled
-                            }
-                        });
+                        index = this.indexes[i];
+                        if (index.hasOwnProperty('indexName')) {
+                            indexSection.children.push({
+                                'name': index.indexName,
+                                'action': 'indexClicked',
+                                'title': this.indexesText[index.indexName] || index.indexName,
+                                'dataProps': {
+                                    'indexname': index.indexName,
+                                    'enabled':!!indexPref[0].enabled
+                                }
+                            });
+                        }
                     }
                 }
             }
 
             layout.push(indexSection);
-           return layout;
+            return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
+    return __class;
 });
 

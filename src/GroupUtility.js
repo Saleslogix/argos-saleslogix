@@ -3,18 +3,18 @@
  */
 
 /**
- * @class Mobile.SalesLogix.GroupUtility
+ * @class crm.GroupUtility
  *
  * Saleslogix group based utils
  *
  * @singleton
  *
  */
-define('Mobile/SalesLogix/GroupUtility', [
+define('crm/GroupUtility', [
     'dojo/_base/lang',
     'dojo/_base/array',
     './Format',
-    'Sage/Platform/Mobile/Format',
+    'argos/Format',
     'moment'
 ], function(
     lang,
@@ -23,7 +23,10 @@ define('Mobile/SalesLogix/GroupUtility', [
     sdkFormat,
     moment
 ) {
-    var _createGroupRequest = function(options) {
+    var _createGroupRequest,
+        __class;
+
+    _createGroupRequest = function(options) {
         var request, defaultOptions, arg;
 
         defaultOptions = {
@@ -44,13 +47,15 @@ define('Mobile/SalesLogix/GroupUtility', [
         request.getUri().setCollectionPredicate("'" + options.groupId + "'");
 
         for (arg in options.queryArgs) {
-            request.setQueryArg(arg, options.queryArgs[arg]);
+            if (options.queryArgs.hasOwnProperty(arg)) {
+                request.setQueryArg(arg, options.queryArgs[arg]);
+            }
         }
 
         return request;
     };
 
-    return lang.setObject('Mobile.SalesLogix.GroupUtility', {
+    __class = lang.setObject('crm.GroupUtility', {
         groupDateFormatText: 'M/D/YYYY h:mm:ss a',
         /**
          * Returns an SDataNamedQueryRequest setup for groups
@@ -60,7 +65,7 @@ define('Mobile/SalesLogix/GroupUtility', [
          * @param {Object} [options.connection] SData connection. Defaults to use App.getService(false)
          *
          */
-        createGroupRequest: function (options) {
+        createGroupRequest: function(options) {
             var defaults = {
                 queryName: 'execute'
             };
@@ -76,7 +81,7 @@ define('Mobile/SalesLogix/GroupUtility', [
          * @param {Object} [options.connection] SData connection. Defaults to use App.getService(false)
          *
          */
-        createGroupMetricRequest: function (options) {
+        createGroupMetricRequest: function(options) {
             var defaults = {
                 queryName: 'executeMetric'
             };
@@ -112,6 +117,9 @@ define('Mobile/SalesLogix/GroupUtility', [
             },
             {
                 name: 'Fixed',
+                options: {
+                    clss: 'group-fixed'
+                },
                 test: function(layoutItem) {
                     return layoutItem.format === 'Fixed';
                 },
@@ -121,6 +129,9 @@ define('Mobile/SalesLogix/GroupUtility', [
             },
             {
                 name: 'Percent',
+                options: {
+                    clss: 'group-percent'
+                },
                 test: function(layoutItem) {
                     return layoutItem.format === 'Percent';
                 },
@@ -142,23 +153,35 @@ define('Mobile/SalesLogix/GroupUtility', [
                 test: function(layoutItem) {
                     return layoutItem.format === 'Currency';
                 },
+                options: {
+                    clss: 'group-currency'
+                },
                 formatter: function(value) {
                     return format.currency(value);
                 }
             },
             {
                 name: 'DateTime',
+                options: {
+                    useRelative: true
+                },
                 test: function(layoutItem) {
                     return layoutItem.format === 'DateTime';
                 },
-                formatter: function(value, formatString) {
+                formatter: function(value, formatString, formatOptions) {
                     var dateValue;
+
                     if (typeof value === 'string') {
                         dateValue = moment(value);
                         if (dateValue.isValid()) {
+                            if (formatOptions && formatOptions.useRelative) {
+                                return format.relativeDate(dateValue);
+                            }
+
                             return dateValue.format(formatString);
                         }
                     }
+
                     return value;
                 }
             },
@@ -180,16 +203,16 @@ define('Mobile/SalesLogix/GroupUtility', [
                 }
             }
         ],
-        transformDateFormatString: function(groupFormat, defaultFormat){
+        transformDateFormatString: function(groupFormat, defaultFormat) {
             if (groupFormat) {
-                groupFormat = groupFormat.replace("MM", "M");
-                groupFormat = groupFormat.replace("mm", "M");
-                groupFormat = groupFormat.replace("m", "M");
-                groupFormat = groupFormat.replace("DD", "D");
-                groupFormat = groupFormat.replace("dd", "D");
-                groupFormat = groupFormat.replace("d", "D");
-                groupFormat = groupFormat.replace("yyyy", "YYYY");
-                groupFormat = groupFormat.replace("yy", "YYYY");
+                groupFormat = groupFormat.replace('MM', 'M');
+                groupFormat = groupFormat.replace('mm', 'M');
+                groupFormat = groupFormat.replace('m', 'M');
+                groupFormat = groupFormat.replace('DD', 'D');
+                groupFormat = groupFormat.replace('dd', 'D');
+                groupFormat = groupFormat.replace('d', 'D');
+                groupFormat = groupFormat.replace('yyyy', 'YYYY');
+                groupFormat = groupFormat.replace('yy', 'YYYY');
                 return groupFormat;
             }
             return defaultFormat;
@@ -209,7 +232,7 @@ define('Mobile/SalesLogix/GroupUtility', [
         getFormatterByLayout: function(layoutItem) {
             var fieldFormatter, fieldFormatType, results;
 
-            if ((layoutItem.format)&&(layoutItem.format !== 'None')) {
+            if (layoutItem.format && layoutItem.format !== 'None') {
                 results = array.filter(this.groupFormatters, function(formatter) {
                     return (formatter.name === layoutItem.format);
                 });
@@ -241,10 +264,11 @@ define('Mobile/SalesLogix/GroupUtility', [
 
             fieldFormatter = {
                 name: results[0]['name'],
+                options: results[0]['options'],
                 formatter: results[0]['formatter'].bind(this)
             };
 
-            if (fieldFormatter.name === "DateTime") {
+            if (fieldFormatter.name === 'DateTime') {
                 fieldFormatter.formatString = this.transformDateFormatString(layoutItem.formatString, this.groupDateFormatText);
             } else {
                 fieldFormatter.formatString = layoutItem.formatString;
@@ -252,8 +276,10 @@ define('Mobile/SalesLogix/GroupUtility', [
             return fieldFormatter;
         },
         getLayout: function(group) {
-            var layout;
-            var i = 0;
+            var layout,
+                i;
+
+            i = 0;
             layout = array.filter(group.layout, function(item) {
                 item.index = i++;
                 return array.every(this.groupFilters, function(filter) {
@@ -278,28 +304,32 @@ define('Mobile/SalesLogix/GroupUtility', [
             });
             return columns.concat(extraSelectColumns);
         },
-        setDefaultGroupPreference: function(entityName, groupName){
+        setDefaultGroupPreference: function(entityName, groupName) {
             App.preferences['default-group-' + entityName] = groupName;
             App.persistPreferences();
         },
-        getDefaultGroupPreference: function(entityName){
+        getDefaultGroupPreference: function(entityName) {
             var defaultGroupName =  App.preferences['default-group-' + entityName];
             if (!defaultGroupName) {
                 defaultGroupName = this.getDefaultGroupUserPreference(entityName);
             }
             return defaultGroupName;
         },
-        getDefaultGroupUserPreference: function(entityName){
-           var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
+        getDefaultGroupUserPreference: function(entityName) {
+            var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
             if (defaultGroupName) {
                 defaultGroupName = defaultGroupName.split(':')[1];
             }
             return defaultGroupName;
         },
         getDefaultGroup: function(entityName) {
-            var groupList = App.preferences['groups-' + entityName];
-            var defaultGroup = null;
-            var defaultGroupName = null;
+            var groupList,
+                defaultGroup,
+                defaultGroupName;
+
+            groupList = App.preferences['groups-' + entityName];
+            defaultGroup = null;
+            defaultGroupName = null;
 
             defaultGroupName = this.getDefaultGroupPreference(entityName);
 
@@ -320,29 +350,28 @@ define('Mobile/SalesLogix/GroupUtility', [
             var found, groupList;
             groupList = this.getGroupPreferences(entityName);
             if (!overwrite && groupList && groupList.length > 0) {
-                 if (items && items.length > 0) {
-                     array.forEach(items, function(item) {
-                         found = -1;
-                         array.forEach(groupList, function(group, i) {
-                              if (group.$key === item.$key) {
-                                  found = i;
-                              }
+                if (items && items.length > 0) {
+                    array.forEach(items, function(item) {
+                        found = -1;
+                        array.forEach(groupList, function(group, i) {
+                            if (group.$key === item.$key) {
+                                found = i;
+                            }
+                        });
 
-                         });
+                        if (found > -1) {
+                            groupList[found] = item;
+                        } else {
+                            groupList.push(item);
+                        }
+                    });
+                }
+            } else {
+                groupList = items;
+            }
 
-                         if (found > -1) {
-                             groupList[found] = item;
-                         } else {
-                             groupList.push(item);
-                         }
-                     });
-                 }
-             }
-             else{
-                 groupList = items;
-             }
-             App.preferences['groups-' + entityName] = groupList;
-             App.persistPreferences();
+            App.preferences['groups-' + entityName] = groupList;
+            App.persistPreferences();
         },
         removeGroupPreferences: function(itemKey, entityName) {
             var found, groupList;
@@ -362,7 +391,7 @@ define('Mobile/SalesLogix/GroupUtility', [
                 App.persistPreferences();
             }
         },
-        getGroupPreferences: function(entityName){
+        getGroupPreferences: function(entityName) {
             var groupList = App.preferences['groups-' + entityName];
             return groupList;
         },
@@ -403,7 +432,18 @@ define('Mobile/SalesLogix/GroupUtility', [
             }
 
             return results[0].fieldName(layoutItem);
+        },
+        getSelectedGroupLayoutTemplate: function(entityName) {
+            return App.preferences['groups-selected-template-name' + entityName];
+        },
+        setSelectedGroupLayoutTemplate: function(entityName, name) {
+
+            App.preferences['groups-selected-template-name' + entityName] = name;
+            App.persistPreferences();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
+    return __class;
 });
 

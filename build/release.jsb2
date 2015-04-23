@@ -181,6 +181,10 @@
           "path": "../src"
         },
         {
+          "text": "SalesProcessUtility.js",
+          "path": "../src"
+        },
+        {
           "text": "Aggregate.js",
           "path": "../src"
         },
@@ -200,6 +204,19 @@
           "text": "SpeedSearchWidget.js",
           "path": "../src"
         },
+        {
+          "text": "_CardLayoutListMixin.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "RelatedContextWidget.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "RelatedEditWidget.js",
+          "path": "../src/Views"
+        },
+
         {
           "text": "AddAccountContact.js",
           "path": "../src/Views"
@@ -269,10 +286,6 @@
           "path": "../src/Views"
         },
         {
-          "text": "_CardLayoutListMixin.js",
-          "path": "../src/Views"
-        },
-        {
           "text": "PickList.js",
           "path": "../src/Views"
         },
@@ -330,6 +343,10 @@
         },
         {
           "text": "GenericBar.js",
+          "path": "../src/Views/Charts"
+        },
+        {
+          "text": "GenericLine.js",
           "path": "../src/Views/Charts"
         },
         {
@@ -475,6 +492,10 @@
         {
           "text": "List.js",
           "path": "../src/Views/LeadSource"
+        },
+        {
+          "text": "QuickEdit.js",
+          "path": "../src/Views/Opportunity"
         },
         {
           "text": "List.js",
@@ -764,152 +785,8 @@
           "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
         },
         {
-          "text": "main.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox"
-        },
-        {
           "text": "colors.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "utils.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang"
-        },
-        {
-          "text": "lambda.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
-        },
-        {
-          "text": "array.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
-        },
-        {
-          "text": "object.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
-        },
-        {
-          "text": "functional.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang"
-        },
-        {
-          "text": "fold.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
-        },
-        {
-          "text": "reversed.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
-        },
-        {
-          "text": "_base.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/color"
-        },
-        {
-          "text": "_base.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
-        },
-        {
-          "text": "matrix.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
-        },
-        {
-          "text": "gradutils.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
-        },
-        {
-          "text": "fx.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
-        },
-        {
-          "text": "SimpleTheme.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
-        },
-        {
-          "text": "Palette.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/color"
-        },
-        {
-          "text": "common.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
-        },
-        {
-          "text": "Element.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
-        },
-        {
-          "text": "common.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/scaler"
-        },
-        {
-          "text": "primitive.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/scaler"
-        },
-        {
-          "text": "linear.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/scaler"
-        },
-        {
-          "text": "Base.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
-        },
-        {
-          "text": "Invisible.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
-        },
-        {
-          "text": "Default.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
-        },
-        {
-          "text": "common.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
-        },
-        {
-          "text": "_PlotEvents.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
-        },
-        {
-          "text": "Base.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
-        },
-        {
-          "text": "CartesianBase.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
-        },
-        {
-          "text": "Bars.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
-        },
-        {
-          "text": "Pie.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
-        },
-        {
-          "text": "Theme.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
-        },
-        {
-          "text": "common.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/themes"
-        },
-        {
-          "text": "Julie.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/themes"
-        },
-        {
-          "text": "Series.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
-        },
-        {
-          "text": "Chart.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
-        },
-        {
-          "text": "Legend.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/widget"
-        },
-        {
-          "text": "sniff.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojox/mobile"
         }
       ]
     }
@@ -918,7 +795,7 @@
     {
       "src": "../content",
       "dest": "content",
-      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif)"
+      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"
     },
     {
       "src": "../min",

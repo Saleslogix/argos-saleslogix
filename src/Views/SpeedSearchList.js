@@ -3,15 +3,15 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.SpeedSearchList
+ * @class crm.Views.SpeedSearchList
  *
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._SpeedSearchRightDrawerListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
  */
-define('Mobile/SalesLogix/Views/SpeedSearchList', [
+define('crm/Views/SpeedSearchList', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -20,11 +20,11 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/string',
     'dojo/query',
     'dojo/dom-attr',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
-    'Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
+    '../SpeedSearchWidget',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
+    './_SpeedSearchRightDrawerListMixin',
+    './_CardLayoutListMixin'
 ], function(
     declare,
     lang,
@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
           '<h4><strong>{%: $.$heading %}</strong></h4>',
@@ -75,7 +75,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             {indexName: 'Opportunity', indexType: 1, isSecure: true},
             {indexName: 'Ticket', indexType: 1, isSecure: false}
         ],
-        types: ['Account', 'Activity','Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
+        types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
         indexesText: {
             'Account': 'Account',
             'Activity': 'Activity',
@@ -100,8 +100,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             this.inherited(arguments);
             this.currentPage = 0;
         },
-        _formatFieldName: function(fieldName) {
-
+        _formatFieldName: function() {
         },
         getItemIconClass: function(entry) {
             var cls, typeCls, type = entry && entry.type;
@@ -161,6 +160,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return count < total;
         },
         processFeed: function(feed) {
+            var i,
+                entry,
+                docfrag,
+                remaining,
+                rowNode;
+
             if (!this.feed) {
                 this.set('listContent', '');
             }
@@ -170,13 +175,10 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             if (feed.totalCount === 0) {
                 this.set('listContent', this.noDataTemplate.apply(this));
             } else if (feed.items) {
+                docfrag = document.createDocumentFragment();
 
-                var docfrag = document.createDocumentFragment();
-
-                for (var i = 0; i < feed.items.length; i++) {
-                    var entry = feed.items[i];
-                    var rowNode;
-                    var synopNode;
+                for (i = 0; i < feed.items.length; i++) {
+                    entry = feed.items[i];
                     entry.type = this.extractTypeFromItem(entry);
                     entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
                     entry.$key = this.extractKeyFromItem(entry);
@@ -198,7 +200,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             }
 
             if (typeof feed.totalCount !== 'undefined') {
-                var remaining = this.feed.totalCount - ((this.currentPage + 1) * this.pageSize);
+                remaining = this.feed.totalCount - ((this.currentPage + 1) * this.pageSize);
                 this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
             }
 
@@ -286,7 +288,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             );
         },
         applyActivityIndicator: function(entry, indicator) {
-            var dataType = entry['type'];
             indicator.isEnabled = true;
             indicator.showIcon = false;
             indicator.label = this.indexesText[entry.type];
@@ -301,8 +302,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 domConstruct.place(html, listNode[0], 'first');
             }
         },
-        _isIndexActive:function(indexName)
-        {
+        _isIndexActive:function(indexName) {
             var indexFound = false;
             if (this.activeIndexes.indexOf(indexName) > -1) {
                 indexFound = true;
@@ -311,7 +311,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         },
         selectIndex: function(e) {
             var button = e.$source,
-            indexName = domAttr.get(button, 'data-index'), 
+            indexName = domAttr.get(button, 'data-index'),
             activated = this.activateIndex(indexName);
             if (activated) {
                 domClass.add(button, 'card-layout-speed-search-index-selected');
@@ -343,5 +343,8 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return activated;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.SpeedSearchList', __class);
+    return __class;
 });
 

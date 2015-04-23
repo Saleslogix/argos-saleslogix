@@ -3,26 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.Detail
+ * @class crm.Views.History.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Format
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/History/Detail', [
+define('crm/Views/History/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail',
-    'dojo/NodeList-manipulate'
+    '../../Format',
+    'argos/ErrorManager',
+    '../../Template',
+    'argos/Detail'
 ], function(
     declare,
     string,
@@ -32,11 +31,10 @@ define('Mobile/SalesLogix/Views/History/Detail', [
     format,
     ErrorManager,
     template,
-    Detail,
-    NodeList
+    Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.Detail', [Detail], {
+    var __class = declare('crm.Views.History.Detail', [Detail], {
         //Templates
         createUserTemplate: template.nameLF,
 
@@ -141,7 +139,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                 return request;
             }
         },
-        requestCodeData: function(row, node, value, entry, predicate) {
+        requestCodeData: function(row, node, value, entry) {
             var request = this.requestCompletedUser(entry);
             if (request) {
                 request.read({
@@ -150,7 +148,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     scope: this
                 });
             } else {
-               this.onCodeDataNull();
+                this.onCodeDataNull();
             }
         },
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
@@ -281,5 +279,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.Detail', __class);
+    return __class;
 });
 

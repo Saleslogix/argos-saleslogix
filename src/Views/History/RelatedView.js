@@ -3,31 +3,30 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.RelatedView
+ * @class crm.Views.History.RelatedView
  *
- * @extends Sage.Platform.Mobile.RelatedViewWidget
+ * @extends argos.RelatedViewWidget
  *
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  *
- * @requires moment
  */
 
-define('Mobile/SalesLogix/Views/History/RelatedView', [
+define('crm/Views/History/RelatedView', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/RelatedViewWidget',
-    'moment'
+    'dojo/_base/lang',
+    '../../Format',
+    'argos/Convert',
+    'argos/RelatedViewWidget'
 ], function(
     declare,
+    lang,
     format,
     convert,
-    RelatedViewWidget,
-    moment
+    RelatedViewWidget
 ) {
-    return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
+    var __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
         regardingText: 'Regarding',
         byText: 'wrote ',
         id: 'relatedNotes',
@@ -41,16 +40,16 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         showTotalInTab: false,
         hideWhenNoData: true,
         resourceKind: 'history',
-        select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
+        select: ['Type', 'ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
         where:null ,
         sort: 'ModifyDate desc',
         pageSize: 3,
         relatedItemIconTemplate: new Simplate([
-            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>'
+            '<div class="user-icon">{%: crm.Format.formatUserInitial($.UserName) %}</div>'
         ]),
         relatedItemHeaderTemplate: new Simplate([
            '<h4 ><strong>{%: $$.getDescription($) %} </strong></h4>',
-           '<h4>{%: Mobile.SalesLogix.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
+           '<h4>{%: crm.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: crm.Format.relativeDate($.ModifyDate, false) %}</h4>'
         ]),
         relatedItemDetailTemplate: new Simplate([
                '<div class="note-text-wrap">',
@@ -64,4 +63,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
             return (entry.Description)? entry.Description : entry.$descriptor;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.RelatedView', __class);
+    return __class;
 });

@@ -3,39 +3,41 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachments.List
+ * @class crm.Views.Attachments.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._CardLayoutListMixin
+ * @mixins argos._LegacySDataListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @requires crm.Format
+ * @requires crm.Views._RightDrawerListMixin
+ * @requires crm.Views._CardLayoutListMixin
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/List', [
+define('crm/Views/Attachment/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/has',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
-    'Sage/Platform/Mobile/Convert',
+    '../../Format',
+    '../../Utility',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
+    'argos/Convert',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin',
     'moment'
 ], function(
     declare,
+    lang,
     string,
     has,
     format,
@@ -48,7 +50,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
@@ -59,9 +61,9 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         ]),
         fileTemplate: new Simplate([
              '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-             '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span>',
-            '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
-            '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
+             '<h4><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span>',
+            '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
+            '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
             '{% if($.user) { %}',
                 '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
             '{% } %}'
@@ -69,7 +71,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         urlTemplate: new Simplate([
             '<h3><span>{%: $.description %} &nbsp;</span></h3>',
             '{% if ($.attachDate) { %}',
-                '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span></h4>',
+                '<h4><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span></h4>',
             '{% } %}',
             '<h4><span>{%: $.url %}&nbsp;</span></h4>',
             '{% if($.user) { %}',
@@ -82,7 +84,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
         uploadedOnText: 'Uploaded ',// Uploaded 10 days ago
 
-        //View Properties       
+        //View Properties
         id: 'attachment_list',
         security: null,
         enableActions: true,
@@ -161,7 +163,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             'jpg': 'fa-file-image-o',
             'gif': 'fa-file-image-o',
             'bmp': 'fa-file-image-o'
-        },        
+        },
         getItemIconClass: function(entry) {
             var cls, typeCls, type, fileName = entry && entry.fileName;
             type = utility.getFileExtension(fileName);
@@ -181,7 +183,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
-                cls: 'fa fa-hand-o-up',
+                cls: 'fa fa-hand-o-up fa-lg',
                 label: 'Touched',
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
@@ -202,5 +204,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             return false;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.List', __class);
+    return __class;
 });
 

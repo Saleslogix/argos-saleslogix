@@ -3,23 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.ErrorLog.Detail
+ * @class crm.Views.ErrorLog.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires crm.Format
+ * @requires argos.ErrorManager
  */
-define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
+define('crm/Views/ErrorLog/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/json',
     'dojo/string',
     'dojo/store/Memory',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail'
+    'crm/Format',
+    'argos/ErrorManager',
+    'argos/Detail'
 ], function(
     declare,
+    lang,
     json,
     string,
     Memory,
@@ -28,7 +30,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ErrorLog.Detail', [Detail], {
+    var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         //Localization
         titleText: 'Error Log',
 
@@ -83,7 +85,10 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
         },
 
         createToolLayout: function() {
-            var tools = {
+            var tools,
+                flashVars;
+
+            tools = {
                 'tbar': []
             };
 
@@ -97,10 +102,10 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
             }
 
             if (this.sendType === 'copy') {
-                var flashVars = this.constructFlashVars({
-                    "retrieveFunction": "App.views." + this.id + ".constructReport",
-                    "callbackFunction": "App.views." + this.id + ".onCopySuccess",
-                    "labelVisible": "0"
+                flashVars = this.constructFlashVars({
+                    'retrieveFunction': 'App.views.' + this.id + '.constructReport',
+                    'callbackFunction': 'App.views.' + this.id + '.onCopySuccess',
+                    'labelVisible': '0'
                 });
 
                 tools.tbar.push({
@@ -128,9 +133,11 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
         },
 
         constructFlashVars: function(options) {
-            var flashVars = [];
-            for (var key in options) {
-                flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
+            var flashVars = [], key;
+            for (key in options) {
+                if (options.hasOwnProperty(key)) {
+                    flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
+                }
             }
 
             return flashVars.join('&');
@@ -189,5 +196,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.ErrorLog.Detail', __class);
+    return __class;
 });
 

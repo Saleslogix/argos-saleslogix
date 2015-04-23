@@ -3,39 +3,41 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachment.ViewAttachment
+ * @class crm.Views.Attachment.ViewAttachment
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  *
- * @requires Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @requires argos.Detail
+ * @requires argos._LegacySDataDetailMixin
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.AttachmentManager
- * @requires Mobile.SalesLogix.Utility
+ * @requires crm.Format
+ * @requires crm.AttachmentManager
+ * @requires crm.Utility
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
+define('crm/Views/Attachment/ViewAttachment', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'Mobile/SalesLogix/Format',
+    '../../Format',
     'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
     'dojo/dom',
     'dojo/dom-geometry',
-    'Mobile/SalesLogix/AttachmentManager',
-    'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    '../../AttachmentManager',
+    '../../Utility',
+    'argos/Detail',
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     string,
     connect,
     array,
@@ -52,7 +54,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Attachment Details',
         descriptionText: 'description',
@@ -115,9 +117,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 '</div>',
                 '<div class="attachment-viewer-not-supported">',
                 '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-                '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
-                '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
-                '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
+                '<h4><span>({%: crm.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+                '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
+                '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
                 '{% if($.user) { %}',
                     '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
                '{% } %}',
@@ -129,7 +131,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
         show: function(options) {
             this.inherited(arguments);
-            this.attachmentViewerNode.innerHTML = "";
+            this.attachmentViewerNode.innerHTML = '';
             if (!has('html5-file-api')) {
                 domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
                 return;
@@ -163,10 +165,10 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return this.tools;
         },
         createLayout: function() {
-             return this.tools || (this.tools = []);
+            return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
-            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self, iframe;
+            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid, fileType, self, iframe;
 
             am = new AttachmentManager();
 
@@ -200,7 +202,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                         attachmentid = entry.$key;
                         //dataurl
                         am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                            var rData, url, a, image, loadHandler, loaded;
+                            var rData, image, loadHandler, loaded;
 
                             rData = Utility.base64ArrayBuffer(responseInfo.response);
                             self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
@@ -237,7 +239,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                             self = this;
                             attachmentid = entry.$key;
                             am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                                var rData, url, a, dataUrl, iframe;
+                                var rData, dataUrl, iframe;
 
                                 rData = Utility.base64ArrayBuffer(responseInfo.response);
                                 dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
@@ -272,17 +274,17 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             }
 
         },
-        _isfileTypeImage: function(fileType){
+        _isfileTypeImage: function(fileType) {
             var imageTypes;
 
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
             if (App.imageFileTypes) {
-                  imageTypes = App.imageFileTypes;
+                imageTypes = App.imageFileTypes;
             } else {
-                  imageTypes = { jpg: true, gif: true, png: true, bmp: true, tif: true };
+                imageTypes = { jpg: true, gif: true, png: true, bmp: true, tif: true };
             }
 
-            if(imageTypes[fileType]){
+            if (imageTypes[fileType]) {
                 return true;
             }
 
@@ -293,9 +295,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
             if (App.nonViewableFileTypes) {
-                 fileTypes = App.nonViewableFileTypes;
+                fileTypes = App.nonViewableFileTypes;
             } else {
-                   fileTypes = { exe: true, dll: true };
+                fileTypes = { exe: true, dll: true };
             }
 
             if (fileTypes[fileType]) {
@@ -303,13 +305,13 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             }
             return true;
         },
-        _viewImageOnly: function(){
+        _viewImageOnly: function() {
             return false;
         },
-        _sizeImage: function (containerNode,image) {
+        _sizeImage: function(containerNode, image) {
             var wH, wW, iH, iW, contentBox, scale;
 
-           contentBox = domGeom.getContentBox(containerNode);
+            contentBox = domGeom.getContentBox(containerNode);
             wH = contentBox.h;
             wW = contentBox.w;
             iH = image.height;
@@ -317,46 +319,48 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             scale = 1;
 
             if (wH > 200) {
-
                 wH = wH - 50;
             }
-            if (wW> 200) {
 
+            if (wW > 200) {
                 wW = wW - 50;
             }
-            if (wH < 50) {
 
+            if (wH < 50) {
                 wH = 100;
             }
-            if (wW < 50) {
 
+            if (wW < 50) {
                 wW = 100;
             }
+
             // if the image is larger than the window
-            if(iW>wW && iH>wH){
+            if (iW > wW && iH > wH) {
                 // if the window height is lager than the width
                 if (wH < wW) {
-                    scale = 1-((iH - wH) / iH);
+                    scale = 1 - ((iH - wH) / iH);
                 } else { // if the window width is lager than the height
-                    scale = 1-((iW - wW) / iW);
+                    scale = 1 - ((iW - wW) / iW);
                 }
             } else if (iW > wW) {// if the image  width is lager than the height
-                scale =1-((iW - wW) / iW);
-            }
-            else if (iH > wH) {// if the image  height is lager than the width 
-                 scale = 1-((iH - wH) / iH);
+                scale = 1 - ((iW - wW) / iW);
+            } else if (iH > wH) {// if the image  height is lager than the width
+                scale = 1 - ((iH - wH) / iH);
             } else {
                //Image is samller than view
                 if (wH / iH > wW / iW) {
-                    scale = 1+((wH - iH) / wH);
+                    scale = 1 + ((wH - iH) / wH);
                 } else {
-                    scale = 1+((wW - iW) / wW);
+                    scale = 1 + ((wW - iW) / wW);
                 }
             }
-            image.height = 0.90 *scale * iH;
-            image.width = 0.90*scale * iW;
+            image.height = 0.90 * scale * iH;
+            image.width = 0.90 * scale * iW;
 
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.ViewAttachment', __class);
+    return __class;
 });
 

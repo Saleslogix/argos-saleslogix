@@ -2,32 +2,32 @@
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
 
-/** 
- * @class Mobile.SalesLogix.Views.Opportunity.Detail
+/**
+ * @class crm.Views.Opportunity.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Opportunity/Detail', [
+define('crm/Views/Opportunity/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/query',
     'dojo/string',
-    'Sage/Platform/Mobile/Detail',
-    'Mobile/SalesLogix/Format',
-    '../_MetricDetailMixin'
+    'argos/Detail',
+    '../../Format'
 ], function(
     declare,
+    lang,
     domConstruct,
     query,
     string,
     Detail,
-    format,
-    _MetricDetailMixin
+    format
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
+    var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -132,40 +132,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         formatAccountRelatedQuery: function(fmt) {
             return string.substitute(fmt, [this.entry['Account']['$key']]);
         },
-        createMetricWidgetsLayout: function (entry) {
-            /*return [{
-                    chartType: 'bar',
-                    filterDisplayName: 'Account Manager',
-                    formatter: 'bigNumber',
-                    metricDisplayName: 'Sum Sales Potential',
-                    title: 'Sales potential for ' + entry.Account.AccountName,
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
-                        _filterName: 'AccountManager',
-                        _metricName: 'SumSalesPotential'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'opportunities',
-                    aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
-                }, {
-                    chartType: 'bar',
-                    filterDisplayName: 'Stage',
-                    formatter: 'bigNumber',
-                    metricDisplayName: 'Sum Sales Potential',
-                    title: 'Total opportunties for ' + entry.Account.AccountName,
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
-                        _filterName: 'Stage',
-                        _metricName: 'CountOpportunities'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'opportunities',
-                    aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
-                }
-            ];*/
-        },
         createLayout: function() {
             var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
 
@@ -203,28 +169,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         property: 'Account.AccountName',
                         view: 'account_detail'
                     }, {
-                        label: this.resellerText,
-                        key: 'Reseller.$key',
-                        name: 'Reseller.AccountName',
-                        property: 'Reseller.AccountName',
-                        view: 'account_detail'
+                        label: this.statusText,
+                        name: 'Status',
+                        property: 'Status'
                     }, {
                         label: this.estCloseText,
                         name: 'EstimatedClose',
                         property: 'EstimatedClose',
                         renderer: format.date.bindDelegate(this, null, true)
-                    }, {
-                        label: this.statusText,
-                        name: 'Status',
-                        property: 'Status'
-                    }, {
-                        label: this.typeText,
-                        name: 'Type',
-                        property: 'Type'
-                    }, {
-                        label: this.probabilityText,
-                        name: 'CloseProbability',
-                        property: 'CloseProbability'
                     }, {
                         label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
                         name: 'SalesPotential',
@@ -269,6 +221,20 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                 name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
+                        label: this.typeText,
+                        name: 'Type',
+                        property: 'Type'
+                    }, {
+                        label: this.resellerText,
+                        key: 'Reseller.$key',
+                        name: 'Reseller.AccountName',
+                        property: 'Reseller.AccountName',
+                        view: 'account_detail'
+                    }, {
+                        label: this.probabilityText,
+                        name: 'CloseProbability',
+                        property: 'CloseProbability'
+                    }, {
                         label: this.acctMgrText,
                         name: 'AccountManager.UserInfo',
                         property: 'AccountManager.UserInfo',
@@ -361,5 +327,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);
+    return __class;
 });
 

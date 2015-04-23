@@ -3,8 +3,8 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Validator
- * Validators for use in {@link Sage.Platform.Mobile.Edit} forms. To use validators, you add them to your view's layout:
+ * @class crm.Validator
+ * Validators for use in {@link argos.Edit} forms. To use validators, you add them to your view's layout:
  *
  *      @example
  *       createLayout: function() {
@@ -26,14 +26,14 @@
  *               }]);
  *       }
  */
-define('Mobile/SalesLogix/Validator', [
+define('crm/Validator', [
     'dojo/_base/lang',
     'dojo/string'
 ], function(
     lang,
     string
 ) {
-    return lang.setObject('Mobile.SalesLogix.Validator', {
+    var __class = lang.setObject('crm.Validator', {
         /**
          * @property {Object} exists
          * Validator that ensures the field contains a value.
@@ -98,7 +98,7 @@ define('Mobile/SalesLogix/Validator', [
          * Validator that ensures a field is valid currency.
          */
         isCurrency: {
-            fn: function(value, field) {
+            fn: function(value) {
                 return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$', [
                     Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value));
             },
@@ -110,7 +110,7 @@ define('Mobile/SalesLogix/Validator', [
          * Validator that ensures a field is a valid Int32.
          */
         isInt32: {
-            fn: function(value, field) {
+            fn: function(value) {
                 if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647)) {
                     return true;
                 }
@@ -175,5 +175,8 @@ define('Mobile/SalesLogix/Validator', [
         isPhoneNumber: {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Validator', __class);
+    return __class;
 });
 

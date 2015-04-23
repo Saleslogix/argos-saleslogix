@@ -3,26 +3,28 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Lead.Edit
+ * @class crm.Views.Lead.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/Lead/Edit', [
+define('crm/Views/Lead/Edit', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    'dojo/_base/lang',
+    '../../Format',
+    '../../Validator',
+    'argos/Edit'
 ], function(
     declare,
+    lang,
     format,
     validator,
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.Edit', [Edit], {
+    var __class = declare('crm.Views.Lead.Edit', [Edit], {
         //Localization
         accountText: 'account',
         addressText: 'address',
@@ -222,5 +224,8 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);
+    return __class;
 });
 
