@@ -1,4 +1,4 @@
-define('localization/saleslogix/zh-CHT', ['localization/zh-CHT', 'Mobile/SalesLogix/ApplicationModule'], function() {
+define('localization/saleslogix/zh-TW', ['localization/zh-TW', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
 localize("Sage.Platform.Mobile.Calendar", {
   "timeFormatText": "h:mm A",

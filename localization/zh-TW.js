@@ -1,4 +1,4 @@
-﻿define('localization/zh-CHT', ['dojo/_base/lang'], function(lang) {
+﻿define('localization/zh-TW', ['dojo/_base/lang'], function(lang) {
 
     return lang.setObject('Mobile.CultureInfo', {
       "name": "zh-CHT",
