@@ -112,6 +112,9 @@
     <!-- Chart.js -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
 
+    <!-- L20N.js -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.min.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -145,6 +148,7 @@
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
 
+
             localization = [
                 'localization/en',
                 'localization/saleslogix/en'
@@ -157,6 +161,8 @@
 
             bootstrap = function(requires) {
                 require(requires.concat('dojo/domReady!'), function() {
+                    var ctx;
+
                     if (completed) {
                         return;
                     }
@@ -164,12 +170,26 @@
                     moment.lang('en');
                     window.moment = moment;
 
-                    var instance = new application(configuration);
+                    ctx = L20n.getContext();
+                    ctx.linkResource(function(locale) {
+                        return './localization/locales/' + locale + '/strings.l20n';
+                    });
+                    ctx.linkResource(function(locale) {
+                        return './localization/locales/' + locale + '/dates.l20n';
+                    });
+                    ctx.registerLocales('en', ['de', 'en-GB', 'fr', 'it', 'ru']);
+                    ctx.requestLocales('en-GB');
+                    window.localeContext = ctx;
 
-                    instance.activate();
-                    instance.init();
-                    instance.run();
-                    completed = true;
+                    ctx.ready(function() {
+                        var instance = new application(configuration);
+
+                        instance.localeContext = ctx;
+                        instance.activate();
+                        instance.init();
+                        instance.run();
+                        completed = true;
+                    });
                 });
             };
 

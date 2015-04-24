@@ -26,6 +26,7 @@
         "Chart": false,
         "argos": false,
         "crm": false,
-        "module": false
+        "module": false,
+        "L20n": false
     }
 }
