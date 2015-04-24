@@ -158,23 +158,23 @@
       ]
     },
     {
-      "name": "Core Mobile Localization (zh-CHT)",
-      "file": "localization/zh-CHT.js",
+      "name": "Core Mobile Localization (zh-TW)",
+      "file": "localization/zh-TW.js",
       "isDebug": true,
       "fileIncludes": [
         {
-          "text": "zh-CHT.js",
+          "text": "zh-TW.js",
           "path": "../localization/"
         }
       ]
     },
     {
-      "name": "SalesLogix Mobile Localization (zh-CHT)",
-      "file": "localization/saleslogix/zh-CHT.js",
+      "name": "SalesLogix Mobile Localization (zh-TW)",
+      "file": "localization/saleslogix/zh-TW.js",
       "isDebug": true,
       "fileIncludes": [
         {
-          "text": "zh-CHT.js",
+          "text": "zh-TW.js",
           "path": "../localization/saleslogix/"
         }
       ]
