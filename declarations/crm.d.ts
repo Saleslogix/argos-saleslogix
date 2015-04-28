@@ -1,4 +1,4 @@
-﻿ /// <reference path="../../../argos-sdk/src/argos.d.ts"/>
+﻿ /// <reference path="../../../argos-sdk/declarations/argos.d.ts"/>
 
 declare var crm: any;
 declare var Base64: any;

@@ -192,7 +192,7 @@
     <TypeScriptCompile Include="src\Application.ts" />
     <TypeScriptCompile Include="src\ApplicationModule.ts" />
     <TypeScriptCompile Include="src\AttachmentManager.ts" />
-    <TypeScriptCompile Include="src\crm.d.ts" />
+    <TypeScriptCompile Include="declarations\crm.d.ts" />
     <TypeScriptCompile Include="src\DefaultMetrics.ts" />
     <TypeScriptCompile Include="src\Environment.ts" />
     <TypeScriptCompile Include="src\Fields\AddressField.ts" />
