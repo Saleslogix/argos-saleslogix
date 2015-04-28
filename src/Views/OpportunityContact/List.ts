@@ -56,7 +56,7 @@ define('crm/Views/OpportunityContact/List', [
         resourceKind: 'opportunityContacts',
 
         complete: function() {
-            var view = App.getPrimaryActiveView(),
+            var view = App.getPrimaryActiveView<_ListBase>(),
                 context,
                 selections,
                 selectionKey,

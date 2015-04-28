@@ -190,9 +190,9 @@ define('crm/Views/OpportunityProduct/Edit', [
         },
         onDiscountChange: function() {
             var price, discount, adjusted, quantity;
-            price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
+            price = parseFloat(this.fields['Price'].getValue()) || 0;
             discount = this.fields['Discount'].getValue();
-            quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
+            quantity = parseFloat(this.fields['Quantity'].getValue()) || 0;
 
             adjusted = this._calculateAdjustedPrice(price, discount);
             this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
@@ -202,8 +202,8 @@ define('crm/Views/OpportunityProduct/Edit', [
         },
         onAdjustedPriceChange: function() {
             var price, discount, adjusted, myadjusted;
-            price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
-            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || 0;
+            price = parseFloat(this.fields['Price'].getValue()) || 0;
+            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue()) || 0;
 
             discount = this._calculateDiscount(price, adjusted);
             this.fields['Discount'].setValueNoTrigger(discount);
@@ -264,8 +264,8 @@ define('crm/Views/OpportunityProduct/Edit', [
         },
         _updateExtendedPrice: function() {
             var adjusted, quantity, extended;
-            quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
-            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || 0;
+            quantity = parseFloat(this.fields['Quantity'].getValue()) || 0;
+            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue()) || 0;
             extended = adjusted * quantity;
             this.fields['ExtendedPrice'].setValueNoTrigger(extended);
         },

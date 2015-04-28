@@ -183,7 +183,7 @@ define('crm/Views/SpeedSearchList', [
                     entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
                     entry.$key = this.extractKeyFromItem(entry);
                     entry.$heading = this.extractDescriptorFromItem(entry);
-                    entry.synopsis = unescape(entry.synopsis);
+                    entry.synopsis = window.unescape(entry.synopsis);
                     entry.fields = array.filter(entry.fields, function(field) {
                         return field.fieldName !== 'seccodelist' && field.fieldName !== 'filename';
                     });

@@ -56,3 +56,4 @@ node_modules
 _SpecRunner.html
 report/junit.xml
 coverage
+src-out/
