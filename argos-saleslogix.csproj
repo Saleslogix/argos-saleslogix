@@ -22,8 +22,37 @@
     <Content Include=".gitignore" />
     <Content Include="argos-saleslogix.sln" />
     <Content Include="build\bundleExcludes.txt" />
+    <Content Include="bundle\model\bundleData.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\Modules.order.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SourceFiles.def.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SupportFiles.def.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SupportFiles\temp.txt" />
+    <Content Include="bundle\model\project.info.xml" />
     <Content Include="configuration\development.js" />
     <Content Include="configuration\production.js" />
+    <Content Include="content\clippy.swf" />
+    <Content Include="content\images\114x114.png" />
+    <Content Include="content\images\144x144.png" />
+    <Content Include="content\images\72x72.png" />
+    <Content Include="content\images\apple-touch-startup-image-1496x2048.png" />
+    <Content Include="content\images\apple-touch-startup-image-1536x2008.png" />
+    <Content Include="content\images\apple-touch-startup-image-320x480.png" />
+    <Content Include="content\images\apple-touch-startup-image-640x1096.png" />
+    <Content Include="content\images\apple-touch-startup-image-640x920.png" />
+    <Content Include="content\images\apple-touch-startup-image-748x1024.png" />
+    <Content Include="content\images\apple-touch-startup-image-768x1004.png" />
+    <Content Include="content\images\blank.gif" />
+    <Content Include="content\images\icon.png" />
+    <Content Include="content\images\icons\man_1.png" />
+    <Content Include="content\images\icons\password.png" />
+    <Content Include="content\images\icons\username.png" />
+    <Content Include="content\images\logo-64.png" />
+    <Content Include="content\images\logo.png" />
+    <Content Include="content\images\touch-icon-ipad-retina.png" />
+    <Content Include="content\images\touch-icon-ipad.png" />
+    <Content Include="content\images\touch-icon-iphone-retina.png" />
+    <Content Include="content\images\touch-icon-iphone.png" />
     <Content Include="grunt-tasks\grunt-clean.js" />
     <Content Include="grunt-tasks\grunt-connect.js" />
     <Content Include="grunt-tasks\grunt-copy.js" />
@@ -178,6 +207,12 @@
     <Content Include="METRIC-WIDGETS.md" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="content\css\app.less" />
+    <Content Include="content\LICENSE.Clippy" />
+    <Content Include=".jscsrc" />
+    <Content Include="index.manifest.ashx" />
+    <Content Include="modules.json" />
+    <Content Include="template.manifest" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -185,7 +220,13 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.de.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.fr.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.it.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.ru.resx" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\Action.ts" />
     <TypeScriptCompile Include="src\Aggregate.ts" />
