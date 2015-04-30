@@ -44,11 +44,11 @@
     },
     "projects": [{
         "name": "Argos SDK",
-        "path": "argos-sdk/src",
+        "path": "argos-sdk/src-out",
         "alias": "argos-sdk"
     },{
         "name": "SalesLogix Mobile",
-        "path": "products/argos-saleslogix/src",
+        "path": "products/argos-saleslogix/src-out",
         "alias": "argos-saleslogix"
     }]
 }
