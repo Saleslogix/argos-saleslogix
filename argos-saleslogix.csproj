@@ -20,7 +20,6 @@
   <ItemGroup>
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
-    <Content Include="argos-saleslogix.sln" />
     <Content Include="build\bundleExcludes.txt" />
     <Content Include="bundle\model\bundleData.xml" />
     <Content Include="bundle\model\Portal\SlxMobile\Modules.order.xml" />
@@ -56,11 +55,10 @@
     <Content Include="grunt-tasks\grunt-clean.js" />
     <Content Include="grunt-tasks\grunt-connect.js" />
     <Content Include="grunt-tasks\grunt-copy.js" />
-    <Content Include="grunt-tasks\grunt-esformatter.js" />
     <Content Include="grunt-tasks\grunt-jasmine.js" />
-    <Content Include="grunt-tasks\grunt-jshint.js" />
     <Content Include="grunt-tasks\grunt-less.js" />
     <Content Include="grunt-tasks\grunt-manifest.js" />
+    <Content Include="grunt-tasks\grunt-release.js" />
     <Content Include="grunt-tasks\grunt-shell.js" />
     <Content Include="grunt-tasks\grunt-watch.js" />
     <Content Include="grunt-tasks\grunt-weinre.js" />
@@ -213,6 +211,7 @@
     <Content Include="index.manifest.ashx" />
     <Content Include="modules.json" />
     <Content Include="template.manifest" />
+    <Content Include="tsconfig.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
