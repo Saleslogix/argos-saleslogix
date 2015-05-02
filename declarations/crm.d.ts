@@ -9,7 +9,6 @@ interface Window {
     MozBlobBuilder: any;
     MSBlobBuilder: any;
     Chart: any;
-    orientation: any;
     unescape: any;
 }
 

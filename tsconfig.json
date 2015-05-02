@@ -2,11 +2,10 @@
     "compilerOptions": {
         "target": "es5",
         "declaration": false,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "removeComments": false,
         "noLib": false,
-        "outDir": "./src-out",
-        "sourceRoot": "./src"
+        "outDir": "./src-out"
     },
     "filesGlob": [
         "../declarations/**/*.d.ts",
