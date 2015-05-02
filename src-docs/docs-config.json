@@ -25,8 +25,8 @@
     "--images": "images",
     "--": [
         "../configuration",
-        "../src",
-        "../../../argos-sdk/src",
+        "../src-out",
+        "../../../argos-sdk/src-out",
         "../../../argos-sdk/libraries/Simplate.js",
         "../../../argos-sdk/libraries/snap/snap.js",
         "../../../argos-sdk/libraries/sdata/sdata-client.js",

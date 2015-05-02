@@ -493,7 +493,7 @@ define('crm/Views/Calendar/DayView', [
             }
         },
         selectDateSuccess: function() {
-            var view = App.getPrimaryActiveView();
+            var view = App.getPrimaryActiveView<CalendarView>();
             this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
@@ -513,7 +513,7 @@ define('crm/Views/Calendar/DayView', [
         navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
-            this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
+            this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || moment().startOf('day');
             if (view) {
                 view.show({
                     negateHistory: true,
