@@ -7,10 +7,6 @@
         "noLib": false,
         "outDir": "./src-out"
     },
-    "filesGlob": [
-        "../declarations/**/*.d.ts",
-        "./src/**/*.ts"
-    ],
     "files": [
         "./declarations/crm.d.ts",
         "./src/Action.ts",
