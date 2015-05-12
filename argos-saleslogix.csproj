@@ -212,6 +212,8 @@
     <Content Include="modules.json" />
     <Content Include="template.manifest" />
     <Content Include="tsconfig.json" />
+    <Content Include="localization\locales\en\dates.l20n" />
+    <Content Include="localization\locales\en\strings.l20n" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

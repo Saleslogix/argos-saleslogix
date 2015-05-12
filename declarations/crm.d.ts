@@ -39,6 +39,7 @@ interface Application {
     speedSearch: any;
     reload: any;
     loadingText: string;
+    localeContext: any;
 }
 
 interface CalendarView extends View {
