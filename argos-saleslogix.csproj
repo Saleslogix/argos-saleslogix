@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{83B54847-144E-49D8-A877-1C4C2DF2E314}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+    <Content Include="build\bundleExcludes.txt" />
+    <Content Include="bundle\model\bundleData.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\Modules.order.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SourceFiles.def.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SupportFiles.def.xml" />
+    <Content Include="bundle\model\Portal\SlxMobile\SupportFiles\temp.txt" />
+    <Content Include="bundle\model\project.info.xml" />
+    <Content Include="configuration\development.js" />
+    <Content Include="configuration\production.js" />
+    <Content Include="content\clippy.swf" />
+    <Content Include="content\images\114x114.png" />
+    <Content Include="content\images\144x144.png" />
+    <Content Include="content\images\72x72.png" />
+    <Content Include="content\images\apple-touch-startup-image-1496x2048.png" />
+    <Content Include="content\images\apple-touch-startup-image-1536x2008.png" />
+    <Content Include="content\images\apple-touch-startup-image-320x480.png" />
+    <Content Include="content\images\apple-touch-startup-image-640x1096.png" />
+    <Content Include="content\images\apple-touch-startup-image-640x920.png" />
+    <Content Include="content\images\apple-touch-startup-image-748x1024.png" />
+    <Content Include="content\images\apple-touch-startup-image-768x1004.png" />
+    <Content Include="content\images\blank.gif" />
+    <Content Include="content\images\icon.png" />
+    <Content Include="content\images\icons\man_1.png" />
+    <Content Include="content\images\icons\password.png" />
+    <Content Include="content\images\icons\username.png" />
+    <Content Include="content\images\logo-64.png" />
+    <Content Include="content\images\logo.png" />
+    <Content Include="content\images\touch-icon-ipad-retina.png" />
+    <Content Include="content\images\touch-icon-ipad.png" />
+    <Content Include="content\images\touch-icon-iphone-retina.png" />
+    <Content Include="content\images\touch-icon-iphone.png" />
+    <Content Include="grunt-tasks\grunt-clean.js" />
+    <Content Include="grunt-tasks\grunt-connect.js" />
+    <Content Include="grunt-tasks\grunt-copy.js" />
+    <Content Include="grunt-tasks\grunt-jasmine.js" />
+    <Content Include="grunt-tasks\grunt-less.js" />
+    <Content Include="grunt-tasks\grunt-manifest.js" />
+    <Content Include="grunt-tasks\grunt-release.js" />
+    <Content Include="grunt-tasks\grunt-shell.js" />
+    <Content Include="grunt-tasks\grunt-watch.js" />
+    <Content Include="grunt-tasks\grunt-weinre.js" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="help\help.html" />
+    <Content Include="help\help_de.html" />
+    <Content Include="help\help_fr.html" />
+    <Content Include="help\help_it.html" />
+    <Content Include="help\help_ru.html" />
+    <Content Include="index-dev.aspx" />
+    <Content Include="index-dev.html" />
+    <Content Include="index-nocache.aspx" />
+    <Content Include="index-nocache.html" />
+    <Content Include="index-phonegap.html" />
+    <Content Include="index.aspx" />
+    <Content Include="index.html" />
+    <Content Include="localization\de.js" />
+    <Content Include="localization\en-GB.js" />
+    <Content Include="localization\en.js" />
+    <Content Include="localization\exported\slx-mobile-strings-beta1-format.xml" />
+    <Content Include="localization\exported\slx-mobile-strings-beta1-text.xml" />
+    <Content Include="localization\exported\slx-mobile-strings-beta1.xml" />
+    <Content Include="localization\fr.js" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-format_de.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-format_en-GB.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-format_fr.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-format_it.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-format_ru.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-text_de.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-text_en-GB.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-text_fr.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-text_it.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1-text_ru.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1_de.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1_en-GB.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1_fr.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1_it.xml" />
+    <Content Include="localization\imported\slx-mobile-strings-beta1_ru.xml" />
+    <Content Include="localization\it.js" />
+    <Content Include="localization\ru.js" />
+    <Content Include="localization\saleslogix\de.js" />
+    <Content Include="localization\saleslogix\en-GB.js" />
+    <Content Include="localization\saleslogix\en.js" />
+    <Content Include="localization\saleslogix\fr.js" />
+    <Content Include="localization\saleslogix\it.js" />
+    <Content Include="localization\saleslogix\ru.js" />
+    <Content Include="localization\transforms\argos-saleslogix-export.xslt" />
+    <Content Include="localization\transforms\argos-saleslogix-import.xslt" />
+    <Content Include="min\css\app.min.css" />
+    <Content Include="min\css\app.min.debug.css" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_toolbars\toolbar-button.png" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_toolbars\toolbar-hello.png" />
+    <Content Include="src-docs\guides\v2_localization_detection\en.js" />
+    <Content Include="src-docs\guides\v2_localization_example\german_home.png" />
+    <Content Include="src-docs\guides\v2_template_guide\detail-link.png" />
+    <Content Include="src-docs\guides\v2_template_guide\detail-template.png" />
+    <Content Include="src-docs\guides\v2_template_guide\detail-view.png" />
+    <Content Include="src-docs\guides\v2_template_guide\edit-progress.png" />
+    <Content Include="src-docs\guides\v2_template_guide\edit-view-insert.png" />
+    <Content Include="src-docs\guides\v2_template_guide\edit-view.png" />
+    <Content Include="src-docs\guides\v2_template_guide\intro_home.png" />
+    <Content Include="src-docs\guides\v2_template_guide\list-home.png" />
+    <Content Include="src-docs\guides\v2_template_guide\list-trick.png" />
+    <Content Include="src-docs\guides\v2_template_guide\setup_folders.png" />
+    <Content Include="src-docs\guides\v3_scene_layout_pane\complex_multi_page.png" />
+    <Content Include="src-docs\guides\v3_scene_layout_pane\complex_single_page.png" />
+    <Content Include="src-docs\guides\v3_scene_layout_pane\scene_layout_pane_flow.png" />
+    <Content Include="src-docs\guides\v3_stores\data_store_flow.png" />
+    <Content Include="tests\index.html" />
+    <Content Include="tests\src\Aggregate.spec.js" />
+    <Content Include="tests\src\all.js" />
+    <Content Include="tests\src\Application.spec.js" />
+    <Content Include="tests\src\Fields\AddressField.spec.js" />
+    <Content Include="tests\src\Fields\MultiCurrencyField.spec.js" />
+    <Content Include="tests\src\Fields\NameField.spec.js" />
+    <Content Include="tests\src\Fields\PicklistField.spec.js" />
+    <Content Include="tests\src\Fields\RecurrencesField.spec.js" />
+    <Content Include="tests\src\Format.spec.js" />
+    <Content Include="tests\src\Utility.spec.js" />
+    <Content Include="tests\src\Validator.spec.js" />
+    <Content Include="tests\src\Views\Account\List.spec.js" />
+    <Content Include="tests\src\Views\ExchangeRateLookup.spec.js" />
+    <Content Include="tests\src\Views\MetricWidget.spec.js" />
+    <Content Include="unsupported.html" />
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\bundle.bat" />
+    <Content Include="build\bundle.config" />
+    <Content Include="build\docs.cmd" />
+    <Content Include="build\export.cmd" />
+    <Content Include="build\import.cmd" />
+    <Content Include="build\localization.json" />
+    <Content Include="build\release-template.jsb2" />
+    <Content Include="build\release.cmd" />
+    <Content Include="build\release.jsb2" />
+    <Content Include="build\release.sh" />
+    <Content Include="src-docs\docs-categories.json" />
+    <Content Include="src-docs\docs-config.json" />
+    <Content Include="src-docs\docs-guides.json" />
+    <Content Include="src-docs\guides\upgrading_v12_to_v20\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_amd\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_browser_setup\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_detail_data_life_cycle\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_edit_as_insert_data_life_cycle\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_edit_as_update_data_life_cycle\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_list_data_life_cycle\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_wire_detail_to_edit\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_wire_list_to_detail\README.md" />
+    <Content Include="src-docs\guides\v2_appendix_wire_list_to_edit\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_creating_a_grouped_list\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_creating_a_login_basic_auth\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_defining_hashtags\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_defining_list_actions\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_defining_quick_actions\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_defining_related_views\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_detail_layout_properties\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_edit_validation\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_list_search\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_localization\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_navigation\README.md" />
+    <Content Include="src-docs\guides\v2_beyond_the_guide_toolbars\README.md" />
+    <Content Include="src-docs\guides\v2_localization_detection\README.md" />
+    <Content Include="src-docs\guides\v2_localization_example\README.md" />
+    <Content Include="src-docs\guides\v2_overview\README.md" />
+    <Content Include="src-docs\guides\v2_template_guide\argos-template_guide-complete.zip" />
+    <Content Include="src-docs\guides\v2_template_guide\README.md" />
+    <Content Include="src-docs\guides\v3_scene_layout_pane\README.md" />
+    <Content Include="src-docs\guides\v3_stores\README.md" />
+    <Content Include="src-docs\guides\v3_upgrading_v2_to_v3\README.md" />
+    <Content Include="tests\README.md" />
+    <Content Include="tests\src\feeds\feed.json" />
+    <Content Include="tests\src\feeds\metric1.json" />
+    <Content Include="localization\exported\README.md" />
+    <Content Include="localization\templates\argos-saleslogix.erb" />
+    <Content Include="min\css\app.less.map" />
+    <Content Include="min\css\app.min.css.map" />
+    <Content Include=".csslintrc" />
+    <Content Include=".jshintrc" />
+    <Content Include=".travis.yml" />
+    <Content Include="GruntRunner.tmpl" />
+    <Content Include="LICENSE" />
+    <Content Include="manifest.appcache" />
+    <Content Include="METRIC-WIDGETS.md" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="content\css\app.less" />
+    <Content Include="content\LICENSE.Clippy" />
+    <Content Include=".jscsrc" />
+    <Content Include="index.manifest.ashx" />
+    <Content Include="modules.json" />
+    <Content Include="template.manifest" />
+    <Content Include="tsconfig.json" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.de.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.fr.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.it.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.resx" />
+    <EmbeddedResource Include="bundle\model\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.ru.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\Action.ts" />
+    <TypeScriptCompile Include="src\Aggregate.ts" />
+    <TypeScriptCompile Include="src\Application.ts" />
+    <TypeScriptCompile Include="src\ApplicationModule.ts" />
+    <TypeScriptCompile Include="src\AttachmentManager.ts" />
+    <TypeScriptCompile Include="declarations\crm.d.ts" />
+    <TypeScriptCompile Include="src\DefaultMetrics.ts" />
+    <TypeScriptCompile Include="src\Environment.ts" />
+    <TypeScriptCompile Include="src\Fields\AddressField.ts" />
+    <TypeScriptCompile Include="src\Fields\MultiCurrencyField.ts" />
+    <TypeScriptCompile Include="src\Fields\NameField.ts" />
+    <TypeScriptCompile Include="src\Fields\PicklistField.ts" />
+    <TypeScriptCompile Include="src\Fields\RecurrencesField.ts" />
+    <TypeScriptCompile Include="src\FileManager.ts" />
+    <TypeScriptCompile Include="src\Format.ts" />
+    <TypeScriptCompile Include="src\GroupUtility.ts" />
+    <TypeScriptCompile Include="src\Recurrence.ts" />
+    <TypeScriptCompile Include="src\SalesProcessUtility.ts" />
+    <TypeScriptCompile Include="src\SpeedSearchWidget.ts" />
+    <TypeScriptCompile Include="src\Template.ts" />
+    <TypeScriptCompile Include="src\Utility.ts" />
+    <TypeScriptCompile Include="src\Validator.ts" />
+    <TypeScriptCompile Include="src\Views\Account\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Account\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Account\List.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\Complete.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\List.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\MyList.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\Recurring.ts" />
+    <TypeScriptCompile Include="src\Views\Activity\TypesList.ts" />
+    <TypeScriptCompile Include="src\Views\AddAccountContact.ts" />
+    <TypeScriptCompile Include="src\Views\Address\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Address\List.ts" />
+    <TypeScriptCompile Include="src\Views\AreaCategoryIssueLookup.ts" />
+    <TypeScriptCompile Include="src\Views\Attachment\AddAttachment.ts" />
+    <TypeScriptCompile Include="src\Views\Attachment\List.ts" />
+    <TypeScriptCompile Include="src\Views\Attachment\MyAttachmentList.ts" />
+    <TypeScriptCompile Include="src\Views\Attachment\ViewAttachment.ts" />
+    <TypeScriptCompile Include="src\Views\Calendar\DayView.ts" />
+    <TypeScriptCompile Include="src\Views\Calendar\MonthView.ts" />
+    <TypeScriptCompile Include="src\Views\Calendar\WeekView.ts" />
+    <TypeScriptCompile Include="src\Views\Charts\GenericBar.ts" />
+    <TypeScriptCompile Include="src\Views\Charts\GenericLine.ts" />
+    <TypeScriptCompile Include="src\Views\Charts\GenericPie.ts" />
+    <TypeScriptCompile Include="src\Views\Charts\_ChartMixin.ts" />
+    <TypeScriptCompile Include="src\Views\Competitor\List.ts" />
+    <TypeScriptCompile Include="src\Views\Configure.ts" />
+    <TypeScriptCompile Include="src\Views\Contact\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Contact\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Contact\List.ts" />
+    <TypeScriptCompile Include="src\Views\Contract\List.ts" />
+    <TypeScriptCompile Include="src\Views\ErrorLog\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\ErrorLog\List.ts" />
+    <TypeScriptCompile Include="src\Views\Event\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Event\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Event\List.ts" />
+    <TypeScriptCompile Include="src\Views\ExchangeRateLookup.ts" />
+    <TypeScriptCompile Include="src\Views\FooterToolbar.ts" />
+    <TypeScriptCompile Include="src\Views\Groups\Selector.ts" />
+    <TypeScriptCompile Include="src\Views\Help.ts" />
+    <TypeScriptCompile Include="src\Views\History\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\History\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\History\List.ts" />
+    <TypeScriptCompile Include="src\Views\History\RelatedView.ts" />
+    <TypeScriptCompile Include="src\Views\Home.ts" />
+    <TypeScriptCompile Include="src\Views\LeadSource\List.ts" />
+    <TypeScriptCompile Include="src\Views\Lead\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Lead\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Lead\List.ts" />
+    <TypeScriptCompile Include="src\Views\LeftDrawer.ts" />
+    <TypeScriptCompile Include="src\Views\Login.ts" />
+    <TypeScriptCompile Include="src\Views\LogOff.ts" />
+    <TypeScriptCompile Include="src\Views\MainToolbar.ts" />
+    <TypeScriptCompile Include="src\Views\MetricConfigure.ts" />
+    <TypeScriptCompile Include="src\Views\MetricFilterLookup.ts" />
+    <TypeScriptCompile Include="src\Views\MetricWidget.ts" />
+    <TypeScriptCompile Include="src\Views\NameEdit.ts" />
+    <TypeScriptCompile Include="src\Views\OpportunityContact\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\OpportunityContact\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\OpportunityContact\List.ts" />
+    <TypeScriptCompile Include="src\Views\OpportunityProduct\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\OpportunityProduct\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\OpportunityProduct\List.ts" />
+    <TypeScriptCompile Include="src\Views\Opportunity\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Opportunity\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Opportunity\List.ts" />
+    <TypeScriptCompile Include="src\Views\Opportunity\QuickEdit.ts" />
+    <TypeScriptCompile Include="src\Views\Owner\List.ts" />
+    <TypeScriptCompile Include="src\Views\PickList.ts" />
+    <TypeScriptCompile Include="src\Views\ProductProgram\List.ts" />
+    <TypeScriptCompile Include="src\Views\Product\List.ts" />
+    <TypeScriptCompile Include="src\Views\RelatedContextWidget.ts" />
+    <TypeScriptCompile Include="src\Views\RelatedEditWidget.ts" />
+    <TypeScriptCompile Include="src\Views\RightDrawer.ts" />
+    <TypeScriptCompile Include="src\Views\SelectList.ts" />
+    <TypeScriptCompile Include="src\Views\Settings.ts" />
+    <TypeScriptCompile Include="src\Views\SpeedSearchList.ts" />
+    <TypeScriptCompile Include="src\Views\TextEdit.ts" />
+    <TypeScriptCompile Include="src\Views\TicketActivityItem\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\TicketActivityItem\List.ts" />
+    <TypeScriptCompile Include="src\Views\TicketActivity\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\TicketActivity\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\TicketActivity\List.ts" />
+    <TypeScriptCompile Include="src\Views\TicketActivity\RateLookup.ts" />
+    <TypeScriptCompile Include="src\Views\Ticket\Detail.ts" />
+    <TypeScriptCompile Include="src\Views\Ticket\Edit.ts" />
+    <TypeScriptCompile Include="src\Views\Ticket\List.ts" />
+    <TypeScriptCompile Include="src\Views\Ticket\UrgencyLookup.ts" />
+    <TypeScriptCompile Include="src\Views\UpdateToolbar.ts" />
+    <TypeScriptCompile Include="src\Views\User\CalendarAccessList.ts" />
+    <TypeScriptCompile Include="src\Views\User\List.ts" />
+    <TypeScriptCompile Include="src\Views\_CardLayoutListMixin.ts" />
+    <TypeScriptCompile Include="src\Views\_GroupListMixin.ts" />
+    <TypeScriptCompile Include="src\Views\_MetricDetailMixin.ts" />
+    <TypeScriptCompile Include="src\Views\_MetricListMixin.ts" />
+    <TypeScriptCompile Include="src\Views\_RightDrawerBaseMixin.ts" />
+    <TypeScriptCompile Include="src\Views\_RightDrawerListMixin.ts" />
+    <TypeScriptCompile Include="src\Views\_SpeedSearchRightDrawerListMixin.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>argos_saleslogix</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55662</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55662/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptOutDir>D:\code\work\mobile\products\argos-saleslogix\src-out</TypeScriptOutDir>
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>

@@ -172,7 +172,7 @@ define('crm/Recurrence', [
                 recurOption,
                 wrapped = moment(currentDate),
                 day = currentDate.getDate(),
-                ord = this.ordText[parseInt((day - 1) / 7, 10) + 1],
+                ord = this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1],
                 textOptions = [
                     null, // scale, replaced in loop
                     day,
@@ -262,9 +262,9 @@ define('crm/Recurrence', [
                 monthBits = entry.RecurPeriodSpec % 4194304 - ordBits;
 
             if (entry && (5 === entry.RecurPeriod || 8 === entry.RecurPeriod)) {
-                nthWeek = parseInt(ordBits / 65536, 10) + 1;
-                weekday = parseInt(monthBits / 524288, 10) - 1;
-                monthNum = parseInt((entry.RecurPeriodSpec - monthBits - ordBits) / 4194304, 10);
+                nthWeek = parseInt((ordBits / 65536).toString(), 10) + 1;
+                weekday = parseInt((monthBits / 524288).toString(), 10) - 1;
+                monthNum = parseInt(((entry.RecurPeriodSpec - monthBits - ordBits) / 4194304).toString(), 10);
             }
 
             return {
@@ -316,7 +316,7 @@ define('crm/Recurrence', [
                 case 5:
                     // monthly on #ord #weekday
                     weekDay = startDate.getDay() + 1;
-                    nthWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
+                    nthWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
                     spec = ((weekDay * 524288) + ((nthWeek - 1) * 65536));
                     break;
                 case 6:
@@ -332,7 +332,7 @@ define('crm/Recurrence', [
                     spec = 18546688;
                     weekDay = startDate.getDay() + 1;
                     monthNum = startDate.getMonth() + 1;
-                    nthWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
+                    nthWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
                     spec = ((monthNum * 4194304) + (weekDay * 524288) + ((nthWeek - 1) * 65536));
                     break;
                 case 9:
@@ -367,7 +367,7 @@ define('crm/Recurrence', [
                     moment(currentDate).format(this.monthAndDayFormatText),
                     this.getWeekdays(recurPeriodSpec, true),
                     moment(currentDate).format(this.monthFormatText),
-                    this.ordText[parseInt((day - 1) / 7, 10) + 1]
+                    this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1]
                 ];
 
             switch (rp) {
@@ -435,7 +435,7 @@ define('crm/Recurrence', [
                     break;
                 case 5:
                     weekDay = tempDate.day();
-                    nthWeek = parseInt(tempDate.date() / 7, 10) + 1;
+                    nthWeek = parseInt((tempDate.date() / 7).toString(), 10) + 1;
                     tempDate.add((interval * (entry['RecurIterations'] - 1)), 'months');
                     tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
                     break;
@@ -444,7 +444,7 @@ define('crm/Recurrence', [
                     break;
                 case 8:
                     weekDay = tempDate.day();
-                    nthWeek = parseInt(tempDate.date() / 7, 10) + 1;
+                    nthWeek = parseInt((tempDate.date() / 7).toString(), 10) + 1;
                     tempDate.add((interval * (entry['RecurIterations'] - 1)), 'years');
                     tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
                     break;
@@ -456,7 +456,7 @@ define('crm/Recurrence', [
         },
         calcDateOfNthWeekday: function(date, weekDay, nthWeek) {
             // calculate date of #nthWeek #weekDay  e.g. First Friday
-            var tempDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()), i;
+            var tempDate = <any> new Date(date.getFullYear(), date.getMonth(), date.getDate()), i;
             tempDate = moment(tempDate);
 
             if (nthWeek === 5) {

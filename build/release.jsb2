@@ -142,480 +142,480 @@
       "fileIncludes": [
         {
           "text": "Environment.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "DefaultMetrics.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Application.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Utility.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "FileManager.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "AttachmentManager.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Template.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Format.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "GroupUtility.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "SalesProcessUtility.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Aggregate.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Action.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Validator.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "Recurrence.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "SpeedSearchWidget.js",
-          "path": "../src"
+          "path": "../src-out"
         },
         {
           "text": "_CardLayoutListMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "RelatedContextWidget.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "RelatedEditWidget.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
 
         {
           "text": "AddAccountContact.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "AreaCategoryIssueLookup.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "ExchangeRateLookup.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "MainToolbar.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "FooterToolbar.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "UpdateToolbar.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "LeftDrawer.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "RightDrawer.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "Home.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "Login.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "LogOff.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "Settings.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "Configure.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "Help.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "NameEdit.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "PickList.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "SelectList.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "TextEdit.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "MetricWidget.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "_MetricListMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "_MetricDetailMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "_RightDrawerBaseMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "_RightDrawerListMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "_SpeedSearchRightDrawerListMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         }, 
 		{
           "text": "_GroupListMixin.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "MetricConfigure.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "MetricFilterLookup.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "SpeedSearchList.js",
-          "path": "../src/Views"
+          "path": "../src-out/Views"
         },
         {
           "text": "_ChartMixin.js",
-          "path": "../src/Views/Charts"
+          "path": "../src-out/Views/Charts"
         },
         {
           "text": "GenericBar.js",
-          "path": "../src/Views/Charts"
+          "path": "../src-out/Views/Charts"
         },
         {
           "text": "GenericLine.js",
-          "path": "../src/Views/Charts"
+          "path": "../src-out/Views/Charts"
         },
         {
           "text": "GenericPie.js",
-          "path": "../src/Views/Charts"
+          "path": "../src-out/Views/Charts"
         },
         {
           "text": "AddAttachment.js",
-          "path": "../src/Views/Attachment"
+          "path": "../src-out/Views/Attachment"
         },
         {
           "text": "ViewAttachment.js",
-          "path": "../src/Views/Attachment"
+          "path": "../src-out/Views/Attachment"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Attachment"
+          "path": "../src-out/Views/Attachment"
         },
         {
           "text": "MyAttachmentList.js",
-          "path": "../src/Views/Attachment"
+          "path": "../src-out/Views/Attachment"
         },
         {
           "text": "RelatedView.js",
-          "path": "../src/Views/History"
+          "path": "../src-out/Views/History"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Account"
+          "path": "../src-out/Views/Account"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Account"
+          "path": "../src-out/Views/Account"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Account"
+          "path": "../src-out/Views/Account"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Address"
+          "path": "../src-out/Views/Address"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Address"
+          "path": "../src-out/Views/Address"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "MyList.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "Complete.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "TypesList.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "Recurring.js",
-          "path": "../src/Views/Activity"
+          "path": "../src-out/Views/Activity"
         },
         {
           "text": "DayView.js",
-          "path": "../src/Views/Calendar"
+          "path": "../src-out/Views/Calendar"
         },
         {
           "text": "WeekView.js",
-          "path": "../src/Views/Calendar"
+          "path": "../src-out/Views/Calendar"
         },
         {
           "text": "MonthView.js",
-          "path": "../src/Views/Calendar"
+          "path": "../src-out/Views/Calendar"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Competitor"
+          "path": "../src-out/Views/Competitor"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Contact"
+          "path": "../src-out/Views/Contact"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Contact"
+          "path": "../src-out/Views/Contact"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Contact"
+          "path": "../src-out/Views/Contact"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Contract"
+          "path": "../src-out/Views/Contract"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/ErrorLog"
+          "path": "../src-out/Views/ErrorLog"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/ErrorLog"
+          "path": "../src-out/Views/ErrorLog"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Event"
+          "path": "../src-out/Views/Event"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Event"
+          "path": "../src-out/Views/Event"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Event"
+          "path": "../src-out/Views/Event"
         },
         {
           "text": "Selector.js",
-          "path": "../src/Views/Groups"
+          "path": "../src-out/Views/Groups"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Lead"
+          "path": "../src-out/Views/Lead"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Lead"
+          "path": "../src-out/Views/Lead"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Lead"
+          "path": "../src-out/Views/Lead"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/LeadSource"
+          "path": "../src-out/Views/LeadSource"
         },
         {
           "text": "QuickEdit.js",
-          "path": "../src/Views/Opportunity"
+          "path": "../src-out/Views/Opportunity"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Opportunity"
+          "path": "../src-out/Views/Opportunity"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Opportunity"
+          "path": "../src-out/Views/Opportunity"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Opportunity"
+          "path": "../src-out/Views/Opportunity"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/OpportunityContact"
+          "path": "../src-out/Views/OpportunityContact"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/OpportunityContact"
+          "path": "../src-out/Views/OpportunityContact"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/OpportunityContact"
+          "path": "../src-out/Views/OpportunityContact"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/OpportunityProduct"
+          "path": "../src-out/Views/OpportunityProduct"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/OpportunityProduct"
+          "path": "../src-out/Views/OpportunityProduct"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/OpportunityProduct"
+          "path": "../src-out/Views/OpportunityProduct"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Owner"
+          "path": "../src-out/Views/Owner"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Product"
+          "path": "../src-out/Views/Product"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/ProductProgram"
+          "path": "../src-out/Views/ProductProgram"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Ticket"
+          "path": "../src-out/Views/Ticket"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Ticket"
+          "path": "../src-out/Views/Ticket"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Ticket"
+          "path": "../src-out/Views/Ticket"
         },
         {
           "text": "UrgencyLookup.js",
-          "path": "../src/Views/Ticket"
+          "path": "../src-out/Views/Ticket"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/TicketActivity"
+          "path": "../src-out/Views/TicketActivity"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/TicketActivity"
+          "path": "../src-out/Views/TicketActivity"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/TicketActivity"
+          "path": "../src-out/Views/TicketActivity"
         },
         {
           "text": "RateLookup.js",
-          "path": "../src/Views/TicketActivity"
+          "path": "../src-out/Views/TicketActivity"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/TicketActivityItem"
+          "path": "../src-out/Views/TicketActivityItem"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/TicketActivityItem"
+          "path": "../src-out/Views/TicketActivityItem"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/History"
+          "path": "../src-out/Views/History"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/History"
+          "path": "../src-out/Views/History"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/History"
+          "path": "../src-out/Views/History"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/User"
+          "path": "../src-out/Views/User"
         },
         {
           "text": "CalendarAccessList.js",
-          "path": "../src/Views/User"
+          "path": "../src-out/Views/User"
         },
         {
           "text": "AddressField.js",
-          "path": "../src/Fields"
+          "path": "../src-out/Fields"
         },
         {
           "text": "MultiCurrencyField.js",
-          "path": "../src/Fields"
+          "path": "../src-out/Fields"
         },
         {
           "text": "NameField.js",
-          "path": "../src/Fields"
+          "path": "../src-out/Fields"
         },
         {
           "text": "PicklistField.js",
-          "path": "../src/Fields"
+          "path": "../src-out/Fields"
         },
         {
           "text": "RecurrencesField.js",
-          "path": "../src/Fields"
+          "path": "../src-out/Fields"
         },
         {
           "text": "ApplicationModule.js",
-          "path": "../src"
+          "path": "../src-out"
         }
       ]
     },
@@ -794,11 +794,6 @@
       "src": "../configuration",
       "dest": "configuration",
       "filters": ".*\\.js"
-    },
-    {
-      "src": "../src",
-      "dest": "content/javascript",
-      "filters": ".*\\.txt"
     },
     {
       "src": "../help",

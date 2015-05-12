@@ -190,7 +190,7 @@ define('crm/Format', [
                 val = parseFloat(val);
             }
             var v = val.toFixed(2), // only 2 decimal places
-                f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
+                f = Math.floor(parseFloat((100 * (v - Math.floor(v))).toPrecision(2))); // for fractional part, only need 2 significant digits
 
             return string.substitute(
                 '${0}'
@@ -328,7 +328,7 @@ define('crm/Format', [
             if (d > 0 ) {
                 p = Math.pow(10, d);
                 v = val.toFixed(d); // only d decimal places
-                f = Math.floor((p * (v - Math.floor(v))).toPrecision(d)); // for fractional part, only need d significant digits
+                f = Math.floor(parseFloat((p * (v - Math.floor(v))).toPrecision(d))); // for fractional part, only need d significant digits
                 if (f === 0) {
                     f = (String(p)).slice(1);
                 }

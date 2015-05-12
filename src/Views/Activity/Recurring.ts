@@ -181,7 +181,7 @@ define('crm/Views/Activity/Recurring', [
             this.fields['Scale'].setValue(recur.getPanel(parseInt(this.fields['RecurPeriod'].getValue(), 10), true));
         },
         onAfterCompletionChange: function(value) {
-            var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+            var rp:any = parseInt(this.fields['RecurPeriod'].getValue(), 10);
 
             if (value) {
                 rp += (0 <= '0258'.indexOf(rp)) ? 1 : 2;
@@ -270,7 +270,7 @@ define('crm/Views/Activity/Recurring', [
             var startDate = this.fields['StartDate'].getValue(),
                 weekday = startDate.getDay(),
                 weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue(), 10)),
-                ordWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1,
+                ordWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1,
                 panel = parseInt(this.fields['RecurPeriod'].getValue(), 10),
                 wd;
 
@@ -303,7 +303,7 @@ define('crm/Views/Activity/Recurring', [
                 case 'OrdMonth':
                     startDate.setMonth(value);
                     weekday = startDate.getDay();
-                    ordWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
+                    ordWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
                     break;
                 default:
             }
