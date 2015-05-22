@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/Application', [
             Sage.SData.Client.SDataService.prototype.executeRequest = function(request, options, ajax) {
                 request.setRequestHeader('X-Application-Name', app.appName);
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
-                original.apply(this, arguments);
+                return original.apply(this, arguments);
             };
         },
         initConnects: function() {
