@@ -101,7 +101,7 @@ define('crm/Application', [
             Sage.SData.Client.SDataService.prototype.executeRequest = function (request) {
                 request.setRequestHeader('X-Application-Name', self.appName);
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', self.mobileVersion));
-                original.apply(this, arguments);
+                return original.apply(this, arguments);
             };
         },
         initConnects: function () {
