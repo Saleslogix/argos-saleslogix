@@ -106,6 +106,7 @@ define('Mobile/SalesLogix/Application', [
         loginViewId: 'login',
         logOffViewId: 'logoff',
 
+        UID: null,
         init: function() {
             var original,
                 app = this;
@@ -117,11 +118,12 @@ define('Mobile/SalesLogix/Application', [
             this._loadNavigationState();
             this._loadPreferences();
 
+            this.UID = (new Date()).getTime();
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
             Sage.SData.Client.SDataService.prototype.executeRequest = function(request, options, ajax) {
                 request.setRequestHeader('X-Application-Name', app.appName);
-                request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
+                request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: app.mobileVersion, id: app.UID }));
                 return original.apply(this, arguments);
             };
         },
