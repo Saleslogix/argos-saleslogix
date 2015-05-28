@@ -21,7 +21,7 @@ define('crm/Views/Charts/_ChartMixin', [
     'dojo/sniff',
     'argos/_PullToRefreshMixin'
 ], function (declare, lang, array, connect, domGeo, domAttr, has, sniff, _PullToRefreshMixin) {
-    window.Chart.defaults.global = {
+    lang.setObject('Chart.defaults.global', {
         // Boolean - Whether to animate the chart
         animation: false,
         // Number - Number of animation steps
@@ -116,7 +116,7 @@ define('crm/Views/Charts/_ChartMixin', [
         // Function - Will fire on animation completion.
         onAnimationComplete: function () {
         }
-    };
+    });
     var mixinName, __class;
     mixinName = 'crm.Views.Charts._ChartMixin';
     __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {

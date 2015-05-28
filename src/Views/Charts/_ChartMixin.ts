@@ -32,8 +32,7 @@ define('crm/Views/Charts/_ChartMixin', [
     sniff,
     _PullToRefreshMixin
 ) {
-
-    window.Chart.defaults.global = {
+    lang.setObject('Chart.defaults.global', {
         // Boolean - Whether to animate the chart
         animation: false,
 
@@ -164,7 +163,7 @@ define('crm/Views/Charts/_ChartMixin', [
         // Function - Will fire on animation completion.
         onAnimationComplete: function() {
         }
-    };
+    });
 
     var mixinName, __class;
 
