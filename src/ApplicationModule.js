@@ -27,6 +27,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Sage/Platform/Mobile/RelatedViewWidget',
 
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Edit',
     'Sage/Platform/Mobile/Views/Signature',
     'Sage/Platform/Mobile/SearchWidget',
     'Sage/Platform/Mobile/Views/FileSelect',
@@ -140,6 +142,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     RelatedViewManager,
     RelatedViewWidget,
     List,
+    ErrorManager,
+    Edit,
     Signature,
     SearchWidget,
     FileSelect,
@@ -561,6 +565,43 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             lang.extend(SearchWidget, {
                 searchText: this.searchText
+            });
+
+            // Handle 404/410 errors for POST/PUT
+            // These could be specific views if we wanted. Preserve the original function.
+            // For mobile 3.3 and higher, use error handlers instead (see argos-sample).
+            var handleNotFounds = function(error) {
+                var errorItem, errorMessage = 'The entity no longer exists';
+
+                alert(errorMessage);
+                errorItem = {
+                    viewOptions: this.options,
+                    serverError: error
+                };
+                ErrorManager.addError(errorMessage, errorItem);
+                this.enable();
+            };
+
+            var originalOnPutError = Sage.Platform.Mobile._EditBase.prototype.onPutError;
+            var originalOnAddError = Sage.Platform.Mobile._EditBase.prototype.onAddError;
+
+            lang.extend(Edit, {
+                onPutError: function(putOptions, error) {
+                    if ((error && error.status === 404) || (error && error.status === 410)) {
+                        handleNotFounds.call(this, error);
+                        // TODO: redirect to a different view and force a refresh?
+                    } else {
+                        // Invoke the original error handling
+                        originalOnPutError.call(this, putOptions, error);
+                    }
+                },
+                onAddError: function(addOptions, error) {
+                    if ((error && error.status === 404) || (error && error.status === 410)) {
+                        handleNotFounds.call(this, error);
+                    } else {
+                        originalOnAddError.call(this, addOptions, error);
+                    }
+                }
             });
         }
     });
