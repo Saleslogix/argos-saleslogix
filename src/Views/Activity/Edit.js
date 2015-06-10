@@ -637,7 +637,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 else
                 {
                     startTime = moment();
-                    startDate = currentDate.startOf('day').hours(startTime.hours())
+                    startDate = currentDate.clone().startOf('day').hours(startTime.hours())
                         .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
                 }
 
