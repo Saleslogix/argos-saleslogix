@@ -123,7 +123,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                 'AccountId': this.entry['Account']['$key'],
                 'Description': string.substitute("${0} ${1}", [this.calledText, this.entry['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
-                'UserName': App.context && App.context.user['UserName'],
+                'UserName': App.context && App.context.user['$descriptor'],
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
@@ -140,7 +140,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                 'AccountId': this.entry['Account']['$key'],
                 'Description': string.substitute("Emailed ${0}", [this.entry['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
-                'UserName': App.context && App.context.user['UserName'],
+                'UserName': App.context && App.context.user['$descriptor'],
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
@@ -332,4 +332,3 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         }
     });
 });
-
