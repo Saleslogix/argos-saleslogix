@@ -927,7 +927,11 @@ define('crm/Views/Calendar/MonthView', [
         navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
-            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
+            if (!this.options) {
+                this.options = {};
+            }
+
+            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
             if (view) {
                 view.show({
                     negateHistory: true,
