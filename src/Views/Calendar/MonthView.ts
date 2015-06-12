@@ -927,6 +927,10 @@ define('crm/Views/Calendar/MonthView', [
         navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
+            if (!this.options) {
+                this.options = {};
+            }
+
             this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
             if (view) {
                 view.show({
