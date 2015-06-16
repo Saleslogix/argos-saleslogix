@@ -3,7 +3,7 @@
     return lang.setObject('Mobile.CultureInfo', {
       "name": "zh-CN",
       "englishName": "Chinese (Simplified)",
-      "nativeName": "English (United States)",
+      "nativeName": "Chinese (Simplified)",
       "numberFormat": {
         "currencyDecimalDigits": 2,
         "currencyDecimalSeparator": ".",
