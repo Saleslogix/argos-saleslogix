@@ -136,6 +136,50 @@
       ]
     },
     {
+      "name": "Core Mobile Localization (zh-CN)",
+      "file": "localization/zh-CN.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-CN.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (zh-CN)",
+      "file": "localization/saleslogix/zh-CN.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-CN.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (zh-TW)",
+      "file": "localization/zh-TW.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-TW.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (zh-TW)",
+      "file": "localization/saleslogix/zh-TW.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-TW.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
       "name": "SalesLogix Mobile",
       "file": "content/javascript/argos-saleslogix.js",
       "isDebug": true,
