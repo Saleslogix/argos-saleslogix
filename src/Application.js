@@ -99,7 +99,7 @@ define('crm/Application', [
         mobileVersion: {
             'major': 3,
             'minor': 3,
-            'revision': 0
+            'revision': 1
         },
         versionInfoText: 'Mobile v${0}.${1}.${2}',
         loadingText: 'Loading application state',
