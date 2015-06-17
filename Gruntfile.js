@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 
     // Register alias tasks
     grunt.registerTask('ts', ['shell:typescript']);
+    grunt.registerTask('tsc', ['shell:typescript']);
     grunt.registerTask('typescript', ['shell:typescript']);
     grunt.registerTask('test', ['typescript', 'connect', 'jasmine:coverage']);
     grunt.registerTask('server', ['connect:server:keepalive']);
