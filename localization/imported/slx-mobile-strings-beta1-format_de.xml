@@ -33,7 +33,7 @@
   </data>
   <data class="crm.Recurrence" property="weekdayFormatText" type="format">
     <description/>
-    <value>tttt</value>
+    <value>dddd</value>
   </data>
   <data class="crm.Recurrence" property="endDateFormatText" type="format">
     <description/>
@@ -113,7 +113,7 @@
   </data>
   <data class="crm.Views.Calendar.WeekView" property="dayHeaderLeftFormatText" type="format">
     <description/>
-    <value>tttt</value>
+    <value>dddd</value>
   </data>
   <data class="crm.Views.Calendar.WeekView" property="dayHeaderRightFormatText" type="format">
     <description/>

@@ -49,7 +49,7 @@ localize("crm.Recurrence", {
   "dayFormatText": "DD",
   "monthFormatText": "MM",
   "monthAndDayFormatText": "MM.DD",
-  "weekdayFormatText": "tttt",
+  "weekdayFormatText": "dddd",
   "endDateFormatText": "D.M.YYYY",
   "neverText": "niemals",
   "daysText": "Tage",
@@ -310,7 +310,7 @@ localize("crm.Views.Calendar.MonthView", {
 
 localize("crm.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D. MMM YYYY",
-  "dayHeaderLeftFormatText": "tttt",
+  "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D. MMM YYYY",
   "eventDateFormatText": "D.M.YYYY",
   "startTimeFormatText": "H:mm",
