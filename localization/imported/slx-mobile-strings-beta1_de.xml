@@ -3849,7 +3849,7 @@
   </data>
   <data class="crm.Views.Opportunity.List" property="quickEditActionText" type="text">
     <description/>
-    <value>QuickEdit</value>
+    <value>Schnell bearbeiten</value>
   </data>
   <data class="crm.Views.Opportunity.QuickEdit" property="estCloseText" type="text">
     <description/>
