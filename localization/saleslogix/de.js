@@ -1410,7 +1410,7 @@ localize("crm.Views.Opportunity.List", {
   "addAttachmentActionText": "Anlage hinzufügen",
   "actualCloseText": "Abgeschlossen ",
   "estimatedCloseText": "Voraussichtlicher Abschluss ",
-  "quickEditActionText": "QuickEdit"
+  "quickEditActionText": "Schnell bearbeiten"
 });
 
 localize("crm.Views.Opportunity.QuickEdit", {
