@@ -1,6 +1,6 @@
 define('localization/saleslogix/zh-CN', ['localization/zh-CN', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
-localize("Sage.Platform.Mobile.Calendar", {
+localize("argos.Calendar", {
   "timeFormatText": "A h:mm",
   "titleText": "日历",
   "amText": "上午",
@@ -21,13 +21,13 @@ localize("Sage.Platform.Mobile.Calendar", {
   }
 });
 
-localize("Sage.Platform.Mobile.Fields.DateField", {
+localize("argos.Fields.DateField", {
   "dateFormatText": "YYYY/MM/DD",
   "emptyText": "",
   "invalidDateFormatErrorText": "字段“${0}”的日期格式无效。"
 });
 
-localize("Sage.Platform.Mobile.Format", {
+localize("argos.Format", {
   "shortDateFormatText": "YYYY/M/D",
   "percentFormatText": "${0}${1}",
   "yesText": "是",
@@ -41,11 +41,11 @@ localize("Sage.Platform.Mobile.Format", {
   "bytesText": "字节"
 });
 
-localize("Mobile.SalesLogix.GroupUtility", {
-  "groupDateFormatText": "YYYY/M/D a h:mm:ss"
+localize("crm.GroupUtility", {
+  "groupDateFormatText": "YYYY/M/D A h:mm:ss"
 });
 
-localize("Mobile.SalesLogix.Recurrence", {
+localize("crm.Recurrence", {
   "dayFormatText": "DD",
   "monthFormatText": "MM",
   "monthAndDayFormatText": "MM/DD",
@@ -83,11 +83,11 @@ localize("Mobile.SalesLogix.Recurrence", {
     "2": "第二",
     "3": "第三",
     "4": "第四",
-    "5": "最后"
+    "5": "姓"
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Complete", {
+localize("crm.Views.Activity.Complete", {
   "completedFormatText": "YYYY/M/D A h:mm",
   "startingFormatText": "YYYY/M/D A h:mm",
   "startingTimelessFormatText": "YYYY/M/D",
@@ -137,7 +137,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Detail", {
+localize("crm.Views.Activity.Detail", {
   "startDateFormatText": "YYYY/M/D A h:mm:ss",
   "timelessDateFormatText": "YYYY/M/D",
   "alarmDateFormatText": "YYYY/M/D A h:mm:ss",
@@ -184,7 +184,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "moreDetailsText": "更多详细信息"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Edit", {
+localize("crm.Views.Activity.Edit", {
   "startingFormatText": "YYYY/M/D A h:mm",
   "startingTimelessFormatText": "YYYY/M/D",
   "activityCategoryTitleText": "活动类别",
@@ -242,7 +242,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.List", {
+localize("crm.Views.Attachment.List", {
   "attachmentDateFormatText": "YYYY/M/D  ddd hh:mm:ss ",
   "titleText": "附件",
   "uploadedOnText": "已上传 ",
@@ -252,7 +252,7 @@ localize("Mobile.SalesLogix.Views.Attachment.List", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
+localize("crm.Views.Attachment.ViewAttachment", {
   "attachmentDateFormatText": "YYYY/M/D ddd a h:mm",
   "detailsText": "附件详细信息",
   "descriptionText": "描述",
@@ -265,7 +265,7 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
   "notSupportedText": "您的设备不支持查看此附件。"
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.DayView", {
+localize("crm.Views.Calendar.DayView", {
   "eventDateFormatText": "YYYY/M/D",
   "dateHeaderFormatText": "YYYY/M/D dddd",
   "startTimeFormatText": "A h:mm",
@@ -281,7 +281,7 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
   "toggleCollapseText": "切换折叠"
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
+localize("crm.Views.Calendar.MonthView", {
   "monthTitleFormatText": "YYYY MMMM",
   "dayTitleFormatText": "YYYY MMM D ddd",
   "eventDateFormatText": "YYYY/M/D",
@@ -308,7 +308,7 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
+localize("crm.Views.Calendar.WeekView", {
   "weekTitleFormatText": "YYYY MMM D",
   "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "YYYY MMM D",
@@ -325,7 +325,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "toggleCollapseText": "切换折叠"
 });
 
-localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
+localize("crm.Views.ErrorLog.Detail", {
   "errorDateFormatText": "YYYY/MM/DD A hh:mm",
   "titleText": "错误日志",
   "detailsText": "详细信息",
@@ -338,12 +338,12 @@ localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
   "copiedSuccessText": "已复制到剪贴板"
 });
 
-localize("Mobile.SalesLogix.Views.ErrorLog.List", {
+localize("crm.Views.ErrorLog.List", {
   "errorDateFormatText": "YYYY/MM/DD A hh:mm",
   "titleText": "错误日志"
 });
 
-localize("Mobile.SalesLogix.Views.Event.Detail", {
+localize("crm.Views.Event.Detail", {
   "startDateFormatText": "YYYY/M/D A h:mm:ss",
   "endDateFormatText": "YYYY/M/D A h:mm:ss",
   "eventTypeText": {
@@ -362,7 +362,7 @@ localize("Mobile.SalesLogix.Views.Event.Detail", {
   "whenText": "时间"
 });
 
-localize("Mobile.SalesLogix.Views.Event.Edit", {
+localize("crm.Views.Event.Edit", {
   "startingFormatText": "YYYY/M/D A h:mm",
   "titleText": "事件",
   "typeText": "类型",
@@ -377,13 +377,13 @@ localize("Mobile.SalesLogix.Views.Event.Edit", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Event.List", {
+localize("crm.Views.Event.List", {
   "eventDateFormatText": "YYYY/M/D",
   "titleText": "事件",
   "eventText": "事件"
 });
 
-localize("Mobile.SalesLogix.Views.History.Detail", {
+localize("crm.Views.History.Detail", {
   "dateFormatText": "YYYY/M/D A h:mm:ss",
   "categoryText": "类别",
   "completedText": "已完成",
@@ -420,7 +420,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.History.Edit", {
+localize("crm.Views.History.Edit", {
   "startingFormatText": "YYYY/M/D A h:mm",
   "accountText": "客户",
   "noteDescriptionTitleText": "备注描述",
@@ -442,7 +442,7 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
   "validationCanEditText": "不允许进行编辑"
 });
 
-localize("Mobile.SalesLogix.Views.History.List", {
+localize("crm.Views.History.List", {
   "hourMinuteFormatText": "A h:mm",
   "dateFormatText": "YY/M/D",
   "activityTypeText": {
@@ -470,7 +470,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "regardingText": "相关事项： "
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
+localize("crm.Views.Opportunity.Detail", {
   "exchangeRateDateFormatText": "YYYY/M/D A h:mm",
   "accountText": "客户",
   "acctMgrText": "客户经理",
@@ -509,7 +509,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
   "multiCurrencyLockedText": "锁定汇率"
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
+localize("crm.Views.Opportunity.Edit", {
   "exchangeRateDateFormatText": "YYYY/M/D A h:mm",
   "accountText": "客户",
   "acctMgrText": "客户经理",
@@ -535,7 +535,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
   "subTypePickListResellerText": "经销商"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+localize("crm.Views.TicketActivity.Edit", {
   "startingFormatText": "YYYY/M/D A h:mm",
   "titleText": "编辑工单活动",
   "activityTypeText": "类型",
@@ -548,17 +548,17 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
   "commentsText": "注释"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.List", {
+localize("crm.Views.TicketActivity.List", {
   "startDateFormatText": "YYYY/MM/DD A h:mm",
   "titleText": "工单活动"
 });
 
-localize("Sage.Platform.Mobile.ErrorManager", {
+localize("argos.ErrorManager", {
   "abortedText": "已中止",
   "scopeSaveText": "未在错误报告中保存作用域"
 });
 
-localize("Sage.Platform.Mobile.Fields.DurationField", {
+localize("argos.Fields.DurationField", {
   "emptyText": "",
   "invalidDurationErrorText": "字段“${0}”不是有效的持续时间。",
   "autoCompleteText": {
@@ -570,14 +570,14 @@ localize("Sage.Platform.Mobile.Fields.DurationField", {
   }
 });
 
-localize("Sage.Platform.Mobile.Fields.EditorField", {
+localize("argos.Fields.EditorField", {
   "lookupLabelText": "编辑",
   "lookupText": "...",
   "emptyText": "空",
   "completeText": "确定"
 });
 
-localize("Sage.Platform.Mobile.Fields.LookupField", {
+localize("argos.Fields.LookupField", {
   "dependentErrorText": "必须为“${0}”选择值。",
   "emptyText": "",
   "completeText": "选择",
@@ -585,16 +585,16 @@ localize("Sage.Platform.Mobile.Fields.LookupField", {
   "lookupText": "..."
 });
 
-localize("Sage.Platform.Mobile.Fields.SignatureField", {
+localize("argos.Fields.SignatureField", {
   "signatureLabelText": "签名",
   "signatureText": "..."
 });
 
-localize("Sage.Platform.Mobile.GroupedList", {
+localize("argos.GroupedList", {
   "toggleCollapseText": "切换折叠"
 });
 
-localize("Sage.Platform.Mobile.Groups.DateTimeSection", {
+localize("argos.Groups.DateTimeSection", {
   "displayNameText": "日期时间部分",
   "todayText": "今天",
   "tomorrowText": "明天",
@@ -619,15 +619,15 @@ localize("Sage.Platform.Mobile.Groups.DateTimeSection", {
   "unknownText": "未知"
 });
 
-localize("Sage.Platform.Mobile.Groups.GroupByValueSection", {
+localize("argos.Groups.GroupByValueSection", {
   "displayNameText": "按值部分进行分组"
 });
 
-localize("Sage.Platform.Mobile.MainToolbar", {
+localize("argos.MainToolbar", {
   "titleText": "Mobile"
 });
 
-localize("Sage.Platform.Mobile.RelatedViewWidget", {
+localize("argos.RelatedViewWidget", {
   "nodataText": "找不到任何记录...",
   "selectMoreDataText": "查看另外 ${0} 个 ${1} ... ",
   "navToListText": "查看列表",
@@ -638,15 +638,23 @@ localize("Sage.Platform.Mobile.RelatedViewWidget", {
   "titleText": "相关视图"
 });
 
-localize("Sage.Platform.Mobile.SearchWidget", {
+localize("argos.SearchWidget", {
   "searchText": "搜索"
 });
 
-localize("Sage.Platform.Mobile.View", {
+localize("argos.SelectionModel", {
+  "requireSelectionText": "必须进行选择，不能取消选择最后一项。"
+});
+
+localize("argos.View", {
   "titleText": "通用视图"
 });
 
-localize("Sage.Platform.Mobile.Views.FileSelect", {
+localize("argos.Views.ConfigureQuickActions", {
+  "titleText": "配置快速操作"
+});
+
+localize("argos.Views.FileSelect", {
   "titleText": "文件选择",
   "addFileText": "单击或点击此处以添加文件。",
   "uploadText": "上传",
@@ -658,60 +666,85 @@ localize("Sage.Platform.Mobile.Views.FileSelect", {
   "notSupportedText": "您的设备不支持添加附件。"
 });
 
-localize("Sage.Platform.Mobile.Views.Signature", {
+localize("argos.Views.Signature", {
   "titleText": "签名",
   "clearCanvasText": "擦除",
   "undoText": "撤销"
 });
 
-localize("Sage.Platform.Mobile._DetailBase", {
+localize("argos._ConfigureBase", {
+  "titleText": "配置"
+});
+
+localize("argos._DetailBase", {
   "editText": "编辑",
   "titleText": "详细信息",
   "detailsText": "详细信息",
   "loadingText": "正在加载...",
-  "requestErrorText": "请求数据时发生服务器错误。",
   "notAvailableText": "请求的数据不可用。",
   "toggleCollapseText": "切换折叠"
 });
 
-localize("Sage.Platform.Mobile._EditBase", {
+localize("argos._EditBase", {
   "saveText": "保存",
   "titleText": "编辑",
   "validationSummaryText": "验证摘要",
   "concurrencySummaryText": "并行性错误",
   "detailsText": "详细信息",
   "loadingText": "正在加载...",
-  "requestErrorText": "请求数据时发生服务器错误。",
+  "errorText": {
+    "general": "请求数据时发生服务器错误。",
+    "status": {
+      "410": "保存时发生错误。此记录不再存在。"
+    }
+  },
   "concurrencyErrorText": "其他用户已更新该字段。"
 });
 
-localize("Sage.Platform.Mobile._ListBase", {
+localize("argos._ErrorHandleMixin", {
+  "errorText": {
+    "general": "发生服务器错误。"
+  }
+});
+
+localize("argos._ListBase", {
   "moreText": "检索更多记录",
   "emptySelectionText": "无",
   "titleText": "列表",
+  "configureText": "配置",
   "errorRenderText": "呈现行模板时出错。",
   "remainingText": "剩余 ${0} 条记录",
   "cancelText": "取消",
   "insertText": "新建",
   "noDataText": "无记录",
-  "loadingText": "正在加载...",
-  "requestErrorText": "请求数据时发生服务器错误。"
+  "loadingText": "正在加载..."
 });
 
-localize("Mobile.SalesLogix.Action", {
+localize("argos._PullToRefreshMixin", {
+  "pullRefreshText": "通过下拉进行刷新...",
+  "pullReleaseText": "通过释放进行刷新..."
+});
+
+localize("argos._RelatedViewWidgetBase", {
+  "loadingText": "正在加载... "
+});
+
+localize("crm.Action", {
   "calledText": "已致电 ${0}",
   "emailedText": "已通过电子邮件联系 ${0}"
 });
 
-localize("Mobile.SalesLogix.Application", {
-  "versionInfoText": "Mobile v${0}.${1}.${2} "
+localize("crm.Application", {
+  "versionInfoText": "Mobile v${0}.${1}.${2} ",
+  "loadingText": "正在加载应用程序状态",
+  "authText": "正在验证"
 });
 
-localize("Mobile.SalesLogix.ApplicationModule", {
+localize("crm.ApplicationModule", {
   "searchText": "查找"
 });
 
-localize("Mobile.SalesLogix.DefaultMetrics", {
+localize("crm.DefaultMetrics", {
   "accountsText": {
     "totalRevenue": "总收入",
     "averageTime": "客户平均时间",
@@ -719,7 +752,8 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
   },
   "opportunitiesText": {
     "total": "销售机会总数",
-    "potential": "销售潜力"
+    "potential": "销售潜力总计",
+    "montlyPotential": "每月平均销售潜力"
   },
   "ticketsText": {
     "total": "工单总数",
@@ -737,21 +771,21 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
   }
 });
 
-localize("Mobile.SalesLogix.Fields.AddressField", {
+localize("crm.Fields.AddressField", {
   "lookupLabelText": "编辑",
   "emptyText": ""
 });
 
-localize("Mobile.SalesLogix.Fields.NameField", {
+localize("crm.Fields.NameField", {
   "emptyText": ""
 });
 
-localize("Mobile.SalesLogix.Fields.RecurrencesField", {
+localize("crm.Fields.RecurrencesField", {
   "titleText": "定期",
   "emptyText": ""
 });
 
-localize("Mobile.SalesLogix.FileManager", {
+localize("crm.FileManager", {
   "unableToUploadText": "此浏览器不支持 HTML5 File API。",
   "unknownSizeText": "未知",
   "unknownErrorText": "警告：发生错误，无法上传文件。",
@@ -759,7 +793,7 @@ localize("Mobile.SalesLogix.FileManager", {
   "percentCompleteText": "正在上传，请稍候..."
 });
 
-localize("Mobile.SalesLogix.Format", {
+localize("crm.Format", {
   "bigNumberAbbrText": {
     "billion": "十亿",
     "million": "百万",
@@ -772,11 +806,11 @@ localize("Mobile.SalesLogix.Format", {
   }
 });
 
-localize("Mobile.SalesLogix.SpeedSearchWidget", {
+localize("crm.SpeedSearchWidget", {
   "searchText": "SpeedSearch"
 });
 
-localize("Mobile.SalesLogix.Validator", {
+localize("crm.Validator", {
   "exists": {
     "message": "字段“${2}”必须具有值。"
   },
@@ -810,7 +844,7 @@ localize("Mobile.SalesLogix.Validator", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Account.Detail", {
+localize("crm.Views.Account.Detail", {
   "accountText": "客户",
   "acctMgrText": "客户经理",
   "addressText": "地址",
@@ -848,7 +882,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
   "calledText": "已致电 ${0}"
 });
 
-localize("Mobile.SalesLogix.Views.Account.Edit", {
+localize("crm.Views.Account.Edit", {
   "accountStatusTitleText": "客户状态",
   "accountSubTypeTitleText": "客户子类型",
   "accountText": "客户",
@@ -871,7 +905,7 @@ localize("Mobile.SalesLogix.Views.Account.Edit", {
   "webText": "web"
 });
 
-localize("Mobile.SalesLogix.Views.Account.List", {
+localize("crm.Views.Account.List", {
   "titleText": "客户",
   "activitiesText": "活动",
   "notesText": "备注",
@@ -886,8 +920,8 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "faxAbbreviationText": "传真： "
 });
 
-localize("Mobile.SalesLogix.Views.Activity.List", {
-  "allDayText": "全天",
+localize("crm.Views.Activity.List", {
+  "allDayText": "无时间限制",
   "completeActivityText": "完成",
   "callText": "呼叫",
   "calledText": "已呼叫",
@@ -918,7 +952,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.MyList", {
+localize("crm.Views.Activity.MyList", {
   "titleText": "我的活动",
   "completeActivityText": "完成",
   "acceptActivityText": "接受",
@@ -942,7 +976,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Recurring", {
+localize("crm.Views.Activity.Recurring", {
   "startingText": "开始日期",
   "endingText": "结束日期",
   "repeatsText": "重复",
@@ -990,7 +1024,7 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "titleText": "定期"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.TypesList", {
+localize("crm.Views.Activity.TypesList", {
   "titleText": "日程安排...",
   "activityTypeText": {
     "atToDo": "任务列表",
@@ -1002,7 +1036,7 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.AddAccountContact", {
+localize("crm.Views.AddAccountContact", {
   "accountNameText": "客户",
   "accountStatusTitleText": "客户状态",
   "accountSubTypeTitleText": "客户子类型",
@@ -1020,7 +1054,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "homePhoneText": "住宅电话",
   "industryText": "行业",
   "ownerText": "所有者",
-  "lastNameText": "姓",
+  "lastNameText": "最后",
   "mobileText": "移动电话",
   "nameText": "姓名",
   "statusText": "状态",
@@ -1033,7 +1067,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "industryTitleText": "行业"
 });
 
-localize("Mobile.SalesLogix.Views.Address.Edit", {
+localize("crm.Views.Address.Edit", {
   "address1Text": "地址 1",
   "address2Text": "地址 2",
   "address3Text": "地址 3",
@@ -1052,41 +1086,47 @@ localize("Mobile.SalesLogix.Views.Address.Edit", {
   "titleText": "地址"
 });
 
-localize("Mobile.SalesLogix.Views.Address.List", {
+localize("crm.Views.Address.List", {
   "titleText": "地址"
 });
 
-localize("Mobile.SalesLogix.Views.AreaCategoryIssueLookup", {
+localize("crm.Views.AreaCategoryIssueLookup", {
   "titleText": "客户"
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.AddAttachment", {
+localize("crm.Views.Attachment.AddAttachment", {
   "titleText": "添加附件"
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.MyAttachmentList", {
+localize("crm.Views.Attachment.MyAttachmentList", {
   "titleText": "我的附件"
 });
 
-localize("Mobile.SalesLogix.Views.Charts.GenericBar", {
-  "titleText": "",
-  "otherText": "其他"
+localize("crm.Views.Charts.GenericBar", {
+  "titleText": ""
 });
 
-localize("Mobile.SalesLogix.Views.Charts.GenericPie", {
-  "titleText": "",
-  "otherText": "其他"
+localize("crm.Views.Charts.GenericLine", {
+  "titleText": ""
 });
 
-localize("Mobile.SalesLogix.Views.Competitor.List", {
+localize("crm.Views.Charts.GenericPie", {
+  "titleText": ""
+});
+
+localize("crm.Views.Charts._ChartMixin", {
+  "loadingText": "正在加载..."
+});
+
+localize("crm.Views.Competitor.List", {
   "titleText": "竞争对手"
 });
 
-localize("Mobile.SalesLogix.Views.Configure", {
+localize("crm.Views.Configure", {
   "titleText": "配置"
 });
 
-localize("Mobile.SalesLogix.Views.Contact.Detail", {
+localize("crm.Views.Contact.Detail", {
   "activityTypeText": {
     "atPhoneCall": "电话呼叫",
     "atEMail": "电子邮件"
@@ -1127,7 +1167,7 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "moreDetailsText": "更多详细信息"
 });
 
-localize("Mobile.SalesLogix.Views.Contact.Edit", {
+localize("crm.Views.Contact.Edit", {
   "titleText": "联系人",
   "nameText": "姓名",
   "workText": "工作电话",
@@ -1147,7 +1187,7 @@ localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "cuisinePreferenceTitleText": "美食"
 });
 
-localize("Mobile.SalesLogix.Views.Contact.List", {
+localize("crm.Views.Contact.List", {
   "titleText": "联系人",
   "activitiesText": "活动",
   "notesText": "备注",
@@ -1165,35 +1205,35 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "mobileAbbreviationText": "移动电话： "
 });
 
-localize("Mobile.SalesLogix.Views.Contract.List", {
+localize("crm.Views.Contract.List", {
   "titleText": "联系人"
 });
 
-localize("Mobile.SalesLogix.Views.ExchangeRateLookup", {
+localize("crm.Views.ExchangeRateLookup", {
   "titleText": "汇率"
 });
 
-localize("Mobile.SalesLogix.Views.FooterToolbar", {
+localize("crm.Views.FooterToolbar", {
   "copyrightText": "&copy; 2014 SalesLogix, NA, LLC. All rights reserved."
 });
 
-localize("Mobile.SalesLogix.Views.Groups.Selector", {
+localize("crm.Views.Groups.Selector", {
   "titleText": "组查找"
 });
 
-localize("Mobile.SalesLogix.Views.Help", {
+localize("crm.Views.Help", {
   "titleText": "帮助",
   "errorText": "错误",
   "errorMessageText": "无法加载帮助文档。"
 });
 
-localize("Mobile.SalesLogix.Views.History.RelatedView", {
+localize("crm.Views.History.RelatedView", {
   "regardingText": "相关事项",
   "byText": "已撰写 ",
   "titleText": "备注"
 });
 
-localize("Mobile.SalesLogix.Views.Home", {
+localize("crm.Views.Home", {
   "configureText": "配置",
   "addAccountContactText": "添加客户/联系人",
   "titleText": "住宅",
@@ -1201,7 +1241,7 @@ localize("Mobile.SalesLogix.Views.Home", {
   "viewsText": "转至"
 });
 
-localize("Mobile.SalesLogix.Views.Lead.Detail", {
+localize("crm.Views.Lead.Detail", {
   "activityTypeText": {
     "atPhoneCall": "电话呼叫",
     "atEMail": "电子邮件"
@@ -1242,7 +1282,7 @@ localize("Mobile.SalesLogix.Views.Lead.Detail", {
   "emailedText": "已通过电子邮件联系 ${0}"
 });
 
-localize("Mobile.SalesLogix.Views.Lead.Edit", {
+localize("crm.Views.Lead.Edit", {
   "accountText": "客户",
   "addressText": "地址",
   "businessText": "业务描述",
@@ -1269,7 +1309,7 @@ localize("Mobile.SalesLogix.Views.Lead.Edit", {
   "mobileText": "移动电话"
 });
 
-localize("Mobile.SalesLogix.Views.Lead.List", {
+localize("crm.Views.Lead.List", {
   "titleText": "销售线索",
   "activitiesText": "活动",
   "notesText": "备注",
@@ -1288,11 +1328,11 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "tollFreeAbbreviationText": "免费电话： "
 });
 
-localize("Mobile.SalesLogix.Views.LeadSource.List", {
+localize("crm.Views.LeadSource.List", {
   "titleText": "销售线索来源"
 });
 
-localize("Mobile.SalesLogix.Views.LeftDrawer", {
+localize("crm.Views.LeftDrawer", {
   "configureText": "配置菜单",
   "addAccountContactText": "添加客户/联系人",
   "titleText": "主菜单",
@@ -1305,13 +1345,13 @@ localize("Mobile.SalesLogix.Views.LeftDrawer", {
   "logOutConfirmText": "是否确定要注销？"
 });
 
-localize("Mobile.SalesLogix.Views.LogOff", {
+localize("crm.Views.LogOff", {
   "messageText": "已注销。请关闭浏览器窗口。",
   "loginText": "单击此处以重新登录。",
   "titleText": "已注销"
 });
 
-localize("Mobile.SalesLogix.Views.Login", {
+localize("crm.Views.Login", {
   "copyrightText": "版权所有 &copy; 2015 Infor。保留所有权利。www.infor.com",
   "logOnText": "登录",
   "passText": "密码",
@@ -1320,12 +1360,11 @@ localize("Mobile.SalesLogix.Views.Login", {
   "userText": "用户 ID",
   "invalidUserText": "用户名或密码无效。",
   "missingUserText": "找不到用户记录。",
-  "serverProblemText": "服务器发生问题。",
   "requestAbortedText": "请求已中止。",
   "logoText": "Infor CRM"
 });
 
-localize("Mobile.SalesLogix.Views.MetricConfigure", {
+localize("crm.Views.MetricConfigure", {
   "titleText": "配置指标",
   "metricTitleText": "职务",
   "metricFilterText": "过滤器",
@@ -1337,27 +1376,27 @@ localize("Mobile.SalesLogix.Views.MetricConfigure", {
   "reportViewText": "图表视图 ID"
 });
 
-localize("Mobile.SalesLogix.Views.MetricFilterLookup", {
+localize("crm.Views.MetricFilterLookup", {
   "titleText": "过滤器/指标查找"
 });
 
-localize("Mobile.SalesLogix.Views.MetricWidget", {
+localize("crm.Views.MetricWidget", {
   "loadingText": "正在加载...",
   "errorText": "加载小组件时出错。"
 });
 
-localize("Mobile.SalesLogix.Views.NameEdit", {
+localize("crm.Views.NameEdit", {
   "titleText": "编辑姓名",
-  "firstNameText": "名",
+  "firstNameText": "第一",
   "middleNameText": "中间名",
-  "lastNameText": "姓",
+  "lastNameText": "最后",
   "prefixText": "前缀",
   "prefixTitleText": "姓名前缀",
   "suffixText": "后缀",
   "suffixTitleText": "姓名后缀"
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.List", {
+localize("crm.Views.Opportunity.List", {
   "titleText": "销售机会",
   "activitiesText": "活动",
   "notesText": "备注",
@@ -1370,10 +1409,26 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "addActivityActionText": "添加活动",
   "addAttachmentActionText": "添加附件",
   "actualCloseText": "已结束 ",
-  "estimatedCloseText": "预计结束日期 "
+  "estimatedCloseText": "预计结束日期 ",
+  "quickEditActionText": "快速编辑"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityContact.Detail", {
+localize("crm.Views.Opportunity.QuickEdit", {
+  "estCloseText": "预计结束日期",
+  "detailsText": "详细信息",
+  "opportunityStageTitleText": "销售机会阶段",
+  "opportunityText": "销售机会",
+  "stageText": "阶段",
+  "statusOpenText": "打开",
+  "statusClosedLostText": "已关闭 - 失去",
+  "statusClosedWonText": "已关闭 - 赢得",
+  "salesProcessText": "销售流程锁定的阶段:",
+  "probabilityText": "结束概率",
+  "probabilityTitleText": "销售机会概率",
+  "potentialText": "销售潜力"
+});
+
+localize("crm.Views.OpportunityContact.Detail", {
   "titleText": "销售机会联系人",
   "accountText": "客户",
   "contactTitleText": "职务",
@@ -1390,7 +1445,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.Detail", {
   "contactText": "联系人"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityContact.Edit", {
+localize("crm.Views.OpportunityContact.Edit", {
   "titleText": "编辑销售机会联系人",
   "nameText": "姓名",
   "accountNameText": "客户",
@@ -1406,7 +1461,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.Edit", {
   "competitorPrefText": "竞争对手前缀"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityContact.List", {
+localize("crm.Views.OpportunityContact.List", {
   "titleText": "销售机会联系人",
   "selectTitleText": "选择联系人",
   "activitiesText": "活动",
@@ -1414,7 +1469,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.List", {
   "scheduleText": "日程安排"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityProduct.Detail", {
+localize("crm.Views.OpportunityProduct.Detail", {
   "detailsText": "详细信息",
   "opportunityText": "销售机会",
   "productText": "产品",
@@ -1435,7 +1490,7 @@ localize("Mobile.SalesLogix.Views.OpportunityProduct.Detail", {
   "removeOppProductTitleText": "删除销售机会产品"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityProduct.Edit", {
+localize("crm.Views.OpportunityProduct.Edit", {
   "titleText": "销售机会产品",
   "detailsText": "详细信息",
   "opportunityText": "销售机会",
@@ -1455,23 +1510,23 @@ localize("Mobile.SalesLogix.Views.OpportunityProduct.Edit", {
   "adjustedPriceSectionText": "调整价"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityProduct.List", {
+localize("crm.Views.OpportunityProduct.List", {
   "titleText": "产品"
 });
 
-localize("Mobile.SalesLogix.Views.Owner.List", {
+localize("crm.Views.Owner.List", {
   "titleText": "所有者"
 });
 
-localize("Mobile.SalesLogix.Views.Product.List", {
+localize("crm.Views.Product.List", {
   "titleText": "产品"
 });
 
-localize("Mobile.SalesLogix.Views.ProductProgram.List", {
+localize("crm.Views.ProductProgram.List", {
   "titleText": "产品计划"
 });
 
-localize("Mobile.SalesLogix.Views.Settings", {
+localize("crm.Views.Settings", {
   "clearLocalStorageTitleText": "清空存储",
   "clearAuthenticationTitleText": "清空保存的凭据",
   "errorLogTitleText": "查看错误日志",
@@ -1480,7 +1535,7 @@ localize("Mobile.SalesLogix.Views.Settings", {
   "titleText": "设置"
 });
 
-localize("Mobile.SalesLogix.Views.SpeedSearchList", {
+localize("crm.Views.SpeedSearchList", {
   "titleText": "SpeedSearch",
   "indexesText": {
     "Account": "客户",
@@ -1493,11 +1548,11 @@ localize("Mobile.SalesLogix.Views.SpeedSearchList", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.TextEdit", {
+localize("crm.Views.TextEdit", {
   "titleText": "编辑文本"
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.Detail", {
+localize("crm.Views.Ticket.Detail", {
   "accountText": "客户",
   "areaText": "区域",
   "assignedDateText": "分配的日期",
@@ -1529,7 +1584,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Detail", {
   "loadingText": "正在加载..."
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.Edit", {
+localize("crm.Views.Ticket.Edit", {
   "accountText": "客户",
   "areaText": "区域",
   "assignedDateText": "分配的日期",
@@ -1562,7 +1617,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Edit", {
   "urgencyText": "紧急性"
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.List", {
+localize("crm.Views.Ticket.List", {
   "titleText": "工单",
   "activitiesText": "活动",
   "scheduleText": "日程安排",
@@ -1580,11 +1635,11 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "neededByText": "需要  "
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.UrgencyLookup", {
+localize("crm.Views.Ticket.UrgencyLookup", {
   "titleText": "工单紧急性"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
+localize("crm.Views.TicketActivity.Detail", {
   "titleText": "工单活动",
   "accountText": "客户",
   "contactText": "联系人",
@@ -1609,11 +1664,11 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
   "relatedTicketActivityItemText": "工单活动部分"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.RateLookup", {
+localize("crm.Views.TicketActivity.RateLookup", {
   "titleText": "费率"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivityItem.Detail", {
+localize("crm.Views.TicketActivityItem.Detail", {
   "titleText": "工单活动部分",
   "productNameText": "产品",
   "skuText": "SKU",
@@ -1622,28 +1677,28 @@ localize("Mobile.SalesLogix.Views.TicketActivityItem.Detail", {
   "itemDescriptionText": "描述"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivityItem.List", {
+localize("crm.Views.TicketActivityItem.List", {
   "titleText": "工单活动部分"
 });
 
-localize("Mobile.SalesLogix.Views.UpdateToolbar", {
+localize("crm.Views.UpdateToolbar", {
   "updateText": "有更新可用。请单击以重新加载。"
 });
 
-localize("Mobile.SalesLogix.Views.User.CalendarAccessList", {
+localize("crm.Views.User.CalendarAccessList", {
   "titleText": "活动资源"
 });
 
-localize("Mobile.SalesLogix.Views.User.List", {
+localize("crm.Views.User.List", {
   "titleText": "用户"
 });
 
-localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
+localize("crm.Views._CardLayoutListMixin", {
   "itemIconAltText": "联系人",
   "allRecordsText": "未应用搜索"
 });
 
-localize("Mobile.SalesLogix.Views._GroupListMixin", {
+localize("crm.Views._GroupListMixin", {
   "noDefaultGroupText": "未设置默认组。请单击此处以配置组。",
   "currentGroupNotFoundText": "找不到当前组。",
   "groupTemplateSummaryText": "摘要",
@@ -1651,7 +1706,7 @@ localize("Mobile.SalesLogix.Views._GroupListMixin", {
   "groupsModeText": "您当前处于组模式。请执行搜索或单击井号标签以退出组模式。"
 });
 
-localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
+localize("crm.Views._RightDrawerListMixin", {
   "hashTagsSectionText": "井号标签",
   "groupsSectionText": "组",
   "kpiSectionText": "KPI",
@@ -1660,7 +1715,7 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "layoutsText": "布局"
 });
 
-localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {
+localize("crm.Views._SpeedSearchRightDrawerListMixin", {
   "indexSectionText": "索引"
 });
 });
