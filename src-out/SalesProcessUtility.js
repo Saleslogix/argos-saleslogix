@@ -1,20 +1,27 @@
-/**
- * @class crm.SalesProcessUtility
- *
- * Saleslogix salesprocess utils
- *
- * @singleton
- *
- */
-define('crm/SalesProcessUtility', [
-    'dojo/_base/lang',
-    'dojo/string',
-    'dojo/when',
-    'dojo/_base/Deferred',
-    'argos/Store/SData'
-], function (lang, string, when, Deferred, SData) {
+define('crm/SalesProcessUtility', ['exports', 'module', 'dojo/_base/lang', 'dojo/string', 'dojo/when', 'dojo/_base/Deferred', 'argos/Store/SData'], function (exports, module, _dojo_baseLang, _dojoString, _dojoWhen, _dojo_baseDeferred, _argosStoreSData) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _when = _interopRequireDefault(_dojoWhen);
+
+    var _Deferred = _interopRequireDefault(_dojo_baseDeferred);
+
+    var _SData = _interopRequireDefault(_argosStoreSData);
+
     var __class;
-    __class = lang.setObject('crm.SalesProcessUtility', {
+
+    /**
+    * @class crm.SalesProcessUtility
+    *
+    * Saleslogix salesprocess utils
+    *
+    * @singleton
+    *
+    */
+    __class = _lang['default'].setObject('crm.SalesProcessUtility', {
         store: null,
         service: null,
         contractName: 'dynamic',
@@ -24,18 +31,20 @@ define('crm/SalesProcessUtility', [
         queryOrderBy: '',
         queryWhere: '',
         maxItems: 100,
-        getStore: function () {
+
+        getStore: function getStore() {
             if (!this.store) {
                 this.store = this.createStore();
             }
             return this.store;
         },
-        createStore: function () {
-            var store, options = this.getStoreOptions();
-            store = new SData(options);
+        createStore: function createStore() {
+            var store,
+                options = this.getStoreOptions();
+            store = new _SData['default'](options);
             return store;
         },
-        getStoreOptions: function () {
+        getStoreOptions: function getStoreOptions() {
             var options = {
                 service: App.getService(false),
                 contractName: this.contractName,
@@ -56,25 +65,26 @@ define('crm/SalesProcessUtility', [
          * @param {String} entitiyId
          *
          */
-        getSalesProcessByEntityId: function (entityId) {
+        getSalesProcessByEntityId: function getSalesProcessByEntityId(entityId) {
             var queryResults, deferred, store, options;
-            deferred = new Deferred();
+
+            deferred = new _Deferred['default']();
             store = this.getStore();
             options = {
-                where: string.substitute('EntityId' + ' eq "${0}"', [entityId])
+                where: _string['default'].substitute('EntityId' + ' eq "${0}"', [entityId])
             };
             queryResults = store.query(null, options);
-            when(queryResults, function (feed) {
+            (0, _when['default'])(queryResults, (function (feed) {
                 var salesProcess = null;
                 if (feed && feed.length > 0) {
                     salesProcess = feed[0];
                 }
                 deferred.resolve(salesProcess);
-            }.bind(this), function (err) {
+            }).bind(this), (function (err) {
                 deferred.reject(err);
-            }.bind(this));
+            }).bind(this));
             return deferred.promise;
         }
     });
-    return __class;
+    module.exports = __class;
 });

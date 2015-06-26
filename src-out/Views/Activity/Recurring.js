@@ -1,34 +1,42 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
-/**
- * @class crm.Views.Activity.Recurring
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires argos.Utility
- *
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Recurrence
- *
- * @requires moment
- *
- */
-define('crm/Views/Activity/Recurring', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/string',
-    '../../Format',
-    '../../Validator',
-    'argos/Utility',
-    'argos/Edit',
-    '../../Recurrence',
-    'moment'
-], function (declare, lang, array, string, format, validator, utility, Edit, recur, moment) {
-    var __class = declare('crm.Views.Activity.Recurring', [Edit], {
+define('crm/Views/Activity/Recurring', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/string', '../../Format', '../../Validator', 'argos/Utility', 'argos/Edit', '../../Recurrence', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoString, _Format, _Validator, _argosUtility, _argosEdit, _Recurrence, _moment) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _format = _interopRequireDefault(_Format);
+
+    var _validator = _interopRequireDefault(_Validator);
+
+    var _utility = _interopRequireDefault(_argosUtility);
+
+    var _Edit = _interopRequireDefault(_argosEdit);
+
+    var _recur = _interopRequireDefault(_Recurrence);
+
+    var _moment2 = _interopRequireDefault(_moment);
+
+    /**
+    * @class crm.Views.Activity.Recurring
+    *
+    * @extends argos.Edit
+    *
+    * @requires argos.Edit
+    * @requires argos.Utility
+    *
+    * @requires crm.Format
+    * @requires crm.Validator
+    * @requires crm.Recurrence
+    *
+    * @requires moment
+    *
+    */
+    var __class = (0, _declare['default'])('crm.Views.Activity.Recurring', [_Edit['default']], {
         //Localization
         startingText: 'start date',
         endingText: 'end date',
@@ -42,43 +50,20 @@ define('crm/Views/Activity/Recurring', [
         onText: 'on',
         occurrencesText: 'occurrences',
         summaryText: 'summary',
-        weekDaysText: [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday'
-        ],
-        monthsText: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-        ],
-        frequencyOptionsText: [
-            'days',
-            'weeks',
-            'months',
-            'years'
-        ],
+        weekDaysText: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        monthsText: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        frequencyOptionsText: ['days', 'weeks', 'months', 'years'],
         recurringFrequencyText: 'Recurring Frequency',
         yesText: 'Yes',
         noText: 'No',
         titleText: 'Recurrence',
+
         //View Properties
-        monthNames: moment.monthsShort,
+        monthNames: _moment2['default'].monthsShort,
+
         id: 'recurrence_edit',
-        init: function () {
+
+        init: function init() {
             this.inherited(arguments);
             this.connect(this.fields['AfterCompletion'], 'onChange', this.onAfterCompletionChange);
             this.connect(this.fields['Interval'], 'onChange', this.onIntervalChange);
@@ -92,13 +77,20 @@ define('crm/Views/Activity/Recurring', [
             this.connect(this.fields['OrdWeek'], 'onChange', this.onStartDateChange); // 1st..last week of month, or on Day #
             this.connect(this.fields['OrdMonth'], 'onChange', this.onStartDateChange); // Month of year
         },
-        resetUI: function () {
+        resetUI: function resetUI() {
             // hide or reveal and set fields according to panel/RecurPeriod
-            var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10), startDate = this.fields['StartDate'].getValue(), interval = this.fields['RecurPeriodSpec'].getValue() % 65536, showthese = 'Interval,AfterCompletion,', i;
-            if (!recur.isAfterCompletion(rp)) {
+            var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10),
+                startDate = this.fields['StartDate'].getValue(),
+                interval = this.fields['RecurPeriodSpec'].getValue() % 65536,
+                showthese = 'Interval,AfterCompletion,',
+                i;
+
+            if (!_recur['default'].isAfterCompletion(rp)) {
                 showthese += 'RecurIterations,EndDate,';
             }
+
             this.fields['RecurrenceState'].setValue('rstMaster'); // undone when Once panel selected
+
             // determine which fields to hide according to panel
             switch (rp) {
                 case 0:
@@ -134,11 +126,11 @@ define('crm/Views/Activity/Recurring', [
                     // once
                     showthese = '';
             }
+
             for (i in this.fields) {
                 if (0 <= showthese.indexOf(i)) {
                     this.fields[i].show();
-                }
-                else {
+                } else {
                     this.fields[i].hide();
                 }
             }
@@ -147,87 +139,103 @@ define('crm/Views/Activity/Recurring', [
                 this.fields['Scale'].show();
             }
             this.fields['Summary'].show();
+
             // refresh some field values
             this.fields['RecurPeriod'].setValue(rp);
-            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(rp, startDate, this.entry.Weekdays, interval));
+            this.fields['RecurPeriodSpec'].setValue(_recur['default'].getRecurPeriodSpec(rp, startDate, this.entry.Weekdays, interval));
+
             this.summarize();
         },
-        summarize: function () {
-            this.fields['Summary'].setValue(recur.toString(this.getRecurrence()));
-            this.fields['Scale'].setValue(recur.getPanel(parseInt(this.fields['RecurPeriod'].getValue(), 10), true));
+        summarize: function summarize() {
+            this.fields['Summary'].setValue(_recur['default'].toString(this.getRecurrence()));
+            this.fields['Scale'].setValue(_recur['default'].getPanel(parseInt(this.fields['RecurPeriod'].getValue(), 10), true));
         },
-        onAfterCompletionChange: function (value) {
+        onAfterCompletionChange: function onAfterCompletionChange(value) {
             var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+
             if (value) {
-                rp += (0 <= '0258'.indexOf(rp)) ? 1 : 2;
+                rp += 0 <= '0258'.indexOf(rp) ? 1 : 2;
                 this.fields['RecurIterations'].setValue(-1);
+            } else {
+                rp -= 0 <= '69'.indexOf(rp) ? parseInt(this.fields['OrdWeek'].getValue(), 10) ? 1 : 2 : 1;
+                this.fields['RecurIterations'].setValue(0 < this.entry.RecurIterations ? this.entry.RecurIterations : _recur['default'].defaultIterations[rp]);
             }
-            else {
-                rp -= (0 <= '69'.indexOf(rp)) ? (parseInt(this.fields['OrdWeek'].getValue(), 10) ? 1 : 2) : 1;
-                this.fields['RecurIterations'].setValue(0 < this.entry.RecurIterations ? this.entry.RecurIterations : recur.defaultIterations[rp]);
-            }
+
             this.fields['RecurPeriod'].setValue(rp);
             this.resetUI();
         },
-        onIntervalChange: function (value, field) {
-            var currentSpec = parseInt(this.fields['RecurPeriodSpec'].getValue(), 10), interval = currentSpec % 65536;
+        onIntervalChange: function onIntervalChange(value, field) {
+            var currentSpec = parseInt(this.fields['RecurPeriodSpec'].getValue(), 10),
+                interval = currentSpec % 65536;
+
             value = parseInt(value, 10);
             if (value && 0 < value) {
                 this.fields['RecurPeriodSpec'].setValue(currentSpec - interval + parseInt(value, 10));
-                this.fields['EndDate'].setValue(recur.calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate());
-            }
-            else {
+                this.fields['EndDate'].setValue(_recur['default'].calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate());
+            } else {
                 // Invalid input, reset to current Interval
                 field.setValue(interval);
             }
+
             this.summarize();
         },
-        onRecurIterationsChange: function (value) {
+        onRecurIterationsChange: function onRecurIterationsChange(value) {
             value = parseInt(value, 10);
             if (value && 0 < value) {
                 this.entry.RecurIterations = value;
-                var newEndDate = recur.calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate();
+                var newEndDate = _recur['default'].calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate();
+
                 if (newEndDate !== this.fields['EndDate'].getValue()) {
                     this.fields['EndDate'].setValue(newEndDate);
                 }
-            }
-            else {
+            } else {
                 // Invalid input, reset to value calculated from EndDate
                 this.onEndDateChange(this.fields['EndDate'].getValue());
             }
+
             this.summarize();
         },
-        onEndDateChange: function (value) {
+        onEndDateChange: function onEndDateChange(value) {
             if (value > this.fields['StartDate'].getValue()) {
-                var iterations = recur.calcRecurIterations(value, this.fields['StartDate'].getValue(), this.fields['Interval'].getValue(), this.fields['RecurPeriod'].getValue());
+                var iterations = _recur['default'].calcRecurIterations(value, this.fields['StartDate'].getValue(), this.fields['Interval'].getValue(), this.fields['RecurPeriod'].getValue());
+
                 if (iterations !== parseInt(this.fields['RecurIterations'].getValue(), 10)) {
                     this.fields['RecurIterations'].setValue(iterations);
                 }
-            }
-            else {
+            } else {
                 // can't end before start! reset.
                 this.onRecurIterationsChange(this.fields['RecurIterations'].getValue());
             }
+
             this.summarize();
         },
-        onDayChange: function (value, field) {
-            var startDate = this.fields['StartDate'].getValue(), maxValue = startDate.getDaysInMonth(); // <-- from lib date.js
+        onDayChange: function onDayChange(value, field) {
+            var startDate = this.fields['StartDate'].getValue(),
+                maxValue = startDate.getDaysInMonth(); // <-- from lib date.js
+
             if (0 < value && value <= maxValue) {
                 startDate.setDate(value);
-            }
-            else {
+            } else {
+                // reset field to acceptable value
                 if (0 < value) {
                     startDate.setDate(maxValue);
                 }
                 field.setValue(startDate.getDate());
             }
+
             this.fields['StartDate'].setValue(startDate);
             // weekday(s)/ordWeek/EndDate may need adjusting
             this.onStartDateChange(value, field);
         },
-        onStartDateChange: function (value, field) {
+        onStartDateChange: function onStartDateChange(value, field) {
             // when field alters StartDate, other fields need to be adjusted
-            var startDate = this.fields['StartDate'].getValue(), weekday = startDate.getDay(), weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue(), 10)), ordWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1, panel = parseInt(this.fields['RecurPeriod'].getValue(), 10), wd;
+            var startDate = this.fields['StartDate'].getValue(),
+                weekday = startDate.getDay(),
+                weekdays = _recur['default'].getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue(), 10)),
+                ordWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1,
+                panel = parseInt(this.fields['RecurPeriod'].getValue(), 10),
+                wd;
+
             value = parseInt(value.key || value, 10);
             switch (field.name) {
                 case 'Weekdays':
@@ -237,6 +245,7 @@ define('crm/Views/Activity/Recurring', [
                             weekday = wd;
                         }
                     }
+
                     break;
                 case 'OrdWeekday':
                     weekday = value;
@@ -248,8 +257,7 @@ define('crm/Views/Activity/Recurring', [
                             this.fields['RecurPeriod'].setValue(panel + 1);
                             this.resetUI();
                         }
-                    }
-                    else if (panel === 5 || panel === 8) {
+                    } else if (panel === 5 || panel === 8) {
                         this.fields['RecurPeriod'].setValue(panel - 1);
                         this.resetUI();
                     }
@@ -261,15 +269,21 @@ define('crm/Views/Activity/Recurring', [
                     break;
                 default:
             }
-            startDate = recur.calcDateOfNthWeekday(startDate, weekday, ordWeek).toDate();
+
+            startDate = _recur['default'].calcDateOfNthWeekday(startDate, weekday, ordWeek).toDate();
             this.fields['StartDate'].setValue(startDate);
-            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()).toDate());
+            this.fields['EndDate'].setValue(_recur['default'].calcEndDate(startDate, this.getRecurrence()).toDate());
             this.fields['Day'].setValue(startDate.getDate());
             this.fields['OrdWeekday'].setValue(startDate.getDay());
+
             this.summarize();
         },
-        onScaleChange: function (value) {
-            var startDate = this.fields['StartDate'].getValue(), afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0, interval = parseInt(this.fields['Interval'].getValue(), 10), recurPeriod = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+        onScaleChange: function onScaleChange(value) {
+            var startDate = this.fields['StartDate'].getValue(),
+                afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0,
+                interval = parseInt(this.fields['Interval'].getValue(), 10),
+                recurPeriod = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+
             switch (parseInt(value.key, 10)) {
                 case 0:
                     // days
@@ -302,47 +316,58 @@ define('crm/Views/Activity/Recurring', [
                 default:
             }
             this.fields['RecurPeriod'].setValue(recurPeriod);
-            this.fields['RecurIterations'].setValue(recur.defaultIterations[recurPeriod]);
-            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(recurPeriod, startDate, [], interval));
-            this.fields['Weekdays'].setValue(recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue()));
+            this.fields['RecurIterations'].setValue(_recur['default'].defaultIterations[recurPeriod]);
+            this.fields['RecurPeriodSpec'].setValue(_recur['default'].getRecurPeriodSpec(recurPeriod, startDate, [], interval));
+            this.fields['Weekdays'].setValue(_recur['default'].getWeekdays(this.fields['RecurPeriodSpec'].getValue()));
             this.fields['Day'].setValue(startDate.getDate());
             this.fields['OrdMonth'].setValue(startDate.getMonth() + 1);
             this.fields['OrdWeek'].setValue(0);
-            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()).toDate());
+            this.fields['EndDate'].setValue(_recur['default'].calcEndDate(startDate, this.getRecurrence()).toDate());
+
             this.resetUI();
         },
-        formatWeekdays: function (selections) {
-            var values = [], key, weekdays = [0, 0, 0, 0, 0, 0, 0];
+
+        formatWeekdays: function formatWeekdays(selections) {
+            var values = [],
+                key,
+                weekdays = [0, 0, 0, 0, 0, 0, 0];
+
             for (key in selections) {
                 if (selections[key]) {
                     values.push(this.weekDaysText[key]);
                     weekdays[key] = 1;
                 }
             }
-            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(parseInt(this.fields['RecurPeriod'].getValue(), 10), this.fields['StartDate'].getValue(), weekdays, parseInt(this.fields['Interval'].getValue(), 10)));
+            this.fields['RecurPeriodSpec'].setValue(_recur['default'].getRecurPeriodSpec(parseInt(this.fields['RecurPeriod'].getValue(), 10), this.fields['StartDate'].getValue(), weekdays, parseInt(this.fields['Interval'].getValue(), 10)));
+
             this.entry.Weekdays = weekdays;
             return values.join(', ');
         },
-        formatSingleWeekday: function (selection) {
+        formatSingleWeekday: function formatSingleWeekday(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
+
             return this.weekDaysText[parseInt(selection, 10)];
         },
-        formatMonth: function (selection) {
+        formatMonth: function formatMonth(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
+
             return this.monthsText[parseInt(selection, 10) - 1];
         },
-        formatOrd: function (selection) {
+        formatOrd: function formatOrd(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
-            return recur.ordText[parseInt(selection, 10)];
+            return _recur['default'].ordText[parseInt(selection, 10)];
         },
-        preselectWeekdays: function () {
-            var previousSelections = [], i, weekdays = recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue());
+        preselectWeekdays: function preselectWeekdays() {
+            var previousSelections = [],
+                i,
+                weekdays = _recur['default'].getWeekdays(this.fields['RecurPeriodSpec'].getValue());
+
             for (i = 0; i < weekdays.length; i++) {
                 if (weekdays[i]) {
                     previousSelections.push(i);
@@ -350,8 +375,9 @@ define('crm/Views/Activity/Recurring', [
             }
             return previousSelections;
         },
-        createScaleData: function () {
-            var list = [], opt;
+        createScaleData: function createScaleData() {
+            var list = [],
+                opt;
             for (opt in this.frequencyOptionsText) {
                 if (this.frequencyOptionsText.hasOwnProperty(opt)) {
                     list.push({
@@ -360,11 +386,24 @@ define('crm/Views/Activity/Recurring', [
                     });
                 }
             }
+
             return { '$resources': list };
         },
-        createWeekdaysData: function () {
+        createWeekdaysData: function createWeekdaysData() {
             var list = [];
-            array.forEach(this.weekDaysText, function (name, idx) {
+
+            _array['default'].forEach(this.weekDaysText, function (name, idx) {
+                list.push({
+                    '$key': idx,
+                    '$descriptor': name
+                });
+            });
+
+            return { '$resources': list };
+        },
+        createMonthsData: function createMonthsData() {
+            var list = [];
+            _array['default'].forEach(this.monthsText, function (name, idx) {
                 list.push({
                     '$key': idx,
                     '$descriptor': name
@@ -372,44 +411,38 @@ define('crm/Views/Activity/Recurring', [
             });
             return { '$resources': list };
         },
-        createMonthsData: function () {
-            var list = [];
-            array.forEach(this.monthsText, function (name, idx) {
-                list.push({
-                    '$key': idx,
-                    '$descriptor': name
-                });
-            });
-            return { '$resources': list };
-        },
-        createOrdData: function () {
-            var list = [], ord;
-            for (ord in recur.ordText) {
-                if (recur.ordText.hasOwnProperty(ord)) {
+        createOrdData: function createOrdData() {
+            var list = [],
+                ord;
+            for (ord in _recur['default'].ordText) {
+                if (_recur['default'].ordText.hasOwnProperty(ord)) {
                     list.push({
                         '$key': ord,
-                        '$descriptor': recur.ordText[ord]
+                        '$descriptor': _recur['default'].ordText[ord]
                     });
                 }
             }
+
             return { '$resources': list };
         },
-        setValues: function (values) {
+        setValues: function setValues(values) {
             this.inherited(arguments);
             var field, name, ord;
+
             // calculate some values from the ones provided
             this.entry = values;
             this.entry.StartDate = argos.Convert.toDateFromString(values['StartDate']);
-            this.entry.EndDate = recur.calcEndDate(values.StartDate, values).toDate();
-            this.entry.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
-            ord = recur.getOrd(this.entry);
+            this.entry.EndDate = _recur['default'].calcEndDate(values.StartDate, values).toDate();
+            this.entry.Recurring = typeof values.Recurring === 'string' ? /^true$/i.test(values.Recurring) : values.Recurring;
+            ord = _recur['default'].getOrd(this.entry);
             this.entry.Interval = values.RecurPeriodSpec % 65536;
-            this.entry.AfterCompletion = recur.isAfterCompletion(values.RecurPeriod);
+            this.entry.AfterCompletion = _recur['default'].isAfterCompletion(values.RecurPeriod);
             this.entry.Day = this.entry.StartDate.getDate();
-            this.entry.Weekdays = recur.getWeekdays(values.RecurPeriodSpec);
+            this.entry.Weekdays = _recur['default'].getWeekdays(values.RecurPeriodSpec);
             this.entry.OrdWeek = ord.week;
             this.entry.OrdWeekday = ord.weekday;
             this.entry.OrdMonth = ord.month;
+
             // Even hidden and falsy fields need their values set (not from parent)
             for (name in this.fields) {
                 if (this.fields.hasOwnProperty(name)) {
@@ -420,15 +453,18 @@ define('crm/Views/Activity/Recurring', [
                     }
                 }
             }
+
             this.resetUI();
         },
-        getValues: function () {
+        getValues: function getValues() {
             var o = this.getRecurrence();
-            o['Recurring'] = (0 <= o['RecurPeriod']);
-            o['EndDate'] = recur.calcEndDate(o.StartDate, o).toDate();
+
+            o['Recurring'] = 0 <= o['RecurPeriod'];
+            o['EndDate'] = _recur['default'].calcEndDate(o.StartDate, o).toDate();
+
             return o;
         },
-        getRecurrence: function () {
+        getRecurrence: function getRecurrence() {
             return {
                 'StartDate': this.fields['StartDate'].getValue(),
                 'RecurPeriod': parseInt(this.fields['RecurPeriod'].getValue(), 10),
@@ -437,145 +473,142 @@ define('crm/Views/Activity/Recurring', [
                 'RecurrenceState': this.fields['RecurrenceState'].getValue()
             };
         },
-        createLayout: function () {
-            return this.layout || (this.layout = [
-                {
-                    label: this.summaryText,
-                    name: 'Summary',
-                    property: 'Summary',
-                    exclude: true,
-                    type: 'textarea',
-                    readonly: true
-                }, {
-                    label: this.startingText,
-                    name: 'StartDate',
-                    property: 'StartDate',
-                    type: 'date',
-                    dateFormatText: this.startingFormatText
-                }, {
-                    label: this.everyText,
-                    name: 'Interval',
-                    property: 'Interval',
-                    type: 'text',
-                    inputType: 'numeric',
-                    exclude: true,
-                    notificationTrigger: 'blur'
-                }, {
-                    label: '',
-                    title: this.recurringFrequencyText,
-                    name: 'Scale',
-                    property: 'Scale',
-                    type: 'select',
-                    view: 'select_list',
-                    exclude: true,
-                    data: this.createScaleData()
-                }, {
-                    label: this.afterCompletionText,
-                    name: 'AfterCompletion',
-                    property: 'AfterCompletion',
-                    type: 'boolean',
-                    exclude: true,
-                    onText: this.yesText,
-                    offText: this.noText
-                }, {
-                    label: this.onText,
-                    title: this.onText,
-                    name: 'OrdWeek',
-                    property: 'OrdWeek',
-                    exclude: true,
-                    type: 'select',
-                    view: 'select_list',
-                    data: this.createOrdData(),
-                    textRenderer: this.formatOrd.bindDelegate(this)
-                }, {
-                    label: this.dayText,
-                    title: this.dayText,
-                    name: 'Day',
-                    property: 'Day',
-                    type: 'text',
-                    inputType: 'numeric',
-                    exclude: true,
-                    notificationTrigger: 'blur'
-                }, {
-                    label: this.weekdaysText,
-                    title: this.weekdaysText,
-                    name: 'Weekdays',
-                    property: 'Weekdays',
-                    exclude: true,
-                    type: 'select',
-                    singleSelect: false,
-                    view: 'select_list',
-                    data: this.createWeekdaysData(),
-                    previousSelections: this.preselectWeekdays.bindDelegate(this),
-                    textRenderer: this.formatWeekdays.bindDelegate(this),
-                    formatValue: this.formatWeekdays.bindDelegate(this)
-                }, {
-                    label: this.singleWeekdayText,
-                    title: this.singleWeekdayText,
-                    name: 'OrdWeekday',
-                    property: 'OrdWeekday',
-                    exclude: true,
-                    type: 'select',
-                    singleSelect: true,
-                    view: 'select_list',
-                    data: this.createWeekdaysData(),
-                    textRenderer: this.formatSingleWeekday.bindDelegate(this)
-                }, {
-                    label: this.monthText,
-                    title: this.monthText,
-                    name: 'OrdMonth',
-                    property: 'OrdMonth',
-                    exclude: true,
-                    type: 'select',
-                    singleSelect: true,
-                    view: 'select_list',
-                    data: this.createMonthsData(),
-                    textRenderer: this.formatMonth.bindDelegate(this)
-                }, {
-                    name: 'RecurIterations',
-                    property: 'RecurIterations',
-                    label: this.occurrencesText,
-                    type: 'text',
-                    inputType: 'numeric',
-                    include: true,
-                    notificationTrigger: 'blur'
-                }, {
-                    type: 'hidden',
-                    name: 'RecurPeriod',
-                    property: 'RecurPeriod',
-                    include: true
-                }, {
-                    type: 'hidden',
-                    name: 'RecurPeriodSpec',
-                    property: 'RecurPeriodSpec',
-                    include: true
-                }, {
-                    type: 'hidden',
-                    name: 'RecurrenceState',
-                    property: 'RecurrenceState',
-                    include: true
-                }, {
-                    type: 'hidden',
-                    name: 'Recurring',
-                    property: 'Recurring',
-                    include: true,
-                    formatValue: format.bool
-                }, {
-                    label: this.endingText,
-                    name: 'EndDate',
-                    property: 'EndDate',
-                    type: 'date',
-                    timeless: false,
-                    showTimePicker: false,
-                    dateFormatText: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        validator.exists,
-                        validator.isDateInRange
-                    ]
-                }]);
+        createLayout: function createLayout() {
+            return this.layout || (this.layout = [{
+                label: this.summaryText,
+                name: 'Summary',
+                property: 'Summary',
+                exclude: true,
+                type: 'textarea',
+                readonly: true
+            }, {
+                label: this.startingText,
+                name: 'StartDate',
+                property: 'StartDate',
+                type: 'date',
+                dateFormatText: this.startingFormatText
+            }, {
+                label: this.everyText,
+                name: 'Interval',
+                property: 'Interval',
+                type: 'text',
+                inputType: 'numeric',
+                exclude: true,
+                notificationTrigger: 'blur'
+            }, {
+                label: '',
+                title: this.recurringFrequencyText,
+                name: 'Scale',
+                property: 'Scale',
+                type: 'select',
+                view: 'select_list',
+                exclude: true,
+                data: this.createScaleData()
+            }, {
+                label: this.afterCompletionText,
+                name: 'AfterCompletion',
+                property: 'AfterCompletion',
+                type: 'boolean',
+                exclude: true,
+                onText: this.yesText,
+                offText: this.noText
+            }, {
+                label: this.onText,
+                title: this.onText,
+                name: 'OrdWeek',
+                property: 'OrdWeek',
+                exclude: true,
+                type: 'select',
+                view: 'select_list',
+                data: this.createOrdData(),
+                textRenderer: this.formatOrd.bindDelegate(this)
+            }, {
+                label: this.dayText,
+                title: this.dayText,
+                name: 'Day',
+                property: 'Day',
+                type: 'text',
+                inputType: 'numeric',
+                exclude: true,
+                notificationTrigger: 'blur'
+            }, {
+                label: this.weekdaysText,
+                title: this.weekdaysText,
+                name: 'Weekdays',
+                property: 'Weekdays',
+                exclude: true,
+                type: 'select',
+                singleSelect: false,
+                view: 'select_list',
+                data: this.createWeekdaysData(),
+                previousSelections: this.preselectWeekdays.bindDelegate(this),
+                textRenderer: this.formatWeekdays.bindDelegate(this),
+                formatValue: this.formatWeekdays.bindDelegate(this)
+            }, {
+                label: this.singleWeekdayText,
+                title: this.singleWeekdayText,
+                name: 'OrdWeekday',
+                property: 'OrdWeekday',
+                exclude: true,
+                type: 'select',
+                singleSelect: true,
+                view: 'select_list',
+                data: this.createWeekdaysData(),
+                textRenderer: this.formatSingleWeekday.bindDelegate(this)
+            }, {
+                label: this.monthText,
+                title: this.monthText,
+                name: 'OrdMonth',
+                property: 'OrdMonth',
+                exclude: true,
+                type: 'select',
+                singleSelect: true,
+                view: 'select_list',
+                data: this.createMonthsData(),
+                textRenderer: this.formatMonth.bindDelegate(this)
+            }, {
+                name: 'RecurIterations',
+                property: 'RecurIterations',
+                label: this.occurrencesText,
+                type: 'text',
+                inputType: 'numeric',
+                include: true,
+                notificationTrigger: 'blur'
+            }, {
+                type: 'hidden',
+                name: 'RecurPeriod',
+                property: 'RecurPeriod',
+                include: true
+            }, {
+                type: 'hidden',
+                name: 'RecurPeriodSpec',
+                property: 'RecurPeriodSpec',
+                include: true
+            }, {
+                type: 'hidden',
+                name: 'RecurrenceState',
+                property: 'RecurrenceState',
+                include: true
+            }, {
+                type: 'hidden',
+                name: 'Recurring',
+                property: 'Recurring',
+                include: true,
+                formatValue: _format['default'].bool
+            }, {
+                label: this.endingText,
+                name: 'EndDate',
+                property: 'EndDate',
+                type: 'date',
+                timeless: false,
+                showTimePicker: false,
+                dateFormatText: this.startingFormatText,
+                minValue: new Date(1900, 0, 1),
+                validator: [_validator['default'].exists, _validator['default'].isDateInRange]
+            }]);
         }
     });
-    lang.setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
-    return __class;
+
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
+    module.exports = __class;
 });

@@ -1,36 +1,45 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
-/**
- * @class crm.Views.Activity.Complete
- *
- * @extends argos.Edit
- * @mixins argos.Edit
- *
- * @requires argos.Edit
- * @requires argos.Utility
- *
- * @requires crm.Environment
- * @requires crm.Validator
- * @requires crm.Template
- *
- * @requires moment
- *
- */
-define('crm/Views/Activity/Complete', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/_base/connect',
-    'dojo/string',
-    '../../Environment',
-    '../../Validator',
-    '../../Template',
-    'argos/Utility',
-    'argos/Edit',
-    'moment'
-], function (declare, lang, array, connect, string, environment, validator, template, utility, Edit, moment) {
-    var __class = declare('crm.Views.Activity.Complete', [Edit], {
+define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', '../../Template', 'argos/Utility', 'argos/Edit', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojo_baseConnect, _dojoString, _Environment, _Validator, _Template, _argosUtility, _argosEdit, _moment) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _connect = _interopRequireDefault(_dojo_baseConnect);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _environment = _interopRequireDefault(_Environment);
+
+    var _validator = _interopRequireDefault(_Validator);
+
+    var _template = _interopRequireDefault(_Template);
+
+    var _utility = _interopRequireDefault(_argosUtility);
+
+    var _Edit = _interopRequireDefault(_argosEdit);
+
+    var _moment2 = _interopRequireDefault(_moment);
+
+    /**
+    * @class crm.Views.Activity.Complete
+    *
+    * @extends argos.Edit
+    * @mixins argos.Edit
+    *
+    * @requires argos.Edit
+    * @requires argos.Utility
+    *
+    * @requires crm.Environment
+    * @requires crm.Validator
+    * @requires crm.Template
+    *
+    * @requires moment
+    *
+    */
+    var __class = (0, _declare['default'])('crm.Views.Activity.Complete', [_Edit['default']], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',
@@ -46,7 +55,7 @@ define('crm/Views/Activity/Complete', [
         completedFormatText: 'M/D/YYYY h:mm A',
         completionText: 'Completion',
         durationText: 'duration',
-        durationInvalidText: "The field '${2}' must have a value.",
+        durationInvalidText: 'The field \'${2}\' must have a value.',
         carryOverNotesText: 'carry over notes',
         followUpText: 'follow-up',
         followUpTitleText: 'Follow-up type',
@@ -79,6 +88,7 @@ define('crm/Views/Activity/Complete', [
             'atToDo': 'To-Do',
             'atPersonal': 'Personal Activity'
         },
+
         //View Properties
         id: 'activity_complete',
         followupView: 'activity_edit',
@@ -113,44 +123,15 @@ define('crm/Views/Activity/Complete', [
                 'Description': 'E-mail Regarding'
             }
         },
+
         entityName: 'Activity',
-        querySelect: [
-            'AccountId',
-            'AccountName',
-            'Alarm',
-            'AlarmTime',
-            'Category',
-            'ContactId',
-            'ContactName',
-            'CompletedDate',
-            'Description',
-            'Duration',
-            'Leader/$key',
-            'LeadId',
-            'LeadName',
-            'LongNotes',
-            'OpportunityId',
-            'OpportunityName',
-            'Priority',
-            'Regarding',
-            'Result',
-            'Rollover',
-            'StartDate',
-            'TicketId',
-            'TicketNumber',
-            'Timeless',
-            'Type',
-            'Recurring',
-            'RecurrenceState',
-            'AllowAdd',
-            'AllowEdit',
-            'AllowDelete',
-            'AllowComplete'
-        ],
+        querySelect: ['AccountId', 'AccountName', 'Alarm', 'AlarmTime', 'Category', 'ContactId', 'ContactName', 'CompletedDate', 'Description', 'Duration', 'Leader/$key', 'LeadId', 'LeadName', 'LongNotes', 'OpportunityId', 'OpportunityName', 'Priority', 'Regarding', 'Result', 'Rollover', 'StartDate', 'TicketId', 'TicketNumber', 'Timeless', 'Type', 'Recurring', 'RecurrenceState', 'AllowAdd', 'AllowEdit', 'AllowDelete', 'AllowComplete'],
         resourceKind: 'activities',
         contractName: 'system',
-        init: function () {
+
+        init: function init() {
             this.inherited(arguments);
+
             this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
             this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
             this.connect(this.fields['AsScheduled'], 'onChange', this.onAsScheduledChange);
@@ -158,49 +139,53 @@ define('crm/Views/Activity/Complete', [
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
             this.connect(this.fields['Result'], 'onChange', this.onResultChange);
         },
-        onResultChange: function (value, field) {
+        onResultChange: function onResultChange(value, field) {
             // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
             field.setValue(value.text);
+
             // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
-            this.fields['ResultCode'].setValue((/.{0,8}/ig).exec(value.key));
+            this.fields['ResultCode'].setValue(/.{0,8}/ig.exec(value.key));
         },
-        isActivityForLead: function (entry) {
+        isActivityForLead: function isActivityForLead(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        beforeTransitionTo: function () {
+        beforeTransitionTo: function beforeTransitionTo() {
             this.inherited(arguments);
-            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
+
+            _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
                 if (this.fields[item]) {
                     this.fields[item].hide();
                 }
             }, this);
+
             var entry = this.options && this.options.entry;
             if (this.isActivityForLead(entry)) {
-                array.forEach(this.fieldsForLeads, function (item) {
+                _array['default'].forEach(this.fieldsForLeads, function (item) {
                     if (this.fields[item]) {
                         this.fields[item].show();
                     }
                 }, this);
-            }
-            else {
-                array.forEach(this.fieldsForStandard, function (item) {
+            } else {
+                _array['default'].forEach(this.fieldsForStandard, function (item) {
                     if (this.fields[item]) {
                         this.fields[item].show();
                     }
                 }, this);
             }
         },
-        toggleSelectField: function (field, disable) {
+        toggleSelectField: function toggleSelectField(field, disable) {
             if (disable) {
                 field.disable();
-            }
-            else {
+            } else {
                 field.enable();
             }
         },
-        onTimelessChange: function (value) {
+        onTimelessChange: function onTimelessChange(value) {
             this.toggleSelectField(this.fields['Duration'], value);
-            var startDateField = this.fields['StartDate'], startDate = startDateField.getValue();
+
+            var startDateField = this.fields['StartDate'],
+                startDate = startDateField.getValue();
+
             if (value) {
                 startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
@@ -209,8 +194,7 @@ define('crm/Views/Activity/Complete', [
                     startDate = startDate.clone().clearTime().add({ minutes: -1 * startDate.getTimezoneOffset(), seconds: 5 });
                 }
                 startDateField.setValue(startDate);
-            }
-            else {
+            } else {
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
@@ -220,7 +204,7 @@ define('crm/Views/Activity/Complete', [
                 startDateField.setValue(startDate);
             }
         },
-        isDateTimeless: function (date) {
+        isDateTimeless: function isDateTimeless(date) {
             if (!date) {
                 return false;
             }
@@ -233,54 +217,59 @@ define('crm/Views/Activity/Complete', [
             if (date.getUTCSeconds() !== 5) {
                 return false;
             }
+
             return true;
         },
-        onAsScheduledChange: function (scheduled) {
+        onAsScheduledChange: function onAsScheduledChange(scheduled) {
             var duration, startDate, completedDate;
             if (scheduled) {
                 duration = this.fields['Duration'].getValue();
-                startDate = moment(this.fields['StartDate'].getValue());
+                startDate = (0, _moment2['default'])(this.fields['StartDate'].getValue());
                 completedDate = startDate.add({ minutes: duration }).toDate();
+
                 this.toggleSelectField(this.fields['CompletedDate'], true);
                 this.fields['CompletedDate'].setValue(completedDate);
-            }
-            else {
+            } else {
                 this.toggleSelectField(this.fields['CompletedDate'], false);
                 this.fields['CompletedDate'].setValue(new Date());
             }
         },
-        onFollowupChange: function (value) {
-            var disable = (value === 'none' || (value && value.key === 'none'));
+        onFollowupChange: function onFollowupChange(value) {
+            var disable = value === 'none' || value && value.key === 'none';
             this.toggleSelectField(this.fields['CarryOverNotes'], disable);
         },
-        onLeadChange: function (value, field) {
+        onLeadChange: function onLeadChange(value, field) {
             var selection = field.getSelection();
+
             if (selection && this.insert) {
-                this.fields['Company'].setValue(utility.getValue(selection, 'Company'));
+                this.fields['Company'].setValue(_utility['default'].getValue(selection, 'Company'));
             }
         },
-        formatPicklistForType: function (type, which) {
+        formatPicklistForType: function formatPicklistForType(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
-        setValues: function () {
+        setValues: function setValues() {
             this.inherited(arguments);
             this.fields['CarryOverNotes'].setValue(true);
             this.fields['CompletedDate'].setValue(new Date());
             this.fields['Followup'].setValue('none');
             this.fields['Result'].setValue('Complete');
             this.fields['ResultCode'].setValue('COM');
+
             this.toggleSelectField(this.fields['CarryOverNotes'], true);
             this.toggleSelectField(this.fields['CompletedDate'], false);
         },
-        onLeaderChange: function (value, field) {
+        onLeaderChange: function onLeaderChange(value, field) {
             var userId = field.getValue();
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
-        formatFollowupText: function (val, key, text) {
+        formatFollowupText: function formatFollowupText(val, key, text) {
             return this.followupValueText[key] || text;
         },
-        createDurationData: function () {
-            var list = [], duration;
+        createDurationData: function createDurationData() {
+            var list = [],
+                duration;
+
             for (duration in this.durationValueText) {
                 if (this.durationValueText.hasOwnProperty(duration)) {
                     list.push({
@@ -289,10 +278,13 @@ define('crm/Views/Activity/Complete', [
                     });
                 }
             }
+
             return { '$resources': list };
         },
-        createFollowupData: function () {
-            var list = [], followup;
+        createFollowupData: function createFollowupData() {
+            var list = [],
+                followup;
+
             for (followup in this.followupValueText) {
                 if (this.followupValueText.hasOwnProperty(followup)) {
                     list.push({
@@ -301,10 +293,12 @@ define('crm/Views/Activity/Complete', [
                     });
                 }
             }
+
             return { '$resources': list };
         },
-        navigateToFollowUpView: function (entry) {
-            var view = App.getView(this.followupView), followupEntry = {
+        navigateToFollowUpView: function navigateToFollowUpView(entry) {
+            var view = App.getView(this.followupView),
+                followupEntry = {
                 'Type': this.fields['Followup'].getValue(),
                 'Description': entry.Description,
                 'AccountId': entry.AccountId,
@@ -313,13 +307,14 @@ define('crm/Views/Activity/Complete', [
                 'ContactName': entry.ContactName,
                 'LeadId': entry.LeadId,
                 'LeadName': entry.LeadName,
-                'LongNotes': (this.fields['CarryOverNotes'].getValue() && entry['LongNotes']) || '',
+                'LongNotes': this.fields['CarryOverNotes'].getValue() && entry['LongNotes'] || '',
                 'OpportunityId': entry.OpportunityId,
                 'OpportunityName': entry.OpportunityName,
-                'StartDate': moment().toDate(),
+                'StartDate': (0, _moment2['default'])().toDate(),
                 'TicketId': entry.TicketId,
                 'TicketNumber': entry.TicketNumber
             };
+
             //Return to activity list view after follow up.
             view.show({
                 entry: followupEntry,
@@ -329,11 +324,13 @@ define('crm/Views/Activity/Complete', [
                 returnTo: -1
             });
         },
-        completeActivity: function (entry, callback) {
+        completeActivity: function completeActivity(entry, callback) {
             if (!entry['$key']) {
                 return;
             }
+
             var leader, success, request, completeActivityEntry;
+
             leader = this.fields['Leader'].getValue();
             completeActivityEntry = {
                 '$name': 'ActivityComplete',
@@ -346,264 +343,261 @@ define('crm/Views/Activity/Complete', [
                     'completeDate': this.fields['CompletedDate'].getValue()
                 }
             };
+
             success = (function (scope, callback, entry) {
                 return function () {
-                    environment.refreshStaleDetailViews();
-                    connect.publish('/app/refresh', [{
-                            resourceKind: 'history'
-                        }]);
+                    _environment['default'].refreshStaleDetailViews();
+                    _connect['default'].publish('/app/refresh', [{
+                        resourceKind: 'history'
+                    }]);
+
                     callback.apply(scope, [entry]);
                 };
             })(this, callback, entry);
-            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-                .setResourceKind('activities')
-                .setContractName('system')
-                .setOperationName('Complete');
+
+            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
+
             request.execute(completeActivityEntry, {
                 success: success,
                 failure: this.onRequestFailure,
                 scope: this
             });
         },
-        onUpdateCompleted: function (entry) {
+        onUpdateCompleted: function onUpdateCompleted(entry) {
             if (!entry) {
                 return;
             }
-            var followup = this.fields['Followup'].getValue() === 'none'
-                ? this.getInherited(arguments)
-                : this.navigateToFollowUpView;
+
+            var followup = this.fields['Followup'].getValue() === 'none' ? this.getInherited(arguments) : this.navigateToFollowUpView;
+
             this.completeActivity(entry, followup);
         },
-        formatDependentQuery: function (dependentValue, format, property) {
+        formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
             property = property || '$key';
-            return string.substitute(format, [utility.getValue(dependentValue, property)]);
+
+            return _string['default'].substitute(format, [_utility['default'].getValue(dependentValue, property)]);
         },
-        createLayout: function () {
+        createLayout: function createLayout() {
             return this.layout || (this.layout = [{
-                    title: this.activityInfoText,
-                    name: 'ActivityInfoSection',
-                    collapsed: false,
-                    children: [{
-                            name: 'Type',
-                            property: 'Type',
-                            type: 'hidden'
-                        }, {
-                            dependsOn: 'Type',
-                            label: this.regardingText,
-                            name: 'Description',
-                            property: 'Description',
-                            picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
-                            title: this.regardingTitleText,
-                            orderBy: 'text asc',
-                            type: 'picklist',
-                            maxTextLength: 64,
-                            validator: validator.exceedsMaxTextLength
-                        }, {
-                            label: this.longNotesText,
-                            noteProperty: false,
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            title: this.longNotesTitleText,
-                            type: 'note',
-                            view: 'text_edit'
-                        }, {
-                            label: this.startingText,
-                            name: 'StartDate',
-                            property: 'StartDate',
-                            type: 'date',
-                            showTimePicker: true,
-                            formatString: this.startingFormatText,
-                            minValue: (new Date(1900, 0, 1)),
-                            validator: [
-                                validator.exists,
-                                validator.isDateInRange
-                            ]
-                        }, {
-                            label: this.durationText,
-                            title: this.durationTitleText,
-                            name: 'Duration',
-                            property: 'Duration',
-                            type: 'duration',
-                            view: 'select_list',
-                            data: this.createDurationData(),
-                            validator: {
-                                fn: function (val, field) {
-                                    if (field.isDisabled()) {
-                                        return false;
-                                    }
-                                    if (!/^\d+$/.test(val)) {
-                                        return true;
-                                    }
-                                },
-                                message: this.durationInvalidText
+                title: this.activityInfoText,
+                name: 'ActivityInfoSection',
+                collapsed: false,
+                children: [{
+                    name: 'Type',
+                    property: 'Type',
+                    type: 'hidden'
+                }, {
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    property: 'Description',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
+                    title: this.regardingTitleText,
+                    orderBy: 'text asc',
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: _validator['default'].exceedsMaxTextLength
+                }, {
+                    label: this.longNotesText,
+                    noteProperty: false,
+                    name: 'LongNotes',
+                    property: 'LongNotes',
+                    title: this.longNotesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
+                }, {
+                    label: this.startingText,
+                    name: 'StartDate',
+                    property: 'StartDate',
+                    type: 'date',
+                    showTimePicker: true,
+                    formatString: this.startingFormatText,
+                    minValue: new Date(1900, 0, 1),
+                    validator: [_validator['default'].exists, _validator['default'].isDateInRange]
+                }, {
+                    label: this.durationText,
+                    title: this.durationTitleText,
+                    name: 'Duration',
+                    property: 'Duration',
+                    type: 'duration',
+                    view: 'select_list',
+                    data: this.createDurationData(),
+                    validator: {
+                        fn: function fn(val, field) {
+                            if (field.isDisabled()) {
+                                return false;
                             }
-                        }, {
-                            label: this.timelessText,
-                            name: 'Timeless',
-                            property: 'Timeless',
-                            type: 'boolean'
-                        }]
+                            if (!/^\d+$/.test(val)) {
+                                return true;
+                            }
+                        },
+                        message: this.durationInvalidText
+                    }
                 }, {
-                    title: this.completionText,
-                    name: 'CompletionSection',
-                    collapsed: false,
-                    children: [{
-                            label: this.asScheduledText,
-                            include: false,
-                            name: 'AsScheduled',
-                            property: 'AsScheduled',
-                            type: 'boolean'
-                        }, {
-                            label: this.completedText,
-                            name: 'CompletedDate',
-                            property: 'CompletedDate',
-                            type: 'date',
-                            showTimePicker: true,
-                            formatString: this.completedFormatText,
-                            minValue: (new Date(1900, 0, 1)),
-                            validator: [
-                                validator.exists,
-                                validator.isDateInRange
-                            ]
-                        }, {
-                            dependsOn: 'Type',
-                            label: this.resultText,
-                            name: 'Result',
-                            property: 'Result',
-                            storageMode: 'code',
-                            picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
-                            title: this.resultTitleText,
-                            orderBy: 'text asc',
-                            type: 'picklist',
-                            maxTextLength: 64,
-                            validator: validator.exceedsMaxTextLength
-                        }, {
-                            name: 'ResultCode',
-                            property: 'ResultCode',
-                            type: 'hidden'
-                        }, {
-                            label: this.followUpText,
-                            title: this.followUpTitleText,
-                            name: 'Followup',
-                            property: 'Followup',
-                            type: 'select',
-                            view: 'select_list',
-                            textRenderer: this.formatFollowupText.bindDelegate(this),
-                            requireSelection: true,
-                            valueKeyProperty: false,
-                            valueTextProperty: false,
-                            data: this.createFollowupData(),
-                            include: false
-                        }, {
-                            label: this.carryOverNotesText,
-                            include: false,
-                            name: 'CarryOverNotes',
-                            property: 'CarryOverNotes',
-                            type: 'boolean'
-                        }]
+                    label: this.timelessText,
+                    name: 'Timeless',
+                    property: 'Timeless',
+                    type: 'boolean'
+                }]
+            }, {
+                title: this.completionText,
+                name: 'CompletionSection',
+                collapsed: false,
+                children: [{
+                    label: this.asScheduledText,
+                    include: false,
+                    name: 'AsScheduled',
+                    property: 'AsScheduled',
+                    type: 'boolean'
                 }, {
-                    title: this.otherInfoText,
-                    name: 'OtherInfoSection',
-                    collapsed: false,
-                    children: [{
-                            label: this.priorityText,
-                            name: 'Priority',
-                            property: 'Priority',
-                            picklist: 'Priorities',
-                            title: this.priorityTitleText,
-                            type: 'picklist',
-                            maxTextLength: 64,
-                            validator: validator.exceedsMaxTextLength
-                        }, {
-                            dependsOn: 'Type',
-                            label: this.categoryText,
-                            name: 'Category',
-                            property: 'Category',
-                            picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
-                            orderBy: 'text asc',
-                            title: this.categoryTitleText,
-                            type: 'picklist',
-                            maxTextLength: 64,
-                            validator: validator.exceedsMaxTextLength
-                        }, {
-                            type: 'hidden',
-                            name: 'UserId',
-                            property: 'UserId'
-                        }, {
-                            label: this.leaderText,
-                            name: 'Leader',
-                            property: 'Leader',
-                            include: false,
-                            type: 'lookup',
-                            textProperty: 'UserInfo',
-                            textTemplate: template.nameLF,
-                            requireSelection: true,
-                            view: 'user_list'
-                        }, {
-                            label: this.accountText,
-                            name: 'Account',
-                            property: 'Account',
-                            type: 'lookup',
-                            emptyText: '',
-                            applyTo: '.',
-                            valueKeyProperty: 'AccountId',
-                            valueTextProperty: 'AccountName',
-                            view: 'account_related'
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.contactText,
-                            name: 'Contact',
-                            property: 'Contact',
-                            type: 'lookup',
-                            emptyText: '',
-                            applyTo: '.',
-                            valueKeyProperty: 'ContactId',
-                            valueTextProperty: 'ContactName',
-                            view: 'contact_related',
-                            where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.opportunityText,
-                            name: 'Opportunity',
-                            property: 'Opportunity',
-                            type: 'lookup',
-                            emptyText: '',
-                            applyTo: '.',
-                            valueKeyProperty: 'OpportunityId',
-                            valueTextProperty: 'OpportunityName',
-                            view: 'opportunity_related',
-                            where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.ticketNumberText,
-                            name: 'Ticket',
-                            property: 'Ticket',
-                            type: 'lookup',
-                            emptyText: '',
-                            applyTo: '.',
-                            valueKeyProperty: 'TicketId',
-                            valueTextProperty: 'TicketNumber',
-                            view: 'ticket_related',
-                            where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
-                        }, {
-                            label: this.leadText,
-                            name: 'Lead',
-                            property: 'Lead',
-                            type: 'lookup',
-                            emptyText: '',
-                            applyTo: '.',
-                            valueKeyProperty: 'LeadId',
-                            valueTextProperty: 'LeadName',
-                            view: 'lead_related'
-                        }, {
-                            label: this.companyText,
-                            name: 'AccountName',
-                            property: 'AccountName',
-                            type: 'text'
-                        }]
-                }]);
+                    label: this.completedText,
+                    name: 'CompletedDate',
+                    property: 'CompletedDate',
+                    type: 'date',
+                    showTimePicker: true,
+                    formatString: this.completedFormatText,
+                    minValue: new Date(1900, 0, 1),
+                    validator: [_validator['default'].exists, _validator['default'].isDateInRange]
+                }, {
+                    dependsOn: 'Type',
+                    label: this.resultText,
+                    name: 'Result',
+                    property: 'Result',
+                    storageMode: 'code', // The onResultChange changes the value back to text
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
+                    title: this.resultTitleText,
+                    orderBy: 'text asc',
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: _validator['default'].exceedsMaxTextLength
+                }, {
+                    name: 'ResultCode',
+                    property: 'ResultCode',
+                    type: 'hidden'
+                }, {
+                    label: this.followUpText,
+                    title: this.followUpTitleText,
+                    name: 'Followup',
+                    property: 'Followup',
+                    type: 'select',
+                    view: 'select_list',
+                    textRenderer: this.formatFollowupText.bindDelegate(this),
+                    requireSelection: true,
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
+                    data: this.createFollowupData(),
+                    include: false
+                }, {
+                    label: this.carryOverNotesText,
+                    include: false,
+                    name: 'CarryOverNotes',
+                    property: 'CarryOverNotes',
+                    type: 'boolean'
+                }]
+            }, {
+                title: this.otherInfoText,
+                name: 'OtherInfoSection',
+                collapsed: false,
+                children: [{
+                    label: this.priorityText,
+                    name: 'Priority',
+                    property: 'Priority',
+                    picklist: 'Priorities',
+                    title: this.priorityTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: _validator['default'].exceedsMaxTextLength
+                }, {
+                    dependsOn: 'Type',
+                    label: this.categoryText,
+                    name: 'Category',
+                    property: 'Category',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
+                    orderBy: 'text asc',
+                    title: this.categoryTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: _validator['default'].exceedsMaxTextLength
+                }, {
+                    type: 'hidden',
+                    name: 'UserId',
+                    property: 'UserId'
+                }, {
+                    label: this.leaderText,
+                    name: 'Leader',
+                    property: 'Leader',
+                    include: false,
+                    type: 'lookup',
+                    textProperty: 'UserInfo',
+                    textTemplate: _template['default'].nameLF,
+                    requireSelection: true,
+                    view: 'user_list'
+                }, {
+                    label: this.accountText,
+                    name: 'Account',
+                    property: 'Account',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'AccountId',
+                    valueTextProperty: 'AccountName',
+                    view: 'account_related'
+                }, {
+                    dependsOn: 'Account',
+                    label: this.contactText,
+                    name: 'Contact',
+                    property: 'Contact',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'ContactId',
+                    valueTextProperty: 'ContactName',
+                    view: 'contact_related',
+                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+                }, {
+                    dependsOn: 'Account',
+                    label: this.opportunityText,
+                    name: 'Opportunity',
+                    property: 'Opportunity',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'OpportunityId',
+                    valueTextProperty: 'OpportunityName',
+                    view: 'opportunity_related',
+                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+                }, {
+                    dependsOn: 'Account',
+                    label: this.ticketNumberText,
+                    name: 'Ticket',
+                    property: 'Ticket',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'TicketId',
+                    valueTextProperty: 'TicketNumber',
+                    view: 'ticket_related',
+                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+                }, {
+                    label: this.leadText,
+                    name: 'Lead',
+                    property: 'Lead',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'LeadId',
+                    valueTextProperty: 'LeadName',
+                    view: 'lead_related'
+                }, {
+                    label: this.companyText,
+                    name: 'AccountName',
+                    property: 'AccountName',
+                    type: 'text'
+                }]
+            }]);
         }
     });
-    lang.setObject('Mobile.SalesLogix.Views.Activity.Complete', __class);
-    return __class;
+
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Activity.Complete', __class);
+    module.exports = __class;
 });

@@ -1,28 +1,34 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
-/**
- * @class crm.Views.Contact.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Format
- * @requires crm.Template
- * @requires crm.Validator
- */
-define('crm/Views/Contact/Edit', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/string',
-    'crm/Format',
-    'crm/Template',
-    'crm/Validator',
-    'argos/Edit',
-    'argos/Utility'
-], function (declare, lang, dString, format, template, validator, Edit, utility) {
-    var __class = declare('crm.Views.Contact.Edit', [Edit], {
+define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'crm/Format', 'crm/Template', 'crm/Validator', 'argos/Edit', 'argos/Utility'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _crmFormat, _crmTemplate, _crmValidator, _argosEdit, _argosUtility) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _dString = _interopRequireDefault(_dojoString);
+
+    var _format = _interopRequireDefault(_crmFormat);
+
+    var _template = _interopRequireDefault(_crmTemplate);
+
+    var _validator = _interopRequireDefault(_crmValidator);
+
+    var _Edit = _interopRequireDefault(_argosEdit);
+
+    var _utility = _interopRequireDefault(_argosUtility);
+
+    /**
+     * @class crm.Views.Contact.Edit
+     *
+     * @extends argos.Edit
+     *
+     * @requires argos.Utility
+     *
+     * @requires crm.Format
+     * @requires crm.Template
+     * @requires crm.Validator
+     */
+    var __class = (0, _declare['default'])('crm.Views.Contact.Edit', [_Edit['default']], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',
@@ -41,90 +47,66 @@ define('crm/Views/Contact/Edit', [
         ownerText: 'owner',
         cuisinePreferenceText: 'cuisine',
         cuisinePreferenceTitleText: 'Cuisine',
+
         //View Properties
         entityName: 'Contact',
         id: 'contact_edit',
         insertSecurity: 'Entities/Contact/Add',
         updateSecurity: 'Entities/Contact/Edit',
-        querySelect: [
-            'Account/AccountName',
-            'AccountManager/UserInfo/FirstName',
-            'AccountManager/UserInfo/LastName',
-            'AccountName',
-            'Address/*',
-            'CuisinePreference',
-            'CreateDate',
-            'CreateUser',
-            'Email',
-            'Fax',
-            'FirstName',
-            'HomePhone',
-            'LastName',
-            'MiddleName',
-            'Mobile',
-            'Name',
-            'NameLF',
-            'Owner/OwnerDescription',
-            'Prefix',
-            'Suffix',
-            'Title',
-            'WebAddress',
-            'WorkPhone'
-        ],
+        querySelect: ['Account/AccountName', 'AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'CuisinePreference', 'CreateDate', 'CreateUser', 'Email', 'Fax', 'FirstName', 'HomePhone', 'LastName', 'MiddleName', 'Mobile', 'Name', 'NameLF', 'Owner/OwnerDescription', 'Prefix', 'Suffix', 'Title', 'WebAddress', 'WorkPhone'],
         resourceKind: 'contacts',
-        startup: function () {
+
+        startup: function startup() {
             this.inherited(arguments);
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
-        beforeTransitionTo: function () {
+        beforeTransitionTo: function beforeTransitionTo() {
             this.inherited(arguments);
             if (this.options.insert) {
                 this.fields['Account'].enable();
-            }
-            else {
+            } else {
                 this.fields['Account'].disable();
             }
         },
-        onAccountChange: function (value) {
+        onAccountChange: function onAccountChange(value) {
             if (value && value.text) {
                 this.fields['AccountName'].setValue(value.text);
             }
             this.requestAccount(value['key']);
         },
-        applyContext: function () {
+        applyContext: function applyContext() {
             var found, lookup;
+
             found = App.queryNavigationContext(function (o) {
-                o = (o.options && o.options.source) || o;
-                return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
+                o = o.options && o.options.source || o;
+                return /^(accounts|opportunities)$/.test(o.resourceKind) && o.key;
             });
+
             lookup = {
                 'accounts': this.applyAccountContext,
                 'opportunities': this.applyOpportunityContext
             };
+
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
+
             if (found && lookup[found.resourceKind]) {
                 lookup[found.resourceKind].call(this, found);
             }
         },
-        applyAccountContext: function (context) {
-            var view = App.getView(context.id), entry = view && view.entry;
+        applyAccountContext: function applyAccountContext(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             if (!entry && context.options && context.options.source && context.options.source.entry) {
                 this.requestAccount(context.options.source.entry['$key']);
             }
+
             this.processAccount(entry);
         },
-        requestAccount: function (accountId) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('accounts')
-                .setResourceSelector(dString.substitute("'${0}'", [accountId]))
-                .setQueryArg('select', [
-                'AccountName',
-                'Address/*',
-                'Fax',
-                'MainPhone',
-                'WebAddress'
-            ].join(','));
+        requestAccount: function requestAccount(accountId) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_dString['default'].substitute('\'${0}\'', [accountId])).setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
+
             request.allowCacheUse = true;
             request.read({
                 success: this.processAccount,
@@ -132,10 +114,15 @@ define('crm/Views/Contact/Edit', [
                 scope: this
             });
         },
-        requestAccountFailure: function () {
-        },
-        processAccount: function (entry) {
-            var account = entry, accountName = utility.getValue(entry, 'AccountName'), webAddress = utility.getValue(entry, 'WebAddress'), mainPhone = utility.getValue(entry, 'MainPhone'), address = utility.getValue(entry, 'Address'), fax = utility.getValue(entry, 'Fax');
+        requestAccountFailure: function requestAccountFailure() {},
+        processAccount: function processAccount(entry) {
+            var account = entry,
+                accountName = _utility['default'].getValue(entry, 'AccountName'),
+                webAddress = _utility['default'].getValue(entry, 'WebAddress'),
+                mainPhone = _utility['default'].getValue(entry, 'MainPhone'),
+                address = _utility['default'].getValue(entry, 'Address'),
+                fax = _utility['default'].getValue(entry, 'Fax');
+
             if (account) {
                 this.fields['Account'].setValue(account);
             }
@@ -155,8 +142,17 @@ define('crm/Views/Contact/Edit', [
                 this.fields['Fax'].setValue(fax);
             }
         },
-        applyOpportunityContext: function (context) {
-            var view = App.getView(context.id), entry = view && view.entry, opportunityId = utility.getValue(entry, '$key'), account = utility.getValue(entry, 'Account'), accountName = utility.getValue(entry, 'Account.AccountName'), webAddress = utility.getValue(entry, 'Account.WebAddress'), mainPhone = utility.getValue(entry, 'Account.MainPhone'), address = utility.getValue(entry, 'Account.Address'), fax = utility.getValue(entry, 'Account.Fax');
+        applyOpportunityContext: function applyOpportunityContext(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry,
+                opportunityId = _utility['default'].getValue(entry, '$key'),
+                account = _utility['default'].getValue(entry, 'Account'),
+                accountName = _utility['default'].getValue(entry, 'Account.AccountName'),
+                webAddress = _utility['default'].getValue(entry, 'Account.WebAddress'),
+                mainPhone = _utility['default'].getValue(entry, 'Account.MainPhone'),
+                address = _utility['default'].getValue(entry, 'Account.Address'),
+                fax = _utility['default'].getValue(entry, 'Account.Fax');
+
             if (opportunityId) {
                 this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
             }
@@ -179,9 +175,10 @@ define('crm/Views/Contact/Edit', [
                 this.fields['Fax'].setValue(fax);
             }
         },
-        cleanAddressEntry: function (address) {
+        cleanAddressEntry: function cleanAddressEntry(address) {
             if (address) {
-                var clean = {}, skip = {
+                var clean = {},
+                    skip = {
                     '$key': true,
                     '$lookup': true,
                     '$url': true,
@@ -190,7 +187,9 @@ define('crm/Views/Contact/Edit', [
                     'ModifyUser': true,
                     'CreateDate': true,
                     'CreateUser': true
-                }, name;
+                },
+                    name;
+
                 for (name in address) {
                     if (address.hasOwnProperty(name)) {
                         if (!skip[name]) {
@@ -198,133 +197,121 @@ define('crm/Views/Contact/Edit', [
                         }
                     }
                 }
+
                 return clean;
-            }
-            else {
+            } else {
                 return null;
             }
         },
-        createLayout: function () {
+        createLayout: function createLayout() {
             return this.layout || (this.layout = [{
-                    applyTo: '.',
-                    formatValue: format.nameLF,
-                    label: this.nameText,
-                    name: 'ContactName',
-                    property: 'ContactName',
-                    type: 'name',
-                    validator: validator.name,
-                    view: 'name_edit'
-                },
-                {
-                    label: this.accountNameText,
-                    name: 'Account',
-                    property: 'Account',
-                    textProperty: 'AccountName',
-                    type: 'lookup',
-                    validator: validator.exists,
-                    view: 'account_related'
-                },
-                {
-                    name: 'AccountName',
-                    property: 'AccountName',
-                    type: 'hidden'
-                },
-                {
-                    name: 'WebAddress',
-                    property: 'WebAddress',
-                    label: this.webText,
-                    type: 'text',
-                    inputType: 'url',
-                    maxTextLength: 128,
-                    validator: validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'WorkPhone',
-                    property: 'WorkPhone',
-                    label: this.workText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Email',
-                    property: 'Email',
-                    label: this.emailText,
-                    type: 'text',
-                    inputType: 'email'
-                },
-                {
-                    label: this.contactTitleText,
-                    name: 'Title',
-                    property: 'Title',
-                    picklist: 'Title',
-                    title: this.titleTitleText,
-                    type: 'picklist'
-                },
-                {
-                    formatValue: format.address.bindDelegate(this, true),
-                    label: this.addressText,
-                    name: 'Address',
-                    property: 'Address',
-                    type: 'address',
-                    view: 'address_edit'
-                },
-                {
-                    name: 'HomePhone',
-                    property: 'HomePhone',
-                    label: this.homePhoneText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Mobile',
-                    property: 'Mobile',
-                    label: this.mobileText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Fax',
-                    property: 'Fax',
-                    label: this.faxText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.acctMgrText,
-                    name: 'AccountManager',
-                    property: 'AccountManager',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
-                    type: 'lookup',
-                    view: 'user_list'
-                },
-                {
-                    label: this.ownerText,
-                    name: 'Owner',
-                    property: 'Owner',
-                    textProperty: 'OwnerDescription',
-                    type: 'lookup',
-                    view: 'owner_list'
-                },
-                {
-                    name: 'Opportunities.$resources[0].Opportunity.$key',
-                    property: 'Opportunities.$resources[0].Opportunity.$key',
-                    type: 'hidden'
-                }, {
-                    label: this.cuisinePreferenceText,
-                    name: 'CuisinePreference',
-                    property: 'CuisinePreference',
-                    type: 'picklist',
-                    picklist: 'CuisinePrefs',
-                    singleSelect: false,
-                    title: this.cuisinePreferenceTitleText
-                }]);
+                applyTo: '.',
+                formatValue: _format['default'].nameLF,
+                label: this.nameText,
+                name: 'ContactName',
+                property: 'ContactName',
+                type: 'name',
+                validator: _validator['default'].name,
+                view: 'name_edit'
+            }, {
+                label: this.accountNameText,
+                name: 'Account',
+                property: 'Account',
+                textProperty: 'AccountName',
+                type: 'lookup',
+                validator: _validator['default'].exists,
+                view: 'account_related'
+            }, {
+                name: 'AccountName',
+                property: 'AccountName',
+                type: 'hidden'
+            }, {
+                name: 'WebAddress',
+                property: 'WebAddress',
+                label: this.webText,
+                type: 'text',
+                inputType: 'url',
+                maxTextLength: 128,
+                validator: _validator['default'].exceedsMaxTextLength
+            }, {
+                name: 'WorkPhone',
+                property: 'WorkPhone',
+                label: this.workText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: _validator['default'].exceedsMaxTextLength
+            }, {
+                name: 'Email',
+                property: 'Email',
+                label: this.emailText,
+                type: 'text',
+                inputType: 'email'
+            }, {
+                label: this.contactTitleText,
+                name: 'Title',
+                property: 'Title',
+                picklist: 'Title',
+                title: this.titleTitleText,
+                type: 'picklist'
+            }, {
+                formatValue: _format['default'].address.bindDelegate(this, true),
+                label: this.addressText,
+                name: 'Address',
+                property: 'Address',
+                type: 'address',
+                view: 'address_edit'
+            }, {
+                name: 'HomePhone',
+                property: 'HomePhone',
+                label: this.homePhoneText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: _validator['default'].exceedsMaxTextLength
+            }, {
+                name: 'Mobile',
+                property: 'Mobile',
+                label: this.mobileText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: _validator['default'].exceedsMaxTextLength
+            }, {
+                name: 'Fax',
+                property: 'Fax',
+                label: this.faxText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: _validator['default'].exceedsMaxTextLength
+            }, {
+                label: this.acctMgrText,
+                name: 'AccountManager',
+                property: 'AccountManager',
+                textProperty: 'UserInfo',
+                textTemplate: _template['default'].nameLF,
+                type: 'lookup',
+                view: 'user_list'
+            }, {
+                label: this.ownerText,
+                name: 'Owner',
+                property: 'Owner',
+                textProperty: 'OwnerDescription',
+                type: 'lookup',
+                view: 'owner_list'
+            }, {
+                name: 'Opportunities.$resources[0].Opportunity.$key',
+                property: 'Opportunities.$resources[0].Opportunity.$key',
+                type: 'hidden'
+            }, {
+                label: this.cuisinePreferenceText,
+                name: 'CuisinePreference',
+                property: 'CuisinePreference',
+                type: 'picklist',
+                picklist: 'CuisinePrefs',
+                singleSelect: false,
+                title: this.cuisinePreferenceTitleText
+            }]);
         }
     });
-    lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
-    return __class;
+
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
+    module.exports = __class;
 });
