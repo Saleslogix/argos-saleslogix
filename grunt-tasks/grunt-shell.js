@@ -25,17 +25,8 @@ module.exports = function(grunt) {
                     cwd: ''
                 }
             }
-        },
-        typescript: {
-            command: 'node node_modules/typescript/bin/tsc',
-            options: {
-                execOptions: {
-                    cwd: '.'
-                }
-            }
         }
     });
 
     grunt.loadNpmTasks('grunt-shell');
 };
-
