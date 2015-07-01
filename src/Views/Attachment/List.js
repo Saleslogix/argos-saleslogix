@@ -91,8 +91,8 @@ var __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin,
     queryInclude: ['$descriptors'],
 
     hashTagQueries: {
-        'url': 'url ne null',
-        'binary': 'url eq null'
+        'url': "(fileName like '%.URL')",
+        'binary': "(fileName not like '%.URL')"
     },
     hashTagQueriesText: {
         'url': 'url',
