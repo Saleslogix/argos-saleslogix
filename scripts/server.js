@@ -1,18 +1,19 @@
 var Hapi = require('hapi');
+var config = require('./config.json');
 
 var server = new Hapi.Server();
-server.connection({port: 8000});
+server.connection({port: config.port});
+
+var proxyConfig = config.proxy || {};
 
 server.route({
     method: '*',
     path: '/sdata/{param*}',
     handler: {
         proxy: {
-            host: 'slx81.saleslogixcloud.com',
-            port: 443,
-            protocol: 'https',
-            // Absolute URI can be used as well
-            //uri: 'http://10.33.30.160/sdata/',
+            host:proxyConfig.host || 'localhost',
+            port: proxyConfig.port || 80,
+            protocol: proxyConfig['protocol'] || 'http',
             passThrough: true,
             xforward: true,
             localStatePassThrough: true,
