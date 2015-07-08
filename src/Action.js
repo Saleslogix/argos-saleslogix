@@ -38,7 +38,7 @@ define('crm/Action', [
         recordToHistory: function(complete, o) {
             var entry = {
                 'UserId': App.context && App.context.user['$key'],
-                'UserName': App.context && App.context.user['UserName'],
+                'UserName': App.context && App.context.user['$descriptor'],
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
