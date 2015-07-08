@@ -108,6 +108,7 @@ define('crm/Application', [
         loginViewId: 'login',
         logOffViewId: 'logoff',
 
+        UID: null,
         init: function() {
             var original,
                 self = this;
@@ -119,11 +120,12 @@ define('crm/Application', [
             this._loadNavigationState();
             this._saveDefaultPreferences();
 
+            this.UID = (new Date()).getTime();
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
             Sage.SData.Client.SDataService.prototype.executeRequest = function(request) {
                 request.setRequestHeader('X-Application-Name', self.appName);
-                request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', self.mobileVersion));
+                request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: self.mobileVersion, id: self.UID }));
                 return original.apply(this, arguments);
             };
         },

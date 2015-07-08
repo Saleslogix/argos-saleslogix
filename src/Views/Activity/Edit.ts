@@ -644,7 +644,7 @@ define('crm/Views/Activity/Edit', [
             // 11:24 -> 11:30
             // 11:12 -> 11:15
             // 11:31 -> 11:45
-            startDate = selectedDate.startOf('day').hours(now.hours())
+            startDate = selectedDate.clone().startOf('day').hours(now.hours())
                 .add({'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES});
 
             return startDate;
@@ -1341,4 +1341,3 @@ define('crm/Views/Activity/Edit', [
     lang.setObject('Mobile.SalesLogix.Views.Activity.Edit', __class);
     return __class;
 });
-
