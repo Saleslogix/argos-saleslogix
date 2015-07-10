@@ -13,7 +13,7 @@ server.route({
         proxy: {
             host:proxyConfig.host || 'localhost',
             port: proxyConfig.port || 80,
-            protocol: protocol || 'http',
+            protocol: proxyConfig.protocol || 'http',
             passThrough: true,
             xforward: true,
             localStatePassThrough: true,
