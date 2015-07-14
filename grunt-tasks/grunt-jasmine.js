@@ -4,7 +4,7 @@ module.exports = function(grunt) {
             src: ['src-out/**/*.js', 'configuration/**/*.js', 'localization/**/*.js'],
             options: {
                 specs: 'tests/**/*.spec.js',
-                host: 'http://127.0.0.1:8000/products/argos-saleslogix/',
+                host: 'http://127.0.0.1:8001/products/argos-saleslogix/',
                 template: require('grunt-template-jasmine-istanbul'),
                 templateOptions: {
                     coverage: 'coverage/coverage.json',
@@ -27,4 +27,3 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 };
-
