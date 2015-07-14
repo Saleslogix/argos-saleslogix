@@ -620,18 +620,19 @@ define('crm/Application', [
         onRequestOwnerDescriptionFailure: function (response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
         },
+        defaultViews: [
+            'myactivity_list',
+            'calendar_daylist',
+            'history_list',
+            'account_list',
+            'contact_list',
+            'lead_list',
+            'opportunity_list',
+            'ticket_list',
+            'myattachment_list'
+        ],
         getDefaultViews: function () {
-            return [
-                'myactivity_list',
-                'calendar_daylist',
-                'history_list',
-                'account_list',
-                'contact_list',
-                'lead_list',
-                'opportunity_list',
-                'ticket_list',
-                'myattachment_list'
-            ];
+            return this.defaultViews;
         },
         getExposedViews: function () {
             var exposed = [], id, view;
