@@ -178,20 +178,23 @@ define('crm/Format', [
             'thousand': 'K'
         },
         bigNumber: function (val) {
-            var numParse = isNaN(val) ? parseFloat(val) : val, text = crm.Format.bigNumberAbbrText;
-            if (numParse && numParse >= 1000000000) {
+            var numParse = typeof val !== 'number' ? parseFloat(val) : val, absVal = Math.abs(numParse), results = '', text = crm.Format.bigNumberAbbrText;
+            if (isNaN(numParse)) {
+                return val;
+            }
+            if (absVal >= 1000000000) {
                 numParse = numParse / 1000000000;
-                return dojoNumber.format(numParse, { places: 1 }) + text['billion'];
+                results = dojoNumber.format(numParse, { places: 1 }) + text['billion'];
             }
-            else if (numParse && numParse >= 1000000) {
+            else if (absVal >= 1000000) {
                 numParse = numParse / 1000000;
-                return dojoNumber.format(numParse, { places: 1 }) + text['million'];
+                results = dojoNumber.format(numParse, { places: 1 }) + text['million'];
             }
-            else if (numParse && numParse >= 1000) {
+            else if (absVal >= 1000) {
                 numParse = numParse / 1000;
-                return dojoNumber.format(numParse, { places: 1 }) + text['thousand'];
+                results = dojoNumber.format(numParse, { places: 1 }) + text['thousand'];
             }
-            return val;
+            return results;
         },
         relativeDate: function (date, timeless) {
             date = moment(date);
