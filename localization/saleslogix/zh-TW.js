@@ -79,11 +79,11 @@ localize("crm.Recurrence", {
   },
   "ordText": {
     "0": "天",
-    "1": "名字",
+    "1": "第一個",
     "2": "第二個",
     "3": "第三個",
     "4": "第四個",
-    "5": "姓氏"
+    "5": "最後一個"
   }
 });
 
@@ -1054,7 +1054,7 @@ localize("crm.Views.AddAccountContact", {
   "homePhoneText": "住家電話",
   "industryText": "行業",
   "ownerText": "擁有者",
-  "lastNameText": "最後一個",
+  "lastNameText": "姓氏",
   "mobileText": "行動電話",
   "nameText": "名稱",
   "statusText": "狀態",
@@ -1387,7 +1387,7 @@ localize("crm.Views.MetricWidget", {
 
 localize("crm.Views.NameEdit", {
   "titleText": "編輯名稱",
-  "firstNameText": "第一個",
+  "firstNameText": "名字",
   "middleNameText": "中間名",
   "lastNameText": "姓氏",
   "prefixText": "首碼",
