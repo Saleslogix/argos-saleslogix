@@ -162,7 +162,7 @@
         },
         {
           "text": "OfflineManager.js",
-          "path": "../src"
+          "path": "../src-out/"
         },
         {
           "text": "AttachmentManager.js",
@@ -251,11 +251,11 @@
         },
         {
           "text": "List.js",
-          "path": "../src/Views/Offline"
+          "path": "../src-out/Views/Offline/"
         },
         {
           "text": "Detail.js",
-          "path": "../src/Views/Offline"
+          "path": "../src-out/Views/Offline/"
         },
         {
           "text": "Home.js",
