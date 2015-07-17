@@ -26,7 +26,8 @@
 .row > div > a,
 .row > span,
 .row > a {
-    /*display: inline-block;*/
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .list-item-selected {
@@ -505,6 +506,9 @@ td.calendar-day {
 }
 
 .toolButton {
+    .fa-bars {
+        color: @color-light-azure;
+    }
     color: @icon-color;
 }
 
@@ -1421,9 +1425,9 @@ td.entry-table-description {
 }
 
 .group-configuration {
-    background-color: @black-dark !important;
+    background-color: @color-slate !important;
     border-width: 1px 0px 1px 0px;
-    border-color: @black-light;
+    border-color: @color-light-slate;
     border-style: solid;
 }
 
