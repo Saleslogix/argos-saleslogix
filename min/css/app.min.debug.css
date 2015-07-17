@@ -33,7 +33,7 @@
   display: none;
 }
 #login.login-active > .button {
-  background-color: #13a3f7;
+  background-color: #368ac0;
   color: #fff;
 }
 #login .logo {
@@ -227,7 +227,7 @@
   padding: 5px 2px 5px 2px;
   border: 0px #000;
   width: 100%;
-  background-color: #005ce6;
+  background-color: #1d5f8a;
   color: #fff;
   vertical-align: top;
 }
@@ -265,11 +265,11 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  background-color: #005ce6;
+  background-color: #1d5f8a;
 }
 .groups-notice {
   width: 100%;
-  border-left: 5px solid #005ce6;
+  border-left: 5px solid #1d5f8a;
   padding: 10px;
   margin: 0 0 6px 0;
   font-weight: bold;
@@ -355,9 +355,9 @@ li[data-ticket-status] .list-item-selector,
 }
 .panel-content > fieldset > .row-error > div > input:focus,
 .panel-content > fieldset > .row-error > div > textarea:focus {
-  box-shadow: 0 0 5px #ff0000 !important;
-  -webkit-box-shadow: 0 0 5px #ff0000 !important;
-  -moz-box-shadow: 0 0 5px #ff0000 !important;
+  box-shadow: 0 0 5px red !important;
+  -webkit-box-shadow: 0 0 5px red !important;
+  -moz-box-shadow: 0 0 5px red !important;
 }
 .calendar-table {
   width: 100%;
@@ -389,14 +389,14 @@ li[data-ticket-status] .list-item-selector,
   border: 1px solid #b3b3b3;
 }
 .calendar-day.today {
-  background-color: #00733a;
+  background-color: #56932e;
 }
 .calendar-day.weekend {
-  background-color: #13a3f7;
+  background-color: #368ac0;
 }
 .calendar-day.selected {
   color: #fff;
-  background-color: #2db329;
+  background-color: #76b051;
 }
 /* in Month view .activeDay indicates individual events */
 td.calendar-day {
@@ -640,7 +640,7 @@ body.transition > .viewContainer > .footer-toolbar {
 }
 #calendar_weeklist > div > h2.currentDate {
   background-color: #444444;
-  border-left: 8px solid #005ce6;
+  border-left: 8px solid #1d5f8a;
   color: #fff;
 }
 #calendar_monthlist,
@@ -765,7 +765,7 @@ td.entry-table-description {
 .activities-for-year > .split-buttons > .button[data-tool="year"],
 .activities-for-week > .split-buttons > .button[data-tool="week"] {
   color: #fff;
-  background-color: #005ce6;
+  background-color: #1d5f8a;
   border: none;
 }
 .split-buttons > .button[data-tool="selectdate"] {
@@ -789,7 +789,7 @@ td.entry-table-description {
   width: 100%;
   padding: 0px 0px 10px 0px;
   z-index: 10;
-  background-color: #2db329;
+  background-color: #76b051;
   height: 44px;
 }
 .update-toolbar > h1 {
@@ -899,7 +899,7 @@ td.entry-table-description {
 }
 .card-layout .group-currency,
 .context-snapshot .group-currency {
-  color: #2db329;
+  color: #76b051;
 }
 .card-layout .group-column,
 .context-snapshot .group-column {
@@ -922,20 +922,21 @@ td.entry-table-description {
 }
 .card-layout .list-content > li.actions-row,
 .context-snapshot .list-content > li.actions-row {
-  background-color: #13a3f7;
+  background-color: #368ac0;
 }
 .card-layout .list-content > li,
 .context-snapshot .list-content > li {
   min-height: 55px;
   font-weight: bold;
   list-style: none;
-  padding: 8px 0px 8px 10px;
+  padding: 8px 0 8px 10px;
   position: relative;
   cursor: pointer;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  margin: 3px;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  margin: 0;
+  border-bottom: 1px solid #c8cbd4;
 }
 .card-layout .list-content > li > img.icon,
 .context-snapshot .list-content > li > img.icon,
@@ -952,13 +953,13 @@ td.entry-table-description {
 .card-layout .list-content > li > input.list-selector,
 .context-snapshot .list-content > li > input.list-selector {
   float: left;
-  margin: 2px 0 0 0px;
+  margin: 2px 0 0 0;
 }
 .card-layout .list-content > li,
 .context-snapshot .list-content > li,
 .card-layout .group-content > li,
 .context-snapshot .group-content > li {
-  padding: 8px 6px 8px 6px;
+  padding: 8px 0;
   background-color: #fff;
   font-weight: normal;
 }
@@ -989,14 +990,14 @@ td.entry-table-description {
   visibility: hidden;
   width: 44px;
   /* todo: remove !important in the SDK */
-  height: 44px !important;
+  height: 100%;
   position: absolute;
-  top: 6px;
-  left: 10px;
+  top: 0;
+  left: 0;
   z-index: 10;
-  border: 0 none #000;
-  border-radius: 48px;
-  background: #bbbec0 none;
+  border-right: 1px solid #c8cbd4;
+  border-radius: 0;
+  background: none;
   font-size: 10px;
 }
 .card-layout .list-item-selector > span,
@@ -1056,7 +1057,7 @@ td.entry-table-description {
 }
 .card-layout .actions-row > button,
 .context-snapshot .actions-row > button {
-  background: #13a3f7;
+  background: #368ac0;
   border: 0 solid #000000;
   height: 44px;
   margin: 5px !important;
@@ -1082,15 +1083,15 @@ td.entry-table-description {
 }
 .card-layout .list-action-selected > .list-item-selector,
 .context-snapshot .list-action-selected > .list-item-selector {
-  border-color: #AAAAAA;
+  border-color: #c8cbd4;
   background-image: none !important;
   margin: 0;
-  background-color: #13a3f7;
+  background-color: #368ac0;
   color: #fff;
   text-shadow: none;
-  border-radius: 22px;
-  -webkit-border-radius: 22px;
-  -moz-border-radius: 22px;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1122,7 +1123,7 @@ td.entry-table-description {
 .card-layout .list-item-indicator-content > span,
 .context-snapshot .list-item-indicator-content > span {
   margin: 0 3px 0 3px;
-  color: #ffd500;
+  color: #f2bc41;
 }
 .card-layout .list-item-indicator-content > span > img,
 .context-snapshot .list-item-indicator-content > span > img {
@@ -1212,7 +1213,7 @@ td.entry-table-description {
   color: #fff !important;
 }
 .card-layout-speed-search-synopsis > span[style="font-weight: bold; background-color : yellow;"] {
-  background-color: #ff6400 !important;
+  background-color: #e4882b !important;
   color: white;
 }
 .indicator_Important {
@@ -1222,7 +1223,7 @@ td.entry-table-description {
 .card-layout-search-expression,
 .chart-hash {
   padding: 10px 0 10px 5px;
-  border-left: 5px solid #13a3f7;
+  border-left: 5px solid #368ac0;
   margin: 2px 0 0 2px;
   font-weight: bold;
 }
