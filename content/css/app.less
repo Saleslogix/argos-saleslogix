@@ -1083,11 +1083,12 @@ td.entry-table-description {
             min-height: 55px;
             font-weight: bold;
             list-style: none;
-            padding: 8px 0px 8px 10px;
+            padding: 8px 0 8px 10px;
             position: relative;
             cursor: pointer;
-            .border-radius(3px);
-            margin: 3px;
+            .border-radius(0);
+            margin: 0;
+            border-bottom: 1px solid @color-lighter-slate;
 
             > img.icon,
             * > img.icon {
@@ -1102,14 +1103,14 @@ td.entry-table-description {
 
             > input.list-selector {
                 float: left;
-                margin: 2px 0 0 0px;
+                margin: 2px 0 0 0;
             }
         }
     }
 
     .list-content, .group-content {
         > li {
-            padding: 8px 6px 8px 6px;
+            padding: 8px 0;
             background-color: #fff;
             font-weight: normal;
         }
@@ -1139,14 +1140,14 @@ td.entry-table-description {
         visibility: hidden;
         width: 44px;
         /* todo: remove !important in the SDK */
-        height: 44px !important;
+        height: 100%;
         position: absolute;
-        top: 6px;
-        left: 10px;
+        top: 0;
+        left: 0;
         z-index: 10;
-        border: 0 none #000;
-        border-radius: 48px;
-        background: @gray1-light none;
+        border-right: 1px solid @color-lighter-slate;
+        border-radius: 0;
+        background: none;
         font-size: 10px;
 
         > span {
@@ -1239,7 +1240,7 @@ td.entry-table-description {
 
         > .list-item-selector {
 
-            border-color: #AAAAAA;
+            border-color: @color-lighter-slate;
             background-image: none !important;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -1248,7 +1249,7 @@ td.entry-table-description {
             background-color: @color-azure;
             color: #fff;
             text-shadow: none;
-            .border-radius(22px);
+            .border-radius(0);
             .box-sizing(border-box);
             .box-shadow(none) !important;
         }
