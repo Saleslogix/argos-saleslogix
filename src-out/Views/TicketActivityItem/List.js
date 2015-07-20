@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.TicketActivityItem.List
  *
@@ -14,7 +15,14 @@ define('crm/Views/TicketActivityItem/List', [
     'dojo/string',
     'crm/Format',
     'argos/List'
-], function (declare, lang, string, format, List) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    List
+) {
+
     var __class = declare('crm.Views.TicketActivityItem.List', [List], {
         //Templates
         itemTemplate: new Simplate([
@@ -22,8 +30,10 @@ define('crm/Views/TicketActivityItem/List', [
             '<h4>{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</h4>',
             '<h4>{%: $.ItemDescription %}</h4>'
         ]),
+
         //Localization
         titleText: 'Ticket Activity Parts',
+
         //View Properties
         id: 'ticketactivityitem_list',
         detailView: 'ticketactivityitem_detail',
@@ -35,15 +45,18 @@ define('crm/Views/TicketActivityItem/List', [
             'ItemAmount'
         ],
         resourceKind: 'ticketActivityItems',
-        createToolLayout: function () {
+
+        createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': []
             });
         },
-        formatSearchQuery: function (searchQuery) {
+        formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.TicketActivityItem.List', __class);
     return __class;
 });
+

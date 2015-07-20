@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.History.Detail
  *
@@ -21,10 +22,22 @@ define('crm/Views/History/Detail', [
     'argos/ErrorManager',
     '../../Template',
     'argos/Detail'
-], function (declare, string, lang, query, domClass, format, ErrorManager, template, Detail) {
+], function(
+    declare,
+    string,
+    lang,
+    query,
+    domClass,
+    format,
+    ErrorManager,
+    template,
+    Detail
+) {
+
     var __class = declare('crm.Views.History.Detail', [Detail], {
         //Templates
         createUserTemplate: template.nameLF,
+
         //Localization
         categoryText: 'category',
         completedText: 'completed',
@@ -65,7 +78,7 @@ define('crm/Views/History/Detail', [
         editView: 'history_edit',
         dateFormatText: 'M/D/YYYY h:mm:ss A',
         resourceKind: 'history',
-        security: null,
+        security: null, //'Entities/History/View',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -92,37 +105,41 @@ define('crm/Views/History/Detail', [
             'UserName',
             'UserId'
         ],
-        formatActivityType: function (val) {
+
+        formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        isHistoryForLead: function (entry) {
+        isHistoryForLead: function(entry) {
             return this.existsRE.test(entry && entry['LeadId']);
         },
-        isHistoryForActivity: function (entry) {
+        isHistoryForActivity: function(entry) {
             return this.existsRE.test(entry && entry['ActivityId']);
         },
-        isHistoryOfType: function (entry, type) {
+        isHistoryOfType: function(entry, type) {
             return entry && (entry['Type'] === type);
         },
-        provideText: function (entry) {
+        provideText: function(entry) {
             return entry && (entry['LongNotes'] || entry['Notes']);
         },
-        requestCompletedUser: function (entry) {
+        requestCompletedUser: function(entry) {
             var request, completedUser;
             completedUser = entry['CompletedUser'];
+
             if (completedUser) {
                 request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                     .setResourceKind('users')
                     .setResourceSelector(string.substitute("'${0}'", [completedUser]))
                     .setQueryArg('select', [
-                    'UserInfo/FirstName',
-                    'UserInfo/LastName'
-                ].join(','));
+                        'UserInfo/FirstName',
+                        'UserInfo/LastName'
+                    ].join(','));
+
                 request.allowCacheUse = true;
+
                 return request;
             }
         },
-        requestCodeData: function (row, node, value, entry) {
+        requestCodeData: function(row, node, value, entry) {
             var request = this.requestCompletedUser(entry);
             if (request) {
                 request.read({
@@ -130,45 +147,46 @@ define('crm/Views/History/Detail', [
                     failure: this.onRequestCodeDataFailure,
                     scope: this
                 });
-            }
-            else {
+            } else {
                 this.onCodeDataNull();
             }
         },
-        onRequestCodeDataSuccess: function (row, node, value, entry, data) {
+        onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = entry[row.property];
             this.setNodeText(node, this.createUserTemplate.apply(data.UserInfo));
             this.entry[row.name] = codeText;
         },
-        onRequestCodeDataFailure: function (response, o) {
+        onRequestCodeDataFailure: function(response, o) {
             var rowNode = query('[data-property="CompletedUser"]');
             if (rowNode) {
                 this.setNodeText(rowNode[0], this.entry['UserName']);
             }
+
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onCodeDataNull: function () {
+        onCodeDataNull: function() {
             var rowNode = query('[data-property="CompletedUser"]');
             if (rowNode) {
                 this.setNodeText(rowNode[0], '');
             }
         },
-        setNodeText: function (node, value) {
+        setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
+
             query('span', node).text(value);
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.notesText,
                     name: 'NotesSection',
                     children: [{
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            encode: false,
-                            label: this.longNotesText,
-                            provider: this.provideText.bindDelegate(this),
-                            use: template.noteDetailProperty
-                        }]
+                        name: 'LongNotes',
+                        property: 'LongNotes',
+                        encode: false,
+                        label: this.longNotesText,
+                        provider: this.provideText.bindDelegate(this),
+                        use: template.noteDetailProperty
+                    }]
                 }, {
                     title: this.detailsText,
                     name: 'DetailsSection',
@@ -252,15 +270,17 @@ define('crm/Views/History/Detail', [
                     list: true,
                     name: 'RelatedItemsSection',
                     children: [{
-                            name: 'AttachmentRelated',
-                            label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'),
-                            view: 'history_attachment_related',
-                            title: this.relatedAttachmentTitleText
-                        }]
+                        name: 'AttachmentRelated',
+                        label: this.relatedAttachmentText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'),// must be lower case because of feed
+                        view: 'history_attachment_related',
+                        title:  this.relatedAttachmentTitleText
+                    }]
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.History.Detail', __class);
     return __class;
 });
+

@@ -15,7 +15,15 @@ define('crm/Views/Charts/GenericLine', [
     'dojo/dom-attr',
     'argos/View',
     './_ChartMixin'
-], function (declare, lang, array, domGeo, domAttr, View, _ChartMixin) {
+], function(
+    declare,
+    lang,
+    array,
+    domGeo,
+    domAttr,
+    View,
+    _ChartMixin
+) {
     var __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
         id: 'chart_generic_line',
         titleText: '',
@@ -24,6 +32,7 @@ define('crm/Views/Charts/GenericLine', [
         lineColor: '#0896e9',
         pointColor: '#0896e9',
         fillColor: 'rgba(8,150,233, 0.2)',
+
         chartOptions: {
             scaleShowGridLines: false,
             bezierCurve: true,
@@ -33,18 +42,25 @@ define('crm/Views/Charts/GenericLine', [
             datasetFill: true,
             legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].strokeColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
         },
+
         attributeMap: {
-            chartContent: { node: 'contentNode', type: 'innerHTML' }
+            chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
-        createChart: function (rawData) {
+
+        createChart: function(rawData) {
             this.inherited(arguments);
+
             var ctx, box, data, labels, seriesData;
+
             this.showSearchExpression();
+
+
             labels = [];
-            seriesData = array.map(rawData, function (item) {
+            seriesData = array.map(rawData, function(item) {
                 labels.push(item.$descriptor);
                 return Math.round(item.value);
             }.bind(this));
+
             data = {
                 labels: labels,
                 datasets: [
@@ -57,16 +73,21 @@ define('crm/Views/Charts/GenericLine', [
                     }
                 ]
             };
+
             if (this.chart) {
                 this.chart.destroy();
             }
+
             box = domGeo.getMarginBox(this.domNode);
             this.contentNode.width = box.w;
             this.contentNode.height = box.h;
+
             ctx = this.contentNode.getContext('2d');
+
             this.chart = new window.Chart(ctx).Line(data, this.chartOptions);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Charts.GenericLine', __class);
     return __class;
 });

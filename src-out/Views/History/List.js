@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.History.List
  *
@@ -34,20 +35,38 @@ define('crm/Views/History/List', [
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     'moment'
-], function (declare, lang, array, string, domStyle, domGeom, query, domClass, format, convert, action, List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, moment) {
+], function(
+    declare,
+    lang,
+    array,
+    string,
+    domStyle,
+    domGeom,
+    query,
+    domClass,
+    format,
+    convert,
+    action,
+    List,
+    _RightDrawerListMixin,
+    _MetricListMixin,
+    _CardLayoutListMixin,
+    moment
+) {
+
     var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>',
             '{% if ($.Type === "atNote") { %}',
-            '{%: $$.formatDate($.ModifyDate) %}',
+                '{%: $$.formatDate($.ModifyDate) %}',
             '{% } else { %}',
-            '{%: $$.formatDate($.CompletedDate) %}',
+                '{%: $$.formatDate($.CompletedDate) %}',
             '{% } %}',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
             '{% if($.Description) { %}',
-            '<h4>{%: $$.regardingText + $.Description %}</h4>',
+                '<h4>{%: $$.regardingText + $.Description %}</h4>',
             '{% } %}',
             '<div class="note-text-item">',
             '<div class="note-text-wrap">',
@@ -68,6 +87,7 @@ define('crm/Views/History/List', [
             '{%: $.AccountName %}',
             '{% } %}'
         ]),
+
         //Localization
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -94,11 +114,12 @@ define('crm/Views/History/List', [
         viewContactActionText: 'Contact',
         addAttachmentActionText: 'Add Attachment',
         regardingText: 'Regarding: ',
+
         //View Properties
         detailView: 'history_detail',
         itemIconClass: 'fa fa-archive fa-2x',
         id: 'history_list',
-        security: null,
+        security: null, //'Entities/History/View',
         existsRE: /^[\w]{12}$/,
         insertView: 'history_edit',
         queryOrderBy: 'CompletedDate desc',
@@ -119,12 +140,13 @@ define('crm/Views/History/List', [
             'TicketId',
             'ModifyDate',
             'Notes'
+
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
         hashTagQueries: {
-            'my-history': function () {
+            'my-history': function() {
                 return 'UserId eq "' + App.context.user.$key + '"';
             },
             'note': 'Type eq "atNote"',
@@ -145,42 +167,48 @@ define('crm/Views/History/List', [
         },
         allowSelection: true,
         enableActions: true,
-        createActionLayout: function () {
+
+        createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'viewAccount',
-                    label: this.viewAccountActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
-                    fn: action.navigateToEntity.bindDelegate(this, {
-                        view: 'account_detail',
-                        keyProperty: 'AccountId',
-                        textProperty: 'AccountName'
-                    })
-                }, {
-                    id: 'viewOpportunity',
-                    label: this.viewOpportunityActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
-                    fn: action.navigateToEntity.bindDelegate(this, {
-                        view: 'opportunity_detail',
-                        keyProperty: 'OpportunityId',
-                        textProperty: 'OpportunityName'
-                    })
-                }, {
-                    id: 'viewContact',
-                    label: this.viewContactActionText,
-                    action: 'navigateToContactOrLead',
-                    enabled: this.hasContactOrLead
-                }, {
-                    id: 'addAttachment',
-                    cls: 'fa fa-paperclip fa-2x',
-                    label: this.addAttachmentActionText,
-                    fn: action.addAttachment.bindDelegate(this)
-                }]);
+                id: 'viewAccount',
+                label: this.viewAccountActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'account_detail',
+                    keyProperty: 'AccountId',
+                    textProperty: 'AccountName'
+                })
+            }, {
+                id: 'viewOpportunity',
+                label: this.viewOpportunityActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'opportunity_detail',
+                    keyProperty: 'OpportunityId',
+                    textProperty: 'OpportunityName'
+                })
+            }, {
+                id: 'viewContact',
+                label: this.viewContactActionText,
+                action: 'navigateToContactOrLead',
+                enabled: this.hasContactOrLead
+            }, {
+                id: 'addAttachment',
+                cls: 'fa fa-paperclip fa-2x',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
+            );
         },
-        hasContactOrLead: function (action, selection) {
+        hasContactOrLead: function(action, selection) {
             return (selection.data['ContactId']) || (selection.data['LeadId']);
         },
-        navigateToContactOrLead: function (action, selection) {
-            var entity = this.resolveContactOrLeadEntity(selection.data), viewId, view, options;
+        navigateToContactOrLead: function(action, selection) {
+            var entity = this.resolveContactOrLeadEntity(selection.data),
+                viewId,
+                view,
+                options;
+
             switch (entity) {
                 case 'Contact':
                     viewId = 'contact_detail';
@@ -197,13 +225,16 @@ define('crm/Views/History/List', [
                     };
                     break;
             }
+
             view = App.getView(viewId);
+
             if (view && options) {
                 view.show(options);
             }
         },
-        resolveContactOrLeadEntity: function (entry) {
+        resolveContactOrLeadEntity: function(entry) {
             var exists = this.existsRE;
+
             if (entry) {
                 if (exists.test(entry['LeadId'])) {
                     return 'Lead';
@@ -213,38 +244,46 @@ define('crm/Views/History/List', [
                 }
             }
         },
-        formatDate: function (date) {
-            var startDate = moment(convert.toDateFromString(date)), nextDate = startDate.clone().add({ hours: 24 }), fmt = this.dateFormatText;
+        formatDate: function(date) {
+            var startDate = moment(convert.toDateFromString(date)),
+                nextDate = startDate.clone().add({hours: 24}),
+                fmt = this.dateFormatText;
+
             if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
                 fmt = this.hourMinuteFormatText;
             }
+
             return format.date(startDate.toDate(), fmt);
         },
-        formatSearchQuery: function (searchQuery) {
+        formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        createIndicatorLayout: function () {
+        createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
-                    id: 'touched',
-                    cls: 'fa fa-hand-o-up fa-lg',
-                    label: 'Touched',
-                    onApply: function (entry, parent) {
-                        this.isEnabled = parent.hasBeenTouched(entry);
-                    }
-                }]);
+                id: 'touched',
+                cls: 'fa fa-hand-o-up fa-lg',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
         },
-        getItemIconClass: function (entry) {
+        getItemIconClass: function(entry) {
             var type = entry && entry.Type;
             return this._getItemIconClass(type);
         },
-        _getItemIconClass: function (type) {
+        _getItemIconClass: function(type) {
             var cls = this.activityIndicatorIconByType[type];
             if (!cls) {
                 cls = this.itemIconClass;
             }
+
             return cls;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
     return __class;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Opportunity.Edit
  *
@@ -19,7 +20,16 @@ define('crm/Views/Opportunity/Edit', [
     '../../Template',
     'argos/Utility',
     'argos/Edit'
-], function (declare, lang, string, validator, template, utility, Edit) {
+], function(
+    declare,
+    lang,
+    string,
+    validator,
+    template,
+    utility,
+    Edit
+) {
+
     var __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         //Localization
         accountText: 'acct',
@@ -45,6 +55,7 @@ define('crm/Views/Opportunity/Edit', [
         multiCurrencyLockedText: 'rate locked',
         exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
         subTypePickListResellerText: 'RESELLER',
+
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_edit',
@@ -72,121 +83,144 @@ define('crm/Views/Opportunity/Edit', [
             'Type',
             'Weighted'
         ],
-        init: function () {
+        init: function() {
             this.inherited(arguments);
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+
             if (App.hasMultiCurrency()) {
                 this.connect(this.fields['ExchangeRateCode'], 'onChange', this.onExchangeRateCodeChange);
                 this.connect(this.fields['ExchangeRateLocked'], 'onChange', this.onExchangeRateLockedChange);
             }
         },
-        applyContext: function (templateEntry) {
-            var found, lookup;
-            found = App.queryNavigationContext(function (o) {
+        applyContext: function(templateEntry) {
+            var found,
+                lookup;
+
+            found = App.queryNavigationContext(function(o) {
                 return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
             });
+
             lookup = {
                 'accounts': this.applyAccountContext,
                 'contacts': this.applyContactContext
             };
+
             if (found && lookup[found.resourceKind]) {
                 lookup[found.resourceKind].call(this, found);
-            }
-            else {
+            } else {
                 this.applyDefaultContext(templateEntry);
             }
+
             this.fields['Status'].setValue(templateEntry.Status);
             this.fields['CloseProbability'].setValue(templateEntry.CloseProbability);
             this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
+
             if (App.hasMultiCurrency() && templateEntry) {
+
                 if (templateEntry.ExchangeRateCode) {
-                    this.fields['ExchangeRateCode'].setValue({ '$key': templateEntry.ExchangeRateCode, '$descriptor': templateEntry.ExchangeRateCode });
+                    this.fields['ExchangeRateCode'].setValue({'$key': templateEntry.ExchangeRateCode, '$descriptor': templateEntry.ExchangeRateCode});
                 }
+
                 if (templateEntry.ExchangeRate) {
                     this.fields['ExchangeRate'].setValue(templateEntry.ExchangeRate);
                 }
+
                 if (templateEntry.ExchangeRateDate) {
                     this.fields['ExchangeRateDate'].setValue(templateEntry.ExchangeRateDate);
                 }
             }
+
         },
-        setValues: function (values) {
+        setValues: function(values) {
             this.inherited(arguments);
             if (App.hasMultiCurrency()) {
+
                 if (values && values.ExchangeRateCode) {
-                    this.fields['ExchangeRateCode'].setValue({ '$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode });
+                    this.fields['ExchangeRateCode'].setValue({'$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode});
                 }
+
                 if (!App.canLockOpportunityRate()) {
                     this.fields['ExchangeRateLocked'].disable();
                 }
+
                 if (!App.canChangeOpportunityRate()) {
                     this.fields['ExchangeRate'].disable();
                     this.fields['ExchangeRateCode'].disable();
                 }
+
                 this.fields['ExchangeRateDate'].disable();
             }
+
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
         },
-        getValues: function () {
+        getValues: function() {
             var values, code;
             values = this.inherited(arguments);
+
             if (values) {
                 code = values.ExchangeRateCode;
                 values.ExchangeRateCode = code && code.$key;
             }
+
             return values;
         },
-        applyDefaultContext: function () {
+        applyDefaultContext: function() {
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
         },
-        applyAccountContext: function (context) {
-            var view = App.getView(context.id), entry = view && view.entry;
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['Account'].setValue(entry);
             this.fields['AccountManager'].setValue(utility.getValue(entry, 'AccountManager'));
             this.fields['Owner'].setValue(utility.getValue(entry, 'Owner'));
         },
-        applyContactContext: function (context) {
-            var view = App.getView(context.id), entry = view && view.entry;
+        applyContactContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['Account'].setValue(utility.getValue(entry, 'Account'));
             this.fields['AccountManager'].setValue(utility.getValue(entry, 'AccountManager'));
             this.fields['Owner'].setValue(utility.getValue(entry, 'Owner'));
             this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
-        onExchangeRateCodeChange: function (value, field) {
+        onExchangeRateCodeChange: function(value, field) {
             var selection = field.getSelection();
             if (selection && selection.Rate) {
                 this.fields['ExchangeRate'].setValue(selection.Rate);
                 this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
             }
         },
-        onExchangeRateLockedChange: function (value) {
+        onExchangeRateLockedChange: function(value) {
             if (value === true) {
                 this.fields['ExchangeRate'].disable();
                 this.fields['ExchangeRateCode'].disable();
-            }
-            else {
+            } else {
+
                 if (!App.canChangeOpportunityRate()) {
                     this.fields['ExchangeRate'].disable();
                     this.fields['ExchangeRateCode'].disable();
-                }
-                else {
+                } else {
                     this.fields['ExchangeRate'].enable();
                     this.fields['ExchangeRateCode'].enable();
                 }
             }
+
             this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
         },
-        onAccountChange: function (value, field) {
+        onAccountChange: function(value, field) {
             var selection = field.getSelection();
+
             // todo: match behavior in web client; if the account manager (AM) is explicitly set, it should stay, otherwise
             // it should be set to the AM for the selected account (and change each time).
             if (selection && this.insert) {
                 this.fields['AccountManager'].setValue(utility.getValue(selection, 'AccountManager'));
             }
         },
-        createLayout: function () {
+        createLayout: function() {
             var layout, details, multiCurrency;
+
             details = {
                 title: this.detailsText,
                 name: 'OpportunityDetailsEdit',
@@ -234,7 +268,7 @@ define('crm/Views/Opportunity/Edit', [
                         where: string.substitute('upper(SubType) eq "${0}"', [this.subTypePickListResellerText]),
                         viewMixin: {
                             disableRightDrawer: true,
-                            onTransitionTo: function (self) {
+                            onTransitionTo: function(self) {
                                 // Clear the initial where clause, allowing the user to search for others if they want
                                 self.options.where = '';
                             }
@@ -313,6 +347,7 @@ define('crm/Views/Opportunity/Edit', [
                     }
                 ]
             };
+
             multiCurrency = {
                 title: this.multiCurrencyText,
                 name: 'OpportunityMultiCurrencyEdit',
@@ -349,17 +384,24 @@ define('crm/Views/Opportunity/Edit', [
                     }
                 ]
             };
+
             layout = this.layout || (this.layout = []);
+
             if (layout.length > 0) {
                 return layout;
             }
+
             layout.push(details);
+
             if (App.hasMultiCurrency()) {
                 layout.push(multiCurrency);
             }
+
             return layout;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Opportunity.Edit', __class);
     return __class;
 });
+

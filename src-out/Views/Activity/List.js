@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Activity.List
  *
@@ -36,7 +37,25 @@ define('crm/Views/Activity/List', [
     '../../Environment',
     'argos/ErrorManager',
     'moment'
-], function (declare, lang, connect, string, query, domClass, _RightDrawerListMixin, List, _CardLayoutListMixin, format, Utility, convert, action, environment, ErrorManager, moment) {
+], function(
+    declare,
+    lang,
+    connect,
+    string,
+    query,
+    domClass,
+    _RightDrawerListMixin,
+    List,
+    _CardLayoutListMixin,
+    format,
+    Utility,
+    convert,
+    action,
+    environment,
+    ErrorManager,
+    moment
+) {
+
     var __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         // Localization
         allDayText: 'Timeless',
@@ -49,28 +68,30 @@ define('crm/Views/Activity/List', [
         touchedText: 'touched',
         importantText: 'important',
         recurringText: 'recurring',
+
         //Card View
         itemIcon: 'content/images/icons/man_1.png',
+
         //Templates
         //Card View
         itemRowContainerTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">',
-            '{%! $$.itemRowContentTemplate %}',
+               '{%! $$.itemRowContentTemplate %}',
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
             '{% if ($$.isTimelessToday($)) { %}',
-            '{%: $$.allDayText %}',
+                '{%: $$.allDayText %}',
             '{% } else { %}',
-            '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}',
+                '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
-            '<span class="p-description">{%: $.Description %}</span>',
+                '<span class="p-description">{%: $.Description %}</span>',
             '</h3>',
             '<h4>',
-            '{%! $$.activityTimeTemplate %}',
+                '{%! $$.activityTimeTemplate %}',
             '</h4>',
             '<h4>{%! $$.nameTemplate %}</h4>'
         ]),
@@ -105,9 +126,10 @@ define('crm/Views/Activity/List', [
         },
         //Localization
         titleText: 'Activities',
+
         //View Properties
         id: 'activity_list',
-        security: null,
+        security: null, //'Entities/Activity/View',
         iconClass: 'fa fa-check-square-o fa-lg',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
@@ -142,47 +164,66 @@ define('crm/Views/Activity/List', [
         resourceKind: 'activities',
         contractName: 'system',
         pageSize: 105,
+
         hashTagQueries: {
             'alarm': 'Alarm eq true',
             'recurring': 'Recurring eq true',
             'timeless': 'Timeless eq true',
-            'yesterday': function () {
+            'yesterday': function() {
                 var now, yesterdayStart, yesterdayEnd, query;
+
                 now = moment();
+
                 yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
                 yesterdayEnd = yesterdayStart.clone().endOf('day');
-                query = string.substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
-                    convert.toIsoStringFromDate(yesterdayStart.toDate()),
-                    convert.toIsoStringFromDate(yesterdayEnd.toDate()),
-                    yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-                    yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')
-                ]);
+
+                query = string.substitute(
+                        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(yesterdayStart.toDate()),
+                        convert.toIsoStringFromDate(yesterdayEnd.toDate()),
+                        yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
+                        yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')
+                        ]
+                );
                 return query;
             },
-            'today': function () {
+            'today': function() {
                 var now, todayStart, todayEnd, query;
+
                 now = moment();
+
                 todayStart = now.clone().startOf('day');
                 todayEnd = todayStart.clone().endOf('day');
-                query = string.substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
-                    convert.toIsoStringFromDate(todayStart.toDate()),
-                    convert.toIsoStringFromDate(todayEnd.toDate()),
-                    todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-                    todayEnd.format('YYYY-MM-DDT23:59:59[Z]')
-                ]);
+
+                query = string.substitute(
+                        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(todayStart.toDate()),
+                        convert.toIsoStringFromDate(todayEnd.toDate()),
+                        todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
+                        todayEnd.format('YYYY-MM-DDT23:59:59[Z]')
+                        ]
+                );
                 return query;
             },
-            'this-week': function () {
+            'this-week': function() {
                 var now, weekStartDate, weekEndDate, query;
+
                 now = moment();
+
                 weekStartDate = now.clone().startOf('week');
                 weekEndDate = weekStartDate.clone().endOf('week');
-                query = string.substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
-                    convert.toIsoStringFromDate(weekStartDate.toDate()),
-                    convert.toIsoStringFromDate(weekEndDate.toDate()),
-                    weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-                    weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')
-                ]);
+
+                query = string.substitute(
+                        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(weekStartDate.toDate()),
+                        convert.toIsoStringFromDate(weekEndDate.toDate()),
+                        weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
+                        weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')
+                        ]
+                );
                 return query;
             }
         },
@@ -194,75 +235,77 @@ define('crm/Views/Activity/List', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
-        defaultSearchTerm: function () {
+        defaultSearchTerm: function() {
             if (App.enableHashTags) {
                 return '#' + this.hashTagQueriesText['this-week'];
             }
+
             return '';
         },
-        formatSearchQuery: function (searchQuery) {
+        formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        formatDateTime: function () {
+        formatDateTime: function() {
             return 'StartTime';
         },
-        getItemActionKey: function (entry) {
+        getItemActionKey: function(entry) {
             return entry.$key;
         },
-        getItemDescriptor: function (entry) {
+        getItemDescriptor: function(entry) {
             return entry.$descriptor;
         },
-        createIndicatorLayout: function () {
+        createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
-                    id: 'alarm',
-                    cls: 'fa fa-bell-o fa-lg',
-                    label: this.alarmText,
-                    onApply: function (entry, parent) {
-                        this.isEnabled = parent.hasAlarm(entry);
-                    }
+                id: 'alarm',
+                cls: 'fa fa-bell-o fa-lg',
+                label: this.alarmText,
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasAlarm(entry);
+                }
                 }, {
                     id: 'touched',
                     cls: 'fa fa-hand-o-up fa-lg',
                     label: this.touchedText,
-                    onApply: function (entry, parent) {
+                    onApply: function(entry, parent) {
                         this.isEnabled = parent.hasBeenTouched(entry);
                     }
                 }, {
                     id: 'important',
                     cls: 'fa fa-exclamation fa-lg',
                     label: this.importantText,
-                    onApply: function (entry, parent) {
+                    onApply: function(entry, parent) {
                         this.isEnabled = parent.isImportant(entry);
                     }
-                }, {
+                },  {
                     id: 'recurring',
                     cls: 'fa fa-refresh fa-lg',
                     label: this.recurringText,
-                    onApply: function (entry, parent) {
+                    onApply: function(entry, parent) {
                         this.isEnabled = parent.isRecurring(entry, this);
                     }
                 }, {
                     id: 'overdue',
                     cls: 'fa fa-exclamation-circle fa-lg',
                     label: this.overdueText,
-                    onApply: function (entry, parent) {
+                    onApply: function(entry, parent) {
                         this.isEnabled = parent.isOverdue(entry);
                     }
                 }
             ]);
         },
-        hasBeenTouched: function (entry) {
+        hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
             if (entry['ModifyDate']) {
                 modifiedDate = moment(convert.toDateFromString(entry['ModifyDate']));
                 currentDate = moment().endOf('day');
                 weekAgo = moment().subtract(1, 'weeks');
+
                 return modifiedDate.isAfter(weekAgo) &&
                     modifiedDate.isBefore(currentDate);
             }
             return false;
         },
-        isImportant: function (entry) {
+        isImportant: function(entry) {
             if (entry['Priority']) {
                 if (entry['Priority'] === 'High') {
                     return true;
@@ -270,7 +313,7 @@ define('crm/Views/Activity/List', [
             }
             return false;
         },
-        isOverdue: function (entry) {
+        isOverdue: function(entry) {
             var startDate, currentDate, seconds, mins;
             if (entry['StartDate']) {
                 startDate = convert.toDateFromString(entry['StartDate']);
@@ -283,19 +326,20 @@ define('crm/Views/Activity/List', [
             }
             return false;
         },
-        isTimelessToday: function (entry) {
+        isTimelessToday: function(entry) {
             if (!entry || !entry.Timeless) {
                 return false;
             }
+
             var start = moment(entry.StartDate);
             return this._isTimelessToday(start);
         },
-        _isTimelessToday: function (start) {
+        _isTimelessToday: function(start) {
             // Start is UTC, convert it to local time so we can compare it against "now"
             start.add({ minutes: start.zone() });
             return start.isAfter(moment().startOf('day')) && start.isBefore(moment().endOf('day'));
         },
-        isRecurring: function (entry) {
+        isRecurring: function(entry) {
             if (entry['RecurrenceState']) {
                 if (entry['RecurrenceState'] === 'rstOccurrence') {
                     return true;
@@ -303,74 +347,80 @@ define('crm/Views/Activity/List', [
             }
             return false;
         },
-        hasAlarm: function (entry) {
+        hasAlarm: function(entry) {
             if (entry['Alarm'] === true) {
                 return true;
             }
             return false;
         },
-        getItemIconClass: function (entry) {
+        getItemIconClass: function(entry) {
             var type = entry && entry.Type;
             return this._getItemIconClass(type);
         },
-        _getItemIconClass: function (type) {
+        _getItemIconClass: function(type) {
             var cls = this.activityIndicatorIconByType[type];
             if (cls) {
                 cls = cls + ' fa-2x';
             }
+
             return cls;
         },
-        createActionLayout: function () {
+        createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'complete',
-                    cls: 'fa fa-check-square fa-2x',
-                    label: this.completeActivityText,
-                    enabled: function (action, selection) {
-                        var recur, entry = selection && selection.data;
-                        if (!entry) {
-                            return false;
-                        }
-                        recur = false;
-                        if (entry['RecurrenceState'] === 'rstOccurrence') {
-                            recur = true;
-                        }
-                        return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
-                    },
-                    fn: (function (action, selection) {
-                        var entry;
-                        entry = selection && selection.data && selection.data;
-                        entry['CompletedDate'] = new Date();
-                        entry['Result'] = 'Complete';
-                        environment.refreshActivityLists();
-                        this.completeActivity(entry);
-                    }).bindDelegate(this)
-                }, {
-                    id: 'call',
-                    cls: 'fa fa-phone-square fa-2x',
-                    label: this.callText,
-                    enabled: function (action, selection) {
-                        var entry;
-                        entry = selection && selection.data;
-                        return entry && entry.PhoneNumber;
-                    },
-                    fn: function (action, selection) {
-                        var entry, phone;
-                        entry = selection && selection.data;
-                        phone = entry && entry.PhoneNumber;
-                        if (phone) {
-                            this.recordCallToHistory(function () {
-                                App.initiateCall(phone);
-                            }.bindDelegate(this), entry);
-                        }
-                    }.bindDelegate(this)
-                }, {
-                    id: 'addAttachment',
-                    cls: 'fa fa-paperclip fa-2x',
-                    label: this.addAttachmentActionText,
-                    fn: action.addAttachment.bindDelegate(this)
-                }]);
+                id: 'complete',
+                cls: 'fa fa-check-square fa-2x',
+                label: this.completeActivityText,
+                enabled: function(action, selection) {
+                    var recur, entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
+                    recur = false;
+                    if (entry['RecurrenceState'] === 'rstOccurrence') {
+                        recur = true;
+                    }
+
+                    return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
+                },
+                fn: (function(action, selection) {
+                    var entry;
+
+                    entry = selection && selection.data && selection.data;
+
+                    entry['CompletedDate'] = new Date();
+                    entry['Result'] = 'Complete';
+
+                    environment.refreshActivityLists();
+                    this.completeActivity(entry);
+
+                }).bindDelegate(this)
+            }, {
+                id: 'call',
+                cls: 'fa fa-phone-square fa-2x',
+                label: this.callText,
+                enabled: function(action, selection) {
+                    var entry;
+                    entry = selection && selection.data;
+                    return entry && entry.PhoneNumber;
+                },
+                fn: function(action, selection) {
+                    var entry, phone;
+                    entry = selection && selection.data;
+                    phone = entry && entry.PhoneNumber;
+                    if (phone) {
+                        this.recordCallToHistory(function() {
+                            App.initiateCall(phone);
+                        }.bindDelegate(this), entry);
+                    }
+                }.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                cls: 'fa fa-paperclip fa-2x',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]);
         },
-        recordCallToHistory: function (complete, entry) {
+        recordCallToHistory: function(complete, entry) {
             var tempEntry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
@@ -384,9 +434,10 @@ define('crm/Views/Activity/List', [
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
+
             this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
         },
-        navigateToHistoryInsert: function (type, entry, complete) {
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
                 environment.refreshActivityLists();
@@ -400,8 +451,9 @@ define('crm/Views/Activity/List', [
                 });
             }
         },
-        completeActivity: function (entry) {
+        completeActivity: function(entry) {
             var request, completeActivityEntry;
+
             completeActivityEntry = {
                 '$name': 'ActivityComplete',
                 'request': {
@@ -412,15 +464,18 @@ define('crm/Views/Activity/List', [
                     'completeDate': entry['CompletedDate']
                 }
             };
+
             request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setResourceKind('activities')
                 .setContractName('system')
                 .setOperationName('Complete');
+
             request.execute(completeActivityEntry, {
-                success: function () {
+                success: function() {
                     connect.publish('/app/refresh', [{
-                            resourceKind: 'history'
-                        }]);
+                        resourceKind: 'history'
+                    }]);
+
                     this.clear();
                     this.refresh();
                 },
@@ -428,10 +483,12 @@ define('crm/Views/Activity/List', [
                 scope: this
             });
         },
-        onRequestFailure: function (response, o) {
+        onRequestFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Activity.List', __class);
     return __class;
 });
+

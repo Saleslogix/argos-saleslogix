@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Settings
  *
@@ -14,26 +15,36 @@ define('crm/Views/Settings', [
     'dojo/_base/connect',
     './_CardLayoutListMixin',
     'argos/List'
-], function (declare, lang, connect, _CardLayoutListMixin, List) {
+], function(
+    declare,
+    lang,
+    connect,
+    _CardLayoutListMixin,
+    List
+) {
+
     var __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
         //Templates
         itemIconTemplate: new Simplate([
             '<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">',
             '{% if ($$.getItemIconClass($)) { %}',
-            '<span class="{%= $$.getItemIconClass($) %}"></span>',
+                '<span class="{%= $$.getItemIconClass($) %}"></span>',
             '{% } else { %}',
-            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
+                '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
             '{% } %}',
             '</button>'
         ]),
+
         itemTemplate: new Simplate([
             '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>'
         ]),
+
         itemRowContainerTemplate: new Simplate([
-            '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
+        '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
             '{%! $$.itemRowContentTemplate %}',
-            '</li>'
+        '</li>'
         ]),
+
         //Localization
         clearLocalStorageTitleText: 'Clear Storage',
         clearAuthenticationTitleText: 'Clear Saved Credentials',
@@ -41,6 +52,7 @@ define('crm/Views/Settings', [
         localStorageClearedText: 'Local storage cleared successfully.',
         credentialsClearedText: 'Saved credentials cleared successfully.',
         titleText: 'Settings',
+
         //View Properties
         id: 'settings',
         expose: false,
@@ -54,7 +66,7 @@ define('crm/Views/Settings', [
             'clearLocalStorage',
             'viewErrorLogs'
         ],
-        createActions: function () {
+        createActions: function() {
             this.actions = {
                 'clearLocalStorage': {
                     title: this.clearLocalStorageTitleText,
@@ -70,39 +82,46 @@ define('crm/Views/Settings', [
                 }
             };
         },
-        getItemIconClass: function (entry) {
+        getItemIconClass: function(entry) {
             return entry.cls;
         },
-        createIndicatorLayout: function () {
+        createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = []);
         },
-        viewErrorLogs: function () {
+        viewErrorLogs: function() {
             var view = App.getView('errorlog_list');
             if (view) {
                 view.show();
             }
         },
-        clearLocalStorage: function () {
+        clearLocalStorage: function() {
             if (window.localStorage) {
                 window.localStorage.clear();
             }
+
             connect.publish('/app/refresh', [{
-                    resourceKind: 'localStorage'
-                }]);
+                resourceKind: 'localStorage'
+            }]);
+
             alert(this.localStorageClearedText);
         },
-        clearAuthentication: function () {
+        clearAuthentication: function() {
             if (window.localStorage) {
                 window.localStorage.removeItem('credentials');
             }
+
             alert(this.credentialsClearedText);
         },
-        hasMoreData: function () {
+        hasMoreData: function() {
             return false;
         },
-        requestData: function () {
-            var list, i, action;
+        requestData: function() {
+            var list,
+                i,
+                action;
+
             list = [];
+
             for (i = 0; i < this.actionOrder.length; i++) {
                 action = this.actions[this.actionOrder[i]];
                 if (action) {
@@ -114,18 +133,21 @@ define('crm/Views/Settings', [
                     });
                 }
             }
+
             this.processData(list);
         },
-        init: function () {
+        init: function() {
             this.inherited(arguments);
             this.createActions();
         },
-        createToolLayout: function () {
+        createToolLayout: function() {
             return this.tools || (this.tools = {
                 tbar: []
             });
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Settings', __class);
     return __class;
 });
+

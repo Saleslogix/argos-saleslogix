@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views._SpeedSearchRightDrawerListMixin
  *
@@ -16,17 +17,30 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
     'dojo/dom-construct',
     'dojo/dom-attr',
     './_RightDrawerBaseMixin'
-], function (declare, array, lang, domConstruct, domAttr, _RightDrawerBaseMixin) {
-    var mixinName, __class;
+], function(
+    declare,
+    array,
+    lang,
+    domConstruct,
+    domAttr,
+    _RightDrawerBaseMixin
+) {
+
+    var mixinName,
+        __class;
+
     mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
+
     __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         indexSectionText: 'Indexes',
-        _hasChangedIndexPrefs: false,
-        onShow: function () {
+
+        _hasChangedIndexPrefs: false,// Dirty flag so we know when to reload the widgets
+
+        onShow: function() {
             this.setDefaultIndexPreferences();
         },
-        setDefaultIndexPreferences: function () {
+        setDefaultIndexPreferences: function() {
             var defaults;
             if (!App.preferences.speedSeacrchIndexes) {
                 defaults = this.getDefaultIndexPrefences();
@@ -34,9 +48,9 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                 App.persistPreferences();
             }
         },
-        getDefaultIndexPrefences: function () {
+        getDefaultIndexPrefences: function() {
             var defaults = [], self = this;
-            array.forEach(this.indexes, function (index) {
+            array.forEach(this.indexes, function(index) {
                 defaults.push({
                     indexName: index.indexName,
                     enabled: self._isIndexActive(index.indexName)
@@ -44,16 +58,17 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
             });
             return defaults;
         },
-        setupRightDrawer: function () {
+        setupRightDrawer: function() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 lang.mixin(drawer, this._createActions());
                 drawer.setLayout(this.createRightDrawerLayout());
-                drawer.getGroupForEntry = lang.hitch(this, function (entry) {
+                drawer.getGroupForEntry = lang.hitch(this, function(entry) {
                     return this.getGroupForRightDrawerEntry(entry);
                 });
+
                 if (this.rebuildWidgets) {
-                    App.snapper.on('close', lang.hitch(this, function () {
+                    App.snapper.on('close', lang.hitch(this, function() {
                         if (this._hasChangedIndexPrefs) {
                             this.rebuildWidgets();
                             this._hasChangedIndexPrefs = false;
@@ -62,25 +77,26 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                 }
             }
         },
-        unloadRightDrawer: function () {
+        unloadRightDrawer: function() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.setLayout([]);
-                drawer.getGroupForEntry = function () { };
+                drawer.getGroupForEntry = function() {};
                 App.snapper.off('close');
             }
         },
-        _onSearchExpression: function () {
+        _onSearchExpression: function() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
             this.inherited(arguments);
         },
-        _createActions: function () {
+        _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
-                indexClicked: lang.hitch(this, function (params) {
+                indexClicked: lang.hitch(this, function(params) {
                     var prefs, results, enabled;
                     prefs = App.preferences && App.preferences.speedSearchIndexes;
-                    results = array.filter(prefs, function (pref) {
+
+                    results = array.filter(prefs, function(pref) {
                         return pref.indexName === params.indexname; //the index name is lower cased.
                     });
                     this.activateIndex(params.indexname);
@@ -93,9 +109,10 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                     }
                 })
             };
+
             return actions;
         },
-        getGroupForRightDrawerEntry: function (entry) {
+        getGroupForRightDrawerEntry: function(entry) {
             if (entry.dataProps && entry.dataProps.indexname) {
                 var mixin = lang.getObject(mixinName);
                 return {
@@ -104,9 +121,10 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                 };
             }
         },
-        createRightDrawerLayout: function () {
+        createRightDrawerLayout: function() {
             var indexSection, index, layout, prefs, indexPref, i;
             layout = [];
+
             indexSection = {
                 id: 'actions',
                 children: []
@@ -116,7 +134,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                 for (i in this.indexes) {
                     if (this.indexes.hasOwnProperty(i)) {
                         index = this.indexes[i];
-                        indexPref = array.filter(prefs, function (pref) {
+                        indexPref = array.filter(prefs, function(pref) {
                             return pref.indexName === index.indexName;
                         });
                         index = this.indexes[i];
@@ -127,17 +145,20 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                                 'title': this.indexesText[index.indexName] || index.indexName,
                                 'dataProps': {
                                     'indexname': index.indexName,
-                                    'enabled': !!indexPref[0].enabled
+                                    'enabled':!!indexPref[0].enabled
                                 }
                             });
                         }
                     }
                 }
             }
+
             layout.push(indexSection);
             return layout;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
     return __class;
 });
+

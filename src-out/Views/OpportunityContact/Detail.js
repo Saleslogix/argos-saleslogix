@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.OpportunityContact.Detail
  *
@@ -14,7 +15,15 @@ define('crm/Views/OpportunityContact/Detail', [
     'dojo/string',
     'argos/Detail',
     'argos/_LegacySDataDetailMixin'
-], function (declare, lang, connect, string, Detail, _LegacySDataDetailMixin) {
+], function(
+    declare,
+    lang,
+    connect,
+    string,
+    Detail,
+    _LegacySDataDetailMixin
+) {
+
     var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         titleText: 'Opportunity Contact',
@@ -31,6 +40,7 @@ define('crm/Views/OpportunityContact/Detail', [
         removeContactTitleText: 'Remove Contact',
         confirmDeleteText: 'Remove "${0}" from the opportunity?',
         contactText: 'Contact',
+
         //View Properties
         id: 'opportunitycontact_detail',
         editView: 'opportunitycontact_edit',
@@ -50,7 +60,8 @@ define('crm/Views/OpportunityContact/Detail', [
             'Strategy'
         ],
         resourceKind: 'opportunityContacts',
-        createEntryForDelete: function () {
+
+        createEntryForDelete: function() {
             var entry = {
                 '$key': this.entry['$key'],
                 '$etag': this.entry['$etag'],
@@ -58,14 +69,19 @@ define('crm/Views/OpportunityContact/Detail', [
             };
             return entry;
         },
-        removeContact: function () {
-            var confirmMessage, entry, request;
+        removeContact: function() {
+            var confirmMessage,
+                entry,
+                request;
+
             confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
             if (!confirm(confirmMessage)) {
                 return;
             }
+
             entry = this.createEntryForDelete();
             request = this.createRequest();
+
             if (request) {
                 request['delete'](entry, {
                     success: this.onDeleteSuccess,
@@ -74,13 +90,13 @@ define('crm/Views/OpportunityContact/Detail', [
                 });
             }
         },
-        onDeleteSuccess: function () {
+        onDeleteSuccess: function() {
             connect.publish('/app/refresh', [{
-                    resourceKind: this.resourceKind
-                }]);
+                resourceKind: this.resourceKind
+            }]);
             ReUI.back();
         },
-        createToolLayout: function () {
+        createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': [{
                         id: 'edit',
@@ -95,7 +111,7 @@ define('crm/Views/OpportunityContact/Detail', [
                     }]
             });
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     title: this.contactText,
@@ -150,6 +166,8 @@ define('crm/Views/OpportunityContact/Detail', [
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Detail', __class);
     return __class;
 });
+

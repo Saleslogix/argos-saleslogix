@@ -7,7 +7,7 @@ module.exports = function(grunt) {
                 if (os.platform() !== 'win32') {
                     throw new Error('The bundle command is not available on non-windows platforms.');
                 }
-                
+
                 var cmd = 'build\\bundle';
                 if (version) {
                     return [cmd, ' ', version].join('');
@@ -29,14 +29,6 @@ module.exports = function(grunt) {
             options: {
                 execOptions: {
                     cwd: ''
-                }
-            }
-        },
-        typescript: {
-            command: 'node node_modules/typescript/bin/tsc',
-            options: {
-                execOptions: {
-                    cwd: '.'
                 }
             }
         }

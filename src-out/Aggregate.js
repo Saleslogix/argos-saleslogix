@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Aggregate
  *
@@ -10,14 +11,17 @@
 define('crm/Aggregate', [
     'dojo/_base/lang',
     'dojo/_base/array'
-], function (lang, array) {
+], function(
+    lang,
+    array
+) {
     var results = lang.setObject('crm.Aggregate', {
         /**
          * Average
          * @param {Array} data Array of objects that contain a value property
          * @return {Number}
          */
-        avg: function (data) {
+        avg: function(data) {
             var aggr = crm.Aggregate, results;
             results = aggr.sum(data) / aggr.count(data);
             return isNaN(results) ? 0 : results;
@@ -27,7 +31,7 @@ define('crm/Aggregate', [
          * @param {Array} data Array of objects that contain a value property
          * @return {Number}
          */
-        count: function (data) {
+        count: function(data) {
             return data && data.length;
         },
         /**
@@ -36,7 +40,7 @@ define('crm/Aggregate', [
          * @returns
          * The first elements "value" property value
          */
-        first: function (data) {
+        first: function(data) {
             return data && data.length && data[0].value;
         },
         /**
@@ -45,7 +49,7 @@ define('crm/Aggregate', [
          * @returns
          * The last elements "value" property value
          */
-        last: function (data) {
+        last: function(data) {
             return data && data.length && data[data.length - 1].value;
         },
         /**
@@ -53,11 +57,12 @@ define('crm/Aggregate', [
          * @param {Array} data Array of objects that contain a value property
          * @return {Number}
          */
-        max: function (data) {
+        max: function(data) {
             var flatten = [];
-            array.forEach(data, function (item) {
+            array.forEach(data, function(item) {
                 flatten.push(item.value);
             });
+
             return Math.max.apply(null, flatten);
         },
         /**
@@ -65,11 +70,12 @@ define('crm/Aggregate', [
          * @param {Array} data Array of objects that contain a value property
          * @return {Number}
          */
-        min: function (data) {
+        min: function(data) {
             var flatten = [];
-            array.forEach(data, function (item) {
+            array.forEach(data, function(item) {
                 flatten.push(item.value);
             });
+
             return flatten.length > 0 ? Math.min.apply(null, flatten) : 0;
         },
         /**
@@ -77,14 +83,17 @@ define('crm/Aggregate', [
          * @param {Array} data Array of objects that contain a value property
          * @return {Number}
          */
-        sum: function (data) {
+        sum: function(data) {
             var total = 0;
-            array.forEach(data, function (item) {
+            array.forEach(data, function(item) {
                 total = total + item.value;
             }, this);
+
             return total;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Aggregate', results);
     return results;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.User.List
  *
@@ -11,18 +12,27 @@ define('crm/Views/User/List', [
     'dojo/_base/lang',
     'dojo/string',
     'argos/List'
-], function (declare, lang, string, List) {
+], function(
+    declare,
+    lang,
+    string,
+    List
+) {
+
     var __class = declare('crm.Views.User.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
             '<h4>{%: $.UserInfo.Title %}</h4>'
         ]),
+
         //Localization
         titleText: 'Users',
+
         //View Properties
         id: 'user_list',
         queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
+
         // Excluded types for the queryWhere
         // Type:
         // 3 - WebViewer
@@ -37,10 +47,13 @@ define('crm/Views/User/List', [
             'UserInfo/UserName'
         ],
         resourceKind: 'users',
-        formatSearchQuery: function (searchQuery) {
+
+        formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.User.List', __class);
     return __class;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Lead.Detail
  *
@@ -14,7 +15,14 @@ define('crm/Views/Lead/Detail', [
     'dojo/string',
     '../../Format',
     'argos/Detail'
-], function (declare, lang, string, format, Detail) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    Detail
+) {
+
     var __class = declare('crm.Views.Lead.Detail', [Detail], {
         //Localization
         activityTypeText: {
@@ -55,6 +63,7 @@ define('crm/Views/Lead/Detail', [
         moreDetailsText: 'More Details',
         calledText: 'Called ${0}',
         emailedText: 'Emailed ${0}',
+
         //View Properties
         id: 'lead_detail',
         editView: 'lead_edit',
@@ -88,21 +97,23 @@ define('crm/Views/Lead/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'leads',
-        navigateToHistoryInsert: function (type, entry, complete) {
+
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
                 this.refreshRequired = true;
+
                 view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
+                        title: this.activityTypeText[type],
+                        template: {},
+                        entry: entry,
+                        insert: true
+                    }, {
+                        complete: complete
+                    });
             }
         },
-        recordCallToHistory: function (complete) {
+        recordCallToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
@@ -115,9 +126,10 @@ define('crm/Views/Lead/Detail', [
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
+
             this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
-        recordEmailToHistory: function (complete) {
+        recordEmailToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
@@ -130,34 +142,35 @@ define('crm/Views/Lead/Detail', [
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
+
             this.navigateToHistoryInsert('atEMail', entry, complete);
         },
-        callWorkPhone: function () {
-            this.recordCallToHistory(function () {
+        callWorkPhone: function() {
+            this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['WorkPhone']);
             }.bindDelegate(this));
         },
-        checkWorkPhone: function (entry, value) {
+        checkWorkPhone: function(entry, value) {
             return !value;
         },
-        sendEmail: function () {
-            this.recordEmailToHistory(function () {
+        sendEmail: function() {
+            this.recordEmailToHistory(function() {
                 App.initiateEmail(this.entry['Email']);
             }.bindDelegate(this));
         },
-        checkEmail: function (entry, value) {
+        checkEmail: function(entry, value) {
             return !value;
         },
-        viewAddress: function () {
+        viewAddress: function() {
             App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
         },
-        checkAddress: function (entry, value) {
+        checkAddress: function(entry, value) {
             return !format.address(value, true, '');
         },
-        scheduleActivity: function () {
+        scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
-        addNote: function () {
+        addNote: function() {
             var view = App.getView(this.noteEditView);
             if (view) {
                 view.show({
@@ -166,7 +179,7 @@ define('crm/Views/Lead/Detail', [
                 });
             }
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     list: true,
                     title: this.actionsText,
@@ -297,13 +310,15 @@ define('crm/Views/Lead/Detail', [
                         }, {
                             name: 'AttachmentRelated',
                             label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'leadId eq "${0}"'),
+                            where: this.formatRelatedQuery.bindDelegate(this, 'leadId eq "${0}"'),// must be lower case because of feed
                             view: 'lead_attachment_related',
-                            title: this.relatedAttachmentTitleText
+                            title:  this.relatedAttachmentTitleText
                         }]
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Lead.Detail', __class);
     return __class;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.TicketActivity.Detail
  *
@@ -22,10 +23,21 @@ define('crm/Views/TicketActivity/Detail', [
     'argos/ErrorManager',
     'argos/Detail',
     'dojo/NodeList-manipulate'
-], function (declare, lang, query, domClass, format, template, ErrorManager, Detail) {
+], function(
+    declare,
+    lang,
+    query,
+    domClass,
+    format,
+    template,
+    ErrorManager,
+    Detail
+) {
+
     var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity',
+
         accountText: 'account',
         contactText: 'contact',
         typeText: 'type',
@@ -43,13 +55,16 @@ define('crm/Views/TicketActivity/Detail', [
         activityDescriptionText: 'comments',
         ticketNumberText: 'ticket number',
         userText: 'user',
+
         completeTicketText: 'Complete Ticket Activity',
         moreDetailsText: 'More Details',
         relatedItemsText: 'Related Items',
         relatedTicketActivityItemText: 'Ticket Activity Parts',
+
         //View Properties
         id: 'ticketactivity_detail',
         editView: 'ticketactivity_edit',
+
         querySelect: [
             'ActivityDescription',
             'ActivityTypeCode',
@@ -73,18 +88,25 @@ define('crm/Views/TicketActivity/Detail', [
             'User/UserInfo/FirstName'
         ],
         resourceKind: 'ticketActivities',
-        createPicklistRequest: function (predicate) {
-            var request, uri;
+
+        createPicklistRequest: function(predicate) {
+            var request,
+                uri;
+
             request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
             uri = request.getUri();
+
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
             uri.setCollectionPredicate(predicate);
+
             request.allowCacheUse = true;
+
             return request;
         },
-        requestCodeData: function (row, node, value, entry, predicate) {
+
+        requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
                 success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
@@ -92,32 +114,42 @@ define('crm/Views/TicketActivity/Detail', [
                 scope: this
             });
         },
-        onRequestCodeDataSuccess: function (row, node, value, entry, data) {
+
+        onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = this.processCodeDataFeed(data, entry[row.property]);
             if (codeText) {
                 this.setNodeText(node, codeText);
                 this.entry[row.name] = codeText;
             }
         },
-        onRequestCodeDataFailure: function (response, o) {
+
+        onRequestCodeDataFailure: function(response, o) {
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        processCodeDataFeed: function (feed, currentValue, options) {
-            var keyProperty, textProperty, i;
+
+        processCodeDataFeed: function(feed, currentValue, options) {
+            var keyProperty,
+                textProperty,
+                i;
+
             keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             textProperty = options && options.textProperty ? options.textProperty : 'text';
+
             for (i = 0; i < feed.$resources.length; i++) {
                 if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
                 }
             }
+
             return currentValue;
         },
-        setNodeText: function (node, value) {
+        setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
+
             query('span', node).text(value);
         },
-        createLayout: function () {
+
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.detailsText,
                     name: 'DetailsSection',
@@ -131,7 +163,7 @@ define('crm/Views/TicketActivity/Detail', [
                             property: 'Ticket.TicketNumber',
                             view: 'ticket_detail',
                             key: 'Ticket.$key'
-                        }, {
+                        },  {
                             name: 'Ticket.Account.AccountName',
                             property: 'Ticket.Account.AccountName',
                             descriptor: 'Ticket.Account.AccountName',
@@ -219,14 +251,16 @@ define('crm/Views/TicketActivity/Detail', [
                     title: this.relatedItemsText,
                     name: 'RelatedItemsSection',
                     children: [{
-                            name: 'TicketActivityItemRelated',
-                            label: this.relatedTicketActivityItemText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
-                            view: 'ticketactivityitem_related'
-                        }]
+                        name: 'TicketActivityItemRelated',
+                        label: this.relatedTicketActivityItemText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
+                        view: 'ticketactivityitem_related'
+                    }]
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Detail', __class);
     return __class;
 });
+

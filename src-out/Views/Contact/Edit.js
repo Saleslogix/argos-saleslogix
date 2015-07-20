@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Contact.Edit
  *
@@ -21,7 +22,17 @@ define('crm/Views/Contact/Edit', [
     'crm/Validator',
     'argos/Edit',
     'argos/Utility'
-], function (declare, lang, dString, format, template, validator, Edit, utility) {
+], function(
+    declare,
+    lang,
+    dString,
+    format,
+    template,
+    validator,
+    Edit,
+    utility
+) {
+
     var __class = declare('crm.Views.Contact.Edit', [Edit], {
         //Localization
         titleText: 'Contact',
@@ -41,6 +52,7 @@ define('crm/Views/Contact/Edit', [
         ownerText: 'owner',
         cuisinePreferenceText: 'cuisine',
         cuisinePreferenceTitleText: 'Cuisine',
+
         //View Properties
         entityName: 'Contact',
         id: 'contact_edit',
@@ -72,59 +84,68 @@ define('crm/Views/Contact/Edit', [
             'WorkPhone'
         ],
         resourceKind: 'contacts',
-        startup: function () {
+
+        startup: function() {
             this.inherited(arguments);
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
-        beforeTransitionTo: function () {
+        beforeTransitionTo: function() {
             this.inherited(arguments);
             if (this.options.insert) {
                 this.fields['Account'].enable();
-            }
-            else {
+            } else {
                 this.fields['Account'].disable();
             }
         },
-        onAccountChange: function (value) {
+        onAccountChange: function(value) {
             if (value && value.text) {
                 this.fields['AccountName'].setValue(value.text);
             }
             this.requestAccount(value['key']);
         },
-        applyContext: function () {
-            var found, lookup;
-            found = App.queryNavigationContext(function (o) {
+        applyContext: function() {
+            var found,
+                lookup;
+
+            found = App.queryNavigationContext(function(o) {
                 o = (o.options && o.options.source) || o;
                 return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
             });
+
             lookup = {
                 'accounts': this.applyAccountContext,
                 'opportunities': this.applyOpportunityContext
             };
+
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
+
             if (found && lookup[found.resourceKind]) {
                 lookup[found.resourceKind].call(this, found);
             }
         },
-        applyAccountContext: function (context) {
-            var view = App.getView(context.id), entry = view && view.entry;
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             if (!entry && context.options && context.options.source && context.options.source.entry) {
                 this.requestAccount(context.options.source.entry['$key']);
             }
+
             this.processAccount(entry);
         },
-        requestAccount: function (accountId) {
+        requestAccount: function(accountId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('accounts')
                 .setResourceSelector(dString.substitute("'${0}'", [accountId]))
                 .setQueryArg('select', [
-                'AccountName',
-                'Address/*',
-                'Fax',
-                'MainPhone',
-                'WebAddress'
-            ].join(','));
+                    'AccountName',
+                    'Address/*',
+                    'Fax',
+                    'MainPhone',
+                    'WebAddress'
+                ].join(','));
+
             request.allowCacheUse = true;
             request.read({
                 success: this.processAccount,
@@ -132,10 +153,16 @@ define('crm/Views/Contact/Edit', [
                 scope: this
             });
         },
-        requestAccountFailure: function () {
+        requestAccountFailure: function() {
         },
-        processAccount: function (entry) {
-            var account = entry, accountName = utility.getValue(entry, 'AccountName'), webAddress = utility.getValue(entry, 'WebAddress'), mainPhone = utility.getValue(entry, 'MainPhone'), address = utility.getValue(entry, 'Address'), fax = utility.getValue(entry, 'Fax');
+        processAccount: function(entry) {
+            var account = entry,
+                accountName = utility.getValue(entry, 'AccountName'),
+                webAddress = utility.getValue(entry, 'WebAddress'),
+                mainPhone = utility.getValue(entry, 'MainPhone'),
+                address = utility.getValue(entry, 'Address'),
+                fax = utility.getValue(entry, 'Fax');
+
             if (account) {
                 this.fields['Account'].setValue(account);
             }
@@ -155,8 +182,17 @@ define('crm/Views/Contact/Edit', [
                 this.fields['Fax'].setValue(fax);
             }
         },
-        applyOpportunityContext: function (context) {
-            var view = App.getView(context.id), entry = view && view.entry, opportunityId = utility.getValue(entry, '$key'), account = utility.getValue(entry, 'Account'), accountName = utility.getValue(entry, 'Account.AccountName'), webAddress = utility.getValue(entry, 'Account.WebAddress'), mainPhone = utility.getValue(entry, 'Account.MainPhone'), address = utility.getValue(entry, 'Account.Address'), fax = utility.getValue(entry, 'Account.Fax');
+        applyOpportunityContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry,
+                opportunityId = utility.getValue(entry, '$key'),
+                account = utility.getValue(entry, 'Account'),
+                accountName = utility.getValue(entry, 'Account.AccountName'),
+                webAddress = utility.getValue(entry, 'Account.WebAddress'),
+                mainPhone = utility.getValue(entry, 'Account.MainPhone'),
+                address = utility.getValue(entry, 'Account.Address'),
+                fax = utility.getValue(entry, 'Account.Fax');
+
             if (opportunityId) {
                 this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
             }
@@ -179,18 +215,21 @@ define('crm/Views/Contact/Edit', [
                 this.fields['Fax'].setValue(fax);
             }
         },
-        cleanAddressEntry: function (address) {
+        cleanAddressEntry: function(address) {
             if (address) {
-                var clean = {}, skip = {
-                    '$key': true,
-                    '$lookup': true,
-                    '$url': true,
-                    'EntityId': true,
-                    'ModifyDate': true,
-                    'ModifyUser': true,
-                    'CreateDate': true,
-                    'CreateUser': true
-                }, name;
+                var clean = {},
+                    skip = {
+                        '$key': true,
+                        '$lookup': true,
+                        '$url': true,
+                        'EntityId': true,
+                        'ModifyDate': true,
+                        'ModifyUser': true,
+                        'CreateDate': true,
+                        'CreateUser': true
+                    },
+                    name;
+
                 for (name in address) {
                     if (address.hasOwnProperty(name)) {
                         if (!skip[name]) {
@@ -198,13 +237,13 @@ define('crm/Views/Contact/Edit', [
                         }
                     }
                 }
+
                 return clean;
-            }
-            else {
+            } else {
                 return null;
             }
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     applyTo: '.',
                     formatValue: format.nameLF,
@@ -325,6 +364,8 @@ define('crm/Views/Contact/Edit', [
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
     return __class;
 });
+

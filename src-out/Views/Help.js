@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Help
  *
@@ -19,7 +20,17 @@ define('crm/Views/Help', [
     'argos/Detail',
     'dojo/NodeList-manipulate',
     'argos/_LegacySDataDetailMixin'
-], function (declare, lang, string, domClass, domConstruct, ErrorManager, Detail, _LegacySDataDetailMixin) {
+], function(
+    declare,
+    lang,
+    string,
+    domClass,
+    domConstruct,
+    ErrorManager,
+    Detail,
+    _LegacySDataDetailMixin
+) {
+
     var __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
         //Templates
         errorTemplate: new Simplate([
@@ -30,23 +41,27 @@ define('crm/Views/Help', [
             '</ul>',
             '</div>'
         ]),
+
         //Localization
         titleText: 'Help',
         errorText: 'Error',
         errorMessageText: 'Unable to load the help document.',
+
         //View Properties
         id: 'help',
         url: 'help/help.html',
         expose: false,
-        createToolLayout: function () {
+
+        createToolLayout: function() {
             return this.tools && (this.tools.tbar = []);
         },
-        onRequestFailure: function (response, o) {
+        onRequestFailure: function(response, o) {
             domConstruct.place(this.errorTemplate.apply(this), this.contentNode, 'last');
             domClass.remove(this.domNode, 'panel-loading');
+
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onLocalizedRequestFirstFailure: function () {
+        onLocalizedRequestFirstFailure: function() {
             Sage.SData.Client.Ajax.request({
                 url: this.resolveGenericLocalizedUrl(),
                 cache: true,
@@ -55,7 +70,7 @@ define('crm/Views/Help', [
                 scope: this
             });
         },
-        onLocalizedRequestSecondFailure: function () {
+        onLocalizedRequestSecondFailure: function() {
             Sage.SData.Client.Ajax.request({
                 url: this.url,
                 cache: true,
@@ -64,20 +79,23 @@ define('crm/Views/Help', [
                 scope: this
             });
         },
-        onRequestSuccess: function (response, o) {
+        onRequestSuccess: function(response, o) {
             this.processContent(response, o);
             domClass.remove(this.domNode, 'panel-loading');
         },
-        resolveLocalizedUrl: function () {
+        resolveLocalizedUrl: function() {
             var localizedUrl = string.substitute('help/help_${0}.html', [Mobile.CultureInfo['name']]);
             return localizedUrl;
         },
-        resolveGenericLocalizedUrl: function () {
-            var languageSpec = Mobile.CultureInfo['name'], languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec, localizedUrl = string.substitute('help/help_${0}.html', [languageGen]);
+        resolveGenericLocalizedUrl: function() {
+            var languageSpec = Mobile.CultureInfo['name'],
+                languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec,
+                localizedUrl = string.substitute('help/help_${0}.html', [languageGen]);
             return localizedUrl;
         },
-        requestData: function () {
+        requestData: function() {
             domClass.add(this.domNode, 'panel-loading');
+
             Sage.SData.Client.Ajax.request({
                 url: this.resolveLocalizedUrl(),
                 cache: true,
@@ -86,10 +104,12 @@ define('crm/Views/Help', [
                 scope: this
             });
         },
-        processContent: function (xhr) {
+        processContent: function(xhr) {
             domConstruct.place(xhr.responseText, this.contentNode, 'last');
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Help', __class);
     return __class;
 });
+
