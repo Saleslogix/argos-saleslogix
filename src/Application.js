@@ -86,6 +86,7 @@ var __class = declare('crm.Application', [Application], {
     loginViewId: 'login',
     logOffViewId: 'logoff',
 
+    UID: null,
     init: function() {
         var original,
             self = this;
@@ -97,11 +98,12 @@ var __class = declare('crm.Application', [Application], {
         this._loadNavigationState();
         this._saveDefaultPreferences();
 
+        this.UID = (new Date()).getTime();
         original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
         Sage.SData.Client.SDataService.prototype.executeRequest = function(request) {
             request.setRequestHeader('X-Application-Name', self.appName);
-            request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', self.mobileVersion));
+            request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: self.mobileVersion, id: self.UID }));
             return original.apply(this, arguments);
         };
     },
@@ -697,18 +699,19 @@ var __class = declare('crm.Application', [Application], {
     onRequestOwnerDescriptionFailure: function(response, o) {
         ErrorManager.addError(response, o, {}, 'failure');
     },
+    defaultViews: [
+        'myactivity_list',
+        'calendar_daylist',
+        'history_list',
+        'account_list',
+        'contact_list',
+        'lead_list',
+        'opportunity_list',
+        'ticket_list',
+        'myattachment_list'
+    ],
     getDefaultViews: function() {
-        return [
-            'myactivity_list',
-            'calendar_daylist',
-            'history_list',
-            'account_list',
-            'contact_list',
-            'lead_list',
-            'opportunity_list',
-            'ticket_list',
-            'myattachment_list'
-        ];
+        return this.defaultViews;
     },
     getExposedViews: function() {
         var exposed = [], id, view;

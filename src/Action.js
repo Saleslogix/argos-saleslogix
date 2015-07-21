@@ -32,7 +32,7 @@ var __class = lang.setObject('crm.Action', {
     recordToHistory: function(complete, o) {
         var entry = {
             'UserId': App.context && App.context.user['$key'],
-            'UserName': App.context && App.context.user['UserName'],
+            'UserName': App.context && App.context.user['$descriptor'],
             'Duration': 15,
             'CompletedDate': (new Date())
         };
@@ -133,4 +133,3 @@ var __class = lang.setObject('crm.Action', {
 
 lang.setObject('Mobile.SalesLogix.Action', __class);
 export default __class;
-

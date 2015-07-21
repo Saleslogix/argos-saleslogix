@@ -446,8 +446,8 @@ var __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMix
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(startDate.toDate()),
                 convert.toIsoStringFromDate(endDate.toDate()),
-                startDate.format('YYYY-MM-DDT00:00:00Z'),
-                endDate.format('YYYY-MM-DDT23:59:59Z')]
+                startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+                endDate.format('YYYY-MM-DDT23:59:59[Z]')]
             );
     },
     getEventQuery: function() {
