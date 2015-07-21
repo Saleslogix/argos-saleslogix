@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.MainToolbar
  *
@@ -14,26 +15,42 @@ define('crm/Views/MainToolbar', [
     'dojo/dom-style',
     'dojo/has',
     'argos/MainToolbar'
-], function (declare, lang, domStyle, has, MainToolbar) {
+], function(
+    declare,
+    lang,
+    domStyle,
+    has,
+    MainToolbar
+) {
+
     var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
-        showTools: function (tools) {
-            var hasLeftDrawer, isOnFirstView, i, isOnEdit;
+        showTools: function(tools) {
+            var hasLeftDrawer,
+                isOnFirstView,
+                i,
+                isOnEdit;
+
             isOnFirstView = App.isOnFirstView();
+
             if (tools) {
                 for (i = 0; i < tools.length; i++) {
                     if (tools[i].id === 'toggleLeftDrawer') {
                         hasLeftDrawer = true;
                     }
+
                     if (tools[i].id === 'back') {
                         hasLeftDrawer = true;
                     }
+
                     if (tools[i].id === 'cancel') {
                         isOnEdit = true;
                     }
                 }
             }
+
             if (tools !== false) {
                 tools = tools || [];
+
                 if (!hasLeftDrawer) {
                     tools.unshift({
                         id: 'toggleLeftDrawer',
@@ -43,6 +60,7 @@ define('crm/Views/MainToolbar', [
                         scope: this
                     });
                 }
+
                 if (!isOnEdit && !isOnFirstView) {
                     tools = tools.concat([{
                             id: 'back',
@@ -52,25 +70,29 @@ define('crm/Views/MainToolbar', [
                             scope: this
                         }]);
                 }
+
             }
+
             this.inherited(arguments);
         },
-        navigateBack: function () {
+        navigateBack: function() {
             ReUI.back();
         },
-        navigateToHomeView: function () {
+        navigateToHomeView: function() {
             App.navigateToHomeView();
         },
-        toggleRightDrawer: function () {
+        toggleRightDrawer: function() {
             this._toggleDrawer('right');
         },
-        toggleLeftDrawer: function () {
+        toggleLeftDrawer: function() {
             this._toggleDrawer('left');
         },
-        onTitleClick: function () {
+        onTitleClick: function() {
             var view, state, scrollerNode;
+
             state = App.snapper && App.snapper.state();
             view = App.getPrimaryActiveView();
+
             if (view && state && state.state === 'closed') {
                 scrollerNode = view.get('scroller');
                 if (has('android')) {
@@ -78,22 +100,22 @@ define('crm/Views/MainToolbar', [
                     domStyle.set(scrollerNode, 'overflow', 'hidden');
                     scrollerNode.scrollTop = 0;
                     domStyle.set(scrollerNode, 'overflow', 'auto');
-                }
-                else {
+                } else {
                     scrollerNode.scrollTop = 0;
                 }
             }
         },
-        _toggleDrawer: function (state) {
+        _toggleDrawer: function(state) {
             var snapperState = App.snapper.state();
             if (snapperState.state === state) {
                 App.snapper.close();
-            }
-            else {
+            } else {
                 App.snapper.open(state);
             }
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);
     return __class;
 });
+

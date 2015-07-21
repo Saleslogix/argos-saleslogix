@@ -587,7 +587,7 @@ define('crm/Views/Calendar/WeekView', [
             }
         },
         selectDateSuccess: function() {
-            var view = App.getPrimaryActiveView<CalendarView>();
+            var view = App.getPrimaryActiveView();
             this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
@@ -634,4 +634,3 @@ define('crm/Views/Calendar/WeekView', [
     lang.setObject('Mobile.SalesLogix.Views.Calendar.WeekView', __class);
     return __class;
 });
-

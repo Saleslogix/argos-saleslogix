@@ -1,6 +1,7 @@
 /*
  * See copyright file.
  */
+
 define('crm/Views/RelatedEditWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -20,7 +21,26 @@ define('crm/Views/RelatedEditWidget', [
     'argos/RelatedViewManager',
     'argos/_RelatedViewWidgetBase',
     'argos/Edit'
-], function (declare, lang, event, on, string, domClass, when, Deferred, domConstruct, query, domAttr, connect, array, utility, format, RelatedViewManager, _RelatedViewWidgetBase, Edit) {
+], function(
+    declare,
+    lang,
+    event,
+    on,
+    string,
+    domClass,
+    when,
+    Deferred,
+    domConstruct,
+    query,
+    domAttr,
+    connect,
+    array,
+    utility,
+    format,
+    RelatedViewManager,
+    _RelatedViewWidgetBase,
+    Edit
+) {
     var rvm, __class;
     __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase], {
         cls: 'related-edit-widget',
@@ -28,20 +48,23 @@ define('crm/Views/RelatedEditWidget', [
         id: 'related-edit-widget',
         editView: null,
         toolBarTemplate: new Simplate([
-            '<div class="toolBar">',
-            '<button class="button toolButton toolButton-right  fa fa-save fa-fw fa-lg" data-action="save"></button>',
-            '<div>'
+           '<div class="toolBar">',
+              '<button class="button toolButton toolButton-right  fa fa-save fa-fw fa-lg" data-action="save"></button>',
+           '<div>'
         ]),
-        onLoad: function () {
+        onLoad: function() {
             this.processEntry(this.parentEntry);
         },
-        processEntry: function (entry) {
-            var toolBarNode, options, editView, ctor;
+        processEntry: function(entry) {
+            var toolBarNode,
+                options,
+                editView,
+                ctor;
             ctor = (this.editView) ? this.editView : Edit;
             editView = new ctor({ id: this.id + '_edit' });
             if (editView && !editView._started) {
                 editView.sectionBeginTemplate = new Simplate([
-                    '<fieldset class="{%= ($.cls || $.options.cls) %}">'
+                     '<fieldset class="{%= ($.cls || $.options.cls) %}">'
                 ]);
                 editView.init();
                 editView._started = true;
@@ -51,8 +74,10 @@ define('crm/Views/RelatedEditWidget', [
             toolBarNode = domConstruct.toDom(this.toolBarTemplate.apply(entry, this));
             on(toolBarNode, 'click', this.onInvokeToolBarAction.bind(this));
             domConstruct.place(toolBarNode, this.containerNode, 'last');
+
             //Add the edit view to view
             editView.placeAt(this.containerNode, 'last');
+
             options = {
                 select: this.getEditSelect(),
                 key: entry.$key
@@ -62,14 +87,14 @@ define('crm/Views/RelatedEditWidget', [
             editView.requestData();
             this.editViewInstance = editView;
         },
-        onInvokeToolBarAction: function (evt) {
+        onInvokeToolBarAction: function(evt) {
             this.editViewInstance.save();
             event.stop(evt);
         },
-        getEditLayout: function () {
+        getEditLayout: function() {
             var editLayout = [];
             if (this.layout) {
-                this.layout.forEach(function (item) {
+                this.layout.forEach(function(item) {
                     if (!item.readonly) {
                         editLayout.push(item);
                     }
@@ -77,23 +102,24 @@ define('crm/Views/RelatedEditWidget', [
             }
             return editLayout;
         },
-        getEditSelect: function () {
+        getEditSelect: function() {
             var select = null;
             if (this.formModel) {
                 select = this.formModel.getEditSelect();
             }
             return select;
         },
-        onUpdateCompleted: function () {
+        onUpdateCompleted: function() {
             if (this.owner && this.owner._refreshClicked) {
                 this.owner._refreshClicked();
             }
             this.inherited(arguments);
         },
-        destroy: function () {
-            array.forEach(this._subscribes, function (handle) {
+        destroy: function() {
+            array.forEach(this._subscribes, function(handle) {
                 connect.unsubscribe(handle);
             });
+
             if (this.editViewInstance) {
                 for (var name in this.editViewInstance.fields) {
                     if (this.editViewInstance.fields.hasOwnProperty(name)) {

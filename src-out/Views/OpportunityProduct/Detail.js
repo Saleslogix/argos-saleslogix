@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.OpportunityProduct.Detail
  *
@@ -18,7 +19,17 @@ define('crm/Views/OpportunityProduct/Detail', [
     '../../Format',
     'argos/Detail',
     'argos/_LegacySDataDetailMixin'
-], function (declare, lang, string, connect, array, format, Detail, _LegacySDataDetailMixin) {
+], function(
+    declare,
+    lang,
+    string,
+    connect,
+    array,
+    format,
+    Detail,
+    _LegacySDataDetailMixin
+) {
+
     var __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Details',
@@ -39,9 +50,11 @@ define('crm/Views/OpportunityProduct/Detail', [
         myAdjustedPriceText: 'user',
         confirmDeleteText: 'Remove ${0} from the opportunity products?',
         removeOppProductTitleText: 'remove opportunity product',
+
         //View Properties
         id: 'opportunityproduct_detail',
         editView: 'opportunityproduct_edit',
+
         security: 'Entities/Opportunity/View',
         querySelect: [
             'Opportunity/Description',
@@ -60,7 +73,8 @@ define('crm/Views/OpportunityProduct/Detail', [
             'Quantity'
         ],
         resourceKind: 'opportunityProducts',
-        createEntryForDelete: function (e) {
+
+        createEntryForDelete: function(e) {
             var entry = {
                 '$key': e['$key'],
                 '$etag': e['$etag'],
@@ -68,14 +82,20 @@ define('crm/Views/OpportunityProduct/Detail', [
             };
             return entry;
         },
-        removeOpportunityProduct: function () {
-            var confirmMessage, request, entry;
+        removeOpportunityProduct: function() {
+            var confirmMessage,
+                request,
+                entry;
+
             confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+
             if (!confirm(confirmMessage)) {
                 return;
             }
+
             entry = this.createEntryForDelete(this.entry);
             request = this.createRequest();
+
             if (request) {
                 request['delete'](entry, {
                     success: this.onDeleteSuccess,
@@ -84,23 +104,25 @@ define('crm/Views/OpportunityProduct/Detail', [
                 });
             }
         },
-        onDeleteSuccess: function () {
+        onDeleteSuccess: function() {
             var views = [
                 App.getView('opportunityproduct_related'),
                 App.getView('opportunity_detail'),
                 App.getView('opportunity_list')
             ];
-            array.forEach(views, function (view) {
+
+            array.forEach(views, function(view) {
                 if (view) {
                     view.refreshRequired = true;
                 }
             }, this);
+
             connect.publish('/app/refresh', [{
-                    resourceKind: this.resourceKind
-                }]);
+                resourceKind: this.resourceKind
+            }]);
             ReUI.back();
         },
-        createToolLayout: function () {
+        createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': [{
                         id: 'edit',
@@ -115,12 +137,14 @@ define('crm/Views/OpportunityProduct/Detail', [
                     }]
             });
         },
-        createLayout: function () {
+        createLayout: function() {
             var layout, details, extendedPrice, adjustedPrice;
             layout = this.layout || (this.layout = []);
+
             if (layout.length > 0) {
                 return layout;
             }
+
             details = {
                 title: this.detailsText,
                 name: 'DetailsSection',
@@ -149,13 +173,14 @@ define('crm/Views/OpportunityProduct/Detail', [
                         label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
                         name: 'Price',
                         property: 'Price',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exhangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
                                 exhangeRate = App.getBaseExchangeRate();
                                 convertedValue = val * exhangeRate.rate;
                                 return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
                             }
+
                             return format.currency.call(null, val);
                         }).bindDelegate(this)
                     },
@@ -172,7 +197,9 @@ define('crm/Views/OpportunityProduct/Detail', [
                     }
                 ]
             };
+
             if (!App.hasMultiCurrency()) {
+
                 details.children.push({
                     label: this.adjustedPriceText,
                     name: 'CalculatedPrice',
@@ -194,13 +221,14 @@ define('crm/Views/OpportunityProduct/Detail', [
                         label: this.baseExtendedPriceText,
                         name: 'ExtendedPrice',
                         property: 'ExtendedPrice',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exchangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
                                 exchangeRate = App.getBaseExchangeRate();
                                 convertedValue = val * exchangeRate.rate;
                                 return format.multiCurrency.call(null, convertedValue, exchangeRate.code);
                             }
+
                             return format.currency.call(null, val);
                         }).bindDelegate(this)
                     }
@@ -214,13 +242,14 @@ define('crm/Views/OpportunityProduct/Detail', [
                         label: this.baseAdjustedPriceText,
                         name: 'CalculatedPrice',
                         property: 'CalculatedPrice',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exhangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
                                 exhangeRate = App.getBaseExchangeRate();
                                 convertedValue = val * exhangeRate.rate;
                                 return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
                             }
+
                             return format.currency.call(null, val);
                         }).bindDelegate(this)
                     },
@@ -228,7 +257,7 @@ define('crm/Views/OpportunityProduct/Detail', [
                         label: this.myAdjustedPriceText,
                         name: 'CalculatedPriceMine',
                         property: 'CalculatedPrice',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exhangeRate, convertedValue;
                             exhangeRate = App.getMyExchangeRate();
                             convertedValue = val * exhangeRate.rate;
@@ -237,11 +266,15 @@ define('crm/Views/OpportunityProduct/Detail', [
                     }
                 ]
             };
+
             layout = this.layout || (this.layout = []);
+
             if (layout.length > 0) {
                 return layout;
             }
+
             layout.push(details);
+
             if (App.hasMultiCurrency()) {
                 layout.push(adjustedPrice);
                 layout.push(extendedPrice);
@@ -249,6 +282,8 @@ define('crm/Views/OpportunityProduct/Detail', [
             return layout;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Detail', __class);
     return __class;
 });
+

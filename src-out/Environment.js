@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Environment
  *
@@ -14,39 +15,50 @@ define('crm/Environment', [
     'dojo/string',
     'dojo/dom-construct',
     'dojo/_base/sniff'
-], function (lang, win, array, has, on, string, domConstruct) {
+], function(
+    lang,
+    win,
+    array,
+    has,
+    on,
+    string,
+    domConstruct
+) {
     var __class = lang.setObject('crm.Environment', {
         // todo: open a new browser window for these when on a mobile device?
         // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
         // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
-        initiateCall: function (number) {
-            setTimeout(function () {
+        initiateCall: function(number) {
+            setTimeout(function() {
                 window.location.href = string.substitute('tel:${0}', [number]);
             }, 500);
         },
-        initiateEmail: function (email, subject, body) {
-            setTimeout(function () {
+        initiateEmail: function(email, subject, body) {
+            setTimeout(function() {
                 var mailtoUri = (subject)
                     ? string.substitute('mailto:${0}?subject=${1}&body=${2}', [email, subject, body || ''])
                     : string.substitute('mailto:${0}', [email]);
                 window.location.href = mailtoUri;
             }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
         },
-        showMapForAddress: function (address) {
+        showMapForAddress: function(address) {
             var hiddenLink, href, windowName = '_blank';
+
             href = string.substitute('http://maps.google.com/maps?q=${0}', [address]);
+
             if (has('ie') || has('ff')) {
                 window.open(href, windowName);
-            }
-            else {
+            } else {
                 hiddenLink = domConstruct.create('a', {
                     href: href,
                     target: windowName
                 }, win.body(), 'last');
+
                 on.emit(hiddenLink, 'click', {
                     bubbles: true,
                     cancelable: true
                 });
+
                 domConstruct.destroy(hiddenLink);
             }
         },
@@ -78,23 +90,23 @@ define('crm/Environment', [
             'lead_detail',
             'ticket_detail'
         ],
-        refreshStaleDetailViews: function () {
+        refreshStaleDetailViews: function() {
             // List of detail views that will need refreshed when a note is added or an activity is completed (possibly others??).
             // Otherwise the etag will change and the server will give a 412: Preconditioned failed when we attempt to edit/save.
             var views = crm.Environment.detailViewsToRefreshOnUpdate || [];
             crm.Environment.refreshViews(views);
         },
-        refreshActivityLists: function () {
+        refreshActivityLists: function() {
             var views = crm.Environment.activityViewsToRefresh || [];
             crm.Environment.refreshViews(views);
         },
-        refreshAttachmentViews: function () {
+        refreshAttachmentViews: function() {
             var views = crm.Environment.attachmentViewsToRefresh || [];
             crm.Environment.refreshViews(views);
         },
-        refreshViews: function (views) {
+        refreshViews: function(views) {
             if (views && views.length > 0) {
-                array.forEach(views, function (view_id) {
+                array.forEach(views, function(view_id) {
                     var view = App.getView(view_id);
                     if (view) {
                         view.refreshRequired = true;
@@ -103,6 +115,8 @@ define('crm/Environment', [
             }
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Environment', __class);
     return __class;
 });
+

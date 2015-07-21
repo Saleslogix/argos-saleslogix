@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Attachment.AddAttachment
  *
@@ -22,39 +23,60 @@ define('crm/Views/Attachment/AddAttachment', [
     'argos/Views/FileSelect',
     '../../AttachmentManager',
     '../../Environment'
-], function (declare, lang, string, format, sdkFormat, FileSelect, AttachmentManager, Environment) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    sdkFormat,
+    FileSelect,
+    AttachmentManager,
+    Environment
+) {
+
     var __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
         //Localization
         titleText: 'Add Attachments',
+
         //View Properties
         id: 'attachment_Add',
-        onUploadFiles: function () {
-            var fileItems, am, self;
+
+        onUploadFiles: function() {
+            var fileItems,
+                am,
+                self;
+
             self = this;
             if (this._files && this._files.length > 0) {
                 this.inherited(arguments);
                 fileItems = this.getFileItems();
                 am = new AttachmentManager();
-                am.onSuccessUpdate = function () {
+
+                am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();
                     ReUI.back();
                 };
-                am.onFailedUpload = function (errorMessage) {
+
+                am.onFailedUpload = function(errorMessage) {
                     self.onUpdateFailed(errorMessage);
                     alert(errorMessage);
                     ReUI.back();
                 };
-                am.onUpdateProgress = function (percent) {
+
+                am.onUpdateProgress = function(percent) {
                     var msg = sdkFormat.percent(percent / 100);
                     self.onUpdateProgress(msg);
                 };
-                am.createAttachment(fileItems[0].file, { description: fileItems[0].description });
+
+                am.createAttachment(fileItems[0].file, {description: fileItems[0].description});
             }
         },
-        cancelSelect: function () {
+        cancelSelect: function() {
             ReUI.back();
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
     return __class;
 });
+

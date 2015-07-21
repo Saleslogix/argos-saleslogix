@@ -1,6 +1,7 @@
 /*
  * See copyright file.
  */
+
 /**
  * @class crm.Views.Opportunity.Edit
  *
@@ -23,7 +24,20 @@ define('crm/Views/Opportunity/QuickEdit', [
     '../../SalesProcessUtility',
     'argos/Utility',
     'argos/Edit'
-], function (declare, lang, query, domConstruct, domAttr, string, validator, template, salesProcessUtility, utility, Edit) {
+], function(
+    declare,
+    lang,
+    query,
+    domConstruct,
+    domAttr,
+    string,
+    validator,
+    template,
+    salesProcessUtility,
+    utility,
+    Edit
+) {
+
     var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
         //Localization
         estCloseText: 'est close',
@@ -32,12 +46,13 @@ define('crm/Views/Opportunity/QuickEdit', [
         opportunityText: 'opportunity',
         stageText: 'stage',
         statusOpenText: 'Open',
-        statusClosedLostText: 'Closed - Lost',
-        statusClosedWonText: 'Closed - Won',
+        statusClosedLostText:'Closed - Lost',
+        statusClosedWonText:'Closed - Won',
         salesProcessText: 'stage locked by sales process:',
         probabilityText: 'close prob',
         probabilityTitleText: 'Opportunity Probability',
         potentialText: 'sales potential',
+
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_quick_edit',
@@ -56,23 +71,24 @@ define('crm/Views/Opportunity/QuickEdit', [
             'Stage',
             'status'
         ],
-        init: function () {
+        init: function() {
             this.inherited(arguments);
         },
-        applyContext: function (templateEntry) {
+        applyContext: function(templateEntry) {
             this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
         },
-        createLayout: function () {
+        createLayout: function() {
             var layout, details;
+
             details = {
                 title: this.detailsText,
                 name: 'OpportunityDetailsEdit',
                 children: [{
-                        relatedView: {
-                            widgetType: 'relatedContext',
-                            id: 'opp_related_context_quickEdit'
-                        }
-                    },
+                    relatedView: {
+                        widgetType: 'relatedContext',
+                        id: 'opp_related_context_quickEdit'
+                    }
+                },
                     {
                         label: this.stageText,
                         name: 'Stage',
@@ -113,40 +129,44 @@ define('crm/Views/Opportunity/QuickEdit', [
                     }
                 ]
             };
+
             layout = this.layout || (this.layout = []);
+
             if (layout.length > 0) {
                 return layout;
             }
+
             layout.push(details);
             return layout;
         },
-        setValues: function (values) {
+        setValues: function(values) {
             this.inherited(arguments);
             this.enableStage(values['$key']);
             this.enableProbability(values);
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
         },
-        enableStage: function (opportunityId) {
+        enableStage: function(opportunityId) {
             var field, label;
             field = this.fields['Stage'];
             label = this.stageText;
+
             if (!field) {
                 return;
             }
+
             field.disable();
-            salesProcessUtility.getSalesProcessByEntityId(opportunityId).then(function (salesProcess) {
+            salesProcessUtility.getSalesProcessByEntityId(opportunityId).then(function(salesProcess) {
                 if (salesProcess) {
                     field.disable();
                     label = this.salesProcessText + salesProcess.$descriptor;
                     this.setStageLabel(label);
-                }
-                else {
+                } else {
                     field.enable();
                 }
             }.bind(this));
             this.setStageLabel(label);
         },
-        setStageLabel: function (label) {
+        setStageLabel: function(label) {
             var field, node;
             field = this.fields['Stage'];
             if (field && field.domNode) {
@@ -156,7 +176,7 @@ define('crm/Views/Opportunity/QuickEdit', [
                 }
             }
         },
-        enableProbability: function (entry) {
+        enableProbability: function(entry) {
             var field;
             field = this.fields['CloseProbability'];
             if (!field) {
@@ -167,7 +187,7 @@ define('crm/Views/Opportunity/QuickEdit', [
                 field.disable();
             }
         },
-        isClosed: function (entry) {
+        isClosed: function(entry) {
             var status;
             status = entry['Status'];
             if ((status === this.statusClosedWonText) || (status === this.statusClosedLostText)) {
@@ -176,5 +196,7 @@ define('crm/Views/Opportunity/QuickEdit', [
             return false;
         }
     });
+
     return __class;
 });
+

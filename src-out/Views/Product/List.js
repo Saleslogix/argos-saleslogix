@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Product.List
  *
@@ -14,7 +15,14 @@ define('crm/Views/Product/List', [
     'dojo/string',
     '../../Format',
     'argos/List'
-], function (declare, lang, string, format, List) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    List
+) {
+
     var __class = declare('crm.Views.Product.List', [List], {
         //Templates
         itemTemplate: new Simplate([
@@ -23,8 +31,10 @@ define('crm/Views/Product/List', [
             '{%: $.Family %}',
             '</h4>'
         ]),
+
         //Localization
         titleText: 'Products',
+
         //View Properties
         id: 'product_list',
         security: 'Entities/Product/View',
@@ -38,10 +48,13 @@ define('crm/Views/Product/List', [
             'FixedCost'
         ],
         resourceKind: 'products',
-        formatSearchQuery: function (searchQuery) {
+
+        formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Product.List', __class);
     return __class;
 });
+

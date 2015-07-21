@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Login
  *
@@ -13,7 +14,13 @@ define('crm/Views/Login', [
     'dojo/_base/lang',
     'dojo/dom-class',
     'argos/Edit'
-], function (declare, lang, domClass, Edit) {
+], function(
+    declare,
+    lang,
+    domClass,
+    Edit
+) {
+
     var __class = declare('crm.Views.Login', [Edit], {
         //Templates
         widgetTemplate: new Simplate([
@@ -25,6 +32,7 @@ define('crm/Views/Login', [
             '<span class="copyright">{%= App.getVersionInfo() %}</span>',
             '</div>'
         ]),
+
         //Localization
         id: 'login',
         busy: false,
@@ -38,28 +46,30 @@ define('crm/Views/Login', [
         missingUserText: 'The user record was not found.',
         requestAbortedText: 'The request was aborted.',
         logoText: 'Infor CRM',
+
         ENTER_KEY: 13,
-        _onKeyPress: function (evt) {
+
+        _onKeyPress: function(evt) {
             if (evt.charOrCode === this.ENTER_KEY) {
                 this.authenticate();
             }
         },
-        _onKeyUp: function () {
+        _onKeyUp: function() {
             var username = this.fields.username.getValue();
             if (username && username.length > 0) {
                 domClass.add(this.domNode, 'login-active');
-            }
-            else {
+            } else {
                 domClass.remove(this.domNode, 'login-active');
             }
         },
-        onShow: function () {
+        onShow: function() {
             var credentials;
             credentials = App.getCredentials();
+
             if (credentials) {
                 App.authenticateUser(credentials, {
-                    success: function () {
-                        App.initAppState().then(function () {
+                    success: function() {
+                        App.initAppState().then(function() {
                             App.navigateToInitialView();
                         });
                     },
@@ -67,16 +77,16 @@ define('crm/Views/Login', [
                 });
             }
         },
-        createToolLayout: function () {
+        createToolLayout: function() {
             return this.tools || (this.tools = {
                 bbar: false,
                 tbar: false
             });
         },
-        getContext: function () {
-            return { id: this.id };
+        getContext: function() {
+            return {id: this.id};
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     name: 'username',
@@ -96,68 +106,81 @@ define('crm/Views/Login', [
                 }
             ]);
         },
-        authenticate: function () {
+        authenticate: function() {
             if (this.busy) {
                 return;
             }
-            var credentials = this.getValues(), username = credentials && credentials.username;
+
+            var credentials = this.getValues(),
+                username = credentials && credentials.username;
+
             if (username) {
                 this.validateCredentials(credentials);
             }
         },
-        createErrorHandlers: function () {
+        createErrorHandlers: function() {
             this.errorText.status[this.HTTP_STATUS.FORBIDDEN] = this.invalidUserText;
+
             this.errorHandlers = [{
-                    name: 'NoResponse',
-                    test: function (error) {
-                        return !error.xhr;
-                    },
-                    handle: function (error, next) {
-                        alert(this.missingUserText);
-                        next();
-                    }
-                }, {
-                    name: 'GeneralError',
-                    test: function (error) {
-                        return typeof error.xhr !== 'undefined' && error.xhr !== null;
-                    },
-                    handle: function (error, next) {
-                        alert(this.getErrorMessage(error));
-                        next();
-                    }
-                }];
+                name: 'NoResponse',
+                test: function(error) {
+                    return !error.xhr;
+                },
+                handle: function(error, next) {
+                    alert(this.missingUserText);
+                    next();
+                }
+            }, {
+                name: 'GeneralError',
+                test: function(error) {
+                    return typeof error.xhr !== 'undefined' && error.xhr !== null;
+                },
+                handle: function(error, next) {
+                    alert(this.getErrorMessage(error));
+                    next();
+                }
+            }];
+
             return this.errorHandlers;
         },
-        validateCredentials: function (credentials) {
+        validateCredentials: function(credentials) {
             this.disable();
+
             App.authenticateUser(credentials, {
                 success: function success() {
                     this.enable();
+
                     var attr = this.domNode.attributes.getNamedItem('selected');
                     if (attr) {
                         attr.value = 'false';
                     }
+
                     App.setPrimaryTitle(App.loadingText);
-                    App.initAppState().then(function () {
+                    App.initAppState().then(function() {
                         App.navigateToInitialView();
                     });
                 },
-                failure: function (result) {
+                failure: function(result) {
                     var error;
+
                     this.enable();
+
                     error = new Error();
                     error.status = result && result.response && result.response.status;
                     error.xhr = result && result.response;
                     this.handleError(error);
                 },
-                aborted: function () {
+                aborted: function() {
                     this.enable();
+
                     alert(this.requestAbortedText);
                 },
                 scope: this
             });
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Login', __class);
     return __class;
 });
+
