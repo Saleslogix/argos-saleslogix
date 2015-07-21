@@ -178,8 +178,8 @@ define('crm/Views/_DashboardWidgetBase', [
         dashboardHeaderTemplate: new Simplate([
             '{% if($.titleText || $.categoryText) { %}',
                 '<div class="dashboard-header {%: $$.headerClass %}" data-action="toggleSection">',
-                    '<div>{%! $$.dashboardIconTemplate %}</div>',
-                        '<div>',
+                    '{%! $$.dashboardIconTemplate %}',
+                        '<div class="dashboard-header-text">',
                             '{% if($.titleText) { %}',
                                 '<div class="dashboard-title">{%: $.titleText %}</div>',
                             '{% } %}',
