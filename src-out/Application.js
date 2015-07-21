@@ -76,6 +76,7 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
         loginViewId: 'login',
         logOffViewId: 'logoff',
 
+        UID: null,
         init: function init() {
             var original,
                 self = this;
@@ -87,11 +88,12 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
             this._loadNavigationState();
             this._saveDefaultPreferences();
 
+            this.UID = new Date().getTime();
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
             Sage.SData.Client.SDataService.prototype.executeRequest = function (request) {
                 request.setRequestHeader('X-Application-Name', self.appName);
-                request.setRequestHeader('X-Application-Version', _string['default'].substitute('${major}.${minor}.${revision}', self.mobileVersion));
+                request.setRequestHeader('X-Application-Version', _string['default'].substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: self.mobileVersion, id: self.UID }));
                 return original.apply(this, arguments);
             };
         },
@@ -646,8 +648,9 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
         onRequestOwnerDescriptionFailure: function onRequestOwnerDescriptionFailure(response, o) {
             _ErrorManager['default'].addError(response, o, {}, 'failure');
         },
+        defaultViews: ['myactivity_list', 'calendar_daylist', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list'],
         getDefaultViews: function getDefaultViews() {
-            return ['myactivity_list', 'calendar_daylist', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list'];
+            return this.defaultViews;
         },
         getExposedViews: function getExposedViews() {
             var exposed = [],

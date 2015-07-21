@@ -318,7 +318,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         getActivityQuery: function getActivityQuery() {
             var startDate = this.getFirstDayOfCurrentMonth(),
                 endDate = this.getLastDayOfCurrentMonth();
-            return _string['default'].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate', ' between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate', ' between @${3}@ and @${4}@))'].join(''), [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(startDate.toDate()), _convert['default'].toIsoStringFromDate(endDate.toDate()), startDate.format('YYYY-MM-DDT00:00:00Z'), endDate.format('YYYY-MM-DDT23:59:59Z')]);
+            return _string['default'].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate', ' between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate', ' between @${3}@ and @${4}@))'].join(''), [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(startDate.toDate()), _convert['default'].toIsoStringFromDate(endDate.toDate()), startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
         },
         getEventQuery: function getEventQuery() {
             var startDate = this.getFirstDayOfCurrentMonth(),
