@@ -493,7 +493,7 @@ define('crm/Views/Calendar/DayView', [
             }
         },
         selectDateSuccess: function() {
-            var view = App.getPrimaryActiveView<CalendarView>();
+            var view = App.getPrimaryActiveView();
             this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
@@ -541,4 +541,3 @@ define('crm/Views/Calendar/DayView', [
     lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);
     return __class;
 });
-

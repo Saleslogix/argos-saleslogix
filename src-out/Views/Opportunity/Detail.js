@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Opportunity.Detail
  *
@@ -16,7 +17,16 @@ define('crm/Views/Opportunity/Detail', [
     'dojo/string',
     'argos/Detail',
     '../../Format'
-], function (declare, lang, domConstruct, query, string, Detail, format) {
+], function(
+    declare,
+    lang,
+    domConstruct,
+    query,
+    string,
+    Detail,
+    format
+) {
+
     var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         //Localization
         accountText: 'acct',
@@ -55,6 +65,7 @@ define('crm/Views/Opportunity/Detail', [
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
         exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
+
         //View Properties
         id: 'opportunity_detail',
         editView: 'opportunity_edit',
@@ -85,10 +96,11 @@ define('crm/Views/Opportunity/Detail', [
             'Weighted'
         ],
         resourceKind: 'opportunities',
-        scheduleActivity: function () {
+
+        scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
-        addNote: function () {
+        addNote: function() {
             var view = App.getView(this.noteEditView);
             if (view) {
                 view.show({
@@ -97,26 +109,32 @@ define('crm/Views/Opportunity/Detail', [
                 });
             }
         },
-        processEntry: function () {
+        processEntry: function() {
             this.inherited(arguments);
+
             if (App.hasMultiCurrency() && this.options && this.entry && this.entry.ExchangeRate) {
                 this.options.ExchangeRate = this.entry.ExchangeRate;
                 this.options.ExchangeRateCode = this.entry.ExchangeRateCode;
             }
         },
-        getValues: function () {
-            var values = this.inherited(arguments), estimatedCloseDate = this.fields['EstimatedClose'].getValue(), timelessStartDate = estimatedCloseDate.clone()
-                .clearTime()
-                .add({ minutes: -1 * estimatedCloseDate.getTimezoneOffset(), seconds: 5 });
+        getValues: function() {
+            var values = this.inherited(arguments),
+                estimatedCloseDate = this.fields['EstimatedClose'].getValue(),
+                timelessStartDate = estimatedCloseDate.clone()
+                    .clearTime()
+                    .add({minutes: -1 * estimatedCloseDate.getTimezoneOffset(), seconds: 5});
+
             values = values || {};
             values['EstimatedClose'] = timelessStartDate;
+
             return values;
         },
-        formatAccountRelatedQuery: function (fmt) {
+        formatAccountRelatedQuery: function(fmt) {
             return string.substitute(fmt, [this.entry['Account']['$key']]);
         },
-        createLayout: function () {
+        createLayout: function() {
             var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
+
             quickActions = {
                 list: true,
                 title: this.actionsText,
@@ -136,6 +154,7 @@ define('crm/Views/Opportunity/Detail', [
                         action: 'addNote'
                     }]
             };
+
             details = {
                 title: this.detailsText,
                 name: 'DetailsSection',
@@ -162,7 +181,7 @@ define('crm/Views/Opportunity/Detail', [
                         label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
                         name: 'SalesPotential',
                         property: 'SalesPotential',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exhangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
                                 exhangeRate = App.getBaseExchangeRate();
@@ -173,6 +192,7 @@ define('crm/Views/Opportunity/Detail', [
                         }).bindDelegate(this)
                     }]
             };
+
             multiCurrency = {
                 title: this.multiCurrencyText,
                 name: 'MultiCurrencySection',
@@ -195,6 +215,7 @@ define('crm/Views/Opportunity/Detail', [
                         property: 'ExchangeRateLocked'
                     }]
             };
+
             moreDetails = {
                 title: this.moreDetailsText,
                 name: 'MoreDetailsSection',
@@ -224,6 +245,7 @@ define('crm/Views/Opportunity/Detail', [
                         property: 'LeadSource.Description'
                     }]
             };
+
             relatedItems = {
                 list: true,
                 title: this.relatedItemsText,
@@ -254,49 +276,59 @@ define('crm/Views/Opportunity/Detail', [
                     }, {
                         name: 'AttachmentRelated',
                         label: this.relatedAttachmentText,
-                        where: this.formatRelatedQuery.bindDelegate(this, 'opportunityId eq "${0}"'),
+                        where: this.formatRelatedQuery.bindDelegate(this, 'opportunityId eq "${0}"'),// must be lower case because of feed
                         view: 'opportunity_attachment_related',
                         title: this.relatedAttachmentTitleText
                     }]
             };
+
             layout = this.layout || (this.layout = []);
+
             if (layout.length > 0) {
                 return layout;
             }
+
             layout.push(quickActions);
             layout.push(details);
+
             if (App.hasMultiCurrency()) {
                 details.children.push({
-                    label: this.potentialMyRateText,
-                    name: 'SalesPotentialMine',
-                    property: 'SalesPotential',
-                    renderer: (function (val) {
-                        var exhangeRate, convertedValue;
-                        if (App.hasMultiCurrency()) {
-                            exhangeRate = App.getMyExchangeRate();
-                            convertedValue = val * exhangeRate.rate;
-                            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
+                        label: this.potentialMyRateText,
+                        name: 'SalesPotentialMine',
+                        property: 'SalesPotential',
+                        renderer: (function(val) {
+                            var exhangeRate, convertedValue;
+                            if (App.hasMultiCurrency()) {
+                                exhangeRate = App.getMyExchangeRate();
+                                convertedValue = val * exhangeRate.rate;
+                                return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
+                            }
+
+                            return '-';
+                        }).bindDelegate(this)
+                    }, {
+                        label: this.potentialOpportunityText,
+                        name: 'SalesPotentialOpportunity',
+                        property: 'SalesPotentialOpportunity',
+                        renderer: function(val) {
+                            if (App.hasMultiCurrency()) {
+                                return format.multiCurrency.call(null, (val.SalesPotential * val.ExchangeRate), val.ExchangeRateCode);
+                            }
+
+                            return '-';
                         }
-                        return '-';
-                    }).bindDelegate(this)
-                }, {
-                    label: this.potentialOpportunityText,
-                    name: 'SalesPotentialOpportunity',
-                    property: 'SalesPotentialOpportunity',
-                    renderer: function (val) {
-                        if (App.hasMultiCurrency()) {
-                            return format.multiCurrency.call(null, (val.SalesPotential * val.ExchangeRate), val.ExchangeRateCode);
-                        }
-                        return '-';
-                    }
-                });
+                    });
+
                 layout.push(multiCurrency);
             }
+
             layout.push(moreDetails);
             layout.push(relatedItems);
             return layout;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);
     return __class;
 });
+

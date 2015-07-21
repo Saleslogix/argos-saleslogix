@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Attachments.MyAttachmentList
  *
@@ -16,20 +17,29 @@ define('crm/Views/Attachment/MyAttachmentList', [
     'dojo/string',
     '../../Format',
     './List'
-], function (declare, lang, string, format, AttachmentList) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    AttachmentList
+) {
+
     var __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
         id: 'myattachment_list',
         titleText: 'My Attachments',
-        queryWhere: function () {
+        queryWhere: function() {
             return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context['user'].$key)]);
         },
-        _formatUserKey: function (userKey) {
+        _formatUserKey: function(userKey) {
             if (userKey === 'ADMIN') {
                 userKey = 'ADMIN       '; //The attachment feed is picky and requires the Admin key to be padded to a 12 char.
             }
             return userKey;
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);
     return __class;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Lead.Edit
  *
@@ -15,7 +16,14 @@ define('crm/Views/Lead/Edit', [
     '../../Format',
     '../../Validator',
     'argos/Edit'
-], function (declare, lang, format, validator, Edit) {
+], function(
+    declare,
+    lang,
+    format,
+    validator,
+    Edit
+) {
+
     var __class = declare('crm.Views.Lead.Edit', [Edit], {
         //Localization
         accountText: 'account',
@@ -42,6 +50,7 @@ define('crm/Views/Lead/Edit', [
         webText: 'web',
         workText: 'work phone',
         mobileText: 'mobile phone',
+
         //View Properties
         entityName: 'Lead',
         id: 'lead_edit',
@@ -70,7 +79,8 @@ define('crm/Views/Lead/Edit', [
             'WorkPhone'
         ],
         resourceKind: 'leads',
-        createLayout: function () {
+
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     applyTo: '',
@@ -214,6 +224,8 @@ define('crm/Views/Lead/Edit', [
             ]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);
     return __class;
 });
+

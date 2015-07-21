@@ -1,7 +1,7 @@
 {
     "port": 8000,
     "proxy": {
-        "host": "localhost",
+        "host": "192.168.116.128",
         "port": 80,
         "protocol": "http"
     }

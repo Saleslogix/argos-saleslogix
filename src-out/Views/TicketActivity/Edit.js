@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.TicketActivity.Edit
  *
@@ -18,7 +19,15 @@ define('crm/Views/TicketActivity/Edit', [
     '../../Validator',
     'argos/ErrorManager',
     'argos/Edit'
-], function (declare, lang, template, validator, ErrorManager, Edit) {
+], function(
+    declare,
+    lang,
+    template,
+    validator,
+    ErrorManager,
+    Edit
+) {
+
     var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
         //Localization
         titleText: 'Edit Ticket Activity',
@@ -31,6 +40,7 @@ define('crm/Views/TicketActivity/Edit', [
         endDateText: 'end date',
         commentsText: 'comments',
         startingFormatText: 'M/D/YYYY h:mm A',
+
         //View Properties
         entityName: 'TicketActivity',
         id: 'ticketactivity_edit',
@@ -45,24 +55,29 @@ define('crm/Views/TicketActivity/Edit', [
             'User/UserInfo/LastName'
         ],
         resourceKind: 'ticketActivities',
-        processTemplateEntry: function (entry) {
+
+        processTemplateEntry: function(entry) {
             this.inherited(arguments);
+
             if (entry['PublicAccessCode']) {
                 this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
             }
         },
-        createPicklistRequest: function (name) {
-            var request, uri;
+        createPicklistRequest: function(name) {
+            var request,
+                uri;
             request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
+
             uri = request.getUri();
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
             uri.setCollectionPredicate(name);
+
             request.allowCacheUse = true;
             return request;
         },
-        requestCodeData: function (picklistName, code, field) {
+        requestCodeData: function(picklistName, code, field) {
             var request = this.createPicklistRequest(picklistName);
             request.read({
                 success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
@@ -70,36 +85,49 @@ define('crm/Views/TicketActivity/Edit', [
                 scope: this
             });
         },
-        onRequestCodeDataSuccess: function (code, field, feed) {
+        onRequestCodeDataSuccess: function(code, field, feed) {
             var value = this.processCodeDataFeed(feed, code);
             field.setValue(code);
             field.setText(value);
         },
-        onRequestCodeDataFailure: function (response, o) {
+        onRequestCodeDataFailure: function(response, o) {
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        processCodeDataFeed: function (feed, currentValue, options) {
-            var keyProperty, textProperty, i;
+        processCodeDataFeed: function(feed, currentValue, options) {
+            var keyProperty,
+                textProperty,
+                i;
+
             keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             textProperty = options && options.textProperty ? options.textProperty : 'text';
+
             for (i = 0; i < feed.$resources.length; i++) {
                 if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
                 }
             }
+
             return currentValue;
         },
-        applyContext: function () {
+
+        applyContext: function() {
             this.inherited(arguments);
-            var ticketContext = App.isNavigationFromResourceKind(['tickets']), ticketKey = ticketContext && ticketContext.key, user = App.context.user, userField = this.fields.User;
+
+            var ticketContext = App.isNavigationFromResourceKind(['tickets']),
+                ticketKey = ticketContext && ticketContext.key,
+                user = App.context.user,
+                userField = this.fields.User;
+
             if (ticketKey) {
                 this.fields['TicketId'].setValue(ticketKey);
             }
+
             if (userField) {
                 userField.setValue(user);
             }
         },
-        createLayout: function () {
+
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     name: 'TicketId',
@@ -164,6 +192,8 @@ define('crm/Views/TicketActivity/Edit', [
             ]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
     return __class;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Ticket.Detail
  *
@@ -18,7 +19,16 @@ define('crm/Views/Ticket/Detail', [
     '../../Format',
     'argos/ErrorManager',
     'argos/Detail'
-], function (declare, lang, query, domClass, format, ErrorManager, Detail) {
+], function(
+    declare,
+    lang,
+    query,
+    domClass,
+    format,
+    ErrorManager,
+    Detail
+) {
+
     var __class = declare('crm.Views.Ticket.Detail', [Detail], {
         //Localization
         accountText: 'account',
@@ -50,6 +60,7 @@ define('crm/Views/Ticket/Detail', [
         moreDetailsText: 'More Details',
         relatedTicketActivitiesText: 'Ticket Activities',
         loadingText: 'loading...',
+
         //View Properties
         id: 'ticket_detail',
         editView: 'ticket_edit',
@@ -79,21 +90,29 @@ define('crm/Views/Ticket/Detail', [
             'CompletedBy/OwnerDescription'
         ],
         resourceKind: 'tickets',
-        scheduleActivity: function () {
+
+        scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
-        createPicklistRequest: function (predicate) {
-            var request, uri;
+
+        createPicklistRequest: function(predicate) {
+            var request,
+                uri;
+
             request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
             uri = request.getUri();
+
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
             uri.setCollectionPredicate(predicate);
+
             request.allowCacheUse = true;
+
             return request;
         },
-        requestCodeData: function (row, node, value, entry, predicate) {
+
+        requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
                 success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
@@ -101,42 +120,52 @@ define('crm/Views/Ticket/Detail', [
                 scope: this
             });
         },
-        onRequestCodeDataSuccess: function (row, node, value, entry, data) {
+
+        onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = this.processCodeDataFeed(data, entry[row.property]);
             this.setNodeText(node, codeText);
             this.entry[row.name] = codeText;
         },
-        onRequestCodeDataFailure: function (response, o) {
+
+        onRequestCodeDataFailure: function(response, o) {
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        processCodeDataFeed: function (feed, currentValue, options) {
-            var keyProperty, textProperty, i;
+
+        processCodeDataFeed: function(feed, currentValue, options) {
+            var keyProperty,
+                textProperty,
+                i;
+
             keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             textProperty = options && options.textProperty ? options.textProperty : 'text';
+
             for (i = 0; i < feed.$resources.length; i++) {
                 if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
                 }
             }
+
             return currentValue;
         },
-        setNodeText: function (node, value) {
+        setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
+
             query('span', node).text(value);
         },
-        createLayout: function () {
+
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     list: true,
                     title: this.actionsText,
                     cls: 'action-list',
                     name: 'QuickActionsSection',
                     children: [{
-                            name: 'ScheduleActivityAction',
-                            property: 'TicketNumber',
-                            label: this.scheduleActivityText,
-                            iconClass: 'fa fa-calendar fa-lg',
-                            action: 'scheduleActivity'
-                        }]
+                        name: 'ScheduleActivityAction',
+                        property: 'TicketNumber',
+                        label: this.scheduleActivityText,
+                        iconClass: 'fa fa-calendar fa-lg',
+                        action: 'scheduleActivity'
+                    }]
                 }, {
                     title: this.detailsText,
                     name: 'DetailsSection',
@@ -245,13 +274,15 @@ define('crm/Views/Ticket/Detail', [
                         }, {
                             name: 'AttachmentRelated',
                             label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'ticketId eq "${0}"'),
+                            where: this.formatRelatedQuery.bindDelegate(this, 'ticketId eq "${0}"'),// must be lower case because of feed
                             view: 'ticket_attachment_related',
-                            title: this.relatedAttachmentTitleText
+                            title:  this.relatedAttachmentTitleText
                         }]
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
     return __class;
 });
+

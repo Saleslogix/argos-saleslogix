@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Contact.Detail
  *
@@ -16,7 +17,15 @@ define('crm/Views/Contact/Detail', [
     '../../Format',
     '../../Template',
     'argos/Detail'
-], function (declare, lang, string, format, template, Detail) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    template,
+    Detail
+) {
+
     var __class = declare('crm.Views.Contact.Detail', [Detail], {
         //Localization
         activityTypeText: {
@@ -57,6 +66,7 @@ define('crm/Views/Contact/Detail', [
         sendEmailText: 'Send email',
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
+
         //View Properties
         id: 'contact_detail',
         editView: 'contact_edit',
@@ -89,21 +99,23 @@ define('crm/Views/Contact/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'contacts',
-        navigateToHistoryInsert: function (type, entry, complete) {
+
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
                 this.refreshRequired = true;
+
                 view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
+                        title: this.activityTypeText[type],
+                        template: {},
+                        entry: entry,
+                        insert: true
+                    }, {
+                        complete: complete
+                    });
             }
         },
-        recordCallToHistory: function (complete) {
+        recordCallToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
@@ -117,9 +129,10 @@ define('crm/Views/Contact/Detail', [
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
+
             this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
-        recordEmailToHistory: function (complete) {
+        recordEmailToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
@@ -133,36 +146,37 @@ define('crm/Views/Contact/Detail', [
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
+
             this.navigateToHistoryInsert('atEMail', entry, complete);
         },
-        callWorkPhone: function () {
-            this.recordCallToHistory(function () {
+        callWorkPhone: function() {
+            this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['WorkPhone']);
             }.bindDelegate(this));
         },
-        callMobilePhone: function () {
-            this.recordCallToHistory(function () {
+        callMobilePhone: function() {
+            this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['Mobile']);
             }.bindDelegate(this));
         },
-        sendEmail: function () {
-            this.recordEmailToHistory(function () {
+        sendEmail: function() {
+            this.recordEmailToHistory(function() {
                 App.initiateEmail(this.entry['Email']);
             }.bindDelegate(this));
         },
-        checkValueExists: function (entry, value) {
+        checkValueExists: function(entry, value) {
             return !value;
         },
-        viewAddress: function () {
+        viewAddress: function() {
             App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
         },
-        checkAddress: function (entry, value) {
+        checkAddress: function(entry, value) {
             return !format.address(value, true, '');
         },
-        scheduleActivity: function () {
+        scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
-        addNote: function () {
+        addNote: function() {
             var view = App.getView(this.noteEditView);
             if (view) {
                 view.show({
@@ -171,7 +185,7 @@ define('crm/Views/Contact/Detail', [
                 });
             }
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     list: true,
                     title: this.actionsText,
@@ -312,13 +326,14 @@ define('crm/Views/Contact/Detail', [
                         }, {
                             name: 'AttachmentRelated',
                             label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'contactId eq "${0}"'),
+                            where: this.formatRelatedQuery.bindDelegate(this, 'contactId eq "${0}"'),// must be lower case because of feed
                             view: 'contact_attachment_related',
                             title: this.relatedAttachmentTitleText
                         }]
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);
     return __class;
 });

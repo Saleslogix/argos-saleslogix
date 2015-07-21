@@ -56,7 +56,7 @@ define('crm/Views/OpportunityContact/List', [
         resourceKind: 'opportunityContacts',
 
         complete: function() {
-            var view = App.getPrimaryActiveView<_ListBase>(),
+            var view = App.getPrimaryActiveView(),
                 context,
                 selections,
                 selectionKey,
@@ -152,4 +152,3 @@ define('crm/Views/OpportunityContact/List', [
     lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
     return __class;
 });
-

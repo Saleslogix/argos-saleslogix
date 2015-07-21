@@ -181,7 +181,7 @@ define('crm/Views/Activity/Recurring', [
             this.fields['Scale'].setValue(recur.getPanel(parseInt(this.fields['RecurPeriod'].getValue(), 10), true));
         },
         onAfterCompletionChange: function(value) {
-            var rp:any = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+            var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10);
 
             if (value) {
                 rp += (0 <= '0258'.indexOf(rp)) ? 1 : 2;
@@ -659,4 +659,3 @@ define('crm/Views/Activity/Recurring', [
     lang.setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
     return __class;
 });
-

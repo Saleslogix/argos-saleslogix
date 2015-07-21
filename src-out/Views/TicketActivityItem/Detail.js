@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.TicketActivityItem.Detail
  *
@@ -13,7 +14,13 @@ define('crm/Views/TicketActivityItem/Detail', [
     'dojo/_base/lang',
     '../../Format',
     'argos/Detail'
-], function (declare, lang, format, Detail) {
+], function(
+    declare,
+    lang,
+    format,
+    Detail
+) {
+
     var __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity Part',
@@ -22,8 +29,10 @@ define('crm/Views/TicketActivityItem/Detail', [
         serialNumberText: 'serial #',
         itemAmountText: 'price',
         itemDescriptionText: 'description',
+
         //View Properties
         id: 'ticketactivityitem_detail',
+
         querySelect: [
             'Product/Name',
             'Product/ActualId',
@@ -33,12 +42,13 @@ define('crm/Views/TicketActivityItem/Detail', [
             'TicketActivity/$key'
         ],
         resourceKind: 'ticketActivityItems',
-        createToolLayout: function () {
+
+        createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': []
             });
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     title: this.detailsText,
@@ -68,6 +78,8 @@ define('crm/Views/TicketActivityItem/Detail', [
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.TicketActivityItem.Detail', __class);
     return __class;
 });
+

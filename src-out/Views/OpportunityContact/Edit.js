@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.OpportunityContact.Edit
  *
@@ -14,7 +15,14 @@ define('crm/Views/OpportunityContact/Edit', [
     '../../Format',
     'argos/Utility',
     'argos/Edit'
-], function (declare, lang, format, utility, Edit) {
+], function(
+    declare,
+    lang,
+    format,
+    utility,
+    Edit
+) {
+
     var __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
         //Localization
         titleText: 'Edit Opp. Contact',
@@ -30,6 +38,7 @@ define('crm/Views/OpportunityContact/Edit', [
         standingTitleText: 'Standing',
         contactText: 'Contact',
         competitorPrefText: 'competitor pref',
+
         //View Properties
         entityName: 'OpportunityContact',
         id: 'opportunitycontact_edit',
@@ -41,7 +50,8 @@ define('crm/Views/OpportunityContact/Edit', [
             'Contact/Title'
         ],
         resourceKind: 'opportunityContacts',
-        createLayout: function () {
+
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     title: this.contactText,
@@ -130,6 +140,8 @@ define('crm/Views/OpportunityContact/Edit', [
             ]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Edit', __class);
     return __class;
 });
+

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.NameEdit
  *
@@ -13,7 +14,13 @@ define('crm/Views/NameEdit', [
     'dojo/_base/lang',
     '../Validator',
     'argos/Edit'
-], function (declare, lang, validator, Edit) {
+], function(
+    declare,
+    lang,
+    validator,
+    Edit
+) {
+
     var __class = declare('crm.Views.NameEdit', [Edit], {
         //Localization
         titleText: 'Edit Name',
@@ -24,9 +31,11 @@ define('crm/Views/NameEdit', [
         prefixTitleText: 'Name Prefix',
         suffixText: 'suffix',
         suffixTitleText: 'Name Suffix',
+
         //View Properties
         id: 'name_edit',
-        createLayout: function () {
+
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     emptyText: '',
@@ -75,6 +84,8 @@ define('crm/Views/NameEdit', [
             ]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.NameEdit', __class);
     return __class;
 });
+

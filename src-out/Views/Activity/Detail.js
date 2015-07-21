@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Activity.Detail
  *
@@ -32,10 +33,26 @@ define('crm/Views/Activity/Detail', [
     '../../Recurrence',
     '../../Utility',
     'argos/Utility'
-], function (declare, lang, string, query, domClass, template, format, environment, convert, Detail, recur, utility, platformUtility) {
+], function(
+    declare,
+    lang,
+    string,
+    query,
+    domClass,
+    template,
+    format,
+    environment,
+    convert,
+    Detail,
+    recur,
+    utility,
+    platformUtility
+) {
+
     var __class = declare('crm.Views.Activity.Detail', [Detail], {
         //Templates
         leaderTemplate: template.nameLF,
+
         //Localization
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -78,14 +95,15 @@ define('crm/Views/Activity/Detail', [
         confirmEditRecurrenceText: 'Edit all Occurrences? Cancel to edit single Occurrence.',
         relatedAttachmentText: 'Attachments',
         relatedAttachmentTitleText: 'Activity Attachments',
-        relatedItemsText: 'Related Items',
+        relatedItemsText:'Related Items',
         phoneText: 'phone',
         moreDetailsText: 'More Details',
+
         //View Properties
         id: 'activity_detail',
         completeView: 'activity_complete',
         editView: 'activity_edit',
-        security: null,
+        security: null, //'Entities/Activity/View',
         contractName: 'system',
         querySelect: [
             'AccountId',
@@ -123,52 +141,59 @@ define('crm/Views/Activity/Detail', [
             'AllowEdit',
             'AllowDelete',
             'AllowComplete'
+
         ],
         resourceKind: 'activities',
         recurringActivityIdSeparator: ';',
         recurrence: {},
-        formatActivityType: function (val) {
+
+        formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        navigateToEditView: function () {
+        navigateToEditView: function() {
             var view = App.getView(this.editView);
+
             if (view) {
                 if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
                     this.recurrence.Leader = this.entry.Leader;
-                    view.show({ entry: this.recurrence });
-                }
-                else {
-                    view.show({ entry: this.entry });
+                    view.show({entry: this.recurrence});
+
+                } else {
+                    view.show({entry: this.entry});
                 }
             }
         },
-        navigateToCompleteView: function (completionTitle, isSeries) {
+        navigateToCompleteView: function(completionTitle, isSeries) {
             var view, options;
+
             view = App.getView(this.completeView);
+
             if (view) {
                 environment.refreshActivityLists();
                 options = {
                     title: completionTitle,
                     template: {}
                 };
+
                 if (isSeries) {
                     this.recurrence.Leader = this.entry.Leader;
                     options.entry = this.recurrence;
-                }
-                else {
+                } else {
                     options.entry = this.entry;
                 }
+
                 view.show(options, {
                     returnTo: -1
                 });
             }
         },
-        completeActivity: function () {
+        completeActivity: function() {
             this.navigateToCompleteView(this.completeActivityText);
         },
-        completeOccurrence: function () {
+        completeOccurrence: function() {
             var request, key, entry = this.entry;
             key = entry['$key'];
+
             // Check to ensure we have a composite key (meaning we have the occurance, not the master)
             if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
                 // Fetch the occurance, and continue on to the complete screen
@@ -177,16 +202,16 @@ define('crm/Views/Activity/Detail', [
                     .setContractName('system')
                     .setQueryArg('where', "id eq '" + key + "'")
                     .setCount(1);
+
                 request.read({
                     success: this.processOccurance,
                     scope: this
                 });
-            }
-            else {
+            } else {
                 this.navigateToCompleteView(this.completeOccurrenceText);
             }
         },
-        processOccurance: function (feed) {
+        processOccurance: function(feed) {
             if (feed && feed.$resources && feed.$resources.length > 0) {
                 if (this.entry.Leader) {
                     feed.$resources[0].Leader = this.entry.Leader;
@@ -195,61 +220,67 @@ define('crm/Views/Activity/Detail', [
                 this.navigateToCompleteView(this.completeOccurrenceText);
             }
         },
-        completeSeries: function () {
+        completeSeries: function() {
             this.navigateToCompleteView(this.completeSeriesText, true);
         },
-        isActivityRecurring: function (entry) {
+        isActivityRecurring: function(entry) {
             return entry && (entry['Recurring'] || entry['RecurrenceState'] === 'rstOccurrence');
         },
-        isActivityRecurringSeries: function (entry) {
+        isActivityRecurringSeries: function(entry) {
             return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
         },
-        isActivityForLead: function (entry) {
+        isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        isActivityTimeless: function (entry) {
+        isActivityTimeless: function(entry) {
             return entry && convert.toBoolean(entry['Timeless']);
         },
-        doesActivityHaveReminder: function (entry) {
+        doesActivityHaveReminder: function(entry) {
             return convert.toBoolean(entry && entry['Alarm']);
         },
-        requestLeader: function (userId) {
+        requestLeader: function(userId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
                 .setResourceKind('users')
                 .setResourceSelector(string.substitute("'${0}'", [userId]))
                 .setQueryArg('select', [
-                'UserInfo/FirstName',
-                'UserInfo/LastName'
-            ].join(','));
+                    'UserInfo/FirstName',
+                    'UserInfo/LastName'
+                ].join(','));
+
             request.read({
                 success: this.processLeader,
                 failure: this.requestLeaderFailure,
                 scope: this
             });
         },
-        requestLeaderFailure: function () {
+        requestLeaderFailure: function() {
         },
-        processLeader: function (leader) {
+        processLeader: function(leader) {
             if (leader) {
                 this.entry['Leader'] = leader;
+
                 // There could be a timing issue here. The call to request the leader is done before the layout is processed,
                 // so we could potentially end up in here before any dom was created for the view.
                 // TODO: Fix
-                var rowNode = query('[data-property="Leader"]'), contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
+                var rowNode = query('[data-property="Leader"]'),
+                    contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
+
                 if (rowNode && rowNode.length > 0) {
                     domClass.remove(rowNode[0], 'content-loading');
                 }
+
                 if (contentNode && contentNode.length > 0) {
                     contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
                 }
             }
         },
-        requestRecurrence: function (key) {
+        requestRecurrence: function(key) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind(this.resourceKind)
                 .setResourceSelector(string.substitute("'${0}'", [key]))
                 .setContractName(this.contractName)
                 .setQueryArg('select', this.querySelect.join(','));
+
             request.allowCacheUse = false;
             request.read({
                 success: this.processRecurrence,
@@ -258,44 +289,48 @@ define('crm/Views/Activity/Detail', [
             });
             return;
         },
-        processRecurrence: function (recurrence) {
+        processRecurrence: function(recurrence) {
             var rowNode, contentNode;
+
             if (recurrence) {
                 this.recurrence = recurrence;
+
                 rowNode = query('[data-property="RecurrenceUI"]');
                 contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
+
                 if (rowNode && rowNode.length > 0) {
                     domClass.remove(rowNode[0], 'content-loading');
                 }
+
                 if (contentNode && contentNode.length > 0) {
                     contentNode[0].innerHTML = recur.toString(this.recurrence);
                 }
             }
         },
-        requestRecurrenceFailure: function () {
+        requestRecurrenceFailure: function() {
         },
-        checkCanComplete: function (entry) {
+        checkCanComplete: function(entry) {
             return !(entry && (entry['AllowComplete']));
         },
-        preProcessEntry: function (entry) {
+        preProcessEntry: function(entry) {
             if (entry && entry['Leader']['$key']) {
                 this.requestLeader(entry['Leader']['$key']);
             }
             if (this.isActivityRecurring(entry)) {
                 this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
             }
+
             return entry;
         },
-        formatRelatedQuery: function (entry, fmt, property) {
+        formatRelatedQuery: function(entry, fmt, property) {
             if (property === 'activityId') {
                 return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
-            }
-            else {
+            } else {
                 property = property || '$key';
                 return string.substitute(fmt, [platformUtility.getValue(entry, property, '')]);
             }
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     list: true,
                     title: this.actionsText,
@@ -479,15 +514,17 @@ define('crm/Views/Activity/Detail', [
                     list: true,
                     name: 'RelatedItemsSection',
                     children: [{
-                            name: 'AttachmentRelated',
-                            label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),
-                            view: 'activity_attachment_related',
-                            title: this.relatedAttachmentTitleText
-                        }]
+                        name: 'AttachmentRelated',
+                        label: this.relatedAttachmentText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),// must be lower case because of feed
+                        view: 'activity_attachment_related',
+                        title: this.relatedAttachmentTitleText
+                    }]
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
     return __class;
 });
+

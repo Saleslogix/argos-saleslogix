@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.AddAccountContact
  *
@@ -17,7 +18,17 @@ define('crm/Views/AddAccountContact', [
     '../Template',
     'argos/Utility',
     'argos/Edit'
-], function (declare, lang, string, format, validator, template, utility, Edit) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    validator,
+    template,
+    utility,
+    Edit
+) {
+
     var __class = declare('crm.Views.AddAccountContact', [Edit], {
         //Localization
         accountNameText: 'account',
@@ -48,6 +59,7 @@ define('crm/Views/AddAccountContact', [
         phoneText: 'phone',
         workText: 'work phone',
         industryTitleText: 'Industry',
+
         //View Properties
         id: 'add_account_contact',
         resourceKind: 'accounts',
@@ -76,55 +88,60 @@ define('crm/Views/AddAccountContact', [
             'SubType',
             'Type'
         ],
-        init: function () {
+        init: function() {
             this.inherited(arguments);
+
             this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
         },
-        getValues: function () {
+        getValues: function() {
             var values = this.inherited(arguments);
+
             utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
             utility.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
+
             return values;
         },
-        formatDependentPicklist: function (dependentValue, fmt) {
+        formatDependentPicklist: function(dependentValue, fmt) {
             if (!lang.isArray(dependentValue)) {
                 dependentValue = [dependentValue];
             }
             return string.substitute(fmt, [dependentValue]);
         },
-        onInsertCompleted: function (entry) {
+        onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');
             if (view) {
                 view.show({
-                    descriptor: entry.$descriptor,
-                    key: entry.$key
-                }, {
-                    returnTo: -1
-                });
-            }
-            else {
+                        descriptor: entry.$descriptor,
+                        key: entry.$key
+                    }, {
+                        returnTo: -1
+                    });
+            } else {
                 this.inherited(arguments);
             }
         },
-        onContactAddressChange: function (value) {
+        onContactAddressChange: function(value) {
             // Copy contact address down into the account address if the account address is not set
             var address, address1;
             if (this.fields['Address']) {
                 address = this.fields['Address'].getValue();
                 address1 = address && address.Address1;
             }
+
             if (!address || !address1) {
                 this.fields['Address'].setValue(value);
             }
         },
-        applyContext: function (templateEntry) {
+        applyContext: function(templateEntry) {
             this.inherited(arguments);
+
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
+
             this.fields['Type'].setValue(templateEntry.Type);
             this.fields['Status'].setValue(templateEntry.Status);
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     emptyText: '',
@@ -247,7 +264,9 @@ define('crm/Views/AddAccountContact', [
                             label: this.subTypeText,
                             type: 'picklist',
                             requireSelection: false,
-                            picklist: this.formatDependentPicklist.bindDelegate(this, 'Account ${0}', true),
+                            picklist: this.formatDependentPicklist.bindDelegate(
+                                this, 'Account ${0}', true
+                            ),
                             title: this.accountSubTypeTitleText,
                             dependsOn: 'Type'
                         },
@@ -305,6 +324,8 @@ define('crm/Views/AddAccountContact', [
             ]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
     return __class;
 });
+

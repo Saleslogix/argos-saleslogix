@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Address.Edit
  *
@@ -19,7 +20,14 @@ define('crm/Views/Address/Edit', [
     '../../Format',
     '../../Validator',
     'argos/Edit'
-], function (declare, lang, string, format, validator, Edit) {
+], function(
+    declare,
+    lang,
+    string,
+    format,
+    validator,
+    Edit
+) {
     var __class = declare('crm.Views.Address.Edit', [Edit], {
         //Localization
         address1Text: 'address 1',
@@ -50,13 +58,15 @@ define('crm/Views/Address/Edit', [
             'it-IT': null,
             'ru-RU': ['State']
         },
+
         //View Properties
         id: 'address_edit',
-        init: function () {
+
+        init: function() {
             this.inherited(arguments);
             this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
         },
-        onCountryChange: function (value) {
+        onCountryChange: function(value) {
             var locale = format.countryCultures[value] || 'en-US';
             this.hideFieldsForLocale(locale);
         },
@@ -65,12 +75,16 @@ define('crm/Views/Address/Edit', [
          * Doing so enables a user to enter an address
          * @param locale Localization string (Ex: 'en-US' or 'de-DE')
          */
-        hideFieldsForLocale: function (locale) {
-            var fieldsToHide, i, field;
+        hideFieldsForLocale: function(locale) {
+            var fieldsToHide,
+                i,
+                field;
+
             fieldsToHide = this.localeFieldHidden[locale];
             if (!fieldsToHide) {
                 return;
             }
+
             for (i = 0; i < fieldsToHide.length; i++) {
                 field = this.fields[fieldsToHide[i]];
                 if (field) {
@@ -78,10 +92,10 @@ define('crm/Views/Address/Edit', [
                 }
             }
         },
-        formatDependentPicklist: function (format) {
+        formatDependentPicklist: function(format) {
             return string.substitute(format, [this.options.entityName]);
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     name: 'EntityId',
                     property: 'EntityId',
@@ -90,7 +104,9 @@ define('crm/Views/Address/Edit', [
                     label: this.descriptionText,
                     name: 'Description',
                     property: 'Description',
-                    picklist: this.formatDependentPicklist.bindDelegate(this, 'Address Description (${0})', true),
+                    picklist: this.formatDependentPicklist.bindDelegate(
+                        this, 'Address Description (${0})', true
+                    ),
                     requireSelection: false,
                     title: this.descriptionTitleText,
                     type: 'picklist',
@@ -177,6 +193,8 @@ define('crm/Views/Address/Edit', [
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Address.Edit', __class);
     return __class;
 });
+

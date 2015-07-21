@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.LeftDrawer
  *
@@ -15,32 +16,41 @@ define('crm/Views/LeftDrawer', [
     'dojo/store/Memory',
     '../SpeedSearchWidget',
     'argos/GroupedList'
-], function (declare, array, lang, Memory, SpeedSearchWidget, GroupedList) {
+], function(
+    declare,
+    array,
+    lang,
+    Memory,
+    SpeedSearchWidget,
+    GroupedList
+) {
+
     var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         //Templates
         cls: ' contextualContent',
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
             '{% if ($$._hasIcon($)) { %}',
-            '<div class="list-item-static-selector">',
-            '{% if ($.iconTemplate) { %}',
-            '{%! $.iconTemplate %}',
-            '{% } else if ($.cls) { %}',
-            '<div class="{%: $.cls %}"></div>',
-            '{% } else if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-            '{% } %}',
-            '</div>',
+                '<div class="list-item-static-selector">',
+                    '{% if ($.iconTemplate) { %}',
+                        '{%! $.iconTemplate %}',
+                    '{% } else if ($.cls) { %}',
+                        '<div class="{%: $.cls %}"></div>',
+                    '{% } else if ($.icon) { %}',
+                        '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                    '{% } %}',
+                '</div>',
             '{% } %}',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
-        _hasIcon: function (entry) {
+        _hasIcon: function(entry) {
             return entry.iconTemplate || entry.cls || entry.icon;
         },
         itemTemplate: new Simplate([
             '<h3>{%: $.title %}</h3>'
         ]),
+
         //Localization
         configureText: 'Configure Menu',
         addAccountContactText: 'Add Account/Contact',
@@ -52,95 +62,111 @@ define('crm/Views/LeftDrawer', [
         helpText: 'Help',
         logOutText: 'Log Out',
         logOutConfirmText: 'Are you sure you want to log out?',
+
         //View Properties
         id: 'left_drawer',
         expose: false,
         enableSearch: true,
         searchWidgetClass: SpeedSearchWidget,
         customizationSet: 'left_drawer',
+
         settingsView: 'settings',
         helpView: 'help',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
         searchView: 'speedsearch_list',
-        logOut: function () {
+
+        logOut: function() {
             var sure = window.confirm(this.logOutConfirmText);
             if (sure) {
                 App.logOut();
             }
         },
-        loadAndNavigateToView: function (params) {
+        loadAndNavigateToView: function(params) {
             var view = App.getView(params && params.view);
             this.navigateToView(view);
         },
-        navigateToView: function (view) {
+        navigateToView: function(view) {
             App.snapper.close();
             if (view) {
                 view.show();
             }
         },
-        addAccountContact: function () {
+        addAccountContact: function() {
             App.snapper.close();
             var view = App.getView('add_account_contact');
             if (view) {
-                view.show({ insert: true });
+                view.show({insert: true});
             }
         },
-        navigateToConfigurationView: function () {
+        navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
             this.navigateToView(view);
         },
-        navigateToSettingsView: function () {
+        navigateToSettingsView: function() {
             var view = App.getView(this.settingsView);
             this.navigateToView(view);
         },
-        navigateToHelpView: function () {
+        navigateToHelpView: function() {
             var view = App.getView(this.helpView);
             this.navigateToView(view);
         },
-        formatSearchQuery: function (searchQuery) {
+        formatSearchQuery: function(searchQuery) {
             var expression = new RegExp(searchQuery, 'i');
-            return function (entry) {
+
+            return function(entry) {
                 return expression.test(entry.title);
             };
         },
-        hasMoreData: function () {
+        hasMoreData: function() {
             return false;
         },
-        getGroupForEntry: function (entry) {
+        getGroupForEntry: function(entry) {
             var footerItems = [
                 'ConfigureMenu',
                 'SettingsAction',
                 'HelpAction',
                 'Logout'
             ];
+
             if (entry.view) {
                 return {
                     tag: 'view',
                     title: this.viewsText
                 };
             }
+
             if (array.indexOf(footerItems, entry.name) >= 0) {
                 return {
                     tag: 'footer',
                     title: this.footerText
                 };
             }
+
             return {
                 tag: 'action',
                 title: this.actionsText
             };
         },
-        init: function () {
+        init: function() {
             this.inherited(arguments);
             this.connect(App, 'onRegistered', this._onRegistered);
         },
-        createLayout: function () {
+        createLayout: function() {
             if (this.layout) {
                 return this.layout;
             }
-            var quickActions, goTo, footer, layout, configured, view, i;
+
+            var quickActions,
+                goTo,
+                footer,
+                layout,
+                configured,
+                view,
+                i;
+
             layout = [];
+
             quickActions = {
                 id: 'actions',
                 children: [
@@ -152,11 +178,14 @@ define('crm/Views/LeftDrawer', [
                     }
                 ]
             };
+
             layout.push(quickActions);
+
             goTo = {
                 id: 'views',
                 children: []
             };
+
             configured = lang.getObject('preferences.home.visible', false, window.App);
             for (i = 0; i < configured.length; i++) {
                 view = App.getView(configured[i]);
@@ -172,7 +201,9 @@ define('crm/Views/LeftDrawer', [
                     });
                 }
             }
+
             layout.push(goTo);
+
             footer = {
                 id: 'footer',
                 children: [
@@ -199,17 +230,29 @@ define('crm/Views/LeftDrawer', [
                     }
                 ]
             };
+
             layout.push(footer);
+
             return layout;
         },
-        createStore: function () {
-            var layout = this._createCustomizedLayout(this.createLayout()), list = [], store, i, section, j, row, total = 0;
+        createStore: function() {
+            var layout = this._createCustomizedLayout(this.createLayout()),
+                list = [],
+                store,
+                i,
+                section,
+                j,
+                row,
+                total = 0;
+
             for (i = 0; i < layout.length; i++) {
                 section = layout[i].children;
+
                 for (j = 0; j < section.length; j++) {
                     total = total + 1;
                     row = section[j];
                     row.$key = total;
+
                     if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
                     }
@@ -218,47 +261,55 @@ define('crm/Views/LeftDrawer', [
                     }
                 }
             }
-            store = new Memory({ data: list });
+
+            store = new Memory({data: list});
             store.idProperty = '$key';
             return store;
         },
         /**
          * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
          */
-        refresh: function () {
+        refresh: function() {
             this.clear();
             this.requestData();
         },
-        clear: function () {
+        clear: function() {
             this.inherited(arguments);
             this.layout = null;
             this.store = null;
         },
-        show: function () {
+        show: function() {
             if (this.onShow(this) === false) {
                 return;
             }
+
             this.refresh();
         },
-        refreshRequiredFor: function () {
-            var visible = lang.getObject('preferences.home.visible', false, App) || [], i, shown = this.feed && this.feed['$resources'];
+        refreshRequiredFor: function() {
+            var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                i,
+                shown = this.feed && this.feed['$resources'];
+
             if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
+
             for (i = 0; i < visible.length; i++) {
                 if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }
             }
+
             return this.inherited(arguments);
         },
-        _onRegistered: function () {
+        _onRegistered: function() {
             this.refreshRequired = true;
         },
-        _onSearchExpression: function (expression) {
+        _onSearchExpression: function(expression) {
             var view, current;
             view = App.getView(this.searchView);
             current = App.getPrimaryActiveView();
+
             if (view) {
                 // If the speedsearch list is not our current view, show it first
                 if (view.id !== current.id) {
@@ -266,18 +317,22 @@ define('crm/Views/LeftDrawer', [
                         query: expression
                     });
                 }
+
                 // Set the search term on the list and call search.
                 // This will keep the search terms on each widget in sync.
-                setTimeout(function () {
+                setTimeout(function() {
                     view.setSearchTerm(expression);
                     if (current && current.id === view.id) {
                         view.search();
                     }
                 }, 10);
             }
+
             App.snapper.close();
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);
     return __class;
 });
+

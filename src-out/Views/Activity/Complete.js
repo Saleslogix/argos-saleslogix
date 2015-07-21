@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Views.Activity.Complete
  *
@@ -29,7 +30,20 @@ define('crm/Views/Activity/Complete', [
     'argos/Utility',
     'argos/Edit',
     'moment'
-], function (declare, lang, array, connect, string, environment, validator, template, utility, Edit, moment) {
+], function(
+    declare,
+    lang,
+    array,
+    connect,
+    string,
+    environment,
+    validator,
+    template,
+    utility,
+    Edit,
+    moment
+) {
+
     var __class = declare('crm.Views.Activity.Complete', [Edit], {
         //Localization
         activityInfoText: 'Activity Info',
@@ -79,6 +93,7 @@ define('crm/Views/Activity/Complete', [
             'atToDo': 'To-Do',
             'atPersonal': 'Personal Activity'
         },
+
         //View Properties
         id: 'activity_complete',
         followupView: 'activity_edit',
@@ -113,6 +128,7 @@ define('crm/Views/Activity/Complete', [
                 'Description': 'E-mail Regarding'
             }
         },
+
         entityName: 'Activity',
         querySelect: [
             'AccountId',
@@ -149,8 +165,10 @@ define('crm/Views/Activity/Complete', [
         ],
         resourceKind: 'activities',
         contractName: 'system',
-        init: function () {
+
+        init: function() {
             this.inherited(arguments);
+
             this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
             this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
             this.connect(this.fields['AsScheduled'], 'onChange', this.onAsScheduledChange);
@@ -158,69 +176,72 @@ define('crm/Views/Activity/Complete', [
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
             this.connect(this.fields['Result'], 'onChange', this.onResultChange);
         },
-        onResultChange: function (value, field) {
+        onResultChange: function(value, field) {
             // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
             field.setValue(value.text);
+
             // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
             this.fields['ResultCode'].setValue((/.{0,8}/ig).exec(value.key));
         },
-        isActivityForLead: function (entry) {
+        isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        beforeTransitionTo: function () {
+        beforeTransitionTo: function() {
             this.inherited(arguments);
-            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
+
+            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item]) {
                     this.fields[item].hide();
                 }
             }, this);
+
             var entry = this.options && this.options.entry;
             if (this.isActivityForLead(entry)) {
-                array.forEach(this.fieldsForLeads, function (item) {
+                array.forEach(this.fieldsForLeads, function(item) {
                     if (this.fields[item]) {
                         this.fields[item].show();
                     }
                 }, this);
-            }
-            else {
-                array.forEach(this.fieldsForStandard, function (item) {
+            } else {
+                array.forEach(this.fieldsForStandard, function(item) {
                     if (this.fields[item]) {
                         this.fields[item].show();
                     }
                 }, this);
             }
         },
-        toggleSelectField: function (field, disable) {
+        toggleSelectField: function(field, disable) {
             if (disable) {
                 field.disable();
-            }
-            else {
+            } else {
                 field.enable();
             }
         },
-        onTimelessChange: function (value) {
+        onTimelessChange: function(value) {
             this.toggleSelectField(this.fields['Duration'], value);
-            var startDateField = this.fields['StartDate'], startDate = startDateField.getValue();
+
+            var startDateField = this.fields['StartDate'],
+                startDate = startDateField.getValue();
+
             if (value) {
                 startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().clearTime().add({ minutes: -1 * startDate.getTimezoneOffset(), seconds: 5 });
+                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
                 }
                 startDateField.setValue(startDate);
-            }
-            else {
+            } else {
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 if (this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().add({ minutes: startDate.getTimezoneOffset() + 1, seconds: -5 });
+                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
                 }
                 startDateField.setValue(startDate);
             }
         },
-        isDateTimeless: function (date) {
+        isDateTimeless: function(date) {
             if (!date) {
                 return false;
             }
@@ -233,54 +254,58 @@ define('crm/Views/Activity/Complete', [
             if (date.getUTCSeconds() !== 5) {
                 return false;
             }
+
             return true;
         },
-        onAsScheduledChange: function (scheduled) {
+        onAsScheduledChange: function(scheduled) {
             var duration, startDate, completedDate;
             if (scheduled) {
                 duration = this.fields['Duration'].getValue();
                 startDate = moment(this.fields['StartDate'].getValue());
-                completedDate = startDate.add({ minutes: duration }).toDate();
+                completedDate = startDate.add({minutes: duration}).toDate();
+
                 this.toggleSelectField(this.fields['CompletedDate'], true);
                 this.fields['CompletedDate'].setValue(completedDate);
-            }
-            else {
+            } else {
                 this.toggleSelectField(this.fields['CompletedDate'], false);
                 this.fields['CompletedDate'].setValue(new Date());
             }
         },
-        onFollowupChange: function (value) {
+        onFollowupChange: function(value) {
             var disable = (value === 'none' || (value && value.key === 'none'));
             this.toggleSelectField(this.fields['CarryOverNotes'], disable);
         },
-        onLeadChange: function (value, field) {
+        onLeadChange: function(value, field) {
             var selection = field.getSelection();
+
             if (selection && this.insert) {
                 this.fields['Company'].setValue(utility.getValue(selection, 'Company'));
             }
         },
-        formatPicklistForType: function (type, which) {
+        formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
-        setValues: function () {
+        setValues: function() {
             this.inherited(arguments);
             this.fields['CarryOverNotes'].setValue(true);
             this.fields['CompletedDate'].setValue(new Date());
             this.fields['Followup'].setValue('none');
             this.fields['Result'].setValue('Complete');
             this.fields['ResultCode'].setValue('COM');
+
             this.toggleSelectField(this.fields['CarryOverNotes'], true);
             this.toggleSelectField(this.fields['CompletedDate'], false);
         },
-        onLeaderChange: function (value, field) {
+        onLeaderChange: function(value, field) {
             var userId = field.getValue();
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
-        formatFollowupText: function (val, key, text) {
+        formatFollowupText: function(val, key, text) {
             return this.followupValueText[key] || text;
         },
-        createDurationData: function () {
+        createDurationData: function() {
             var list = [], duration;
+
             for (duration in this.durationValueText) {
                 if (this.durationValueText.hasOwnProperty(duration)) {
                     list.push({
@@ -289,10 +314,12 @@ define('crm/Views/Activity/Complete', [
                     });
                 }
             }
-            return { '$resources': list };
+
+            return {'$resources': list};
         },
-        createFollowupData: function () {
+        createFollowupData: function() {
             var list = [], followup;
+
             for (followup in this.followupValueText) {
                 if (this.followupValueText.hasOwnProperty(followup)) {
                     list.push({
@@ -301,44 +328,52 @@ define('crm/Views/Activity/Complete', [
                     });
                 }
             }
-            return { '$resources': list };
+
+            return {'$resources': list};
         },
-        navigateToFollowUpView: function (entry) {
-            var view = App.getView(this.followupView), followupEntry = {
-                'Type': this.fields['Followup'].getValue(),
-                'Description': entry.Description,
-                'AccountId': entry.AccountId,
-                'AccountName': entry.AccountName,
-                'ContactId': entry.ContactId,
-                'ContactName': entry.ContactName,
-                'LeadId': entry.LeadId,
-                'LeadName': entry.LeadName,
-                'LongNotes': (this.fields['CarryOverNotes'].getValue() && entry['LongNotes']) || '',
-                'OpportunityId': entry.OpportunityId,
-                'OpportunityName': entry.OpportunityName,
-                'StartDate': moment().toDate(),
-                'TicketId': entry.TicketId,
-                'TicketNumber': entry.TicketNumber
-            };
+        navigateToFollowUpView: function(entry) {
+            var view = App.getView(this.followupView),
+                followupEntry = {
+                    'Type': this.fields['Followup'].getValue(),
+                    'Description': entry.Description,
+                    'AccountId': entry.AccountId,
+                    'AccountName': entry.AccountName,
+                    'ContactId': entry.ContactId,
+                    'ContactName': entry.ContactName,
+                    'LeadId': entry.LeadId,
+                    'LeadName': entry.LeadName,
+                    'LongNotes': (this.fields['CarryOverNotes'].getValue() && entry['LongNotes']) || '',
+                    'OpportunityId': entry.OpportunityId,
+                    'OpportunityName': entry.OpportunityName,
+                    'StartDate': moment().toDate(),
+                    'TicketId': entry.TicketId,
+                    'TicketNumber': entry.TicketNumber
+                };
+
             //Return to activity list view after follow up.
             view.show({
-                entry: followupEntry,
-                insert: true,
-                title: this.followupValueText[this.fields['Followup'].getValue()]
-            }, {
-                returnTo: -1
-            });
+                    entry: followupEntry,
+                    insert: true,
+                    title: this.followupValueText[this.fields['Followup'].getValue()]
+                }, {
+                    returnTo: -1
+                });
         },
-        completeActivity: function (entry, callback) {
+        completeActivity: function(entry, callback) {
             if (!entry['$key']) {
                 return;
             }
-            var leader, success, request, completeActivityEntry;
+
+            var leader,
+                success,
+                request,
+                completeActivityEntry;
+
             leader = this.fields['Leader'].getValue();
             completeActivityEntry = {
                 '$name': 'ActivityComplete',
                 'request': {
-                    'entity': { '$key': entry['$key'] },
+                    'entity': {'$key': entry['$key']},
                     'ActivityId': entry['$key'],
                     'userId': leader['$key'],
                     'result': this.fields['Result'].getValue(),
@@ -346,39 +381,46 @@ define('crm/Views/Activity/Complete', [
                     'completeDate': this.fields['CompletedDate'].getValue()
                 }
             };
-            success = (function (scope, callback, entry) {
-                return function () {
+
+            success = (function(scope, callback, entry) {
+                return function() {
                     environment.refreshStaleDetailViews();
                     connect.publish('/app/refresh', [{
-                            resourceKind: 'history'
-                        }]);
+                        resourceKind: 'history'
+                    }]);
+
                     callback.apply(scope, [entry]);
                 };
             })(this, callback, entry);
+
             request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setResourceKind('activities')
                 .setContractName('system')
                 .setOperationName('Complete');
+
             request.execute(completeActivityEntry, {
                 success: success,
                 failure: this.onRequestFailure,
                 scope: this
             });
         },
-        onUpdateCompleted: function (entry) {
+        onUpdateCompleted: function(entry) {
             if (!entry) {
                 return;
             }
+
             var followup = this.fields['Followup'].getValue() === 'none'
                 ? this.getInherited(arguments)
                 : this.navigateToFollowUpView;
+
             this.completeActivity(entry, followup);
         },
-        formatDependentQuery: function (dependentValue, format, property) {
+        formatDependentQuery: function(dependentValue, format, property) {
             property = property || '$key';
+
             return string.substitute(format, [utility.getValue(dependentValue, property)]);
         },
-        createLayout: function () {
+        createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.activityInfoText,
                     name: 'ActivityInfoSection',
@@ -427,7 +469,7 @@ define('crm/Views/Activity/Complete', [
                             view: 'select_list',
                             data: this.createDurationData(),
                             validator: {
-                                fn: function (val, field) {
+                                fn: function(val, field) {
                                     if (field.isDisabled()) {
                                         return false;
                                     }
@@ -470,7 +512,7 @@ define('crm/Views/Activity/Complete', [
                             label: this.resultText,
                             name: 'Result',
                             property: 'Result',
-                            storageMode: 'code',
+                            storageMode: 'code',// The onResultChange changes the value back to text
                             picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
                             title: this.resultTitleText,
                             orderBy: 'text asc',
@@ -604,6 +646,8 @@ define('crm/Views/Activity/Complete', [
                 }]);
         }
     });
+
     lang.setObject('Mobile.SalesLogix.Views.Activity.Complete', __class);
     return __class;
 });
+

@@ -456,7 +456,7 @@ define('crm/Recurrence', [
         },
         calcDateOfNthWeekday: function(date, weekDay, nthWeek) {
             // calculate date of #nthWeek #weekDay  e.g. First Friday
-            var tempDate = <any> new Date(date.getFullYear(), date.getMonth(), date.getDate()), i;
+            var tempDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()), i;
             tempDate = moment(tempDate);
 
             if (nthWeek === 5) {
@@ -515,4 +515,3 @@ define('crm/Recurrence', [
     lang.setObject('Mobile.SalesLogix.Recurrence', __class);
     return __class;
 });
-

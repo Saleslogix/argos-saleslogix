@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
 /**
  * @class crm.Template
  *
@@ -12,7 +13,9 @@
 define('crm/Template', [
     'dojo/_base/lang',
     'argos/Format'
-], function (lang) {
+], function(
+    lang
+) {
     var __class = lang.setObject('crm.Template', {
         /**
          * @property {Simplate} nameLF
@@ -20,13 +23,14 @@ define('crm/Template', [
          */
         nameLF: new Simplate([
             '{% if ($) { %}',
-            '{% if ($.LastName && $.FirstName) { %}',
-            '{%= $.LastName %}, {%= $.FirstName%}',
-            '{% } else { %}',
-            '{%: $.LastName ? $.LastName : $.FirstName %}',
-            '{% } %}',
+                '{% if ($.LastName && $.FirstName) { %}',
+                    '{%= $.LastName %}, {%= $.FirstName%}',
+                '{% } else { %}',
+                    '{%: $.LastName ? $.LastName : $.FirstName %}',
+                '{% } %}',
             '{% } %}'
         ]),
+
         /**
          * @property {Simplate} alternateKeyPrefixSuffix
          * Template for alternate key, takes a prefix and suffix
@@ -34,6 +38,7 @@ define('crm/Template', [
         alternateKeyPrefixSuffix: new Simplate([
             '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
         ]),
+
         /**
          * @property {Simplate} noteDetailPropertyOld
          * Template for note details
@@ -41,14 +46,15 @@ define('crm/Template', [
         noteDetailPropertyOld: new Simplate([
             '{% var F = argos.Format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
-            '<label>{%: $.label %}</label>',
-            '<div class="note-text-property">',
-            '<div class="note-text-wrap">',
-            '{%= F.nl2br(F.encode($.value)) %}',
-            '</div>',
-            '</div>',
+                '<label>{%: $.label %}</label>',
+                '<div class="note-text-property">',
+                    '<div class="note-text-wrap">',
+                        '{%= F.nl2br(F.encode($.value)) %}',
+                    '</div>',
+                '</div>',
             '</div>'
         ]),
+
         /**
          * @property {Simplate} noteDetailProperty
          * Template for note details
@@ -56,13 +62,15 @@ define('crm/Template', [
         noteDetailProperty: new Simplate([
             '{% var F = argos.Format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
-            '<label>{%: $.label %}</label>',
-            '<pre>',
-            '{%= F.encode($.value) %}',
-            '</pre>',
+                '<label>{%: $.label %}</label>',
+                '<pre>',
+                '{%= F.encode($.value) %}',
+                '</pre>',
             '</div>'
         ])
     });
+
     lang.setObject('Mobile.SalesLogix.Template', __class);
     return __class;
 });
+
