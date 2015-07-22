@@ -437,18 +437,24 @@ td.calendar-day {
   background-color: transparent;
   border: none;
 }
-.dashboard-title {
+.dashboard-header .dashboard-header-content {
+  display: inline-block;
+}
+.dashboard-header .dashboard-header-content .dashboard-header-text {
+  display: inline-block;
+}
+.dashboard-header .dashboard-title {
   font-size: 12px;
   color: #313236;
   font-weight: bold;
   padding-left: 4px;
 }
-.dashboard-category {
+.dashboard-header .dashboard-category {
   font-size: 12px;
   color: #888b94;
   padding-left: 4px;
 }
-.dashboard-icon {
+.dashboard-header .dashboard-icon {
   padding: 6px;
   background-color: #878e8e;
   font-size: 12px;
@@ -463,22 +469,25 @@ td.calendar-day {
   background-color: transparent;
   display: inline-flex;
   flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
 }
-.dashboard-metric-item {
+.dashboard-metric-list .dashboard-metric-item {
   flex-grow: 1;
   text-align: center;
+  padding: 0 8px;
 }
-.dashboard-metric-item div > button {
+.dashboard-metric-list .dashboard-metric-item div > button {
   background-color: transparent;
   height: inherit;
 }
-.dashboard-metric-item div > button h1 {
+.dashboard-metric-list .dashboard-metric-item div > button h1 {
   font-size: 20px;
 }
-.dashboard-metric-item div > button .metric-title {
+.dashboard-metric-list .dashboard-metric-item div > button .metric-title {
   font-size: 12px;
 }
-.dashboard-metric-item div > button .metric-count {
+.dashboard-metric-list .dashboard-metric-item div > button .metric-count {
   font-size: 10px;
 }
 .dashboard-metric-item > .metric-widget {
@@ -486,24 +495,24 @@ td.calendar-day {
   width: auto;
 }
 .dashboard-range-list {
-  margin: 4px;
-  background-color: transparent;
-}
-.dashboard-range-item {
-  display: inline-flex;
+  margin: 4px 0;
   width: 100%;
-  color: white;
-  margin: 0px 1%;
+  background-color: transparent;
+  display: inline-flex;
 }
-.dashboard-range-item button {
+.dashboard-range-list .dashboard-range-item {
+  width: auto;
+  color: white;
+  flex-grow: 1;
+  text-align: center;
+}
+.dashboard-range-list .dashboard-range-item button {
   background-color: transparent;
   height: inherit;
   width: auto;
-  justify-content: center;
   border: 0 black;
-  vertical-align: middle;
 }
-.dashboard-range-item button span {
+.dashboard-range-list .dashboard-range-item button span {
   font-size: 12px;
 }
 .toolButton {
