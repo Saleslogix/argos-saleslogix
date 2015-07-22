@@ -153,9 +153,6 @@ define('crm/Views/_DashboardWidgetBase', [
                  return fn.call(widget, data);
             }
         },
-        relatedContentViewsTemplate: new Simplate([
-            '<div id="related-content-views"></div>'
-        ]),
         relatedContentTemplate: new Simplate([
             '{%! $$.dashboardTemplate %}',
         ]),
@@ -178,6 +175,7 @@ define('crm/Views/_DashboardWidgetBase', [
         dashboardHeaderTemplate: new Simplate([
             '{% if($.titleText || $.categoryText) { %}',
                 '<div class="dashboard-header {%: $$.headerClass %}" data-action="toggleSection">',
+                    '<div class="dashboard-header-content">',
                     '{%! $$.dashboardIconTemplate %}',
                         '<div class="dashboard-header-text">',
                             '{% if($.titleText) { %}',
@@ -187,6 +185,7 @@ define('crm/Views/_DashboardWidgetBase', [
                                 '<div class="dashboard-category">{%: $.categoryText %}</div>',
                             '{% } %}',
                         '</div>',
+                    '</div>',
                     '<button class="fa fa-chevron-down"></button>',
                 '</div>',
             '{% } %}'
