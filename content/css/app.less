@@ -535,12 +535,13 @@ td.calendar-day {
          padding-left: 4px;
      }
      .dashboard-icon{
-      padding:6px;
+      min-width: 26px;
+      min-height: 26px;
+      line-height: 26px;
       background-color: @black-light;
       font-size: 12px;
       color: white;
       text-align: center;
-      vertical-align: middle;
       border-radius: 50%;
       float: left;
      }
@@ -550,13 +551,28 @@ td.calendar-day {
     background-color: transparent;
     display: inline-flex;
     flex-flow: row wrap;
-    justify-content: space-between;
     width: 100%;
     
     .dashboard-metric-item {
-        flex-grow: 1;
         text-align: center;
-        padding: 0 8px;
+        width: 33.3%;
+        
+        @media (min-width: @mobile-landscape) {
+            width: 25%;
+        }
+    
+        @media (min-width: @tablet-portrait) {
+            width: 20%;
+        }
+    
+        @media (min-width: @tablet-landscape) {
+            width: 16.66%;
+        }
+    
+        @media (min-width: @desktop) {
+            width: 12.5%;
+        }
+        
         div > button {
             background-color: transparent;
             height: inherit;
@@ -572,6 +588,7 @@ td.calendar-day {
         }
      }
 }
+ 
  .dashboard-metric-item > .metric-widget {
     height: inherit;
     width: auto;
