@@ -83,6 +83,8 @@ var __class = declare('crm.Application', [Application], {
     versionInfoText: 'Mobile v${0}.${1}.${2}',
     loadingText: 'Loading application state',
     authText: 'Authenticating',
+    offlinePromptText: 'Your internet connection is no longer working. Would you like to switch to offline mode?',
+    onlinePromptText: 'Your connection is working. Would you like to go back online?',
     homeViewId: 'myactivity_list',
     offlineHomeViewId: 'offline_list',
     loginViewId: 'login',
@@ -809,6 +811,22 @@ UID: null,
             }
         } else {
             this.redirectHash = '';
+        }
+    },
+    onOffline: function() {
+        console.log('offline');
+        this.inherited(arguments);
+        let results = confirm(this.offlinePromptText);
+        if (results) {
+            this.navigateToInitialView();
+        }
+    },
+    onOnline: function() {
+        console.log('online');
+        this.inherited(arguments);
+        let results = confirm(this.onlinePromptText);
+        if (results) {
+            this.navigateToLoginView();
         }
     },
     navigateToLoginView: function() {
