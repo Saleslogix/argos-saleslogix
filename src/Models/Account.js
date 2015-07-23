@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/_ModelBase';
 import SDataStore from 'argos/Store/SData';
+import Deferred from 'dojo/Deferred';
 
 export default declare('Mobile.SalesLogix.Models.Account', [_ModelBase], {
     app: null,
@@ -107,13 +108,15 @@ export default declare('Mobile.SalesLogix.Models.Account', [_ModelBase], {
      * If an entry is valid, validate should return a promise that resolves to true. If the entry is not valid,
      * validate should return a reject promise with the error message.
      * @param entry
-     * @returns window.Promise
+     * @returns Promise
      */
     validate: function (entry) {
+        var def = new Deferred();
         if (entry) {
-            return Promise.resolve(true);
+            def.resolve(true);
         }
 
-        return Promise.reject('The entry is null or undefined.');
+        def.reject('The entry is null or undefined.');
+        return def.promise;
     }
 });

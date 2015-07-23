@@ -115,7 +115,9 @@ var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _M
     onTransitionTo: function() {
         OfflineManager.getAllIds().then(function(results) {
             this.offlineIds = results;
-        }.bind(this));
+        }.bind(this), function(err) {
+            console.error(err);
+        });
 
         this.inherited(arguments);
     },

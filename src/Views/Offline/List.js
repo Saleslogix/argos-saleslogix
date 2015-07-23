@@ -21,7 +21,7 @@ define('crm/Views/Offline/List', [
         idProperty: 'id',
         detailView: 'offline_detail',
 
-        titleText: 'Following',
+        titleText: 'Recently Viewed',
 
         OFFLINE_DB_NAME: 'crm-offline',
 
@@ -48,4 +48,3 @@ define('crm/Views/Offline/List', [
         }
     });
 });
-

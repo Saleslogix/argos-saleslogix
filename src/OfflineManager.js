@@ -4,6 +4,7 @@
  */
 import Store from 'argos/Store/PouchDB';
 import moment from 'moment';
+import Deferred from 'dojo/Deferred';
 
 var store;
 store = new Store({databaseName: 'crm-offline'});
@@ -20,11 +21,13 @@ export default {
     /**
      *
      * @param detailView Required instance of a detail view
-     * @returns {window.Promise}
+     * @returns {Promise}
      */
     saveOffline: function(detailView) {
+        var def = new Deferred();
         if (!detailView) {
-            return Promise.reject('A detail view must be specified.');
+            def.reject('A detail view must be specified.');
+            return def.promise;
         }
 
         var doc, id = detailView.entry[detailView.idProperty || '$key'];
@@ -60,8 +63,10 @@ export default {
      * @returns {window.Promise}
      */
     removeOffline: function(detailView) {
+        var def = new Deferred();
         if (!detailView) {
-            return Promise.reject('A detail view must be specified.');
+            def.reject('A detail view must be specified.');
+            return def.promise;
         }
 
         var id = detailView.entry[detailView.idProperty || '$key'];

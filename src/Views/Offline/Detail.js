@@ -18,7 +18,7 @@ define('crm/Views/Offline/Detail', [
 
     return declare('crm.Views.Offline.Detail', [_DetailBase], {
         id: 'offline_detail',
-        titleText: 'Following Detail',
+        titleText: 'Recently Viewed Detail',
 
         idProperty: 'id',
 
@@ -61,4 +61,3 @@ define('crm/Views/Offline/Detail', [
         }
     });
 });
-

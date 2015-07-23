@@ -751,32 +751,32 @@ mixinName = 'crm.Views._GroupListMixin';
             return selection;
         },
         _fetchResolvedEntry: function(entryKey) {
-            return new Promise(function(resolve, reject) {
-                var self, store, queryOptions, queryResults;
-                self = this;
-                store = new SDataStore({
-                    service: App.services['crm'],
-                    resourceKind: this.resourceKind,
-                    contractName: this.contractName,
-                    scope: this
-                });
+            var self, store, queryOptions, queryResults, def = new Deferred();
+            self = this;
+            store = new SDataStore({
+                service: App.services['crm'],
+                resourceKind: this.resourceKind,
+                contractName: this.contractName,
+                scope: this
+            });
 
-                queryOptions = {
-                    select: this._originalProps.querySelect,
-                    where: "Id eq '" + entryKey + "'"
-                };
+            queryOptions = {
+                select: this._originalProps.querySelect,
+                where: "Id eq '" + entryKey + "'"
+            };
 
-                queryResults = store.query(null, queryOptions);
+            queryResults = store.query(null, queryOptions);
 
-                Promise.resolve(queryResults).then(function(feed) {
-                    var entry = feed[0];
-                    entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
-                    self._addResolvedEntry(entry);
-                    resolve(entry);
-                }, function(err) {
-                    reject(err);
-                });
-            }.bind(this));
+            when(queryResults, function(feed) {
+                var entry = feed[0];
+                entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
+                self._addResolvedEntry(entry);
+                def.resolve(entry);
+            }, function(err) {
+                def.reject(err);
+            });
+
+            return def.promise;
         },
         _clearResolvedEntryCache: function() {
             this._resolvedEntryCache = {};
@@ -897,5 +897,3 @@ mixinName = 'crm.Views._GroupListMixin';
 
     lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
 export default __class;
-
-

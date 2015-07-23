@@ -64,9 +64,7 @@ var __class = declare('crm.Views.Account.Detail', [Detail], {
 
     getModel: function() {
         var model = new AccountModel();
-
-        model = this.setSDataModelProperties(model);
-
+        this.setSDataModelProperties(model);
         return model;
     },
 
@@ -116,9 +114,12 @@ var __class = declare('crm.Views.Account.Detail', [Detail], {
             });
         }
     },
+    onContentChange: function() {
+        this.saveOffline();
+    },
     saveOffline: function() {
         OfflineManager.saveOffline(this).then(function success() {
-            alert('You are now following ' + this.entry.AccountName);
+            console.log('Entry saved');
         }.bind(this), function err(error) {
             console.error(error);
         });
