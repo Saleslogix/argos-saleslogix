@@ -1,6 +1,18 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+import win from 'dojo/_base/window';
+import declare from 'dojo/_base/declare';
+import array from 'dojo/_base/array';
+import connect from 'dojo/_base/connect';
+import json from 'dojo/json';
+import lang from 'dojo/_base/lang';
+import has from 'dojo/has';
+import string from 'dojo/string';
+import Deferred from 'dojo/Deferred';
+import DefaultMetrics from './DefaultMetrics';
+import ErrorManager from 'argos/ErrorManager';
+import environment from './Environment';
+import Application from 'argos/Application';
+import sniff from 'dojo/sniff';
+import moment from 'moment';
 
 /**
  * @class crm.Application
@@ -11,40 +23,6 @@
  * @requires moment
  *
  */
-define('crm/Application', [
-    'dojo/_base/window',
-    'dojo/_base/declare',
-    'dojo/_base/array',
-    'dojo/_base/connect',
-    'dojo/json',
-    'dojo/_base/lang',
-    'dojo/has',
-    'dojo/string',
-    'dojo/Deferred',
-    './DefaultMetrics',
-    'argos/ErrorManager',
-    './Environment',
-    'argos/Application',
-    'dojo/sniff',
-    'moment'
-], function(
-    win,
-    declare,
-    array,
-    connect,
-    json,
-    lang,
-    has,
-    string,
-    Deferred,
-    DefaultMetrics,
-    ErrorManager,
-    environment,
-    Application,
-    sniff,
-    moment
-) {
-
     var __class = declare('crm.Application', [Application], {
         navigationState: null,
         rememberNavigationState: true,
@@ -100,7 +78,7 @@ define('crm/Application', [
         mobileVersion: {
             'major': 3,
             'minor': 3,
-            'revision': 0
+        'revision': 1
         },
         versionInfoText: 'Mobile v${0}.${1}.${2}',
         loadingText: 'Loading application state',
@@ -109,6 +87,7 @@ define('crm/Application', [
         loginViewId: 'login',
         logOffViewId: 'logoff',
 
+    UID: null,
         init: function() {
             var original,
                 self = this;
@@ -120,12 +99,13 @@ define('crm/Application', [
             this._loadNavigationState();
             this._saveDefaultPreferences();
 
+        this.UID = (new Date()).getTime();
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
             Sage.SData.Client.SDataService.prototype.executeRequest = function(request) {
                 request.setRequestHeader('X-Application-Name', self.appName);
-                request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', self.mobileVersion));
-                original.apply(this, arguments);
+            request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: self.mobileVersion, id: self.UID }));
+            return original.apply(this, arguments);
             };
         },
         initConnects: function() {
@@ -720,8 +700,7 @@ define('crm/Application', [
         onRequestOwnerDescriptionFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
         },
-        getDefaultViews: function() {
-            return [
+    defaultViews: [
                 'myactivity_list',
                 'calendar_daylist',
                 'history_list',
@@ -731,7 +710,9 @@ define('crm/Application', [
                 'opportunity_list',
                 'ticket_list',
                 'myattachment_list'
-            ];
+    ],
+    getDefaultViews: function() {
+        return this.defaultViews;
         },
         getExposedViews: function() {
             var exposed = [], id, view;
@@ -915,5 +896,4 @@ define('crm/Application', [
     });
 
     lang.setObject('Mobile.SalesLogix.Application', __class);
-    return __class;
-});
+export default __class;

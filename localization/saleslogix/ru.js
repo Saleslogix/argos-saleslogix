@@ -1,6 +1,6 @@
 define('localization/saleslogix/ru', ['localization/ru', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
-localize("Sage.Platform.Mobile.Calendar", {
+localize("argos.Calendar", {
   "timeFormatText": "H:mm",
   "titleText": "Календарь",
   "amText": "д. п.",
@@ -21,13 +21,13 @@ localize("Sage.Platform.Mobile.Calendar", {
   }
 });
 
-localize("Sage.Platform.Mobile.Fields.DateField", {
+localize("argos.Fields.DateField", {
   "dateFormatText": "DD.MM.YYYY",
   "emptyText": "",
   "invalidDateFormatErrorText": "Некорректный формат даты в поле \"${0}\"."
 });
 
-localize("Sage.Platform.Mobile.Format", {
+localize("argos.Format", {
   "shortDateFormatText": "D.M.YYYY",
   "percentFormatText": "${0}${1}",
   "yesText": "Да",
@@ -41,11 +41,11 @@ localize("Sage.Platform.Mobile.Format", {
   "bytesText": "байт"
 });
 
-localize("Mobile.SalesLogix.GroupUtility", {
-  "groupDateFormatText": "D.M.YYYY H:mm:ss"
+localize("crm.GroupUtility", {
+  "groupDateFormatText": "D.M.YYYY H:mm"
 });
 
-localize("Mobile.SalesLogix.Recurrence", {
+localize("crm.Recurrence", {
   "dayFormatText": "D",
   "monthFormatText": "M",
   "monthAndDayFormatText": "D.M",
@@ -87,7 +87,7 @@ localize("Mobile.SalesLogix.Recurrence", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Complete", {
+localize("crm.Views.Activity.Complete", {
   "completedFormatText": "D.M.YYYY H:mm",
   "startingFormatText": "D.M.YYYY H:mm",
   "startingTimelessFormatText": "D.M.YYYY",
@@ -119,30 +119,30 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Результат",
   "resultTitleText": "Результат",
   "startingText": "Дата начала",
-  "timelessText": "В_течение_дня",
+  "timelessText": "В течение дня",
   "durationValueText": {
     "0": "Нет",
     "15": "15 минут",
     "30": "30 минут",
     "60": "1 час",
-    "90": "1,5 часа",
+    "90": "1.5 часа",
     "120": "2 часа"
   },
   "followupValueText": {
     "none": "Нет",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPersonal": "Личные дела"
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "D.M.YYYY H:mm:ss",
+localize("crm.Views.Activity.Detail", {
+  "startDateFormatText": "D.M.YYYY H:mm",
   "timelessDateFormatText": "D.M.YYYY",
-  "alarmDateFormatText": "D.M.YYYY H:mm:ss",
+  "alarmDateFormatText": "D.M.YYYY H:mm",
   "activityTypeText": {
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
     "atLiterature": "Инф. материалы",
@@ -154,7 +154,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "completeSeriesText": "Выполнить серию",
   "locationText": "Размещение",
   "alarmText": "С_оповещением",
-  "alarmTimeText": "С оповещением",
+  "alarmTimeText": "С_оповещением",
   "categoryText": "Категория",
   "durationText": "Длительность",
   "leaderText": "Исполнитель",
@@ -184,14 +184,14 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "moreDetailsText": "Подробнее"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Edit", {
+localize("crm.Views.Activity.Edit", {
   "startingFormatText": "D.M.YYYY H:mm",
   "startingTimelessFormatText": "D.M.YYYY",
   "activityCategoryTitleText": "Категория действия",
   "activityDescriptionTitleText": "Описание Дела",
   "locationText": "Размещение",
   "activityTypeTitleText": "Тип дела",
-  "alarmText": "С оповещением",
+  "alarmText": "Оповещение",
   "reminderText": "Напоминание",
   "categoryText": "Категория",
   "durationText": "Длительность",
@@ -210,7 +210,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "repeatsText": "Повтор",
   "recurringText": "Повторяющиеся",
   "recurringTitleText": "Повторяющиеся",
-  "timelessText": "В течение дня",
+  "timelessText": "Без-времени",
   "titleText": "Дело",
   "typeText": "Тип",
   "accountText": "Субъект",
@@ -242,8 +242,8 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.List", {
-  "attachmentDateFormatText": "ddd D/M/YYYY HH:mm:ss",
+localize("crm.Views.Attachment.List", {
+  "attachmentDateFormatText": "ddd D.M.YYYY HH:mm",
   "titleText": "Вложения",
   "uploadedOnText": "Загружено ",
   "hashTagQueriesText": {
@@ -252,7 +252,7 @@ localize("Mobile.SalesLogix.Views.Attachment.List", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
+localize("crm.Views.Attachment.ViewAttachment", {
   "attachmentDateFormatText": "ddd D.M.YYYY H:mm",
   "detailsText": "Информация о вложении",
   "descriptionText": "Описание",
@@ -265,7 +265,7 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
   "notSupportedText": "Ваше устройство не поддерживает просмотр вложений."
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.DayView", {
+localize("crm.Views.Calendar.DayView", {
   "eventDateFormatText": "D.M.YYYY",
   "dateHeaderFormatText": "dddd, D.M.YYYY",
   "startTimeFormatText": "H:mm",
@@ -281,7 +281,7 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
   "toggleCollapseText": "показать/скрыть"
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
+localize("crm.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd D.MMMM YYYY",
   "eventDateFormatText": "D.M.YYYY",
@@ -308,7 +308,7 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
+localize("crm.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D.MMM YYYY",
   "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D.MMM YYYY",
@@ -325,8 +325,8 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "toggleCollapseText": "показать/скрыть"
 });
 
-localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
-  "errorDateFormatText": "DD.MM.YYYY HH:mm",
+localize("crm.Views.ErrorLog.Detail", {
+  "errorDateFormatText": "DD.MM.YYYY H:mm",
   "titleText": "Журнал ошибок",
   "detailsText": "Детали",
   "errorDateText": "Дата",
@@ -338,16 +338,16 @@ localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
   "copiedSuccessText": "Скопировано в буфер"
 });
 
-localize("Mobile.SalesLogix.Views.ErrorLog.List", {
-  "errorDateFormatText": "DD.MM.YYYY HH:mm",
+localize("crm.Views.ErrorLog.List", {
+  "errorDateFormatText": "DD.MM.YYYY H:mm",
   "titleText": "Журналы ошибок"
 });
 
-localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "D.M.YYYY H:mm:ss",
-  "endDateFormatText": "D.M.YYYY H:mm:ss",
+localize("crm.Views.Event.Detail", {
+  "startDateFormatText": "D.M.YYYY H:mm",
+  "endDateFormatText": "D.M.YYYY H:mm",
   "eventTypeText": {
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
     "atLiterature": "Инф. материалы",
@@ -362,7 +362,7 @@ localize("Mobile.SalesLogix.Views.Event.Detail", {
   "whenText": "Когда"
 });
 
-localize("Mobile.SalesLogix.Views.Event.Edit", {
+localize("crm.Views.Event.Edit", {
   "startingFormatText": "D.M.YYYY H:mm",
   "titleText": "Событие",
   "typeText": "Тип",
@@ -377,14 +377,14 @@ localize("Mobile.SalesLogix.Views.Event.Edit", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Event.List", {
+localize("crm.Views.Event.List", {
   "eventDateFormatText": "D.M.YYYY",
   "titleText": "События",
   "eventText": "Событие"
 });
 
-localize("Mobile.SalesLogix.Views.History.Detail", {
-  "dateFormatText": "D.M.YYYY H:mm:ss",
+localize("crm.Views.History.Detail", {
+  "dateFormatText": "D.M.YYYY H:mm",
   "categoryText": "Категория",
   "completedText": "Заверш.",
   "durationText": "Длительность",
@@ -410,7 +410,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "modifiedText": "Измененный",
   "typeText": "Тип",
   "activityTypeText": {
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
     "atLiterature": "Инф. материалы",
@@ -420,7 +420,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.History.Edit", {
+localize("crm.Views.History.Edit", {
   "startingFormatText": "D.M.YYYY H:mm",
   "accountText": "Субъект",
   "noteDescriptionTitleText": "Описание заметки",
@@ -442,11 +442,11 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
   "validationCanEditText": "У вас нет прав для редактирования"
 });
 
-localize("Mobile.SalesLogix.Views.History.List", {
+localize("crm.Views.History.List", {
   "hourMinuteFormatText": "H:mm",
   "dateFormatText": "D.M.YY",
   "activityTypeText": {
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
     "atLiterature": "Инф. материалы",
@@ -470,17 +470,17 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "regardingText": "Тема: "
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
+localize("crm.Views.Opportunity.Detail", {
   "exchangeRateDateFormatText": "D.M.YYYY H:mm",
   "accountText": "Субъект",
   "acctMgrText": "Менеджер",
-  "estCloseText": "Закрыта",
+  "estCloseText": "закрыта",
   "detailsText": "Детали",
   "fbarHomeTitleText": "Домой",
   "fbarScheduleTitleText": "Планировать",
   "importSourceText": "Источник наводки",
   "opportunityText": "Сделка",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "actionsText": "Быстрые действия",
   "potentialText": "Потенциал продаж",
   "potentialBaseText": "потенциал (базовая ставка)",
@@ -509,7 +509,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
   "multiCurrencyLockedText": "ставка заблок."
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
+localize("crm.Views.Opportunity.Edit", {
   "exchangeRateDateFormatText": "D.M.YYYY H:mm",
   "accountText": "Субъект",
   "acctMgrText": "Менеджер",
@@ -519,7 +519,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
   "opportunityStatusTitleText": "Статус Сделки",
   "opportunityText": "Сделка",
   "opportunityTypeTitleText": "Тип сделки",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "potentialText": "Потенциал продаж",
   "probabilityText": "Вероятность закрытия",
   "probabilityTitleText": "Вероятность сделки",
@@ -535,7 +535,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
   "subTypePickListResellerText": "Партнер"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+localize("crm.Views.TicketActivity.Edit", {
   "startingFormatText": "D.M.YYYY H:mm",
   "titleText": "Измен. дело по заявке",
   "activityTypeText": "Тип",
@@ -548,17 +548,17 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
   "commentsText": "Комментарии"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.List", {
+localize("crm.Views.TicketActivity.List", {
   "startDateFormatText": "DD.MM.YYYY H:mm",
   "titleText": "Дела по заявке"
 });
 
-localize("Sage.Platform.Mobile.ErrorManager", {
+localize("argos.ErrorManager", {
   "abortedText": "Прервано",
   "scopeSaveText": "Область не сохраняется в отчете об ошибках"
 });
 
-localize("Sage.Platform.Mobile.Fields.DurationField", {
+localize("argos.Fields.DurationField", {
   "emptyText": "",
   "invalidDurationErrorText": "Поле \"${0}\" не является допустимой длительностью.",
   "autoCompleteText": {
@@ -570,14 +570,14 @@ localize("Sage.Platform.Mobile.Fields.DurationField", {
   }
 });
 
-localize("Sage.Platform.Mobile.Fields.EditorField", {
+localize("argos.Fields.EditorField", {
   "lookupLabelText": "Изменить",
   "lookupText": "...",
   "emptyText": "пусто",
   "completeText": "Ок"
 });
 
-localize("Sage.Platform.Mobile.Fields.LookupField", {
+localize("argos.Fields.LookupField", {
   "dependentErrorText": "Необходимо выбрать значение \"${0}\".",
   "emptyText": "",
   "completeText": "Выбрать",
@@ -585,16 +585,16 @@ localize("Sage.Platform.Mobile.Fields.LookupField", {
   "lookupText": "..."
 });
 
-localize("Sage.Platform.Mobile.Fields.SignatureField", {
+localize("argos.Fields.SignatureField", {
   "signatureLabelText": "подпись",
   "signatureText": "..."
 });
 
-localize("Sage.Platform.Mobile.GroupedList", {
+localize("argos.GroupedList", {
   "toggleCollapseText": "показать/скрыть"
 });
 
-localize("Sage.Platform.Mobile.Groups.DateTimeSection", {
+localize("argos.Groups.DateTimeSection", {
   "displayNameText": "Выбор даты/времени",
   "todayText": "Сегодняшние",
   "tomorrowText": "Завтра",
@@ -619,15 +619,15 @@ localize("Sage.Platform.Mobile.Groups.DateTimeSection", {
   "unknownText": "Неизвестен"
 });
 
-localize("Sage.Platform.Mobile.Groups.GroupByValueSection", {
+localize("argos.Groups.GroupByValueSection", {
   "displayNameText": "Раздел групп по значению"
 });
 
-localize("Sage.Platform.Mobile.MainToolbar", {
+localize("argos.MainToolbar", {
   "titleText": "Мобильный тел."
 });
 
-localize("Sage.Platform.Mobile.RelatedViewWidget", {
+localize("argos.RelatedViewWidget", {
   "nodataText": "записи не найдены ...",
   "selectMoreDataText": "показать еще ${0} ${1} ... ",
   "navToListText": "см. список",
@@ -638,15 +638,23 @@ localize("Sage.Platform.Mobile.RelatedViewWidget", {
   "titleText": "Связанное представление"
 });
 
-localize("Sage.Platform.Mobile.SearchWidget", {
+localize("argos.SearchWidget", {
   "searchText": "Поиск"
 });
 
-localize("Sage.Platform.Mobile.View", {
+localize("argos.SelectionModel", {
+  "requireSelectionText": "Должно быть что-то выбрано, нельзя отменить выбор последнего элемента."
+});
+
+localize("argos.View", {
   "titleText": "Общий вид"
 });
 
-localize("Sage.Platform.Mobile.Views.FileSelect", {
+localize("argos.Views.ConfigureQuickActions", {
+  "titleText": "Настроить экспресс-действия"
+});
+
+localize("argos.Views.FileSelect", {
   "titleText": "Выбор файла",
   "addFileText": "Нажмите или коснитесь здесь, чтобы добавить файл.",
   "uploadText": "Отправить",
@@ -658,60 +666,85 @@ localize("Sage.Platform.Mobile.Views.FileSelect", {
   "notSupportedText": "Ваше устройство не поддерживает добавление вложений."
 });
 
-localize("Sage.Platform.Mobile.Views.Signature", {
+localize("argos.Views.Signature", {
   "titleText": "подпись",
   "clearCanvasText": "Очистить",
   "undoText": "Отменить ввод"
 });
 
-localize("Sage.Platform.Mobile._DetailBase", {
+localize("argos._ConfigureBase", {
+  "titleText": "Конфигурировать"
+});
+
+localize("argos._DetailBase", {
   "editText": "Изменить",
   "titleText": "Детали",
   "detailsText": "Детали",
   "loadingText": "Загрузка...",
-  "requestErrorText": "При запросе данных возникла ошибка сервера.",
   "notAvailableText": "Запрошенные данные недоступны.",
   "toggleCollapseText": "показать/скрыть"
 });
 
-localize("Sage.Platform.Mobile._EditBase", {
+localize("argos._EditBase", {
   "saveText": "Сохранить",
   "titleText": "Изменить",
   "validationSummaryText": "Сводка проверки",
   "concurrencySummaryText": "Ошибки при совместном доступе",
   "detailsText": "Детали",
   "loadingText": "Загрузка...",
-  "requestErrorText": "При запросе данных возникла ошибка сервера.",
+  "errorText": {
+    "general": "При запросе данных возникла ошибка сервера.",
+    "status": {
+      "410": "Ошибка при сохранении. Эта запись больше не существует."
+    }
+  },
   "concurrencyErrorText": "Другой пользователь обновил это поле."
 });
 
-localize("Sage.Platform.Mobile._ListBase", {
+localize("argos._ErrorHandleMixin", {
+  "errorText": {
+    "general": "Произошла ошибка сервера."
+  }
+});
+
+localize("argos._ListBase", {
   "moreText": "Получить больше записей",
   "emptySelectionText": "Нет",
   "titleText": "Список",
+  "configureText": "Конфигурировать",
   "errorRenderText": "Ошибка при визуализации шаблона строки.",
   "remainingText": "Осталось записей: ${0}",
   "cancelText": "Отмена",
   "insertText": "Создать",
   "noDataText": "Нет записей",
-  "loadingText": "Загрузка...",
-  "requestErrorText": "При запросе данных возникла ошибка сервера."
+  "loadingText": "Загрузка..."
 });
 
-localize("Mobile.SalesLogix.Action", {
+localize("argos._PullToRefreshMixin", {
+  "pullRefreshText": "Раскрыть для обновления...",
+  "pullReleaseText": "Освободить для обновления..."
+});
+
+localize("argos._RelatedViewWidgetBase", {
+  "loadingText": "загрузка ... "
+});
+
+localize("crm.Action", {
   "calledText": "Вызовов: ${0}",
   "emailedText": "Отправлено писем: ${0}"
 });
 
-localize("Mobile.SalesLogix.Application", {
-  "versionInfoText": "Мобильный клиент v${0}.${1}.${2}"
+localize("crm.Application", {
+  "versionInfoText": "Мобильный клиент v${0}.${1}.${2}",
+  "loadingText": "Загрузка состояния приложения",
+  "authText": "Проверка подлинности"
 });
 
-localize("Mobile.SalesLogix.ApplicationModule", {
+localize("crm.ApplicationModule", {
   "searchText": "Поиск"
 });
 
-localize("Mobile.SalesLogix.DefaultMetrics", {
+localize("crm.DefaultMetrics", {
   "accountsText": {
     "totalRevenue": "Общий доход",
     "averageTime": "Ср. время  по типам",
@@ -719,7 +752,8 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
   },
   "opportunitiesText": {
     "total": "Кол-во сделок",
-    "potential": "Потенциал продаж"
+    "potential": "Общий потенциал продаж",
+    "montlyPotential": "Среднемесячный потенциал продаж"
   },
   "ticketsText": {
     "total": "Кол-во заявок",
@@ -737,21 +771,21 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
   }
 });
 
-localize("Mobile.SalesLogix.Fields.AddressField", {
+localize("crm.Fields.AddressField", {
   "lookupLabelText": "Изменить",
   "emptyText": ""
 });
 
-localize("Mobile.SalesLogix.Fields.NameField", {
+localize("crm.Fields.NameField", {
   "emptyText": ""
 });
 
-localize("Mobile.SalesLogix.Fields.RecurrencesField", {
+localize("crm.Fields.RecurrencesField", {
   "titleText": "Повторяющиеся",
   "emptyText": ""
 });
 
-localize("Mobile.SalesLogix.FileManager", {
+localize("crm.FileManager", {
   "unableToUploadText": "Этот браузер не поддерживает операции с файлами API в HTML5.",
   "unknownSizeText": "Неизвестен",
   "unknownErrorText": "Внимание! Сбой отправки файла в результате ошибки.",
@@ -759,7 +793,7 @@ localize("Mobile.SalesLogix.FileManager", {
   "percentCompleteText": "Загрузка, пожалуйста подождите ..."
 });
 
-localize("Mobile.SalesLogix.Format", {
+localize("crm.Format", {
   "bigNumberAbbrText": {
     "billion": "млрд",
     "million": "млн",
@@ -772,11 +806,11 @@ localize("Mobile.SalesLogix.Format", {
   }
 });
 
-localize("Mobile.SalesLogix.SpeedSearchWidget", {
+localize("crm.SpeedSearchWidget", {
   "searchText": "Быстрый Поиск"
 });
 
-localize("Mobile.SalesLogix.Validator", {
+localize("crm.Validator", {
   "exists": {
     "message": "Поле \"${2}\" должно иметь значение."
   },
@@ -810,7 +844,7 @@ localize("Mobile.SalesLogix.Validator", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Account.Detail", {
+localize("crm.Views.Account.Detail", {
   "accountText": "Субъект",
   "acctMgrText": "Менеджер",
   "addressText": "Адрес",
@@ -821,7 +855,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
   "importSourceText": "Источник наводки",
   "industryText": "Отрасль",
   "notesText": "Заметки",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "phoneText": "Телефон",
   "activityTypeText": {
     "atPhoneCall": "Звонок"
@@ -838,7 +872,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
   "relatedAttachmentText": "Вложения",
   "relatedAttachmentTitleText": "Вложения субъекта",
   "statusText": "Статус",
-  "subTypeText": "Подтип",
+  "subTypeText": "SubType",
   "titleText": "Субъект",
   "typeText": "Тип",
   "webText": "Веб-адрес",
@@ -848,7 +882,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
   "calledText": "Вызовов: ${0}"
 });
 
-localize("Mobile.SalesLogix.Views.Account.Edit", {
+localize("crm.Views.Account.Edit", {
   "accountStatusTitleText": "Статус субъекта",
   "accountSubTypeTitleText": "Подтип субъекта",
   "accountText": "Субъект",
@@ -862,16 +896,16 @@ localize("Mobile.SalesLogix.Views.Account.Edit", {
   "importSourceText": "Источник наводки",
   "industryText": "Отрасль",
   "industryTitleText": "Отрасль",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "phoneText": "Телефон",
   "statusText": "Статус",
-  "subTypeText": "Подтип",
+  "subTypeText": "SubType",
   "titleText": "Субъект",
   "typeText": "Тип",
   "webText": "Веб-адрес"
 });
 
-localize("Mobile.SalesLogix.Views.Account.List", {
+localize("crm.Views.Account.List", {
   "titleText": "Субъекты",
   "activitiesText": "Дела",
   "notesText": "Заметки",
@@ -886,8 +920,8 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "faxAbbreviationText": "Факс: "
 });
 
-localize("Mobile.SalesLogix.Views.Activity.List", {
-  "allDayText": "Круглосуточн.",
+localize("crm.Views.Activity.List", {
+  "allDayText": "Без-времени",
   "completeActivityText": "Завершить",
   "callText": "Звонок",
   "calledText": "Выз.",
@@ -898,7 +932,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "importantText": "важно",
   "recurringText": "Повторяющиеся",
   "activityTypeText": {
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
     "atLiterature": "Запрос литературы",
@@ -909,16 +943,16 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   },
   "titleText": "Дела",
   "hashTagQueriesText": {
-    "alarm": "С_оповещением",
+    "alarm": "С оповещением",
     "recurring": "Повторяющиеся",
-    "timeless": "В_течение_дня",
+    "timeless": "Без-времени",
     "today": "Сегодняшние",
-    "this-week": "на-этой-неделе",
+    "this-week": "На-этой-неделе",
     "yesterday": "Вчерашние"
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.MyList", {
+localize("crm.Views.Activity.MyList", {
   "titleText": "Мои дела",
   "completeActivityText": "Завершить",
   "acceptActivityText": "Принять",
@@ -930,19 +964,19 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewAccountActionText": "Субъект",
   "viewOpportunityActionText": "Сделка",
   "hashTagQueriesText": {
-    "alarm": "С_оповещением",
+    "alarm": "С оповещением",
     "status-unconfirmed": "Неподтвержденные",
     "status-accepted": "Подтвержденные",
     "status-declined": "Отмененные",
     "recurring": "Повторяющиеся",
     "timeless": "В_течение_дня",
     "today": "Сегодняшние",
-    "this-week": "на-этой-неделе",
+    "this-week": "На-этой-неделе",
     "yesterday": "Вчерашние"
   }
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Recurring", {
+localize("crm.Views.Activity.Recurring", {
   "startingText": "Дата начала",
   "endingText": "Дата окончания",
   "repeatsText": "Повтор",
@@ -990,10 +1024,10 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "titleText": "периодичность"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.TypesList", {
+localize("crm.Views.Activity.TypesList", {
   "titleText": "Планировать...",
   "activityTypeText": {
-    "atToDo": "Дело",
+    "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
     "atAppointment": "Встреча",
     "atLiterature": "Инф. материалы",
@@ -1002,7 +1036,7 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.AddAccountContact", {
+localize("crm.Views.AddAccountContact", {
   "accountNameText": "Субъект",
   "accountStatusTitleText": "Статус субъекта",
   "accountSubTypeTitleText": "Подтип субъекта",
@@ -1019,7 +1053,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "faxText": "Факс",
   "homePhoneText": "Домашний тел.",
   "industryText": "Отрасль",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "lastNameText": "Последний",
   "mobileText": "Мобильный тел.",
   "nameText": "Имя",
@@ -1033,7 +1067,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "industryTitleText": "Отрасль"
 });
 
-localize("Mobile.SalesLogix.Views.Address.Edit", {
+localize("crm.Views.Address.Edit", {
   "address1Text": "Улица",
   "address2Text": "Дом",
   "address3Text": "Квартира/Офис",
@@ -1047,46 +1081,52 @@ localize("Mobile.SalesLogix.Views.Address.Edit", {
   "isPrimaryText": "Основной",
   "postalCodeText": "Почтовый",
   "salutationText": "Адресат(ы)",
-  "stateText": "Регион/Область",
-  "stateTitleText": "Регион/Область",
+  "stateText": "Штат",
+  "stateTitleText": "Штат",
   "titleText": "Адрес"
 });
 
-localize("Mobile.SalesLogix.Views.Address.List", {
+localize("crm.Views.Address.List", {
   "titleText": "Адреса"
 });
 
-localize("Mobile.SalesLogix.Views.AreaCategoryIssueLookup", {
+localize("crm.Views.AreaCategoryIssueLookup", {
   "titleText": "Субъекты"
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.AddAttachment", {
+localize("crm.Views.Attachment.AddAttachment", {
   "titleText": "Добавить вложения"
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.MyAttachmentList", {
+localize("crm.Views.Attachment.MyAttachmentList", {
   "titleText": "Мои вложения"
 });
 
-localize("Mobile.SalesLogix.Views.Charts.GenericBar", {
-  "titleText": "",
-  "otherText": "Другой"
+localize("crm.Views.Charts.GenericBar", {
+  "titleText": ""
 });
 
-localize("Mobile.SalesLogix.Views.Charts.GenericPie", {
-  "titleText": "",
-  "otherText": "Другой"
+localize("crm.Views.Charts.GenericLine", {
+  "titleText": ""
 });
 
-localize("Mobile.SalesLogix.Views.Competitor.List", {
+localize("crm.Views.Charts.GenericPie", {
+  "titleText": ""
+});
+
+localize("crm.Views.Charts._ChartMixin", {
+  "loadingText": "Загрузка..."
+});
+
+localize("crm.Views.Competitor.List", {
   "titleText": "Конкуренты"
 });
 
-localize("Mobile.SalesLogix.Views.Configure", {
+localize("crm.Views.Configure", {
   "titleText": "Конфигурировать"
 });
 
-localize("Mobile.SalesLogix.Views.Contact.Detail", {
+localize("crm.Views.Contact.Detail", {
   "activityTypeText": {
     "atPhoneCall": "Звонок",
     "atEMail": "Эл. почта"
@@ -1101,7 +1141,7 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "faxText": "Факс",
   "homeText": "Домашний тел.",
   "nameText": "Контакт",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "actionsText": "Быстрые действия",
   "relatedAccountsText": "Субъекты",
   "relatedActivitiesText": "Дела",
@@ -1127,7 +1167,7 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "moreDetailsText": "Подробнее"
 });
 
-localize("Mobile.SalesLogix.Views.Contact.Edit", {
+localize("crm.Views.Contact.Edit", {
   "titleText": "Контакт",
   "nameText": "Имя",
   "workText": "Рабочий телефон",
@@ -1147,7 +1187,7 @@ localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "cuisinePreferenceTitleText": "Предпочтения в кухне"
 });
 
-localize("Mobile.SalesLogix.Views.Contact.List", {
+localize("crm.Views.Contact.List", {
   "titleText": "Контакты",
   "activitiesText": "Дела",
   "notesText": "Заметки",
@@ -1165,35 +1205,35 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "mobileAbbreviationText": "Мобильный тел.: "
 });
 
-localize("Mobile.SalesLogix.Views.Contract.List", {
+localize("crm.Views.Contract.List", {
   "titleText": "Контракты"
 });
 
-localize("Mobile.SalesLogix.Views.ExchangeRateLookup", {
+localize("crm.Views.ExchangeRateLookup", {
   "titleText": "Курс обмена"
 });
 
-localize("Mobile.SalesLogix.Views.FooterToolbar", {
+localize("crm.Views.FooterToolbar", {
   "copyrightText": "&copy; 2014 SalesLogix, NA, LLC. Все права защищены."
 });
 
-localize("Mobile.SalesLogix.Views.Groups.Selector", {
+localize("crm.Views.Groups.Selector", {
   "titleText": "Просмотр групп"
 });
 
-localize("Mobile.SalesLogix.Views.Help", {
+localize("crm.Views.Help", {
   "titleText": "Помощь",
   "errorText": "Ошибка",
   "errorMessageText": "Не удалось загрузить справочный документ."
 });
 
-localize("Mobile.SalesLogix.Views.History.RelatedView", {
+localize("crm.Views.History.RelatedView", {
   "regardingText": "Тема",
   "byText": "написал(-а) ",
   "titleText": "Заметки"
 });
 
-localize("Mobile.SalesLogix.Views.Home", {
+localize("crm.Views.Home", {
   "configureText": "Конфигурировать",
   "addAccountContactText": "Добавить контакт/субъект",
   "titleText": "Домой",
@@ -1201,7 +1241,7 @@ localize("Mobile.SalesLogix.Views.Home", {
   "viewsText": "Перейти к"
 });
 
-localize("Mobile.SalesLogix.Views.Lead.Detail", {
+localize("crm.Views.Lead.Detail", {
   "activityTypeText": {
     "atPhoneCall": "Звонок",
     "atEMail": "Эл. почта"
@@ -1218,7 +1258,7 @@ localize("Mobile.SalesLogix.Views.Lead.Detail", {
   "leadTitleText": "Должность",
   "nameText": "Имя",
   "notesText": "Комментарии",
-  "ownerText": "Доступ",
+  "ownerText": "Куратор",
   "relatedActivitiesText": "Дела",
   "relatedHistoriesText": "Заметки/История",
   "relatedItemsText": "Связанные элементы",
@@ -1242,7 +1282,7 @@ localize("Mobile.SalesLogix.Views.Lead.Detail", {
   "emailedText": "Отправлено писем: ${0}"
 });
 
-localize("Mobile.SalesLogix.Views.Lead.Edit", {
+localize("crm.Views.Lead.Edit", {
   "accountText": "Субъект",
   "addressText": "Адрес",
   "businessText": "Описание бизнеса",
@@ -1256,7 +1296,7 @@ localize("Mobile.SalesLogix.Views.Lead.Edit", {
   "industryTitleText": "Отрасль",
   "interestsText": "Интересы",
   "leadNameLastFirstText": "Имя",
-  "leadOwnerText": "Доступ",
+  "leadOwnerText": "Куратор",
   "nameText": "Имя",
   "notesText": "Комментарии",
   "notesTitleText": "Комментарии",
@@ -1266,10 +1306,10 @@ localize("Mobile.SalesLogix.Views.Lead.Edit", {
   "tollFreeText": "Справочный тел.",
   "webText": "Веб-адрес",
   "workText": "Рабочий телефон",
-  "mobileText": "Мобильный клиент"
+  "mobileText": "Мобильный телефон"
 });
 
-localize("Mobile.SalesLogix.Views.Lead.List", {
+localize("crm.Views.Lead.List", {
   "titleText": "Наводки",
   "activitiesText": "Дела",
   "notesText": "Заметки",
@@ -1288,30 +1328,30 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "tollFreeAbbreviationText": "Справочный тел.: "
 });
 
-localize("Mobile.SalesLogix.Views.LeadSource.List", {
+localize("crm.Views.LeadSource.List", {
   "titleText": "Источники наводки"
 });
 
-localize("Mobile.SalesLogix.Views.LeftDrawer", {
+localize("crm.Views.LeftDrawer", {
   "configureText": "Настройка меню",
   "addAccountContactText": "Добавить контакт/субъект",
   "titleText": "Главное меню",
   "actionsText": "Быстрые действия",
   "viewsText": "Перейти к",
-  "footerText": "Другой",
+  "footerText": "Дополнительно",
   "settingsText": "Параметры",
   "helpText": "Помощь",
   "logOutText": "Выход",
   "logOutConfirmText": "Уверены, что хотите выйти?"
 });
 
-localize("Mobile.SalesLogix.Views.LogOff", {
+localize("crm.Views.LogOff", {
   "messageText": "Вы вышли из системы. Закройте окно браузера.",
   "loginText": "Нажмите здесь, чтобы вернуться в систему.",
   "titleText": "Выполнен выход"
 });
 
-localize("Mobile.SalesLogix.Views.Login", {
+localize("crm.Views.Login", {
   "copyrightText": "&copy; Infor, 2015 г. Все права защищены. www.infor.com",
   "logOnText": "Вход",
   "passText": "Пароль",
@@ -1320,12 +1360,11 @@ localize("Mobile.SalesLogix.Views.Login", {
   "userText": "ИД пользователя",
   "invalidUserText": "Неверное имя пользователя или пароль.",
   "missingUserText": "Запись пользователя не найдена.",
-  "serverProblemText": "Сбой на сервере.",
   "requestAbortedText": "Запрос не выполнен.",
   "logoText": "Infor CRM"
 });
 
-localize("Mobile.SalesLogix.Views.MetricConfigure", {
+localize("crm.Views.MetricConfigure", {
   "titleText": "Настройка метрики",
   "metricTitleText": "Должность",
   "metricFilterText": "Фильтр",
@@ -1337,18 +1376,18 @@ localize("Mobile.SalesLogix.Views.MetricConfigure", {
   "reportViewText": "идентификатор вида диаграммы"
 });
 
-localize("Mobile.SalesLogix.Views.MetricFilterLookup", {
+localize("crm.Views.MetricFilterLookup", {
   "titleText": "Фильтр/Просмотр метрики"
 });
 
-localize("Mobile.SalesLogix.Views.MetricWidget", {
+localize("crm.Views.MetricWidget", {
   "loadingText": "Загрузка...",
   "errorText": "Ошибка при загрузке виджета."
 });
 
-localize("Mobile.SalesLogix.Views.NameEdit", {
+localize("crm.Views.NameEdit", {
   "titleText": "Изменить имя",
-  "firstNameText": "Имя",
+  "firstNameText": "Первый",
   "middleNameText": "Отчество",
   "lastNameText": "Фамилия",
   "prefixText": "Префикс",
@@ -1357,7 +1396,7 @@ localize("Mobile.SalesLogix.Views.NameEdit", {
   "suffixTitleText": "Суффикс имени"
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.List", {
+localize("crm.Views.Opportunity.List", {
   "titleText": "Сделки",
   "activitiesText": "Дела",
   "notesText": "Заметки",
@@ -1370,10 +1409,26 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "addActivityActionText": "Добавить действие",
   "addAttachmentActionText": "Добавить Вложение",
   "actualCloseText": "Закрыта ",
-  "estimatedCloseText": "План. Закрытие.  "
+  "estimatedCloseText": "План. Закрытие.  ",
+  "quickEditActionText": "Быстрое изменение"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityContact.Detail", {
+localize("crm.Views.Opportunity.QuickEdit", {
+  "estCloseText": "закрыта",
+  "detailsText": "Детали",
+  "opportunityStageTitleText": "Этап возможности",
+  "opportunityText": "Сделка",
+  "stageText": "Стадия",
+  "statusOpenText": "Открыть",
+  "statusClosedLostText": "Закрыта и проиграна",
+  "statusClosedWonText": "Закрыта и выиграна",
+  "salesProcessText": "этап заблокирован процессом продаж:",
+  "probabilityText": "Вероятность закрытия",
+  "probabilityTitleText": "Вероятность сделки",
+  "potentialText": "Потенциал продаж"
+});
+
+localize("crm.Views.OpportunityContact.Detail", {
   "titleText": "Контакт по сделке",
   "accountText": "Субъект",
   "contactTitleText": "Должность",
@@ -1390,7 +1445,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.Detail", {
   "contactText": "Контакт"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityContact.Edit", {
+localize("crm.Views.OpportunityContact.Edit", {
   "titleText": "Редактировать контакт",
   "nameText": "Имя",
   "accountNameText": "Субъект",
@@ -1406,7 +1461,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.Edit", {
   "competitorPrefText": "Конкурент"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityContact.List", {
+localize("crm.Views.OpportunityContact.List", {
   "titleText": "Контакты по сделке",
   "selectTitleText": "Выбор контакта",
   "activitiesText": "Дела",
@@ -1414,7 +1469,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.List", {
   "scheduleText": "Планировать"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityProduct.Detail", {
+localize("crm.Views.OpportunityProduct.Detail", {
   "detailsText": "Детали",
   "opportunityText": "Сделка",
   "productText": "Продукт",
@@ -1435,7 +1490,7 @@ localize("Mobile.SalesLogix.Views.OpportunityProduct.Detail", {
   "removeOppProductTitleText": "удалить перспективный товар"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityProduct.Edit", {
+localize("crm.Views.OpportunityProduct.Edit", {
   "titleText": "Продукт сделки",
   "detailsText": "Детали",
   "opportunityText": "Сделка",
@@ -1455,23 +1510,23 @@ localize("Mobile.SalesLogix.Views.OpportunityProduct.Edit", {
   "adjustedPriceSectionText": "Скорректированная цена"
 });
 
-localize("Mobile.SalesLogix.Views.OpportunityProduct.List", {
+localize("crm.Views.OpportunityProduct.List", {
   "titleText": "Продукты"
 });
 
-localize("Mobile.SalesLogix.Views.Owner.List", {
+localize("crm.Views.Owner.List", {
   "titleText": "Доступ"
 });
 
-localize("Mobile.SalesLogix.Views.Product.List", {
+localize("crm.Views.Product.List", {
   "titleText": "Продукты"
 });
 
-localize("Mobile.SalesLogix.Views.ProductProgram.List", {
+localize("crm.Views.ProductProgram.List", {
   "titleText": "Программы продукта"
 });
 
-localize("Mobile.SalesLogix.Views.Settings", {
+localize("crm.Views.Settings", {
   "clearLocalStorageTitleText": "Очистить хранилище",
   "clearAuthenticationTitleText": "Очистить сохраненные учетные данные",
   "errorLogTitleText": "Просмотр журналов ошибок",
@@ -1480,7 +1535,7 @@ localize("Mobile.SalesLogix.Views.Settings", {
   "titleText": "Параметры"
 });
 
-localize("Mobile.SalesLogix.Views.SpeedSearchList", {
+localize("crm.Views.SpeedSearchList", {
   "titleText": "Быстрый Поиск",
   "indexesText": {
     "Account": "Субъект",
@@ -1493,11 +1548,11 @@ localize("Mobile.SalesLogix.Views.SpeedSearchList", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.TextEdit", {
+localize("crm.Views.TextEdit", {
   "titleText": "Редактировать текст"
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.Detail", {
+localize("crm.Views.Ticket.Detail", {
   "accountText": "Субъект",
   "areaText": "Область",
   "assignedDateText": "Дата поручения",
@@ -1529,7 +1584,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Detail", {
   "loadingText": "Загрузка..."
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.Edit", {
+localize("crm.Views.Ticket.Edit", {
   "accountText": "Субъект",
   "areaText": "Область",
   "assignedDateText": "Дата поручения",
@@ -1562,7 +1617,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Edit", {
   "urgencyText": "Срочность:"
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.List", {
+localize("crm.Views.Ticket.List", {
   "titleText": "Заявки",
   "activitiesText": "Дела",
   "scheduleText": "Планировать",
@@ -1580,11 +1635,11 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "neededByText": "Необход.  "
 });
 
-localize("Mobile.SalesLogix.Views.Ticket.UrgencyLookup", {
+localize("crm.Views.Ticket.UrgencyLookup", {
   "titleText": "Срочность заявки"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
+localize("crm.Views.TicketActivity.Detail", {
   "titleText": "Дело по заявке",
   "accountText": "Субъект",
   "contactText": "Контакт",
@@ -1609,11 +1664,11 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
   "relatedTicketActivityItemText": "Компоненты дела по заявке"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.RateLookup", {
+localize("crm.Views.TicketActivity.RateLookup", {
   "titleText": "Ставки"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivityItem.Detail", {
+localize("crm.Views.TicketActivityItem.Detail", {
   "titleText": "Компонент заявки",
   "productNameText": "Продукт",
   "skuText": "Код продукта",
@@ -1622,28 +1677,28 @@ localize("Mobile.SalesLogix.Views.TicketActivityItem.Detail", {
   "itemDescriptionText": "Описание"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivityItem.List", {
+localize("crm.Views.TicketActivityItem.List", {
   "titleText": "Компоненты дела по заявке"
 });
 
-localize("Mobile.SalesLogix.Views.UpdateToolbar", {
+localize("crm.Views.UpdateToolbar", {
   "updateText": "Доступно обновление. Нажмите для перезагрузки."
 });
 
-localize("Mobile.SalesLogix.Views.User.CalendarAccessList", {
+localize("crm.Views.User.CalendarAccessList", {
   "titleText": "Ресурсы действия"
 });
 
-localize("Mobile.SalesLogix.Views.User.List", {
+localize("crm.Views.User.List", {
   "titleText": "Пользователи"
 });
 
-localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
+localize("crm.Views._CardLayoutListMixin", {
   "itemIconAltText": "Контакт",
   "allRecordsText": "поиск не выполнен"
 });
 
-localize("Mobile.SalesLogix.Views._GroupListMixin", {
+localize("crm.Views._GroupListMixin", {
   "noDefaultGroupText": "Не задана группа по умолчанию. Щелкните здесь, чтобы настроить группы. ",
   "currentGroupNotFoundText": "Текущая группа не найдена.",
   "groupTemplateSummaryText": "Сводно",
@@ -1651,7 +1706,7 @@ localize("Mobile.SalesLogix.Views._GroupListMixin", {
   "groupsModeText": "В настоящий момент вы находитесь в режиме групп. Выполните поиск или выберите хэштег для выхода из режима групп."
 });
 
-localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
+localize("crm.Views._RightDrawerListMixin", {
   "hashTagsSectionText": "Группы",
   "groupsSectionText": "Группы",
   "kpiSectionText": "KPI",
@@ -1660,7 +1715,7 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "layoutsText": "Макеты"
 });
 
-localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {
+localize("crm.Views._SpeedSearchRightDrawerListMixin", {
   "indexSectionText": "Индексы"
 });
 });

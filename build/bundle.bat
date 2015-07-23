@@ -1,6 +1,6 @@
 SET SDK=%CD%\..\..\argos-sdk
 SET VERSION=%~1
-SET BUNDLE_NAME=Infor Mobile v%VERSION% for 8.0 and 8.1 VFS.zip
+SET BUNDLE_NAME=ICRM Mobile v%VERSION% for 8.0 and later VFS.zip
 
 rmdir /S /Q deploy
 rmdir /S /Q %SDK%\deploy

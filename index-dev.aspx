@@ -124,6 +124,9 @@
     <!-- Chart.js -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
 
+    <!-- Babel -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -134,8 +137,8 @@
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
-            { name: 'argos', location: '../../argos-sdk/src' },
-            { name: 'crm', location: 'src' },
+            { name: 'argos', location: '../../argos-sdk/src-out' },
+            { name: 'crm', location: 'src-out' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
         ],
@@ -163,9 +166,22 @@
                         return;
                     }
 
-                    var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-                    moment.lang(culture);
+                    var culture, results;
+
+                    culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
                     configuration.currentCulture = culture;
+                    results = moment.lang(culture);
+
+                    // moment will return the set culture if successful, otherwise it returns the currently set culture.
+                    // Check to see if the culture set failed, and attept to use the specific culture instead
+                    if (results !== culture) {
+                        culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>';
+                        results = moment.lang(culture);
+                        if (results !== culture) {
+                            console.error("Failed to set the culture for moment.js, culture set to " + results);
+                        }
+                    }
+
                     window.moment = moment;
 
                     var instance = new application(configuration);

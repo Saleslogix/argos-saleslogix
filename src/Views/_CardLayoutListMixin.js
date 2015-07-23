@@ -1,4 +1,19 @@
-/* Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.*/
+import array from 'dojo/_base/array';
+import declare from 'dojo/_base/declare';
+import event from 'dojo/_base/event';
+import lang from 'dojo/_base/lang';
+import domAttr from 'dojo/dom-attr';
+import dom from 'dojo/dom';
+import domConstruct from 'dojo/dom-construct';
+import query from 'dojo/query';
+import domClass from 'dojo/dom-class';
+import convert from 'argos/Convert';
+import moment from 'moment';
+
+var mixinName,
+    __class;
+
+mixinName = 'crm.Views._CardLayoutListMixin';
 
 /**
  * @class crm.Views._CardLayoutListMixin
@@ -10,37 +25,6 @@
  * @requires argos.Convert
  *
  */
-define('crm/Views/_CardLayoutListMixin', [
-    'dojo/_base/array',
-    'dojo/_base/declare',
-    'dojo/_base/event',
-    'dojo/_base/lang',
-    'dojo/dom-attr',
-    'dojo/dom',
-    'dojo/dom-construct',
-    'dojo/query',
-    'dojo/dom-class',
-    'argos/Convert',
-    'moment'
-], function(
-    array,
-    declare,
-    event,
-    lang,
-    domAttr,
-    dom,
-    domConstruct,
-    query,
-    domClass,
-    convert,
-    moment
-) {
-
-    var mixinName,
-        __class;
-
-    mixinName = 'crm.Views._CardLayoutListMixin';
-
     __class = declare('crm.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
@@ -252,6 +236,6 @@ define('crm/Views/_CardLayoutListMixin', [
     });
 
     lang.setObject('Mobile.SalesLogix.Views._CardLayoutListMixin', __class);
-    return __class;
-});
+export default __class;
+
 

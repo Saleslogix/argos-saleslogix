@@ -76,6 +76,11 @@ define('spec/Views/Account/List.spec', [
                 },
                 enableGroups: true,
                 supportsTouch: function() {
+                },
+                preferences: {
+                    quickActions: []
+                },
+                persistPreferences: function () {
                 }
             };
             this.store = new MemoryStore({ data: data});

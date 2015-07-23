@@ -1,4 +1,24 @@
-/* Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.*/
+import declare from 'dojo/_base/declare';
+import string from 'dojo/string';
+import json from 'dojo/json';
+import domStyle from 'dojo/dom-style';
+import domClass from 'dojo/dom-class';
+import query from 'dojo/query';
+import domAttr from 'dojo/dom-attr';
+import domConstruct from 'dojo/dom-construct';
+import format from 'argos/Format';
+import utility from 'argos/Utility';
+import GroupUtility from '../GroupUtility';
+import when from 'dojo/when';
+import lang from 'dojo/_base/lang';
+import SDataStore from 'argos/Store/SData';
+import Deferred from 'dojo/Deferred';
+import action from '../Action';
+
+var mixinName,
+    __class;
+
+mixinName = 'crm.Views._GroupListMixin';
 
 /**
  * @class crm.Views._GroupListMixin
@@ -9,46 +29,6 @@
  *
  *
  */
-define('crm/Views/_GroupListMixin', [
-    'dojo/_base/declare',
-    'dojo/string',
-    'dojo/json',
-    'dojo/dom-style',
-    'dojo/dom-class',
-    'dojo/query',
-    'dojo/dom-attr',
-    'dojo/dom-construct',
-    'argos/Format',
-    'argos/Utility',
-    '../GroupUtility',
-    'dojo/when',
-    'dojo/_base/lang',
-    'argos/Store/SData',
-    'dojo/Deferred',
-    '../Action'
-], function(
-    declare,
-    string,
-    json,
-    domStyle,
-    domClass,
-    query,
-    domAttr,
-    domConstruct,
-    format,
-    utility,
-    GroupUtility,
-    when,
-    lang,
-    SDataStore,
-    Deferred,
-    action
-) {
-    var mixinName,
-        __class;
-
-    mixinName = 'crm.Views._GroupListMixin';
-
     __class = declare('crm.Views._GroupListMixin', null, {
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
@@ -916,6 +896,6 @@ define('crm/Views/_GroupListMixin', [
     });
 
     lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
-    return __class;
-});
+export default __class;
+
 
