@@ -185,6 +185,10 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "Account.js",
+          "path": "../src-out/Models/"
+        },
+        {
           "text": "Environment.js",
           "path": "../src-out/"
         },
@@ -260,7 +264,6 @@
           "text": "RelatedEditWidget.js",
           "path": "../src-out/Views/"
         },
-
         {
           "text": "AddAccountContact.js",
           "path": "../src-out/Views/"
@@ -364,7 +367,7 @@
         {
           "text": "_SpeedSearchRightDrawerListMixin.js",
           "path": "../src-out/Views/"
-        }, 
+        },
 		{
           "text": "_GroupListMixin.js",
           "path": "../src-out/Views/"
