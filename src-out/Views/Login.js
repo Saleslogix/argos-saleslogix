@@ -1,37 +1,24 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/dom-class', 'argos/Edit'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoDomClass, _argosEdit) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.Login
- *
- *
- * @extends argos.Edit
- *
- */
-define('crm/Views/Login', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/dom-class',
-    'argos/Edit'
-], function(
-    declare,
-    lang,
-    domClass,
-    Edit
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.Login', [Edit], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _domClass = _interopRequireDefault(_dojoDomClass);
+
+    var _Edit = _interopRequireDefault(_argosEdit);
+
+    /**
+     * @class crm.Views.Login
+     *
+     *
+     * @extends argos.Edit
+     *
+     */
+    var __class = (0, _declare['default'])('crm.Views.Login', [_Edit['default']], {
         //Templates
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-            '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
-            '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
-            '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
-            '<span class="copyright">{%= $.copyrightText %}</span>',
-            '<span class="copyright">{%= App.getVersionInfo() %}</span>',
-            '</div>'
-        ]),
+        widgetTemplate: new Simplate(['<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">', '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>', '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>', '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>', '<span class="copyright">{%= $.copyrightText %}</span>', '<span class="copyright">{%= App.getVersionInfo() %}</span>', '</div>']),
 
         //Localization
         id: 'login',
@@ -49,27 +36,27 @@ define('crm/Views/Login', [
 
         ENTER_KEY: 13,
 
-        _onKeyPress: function(evt) {
+        _onKeyPress: function _onKeyPress(evt) {
             if (evt.charOrCode === this.ENTER_KEY) {
                 this.authenticate();
             }
         },
-        _onKeyUp: function() {
+        _onKeyUp: function _onKeyUp() {
             var username = this.fields.username.getValue();
             if (username && username.length > 0) {
-                domClass.add(this.domNode, 'login-active');
+                _domClass['default'].add(this.domNode, 'login-active');
             } else {
-                domClass.remove(this.domNode, 'login-active');
+                _domClass['default'].remove(this.domNode, 'login-active');
             }
         },
-        onShow: function() {
+        onShow: function onShow() {
             var credentials;
             credentials = App.getCredentials();
 
             if (credentials) {
                 App.authenticateUser(credentials, {
-                    success: function() {
-                        App.initAppState().then(function() {
+                    success: function success() {
+                        App.initAppState().then(function () {
                             App.navigateToInitialView();
                         });
                     },
@@ -77,36 +64,32 @@ define('crm/Views/Login', [
                 });
             }
         },
-        createToolLayout: function() {
+        createToolLayout: function createToolLayout() {
             return this.tools || (this.tools = {
                 bbar: false,
                 tbar: false
             });
         },
-        getContext: function() {
-            return {id: this.id};
+        getContext: function getContext() {
+            return { id: this.id };
         },
-        createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'username',
-                    placeHolderText: this.userText,
-                    type: 'text'
-                },
-                {
-                    name: 'password',
-                    placeHolderText: this.passText,
-                    type: 'text',
-                    inputType: 'password'
-                },
-                {
-                    name: 'remember',
-                    label: this.rememberText,
-                    type: 'boolean'
-                }
-            ]);
+        createLayout: function createLayout() {
+            return this.layout || (this.layout = [{
+                name: 'username',
+                placeHolderText: this.userText,
+                type: 'text'
+            }, {
+                name: 'password',
+                placeHolderText: this.passText,
+                type: 'text',
+                inputType: 'password'
+            }, {
+                name: 'remember',
+                label: this.rememberText,
+                type: 'boolean'
+            }]);
         },
-        authenticate: function() {
+        authenticate: function authenticate() {
             if (this.busy) {
                 return;
             }
@@ -118,24 +101,24 @@ define('crm/Views/Login', [
                 this.validateCredentials(credentials);
             }
         },
-        createErrorHandlers: function() {
+        createErrorHandlers: function createErrorHandlers() {
             this.errorText.status[this.HTTP_STATUS.FORBIDDEN] = this.invalidUserText;
 
             this.errorHandlers = [{
                 name: 'NoResponse',
-                test: function(error) {
+                test: function test(error) {
                     return !error.xhr;
                 },
-                handle: function(error, next) {
+                handle: function handle(error, next) {
                     alert(this.missingUserText);
                     next();
                 }
             }, {
                 name: 'GeneralError',
-                test: function(error) {
+                test: function test(error) {
                     return typeof error.xhr !== 'undefined' && error.xhr !== null;
                 },
-                handle: function(error, next) {
+                handle: function handle(error, next) {
                     alert(this.getErrorMessage(error));
                     next();
                 }
@@ -143,7 +126,7 @@ define('crm/Views/Login', [
 
             return this.errorHandlers;
         },
-        validateCredentials: function(credentials) {
+        validateCredentials: function validateCredentials(credentials) {
             this.disable();
 
             App.authenticateUser(credentials, {
@@ -156,11 +139,11 @@ define('crm/Views/Login', [
                     }
 
                     App.setPrimaryTitle(App.loadingText);
-                    App.initAppState().then(function() {
+                    App.initAppState().then(function () {
                         App.navigateToInitialView();
                     });
                 },
-                failure: function(result) {
+                failure: function failure(result) {
                     var error;
 
                     this.enable();
@@ -170,7 +153,7 @@ define('crm/Views/Login', [
                     error.xhr = result && result.response;
                     this.handleError(error);
                 },
-                aborted: function() {
+                aborted: function aborted() {
                     this.enable();
 
                     alert(this.requestAbortedText);
@@ -180,7 +163,6 @@ define('crm/Views/Login', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Login', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Login', __class);
+    module.exports = __class;
 });
-

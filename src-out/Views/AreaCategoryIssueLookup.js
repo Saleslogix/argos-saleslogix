@@ -1,32 +1,25 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/AreaCategoryIssueLookup', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/List', 'argos/_LegacySDataListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _argosList, _argos_LegacySDataListMixin) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.AreaCategoryIssueLookup
- *
- *
- * @extends argos.List
- * @mixins argos._LegacySDataListMixin
- *
- */
-define('crm/Views/AreaCategoryIssueLookup', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'argos/List',
-    'argos/_LegacySDataListMixin'
-], function(
-    declare,
-    lang,
-    List,
-    _LegacySDataListMixin
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _List = _interopRequireDefault(_argosList);
+
+    var _LegacySDataListMixin2 = _interopRequireDefault(_argos_LegacySDataListMixin);
+
+    /**
+    * @class crm.Views.AreaCategoryIssueLookup
+    *
+    *
+    * @extends argos.List
+    * @mixins argos._LegacySDataListMixin
+    *
+    */
+    var __class = (0, _declare['default'])('crm.Views.AreaCategoryIssueLookup', [_List['default'], _LegacySDataListMixin2['default']], {
         //Templates
-        itemTemplate: new Simplate([
-            '<h3>{%: $.$descriptor %}</h3>'
-        ]),
+        itemTemplate: new Simplate(['<h3>{%: $.$descriptor %}</h3>']),
 
         //Localization
         titleText: 'Accounts',
@@ -38,28 +31,24 @@ define('crm/Views/AreaCategoryIssueLookup', [
         enablePullToRefresh: false,
         id: 'areacategoryissue_lookup',
         queryOrderBy: 'Area,Category,Issue',
-        querySelect: [
-            'Area',
-            'Category',
-            'Issue'
-        ],
+        querySelect: ['Area', 'Category', 'Issue'],
         resourceKind: 'areaCategoryIssues',
 
-        show: function(options) {
+        show: function show(options) {
             this.active = options.where;
 
             options.where = false;
 
             this.inherited(arguments, [options]);
         },
-        requestData: function() {
+        requestData: function requestData() {
             if (this.cache) {
                 this.processFeed();
             } else {
                 this.inherited(arguments);
             }
         },
-        processFeed: function(feed) {
+        processFeed: function processFeed(feed) {
             // assume order is preserved
             if (feed) {
                 this.createCacheFrom(feed);
@@ -78,12 +67,8 @@ define('crm/Views/AreaCategoryIssueLookup', [
 
             this.inherited(arguments, [feed]);
         },
-        createCacheFrom: function(feed) {
-            var feedLength,
-                i,
-                entry,
-                area,
-                category;
+        createCacheFrom: function createCacheFrom(feed) {
+            var feedLength, i, entry, area, category;
 
             feedLength = feed['$resources'].length;
             this.cache = {};
@@ -96,8 +81,9 @@ define('crm/Views/AreaCategoryIssueLookup', [
                 category[entry['Issue']] = true;
             }
         },
-        buildFeedFrom: function(segment) {
-            var list = [], n;
+        buildFeedFrom: function buildFeedFrom(segment) {
+            var list = [],
+                n;
 
             for (n in segment) {
                 if (segment.hasOwnProperty(n)) {
@@ -108,19 +94,17 @@ define('crm/Views/AreaCategoryIssueLookup', [
                 }
             }
 
-            return {'$resources': list};
+            return { '$resources': list };
         },
-        hasMoreData: function() {
+        hasMoreData: function hasMoreData() {
             return false; // todo: implement paging?
         },
-        refreshRequiredFor: function() {
+        refreshRequiredFor: function refreshRequiredFor() {
             return true; // todo: implement refresh detection?
         },
-        formatSearchQuery: function() {
-        }
+        formatSearchQuery: function formatSearchQuery() {}
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
+    module.exports = __class;
 });
-

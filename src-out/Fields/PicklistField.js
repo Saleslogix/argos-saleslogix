@@ -1,33 +1,30 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
-define('crm/Fields/PicklistField', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/string',
-    'argos/Fields/LookupField',
-    '../Views/PickList',
-    'argos/FieldManager'
-], function(
-    declare,
-    lang,
-    string,
-    LookupField,
-    PickList,
-    FieldManager
-) {
+define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Fields/LookupField', '../Views/PickList', 'argos/FieldManager'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _argosFieldsLookupField, _ViewsPickList, _argosFieldManager) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _LookupField = _interopRequireDefault(_argosFieldsLookupField);
+
+    var _PickList = _interopRequireDefault(_ViewsPickList);
+
+    var _FieldManager = _interopRequireDefault(_argosFieldManager);
+
     var viewsByName = {},
         getOrCreateViewFor,
         control,
         viewsByNameCount = 0;
 
-    getOrCreateViewFor = function(name) {
+    getOrCreateViewFor = function (name) {
         if (viewsByName[name]) {
             return viewsByName[name];
         }
 
-        var view = new PickList({
-            id: 'pick_list_' + (viewsByNameCount++),
+        var view = new _PickList['default']({
+            id: 'pick_list_' + viewsByNameCount++,
             expose: false
         });
 
@@ -37,7 +34,7 @@ define('crm/Fields/PicklistField', [
         return App.getView(view.id);
     };
 
-    control = declare('crm.Fields.PicklistField', [LookupField], {
+    control = (0, _declare['default'])('crm.Fields.PicklistField', [_LookupField['default']], {
         picklist: false,
         storageMode: 'text',
         requireSelection: false,
@@ -45,7 +42,7 @@ define('crm/Fields/PicklistField', [
         valueTextProperty: false,
         iconClass: 'fa fa-ellipsis-h fa-lg',
 
-        constructor: function(options) {
+        constructor: function constructor(options) {
             switch (this.storageMode) {
                 case 'text':
                     this.keyProperty = 'text';
@@ -54,26 +51,22 @@ define('crm/Fields/PicklistField', [
                 case 'code':
                     this.keyProperty = 'code';
                     this.textProperty = 'text';
-                    this.requireSelection = typeof options.requireSelection !== 'undefined'
-                        ? options.requireSelection
-                        : true;
+                    this.requireSelection = typeof options.requireSelection !== 'undefined' ? options.requireSelection : true;
                     break;
                 case 'id':
                     this.keyProperty = '$key';
                     this.textProperty = 'text';
-                    this.requireSelection = typeof options.requireSelection !== 'undefined'
-                        ? options.requireSelection
-                        : true;
+                    this.requireSelection = typeof options.requireSelection !== 'undefined' ? options.requireSelection : true;
                     break;
             }
         },
-        isReadOnly: function() {
+        isReadOnly: function isReadOnly() {
             return !this.picklist;
         },
-        formatResourcePredicate: function(name) {
-            return string.substitute('name eq "${0}"', [name]);
+        formatResourcePredicate: function formatResourcePredicate(name) {
+            return _string['default'].substitute('name eq "${0}"', [name]);
         },
-        _handleSaleslogixMultiSelectPicklist: function(value) {
+        _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value) {
             var values, key, data;
             if (typeof value === 'string') {
                 return value;
@@ -93,7 +86,7 @@ define('crm/Fields/PicklistField', [
 
             return values.join(', ');
         },
-        textRenderer: function(value) {
+        textRenderer: function textRenderer(value) {
             var results;
 
             if (this.singleSelect) {
@@ -108,7 +101,7 @@ define('crm/Fields/PicklistField', [
 
             return results;
         },
-        formatValue: function(value) {
+        formatValue: function formatValue(value) {
             var results;
             if (this.singleSelect) {
                 results = this.inherited(arguments);
@@ -118,24 +111,17 @@ define('crm/Fields/PicklistField', [
 
             return results || value;
         },
-        createSelections: function() {
+        createSelections: function createSelections() {
             var value = this.getText(),
-                selections = (value)
-                    ? (value.indexOf(', ') !== -1)
-                        ? value.split(', ')
-                        : [value]
-                    : [];
+                selections = value ? value.indexOf(', ') !== -1 ? value.split(', ') : [value] : [];
             return selections;
         },
-        createNavigationOptions: function() {
+        createNavigationOptions: function createNavigationOptions() {
             var options = this.inherited(arguments);
 
             if (this.picklist) {
-                options.resourcePredicate = this.formatResourcePredicate(
-                    this.dependsOn // only pass dependentValue if there is a dependency
-                        ? this.expandExpression(this.picklist, options.dependentValue)
-                        : this.expandExpression(this.picklist)
-                );
+                options.resourcePredicate = this.formatResourcePredicate(this.dependsOn // only pass dependentValue if there is a dependency
+                ? this.expandExpression(this.picklist, options.dependentValue) : this.expandExpression(this.picklist));
                 options.singleSelect = this.singleSelect;
                 options.previousSelections = !this.singleSelect ? this.createSelections() : null;
                 options.keyProperty = this.keyProperty;
@@ -145,23 +131,23 @@ define('crm/Fields/PicklistField', [
             if (!this.singleSelect) {
                 options.tools = {
                     tbar: [{
-                            id: 'complete',
-                            cls: 'fa fa-check fa-fw fa-lg',
-                            fn: this.complete,
-                            scope: this
-                        }, {
-                            id: 'cancel',
-                            cls: 'fa fa-ban fa-fw fa-lg',
-                            side: 'left',
-                            fn: ReUI.back,
-                            scope: ReUI
-                        }]
+                        id: 'complete',
+                        cls: 'fa fa-check fa-fw fa-lg',
+                        fn: this.complete,
+                        scope: this
+                    }, {
+                        id: 'cancel',
+                        cls: 'fa fa-ban fa-fw fa-lg',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
                 };
             }
 
             return options;
         },
-        navigateToListView: function() {
+        navigateToListView: function navigateToListView() {
             if (this.isDisabled()) {
                 return;
             }
@@ -175,6 +161,6 @@ define('crm/Fields/PicklistField', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Fields.PickListField', control);
-    return FieldManager.register('picklist', control);
+    _lang['default'].setObject('Mobile.SalesLogix.Fields.PickListField', control);
+    module.exports = _FieldManager['default'].register('picklist', control);
 });

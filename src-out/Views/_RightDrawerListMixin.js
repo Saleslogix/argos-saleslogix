@@ -1,48 +1,42 @@
-/*
- * Copyright (c) 1997-2014, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/_RightDrawerListMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/json', 'dojo/dom-construct', 'dojo/dom-attr', 'dojo/dom-style', 'dojo/aspect', '../GroupUtility', './_RightDrawerBaseMixin', 'argos/Fields/LookupField'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoJson, _dojoDomConstruct, _dojoDomAttr, _dojoDomStyle, _dojoAspect, _GroupUtility, _RightDrawerBaseMixin2, _argosFieldsLookupField) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views._RightDrawerListMixin
- *
- * List mixin for right drawers.
- *
- * @since 3.0
- * @mixins crm.Views._RightDrawerBaseMixin
- *
- */
-define('crm/Views/_RightDrawerListMixin', [
-    'dojo/_base/declare',
-    'dojo/_base/array',
-    'dojo/_base/lang',
-    'dojo/json',
-    'dojo/dom-construct',
-    'dojo/dom-attr',
-    'dojo/dom-style',
-    'dojo/aspect',
-    '../GroupUtility',
-    './_RightDrawerBaseMixin',
-    'argos/Fields/LookupField'
-], function(
-    declare,
-    array,
-    lang,
-    json,
-    domConstruct,
-    domAttr,
-    domStyle,
-    aspect,
-    GroupUtility,
-    _RightDrawerBaseMixin,
-    LookupField
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var mixinName,
-        __class;
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _json = _interopRequireDefault(_dojoJson);
+
+    var _domConstruct = _interopRequireDefault(_dojoDomConstruct);
+
+    var _domAttr = _interopRequireDefault(_dojoDomAttr);
+
+    var _domStyle = _interopRequireDefault(_dojoDomStyle);
+
+    var _aspect = _interopRequireDefault(_dojoAspect);
+
+    var _GroupUtility2 = _interopRequireDefault(_GroupUtility);
+
+    var _RightDrawerBaseMixin3 = _interopRequireDefault(_RightDrawerBaseMixin2);
+
+    var _LookupField = _interopRequireDefault(_argosFieldsLookupField);
+
+    var mixinName, __class;
 
     mixinName = 'crm.Views._RightDrawerListMixin';
 
-    __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    /**
+    * @class crm.Views._RightDrawerListMixin
+    *
+    * List mixin for right drawers.
+    *
+    * @since 3.0
+    * @mixins crm.Views._RightDrawerBaseMixin
+    *
+    */
+    __class = (0, _declare['default'])('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin3['default']], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
@@ -51,20 +45,20 @@ define('crm/Views/_RightDrawerListMixin', [
         refreshGroupsText: 'Refresh',
         layoutsText: 'Layouts',
 
-        _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
+        _hasChangedKPIPrefs: false, // Dirty flag so we know when to reload the widgets
         groupList: null,
         DRAWER_PAGESIZE: 100,
         groupLookupId: 'groups_configure',
 
-        setupRightDrawer: function() {
+        setupRightDrawer: function setupRightDrawer() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.pageSize = this.DRAWER_PAGESIZE;
-                this.groupList = GroupUtility.getGroupPreferences(this.entityName);
+                this.groupList = _GroupUtility2['default'].getGroupPreferences(this.entityName);
                 this._finishSetup(drawer);
             }
         },
-        refreshRightDrawer: function() {
+        refreshRightDrawer: function refreshRightDrawer() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.clear();
@@ -73,32 +67,32 @@ define('crm/Views/_RightDrawerListMixin', [
                 drawer.refresh();
             }
         },
-        _finishSetup: function(drawer) {
-            lang.mixin(drawer, this._createActions());
+        _finishSetup: function _finishSetup(drawer) {
+            _lang['default'].mixin(drawer, this._createActions());
             drawer.setLayout(this.createRightDrawerLayout());
-            drawer.getGroupForEntry = function(entry) {
+            drawer.getGroupForEntry = (function (entry) {
                 return this.getGroupForRightDrawerEntry(entry);
-            }.bind(this);
+            }).bind(this);
 
             if (this.rebuildWidgets) {
-                App.snapper.on('close', function() {
+                App.snapper.on('close', (function () {
                     if (this._hasChangedKPIPrefs) {
                         this.destroyWidgets();
                         this.rebuildWidgets();
                         this._hasChangedKPIPrefs = false;
                     }
-                }.bind(this));
+                }).bind(this));
             }
         },
-        unloadRightDrawer: function() {
+        unloadRightDrawer: function unloadRightDrawer() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.setLayout([]);
-                drawer.getGroupForEntry = function() {};
+                drawer.getGroupForEntry = function () {};
                 App.snapper.off('close');
             }
         },
-        _onSearchExpression: function() {
+        _onSearchExpression: function _onSearchExpression() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
             if (this.groupsMode) {
                 this._clearGroupMode();
@@ -106,10 +100,10 @@ define('crm/Views/_RightDrawerListMixin', [
 
             this.inherited(arguments);
         },
-        _createActions: function() {
+        _createActions: function _createActions() {
             // These actions will get mixed into the right drawer view.
             var actions = {
-                hashTagClicked: function(params) {
+                hashTagClicked: (function (params) {
                     if (this.groupsMode) {
                         this._clearGroupMode();
                     }
@@ -119,14 +113,14 @@ define('crm/Views/_RightDrawerListMixin', [
                         this.search();
                         this.toggleRightDrawer();
                     }
-                }.bind(this),
-                kpiClicked: function(params) {
+                }).bind(this),
+                kpiClicked: (function (params) {
                     var results, enabled, metrics;
 
                     metrics = App.getMetricsByResourceKind(this.resourceKind);
 
                     if (metrics.length > 0) {
-                        results = array.filter(metrics, function(metric) {
+                        results = _array['default'].filter(metrics, function (metric) {
                             return metric.title === params.title;
                         });
                     }
@@ -137,21 +131,20 @@ define('crm/Views/_RightDrawerListMixin', [
                         App.persistPreferences();
                         this._hasChangedKPIPrefs = true;
 
-                        domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+                        _domAttr['default'].set(params.$source, 'data-enabled', (!enabled).toString());
                     }
-                }.bind(this),
-                groupConfigureClicked: function() {
+                }).bind(this),
+                groupConfigureClicked: (function () {
                     this._selectGroups();
                     this.toggleRightDrawer();
-                }.bind(this),
-                groupClicked: function(params) {
-                    var group,
-                        groupId;
+                }).bind(this),
+                groupClicked: (function (params) {
+                    var group, groupId;
 
                     this._startGroupMode();
                     groupId = params.$key;
 
-                    group = array.filter(this.groupList, function(item) {
+                    group = _array['default'].filter(this.groupList, function (item) {
                         return item.$key === groupId;
                     })[0];
 
@@ -161,20 +154,20 @@ define('crm/Views/_RightDrawerListMixin', [
                     this.setCurrentGroup(group);
                     this.refresh();
                     this.toggleRightDrawer();
-                }.bind(this),
-                layoutSelectedClicked: function(params) {
+                }).bind(this),
+                layoutSelectedClicked: (function (params) {
                     var name = params.name;
-                    GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
+                    _GroupUtility2['default'].setSelectedGroupLayoutTemplate(this.entityName, name);
                     this._groupInitalized = false;
                     this.refresh();
                     this.toggleRightDrawer();
-                }.bind(this)
+                }).bind(this)
 
             };
 
             return actions;
         },
-        _selectGroups: function() {
+        _selectGroups: function _selectGroups() {
             var field, handle, view;
             view = App.getView(this.groupLookupId);
             view.family = this.entityName;
@@ -182,16 +175,16 @@ define('crm/Views/_RightDrawerListMixin', [
             view.clear();
             view.refreshRequired = true;
 
-            field = new LookupField({
+            field = new _LookupField['default']({
                 owner: this,
                 view: view,
                 singleSelect: false,
-                previousSelections: array.map(this.groupList, function(group) {
+                previousSelections: _array['default'].map(this.groupList, function (group) {
                     return group.$key;
                 })
             });
 
-            handle = aspect.after(field, 'complete', function() {
+            handle = _aspect['default'].after(field, 'complete', (function () {
                 var self = this,
                     list = this.owner,
                     groupId,
@@ -213,8 +206,8 @@ define('crm/Views/_RightDrawerListMixin', [
                 }
 
                 hasDefaultGroup = list.hasDefaultGroup;
-                GroupUtility.addToGroupPreferences(items, list.entityName, true);
-                currentGroup = GroupUtility.getDefaultGroup(list.entityName);
+                _GroupUtility2['default'].addToGroupPreferences(items, list.entityName, true);
+                currentGroup = _GroupUtility2['default'].getDefaultGroup(list.entityName);
                 if (currentGroup) {
                     list.setCurrentGroup(currentGroup);
                 }
@@ -224,26 +217,25 @@ define('crm/Views/_RightDrawerListMixin', [
 
                 if (hasDefaultGroup) {
                     // We will transition back to the list, pop back open the right drawer so the user is back where they started
-                    transitionHandle = aspect.after(list, 'processData', function() {
+                    transitionHandle = _aspect['default'].after(list, 'processData', (function () {
                         this.toggleRightDrawer();
                         transitionHandle.remove();
-                    }.bind(list));
+                    }).bind(list));
                 } else {
                     // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
-                    transitionHandle = aspect.after(list, 'onTransitionTo', function() {
+                    transitionHandle = _aspect['default'].after(list, 'onTransitionTo', (function () {
                         this.refreshRequired = true;
                         this.clear();
                         this.refresh();
                         transitionHandle.remove();
-                    }.bind(list));
+                    }).bind(list));
                 }
-
-            }.bind(field));
+            }).bind(field));
 
             field.navigateToListView();
         },
-        getGroupForRightDrawerEntry: function(entry) {
-            var mixin = lang.getObject(mixinName);
+        getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
+            var mixin = _lang['default'].getObject(mixinName);
             if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags() && App.enableHashTags) {
                 return {
                     tag: 'view',
@@ -251,16 +243,16 @@ define('crm/Views/_RightDrawerListMixin', [
                 };
             }
 
-            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked' ) && this.groupsEnabled) {
+            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') && this.groupsEnabled) {
                 return {
                     tag: 'group',
                     title: mixin.prototype.groupsSectionText
                 };
             }
-            if ((entry.action === 'layoutSelectedClicked') && this.groupsEnabled) {
+            if (entry.action === 'layoutSelectedClicked' && this.groupsEnabled) {
                 return {
                     tag: 'layoutTemplates',
-                    title:  mixin.prototype.layoutsText
+                    title: mixin.prototype.layoutsText
                 };
             }
             return {
@@ -268,7 +260,7 @@ define('crm/Views/_RightDrawerListMixin', [
                 title: mixin.prototype.kpiSectionText
             };
         },
-        createRightDrawerLayout: function() {
+        createRightDrawerLayout: function createRightDrawerLayout() {
             var groupsSection,
                 layoutSection,
                 hashTagsSection,
@@ -278,7 +270,7 @@ define('crm/Views/_RightDrawerListMixin', [
                 metrics,
                 i,
                 len,
-                mixin = lang.getObject(mixinName);
+                mixin = _lang['default'].getObject(mixinName);
 
             layout = [];
 
@@ -297,7 +289,7 @@ define('crm/Views/_RightDrawerListMixin', [
                 });
 
                 if (this.groupList && this.groupList.length > 0) {
-                    array.forEach(this.groupList, function(group) {
+                    _array['default'].forEach(this.groupList, function (group) {
 
                         groupsSection.children.push({
                             'name': group.name,
@@ -315,7 +307,7 @@ define('crm/Views/_RightDrawerListMixin', [
                     children: []
                 };
                 if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
-                    array.forEach(this.groupTemplateLayouts, function(layout) {
+                    _array['default'].forEach(this.groupTemplateLayouts, function (layout) {
 
                         layoutSection.children.push({
                             'name': layout.name,
@@ -367,7 +359,7 @@ define('crm/Views/_RightDrawerListMixin', [
             };
 
             if (metrics.length > 0) {
-                array.forEach(metrics, function(metric, i) {
+                _array['default'].forEach(metrics, function (metric, i) {
                     if (metric.title) {
                         kpiSection.children.push({
                             'name': 'KPI' + i,
@@ -386,12 +378,11 @@ define('crm/Views/_RightDrawerListMixin', [
 
             return layout;
         },
-        _hasHashTags: function() {
+        _hasHashTags: function _hasHashTags() {
             return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
+    module.exports = __class;
 });
-
