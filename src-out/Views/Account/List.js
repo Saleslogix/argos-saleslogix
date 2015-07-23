@@ -1,4 +1,4 @@
-define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/string', '../../Action', 'argos/Format', 'argos/Utility', 'argos/Convert', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', '../_RightDrawerListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoString, _Action, _argosFormat, _argosUtility, _argosConvert, _argosList, _GroupListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _RightDrawerListMixin2) {
+define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/string', '../../Action', 'argos/Format', 'argos/Utility', 'argos/Convert', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', '../_RightDrawerListMixin', '../../OfflineManager'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoString, _Action, _argosFormat, _argosUtility, _argosConvert, _argosList, _GroupListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _RightDrawerListMixin2, _OfflineManager) {
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
     var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -26,6 +26,8 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
     var _CardLayoutListMixin3 = _interopRequireDefault(_CardLayoutListMixin2);
 
     var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
+
+    var _OfflineManager2 = _interopRequireDefault(_OfflineManager);
 
     /**
      * @class crm.Views.Account.List
@@ -67,6 +69,7 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
         addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
+        offlineText: 'Offline',
 
         //View Properties
         detailView: 'account_detail',
@@ -82,6 +85,16 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
+        offlineIds: null,
+        onTransitionTo: function onTransitionTo() {
+            _OfflineManager2['default'].getAllIds().then((function (results) {
+                this.offlineIds = results;
+            }).bind(this), function (err) {
+                console.error(err);
+            });
+
+            this.inherited(arguments);
+        },
         callMain: function callMain(params) {
             this.invokeActionItemBy(function (action) {
                 return action.id === 'callMain';
@@ -119,6 +132,26 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
                 label: this.addAttachmentActionText,
                 fn: _action['default'].addAttachment.bindDelegate(this)
             }]);
+        },
+        createIndicatorLayout: function createIndicatorLayout() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'alarm',
+                cls: 'fa fa-star fa-lg',
+                label: this.offlineText,
+                onApply: function onApply(entry, parent) {
+                    this.isEnabled = parent.isOffline(entry);
+                }
+            }]);
+        },
+        isOffline: function isOffline(entry) {
+            // TODO: There could be a timing issue here, this.offlineIds is populated asynchronously on transition to.
+            if (this.offlineIds) {
+                return _array['default'].some(this.offlineIds, (function (row) {
+                    return row.id === entry[this.idProperty];
+                }).bind(this));
+            }
+
+            return false;
         },
         formatSearchQuery: function formatSearchQuery(searchQuery) {
             return _string['default'].substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

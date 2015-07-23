@@ -138,7 +138,7 @@ define('crm/Views/_GroupListMixin', ['exports', 'module', 'dojo/_base/declare', 
             }
         },
         getDefaultGroup: function getDefaultGroup() {
-            var defaultGroup = null,
+            var defaultGroup,
                 defaultGroupName = null;
 
             defaultGroup = _GroupUtility2['default'].getDefaultGroup(this.entityName);
@@ -188,7 +188,7 @@ define('crm/Views/_GroupListMixin', ['exports', 'module', 'dojo/_base/declare', 
             this._clearResolvedEntryCache();
         },
         _onApplyGroup: function _onApplyGroup(group) {
-            var title;
+            var template, title;
 
             if (!group) {
                 throw new Error('Group not found.');

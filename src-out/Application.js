@@ -47,6 +47,7 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
         multiCurrency: false,
         enableGroups: true,
         enableHashTags: true,
+        enableOfflineSupport: true,
         speedSearch: {
             includeStemming: true,
             includePhonic: true,

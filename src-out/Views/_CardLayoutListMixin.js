@@ -28,15 +28,15 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
     mixinName = 'crm.Views._CardLayoutListMixin';
 
     /**
-    * @class crm.Views._CardLayoutListMixin
-    *
-    * Mixin for card list layouts.
-    *
-    * @since 3.0
-    *
-    * @requires argos.Convert
-    *
-    */
+     * @class crm.Views._CardLayoutListMixin
+     *
+     * Mixin for card list layouts.
+     *
+     * @since 3.0
+     *
+     * @requires argos.Convert
+     *
+     */
     __class = (0, _declare['default'])('crm.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText: 'Contact',
@@ -90,6 +90,7 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
             return this.itemIconAltText;
         },
         createIndicators: function createIndicators(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
+            // TODO: Handle either createIndicators or onApply async
             var indicatorTemplate,
                 options,
                 indicatorHTML,

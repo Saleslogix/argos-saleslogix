@@ -1,4 +1,4 @@
-define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', 'dojo/string', 'dojo/_base/lang', '../../Format', '../../Template', 'argos/Detail'], function (exports, module, _dojo_baseDeclare, _dojoString, _dojo_baseLang, _Format, _Template, _argosDetail) {
+define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', 'dojo/string', 'dojo/_base/lang', '../../Format', '../../Template', 'argos/Detail', '../../OfflineManager', '../../Models/Account'], function (exports, module, _dojo_baseDeclare, _dojoString, _dojo_baseLang, _Format, _Template, _argosDetail, _OfflineManager, _ModelsAccount) {
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
     var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -12,6 +12,10 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
     var _template = _interopRequireDefault(_Template);
 
     var _Detail = _interopRequireDefault(_argosDetail);
+
+    var _OfflineManager2 = _interopRequireDefault(_OfflineManager);
+
+    var _AccountModel = _interopRequireDefault(_ModelsAccount);
 
     /**
      * @class crm.Views.Account.Detail
@@ -67,9 +71,12 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
         editView: 'account_edit',
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
-        security: 'Entities/Account/View',
-        querySelect: ['AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'BusinessDescription', 'CreateDate', 'CreateUser', 'Description', 'Fax', 'GlobalSyncID', 'ImportSource', 'Industry', 'LeadSource/Description', 'MainPhone', 'Notes', 'Owner/OwnerDescription', 'Status', 'SubType', 'Type', 'WebAddress'],
-        resourceKind: 'accounts',
+
+        getModel: function getModel() {
+            var model = new _AccountModel['default']();
+            this.setSDataModelProperties(model);
+            return model;
+        },
 
         navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
             var view = App.getView(this.historyEditView);
@@ -116,6 +123,23 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
                     insert: true
                 });
             }
+        },
+        onContentChange: function onContentChange() {
+            this.saveOffline();
+        },
+        saveOffline: function saveOffline() {
+            _OfflineManager2['default'].saveOffline(this).then((function success() {
+                console.log('Entry saved');
+            }).bind(this), function err(error) {
+                console.error(error);
+            });
+        },
+        removeOffline: function removeOffline() {
+            _OfflineManager2['default'].removeOffline(this).then((function success() {
+                alert('You are no longer following ' + this.entry.AccountName);
+            }).bind(this), function err(error) {
+                console.error(error);
+            });
         },
         createLayout: function createLayout() {
             return this.layout || (this.layout = [{

@@ -149,21 +149,6 @@ var __class = declare('crm.Views.Account.Detail', [Detail], {
                 label: this.addNoteText,
                 iconClass: 'fa fa-edit fa-lg',
                 action: 'addNote'
-            }, {
-                name: 'SaveOffline',
-                label: 'Follow',
-                action: 'saveOffline',
-                renderer: function(entry) {
-                    return 'Follow ' + (entry && entry.AccountName);
-                },
-                enabled: App.enableOfflineSupport === true
-            }, {
-                name: 'RemoveOffline',
-                label: 'Stop Following',
-                action: 'removeOffline',
-                renderer: function(entry) {
-                    return 'Stop following ' + (entry && entry.AccountName);
-                }
             }]
         }, {
             title: this.detailsText,
