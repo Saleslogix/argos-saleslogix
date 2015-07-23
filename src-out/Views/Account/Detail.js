@@ -1,34 +1,29 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', 'dojo/string', 'dojo/_base/lang', '../../Format', '../../Template', 'argos/Detail'], function (exports, module, _dojo_baseDeclare, _dojoString, _dojo_baseLang, _Format, _Template, _argosDetail) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.Account.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- * @requires crm.Template
- *
- */
-define('crm/Views/Account/Detail', [
-    'dojo/_base/declare',
-    'dojo/string',
-    'dojo/_base/lang',
-    '../../Format',
-    '../../Template',
-    'argos/Detail'
-], function(
-    declare,
-    string,
-    lang,
-    format,
-    template,
-    Detail
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.Account.Detail', [Detail], {
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _format = _interopRequireDefault(_Format);
+
+    var _template = _interopRequireDefault(_Template);
+
+    var _Detail = _interopRequireDefault(_argosDetail);
+
+    /**
+     * @class crm.Views.Account.Detail
+     *
+     *
+     * @extends argos.Detail
+     * @requires argos.Detail
+     * @requires crm.Format
+     * @requires crm.Template
+     *
+     */
+    var __class = (0, _declare['default'])('crm.Views.Account.Detail', [_Detail['default']], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -73,68 +68,47 @@ define('crm/Views/Account/Detail', [
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
         security: 'Entities/Account/View',
-        querySelect: [
-            'AccountManager/UserInfo/FirstName',
-            'AccountManager/UserInfo/LastName',
-            'AccountName',
-            'Address/*',
-            'BusinessDescription',
-            'CreateDate',
-            'CreateUser',
-            'Description',
-            'Fax',
-            'GlobalSyncID',
-            'ImportSource',
-            'Industry',
-            'LeadSource/Description',
-            'MainPhone',
-            'Notes',
-            'Owner/OwnerDescription',
-            'Status',
-            'SubType',
-            'Type',
-            'WebAddress'
-        ],
+        querySelect: ['AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'BusinessDescription', 'CreateDate', 'CreateUser', 'Description', 'Fax', 'GlobalSyncID', 'ImportSource', 'Industry', 'LeadSource/Description', 'MainPhone', 'Notes', 'Owner/OwnerDescription', 'Status', 'SubType', 'Type', 'WebAddress'],
         resourceKind: 'accounts',
 
-        navigateToHistoryInsert: function(type, entry, complete) {
+        navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
                 this.refreshRequired = true;
 
                 view.show({
-                        title: this.activityTypeText[type],
-                        template: {},
-                        entry: entry,
-                        insert: true
-                    }, {
-                        complete: complete
-                    });
+                    title: this.activityTypeText[type],
+                    template: {},
+                    entry: entry,
+                    insert: true
+                }, {
+                    complete: complete
+                });
             }
         },
-        recordCallToHistory: function(complete) {
+        recordCallToHistory: function recordCallToHistory(complete) {
             var entry = {
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
-                'Description': string.substitute(this.calledText, [this.entry['AccountName']]),
+                'Description': _string['default'].substitute(this.calledText, [this.entry['AccountName']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
-                'CompletedDate': (new Date())
+                'CompletedDate': new Date()
             };
 
             this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
-        callMainPhone: function() {
-            this.recordCallToHistory(lang.hitch(this, function() {
+        callMainPhone: function callMainPhone() {
+            this.recordCallToHistory(_lang['default'].hitch(this, function () {
                 App.initiateCall(this.entry['MainPhone']);
             }));
         },
-        scheduleActivity: function() {
+        scheduleActivity: function scheduleActivity() {
             App.navigateToActivityInsertView();
         },
-        addNote: function() {
+        addNote: function addNote() {
             var view = App.getView(this.noteEditView);
             if (view) {
                 view.show({
@@ -143,7 +117,7 @@ define('crm/Views/Account/Detail', [
                 });
             }
         },
-        createLayout: function() {
+        createLayout: function createLayout() {
             return this.layout || (this.layout = [{
                 title: this.actionsText,
                 list: true,
@@ -173,7 +147,7 @@ define('crm/Views/Account/Detail', [
                     name: 'MainPhone',
                     property: 'MainPhone',
                     label: this.phoneText,
-                    renderer: format.phone.bindDelegate(this, false),
+                    renderer: _format['default'].phone.bindDelegate(this, false),
                     action: 'callMainPhone'
                 }, {
                     name: 'Status',
@@ -183,7 +157,7 @@ define('crm/Views/Account/Detail', [
                     name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
-                    tpl: template.nameLF
+                    tpl: _template['default'].nameLF
                 }]
             }, {
                 title: this.moreDetailsText,
@@ -193,17 +167,17 @@ define('crm/Views/Account/Detail', [
                     name: 'WebAddress',
                     property: 'WebAddress',
                     label: this.webText,
-                    renderer: format.link
+                    renderer: _format['default'].link
                 }, {
                     name: 'Address',
                     property: 'Address',
                     label: this.addressText,
-                    renderer: format.address.bindDelegate(this, false)
+                    renderer: _format['default'].address.bindDelegate(this, false)
                 }, {
                     name: 'Fax',
                     property: 'Fax',
                     label: this.faxText,
-                    renderer: format.phone.bindDelegate(this, true)
+                    renderer: _format['default'].phone.bindDelegate(this, true)
                 }, {
                     name: 'Type',
                     property: 'Type',
@@ -276,7 +250,6 @@ define('crm/Views/Account/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Account.Detail', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Account.Detail', __class);
+    module.exports = __class;
 });
-

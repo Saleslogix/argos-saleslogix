@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     grunt.loadTasks('grunt-tasks');
 
     // Register alias tasks
-    grunt.registerTask('test', ['connect', 'jasmine:coverage']);
+    grunt.registerTask('test', ['babel', 'connect', 'jasmine:coverage']);
     grunt.registerTask('server', ['connect:server:keepalive']);
     grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
     grunt.registerTask('default', ['test']);

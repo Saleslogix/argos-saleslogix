@@ -1,43 +1,35 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/ErrorLog/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/store/Memory', 'crm/Format', 'argos/Convert', 'argos/ErrorManager', 'argos/List'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoStoreMemory, _crmFormat, _argosConvert, _argosErrorManager, _argosList) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.ErrorLog.List
- *
- * @extends argos.List
- *
- * @requires crm.Format
- * @requires argos.ErrorManager
- */
-define('crm/Views/ErrorLog/List', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/store/Memory',
-    'crm/Format',
-    'argos/Convert',
-    'argos/ErrorManager',
-    'argos/List'
-], function(
-    declare,
-    lang,
-    Memory,
-    format,
-    convert,
-    ErrorManager,
-    List
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.ErrorLog.List', [List], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _Memory = _interopRequireDefault(_dojoStoreMemory);
+
+    var _format = _interopRequireDefault(_crmFormat);
+
+    var _convert = _interopRequireDefault(_argosConvert);
+
+    var _ErrorManager = _interopRequireDefault(_argosErrorManager);
+
+    var _List = _interopRequireDefault(_argosList);
+
+    /**
+     * @class crm.Views.ErrorLog.List
+     *
+     * @extends argos.List
+     *
+     * @requires crm.Format
+     * @requires argos.ErrorManager
+     */
+    var __class = (0, _declare['default'])('crm.Views.ErrorLog.List', [_List['default']], {
         //Localization
         titleText: 'Error Logs',
         errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
         //Templates
-        itemTemplate: new Simplate([
-            '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
-            '<h4>{%: $.Description %}</h4>'
-        ]),
+        itemTemplate: new Simplate(['<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>', '<h4>{%: $.Description %}</h4>']),
 
         //View Properties
         id: 'errorlog_list',
@@ -47,36 +39,35 @@ define('crm/Views/ErrorLog/List', [
         expose: false,
         detailView: 'errorlog_detail',
 
-        _onRefresh: function(o) {
+        _onRefresh: function _onRefresh(o) {
             this.inherited(arguments);
             if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
                 this.refreshRequired = true;
             }
         },
-        createStore: function() {
-            var errorItems = ErrorManager.getAllErrors();
+        createStore: function createStore() {
+            var errorItems = _ErrorManager['default'].getAllErrors();
 
-            errorItems.sort(function(a, b) {
+            errorItems.sort(function (a, b) {
                 a.errorDateStamp = a.errorDateStamp || a['Date'];
                 b.errorDateStamp = b.errorDateStamp || b['Date'];
                 a['Date'] = a.errorDateStamp;
                 b['Date'] = b.errorDateStamp;
-                var A = convert.toDateFromString(a.errorDateStamp),
-                    B = convert.toDateFromString(b.errorDateStamp);
+                var A = _convert['default'].toDateFromString(a.errorDateStamp),
+                    B = _convert['default'].toDateFromString(b.errorDateStamp);
 
                 return A.valueOf() > B.valueOf();
             });
 
-            return new Memory({data: errorItems});
+            return new _Memory['default']({ data: errorItems });
         },
-        createToolLayout: function() {
+        createToolLayout: function createToolLayout() {
             return this.tools || (this.tools = {
                 'tbar': []
             });
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
+    module.exports = __class;
 });
-

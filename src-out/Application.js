@@ -1,51 +1,46 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/connect', 'dojo/json', 'dojo/_base/lang', 'dojo/has', 'dojo/string', 'dojo/Deferred', './DefaultMetrics', 'argos/ErrorManager', './Environment', 'argos/Application', 'dojo/sniff', 'moment'], function (exports, module, _dojo_baseWindow, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseConnect, _dojoJson, _dojo_baseLang, _dojoHas, _dojoString, _dojoDeferred, _DefaultMetrics, _argosErrorManager, _Environment, _argosApplication, _dojoSniff, _moment) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Application
- *
- * @extends argos.Application
- * @requires argos.ErrorManager
- * @requires crm.Environment
- * @requires moment
- *
- */
-define('crm/Application', [
-    'dojo/_base/window',
-    'dojo/_base/declare',
-    'dojo/_base/array',
-    'dojo/_base/connect',
-    'dojo/json',
-    'dojo/_base/lang',
-    'dojo/has',
-    'dojo/string',
-    'dojo/Deferred',
-    './DefaultMetrics',
-    'argos/ErrorManager',
-    './Environment',
-    'argos/Application',
-    'dojo/sniff',
-    'moment'
-], function(
-    win,
-    declare,
-    array,
-    connect,
-    json,
-    lang,
-    has,
-    string,
-    Deferred,
-    DefaultMetrics,
-    ErrorManager,
-    environment,
-    Application,
-    sniff,
-    moment
-) {
+    var _win = _interopRequireDefault(_dojo_baseWindow);
 
-    var __class = declare('crm.Application', [Application], {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _connect = _interopRequireDefault(_dojo_baseConnect);
+
+    var _json = _interopRequireDefault(_dojoJson);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _has = _interopRequireDefault(_dojoHas);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _Deferred = _interopRequireDefault(_dojoDeferred);
+
+    var _DefaultMetrics2 = _interopRequireDefault(_DefaultMetrics);
+
+    var _ErrorManager = _interopRequireDefault(_argosErrorManager);
+
+    var _environment = _interopRequireDefault(_Environment);
+
+    var _Application = _interopRequireDefault(_argosApplication);
+
+    var _sniff = _interopRequireDefault(_dojoSniff);
+
+    var _moment2 = _interopRequireDefault(_moment);
+
+    /**
+     * @class crm.Application
+     *
+     * @extends argos.Application
+     * @requires argos.ErrorManager
+     * @requires crm.Environment
+     * @requires moment
+     *
+     */
+    var __class = (0, _declare['default'])('crm.Application', [_Application['default']], {
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -61,35 +56,8 @@ define('crm/Application', [
         },
         enableCaching: true,
         userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
-        userOptionsToRequest: [
-            'DefaultGroup;ACCOUNT',
-            'DefaultGroup;CONTACT',
-            'DefaultGroup;OPPORTUNITY',
-            'DefaultGroup;LEAD',
-            'DefaultGroup;TICKET',
-            'General;InsertSecCodeID',
-            'General;Currency',
-            'Calendar;DayStartTime',
-            'Calendar;WeekStart',
-            'ActivityMeetingOptions;AlarmEnabled',
-            'ActivityMeetingOptions;AlarmLead',
-            'ActivityMeetingOptions;Duration',
-            'ActivityPhoneOptions;AlarmEnabled',
-            'ActivityPhoneOptions;AlarmLead',
-            'ActivityPhoneOptions;Duration',
-            'ActivityToDoOptions;AlarmEnabled',
-            'ActivityToDoOptions;AlarmLead',
-            'ActivityToDoOptions;Duration',
-            'ActivityPersonalOptions;AlarmEnabled',
-            'ActivityPersonalOptions;AlarmLead',
-            'ActivityPersonalOptions;Duration'
-        ],
-        systemOptionsToRequest: [
-            'BaseCurrency',
-            'MultiCurrency',
-            'ChangeOpportunityRate',
-            'LockOpportunityRate'
-        ],
+        userOptionsToRequest: ['DefaultGroup;ACCOUNT', 'DefaultGroup;CONTACT', 'DefaultGroup;OPPORTUNITY', 'DefaultGroup;LEAD', 'DefaultGroup;TICKET', 'General;InsertSecCodeID', 'General;Currency', 'Calendar;DayStartTime', 'Calendar;WeekStart', 'ActivityMeetingOptions;AlarmEnabled', 'ActivityMeetingOptions;AlarmLead', 'ActivityMeetingOptions;Duration', 'ActivityPhoneOptions;AlarmEnabled', 'ActivityPhoneOptions;AlarmLead', 'ActivityPhoneOptions;Duration', 'ActivityToDoOptions;AlarmEnabled', 'ActivityToDoOptions;AlarmLead', 'ActivityToDoOptions;Duration', 'ActivityPersonalOptions;AlarmEnabled', 'ActivityPersonalOptions;AlarmLead', 'ActivityPersonalOptions;Duration'],
+        systemOptionsToRequest: ['BaseCurrency', 'MultiCurrency', 'ChangeOpportunityRate', 'LockOpportunityRate'],
         appName: 'argos-saleslogix',
         serverVersion: {
             'major': 8,
@@ -109,10 +77,10 @@ define('crm/Application', [
         logOffViewId: 'logoff',
 
         UID: null,
-        init: function() {
+        init: function init() {
             var original,
                 self = this;
-            if (has('ie') && has('ie') < 9) {
+            if ((0, _has['default'])('ie') && (0, _has['default'])('ie') < 9) {
                 window.location.href = 'unsupported.html';
             }
 
@@ -120,30 +88,34 @@ define('crm/Application', [
             this._loadNavigationState();
             this._saveDefaultPreferences();
 
-            this.UID = (new Date()).getTime();
+            this.UID = new Date().getTime();
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
-            Sage.SData.Client.SDataService.prototype.executeRequest = function(request) {
+            Sage.SData.Client.SDataService.prototype.executeRequest = function (request) {
                 request.setRequestHeader('X-Application-Name', self.appName);
-                request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: self.mobileVersion, id: self.UID }));
+                request.setRequestHeader('X-Application-Version', _string['default'].substitute('${version.major}.${version.minor}.${version.revision};${id}', { version: self.mobileVersion, id: self.UID }));
                 return original.apply(this, arguments);
             };
         },
-        initConnects: function() {
+        initConnects: function initConnects() {
             this.inherited(arguments);
 
             if (window.applicationCache) {
-                this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
+                this._connects.push(_connect['default'].connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
             }
         },
-        isOnFirstView: function() {
-            var history, isOnFirstView = false, length, current, previous;
+        isOnFirstView: function isOnFirstView() {
+            var history,
+                isOnFirstView = false,
+                length,
+                current,
+                previous;
             history = ReUI.context.history;
             length = history.length;
             current = history[length - 1];
             previous = history[length - 2];
 
-            if ((current && current.page === this.loginViewId) || (current && current.page === this.logOffViewId)) {
+            if (current && current.page === this.loginViewId || current && current.page === this.logOffViewId) {
                 isOnFirstView = true;
             } else if (previous && previous.page === this.loginViewId) {
                 isOnFirstView = true;
@@ -153,24 +125,24 @@ define('crm/Application', [
 
             return isOnFirstView;
         },
-        onSetOrientation: function() {
+        onSetOrientation: function onSetOrientation() {
             if (App.snapper) {
                 App.snapper.close();
             }
         },
-        _viewTransitionTo: function() {
+        _viewTransitionTo: function _viewTransitionTo() {
             this.inherited(arguments);
             this._checkSaveNavigationState();
             if (App.snapper) {
                 App.snapper.close();
             }
         },
-        _checkSaveNavigationState: function() {
+        _checkSaveNavigationState: function _checkSaveNavigationState() {
             if (this.rememberNavigationState !== false) {
                 this._saveNavigationState();
             }
         },
-        _checkForUpdate: function() {
+        _checkForUpdate: function _checkForUpdate() {
             var applicationCache = window.applicationCache;
             if (applicationCache && this.enableUpdateNotification) {
                 if (applicationCache.status === applicationCache.UPDATEREADY) {
@@ -178,20 +150,19 @@ define('crm/Application', [
                 }
             }
         },
-        _notifyUpdateAvailable: function() {
+        _notifyUpdateAvailable: function _notifyUpdateAvailable() {
             if (this.bars['updatebar']) {
                 this.bars['updatebar'].show();
             }
         },
-        _saveNavigationState: function() {
+        _saveNavigationState: function _saveNavigationState() {
             try {
                 if (window.localStorage) {
-                    window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
+                    window.localStorage.setItem('navigationState', _json['default'].stringify(ReUI.context.history));
                 }
-            } catch(e) {
-            }
+            } catch (e) {}
         },
-        hasMultiCurrency: function() {
+        hasMultiCurrency: function hasMultiCurrency() {
             // Check if the configuration specified multiCurrency, this will override the dynamic check.
             // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
             // instead of on startup. We cannot check App.context data that was loaded after login when the startup method is used.
@@ -207,61 +178,56 @@ define('crm/Application', [
 
             return false;
         },
-        canLockOpportunityRate: function() {
-            if (this.context &&
-                this.context['systemOptions'] &&
-                this.context['systemOptions']['LockOpportunityRate'] === 'True') {
+        canLockOpportunityRate: function canLockOpportunityRate() {
+            if (this.context && this.context['systemOptions'] && this.context['systemOptions']['LockOpportunityRate'] === 'True') {
                 return true;
             }
 
             return false;
         },
-        canChangeOpportunityRate: function() {
-            if (this.context &&
-                this.context['systemOptions'] &&
-                this.context['systemOptions']['ChangeOpportunityRate'] === 'True') {
+        canChangeOpportunityRate: function canChangeOpportunityRate() {
+            if (this.context && this.context['systemOptions'] && this.context['systemOptions']['ChangeOpportunityRate'] === 'True') {
                 return true;
             }
 
             return false;
         },
-        getMyExchangeRate: function() {
-            var myCode, myRate, results = {code: '', rate: 1};
+        getMyExchangeRate: function getMyExchangeRate() {
+            var myCode,
+                myRate,
+                results = { code: '', rate: 1 };
 
-            if (this.hasMultiCurrency() &&
-                this.context &&
-                this.context['exchangeRates'] &&
-                this.context['userOptions'] &&
-                this.context['userOptions']['General:Currency']) {
+            if (this.hasMultiCurrency() && this.context && this.context['exchangeRates'] && this.context['userOptions'] && this.context['userOptions']['General:Currency']) {
 
                 myCode = this.context['userOptions']['General:Currency'];
                 myRate = this.context['exchangeRates'][myCode];
-                lang.mixin(results, {code: myCode, rate: myRate});
+                _lang['default'].mixin(results, { code: myCode, rate: myRate });
             }
 
             return results;
         },
-        getBaseExchangeRate: function() {
-            var baseCode, baseRate, results = {code: '', rate: 1};
+        getBaseExchangeRate: function getBaseExchangeRate() {
+            var baseCode,
+                baseRate,
+                results = { code: '', rate: 1 };
 
-            if (this.hasMultiCurrency() &&
-                this.context &&
-                this.context['exchangeRates'] &&
-                this.context['systemOptions'] &&
-                this.context['systemOptions']['BaseCurrency']) {
+            if (this.hasMultiCurrency() && this.context && this.context['exchangeRates'] && this.context['systemOptions'] && this.context['systemOptions']['BaseCurrency']) {
 
                 baseCode = this.context['systemOptions']['BaseCurrency'];
                 baseRate = this.context['exchangeRates'][baseCode];
-                lang.mixin(results, {code: baseCode, rate: baseRate});
+                _lang['default'].mixin(results, { code: baseCode, rate: baseRate });
             }
 
             return results;
         },
-        getCurrentOpportunityExchangeRate: function() {
-            var rate, found, results = {code: '', rate: 1}, code;
+        getCurrentOpportunityExchangeRate: function getCurrentOpportunityExchangeRate() {
+            var rate,
+                found,
+                results = { code: '', rate: 1 },
+                code;
 
-            found = this.queryNavigationContext(function(o) {
-                return (/^(opportunities)$/).test(o.resourceKind) && o.key;
+            found = this.queryNavigationContext(function (o) {
+                return /^(opportunities)$/.test(o.resourceKind) && o.key;
             });
 
             found = found && found.options;
@@ -269,12 +235,12 @@ define('crm/Application', [
             if (found) {
                 rate = found.ExchangeRate;
                 code = found.ExchangeRateCode;
-                lang.mixin(results, {code: code, rate: rate});
+                _lang['default'].mixin(results, { code: code, rate: rate });
             }
 
             return results;
         },
-        run: function() {
+        run: function run() {
             this.inherited(arguments);
 
             if (App.isOnline() || !App.enableCaching) {
@@ -287,11 +253,10 @@ define('crm/Application', [
             if (this.enableUpdateNotification) {
                 this._checkForUpdate();
             }
-
         },
-        onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
+        onAuthenticateUserSuccess: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
             var user = {
-                '$key': lang.trim(result['response']['userId']),
+                '$key': _lang['default'].trim(result['response']['userId']),
                 '$descriptor': result['response']['prettyName'],
                 'UserName': result['response']['userName']
             };
@@ -301,9 +266,9 @@ define('crm/Application', [
             this.context['securedActions'] = result['response']['securedActions'];
 
             if (this.context['securedActions']) {
-                array.forEach(this.context['securedActions'], function(item) {
+                _array['default'].forEach(this.context['securedActions'], function (item) {
                     this[item] = true;
-                }, (this.context['userSecurity'] = {}));
+                }, this.context['userSecurity'] = {});
             } else {
                 // downgrade server version as only 8.0 has `securedActions` as part of the
                 // `getCurrentUser` response.
@@ -317,50 +282,42 @@ define('crm/Application', [
             if (credentials.remember) {
                 try {
                     if (window.localStorage) {
-                        window.localStorage.setItem('credentials', Base64.encode(json.stringify({
+                        window.localStorage.setItem('credentials', Base64.encode(_json['default'].stringify({
                             username: credentials.username,
                             password: credentials.password || ''
                         })));
                     }
-                } catch(e) {
-                }
+                } catch (e) {}
             }
 
             if (callback) {
-                callback.call(scope || this, {user: user});
+                callback.call(scope || this, { user: user });
             }
         },
-        onAuthenticateUserFailure: function(callback, scope, response) {
+        onAuthenticateUserFailure: function onAuthenticateUserFailure(callback, scope, response) {
             var service = this.getService();
             if (service) {
-                service
-                    .setUserName(false)
-                    .setPassword(false);
+                service.setUserName(false).setPassword(false);
             }
 
             if (callback) {
-                callback.call(scope || this, {response: response});
+                callback.call(scope || this, { response: response });
             }
         },
-        authenticateUser: function(credentials, options) {
-            var service,
-                request;
+        authenticateUser: function authenticateUser(credentials, options) {
+            var service, request;
 
-            service = this.getService()
-                .setUserName(credentials.username)
-                .setPassword(credentials.password || '');
+            service = this.getService().setUserName(credentials.username).setPassword(credentials.password || '');
 
-            request = new Sage.SData.Client.SDataServiceOperationRequest(service)
-                .setContractName('system')
-                .setOperationName('getCurrentUser');
+            request = new Sage.SData.Client.SDataServiceOperationRequest(service).setContractName('system').setOperationName('getCurrentUser');
 
             request.execute({}, {
-                success: lang.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
-                failure: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
-                aborted: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
+                success: _lang['default'].hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
+                failure: _lang['default'].hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
+                aborted: _lang['default'].hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
         },
-        hasAccessTo: function(security) {
+        hasAccessTo: function hasAccessTo(security) {
             if (!security) {
                 return true;
             }
@@ -379,21 +336,19 @@ define('crm/Application', [
 
             return !!userSecurity[security];
         },
-        reload: function() {
+        reload: function reload() {
             ReUI.disableLocationCheck();
             this.hash('');
             window.location.reload();
         },
-        logOut: function() {
+        logOut: function logOut() {
             this.removeCredentials();
             this._clearNavigationState();
 
             var service = this.getService(),
                 view;
             if (service) {
-                service
-                    .setUserName(false)
-                    .setPassword(false);
+                service.setUserName(false).setPassword(false);
             }
 
             view = this.getView(this.logOffViewId);
@@ -402,28 +357,26 @@ define('crm/Application', [
                 view.show();
             }
         },
-        getCredentials: function() {
+        getCredentials: function getCredentials() {
             var stored, encoded, credentials;
             try {
                 if (window.localStorage) {
                     stored = window.localStorage.getItem('credentials');
                     encoded = stored && Base64.decode(stored);
-                    credentials = encoded && json.parse(encoded);
+                    credentials = encoded && _json['default'].parse(encoded);
                 }
-            } catch(e) {
-            }
+            } catch (e) {}
 
             return credentials;
         },
-        removeCredentials: function() {
+        removeCredentials: function removeCredentials() {
             try {
                 if (window.localStorage) {
                     window.localStorage.removeItem('credentials');
                 }
-            } catch(e) {
-            }
+            } catch (e) {}
         },
-        handleAuthentication: function() {
+        handleAuthentication: function handleAuthentication() {
             var credentials;
 
             credentials = this.getCredentials();
@@ -431,18 +384,17 @@ define('crm/Application', [
             if (credentials) {
                 this.setPrimaryTitle(this.authText);
                 this.authenticateUser(credentials, {
-                    success: function() {
+                    success: function success() {
                         this.setPrimaryTitle(this.loadingText);
-                        this.initAppState().then(function() {
+                        this.initAppState().then((function () {
                             this.navigateToInitialView();
-                        }.bind(this));
-
+                        }).bind(this));
                     },
-                    failure: function() {
+                    failure: function failure() {
                         this.navigateToLoginView();
                         this.removeCredentials();
                     },
-                    aborted: function() {
+                    aborted: function aborted() {
                         this.navigateToLoginView();
                     },
                     scope: this
@@ -451,25 +403,23 @@ define('crm/Application', [
                 this.navigateToLoginView();
             }
         },
-        _clearNavigationState: function() {
+        _clearNavigationState: function _clearNavigationState() {
             try {
                 this.initialNavigationState = null;
 
                 if (window.localStorage) {
                     window.localStorage.removeItem('navigationState');
                 }
-            } catch(e) {
-            }
+            } catch (e) {}
         },
-        _loadNavigationState: function() {
+        _loadNavigationState: function _loadNavigationState() {
             try {
                 if (window.localStorage) {
                     this.navigationState = window.localStorage.getItem('navigationState');
                 }
-            } catch(e) {
-            }
+            } catch (e) {}
         },
-        _saveDefaultPreferences: function() {
+        _saveDefaultPreferences: function _saveDefaultPreferences() {
             if (this.preferences) {
                 return;
             }
@@ -485,14 +435,14 @@ define('crm/Application', [
                 }
             };
         },
-        getMetricsByResourceKind: function(resourceKind) {
+        getMetricsByResourceKind: function getMetricsByResourceKind(resourceKind) {
             var prefs,
                 results = [];
 
             prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
 
             if (prefs) {
-                prefs = array.filter(prefs, function(item) {
+                prefs = _array['default'].filter(prefs, function (item) {
                     return item.resourceKind === resourceKind;
                 });
 
@@ -503,32 +453,29 @@ define('crm/Application', [
 
             return results;
         },
-        setDefaultMetricPreferences: function() {
+        setDefaultMetricPreferences: function setDefaultMetricPreferences() {
             var defaults;
             if (!this.preferences.metrics) {
-                defaults = new DefaultMetrics();
+                defaults = new _DefaultMetrics2['default']();
                 this.preferences.metrics = defaults.getDefinitions();
                 this.persistPreferences();
             }
         },
-        requestUserDetails: function() {
+        requestUserDetails: function requestUserDetails() {
             var request, def;
 
-            request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('users')
-                .setResourceSelector(string.substitute('"${0}"', [this.context['user']['$key']]))
-                .setQueryArg('select', this.userDetailsQuerySelect.join(','));
+            request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('users').setResourceSelector(_string['default'].substitute('"${0}"', [this.context['user']['$key']])).setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
-            def = new Deferred();
+            def = new _Deferred['default']();
 
             request.read({
-                success: function(entry) {
+                success: function success(entry) {
                     this.context['user'] = entry;
                     this.context['defaultOwner'] = entry && entry['DefaultOwner'];
                     this.setDefaultMetricPreferences();
                     def.resolve(entry);
                 },
-                failure: function() {
+                failure: function failure() {
                     def.reject();
                 },
                 scope: this
@@ -536,34 +483,24 @@ define('crm/Application', [
 
             return def.promise;
         },
-        requestUserOptions: function() {
+        requestUserOptions: function requestUserOptions() {
             var batch, def;
 
-            batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
-                .setContractName('system')
-                .setResourceKind('useroptions')
-                .setQueryArg('select', 'name,value')
-                .using(function() {
-                    var service = this.getService();
-                    array.forEach(this.userOptionsToRequest, function(item) {
-                        new Sage.SData.Client.SDataSingleResourceRequest(this)
-                            .setContractName('system')
-                            .setResourceKind('useroptions')
-                            .setResourceSelector(string.substitute('"${0}"', [item]))
-                            .read();
-                    }, service);
-                }, this);
+            batch = new Sage.SData.Client.SDataBatchRequest(this.getService()).setContractName('system').setResourceKind('useroptions').setQueryArg('select', 'name,value').using(function () {
+                var service = this.getService();
+                _array['default'].forEach(this.userOptionsToRequest, function (item) {
+                    new Sage.SData.Client.SDataSingleResourceRequest(this).setContractName('system').setResourceKind('useroptions').setResourceSelector(_string['default'].substitute('"${0}"', [item])).read();
+                }, service);
+            }, this);
 
-            def = new Deferred();
+            def = new _Deferred['default']();
             batch.commit({
-                success:function(feed) {
-                    var userOptions,
-                        insertSecCode,
-                        currentDefaultOwner;
+                success: function success(feed) {
+                    var userOptions, insertSecCode, currentDefaultOwner;
 
                     userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
 
-                    array.forEach(feed && feed['$resources'], function(item) {
+                    _array['default'].forEach(feed && feed['$resources'], function (item) {
                         var key = item && item['$descriptor'],
                             value = item && item['value'];
 
@@ -575,16 +512,16 @@ define('crm/Application', [
                     insertSecCode = userOptions['General:InsertSecCodeID'];
                     currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
 
-                    if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
+                    if (insertSecCode && (!currentDefaultOwner || currentDefaultOwner !== insertSecCode)) {
                         this.requestOwnerDescription(insertSecCode);
                     }
 
                     this.loadCustomizedMoment();
                     def.resolve(feed);
                 },
-                failure:function(response, o) {
+                failure: function failure(response, o) {
                     def.reject();
-                    ErrorManager.addError(response, o, {}, 'failure');
+                    _ErrorManager['default'].addError(response, o, {}, 'failure');
                 },
                 scope: this
             });
@@ -594,24 +531,24 @@ define('crm/Application', [
         /*
          * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
          */
-        loadCustomizedMoment: function() {
+        loadCustomizedMoment: function loadCustomizedMoment() {
             var custom = this.buildCustomizedMoment(),
                 currentLang;
 
-            currentLang = moment.lang();
-            moment.lang(currentLang, custom);
-            this.moment = moment().lang(currentLang, custom);
+            currentLang = _moment2['default'].lang();
+            _moment2['default'].lang(currentLang, custom);
+            this.moment = (0, _moment2['default'])().lang(currentLang, custom);
         },
         /*
          * Builds an object that will get passed into moment.lang()
          */
-        buildCustomizedMoment: function() {
+        buildCustomizedMoment: function buildCustomizedMoment() {
             if (!App.context.userOptions) {
                 return;
             }
 
             var userWeekStartDay = parseInt(App.context.userOptions['Calendar:WeekStart'], 10),
-                results = {};// 0-6, Sun-Sat
+                results = {}; // 0-6, Sun-Sat
 
             if (!isNaN(userWeekStartDay)) {
                 results = {
@@ -623,25 +560,22 @@ define('crm/Application', [
 
             return results;
         },
-        requestSystemOptions: function() {
+        requestSystemOptions: function requestSystemOptions() {
             var request, def;
 
-            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setContractName('system')
-                .setResourceKind('systemoptions')
-                .setQueryArg('select', 'name,value');
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('system').setResourceKind('systemoptions').setQueryArg('select', 'name,value');
 
-            def = new Deferred();
+            def = new _Deferred['default']();
             request.read({
-                success: function(feed) {
+                success: function success(feed) {
                     var systemOptions, multiCurrency;
                     systemOptions = this.context['systemOptions'] = this.context['systemOptions'] || {};
 
-                    array.forEach(feed && feed['$resources'], function(item) {
+                    _array['default'].forEach(feed && feed['$resources'], function (item) {
                         var key = item && item['name'],
                             value = item && item['value'];
 
-                        if (value && key && array.indexOf(this.systemOptionsToRequest, key) > -1) {
+                        if (value && key && _array['default'].indexOf(this.systemOptionsToRequest, key) > -1) {
                             systemOptions[key] = value;
                         }
                     }, this);
@@ -649,17 +583,17 @@ define('crm/Application', [
                     multiCurrency = systemOptions['MultiCurrency'];
 
                     if (multiCurrency && multiCurrency === 'True') {
-                        this.requestExchangeRates().then(function() {
+                        this.requestExchangeRates().then(function () {
                             def.resolve(feed);
-                        }, function() {
+                        }, function () {
                             def.reject();
                         });
                     } else {
                         def.resolve(feed);
                     }
                 },
-                failure: function(response, o) {
-                    ErrorManager.addError(response, o, {}, 'failure');
+                failure: function failure(response, o) {
+                    _ErrorManager['default'].addError(response, o, {}, 'failure');
                     def.reject();
                 },
                 scope: this
@@ -667,21 +601,17 @@ define('crm/Application', [
 
             return def.promise;
         },
-        requestExchangeRates: function() {
-            var request,
-                def;
+        requestExchangeRates: function requestExchangeRates() {
+            var request, def;
 
-            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setContractName('dynamic')
-                .setResourceKind('exchangeRates')
-                .setQueryArg('select', 'Rate');
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('dynamic').setResourceKind('exchangeRates').setQueryArg('select', 'Rate');
 
-            def = new Deferred();
+            def = new _Deferred['default']();
             request.read({
-                success: function(feed) {
+                success: function success(feed) {
                     var exchangeRates = this.context['exchangeRates'] = this.context['exchangeRates'] || {};
 
-                    array.forEach(feed && feed['$resources'], function(item) {
+                    _array['default'].forEach(feed && feed['$resources'], function (item) {
                         var key = item && item['$key'],
                             value = item && item['Rate'];
 
@@ -692,20 +622,17 @@ define('crm/Application', [
 
                     def.resolve(feed);
                 },
-                failure: function(response, o) {
+                failure: function failure(response, o) {
                     def.reject();
-                    ErrorManager.addError(response, o, {}, 'failure');
+                    _ErrorManager['default'].addError(response, o, {}, 'failure');
                 },
                 scope: this
             });
 
             return def.promise;
         },
-        requestOwnerDescription: function(key) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('owners')
-                .setResourceSelector(string.substitute('"${0}"', [key]))
-                .setQueryArg('select', 'OwnerDescription');
+        requestOwnerDescription: function requestOwnerDescription(key) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('owners').setResourceSelector(_string['default'].substitute('"${0}"', [key])).setQueryArg('select', 'OwnerDescription');
 
             request.read({
                 success: this.onRequestOwnerDescriptionSuccess,
@@ -713,30 +640,22 @@ define('crm/Application', [
                 scope: this
             });
         },
-        onRequestOwnerDescriptionSuccess: function(entry) {
+        onRequestOwnerDescriptionSuccess: function onRequestOwnerDescriptionSuccess(entry) {
             if (entry) {
                 this.context['defaultOwner'] = entry;
             }
         },
-        onRequestOwnerDescriptionFailure: function(response, o) {
-            ErrorManager.addError(response, o, {}, 'failure');
+        onRequestOwnerDescriptionFailure: function onRequestOwnerDescriptionFailure(response, o) {
+            _ErrorManager['default'].addError(response, o, {}, 'failure');
         },
-        defaultViews: [
-            'myactivity_list',
-            'calendar_daylist',
-            'history_list',
-            'account_list',
-            'contact_list',
-            'lead_list',
-            'opportunity_list',
-            'ticket_list',
-            'myattachment_list'
-        ],
-        getDefaultViews: function() {
+        defaultViews: ['myactivity_list', 'calendar_daylist', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list'],
+        getDefaultViews: function getDefaultViews() {
             return this.defaultViews;
         },
-        getExposedViews: function() {
-            var exposed = [], id, view;
+        getExposedViews: function getExposedViews() {
+            var exposed = [],
+                id,
+                view;
 
             for (id in this.views) {
                 if (this.views.hasOwnProperty(id)) {
@@ -754,10 +673,8 @@ define('crm/Application', [
 
             return exposed;
         },
-        cleanRestoredHistory: function(restoredHistory) {
-            var result,
-                hasRoot,
-                i;
+        cleanRestoredHistory: function cleanRestoredHistory(restoredHistory) {
+            var result, hasRoot, i;
 
             result = [];
             hasRoot = false;
@@ -772,12 +689,12 @@ define('crm/Application', [
                     result.unshift(restoredHistory[i]);
                 }
 
-                hasRoot = (restoredHistory[i].page === 'home');
+                hasRoot = restoredHistory[i].page === 'home';
             }
 
             return hasRoot && result;
         },
-        navigateToInitialView: function() {
+        navigateToInitialView: function navigateToInitialView() {
             this.loadSnapper();
 
             try {
@@ -786,7 +703,7 @@ define('crm/Application', [
                     last,
                     view,
                     options,
-                    restoredHistory = restoredState && json.parse(restoredState),
+                    restoredHistory = restoredState && _json['default'].parse(restoredState),
                     cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
                 this._clearNavigationState();
@@ -809,12 +726,12 @@ define('crm/Application', [
                 } else {
                     this.navigateToHomeView();
                 }
-            } catch(e) {
+            } catch (e) {
                 this._clearNavigationState();
                 this.navigateToHomeView();
             }
         },
-        setupRedirectHash: function() {
+        setupRedirectHash: function setupRedirectHash() {
             var split;
             if (this._hasValidRedirect()) {
                 // Split by "/redirectTo/"
@@ -826,31 +743,30 @@ define('crm/Application', [
                 this.redirectHash = '';
             }
         },
-        navigateToLoginView: function() {
+        navigateToLoginView: function navigateToLoginView() {
             this.setupRedirectHash();
 
             var view = this.getView(this.loginViewId);
             if (view) {
                 view.show();
             }
-
         },
-        _hasValidRedirect: function() {
+        _hasValidRedirect: function _hasValidRedirect() {
             return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
         },
-        showLeftDrawer: function() {
+        showLeftDrawer: function showLeftDrawer() {
             var view = this.getView('left_drawer');
             if (view) {
                 view.show();
             }
         },
-        showRightDrawer: function() {
+        showRightDrawer: function showRightDrawer() {
             var view = this.getView('right_drawer');
             if (view) {
                 view.show();
             }
         },
-        navigateToHomeView: function() {
+        navigateToHomeView: function navigateToHomeView() {
             this.setupRedirectHash();
 
             var visible, view, split, key, viewId, redirectView;
@@ -886,36 +802,30 @@ define('crm/Application', [
                 view.show();
             }
         },
-        navigateToActivityInsertView: function() {
+        navigateToActivityInsertView: function navigateToActivityInsertView() {
             var view = this.getView('activity_types_list');
             if (view) {
                 view.show();
             }
         },
-        initiateCall: function() {
+        initiateCall: function initiateCall() {
             // shortcut for environment call
-            environment.initiateCall.apply(this, arguments);
+            _environment['default'].initiateCall.apply(this, arguments);
         },
-        initiateEmail: function() {
+        initiateEmail: function initiateEmail() {
             // shortcut for environment call
-            environment.initiateEmail.apply(this, arguments);
+            _environment['default'].initiateEmail.apply(this, arguments);
         },
-        showMapForAddress: function() {
+        showMapForAddress: function showMapForAddress() {
             // shortcut for environment call
-            environment.showMapForAddress.apply(this, arguments);
+            _environment['default'].showMapForAddress.apply(this, arguments);
         },
-        getVersionInfo: function() {
-            var info = string.substitute(this.versionInfoText,
-                [
-                    this.mobileVersion.major,
-                    this.mobileVersion.minor,
-                    this.mobileVersion.revision,
-                    this.serverVersion.major
-                ]);
+        getVersionInfo: function getVersionInfo() {
+            var info = _string['default'].substitute(this.versionInfoText, [this.mobileVersion.major, this.mobileVersion.minor, this.mobileVersion.revision, this.serverVersion.major]);
             return info;
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Application', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Application', __class);
+    module.exports = __class;
 });

@@ -1,38 +1,34 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/_base/connect', 'dojo/dom-geometry', 'dojo/dom-attr', 'dojo/has', 'dojo/sniff', 'argos/_PullToRefreshMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojo_baseConnect, _dojoDomGeometry, _dojoDomAttr, _dojoHas, _dojoSniff, _argos_PullToRefreshMixin) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.Charts._ChartMixin
- *
- * @mixins argos._PullToRefreshMixin
- * @requires argos._PullToRefreshMixin
- *
- * Base mixin for creating chart views.
- *
- */
-define('crm/Views/Charts/_ChartMixin', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/_base/connect',
-    'dojo/dom-geometry',
-    'dojo/dom-attr',
-    'dojo/has',
-    'dojo/sniff',
-    'argos/_PullToRefreshMixin'
-], function(
-    declare,
-    lang,
-    array,
-    connect,
-    domGeo,
-    domAttr,
-    has,
-    sniff,
-    _PullToRefreshMixin
-) {
-    lang.setObject('Chart.defaults.global', {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _connect = _interopRequireDefault(_dojo_baseConnect);
+
+    var _domGeo = _interopRequireDefault(_dojoDomGeometry);
+
+    var _domAttr = _interopRequireDefault(_dojoDomAttr);
+
+    var _has = _interopRequireDefault(_dojoHas);
+
+    var _sniff = _interopRequireDefault(_dojoSniff);
+
+    var _PullToRefreshMixin2 = _interopRequireDefault(_argos_PullToRefreshMixin);
+
+    /**
+     * @class crm.Views.Charts._ChartMixin
+     *
+     * @mixins argos._PullToRefreshMixin
+     * @requires argos._PullToRefreshMixin
+     *
+     * Base mixin for creating chart views.
+     *
+     */
+    _lang['default'].setObject('Chart.defaults.global', {
         // Boolean - Whether to animate the chart
         animation: false,
 
@@ -75,7 +71,7 @@ define('crm/Views/Charts/_ChartMixin', [
         scaleBeginAtZero: false,
 
         // String - Scale label font declaration for the scale label
-        scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        scaleFontFamily: '\'Helvetica Neue\', \'Helvetica\', \'Arial\', sans-serif',
 
         // Number - Scale label font size in pixels
         scaleFontSize: 12,
@@ -102,7 +98,7 @@ define('crm/Views/Charts/_ChartMixin', [
         tooltipFillColor: 'rgba(0,0,0,0.8)',
 
         // String - Tooltip label font declaration for the scale label
-        tooltipFontFamily: "'Helvetica', 'Arial', Sans-serif",
+        tooltipFontFamily: '\'Helvetica\', \'Arial\', Sans-serif',
 
         // Number - Tooltip label font size in pixels
         tooltipFontSize: 14,
@@ -114,7 +110,7 @@ define('crm/Views/Charts/_ChartMixin', [
         tooltipFontColor: '#fff',
 
         // String - Tooltip title font declaration for the scale label
-        tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        tooltipTitleFontFamily: '\'Helvetica Neue\', \'Helvetica\', \'Arial\', sans-serif',
 
         // Number - Tooltip title font size in pixels
         tooltipTitleFontSize: 14,
@@ -141,7 +137,7 @@ define('crm/Views/Charts/_ChartMixin', [
         tooltipXOffset: 10,
 
         // tooltipTemplate can be a function as well (not in the docs, see Chart.Core.js in their repo)
-        tooltipTemplate: function(valuesObject) {
+        tooltipTemplate: function tooltipTemplate(valuesObject) {
             // Use the formatter on the chart view, otherwise default to label: value
             var view, results;
             view = App.getPrimaryActiveView();
@@ -157,19 +153,17 @@ define('crm/Views/Charts/_ChartMixin', [
         multiTooltipTemplate: '<%= value %>',
 
         // Function - Will fire on animation progression.
-        onAnimationProgress: function() {
-        },
+        onAnimationProgress: function onAnimationProgress() {},
 
         // Function - Will fire on animation completion.
-        onAnimationComplete: function() {
-        }
+        onAnimationComplete: function onAnimationComplete() {}
     });
 
     var mixinName, __class;
 
     mixinName = 'crm.Views.Charts._ChartMixin';
 
-    __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
+    __class = (0, _declare['default'])('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin2['default']], {
         _handle: null,
         _feedData: null,
 
@@ -177,7 +171,7 @@ define('crm/Views/Charts/_ChartMixin', [
          * @property {Number} RENDER_DELAY
          * Number The re-render delay in milliseconds when the user changes device orientation.
          */
-        RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
+        RENDER_DELAY: (0, _has['default'])('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
 
         /**
          * @property {Object} parent
@@ -185,7 +179,7 @@ define('crm/Views/Charts/_ChartMixin', [
         */
         parent: null,
 
-        formatter: function(val) {
+        formatter: function formatter(val) {
             return val;
         },
 
@@ -206,29 +200,22 @@ define('crm/Views/Charts/_ChartMixin', [
         /**
          * Overrides View widgetTemplate
          */
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
-                '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-                    '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
-                    '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
-                '</div>',
-            '</div>'
-        ]),
+        widgetTemplate: new Simplate(['<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">', '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">', '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>', '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>', '</div>', '</div>']),
 
-        postCreate: function() {
+        postCreate: function postCreate() {
             this.initPullToRefresh(this.scrollerNode);
         },
-        onTransitionTo: function() {
-            this._handle = connect.subscribe('/app/setOrientation', this, function() {
-                setTimeout(function() {
+        onTransitionTo: function onTransitionTo() {
+            this._handle = _connect['default'].subscribe('/app/setOrientation', this, function () {
+                setTimeout((function () {
                     if (this._feedData) {
                         this.createChart(this._feedData);
                     }
-                }.bind(this), this.RENDER_DELAY);
+                }).bind(this), this.RENDER_DELAY);
             });
         },
-        onTransitionAway: function() {
-            connect.unsubscribe(this._handle);
+        onTransitionAway: function onTransitionAway() {
+            _connect['default'].unsubscribe(this._handle);
             this._feedData = null;
             this.parent = null;
 
@@ -236,15 +223,15 @@ define('crm/Views/Charts/_ChartMixin', [
                 this.chart.destroy();
             }
         },
-        _setCanvasWidth: function() {
+        _setCanvasWidth: function _setCanvasWidth() {
             var box;
 
-            box = domGeo.getMarginBox(this.domNode);
+            box = _domGeo['default'].getMarginBox(this.domNode);
             if (this.contentNode) {
                 this.contentNode.width = box.w;
             }
         },
-        _drawLoading: function() {
+        _drawLoading: function _drawLoading() {
             var node, context, globalConfig, offset, text, mixin, x, y;
 
             node = this.contentNode;
@@ -257,7 +244,7 @@ define('crm/Views/Charts/_ChartMixin', [
 
             context.clearRect(0, 0, node.width, node.height);
 
-            mixin = lang.getObject(mixinName);
+            mixin = _lang['default'].getObject(mixinName);
             if (mixin) {
                 text = mixin.prototype.loadingText;
             } else {
@@ -273,18 +260,18 @@ define('crm/Views/Charts/_ChartMixin', [
             y = 20; // padding
             context.fillText(text, x, y, node.width);
         },
-        createChart: function(feedData) {
+        createChart: function createChart(feedData) {
             this._feedData = feedData;
         },
-        getTag: function() {
+        getTag: function getTag() {
             return this.options && this.options.returnTo;
         },
 
-        getSearchExpression: function() {
+        getSearchExpression: function getSearchExpression() {
             return this.options && this.options.currentSearchExpression;
         },
 
-        showSearchExpression: function() {
+        showSearchExpression: function showSearchExpression() {
             var app;
             app = this.app || window.App;
             app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
@@ -304,7 +291,7 @@ define('crm/Views/Charts/_ChartMixin', [
          *        </ul>
          *    </div>`
          */
-        onLegendClick: function(evt) {
+        onLegendClick: function onLegendClick(evt) {
             if (!evt || !evt.srcElement || evt.srcElement === this.legendNode || !this.chart) {
                 return;
             }
@@ -321,7 +308,7 @@ define('crm/Views/Charts/_ChartMixin', [
          * Render a legend from the chart into the legendNode attach point.
          * @since 3.3
          */
-        showLegend: function() {
+        showLegend: function showLegend() {
             var html;
 
             if (!this.chart || !this.chart.generateLegend || !this.legendNode) {
@@ -329,32 +316,32 @@ define('crm/Views/Charts/_ChartMixin', [
             }
 
             html = this.chart.generateLegend();
-            domAttr.set(this.legendNode, { innerHTML: html });
+            _domAttr['default'].set(this.legendNode, { innerHTML: html });
         },
 
         /**
          * @deprecated 3.3
          * Charts in 3.3 no longer use the search expression node.
          */
-        getSearchExpressionHeight: function() {
-            var box = domGeo.getMarginBox(this.searchExpressionNode);
+        getSearchExpressionHeight: function getSearchExpressionHeight() {
+            var box = _domGeo['default'].getMarginBox(this.searchExpressionNode);
             return box.h;
         },
 
-        onPullToRefreshComplete: function() {
+        onPullToRefreshComplete: function onPullToRefreshComplete() {
             this.requestData();
         },
-        refresh: function() {
+        refresh: function refresh() {
             this.requestData();
         },
-        _getStoreAttr: function() {
+        _getStoreAttr: function _getStoreAttr() {
             return this.createStore();
         },
         /**
          * Return a store that is consumed by requestData.
          * @since 3.3
          */
-        createStore: function() {
+        createStore: function createStore() {
             var store;
             store = this.parent && this.parent.store;
             return store;
@@ -364,7 +351,7 @@ define('crm/Views/Charts/_ChartMixin', [
          * Overrides _ListBase requestData to re-render the chart on pull to refresh.
          * @since 3.3
          */
-        requestData: function() {
+        requestData: function requestData() {
             var store;
             store = this.get('store');
             if (this.chart && this.chart.destroy) {
@@ -375,16 +362,15 @@ define('crm/Views/Charts/_ChartMixin', [
             this._drawLoading();
 
             if (store) {
-                store.query(null, {start: 0, count: this.PAGE_SIZE}).then(function(data) {
+                store.query(null, { start: 0, count: this.PAGE_SIZE }).then((function (data) {
                     this.createChart(data);
-                }.bind(this), function(e) {
+                }).bind(this), (function (e) {
                     console.error(e);
-                }.bind(this));
+                }).bind(this));
             }
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
+    module.exports = __class;
 });
-

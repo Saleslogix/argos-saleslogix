@@ -1,92 +1,58 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/string', 'dojo/dom-style', 'dojo/dom-geometry', 'dojo/query', 'dojo/dom-class', '../../Format', 'argos/Convert', '../../Action', 'argos/List', '../_RightDrawerListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoString, _dojoDomStyle, _dojoDomGeometry, _dojoQuery, _dojoDomClass, _Format, _argosConvert, _Action, _argosList, _RightDrawerListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _moment) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.History.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
- *
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Action
- *
- * @requires moment
- */
-define('crm/Views/History/List', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/string',
-    'dojo/dom-style',
-    'dojo/dom-geometry',
-    'dojo/query',
-    'dojo/dom-class',
-    '../../Format',
-    'argos/Convert',
-    '../../Action',
-    'argos/List',
-    '../_RightDrawerListMixin',
-    '../_MetricListMixin',
-    '../_CardLayoutListMixin',
-    'moment'
-], function(
-    declare,
-    lang,
-    array,
-    string,
-    domStyle,
-    domGeom,
-    query,
-    domClass,
-    format,
-    convert,
-    action,
-    List,
-    _RightDrawerListMixin,
-    _MetricListMixin,
-    _CardLayoutListMixin,
-    moment
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _domStyle = _interopRequireDefault(_dojoDomStyle);
+
+    var _domGeom = _interopRequireDefault(_dojoDomGeometry);
+
+    var _query = _interopRequireDefault(_dojoQuery);
+
+    var _domClass = _interopRequireDefault(_dojoDomClass);
+
+    var _format = _interopRequireDefault(_Format);
+
+    var _convert = _interopRequireDefault(_argosConvert);
+
+    var _action = _interopRequireDefault(_Action);
+
+    var _List = _interopRequireDefault(_argosList);
+
+    var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
+
+    var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
+
+    var _CardLayoutListMixin3 = _interopRequireDefault(_CardLayoutListMixin2);
+
+    var _moment2 = _interopRequireDefault(_moment);
+
+    /**
+     * @class crm.Views.History.List
+     *
+     * @extends argos.List
+     * @mixins crm.Views._RightDrawerListMixin
+     * @mixins crm.Views._MetricListMixin
+     * @mixins crm.Views._GroupListMixin
+     * @mixins crm.Views._CardLayoutListMixin
+     *
+     * @requires argos.Convert
+     *
+     * @requires crm.Format
+     * @requires crm.Action
+     *
+     * @requires moment
+     */
+    var __class = (0, _declare['default'])('crm.Views.History.List', [_List['default'], _RightDrawerListMixin3['default'], _MetricListMixin3['default'], _CardLayoutListMixin3['default']], {
         //Templates
-        itemTemplate: new Simplate([
-            '<h3>',
-            '{% if ($.Type === "atNote") { %}',
-                '{%: $$.formatDate($.ModifyDate) %}',
-            '{% } else { %}',
-                '{%: $$.formatDate($.CompletedDate) %}',
-            '{% } %}',
-            '</h3>',
-            '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
-            '{% if($.Description) { %}',
-                '<h4>{%: $$.regardingText + $.Description %}</h4>',
-            '{% } %}',
-            '<div class="note-text-item">',
-            '<div class="note-text-wrap">',
-            '{%: $.Notes %}',
-            '</div>',
-            '</div>'
-        ]),
-        nameTemplate: new Simplate([
-            '{% if ($.LeadName && $.AccountName) { %}',
-            '{%: $.LeadName %} | {%: $.AccountName %}',
-            '{% } else if ($.LeadName) { %}',
-            '{%: $.LeadName %}',
-            '{% } else if ($.ContactName && $.AccountName) { %}',
-            '{%: $.ContactName %} | {%: $.AccountName %}',
-            '{% } else if ($.ContactName) { %}',
-            '{%: $.ContactName %}',
-            '{% } else { %}',
-            '{%: $.AccountName %}',
-            '{% } %}'
-        ]),
+        itemTemplate: new Simplate(['<h3>', '{% if ($.Type === "atNote") { %}', '{%: $$.formatDate($.ModifyDate) %}', '{% } else { %}', '{%: $$.formatDate($.CompletedDate) %}', '{% } %}', '</h3>', '<h4>{%= $$.nameTemplate.apply($) %}</h4>', '{% if($.Description) { %}', '<h4>{%: $$.regardingText + $.Description %}</h4>', '{% } %}', '<div class="note-text-item">', '<div class="note-text-wrap">', '{%: $.Notes %}', '</div>', '</div>']),
+        nameTemplate: new Simplate(['{% if ($.LeadName && $.AccountName) { %}', '{%: $.LeadName %} | {%: $.AccountName %}', '{% } else if ($.LeadName) { %}', '{%: $.LeadName %}', '{% } else if ($.ContactName && $.AccountName) { %}', '{%: $.ContactName %} | {%: $.AccountName %}', '{% } else if ($.ContactName) { %}', '{%: $.ContactName %}', '{% } else { %}', '{%: $.AccountName %}', '{% } %}']),
 
         //Localization
         activityTypeText: {
@@ -123,30 +89,12 @@ define('crm/Views/History/List', [
         existsRE: /^[\w]{12}$/,
         insertView: 'history_edit',
         queryOrderBy: 'CompletedDate desc',
-        querySelect: [
-            'AccountName',
-            'ContactName',
-            'LeadName',
-            'CompletedDate',
-            'Description',
-            'StartDate',
-            'TimeLess',
-            'Type',
-            'LeadId',
-            'OpportunityId',
-            'OpportunityName',
-            'AccountId',
-            'ContactId',
-            'TicketId',
-            'ModifyDate',
-            'Notes'
-
-        ],
+        querySelect: ['AccountName', 'ContactName', 'LeadName', 'CompletedDate', 'Description', 'StartDate', 'TimeLess', 'Type', 'LeadId', 'OpportunityId', 'OpportunityName', 'AccountId', 'ContactId', 'TicketId', 'ModifyDate', 'Notes'],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
         hashTagQueries: {
-            'my-history': function() {
+            'my-history': function myHistory() {
                 return 'UserId eq "' + App.context.user.$key + '"';
             },
             'note': 'Type eq "atNote"',
@@ -168,12 +116,12 @@ define('crm/Views/History/List', [
         allowSelection: true,
         enableActions: true,
 
-        createActionLayout: function() {
+        createActionLayout: function createActionLayout() {
             return this.actions || (this.actions = [{
                 id: 'viewAccount',
                 label: this.viewAccountActionText,
-                enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
-                fn: action.navigateToEntity.bindDelegate(this, {
+                enabled: _action['default'].hasProperty.bindDelegate(this, 'AccountId'),
+                fn: _action['default'].navigateToEntity.bindDelegate(this, {
                     view: 'account_detail',
                     keyProperty: 'AccountId',
                     textProperty: 'AccountName'
@@ -181,8 +129,8 @@ define('crm/Views/History/List', [
             }, {
                 id: 'viewOpportunity',
                 label: this.viewOpportunityActionText,
-                enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
-                fn: action.navigateToEntity.bindDelegate(this, {
+                enabled: _action['default'].hasProperty.bindDelegate(this, 'OpportunityId'),
+                fn: _action['default'].navigateToEntity.bindDelegate(this, {
                     view: 'opportunity_detail',
                     keyProperty: 'OpportunityId',
                     textProperty: 'OpportunityName'
@@ -196,14 +144,13 @@ define('crm/Views/History/List', [
                 id: 'addAttachment',
                 cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
-                fn: action.addAttachment.bindDelegate(this)
-            }]
-            );
+                fn: _action['default'].addAttachment.bindDelegate(this)
+            }]);
         },
-        hasContactOrLead: function(action, selection) {
-            return (selection.data['ContactId']) || (selection.data['LeadId']);
+        hasContactOrLead: function hasContactOrLead(action, selection) {
+            return selection.data['ContactId'] || selection.data['LeadId'];
         },
-        navigateToContactOrLead: function(action, selection) {
+        navigateToContactOrLead: function navigateToContactOrLead(action, selection) {
             var entity = this.resolveContactOrLeadEntity(selection.data),
                 viewId,
                 view,
@@ -232,7 +179,7 @@ define('crm/Views/History/List', [
                 view.show(options);
             }
         },
-        resolveContactOrLeadEntity: function(entry) {
+        resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
             var exists = this.existsRE;
 
             if (entry) {
@@ -244,36 +191,35 @@ define('crm/Views/History/List', [
                 }
             }
         },
-        formatDate: function(date) {
-            var startDate = moment(convert.toDateFromString(date)),
-                nextDate = startDate.clone().add({hours: 24}),
+        formatDate: function formatDate(date) {
+            var startDate = (0, _moment2['default'])(_convert['default'].toDateFromString(date)),
+                nextDate = startDate.clone().add({ hours: 24 }),
                 fmt = this.dateFormatText;
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > (0, _moment2['default'])().startOf('day').valueOf()) {
                 fmt = this.hourMinuteFormatText;
             }
 
-            return format.date(startDate.toDate(), fmt);
+            return _format['default'].date(startDate.toDate(), fmt);
         },
-        formatSearchQuery: function(searchQuery) {
-            return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        formatSearchQuery: function formatSearchQuery(searchQuery) {
+            return _string['default'].substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        createIndicatorLayout: function() {
+        createIndicatorLayout: function createIndicatorLayout() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
                 cls: 'fa fa-hand-o-up fa-lg',
                 label: 'Touched',
-                onApply: function(entry, parent) {
+                onApply: function onApply(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
                 }
-            }]
-            );
+            }]);
         },
-        getItemIconClass: function(entry) {
+        getItemIconClass: function getItemIconClass(entry) {
             var type = entry && entry.Type;
             return this._getItemIconClass(type);
         },
-        _getItemIconClass: function(type) {
+        _getItemIconClass: function _getItemIconClass(type) {
             var cls = this.activityIndicatorIconByType[type];
             if (!cls) {
                 cls = this.itemIconClass;
@@ -283,7 +229,6 @@ define('crm/Views/History/List', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.History.List', __class);
+    module.exports = __class;
 });
-

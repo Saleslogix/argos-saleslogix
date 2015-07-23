@@ -1,37 +1,32 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/Account/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Validator', '../../Format', '../../Template', 'argos/Edit'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Validator, _Format, _Template, _argosEdit) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.Account.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- *
- */
-define('crm/Views/Account/Edit', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/string',
-    '../../Validator',
-    '../../Format',
-    '../../Template',
-    'argos/Edit'
-], function(
-    declare,
-    lang,
-    string,
-    validator,
-    format,
-    template,
-    Edit
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.Account.Edit', [Edit], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _validator = _interopRequireDefault(_Validator);
+
+    var _format = _interopRequireDefault(_Format);
+
+    var _template = _interopRequireDefault(_Template);
+
+    var _Edit = _interopRequireDefault(_argosEdit);
+
+    /**
+     * @class crm.Views.Account.Edit
+     *
+     * @extends argos.Edit
+     *
+     * @requires argos.Edit
+     * @requires crm.Format
+     * @requires crm.Validator
+     * @requires crm.Template
+     *
+     */
+    var __class = (0, _declare['default'])('crm.Views.Account.Edit', [_Edit['default']], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',
@@ -59,31 +54,13 @@ define('crm/Views/Account/Edit', [
         id: 'account_edit',
         insertSecurity: 'Entities/Account/Add',
         updateSecurity: 'Entities/Account/Edit',
-        querySelect: [
-            'AccountManager/UserInfo/FirstName',
-            'AccountManager/UserInfo/LastName',
-            'AccountName',
-            'Address/*',
-            'BusinessDescription',
-            'Description',
-            'Fax',
-            'Industry',
-            'LeadSource/Description',
-            'MainPhone',
-            'Notes',
-            'Owner/OwnerDescription',
-            'Status',
-            'SubType',
-            'Type',
-            'User/UserInfo/UserName',
-            'WebAddress'
-        ],
+        querySelect: ['AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'BusinessDescription', 'Description', 'Fax', 'Industry', 'LeadSource/Description', 'MainPhone', 'Notes', 'Owner/OwnerDescription', 'Status', 'SubType', 'Type', 'User/UserInfo/UserName', 'WebAddress'],
         resourceKind: 'accounts',
 
-        formatDependentPicklist: function(dependentValue, format) {
-            return string.substitute(format, [dependentValue]);
+        formatDependentPicklist: function formatDependentPicklist(dependentValue, format) {
+            return _string['default'].substitute(format, [dependentValue]);
         },
-        applyContext: function(templateEntry) {
+        applyContext: function applyContext(templateEntry) {
             this.inherited(arguments);
 
             this.fields['AccountManager'].setValue(App.context.user);
@@ -92,33 +69,33 @@ define('crm/Views/Account/Edit', [
             this.fields['Type'].setValue(templateEntry.Type);
             this.fields['Status'].setValue(templateEntry.Status);
         },
-        createLayout: function() {
+        createLayout: function createLayout() {
             return this.layout || (this.layout = [{
                 label: this.accountText,
                 name: 'AccountName',
                 property: 'AccountName',
                 type: 'text',
-                validator: validator.notEmpty,
+                validator: _validator['default'].notEmpty,
                 autoFocus: true
             }, {
                 label: this.webText,
                 name: 'WebAddress',
                 property: 'WebAddress',
-                renderer: format.link,
+                renderer: _format['default'].link,
                 type: 'text',
                 inputType: 'url',
                 maxTextLength: 128,
-                validator: validator.exceedsMaxTextLength
+                validator: _validator['default'].exceedsMaxTextLength
             }, {
                 label: this.phoneText,
                 name: 'MainPhone',
                 property: 'MainPhone',
                 type: 'phone',
                 maxTextLength: 32,
-                validator: validator.exceedsMaxTextLength
+                validator: _validator['default'].exceedsMaxTextLength
             }, {
                 emptyText: '',
-                formatValue: format.address.bindDelegate(this, [true], true),
+                formatValue: _format['default'].address.bindDelegate(this, [true], true),
                 label: this.fullAddressText,
                 name: 'Address',
                 property: 'Address',
@@ -130,7 +107,7 @@ define('crm/Views/Account/Edit', [
                 property: 'Fax',
                 type: 'phone',
                 maxTextLength: 32,
-                validator: validator.exceedsMaxTextLength
+                validator: _validator['default'].exceedsMaxTextLength
             }, {
                 label: this.typeText,
                 name: 'Type',
@@ -144,14 +121,12 @@ define('crm/Views/Account/Edit', [
                 label: this.subTypeText,
                 name: 'SubType',
                 property: 'SubType',
-                picklist: this.formatDependentPicklist.bindDelegate(
-                    this, 'Account ${0}', true
-                ),
+                picklist: this.formatDependentPicklist.bindDelegate(this, 'Account ${0}', true),
                 requireSelection: false,
                 title: this.accountSubTypeTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: validator.exceedsMaxTextLength
+                validator: _validator['default'].exceedsMaxTextLength
             }, {
                 label: this.statusText,
                 name: 'Status',
@@ -169,7 +144,7 @@ define('crm/Views/Account/Edit', [
                 title: this.industryTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: validator.exceedsMaxTextLength
+                validator: _validator['default'].exceedsMaxTextLength
             }, {
                 label: this.businessDescriptionText,
                 name: 'BusinessDescription',
@@ -183,7 +158,7 @@ define('crm/Views/Account/Edit', [
                 name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
-                textTemplate: template.nameLF,
+                textTemplate: _template['default'].nameLF,
                 type: 'lookup',
                 view: 'user_list'
             }, {
@@ -204,7 +179,6 @@ define('crm/Views/Account/Edit', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Account.Edit', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Account.Edit', __class);
+    module.exports = __class;
 });
-

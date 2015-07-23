@@ -1,34 +1,22 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/OpportunityContact/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/List'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _argosList) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.OpportunityContact.List
- *
- * @extends argos.List
- */
-define('crm/Views/OpportunityContact/List', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/string',
-    'argos/List'
-], function(
-    declare,
-    lang,
-    string,
-    List
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.OpportunityContact.List', [List], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _List = _interopRequireDefault(_argosList);
+
+    /**
+     * @class crm.Views.OpportunityContact.List
+     *
+     * @extends argos.List
+     */
+    var __class = (0, _declare['default'])('crm.Views.OpportunityContact.List', [_List['default']], {
         //Template
-        itemTemplate: new Simplate([
-            '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
-            '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
-            '{% if ($.SalesRole) { %}',
-            '{%: $.SalesRole %} | ',
-            '{% } %}',
-            '{%: $.Contact.Title %}</h4>'
-        ]),
+        itemTemplate: new Simplate(['<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>', '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">', '{% if ($.SalesRole) { %}', '{%: $.SalesRole %} | ', '{% } %}', '{%: $.Contact.Title %}</h4>']),
 
         //Localization
         titleText: 'Opportunity Contacts',
@@ -45,17 +33,10 @@ define('crm/Views/OpportunityContact/List', [
         security: 'Entities/Contact/View',
         queryOrderBy: 'Contact.NameLF',
         expose: false,
-        querySelect: [
-            'Contact/Account/AccountName',
-            'Contact/AccountName',
-            'SalesRole',
-            'IsPrimary',
-            'Contact/NameLF',
-            'Contact/Title'
-        ],
+        querySelect: ['Contact/Account/AccountName', 'Contact/AccountName', 'SalesRole', 'IsPrimary', 'Contact/NameLF', 'Contact/Title'],
         resourceKind: 'opportunityContacts',
 
-        complete: function() {
+        complete: function complete() {
             var view = App.getPrimaryActiveView(),
                 context,
                 selections,
@@ -76,7 +57,7 @@ define('crm/Views/OpportunityContact/List', [
             for (selectionKey in selections) {
                 if (selections.hasOwnProperty(selectionKey)) {
                     entry = {
-                        'Opportunity': {'$key': context.key},
+                        'Opportunity': { '$key': context.key },
                         'Contact': view.entries[selectionKey]
                     };
                 }
@@ -86,7 +67,7 @@ define('crm/Views/OpportunityContact/List', [
                 this.navigateToInsertView(entry);
             }
         },
-        createNavigationOptions: function() {
+        createNavigationOptions: function createNavigationOptions() {
             var options = {
                 query: this.expandExpression(this.options.prefilter),
                 selectionOnly: true,
@@ -95,46 +76,41 @@ define('crm/Views/OpportunityContact/List', [
                 allowEmptySelection: false,
                 enableActions: false,
                 title: this.selectTitleText,
-                select: [
-                    'Account/AccountName',
-                    'AccountName',
-                    'NameLF',
-                    'Title'
-                ],
+                select: ['Account/AccountName', 'AccountName', 'NameLF', 'Title'],
                 tools: {
                     tbar: [{
-                            id: 'complete',
-                            fn: this.complete,
-                            cls: 'invisible',
-                            scope: this
-                        }, {
-                            id: 'cancel',
-                            side: 'left',
-                            fn: ReUI.back,
-                            scope: ReUI
-                        }]
+                        id: 'complete',
+                        fn: this.complete,
+                        cls: 'invisible',
+                        scope: this
+                    }, {
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
                 }
             };
             return options;
         },
-        navigateToInsertView: function(entry) {
+        navigateToInsertView: function navigateToInsertView(entry) {
             var view = App.getView(this.insertView),
                 options = {
-                    entry: entry,
-                    insert: true
-                };
+                entry: entry,
+                insert: true
+            };
             if (view && options) {
-                view.show(options, {returnTo: -1});
+                view.show(options, { returnTo: -1 });
             }
         },
-        navigateToSelectView: function() {
+        navigateToSelectView: function navigateToSelectView() {
             var view = App.getView(this.selectView),
                 options = this.createNavigationOptions();
             if (view && options) {
                 view.show(options);
             }
         },
-        createToolLayout: function() {
+        createToolLayout: function createToolLayout() {
             return this.tools || (this.tools = {
                 'tbar': [{
                     id: 'associate',
@@ -144,11 +120,11 @@ define('crm/Views/OpportunityContact/List', [
                 }]
             });
         },
-        formatSearchQuery: function(searchQuery) {
-            return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        formatSearchQuery: function formatSearchQuery(searchQuery) {
+            return _string['default'].substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
+    module.exports = __class;
 });

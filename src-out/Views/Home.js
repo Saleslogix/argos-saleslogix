@@ -1,43 +1,27 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/Home', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', '../SpeedSearchWidget', 'argos/GroupedList'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _SpeedSearchWidget, _argosGroupedList) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.Home
- *
- *
- * @extends argos.GroupedList
- *
- */
-define('crm/Views/Home', [
-    'dojo/_base/declare',
-    'dojo/_base/array',
-    'dojo/_base/lang',
-    '../SpeedSearchWidget',
-    'argos/GroupedList'
-], function(
-    declare,
-    array,
-    lang,
-    SpeedSearchWidget,
-    GroupedList
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.Home', [GroupedList], {
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _SpeedSearchWidget2 = _interopRequireDefault(_SpeedSearchWidget);
+
+    var _GroupedList = _interopRequireDefault(_argosGroupedList);
+
+    /**
+     * @class crm.Views.Home
+     *
+     *
+     * @extends argos.GroupedList
+     *
+     */
+    var __class = (0, _declare['default'])('crm.Views.Home', [_GroupedList['default']], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-            '<div class="list-item-static-selector">',
-                '{% if ($.icon) { %}',
-                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-                '{% } %}',
-            '</div>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
-        itemTemplate: new Simplate([
-            '<h3>{%: $.title %}</h3>'
-        ]),
+        rowTemplate: new Simplate(['<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>', '<div class="list-item-static-selector">', '{% if ($.icon) { %}', '<img src="{%: $.icon %}" alt="icon" class="icon" />', '{% } %}', '</div>', '<div class="list-item-content">{%! $$.itemTemplate %}</div>', '</li>']),
+        itemTemplate: new Simplate(['<h3>{%: $.title %}</h3>']),
 
         //Localization
         configureText: 'Configure',
@@ -50,19 +34,19 @@ define('crm/Views/Home', [
         id: 'home',
         expose: false,
         enableSearch: true,
-        searchWidgetClass: SpeedSearchWidget,
+        searchWidgetClass: _SpeedSearchWidget2['default'],
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
         searchView: 'speedsearch_list',
 
-        navigateToView: function(params) {
+        navigateToView: function navigateToView(params) {
             var view = App.getView(params && params.view);
             if (view) {
                 view.show();
             }
         },
-        addAccountContact: function() {
+        addAccountContact: function addAccountContact() {
             var view = App.getView(this.addAccountContactView);
             if (view) {
                 view.show({
@@ -70,17 +54,17 @@ define('crm/Views/Home', [
                 });
             }
         },
-        formatSearchQuery: function(searchQuery) {
+        formatSearchQuery: function formatSearchQuery(searchQuery) {
             var expression = new RegExp(searchQuery, 'i');
 
-            return function(entry) {
+            return function (entry) {
                 return expression.test(entry.title);
             };
         },
-        hasMoreData: function() {
+        hasMoreData: function hasMoreData() {
             return false;
         },
-        getGroupForEntry: function(entry) {
+        getGroupForEntry: function getGroupForEntry(entry) {
             if (entry.view) {
                 return {
                     tag: 'view',
@@ -93,12 +77,12 @@ define('crm/Views/Home', [
                 title: this.actionsText
             };
         },
-        init: function() {
+        init: function init() {
             this.inherited(arguments);
 
             this.connect(App, 'onRegistered', this._onRegistered);
         },
-        createToolLayout: function() {
+        createToolLayout: function createToolLayout() {
             return this.tools || (this.tools = {
                 tbar: [{
                     id: 'configure',
@@ -106,22 +90,18 @@ define('crm/Views/Home', [
                 }]
             });
         },
-        createLayout: function() {
+        createLayout: function createLayout() {
             // don't need to cache as it is only re-rendered when there is a change
-            var configured,
-                layout,
-                visible,
-                i,
-                view;
+            var configured, layout, visible, i, view;
 
-            configured = lang.getObject('preferences.home.visible', false, App) || [];
+            configured = _lang['default'].getObject('preferences.home.visible', false, App) || [];
             layout = [{
-                    id: 'actions',
-                    children: [{
-                        'name': 'AddAccountContactAction',
-                        'action': 'addAccountContact',
-                        'title': this.addAccountContactText
-                    }]
+                id: 'actions',
+                children: [{
+                    'name': 'AddAccountContactAction',
+                    'action': 'addAccountContact',
+                    'title': this.addAccountContactText
+                }]
             }];
 
             visible = {
@@ -146,7 +126,7 @@ define('crm/Views/Home', [
 
             return layout;
         },
-        requestData: function() {
+        requestData: function requestData() {
             var layout = this._createCustomizedLayout(this.createLayout()),
                 i,
                 j,
@@ -172,7 +152,7 @@ define('crm/Views/Home', [
             this.processData(list);
         },
 
-        _onSearchExpression: function(expression) {
+        _onSearchExpression: function _onSearchExpression(expression) {
             var view = App.getView(this.searchView);
 
             if (view) {
@@ -182,21 +162,21 @@ define('crm/Views/Home', [
             }
         },
 
-        navigateToConfigurationView: function() {
+        navigateToConfigurationView: function navigateToConfigurationView() {
             var view = App.getView(this.configurationView);
             if (view) {
                 view.show();
             }
         },
-        _onRegistered: function() {
+        _onRegistered: function _onRegistered() {
             this.refreshRequired = true;
         },
-        refreshRequiredFor: function() {
-            var visible = lang.getObject('preferences.home.visible', false, App) || [],
+        refreshRequiredFor: function refreshRequiredFor() {
+            var visible = _lang['default'].getObject('preferences.home.visible', false, App) || [],
                 i,
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length !== shown.length)) {
+            if (!visible || !shown || visible.length !== shown.length) {
                 return true;
             }
 
@@ -210,7 +190,6 @@ define('crm/Views/Home', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Home', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Home', __class);
+    module.exports = __class;
 });
-
