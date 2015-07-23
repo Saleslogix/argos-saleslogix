@@ -14,6 +14,7 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
     id: 'offline_list',
     idProperty: 'id',
     detailView: 'offline_detail',
+    offlineSupport: true,
 
     titleText: 'Recently Viewed',
 

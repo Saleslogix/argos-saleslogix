@@ -21,6 +21,7 @@ define('crm/Views/Offline/Detail', ['exports', 'module', 'dojo/_base/declare', '
         titleText: 'Recently Viewed Detail',
 
         idProperty: 'id',
+        offlineSupport: true,
 
         OFFLINE_DB_NAME: 'crm-offline',
         offlineDoc: null,

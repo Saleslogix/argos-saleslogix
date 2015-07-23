@@ -15,6 +15,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase], {
     titleText: 'Recently Viewed Detail',
 
     idProperty: 'id',
+    offlineSupport: true,
 
     OFFLINE_DB_NAME: 'crm-offline',
     offlineDoc: null,

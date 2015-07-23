@@ -20,6 +20,7 @@ define('crm/Views/Offline/List', ['exports', 'module', 'dojo/_base/declare', 'ar
         id: 'offline_list',
         idProperty: 'id',
         detailView: 'offline_detail',
+        offlineSupport: true,
 
         titleText: 'Recently Viewed',
 

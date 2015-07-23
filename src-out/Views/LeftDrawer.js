@@ -158,11 +158,9 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
                     goTo.children.push({
                         'action': 'loadAndNavigateToView',
                         'view': view.id,
-                        //'icon': view.icon,
-                        //'cls': view.iconClass,
-                        //'iconTemplate': view.iconTemplate,
                         'title': view.titleText,
-                        'security': view.getSecurity()
+                        'security': view.getSecurity(),
+                        'offlineSupport': view.offlineSupport
                     });
                 }
             }
@@ -174,23 +172,23 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
                 children: [{
                     'name': 'ConfigureMenu',
                     'action': 'navigateToConfigurationView',
-                    //'cls': 'fa fa-wrench fa-lg',
-                    'title': this.configureText
+                    'title': this.configureText,
+                    'offlineSupport': true
                 }, {
                     'name': 'SettingsAction',
                     'action': 'navigateToSettingsView',
-                    //'cls': 'fa fa-cog fa-lg',
-                    'title': this.settingsText
+                    'title': this.settingsText,
+                    'offlineSupport': true
                 }, {
                     'name': 'HelpAction',
                     'action': 'navigateToHelpView',
-                    //'cls': 'fa fa-question fa-lg',
-                    'title': this.helpText
+                    'title': this.helpText,
+                    'offlineSupport': true
                 }, {
                     'name': 'Logout',
                     'action': 'logOut',
-                    //'cls': 'fa fa-sign-out fa-lg',
-                    'title': this.logOutText
+                    'title': this.logOutText,
+                    'offlineSupport': false
                 }]
             };
 
@@ -219,6 +217,11 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
                     if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
                     }
+
+                    if (!App.isOnline() && !row.offlineSupport) {
+                        continue;
+                    }
+
                     if (typeof this.query !== 'function' || this.query(row)) {
                         list.push(row);
                     }

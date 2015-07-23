@@ -74,6 +74,7 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
         loadingText: 'Loading application state',
         authText: 'Authenticating',
         homeViewId: 'myactivity_list',
+        offlineHomeViewId: 'offline_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
 
@@ -377,6 +378,8 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
                 }
             } catch (e) {}
         },
+        isAuthenticated: false,
+        hasState: false,
         handleAuthentication: function handleAuthentication() {
             var credentials;
 
@@ -386,8 +389,10 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
                 this.setPrimaryTitle(this.authText);
                 this.authenticateUser(credentials, {
                     success: function success() {
+                        this.isAuthenticated = true;
                         this.setPrimaryTitle(this.loadingText);
                         this.initAppState().then((function () {
+                            this.hasState = true;
                             this.navigateToInitialView();
                         }).bind(this));
                     },
@@ -649,7 +654,7 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
         onRequestOwnerDescriptionFailure: function onRequestOwnerDescriptionFailure(response, o) {
             _ErrorManager['default'].addError(response, o, {}, 'failure');
         },
-        defaultViews: ['myactivity_list', 'calendar_daylist', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list'],
+        defaultViews: ['myactivity_list', 'calendar_daylist', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list', 'offline_list'],
         getDefaultViews: function getDefaultViews() {
             return this.defaultViews;
         },
@@ -774,7 +779,7 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
             this.loadSnapper();
 
             visible = this.preferences && this.preferences.home && this.preferences.home.visible;
-            if (visible && visible.length > 0) {
+            if (visible && visible.length) {
                 this.homeViewId = visible[0];
             }
 
@@ -797,6 +802,10 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
                         }
                     }
                 }
+            }
+
+            if (!App.isOnline()) {
+                view = this.getView(this.offlineHomeViewId);
             }
 
             if (view) {
