@@ -1,46 +1,34 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/Charts/GenericPie', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/dom-geometry', 'argos/View', './_ChartMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoDomGeometry, _argosView, _ChartMixin2) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.Charts.GenericPie
- *
- * @extends argos.View
- * @mixins crm.Views.Charts._ChartMixin
- *
- * @requires argos.View
- *
- */
-define('crm/Views/Charts/GenericPie', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/dom-geometry',
-    'argos/View',
-    './_ChartMixin'
-], function(
-    declare,
-    lang,
-    array,
-    domGeo,
-    View,
-    _ChartMixin
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _array = _interopRequireDefault(_dojo_baseArray);
+
+    var _domGeo = _interopRequireDefault(_dojoDomGeometry);
+
+    var _View = _interopRequireDefault(_argosView);
+
+    var _ChartMixin3 = _interopRequireDefault(_ChartMixin2);
+
+    /**
+     * @class crm.Views.Charts.GenericPie
+     *
+     * @extends argos.View
+     * @mixins crm.Views.Charts._ChartMixin
+     *
+     * @requires argos.View
+     *
+     */
+    var __class = (0, _declare['default'])('crm.Views.Charts.GenericPie', [_View['default'], _ChartMixin3['default']], {
         id: 'chart_generic_pie',
         titleText: '',
         expose: false,
         chart: null,
 
-        seriesColors: [
-            '#1c9a18',
-            '#6ec90d',
-            '#bff485',
-            '#bce8fc',
-            '#47b2f0',
-            '#0c7ad8'
-        ],
+        seriesColors: ['#1c9a18', '#6ec90d', '#bff485', '#bce8fc', '#47b2f0', '#0c7ad8'],
 
         chartOptions: {
             segmentShowStroke: true,
@@ -56,11 +44,11 @@ define('crm/Views/Charts/GenericPie', [
          */
         renderAs: 'Doughnut',
 
-        formatter: function(val) {
+        formatter: function formatter(val) {
             return val;
         },
 
-        createChart: function(rawData) {
+        createChart: function createChart(rawData) {
             this.inherited(arguments);
 
             var ctx, box, data, chart, defaultRenderAs;
@@ -69,7 +57,7 @@ define('crm/Views/Charts/GenericPie', [
 
             this.showSearchExpression();
 
-            data = array.map(rawData, function(item, idx) {
+            data = _array['default'].map(rawData, (function (item, idx) {
                 return {
                     value: Math.round(item.value),
                     color: this._getItemColor(idx),
@@ -77,13 +65,13 @@ define('crm/Views/Charts/GenericPie', [
                     label: item.name
 
                 };
-            }.bind(this));
+            }).bind(this));
 
             if (this.chart) {
                 this.chart.destroy();
             }
 
-            box = domGeo.getMarginBox(this.domNode);
+            box = _domGeo['default'].getMarginBox(this.domNode);
             this.contentNode.width = box.w;
             this.contentNode.height = box.h;
 
@@ -97,7 +85,7 @@ define('crm/Views/Charts/GenericPie', [
             this.chart = chart[this.renderAs](data, this.chartOptions);
             this.showLegend();
         },
-        _getItemColor: function(index) {
+        _getItemColor: function _getItemColor(index) {
             var len, n;
             len = this.seriesColors.length;
             n = Math.floor(index / len);
@@ -105,13 +93,13 @@ define('crm/Views/Charts/GenericPie', [
             // if n is 0, the index will fall within the seriesColor array,
             // otherwise we will need to re-scale the index to fall within that array.
             if (n > 0) {
-                index = index - (len * n);
+                index = index - len * n;
             }
 
             return this.seriesColors[index];
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
+    module.exports = __class;
 });

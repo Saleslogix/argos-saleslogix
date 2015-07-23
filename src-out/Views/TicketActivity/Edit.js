@@ -1,34 +1,29 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Views/TicketActivity/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', '../../Template', '../../Validator', 'argos/ErrorManager', 'argos/Edit'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _Template, _Validator, _argosErrorManager, _argosEdit) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Views.TicketActivity.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.ErrorManager
- *
- * @requires crm.Template
- * @requires crm.Validator
- */
-define('crm/Views/TicketActivity/Edit', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    '../../Template',
-    '../../Validator',
-    'argos/ErrorManager',
-    'argos/Edit'
-], function(
-    declare,
-    lang,
-    template,
-    validator,
-    ErrorManager,
-    Edit
-) {
+    var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _template = _interopRequireDefault(_Template);
+
+    var _validator = _interopRequireDefault(_Validator);
+
+    var _ErrorManager = _interopRequireDefault(_argosErrorManager);
+
+    var _Edit = _interopRequireDefault(_argosEdit);
+
+    /**
+     * @class crm.Views.TicketActivity.Edit
+     *
+     * @extends argos.Edit
+     *
+     * @requires argos.ErrorManager
+     *
+     * @requires crm.Template
+     * @requires crm.Validator
+     */
+    var __class = (0, _declare['default'])('crm.Views.TicketActivity.Edit', [_Edit['default']], {
         //Localization
         titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
@@ -44,31 +39,19 @@ define('crm/Views/TicketActivity/Edit', [
         //View Properties
         entityName: 'TicketActivity',
         id: 'ticketactivity_edit',
-        querySelect: [
-            'ActivityDescription',
-            'ActivityTypeCode',
-            'AssignedDate',
-            'CompletedDate',
-            'PublicAccessCode',
-            'User/UserName',
-            'User/UserInfo/FirstName',
-            'User/UserInfo/LastName'
-        ],
+        querySelect: ['ActivityDescription', 'ActivityTypeCode', 'AssignedDate', 'CompletedDate', 'PublicAccessCode', 'User/UserName', 'User/UserInfo/FirstName', 'User/UserInfo/LastName'],
         resourceKind: 'ticketActivities',
 
-        processTemplateEntry: function(entry) {
+        processTemplateEntry: function processTemplateEntry(entry) {
             this.inherited(arguments);
 
             if (entry['PublicAccessCode']) {
                 this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
             }
         },
-        createPicklistRequest: function(name) {
-            var request,
-                uri;
-            request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
-                .setResourceKind('picklists')
-                .setContractName('system');
+        createPicklistRequest: function createPicklistRequest(name) {
+            var request, uri;
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
 
             uri = request.getUri();
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
@@ -77,26 +60,24 @@ define('crm/Views/TicketActivity/Edit', [
             request.allowCacheUse = true;
             return request;
         },
-        requestCodeData: function(picklistName, code, field) {
+        requestCodeData: function requestCodeData(picklistName, code, field) {
             var request = this.createPicklistRequest(picklistName);
             request.read({
-                success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
+                success: _lang['default'].hitch(this, this.onRequestCodeDataSuccess, code, field),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
         },
-        onRequestCodeDataSuccess: function(code, field, feed) {
+        onRequestCodeDataSuccess: function onRequestCodeDataSuccess(code, field, feed) {
             var value = this.processCodeDataFeed(feed, code);
             field.setValue(code);
             field.setText(value);
         },
-        onRequestCodeDataFailure: function(response, o) {
-            ErrorManager.addError(response, o, this.options, 'failure');
+        onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
+            _ErrorManager['default'].addError(response, o, this.options, 'failure');
         },
-        processCodeDataFeed: function(feed, currentValue, options) {
-            var keyProperty,
-                textProperty,
-                i;
+        processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
+            var keyProperty, textProperty, i;
 
             keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             textProperty = options && options.textProperty ? options.textProperty : 'text';
@@ -110,7 +91,7 @@ define('crm/Views/TicketActivity/Edit', [
             return currentValue;
         },
 
-        applyContext: function() {
+        applyContext: function applyContext() {
             this.inherited(arguments);
 
             var ticketContext = App.isNavigationFromResourceKind(['tickets']),
@@ -127,73 +108,64 @@ define('crm/Views/TicketActivity/Edit', [
             }
         },
 
-        createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'TicketId',
-                    property: 'Ticket.$key',
-                    type: 'hidden'
-                }, {
-                    label: this.commentsText,
-                    name: 'ActivityDescription',
-                    property: 'ActivityDescription',
-                    rows: 6,
-                    type: 'textarea'
-                }, {
-                    label: this.activityTypeText,
-                    name: 'ActivityTypeCode',
-                    property: 'ActivityTypeCode',
-                    requireSelection: true,
-                    title: this.activityTypeTitleText,
-                    storageMode: 'id',
-                    picklist: 'Ticket Activity',
-                    type: 'picklist'
-                }, {
-                    label: this.publicAccessText,
-                    name: 'PublicAccessCode',
-                    property: 'PublicAccessCode',
-                    title: this.publicAccessTitleText,
-                    storageMode: 'id',
-                    picklist: 'Ticket Activity Public Access',
-                    type: 'picklist'
-                }, {
-                    label: this.userText,
-                    name: 'User',
-                    property: 'User',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
-                    type: 'lookup',
-                    view: 'user_list'
-                }, {
-                    label: this.startDateText,
-                    name: 'AssignedDate',
-                    property: 'AssignedDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    dateFormatText: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        validator.exists,
-                        validator.isDateInRange
-                    ]
-                }, {
-                    label: this.endDateText,
-                    name: 'CompletedDate',
-                    property: 'CompletedDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    dateFormatText: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        validator.exists,
-                        validator.isDateInRange
-                    ]
-                }
-            ]);
+        createLayout: function createLayout() {
+            return this.layout || (this.layout = [{
+                name: 'TicketId',
+                property: 'Ticket.$key',
+                type: 'hidden'
+            }, {
+                label: this.commentsText,
+                name: 'ActivityDescription',
+                property: 'ActivityDescription',
+                rows: 6,
+                type: 'textarea'
+            }, {
+                label: this.activityTypeText,
+                name: 'ActivityTypeCode',
+                property: 'ActivityTypeCode',
+                requireSelection: true,
+                title: this.activityTypeTitleText,
+                storageMode: 'id',
+                picklist: 'Ticket Activity',
+                type: 'picklist'
+            }, {
+                label: this.publicAccessText,
+                name: 'PublicAccessCode',
+                property: 'PublicAccessCode',
+                title: this.publicAccessTitleText,
+                storageMode: 'id',
+                picklist: 'Ticket Activity Public Access',
+                type: 'picklist'
+            }, {
+                label: this.userText,
+                name: 'User',
+                property: 'User',
+                textProperty: 'UserInfo',
+                textTemplate: _template['default'].nameLF,
+                type: 'lookup',
+                view: 'user_list'
+            }, {
+                label: this.startDateText,
+                name: 'AssignedDate',
+                property: 'AssignedDate',
+                type: 'date',
+                showTimePicker: true,
+                dateFormatText: this.startingFormatText,
+                minValue: new Date(1900, 0, 1),
+                validator: [_validator['default'].exists, _validator['default'].isDateInRange]
+            }, {
+                label: this.endDateText,
+                name: 'CompletedDate',
+                property: 'CompletedDate',
+                type: 'date',
+                showTimePicker: true,
+                dateFormatText: this.startingFormatText,
+                minValue: new Date(1900, 0, 1),
+                validator: [_validator['default'].exists, _validator['default'].isDateInRange]
+            }]);
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
+    module.exports = __class;
 });
-

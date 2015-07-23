@@ -1,52 +1,52 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+define('crm/Action', ['exports', 'module', 'dojo/_base/lang', 'dojo/string', 'argos/Utility'], function (exports, module, _dojo_baseLang, _dojoString, _argosUtility) {
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/**
- * @class crm.Action
- *
- *
- * @requires argos.Utility
- *
- */
-define('crm/Action', [
-    'dojo/_base/lang',
-    'dojo/string',
-    'argos/Utility'
-], function(
-    lang,
-    string,
-    utility
-) {
-    var __class = lang.setObject('crm.Action', {
+    /*
+     * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+     */
+
+    var _lang = _interopRequireDefault(_dojo_baseLang);
+
+    var _string = _interopRequireDefault(_dojoString);
+
+    var _utility = _interopRequireDefault(_argosUtility);
+
+    /**
+     * @class crm.Action
+     *
+     *
+     * @requires argos.Utility
+     *
+     */
+    var __class = _lang['default'].setObject('crm.Action', {
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
-        navigateToHistoryInsert: function(entry, complete) {
+        navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete) {
             var view = App.getView('history_edit');
             if (view) {
                 view.show({
-                        title: entry['Title'] || null,
-                        template: {},
-                        entry: entry,
-                        insert: true
-                    }, {
-                        complete: complete
-                    });
+                    title: entry['Title'] || null,
+                    template: {},
+                    entry: entry,
+                    insert: true
+                }, {
+                    complete: complete
+                });
             }
         },
-        recordToHistory: function(complete, o) {
+        recordToHistory: function recordToHistory(complete, o) {
             var entry = {
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['$descriptor'],
                 'Duration': 15,
-                'CompletedDate': (new Date())
+                'CompletedDate': new Date()
             };
-            lang.mixin(entry, o);
+            _lang['default'].mixin(entry, o);
 
             this.navigateToHistoryInsert(entry, complete);
         },
-        callPhone: function(action, selection, phoneProperty) {
+        callPhone: function callPhone(action, selection, phoneProperty) {
             var value;
             if (!selection || !selection.data) {
                 return;
@@ -57,31 +57,31 @@ define('crm/Action', [
                 key: selection.data['$key']
             });
 
-            lang.mixin(selection.data, {
+            _lang['default'].mixin(selection.data, {
                 'Type': 'atPhoneCall',
-                'Description': string.substitute(crm.Action.calledText, [selection.data['$descriptor']])
+                'Description': _string['default'].substitute(crm.Action.calledText, [selection.data['$descriptor']])
             });
-            value = utility.getValue(selection.data, phoneProperty, '');
-            crm.Action.recordToHistory(function() {
+            value = _utility['default'].getValue(selection.data, phoneProperty, '');
+            crm.Action.recordToHistory((function () {
                 App.initiateCall(value);
-            }.bindDelegate(this), selection.data);
+            }).bindDelegate(this), selection.data);
         },
-        sendEmail: function(action, selection, emailProperty) {
+        sendEmail: function sendEmail(action, selection, emailProperty) {
             var value;
             if (!selection || !selection.data) {
                 return;
             }
-            lang.mixin(selection.data, {
+            _lang['default'].mixin(selection.data, {
                 'Type': 'atEmail',
-                'Description': string.substitute(crm.Action.emailedText, [selection.data['$descriptor']])
+                'Description': _string['default'].substitute(crm.Action.emailedText, [selection.data['$descriptor']])
             });
-            value = utility.getValue(selection.data, emailProperty, '');
-            crm.Action.recordToHistory(function() {
+            value = _utility['default'].getValue(selection.data, emailProperty, '');
+            crm.Action.recordToHistory((function () {
                 App.initiateEmail(value);
-            }.bindDelegate(this), selection.data);
+            }).bindDelegate(this), selection.data);
         },
 
-        addNote: function(action, selection) {
+        addNote: function addNote(action, selection) {
             var entry = selection.data,
                 key = selection.data.$key,
                 view,
@@ -96,10 +96,10 @@ define('crm/Action', [
             view = App.getView('history_edit');
 
             if (view) {
-                view.show({insert: true});
+                view.show({ insert: true });
             }
         },
-        addActivity: function(action, selection) {
+        addActivity: function addActivity(action, selection) {
             this.setSource({
                 entry: selection.data,
                 descriptor: selection.data['$descriptor'],
@@ -107,11 +107,11 @@ define('crm/Action', [
             });
             App.navigateToActivityInsertView();
         },
-        navigateToEntity: function(action, selection, o) {
+        navigateToEntity: function navigateToEntity(action, selection, o) {
             var options = {
-                    key: utility.getValue(selection.data, o.keyProperty),
-                    descriptor: utility.getValue(selection.data, o.textProperty)
-                },
+                key: _utility['default'].getValue(selection.data, o.keyProperty),
+                descriptor: _utility['default'].getValue(selection.data, o.textProperty)
+            },
                 view = App.getView(o.view);
 
             if (view && options.key) {
@@ -119,10 +119,10 @@ define('crm/Action', [
             }
         },
 
-        hasProperty: function(action, selection, property) {
-            return utility.getValue(selection.data, property);
+        hasProperty: function hasProperty(action, selection, property) {
+            return _utility['default'].getValue(selection.data, property);
         },
-        addAttachment: function(action, selection) {
+        addAttachment: function addAttachment(action, selection) {
             var view;
             this.setSource({
                 entry: selection.data,
@@ -137,7 +137,6 @@ define('crm/Action', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Action', __class);
-    return __class;
+    _lang['default'].setObject('Mobile.SalesLogix.Action', __class);
+    module.exports = __class;
 });
-
