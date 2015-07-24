@@ -105,7 +105,7 @@ define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
             this.processAccount(entry);
         },
         requestAccount: function requestAccount(accountId) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_dString['default'].substitute('\'${0}\'', [accountId])).setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_dString['default'].substitute("'${0}'", [accountId])).setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
 
             request.allowCacheUse = true;
             request.read({

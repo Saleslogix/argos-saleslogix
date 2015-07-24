@@ -70,8 +70,8 @@ define('crm/Views/Attachment/List', ['exports', 'module', 'dojo/_base/declare', 
         queryInclude: ['$descriptors'],
 
         hashTagQueries: {
-            'url': '(fileName like \'%.URL\')',
-            'binary': '(fileName not like \'%.URL\')'
+            'url': "(fileName like '%.URL')",
+            'binary': "(fileName not like '%.URL')"
         },
         hashTagQueriesText: {
             'url': 'url',
