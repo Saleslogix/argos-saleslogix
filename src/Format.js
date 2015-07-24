@@ -13,7 +13,8 @@ import moment from 'moment';
  * @requires crm.Template
  *
  */
-var __class = lang.setObject('crm.Format', lang.mixin({}, format, {
+var __class;
+__class = lang.setObject('crm.Format', lang.mixin({}, format, {
     /**
      * Address Culture Formats as defined by crm.Format.address
      * http://msdn.microsoft.com/en-us/library/cc195167.aspx
