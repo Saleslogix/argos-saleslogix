@@ -100,14 +100,19 @@ __class = lang.setObject('crm.Format', lang.mixin({}, format, {
         }
 
         lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
+        lines = array.map(lines, (line) => {
+            return self.replaceAddressPart(line, o);
+        });
+
         address = [];
 
-        array.forEach(lines, function(line) {
-            line = self.replaceAddressPart(line, o);
-            if (!isEmpty(line)) {
-                this.push(self.encode(self.collapseSpace(line)));
-            }
-        }, address);
+        let filtered = array.filter(lines, (line) => {
+            return !isEmpty(line);
+        });
+
+        address = array.map(filtered, (line) => {
+            return self.encode(self.collapseSpace(line));
+        });
 
         if (asText) {
             if (separator === true) {

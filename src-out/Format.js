@@ -104,14 +104,19 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
             }
 
             lines = fmt.indexOf('|') === -1 ? [fmt] : fmt.split('|');
+            lines = _array['default'].map(lines, function (line) {
+                return self.replaceAddressPart(line, o);
+            });
+
             address = [];
 
-            _array['default'].forEach(lines, function (line) {
-                line = self.replaceAddressPart(line, o);
-                if (!isEmpty(line)) {
-                    this.push(self.encode(self.collapseSpace(line)));
-                }
-            }, address);
+            var filtered = _array['default'].filter(lines, function (line) {
+                return !isEmpty(line);
+            });
+
+            address = _array['default'].map(filtered, function (line) {
+                return self.encode(self.collapseSpace(line));
+            });
 
             if (asText) {
                 if (separator === true) {
