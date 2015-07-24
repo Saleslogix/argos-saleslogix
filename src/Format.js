@@ -80,37 +80,31 @@ __class = lang.setObject('crm.Format', lang.mixin({}, format, {
      @param {string} fmt Address format to use, may also pass a culture string to use predefined format
      @return {string} Formatted address
     */
-    address: function(o, asText, separator, fmt) {
-        var isEmpty,
-            self,
-            lines,
-            address,
-            culture;
-
-        isEmpty = function(line) {
+    address: function addressFormatter(o, asText, separator, fmt) {
+        let isEmpty = function(line) {
             var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
             return filterSymbols === '';
         };
 
-        self = crm.Format;
+        let self = crm.Format;
 
         if (!fmt) {
-            culture = self.resolveAddressCulture(o);
+            let culture = self.resolveAddressCulture(o);
             fmt = self.addressCultureFormats[culture] || self.addressCultureFormats['en'];
         }
 
-        lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
+        let lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
         lines = array.map(lines, (line) => {
             return self.replaceAddressPart(line, o);
         });
 
-        address = [];
+        let addressItems = [];
 
         let filtered = array.filter(lines, (line) => {
             return !isEmpty(line);
         });
 
-        address = array.map(filtered, (line) => {
+        addressItems = array.map(filtered, (line) => {
             return self.encode(self.collapseSpace(line));
         });
 
@@ -118,12 +112,12 @@ __class = lang.setObject('crm.Format', lang.mixin({}, format, {
             if (separator === true) {
                 separator = '\n';
             }
-            return address.join(separator || '<br />');
+            return addressItems.join(separator || '<br />');
         }
 
         return string.substitute(
             '<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
-            [address.join('<br />'), encodeURIComponent(self.decode(address.join(' ')))]
+            [addressItems.join('<br />'), encodeURIComponent(self.decode(addressItems.join(' ')))]
         );
     },
     collapseSpace: function(text) {

@@ -88,33 +88,31 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
          @param {string} fmt Address format to use, may also pass a culture string to use predefined format
          @return {string} Formatted address
         */
-        address: function address(o, asText, separator, fmt) {
-            var isEmpty, self, lines, address, culture;
-
-            isEmpty = function (line) {
+        address: function addressFormatter(o, asText, separator, fmt) {
+            var isEmpty = function isEmpty(line) {
                 var filterSymbols = _lang['default'].trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, '')); //'
                 return filterSymbols === '';
             };
 
-            self = crm.Format;
+            var self = crm.Format;
 
             if (!fmt) {
-                culture = self.resolveAddressCulture(o);
+                var culture = self.resolveAddressCulture(o);
                 fmt = self.addressCultureFormats[culture] || self.addressCultureFormats['en'];
             }
 
-            lines = fmt.indexOf('|') === -1 ? [fmt] : fmt.split('|');
+            var lines = fmt.indexOf('|') === -1 ? [fmt] : fmt.split('|');
             lines = _array['default'].map(lines, function (line) {
                 return self.replaceAddressPart(line, o);
             });
 
-            address = [];
+            var addressItems = [];
 
             var filtered = _array['default'].filter(lines, function (line) {
                 return !isEmpty(line);
             });
 
-            address = _array['default'].map(filtered, function (line) {
+            addressItems = _array['default'].map(filtered, function (line) {
                 return self.encode(self.collapseSpace(line));
             });
 
@@ -122,10 +120,10 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
                 if (separator === true) {
                     separator = '\n';
                 }
-                return address.join(separator || '<br />');
+                return addressItems.join(separator || '<br />');
             }
 
-            return _string['default'].substitute('<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>', [address.join('<br />'), encodeURIComponent(self.decode(address.join(' ')))]);
+            return _string['default'].substitute('<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>', [addressItems.join('<br />'), encodeURIComponent(self.decode(addressItems.join(' ')))]);
         },
         collapseSpace: function collapseSpace(text) {
             return _lang['default'].trim(text.replace(/\s+/g, ' '));
