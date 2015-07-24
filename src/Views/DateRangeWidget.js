@@ -7,61 +7,49 @@
  *
  *
  * @requires argos._Templated
- * @requires argos.Store.SData
+ * @requires argos._Widget
  *
  */
-define('crm/Views/DateRangeWidget', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/Deferred',
-    'dojo/when',
-    'dojo/promise/all',
-    'dojo/dom-construct',
-    'dijit/_Widget',
-    'argos/_Templated'
-], function(
-    declare,
-    lang,
-    array,
-    Deferred,
-    when,
-    all,
-    domConstruct,
-    _Widget,
-    _Templated
-) {
-    var __class = declare('crm.Views.DateRangeWidget', [_Widget, _Templated], {
-        /**
-         * @property {Simplate}
-         * Simple that defines the HTML Markup
-        */
-        widgetTemplate: new Simplate([
-            '<div class="range-widget">',
-                '<button data-dojo-attach-event="onclick:changeRange">',
-                    '<div data-dojo-attach-point="rangeDetailNode" class="range-detail">',
-                        '{%! $.itemTemplate %}',
-                    '</div>',
-                '</button>',
-            '</div>'
-        ]),
+import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
+import array from 'dojo/_base/array';
+import Deferred from 'dojo/Deferred';
+import when from 'dojo/when';
+import all from 'dojo/promise/all';
+import domConstruct from 'dojo/dom-construct';
+import _Widget from 'dijit/_Widget';
+import _Templated from 'argos/_Templated';
 
-        /**
-         * @property {Simplate}
-         * HTML markup for the range detail (name/value)
-        */
-        itemTemplate: new Simplate([
-            '<span class="range-value">{%: $.value %} {%: $.valueUnit %}</span>',
-        ]),
+var __class = declare('crm.Views.DateRangeWidget', [_Widget, _Templated], {
+    /**
+     * @property {Simplate}
+     * Simple that defines the HTML Markup
+    */
+    widgetTemplate: new Simplate([
+        '<div class="range-widget">',
+            '<button data-dojo-attach-event="onclick:changeRange">',
+                '<div data-dojo-attach-point="rangeDetailNode" class="range-detail">',
+                    '{%! $.itemTemplate %}',
+                '</div>',
+            '</button>',
+        '</div>'
+    ]),
 
-        // Localization
-        value: '',
+    /**
+     * @property {Simplate}
+     * HTML markup for the range detail (name/value)
+    */
+    itemTemplate: new Simplate([
+        '<span class="range-value">{%: $.value %} {%: $.valueUnit %}</span>',
+    ]),
 
-        // This is the onclick function that is to be overriden by the class that is using this widget
-        changeRange: function() {
-        }
-    });
+    // Localization
+    value: '',
 
-    lang.setObject('Mobile.SalesLogix.Views.DateRangeWidget', __class);
-    return __class;
+    // This is the onclick function that is to be overriden by the class that is using this widget
+    changeRange: function() {
+    }
 });
+
+lang.setObject('Mobile.SalesLogix.Views.DateRangeWidget', __class);
+export default __class;
