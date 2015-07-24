@@ -71,7 +71,7 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
         scaleBeginAtZero: false,
 
         // String - Scale label font declaration for the scale label
-        scaleFontFamily: '\'Helvetica Neue\', \'Helvetica\', \'Arial\', sans-serif',
+        scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 
         // Number - Scale label font size in pixels
         scaleFontSize: 12,
@@ -98,7 +98,7 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
         tooltipFillColor: 'rgba(0,0,0,0.8)',
 
         // String - Tooltip label font declaration for the scale label
-        tooltipFontFamily: '\'Helvetica\', \'Arial\', Sans-serif',
+        tooltipFontFamily: "'Helvetica', 'Arial', Sans-serif",
 
         // Number - Tooltip label font size in pixels
         tooltipFontSize: 14,
@@ -110,7 +110,7 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
         tooltipFontColor: '#fff',
 
         // String - Tooltip title font declaration for the scale label
-        tooltipTitleFontFamily: '\'Helvetica Neue\', \'Helvetica\', \'Arial\', sans-serif',
+        tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 
         // Number - Tooltip title font size in pixels
         tooltipTitleFontSize: 14,

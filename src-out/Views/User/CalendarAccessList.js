@@ -26,7 +26,7 @@ define('crm/Views/User/CalendarAccessList', ['exports', 'module', 'dojo/_base/de
         queryOrderBy: 'Name',
 
         queryWhere: function queryWhere() {
-            return 'AllowAdd AND (AccessId eq \'EVERYONE\' or AccessId eq \'' + App.context.user.$key + '\') AND Type eq \'User\'';
+            return "AllowAdd AND (AccessId eq 'EVERYONE' or AccessId eq '" + App.context.user.$key + "') AND Type eq 'User'";
         },
         querySelect: ['Name', 'SubType', 'AccessId', 'ResourceId'],
         resourceKind: 'activityresourceviews',

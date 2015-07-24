@@ -238,7 +238,7 @@ define('crm/Views/_GroupListMixin', ['exports', 'module', 'dojo/_base/declare', 
                 service: App.services.crm,
                 resourceKind: 'groups',
                 contractName: 'system',
-                where: '((upper(family) eq \'' + this.entityName.toUpperCase() + '\') and (upper(Name) eq \'' + groupName.toUpperCase() + '\'))',
+                where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "'))",
                 include: ['layout', 'tableAliases'],
                 idProperty: '$key',
                 applicationName: 'slx',
@@ -264,7 +264,7 @@ define('crm/Views/_GroupListMixin', ['exports', 'module', 'dojo/_base/declare', 
                     service: App.services.crm,
                     resourceKind: 'groups',
                     contractName: 'system',
-                    where: '((upper(family) eq \'' + this.entityName.toUpperCase() + '\') and (upper(Name) eq \'' + groupName.toUpperCase() + '\') or PluginId eq \'' + groupId + '\')',
+                    where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "') or PluginId eq '" + groupId + "')",
                     include: ['layout', 'tableAliases'],
                     idProperty: '$key',
                     applicationName: 'slx',
@@ -755,7 +755,7 @@ define('crm/Views/_GroupListMixin', ['exports', 'module', 'dojo/_base/declare', 
 
             queryOptions = {
                 select: this._originalProps.querySelect,
-                where: 'Id eq \'' + entryKey + '\''
+                where: "Id eq '" + entryKey + "'"
             };
 
             queryResults = store.query(null, queryOptions);
