@@ -767,6 +767,12 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/window', 'dojo/_base
                 this.navigateToLoginView();
             }
         },
+        onConnectionChange: function onConnectionChange(online) {
+            var view = App.getView('left_drawer');
+            if (view) {
+                view.refresh();
+            }
+        },
         navigateToLoginView: function navigateToLoginView() {
             this.setupRedirectHash();
 

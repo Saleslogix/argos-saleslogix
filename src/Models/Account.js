@@ -3,7 +3,7 @@ import _ModelBase from 'argos/_ModelBase';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 
-export default declare('Mobile.SalesLogix.Models.Account', [_ModelBase], {
+export default declare('crm.Models.Account', [_ModelBase], {
     app: null,
     metadata: {
         sdata: {

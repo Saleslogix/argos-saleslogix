@@ -9,7 +9,7 @@ define('crm/Models/Account', ['exports', 'module', 'dojo/_base/declare', 'argos/
 
     var _Deferred = _interopRequireDefault(_dojoDeferred);
 
-    module.exports = (0, _declare['default'])('Mobile.SalesLogix.Models.Account', [_ModelBase2['default']], {
+    module.exports = (0, _declare['default'])('crm.Models.Account', [_ModelBase2['default']], {
         app: null,
         metadata: {
             sdata: {

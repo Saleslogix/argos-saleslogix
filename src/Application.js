@@ -829,6 +829,12 @@ UID: null,
             this.navigateToLoginView();
         }
     },
+    onConnectionChange: function(online) {
+        let view = App.getView('left_drawer');
+        if (view) {
+            view.refresh();
+        }
+    },
     navigateToLoginView: function() {
         this.setupRedirectHash();
 

@@ -160,27 +160,6 @@ var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _M
         }]
         );
     },
-    createIndicatorLayout: function() {
-        return this.itemIndicators || (this.itemIndicators = [{
-            id: 'alarm',
-            cls: 'fa fa-star fa-lg',
-            label: this.offlineText,
-            onApply: function(entry, parent) {
-                this.isEnabled = parent.isOffline(entry);
-            }
-        }
-        ]);
-    },
-    isOffline: function(entry) {
-        // TODO: There could be a timing issue here, this.offlineIds is populated asynchronously on transition to.
-        if (this.offlineIds) {
-            return array.some(this.offlineIds, function(row) {
-                return row.id === entry[this.idProperty];
-            }.bind(this));
-        }
-
-        return false;
-    },
     formatSearchQuery: function(searchQuery) {
         return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
     }

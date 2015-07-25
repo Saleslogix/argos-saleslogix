@@ -133,26 +133,6 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
                 fn: _action['default'].addAttachment.bindDelegate(this)
             }]);
         },
-        createIndicatorLayout: function createIndicatorLayout() {
-            return this.itemIndicators || (this.itemIndicators = [{
-                id: 'alarm',
-                cls: 'fa fa-star fa-lg',
-                label: this.offlineText,
-                onApply: function onApply(entry, parent) {
-                    this.isEnabled = parent.isOffline(entry);
-                }
-            }]);
-        },
-        isOffline: function isOffline(entry) {
-            // TODO: There could be a timing issue here, this.offlineIds is populated asynchronously on transition to.
-            if (this.offlineIds) {
-                return _array['default'].some(this.offlineIds, (function (row) {
-                    return row.id === entry[this.idProperty];
-                }).bind(this));
-            }
-
-            return false;
-        },
         formatSearchQuery: function formatSearchQuery(searchQuery) {
             return _string['default'].substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
