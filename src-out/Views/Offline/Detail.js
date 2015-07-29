@@ -33,30 +33,24 @@ define('crm/Views/Offline/Detail', ['exports', 'module', 'dojo/_base/declare', '
             var options = this.options;
             return options && (options.id || options.key);
         },
-        processEntry: function processEntry(offlineEntry) {
-            var arg = arguments[0];
-            this.offlineDoc = offlineEntry;
-
-            arg = this.offlineDoc.entity;
-            this.inherited(arguments);
+        preProcessEntry: function preProcessEntry(entry) {
+            this.offlineDoc = entry;
+            return entry.entity;
         },
         createLayout: function createLayout() {
-            var views, view, i, len, createLayoutFn, layout;
-            views = App.getViews();
-            len = views.length;
+            var _this = this;
 
-            for (i = 0; i < len; i++) {
-                view = views[i];
-                if (view.id === this.offlineDoc.storedBy && view.createLayout) {
-                    createLayoutFn = view.createLayout;
-                    break;
-                }
+            var views = App.getViews().filter(function (view) {
+                return view.id === _this.offlineDoc.storedBy && view.createLayout;
+            });
+
+            var view = views[0];
+            var layout = [];
+            if (view) {
+                view.entry = this.entry.entity;
+                layout = view.createLayout.apply(view);
             }
 
-            view.entry = this.entry.entity;
-            layout = createLayoutFn.apply(view);
-
-            // TODO: Filter the layout to exclude rows we don't want (Quick actions, relatted items, etc)?
             return layout;
         }
     });

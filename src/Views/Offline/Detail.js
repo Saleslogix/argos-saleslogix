@@ -25,33 +25,25 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase], {
     _applyStateToGetOptions: function() {
     },
     _buildGetExpression: function() {
-        var options = this.options;
+        let options = this.options;
         return options && (options.id || options.key);
     },
-    processEntry: function(offlineEntry) {
-        var arg = arguments[0];
-        this.offlineDoc = offlineEntry;
-
-        arg = this.offlineDoc.entity;
-        this.inherited(arguments);
+    preProcessEntry: function(entry) {
+        this.offlineDoc = entry;
+        return entry.entity;
     },
     createLayout: function() {
-        var views, view, i, len, createLayoutFn, layout;
-        views = App.getViews();
-        len = views.length;
+        const views = App.getViews().filter((view) => {
+            return view.id === this.offlineDoc.storedBy && view.createLayout;
+        });
 
-        for (i = 0; i < len; i++) {
-            view = views[i];
-            if (view.id === this.offlineDoc.storedBy && view.createLayout) {
-                createLayoutFn = view.createLayout;
-                break;
-            }
+        const view = views[0];
+        let layout = [];
+        if (view){
+            view.entry = this.entry.entity;
+            layout = view.createLayout.apply(view);
         }
 
-        view.entry = this.entry.entity;
-        layout = createLayoutFn.apply(view);
-
-        // TODO: Filter the layout to exclude rows we don't want (Quick actions, relatted items, etc)?
         return layout;
     }
 });
