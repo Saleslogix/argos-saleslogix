@@ -9,29 +9,29 @@ import List from 'argos/List';
  * @extends argos.List
  */
 var __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
-    //Localization
-    titleText: 'Ticket Urgency',
+  //Localization
+  titleText: 'Ticket Urgency',
 
-    //Templates
-    itemTemplate: new Simplate([
-        '<h3>{%: $.Description %}</h3>'
-    ]),
+  //Templates
+  itemTemplate: new Simplate([
+    '<h3>{%: $.Description %}</h3>'
+  ]),
 
-    //View Properties
-    id: 'urgency_list',
-    queryOrderBy: 'UrgencyCode asc',
-    querySelect: [
-        'Description',
-        'UrgencyCode'
-    ],
-    resourceKind: 'urgencies',
+  //View Properties
+  id: 'urgency_list',
+  queryOrderBy: 'UrgencyCode asc',
+  querySelect: [
+    'Description',
+    'UrgencyCode'
+  ],
+  resourceKind: 'urgencies',
 
-    formatSearchQuery: function(searchQuery) {
-        var escaped, toUpper;
-        toUpper = searchQuery && searchQuery.toUpperCase() || '';
-        escaped = this.escapeSearchQuery(toUpper);
-        return string.substitute('upper(Description) like "%${0}%"', [escaped]);
-    }
+  formatSearchQuery: function(searchQuery) {
+    var escaped, toUpper;
+    toUpper = searchQuery && searchQuery.toUpperCase() || '';
+    escaped = this.escapeSearchQuery(toUpper);
+    return string.substitute('upper(Description) like "%${0}%"', [escaped]);
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', __class);

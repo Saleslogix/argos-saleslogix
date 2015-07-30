@@ -14,106 +14,103 @@ import lang from 'dojo/_base/lang'
 // 1. onBeforeTransitionAway
 // 2. unloadRightDrawer
 /**
-* @class crm.Views._RightDrawerBaseMixin
-*
-* The base mixin for the right drawer.
-*
-* @since 3.0
-*
-*/
+ * @class crm.Views._RightDrawerBaseMixin
+ *
+ * The base mixin for the right drawer.
+ *
+ * @since 3.0
+ *
+ */
 var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
-    drawerLoaded: false,
+  drawerLoaded: false,
 
-    /**
-     * @property {Boolean}
-     * Add a flag so the view can opt-out of the right drawer if the mixin is used (_related views)
-     */
-    disableRightDrawer: false,
-    toolsAdded: false,
+  /**
+   * @property {Boolean}
+   * Add a flag so the view can opt-out of the right drawer if the mixin is used (_related views)
+   */
+  disableRightDrawer: false,
+  toolsAdded: false,
 
-    setupRightDrawer: function() {
-    },
-    loadRightDrawer: function() {
-        if (this.drawerLoaded || this.disableRightDrawer) {
-            return;
-        }
-
-        this.setupRightDrawer();
-        var drawer = App.getView('right_drawer');
-        if (drawer) {
-            drawer.refresh();
-            this.drawerLoaded = true;
-        }
-    },
-    show: function(options) {
-        this.ensureToolsCreated(options);
-        this.inherited(arguments);
-    },
-    ensureToolsCreated: function(options) {
-        // Inject tools into options if it exists
-        if (options && options.tools) {
-            this._addTools(options.tools);
-        }
-    },
-    onToolLayoutCreated: function(tools) {
-        tools = tools || {
-            tbar: []
-        };
-        if (!this.toolsAdded) {
-            this._addTools(tools);
-            this.toolsAdded = true;
-        }
-        this.inherited(arguments);
-    },
-    _addTools: function(tools) {
-        if (this.disableRightDrawer) {
-            return;
-        }
-
-        if (tools) {
-            tools.tbar.unshift({
-                id: 'toggleRightDrawer',
-                cls: 'fa fa-ellipsis-v fa-fw fa-lg',
-                side: 'right',
-                fn: this.toggleRightDrawer,
-                scope: this
-            });
-        }
-    },
-    toggleRightDrawer: function() {
-        this._toggleDrawer('right');
-    },
-    _toggleDrawer: function(state) {
-        var snapperState = App.snapper.state();
-        if (snapperState.state === state) {
-            App.snapper.close();
-        } else {
-            App.snapper.open(state);
-        }
-    },
-    unloadRightDrawer: function() {
-    },
-    onTransitionTo: function() {
-        if (this.disableRightDrawer) {
-            return;
-        }
-
-        this.loadRightDrawer();
-    },
-    onTransitionAway: function() {
-        if (this.disableRightDrawer) {
-            return;
-        }
-
-        var drawer = App.getView('right_drawer');
-        if (drawer) {
-            this.unloadRightDrawer();
-            drawer.clear();
-            this.drawerLoaded = false;
-        }
+  setupRightDrawer: function() {},
+  loadRightDrawer: function() {
+    if (this.drawerLoaded || this.disableRightDrawer) {
+      return;
     }
+
+    this.setupRightDrawer();
+    var drawer = App.getView('right_drawer');
+    if (drawer) {
+      drawer.refresh();
+      this.drawerLoaded = true;
+    }
+  },
+  show: function(options) {
+    this.ensureToolsCreated(options);
+    this.inherited(arguments);
+  },
+  ensureToolsCreated: function(options) {
+    // Inject tools into options if it exists
+    if (options && options.tools) {
+      this._addTools(options.tools);
+    }
+  },
+  onToolLayoutCreated: function(tools) {
+    tools = tools || {
+      tbar: []
+    };
+    if (!this.toolsAdded) {
+      this._addTools(tools);
+      this.toolsAdded = true;
+    }
+    this.inherited(arguments);
+  },
+  _addTools: function(tools) {
+    if (this.disableRightDrawer) {
+      return;
+    }
+
+    if (tools) {
+      tools.tbar.unshift({
+        id: 'toggleRightDrawer',
+        cls: 'fa fa-ellipsis-v fa-fw fa-lg',
+        side: 'right',
+        fn: this.toggleRightDrawer,
+        scope: this
+      });
+    }
+  },
+  toggleRightDrawer: function() {
+    this._toggleDrawer('right');
+  },
+  _toggleDrawer: function(state) {
+    var snapperState = App.snapper.state();
+    if (snapperState.state === state) {
+      App.snapper.close();
+    } else {
+      App.snapper.open(state);
+    }
+  },
+  unloadRightDrawer: function() {},
+  onTransitionTo: function() {
+    if (this.disableRightDrawer) {
+      return;
+    }
+
+    this.loadRightDrawer();
+  },
+  onTransitionAway: function() {
+    if (this.disableRightDrawer) {
+      return;
+    }
+
+    var drawer = App.getView('right_drawer');
+    if (drawer) {
+      this.unloadRightDrawer();
+      drawer.clear();
+      this.drawerLoaded = false;
+    }
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
 export default __class;
-

@@ -12,34 +12,34 @@ import List from 'argos/List';
  * @requires crm.Format
  */
 var __class = declare('crm.Views.Product.List', [List], {
-    //Templates
-    itemTemplate: new Simplate([
-        '<h3>{%: $.Name %} | {%: $.Description %}</h3>',
-        '<h4>',
-        '{%: $.Family %}',
-        '</h4>'
-    ]),
+  //Templates
+  itemTemplate: new Simplate([
+    '<h3>{%: $.Name %} | {%: $.Description %}</h3>',
+    '<h4>',
+    '{%: $.Family %}',
+    '</h4>'
+  ]),
 
-    //Localization
-    titleText: 'Products',
+  //Localization
+  titleText: 'Products',
 
-    //View Properties
-    id: 'product_list',
-    security: 'Entities/Product/View',
-    queryOrderBy: 'Name',
-    querySelect: [
-        'Description',
-        'Name',
-        'Family',
-        'Price',
-        'Program',
-        'FixedCost'
-    ],
-    resourceKind: 'products',
+  //View Properties
+  id: 'product_list',
+  security: 'Entities/Product/View',
+  queryOrderBy: 'Name',
+  querySelect: [
+    'Description',
+    'Name',
+    'Family',
+    'Price',
+    'Program',
+    'FixedCost'
+  ],
+  resourceKind: 'products',
 
-    formatSearchQuery: function(searchQuery) {
-        return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-    }
+  formatSearchQuery: function(searchQuery) {
+    return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Product.List', __class);
