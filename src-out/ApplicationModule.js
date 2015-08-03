@@ -544,7 +544,14 @@ define('crm/ApplicationModule', ['exports', 'module', 'dojo/_base/declare', 'doj
         searchText: this.searchText
       });
     },
+    /**
+     * @deprecated typo, use loadAppStatePromises instead.
+     */
     loadAppStatPromises: function loadAppStatPromises() {
+      // Redirect to the typo fix.
+      this.loadAppStatePromises();
+    },
+    loadAppStatePromises: function loadAppStatePromises() {
       this.registerAppStatePromise(function () {
         return App.requestUserDetails();
       });

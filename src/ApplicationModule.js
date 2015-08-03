@@ -467,7 +467,14 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       searchText: this.searchText,
     });
   },
+  /**
+   * @deprecated typo, use loadAppStatePromises instead.
+   */
   loadAppStatPromises: function loadAppStatPromises() {
+    // Redirect to the typo fix.
+    this.loadAppStatePromises();
+  },
+  loadAppStatePromises: function loadAppStatePromises() {
     this.registerAppStatePromise(() => App.requestUserDetails());
     this.registerAppStatePromise(() => App.requestUserOptions());
     this.registerAppStatePromise(() => App.requestSystemOptions());
