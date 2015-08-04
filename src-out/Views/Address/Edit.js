@@ -25,7 +25,7 @@ define('crm/Views/Address/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Address.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     address1Text: 'address 1',
     address2Text: 'address 2',
     address3Text: 'address 3',
@@ -55,12 +55,12 @@ define('crm/Views/Address/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
       'ru-RU': ['State']
     },
 
-    //View Properties
+    // View Properties
     id: 'address_edit',
 
     init: function init() {
       this.inherited(arguments);
-      this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
+      this.connect(this.fields.Country, 'onChange', this.onCountryChange);
     },
     onCountryChange: function onCountryChange(value) {
       var locale = _format['default'].countryCultures[value] || 'en-US';
@@ -72,22 +72,20 @@ define('crm/Views/Address/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
      * @param locale Localization string (Ex: 'en-US' or 'de-DE')
      */
     hideFieldsForLocale: function hideFieldsForLocale(locale) {
-      var fieldsToHide, i, field;
-
-      fieldsToHide = this.localeFieldHidden[locale];
+      var fieldsToHide = this.localeFieldHidden[locale];
       if (!fieldsToHide) {
         return;
       }
 
-      for (i = 0; i < fieldsToHide.length; i++) {
-        field = this.fields[fieldsToHide[i]];
+      for (var i = 0; i < fieldsToHide.length; i++) {
+        var field = this.fields[fieldsToHide[i]];
         if (field) {
           field.hide();
         }
       }
     },
-    formatDependentPicklist: function formatDependentPicklist(format) {
-      return _string['default'].substitute(format, [this.options.entityName]);
+    formatDependentPicklist: function formatDependentPicklist(theFormat) {
+      return _string['default'].substitute(theFormat, [this.options.entityName]);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
