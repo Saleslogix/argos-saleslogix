@@ -1,9 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
-import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
-import format from '../../Format';
 import domConstruct from 'dojo/dom-construct';
 import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
@@ -31,8 +27,8 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  * @requires crm.Utility
  *
  */
-var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
-  //Localization
+const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
+  // Localization
   detailsText: 'Attachment Details',
   descriptionText: 'description',
   fileNameText: 'file name',
@@ -44,7 +40,7 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
   downloadingText: 'Downloading attachment ...',
   notSupportedText: 'Viewing attachments is not supported by your device.',
 
-  //View Properties
+  // View Properties
   id: 'view_attachment',
   editView: '',
   security: null,
@@ -53,22 +49,22 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
   contractName: 'system',
   orginalImageSize: {
     width: 0,
-    height: 0
+    height: 0,
   },
   queryInclude: ['$descriptors'],
   dataURL: null,
   notSupportedTemplate: new Simplate([
-    '<h2>{%= $$.notSupportedText %}</h2>'
+    '<h2>{%= $$.notSupportedText %}</h2>',
   ]),
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
     '{%! $.loadingTemplate %}',
     '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',
     '<div class="attachment-viewer-content" data-dojo-attach-point="attachmentViewerNode"></div>',
-    '</div>'
+    '</div>',
   ]),
   attachmentLoadingTemplate: new Simplate([
-    '<div class="list-loading-indicator">{%= $.loadingText %}</div>'
+    '<div class="list-loading-indicator">{%= $.loadingText %}</div>',
   ]),
   attachmentViewTemplate: new Simplate([
     '<div class="attachment-viewer-label" style="white-space:nowrap;">',
@@ -76,7 +72,7 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
     '</div>',
     '<div class="attachment-viewer-area">',
     '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
-    '</div>'
+    '</div>',
   ]),
   attachmentViewImageTemplate: new Simplate([
     '<div class="attachment-viewer-label" style="white-space:nowrap;">',
@@ -89,7 +85,7 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
     '</td>',
     '</tr>',
     '</table>',
-    '</div>'
+    '</div>',
   ]),
   attachmentViewNotSupportedTemplate: new Simplate([
     '<div class="attachment-viewer-label">',
@@ -103,13 +99,13 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
     '{% if($.user) { %}',
     '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
     '{% } %}',
-    '</div>'
+    '</div>',
   ]),
 
   downloadingTemplate: new Simplate([
-    '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>'
+    '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
   ]),
-  show: function(options) {
+  show: function show(options) {
     this.inherited(arguments);
     this.attachmentViewerNode.innerHTML = '';
     if (!has('html5-file-api')) {
@@ -117,40 +113,42 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
       return;
     }
 
-    //If this opened the second time we need to check to see if it is the same attachmnent and let the Process Entry function load the view.
+    // If this opened the second time we need to check to see if it is the same attachmnent and let the Process Entry function load the view.
     if (this.entry) {
       if (options.key === this.entry.$key) {
         this._loadAttachmentView(this.entry);
       }
     }
   },
-  processEntry: function(entry) {
+  processEntry: function processEntry(entry) {
     this.inherited(arguments);
     this._loadAttachmentView(entry);
   },
-  createRequest: function() {
-    var request = this.inherited(arguments);
+  createRequest: function createRequest() {
+    const request = this.inherited(arguments);
     request.setQueryArg('_includeFile', 'false');
     return request;
   },
-  createEntryForDelete: function(e) {
-    var entry = {
-      '$key': e['$key'],
-      '$etag': e['$etag'],
-      '$name': e['$name']
+  createEntryForDelete: function createEntryForDelete(e) {
+    const entry = {
+      '$key': e.$key,
+      '$etag': e.$etag,
+      '$name': e.$name,
     };
     return entry;
   },
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools;
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.tools || (this.tools = []);
   },
-  _loadAttachmentView: function(entry) {
-    var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid, fileType, self, iframe;
-
-    am = new AttachmentManager();
+  _loadAttachmentView: function _loadAttachmentView(entry) {
+    const am = new AttachmentManager();
+    let description;
+    let isFile;
+    let fileType;
+    let loaded;
 
     if (!entry.url) {
       description = entry.description;
@@ -162,41 +160,39 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
       fileType = 'url';
     }
 
-    data = {
+    const data = {
       fileName: entry.fileName,
       fileSize: entry.fileSize,
       fileType: fileType,
       url: '',
-      description: description
+      description: description,
     };
 
     if (isFile) {
       fileType = Utility.getFileExtension(entry.fileName);
       if (this._isfileTypeAllowed(fileType)) {
         if (this._isfileTypeImage(fileType)) {
-          viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-          tpl = this.downloadingTemplate.apply(this);
-          dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+          domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+          const tpl = this.downloadingTemplate.apply(this);
+          const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
           domClass.add(this.domNode, 'list-loading');
-          self = this;
-          attachmentid = entry.$key;
-          //dataurl
-          am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-            var rData, image, loadHandler, loaded;
-
-            rData = Utility.base64ArrayBuffer(responseInfo.response);
+          const self = this;
+          const attachmentid = entry.$key;
+          // dataurl
+          am.getAttachmentFile(attachmentid, 'arraybuffer', function imageHandler(responseInfo) {
+            const rData = Utility.base64ArrayBuffer(responseInfo.response);
             self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
 
-            image = new Image();
+            const image = new Image();
 
-            loadHandler = function() {
+            const loadHandler = function loadHandler() {
               if (loaded) {
                 return;
               }
 
               self._orginalImageSize = {
                 width: image.width,
-                height: image.height
+                height: image.height,
               };
               self._sizeImage(self.domNode, image);
               domConstruct.place(image, 'imagePlaceholder', 'only');
@@ -213,54 +209,49 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
             // Set download text to hidden
             domClass.add(dl, 'display-none');
           });
-        } else { //View file type in Iframe
+        } else { // View file type in Iframe
           if (this._viewImageOnly() === false) {
-            viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-            tpl = this.downloadingTemplate.apply(this);
-            dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+            domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            const tpl = this.downloadingTemplate.apply(this);
+            const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
             domClass.add(this.domNode, 'list-loading');
-            self = this;
-            attachmentid = entry.$key;
-            am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-              var rData, dataUrl, iframe;
-
-              rData = Utility.base64ArrayBuffer(responseInfo.response);
-              dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+            const attachmentid = entry.$key;
+            am.getAttachmentFile(attachmentid, 'arraybuffer', function iframeResponse(responseInfo) {
+              const rData = Utility.base64ArrayBuffer(responseInfo.response);
+              const dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
               domClass.add(dl, 'display-none');
-              iframe = dom.byId('attachment-Iframe');
-              iframe.onload = function() {
+              const iframe = dom.byId('attachment-Iframe');
+              iframe.onload = function iframeOnLoad() {
                 domClass.add(dl, 'display-none');
               };
               domClass.add(dl, 'display-none');
               domAttr.set(iframe, 'src', dataUrl);
             });
-          } else { //Only view images
-            viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+          } else { // Only view images
+            domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
           }
         }
-      } else { //File type not allowed
-        viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+      } else { // File type not allowed
+        domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
       }
-
     } else { // url Attachment
-      viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-      url = am.getAttachmenturlByEntity(entry);
+      domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+      const url = am.getAttachmenturlByEntity(entry);
       domClass.add(this.domNode, 'list-loading');
-      tpl = this.downloadingTemplate.apply(this);
-      dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-      iframe = dom.byId('attachment-Iframe');
-      iframe.onload = function() {
+      const tpl = this.downloadingTemplate.apply(this);
+      const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+      const iframe = dom.byId('attachment-Iframe');
+      iframe.onload = function iframeOnLoad() {
         domClass.add(dl, 'display-none');
       };
       domAttr.set(iframe, 'src', url);
       domClass.add(dl, 'display-none');
     }
-
   },
-  _isfileTypeImage: function(fileType) {
-    var imageTypes;
+  _isfileTypeImage: function _isfileTypeImage(fileType) {
+    const fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
+    let imageTypes;
 
-    fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
     if (App.imageFileTypes) {
       imageTypes = App.imageFileTypes;
     } else {
@@ -269,46 +260,44 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
         gif: true,
         png: true,
         bmp: true,
-        tif: true
+        tif: true,
       };
     }
 
-    if (imageTypes[fileType]) {
+    if (imageTypes[fType]) {
       return true;
     }
 
     return false;
   },
-  _isfileTypeAllowed: function(fileType) {
-    var fileTypes;
+  _isfileTypeAllowed: function _isfileTypeAllowed(fileType) {
+    const fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
+    let fileTypes;
 
-    fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
     if (App.nonViewableFileTypes) {
       fileTypes = App.nonViewableFileTypes;
     } else {
       fileTypes = {
         exe: true,
-        dll: true
+        dll: true,
       };
     }
 
-    if (fileTypes[fileType]) {
+    if (fileTypes[fType]) {
       return false;
     }
     return true;
   },
-  _viewImageOnly: function() {
+  _viewImageOnly: function _viewImageOnly() {
     return false;
   },
-  _sizeImage: function(containerNode, image) {
-    var wH, wW, iH, iW, contentBox, scale;
-
-    contentBox = domGeom.getContentBox(containerNode);
-    wH = contentBox.h;
-    wW = contentBox.w;
-    iH = image.height;
-    iW = image.width;
-    scale = 1;
+  _sizeImage: function _sizeImage(containerNode, image) {
+    const contentBox = domGeom.getContentBox(containerNode);
+    const iH = image.height;
+    const iW = image.width;
+    let wH = contentBox.h;
+    let wW = contentBox.w;
+    let scale = 1;
 
     if (wH > 200) {
       wH = wH - 50;
@@ -339,7 +328,7 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
     } else if (iH > wH) { // if the image  height is lager than the width
       scale = 1 - ((iH - wH) / iH);
     } else {
-      //Image is samller than view
+      // Image is samller than view
       if (wH / iH > wW / iW) {
         scale = 1 + ((wH - iH) / wH);
       } else {
@@ -348,8 +337,7 @@ var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDa
     }
     image.height = 0.90 * scale * iH;
     image.width = 0.90 * scale * iW;
-
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Attachment.ViewAttachment', __class);

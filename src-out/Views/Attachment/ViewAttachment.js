@@ -1,17 +1,9 @@
-define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'dojo/_base/connect', 'dojo/_base/array', '../../Format', 'dojo/dom-construct', 'dojo/dom-attr', 'dojo/dom-class', 'dojo/has', 'dojo/dom', 'dojo/dom-geometry', '../../AttachmentManager', '../../Utility', 'argos/Detail', 'argos/_LegacySDataDetailMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _dojo_baseConnect, _dojo_baseArray, _Format, _dojoDomConstruct, _dojoDomAttr, _dojoDomClass, _dojoHas, _dojoDom, _dojoDomGeometry, _AttachmentManager, _Utility, _argosDetail, _argos_LegacySDataDetailMixin) {
+define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/dom-construct', 'dojo/dom-attr', 'dojo/dom-class', 'dojo/has', 'dojo/dom', 'dojo/dom-geometry', '../../AttachmentManager', '../../Utility', 'argos/Detail', 'argos/_LegacySDataDetailMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoDomConstruct, _dojoDomAttr, _dojoDomClass, _dojoHas, _dojoDom, _dojoDomGeometry, _AttachmentManager, _Utility, _argosDetail, _argos_LegacySDataDetailMixin) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _string = _interopRequireDefault(_dojoString);
-
-  var _connect = _interopRequireDefault(_dojo_baseConnect);
-
-  var _array = _interopRequireDefault(_dojo_baseArray);
-
-  var _format = _interopRequireDefault(_Format);
 
   var _domConstruct = _interopRequireDefault(_dojoDomConstruct);
 
@@ -50,7 +42,7 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Attachment.ViewAttachment', [_Detail['default'], _LegacySDataDetailMixin2['default']], {
-    //Localization
+    // Localization
     detailsText: 'Attachment Details',
     descriptionText: 'description',
     fileNameText: 'file name',
@@ -62,7 +54,7 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
     downloadingText: 'Downloading attachment ...',
     notSupportedText: 'Viewing attachments is not supported by your device.',
 
-    //View Properties
+    // View Properties
     id: 'view_attachment',
     editView: '',
     security: null,
@@ -91,7 +83,7 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
         return;
       }
 
-      //If this opened the second time we need to check to see if it is the same attachmnent and let the Process Entry function load the view.
+      // If this opened the second time we need to check to see if it is the same attachmnent and let the Process Entry function load the view.
       if (this.entry) {
         if (options.key === this.entry.$key) {
           this._loadAttachmentView(this.entry);
@@ -109,9 +101,9 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
     },
     createEntryForDelete: function createEntryForDelete(e) {
       var entry = {
-        '$key': e['$key'],
-        '$etag': e['$etag'],
-        '$name': e['$name']
+        '$key': e.$key,
+        '$etag': e.$etag,
+        '$name': e.$name
       };
       return entry;
     },
@@ -122,9 +114,13 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
       return this.tools || (this.tools = []);
     },
     _loadAttachmentView: function _loadAttachmentView(entry) {
-      var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid, fileType, self, iframe;
+      var _this = this;
 
-      am = new _AttachmentManager2['default']();
+      var am = new _AttachmentManager2['default']();
+      var description = undefined;
+      var isFile = undefined;
+      var fileType = undefined;
+      var loaded = undefined;
 
       if (!entry.url) {
         description = entry.description;
@@ -136,7 +132,7 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
         fileType = 'url';
       }
 
-      data = {
+      var data = {
         fileName: entry.fileName,
         fileSize: entry.fileSize,
         fileType: fileType,
@@ -148,95 +144,96 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
         fileType = _Utility2['default'].getFileExtension(entry.fileName);
         if (this._isfileTypeAllowed(fileType)) {
           if (this._isfileTypeImage(fileType)) {
-            viewNode = _domConstruct['default'].place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-            tpl = this.downloadingTemplate.apply(this);
-            dl = _domConstruct['default'].place(tpl, this.attachmentViewerNode, 'first');
-            _domClass['default'].add(this.domNode, 'list-loading');
-            self = this;
-            attachmentid = entry.$key;
-            //dataurl
-            am.getAttachmentFile(attachmentid, 'arraybuffer', function (responseInfo) {
-              var rData, image, loadHandler, loaded;
+            (function () {
+              _domConstruct['default'].place(_this.attachmentViewImageTemplate.apply(data, _this), _this.attachmentViewerNode, 'last');
+              var tpl = _this.downloadingTemplate.apply(_this);
+              var dl = _domConstruct['default'].place(tpl, _this.attachmentViewerNode, 'first');
+              _domClass['default'].add(_this.domNode, 'list-loading');
+              var self = _this;
+              var attachmentid = entry.$key;
+              // dataurl
+              am.getAttachmentFile(attachmentid, 'arraybuffer', function imageHandler(responseInfo) {
+                var rData = _Utility2['default'].base64ArrayBuffer(responseInfo.response);
+                self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
 
-              rData = _Utility2['default'].base64ArrayBuffer(responseInfo.response);
-              self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                var image = new Image();
 
-              image = new Image();
+                var loadHandler = function loadHandler() {
+                  if (loaded) {
+                    return;
+                  }
 
-              loadHandler = function () {
-                if (loaded) {
-                  return;
+                  self._orginalImageSize = {
+                    width: image.width,
+                    height: image.height
+                  };
+                  self._sizeImage(self.domNode, image);
+                  _domConstruct['default'].place(image, 'imagePlaceholder', 'only');
+                  loaded = true;
+                };
+
+                image.onload = loadHandler;
+                image.src = self.dataURL;
+
+                if (image.complete) {
+                  loadHandler();
                 }
 
-                self._orginalImageSize = {
-                  width: image.width,
-                  height: image.height
-                };
-                self._sizeImage(self.domNode, image);
-                _domConstruct['default'].place(image, 'imagePlaceholder', 'only');
-                loaded = true;
-              };
-
-              image.onload = loadHandler;
-              image.src = self.dataURL;
-
-              if (image.complete) {
-                loadHandler();
-              }
-
-              // Set download text to hidden
-              _domClass['default'].add(dl, 'display-none');
-            });
-          } else {
-            //View file type in Iframe
-            if (this._viewImageOnly() === false) {
-              viewNode = _domConstruct['default'].place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-              tpl = this.downloadingTemplate.apply(this);
-              dl = _domConstruct['default'].place(tpl, this.attachmentViewerNode, 'first');
-              _domClass['default'].add(this.domNode, 'list-loading');
-              self = this;
-              attachmentid = entry.$key;
-              am.getAttachmentFile(attachmentid, 'arraybuffer', function (responseInfo) {
-                var rData, dataUrl, iframe;
-
-                rData = _Utility2['default'].base64ArrayBuffer(responseInfo.response);
-                dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                // Set download text to hidden
                 _domClass['default'].add(dl, 'display-none');
-                iframe = _dom['default'].byId('attachment-Iframe');
-                iframe.onload = function () {
-                  _domClass['default'].add(dl, 'display-none');
-                };
-                _domClass['default'].add(dl, 'display-none');
-                _domAttr['default'].set(iframe, 'src', dataUrl);
               });
+            })();
+          } else {
+            // View file type in Iframe
+            if (this._viewImageOnly() === false) {
+              (function () {
+                _domConstruct['default'].place(_this.attachmentViewTemplate.apply(data, _this), _this.attachmentViewerNode, 'last');
+                var tpl = _this.downloadingTemplate.apply(_this);
+                var dl = _domConstruct['default'].place(tpl, _this.attachmentViewerNode, 'first');
+                _domClass['default'].add(_this.domNode, 'list-loading');
+                var attachmentid = entry.$key;
+                am.getAttachmentFile(attachmentid, 'arraybuffer', function iframeResponse(responseInfo) {
+                  var rData = _Utility2['default'].base64ArrayBuffer(responseInfo.response);
+                  var dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                  _domClass['default'].add(dl, 'display-none');
+                  var iframe = _dom['default'].byId('attachment-Iframe');
+                  iframe.onload = function iframeOnLoad() {
+                    _domClass['default'].add(dl, 'display-none');
+                  };
+                  _domClass['default'].add(dl, 'display-none');
+                  _domAttr['default'].set(iframe, 'src', dataUrl);
+                });
+              })();
             } else {
-              //Only view images
-              viewNode = _domConstruct['default'].place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+              // Only view images
+              _domConstruct['default'].place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
             }
           }
         } else {
-          //File type not allowed
-          viewNode = _domConstruct['default'].place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+          // File type not allowed
+          _domConstruct['default'].place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
         }
       } else {
-        // url Attachment
-        viewNode = _domConstruct['default'].place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-        url = am.getAttachmenturlByEntity(entry);
-        _domClass['default'].add(this.domNode, 'list-loading');
-        tpl = this.downloadingTemplate.apply(this);
-        dl = _domConstruct['default'].place(tpl, this.attachmentViewerNode, 'first');
-        iframe = _dom['default'].byId('attachment-Iframe');
-        iframe.onload = function () {
+        (function () {
+          // url Attachment
+          _domConstruct['default'].place(_this.attachmentViewTemplate.apply(data, _this), _this.attachmentViewerNode, 'last');
+          var url = am.getAttachmenturlByEntity(entry);
+          _domClass['default'].add(_this.domNode, 'list-loading');
+          var tpl = _this.downloadingTemplate.apply(_this);
+          var dl = _domConstruct['default'].place(tpl, _this.attachmentViewerNode, 'first');
+          var iframe = _dom['default'].byId('attachment-Iframe');
+          iframe.onload = function iframeOnLoad() {
+            _domClass['default'].add(dl, 'display-none');
+          };
+          _domAttr['default'].set(iframe, 'src', url);
           _domClass['default'].add(dl, 'display-none');
-        };
-        _domAttr['default'].set(iframe, 'src', url);
-        _domClass['default'].add(dl, 'display-none');
+        })();
       }
     },
     _isfileTypeImage: function _isfileTypeImage(fileType) {
-      var imageTypes;
+      var fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
+      var imageTypes = undefined;
 
-      fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
       if (App.imageFileTypes) {
         imageTypes = App.imageFileTypes;
       } else {
@@ -249,16 +246,16 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
         };
       }
 
-      if (imageTypes[fileType]) {
+      if (imageTypes[fType]) {
         return true;
       }
 
       return false;
     },
     _isfileTypeAllowed: function _isfileTypeAllowed(fileType) {
-      var fileTypes;
+      var fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
+      var fileTypes = undefined;
 
-      fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
       if (App.nonViewableFileTypes) {
         fileTypes = App.nonViewableFileTypes;
       } else {
@@ -268,7 +265,7 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
         };
       }
 
-      if (fileTypes[fileType]) {
+      if (fileTypes[fType]) {
         return false;
       }
       return true;
@@ -277,14 +274,12 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
       return false;
     },
     _sizeImage: function _sizeImage(containerNode, image) {
-      var wH, wW, iH, iW, contentBox, scale;
-
-      contentBox = _domGeom['default'].getContentBox(containerNode);
-      wH = contentBox.h;
-      wW = contentBox.w;
-      iH = image.height;
-      iW = image.width;
-      scale = 1;
+      var contentBox = _domGeom['default'].getContentBox(containerNode);
+      var iH = image.height;
+      var iW = image.width;
+      var wH = contentBox.h;
+      var wW = contentBox.w;
+      var scale = 1;
 
       if (wH > 200) {
         wH = wH - 50;
@@ -318,7 +313,7 @@ define('crm/Views/Attachment/ViewAttachment', ['exports', 'module', 'dojo/_base/
         // if the image  height is lager than the width
         scale = 1 - (iH - wH) / iH;
       } else {
-        //Image is samller than view
+        // Image is samller than view
         if (wH / iH > wW / iW) {
           scale = 1 + (wH - iH) / wH;
         } else {

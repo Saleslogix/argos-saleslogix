@@ -1,4 +1,4 @@
-define('crm/Views/Attachment/MyAttachmentList', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Format', './List'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Format, _List) {
+define('crm/Views/Attachment/MyAttachmentList', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', './List'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _List) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -6,8 +6,6 @@ define('crm/Views/Attachment/MyAttachmentList', ['exports', 'module', 'dojo/_bas
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
   var _string = _interopRequireDefault(_dojoString);
-
-  var _format = _interopRequireDefault(_Format);
 
   var _AttachmentList = _interopRequireDefault(_List);
 
@@ -24,13 +22,14 @@ define('crm/Views/Attachment/MyAttachmentList', ['exports', 'module', 'dojo/_bas
     id: 'myattachment_list',
     titleText: 'My Attachments',
     queryWhere: function queryWhere() {
-      return _string['default'].substitute('createUser eq "${0}"', [this._formatUserKey(App.context['user'].$key)]);
+      return _string['default'].substitute('createUser eq "${0}"', [this._formatUserKey(App.context.user.$key)]);
     },
     _formatUserKey: function _formatUserKey(userKey) {
-      if (userKey === 'ADMIN') {
-        userKey = 'ADMIN       '; //The attachment feed is picky and requires the Admin key to be padded to a 12 char.
+      var key = userKey;
+      if (key === 'ADMIN') {
+        key = 'ADMIN       '; // The attachment feed is picky and requires the Admin key to be padded to a 12 char.
       }
-      return userKey;
+      return key;
     }
   });
 
