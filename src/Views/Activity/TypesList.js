@@ -16,8 +16,8 @@ import MemoryStore from 'dojo/store/Memory';
  * @requires crm.Views._CardLayoutListMixin
  *
  */
-var __class = declare('crm.Views.Activity.TypesList', [List], {
-  //Templates
+const __class = declare('crm.Views.Activity.TypesList', [List], {
+  // Templates
   rowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
     '<div class="list-item-static-selector">',
@@ -28,13 +28,13 @@ var __class = declare('crm.Views.Activity.TypesList', [List], {
     '{% } %}',
     '</div>',
     '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-    '</li>'
+    '</li>',
   ]),
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>'
+    '<h3>{%: $.$descriptor %}</h3>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Schedule...',
   activityTypeText: {
     'atToDo': 'To-Do',
@@ -42,7 +42,7 @@ var __class = declare('crm.Views.Activity.TypesList', [List], {
     'atAppointment': 'Meeting',
     'atLiterature': 'Literature Request',
     'atPersonal': 'Personal Activity',
-    'event': 'Event'
+    'event': 'Event',
   },
   activityTypeIcons: {
     'atToDo': 'fa fa-list-ul',
@@ -50,17 +50,17 @@ var __class = declare('crm.Views.Activity.TypesList', [List], {
     'atAppointment': 'fa fa-calendar-o',
     'atLiterature': 'fa fa-calendar-o',
     'atPersonal': 'fa fa-check-square-o',
-    'event': 'fa fa-calendar-o'
+    'event': 'fa fa-calendar-o',
   },
 
-  //View Properties
+  // View Properties
   activityTypeOrder: [
     'atAppointment',
-    //'atLiterature', //For [#7206791], We will enable this later.
+    // 'atLiterature', // For [#7206791], We will enable this later.
     'atPersonal',
     'atPhoneCall',
     'atToDo',
-    'event'
+    'event',
   ],
   expose: false,
   enableSearch: false,
@@ -69,12 +69,12 @@ var __class = declare('crm.Views.Activity.TypesList', [List], {
   editView: 'activity_edit',
   eventEditView: 'event_edit',
 
-  activateEntry: function(params) {
+  activateEntry: function activateEntry(params) {
     if (params.key) {
-      var source = this.options && this.options.source,
-        view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
+      const view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
       if (view) {
+        const source = this.options && this.options.source;
         view.show({
           insert: true,
           entry: (this.options && this.options.entry) || null,
@@ -82,40 +82,40 @@ var __class = declare('crm.Views.Activity.TypesList', [List], {
           activityType: params.key,
           title: this.activityTypeText[params.key],
           returnTo: this.options && this.options.returnTo,
-          currentDate: this.options && this.options.currentDate
+          currentDate: this.options && this.options.currentDate,
         }, {
-          returnTo: -1
+          returnTo: -1,
         });
       }
     }
   },
-  refreshRequiredFor: function(options) {
+  refreshRequiredFor: function refreshRequiredFor(options) {
+    let toReturn;
     if (this.options) {
-      return options;
+      toReturn = options;
     } else {
-      return true;
+      toReturn = true;
     }
+    return toReturn;
   },
-  hasMoreData: function() {
+  hasMoreData: function hasMoreData() {
     return false;
   },
-  createStore: function() {
-    var list, i, store, eventViews;
-
-    list = [];
-    eventViews = [
+  createStore: function createStore() {
+    const list = [];
+    const eventViews = [
       'calendar_monthlist',
       'calendar_weeklist',
       'calendar_daylist',
-      'calendar_yearlist'
+      'calendar_yearlist',
     ];
 
-    for (i = 0; i < this.activityTypeOrder.length; i++) {
+    for (let i = 0; i < this.activityTypeOrder.length; i++) {
       list.push({
         '$key': this.activityTypeOrder[i],
         '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
         'iconClass': this.activityTypeIcons[this.activityTypeOrder[i]],
-        'type': this.activityTypeOrder[i]
+        'type': this.activityTypeOrder[i],
       });
     }
 
@@ -123,19 +123,19 @@ var __class = declare('crm.Views.Activity.TypesList', [List], {
       list.pop(); // remove event for non event views
     }
 
-    store = new MemoryStore({
-      data: list
+    const store = new MemoryStore({
+      data: list,
     });
     return store;
   },
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
   },
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      tbar: []
+      tbar: [],
     });
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Activity.TypesList', __class);

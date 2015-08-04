@@ -89,7 +89,7 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
       'atPersonal': 'Personal Activity'
     },
 
-    //View Properties
+    // View Properties
     id: 'activity_complete',
     followupView: 'activity_edit',
     fieldsForLeads: ['AccountName', 'Lead'],
@@ -132,27 +132,27 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
     init: function init() {
       this.inherited(arguments);
 
-      this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
-      this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
-      this.connect(this.fields['AsScheduled'], 'onChange', this.onAsScheduledChange);
-      this.connect(this.fields['Followup'], 'onChange', this.onFollowupChange);
-      this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
-      this.connect(this.fields['Result'], 'onChange', this.onResultChange);
+      this.connect(this.fields.Leader, 'onChange', this.onLeaderChange);
+      this.connect(this.fields.Timeless, 'onChange', this.onTimelessChange);
+      this.connect(this.fields.AsScheduled, 'onChange', this.onAsScheduledChange);
+      this.connect(this.fields.Followup, 'onChange', this.onFollowupChange);
+      this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
+      this.connect(this.fields.Result, 'onChange', this.onResultChange);
     },
     onResultChange: function onResultChange(value, field) {
       // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
       field.setValue(value.text);
 
       // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
-      this.fields['ResultCode'].setValue(/.{0,8}/ig.exec(value.key));
+      this.fields.ResultCode.setValue(/.{0,8}/ig.exec(value.key));
     },
     isActivityForLead: function isActivityForLead(entry) {
-      return entry && /^[\w]{12}$/.test(entry['LeadId']);
+      return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     beforeTransitionTo: function beforeTransitionTo() {
       this.inherited(arguments);
 
-      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
+      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideFields(item) {
         if (this.fields[item]) {
           this.fields[item].hide();
         }
@@ -160,13 +160,13 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
 
       var entry = this.options && this.options.entry;
       if (this.isActivityForLead(entry)) {
-        _array['default'].forEach(this.fieldsForLeads, function (item) {
+        _array['default'].forEach(this.fieldsForLeads, function showFieldsLeads(item) {
           if (this.fields[item]) {
             this.fields[item].show();
           }
         }, this);
       } else {
-        _array['default'].forEach(this.fieldsForStandard, function (item) {
+        _array['default'].forEach(this.fieldsForStandard, function showFieldsStandard(item) {
           if (this.fields[item]) {
             this.fields[item].show();
           }
@@ -181,15 +181,15 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
       }
     },
     onTimelessChange: function onTimelessChange(value) {
-      this.toggleSelectField(this.fields['Duration'], value);
+      this.toggleSelectField(this.fields.Duration, value);
 
-      var startDateField = this.fields['StartDate'],
-          startDate = startDateField.getValue();
+      var startDateField = this.fields.StartDate;
+      var startDate = startDateField.getValue();
 
       if (value) {
-        startDateField['dateFormatText'] = this.startingTimelessFormatText;
-        startDateField['showTimePicker'] = false;
-        startDateField['timeless'] = true;
+        startDateField.dateFormatText = this.startingTimelessFormatText;
+        startDateField.showTimePicker = false;
+        startDateField.timeless = true;
         if (!this.isDateTimeless(startDate)) {
           startDate = startDate.clone().clearTime().add({
             minutes: -1 * startDate.getTimezoneOffset(),
@@ -198,9 +198,9 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
         }
         startDateField.setValue(startDate);
       } else {
-        startDateField['dateFormatText'] = this.startingFormatText;
-        startDateField['showTimePicker'] = true;
-        startDateField['timeless'] = false;
+        startDateField.dateFormatText = this.startingFormatText;
+        startDateField.showTimePicker = true;
+        startDateField.timeless = false;
         if (this.isDateTimeless(startDate)) {
           startDate = startDate.clone().add({
             minutes: startDate.getTimezoneOffset() + 1,
@@ -227,30 +227,29 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
       return true;
     },
     onAsScheduledChange: function onAsScheduledChange(scheduled) {
-      var duration, startDate, completedDate;
       if (scheduled) {
-        duration = this.fields['Duration'].getValue();
-        startDate = (0, _moment2['default'])(this.fields['StartDate'].getValue());
-        completedDate = startDate.add({
+        var duration = this.fields.Duration.getValue();
+        var startDate = (0, _moment2['default'])(this.fields.StartDate.getValue());
+        var completedDate = startDate.add({
           minutes: duration
         }).toDate();
 
-        this.toggleSelectField(this.fields['CompletedDate'], true);
-        this.fields['CompletedDate'].setValue(completedDate);
+        this.toggleSelectField(this.fields.CompletedDate, true);
+        this.fields.CompletedDate.setValue(completedDate);
       } else {
-        this.toggleSelectField(this.fields['CompletedDate'], false);
-        this.fields['CompletedDate'].setValue(new Date());
+        this.toggleSelectField(this.fields.CompletedDate, false);
+        this.fields.CompletedDate.setValue(new Date());
       }
     },
     onFollowupChange: function onFollowupChange(value) {
       var disable = value === 'none' || value && value.key === 'none';
-      this.toggleSelectField(this.fields['CarryOverNotes'], disable);
+      this.toggleSelectField(this.fields.CarryOverNotes, disable);
     },
     onLeadChange: function onLeadChange(value, field) {
       var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields['Company'].setValue(_utility['default'].getValue(selection, 'Company'));
+        this.fields.Company.setValue(_utility['default'].getValue(selection, 'Company'));
       }
     },
     formatPicklistForType: function formatPicklistForType(type, which) {
@@ -258,27 +257,25 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
     },
     setValues: function setValues() {
       this.inherited(arguments);
-      this.fields['CarryOverNotes'].setValue(true);
-      this.fields['CompletedDate'].setValue(new Date());
-      this.fields['Followup'].setValue('none');
-      this.fields['Result'].setValue('Complete');
-      this.fields['ResultCode'].setValue('COM');
+      this.fields.CarryOverNotes.setValue(true);
+      this.fields.CompletedDate.setValue(new Date());
+      this.fields.Followup.setValue('none');
+      this.fields.Result.setValue('Complete');
+      this.fields.ResultCode.setValue('COM');
 
-      this.toggleSelectField(this.fields['CarryOverNotes'], true);
-      this.toggleSelectField(this.fields['CompletedDate'], false);
+      this.toggleSelectField(this.fields.CarryOverNotes, true);
+      this.toggleSelectField(this.fields.CompletedDate, false);
     },
     onLeaderChange: function onLeaderChange(value, field) {
       var userId = field.getValue();
-      this.fields['UserId'].setValue(userId && userId['$key']);
+      this.fields.UserId.setValue(userId && userId.$key);
     },
     formatFollowupText: function formatFollowupText(val, key, text) {
       return this.followupValueText[key] || text;
     },
     createDurationData: function createDurationData() {
-      var list = [],
-          duration;
-
-      for (duration in this.durationValueText) {
+      var list = [];
+      for (var duration in this.durationValueText) {
         if (this.durationValueText.hasOwnProperty(duration)) {
           list.push({
             '$key': duration,
@@ -292,10 +289,9 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
       };
     },
     createFollowupData: function createFollowupData() {
-      var list = [],
-          followup;
+      var list = [];
 
-      for (followup in this.followupValueText) {
+      for (var followup in this.followupValueText) {
         if (this.followupValueText.hasOwnProperty(followup)) {
           list.push({
             '$key': followup,
@@ -309,9 +305,9 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
       };
     },
     navigateToFollowUpView: function navigateToFollowUpView(entry) {
-      var view = App.getView(this.followupView),
-          followupEntry = {
-        'Type': this.fields['Followup'].getValue(),
+      var view = App.getView(this.followupView);
+      var followupEntry = {
+        'Type': this.fields.Followup.getValue(),
         'Description': entry.Description,
         'AccountId': entry.AccountId,
         'AccountName': entry.AccountName,
@@ -319,7 +315,7 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
         'ContactName': entry.ContactName,
         'LeadId': entry.LeadId,
         'LeadName': entry.LeadName,
-        'LongNotes': this.fields['CarryOverNotes'].getValue() && entry['LongNotes'] || '',
+        'LongNotes': this.fields.CarryOverNotes.getValue() && entry.LongNotes || '',
         'OpportunityId': entry.OpportunityId,
         'OpportunityName': entry.OpportunityName,
         'StartDate': (0, _moment2['default'])().toDate(),
@@ -327,49 +323,47 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
         'TicketNumber': entry.TicketNumber
       };
 
-      //Return to activity list view after follow up.
+      // Return to activity list view after follow up.
       view.show({
         entry: followupEntry,
         insert: true,
-        title: this.followupValueText[this.fields['Followup'].getValue()]
+        title: this.followupValueText[this.fields.Followup.getValue()]
       }, {
         returnTo: -1
       });
     },
     completeActivity: function completeActivity(entry, callback) {
-      if (!entry['$key']) {
+      if (!entry.$key) {
         return;
       }
 
-      var leader, success, request, completeActivityEntry;
-
-      leader = this.fields['Leader'].getValue();
-      completeActivityEntry = {
+      var leader = this.fields.Leader.getValue();
+      var completeActivityEntry = {
         '$name': 'ActivityComplete',
         'request': {
           'entity': {
-            '$key': entry['$key']
+            '$key': entry.$key
           },
-          'ActivityId': entry['$key'],
-          'userId': leader['$key'],
-          'result': this.fields['Result'].getValue(),
-          'resultCode': this.fields['ResultCode'].getValue(),
-          'completeDate': this.fields['CompletedDate'].getValue()
+          'ActivityId': entry.$key,
+          'userId': leader.$key,
+          'result': this.fields.Result.getValue(),
+          'resultCode': this.fields.ResultCode.getValue(),
+          'completeDate': this.fields.CompletedDate.getValue()
         }
       };
 
-      success = (function (scope, callback, entry) {
-        return function () {
+      var success = (function refreshStale(scope, theCallback, theEntry) {
+        return function refreshStaleViews() {
           _environment['default'].refreshStaleDetailViews();
           _connect['default'].publish('/app/refresh', [{
             resourceKind: 'history'
           }]);
 
-          callback.apply(scope, [entry]);
+          theCallback.apply(scope, [theEntry]);
         };
       })(this, callback, entry);
 
-      request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
 
       request.execute(completeActivityEntry, {
         success: success,
@@ -382,14 +376,14 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
         return;
       }
 
-      var followup = this.fields['Followup'].getValue() === 'none' ? this.getInherited(arguments) : this.navigateToFollowUpView;
+      var followup = this.fields.Followup.getValue() === 'none' ? this.getInherited(arguments) : this.navigateToFollowUpView;
 
       this.completeActivity(entry, followup);
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
-      property = property || '$key';
+      var theProperty = property || '$key';
 
-      return _string['default'].substitute(format, [_utility['default'].getValue(dependentValue, property)]);
+      return _string['default'].substitute(format, [_utility['default'].getValue(dependentValue, theProperty)]);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -437,7 +431,7 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
           view: 'select_list',
           data: this.createDurationData(),
           validator: {
-            fn: function fn(val, field) {
+            fn: function testDisabled(val, field) {
               if (field.isDisabled()) {
                 return false;
               }

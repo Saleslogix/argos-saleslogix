@@ -23,11 +23,11 @@ define('crm/Views/Activity/TypesList', ['exports', 'module', 'dojo/_base/declare
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Activity.TypesList', [_List['default']], {
-    //Templates
+    // Templates
     rowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">', '<div class="list-item-static-selector">', '{% if ($.icon) { %}', '<img src="{%: $.icon || "" %}" alt="icon" class="icon" />', '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}"></div>', '{% } %}', '</div>', '<div class="list-item-content">{%! $$.itemTemplate %}</div>', '</li>']),
     itemTemplate: new Simplate(['<h3>{%: $.$descriptor %}</h3>']),
 
-    //Localization
+    // Localization
     titleText: 'Schedule...',
     activityTypeText: {
       'atToDo': 'To-Do',
@@ -46,9 +46,9 @@ define('crm/Views/Activity/TypesList', ['exports', 'module', 'dojo/_base/declare
       'event': 'fa fa-calendar-o'
     },
 
-    //View Properties
+    // View Properties
     activityTypeOrder: ['atAppointment',
-    //'atLiterature', //For [#7206791], We will enable this later.
+    // 'atLiterature', // For [#7206791], We will enable this later.
     'atPersonal', 'atPhoneCall', 'atToDo', 'event'],
     expose: false,
     enableSearch: false,
@@ -59,10 +59,10 @@ define('crm/Views/Activity/TypesList', ['exports', 'module', 'dojo/_base/declare
 
     activateEntry: function activateEntry(params) {
       if (params.key) {
-        var source = this.options && this.options.source,
-            view = App.getView(params.key === 'event' ? this.eventEditView : this.editView);
+        var view = App.getView(params.key === 'event' ? this.eventEditView : this.editView);
 
         if (view) {
+          var source = this.options && this.options.source;
           view.show({
             insert: true,
             entry: this.options && this.options.entry || null,
@@ -78,22 +78,22 @@ define('crm/Views/Activity/TypesList', ['exports', 'module', 'dojo/_base/declare
       }
     },
     refreshRequiredFor: function refreshRequiredFor(options) {
+      var toReturn = undefined;
       if (this.options) {
-        return options;
+        toReturn = options;
       } else {
-        return true;
+        toReturn = true;
       }
+      return toReturn;
     },
     hasMoreData: function hasMoreData() {
       return false;
     },
     createStore: function createStore() {
-      var list, i, store, eventViews;
+      var list = [];
+      var eventViews = ['calendar_monthlist', 'calendar_weeklist', 'calendar_daylist', 'calendar_yearlist'];
 
-      list = [];
-      eventViews = ['calendar_monthlist', 'calendar_weeklist', 'calendar_daylist', 'calendar_yearlist'];
-
-      for (i = 0; i < this.activityTypeOrder.length; i++) {
+      for (var i = 0; i < this.activityTypeOrder.length; i++) {
         list.push({
           '$key': this.activityTypeOrder[i],
           '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
@@ -106,7 +106,7 @@ define('crm/Views/Activity/TypesList', ['exports', 'module', 'dojo/_base/declare
         list.pop(); // remove event for non event views
       }
 
-      store = new _MemoryStore['default']({
+      var store = new _MemoryStore['default']({
         data: list
       });
       return store;

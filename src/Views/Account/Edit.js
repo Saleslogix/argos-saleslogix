@@ -40,7 +40,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
   typeText: 'type',
   webText: 'web',
 
-  //View Properties
+  // View Properties
   entityName: 'Account',
   id: 'account_edit',
   insertSecurity: 'Entities/Account/Add',
@@ -62,30 +62,30 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
     'SubType',
     'Type',
     'User/UserInfo/UserName',
-    'WebAddress'
+    'WebAddress',
   ],
   resourceKind: 'accounts',
 
-  formatDependentPicklist: function(dependentValue, format) {
-    return string.substitute(format, [dependentValue]);
+  formatDependentPicklist: function formatDependentPicklist(dependentValue, nformat) {
+    return string.substitute(nformat, [dependentValue]);
   },
-  applyContext: function(templateEntry) {
+  applyContext: function applyContext(templateEntry) {
     this.inherited(arguments);
 
-    this.fields['AccountManager'].setValue(App.context.user);
-    this.fields['Owner'].setValue(App.context['defaultOwner']);
+    this.fields.AccountManager.setValue(App.context.user);
+    this.fields.Owner.setValue(App.context.defaultOwner);
 
-    this.fields['Type'].setValue(templateEntry.Type);
-    this.fields['Status'].setValue(templateEntry.Status);
+    this.fields.Type.setValue(templateEntry.Type);
+    this.fields.Status.setValue(templateEntry.Status);
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       label: this.accountText,
       name: 'AccountName',
       property: 'AccountName',
       type: 'text',
       validator: validator.notEmpty,
-      autoFocus: true
+      autoFocus: true,
     }, {
       label: this.webText,
       name: 'WebAddress',
@@ -94,14 +94,14 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       type: 'text',
       inputType: 'url',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.phoneText,
       name: 'MainPhone',
       property: 'MainPhone',
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       emptyText: '',
       formatValue: format.address.bindDelegate(this, [true], true),
@@ -109,14 +109,14 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       name: 'Address',
       property: 'Address',
       type: 'address',
-      view: 'address_edit'
+      view: 'address_edit',
     }, {
       label: this.faxText,
       name: 'Fax',
       property: 'Fax',
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.typeText,
       name: 'Type',
@@ -124,7 +124,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       picklist: 'Account Type',
       requireSelection: true,
       title: this.accountTypeTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }, {
       dependsOn: 'Type',
       label: this.subTypeText,
@@ -137,7 +137,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       title: this.accountSubTypeTitleText,
       type: 'picklist',
       maxTextLength: 64,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.statusText,
       name: 'Status',
@@ -145,7 +145,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       picklist: 'Account Status',
       requireSelection: false,
       title: this.accountStatusTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }, {
       label: this.industryText,
       name: 'Industry',
@@ -155,7 +155,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       title: this.industryTitleText,
       type: 'picklist',
       maxTextLength: 64,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.businessDescriptionText,
       name: 'BusinessDescription',
@@ -163,7 +163,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       noteProperty: false,
       title: this.businessDescriptionTitleText,
       type: 'note',
-      view: 'text_edit'
+      view: 'text_edit',
     }, {
       label: this.acctMgrText,
       name: 'AccountManager',
@@ -171,23 +171,23 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
       textProperty: 'UserInfo',
       textTemplate: template.nameLF,
       type: 'lookup',
-      view: 'user_list'
+      view: 'user_list',
     }, {
       label: this.ownerText,
       name: 'Owner',
       property: 'Owner',
       textProperty: 'OwnerDescription',
       type: 'lookup',
-      view: 'owner_list'
+      view: 'owner_list',
     }, {
       label: this.importSourceText,
       name: 'LeadSource',
       property: 'LeadSource',
       textProperty: 'Description',
       type: 'lookup',
-      view: 'leadsource_list'
+      view: 'leadsource_list',
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Account.Edit', __class);

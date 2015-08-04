@@ -1,4 +1,4 @@
-define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'dojo/string', 'dojo/query', 'dojo/dom-class', '../_RightDrawerListMixin', 'argos/List', '../_CardLayoutListMixin', '../../Format', 'argos/Utility', 'argos/Convert', '../../Action', '../../Environment', 'argos/ErrorManager', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseConnect, _dojoString, _dojoQuery, _dojoDomClass, _RightDrawerListMixin2, _argosList, _CardLayoutListMixin2, _Format, _argosUtility, _argosConvert, _Action, _Environment, _argosErrorManager, _moment) {
+define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'dojo/string', '../_RightDrawerListMixin', 'argos/List', '../_CardLayoutListMixin', 'argos/Convert', '../../Action', '../../Environment', 'argos/ErrorManager', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseConnect, _dojoString, _RightDrawerListMixin2, _argosList, _CardLayoutListMixin2, _argosConvert, _Action, _Environment, _argosErrorManager, _moment) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -9,19 +9,11 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
 
   var _string = _interopRequireDefault(_dojoString);
 
-  var _query = _interopRequireDefault(_dojoQuery);
-
-  var _domClass = _interopRequireDefault(_dojoDomClass);
-
   var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
 
   var _List = _interopRequireDefault(_argosList);
 
   var _CardLayoutListMixin3 = _interopRequireDefault(_CardLayoutListMixin2);
-
-  var _format = _interopRequireDefault(_Format);
-
-  var _Utility = _interopRequireDefault(_argosUtility);
 
   var _convert = _interopRequireDefault(_argosConvert);
 
@@ -64,11 +56,11 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
     importantText: 'important',
     recurringText: 'recurring',
 
-    //Card View
+    // Card View
     itemIcon: 'content/images/icons/man_1.png',
 
-    //Templates
-    //Card View
+    // Templates
+    // Card View
     itemRowContainerTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">', '{%! $$.itemRowContentTemplate %}', '</li>']),
     activityTimeTemplate: new Simplate(['{% if ($$.isTimelessToday($)) { %}', '{%: $$.allDayText %}', '{% } else { %}', '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}', '{% } %}']),
     itemTemplate: new Simplate(['<h3>', '<span class="p-description">{%: $.Description %}</span>', '</h3>', '<h4>', '{%! $$.activityTimeTemplate %}', '</h4>', '<h4>{%! $$.nameTemplate %}</h4>']),
@@ -93,12 +85,12 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
       'atNote': 'Note',
       'atEMail': 'Email'
     },
-    //Localization
+    // Localization
     titleText: 'Activities',
 
-    //View Properties
+    // View Properties
     id: 'activity_list',
-    security: null, //'Entities/Activity/View',
+    security: null, // 'Entities/Activity/View',
     iconClass: 'fa fa-check-square-o fa-lg',
     detailView: 'activity_detail',
     insertView: 'activity_types_list',
@@ -115,37 +107,28 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
       'alarm': 'Alarm eq true',
       'recurring': 'Recurring eq true',
       'timeless': 'Timeless eq true',
-      'yesterday': function yesterday() {
-        var now, yesterdayStart, yesterdayEnd, query;
+      'yesterday': function computeYesterday() {
+        var now = (0, _moment2['default'])();
+        var yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
+        var yesterdayEnd = yesterdayStart.clone().endOf('day');
 
-        now = (0, _moment2['default'])();
-
-        yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-        yesterdayEnd = yesterdayStart.clone().endOf('day');
-
-        query = _string['default'].substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(yesterdayStart.toDate()), _convert['default'].toIsoStringFromDate(yesterdayEnd.toDate()), yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'), yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
+        var query = _string['default'].substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(yesterdayStart.toDate()), _convert['default'].toIsoStringFromDate(yesterdayEnd.toDate()), yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'), yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
         return query;
       },
-      'today': function today() {
-        var now, todayStart, todayEnd, query;
+      'today': function computeToday() {
+        var now = (0, _moment2['default'])();
+        var todayStart = now.clone().startOf('day');
+        var todayEnd = todayStart.clone().endOf('day');
 
-        now = (0, _moment2['default'])();
-
-        todayStart = now.clone().startOf('day');
-        todayEnd = todayStart.clone().endOf('day');
-
-        query = _string['default'].substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(todayStart.toDate()), _convert['default'].toIsoStringFromDate(todayEnd.toDate()), todayStart.format('YYYY-MM-DDT00:00:00[Z]'), todayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
+        var query = _string['default'].substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(todayStart.toDate()), _convert['default'].toIsoStringFromDate(todayEnd.toDate()), todayStart.format('YYYY-MM-DDT00:00:00[Z]'), todayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
         return query;
       },
-      'this-week': function thisWeek() {
-        var now, weekStartDate, weekEndDate, query;
+      'this-week': function computeThisWeek() {
+        var now = (0, _moment2['default'])();
+        var weekStartDate = now.clone().startOf('week');
+        var weekEndDate = weekStartDate.clone().endOf('week');
 
-        now = (0, _moment2['default'])();
-
-        weekStartDate = now.clone().startOf('week');
-        weekEndDate = weekStartDate.clone().endOf('week');
-
-        query = _string['default'].substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(weekStartDate.toDate()), _convert['default'].toIsoStringFromDate(weekEndDate.toDate()), weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+        var query = _string['default'].substitute('((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(weekStartDate.toDate()), _convert['default'].toIsoStringFromDate(weekEndDate.toDate()), weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
         return query;
       }
     },
@@ -215,31 +198,29 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
       }]);
     },
     hasBeenTouched: function hasBeenTouched(entry) {
-      var modifiedDate, currentDate, weekAgo;
-      if (entry['ModifyDate']) {
-        modifiedDate = (0, _moment2['default'])(_convert['default'].toDateFromString(entry['ModifyDate']));
-        currentDate = (0, _moment2['default'])().endOf('day');
-        weekAgo = (0, _moment2['default'])().subtract(1, 'weeks');
+      if (entry.ModifyDate) {
+        var modifiedDate = (0, _moment2['default'])(_convert['default'].toDateFromString(entry.ModifyDate));
+        var currentDate = (0, _moment2['default'])().endOf('day');
+        var weekAgo = (0, _moment2['default'])().subtract(1, 'weeks');
 
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
       return false;
     },
     isImportant: function isImportant(entry) {
-      if (entry['Priority']) {
-        if (entry['Priority'] === 'High') {
+      if (entry.Priority) {
+        if (entry.Priority === 'High') {
           return true;
         }
       }
       return false;
     },
     isOverdue: function isOverdue(entry) {
-      var startDate, currentDate, seconds, mins;
-      if (entry['StartDate']) {
-        startDate = _convert['default'].toDateFromString(entry['StartDate']);
-        currentDate = new Date();
-        seconds = Math.round((currentDate - startDate) / 1000);
-        mins = seconds / 60;
+      if (entry.StartDate) {
+        var startDate = _convert['default'].toDateFromString(entry.StartDate);
+        var currentDate = new Date();
+        var seconds = Math.round((currentDate - startDate) / 1000);
+        var mins = seconds / 60;
         if (mins >= 1) {
           return true;
         }
@@ -262,15 +243,15 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
       return start.isAfter((0, _moment2['default'])().startOf('day')) && start.isBefore((0, _moment2['default'])().endOf('day'));
     },
     isRecurring: function isRecurring(entry) {
-      if (entry['RecurrenceState']) {
-        if (entry['RecurrenceState'] === 'rstOccurrence') {
+      if (entry.RecurrenceState) {
+        if (entry.RecurrenceState === 'rstOccurrence') {
           return true;
         }
       }
       return false;
     },
     hasAlarm: function hasAlarm(entry) {
-      if (entry['Alarm'] === true) {
+      if (entry.Alarm === true) {
         return true;
       }
       return false;
@@ -292,26 +273,23 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
         id: 'complete',
         cls: 'fa fa-check-square fa-2x',
         label: this.completeActivityText,
-        enabled: function enabled(action, selection) {
-          var recur,
-              entry = selection && selection.data;
+        enabled: function enabled(theAction, selection) {
+          var entry = selection && selection.data;
           if (!entry) {
             return false;
           }
-          recur = false;
-          if (entry['RecurrenceState'] === 'rstOccurrence') {
+          var recur = false;
+          if (entry.RecurrenceState === 'rstOccurrence') {
             recur = true;
           }
 
-          return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
+          return entry.Leader.$key === App.context.user.$key && !recur;
         },
-        fn: (function (action, selection) {
-          var entry;
+        fn: (function fn(theAction, selection) {
+          var entry = selection && selection.data && selection.data;
 
-          entry = selection && selection.data && selection.data;
-
-          entry['CompletedDate'] = new Date();
-          entry['Result'] = 'Complete';
+          entry.CompletedDate = new Date();
+          entry.Result = 'Complete';
 
           _environment['default'].refreshActivityLists();
           this.completeActivity(entry);
@@ -320,17 +298,15 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
         id: 'call',
         cls: 'fa fa-phone-square fa-2x',
         label: this.callText,
-        enabled: function enabled(action, selection) {
-          var entry;
-          entry = selection && selection.data;
+        enabled: function enabled(theAction, selection) {
+          var entry = selection && selection.data;
           return entry && entry.PhoneNumber;
         },
-        fn: (function (action, selection) {
-          var entry, phone;
-          entry = selection && selection.data;
-          phone = entry && entry.PhoneNumber;
+        fn: (function fn(theAction, selection) {
+          var entry = selection && selection.data;
+          var phone = entry && entry.PhoneNumber;
           if (phone) {
-            this.recordCallToHistory((function () {
+            this.recordCallToHistory((function initiateCall() {
               App.initiateCall(phone);
             }).bindDelegate(this), entry);
           }
@@ -346,13 +322,13 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
       var tempEntry = {
         '$name': 'History',
         'Type': 'atPhoneCall',
-        'ContactName': entry['ContactName'],
-        'ContactId': entry['ContactId'],
-        'AccountName': entry['AccountName'],
-        'AccountId': entry['AccountId'],
-        'Description': _string['default'].substitute('${0} ${1}', [this.calledText, entry['ContactName'] || '']),
-        'UserId': App.context && App.context.user['$key'],
-        'UserName': App.context && App.context.user['UserName'],
+        'ContactName': entry.ContactName,
+        'ContactId': entry.ContactId,
+        'AccountName': entry.AccountName,
+        'AccountId': entry.AccountId,
+        'Description': _string['default'].substitute('${0} ${1}', [this.calledText, entry.ContactName || '']),
+        'UserId': App.context && App.context.user.$key,
+        'UserName': App.context && App.context.user.UserName,
         'Duration': 15,
         'CompletedDate': new Date()
       };
@@ -374,22 +350,20 @@ define('crm/Views/Activity/List', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     completeActivity: function completeActivity(entry) {
-      var request, completeActivityEntry;
-
-      completeActivityEntry = {
+      var completeActivityEntry = {
         '$name': 'ActivityComplete',
         'request': {
           'entity': {
-            '$key': entry['$key']
+            '$key': entry.$key
           },
-          'ActivityId': entry['$key'],
-          'userId': entry['Leader']['$key'],
-          'result': entry['Result'],
-          'completeDate': entry['CompletedDate']
+          'ActivityId': entry.$key,
+          'userId': entry.Leader.$key,
+          'result': entry.Result,
+          'completeDate': entry.CompletedDate
         }
       };
 
-      request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
 
       request.execute(completeActivityEntry, {
         success: function success() {

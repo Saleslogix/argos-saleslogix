@@ -94,11 +94,11 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
     phoneText: 'phone',
     moreDetailsText: 'More Details',
 
-    //View Properties
+    // View Properties
     id: 'activity_detail',
     completeView: 'activity_complete',
     editView: 'activity_edit',
-    security: null, //'Entities/Activity/View',
+    security: null, // 'Entities/Activity/View',
     contractName: 'system',
     querySelect: ['AccountId', 'AccountName', 'Alarm', 'AlarmTime', 'Category', 'Company', 'ContactId', 'ContactName', 'Description', 'Duration', 'Leader/$key', 'LeadId', 'LeadName', 'Location', 'LongNotes', 'OpportunityId', 'OpportunityName', 'PhoneNumber', 'Priority', 'Rollover', 'StartDate', 'EndDate', 'TicketId', 'TicketNumber', 'Timeless', 'Type', 'Recurring', 'RecurPeriod', 'RecurPeriodSpec', 'RecurIterations', 'RecurrenceState', 'AllowAdd', 'AllowEdit', 'AllowDelete', 'AllowComplete'],
     resourceKind: 'activities',
@@ -113,6 +113,7 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
 
       if (view) {
         if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
+          // eslint-disable-line
           this.recurrence.Leader = this.entry.Leader;
           view.show({
             entry: this.recurrence
@@ -125,13 +126,11 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       }
     },
     navigateToCompleteView: function navigateToCompleteView(completionTitle, isSeries) {
-      var view, options;
-
-      view = App.getView(this.completeView);
+      var view = App.getView(this.completeView);
 
       if (view) {
         _environment['default'].refreshActivityLists();
-        options = {
+        var options = {
           title: completionTitle,
           template: {}
         };
@@ -152,15 +151,13 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       this.navigateToCompleteView(this.completeActivityText);
     },
     completeOccurrence: function completeOccurrence() {
-      var request,
-          key,
-          entry = this.entry;
-      key = entry['$key'];
+      var entry = this.entry;
+      var key = entry.$key;
 
       // Check to ensure we have a composite key (meaning we have the occurance, not the master)
       if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
         // Fetch the occurance, and continue on to the complete screen
-        request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', "id eq '" + key + "'").setCount(1);
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', "id eq '" + key + "'").setCount(1);
 
         request.read({
           success: this.processOccurance,
@@ -183,19 +180,19 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       this.navigateToCompleteView(this.completeSeriesText, true);
     },
     isActivityRecurring: function isActivityRecurring(entry) {
-      return entry && (entry['Recurring'] || entry['RecurrenceState'] === 'rstOccurrence');
+      return entry && (entry.Recurring || entry.RecurrenceState === 'rstOccurrence');
     },
     isActivityRecurringSeries: function isActivityRecurringSeries(entry) {
-      return this.isActivityRecurring(entry) && !_recur['default'].isAfterCompletion(entry['RecurPeriod']);
+      return this.isActivityRecurring(entry) && !_recur['default'].isAfterCompletion(entry.RecurPeriod);
     },
     isActivityForLead: function isActivityForLead(entry) {
-      return entry && /^[\w]{12}$/.test(entry['LeadId']);
+      return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     isActivityTimeless: function isActivityTimeless(entry) {
-      return entry && _convert['default'].toBoolean(entry['Timeless']);
+      return entry && _convert['default'].toBoolean(entry.Timeless);
     },
     doesActivityHaveReminder: function doesActivityHaveReminder(entry) {
-      return _convert['default'].toBoolean(entry && entry['Alarm']);
+      return _convert['default'].toBoolean(entry && entry.Alarm);
     },
     requestLeader: function requestLeader(userId) {
       var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector(_string['default'].substitute("'${0}'", [userId])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
@@ -209,20 +206,20 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
     requestLeaderFailure: function requestLeaderFailure() {},
     processLeader: function processLeader(leader) {
       if (leader) {
-        this.entry['Leader'] = leader;
+        this.entry.Leader = leader;
 
         // There could be a timing issue here. The call to request the leader is done before the layout is processed,
         // so we could potentially end up in here before any dom was created for the view.
         // TODO: Fix
-        var rowNode = (0, _query['default'])('[data-property="Leader"]'),
-            contentNode = rowNode && (0, _query['default'])('[data-property="Leader"] > span', this.domNode);
+        var rowNode = (0, _query['default'])('[data-property="Leader"]');
+        var contentNode = rowNode && (0, _query['default'])('[data-property="Leader"] > span', this.domNode);
 
         if (rowNode && rowNode.length > 0) {
           _domClass['default'].remove(rowNode[0], 'content-loading');
         }
 
         if (contentNode && contentNode.length > 0) {
-          contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
+          contentNode[0].innerHTML = this.leaderTemplate.apply(leader.UserInfo);
         }
       }
     },
@@ -238,13 +235,11 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       return;
     },
     processRecurrence: function processRecurrence(recurrence) {
-      var rowNode, contentNode;
-
       if (recurrence) {
         this.recurrence = recurrence;
 
-        rowNode = (0, _query['default'])('[data-property="RecurrenceUI"]');
-        contentNode = rowNode && (0, _query['default'])('[data-property="RecurrenceUI"] > span', this.domNode);
+        var rowNode = (0, _query['default'])('[data-property="RecurrenceUI"]');
+        var contentNode = rowNode && (0, _query['default'])('[data-property="RecurrenceUI"] > span', this.domNode);
 
         if (rowNode && rowNode.length > 0) {
           _domClass['default'].remove(rowNode[0], 'content-loading');
@@ -257,25 +252,27 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
     },
     requestRecurrenceFailure: function requestRecurrenceFailure() {},
     checkCanComplete: function checkCanComplete(entry) {
-      return !(entry && entry['AllowComplete']);
+      return !(entry && entry.AllowComplete);
     },
     preProcessEntry: function preProcessEntry(entry) {
-      if (entry && entry['Leader']['$key']) {
-        this.requestLeader(entry['Leader']['$key']);
+      if (entry && entry.Leader.$key) {
+        this.requestLeader(entry.Leader.$key);
       }
       if (this.isActivityRecurring(entry)) {
-        this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
+        this.requestRecurrence(entry.$key.split(this.recurringActivityIdSeparator).shift());
       }
 
       return entry;
     },
     formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
+      var toReturn = undefined;
       if (property === 'activityId') {
-        return _string['default'].substitute(fmt, [_utility['default'].getRealActivityId(entry.$key)]);
+        toReturn = _string['default'].substitute(fmt, [_utility['default'].getRealActivityId(entry.$key)]);
       } else {
-        property = property || '$key';
-        return _string['default'].substitute(fmt, [_platformUtility['default'].getValue(entry, property, '')]);
+        var theProperty = property || '$key';
+        toReturn = _string['default'].substitute(fmt, [_platformUtility['default'].getValue(entry, theProperty, '')]);
       }
+      return toReturn;
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{

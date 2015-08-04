@@ -1,4 +1,4 @@
-define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'dojo/_base/array', 'dojo/string', '../../Environment', '../../Template', '../../Validator', 'argos/Utility', 'argos/Edit', '../../Recurrence', 'argos/Format', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseConnect, _dojo_baseArray, _dojoString, _Environment, _Template, _Validator, _argosUtility, _argosEdit, _Recurrence, _argosFormat, _moment) {
+define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'dojo/_base/array', 'dojo/string', '../../Environment', '../../Validator', 'argos/Utility', 'argos/Edit', '../../Recurrence', 'argos/Format', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseConnect, _dojo_baseArray, _dojoString, _Environment, _Validator, _argosUtility, _argosEdit, _Recurrence, _argosFormat, _moment) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -12,8 +12,6 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
   var _string = _interopRequireDefault(_dojoString);
 
   var _environment = _interopRequireDefault(_Environment);
-
-  var _template = _interopRequireDefault(_Template);
 
   var _validator = _interopRequireDefault(_Validator);
 
@@ -44,7 +42,7 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Activity.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     activityCategoryTitleText: 'Activity Category',
     activityDescriptionTitleText: 'Activity Description',
     locationText: 'location',
@@ -108,7 +106,7 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
      */
     ROUND_MINUTES: 15,
 
-    //View Properties
+    // View Properties
     id: 'activity_edit',
     detailView: 'activity_detail',
     fieldsForLeads: ['AccountName', 'Lead'],
@@ -146,8 +144,8 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
     },
 
     entityName: 'Activity',
-    insertSecurity: null, //'Entities/Activity/Add',
-    updateSecurity: null, //'Entities/Activity/Edit',
+    insertSecurity: null, // 'Entities/Activity/Add',
+    updateSecurity: null, // 'Entities/Activity/Edit',
     contractName: 'system',
     querySelect: ['AccountId', 'AccountName', 'Alarm', 'AlarmTime', 'Category', 'ContactId', 'ContactName', 'Description', 'Duration', 'Leader/$key', 'LeadId', 'LeadName', 'Location', 'LongNotes', 'OpportunityId', 'OpportunityName', 'PhoneNumber', 'Priority', 'Regarding', 'Rollover', 'StartDate', 'EndDate', 'TicketId', 'TicketNumber', 'Timeless', 'Type', 'UserId', 'Recurring', 'RecurrenceState', 'RecurPeriod', 'RecurPeriodSpec', 'RecurIterations', 'AllowAdd', 'AllowEdit', 'AllowDelete', 'AllowComplete'],
     resourceKind: 'activities',
@@ -163,41 +161,41 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
         RecurPeriodSpec: '0'
       };
 
-      this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
-      this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);
-      this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
-      this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
-      this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
+      this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
+      this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
+      this.connect(this.fields.Leader, 'onChange', this.onLeaderChange);
+      this.connect(this.fields.Timeless, 'onChange', this.onTimelessChange);
+      this.connect(this.fields.Alarm, 'onChange', this.onAlarmChange);
 
-      this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-      this.connect(this.fields['Contact'], 'onChange', this.onContactChange);
-      this.connect(this.fields['Opportunity'], 'onChange', this.onOpportunityChange);
-      this.connect(this.fields['Ticket'], 'onChange', this.onTicketChange);
-      this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
-      this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
-      this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
+      this.connect(this.fields.Account, 'onChange', this.onAccountChange);
+      this.connect(this.fields.Contact, 'onChange', this.onContactChange);
+      this.connect(this.fields.Opportunity, 'onChange', this.onOpportunityChange);
+      this.connect(this.fields.Ticket, 'onChange', this.onTicketChange);
+      this.connect(this.fields.StartDate, 'onChange', this.onStartDateChange);
+      this.connect(this.fields.RecurrenceUI, 'onChange', this.onRecurrenceUIChange);
+      this.connect(this.fields.Recurrence, 'onChange', this.onRecurrenceChange);
     },
     onAddComplete: function onAddComplete() {
       _environment['default'].refreshActivityLists();
       this.inherited(arguments);
     },
     onPutComplete: function onPutComplete(entry) {
-      var view = App.getView(this.detailView),
-          originalKey = this.options.entry && this.options.entry['$key'] || entry['$key'];
+      var view = App.getView(this.detailView);
+      var originalKey = this.options.entry && this.options.entry.$key || entry.$key;
 
       this.enable();
 
       _environment['default'].refreshActivityLists();
       _connect['default'].publish('/app/refresh', [{
         resourceKind: this.resourceKind,
-        key: entry['$key'],
+        key: entry.$key,
         data: entry
       }]);
 
-      if (entry['$key'] !== originalKey && view) {
+      if (entry.$key !== originalKey && view) {
         // Editing single occurrence results in new $key/record
         view.show({
-          key: entry['$key']
+          key: entry.$key
         }, {
           returnTo: -2
         });
@@ -208,8 +206,8 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
     convertEntry: function convertEntry() {
       var entry = this.inherited(arguments);
       if (!this.options.entry) {
-        if (entry && entry['Leader']['$key']) {
-          this.requestLeader(entry['Leader']['$key']);
+        if (entry && entry.Leader.$key) {
+          this.requestLeader(entry.Leader.$key);
         }
       }
 
@@ -227,34 +225,33 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
     requestLeaderFailure: function requestLeaderFailure() {},
     processLeader: function processLeader(leader) {
       if (leader) {
-        this.entry['Leader'] = leader;
-        this.fields['Leader'].setValue(leader);
+        this.entry.Leader = leader;
+        this.fields.Leader.setValue(leader);
       }
     },
     currentUserCanEdit: function currentUserCanEdit(entry) {
-      return entry && entry['AllowEdit'];
+      return entry && entry.AllowEdit;
     },
     currentUserCanSetAlarm: function currentUserCanSetAlarm(entry) {
-      return !!entry && entry['Leader']['$key'] === App.context['user']['$key'];
+      return !!entry && entry.Leader.$key === App.context.user.$key;
     },
     isActivityForLead: function isActivityForLead(entry) {
-      return entry && /^[\w]{12}$/.test(entry['LeadId']);
+      return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     isActivityRecurring: function isActivityRecurring() {
-      return /rstMaster/.test(this.fields['RecurrenceState'].getValue());
+      return /rstMaster/.test(this.fields.RecurrenceState.getValue());
     },
     isInLeadContext: function isInLeadContext() {
-      var lead,
-          isLeadContext,
-          insert = this.options && this.options.insert,
-          entry = this.options && this.options.entry,
-          context = this._getNavContext();
-      isLeadContext = false;
+      var insert = this.options && this.options.insert;
+      var entry = this.options && this.options.entry;
+      var context = this._getNavContext();
+      var isLeadContext = false;
+
       if (context.resourceKind === 'leads') {
         isLeadContext = true;
       }
 
-      lead = insert && isLeadContext || this.isActivityForLead(entry);
+      var lead = insert && isLeadContext || this.isActivityForLead(entry);
 
       return !!lead;
     },
@@ -276,16 +273,16 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     disableFields: function disableFields(predicate) {
-      for (var name in this.fields) {
-        if (!predicate || predicate(this.fields[name])) {
-          this.fields[name].disable();
+      for (var _name in this.fields) {
+        if (!predicate || predicate(this.fields[_name])) {
+          this.fields[_name].disable();
         }
       }
     },
     enableFields: function enableFields(predicate) {
-      for (var name in this.fields) {
-        if (!predicate || predicate(this.fields[name])) {
-          this.fields[name].enable();
+      for (var _name2 in this.fields) {
+        if (!predicate || predicate(this.fields[_name2])) {
+          this.fields[_name2].enable();
         }
       }
     },
@@ -299,26 +296,26 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     showFieldsForLead: function showFieldsForLead() {
-      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
+      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideItemsStandard(item) {
         if (this.fields[item]) {
           this.fields[item].hide();
         }
       }, this);
 
-      _array['default'].forEach(this.fieldsForLeads, function (item) {
+      _array['default'].forEach(this.fieldsForLeads, function showItemsLeads(item) {
         if (this.fields[item]) {
           this.fields[item].show();
         }
       }, this);
     },
     showFieldsForStandard: function showFieldsForStandard() {
-      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
+      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideItemsStandard(item) {
         if (this.fields[item]) {
           this.fields[item].hide();
         }
       }, this);
 
-      _array['default'].forEach(this.fieldsForStandard, function (item) {
+      _array['default'].forEach(this.fieldsForStandard, function showItemsStandard(item) {
         if (this.fields[item]) {
           this.fields[item].show();
         }
@@ -332,30 +329,28 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     onTimelessChange: function onTimelessChange(value) {
-      this.toggleSelectField(this.fields['Duration'], value);
-      var startDate, startDateField;
-
-      startDateField = this.fields['StartDate'];
+      this.toggleSelectField(this.fields.Duration, value);
+      var startDateField = this.fields.StartDate;
 
       if (value) {
         // StartDate timeless
-        this.fields['Rollover'].enable();
-        startDateField['dateFormatText'] = this.startingTimelessFormatText;
-        startDateField['showTimePicker'] = false;
-        startDateField['timeless'] = true;
-        startDate = this._getNewStartDate(startDateField.getValue(), true);
+        this.fields.Rollover.enable();
+        startDateField.dateFormatText = this.startingTimelessFormatText;
+        startDateField.showTimePicker = false;
+        startDateField.timeless = true;
+        var startDate = this._getNewStartDate(startDateField.getValue(), true);
 
         if (startDate) {
           startDateField.setValue(startDate);
         }
       } else {
         // StartDate with out time (Timeless)
-        this.fields['Rollover'].setValue(false);
-        this.fields['Rollover'].disable();
-        startDateField['dateFormatText'] = this.startingFormatText;
-        startDateField['showTimePicker'] = true;
-        startDateField['timeless'] = false;
-        startDate = this._getNewStartDate(startDateField.getValue(), false);
+        this.fields.Rollover.setValue(false);
+        this.fields.Rollover.disable();
+        startDateField.dateFormatText = this.startingFormatText;
+        startDateField.showTimePicker = true;
+        startDateField.timeless = false;
+        var startDate = this._getNewStartDate(startDateField.getValue(), false);
 
         if (startDate) {
           startDateField.setValue(startDate);
@@ -363,33 +358,30 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     onAlarmChange: function onAlarmChange() {
-      if (this.fields['Alarm'].getValue()) {
-        this.fields['Reminder'].enable();
+      if (this.fields.Alarm.getValue()) {
+        this.fields.Reminder.enable();
       } else {
-        this.fields['Reminder'].disable();
+        this.fields.Reminder.disable();
       }
     },
     onLeadChange: function onLeadChange(value, field) {
-      var selection = field.getSelection(),
-          phoneField,
-          entry;
+      var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields['AccountName'].setValue(_utility['default'].getValue(selection, 'Company'));
+        this.fields.AccountName.setValue(_utility['default'].getValue(selection, 'Company'));
       }
 
-      entry = field.currentSelection;
+      var entry = field.currentSelection;
       if (entry.WorkPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     onLeaderChange: function onLeaderChange(value, field) {
-      var user = field.getValue(),
-          key,
-          resourceId = '';
+      var user = field.getValue();
+      var resourceId = '';
 
-      key = user['$key'];
+      var key = user.$key;
 
       // The key is a composite key on activityresourceviews endpoint.
       // The format is 'ResourceId-AccessId'.
@@ -399,12 +391,12 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
         key = key.split('-');
         resourceId = key[0];
         if (resourceId) {
-          this.fields['UserId'].setValue(resourceId);
+          this.fields.UserId.setValue(resourceId);
 
           // Set back to a single $key so the PUT request payload is not messed up
-          this.fields['Leader'].setValue({
+          this.fields.Leader.setValue({
             '$key': resourceId,
-            '$descriptor': user['$descriptor']
+            '$descriptor': user.$descriptor
           });
         }
       }
@@ -414,16 +406,13 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
         return;
       }
 
-      var fields, entry, phoneField;
-
-      fields = this.fields;
-      _array['default'].forEach(['Contact', 'Opportunity', 'Ticket'], function (f) {
+      var fields = this.fields;
+      _array['default'].forEach(['Contact', 'Opportunity', 'Ticket'], function checkFields(f) {
         if (value) {
           fields[f].dependsOn = 'Account';
-          fields[f].where = _string['default'].substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+          fields[f].where = _string['default'].substitute('Account.Id eq "${0}"', [value.AccountId || value.key]);
 
-          if (fields[f].currentSelection && fields[f].currentSelection['Account']['$key'] !== (value['AccountId'] || value['key'])) {
-
+          if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
           }
 
@@ -437,54 +426,45 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
         }
       });
 
-      entry = field.currentSelection;
+      var entry = field.currentSelection;
       if (entry && entry.MainPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.MainPhone);
       }
     },
     onContactChange: function onContactChange(value, field) {
       this.onAccountDependentChange(value, field);
-
-      var entry, phoneField;
-
-      entry = field.currentSelection;
+      var entry = field.currentSelection;
 
       if (entry && entry.WorkPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     onOpportunityChange: function onOpportunityChange(value, field) {
       this.onAccountDependentChange(value, field);
-
-      var entry, phoneField;
-
-      entry = field.currentSelection;
+      var entry = field.currentSelection;
 
       if (entry && entry.Account && entry.Account.MainPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fieldsPhoneNumber;
         phoneField.setValue(entry.Account.MainPhone);
       }
     },
     onTicketChange: function onTicketChange(value, field) {
       this.onAccountDependentChange(value, field);
-
-      var entry, phoneField, phone;
-
-      entry = field.currentSelection;
-      phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+      var entry = field.currentSelection;
+      var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
       if (phone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
       }
     },
     onAccountDependentChange: function onAccountDependentChange(value, field) {
-      if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account']) {
-        var accountField = this.fields['Account'];
+      if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
+        var accountField = this.fields.Account;
         accountField.setValue({
-          'AccountId': field.currentSelection['Account']['$key'],
-          'AccountName': field.currentSelection['Account']['AccountName']
+          'AccountId': field.currentSelection.Account.$key,
+          'AccountName': field.currentSelection.Account.AccountName
         });
         this.onAccountChange(accountField.getValue(), accountField);
       }
@@ -499,14 +479,12 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
 
       _recur['default'].createSimplifiedOptions(value);
 
-      var repeats = 'rstMaster' === this.recurrence.RecurrenceState;
-      this.fields['RecurrenceUI'].setValue(_recur['default'].getPanel(repeats && this.recurrence.RecurPeriod));
+      var repeats = this.recurrence.RecurrenceState === 'rstMaster';
+      this.fields.RecurrenceUI.setValue(_recur['default'].getPanel(repeats && this.recurrence.RecurPeriod));
     },
     onRecurrenceUIChange: function onRecurrenceUIChange(value, field) {
-      var opt, key;
-
-      key = field.currentValue && field.currentValue.key;
-      opt = _recur['default'].simplifiedOptions[key];
+      var key = field.currentValue && field.currentValue.key;
+      var opt = _recur['default'].simplifiedOptions[key];
       // preserve #iterations (and EndDate) if matching recurrence
       if (this._previousRecurrence === key) {
         opt.RecurIterations = this.recurrence.RecurIterations;
@@ -517,17 +495,17 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
     },
     onRecurrenceChange: function onRecurrenceChange(value) {
       // did the StartDate change on the recurrence_edit screen?
-      var startDate = argos.Convert.toDateFromString(value['StartDate']),
-          currentDate = this.fields['StartDate'].getValue();
+      var startDate = argos.Convert.toDateFromString(value.StartDate);
+      var currentDate = this.fields.StartDate.getValue();
 
       if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
-        this.fields['StartDate'].setValue(startDate);
+        this.fields.StartDate.setValue(startDate);
       }
 
       this.resetRecurrence(value);
     },
     resetRecurrence: function resetRecurrence(o) {
-      this.recurrence.StartDate = this.fields['StartDate'].getValue();
+      this.recurrence.StartDate = this.fields.StartDate.getValue();
 
       if (typeof o.Recurring !== 'undefined' && o.Recurring !== null) {
         this.recurrence.Recurring = o.Recurring;
@@ -551,20 +529,20 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
 
       this.recurrence.EndDate = _recur['default'].calcEndDate(this.recurrence.StartDate, this.recurrence);
 
-      this.fields['RecurrenceUI'].setValue(_recur['default'].getPanel(this.recurrence.RecurPeriod));
-      this.fields['Recurrence'].setValue(this.recurrence);
+      this.fields.RecurrenceUI.setValue(_recur['default'].getPanel(this.recurrence.RecurPeriod));
+      this.fields.Recurrence.setValue(this.recurrence);
 
-      this.fields['Recurring'].setValue(this.recurrence.Recurring);
-      this.fields['RecurPeriod'].setValue(this.recurrence.RecurPeriod);
-      this.fields['RecurPeriodSpec'].setValue(this.recurrence.Recurring ? this.recurrence.RecurPeriodSpec : 0);
-      this.fields['RecurrenceState'].setValue(this.recurrence.RecurrenceState);
-      this.fields['RecurIterations'].setValue(this.recurrence.RecurIterations);
-      this.fields['EndDate'].setValue(this.recurrence.EndDate);
+      this.fields.Recurring.setValue(this.recurrence.Recurring);
+      this.fields.RecurPeriod.setValue(this.recurrence.RecurPeriod);
+      this.fields.RecurPeriodSpec.setValue(this.recurrence.Recurring ? this.recurrence.RecurPeriodSpec : 0);
+      this.fields.RecurrenceState.setValue(this.recurrence.RecurrenceState);
+      this.fields.RecurIterations.setValue(this.recurrence.RecurIterations);
+      this.fields.EndDate.setValue(this.recurrence.EndDate);
 
       if (o.Recurring) {
-        this.fields['Recurrence'].enable();
+        this.fields.Recurrence.enable();
       } else {
-        this.fields['Recurrence'].disable();
+        this.fields.Recurrence.disable();
       }
     },
 
@@ -579,11 +557,11 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       return _recur['default'].toString(recurrence, true);
     },
     _getCalculatedStartTime: function _getCalculatedStartTime(selectedDate) {
-      var now = (0, _moment2['default'])(),
-          startDate;
+      var now = (0, _moment2['default'])();
+      var thisSelectedDate = selectedDate;
 
       if (!_moment2['default'].isMoment(selectedDate)) {
-        selectedDate = (0, _moment2['default'])(selectedDate);
+        thisSelectedDate = (0, _moment2['default'])(selectedDate);
       }
 
       // Take the start of the selected date, add the *current* time to it,
@@ -592,7 +570,7 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       // 11:24 -> 11:30
       // 11:12 -> 11:15
       // 11:31 -> 11:45
-      startDate = selectedDate.clone().startOf('day').hours(now.hours()).add({
+      var startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
         'minutes': Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES + this.ROUND_MINUTES
       });
 
@@ -604,45 +582,39 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
     applyContext: function applyContext() {
       this.inherited(arguments);
 
-      var startDate = this._getCalculatedStartTime((0, _moment2['default'])()),
-          user,
-          found,
-          accountField,
-          leaderField,
-          context,
-          lookup,
-          activityType = this.options && this.options.activityType,
-          activityGroup = this.groupOptionsByType[activityType] || '',
-          activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
-          alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
-          alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
+      var startDate = this._getCalculatedStartTime((0, _moment2['default'])());
+      var activityType = this.options && this.options.activityType;
+      var activityGroup = this.groupOptionsByType[activityType] || '';
+      var activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
+      var alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true;
+      var alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
       if (this.options && this.options.currentDate) {
         startDate = this.applyUserActivityContext((0, _moment2['default'])(this.options.currentDate));
       }
 
-      this.fields['StartDate'].setValue(startDate.toDate());
-      this.fields['Type'].setValue(activityType);
-      this.fields['Duration'].setValue(activityDuration);
-      this.fields['Alarm'].setValue(alarmEnabled);
-      this.fields['Reminder'].setValue(alarmDuration);
+      this.fields.StartDate.setValue(startDate.toDate());
+      this.fields.Type.setValue(activityType);
+      this.fields.Duration.setValue(activityDuration);
+      this.fields.Alarm.setValue(alarmEnabled);
+      this.fields.Reminder.setValue(alarmDuration);
 
-      user = App.context['user'];
+      var user = App.context.user;
       if (user) {
-        this.fields['UserId'].setValue(user['$key']);
+        this.fields.UserId.setValue(user.$key);
 
-        leaderField = this.fields['Leader'];
+        var leaderField = this.fields.Leader;
         leaderField.setValue(user);
         this.onLeaderChange(user, leaderField);
       }
 
-      found = this._getNavContext();
+      var found = this._getNavContext();
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
 
-      context = found && found.options && found.options.source || found;
-      lookup = {
+      var context = found && found.options && found.options.source || found;
+      var lookup = {
         'accounts': this.applyAccountContext,
         'contacts': this.applyContactContext,
         'opportunities': this.applyOpportunityContext,
@@ -655,7 +627,7 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     _getNavContext: function _getNavContext() {
-      var navContext = App.queryNavigationContext(function (o) {
+      var navContext = App.queryNavigationContext(function checkContext(o) {
         var context = o.options && o.options.source || o;
 
         if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
@@ -667,213 +639,197 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       return navContext;
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id),
-          accountField,
-          entry = context.entry || view && view.entry || context;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry || context;
 
-      if (!entry || !entry['$key']) {
+      if (!entry || !entry.$key) {
         return;
       }
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       accountField.setSelection(entry);
       accountField.setValue({
-        'AccountId': entry['$key'],
-        'AccountName': entry['$descriptor']
+        'AccountId': entry.$key,
+        'AccountName': entry.$descriptor
       });
       this.onAccountChange(accountField.getValue(), accountField);
     },
     applyContactContext: function applyContactContext(context) {
-      var view, entry, contactField, accountField, phoneField;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry || context;
 
-      view = App.getView(context.id);
-      entry = context.entry || view && view.entry || context;
-
-      if (!entry || !entry['$key']) {
+      if (!entry || !entry.$key) {
         return;
       }
 
-      contactField = this.fields['Contact'];
+      var contactField = this.fields.Contact;
 
       contactField.setSelection(entry);
       contactField.setValue({
-        'ContactId': entry['$key'],
-        'ContactName': entry['$descriptor']
+        'ContactId': entry.$key,
+        'ContactName': entry.$descriptor
       });
 
       this.onAccountDependentChange(contactField.getValue(), contactField);
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       accountField.setValue({
         'AccountId': _utility['default'].getValue(entry, 'Account.$key'),
         'AccountName': _utility['default'].getValue(entry, 'Account.AccountName')
       });
 
       if (entry.WorkPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     applyTicketContext: function applyTicketContext(context) {
-      var view = App.getView(context.id),
-          entry = context.entry || view && view.entry,
-          phoneField,
-          phone,
-          accountField,
-          contactField,
-          ticketField;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
-      if (!entry || !entry['$key']) {
+      if (!entry || !entry.$key) {
         return;
       }
 
-      ticketField = this.fields['Ticket'];
+      var ticketField = this.fields.Ticket;
       ticketField.setSelection(entry);
       ticketField.setValue({
-        'TicketId': entry['$key'],
-        'TicketNumber': entry['$descriptor']
+        'TicketId': entry.$key,
+        'TicketNumber': entry.$descriptor
       });
       this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-      contactField = this.fields['Contact'];
+      var contactField = this.fields.Contact;
       contactField.setValue({
         'ContactId': _utility['default'].getValue(entry, 'Contact.$key'),
         'ContactName': _utility['default'].getValue(entry, 'Contact.NameLF')
       });
       this.onAccountDependentChange(contactField.getValue(), contactField);
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       accountField.setValue({
         'AccountId': _utility['default'].getValue(entry, 'Account.$key'),
         'AccountName': _utility['default'].getValue(entry, 'Account.AccountName')
       });
 
-      phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+      var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
       if (phone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
       }
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
-      var view = App.getView(context.id),
-          entry = context.entry || view && view.entry,
-          opportunityField,
-          accountField,
-          phoneField;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
-      if (!entry || !entry['$key']) {
+      if (!entry || !entry.$key) {
         return;
       }
 
-      opportunityField = this.fields['Opportunity'];
+      var opportunityField = this.fields.Opportunity;
       opportunityField.setSelection(entry);
       opportunityField.setValue({
-        'OpportunityId': entry['$key'],
-        'OpportunityName': entry['$descriptor']
+        'OpportunityId': entry.$key,
+        'OpportunityName': entry.$descriptor
       });
 
       this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       accountField.setValue({
         'AccountId': _utility['default'].getValue(entry, 'Account.$key'),
         'AccountName': _utility['default'].getValue(entry, 'Account.AccountName')
       });
 
       if (entry.Account && entry.Account.MainPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.Account.MainPhone);
       }
     },
     applyLeadContext: function applyLeadContext(context) {
-      var view = App.getView(context.id),
-          entry = context.entry || view && view.entry,
-          leadField,
-          isLeadField,
-          phoneField;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
-      if (!entry || !entry['$key']) {
+      if (!entry || !entry.$key) {
         return;
       }
 
-      leadField = this.fields['Lead'];
+      var leadField = this.fields.Lead;
       leadField.setSelection(entry);
       leadField.setValue({
-        'LeadId': entry['$key'],
-        'LeadName': entry['$descriptor']
+        'LeadId': entry.$key,
+        'LeadName': entry.$descriptor
       });
       this.onLeadChange(leadField.getValue(), leadField);
 
-      this.fields['AccountName'].setValue(entry['Company']);
+      this.fields.AccountName.setValue(entry.Company);
 
-      isLeadField = this.fields['IsLead'];
+      var isLeadField = this.fields.IsLead;
       isLeadField.setValue(context.resourceKind === 'leads');
       this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
       if (entry.WorkPhone) {
-        phoneField = this.fields['PhoneNumber'];
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     setValues: function setValues(values) {
-      var startTime, span, isLeadField, entry, denyEdit, allowSetAlarm, reminder;
+      if (values.StartDate && values.AlarmTime) {
+        var startTime = this.isDateTimeless(values.StartDate) ? (0, _moment2['default'])(values.StartDate).add({
+          minutes: values.StartDate.getTimezoneOffset()
+        }).toDate().getTime() : values.StartDate.getTime();
 
-      if (values['StartDate'] && values['AlarmTime']) {
-        startTime = this.isDateTimeless(values['StartDate']) ? (0, _moment2['default'])(values['StartDate']).add({
-          minutes: values['StartDate'].getTimezoneOffset()
-        }).toDate().getTime() : values['StartDate'].getTime();
+        var span = startTime - values.AlarmTime.getTime(); // ms
+        var reminder = span / (1000 * 60);
 
-        span = startTime - values['AlarmTime'].getTime(); // ms
-        reminder = span / (1000 * 60);
-
-        values['Reminder'] = _format['default'].fixed(reminder, 0);
+        values.Reminder = _format['default'].fixed(reminder, 0);
       }
 
       this.inherited(arguments);
 
       this.enableFields();
 
-      if (values['Timeless']) {
-        this.fields['Duration'].disable();
-        this.fields['Rollover'].enable();
+      if (values.Timeless) {
+        this.fields.Duration.disable();
+        this.fields.Rollover.enable();
       } else {
-        this.fields['Duration'].enable();
-        this.fields['Rollover'].disable();
+        this.fields.Duration.enable();
+        this.fields.Rollover.disable();
       }
 
-      if (values['Alarm']) {
-        this.fields['Reminder'].enable();
+      if (values.Alarm) {
+        this.fields.Reminder.enable();
       } else {
-        this.fields['Reminder'].disable();
+        this.fields.Reminder.disable();
       }
 
       if (this.isInLeadContext()) {
-        isLeadField = this.fields['IsLead'];
+        var isLeadField = this.fields.IsLead;
         isLeadField.setValue(true);
         this.onIsLeadChange(isLeadField.getValue(), isLeadField);
-        this.fields['Lead'].setValue(values, true);
-        this.fields['AccountName'].setValue(values['AccountName']);
+        this.fields.Lead.setValue(values, true);
+        this.fields.AccountName.setValue(values.AccountName);
       }
 
-      entry = this.options.entry || this.entry;
-      denyEdit = !this.options.insert && !this.currentUserCanEdit(entry);
-      allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
+      var entry = this.options.entry || this.entry;
+      var denyEdit = !this.options.insert && !this.currentUserCanEdit(entry);
+      var allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
       if (denyEdit) {
         this.disableFields();
       }
 
       if (allowSetAlarm) {
-        this.enableFields(function (f) {
+        this.enableFields(function alarmReminderTest(f) {
           return /^Alarm|Reminder$/.test(f.name);
         });
       }
 
       this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate);
       this.resetRecurrence(values);
-      this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate']);
+      this.onStartDateChange(this.fields.StartDate.getValue(), this.fields.StartDate);
       if (this.isActivityRecurring) {
-        this.fields['EndDate'].hide();
+        this.fields.EndDate.hide();
       }
     },
     isDateTimeless: function isDateTimeless(date) {
@@ -909,33 +865,31 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       return true;
     },
     getValues: function getValues() {
-      var values = this.inherited(arguments),
-          isStartDateDirty = this.fields['StartDate'].isDirty(),
-          isReminderDirty = this.fields['Reminder'].isDirty(),
-          startDate = this.fields['StartDate'].getValue(),
-          reminderIn = this.fields['Reminder'].getValue(),
-          timeless = this.fields['Timeless'].getValue(),
-          alarmTime;
+      var isStartDateDirty = this.fields.StartDate.isDirty();
+      var isReminderDirty = this.fields.Reminder.isDirty();
+      var reminderIn = this.fields.Reminder.getValue();
+      var timeless = this.fields.Timeless.getValue();
+      var startDate = this.fields.StartDate.getValue();
+      var values = this.inherited(arguments);
 
       // Fix timeless if necessary (The date picker won't add 5 seconds)
       if (timeless) {
-        values['StartDate'] = startDate = this._getNewStartDate(startDate, true);
+        values.StartDate = startDate = this._getNewStartDate(startDate, true);
       }
 
       // if StartDate is dirty, always update AlarmTime
       if (startDate && (isStartDateDirty || isReminderDirty)) {
         values = values || {};
-        alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
-        values['AlarmTime'] = alarmTime;
+        var alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
+        values.AlarmTime = alarmTime;
       }
 
       return values;
     },
     createReminderData: function createReminderData() {
-      var list = [],
-          duration;
+      var list = [];
 
-      for (duration in this.reminderValueText) {
+      for (var duration in this.reminderValueText) {
         if (this.reminderValueText.hasOwnProperty(duration)) {
           list.push({
             '$key': duration,
@@ -949,10 +903,9 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       };
     },
     createDurationData: function createDurationData() {
-      var list = [],
-          duration;
+      var list = [];
 
-      for (duration in this.durationValueText) {
+      for (var duration in this.durationValueText) {
         if (this.durationValueText.hasOwnProperty(duration)) {
           list.push({
             '$key': duration,
@@ -966,32 +919,30 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       };
     },
     createRecurringData: function createRecurringData() {
-      return _recur['default'].createSimplifiedOptions(this.fields['StartDate'].getValue());
+      return _recur['default'].createSimplifiedOptions(this.fields.StartDate.getValue());
     },
-    formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
-      return _string['default'].substitute(format, [_utility['default'].getValue(dependentValue, property || '$key')]);
+    formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
+      return _string['default'].substitute(theFormat, [_utility['default'].getValue(dependentValue, property || '$key')]);
     },
     _getNewStartDate: function _getNewStartDate(orginalStartDate, timeless) {
-      var startDate, currentTime, wrapped, isTimeLessDate;
-
       if (!orginalStartDate) {
         return null;
       }
 
-      startDate = orginalStartDate;
-      isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
+      var startDate = orginalStartDate;
+      var isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
 
       if (timeless) {
         if (!isTimeLessDate) {
-          wrapped = (0, _moment2['default'])(startDate);
+          var wrapped = (0, _moment2['default'])(startDate);
           wrapped = _moment2['default'].utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
           wrapped.add('seconds', 5);
           startDate = wrapped.toDate();
         }
       } else {
         if (isTimeLessDate) {
-          currentTime = (0, _moment2['default'])();
-          wrapped = (0, _moment2['default'])(startDate);
+          var currentTime = (0, _moment2['default'])();
+          var wrapped = (0, _moment2['default'])(startDate);
           wrapped.add({
             minutes: wrapped.zone()
           });
@@ -1005,14 +956,13 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       return startDate;
     },
     _getNewAlarmTime: function _getNewAlarmTime(startDate, timeless, reminderIn) {
-      var alarmTime, wrapped;
-
+      var alarmTime = undefined;
       if (!startDate) {
         return null;
       }
 
       if (timeless) {
-        wrapped = (0, _moment2['default'])(startDate);
+        var wrapped = (0, _moment2['default'])(startDate);
         wrapped.add({
           minutes: wrapped.zone()
         });
