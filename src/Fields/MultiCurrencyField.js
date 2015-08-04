@@ -3,17 +3,17 @@ import lang from 'dojo/_base/lang';
 import DecimalField from 'argos/Fields/DecimalField';
 import FieldManager from 'argos/FieldManager';
 
-var control = declare('crm.Fields.MultiCurrencyField', [DecimalField], {
+const control = declare('crm.Fields.MultiCurrencyField', [DecimalField], {
   attributeMap: {
     inputValue: {
       node: 'inputNode',
       type: 'attribute',
-      attribute: 'value'
+      attribute: 'value',
     },
     currencyCode: {
       node: 'currencyCodeNode',
-      type: 'innerHTML'
-    }
+      type: 'innerHTML',
+    },
   },
   widgetTemplate: new Simplate([
     '<label for="{%= $.name %}">{%: $.label %}</label>',
@@ -21,12 +21,12 @@ var control = declare('crm.Fields.MultiCurrencyField', [DecimalField], {
     '<button class="clear-button" data-dojo-attach-point="clearNode" data-dojo-attach-event="onclick:_onClearClick"></button>',
     '{% } %}',
     '<span data-dojo-attach-point="currencyCodeNode" class="currency-code-editlabel">{%: $.currencyCode %}</span>',
-    '<input data-dojo-attach-point="inputNode" data-dojo-attach-event="onkeyup: _onKeyUp, onblur: _onBlur, onfocus: _onFocus" class="text-input" type="{%: $.inputType %}" name="{%= $.name %}" {% if ($.readonly) { %} readonly {% } %}>'
+    '<input data-dojo-attach-point="inputNode" data-dojo-attach-event="onkeyup: _onKeyUp, onblur: _onBlur, onfocus: _onFocus" class="text-input" type="{%: $.inputType %}" name="{%= $.name %}" {% if ($.readonly) { %} readonly {% } %}>',
   ]),
   currencyCode: '',
-  setCurrencyCode: function(code) {
+  setCurrencyCode: function setCurrencyCode(code) {
     this.set('currencyCode', code);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Fields.MultiCurrencyField', control);

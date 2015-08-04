@@ -319,6 +319,7 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
         failure: _lang['default'].hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
         aborted: _lang['default'].hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) });
     },
+    // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
     hasAccessTo: function hasAccessTo(security) {
       if (!security) {
         return true;
@@ -796,4 +797,3 @@ define('crm/Application', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
   _lang['default'].setObject('Mobile.SalesLogix.Application', __class);
   module.exports = __class;
 });
-// this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)

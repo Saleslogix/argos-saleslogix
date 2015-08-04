@@ -78,7 +78,7 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
      P         Postal Code Uppercase                        85021
      c         Country                                     France
      C         Country Uppercase                            FRANCE
-      |        separator                                    as defined by separator variable
+       |        separator                                    as defined by separator variable
      </pre>
      @param {object} o Address Entity containing all the SData properties
      @param {boolean} asText If set to true returns text only, if false returns anchor link to google maps
