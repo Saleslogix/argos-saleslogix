@@ -32,9 +32,9 @@ const __class = declare('crm.Views.Contract.List', [List], {
   ],
   resourceKind: 'contracts',
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(ReferenceNumber like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Contract.List', __class);
