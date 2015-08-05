@@ -20,7 +20,7 @@ define('crm/Views/Lead/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/
    * @requires crm.Validator
    */
   var __class = (0, _declare['default'])('crm.Views.Lead.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     accountText: 'account',
     addressText: 'address',
     businessText: 'bus desc',
@@ -46,7 +46,7 @@ define('crm/Views/Lead/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/
     workText: 'work phone',
     mobileText: 'mobile phone',
 
-    //View Properties
+    // View Properties
     entityName: 'Lead',
     id: 'lead_edit',
     insertSecurity: 'Entities/Lead/Add',

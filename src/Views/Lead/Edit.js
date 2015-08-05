@@ -12,8 +12,8 @@ import Edit from 'argos/Edit';
  * @requires crm.Format
  * @requires crm.Validator
  */
-var __class = declare('crm.Views.Lead.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.Lead.Edit', [Edit], {
+  // Localization
   accountText: 'account',
   addressText: 'address',
   businessText: 'bus desc',
@@ -39,7 +39,7 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
   workText: 'work phone',
   mobileText: 'mobile phone',
 
-  //View Properties
+  // View Properties
   entityName: 'Lead',
   id: 'lead_edit',
   insertSecurity: 'Entities/Lead/Add',
@@ -64,11 +64,11 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
     'Title',
     'TollFree',
     'WebAddress',
-    'WorkPhone'
+    'WorkPhone',
   ],
   resourceKind: 'leads',
 
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       applyTo: '',
       formatValue: format.nameLF,
@@ -77,14 +77,14 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       property: 'LeadNameLastFirst',
       type: 'name',
       validator: validator.name,
-      view: 'name_edit'
+      view: 'name_edit',
     }, {
       label: this.companyText,
       name: 'Company',
       property: 'Company',
       type: 'text',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.webText,
       name: 'WebAddress',
@@ -92,34 +92,34 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       type: 'text',
       inputType: 'url',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.workText,
       name: 'WorkPhone',
       property: 'WorkPhone',
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.mobileText,
       name: 'Mobile',
       property: 'Mobile',
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.tollFreeText,
       name: 'TollFree',
       property: 'TollFree',
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.emailText,
       name: 'Email',
       property: 'Email',
       type: 'text',
-      inputType: 'email'
+      inputType: 'email',
     }, {
       label: this.contactTitleText,
       name: 'Title',
@@ -129,7 +129,7 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       type: 'picklist',
       orderBy: 'text asc',
       maxTextLength: 64,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       emptyText: '',
       formatValue: format.address.bindDelegate(this, true),
@@ -137,7 +137,7 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       name: 'Address',
       property: 'Address',
       type: 'address',
-      view: 'address_edit'
+      view: 'address_edit',
     }, {
       label: this.importSourceText,
       name: 'LeadSource',
@@ -145,14 +145,14 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       view: 'leadsource_list',
       textProperty: 'Description',
       type: 'lookup',
-      validator: validator.exists
+      validator: validator.exists,
     }, {
       label: this.interestsText,
       name: 'Interests',
       property: 'Interests',
       type: 'text',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.industryText,
       name: 'Industry',
@@ -161,14 +161,14 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       title: this.industryTitleText,
       type: 'picklist',
       maxTextLength: 64,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.sicCodeText,
       name: 'SICCode',
       property: 'SICCode',
       type: 'text',
       maxTextLength: 64,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.businessText,
       name: 'BusinessDescription',
@@ -176,7 +176,7 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       noteProperty: false,
       title: this.businessTitleText,
       type: 'note',
-      view: 'text_edit'
+      view: 'text_edit',
     }, {
       label: this.notesText,
       name: 'Notes',
@@ -184,16 +184,16 @@ var __class = declare('crm.Views.Lead.Edit', [Edit], {
       noteProperty: false,
       title: this.notesTitleText,
       type: 'note',
-      view: 'text_edit'
+      view: 'text_edit',
     }, {
       label: this.leadOwnerText,
       name: 'Owner',
       property: 'Owner',
       textProperty: 'OwnerDescription',
       type: 'lookup',
-      view: 'owner_list'
+      view: 'owner_list',
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);

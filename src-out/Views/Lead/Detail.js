@@ -19,7 +19,7 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.Lead.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     activityTypeText: {
       'atPhoneCall': 'Phone Call',
       'atEMail': 'E-mail'
@@ -59,7 +59,7 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
     calledText: 'Called ${0}',
     emailedText: 'Emailed ${0}',
 
-    //View Properties
+    // View Properties
     id: 'lead_detail',
     editView: 'lead_edit',
     historyEditView: 'history_edit',
@@ -87,12 +87,12 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
       var entry = {
         '$name': 'History',
         'Type': 'atPhoneCall',
-        'AccountName': this.entry['Company'],
-        'LeadId': this.entry['$key'],
-        'LeadName': this.entry['LeadNameLastFirst'],
-        'Description': _string['default'].substitute(this.calledText, [this.entry['LeadNameLastFirst']]),
-        'UserId': App.context && App.context.user['$key'],
-        'UserName': App.context && App.context.user['UserName'],
+        'AccountName': this.entry.Company,
+        'LeadId': this.entry.$key,
+        'LeadName': this.entry.LeadNameLastFirst,
+        'Description': _string['default'].substitute(this.calledText, [this.entry.LeadNameLastFirst]),
+        'UserId': App.context && App.context.user.$key,
+        'UserName': App.context && App.context.user.UserName,
         'Duration': 15,
         'CompletedDate': new Date()
       };
@@ -103,12 +103,12 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
       var entry = {
         '$name': 'History',
         'Type': 'atEMail',
-        'AccountName': this.entry['Company'],
-        'LeadId': this.entry['$key'],
-        'LeadName': this.entry['LeadNameLastFirst'],
-        'Description': _string['default'].substitute(this.emailedText, [this.entry['LeadNameLastFirst']]),
-        'UserId': App.context && App.context.user['$key'],
-        'UserName': App.context && App.context.user['UserName'],
+        'AccountName': this.entry.Company,
+        'LeadId': this.entry.$key,
+        'LeadName': this.entry.LeadNameLastFirst,
+        'Description': _string['default'].substitute(this.emailedText, [this.entry.LeadNameLastFirst]),
+        'UserId': App.context && App.context.user.$key,
+        'UserName': App.context && App.context.user.UserName,
         'Duration': 15,
         'CompletedDate': new Date()
       };
@@ -116,23 +116,23 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
       this.navigateToHistoryInsert('atEMail', entry, complete);
     },
     callWorkPhone: function callWorkPhone() {
-      this.recordCallToHistory((function () {
-        App.initiateCall(this.entry['WorkPhone']);
+      this.recordCallToHistory((function initiateCall() {
+        App.initiateCall(this.entry.WorkPhone);
       }).bindDelegate(this));
     },
     checkWorkPhone: function checkWorkPhone(entry, value) {
       return !value;
     },
     sendEmail: function sendEmail() {
-      this.recordEmailToHistory((function () {
-        App.initiateEmail(this.entry['Email']);
+      this.recordEmailToHistory((function initiateEmail() {
+        App.initiateEmail(this.entry.Email);
       }).bindDelegate(this));
     },
     checkEmail: function checkEmail(entry, value) {
       return !value;
     },
     viewAddress: function viewAddress() {
-      App.showMapForAddress(_format['default'].address(this.entry['Address'], true, ' '));
+      App.showMapForAddress(_format['default'].address(this.entry.Address, true, ' '));
     },
     checkAddress: function checkAddress(entry, value) {
       return !_format['default'].address(value, true, '');
