@@ -28,7 +28,7 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
    * @requires crm.Validator
    */
   var __class = (0, _declare['default'])('crm.Views.History.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     accountText: 'account',
     noteDescriptionTitleText: 'Note Description',
     contactText: 'contact',
@@ -48,41 +48,41 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     noText: 'NO',
     validationText: "The field '${2}' must have a value",
     validationCanEditText: 'You are not allowed to edit',
-    //View Properties
+    // View Properties
     id: 'history_edit',
     fieldsForLeads: ['AccountName', 'Lead'],
     fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
     entityName: 'History',
     resourceKind: 'history',
-    insertSecurity: null, //'Entities/History/Add',
-    updateSecurity: null, //'Entities/History/Edit',
+    insertSecurity: null, // 'Entities/History/Add',
+    updateSecurity: null, // 'Entities/History/Edit',
     querySelect: ['AccountId', 'AccountName', 'Category', 'ModifyDate', 'CompletedDate', 'ContactId', 'ContactName', 'CompletedUser', 'Description', 'Duration', 'Notes', 'LongNotes', 'OpportunityId', 'OpportunityName', 'Priority', 'StartDate', 'TicketId', 'TicketNumber', 'LeadId', 'LeadName', 'Timeless', 'Type', 'UserName', 'UserId'],
     existsRE: /^[\w]{12}$/,
     init: function init() {
       this.inherited(arguments);
 
-      this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
-      this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);
+      this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
+      this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
 
-      this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-      this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
-      this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
-      this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
+      this.connect(this.fields.Account, 'onChange', this.onAccountChange);
+      this.connect(this.fields.Contact, 'onChange', this.onAccountDependentChange);
+      this.connect(this.fields.Opportunity, 'onChange', this.onAccountDependentChange);
+      this.connect(this.fields.Ticket, 'onChange', this.onAccountDependentChange);
     },
     isHistoryForLead: function isHistoryForLead(entry) {
-      return entry && this.existsRE.test(entry['LeadId']);
+      return entry && this.existsRE.test(entry.LeadId);
     },
     isInLeadContext: function isInLeadContext() {
-      var insert, entry, isLeadContext, lead, context;
-      insert = this.options && this.options.insert;
-      entry = this.options && this.options.entry;
-      isLeadContext = false;
-      context = this._getNavContext();
+      var insert = this.options && this.options.insert;
+      var entry = this.options && this.options.entry;
+      var context = this._getNavContext();
+      var isLeadContext = false;
+
       if (context && context.resourceKind === 'leads') {
         isLeadContext = true;
       }
 
-      lead = insert && isLeadContext || this.isHistoryForLead(entry);
+      var lead = insert && isLeadContext || this.isHistoryForLead(entry);
       return !!lead;
     },
     beforeTransitionTo: function beforeTransitionTo() {
@@ -117,18 +117,17 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
       var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields['AccountName'].setValue(_utility['default'].getValue(selection, 'Company'));
+        this.fields.AccountName.setValue(_utility['default'].getValue(selection, 'Company'));
       }
     },
     onAccountChange: function onAccountChange(value) {
       var fields = this.fields;
-      _array['default'].forEach(['Contact', 'Opportunity', 'Ticket'], function (f) {
+      _array['default'].forEach(['Contact', 'Opportunity', 'Ticket'], function iterateFields(f) {
         if (value) {
           fields[f].dependsOn = 'Account';
-          fields[f].where = _string['default'].substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+          fields[f].where = _string['default'].substitute('Account.Id eq "${0}"', [value.AccountId || value.key]);
 
-          if (fields[f].currentSelection && fields[f].currentSelection.Account['$key'] !== (value['AccountId'] || value['key'])) {
-
+          if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
           }
         } else {
@@ -140,36 +139,35 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     },
     onAccountDependentChange: function onAccountDependentChange(value, field) {
       if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
-
-        var accountField = this.fields['Account'];
+        var accountField = this.fields.Account;
         accountField.setValue({
-          'AccountId': field.currentSelection.Account['$key'],
-          'AccountName': field.currentSelection.Account['AccountName']
+          'AccountId': field.currentSelection.Account.$key,
+          'AccountName': field.currentSelection.Account.AccountName
         });
         this.onAccountChange(accountField.getValue(), accountField);
       }
     },
     showFieldsForLead: function showFieldsForLead() {
-      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForStandard), function (item) {
+      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForStandard), function hideFieldsStandard(item) {
         if (this.fields[item]) {
           this.fields[item].hide();
         }
       }, this);
 
-      _array['default'].forEach(this.fieldsForLeads, function (item) {
+      _array['default'].forEach(this.fieldsForLeads, function showFieldsLead(item) {
         if (this.fields[item]) {
           this.fields[item].show();
         }
       }, this);
     },
     showFieldsForStandard: function showFieldsForStandard() {
-      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function (item) {
+      _array['default'].forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideFieldsLead(item) {
         if (this.fields[item]) {
           this.fields[item].hide();
         }
       }, this);
 
-      _array['default'].forEach(this.fieldsForStandard, function (item) {
+      _array['default'].forEach(this.fieldsForStandard, function showFieldsStandard(item) {
         if (this.fields[item]) {
           this.fields[item].show();
         }
@@ -180,11 +178,9 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
       this.inherited(arguments);
     },
     applyContext: function applyContext() {
-      var found, user, lookup;
+      var found = this._getNavContext();
 
-      found = this._getNavContext();
-
-      lookup = {
+      var lookup = {
         'accounts': this.applyAccountContext,
         'contacts': this.applyContactContext,
         'opportunities': this.applyOpportunityContext,
@@ -196,17 +192,16 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
         lookup[found.resourceKind].call(this, found);
       }
 
-      user = App.context && App.context.user;
+      var user = App.context && App.context.user;
 
-      this.fields['Type'].setValue('atNote');
-      this.fields['UserId'].setValue(user && user['$key']);
-      this.fields['UserName'].setValue(user && user['$descriptor']);
-      this.fields['StartDate'].setValue(new Date());
-      this.fields['Text'].setValue('');
+      this.fields.Type.setValue('atNote');
+      this.fields.UserId.setValue(user && user.$key);
+      this.fields.UserName.setValue(user && user.$descriptor);
+      this.fields.StartDate.setValue(new Date());
+      this.fields.Text.setValue('');
     },
     _getNavContext: function _getNavContext() {
-      var found;
-      found = App.queryNavigationContext(function (o) {
+      var found = App.queryNavigationContext(function queryNavigationContext(o) {
         var context = o.options && o.options.source || o;
         return /^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key;
       });
@@ -214,8 +209,8 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
       return found;
     },
     applyAccountContext: function applyAccountContext(context) {
-      var accountField = this.fields['Account'],
-          accountValue = {
+      var accountField = this.fields.Account;
+      var accountValue = {
         'AccountId': context.key,
         'AccountName': context.descriptor
       };
@@ -223,35 +218,32 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
       this.onAccountChange(accountValue, accountField);
     },
     applyLeadContext: function applyLeadContext(context) {
-      var view = App.getView(context.id),
-          leadField,
-          leadValue,
-          isLeadField,
-          entry = context.entry || view && view.entry;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
-      if (!entry || !entry['$key']) {
+      if (!entry || !entry.$key) {
         return;
       }
 
-      leadField = this.fields['Lead'];
-      leadValue = {
-        'LeadId': entry['$key'],
-        'LeadName': entry['$descriptor']
+      var leadField = this.fields.Lead;
+      var leadValue = {
+        'LeadId': entry.$key,
+        'LeadName': entry.$descriptor
       };
 
       leadField.setValue(leadValue);
       this.onLeadChange(leadValue, leadField);
 
-      this.fields['AccountName'].setValue(entry['Company']);
+      this.fields.AccountName.setValue(entry.Company);
 
-      isLeadField = this.fields['IsLead'];
+      var isLeadField = this.fields.IsLead;
       isLeadField.setValue(context.resourceKind === 'leads');
       this.onIsLeadChange(isLeadField.getValue(), isLeadField);
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
-      var opportunityField, accountEntry, accountField, view, entry;
+      var opportunityField = this.fields.Opportunity;
+      var accountEntry = undefined;
 
-      opportunityField = this.fields['Opportunity'];
       opportunityField.setValue({
         'OpportunityId': context.key,
         'OpportunityName': context.descriptor
@@ -259,19 +251,19 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
 
       this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
-      if (context.entry && context.entry['Account']) {
-        accountEntry = context.entry['Account'];
+      if (context.entry && context.entry.Account) {
+        accountEntry = context.entry.Account;
       } else {
-        view = App.getView(context.id);
-        entry = view && view.entry;
-        accountEntry = entry && entry['Account'];
+        var view = App.getView(context.id);
+        var entry = view && view.entry;
+        accountEntry = entry && entry.Account;
       }
 
       if (accountEntry) {
-        accountField = this.fields['Account'];
+        var accountField = this.fields.Account;
         accountField.setValue({
-          'AccountId': accountEntry['$key'],
-          'AccountName': accountEntry['AccountName']
+          'AccountId': accountEntry.$key,
+          'AccountName': accountEntry.AccountName
         });
         this.onAccountChange(accountField.getValue(), accountField);
       }
@@ -279,9 +271,8 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
       // todo: find a good way to get the primary contact and apply
     },
     applyContactContext: function applyContactContext(context) {
-      var contactField, accountEntry, view, entry, accountField;
-
-      contactField = this.fields['Contact'];
+      var contactField = this.fields.Contact;
+      var accountEntry = undefined;
       contactField.setValue({
         'ContactId': context.key,
         'ContactName': context.descriptor
@@ -289,90 +280,88 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
 
       this.onAccountDependentChange(contactField.getValue(), contactField);
 
-      if (context.entry && context.entry['Account']) {
-        accountEntry = context.entry['Account'];
+      if (context.entry && context.entry.Account) {
+        accountEntry = context.entry.Account;
       } else {
-        view = App.getView(context.id);
-        entry = view && view.entry;
-        accountEntry = entry && entry['Account'];
+        var view = App.getView(context.id);
+        var entry = view && view.entry;
+        accountEntry = entry && entry.Account;
       }
 
       if (accountEntry) {
-        accountField = this.fields['Account'];
+        var accountField = this.fields.Account;
         accountField.setValue({
-          'AccountId': accountEntry['$key'],
-          'AccountName': accountEntry['AccountName']
+          'AccountId': accountEntry.$key,
+          'AccountName': accountEntry.AccountName
         });
         this.onAccountChange(accountField.getValue(), accountField);
       }
     },
     applyTicketContext: function applyTicketContext(context) {
-      var ticketField, accountEntry, accountField, contactEntry, contactField, view, entry;
-
-      ticketField = this.fields['Ticket'];
+      var ticketField = this.fields.Ticket;
+      var accountEntry = undefined;
+      var contactEntry = undefined;
       ticketField.setValue({
         'TicketId': context.key,
         'TicketNumber': context.descriptor
       });
       this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-      if (context.entry && context.entry['Account']) {
-        accountEntry = context.entry['Account'];
-        contactEntry = context.entry['Contact'];
+      if (context.entry && context.entry.Account) {
+        accountEntry = context.entry.Account;
+        contactEntry = context.entry.Contact;
       } else {
-        view = App.getView(context.id);
-        entry = view && view.entry;
-        accountEntry = entry && entry['Account'];
-        contactEntry = entry && entry['Contact'];
+        var view = App.getView(context.id);
+        var entry = view && view.entry;
+        accountEntry = entry && entry.Account;
+        contactEntry = entry && entry.Contact;
       }
 
       if (accountEntry) {
-        accountField = this.fields['Account'];
+        var accountField = this.fields.Account;
         accountField.setValue({
-          'AccountId': accountEntry['$key'],
-          'AccountName': accountEntry['AccountName']
+          'AccountId': accountEntry.$key,
+          'AccountName': accountEntry.AccountName
         });
         this.onAccountChange(accountField.getValue(), accountField);
       }
 
       if (contactEntry) {
-        contactField = this.fields['Contact'];
+        var contactField = this.fields.Contact;
         contactField.setValue({
-          'ContactId': contactEntry['$key'],
-          'ContactName': contactEntry['NameLF']
+          'ContactId': contactEntry.$key,
+          'ContactName': contactEntry.NameLF
         });
         this.onAccountDependentChange(contactField.getValue(), contactField);
       }
     },
     setValues: function setValues(values) {
-      var isLeadField, field, value, leadCompany, longNotes, insert, lookup, denyEdit;
-
       this.inherited(arguments);
-      isLeadField = this.fields['IsLead'];
+      var isLeadField = this.fields.IsLead;
       if (this.isInLeadContext()) {
         isLeadField.setValue(true);
         this.onIsLeadChange(true, isLeadField);
-        field = this.fields['Lead'];
-        value = _utility['default'].getValue(values, field.applyTo, {});
+        var field = this.fields.Lead;
+        var value = _utility['default'].getValue(values, field.applyTo, {});
         field.setValue(value, true);
-        leadCompany = _utility['default'].getValue(values, 'AccountName');
+        var leadCompany = _utility['default'].getValue(values, 'AccountName');
         if (leadCompany) {
-          this.fields['AccountName'].setValue(leadCompany);
+          this.fields.AccountName.setValue(leadCompany);
         }
       } else {
         isLeadField.setValue(false);
       }
 
-      longNotes = _utility['default'].getValue(values, 'LongNotes');
+      var longNotes = _utility['default'].getValue(values, 'LongNotes');
       if (longNotes) {
-        this.fields['Text'].setValue(longNotes);
+        this.fields.Text.setValue(longNotes);
       }
 
-      insert = this.options && this.options.insert;
+      var insert = this.options && this.options.insert;
       this.context = this._getNavContext();
       // entry may have been passed as full entry, reapply context logic to extract properties
       if (insert && this.context && this.context.resourceKind) {
-        lookup = {
+        var lookup = {
           'accounts': this.applyAccountContext,
           'contacts': this.applyContactContext,
           'opportunities': this.applyOpportunityContext,
@@ -382,56 +371,53 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
         lookup[this.context.resourceKind].call(this, this.context);
       }
       this.enableFields();
-      denyEdit = !this.currentUserCanEdit();
+      var denyEdit = !this.currentUserCanEdit();
       if (denyEdit) {
         this.disableFields();
       }
     },
     disableFields: function disableFields(predicate) {
-      for (var name in this.fields) {
-        if (!predicate || predicate(this.fields[name])) {
-          this.fields[name].disable();
+      for (var _name in this.fields) {
+        if (!predicate || predicate(this.fields[_name])) {
+          this.fields[_name].disable();
         }
       }
     },
     enableFields: function enableFields(predicate) {
-      for (var name in this.fields) {
-        if (!predicate || predicate(this.fields[name])) {
-          this.fields[name].enable();
+      for (var _name2 in this.fields) {
+        if (!predicate || predicate(this.fields[_name2])) {
+          this.fields[_name2].enable();
         }
       }
     },
     currentUserCanEdit: function currentUserCanEdit() {
-      var entry = this.options.entry || this.entry,
-          insert = this.options && this.options.insert;
+      var entry = this.options.entry || this.entry;
+      var insert = this.options && this.options.insert;
       if (!insert) {
-        if (App.context['user']['$key'] === 'ADMIN') {
+        if (App.context.user.$key === 'ADMIN') {
           return true;
         }
-        return entry && entry['UserId'] === App.context['user']['$key'];
+        return entry && entry.UserId === App.context.user.$key;
       }
       return true;
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
-      var propertyValue;
-      property = property || '$key';
-      propertyValue = _utility['default'].getValue(dependentValue, property);
+      var theProperty = property || '$key';
+      var propertyValue = _utility['default'].getValue(dependentValue, theProperty);
       if (propertyValue) {
         return _string['default'].substitute(format, [propertyValue]);
       }
       return '';
     },
     getValues: function getValues() {
-      var values, text;
+      var values = this.inherited(arguments);
 
-      values = this.inherited(arguments);
-
-      if (this.fields['Text'].isDirty()) {
-        text = this.fields['Text'].getValue();
+      if (this.fields.Text.isDirty()) {
+        var text = this.fields.Text.getValue();
 
         values = values || {};
-        values['LongNotes'] = text;
-        values['Notes'] = text && text.length > 250 ? text.substr(0, 250) : text;
+        values.LongNotes = text;
+        values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
       }
 
       return values;
@@ -510,7 +496,7 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
           valueTextProperty: 'AccountName',
           view: 'account_related',
           validator: {
-            fn: (function (value, field) {
+            fn: (function validateAccount(value, field) {
               var insert = field.owner.options && field.owner.options.insert;
               if (insert && !value) {
                 return true;
@@ -581,9 +567,8 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
           property: 'UserId',
           type: 'hidden',
           validator: {
-            fn: (function (value, field) {
-              var canEdit;
-              canEdit = field.owner.currentUserCanEdit();
+            fn: (function validateUserId(value, field) {
+              var canEdit = field.owner.currentUserCanEdit();
               if (!canEdit) {
                 return true;
               }

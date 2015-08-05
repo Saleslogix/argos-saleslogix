@@ -1,21 +1,11 @@
-define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/_base/declare', 'dojo/string', 'dojo/dom-style', 'dojo/dom-geometry', 'dojo/query', 'dojo/dom-class', '../../Format', 'argos/Convert', '../../Action', 'argos/List', '../_RightDrawerListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', 'moment'], function (exports, module, _dojo_baseLang, _dojo_baseArray, _dojo_baseDeclare, _dojoString, _dojoDomStyle, _dojoDomGeometry, _dojoQuery, _dojoDomClass, _Format, _argosConvert, _Action, _argosList, _RightDrawerListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _moment) {
+define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/declare', 'dojo/string', '../../Format', 'argos/Convert', '../../Action', 'argos/List', '../_RightDrawerListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', 'moment'], function (exports, module, _dojo_baseLang, _dojo_baseDeclare, _dojoString, _Format, _argosConvert, _Action, _argosList, _RightDrawerListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _moment) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
-  var _array = _interopRequireDefault(_dojo_baseArray);
-
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _string = _interopRequireDefault(_dojoString);
-
-  var _domStyle = _interopRequireDefault(_dojoDomStyle);
-
-  var _domGeom = _interopRequireDefault(_dojoDomGeometry);
-
-  var _query = _interopRequireDefault(_dojoQuery);
-
-  var _domClass = _interopRequireDefault(_dojoDomClass);
 
   var _format = _interopRequireDefault(_Format);
 
@@ -50,11 +40,11 @@ define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/lang', 'dojo/
    * @requires moment
    */
   var __class = (0, _declare['default'])('crm.Views.History.List', [_List['default'], _RightDrawerListMixin3['default'], _MetricListMixin3['default'], _CardLayoutListMixin3['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>', '{% if ($.Type === "atNote") { %}', '{%: $$.formatDate($.ModifyDate) %}', '{% } else { %}', '{%: $$.formatDate($.CompletedDate) %}', '{% } %}', '</h3>', '<h4>{%= $$.nameTemplate.apply($) %}</h4>', '{% if($.Description) { %}', '<h4>{%: $$.regardingText + $.Description %}</h4>', '{% } %}', '<div class="note-text-item">', '<div class="note-text-wrap">', '{%: $.Notes %}', '</div>', '</div>']),
     nameTemplate: new Simplate(['{% if ($.LeadName && $.AccountName) { %}', '{%: $.LeadName %} | {%: $.AccountName %}', '{% } else if ($.LeadName) { %}', '{%: $.LeadName %}', '{% } else if ($.ContactName && $.AccountName) { %}', '{%: $.ContactName %} | {%: $.AccountName %}', '{% } else if ($.ContactName) { %}', '{%: $.ContactName %}', '{% } else { %}', '{%: $.AccountName %}', '{% } %}']),
 
-    //Localization
+    // Localization
     activityTypeText: {
       'atToDo': 'To-Do',
       'atPhoneCall': 'Phone Call',
@@ -81,11 +71,11 @@ define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/lang', 'dojo/
     addAttachmentActionText: 'Add Attachment',
     regardingText: 'Regarding: ',
 
-    //View Properties
+    // View Properties
     detailView: 'history_detail',
     itemIconClass: 'fa fa-archive fa-2x',
     id: 'history_list',
-    security: null, //'Entities/History/View',
+    security: null, // 'Entities/History/View',
     existsRE: /^[\w]{12}$/,
     insertView: 'history_edit',
     queryOrderBy: 'CompletedDate desc',
@@ -147,33 +137,33 @@ define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/lang', 'dojo/
         fn: _action['default'].addAttachment.bindDelegate(this)
       }]);
     },
-    hasContactOrLead: function hasContactOrLead(action, selection) {
-      return selection.data['ContactId'] || selection.data['LeadId'];
+    hasContactOrLead: function hasContactOrLead(theAction, selection) {
+      return selection.data.ContactId || selection.data.LeadId;
     },
-    navigateToContactOrLead: function navigateToContactOrLead(action, selection) {
-      var entity = this.resolveContactOrLeadEntity(selection.data),
-          viewId,
-          view,
-          options;
+    navigateToContactOrLead: function navigateToContactOrLead(theAction, selection) {
+      var entity = this.resolveContactOrLeadEntity(selection.data);
+      var viewId = undefined;
+      var options = undefined;
 
       switch (entity) {
         case 'Contact':
           viewId = 'contact_detail';
           options = {
-            key: selection.data['ContactId'],
-            descriptor: selection.data['ContactName']
+            key: selection.data.ContactId,
+            descriptor: selection.data.ContactName
           };
           break;
         case 'Lead':
           viewId = 'lead_detail';
           options = {
-            key: selection.data['LeadId'],
-            descriptor: selection.data['LeadName']
+            key: selection.data.LeadId,
+            descriptor: selection.data.LeadName
           };
           break;
+        default:
       }
 
-      view = App.getView(viewId);
+      var view = App.getView(viewId);
 
       if (view && options) {
         view.show(options);
@@ -183,20 +173,20 @@ define('crm/Views/History/List', ['exports', 'module', 'dojo/_base/lang', 'dojo/
       var exists = this.existsRE;
 
       if (entry) {
-        if (exists.test(entry['LeadId'])) {
+        if (exists.test(entry.LeadId)) {
           return 'Lead';
         }
-        if (exists.test(entry['ContactId'])) {
+        if (exists.test(entry.ContactId)) {
           return 'Contact';
         }
       }
     },
     formatDate: function formatDate(date) {
-      var startDate = (0, _moment2['default'])(_convert['default'].toDateFromString(date)),
-          nextDate = startDate.clone().add({
+      var startDate = (0, _moment2['default'])(_convert['default'].toDateFromString(date));
+      var nextDate = startDate.clone().add({
         hours: 24
-      }),
-          fmt = this.dateFormatText;
+      });
+      var fmt = this.dateFormatText;
 
       if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > (0, _moment2['default'])().startOf('day').valueOf()) {
         fmt = this.hourMinuteFormatText;
