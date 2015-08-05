@@ -26,7 +26,7 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.OpportunityProduct.Detail', [_Detail['default'], _LegacySDataDetailMixin2['default']], {
-    //Localization
+    // Localization
     detailsText: 'Details',
     opportunityText: 'opportunity',
     productText: 'product',
@@ -46,7 +46,7 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
     confirmDeleteText: 'Remove ${0} from the opportunity products?',
     removeOppProductTitleText: 'remove opportunity product',
 
-    //View Properties
+    // View Properties
     id: 'opportunityproduct_detail',
     editView: 'opportunityproduct_edit',
 
@@ -56,23 +56,22 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
 
     createEntryForDelete: function createEntryForDelete(e) {
       var entry = {
-        '$key': e['$key'],
-        '$etag': e['$etag'],
-        '$name': e['$name']
+        '$key': e.$key,
+        '$etag': e.$etag,
+        '$name': e.$name
       };
       return entry;
     },
     removeOpportunityProduct: function removeOpportunityProduct() {
-      var confirmMessage, request, entry;
-
-      confirmMessage = _string['default'].substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+      var confirmMessage = _string['default'].substitute(this.confirmDeleteText, [this.entry.Product.Name]);
 
       if (!confirm(confirmMessage)) {
+        // eslint-disable-line
         return;
       }
 
-      entry = this.createEntryForDelete(this.entry);
-      request = this.createRequest();
+      var entry = this.createEntryForDelete(this.entry);
+      var request = this.createRequest();
 
       if (request) {
         request['delete'](entry, {
@@ -85,7 +84,7 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
     onDeleteSuccess: function onDeleteSuccess() {
       var views = [App.getView('opportunityproduct_related'), App.getView('opportunity_detail'), App.getView('opportunity_list')];
 
-      _array['default'].forEach(views, function (view) {
+      _array['default'].forEach(views, function setViewRefresh(view) {
         if (view) {
           view.refreshRequired = true;
         }
@@ -112,14 +111,13 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
       });
     },
     createLayout: function createLayout() {
-      var layout, details, extendedPrice, adjustedPrice;
-      layout = this.layout || (this.layout = []);
+      var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;
       }
 
-      details = {
+      var details = {
         title: this.detailsText,
         name: 'DetailsSection',
         children: [{
@@ -142,11 +140,10 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
           label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
           name: 'Price',
           property: 'Price',
-          renderer: (function (val) {
-            var exhangeRate, convertedValue;
+          renderer: (function renderPrice(val) {
             if (App.hasMultiCurrency()) {
-              exhangeRate = App.getBaseExchangeRate();
-              convertedValue = val * exhangeRate.rate;
+              var exhangeRate = App.getBaseExchangeRate();
+              var convertedValue = val * exhangeRate.rate;
               return _format['default'].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
@@ -165,7 +162,6 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
       };
 
       if (!App.hasMultiCurrency()) {
-
         details.children.push({
           label: this.adjustedPriceText,
           name: 'CalculatedPrice',
@@ -179,18 +175,18 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
           renderer: _format['default'].currency
         });
       }
-      extendedPrice = {
+
+      var extendedPrice = {
         title: this.extendedPriceSectionText,
         name: 'OpportunityProductExtendedPriceDetail',
         children: [{
           label: this.baseExtendedPriceText,
           name: 'ExtendedPrice',
           property: 'ExtendedPrice',
-          renderer: (function (val) {
-            var exchangeRate, convertedValue;
+          renderer: (function renderExtendedPrice(val) {
             if (App.hasMultiCurrency()) {
-              exchangeRate = App.getBaseExchangeRate();
-              convertedValue = val * exchangeRate.rate;
+              var exchangeRate = App.getBaseExchangeRate();
+              var convertedValue = val * exchangeRate.rate;
               return _format['default'].multiCurrency.call(null, convertedValue, exchangeRate.code);
             }
 
@@ -198,18 +194,18 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
           }).bindDelegate(this)
         }]
       };
-      adjustedPrice = {
+
+      var adjustedPrice = {
         title: this.adjustedPriceSectionText,
         name: 'OpportunityProductAdjustedPriceDetail',
         children: [{
           label: this.baseAdjustedPriceText,
           name: 'CalculatedPrice',
           property: 'CalculatedPrice',
-          renderer: (function (val) {
-            var exhangeRate, convertedValue;
+          renderer: (function renderCalculatedPrice(val) {
             if (App.hasMultiCurrency()) {
-              exhangeRate = App.getBaseExchangeRate();
-              convertedValue = val * exhangeRate.rate;
+              var exhangeRate = App.getBaseExchangeRate();
+              var convertedValue = val * exhangeRate.rate;
               return _format['default'].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
@@ -219,10 +215,9 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
           label: this.myAdjustedPriceText,
           name: 'CalculatedPriceMine',
           property: 'CalculatedPrice',
-          renderer: (function (val) {
-            var exhangeRate, convertedValue;
-            exhangeRate = App.getMyExchangeRate();
-            convertedValue = val * exhangeRate.rate;
+          renderer: (function renderMyCalculatedPrice(val) {
+            var exhangeRate = App.getMyExchangeRate();
+            var convertedValue = val * exhangeRate.rate;
             return _format['default'].multiCurrency.call(null, convertedValue, exhangeRate.code);
           }).bindDelegate(this)
         }]
