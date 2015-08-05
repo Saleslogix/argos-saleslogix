@@ -54,8 +54,8 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
     categoryText: 'category',
     durationText: 'duration',
     durationTitleText: 'Duration',
-    durationInvalidText: 'The field \'${2}\' must have a value.',
-    reminderInvalidText: 'The field \'reminder\' must have a value.',
+    durationInvalidText: "The field '${2}' must have a value.",
+    reminderInvalidText: "The field 'reminder' must have a value.",
     reminderTitleText: 'Reminder',
     leaderText: 'leader',
     longNotesText: 'notes',
@@ -216,7 +216,7 @@ define('crm/Views/Activity/Edit', ['exports', 'module', 'dojo/_base/declare', 'd
       return entry;
     },
     requestLeader: function requestLeader(userId) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector(_string['default'].substitute('\'${0}\'', [userId])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector(_string['default'].substitute("'${0}'", [userId])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
 
       request.read({
         success: this.processLeader,

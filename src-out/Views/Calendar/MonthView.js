@@ -185,7 +185,9 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         this.refreshRequired = true;
       }
     },
-    clear: function clear() {},
+    clear: function clear() {
+      //this.inherited(arguments);
+    },
     startup: function startup() {
       this.inherited(arguments);
       this.currentDate = (0, _moment2['default'])().startOf('day');
@@ -768,5 +770,3 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
   _lang['default'].setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
   module.exports = __class;
 });
-
-//this.inherited(arguments);
