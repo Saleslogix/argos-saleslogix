@@ -9,16 +9,16 @@ import List from 'argos/List';
  *
  * @extends argos.List
  */
-var __class = declare('crm.Views.Owner.List', [List], {
-  //Templates
+const __class = declare('crm.Views.Owner.List', [List], {
+  // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.OwnerDescription %}</h3>'
+    '<h3>{%: $.OwnerDescription %}</h3>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Owners',
 
-  //View Properties
+  // View Properties
   id: 'owner_list',
   security: 'Entities/Owner/View',
   queryOrderBy: 'OwnerDescription',
@@ -26,24 +26,24 @@ var __class = declare('crm.Views.Owner.List', [List], {
     'OwnerDescription',
     'User/Enabled',
     'User/Type',
-    'Type'
+    'Type',
   ],
   queryWhere: 'Type ne "Department"',
   resourceKind: 'owners',
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
-  processData: function(items) {
+  processData: function processData(items) {
     if (items) {
-      items = array.filter(items, function(item) {
+      items = array.filter(items, function filterItems(item) { // eslint-disable-line
         return this._userEnabled(item) && this._isCorrectType(item);
       }, this);
     }
 
     this.inherited(arguments);
   },
-  _userEnabled: function(item) {
+  _userEnabled: function _userEnabled(item) {
     // If User is null, it is probably a team
     if (item.User === null || item.User.Enabled) {
       return true;
@@ -51,7 +51,7 @@ var __class = declare('crm.Views.Owner.List', [List], {
 
     return false;
   },
-  _isCorrectType: function(item) {
+  _isCorrectType: function _isCorrectType(item) {
     // If user is null, it is probably a team
     if (item.User === null) {
       return true;
@@ -59,7 +59,7 @@ var __class = declare('crm.Views.Owner.List', [List], {
 
     // Filter out WebViewer, Retired, Template and AddOn users like the user list does
     return item.User.Type !== 3 && item.User.Type !== 5 && item.User.Type !== 6 && item.User.Type !== 7;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Owner.List', __class);
