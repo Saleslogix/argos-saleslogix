@@ -11,7 +11,7 @@ import _Templated from 'argos/_Templated';
  * @mixins argos._Templated
  *
  */
-var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
+const __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
   /**
    * @property {Object} attributeMap
    */
@@ -19,8 +19,8 @@ var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
     queryValue: {
       node: 'queryNode',
       type: 'attribute',
-      attribute: 'value'
-    }
+      attribute: 'value',
+    },
   },
 
   /**
@@ -31,7 +31,7 @@ var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
     '<div class="table-layout">',
     '<div><input type="text" placeholder="{%= $.searchText %}" name="query" class="query" autocorrect="off" autocapitalize="off" data-dojo-attach-point="queryNode" data-dojo-attach-event="onfocus:_onFocus,onblur:_onBlur,onkeypress:_onKeyPress,onmouseup: _onMouseUp" /></div>',
     '</div>',
-    '</div>'
+    '</div>',
   ]),
   /**
    * @property {DOMNode} queryNode HTML input node. The dojo attach point.
@@ -43,22 +43,22 @@ var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
    */
   searchText: 'SpeedSearch',
 
-  _setQueryValueAttr: function(value) {
+  _setQueryValueAttr: function _setQueryValueAttr(value) {
     this._onFocus();
     this.queryNode.value = value;
   },
   /**
    * Clears the current search query.
    */
-  clear: function() {
+  clear: function clear() {
     domClass.remove(this.domNode, 'search-active');
     this.set('queryValue', '');
   },
   /**
    * Fires onSearchExpression using the current search query.
    */
-  search: function() {
-    var queryTerm = this.getQuery();
+  search: function search() {
+    const queryTerm = this.getQuery();
     if (!lang.trim(queryTerm)) {
       return;
     }
@@ -69,31 +69,31 @@ var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
    * Returns the current search query.
    * @returns {String}
    */
-  getQuery: function() {
+  getQuery: function getQuery() {
     return this.queryNode.value;
   },
-  configure: function(options) {
+  configure: function configure(options) {
     lang.mixin(this, options);
   },
-  _onClearClick: function(evt) {
+  _onClearClick: function _onClearClick(evt) {
     event.stop(evt);
     this.clear();
     this.queryNode.focus();
     this.queryNode.click();
   },
-  _onBlur: function() {
+  _onBlur: function _onBlur() {
     domClass.toggle(this.domNode, 'search-active', !!this.queryNode.value);
   },
-  _onFocus: function() {
+  _onFocus: function _onFocus() {
     domClass.add(this.domNode, 'search-active');
   },
-  _onMouseUp: function() {
+  _onMouseUp: function _onMouseUp() {
     // Work around a chrome issue where mouseup after a focus will de-select the text
-    setTimeout(function() {
+    setTimeout(function onMouseUp() {
       this.queryNode.setSelectionRange(0, 9999);
     }.bind(this), 50);
   },
-  _onKeyPress: function(evt) {
+  _onKeyPress: function _onKeyPress(evt) {
     if (evt.keyCode === 13 || evt.keyCode === 10) {
       event.stop(evt);
       this.queryNode.blur();
@@ -105,10 +105,10 @@ var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
    * @param {String} expression
    * @param {Object} widget
    */
-  onSearchExpression: function() {},
-  getFormattedSearchQuery: function() {
+  onSearchExpression: function onSearchExpression() {},
+  getFormattedSearchQuery: function getFormattedSearchQuery() {
     return null;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.SpeedSearchWidget', __class);

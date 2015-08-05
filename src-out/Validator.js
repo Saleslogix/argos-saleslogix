@@ -35,10 +35,10 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      * Validator that ensures the field contains a value.
      */
     exists: {
-      fn: function fn(value) {
+      fn: function exists(value) {
         return !value;
       },
-      message: "The field '${2}' must have a value."
+      message: 'The field \'${2}\' must have a value.'
     },
 
     /**
@@ -46,13 +46,13 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      * Validator that ensures a FirstName and LastName property have been specified.
      */
     name: {
-      fn: function fn(value) {
+      fn: function name(value) {
         if (value) {
           return !/.+/.test(value.FirstName || '') || !/.+/.test(value.LastName || '');
         }
         return true;
       },
-      message: "The field '${2}' must have a first and last name specified."
+      message: 'The field \'${2}\' must have a first and last name specified.'
     },
     /**
      * @property {Object}
@@ -60,7 +60,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     notEmpty: {
       test: /.+/,
-      message: "The field '${2}' cannot be empty."
+      message: 'The field \'${2}\' cannot be empty.'
     },
     /**
      * @deprecated
@@ -69,7 +69,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     hasText: {
       test: /\w+/,
-      message: "The field '${2}' must contain some text."
+      message: 'The field \'${2}\' must contain some text.'
     },
     /**
      * @property {Object}
@@ -77,7 +77,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     isInteger: {
       test: /^\d+$/,
-      message: "The value '${0}' is not a valid number."
+      message: 'The value \'${0}\' is not a valid number.'
     },
 
     /**
@@ -86,7 +86,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     isDecimal: {
       test: /^[\d.]+$/,
-      message: "The value '${0}' is not a valid number."
+      message: 'The value \'${0}\' is not a valid number.'
     },
 
     /**
@@ -94,10 +94,10 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      * Validator that ensures a field is valid currency.
      */
     isCurrency: {
-      fn: function fn(value) {
+      fn: function isCurrency(value) {
         return !new RegExp(_string['default'].substitute('^[\\d]+(\\.\\d{1,${0}})?$', [Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value);
       },
-      message: "The value '${0}' is not a valid currency number."
+      message: 'The value \'${0}\' is not a valid currency number.'
     },
 
     /**
@@ -105,13 +105,13 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      * Validator that ensures a field is a valid Int32.
      */
     isInt32: {
-      fn: function fn(value) {
+      fn: function isInt32(value) {
         if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647)) {
           return true;
         }
         return false;
       },
-      message: "The field '${2}' value exceeds the allowed numeric range."
+      message: 'The field \'${2}\' value exceeds the allowed numeric range.'
     },
 
     /**
@@ -120,13 +120,13 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      * Validator that ensures a field does not exeed max length. Checks the length against field's maxTextLength property.
      */
     exceedsMaxTextLength: {
-      fn: function fn(value, field) {
+      fn: function maxTextLength(value, field) {
         if (value && field && field.maxTextLength && value.length > field.maxTextLength) {
           return true;
         }
         return false;
       },
-      message: "The field '${2}' value exceeds the allowed limit in length."
+      message: 'The field \'${2}\' value exceeds the allowed limit in length.'
     },
 
     /**
@@ -137,9 +137,9 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      * If both are specified a range between the two is used, otherwise a less than or greater than is used.
      */
     isDateInRange: {
-      fn: function fn(value, field) {
-        var minValue = field.minValue,
-            maxValue = field.maxValue;
+      fn: function isDateInRange(value, field) {
+        var minValue = field.minValue;
+        var maxValue = field.maxValue;
 
         // if value is empty or not a date, ignore comparison
         if (!value || !(value instanceof Date)) {
@@ -158,7 +158,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
 
         return true;
       },
-      message: "The field '${2}' value is out of allowed date range."
+      message: 'The field \'${2}\' value is out of allowed date range.'
     },
 
     /**

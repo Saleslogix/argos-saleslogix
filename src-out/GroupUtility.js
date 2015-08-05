@@ -31,7 +31,7 @@ define('crm/GroupUtility', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/
     request.setQueryName(options.queryName);
     request.setResourceKind(options.resourceKind);
     request.setContractName(options.contractName);
-    request.getUri().setCollectionPredicate("'" + options.groupId + "'");
+    request.getUri().setCollectionPredicate('\'' + options.groupId + '\'');
 
     for (arg in options.queryArgs) {
       if (options.queryArgs.hasOwnProperty(arg)) {

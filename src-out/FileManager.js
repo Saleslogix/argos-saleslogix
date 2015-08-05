@@ -62,11 +62,9 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
       msg = this.largeFileWarningText;
 
       for (i = 0; i < files.length; i++) {
-        if (files[i].size === 0) {
-          // do nothing.
-        } else {
-            len += files[i].size || files[i].blob.length;
-          }
+        if (files[i].size === 0) {} else {
+          len += files[i].size || files[i].blob.length;
+        }
       }
 
       if (len > maxfileSize) {
@@ -280,3 +278,5 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
   _lang['default'].setObject('Mobile.SalesLogix.FileManager', __class);
   module.exports = __class;
 });
+
+// do nothing.

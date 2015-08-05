@@ -55,7 +55,7 @@ define('crm/Views/Activity/Complete', ['exports', 'module', 'dojo/_base/declare'
     completedFormatText: 'M/D/YYYY h:mm A',
     completionText: 'Completion',
     durationText: 'duration',
-    durationInvalidText: "The field '${2}' must have a value.",
+    durationInvalidText: 'The field \'${2}\' must have a value.',
     carryOverNotesText: 'carry over notes',
     followUpText: 'follow-up',
     followUpTitleText: 'Follow-up type',

@@ -96,7 +96,7 @@ define('crm/Views/History/Detail', ['exports', 'module', 'dojo/_base/declare', '
       completedUser = entry['CompletedUser'];
 
       if (completedUser) {
-        request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('users').setResourceSelector(_string['default'].substitute("'${0}'", [completedUser])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+        request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('users').setResourceSelector(_string['default'].substitute('\'${0}\'', [completedUser])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
 
         request.allowCacheUse = true;
 

@@ -1,9 +1,7 @@
-define('crm/Utility', ['exports', 'module', 'dojo/_base/lang', 'dojo/string', 'argos/Utility'], function (exports, module, _dojo_baseLang, _dojoString, _argosUtility) {
+define('crm/Utility', ['exports', 'module', 'dojo/_base/lang', 'argos/Utility'], function (exports, module, _dojo_baseLang, _argosUtility) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _string = _interopRequireDefault(_dojoString);
 
   var _Utility = _interopRequireDefault(_argosUtility);
 
@@ -18,18 +16,20 @@ define('crm/Utility', ['exports', 'module', 'dojo/_base/lang', 'dojo/string', 'a
    */
   var __class = _lang['default'].setObject('crm.Utility', _lang['default'].mixin({}, _Utility['default'], {
     base64ArrayBuffer: function base64ArrayBuffer(arrayBuffer) {
-      var base64, encodings, bytes, byteLength, mainLength, byteRemainder, a, b, c, d, chunk, i;
-
-      base64 = '';
-      encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-      bytes = new Uint8Array(arrayBuffer);
-      byteLength = bytes.byteLength;
-      byteRemainder = byteLength % 3;
-      mainLength = byteLength - byteRemainder;
+      var base64 = '';
+      var chunk = undefined;
+      var a = undefined;
+      var b = undefined;
+      var c = undefined;
+      var d = undefined;
+      var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+      var bytes = new Uint8Array(arrayBuffer);
+      var byteLength = bytes.byteLength;
+      var byteRemainder = byteLength % 3;
+      var mainLength = byteLength - byteRemainder;
 
       // Main loop deals with bytes in chunks of 3
-      for (i = 0; i < mainLength; i = i + 3) {
+      for (var i = 0; i < mainLength; i = i + 3) {
         // Combine the three bytes into a single integer
         chunk = bytes[i] << 16 | bytes[i + 1] << 8 | bytes[i + 2];
 
@@ -86,15 +86,15 @@ define('crm/Utility', ['exports', 'module', 'dojo/_base/lang', 'dojo/string', 'a
      * @returns {String}
      */
     getRealActivityId: function getRealActivityId(activityId) {
-      var Id = activityId;
+      var id = activityId;
       if (activityId) {
         if (activityId.indexOf(';') > 0) {
-          Id = activityId.substring(0, 12);
+          id = activityId.substring(0, 12);
         } else {
-          Id = activityId;
+          id = activityId;
         }
       }
-      return Id;
+      return id;
     }
   }));
 

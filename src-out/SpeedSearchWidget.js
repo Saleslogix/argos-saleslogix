@@ -91,7 +91,7 @@ define('crm/SpeedSearchWidget', ['exports', 'module', 'dojo/_base/declare', 'doj
     },
     _onMouseUp: function _onMouseUp() {
       // Work around a chrome issue where mouseup after a focus will de-select the text
-      setTimeout((function () {
+      setTimeout((function onMouseUp() {
         this.queryNode.setSelectionRange(0, 9999);
       }).bind(this), 50);
     },

@@ -11,7 +11,7 @@ define('crm/SalesProcessUtility', ['exports', 'module', 'dojo/_base/lang', 'dojo
 
   var _SData = _interopRequireDefault(_argosStoreSData);
 
-  var __class;
+  var __class = undefined;
 
   /**
    * @class crm.SalesProcessUtility
@@ -39,9 +39,8 @@ define('crm/SalesProcessUtility', ['exports', 'module', 'dojo/_base/lang', 'dojo
       return this.store;
     },
     createStore: function createStore() {
-      var store,
-          options = this.getStoreOptions();
-      store = new _SData['default'](options);
+      var options = this.getStoreOptions();
+      var store = new _SData['default'](options);
       return store;
     },
     getStoreOptions: function getStoreOptions() {
@@ -66,23 +65,21 @@ define('crm/SalesProcessUtility', ['exports', 'module', 'dojo/_base/lang', 'dojo
      *
      */
     getSalesProcessByEntityId: function getSalesProcessByEntityId(entityId) {
-      var queryResults, deferred, store, options;
-
-      deferred = new _Deferred['default']();
-      store = this.getStore();
-      options = {
+      var deferred = new _Deferred['default']();
+      var store = this.getStore();
+      var options = {
         where: _string['default'].substitute('EntityId' + ' eq "${0}"', [entityId])
       };
-      queryResults = store.query(null, options);
-      (0, _when['default'])(queryResults, (function (feed) {
+      var queryResults = store.query(null, options);
+      (0, _when['default'])(queryResults, function success(feed) {
         var salesProcess = null;
         if (feed && feed.length > 0) {
           salesProcess = feed[0];
         }
         deferred.resolve(salesProcess);
-      }).bind(this), (function (err) {
+      }, function error(err) {
         deferred.reject(err);
-      }).bind(this));
+      });
       return deferred.promise;
     }
   });

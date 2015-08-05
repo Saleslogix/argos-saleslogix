@@ -242,7 +242,7 @@ define('crm/AttachmentManager', ['exports', 'module', './FileManager', 'dojo/_ba
       var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
       request.setResourceKind(this.resourceKind);
       request.setContractName(this.contractName);
-      request.setResourceSelector(_string['default'].substitute("'${0}'", [id]));
+      request.setResourceSelector(_string['default'].substitute('\'${0}\'', [id]));
 
       request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.querySelect.join(','));
       request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
