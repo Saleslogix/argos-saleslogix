@@ -4,6 +4,19 @@
     "browser": true,                 // browser global variables
     "node": true                     // Node.js global variables and Node.js-specific rules
   },
+  "globals": {
+    "Sage": false,
+    "App": false,
+    "argos": false,
+    "crm": false,
+    "Simplate": false,
+    "Chart": false,
+    "ReUI": false,
+    "module": false,
+    "Base64": false,
+    "define": false,
+    "require": false
+  },
   "ecmaFeatures": {
     "arrowFunctions": true,
     "blockBindings": true,

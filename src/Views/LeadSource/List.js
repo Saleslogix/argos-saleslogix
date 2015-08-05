@@ -9,28 +9,28 @@ import List from 'argos/List';
  * @extends argos.List
  */
 var __class = declare('crm.Views.LeadSource.List', [List], {
-    //Templates
-    itemTemplate: new Simplate([
-        '<h3>{%: $.Description %}</h3>',
-        '<h4>{%: $.Status %}</h4>'
-    ]),
+  //Templates
+  itemTemplate: new Simplate([
+    '<h3>{%: $.Description %}</h3>',
+    '<h4>{%: $.Status %}</h4>'
+  ]),
 
-    //Localization
-    titleText: 'Lead Sources',
+  //Localization
+  titleText: 'Lead Sources',
 
-    //View Properties
-    id: 'leadsource_list',
-    security: 'Entities/LeadSource/View',
-    queryOrderBy: 'Description',
-    querySelect: [
-        'Description',
-        'Status'
-    ],
-    resourceKind: 'leadsources',
+  //View Properties
+  id: 'leadsource_list',
+  security: 'Entities/LeadSource/View',
+  queryOrderBy: 'Description',
+  querySelect: [
+    'Description',
+    'Status'
+  ],
+  resourceKind: 'leadsources',
 
-    formatSearchQuery: function(searchQuery) {
-        return string.substitute('upper(Description) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-    }
+  formatSearchQuery: function(searchQuery) {
+    return string.substitute('upper(Description) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.LeadSource.List', __class);

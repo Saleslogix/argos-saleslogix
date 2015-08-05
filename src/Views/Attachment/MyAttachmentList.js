@@ -14,17 +14,17 @@ import AttachmentList from './List';
  *
  */
 var __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
-    id: 'myattachment_list',
-    titleText: 'My Attachments',
-    queryWhere: function() {
-        return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context['user'].$key)]);
-    },
-    _formatUserKey: function(userKey) {
-        if (userKey === 'ADMIN') {
-            userKey = 'ADMIN       '; //The attachment feed is picky and requires the Admin key to be padded to a 12 char.
-        }
-        return userKey;
+  id: 'myattachment_list',
+  titleText: 'My Attachments',
+  queryWhere: function() {
+    return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context['user'].$key)]);
+  },
+  _formatUserKey: function(userKey) {
+    if (userKey === 'ADMIN') {
+      userKey = 'ADMIN       '; //The attachment feed is picky and requires the Admin key to be padded to a 12 char.
     }
+    return userKey;
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);

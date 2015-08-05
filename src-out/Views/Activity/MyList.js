@@ -1,591 +1,593 @@
 define('crm/Views/Activity/MyList', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'dojo/query', 'dojo/_base/connect', 'argos/List', '../../Format', '../../Environment', 'argos/Format', './List', 'argos/Utility', 'argos/Convert', 'argos/ErrorManager', 'moment', '../../Action'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _dojoQuery, _dojo_baseConnect, _argosList, _Format, _Environment, _argosFormat, _List2, _argosUtility, _argosConvert, _argosErrorManager, _moment, _Action) {
-    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+  var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var _lang = _interopRequireDefault(_dojo_baseLang);
+  var _lang = _interopRequireDefault(_dojo_baseLang);
 
-    var _string = _interopRequireDefault(_dojoString);
+  var _string = _interopRequireDefault(_dojoString);
 
-    var _query = _interopRequireDefault(_dojoQuery);
+  var _query = _interopRequireDefault(_dojoQuery);
 
-    var _connect = _interopRequireDefault(_dojo_baseConnect);
+  var _connect = _interopRequireDefault(_dojo_baseConnect);
 
-    var _List = _interopRequireDefault(_argosList);
+  var _List = _interopRequireDefault(_argosList);
 
-    var _format = _interopRequireDefault(_Format);
+  var _format = _interopRequireDefault(_Format);
 
-    var _environment = _interopRequireDefault(_Environment);
+  var _environment = _interopRequireDefault(_Environment);
 
-    var _platformFormat = _interopRequireDefault(_argosFormat);
+  var _platformFormat = _interopRequireDefault(_argosFormat);
 
-    var _ActivityList = _interopRequireDefault(_List2);
+  var _ActivityList = _interopRequireDefault(_List2);
 
-    var _Utility = _interopRequireDefault(_argosUtility);
+  var _Utility = _interopRequireDefault(_argosUtility);
 
-    var _convert = _interopRequireDefault(_argosConvert);
+  var _convert = _interopRequireDefault(_argosConvert);
 
-    var _ErrorManager = _interopRequireDefault(_argosErrorManager);
+  var _ErrorManager = _interopRequireDefault(_argosErrorManager);
 
-    var _moment2 = _interopRequireDefault(_moment);
+  var _moment2 = _interopRequireDefault(_moment);
 
-    var _action = _interopRequireDefault(_Action);
+  var _action = _interopRequireDefault(_Action);
 
-    /**
-    * @class crm.Views.Activity.MyList
-    *
-    * @extends crm.Views.Activity.List
-    * @mixins crm.Views.Activity.List
-    *
-    * @requires argos.List
-    * @requires argos.Format
-    * @requires argos.Utility
-    * @requires argos.Convert
-    * @requires argos.ErrorManager
-    *
-    * @requires crm.Format
-    * @requires crm.Environment
-    * @requires crm.Views.Activity.List
-    * @requires crm.Action
-    *
-    * @requires moment
-    *
-    */
-    var __class = (0, _declare['default'])('crm.Views.Activity.MyList', [_ActivityList['default']], {
+  /**
+   * @class crm.Views.Activity.MyList
+   *
+   * @extends crm.Views.Activity.List
+   * @mixins crm.Views.Activity.List
+   *
+   * @requires argos.List
+   * @requires argos.Format
+   * @requires argos.Utility
+   * @requires argos.Convert
+   * @requires argos.ErrorManager
+   *
+   * @requires crm.Format
+   * @requires crm.Environment
+   * @requires crm.Views.Activity.List
+   * @requires crm.Action
+   *
+   * @requires moment
+   *
+   */
+  var __class = (0, _declare['default'])('crm.Views.Activity.MyList', [_ActivityList['default']], {
 
-        //Templates
-        //Card View
-        itemRowContainerTemplate: new Simplate(['<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">', '{%! $$.itemRowContentTemplate %}', '</li>']),
-        activityTimeTemplate: new Simplate(['{% if ($$.isTimelessToday($)) { %}', '{%: $$.allDayText %}', '{% } else { %}', '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', '{% } %}']),
-        itemTemplate: new Simplate(['<h3>', '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: crm.Format.userActivityStatus($.Status) %}) {% } %}</span>', '</h3>', '<h4>', '{%! $$.activityTimeTemplate %}', '</h4>', '<h4>{%! $$.nameTemplate %}</h4>', '<h4>', '{% if ($.Activity.PhoneNumber) { %}', '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>', '{% } %}', '</h4>']),
-        nameTemplate: new Simplate(['{% if ($.Activity.ContactName) { %}', '{%: $.Activity.ContactName %} | {%: $.Activity.AccountName %}', '{% } else if ($.Activity.AccountName) { %}', '{%: $.Activity.AccountName %}', '{% } else { %}', '{%: $.Activity.LeadName %}', '{% } %}']),
+    //Templates
+    //Card View
+    itemRowContainerTemplate: new Simplate(['<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">', '{%! $$.itemRowContentTemplate %}', '</li>']),
+    activityTimeTemplate: new Simplate(['{% if ($$.isTimelessToday($)) { %}', '{%: $$.allDayText %}', '{% } else { %}', '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', '{% } %}']),
+    itemTemplate: new Simplate(['<h3>', '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: crm.Format.userActivityStatus($.Status) %}) {% } %}</span>', '</h3>', '<h4>', '{%! $$.activityTimeTemplate %}', '</h4>', '<h4>{%! $$.nameTemplate %}</h4>', '<h4>', '{% if ($.Activity.PhoneNumber) { %}', '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>', '{% } %}', '</h4>']),
+    nameTemplate: new Simplate(['{% if ($.Activity.ContactName) { %}', '{%: $.Activity.ContactName %} | {%: $.Activity.AccountName %}', '{% } else if ($.Activity.AccountName) { %}', '{%: $.Activity.AccountName %}', '{% } else { %}', '{%: $.Activity.LeadName %}', '{% } %}']),
 
-        //Localization
-        titleText: 'My Activities',
-        completeActivityText: 'Complete',
-        acceptActivityText: 'Accept',
-        declineActivityText: 'Decline',
-        callText: 'Call',
-        calledText: 'Called',
-        addAttachmentActionText: 'Add Attachment',
-        viewContactActionText: 'Contact',
-        viewAccountActionText: 'Account',
-        viewOpportunityActionText: 'Opportunity',
+    //Localization
+    titleText: 'My Activities',
+    completeActivityText: 'Complete',
+    acceptActivityText: 'Accept',
+    declineActivityText: 'Decline',
+    callText: 'Call',
+    calledText: 'Called',
+    addAttachmentActionText: 'Add Attachment',
+    viewContactActionText: 'Contact',
+    viewAccountActionText: 'Account',
+    viewOpportunityActionText: 'Opportunity',
 
-        //View Properties
-        id: 'myactivity_list',
+    //View Properties
+    id: 'myactivity_list',
 
-        historyEditView: 'history_edit',
-        existsRE: /^[\w]{12}$/,
-        queryWhere: function queryWhere() {
-            return _string['default'].substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context['user'].$key]);
-        },
-        queryOrderBy: 'Activity.StartDate desc',
-        querySelect: ['Alarm', 'AlarmTime', 'Status', 'Activity/Description', 'Activity/StartDate', 'Activity/EndDate', 'Activity/Type', 'Activity/AccountName', 'Activity/AccountId', 'Activity/ContactId', 'Activity/ContactName', 'Activity/Leader', 'Activity/LeadName', 'Activity/LeadId', 'Activity/OpportunityId', 'Activity/TicketId', 'Activity/UserId', 'Activity/Timeless', 'Activity/PhoneNumber', 'Activity/Recurring', 'Activity/Alarm', 'Activity/ModifyDate', 'Activity/Priority'],
-        resourceKind: 'userActivities',
-        allowSelection: true,
-        enableActions: true,
-        hashTagQueries: {
-            'alarm': 'Alarm eq true',
-            'status-unconfirmed': 'Status eq "asUnconfirmed"',
-            'status-accepted': 'Status eq "asAccepted"',
-            'status-declined': 'Status eq "asDeclned"',
-            'recurring': 'Activity.Recurring eq true',
-            'timeless': 'Activity.Timeless eq true',
-            'yesterday': function yesterday() {
-                var now, yesterdayStart, yesterdayEnd, query;
+    historyEditView: 'history_edit',
+    existsRE: /^[\w]{12}$/,
+    queryWhere: function queryWhere() {
+      return _string['default'].substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context['user'].$key]);
+    },
+    queryOrderBy: 'Activity.StartDate desc',
+    querySelect: ['Alarm', 'AlarmTime', 'Status', 'Activity/Description', 'Activity/StartDate', 'Activity/EndDate', 'Activity/Type', 'Activity/AccountName', 'Activity/AccountId', 'Activity/ContactId', 'Activity/ContactName', 'Activity/Leader', 'Activity/LeadName', 'Activity/LeadId', 'Activity/OpportunityId', 'Activity/TicketId', 'Activity/UserId', 'Activity/Timeless', 'Activity/PhoneNumber', 'Activity/Recurring', 'Activity/Alarm', 'Activity/ModifyDate', 'Activity/Priority'],
+    resourceKind: 'userActivities',
+    allowSelection: true,
+    enableActions: true,
+    hashTagQueries: {
+      'alarm': 'Alarm eq true',
+      'status-unconfirmed': 'Status eq "asUnconfirmed"',
+      'status-accepted': 'Status eq "asAccepted"',
+      'status-declined': 'Status eq "asDeclned"',
+      'recurring': 'Activity.Recurring eq true',
+      'timeless': 'Activity.Timeless eq true',
+      'yesterday': function yesterday() {
+        var now, yesterdayStart, yesterdayEnd, query;
 
-                now = (0, _moment2['default'])();
+        now = (0, _moment2['default'])();
 
-                yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-                yesterdayEnd = yesterdayStart.clone().endOf('day');
+        yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
+        yesterdayEnd = yesterdayStart.clone().endOf('day');
 
-                query = _string['default'].substitute('((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(yesterdayStart.toDate()), _convert['default'].toIsoStringFromDate(yesterdayEnd.toDate()), yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'), yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
-                return query;
-            },
-            'today': function today() {
-                var now, todayStart, todayEnd, query;
+        query = _string['default'].substitute('((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(yesterdayStart.toDate()), _convert['default'].toIsoStringFromDate(yesterdayEnd.toDate()), yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'), yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
+        return query;
+      },
+      'today': function today() {
+        var now, todayStart, todayEnd, query;
 
-                now = (0, _moment2['default'])();
+        now = (0, _moment2['default'])();
 
-                todayStart = now.clone().startOf('day');
-                todayEnd = todayStart.clone().endOf('day');
+        todayStart = now.clone().startOf('day');
+        todayEnd = todayStart.clone().endOf('day');
 
-                query = _string['default'].substitute('((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(todayStart.toDate()), _convert['default'].toIsoStringFromDate(todayEnd.toDate()), todayStart.format('YYYY-MM-DDT00:00:00[Z]'), todayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
-                return query;
-            },
-            'this-week': function thisWeek() {
-                var now, weekStartDate, weekEndDate, query;
+        query = _string['default'].substitute('((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(todayStart.toDate()), _convert['default'].toIsoStringFromDate(todayEnd.toDate()), todayStart.format('YYYY-MM-DDT00:00:00[Z]'), todayEnd.format('YYYY-MM-DDT23:59:59[Z]')]);
+        return query;
+      },
+      'this-week': function thisWeek() {
+        var now, weekStartDate, weekEndDate, query;
 
-                now = (0, _moment2['default'])();
+        now = (0, _moment2['default'])();
 
-                weekStartDate = now.clone().startOf('week');
-                weekEndDate = weekStartDate.clone().endOf('week');
+        weekStartDate = now.clone().startOf('week');
+        weekEndDate = weekStartDate.clone().endOf('week');
 
-                query = _string['default'].substitute('((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(weekStartDate.toDate()), _convert['default'].toIsoStringFromDate(weekEndDate.toDate()), weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
-                return query;
-            }
-        },
-        hashTagQueriesText: {
-            'alarm': 'alarm',
-            'status-unconfirmed': 'status-unconfirmed',
-            'status-accepted': 'status-accepted',
-            'status-declined': 'status-declined',
-            'recurring': 'recurring',
-            'timeless': 'timeless',
-            'today': 'today',
-            'this-week': 'this-week',
-            'yesterday': 'yesterday'
-        },
-        createToolLayout: function createToolLayout() {
-            this.inherited(arguments);
-            if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
-                this.tools.tbar.push({
-                    id: 'refresh',
-                    cls: 'fa fa-refresh fa-fw fa-lg',
-                    action: '_refreshClicked'
-                });
+        query = _string['default'].substitute('((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [_convert['default'].toIsoStringFromDate(weekStartDate.toDate()), _convert['default'].toIsoStringFromDate(weekEndDate.toDate()), weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+        return query;
+      }
+    },
+    hashTagQueriesText: {
+      'alarm': 'alarm',
+      'status-unconfirmed': 'status-unconfirmed',
+      'status-accepted': 'status-accepted',
+      'status-declined': 'status-declined',
+      'recurring': 'recurring',
+      'timeless': 'timeless',
+      'today': 'today',
+      'this-week': 'this-week',
+      'yesterday': 'yesterday'
+    },
+    createToolLayout: function createToolLayout() {
+      this.inherited(arguments);
+      if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
+        this.tools.tbar.push({
+          id: 'refresh',
+          cls: 'fa fa-refresh fa-fw fa-lg',
+          action: '_refreshClicked'
+        });
 
-                this._refreshAdded = true;
-            }
+        this._refreshAdded = true;
+      }
 
-            return this.tools;
-        },
-        _refreshAdded: false,
-        _refreshClicked: function _refreshClicked() {
-            this.clear();
-            this.refreshRequired = true;
-            this.refresh();
+      return this.tools;
+    },
+    _refreshAdded: false,
+    _refreshClicked: function _refreshClicked() {
+      this.clear();
+      this.refreshRequired = true;
+      this.refresh();
 
-            // Hook for customizers
-            this.onRefreshClicked();
-        },
-        onRefreshClicked: function onRefreshClicked() {},
-        _callPhone: function _callPhone(params) {
-            this.invokeActionItemBy(function (action) {
-                return action.id === 'call';
-            }, params.key);
-        },
-        defaultSearchTerm: function defaultSearchTerm() {
-            if (App.enableHashTags) {
-                return '#' + this.hashTagQueriesText['this-week'];
-            }
+      // Hook for customizers
+      this.onRefreshClicked();
+    },
+    onRefreshClicked: function onRefreshClicked() {},
+    _callPhone: function _callPhone(params) {
+      this.invokeActionItemBy(function (action) {
+        return action.id === 'call';
+      }, params.key);
+    },
+    defaultSearchTerm: function defaultSearchTerm() {
+      if (App.enableHashTags) {
+        return '#' + this.hashTagQueriesText['this-week'];
+      }
 
-            return '';
-        },
-        createActionLayout: function createActionLayout() {
-            return this.actions || (this.actions = [{
-                id: 'viewAccount',
-                label: this.viewAccountActionText,
-                enabled: function enabled(action, selection) {
-                    var entry = selection && selection.data;
-                    if (!entry) {
-                        return false;
-                    }
-                    if (entry.Activity['AccountId']) {
-                        return true;
-                    }
-                    return false;
-                },
-                fn: function fn(action, selection) {
-                    var viewId, options, view;
-
-                    viewId = 'account_detail';
-                    options = {
-                        key: selection.data['Activity']['AccountId'],
-                        descriptor: selection.data['Activity']['AccountName']
-                    };
-
-                    view = App.getView(viewId);
-                    if (view && options) {
-                        view.show(options);
-                    }
-                }
-            }, {
-                id: 'viewOpportunity',
-                label: this.viewOpportunityActionText,
-                enabled: function enabled(action, selection) {
-                    var entry = selection && selection.data;
-                    if (!entry) {
-                        return false;
-                    }
-                    if (entry.Activity['OpportunityId']) {
-                        return true;
-                    }
-                    return false;
-                },
-                fn: function fn(action, selection) {
-                    var viewId, options, view;
-
-                    viewId = 'opportunity_detail';
-                    options = {
-                        key: selection.data['Activity']['OpportunityId'],
-                        descriptor: selection.data['Activity']['OpportunityName']
-                    };
-                    view = App.getView(viewId);
-                    if (view && options) {
-                        view.show(options);
-                    }
-                }
-            }, {
-                id: 'viewContact',
-                label: this.viewContactActionText,
-                action: 'navigateToContactOrLead',
-                enabled: this.hasContactOrLead
-            }, {
-                id: 'complete',
-                cls: 'fa fa-check-square fa-2x',
-                label: this.completeActivityText,
-                enabled: function enabled(action, selection) {
-                    var recur,
-                        entry = selection && selection.data;
-                    if (!entry) {
-                        return false;
-                    }
-
-                    recur = entry.Activity.Recurring;
-
-                    return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
-                },
-                fn: (function (action, selection) {
-                    var entry;
-
-                    entry = selection && selection.data && selection.data.Activity;
-
-                    entry['CompletedDate'] = new Date();
-                    entry['Result'] = 'Complete';
-
-                    _environment['default'].refreshActivityLists();
-                    this.completeActivity(entry);
-                }).bindDelegate(this)
-            }, {
-                id: 'accept',
-                cls: 'fa fa-check fa-2x',
-                label: this.acceptActivityText,
-                enabled: function enabled(action, selection) {
-                    var entry = selection && selection.data;
-                    if (!entry) {
-                        return false;
-                    }
-
-                    return entry.Status === 'asUnconfirmed';
-                },
-                fn: (function (action, selection) {
-                    var entry;
-
-                    entry = selection && selection.data;
-                    _environment['default'].refreshActivityLists();
-                    this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
-                }).bindDelegate(this)
-            }, {
-                id: 'decline',
-                cls: 'fa fa-ban fa-2x',
-                label: this.declineActivityText,
-                enabled: function enabled(action, selection) {
-                    var entry = selection && selection.data;
-                    if (!entry) {
-                        return false;
-                    }
-
-                    return entry.Status === 'asUnconfirmed';
-                },
-                fn: (function (action, selection) {
-                    var entry;
-                    entry = selection && selection.data;
-
-                    _environment['default'].refreshActivityLists();
-                    this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
-                }).bindDelegate(this)
-            }, {
-                id: 'call',
-                cls: 'fa fa-phone-square fa-2x',
-                label: this.callText,
-                enabled: function enabled(action, selection) {
-                    var entry;
-                    entry = selection && selection.data;
-                    return entry && entry.Activity && entry.Activity.PhoneNumber;
-                },
-                fn: (function (action, selection) {
-                    var entry, phone;
-                    entry = selection && selection.data;
-                    phone = entry && entry.Activity && entry.Activity.PhoneNumber;
-                    if (phone) {
-                        this.recordCallToHistory((function () {
-                            App.initiateCall(phone);
-                        }).bindDelegate(this), entry);
-                    }
-                }).bindDelegate(this)
-            }, {
-                id: 'addAttachment',
-                cls: 'fa fa-paperclip fa-2x',
-                label: this.addAttachmentActionText,
-                fn: _action['default'].addAttachment.bindDelegate(this)
-            }]);
-        },
-        selectEntry: function selectEntry(params, evt, node) {
-            /* Override selectEntry from the base List mixin.
-             * Grabbing a different key here, since we use entry.Activity.$key as the main data-key.
-             * TODO: Make [data-key] overrideable in the base class.
-             */
-            var row = (0, _query['default'])(node).closest('[data-my-activity-key]')[0],
-                key = row ? row.getAttribute('data-my-activity-key') : false;
-
-            if (this._selectionModel && key) {
-                this._selectionModel.toggle(key, this.entries[key], row);
-            }
-
-            if (this.options.singleSelect && this.options.singleSelectAction && !this.enableActions) {
-                this.invokeSingleSelectAction();
-            }
-        },
-        formatSearchQuery: function formatSearchQuery(searchQuery) {
-            return _string['default'].substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
-        declineActivityFor: function declineActivityFor(activityId, userId) {
-            this._getUserNotifications(activityId, userId, false);
-        },
-        confirmActivityFor: function confirmActivityFor(activityId, userId) {
-            this._getUserNotifications(activityId, userId, true);
-        },
-        _getUserNotifications: function _getUserNotifications(activityId, userId, accept) {
-            var req;
-
-            if (activityId) {
-                activityId = activityId.substring(0, 12);
-            }
-
-            req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
-            req.setResourceKind('userNotifications');
-            req.setContractName('dynamic');
-            req.setQueryArg('where', _string['default'].substitute('ActivityId eq \'${0}\' and ToUser.Id eq \'${1}\'', [activityId, userId]));
-            req.setQueryArg('precedence', '0');
-            req.read({
-                success: function success(userNotifications) {
-                    if (userNotifications['$resources'] && userNotifications['$resources'].length > 0) {
-                        if (accept) {
-                            this.acceptConfirmation(userNotifications['$resources'][0]);
-                        } else {
-                            this.declineConfirmation(userNotifications['$resources'][0]);
-                        }
-                    }
-                },
-                failure: this.onRequestFailure,
-                scope: this
-            });
-        },
-        declineConfirmation: function declineConfirmation(notification) {
-            this._postUserNotifications(notification, 'Decline');
-        },
-        acceptConfirmation: function acceptConfirmation(notification) {
-            this._postUserNotifications(notification, 'Accept');
-        },
-        _postUserNotifications: function _postUserNotifications(notification, operation) {
-            if (!notification || typeof operation !== 'string') {
-                return;
-            }
-
-            var payload, request;
-
-            /*
-             * To get the payload template:
-             * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
-            */
-            payload = {
-                '$name': operation,
-                'request': {
-                    'entity': notification,
-                    'UserNotificationId': notification['$key']
-                }
-            };
-
-            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setContractName('dynamic').setResourceKind('usernotifications').setOperationName(operation.toLowerCase());
-            request.execute(payload, {
-                success: function success() {
-                    this.clear();
-                    this.refresh();
-                },
-                failure: this.onRequestFailure,
-                scope: this
-            });
-        },
-        completeActivity: function completeActivity(entry) {
-            var request, completeActivityEntry;
-
-            completeActivityEntry = {
-                '$name': 'ActivityComplete',
-                'request': {
-                    'entity': { '$key': entry['$key'] },
-                    'ActivityId': entry['$key'],
-                    'userId': entry['Leader']['$key'],
-                    'result': entry['Result'],
-                    'completeDate': entry['CompletedDate']
-                }
-            };
-
-            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
-
-            request.execute(completeActivityEntry, {
-                success: function success() {
-                    _connect['default'].publish('/app/refresh', [{
-                        resourceKind: 'history'
-                    }]);
-
-                    this.clear();
-                    this.refresh();
-                },
-                failure: this.onRequestFailure,
-                scope: this
-            });
-        },
-        onRequestFailure: function onRequestFailure(response, o) {
-            _ErrorManager['default'].addError(response, o, {}, 'failure');
-        },
-        hasAlarm: function hasAlarm(entry) {
-            if (entry.Activity && entry.Activity.Alarm === true) {
-                return true;
-            }
-
+      return '';
+    },
+    createActionLayout: function createActionLayout() {
+      return this.actions || (this.actions = [{
+        id: 'viewAccount',
+        label: this.viewAccountActionText,
+        enabled: function enabled(action, selection) {
+          var entry = selection && selection.data;
+          if (!entry) {
             return false;
+          }
+          if (entry.Activity['AccountId']) {
+            return true;
+          }
+          return false;
         },
-        hasBeenTouched: function hasBeenTouched(entry) {
-            var modifiedDate, currentDate, weekAgo;
+        fn: function fn(action, selection) {
+          var viewId, options, view;
 
-            if (entry['Activity']['ModifyDate']) {
-                modifiedDate = (0, _moment2['default'])(_convert['default'].toDateFromString(entry['Activity']['ModifyDate']));
-                currentDate = (0, _moment2['default'])().endOf('day');
-                weekAgo = (0, _moment2['default'])().subtract(1, 'weeks');
+          viewId = 'account_detail';
+          options = {
+            key: selection.data['Activity']['AccountId'],
+            descriptor: selection.data['Activity']['AccountName']
+          };
 
-                return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
-            }
-
-            return false;
-        },
-        isImportant: function isImportant(entry) {
-            if (entry['Activity']['Priority']) {
-                if (entry['Activity']['Priority'] === 'High') {
-                    return true;
-                }
-            }
-
-            return false;
-        },
-        isOverdue: function isOverdue(entry) {
-            var startDate, currentDate, seconds, mins;
-            if (entry['Activity']['StartDate']) {
-                startDate = _convert['default'].toDateFromString(entry['Activity']['StartDate']);
-                currentDate = new Date();
-                seconds = Math.round((currentDate - startDate) / 1000);
-                mins = seconds / 60;
-                if (mins >= 1) {
-                    return true;
-                }
-            }
-            return false;
-        },
-        isTimelessToday: function isTimelessToday(entry) {
-            if (!entry || !entry.Activity || !entry.Activity.Timeless) {
-                return false;
-            }
-
-            var start = (0, _moment2['default'])(entry.Activity.StartDate);
-            return this._isTimelessToday(start);
-        },
-        isRecurring: function isRecurring(entry) {
-            if (entry['Activity']['Recurring']) {
-                return true;
-            }
-
-            return false;
-        },
-        getItemIconClass: function getItemIconClass(entry) {
-            var type = entry && entry.Activity && entry.Activity.Type;
-            return this._getItemIconClass(type);
-        },
-        getItemActionKey: function getItemActionKey(entry) {
-            return entry.Activity.$key;
-        },
-        getItemDescriptor: function getItemDescriptor(entry) {
-            return entry.Activity.$descriptor;
-        },
-        hasContactOrLead: function hasContactOrLead(action, selection) {
-            return selection.data['Activity']['ContactId'] || selection.data['Activity']['LeadId'];
-        },
-        navigateToContactOrLead: function navigateToContactOrLead(action, selection) {
-            var entry = selection.data['Activity'],
-                entity = this.resolveContactOrLeadEntity(entry),
-                viewId,
-                view,
-                options;
-
-            switch (entity) {
-                case 'Contact':
-                    viewId = 'contact_detail';
-                    options = {
-                        key: entry['ContactId'],
-                        descriptor: entry['ContactName']
-                    };
-                    break;
-                case 'Lead':
-                    viewId = 'lead_detail';
-                    options = {
-                        key: entry['LeadId'],
-                        descriptor: entry['LeadName']
-                    };
-                    break;
-            }
-
-            view = App.getView(viewId);
-
-            if (view && options) {
-                view.show(options);
-            }
-        },
-        resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
-            var exists = this.existsRE;
-
-            if (entry) {
-                if (exists.test(entry['LeadId'])) {
-                    return 'Lead';
-                }
-                if (exists.test(entry['ContactId'])) {
-                    return 'Contact';
-                }
-            }
-        },
-        recordCallToHistory: function recordCallToHistory(complete, entry) {
-            var tempEntry = {
-                '$name': 'History',
-                'Type': 'atPhoneCall',
-                'ContactName': entry['Activity']['ContactName'],
-                'ContactId': entry['Activity']['ContactId'],
-                'AccountName': entry['Activity']['AccountName'],
-                'AccountId': entry['Activity']['AccountId'],
-                'Description': _string['default'].substitute('${0} ${1}', [this.calledText, entry['Activity']['ContactName'] || '']),
-                'UserId': App.context && App.context.user['$key'],
-                'UserName': App.context && App.context.user['UserName'],
-                'Duration': 15,
-                'CompletedDate': new Date()
-            };
-
-            this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
-        },
-
-        navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-            var view = App.getView(this.historyEditView);
-            if (view) {
-                _environment['default'].refreshActivityLists();
-                view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
-            }
+          view = App.getView(viewId);
+          if (view && options) {
+            view.show(options);
+          }
         }
-    });
+      }, {
+        id: 'viewOpportunity',
+        label: this.viewOpportunityActionText,
+        enabled: function enabled(action, selection) {
+          var entry = selection && selection.data;
+          if (!entry) {
+            return false;
+          }
+          if (entry.Activity['OpportunityId']) {
+            return true;
+          }
+          return false;
+        },
+        fn: function fn(action, selection) {
+          var viewId, options, view;
 
-    _lang['default'].setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
-    module.exports = __class;
+          viewId = 'opportunity_detail';
+          options = {
+            key: selection.data['Activity']['OpportunityId'],
+            descriptor: selection.data['Activity']['OpportunityName']
+          };
+          view = App.getView(viewId);
+          if (view && options) {
+            view.show(options);
+          }
+        }
+      }, {
+        id: 'viewContact',
+        label: this.viewContactActionText,
+        action: 'navigateToContactOrLead',
+        enabled: this.hasContactOrLead
+      }, {
+        id: 'complete',
+        cls: 'fa fa-check-square fa-2x',
+        label: this.completeActivityText,
+        enabled: function enabled(action, selection) {
+          var recur,
+              entry = selection && selection.data;
+          if (!entry) {
+            return false;
+          }
+
+          recur = entry.Activity.Recurring;
+
+          return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
+        },
+        fn: (function (action, selection) {
+          var entry;
+
+          entry = selection && selection.data && selection.data.Activity;
+
+          entry['CompletedDate'] = new Date();
+          entry['Result'] = 'Complete';
+
+          _environment['default'].refreshActivityLists();
+          this.completeActivity(entry);
+        }).bindDelegate(this)
+      }, {
+        id: 'accept',
+        cls: 'fa fa-check fa-2x',
+        label: this.acceptActivityText,
+        enabled: function enabled(action, selection) {
+          var entry = selection && selection.data;
+          if (!entry) {
+            return false;
+          }
+
+          return entry.Status === 'asUnconfirmed';
+        },
+        fn: (function (action, selection) {
+          var entry;
+
+          entry = selection && selection.data;
+          _environment['default'].refreshActivityLists();
+          this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
+        }).bindDelegate(this)
+      }, {
+        id: 'decline',
+        cls: 'fa fa-ban fa-2x',
+        label: this.declineActivityText,
+        enabled: function enabled(action, selection) {
+          var entry = selection && selection.data;
+          if (!entry) {
+            return false;
+          }
+
+          return entry.Status === 'asUnconfirmed';
+        },
+        fn: (function (action, selection) {
+          var entry;
+          entry = selection && selection.data;
+
+          _environment['default'].refreshActivityLists();
+          this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
+        }).bindDelegate(this)
+      }, {
+        id: 'call',
+        cls: 'fa fa-phone-square fa-2x',
+        label: this.callText,
+        enabled: function enabled(action, selection) {
+          var entry;
+          entry = selection && selection.data;
+          return entry && entry.Activity && entry.Activity.PhoneNumber;
+        },
+        fn: (function (action, selection) {
+          var entry, phone;
+          entry = selection && selection.data;
+          phone = entry && entry.Activity && entry.Activity.PhoneNumber;
+          if (phone) {
+            this.recordCallToHistory((function () {
+              App.initiateCall(phone);
+            }).bindDelegate(this), entry);
+          }
+        }).bindDelegate(this)
+      }, {
+        id: 'addAttachment',
+        cls: 'fa fa-paperclip fa-2x',
+        label: this.addAttachmentActionText,
+        fn: _action['default'].addAttachment.bindDelegate(this)
+      }]);
+    },
+    selectEntry: function selectEntry(params, evt, node) {
+      /* Override selectEntry from the base List mixin.
+       * Grabbing a different key here, since we use entry.Activity.$key as the main data-key.
+       * TODO: Make [data-key] overrideable in the base class.
+       */
+      var row = (0, _query['default'])(node).closest('[data-my-activity-key]')[0],
+          key = row ? row.getAttribute('data-my-activity-key') : false;
+
+      if (this._selectionModel && key) {
+        this._selectionModel.toggle(key, this.entries[key], row);
+      }
+
+      if (this.options.singleSelect && this.options.singleSelectAction && !this.enableActions) {
+        this.invokeSingleSelectAction();
+      }
+    },
+    formatSearchQuery: function formatSearchQuery(searchQuery) {
+      return _string['default'].substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    },
+    declineActivityFor: function declineActivityFor(activityId, userId) {
+      this._getUserNotifications(activityId, userId, false);
+    },
+    confirmActivityFor: function confirmActivityFor(activityId, userId) {
+      this._getUserNotifications(activityId, userId, true);
+    },
+    _getUserNotifications: function _getUserNotifications(activityId, userId, accept) {
+      var req;
+
+      if (activityId) {
+        activityId = activityId.substring(0, 12);
+      }
+
+      req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
+      req.setResourceKind('userNotifications');
+      req.setContractName('dynamic');
+      req.setQueryArg('where', _string['default'].substitute('ActivityId eq \'${0}\' and ToUser.Id eq \'${1}\'', [activityId, userId]));
+      req.setQueryArg('precedence', '0');
+      req.read({
+        success: function success(userNotifications) {
+          if (userNotifications['$resources'] && userNotifications['$resources'].length > 0) {
+            if (accept) {
+              this.acceptConfirmation(userNotifications['$resources'][0]);
+            } else {
+              this.declineConfirmation(userNotifications['$resources'][0]);
+            }
+          }
+        },
+        failure: this.onRequestFailure,
+        scope: this
+      });
+    },
+    declineConfirmation: function declineConfirmation(notification) {
+      this._postUserNotifications(notification, 'Decline');
+    },
+    acceptConfirmation: function acceptConfirmation(notification) {
+      this._postUserNotifications(notification, 'Accept');
+    },
+    _postUserNotifications: function _postUserNotifications(notification, operation) {
+      if (!notification || typeof operation !== 'string') {
+        return;
+      }
+
+      var payload, request;
+
+      /*
+       * To get the payload template:
+       * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
+       */
+      payload = {
+        '$name': operation,
+        'request': {
+          'entity': notification,
+          'UserNotificationId': notification['$key']
+        }
+      };
+
+      request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setContractName('dynamic').setResourceKind('usernotifications').setOperationName(operation.toLowerCase());
+      request.execute(payload, {
+        success: function success() {
+          this.clear();
+          this.refresh();
+        },
+        failure: this.onRequestFailure,
+        scope: this
+      });
+    },
+    completeActivity: function completeActivity(entry) {
+      var request, completeActivityEntry;
+
+      completeActivityEntry = {
+        '$name': 'ActivityComplete',
+        'request': {
+          'entity': {
+            '$key': entry['$key']
+          },
+          'ActivityId': entry['$key'],
+          'userId': entry['Leader']['$key'],
+          'result': entry['Result'],
+          'completeDate': entry['CompletedDate']
+        }
+      };
+
+      request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('activities').setContractName('system').setOperationName('Complete');
+
+      request.execute(completeActivityEntry, {
+        success: function success() {
+          _connect['default'].publish('/app/refresh', [{
+            resourceKind: 'history'
+          }]);
+
+          this.clear();
+          this.refresh();
+        },
+        failure: this.onRequestFailure,
+        scope: this
+      });
+    },
+    onRequestFailure: function onRequestFailure(response, o) {
+      _ErrorManager['default'].addError(response, o, {}, 'failure');
+    },
+    hasAlarm: function hasAlarm(entry) {
+      if (entry.Activity && entry.Activity.Alarm === true) {
+        return true;
+      }
+
+      return false;
+    },
+    hasBeenTouched: function hasBeenTouched(entry) {
+      var modifiedDate, currentDate, weekAgo;
+
+      if (entry['Activity']['ModifyDate']) {
+        modifiedDate = (0, _moment2['default'])(_convert['default'].toDateFromString(entry['Activity']['ModifyDate']));
+        currentDate = (0, _moment2['default'])().endOf('day');
+        weekAgo = (0, _moment2['default'])().subtract(1, 'weeks');
+
+        return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
+      }
+
+      return false;
+    },
+    isImportant: function isImportant(entry) {
+      if (entry['Activity']['Priority']) {
+        if (entry['Activity']['Priority'] === 'High') {
+          return true;
+        }
+      }
+
+      return false;
+    },
+    isOverdue: function isOverdue(entry) {
+      var startDate, currentDate, seconds, mins;
+      if (entry['Activity']['StartDate']) {
+        startDate = _convert['default'].toDateFromString(entry['Activity']['StartDate']);
+        currentDate = new Date();
+        seconds = Math.round((currentDate - startDate) / 1000);
+        mins = seconds / 60;
+        if (mins >= 1) {
+          return true;
+        }
+      }
+      return false;
+    },
+    isTimelessToday: function isTimelessToday(entry) {
+      if (!entry || !entry.Activity || !entry.Activity.Timeless) {
+        return false;
+      }
+
+      var start = (0, _moment2['default'])(entry.Activity.StartDate);
+      return this._isTimelessToday(start);
+    },
+    isRecurring: function isRecurring(entry) {
+      if (entry['Activity']['Recurring']) {
+        return true;
+      }
+
+      return false;
+    },
+    getItemIconClass: function getItemIconClass(entry) {
+      var type = entry && entry.Activity && entry.Activity.Type;
+      return this._getItemIconClass(type);
+    },
+    getItemActionKey: function getItemActionKey(entry) {
+      return entry.Activity.$key;
+    },
+    getItemDescriptor: function getItemDescriptor(entry) {
+      return entry.Activity.$descriptor;
+    },
+    hasContactOrLead: function hasContactOrLead(action, selection) {
+      return selection.data['Activity']['ContactId'] || selection.data['Activity']['LeadId'];
+    },
+    navigateToContactOrLead: function navigateToContactOrLead(action, selection) {
+      var entry = selection.data['Activity'],
+          entity = this.resolveContactOrLeadEntity(entry),
+          viewId,
+          view,
+          options;
+
+      switch (entity) {
+        case 'Contact':
+          viewId = 'contact_detail';
+          options = {
+            key: entry['ContactId'],
+            descriptor: entry['ContactName']
+          };
+          break;
+        case 'Lead':
+          viewId = 'lead_detail';
+          options = {
+            key: entry['LeadId'],
+            descriptor: entry['LeadName']
+          };
+          break;
+      }
+
+      view = App.getView(viewId);
+
+      if (view && options) {
+        view.show(options);
+      }
+    },
+    resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
+      var exists = this.existsRE;
+
+      if (entry) {
+        if (exists.test(entry['LeadId'])) {
+          return 'Lead';
+        }
+        if (exists.test(entry['ContactId'])) {
+          return 'Contact';
+        }
+      }
+    },
+    recordCallToHistory: function recordCallToHistory(complete, entry) {
+      var tempEntry = {
+        '$name': 'History',
+        'Type': 'atPhoneCall',
+        'ContactName': entry['Activity']['ContactName'],
+        'ContactId': entry['Activity']['ContactId'],
+        'AccountName': entry['Activity']['AccountName'],
+        'AccountId': entry['Activity']['AccountId'],
+        'Description': _string['default'].substitute('${0} ${1}', [this.calledText, entry['Activity']['ContactName'] || '']),
+        'UserId': App.context && App.context.user['$key'],
+        'UserName': App.context && App.context.user['UserName'],
+        'Duration': 15,
+        'CompletedDate': new Date()
+      };
+
+      this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
+    },
+
+    navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
+      var view = App.getView(this.historyEditView);
+      if (view) {
+        _environment['default'].refreshActivityLists();
+        view.show({
+          title: this.activityTypeText[type],
+          template: {},
+          entry: entry,
+          insert: true
+        }, {
+          complete: complete
+        });
+      }
+    }
+  });
+
+  _lang['default'].setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
+  module.exports = __class;
 });

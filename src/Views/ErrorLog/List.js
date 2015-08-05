@@ -15,51 +15,53 @@ import List from 'argos/List';
  * @requires argos.ErrorManager
  */
 var __class = declare('crm.Views.ErrorLog.List', [List], {
-    //Localization
-    titleText: 'Error Logs',
-    errorDateFormatText: 'MM/DD/YYYY hh:mm A',
+  //Localization
+  titleText: 'Error Logs',
+  errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
-    //Templates
-    itemTemplate: new Simplate([
-        '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
-        '<h4>{%: $.Description %}</h4>'
-    ]),
+  //Templates
+  itemTemplate: new Simplate([
+    '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
+    '<h4>{%: $.Description %}</h4>'
+  ]),
 
-    //View Properties
-    id: 'errorlog_list',
-    enableSearch: false,
-    enablePullToRefresh: false,
-    hideSearch: true,
-    expose: false,
-    detailView: 'errorlog_detail',
+  //View Properties
+  id: 'errorlog_list',
+  enableSearch: false,
+  enablePullToRefresh: false,
+  hideSearch: true,
+  expose: false,
+  detailView: 'errorlog_detail',
 
-    _onRefresh: function(o) {
-        this.inherited(arguments);
-        if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
-            this.refreshRequired = true;
-        }
-    },
-    createStore: function() {
-        var errorItems = ErrorManager.getAllErrors();
-
-        errorItems.sort(function(a, b) {
-            a.errorDateStamp = a.errorDateStamp || a['Date'];
-            b.errorDateStamp = b.errorDateStamp || b['Date'];
-            a['Date'] = a.errorDateStamp;
-            b['Date'] = b.errorDateStamp;
-            var A = convert.toDateFromString(a.errorDateStamp),
-                B = convert.toDateFromString(b.errorDateStamp);
-
-            return A.valueOf() > B.valueOf();
-        });
-
-        return new Memory({data: errorItems});
-    },
-    createToolLayout: function() {
-        return this.tools || (this.tools = {
-            'tbar': []
-        });
+  _onRefresh: function(o) {
+    this.inherited(arguments);
+    if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
+      this.refreshRequired = true;
     }
+  },
+  createStore: function() {
+    var errorItems = ErrorManager.getAllErrors();
+
+    errorItems.sort(function(a, b) {
+      a.errorDateStamp = a.errorDateStamp || a['Date'];
+      b.errorDateStamp = b.errorDateStamp || b['Date'];
+      a['Date'] = a.errorDateStamp;
+      b['Date'] = b.errorDateStamp;
+      var A = convert.toDateFromString(a.errorDateStamp),
+        B = convert.toDateFromString(b.errorDateStamp);
+
+      return A.valueOf() > B.valueOf();
+    });
+
+    return new Memory({
+      data: errorItems
+    });
+  },
+  createToolLayout: function() {
+    return this.tools || (this.tools = {
+      'tbar': []
+    });
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);

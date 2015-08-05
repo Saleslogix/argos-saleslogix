@@ -20,45 +20,47 @@ import Environment from '../../Environment';
  *
  */
 var __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
-    //Localization
-    titleText: 'Add Attachments',
+  //Localization
+  titleText: 'Add Attachments',
 
-    //View Properties
-    id: 'attachment_Add',
+  //View Properties
+  id: 'attachment_Add',
 
-    onUploadFiles: function() {
-        var fileItems,
-            am,
-            self;
+  onUploadFiles: function() {
+    var fileItems,
+      am,
+      self;
 
-        self = this;
-        if (this._files && this._files.length > 0) {
-            this.inherited(arguments);
-            fileItems = this.getFileItems();
-            am = new AttachmentManager();
+    self = this;
+    if (this._files && this._files.length > 0) {
+      this.inherited(arguments);
+      fileItems = this.getFileItems();
+      am = new AttachmentManager();
 
-            am.onSuccessUpdate = function() {
-                Environment.refreshAttachmentViews();
-                ReUI.back();
-            };
-
-            am.onFailedUpload = function(errorMessage) {
-                self.onUpdateFailed(errorMessage);
-                alert(errorMessage);
-                ReUI.back();
-            };
-
-            am.onUpdateProgress = function(percent) {
-                var msg = sdkFormat.percent(percent / 100);
-                self.onUpdateProgress(msg);
-            };
-
-            am.createAttachment(fileItems[0].file, {description: fileItems[0].description});
-        }
-    },
-    cancelSelect: function() {
+      am.onSuccessUpdate = function() {
+        Environment.refreshAttachmentViews();
         ReUI.back();
+      };
+
+      am.onFailedUpload = function(errorMessage) {
+        self.onUpdateFailed(errorMessage);
+        alert(errorMessage);
+        ReUI.back();
+      };
+
+      am.onUpdateProgress = function(percent) {
+        var msg = sdkFormat.percent(percent / 100);
+        self.onUpdateProgress(msg);
+      };
+
+      am.createAttachment(fileItems[0].file, {
+        description: fileItems[0].description
+      });
     }
+  },
+  cancelSelect: function() {
+    ReUI.back();
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
