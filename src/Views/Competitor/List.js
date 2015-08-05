@@ -11,17 +11,17 @@ import List from 'argos/List';
  * @requires argos.List
  *
  */
-var __class = declare('crm.Views.Competitor.List', [List], {
-  //Templates
+const __class = declare('crm.Views.Competitor.List', [List], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%= $.CompetitorName %}</h3>',
-    '{% if ($.WebAddress) { %}<h4>{%= $.WebAddress %}</h4>{% } %}'
+    '{% if ($.WebAddress) { %}<h4>{%= $.WebAddress %}</h4>{% } %}',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Competitors',
 
-  //View Properties
+  // View Properties
   detailView: 'competitor_detail',
   id: 'competitor_list',
   security: 'Entities/Competitor/View',
@@ -29,13 +29,13 @@ var __class = declare('crm.Views.Competitor.List', [List], {
   queryOrderBy: 'CompetitorName asc',
   querySelect: [
     'CompetitorName',
-    'WebAddress'
+    'WebAddress',
   ],
   resourceKind: 'competitors',
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(CompetitorName like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Competitor.List', __class);
