@@ -15,17 +15,17 @@ define('crm/Views/OpportunityContact/List', ['exports', 'module', 'dojo/_base/de
    * @extends argos.List
    */
   var __class = (0, _declare['default'])('crm.Views.OpportunityContact.List', [_List['default']], {
-    //Template
+    // Template
     itemTemplate: new Simplate(['<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>', '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">', '{% if ($.SalesRole) { %}', '{%: $.SalesRole %} | ', '{% } %}', '{%: $.Contact.Title %}</h4>']),
 
-    //Localization
+    // Localization
     titleText: 'Opportunity Contacts',
     selectTitleText: 'Select Contact',
     activitiesText: 'Activities',
     notesText: 'Notes',
     scheduleText: 'Schedule',
 
-    //View Properties
+    // View Properties
     id: 'opportunitycontact_list',
     detailView: 'opportunitycontact_detail',
     selectView: 'contact_related',
@@ -37,12 +37,10 @@ define('crm/Views/OpportunityContact/List', ['exports', 'module', 'dojo/_base/de
     resourceKind: 'opportunityContacts',
 
     complete: function complete() {
-      var view = App.getPrimaryActiveView(),
-          context,
-          selections,
-          selectionKey,
-          selectionModel = view && view.get('selectionModel'),
-          entry;
+      var view = App.getPrimaryActiveView();
+      var selectionModel = view && view.get('selectionModel');
+      var entry = undefined;
+
       if (!selectionModel) {
         return;
       }
@@ -51,10 +49,10 @@ define('crm/Views/OpportunityContact/List', ['exports', 'module', 'dojo/_base/de
         ReUI.back();
       }
 
-      context = App.isNavigationFromResourceKind(['opportunities']);
-      selections = selectionModel.getSelections();
+      var context = App.isNavigationFromResourceKind(['opportunities']);
+      var selections = selectionModel.getSelections();
 
-      for (selectionKey in selections) {
+      for (var selectionKey in selections) {
         if (selections.hasOwnProperty(selectionKey)) {
           entry = {
             'Opportunity': {
@@ -96,8 +94,8 @@ define('crm/Views/OpportunityContact/List', ['exports', 'module', 'dojo/_base/de
       return options;
     },
     navigateToInsertView: function navigateToInsertView(entry) {
-      var view = App.getView(this.insertView),
-          options = {
+      var view = App.getView(this.insertView);
+      var options = {
         entry: entry,
         insert: true
       };
@@ -108,8 +106,8 @@ define('crm/Views/OpportunityContact/List', ['exports', 'module', 'dojo/_base/de
       }
     },
     navigateToSelectView: function navigateToSelectView() {
-      var view = App.getView(this.selectView),
-          options = this.createNavigationOptions();
+      var view = App.getView(this.selectView);
+      var options = this.createNavigationOptions();
       if (view && options) {
         view.show(options);
       }

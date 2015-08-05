@@ -11,8 +11,8 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  * @extends argos.Detail
  * @mixins argos._LegacySDataDetailMixin
  */
-var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
-  //Localization
+const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
+  // Localization
   titleText: 'Opportunity Contact',
   accountText: 'account',
   contactTitleText: 'title',
@@ -28,7 +28,7 @@ var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDa
   confirmDeleteText: 'Remove "${0}" from the opportunity?',
   contactText: 'Contact',
 
-  //View Properties
+  // View Properties
   id: 'opportunitycontact_detail',
   editView: 'opportunitycontact_edit',
   security: 'Entities/Contact/View',
@@ -44,61 +44,57 @@ var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDa
     'Issues',
     'PersonalBenefits',
     'Standing',
-    'Strategy'
+    'Strategy',
   ],
   resourceKind: 'opportunityContacts',
 
-  createEntryForDelete: function() {
-    var entry = {
-      '$key': this.entry['$key'],
-      '$etag': this.entry['$etag'],
-      '$name': this.entry['$name']
+  createEntryForDelete: function createEntryForDelete() {
+    const entry = {
+      '$key': this.entry.$key,
+      '$etag': this.entry.$etag,
+      '$name': this.entry.$name,
     };
     return entry;
   },
-  removeContact: function() {
-    var confirmMessage,
-      entry,
-      request;
-
-    confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
-    if (!confirm(confirmMessage)) {
+  removeContact: function removeContact() {
+    const confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+    if (!confirm(confirmMessage)) { // eslint-disable-line
       return;
     }
 
-    entry = this.createEntryForDelete();
-    request = this.createRequest();
+    const entry = this.createEntryForDelete();
+    const request = this.createRequest();
 
     if (request) {
-      request['delete'](entry, {
+      request.delete(entry, {
         success: this.onDeleteSuccess,
         failure: this.onRequestDataFailure,
-        scope: this
+        scope: this,
       });
     }
   },
-  onDeleteSuccess: function() {
+  onDeleteSuccess: function onDeleteSuccess() {
     connect.publish('/app/refresh', [{
-      resourceKind: this.resourceKind
+      resourceKind: this.resourceKind,
     }]);
     ReUI.back();
   },
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
       'tbar': [{
         id: 'edit',
         action: 'navigateToEditView',
         cls: 'fa fa-pencil fa-fw fa-lg',
-        security: App.getViewSecurity(this.editView, 'update')
+        security: App.getViewSecurity(this.editView, 'update'),
       }, {
         id: 'removeContact',
         cls: 'fa fa-times-circle fa-lg',
         action: 'removeContact',
-        title: this.removeContactTitleText
-      }]
+        title: this.removeContactTitleText,
+      }],
     });
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.contactText,
       name: 'DetailsSection',
@@ -108,49 +104,49 @@ var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDa
         label: this.nameText,
         view: 'contact_detail',
         key: 'Contact.$key',
-        descriptor: 'Contact.NameLF'
+        descriptor: 'Contact.NameLF',
       }, {
         name: 'AccountName',
         property: 'Contact.AccountName',
         descriptor: 'AccountName',
         label: this.accountText,
         view: 'account_detail',
-        key: 'Contact.Account.$key'
+        key: 'Contact.Account.$key',
       }, {
         name: 'Title',
         property: 'Contact.Title',
-        label: this.contactTitleText
-      }]
+        label: this.contactTitleText,
+      }],
     }, {
       title: this.detailsText,
       name: 'MoreDetailsSection',
       children: [{
         name: 'SalesRole',
         property: 'SalesRole',
-        label: this.salesRoleText
+        label: this.salesRoleText,
       }, {
         name: 'Standing',
         property: 'Standing',
-        label: this.standingText
+        label: this.standingText,
       }, {
         name: 'PersonalBenefits',
         property: 'PersonalBenefits',
-        label: this.personalBenefitsText
+        label: this.personalBenefitsText,
       }, {
         name: 'CompetitorName',
         property: 'Competitors.CompetitorName',
-        label: this.competitorNameText
+        label: this.competitorNameText,
       }, {
         name: 'Strategy',
         property: 'Strategy',
-        label: this.strategyText
+        label: this.strategyText,
       }, {
         name: 'Issues',
         property: 'Issues',
-        label: this.issuesText
-      }]
+        label: this.issuesText,
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Detail', __class);

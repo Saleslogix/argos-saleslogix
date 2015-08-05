@@ -8,25 +8,25 @@ import List from 'argos/List';
  *
  * @extends argos.List
  */
-var __class = declare('crm.Views.OpportunityContact.List', [List], {
-  //Template
+const __class = declare('crm.Views.OpportunityContact.List', [List], {
+  // Template
   itemTemplate: new Simplate([
     '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
     '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
     '{% if ($.SalesRole) { %}',
     '{%: $.SalesRole %} | ',
     '{% } %}',
-    '{%: $.Contact.Title %}</h4>'
+    '{%: $.Contact.Title %}</h4>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Opportunity Contacts',
   selectTitleText: 'Select Contact',
   activitiesText: 'Activities',
   notesText: 'Notes',
   scheduleText: 'Schedule',
 
-  //View Properties
+  // View Properties
   id: 'opportunitycontact_list',
   detailView: 'opportunitycontact_detail',
   selectView: 'contact_related',
@@ -40,17 +40,15 @@ var __class = declare('crm.Views.OpportunityContact.List', [List], {
     'SalesRole',
     'IsPrimary',
     'Contact/NameLF',
-    'Contact/Title'
+    'Contact/Title',
   ],
   resourceKind: 'opportunityContacts',
 
-  complete: function() {
-    var view = App.getPrimaryActiveView(),
-      context,
-      selections,
-      selectionKey,
-      selectionModel = view && view.get('selectionModel'),
-      entry;
+  complete: function complete() {
+    const view = App.getPrimaryActiveView();
+    const selectionModel = view && view.get('selectionModel');
+    let entry;
+
     if (!selectionModel) {
       return;
     }
@@ -59,16 +57,16 @@ var __class = declare('crm.Views.OpportunityContact.List', [List], {
       ReUI.back();
     }
 
-    context = App.isNavigationFromResourceKind(['opportunities']);
-    selections = selectionModel.getSelections();
+    const context = App.isNavigationFromResourceKind(['opportunities']);
+    const selections = selectionModel.getSelections();
 
-    for (selectionKey in selections) {
+    for (const selectionKey in selections) {
       if (selections.hasOwnProperty(selectionKey)) {
         entry = {
           'Opportunity': {
-            '$key': context.key
+            '$key': context.key,
           },
-          'Contact': view.entries[selectionKey]
+          'Contact': view.entries[selectionKey],
         };
       }
     }
@@ -77,8 +75,8 @@ var __class = declare('crm.Views.OpportunityContact.List', [List], {
       this.navigateToInsertView(entry);
     }
   },
-  createNavigationOptions: function() {
-    var options = {
+  createNavigationOptions: function createNavigationOptions() {
+    const options = {
       query: this.expandExpression(this.options.prefilter),
       selectionOnly: true,
       singleSelect: true,
@@ -90,56 +88,56 @@ var __class = declare('crm.Views.OpportunityContact.List', [List], {
         'Account/AccountName',
         'AccountName',
         'NameLF',
-        'Title'
+        'Title',
       ],
       tools: {
         tbar: [{
           id: 'complete',
           fn: this.complete,
           cls: 'invisible',
-          scope: this
+          scope: this,
         }, {
           id: 'cancel',
           side: 'left',
           fn: ReUI.back,
-          scope: ReUI
-        }]
-      }
+          scope: ReUI,
+        }],
+      },
     };
     return options;
   },
-  navigateToInsertView: function(entry) {
-    var view = App.getView(this.insertView),
-      options = {
+  navigateToInsertView: function navigateToInsertView(entry) {
+    const view = App.getView(this.insertView);
+    const options = {
         entry: entry,
-        insert: true
+        insert: true,
       };
     if (view && options) {
       view.show(options, {
-        returnTo: -1
+        returnTo: -1,
       });
     }
   },
-  navigateToSelectView: function() {
-    var view = App.getView(this.selectView),
-      options = this.createNavigationOptions();
+  navigateToSelectView: function navigateToSelectView() {
+    const view = App.getView(this.selectView);
+    const options = this.createNavigationOptions();
     if (view && options) {
       view.show(options);
     }
   },
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
       'tbar': [{
         id: 'associate',
         cls: 'fa fa-plus fa-fw fa-lg',
         action: 'navigateToSelectView',
-        security: App.getViewSecurity(this.insertView, 'insert')
-      }]
+        security: App.getViewSecurity(this.insertView, 'insert'),
+      }],
     });
   },
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);

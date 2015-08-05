@@ -1,4 +1,4 @@
-define('crm/Views/OpportunityContact/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', '../../Format', 'argos/Utility', 'argos/Edit'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _Format, _argosUtility, _argosEdit) {
+define('crm/Views/OpportunityContact/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', '../../Format', 'argos/Edit'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _Format, _argosEdit) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -6,8 +6,6 @@ define('crm/Views/OpportunityContact/Edit', ['exports', 'module', 'dojo/_base/de
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
   var _format = _interopRequireDefault(_Format);
-
-  var _utility = _interopRequireDefault(_argosUtility);
 
   var _Edit = _interopRequireDefault(_argosEdit);
 
@@ -19,7 +17,7 @@ define('crm/Views/OpportunityContact/Edit', ['exports', 'module', 'dojo/_base/de
    * @requires argos.Utility
    */
   var __class = (0, _declare['default'])('crm.Views.OpportunityContact.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     titleText: 'Edit Opp. Contact',
     nameText: 'name',
     accountNameText: 'account',
@@ -34,7 +32,7 @@ define('crm/Views/OpportunityContact/Edit', ['exports', 'module', 'dojo/_base/de
     contactText: 'Contact',
     competitorPrefText: 'competitor pref',
 
-    //View Properties
+    // View Properties
     entityName: 'OpportunityContact',
     id: 'opportunitycontact_edit',
     insertSecurity: 'Entities/Contact/Add',
