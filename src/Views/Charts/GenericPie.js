@@ -14,7 +14,7 @@ import _ChartMixin from './_ChartMixin';
  * @requires argos.View
  *
  */
-var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
+const __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
   id: 'chart_generic_pie',
   titleText: '',
   expose: false,
@@ -26,7 +26,7 @@ var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
     '#bff485',
     '#bce8fc',
     '#47b2f0',
-    '#0c7ad8'
+    '#0c7ad8',
   ],
 
   chartOptions: {
@@ -34,7 +34,7 @@ var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
     segmentStrokeColor: '#EBEBEB',
     segmentStrokeWidth: 1,
     animateScale: false,
-    legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li data-segment="<%= i %>"><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+    legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li data-segment="<%= i %>"><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>',
   },
 
   /**
@@ -43,26 +43,23 @@ var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
    */
   renderAs: 'Doughnut',
 
-  formatter: function(val) {
+  formatter: function formatter(val) {
     return val;
   },
 
-  createChart: function(rawData) {
+  createChart: function createChart(rawData) {
     this.inherited(arguments);
 
-    var ctx, box, data, chart, defaultRenderAs;
-
-    defaultRenderAs = 'Doughnut';
+    const defaultRenderAs = 'Doughnut';
 
     this.showSearchExpression();
 
-    data = array.map(rawData, function(item, idx) {
+    const data = array.map(rawData, function mapData(item, idx) {
       return {
         value: Math.round(item.value),
         color: this._getItemColor(idx),
         highlight: '',
-        label: item.name
-
+        label: item.name,
       };
     }.bind(this));
 
@@ -70,13 +67,13 @@ var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
       this.chart.destroy();
     }
 
-    box = domGeo.getMarginBox(this.domNode);
+    const box = domGeo.getMarginBox(this.domNode);
     this.contentNode.width = box.w;
     this.contentNode.height = box.h;
 
-    ctx = this.contentNode.getContext('2d');
+    const ctx = this.contentNode.getContext('2d');
 
-    chart = new window.Chart(ctx);
+    const chart = new window.Chart(ctx);
 
     // Ensure the chart has the ability to render this type
     this.renderAs = window.Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
@@ -84,19 +81,19 @@ var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
     this.chart = chart[this.renderAs](data, this.chartOptions);
     this.showLegend();
   },
-  _getItemColor: function(index) {
-    var len, n;
-    len = this.seriesColors.length;
-    n = Math.floor(index / len);
+  _getItemColor: function _getItemColor(index) {
+    const len = this.seriesColors.length;
+    const n = Math.floor(index / len);
+    let theIndex = index;
 
     // if n is 0, the index will fall within the seriesColor array,
     // otherwise we will need to re-scale the index to fall within that array.
     if (n > 0) {
-      index = index - (len * n);
+      theIndex = index - (len * n);
     }
 
-    return this.seriesColors[index];
-  }
+    return this.seriesColors[theIndex];
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);

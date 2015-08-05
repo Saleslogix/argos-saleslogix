@@ -1,11 +1,9 @@
-define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/_base/connect', 'dojo/dom-geometry', 'dojo/dom-attr', 'dojo/has', 'dojo/sniff', 'argos/_PullToRefreshMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojo_baseConnect, _dojoDomGeometry, _dojoDomAttr, _dojoHas, _dojoSniff, _argos_PullToRefreshMixin) {
+define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'dojo/dom-geometry', 'dojo/dom-attr', 'dojo/has', 'argos/_PullToRefreshMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseConnect, _dojoDomGeometry, _dojoDomAttr, _dojoHas, _argos_PullToRefreshMixin) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _connect = _interopRequireDefault(_dojo_baseConnect);
 
@@ -14,8 +12,6 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
   var _domAttr = _interopRequireDefault(_dojoDomAttr);
 
   var _has = _interopRequireDefault(_dojoHas);
-
-  var _sniff = _interopRequireDefault(_dojoSniff);
 
   var _PullToRefreshMixin2 = _interopRequireDefault(_argos_PullToRefreshMixin);
 
@@ -139,8 +135,8 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
     // tooltipTemplate can be a function as well (not in the docs, see Chart.Core.js in their repo)
     tooltipTemplate: function tooltipTemplate(valuesObject) {
       // Use the formatter on the chart view, otherwise default to label: value
-      var view, results;
-      view = App.getPrimaryActiveView();
+      var view = App.getPrimaryActiveView();
+      var results = undefined;
       if (view && view.formatter) {
         results = view.formatter(valuesObject.value);
       } else {
@@ -159,11 +155,9 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
     onAnimationComplete: function onAnimationComplete() {}
   });
 
-  var mixinName, __class;
+  var mixinName = 'crm.Views.Charts._ChartMixin';
 
-  mixinName = 'crm.Views.Charts._ChartMixin';
-
-  __class = (0, _declare['default'])('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin2['default']], {
+  var __class = (0, _declare['default'])('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin2['default']], {
     _handle: null,
     _feedData: null,
 
@@ -206,8 +200,8 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
       this.initPullToRefresh(this.scrollerNode);
     },
     onTransitionTo: function onTransitionTo() {
-      this._handle = _connect['default'].subscribe('/app/setOrientation', this, function () {
-        setTimeout((function () {
+      this._handle = _connect['default'].subscribe('/app/setOrientation', this, function orientationChange() {
+        setTimeout((function onTimeOut() {
           if (this._feedData) {
             this.createChart(this._feedData);
           }
@@ -224,19 +218,15 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
       }
     },
     _setCanvasWidth: function _setCanvasWidth() {
-      var box;
-
-      box = _domGeo['default'].getMarginBox(this.domNode);
+      var box = _domGeo['default'].getMarginBox(this.domNode);
       if (this.contentNode) {
         this.contentNode.width = box.w;
       }
     },
     _drawLoading: function _drawLoading() {
-      var node, context, globalConfig, offset, text, mixin, x, y;
-
-      node = this.contentNode;
-      globalConfig = window.Chart.defaults.global;
-      context = node && node.getContext && node.getContext('2d');
+      var node = this.contentNode;
+      var globalConfig = window.Chart.defaults.global;
+      var context = node && node.getContext && node.getContext('2d');
 
       if (!context) {
         return;
@@ -244,7 +234,8 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
 
       context.clearRect(0, 0, node.width, node.height);
 
-      mixin = _lang['default'].getObject(mixinName);
+      var mixin = _lang['default'].getObject(mixinName);
+      var text = undefined;
       if (mixin) {
         text = mixin.prototype.loadingText;
       } else {
@@ -255,9 +246,9 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
       context.font = globalConfig.tooltipFontSize + 'px ' + globalConfig.tooltipFontFamily;
 
       // Center the text
-      offset = Math.floor(context.measureText(text).width / 2);
-      x = Math.floor(node.width / 2) - offset;
-      y = 20; // padding
+      var offset = Math.floor(context.measureText(text).width / 2);
+      var x = Math.floor(node.width / 2) - offset;
+      var y = 20; // padding
       context.fillText(text, x, y, node.width);
     },
     createChart: function createChart(feedData) {
@@ -272,8 +263,7 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
     },
 
     showSearchExpression: function showSearchExpression() {
-      var app;
-      app = this.app || window.App;
+      var app = this.app || window.App;
       app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
     },
 
@@ -296,9 +286,8 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
         return;
       }
 
-      var src, segment;
-      src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
-      segment = parseInt(src.dataset.segment, 10);
+      var src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
+      var segment = parseInt(src.dataset.segment, 10);
       if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
         this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */);
       }
@@ -309,13 +298,11 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
      * @since 3.3
      */
     showLegend: function showLegend() {
-      var html;
-
       if (!this.chart || !this.chart.generateLegend || !this.legendNode) {
         return;
       }
 
-      html = this.chart.generateLegend();
+      var html = this.chart.generateLegend();
       _domAttr['default'].set(this.legendNode, {
         innerHTML: html
       });
@@ -344,8 +331,7 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
      * @since 3.3
      */
     createStore: function createStore() {
-      var store;
-      store = this.parent && this.parent.store;
+      var store = this.parent && this.parent.store;
       return store;
     },
 
@@ -354,8 +340,7 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
      * @since 3.3
      */
     requestData: function requestData() {
-      var store;
-      store = this.get('store');
+      var store = this.get('store');
       if (this.chart && this.chart.destroy) {
         this.chart.destroy();
       }
@@ -367,11 +352,11 @@ define('crm/Views/Charts/_ChartMixin', ['exports', 'module', 'dojo/_base/declare
         store.query(null, {
           start: 0,
           count: this.PAGE_SIZE
-        }).then((function (data) {
+        }).then((function createChartWithData(data) {
           this.createChart(data);
-        }).bind(this), (function (e) {
-          console.error(e);
-        }).bind(this));
+        }).bind(this), function queryError(e) {
+          console.error(e); // eslint-disable-line
+        });
       }
     }
   });
