@@ -1,11 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import array from 'dojo/_base/array';
 import action from '../../Action';
 import format from '../../Format';
-import platformFormat from 'argos/Format';
-import QuickEdit from './QuickEdit';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
@@ -26,9 +23,9 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
  * @requires crm.Action
  * @requires crm.Format
  */
-var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
-  //Templates
-  //TODO: Support ExchangeRateCode with proper symbol
+const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+  // Templates
+  // TODO: Support ExchangeRateCode with proper symbol
   itemTemplate: new Simplate([
     '<h3>{%: $.Description %}</h3>',
     '{% if ($.Account) { %}',
@@ -59,10 +56,10 @@ var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin
     '{% } %}',
     '</strong></h4>',
     '{% } %}',
-    '<h4>{%: $$.formatDate($) %}</h4>'
+    '<h4>{%: $$.formatDate($) %}</h4>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Opportunities',
   activitiesText: 'Activities',
   notesText: 'Notes',
@@ -78,7 +75,7 @@ var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin
   estimatedCloseText: 'Estimated close ',
   quickEditActionText: 'Quick Edit',
 
-  //View Properties
+  // View Properties
   id: 'opportunity_list',
   security: 'Entities/Opportunity/View',
   itemIconClass: 'fa fa-money fa-2x',
@@ -97,7 +94,7 @@ var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin
     'ExchangeRateCode',
     'ModifyDate',
     'ActualClose',
-    'EstimatedClose'
+    'EstimatedClose',
   ],
   resourceKind: 'opportunities',
   entityName: 'Opportunity',
@@ -105,7 +102,7 @@ var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin
   allowSelection: true,
   enableActions: true,
 
-  formatDate: function(entry) {
+  formatDate: function formatDate(entry) {
     if (entry.Status === 'Open' && entry.EstimatedClose) {
       return this.estimatedCloseText + format.relativeDate(entry.EstimatedClose);
     } else if (entry.ActualClose) {
@@ -114,12 +111,12 @@ var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin
 
     return '';
   },
-  createActionLayout: function() {
+  createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
-      action: 'navigateToEditView'
+      action: 'navigateToEditView',
     }, {
       id: 'viewAccount',
       label: this.viewAccountActionText,
@@ -127,51 +124,51 @@ var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin
       fn: action.navigateToEntity.bindDelegate(this, {
         view: 'account_detail',
         keyProperty: 'Account.$key',
-        textProperty: 'Account.AccountName'
-      })
+        textProperty: 'Account.AccountName',
+      }),
     }, {
       id: 'viewContacts',
       label: this.viewContactsActionText,
-      fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
+      fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"'),
     }, {
       id: 'viewProducts',
       label: this.viewProductsActionText,
-      fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"')
+      fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"'),
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
       label: this.addNoteActionText,
-      fn: action.addNote.bindDelegate(this)
+      fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
       cls: 'fa fa-calendar fa-2x',
       label: this.addActivityActionText,
-      fn: action.addActivity.bindDelegate(this)
+      fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
       cls: 'fa fa-paperclip fa-2x',
       label: this.addAttachmentActionText,
-      fn: action.addAttachment.bindDelegate(this)
+      fn: action.addAttachment.bindDelegate(this),
     }, {
       id: 'quickEdit',
       cls: 'fa fa-pencil fa-2x',
       label: this.quickEditActionText,
       editView: 'opportunity_quick_edit',
-      action: 'navigateToQuickEdit'
+      action: 'navigateToQuickEdit',
     }]);
   },
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   groupFieldFormatter: {
     'CloseProbability': {
       name: 'CloseProbability',
-      formatter: function(value) {
+      formatter: function formatter(value) {
         return format.fixedLocale(value, 0) + '%';
-      }.bind(this)
-    }
-  }
+      },
+    },
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);

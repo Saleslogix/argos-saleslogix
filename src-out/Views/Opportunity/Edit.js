@@ -26,7 +26,7 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
    * @requires crm.Template
    */
   var __class = (0, _declare['default'])('crm.Views.Opportunity.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     accountText: 'acct',
     acctMgrText: 'acct mgr',
     estCloseText: 'est close',
@@ -51,7 +51,7 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
     exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
     subTypePickListResellerText: 'RESELLER',
 
-    //View Properties
+    // View Properties
     entityName: 'Opportunity',
     id: 'opportunity_edit',
     resourceKind: 'opportunities',
@@ -60,21 +60,19 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
     querySelect: ['Account/AccountName', 'AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'CloseProbability', 'Contacts', 'Description', 'EstimatedClose', 'ExchangeRate', 'ExchangeRateCode', 'ExchangeRateDate', 'ExchangeRateLocked', 'LeadSource/Description', 'Owner/OwnerDescription', 'Reseller/AccountName', 'SalesPotential', 'Stage', 'Status', 'Type', 'Weighted'],
     init: function init() {
       this.inherited(arguments);
-      this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+      this.connect(this.fields.Account, 'onChange', this.onAccountChange);
 
       if (App.hasMultiCurrency()) {
-        this.connect(this.fields['ExchangeRateCode'], 'onChange', this.onExchangeRateCodeChange);
-        this.connect(this.fields['ExchangeRateLocked'], 'onChange', this.onExchangeRateLockedChange);
+        this.connect(this.fields.ExchangeRateCode, 'onChange', this.onExchangeRateCodeChange);
+        this.connect(this.fields.ExchangeRateLocked, 'onChange', this.onExchangeRateLockedChange);
       }
     },
     applyContext: function applyContext(templateEntry) {
-      var found, lookup;
-
-      found = App.queryNavigationContext(function (o) {
+      var found = App.queryNavigationContext(function queryNavigationContext(o) {
         return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
       });
 
-      lookup = {
+      var lookup = {
         'accounts': this.applyAccountContext,
         'contacts': this.applyContactContext
       };
@@ -85,108 +83,104 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
         this.applyDefaultContext(templateEntry);
       }
 
-      this.fields['Status'].setValue(templateEntry.Status);
-      this.fields['CloseProbability'].setValue(templateEntry.CloseProbability);
-      this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
+      this.fields.Status.setValue(templateEntry.Status);
+      this.fields.CloseProbability.setValue(templateEntry.CloseProbability);
+      this.fields.EstimatedClose.setValue(templateEntry.EstimatedClose);
 
       if (App.hasMultiCurrency() && templateEntry) {
-
         if (templateEntry.ExchangeRateCode) {
-          this.fields['ExchangeRateCode'].setValue({
+          this.fields.ExchangeRateCode.setValue({
             '$key': templateEntry.ExchangeRateCode,
             '$descriptor': templateEntry.ExchangeRateCode
           });
         }
 
         if (templateEntry.ExchangeRate) {
-          this.fields['ExchangeRate'].setValue(templateEntry.ExchangeRate);
+          this.fields.ExchangeRate.setValue(templateEntry.ExchangeRate);
         }
 
         if (templateEntry.ExchangeRateDate) {
-          this.fields['ExchangeRateDate'].setValue(templateEntry.ExchangeRateDate);
+          this.fields.ExchangeRateDate.setValue(templateEntry.ExchangeRateDate);
         }
       }
     },
     setValues: function setValues(values) {
       this.inherited(arguments);
       if (App.hasMultiCurrency()) {
-
         if (values && values.ExchangeRateCode) {
-          this.fields['ExchangeRateCode'].setValue({
+          this.fields.ExchangeRateCode.setValue({
             '$key': values.ExchangeRateCode,
             '$descriptor': values.ExchangeRateCode
           });
         }
 
         if (!App.canLockOpportunityRate()) {
-          this.fields['ExchangeRateLocked'].disable();
+          this.fields.ExchangeRateLocked.disable();
         }
 
         if (!App.canChangeOpportunityRate()) {
-          this.fields['ExchangeRate'].disable();
-          this.fields['ExchangeRateCode'].disable();
+          this.fields.ExchangeRate.disable();
+          this.fields.ExchangeRateCode.disable();
         }
 
-        this.fields['ExchangeRateDate'].disable();
+        this.fields.ExchangeRateDate.disable();
       }
 
-      this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
+      this.fields.SalesPotential.setCurrencyCode(App.getBaseExchangeRate().code);
     },
     getValues: function getValues() {
-      var values, code;
-      values = this.inherited(arguments);
+      var values = this.inherited(arguments);
 
       if (values) {
-        code = values.ExchangeRateCode;
+        var code = values.ExchangeRateCode;
         values.ExchangeRateCode = code && code.$key;
       }
 
       return values;
     },
     applyDefaultContext: function applyDefaultContext() {
-      this.fields['AccountManager'].setValue(App.context.user);
-      this.fields['Owner'].setValue(App.context['defaultOwner']);
+      this.fields.AccountManager.setValue(App.context.user);
+      this.fields.Owner.setValue(App.context.defaultOwner);
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id),
-          entry = view && view.entry;
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
 
-      this.fields['Account'].setValue(entry);
-      this.fields['AccountManager'].setValue(_utility['default'].getValue(entry, 'AccountManager'));
-      this.fields['Owner'].setValue(_utility['default'].getValue(entry, 'Owner'));
+      this.fields.Account.setValue(entry);
+      this.fields.AccountManager.setValue(_utility['default'].getValue(entry, 'AccountManager'));
+      this.fields.Owner.setValue(_utility['default'].getValue(entry, 'Owner'));
     },
     applyContactContext: function applyContactContext(context) {
-      var view = App.getView(context.id),
-          entry = view && view.entry;
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
 
-      this.fields['Account'].setValue(_utility['default'].getValue(entry, 'Account'));
-      this.fields['AccountManager'].setValue(_utility['default'].getValue(entry, 'AccountManager'));
-      this.fields['Owner'].setValue(_utility['default'].getValue(entry, 'Owner'));
+      this.fields.Account.setValue(_utility['default'].getValue(entry, 'Account'));
+      this.fields.AccountManager.setValue(_utility['default'].getValue(entry, 'AccountManager'));
+      this.fields.Owner.setValue(_utility['default'].getValue(entry, 'Owner'));
       this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
     },
     onExchangeRateCodeChange: function onExchangeRateCodeChange(value, field) {
       var selection = field.getSelection();
       if (selection && selection.Rate) {
-        this.fields['ExchangeRate'].setValue(selection.Rate);
-        this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
+        this.fields.ExchangeRate.setValue(selection.Rate);
+        this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
       }
     },
     onExchangeRateLockedChange: function onExchangeRateLockedChange(value) {
       if (value === true) {
-        this.fields['ExchangeRate'].disable();
-        this.fields['ExchangeRateCode'].disable();
+        this.fields.ExchangeRate.disable();
+        this.fields.ExchangeRateCode.disable();
       } else {
-
         if (!App.canChangeOpportunityRate()) {
-          this.fields['ExchangeRate'].disable();
-          this.fields['ExchangeRateCode'].disable();
+          this.fields.ExchangeRate.disable();
+          this.fields.ExchangeRateCode.disable();
         } else {
-          this.fields['ExchangeRate'].enable();
-          this.fields['ExchangeRateCode'].enable();
+          this.fields.ExchangeRate.enable();
+          this.fields.ExchangeRateCode.enable();
         }
       }
 
-      this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
+      this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
     },
     onAccountChange: function onAccountChange(value, field) {
       var selection = field.getSelection();
@@ -194,13 +188,11 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
       // todo: match behavior in web client; if the account manager (AM) is explicitly set, it should stay, otherwise
       // it should be set to the AM for the selected account (and change each time).
       if (selection && this.insert) {
-        this.fields['AccountManager'].setValue(_utility['default'].getValue(selection, 'AccountManager'));
+        this.fields.AccountManager.setValue(_utility['default'].getValue(selection, 'AccountManager'));
       }
     },
     createLayout: function createLayout() {
-      var layout, details, multiCurrency;
-
-      details = {
+      var details = {
         title: this.detailsText,
         name: 'OpportunityDetailsEdit',
         children: [{
@@ -308,7 +300,7 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
         }]
       };
 
-      multiCurrency = {
+      var multiCurrency = {
         title: this.multiCurrencyText,
         name: 'OpportunityMultiCurrencyEdit',
         children: [{
@@ -336,11 +328,11 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
           type: 'date',
           timeless: false,
           dateFormatText: this.exchangeRateDateFormatText,
-          disabled: true // TODO: Create an SDK issue for this (NOT WORKING!!!)
-        }]
+          disabled: true }]
       };
 
-      layout = this.layout || (this.layout = []);
+      // TODO: Create an SDK issue for this (NOT WORKING!!!)
+      var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;

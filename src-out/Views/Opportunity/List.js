@@ -1,4 +1,4 @@
-define('crm/Views/Opportunity/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'dojo/_base/array', '../../Action', '../../Format', 'argos/Format', './QuickEdit', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_RightDrawerListMixin', '../_CardLayoutListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _dojo_baseArray, _Action, _Format, _argosFormat, _QuickEdit, _argosList, _GroupListMixin2, _MetricListMixin2, _RightDrawerListMixin2, _CardLayoutListMixin2) {
+define('crm/Views/Opportunity/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Action', '../../Format', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_RightDrawerListMixin', '../_CardLayoutListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Action, _Format, _argosList, _GroupListMixin2, _MetricListMixin2, _RightDrawerListMixin2, _CardLayoutListMixin2) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -7,15 +7,9 @@ define('crm/Views/Opportunity/List', ['exports', 'module', 'dojo/_base/declare',
 
   var _string = _interopRequireDefault(_dojoString);
 
-  var _array = _interopRequireDefault(_dojo_baseArray);
-
   var _action = _interopRequireDefault(_Action);
 
   var _format = _interopRequireDefault(_Format);
-
-  var _platformFormat = _interopRequireDefault(_argosFormat);
-
-  var _QuickEdit2 = _interopRequireDefault(_QuickEdit);
 
   var _List = _interopRequireDefault(_argosList);
 
@@ -42,11 +36,11 @@ define('crm/Views/Opportunity/List', ['exports', 'module', 'dojo/_base/declare',
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.Opportunity.List', [_List['default'], _RightDrawerListMixin3['default'], _MetricListMixin3['default'], _CardLayoutListMixin3['default'], _GroupListMixin3['default']], {
-    //Templates
-    //TODO: Support ExchangeRateCode with proper symbol
+    // Templates
+    // TODO: Support ExchangeRateCode with proper symbol
     itemTemplate: new Simplate(['<h3>{%: $.Description %}</h3>', '{% if ($.Account) { %}', '<h4>', '{%: $.Account.AccountName %}', '</h4>', '<h4>', '{% if ($.Account.AccountManager && $.Account.AccountManager.UserInfo) { %}', '{%: $.Account.AccountManager.UserInfo.UserName %}', '{% if ($.Account && $.Account.AccountManager.UserInfo.Region) { %}', ' | {%: $.Account.AccountManager.UserInfo.Region %}', '{% } %}', '{% } %}', '</h4>', '{% } %}', '<h4>', '{%: $.Status %}', '{% if ($.Stage) { %}', ' | {%: $.Stage %}', '{% } %}', '</h4>', '{% if ($.SalesPotential) { %}', '<h4><strong>', '{% if (App.hasMultiCurrency()) { %}', '{%: crm.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}', '{% } else { %}', '{%: crm.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}', '{% } %}', '</strong></h4>', '{% } %}', '<h4>{%: $$.formatDate($) %}</h4>']),
 
-    //Localization
+    // Localization
     titleText: 'Opportunities',
     activitiesText: 'Activities',
     notesText: 'Notes',
@@ -62,7 +56,7 @@ define('crm/Views/Opportunity/List', ['exports', 'module', 'dojo/_base/declare',
     estimatedCloseText: 'Estimated close ',
     quickEditActionText: 'Quick Edit',
 
-    //View Properties
+    // View Properties
     id: 'opportunity_list',
     security: 'Entities/Opportunity/View',
     itemIconClass: 'fa fa-money fa-2x',
@@ -138,9 +132,9 @@ define('crm/Views/Opportunity/List', ['exports', 'module', 'dojo/_base/declare',
     groupFieldFormatter: {
       'CloseProbability': {
         name: 'CloseProbability',
-        formatter: (function (value) {
+        formatter: function formatter(value) {
           return _format['default'].fixedLocale(value, 0) + '%';
-        }).bind(this)
+        }
       }
     }
   });
