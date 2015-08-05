@@ -11,7 +11,7 @@ import SDataStore from 'argos/Store/SData';
  * @requires argos.List
  *
  */
-var __class = declare('crm.Views.Groups.Selector', [List], {
+const __class = declare('crm.Views.Groups.Selector', [List], {
   id: 'groups_configure',
   expose: false,
   enableSearch: false,
@@ -20,24 +20,20 @@ var __class = declare('crm.Views.Groups.Selector', [List], {
   listViewId: 'groups_list',
   family: '',
 
-  //Localization
+  // Localization
   titleText: 'Groups Lookup',
 
   itemTemplate: new Simplate([
-    '<h3>{%: $[$$.labelProperty] %}</h3>'
+    '<h3>{%: $[$$.labelProperty] %}</h3>',
   ]),
 
-  constructor: function() {
+  constructor: function constructor() {
     this.tools = {
-      tbar: []
+      tbar: [],
     };
   },
 
-  activateEntry: function(params) {
-    var key;
-
-    key = params.key;
-
+  activateEntry: function activateEntry(params) {
     if (this._selectionModel && this.isNavigationDisabled()) {
       this._selectionModel.toggle(params.key, this.entries[params.key] || params.descriptor, params.$source);
       if (this.options.singleSelect && this.options.singleSelectAction) {
@@ -46,7 +42,7 @@ var __class = declare('crm.Views.Groups.Selector', [List], {
     }
   },
 
-  createStore: function() {
+  createStore: function createStore() {
     if (!this.family) {
       throw new Error('The groups selector must have a family set.');
     }
@@ -54,8 +50,8 @@ var __class = declare('crm.Views.Groups.Selector', [List], {
     return this.createGroupStore(this.family);
   },
 
-  createGroupStore: function(entityName) {
-    var store = null;
+  createGroupStore: function createGroupStore(entityName) {
+    let store = null;
 
     if (typeof entityName === 'string' && entityName !== '') {
       store = new SDataStore({
@@ -67,15 +63,15 @@ var __class = declare('crm.Views.Groups.Selector', [List], {
         include: ['layout', 'tableAliases'],
         idProperty: '$key',
         applicationName: 'slx',
-        scope: this
+        scope: this,
       });
     }
 
     return store;
   },
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('name like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Groups.Selector', __class);
