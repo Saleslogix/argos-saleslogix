@@ -13,11 +13,11 @@ import Detail from 'argos/Detail';
  * @requires crm.Format
  * @requires crm.Template
  */
-var __class = declare('crm.Views.Contact.Detail', [Detail], {
-  //Localization
+const __class = declare('crm.Views.Contact.Detail', [Detail], {
+  // Localization
   activityTypeText: {
     'atPhoneCall': 'Phone Call',
-    'atEMail': 'E-mail'
+    'atEMail': 'E-mail',
   },
   accountText: 'account',
   acctMgrText: 'acct mgr',
@@ -54,7 +54,7 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
   viewAddressText: 'View address',
   moreDetailsText: 'More Details',
 
-  //View Properties
+  // View Properties
   id: 'contact_detail',
   editView: 'contact_edit',
   historyEditView: 'history_edit',
@@ -83,12 +83,12 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
     'Suffix',
     'Title',
     'WebAddress',
-    'WorkPhone'
+    'WorkPhone',
   ],
   resourceKind: 'contacts',
 
-  navigateToHistoryInsert: function(type, entry, complete) {
-    var view = App.getView(this.historyEditView);
+  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
+    const view = App.getView(this.historyEditView);
     if (view) {
       this.refreshRequired = true;
 
@@ -96,83 +96,83 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
         title: this.activityTypeText[type],
         template: {},
         entry: entry,
-        insert: true
+        insert: true,
       }, {
-        complete: complete
+        complete: complete,
       });
     }
   },
-  recordCallToHistory: function(complete) {
-    var entry = {
+  recordCallToHistory: function recordCallToHistory(complete) {
+    const entry = {
       '$name': 'History',
       'Type': 'atPhoneCall',
-      'ContactName': this.entry['NameLF'],
-      'ContactId': this.entry['$key'],
-      'AccountName': this.entry['AccountName'],
-      'AccountId': this.entry['Account']['$key'],
-      'Description': string.substitute('${0} ${1}', [this.calledText, this.entry['NameLF']]),
-      'UserId': App.context && App.context.user['$key'],
-      'UserName': App.context && App.context.user['$descriptor'],
+      'ContactName': this.entry.NameLF,
+      'ContactId': this.entry.$key,
+      'AccountName': this.entry.AccountName,
+      'AccountId': this.entry.Account.$key,
+      'Description': string.substitute('${0} ${1}', [this.calledText, this.entry.NameLF]),
+      'UserId': App.context && App.context.user.$key,
+      'UserName': App.context && App.context.user.$descriptor,
       'Duration': 15,
-      'CompletedDate': (new Date())
+      'CompletedDate': (new Date()),
     };
 
     this.navigateToHistoryInsert('atPhoneCall', entry, complete);
   },
-  recordEmailToHistory: function(complete) {
-    var entry = {
+  recordEmailToHistory: function recordEmailToHistory(complete) {
+    const entry = {
       '$name': 'History',
       'Type': 'atEMail',
-      'ContactName': this.entry['NameLF'],
-      'ContactId': this.entry['$key'],
-      'AccountName': this.entry['AccountName'],
-      'AccountId': this.entry['Account']['$key'],
-      'Description': string.substitute('Emailed ${0}', [this.entry['NameLF']]),
-      'UserId': App.context && App.context.user['$key'],
-      'UserName': App.context && App.context.user['$descriptor'],
+      'ContactName': this.entry.NameLF,
+      'ContactId': this.entry.$key,
+      'AccountName': this.entry.AccountName,
+      'AccountId': this.entry.Account.$key,
+      'Description': string.substitute('Emailed ${0}', [this.entry.NameLF]),
+      'UserId': App.context && App.context.user.$key,
+      'UserName': App.context && App.context.user.$descriptor,
       'Duration': 15,
-      'CompletedDate': (new Date())
+      'CompletedDate': (new Date()),
     };
 
     this.navigateToHistoryInsert('atEMail', entry, complete);
   },
-  callWorkPhone: function() {
-    this.recordCallToHistory(function() {
-      App.initiateCall(this.entry['WorkPhone']);
+  callWorkPhone: function callWorkPhone() {
+    this.recordCallToHistory(function initiateCall() {
+      App.initiateCall(this.entry.WorkPhone);
     }.bindDelegate(this));
   },
-  callMobilePhone: function() {
-    this.recordCallToHistory(function() {
-      App.initiateCall(this.entry['Mobile']);
+  callMobilePhone: function callMobilePhone() {
+    this.recordCallToHistory(function initiateCall() {
+      App.initiateCall(this.entry.Mobile);
     }.bindDelegate(this));
   },
-  sendEmail: function() {
-    this.recordEmailToHistory(function() {
-      App.initiateEmail(this.entry['Email']);
+  sendEmail: function sendEmail() {
+    this.recordEmailToHistory(function initiateEmail() {
+      App.initiateEmail(this.entry.Email);
     }.bindDelegate(this));
   },
-  checkValueExists: function(entry, value) {
+  checkValueExists: function checkValueExists(entry, value) {
     return !value;
   },
-  viewAddress: function() {
-    App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
+  viewAddress: function viewAddress() {
+    App.showMapForAddress(format.address(this.entry.Address, true, ' '));
   },
-  checkAddress: function(entry, value) {
+  checkAddress: function checkAddress(entry, value) {
     return !format.address(value, true, '');
   },
-  scheduleActivity: function() {
+  scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();
   },
-  addNote: function() {
-    var view = App.getView(this.noteEditView);
+  addNote: function addNote() {
+    const view = App.getView(this.noteEditView);
     if (view) {
       view.show({
         template: {},
-        insert: true
+        insert: true,
       });
     }
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       list: true,
       title: this.actionsText,
@@ -185,7 +185,7 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
         action: 'callWorkPhone',
         iconClass: 'fa fa-phone-square fa-lg',
         disabled: this.checkValueExists,
-        renderer: format.phone.bindDelegate(this, false)
+        renderer: format.phone.bindDelegate(this, false),
       }, {
         name: 'CallMobilePhoneAction',
         property: 'Mobile',
@@ -193,28 +193,28 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
         action: 'callMobilePhone',
         iconClass: 'fa fa-mobile fa-lg',
         disabled: this.checkValueExists,
-        renderer: format.phone.bindDelegate(this, false)
+        renderer: format.phone.bindDelegate(this, false),
       }, {
         name: 'ScheduleActivityAction',
         label: this.scheduleActivityText,
         action: 'scheduleActivity',
         iconClass: 'fa fa-calendar fa-lg',
         tpl: new Simplate([
-          '{%: $.AccountName %} / {%: $.NameLF %}'
-        ])
+          '{%: $.AccountName %} / {%: $.NameLF %}',
+        ]),
       }, {
         name: 'AddNoteAction',
         property: 'NameLF',
         label: this.addNoteText,
         action: 'addNote',
-        iconClass: 'fa fa-edit fa-lg'
+        iconClass: 'fa fa-edit fa-lg',
       }, {
         name: 'SendEmailAction',
         property: 'Email',
         label: this.sendEmailText,
         action: 'sendEmail',
         iconClass: 'fa fa-envelope fa-lg',
-        disabled: this.checkValueExists
+        disabled: this.checkValueExists,
       }, {
         name: 'ViewAddressAction',
         property: 'Address',
@@ -222,33 +222,33 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
         action: 'viewAddress',
         iconClass: 'fa fa-map-marker fa-lg',
         disabled: this.checkAddress,
-        renderer: format.address.bindDelegate(this, true, ' ')
-      }]
+        renderer: format.address.bindDelegate(this, true, ' '),
+      }],
     }, {
       title: this.detailsText,
       name: 'DetailsSection',
       children: [{
         name: 'NameLF',
         property: 'NameLF',
-        label: this.nameText
+        label: this.nameText,
       }, {
         name: 'AccountName',
         property: 'AccountName',
         descriptor: 'AccountName',
         label: this.accountText,
         view: 'account_detail',
-        key: 'Account.$key'
+        key: 'Account.$key',
       }, {
         name: 'WorkPhone',
         property: 'WorkPhone',
         label: this.workText,
-        renderer: format.phone
+        renderer: format.phone,
       }, {
         name: 'AccountManager.UserInfo',
         property: 'AccountManager.UserInfo',
         label: this.acctMgrText,
-        tpl: template.nameLF
-      }]
+        tpl: template.nameLF,
+      }],
     }, {
       title: this.moreDetailsText,
       name: 'MoreDetailsSection',
@@ -257,30 +257,30 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
         name: 'HomePhone',
         property: 'HomePhone',
         label: this.homeText,
-        renderer: format.phone
+        renderer: format.phone,
       }, {
         name: 'WebAddress',
         property: 'WebAddress',
         label: this.webText,
-        renderer: format.link
+        renderer: format.link,
       }, {
         name: 'Title',
         property: 'Title',
-        label: this.contactTitleText
+        label: this.contactTitleText,
       }, {
         name: 'Fax',
         property: 'Fax',
         label: this.faxText,
-        renderer: format.phone
+        renderer: format.phone,
       }, {
         name: 'Owner.OwnerDescription',
         property: 'Owner.OwnerDescription',
-        label: this.ownerText
+        label: this.ownerText,
       }, {
         name: 'CuisinePreference',
         property: 'CuisinePreference',
-        label: this.cuisinePreferenceText
-      }]
+        label: this.cuisinePreferenceText,
+      }],
     }, {
       title: this.relatedItemsText,
       name: 'RelatedItemsSection',
@@ -289,36 +289,36 @@ var __class = declare('crm.Views.Contact.Detail', [Detail], {
         name: 'ActivityRelated',
         label: this.relatedActivitiesText,
         view: 'activity_related',
-        where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"')
+        where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"'),
       }, {
         name: 'OpportunityRelated',
         label: this.relatedOpportunitiesText,
         view: 'opportunity_related',
-        where: this.formatRelatedQuery.bindDelegate(this, 'Contacts.Contact.Id eq "${0}"')
+        where: this.formatRelatedQuery.bindDelegate(this, 'Contacts.Contact.Id eq "${0}"'),
       }, {
         name: 'TicketRelated',
         label: this.relatedTicketsText,
         view: 'ticket_related',
-        where: this.formatRelatedQuery.bindDelegate(this, 'Contact.Id eq "${0}"')
+        where: this.formatRelatedQuery.bindDelegate(this, 'Contact.Id eq "${0}"'),
       }, {
         name: 'HistoryRelated',
         label: this.relatedHistoriesText,
         where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}" and Type ne "atDatabaseChange"'),
-        view: 'history_related'
+        view: 'history_related',
       }, {
         name: 'AddressesRelated',
         label: this.relatedAddressesText,
         where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
-        view: 'address_related'
+        view: 'address_related',
       }, {
         name: 'AttachmentRelated',
         label: this.relatedAttachmentText,
         where: this.formatRelatedQuery.bindDelegate(this, 'contactId eq "${0}"'), // must be lower case because of feed
         view: 'contact_attachment_related',
-        title: this.relatedAttachmentTitleText
-      }]
+        title: this.relatedAttachmentTitleText,
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);

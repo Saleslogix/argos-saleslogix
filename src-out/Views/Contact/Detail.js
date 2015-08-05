@@ -22,7 +22,7 @@ define('crm/Views/Contact/Detail', ['exports', 'module', 'dojo/_base/declare', '
    * @requires crm.Template
    */
   var __class = (0, _declare['default'])('crm.Views.Contact.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     activityTypeText: {
       'atPhoneCall': 'Phone Call',
       'atEMail': 'E-mail'
@@ -62,7 +62,7 @@ define('crm/Views/Contact/Detail', ['exports', 'module', 'dojo/_base/declare', '
     viewAddressText: 'View address',
     moreDetailsText: 'More Details',
 
-    //View Properties
+    // View Properties
     id: 'contact_detail',
     editView: 'contact_edit',
     historyEditView: 'history_edit',
@@ -90,13 +90,13 @@ define('crm/Views/Contact/Detail', ['exports', 'module', 'dojo/_base/declare', '
       var entry = {
         '$name': 'History',
         'Type': 'atPhoneCall',
-        'ContactName': this.entry['NameLF'],
-        'ContactId': this.entry['$key'],
-        'AccountName': this.entry['AccountName'],
-        'AccountId': this.entry['Account']['$key'],
-        'Description': _string['default'].substitute('${0} ${1}', [this.calledText, this.entry['NameLF']]),
-        'UserId': App.context && App.context.user['$key'],
-        'UserName': App.context && App.context.user['$descriptor'],
+        'ContactName': this.entry.NameLF,
+        'ContactId': this.entry.$key,
+        'AccountName': this.entry.AccountName,
+        'AccountId': this.entry.Account.$key,
+        'Description': _string['default'].substitute('${0} ${1}', [this.calledText, this.entry.NameLF]),
+        'UserId': App.context && App.context.user.$key,
+        'UserName': App.context && App.context.user.$descriptor,
         'Duration': 15,
         'CompletedDate': new Date()
       };
@@ -107,13 +107,13 @@ define('crm/Views/Contact/Detail', ['exports', 'module', 'dojo/_base/declare', '
       var entry = {
         '$name': 'History',
         'Type': 'atEMail',
-        'ContactName': this.entry['NameLF'],
-        'ContactId': this.entry['$key'],
-        'AccountName': this.entry['AccountName'],
-        'AccountId': this.entry['Account']['$key'],
-        'Description': _string['default'].substitute('Emailed ${0}', [this.entry['NameLF']]),
-        'UserId': App.context && App.context.user['$key'],
-        'UserName': App.context && App.context.user['$descriptor'],
+        'ContactName': this.entry.NameLF,
+        'ContactId': this.entry.$key,
+        'AccountName': this.entry.AccountName,
+        'AccountId': this.entry.Account.$key,
+        'Description': _string['default'].substitute('Emailed ${0}', [this.entry.NameLF]),
+        'UserId': App.context && App.context.user.$key,
+        'UserName': App.context && App.context.user.$descriptor,
         'Duration': 15,
         'CompletedDate': new Date()
       };
@@ -121,25 +121,25 @@ define('crm/Views/Contact/Detail', ['exports', 'module', 'dojo/_base/declare', '
       this.navigateToHistoryInsert('atEMail', entry, complete);
     },
     callWorkPhone: function callWorkPhone() {
-      this.recordCallToHistory((function () {
-        App.initiateCall(this.entry['WorkPhone']);
+      this.recordCallToHistory((function initiateCall() {
+        App.initiateCall(this.entry.WorkPhone);
       }).bindDelegate(this));
     },
     callMobilePhone: function callMobilePhone() {
-      this.recordCallToHistory((function () {
-        App.initiateCall(this.entry['Mobile']);
+      this.recordCallToHistory((function initiateCall() {
+        App.initiateCall(this.entry.Mobile);
       }).bindDelegate(this));
     },
     sendEmail: function sendEmail() {
-      this.recordEmailToHistory((function () {
-        App.initiateEmail(this.entry['Email']);
+      this.recordEmailToHistory((function initiateEmail() {
+        App.initiateEmail(this.entry.Email);
       }).bindDelegate(this));
     },
     checkValueExists: function checkValueExists(entry, value) {
       return !value;
     },
     viewAddress: function viewAddress() {
-      App.showMapForAddress(_format['default'].address(this.entry['Address'], true, ' '));
+      App.showMapForAddress(_format['default'].address(this.entry.Address, true, ' '));
     },
     checkAddress: function checkAddress(entry, value) {
       return !_format['default'].address(value, true, '');

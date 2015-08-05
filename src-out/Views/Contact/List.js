@@ -1,4 +1,4 @@
-define('crm/Views/Contact/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'dojo/_base/array', 'crm/Action', 'argos/Format', 'argos/Convert', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', '../_RightDrawerListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _dojo_baseArray, _crmAction, _argosFormat, _argosConvert, _argosList, _GroupListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _RightDrawerListMixin2) {
+define('crm/Views/Contact/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'crm/Action', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', '../_RightDrawerListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _crmAction, _argosList, _GroupListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _RightDrawerListMixin2) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -7,13 +7,7 @@ define('crm/Views/Contact/List', ['exports', 'module', 'dojo/_base/declare', 'do
 
   var _string = _interopRequireDefault(_dojoString);
 
-  var _array = _interopRequireDefault(_dojo_baseArray);
-
   var _action = _interopRequireDefault(_crmAction);
-
-  var _format = _interopRequireDefault(_argosFormat);
-
-  var _Convert = _interopRequireDefault(_argosConvert);
 
   var _List = _interopRequireDefault(_argosList);
 
@@ -44,12 +38,12 @@ define('crm/Views/Contact/List', ['exports', 'module', 'dojo/_base/declare', 'do
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Contact.List', [_List['default'], _RightDrawerListMixin3['default'], _MetricListMixin3['default'], _CardLayoutListMixin3['default'], _GroupListMixin3['default']], {
-    //Template
-    //Card Layout
+    // Template
+    // Card Layout
     itemIconClass: 'fa fa-user fa-2x',
     itemTemplate: new Simplate(['<h3>{%: $.NameLF %}</h3>', '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>', '<h4>{%: $.WebAddress %}</h4>', '{% if ($.WorkPhone) { %}', '<h4>', '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', '</h4>', '{% } %}', '{% if ($.Mobile) { %}', '<h4>', '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', '</h4>', '{% } %}', '{% if ($.Email) { %}', '<h4>', '<span class="href" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>', '</h4>', '{% } %}']),
 
-    //Localization
+    // Localization
     titleText: 'Contacts',
     activitiesText: 'Activities',
     notesText: 'Notes',
@@ -66,7 +60,7 @@ define('crm/Views/Contact/List', ['exports', 'module', 'dojo/_base/declare', 'do
     phoneAbbreviationText: 'Work: ',
     mobileAbbreviationText: 'Mobile: ',
 
-    //View Properties
+    // View Properties
     detailView: 'contact_detail',
     iconClass: 'fa fa-user fa-lg',
     id: 'contact_list',
@@ -79,18 +73,18 @@ define('crm/Views/Contact/List', ['exports', 'module', 'dojo/_base/declare', 'do
     groupsEnabled: true,
     enableActions: true,
     callWork: function callWork(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'callWork';
+      this.invokeActionItemBy(function setActionId(theAction) {
+        return theAction.id === 'callWork';
       }, params.key);
     },
     callMobile: function callMobile(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'callMobile';
+      this.invokeActionItemBy(function setActionId(theAction) {
+        return theAction.id === 'callMobile';
       }, params.key);
     },
     sendEmail: function sendEmail(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'sendEmail';
+      this.invokeActionItemBy(function setActionId(theAction) {
+        return theAction.id === 'sendEmail';
       }, params.key);
     },
     createActionLayout: function createActionLayout() {

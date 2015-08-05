@@ -29,7 +29,7 @@ define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
    * @requires crm.Validator
    */
   var __class = (0, _declare['default'])('crm.Views.Contact.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     titleText: 'Contact',
     nameText: 'name',
     workText: 'work phone',
@@ -48,7 +48,7 @@ define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     cuisinePreferenceText: 'cuisine',
     cuisinePreferenceTitleText: 'Cuisine',
 
-    //View Properties
+    // View Properties
     entityName: 'Contact',
     id: 'contact_edit',
     insertSecurity: 'Entities/Contact/Add',
@@ -58,48 +58,46 @@ define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
 
     startup: function startup() {
       this.inherited(arguments);
-      this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+      this.connect(this.fields.Account, 'onChange', this.onAccountChange);
     },
     beforeTransitionTo: function beforeTransitionTo() {
       this.inherited(arguments);
       if (this.options.insert) {
-        this.fields['Account'].enable();
+        this.fields.Account.enable();
       } else {
-        this.fields['Account'].disable();
+        this.fields.Account.disable();
       }
     },
     onAccountChange: function onAccountChange(value) {
       if (value && value.text) {
-        this.fields['AccountName'].setValue(value.text);
+        this.fields.AccountName.setValue(value.text);
       }
-      this.requestAccount(value['key']);
+      this.requestAccount(value.key);
     },
     applyContext: function applyContext() {
-      var found, lookup;
-
-      found = App.queryNavigationContext(function (o) {
-        o = o.options && o.options.source || o;
-        return /^(accounts|opportunities)$/.test(o.resourceKind) && o.key;
+      var found = App.queryNavigationContext(function testNavigation(o) {
+        var ob = o.options && o.options.source || o;
+        return /^(accounts|opportunities)$/.test(ob.resourceKind) && ob.key;
       });
 
-      lookup = {
+      var lookup = {
         'accounts': this.applyAccountContext,
         'opportunities': this.applyOpportunityContext
       };
 
-      this.fields['AccountManager'].setValue(App.context.user);
-      this.fields['Owner'].setValue(App.context['defaultOwner']);
+      this.fields.AccountManager.setValue(App.context.user);
+      this.fields.Owner.setValue(App.context.defaultOwner);
 
       if (found && lookup[found.resourceKind]) {
         lookup[found.resourceKind].call(this, found);
       }
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id),
-          entry = view && view.entry;
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
 
       if (!entry && context.options && context.options.source && context.options.source.entry) {
-        this.requestAccount(context.options.source.entry['$key']);
+        this.requestAccount(context.options.source.entry.$key);
       }
 
       this.processAccount(entry);
@@ -116,69 +114,69 @@ define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     },
     requestAccountFailure: function requestAccountFailure() {},
     processAccount: function processAccount(entry) {
-      var account = entry,
-          accountName = _utility['default'].getValue(entry, 'AccountName'),
-          webAddress = _utility['default'].getValue(entry, 'WebAddress'),
-          mainPhone = _utility['default'].getValue(entry, 'MainPhone'),
-          address = _utility['default'].getValue(entry, 'Address'),
-          fax = _utility['default'].getValue(entry, 'Fax');
+      var account = entry;
+      var accountName = _utility['default'].getValue(entry, 'AccountName');
+      var webAddress = _utility['default'].getValue(entry, 'WebAddress');
+      var mainPhone = _utility['default'].getValue(entry, 'MainPhone');
+      var address = _utility['default'].getValue(entry, 'Address');
+      var fax = _utility['default'].getValue(entry, 'Fax');
 
       if (account) {
-        this.fields['Account'].setValue(account);
+        this.fields.Account.setValue(account);
       }
       if (accountName) {
-        this.fields['AccountName'].setValue(accountName);
+        this.fields.AccountName.setValue(accountName);
       }
       if (webAddress) {
-        this.fields['WebAddress'].setValue(webAddress);
+        this.fields.WebAddress.setValue(webAddress);
       }
       if (mainPhone) {
-        this.fields['WorkPhone'].setValue(mainPhone);
+        this.fields.WorkPhone.setValue(mainPhone);
       }
       if (address) {
-        this.fields['Address'].setValue(this.cleanAddressEntry(address));
+        this.fields.Address.setValue(this.cleanAddressEntry(address));
       }
       if (fax) {
-        this.fields['Fax'].setValue(fax);
+        this.fields.Fax.setValue(fax);
       }
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
-      var view = App.getView(context.id),
-          entry = view && view.entry,
-          opportunityId = _utility['default'].getValue(entry, '$key'),
-          account = _utility['default'].getValue(entry, 'Account'),
-          accountName = _utility['default'].getValue(entry, 'Account.AccountName'),
-          webAddress = _utility['default'].getValue(entry, 'Account.WebAddress'),
-          mainPhone = _utility['default'].getValue(entry, 'Account.MainPhone'),
-          address = _utility['default'].getValue(entry, 'Account.Address'),
-          fax = _utility['default'].getValue(entry, 'Account.Fax');
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
+      var opportunityId = _utility['default'].getValue(entry, '$key');
+      var account = _utility['default'].getValue(entry, 'Account');
+      var accountName = _utility['default'].getValue(entry, 'Account.AccountName');
+      var webAddress = _utility['default'].getValue(entry, 'Account.WebAddress');
+      var mainPhone = _utility['default'].getValue(entry, 'Account.MainPhone');
+      var address = _utility['default'].getValue(entry, 'Account.Address');
+      var fax = _utility['default'].getValue(entry, 'Account.Fax');
 
       if (opportunityId) {
         this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
       }
       if (account) {
-        this.fields['Account'].setValue(account);
+        this.fields.Account.setValue(account);
       }
       if (accountName) {
-        this.fields['AccountName'].setValue(accountName);
+        this.fields.AccountName.setValue(accountName);
       }
       if (webAddress) {
-        this.fields['WebAddress'].setValue(webAddress);
+        this.fields.WebAddress.setValue(webAddress);
       }
       if (mainPhone) {
-        this.fields['WorkPhone'].setValue(mainPhone);
+        this.fields.WorkPhone.setValue(mainPhone);
       }
       if (address) {
-        this.fields['Address'].setValue(this.cleanAddressEntry(address));
+        this.fields.Address.setValue(this.cleanAddressEntry(address));
       }
       if (fax) {
-        this.fields['Fax'].setValue(fax);
+        this.fields.Fax.setValue(fax);
       }
     },
     cleanAddressEntry: function cleanAddressEntry(address) {
       if (address) {
-        var clean = {},
-            skip = {
+        var clean = {};
+        var skip = {
           '$key': true,
           '$lookup': true,
           '$url': true,
@@ -187,21 +185,18 @@ define('crm/Views/Contact/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
           'ModifyUser': true,
           'CreateDate': true,
           'CreateUser': true
-        },
-            name;
+        };
 
-        for (name in address) {
-          if (address.hasOwnProperty(name)) {
-            if (!skip[name]) {
-              clean[name] = address[name];
+        for (var _name in address) {
+          if (address.hasOwnProperty(_name)) {
+            if (!skip[_name]) {
+              clean[_name] = address[_name];
             }
           }
         }
-
         return clean;
-      } else {
-        return null;
       }
+      return null;
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
