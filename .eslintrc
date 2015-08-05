@@ -9,6 +9,7 @@
     "App": false,
     "argos": false,
     "crm": false,
+    "Mobile": false,
     "Simplate": false,
     "Chart": false,
     "ReUI": false,
