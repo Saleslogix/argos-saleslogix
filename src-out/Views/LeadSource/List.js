@@ -15,13 +15,13 @@ define('crm/Views/LeadSource/List', ['exports', 'module', 'dojo/_base/declare', 
    * @extends argos.List
    */
   var __class = (0, _declare['default'])('crm.Views.LeadSource.List', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.Description %}</h3>', '<h4>{%: $.Status %}</h4>']),
 
-    //Localization
+    // Localization
     titleText: 'Lead Sources',
 
-    //View Properties
+    // View Properties
     id: 'leadsource_list',
     security: 'Entities/LeadSource/View',
     queryOrderBy: 'Description',
