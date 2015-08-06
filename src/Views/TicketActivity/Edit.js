@@ -15,8 +15,8 @@ import Edit from 'argos/Edit';
  * @requires crm.Template
  * @requires crm.Validator
  */
-var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
+  // Localization
   titleText: 'Edit Ticket Activity',
   activityTypeText: 'type',
   activityTypeTitleText: 'Type',
@@ -28,7 +28,7 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   commentsText: 'comments',
   startingFormatText: 'M/D/YYYY h:mm A',
 
-  //View Properties
+  // View Properties
   entityName: 'TicketActivity',
   id: 'ticketactivity_edit',
   querySelect: [
@@ -39,56 +39,50 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
     'PublicAccessCode',
     'User/UserName',
     'User/UserInfo/FirstName',
-    'User/UserInfo/LastName'
+    'User/UserInfo/LastName',
   ],
   resourceKind: 'ticketActivities',
 
-  processTemplateEntry: function(entry) {
+  processTemplateEntry: function processTemplateEntry(entry) {
     this.inherited(arguments);
 
-    if (entry['PublicAccessCode']) {
-      this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
+    if (entry.PublicAccessCode) {
+      this.requestCodeData('name eq "Ticket Activity Public Access"', entry.PublicAccessCode, this.fields.PublicAccessCode);
     }
   },
-  createPicklistRequest: function(name) {
-    var request,
-      uri;
-    request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+  createPicklistRequest: function createPicklistRequest(name) {
+    const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
       .setResourceKind('picklists')
       .setContractName('system');
 
-    uri = request.getUri();
+    const uri = request.getUri();
     uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
     uri.setCollectionPredicate(name);
 
     request.allowCacheUse = true;
     return request;
   },
-  requestCodeData: function(picklistName, code, field) {
-    var request = this.createPicklistRequest(picklistName);
+  requestCodeData: function requestCodeData(picklistName, code, field) {
+    const request = this.createPicklistRequest(picklistName);
     request.read({
       success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
       failure: this.onRequestCodeDataFailure,
-      scope: this
+      scope: this,
     });
   },
-  onRequestCodeDataSuccess: function(code, field, feed) {
-    var value = this.processCodeDataFeed(feed, code);
+  onRequestCodeDataSuccess: function onRequestCodeDataSuccess(code, field, feed) {
+    const value = this.processCodeDataFeed(feed, code);
     field.setValue(code);
     field.setText(value);
   },
-  onRequestCodeDataFailure: function(response, o) {
+  onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
     ErrorManager.addError(response, o, this.options, 'failure');
   },
-  processCodeDataFeed: function(feed, currentValue, options) {
-    var keyProperty,
-      textProperty,
-      i;
+  processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
+    const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+    const textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-    keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-    textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-    for (i = 0; i < feed.$resources.length; i++) {
+    for (let i = 0; i < feed.$resources.length; i++) {
       if (feed.$resources[i][keyProperty] === currentValue) {
         return feed.$resources[i][textProperty];
       }
@@ -97,16 +91,16 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
     return currentValue;
   },
 
-  applyContext: function() {
+  applyContext: function applyContext() {
     this.inherited(arguments);
 
-    var ticketContext = App.isNavigationFromResourceKind(['tickets']),
-      ticketKey = ticketContext && ticketContext.key,
-      user = App.context.user,
-      userField = this.fields.User;
+    const ticketContext = App.isNavigationFromResourceKind(['tickets']);
+    const ticketKey = ticketContext && ticketContext.key;
+    const user = App.context.user;
+    const userField = this.fields.User;
 
     if (ticketKey) {
-      this.fields['TicketId'].setValue(ticketKey);
+      this.fields.TicketId.setValue(ticketKey);
     }
 
     if (userField) {
@@ -114,17 +108,17 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
     }
   },
 
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       name: 'TicketId',
       property: 'Ticket.$key',
-      type: 'hidden'
+      type: 'hidden',
     }, {
       label: this.commentsText,
       name: 'ActivityDescription',
       property: 'ActivityDescription',
       rows: 6,
-      type: 'textarea'
+      type: 'textarea',
     }, {
       label: this.activityTypeText,
       name: 'ActivityTypeCode',
@@ -133,7 +127,7 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       title: this.activityTypeTitleText,
       storageMode: 'id',
       picklist: 'Ticket Activity',
-      type: 'picklist'
+      type: 'picklist',
     }, {
       label: this.publicAccessText,
       name: 'PublicAccessCode',
@@ -141,7 +135,7 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       title: this.publicAccessTitleText,
       storageMode: 'id',
       picklist: 'Ticket Activity Public Access',
-      type: 'picklist'
+      type: 'picklist',
     }, {
       label: this.userText,
       name: 'User',
@@ -149,7 +143,7 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       textProperty: 'UserInfo',
       textTemplate: template.nameLF,
       type: 'lookup',
-      view: 'user_list'
+      view: 'user_list',
     }, {
       label: this.startDateText,
       name: 'AssignedDate',
@@ -160,8 +154,8 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
-        validator.isDateInRange
-      ]
+        validator.isDateInRange,
+      ],
     }, {
       label: this.endDateText,
       name: 'CompletedDate',
@@ -172,10 +166,10 @@ var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
-        validator.isDateInRange
-      ]
+        validator.isDateInRange,
+      ],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);

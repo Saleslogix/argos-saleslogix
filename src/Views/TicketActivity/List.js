@@ -1,12 +1,10 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import domStyle from 'dojo/dom-style';
 import domGeom from 'dojo/dom-geometry';
 import query from 'dojo/query';
 import topic from 'dojo/topic';
 import lang from 'dojo/_base/lang';
-import format from '../../Format';
 import List from 'argos/List';
 
 /**
@@ -16,8 +14,8 @@ import List from 'argos/List';
  *
  * @requires crm.Format
  */
-var __class = declare('crm.Views.TicketActivity.List', [List], {
-  //Templates
+const __class = declare('crm.Views.TicketActivity.List', [List], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.Ticket.TicketNumber %}</h3>',
     '<h4>{%: crm.Format.date($.AssignedDate, $$.startDateFormatText) %}</h4>',
@@ -26,14 +24,14 @@ var __class = declare('crm.Views.TicketActivity.List', [List], {
     '{%: $.ActivityDescription %}',
     '</div>',
     '<div class="note-text-more"></div>',
-    '</div>'
+    '</div>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Ticket Activities',
   startDateFormatText: 'MM/DD/YYYY h:mm A',
 
-  //View Properties
+  // View Properties
   id: 'ticketactivity_list',
   security: 'Entities/TicketActivity/View',
   expose: false,
@@ -60,14 +58,14 @@ var __class = declare('crm.Views.TicketActivity.List', [List], {
     'Ticket/TicketNumber',
     'Ticket/Contact/Name',
     'User/UserInfo/LastName',
-    'User/UserInfo/FirstName'
+    'User/UserInfo/FirstName',
   ],
   resourceKind: 'ticketActivities',
 
-  _onResize: function() {
-    query('.note-text-item', this.contentNode).forEach(function(node) {
-      var wrapNode = query('.note-text-wrap', node)[0],
-        moreNode = query('.note-text-more', node)[0];
+  _onResize: function _onResize() {
+    query('.note-text-item', this.contentNode).forEach(function setNoteTextShown(node) {
+      const wrapNode = query('.note-text-wrap', node)[0];
+      const moreNode = query('.note-text-more', node)[0];
       if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
         domStyle.set(moreNode, 'visibility', 'visible');
       } else {
@@ -75,19 +73,19 @@ var __class = declare('crm.Views.TicketActivity.List', [List], {
       }
     });
   },
-  processData: function() {
+  processData: function processData() {
     this.inherited(arguments);
     this._onResize();
   },
-  postCreate: function() {
+  postCreate: function postCreate() {
     this.inherited(arguments);
     this.own(topic.subscribe('/app/resize', lang.hitch(this, this._onResize)));
   },
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute(
       'ActivityDescription like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]
     );
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TicketActivity.List', __class);
