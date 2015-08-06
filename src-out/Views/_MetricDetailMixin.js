@@ -1,4 +1,4 @@
-define('crm/Views/_MetricDetailMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/aspect', './MetricWidget'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoAspect, _MetricWidget) {
+define('crm/Views/_MetricDetailMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', './MetricWidget'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _MetricWidget) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -6,8 +6,6 @@ define('crm/Views/_MetricDetailMixin', ['exports', 'module', 'dojo/_base/declare
   var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _aspect = _interopRequireDefault(_dojoAspect);
 
   var _MetricWidget2 = _interopRequireDefault(_MetricWidget);
 
@@ -34,7 +32,7 @@ define('crm/Views/_MetricDetailMixin', ['exports', 'module', 'dojo/_base/declare
       this.inherited(arguments);
     },
     destroyWidgets: function destroyWidgets() {
-      _array['default'].forEach(this.metricWidgets, function (widget) {
+      _array['default'].forEach(this.metricWidgets, function destroy(widget) {
         widget.destroy();
       }, this);
     },
@@ -47,10 +45,9 @@ define('crm/Views/_MetricDetailMixin', ['exports', 'module', 'dojo/_base/declare
       this.destroyWidgets();
       this.metricWidgets = [];
 
-      var widgetOptions;
       // Create metrics widgets and place them in the metricNode
-      widgetOptions = this.createMetricWidgetsLayout(entry) || [];
-      _array['default'].forEach(widgetOptions, function (options) {
+      var widgetOptions = this.createMetricWidgetsLayout(entry) || [];
+      _array['default'].forEach(widgetOptions, function createAndPlaceWidget(options) {
         if (this.hasValidOptions(options)) {
           var widget = new _MetricWidget2['default'](options);
           widget.placeAt(this.metricNode, 'last');

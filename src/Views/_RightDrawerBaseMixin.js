@@ -1,6 +1,5 @@
-import declare from 'dojo/_base/declare'
-import array from 'dojo/_base/array'
-import lang from 'dojo/_base/lang'
+import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 
 // Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
 //
@@ -21,7 +20,7 @@ import lang from 'dojo/_base/lang'
  * @since 3.0
  *
  */
-var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
+const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
   drawerLoaded: false,
 
   /**
@@ -31,40 +30,40 @@ var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
   disableRightDrawer: false,
   toolsAdded: false,
 
-  setupRightDrawer: function() {},
-  loadRightDrawer: function() {
+  setupRightDrawer: function setupRightDrawer() {},
+  loadRightDrawer: function loadRightDrawer() {
     if (this.drawerLoaded || this.disableRightDrawer) {
       return;
     }
 
     this.setupRightDrawer();
-    var drawer = App.getView('right_drawer');
+    const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.refresh();
       this.drawerLoaded = true;
     }
   },
-  show: function(options) {
+  show: function show(options) {
     this.ensureToolsCreated(options);
     this.inherited(arguments);
   },
-  ensureToolsCreated: function(options) {
+  ensureToolsCreated: function ensureToolsCreated(options) {
     // Inject tools into options if it exists
     if (options && options.tools) {
       this._addTools(options.tools);
     }
   },
-  onToolLayoutCreated: function(tools) {
-    tools = tools || {
-      tbar: []
+  onToolLayoutCreated: function onToolLayoutCreated(tools) {
+    const theTools = tools || {
+      tbar: [],
     };
     if (!this.toolsAdded) {
-      this._addTools(tools);
+      this._addTools(theTools);
       this.toolsAdded = true;
     }
     this.inherited(arguments);
   },
-  _addTools: function(tools) {
+  _addTools: function _addTools(tools) {
     if (this.disableRightDrawer) {
       return;
     }
@@ -75,41 +74,41 @@ var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
         cls: 'fa fa-ellipsis-v fa-fw fa-lg',
         side: 'right',
         fn: this.toggleRightDrawer,
-        scope: this
+        scope: this,
       });
     }
   },
-  toggleRightDrawer: function() {
+  toggleRightDrawer: function toggleRightDrawer() {
     this._toggleDrawer('right');
   },
-  _toggleDrawer: function(state) {
-    var snapperState = App.snapper.state();
+  _toggleDrawer: function _toggleDrawer(state) {
+    const snapperState = App.snapper.state();
     if (snapperState.state === state) {
       App.snapper.close();
     } else {
       App.snapper.open(state);
     }
   },
-  unloadRightDrawer: function() {},
-  onTransitionTo: function() {
+  unloadRightDrawer: function unloadRightDrawer() {},
+  onTransitionTo: function onTransitionTo() {
     if (this.disableRightDrawer) {
       return;
     }
 
     this.loadRightDrawer();
   },
-  onTransitionAway: function() {
+  onTransitionAway: function onTransitionAway() {
     if (this.disableRightDrawer) {
       return;
     }
 
-    var drawer = App.getView('right_drawer');
+    const drawer = App.getView('right_drawer');
     if (drawer) {
       this.unloadRightDrawer();
       drawer.clear();
       this.drawerLoaded = false;
     }
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);

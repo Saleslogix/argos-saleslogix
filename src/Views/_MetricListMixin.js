@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import aspect from 'dojo/aspect';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
 
@@ -15,7 +14,7 @@ import GroupUtility from '../GroupUtility';
  * @requires crm.Views.MetricWidget
  *
  */
-var __class = declare('crm.Views._MetricListMixin', null, {
+const __class = declare('crm.Views._MetricListMixin', null, {
   // Metrics
   metricNode: null,
   metricWidgets: null,
@@ -24,7 +23,7 @@ var __class = declare('crm.Views._MetricListMixin', null, {
 
   metricWidgetsBuilt: false,
 
-  postMixInProperties: function() {
+  postMixInProperties: function postMixInProperties() {
     this.inherited(arguments);
     this.widgetTemplate = new Simplate([
       '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
@@ -38,42 +37,42 @@ var __class = declare('crm.Views._MetricListMixin', null, {
       '{%! $.moreTemplate %}',
       '{%! $.listActionTemplate %}',
       '</div>',
-      '</div>'
+      '</div>',
     ]);
   },
-  createMetricWidgetsLayout: function() {
-    var filtered = [],
-      metrics = [];
+  createMetricWidgetsLayout: function createMetricWidgetsLayout() {
+    let metrics = [];
+    let filtered = [];
 
     metrics = App.getMetricsByResourceKind(this.resourceKind);
 
     if (metrics.length > 0) {
-      filtered = array.filter(metrics, function(item) {
+      filtered = array.filter(metrics, function enableFilteredItems(item) {
         return item.enabled;
       });
     }
 
     return lang.clone(filtered);
   },
-  postCreate: function() {
+  postCreate: function postCreate() {
     this.inherited(arguments);
   },
-  destroyWidgets: function() {
-    array.forEach(this.metricWidgets, function(widget) {
+  destroyWidgets: function destroyWidgets() {
+    array.forEach(this.metricWidgets, function destroy(widget) {
       widget.destroy();
     }, this);
 
     this.metricWidgetsBuilt = false;
   },
-  requestData: function() {
+  requestData: function requestData() {
     this.inherited(arguments);
     this.rebuildWidgets();
   },
-  clear: function() {
+  clear: function clear() {
     this.inherited(arguments);
     this.destroyWidgets();
   },
-  rebuildWidgets: function() {
+  rebuildWidgets: function rebuildWidgets() {
     if (this.metricWidgetsBuilt) {
       return;
     }
@@ -85,10 +84,9 @@ var __class = declare('crm.Views._MetricListMixin', null, {
       return;
     }
 
-    var widgetOptions;
     // Create metrics widgets and place them in the metricNode
-    widgetOptions = this.createMetricWidgetsLayout() || [];
-    array.forEach(widgetOptions, function(options) {
+    const widgetOptions = this.createMetricWidgetsLayout() || [];
+    array.forEach(widgetOptions, function createAndPlaceWidgets(options) {
       if (this._hasValidOptions(options)) {
         options.returnToId = this.id;
 
@@ -96,7 +94,7 @@ var __class = declare('crm.Views._MetricListMixin', null, {
           options.queryArgs._activeFilter = '';
           options.request = GroupUtility.createGroupMetricRequest({
             groupId: this.currentGroupId,
-            queryArgs: options.queryArgs
+            queryArgs: options.queryArgs,
           });
           options.currentSearchExpression = this._currentGroup && this._currentGroup.displayName;
         } else {
@@ -106,7 +104,7 @@ var __class = declare('crm.Views._MetricListMixin', null, {
           options.queryArgs._activeFilter = this._getCurrentQuery();
         }
 
-        var widget = new MetricWidget(options);
+        const widget = new MetricWidget(options);
         widget.placeAt(this.metricNode, 'last');
         widget.requestData();
         this.metricWidgets.push(widget);
@@ -115,17 +113,17 @@ var __class = declare('crm.Views._MetricListMixin', null, {
 
     this.metricWidgetsBuilt = true;
   },
-  _getCurrentQuery: function() {
+  _getCurrentQuery: function _getCurrentQuery() {
     // Get the current query from the search box, and any context query located in options.where
-    var query = this.query,
-      where = this.options && this.options.where;
-    return array.filter([query, where], function(item) {
+    const query = this.query;
+    const where = this.options && this.options.where;
+    return array.filter([query, where], function checkItem(item) {
       return !!item;
     }).join(' and ');
   },
-  _hasValidOptions: function(options) {
+  _hasValidOptions: function _hasValidOptions(options) {
     return options && options.queryArgs && options.queryArgs._filterName && options.queryArgs._metricName;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);

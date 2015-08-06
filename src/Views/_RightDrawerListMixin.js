@@ -1,19 +1,13 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import json from 'dojo/json';
-import domConstruct from 'dojo/dom-construct';
 import domAttr from 'dojo/dom-attr';
-import domStyle from 'dojo/dom-style';
 import aspect from 'dojo/aspect';
 import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
 
-var mixinName,
-  __class;
-
-mixinName = 'crm.Views._RightDrawerListMixin';
+const mixinName = 'crm.Views._RightDrawerListMixin';
 
 /**
  * @class crm.Views._RightDrawerListMixin
@@ -24,8 +18,8 @@ mixinName = 'crm.Views._RightDrawerListMixin';
  * @mixins crm.Views._RightDrawerBaseMixin
  *
  */
-__class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
-  //Localization
+const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+  // Localization
   hashTagsSectionText: 'Hash Tags',
   groupsSectionText: 'Groups',
   kpiSectionText: 'KPI',
@@ -38,16 +32,16 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   DRAWER_PAGESIZE: 100,
   groupLookupId: 'groups_configure',
 
-  setupRightDrawer: function() {
-    var drawer = App.getView('right_drawer');
+  setupRightDrawer: function setupRightDrawer() {
+    const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.pageSize = this.DRAWER_PAGESIZE;
       this.groupList = GroupUtility.getGroupPreferences(this.entityName);
       this._finishSetup(drawer);
     }
   },
-  refreshRightDrawer: function() {
-    var drawer = App.getView('right_drawer');
+  refreshRightDrawer: function refreshRightDrawer() {
+    const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.clear();
       drawer.layout = null;
@@ -55,15 +49,15 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
       drawer.refresh();
     }
   },
-  _finishSetup: function(drawer) {
+  _finishSetup: function _finishSetup(drawer) {
     lang.mixin(drawer, this._createActions());
     drawer.setLayout(this.createRightDrawerLayout());
-    drawer.getGroupForEntry = function(entry) {
+    drawer.getGroupForEntry = function getGroupForEntry(entry) {
       return this.getGroupForRightDrawerEntry(entry);
     }.bind(this);
 
     if (this.rebuildWidgets) {
-      App.snapper.on('close', function() {
+      App.snapper.on('close', function onCloseofSnapper() {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
           this.rebuildWidgets();
@@ -72,15 +66,15 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
       }.bind(this));
     }
   },
-  unloadRightDrawer: function() {
-    var drawer = App.getView('right_drawer');
+  unloadRightDrawer: function unloadRightDrawer() {
+    const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.setLayout([]);
-      drawer.getGroupForEntry = function() {};
+      drawer.getGroupForEntry = function getGroupForEntry() {};
       App.snapper.off('close');
     }
   },
-  _onSearchExpression: function() {
+  _onSearchExpression: function _onSearchExpression() {
     // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
     if (this.groupsMode) {
       this._clearGroupMode();
@@ -88,10 +82,10 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
 
     this.inherited(arguments);
   },
-  _createActions: function() {
+  _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.
-    var actions = {
-      hashTagClicked: function(params) {
+    const actions = {
+      hashTagClicked: function hashTagClicked(params) {
         if (this.groupsMode) {
           this._clearGroupMode();
         }
@@ -102,19 +96,18 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
           this.toggleRightDrawer();
         }
       }.bind(this),
-      kpiClicked: function(params) {
-        var results, enabled, metrics;
-
-        metrics = App.getMetricsByResourceKind(this.resourceKind);
+      kpiClicked: function kpiClicked(params) {
+        const metrics = App.getMetricsByResourceKind(this.resourceKind);
+        let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, function(metric) {
+          results = array.filter(metrics, function setMetricTitle(metric) {
             return metric.title === params.title;
           });
         }
 
         if (results.length > 0) {
-          enabled = !!results[0].enabled;
+          const enabled = !!results[0].enabled;
           results[0].enabled = !enabled;
           App.persistPreferences();
           this._hasChangedKPIPrefs = true;
@@ -122,18 +115,15 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
           domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
         }
       }.bind(this),
-      groupConfigureClicked: function() {
+      groupConfigureClicked: function groupConfigureClicked() {
         this._selectGroups();
         this.toggleRightDrawer();
       }.bind(this),
-      groupClicked: function(params) {
-        var group,
-          groupId;
-
+      groupClicked: function groupClicked(params) {
         this._startGroupMode();
-        groupId = params.$key;
+        const groupId = params.$key;
 
-        group = array.filter(this.groupList, function(item) {
+        const group = array.filter(this.groupList, function setItemKey(item) {
           return item.$key === groupId;
         })[0];
 
@@ -144,59 +134,53 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         this.refresh();
         this.toggleRightDrawer();
       }.bind(this),
-      layoutSelectedClicked: function(params) {
-        var name = params.name;
+      layoutSelectedClicked: function layoutSelectedClicked(params) {
+        const name = params.name;
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
         this._groupInitalized = false;
         this.refresh();
         this.toggleRightDrawer();
-      }.bind(this)
+      }.bind(this),
 
     };
 
     return actions;
   },
-  _selectGroups: function() {
-    var field, handle, view;
-    view = App.getView(this.groupLookupId);
+  _selectGroups: function _selectGroups() {
+    const view = App.getView(this.groupLookupId);
     view.family = this.entityName;
     view.set('store', null);
     view.clear();
     view.refreshRequired = true;
 
-    field = new LookupField({
+    const field = new LookupField({
       owner: this,
       view: view,
       singleSelect: false,
-      previousSelections: array.map(this.groupList, function(group) {
+      previousSelections: array.map(this.groupList, function getGroupKey(group) {
         return group.$key;
-      })
+      }),
     });
 
-    handle = aspect.after(field, 'complete', function() {
-      var self = this,
-        list = this.owner,
-        groupId,
-        entry,
-        currentGroup,
-        items = [],
-        transitionHandle,
-        hasDefaultGroup;
+    const handle = aspect.after(field, 'complete', function afterComplete() {
+      const self = this;
+      const list = this.owner;
+      const items = [];
 
       // We will get an object back where the property names are the keys (groupId's)
       // Extract them out, and save the entry, which is the data property on the extracted object
-      for (groupId in self.currentValue) {
+      for (const groupId in self.currentValue) {
         if (self.currentValue.hasOwnProperty(groupId)) {
-          entry = self.currentValue[groupId].data;
+          const entry = self.currentValue[groupId].data;
           if (entry) {
             items.push(entry);
           }
         }
       }
 
-      hasDefaultGroup = list.hasDefaultGroup;
+      const hasDefaultGroup = list.hasDefaultGroup;
       GroupUtility.addToGroupPreferences(items, list.entityName, true);
-      currentGroup = GroupUtility.getDefaultGroup(list.entityName);
+      const currentGroup = GroupUtility.getDefaultGroup(list.entityName);
       if (currentGroup) {
         list.setCurrentGroup(currentGroup);
       }
@@ -206,68 +190,57 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
 
       if (hasDefaultGroup) {
         // We will transition back to the list, pop back open the right drawer so the user is back where they started
-        transitionHandle = aspect.after(list, 'processData', function() {
+        aspect.after(list, 'processData', function postProcessData() {
           this.toggleRightDrawer();
-          transitionHandle.remove();
+          this.transitionHandle.remove();
         }.bind(list));
       } else {
         // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
-        transitionHandle = aspect.after(list, 'onTransitionTo', function() {
+        aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
           this.refreshRequired = true;
           this.clear();
           this.refresh();
-          transitionHandle.remove();
+          this.transitionHandle.remove();
         }.bind(list));
       }
-
     }.bind(field));
 
     field.navigateToListView();
   },
-  getGroupForRightDrawerEntry: function(entry) {
-    var mixin = lang.getObject(mixinName);
+  getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
+    const mixin = lang.getObject(mixinName);
     if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags() && App.enableHashTags) {
       return {
         tag: 'view',
-        title: mixin.prototype.hashTagsSectionText
+        title: mixin.prototype.hashTagsSectionText,
       };
     }
 
     if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') && this.groupsEnabled) {
       return {
         tag: 'group',
-        title: mixin.prototype.groupsSectionText
+        title: mixin.prototype.groupsSectionText,
       };
     }
     if ((entry.action === 'layoutSelectedClicked') && this.groupsEnabled) {
       return {
         tag: 'layoutTemplates',
-        title: mixin.prototype.layoutsText
+        title: mixin.prototype.layoutsText,
       };
     }
     return {
       tag: 'kpi',
-      title: mixin.prototype.kpiSectionText
+      title: mixin.prototype.kpiSectionText,
     };
   },
-  createRightDrawerLayout: function() {
-    var groupsSection,
-      layoutSection,
-      hashTagsSection,
-      hashTag,
-      kpiSection,
-      layout,
-      metrics,
-      i,
-      len,
-      mixin = lang.getObject(mixinName);
-
-    layout = [];
+  createRightDrawerLayout: function createRightDrawerLayout() {
+    const mixin = lang.getObject(mixinName);
+    const layout = [];
 
     if (this.groupsEnabled) {
-      groupsSection = {
+      const groupsSection = {
         id: 'actions',
-        children: []
+        children: [],
       };
 
       groupsSection.children.push({
@@ -275,38 +248,36 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         'action': 'groupConfigureClicked',
         'title': mixin.prototype.configureGroupsText,
         'cls': 'group-configuration',
-        'iconCls': 'fa fa-cog fa-fw '
+        'iconCls': 'fa fa-cog fa-fw ',
       });
 
       if (this.groupList && this.groupList.length > 0) {
-        array.forEach(this.groupList, function(group) {
-
+        array.forEach(this.groupList, function setGroupSection(group) {
           groupsSection.children.push({
             'name': group.name,
             'action': 'groupClicked',
             'title': group.displayName,
             'dataProps': {
               $key: group.$key,
-              'title': group.displayName
-            }
+              'title': group.displayName,
+            },
           });
         });
       }
-      layoutSection = {
+      const layoutSection = {
         id: 'actions',
-        children: []
+        children: [],
       };
       if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
-        array.forEach(this.groupTemplateLayouts, function(layout) {
-
+        array.forEach(this.groupTemplateLayouts, function setGroupLayout(theLayout) {
           layoutSection.children.push({
-            'name': layout.name,
+            'name': theLayout.name,
             'action': 'layoutSelectedClicked',
-            'title': layout.displayName,
+            'title': theLayout.displayName,
             'dataProps': {
-              'name': layout.name,
-              'title': layout.displayName
-            }
+              'name': theLayout.name,
+              'title': theLayout.displayName,
+            },
           });
         });
       }
@@ -318,22 +289,22 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
     }
 
     if (App.enableHashTags) {
-      hashTagsSection = {
+      const hashTagsSection = {
         id: 'actions',
-        children: []
+        children: [],
       };
 
       if (this._hasHashTags()) {
-        len = this.searchWidget.hashTagQueries.length;
-        for (i = 0; i < len; i++) {
-          hashTag = this.searchWidget.hashTagQueries[i];
+        const len = this.searchWidget.hashTagQueries.length;
+        for (let i = 0; i < len; i++) {
+          const hashTag = this.searchWidget.hashTagQueries[i];
           hashTagsSection.children.push({
             'name': hashTag.key,
             'action': 'hashTagClicked',
             'title': hashTag.tag,
             'dataProps': {
-              'hashtag': hashTag.tag
-            }
+              'hashtag': hashTag.tag,
+            },
           });
         }
       }
@@ -341,15 +312,15 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
       layout.push(hashTagsSection);
     }
 
-    metrics = App.getMetricsByResourceKind(this.resourceKind);
+    const metrics = App.getMetricsByResourceKind(this.resourceKind);
 
-    kpiSection = {
+    const kpiSection = {
       id: 'kpi',
-      children: []
+      children: [],
     };
 
     if (metrics.length > 0) {
-      array.forEach(metrics, function(metric, i) {
+      array.forEach(metrics, function setMetric(metric, i) {
         if (metric.title) {
           kpiSection.children.push({
             'name': 'KPI' + i,
@@ -357,8 +328,8 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
             'title': metric.title,
             'dataProps': {
               'title': metric.title,
-              'enabled': !!metric.enabled
-            }
+              'enabled': !!metric.enabled,
+            },
           });
         }
       });
@@ -368,9 +339,9 @@ __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
 
     return layout;
   },
-  _hasHashTags: function() {
+  _hasHashTags: function _hasHashTags() {
     return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
