@@ -11,8 +11,8 @@ import List from 'argos/List';
  * @extends argos.List
  *
  */
-var __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
-  //Templates
+const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
+  // Templates
   itemIconTemplate: new Simplate([
     '<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">',
     '{% if ($$.getItemIconClass($)) { %}',
@@ -20,20 +20,20 @@ var __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     '{% } else { %}',
     '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
     '{% } %}',
-    '</button>'
+    '</button>',
   ]),
 
   itemTemplate: new Simplate([
-    '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>'
+    '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>',
   ]),
 
   itemRowContainerTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{%! $$.itemRowContentTemplate %}',
-    '</li>'
+    '</li>',
   ]),
 
-  //Localization
+  // Localization
   clearLocalStorageTitleText: 'Clear Storage',
   clearAuthenticationTitleText: 'Clear Saved Credentials',
   errorLogTitleText: 'View Error Logs',
@@ -41,7 +41,7 @@ var __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   credentialsClearedText: 'Saved credentials cleared successfully.',
   titleText: 'Settings',
 
-  //View Properties
+  // View Properties
   id: 'settings',
   expose: false,
   enableSearch: false,
@@ -52,87 +52,83 @@ var __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   actionOrder: [
     'clearAuthentication',
     'clearLocalStorage',
-    'viewErrorLogs'
+    'viewErrorLogs',
   ],
-  createActions: function() {
+  createActions: function createActions() {
     this.actions = {
       'clearLocalStorage': {
         title: this.clearLocalStorageTitleText,
-        cls: 'fa fa-database fa-2x'
+        cls: 'fa fa-database fa-2x',
       },
       'clearAuthentication': {
         title: this.clearAuthenticationTitleText,
-        cls: 'fa fa-unlock fa-2x'
+        cls: 'fa fa-unlock fa-2x',
       },
       'viewErrorLogs': {
         title: this.errorLogTitleText,
-        cls: 'fa fa-list-alt fa-2x'
-      }
+        cls: 'fa fa-list-alt fa-2x',
+      },
     };
   },
-  getItemIconClass: function(entry) {
+  getItemIconClass: function getItemIconClass(entry) {
     return entry.cls;
   },
-  createIndicatorLayout: function() {
+  createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = []);
   },
-  viewErrorLogs: function() {
-    var view = App.getView('errorlog_list');
+  viewErrorLogs: function viewErrorLogs() {
+    const view = App.getView('errorlog_list');
     if (view) {
       view.show();
     }
   },
-  clearLocalStorage: function() {
+  clearLocalStorage: function clearLocalStorage() {
     if (window.localStorage) {
       window.localStorage.clear();
     }
 
     connect.publish('/app/refresh', [{
-      resourceKind: 'localStorage'
+      resourceKind: 'localStorage',
     }]);
 
-    alert(this.localStorageClearedText);
+    alert(this.localStorageClearedText); // eslint-disable-line
   },
-  clearAuthentication: function() {
+  clearAuthentication: function clearAuthentication() {
     if (window.localStorage) {
       window.localStorage.removeItem('credentials');
     }
 
-    alert(this.credentialsClearedText);
+    alert(this.credentialsClearedText); // eslint-disable-line
   },
-  hasMoreData: function() {
+  hasMoreData: function hasMoreData() {
     return false;
   },
-  requestData: function() {
-    var list,
-      i,
-      action;
+  requestData: function requestData() {
+    const list = [];
 
-    list = [];
-
-    for (i = 0; i < this.actionOrder.length; i++) {
-      action = this.actions[this.actionOrder[i]];
+    for (let i = 0; i < this.actionOrder.length; i++) {
+      const action = this.actions[this.actionOrder[i]];
       if (action) {
         list.push({
           action: this.actionOrder[i],
           title: action.title,
           icon: action.icon,
-          cls: action.cls
+          cls: action.cls,
         });
       }
     }
 
     this.processData(list);
   },
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
     this.createActions();
   },
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      tbar: []
+      tbar: [],
     });
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Settings', __class);

@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import GroupedList from 'argos/GroupedList';
@@ -11,8 +10,8 @@ import GroupedList from 'argos/GroupedList';
  * @extends argos.GroupedList
  *
  */
-var __class = declare('crm.Views.RightDrawer', [GroupedList], {
-  //Templates
+const __class = declare('crm.Views.RightDrawer', [GroupedList], {
+  // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([
     '<li class="{%: $.cls %}" data-action="{%= $.action %}"',
@@ -30,52 +29,47 @@ var __class = declare('crm.Views.RightDrawer', [GroupedList], {
     '</div>',
     '{% } %}',
     '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-    '</li>'
+    '</li>',
   ]),
-  _hasIcon: function(entry) {
+  _hasIcon: function _hasIcon(entry) {
     return entry.iconTemplate || entry.cls || entry.icon || entry.iconCls;
   },
   itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>'
+    '<h3>{%: $.title %}</h3>',
   ]),
 
-  //View Properties
+  // View Properties
   id: 'right_drawer',
   expose: false,
   enableSearch: false,
   customizationSet: 'right_drawer',
   dataProps: null,
 
-  hasMoreData: function() {
+  hasMoreData: function hasMoreData() {
     return false;
   },
-  getGroupForEntry: function() {},
-  init: function() {
+  getGroupForEntry: function getGroupForEntry() {},
+  init: function init() {
     this.inherited(arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
   },
-  setLayout: function(layout) {
+  setLayout: function setLayout(layout) {
     this.layout = layout;
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || [];
   },
-  createStore: function() {
-    var layout = this._createCustomizedLayout(this.createLayout()),
-      list = [],
-      store,
-      section,
-      row,
-      i,
-      j;
+  createStore: function createStore() {
+    const layout = this._createCustomizedLayout(this.createLayout());
+    const list = [];
 
-    for (i = 0; i < layout.length; i++) {
-      section = layout[i].children;
+    for (let i = 0; i < layout.length; i++) {
+      const section = layout[i].children;
 
-      for (j = 0; j < section.length; j++) {
-        row = section[j];
+      for (let j = 0; j < section.length; j++) {
+        const row = section[j];
 
-        if (row['security'] && !App.hasAccessTo(row['security'])) {
+        if (row.security && !App.hasAccessTo(row.security)) {
           continue;
         }
         if (typeof this.query !== 'function' || this.query(row)) {
@@ -84,32 +78,32 @@ var __class = declare('crm.Views.RightDrawer', [GroupedList], {
       }
     }
 
-    store = new Memory({
-      data: list
+    const store = new Memory({
+      data: list,
     });
     return store;
   },
-  clear: function() {
+  clear: function clear() {
     this.inherited(arguments);
     this.store = null;
   },
   /**
    * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
    */
-  refresh: function() {
+  refresh: function refresh() {
     this.clear();
     this.requestData();
   },
-  show: function() {
+  show: function show() {
     if (this.onShow(this) === false) {
       return;
     }
 
     this.refresh();
   },
-  _onRegistered: function() {
+  _onRegistered: function _onRegistered() {
     this.refreshRequired = true;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.RightDrawer', __class);

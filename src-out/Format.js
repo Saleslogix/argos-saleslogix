@@ -22,8 +22,7 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
    * @requires crm.Template
    *
    */
-  var __class;
-  __class = _lang['default'].setObject('crm.Format', _lang['default'].mixin({}, _format['default'], {
+  var __class = _lang['default'].setObject('crm.Format', _lang['default'].mixin({}, _format['default'], {
     /**
      * Address Culture Formats as defined by crm.Format.address
      * http://msdn.microsoft.com/en-us/library/cc195167.aspx
@@ -88,17 +87,19 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
      @param {string} fmt Address format to use, may also pass a culture string to use predefined format
      @return {string} Formatted address
     */
-    address: function addressFormatter(o, asText, separator, fmt) {
-      var isEmpty = function isEmpty(line) {
-        var filterSymbols = _lang['default'].trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, '')); //'
+    address: function addressFormatter(o, asText, s, f) {
+      function isEmpty(line) {
+        var filterSymbols = _lang['default'].trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
         return filterSymbols === '';
-      };
+      }
 
       var self = crm.Format;
+      var fmt = f;
+      var separator = s;
 
       if (!fmt) {
         var culture = self.resolveAddressCulture(o);
-        fmt = self.addressCultureFormats[culture] || self.addressCultureFormats['en'];
+        fmt = self.addressCultureFormats[culture] || self.addressCultureFormats.en;
       }
 
       var lines = fmt.indexOf('|') === -1 ? [fmt] : fmt.split('|');
@@ -132,8 +133,8 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
       return crm.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
     },
     replaceAddressPart: function replaceAddressPart(fmt, o) {
-      return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g, function (part) {
-        switch (part) {
+      return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g, function replacePart(part) {
+        switch (part) {// eslint-disable-line
           case 's':
             return o.Salutation || '';
           case 'S':
@@ -172,18 +173,20 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
     // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
     phoneFormat: _format['default'].phoneFormat,
     phone: _format['default'].phone,
-    currency: function currency(val) {
+    currency: function currency(_val) {
+      var val = _val;
       if (isNaN(val) || val === null) {
         return val;
       }
+
       if (typeof val === 'string') {
         val = parseFloat(val);
       }
-      var v = val.toFixed(2),
-          // only 2 decimal places
-      f = Math.floor(parseFloat((100 * (v - Math.floor(v))).toPrecision(2))); // for fractional part, only need 2 significant digits
 
-      return _string['default'].substitute('${0}' + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator + '${1}', [Math.floor(v).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')), f.toString().length < 2 ? '0' + f.toString() : f.toString()]).replace(/ /g, ' '); //keep numbers from breaking
+      var v = val.toFixed(2); // only 2 decimal places
+      var f = Math.floor(parseFloat((100 * (v - Math.floor(v))).toPrecision(2))); // for fractional part, only need 2 significant digits
+
+      return _string['default'].substitute('${0}' + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator + '${1}', [Math.floor(v).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')), f.toString().length < 2 ? '0' + f.toString() : f.toString()]).replace(/ /g, ' '); // keep numbers from breaking
     },
     bigNumberAbbrText: {
       'billion': 'B',
@@ -191,10 +194,10 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
       'thousand': 'K'
     },
     bigNumber: function bigNumber(val) {
-      var numParse = typeof val !== 'number' ? parseFloat(val) : val,
-          absVal = Math.abs(numParse),
-          results = '',
-          text = crm.Format.bigNumberAbbrText;
+      var numParse = typeof val !== 'number' ? parseFloat(val) : val;
+      var results = '';
+      var absVal = Math.abs(numParse);
+      var text = crm.Format.bigNumberAbbrText;
 
       if (isNaN(numParse)) {
         return val;
@@ -204,23 +207,23 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
         numParse = numParse / 1000000000;
         results = _dojoNumber2['default'].format(numParse, {
           places: 1
-        }) + text['billion'];
+        }) + text.billion;
       } else if (absVal >= 1000000) {
         numParse = numParse / 1000000;
         results = _dojoNumber2['default'].format(numParse, {
           places: 1
-        }) + text['million'];
+        }) + text.million;
       } else if (absVal >= 1000) {
         numParse = numParse / 1000;
         results = _dojoNumber2['default'].format(numParse, {
           places: 1
-        }) + text['thousand'];
+        }) + text.thousand;
       }
 
       return results;
     },
-    relativeDate: function relativeDate(date, timeless) {
-      date = (0, _moment2['default'])(date);
+    relativeDate: function relativeDate(_date, timeless) {
+      var date = (0, _moment2['default'])(_date);
       if (!date || !date.isValid()) {
         throw new Error('Invalid date passed into crm.Format.relativeDate');
       }
@@ -243,7 +246,6 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
       }
 
       var name = _template['default'].nameLF.apply(val);
-
       return name;
     },
     mail: function mail(val) {
@@ -268,8 +270,8 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
      * @returns {String}
      */
     formatUserInitial: function formatUserInitial(user) {
-      var firstLast = this.resolveFirstLast(user),
-          initials = [firstLast[0].substr(0, 1)];
+      var firstLast = this.resolveFirstLast(user);
+      var initials = [firstLast[0].substr(0, 1)];
 
       if (firstLast[1]) {
         initials.push(firstLast[1].substr(0, 1));
@@ -294,11 +296,9 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
      * @returns {String}
      */
     resolveFirstLast: function resolveFirstLast(name) {
-      var firstLast, names;
-
-      firstLast = [];
+      var firstLast = [];
       if (name.indexOf(' ') !== -1) {
-        names = name.split(' ');
+        var names = name.split(' ');
         if (names[0].indexOf(',') !== -1) {
           firstLast = [names[1], names[0].slice(0, -1)];
         } else {
@@ -309,8 +309,15 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
       }
       return firstLast;
     },
-    fixedLocale: function fixedLocale(val, d) {
-      var num, frac, p, v, f, fVal;
+    fixedLocale: function fixedLocale(_val, _d) {
+      var val = _val;
+      var d = _d;
+      var p = undefined;
+      var v = undefined;
+      var f = undefined;
+      var fVal = undefined;
+      var num = undefined;
+
       if (isNaN(val) || val === null) {
         return val;
       }
@@ -328,7 +335,7 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
           f = String(p).slice(1);
         }
       } else {
-        //zero decimal palces
+        // zero decimal palces
         p = Math.pow(10, 0);
         v = Math.round(val * p) / p;
         f = 0;
@@ -336,12 +343,12 @@ define('crm/Format', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/array'
       num = Math.floor(v).toString();
       num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace('\\.', '.'));
       if (d > 0) {
-        frac = f.toString().length < d ? '' : f.toString();
+        var frac = f.toString().length < d ? '' : f.toString();
         fVal = _string['default'].substitute('${0}' + Mobile.CultureInfo.numberFormat.numberDecimalSeparator + '${1}', [num, frac]);
       } else {
         fVal = num;
       }
-      return fVal.replace(/ /g, ' '); //keep numbers from breaking
+      return fVal.replace(/ /g, ' '); // keep numbers from breaking
     }
   }));
 

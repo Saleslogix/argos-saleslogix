@@ -1,9 +1,7 @@
-define('crm/Views/RightDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/store/Memory', 'argos/GroupedList'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoStoreMemory, _argosGroupedList) {
+define('crm/Views/RightDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/store/Memory', 'argos/GroupedList'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoStoreMemory, _argosGroupedList) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
-
-  var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
@@ -19,7 +17,7 @@ define('crm/Views/RightDrawer', ['exports', 'module', 'dojo/_base/declare', 'doj
    *
    */
   var __class = (0, _declare['default'])('crm.Views.RightDrawer', [_GroupedList['default']], {
-    //Templates
+    // Templates
     cls: ' contextualContent',
     rowTemplate: new Simplate(['<li class="{%: $.cls %}" data-action="{%= $.action %}"', '{% if($.dataProps) { %}', '{% for(var prop in $.dataProps) { %}', ' data-{%= prop %}="{%= $.dataProps[prop] %}"', '{% } %}', '{% } %}', '>', '{% if ($$._hasIcon($)) { %}', '<div class="list-item-static-selector {%: $.iconCls %} ">', '{% if ($.icon) { %}', '<img src="{%: $.icon %}" alt="icon" class="icon" />', '{% } %}', '</div>', '{% } %}', '<div class="list-item-content">{%! $$.itemTemplate %}</div>', '</li>']),
     _hasIcon: function _hasIcon(entry) {
@@ -27,7 +25,7 @@ define('crm/Views/RightDrawer', ['exports', 'module', 'dojo/_base/declare', 'doj
     },
     itemTemplate: new Simplate(['<h3>{%: $.title %}</h3>']),
 
-    //View Properties
+    // View Properties
     id: 'right_drawer',
     expose: false,
     enableSearch: false,
@@ -49,21 +47,16 @@ define('crm/Views/RightDrawer', ['exports', 'module', 'dojo/_base/declare', 'doj
       return this.layout || [];
     },
     createStore: function createStore() {
-      var layout = this._createCustomizedLayout(this.createLayout()),
-          list = [],
-          store,
-          section,
-          row,
-          i,
-          j;
+      var layout = this._createCustomizedLayout(this.createLayout());
+      var list = [];
 
-      for (i = 0; i < layout.length; i++) {
-        section = layout[i].children;
+      for (var i = 0; i < layout.length; i++) {
+        var section = layout[i].children;
 
-        for (j = 0; j < section.length; j++) {
-          row = section[j];
+        for (var j = 0; j < section.length; j++) {
+          var row = section[j];
 
-          if (row['security'] && !App.hasAccessTo(row['security'])) {
+          if (row.security && !App.hasAccessTo(row.security)) {
             continue;
           }
           if (typeof this.query !== 'function' || this.query(row)) {
@@ -72,7 +65,7 @@ define('crm/Views/RightDrawer', ['exports', 'module', 'dojo/_base/declare', 'doj
         }
       }
 
-      store = new _Memory['default']({
+      var store = new _Memory['default']({
         data: list
       });
       return store;

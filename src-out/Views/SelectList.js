@@ -17,10 +17,10 @@ define('crm/Views/SelectList', ['exports', 'module', 'dojo/_base/declare', 'dojo
    *
    */
   var __class = (0, _declare['default'])('crm.Views.SelectList', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.$descriptor %}</h3>']),
 
-    //View Properties
+    // View Properties
     id: 'select_list',
     expose: false,
     enablePullToRefresh: false,
@@ -28,9 +28,8 @@ define('crm/Views/SelectList', ['exports', 'module', 'dojo/_base/declare', 'dojo
     refreshRequiredFor: function refreshRequiredFor(options) {
       if (this.options) {
         return options ? this.options.data !== options.data : false;
-      } else {
-        return true;
       }
+      return true;
     },
     hasMoreData: function hasMoreData() {
       return false;
@@ -41,9 +40,8 @@ define('crm/Views/SelectList', ['exports', 'module', 'dojo/_base/declare', 'dojo
     },
     createStore: function createStore() {
       // caller is responsible for passing in a well-structured feed object.
-      var store,
-          data = this.expandExpression(this.options && this.options.data && this.options.data.$resources);
-      store = (0, _Memory['default'])({
+      var data = this.expandExpression(this.options && this.options.data && this.options.data.$resources);
+      var store = new _Memory['default']({
         data: data
       });
       store.idProperty = '$key';

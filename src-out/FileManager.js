@@ -52,17 +52,11 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
      * @returns {Boolean}
      */
     isFileSizeAllowed: function isFileSizeAllowed(files) {
-      var len = 0,
-          maxfileSize,
-          title,
-          msg,
-          i;
-      maxfileSize = this.fileUploadOptions.maxFileSize;
-      title = this.largeFileWarningTitle;
-      msg = this.largeFileWarningText;
+      var len = 0;
+      var maxfileSize = this.fileUploadOptions.maxFileSize;
 
-      for (i = 0; i < files.length; i++) {
-        if (files[i].size === 0) {
+      for (var i = 0; i < files.length; i++) {
+        if (files[i].size === 0) {// eslint-disable-line
           // do nothing.
         } else {
             len += files[i].size || files[i].blob.length;
@@ -102,16 +96,17 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
         this._onUnableToUploadError(this.unableToUploadText, error);
       }
     },
-    _uploadFileHTML5_asBinary: function _uploadFileHTML5_asBinary(file, url, progress, complete, error, scope, asPut) {
+    _uploadFileHTML5_asBinary: function _uploadFileHTML5_asBinary(file, _url, progress, complete, error, scope, asPut) {
+      // eslint-disable-line
+      var url = _url;
+      var request = new XMLHttpRequest();
+      var service = App.getService();
       window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
       if (!url) {
-        //assume Attachment SData url
+        // assume Attachment SData url
         url = 'slxdata.ashx/slx/system/-/attachments/file'; // TODO: Remove this assumption from SDK
       }
 
-      var request = new XMLHttpRequest(),
-          service = App.getService(),
-          reader;
       request.open(asPut ? 'PUT' : 'POST', url);
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
@@ -121,11 +116,13 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
         request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
       }
 
-      reader = new FileReader();
-      reader.onload = _lang['default'].hitch(this, function (evt) {
-        var binary, boundary, dashdash, crlf, bb, unknownErrorText, usingBlobBuilder, blobReader, blobData;
-        unknownErrorText = this.unknownErrorText;
-        blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
+      var reader = new FileReader();
+      reader.onload = _lang['default'].hitch(this, function readerOnLoad(evt) {
+        var unknownErrorText = this.unknownErrorText;
+        var blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
+        var bb = undefined;
+        var usingBlobBuilder = undefined;
+        var blobData = undefined;
 
         try {
           bb = new Blob(); // This will throw an exception if it is not supported (android)
@@ -135,10 +132,10 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
           usingBlobBuilder = true;
         }
 
-        binary = evt.target.result;
-        boundary = '---------------------------' + new Date().getTime();
-        dashdash = '--';
-        crlf = '\r\n';
+        var binary = evt.target.result;
+        var boundary = '---------------------------' + new Date().getTime();
+        var dashdash = '--';
+        var crlf = '\r\n';
 
         this._append(bb, dashdash + boundary + crlf);
         this._append(bb, 'Content-Disposition: attachment; ');
@@ -152,22 +149,22 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
         this._append(bb, dashdash + boundary + dashdash + crlf);
 
         if (complete) {
-          request.onreadystatechange = function () {
+          request.onreadystatechange = function onReadyStateChange() {
             if (request.readyState === 4) {
               if (Math.floor(request.status / 100) !== 2) {
                 if (error) {
                   error.call(scope || this, unknownErrorText);
-                  console.warn(unknownErrorText + ' ' + request.responseText);
+                  console.warn(unknownErrorText + ' ' + request.responseText); // eslint-disable-line
                 }
               } else {
-                complete.call(scope || this, request);
-              }
+                  complete.call(scope || this, request);
+                }
             }
           };
         }
 
         if (progress) {
-          request.upload.addEventListener('progress', function (e) {
+          request.upload.addEventListener('progress', function uploadProgress(e) {
             progress.call(scope || this, e);
           });
         }
@@ -182,7 +179,7 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
 
         // Read the blob back as an ArrayBuffer to work around this android issue:
         // https://code.google.com/p/android/issues/detail?id=39882
-        blobReader.onload = function (e) {
+        blobReader.onload = function blobReaderOnLoad(e) {
           request.send(e.target.result);
         };
 
@@ -198,14 +195,15 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
         arrayOrBlobBuilder.append(data);
       }
     },
-    _onUnableToUploadError: function _onUnableToUploadError(msg, onError) {
+    _onUnableToUploadError: function _onUnableToUploadError(_msg, onError) {
+      var msg = _msg;
       if (!msg) {
         msg = this.unableToUploadText;
       }
       if (onError) {
         onError([msg]);
       } else {
-        console.warn([msg]);
+        console.warn([msg]); // eslint-disable-line
       }
     },
     /**
@@ -213,7 +211,8 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
      * @param {Number} size
      * @returns {String}
      */
-    formatFileSize: function formatFileSize(size) {
+    formatFileSize: function formatFileSize(_size) {
+      var size = _size;
       size = parseInt(size, 10);
       if (size === 0) {
         return '0 KB';
@@ -234,12 +233,8 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
      * @param {Object} onSuccess.responseInfo
      */
     getFile: function getFile(fileUrl, responseType, onSuccess) {
-      var request, service, self;
-
-      request = new XMLHttpRequest();
-      service = App.getService();
-      self = this;
-
+      var request = new XMLHttpRequest();
+      var service = App.getService();
       request.open('GET', fileUrl, true);
 
       if (responseType) {
@@ -253,16 +248,11 @@ define('crm/FileManager', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/d
         request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
       }
 
-      request.addEventListener('load', function () {
-        var data, contentType, contentInfo, responseInfo, fileName;
-
-        data = this.response;
-        contentType = this.getResponseHeader('Content-Type');
-        contentInfo = this.getResponseHeader('Content-Disposition');
-        responseInfo = {};
-        fileName = contentInfo.split('=')[1];
-
-        responseInfo = {
+      request.addEventListener('load', function load() {
+        var contentType = this.getResponseHeader('Content-Type');
+        var contentInfo = this.getResponseHeader('Content-Disposition');
+        var fileName = contentInfo.split('=')[1];
+        var responseInfo = {
           request: this,
           responseType: responseType,
           response: this.response,

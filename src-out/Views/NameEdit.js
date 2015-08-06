@@ -17,7 +17,7 @@ define('crm/Views/NameEdit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
    *
    */
   var __class = (0, _declare['default'])('crm.Views.NameEdit', [_Edit['default']], {
-    //Localization
+    // Localization
     titleText: 'Edit Name',
     firstNameText: 'first',
     middleNameText: 'middle',
@@ -27,7 +27,7 @@ define('crm/Views/NameEdit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
     suffixText: 'suffix',
     suffixTitleText: 'Name Suffix',
 
-    //View Properties
+    // View Properties
     id: 'name_edit',
 
     createLayout: function createLayout() {

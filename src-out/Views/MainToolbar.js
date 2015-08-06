@@ -19,13 +19,14 @@ define('crm/Views/MainToolbar', ['exports', 'module', 'dojo/_base/declare', 'doj
    *
    */
   var __class = (0, _declare['default'])('crm.Views.MainToolbar', [_MainToolbar['default']], {
-    showTools: function showTools(tools) {
-      var hasLeftDrawer, isOnFirstView, i, isOnEdit;
-
-      isOnFirstView = App.isOnFirstView();
+    showTools: function showTools(_tools) {
+      var tools = _tools;
+      var hasLeftDrawer = undefined;
+      var isOnEdit = undefined;
+      var isOnFirstView = App.isOnFirstView();
 
       if (tools) {
-        for (i = 0; i < tools.length; i++) {
+        for (var i = 0; i < tools.length; i++) {
           if (tools[i].id === 'toggleLeftDrawer') {
             hasLeftDrawer = true;
           }
@@ -79,13 +80,11 @@ define('crm/Views/MainToolbar', ['exports', 'module', 'dojo/_base/declare', 'doj
       this._toggleDrawer('left');
     },
     onTitleClick: function onTitleClick() {
-      var view, state, scrollerNode;
-
-      state = App.snapper && App.snapper.state();
-      view = App.getPrimaryActiveView();
+      var state = App.snapper && App.snapper.state();
+      var view = App.getPrimaryActiveView();
 
       if (view && state && state.state === 'closed') {
-        scrollerNode = view.get('scroller');
+        var scrollerNode = view.get('scroller');
         if ((0, _has['default'])('android')) {
           // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
           _domStyle['default'].set(scrollerNode, 'overflow', 'hidden');

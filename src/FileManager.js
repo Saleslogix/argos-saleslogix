@@ -7,7 +7,7 @@ import has from 'dojo/has';
  * @class crm.FileManager
  *
  */
-var __class = declare('crm.FileManager', null, {
+const __class = declare('crm.FileManager', null, {
   unableToUploadText: 'This browser does not support HTML5 File API.',
   unknownSizeText: 'unknown',
   unknownErrorText: 'Warning: An error occured and the file failed to upload.',
@@ -15,7 +15,7 @@ var __class = declare('crm.FileManager', null, {
   largeFileWarningTitle: 'Warning',
   percentCompleteText: 'Uploading, please wait...',
   fileUploadOptions: {
-    maxFileSize: 4000000
+    maxFileSize: 4000000,
   },
   _store: false,
   _totalProgress: 0,
@@ -27,7 +27,7 @@ var __class = declare('crm.FileManager', null, {
   /**
    * @constructor
    */
-  constructor: function() {
+  constructor: function constructor() {
     this._files = [];
     this.fileUploadOptions.maxFileSize = App.maxUploadFileSize;
   },
@@ -35,8 +35,8 @@ var __class = declare('crm.FileManager', null, {
    * Checks if the HTML5 file api is supported.
    * @returns {Boolean}
    */
-  isHTML5Supported: function() {
-    var results = has('html5-file-api');
+  isHTML5Supported: function isHTML5Supported() {
+    const results = has('html5-file-api');
     return results;
   },
   /**
@@ -45,15 +45,12 @@ var __class = declare('crm.FileManager', null, {
    * @param {Array}
    * @returns {Boolean}
    */
-  isFileSizeAllowed: function(files) {
-    var len = 0,
-      maxfileSize, title, msg, i;
-    maxfileSize = this.fileUploadOptions.maxFileSize;
-    title = this.largeFileWarningTitle;
-    msg = this.largeFileWarningText;
+  isFileSizeAllowed: function isFileSizeAllowed(files) {
+    let len = 0;
+    const maxfileSize = this.fileUploadOptions.maxFileSize;
 
-    for (i = 0; i < files.length; i++) {
-      if (files[i].size === 0) {
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size === 0) {// eslint-disable-line
         // do nothing.
       } else {
         len += files[i].size || files[i].blob.length;
@@ -79,10 +76,10 @@ var __class = declare('crm.FileManager', null, {
    * @param {Object} scope
    * @param {Boolean} asPut
    */
-  uploadFile: function(file, url, progress, complete, error, scope, asPut) {
+  uploadFile: function uploadFile(file, url, progress, complete, error, scope, asPut) {
     this.uploadFileHTML5(file, url, progress, complete, error, scope, asPut);
   },
-  uploadFileHTML5: function(file, url, progress, complete, error, scope, asPut) {
+  uploadFileHTML5: function uploadFileHTML5(file, url, progress, complete, error, scope, asPut) {
     if (!this.isFileSizeAllowed([file])) {
       this._onUnableToUploadError(this.largeFileWarningText, error);
       return;
@@ -93,19 +90,19 @@ var __class = declare('crm.FileManager', null, {
       this._onUnableToUploadError(this.unableToUploadText, error);
     }
   },
-  _uploadFileHTML5_asBinary: function(file, url, progress, complete, error, scope, asPut) {
+  _uploadFileHTML5_asBinary: function _uploadFileHTML5_asBinary(file, _url, progress, complete, error, scope, asPut) {// eslint-disable-line
+    let url = _url;
+    const request = new XMLHttpRequest();
+    const service = App.getService();
     window.BlobBuilder = window.BlobBuilder ||
       window.WebKitBlobBuilder ||
       window.MozBlobBuilder ||
       window.MSBlobBuilder;
     if (!url) {
-      //assume Attachment SData url
+      // assume Attachment SData url
       url = 'slxdata.ashx/slx/system/-/attachments/file'; // TODO: Remove this assumption from SDK
     }
 
-    var request = new XMLHttpRequest(),
-      service = App.getService(),
-      reader;
     request.open((asPut) ? 'PUT' : 'POST', url);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
@@ -115,11 +112,13 @@ var __class = declare('crm.FileManager', null, {
       request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
     }
 
-    reader = new FileReader();
-    reader.onload = lang.hitch(this, function(evt) {
-      var binary, boundary, dashdash, crlf, bb, unknownErrorText, usingBlobBuilder, blobReader, blobData;
-      unknownErrorText = this.unknownErrorText;
-      blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
+    const reader = new FileReader();
+    reader.onload = lang.hitch(this, function readerOnLoad(evt) {
+      const unknownErrorText = this.unknownErrorText;
+      const blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
+      let bb;
+      let usingBlobBuilder;
+      let blobData;
 
       try {
         bb = new Blob(); // This will throw an exception if it is not supported (android)
@@ -129,10 +128,10 @@ var __class = declare('crm.FileManager', null, {
         usingBlobBuilder = true;
       }
 
-      binary = evt.target.result;
-      boundary = '---------------------------' + (new Date()).getTime();
-      dashdash = '--';
-      crlf = '\r\n';
+      const binary = evt.target.result;
+      const boundary = '---------------------------' + (new Date()).getTime();
+      const dashdash = '--';
+      const crlf = '\r\n';
 
       this._append(bb, dashdash + boundary + crlf);
       this._append(bb, 'Content-Disposition: attachment; ');
@@ -146,12 +145,12 @@ var __class = declare('crm.FileManager', null, {
       this._append(bb, dashdash + boundary + dashdash + crlf);
 
       if (complete) {
-        request.onreadystatechange = function() {
+        request.onreadystatechange = function onReadyStateChange() {
           if (request.readyState === 4) {
             if (Math.floor(request.status / 100) !== 2) {
               if (error) {
                 error.call(scope || this, unknownErrorText);
-                console.warn(unknownErrorText + ' ' + request.responseText);
+                console.warn(unknownErrorText + ' ' + request.responseText);// eslint-disable-line
               }
             } else {
               complete.call(scope || this, request);
@@ -161,7 +160,7 @@ var __class = declare('crm.FileManager', null, {
       }
 
       if (progress) {
-        request.upload.addEventListener('progress', function(e) {
+        request.upload.addEventListener('progress', function uploadProgress(e) {
           progress.call(scope || this, e);
         });
       }
@@ -176,7 +175,7 @@ var __class = declare('crm.FileManager', null, {
 
       // Read the blob back as an ArrayBuffer to work around this android issue:
       // https://code.google.com/p/android/issues/detail?id=39882
-      blobReader.onload = function(e) {
+      blobReader.onload = function blobReaderOnLoad(e) {
         request.send(e.target.result);
       };
 
@@ -185,21 +184,22 @@ var __class = declare('crm.FileManager', null, {
 
     reader.readAsArrayBuffer(file);
   },
-  _append: function(arrayOrBlobBuilder, data) {
+  _append: function _append(arrayOrBlobBuilder, data) {
     if (arrayOrBlobBuilder && arrayOrBlobBuilder.constructor === Array) {
       arrayOrBlobBuilder.push(data);
     } else {
       arrayOrBlobBuilder.append(data);
     }
   },
-  _onUnableToUploadError: function(msg, onError) {
+  _onUnableToUploadError: function _onUnableToUploadError(_msg, onError) {
+    let msg = _msg;
     if (!msg) {
       msg = this.unableToUploadText;
     }
     if (onError) {
       onError([msg]);
     } else {
-      console.warn([msg]);
+      console.warn([msg]); // eslint-disable-line
     }
   },
   /**
@@ -207,7 +207,8 @@ var __class = declare('crm.FileManager', null, {
    * @param {Number} size
    * @returns {String}
    */
-  formatFileSize: function(size) {
+  formatFileSize: function formatFileSize(_size) {
+    let size = _size;
     size = parseInt(size, 10);
     if (size === 0) {
       return '0 KB';
@@ -227,13 +228,9 @@ var __class = declare('crm.FileManager', null, {
    * @param {Function} onSuccess
    * @param {Object} onSuccess.responseInfo
    */
-  getFile: function(fileUrl, responseType, onSuccess) {
-    var request, service, self;
-
-    request = new XMLHttpRequest();
-    service = App.getService();
-    self = this;
-
+  getFile: function getFile(fileUrl, responseType, onSuccess) {
+    const request = new XMLHttpRequest();
+    const service = App.getService();
     request.open('GET', fileUrl, true);
 
     if (responseType) {
@@ -247,28 +244,23 @@ var __class = declare('crm.FileManager', null, {
       request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
     }
 
-    request.addEventListener('load', function() {
-      var data, contentType, contentInfo, responseInfo, fileName;
-
-      data = this.response;
-      contentType = this.getResponseHeader('Content-Type');
-      contentInfo = this.getResponseHeader('Content-Disposition');
-      responseInfo = {};
-      fileName = contentInfo.split('=')[1];
-
-      responseInfo = {
+    request.addEventListener('load', function load() {
+      const contentType = this.getResponseHeader('Content-Type');
+      const contentInfo = this.getResponseHeader('Content-Disposition');
+      const fileName = contentInfo.split('=')[1];
+      const responseInfo = {
         request: this,
         responseType: responseType,
         response: this.response,
         contentType: contentType,
-        fileName: fileName
+        fileName: fileName,
       };
       if (onSuccess) {
         onSuccess(responseInfo);
       }
     }, false);
     request.send(null);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.FileManager', __class);
