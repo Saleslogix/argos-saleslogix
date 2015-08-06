@@ -1,31 +1,19 @@
-define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array', 'dojo/_base/declare', 'dojo/_base/event', 'dojo/_base/lang', 'dojo/dom-attr', 'dojo/dom', 'dojo/dom-construct', 'dojo/query', 'dojo/dom-class', 'argos/Convert', 'moment'], function (exports, module, _dojo_baseArray, _dojo_baseDeclare, _dojo_baseEvent, _dojo_baseLang, _dojoDomAttr, _dojoDom, _dojoDomConstruct, _dojoQuery, _dojoDomClass, _argosConvert, _moment) {
+define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/dom-construct', 'dojo/query', 'argos/Convert', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoDomConstruct, _dojoQuery, _argosConvert, _moment) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-  var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-  var _event = _interopRequireDefault(_dojo_baseEvent);
-
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _domAttr = _interopRequireDefault(_dojoDomAttr);
-
-  var _dom = _interopRequireDefault(_dojoDom);
 
   var _domConstruct = _interopRequireDefault(_dojoDomConstruct);
 
   var _query = _interopRequireDefault(_dojoQuery);
 
-  var _domClass = _interopRequireDefault(_dojoDomClass);
-
   var _convert = _interopRequireDefault(_argosConvert);
 
   var _moment2 = _interopRequireDefault(_moment);
 
-  var mixinName, __class;
-
-  mixinName = 'crm.Views._CardLayoutListMixin';
+  var mixinName = 'crm.Views._CardLayoutListMixin';
 
   /**
    * @class crm.Views._CardLayoutListMixin
@@ -37,7 +25,7 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
    * @requires argos.Convert
    *
    */
-  __class = (0, _declare['default'])('crm.Views._CardLayoutListMixin', null, {
+  var __class = (0, _declare['default'])('crm.Views._CardLayoutListMixin', null, {
     itemIcon: 'content/images/icons/man_1.png',
     itemIconAltText: 'Contact',
     itemIconClass: '',
@@ -90,62 +78,53 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
       return this.itemIconAltText;
     },
     createIndicators: function createIndicators(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-      var indicatorTemplate,
-          options,
-          indicatorHTML,
-          i,
-          iconPath,
-          self = this;
-      for (i = 0; i < indicators.length; i++) {
-        (function (indicator) {
-          iconPath = indicator.iconPath || self.itemIndicatorIconPath;
-          if (indicator.onApply) {
-            try {
-              indicator.onApply(entry, self);
-            } catch (err) {
-              indicator.isEnabled = false;
-            }
+      var self = this;
+      for (var i = 0; i < indicators.length; i++) {
+        var indicator = indicators[i];
+        var iconPath = indicator.iconPath || self.itemIndicatorIconPath;
+        if (indicator.onApply) {
+          try {
+            indicator.onApply(entry, self);
+          } catch (err) {
+            indicator.isEnabled = false;
           }
-          options = {
-            indicatorIndex: i,
-            indicatorIcon: indicator.icon ? iconPath + indicator.icon : '',
-            iconCls: indicator.cls || ''
-          };
+        }
+        var options = {
+          indicatorIndex: i,
+          indicatorIcon: indicator.icon ? iconPath + indicator.icon : '',
+          iconCls: indicator.cls || ''
+        };
 
-          indicatorTemplate = indicator.template || self.itemIndicatorTemplate;
+        var indicatorTemplate = indicator.template || self.itemIndicatorTemplate;
 
-          _lang['default'].mixin(indicator, options);
+        _lang['default'].mixin(indicator, options);
 
-          if (indicator.isEnabled === false) {
-            indicator.label = '';
-            if (indicator.cls) {
-              indicator.iconCls = indicator.cls + ' disabled';
-            } else {
-              indicator.indicatorIcon = indicator.icon ? iconPath + 'disabled_' + indicator.icon : '';
-            }
+        if (indicator.isEnabled === false) {
+          indicator.label = '';
+          if (indicator.cls) {
+            indicator.iconCls = indicator.cls + ' disabled';
           } else {
-            indicator.indicatorIcon = indicator.icon ? iconPath + indicator.icon : '';
+            indicator.indicatorIcon = indicator.icon ? iconPath + 'disabled_' + indicator.icon : '';
           }
+        } else {
+          indicator.indicatorIcon = indicator.icon ? iconPath + indicator.icon : '';
+        }
 
+        if (indicator.isEnabled === false && indicator.showIcon === false) {
+          return;
+        }
+
+        if (self.itemIndicatorShowDisabled || indicator.isEnabled) {
           if (indicator.isEnabled === false && indicator.showIcon === false) {
             return;
           }
-
-          if (self.itemIndicatorShowDisabled || indicator.isEnabled) {
-
-            if (indicator.isEnabled === false && indicator.showIcon === false) {
-              return;
-            } else {
-
-              indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
-              if (indicator.location === 'top') {
-                _domConstruct['default'].place(indicatorHTML, topIndicatorsNode, 'last');
-              } else {
-                _domConstruct['default'].place(indicatorHTML, bottomIndicatorsNode, 'last');
-              }
-            }
+          var indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
+          if (indicator.location === 'top') {
+            _domConstruct['default'].place(indicatorHTML, topIndicatorsNode, 'last');
+          } else {
+            _domConstruct['default'].place(indicatorHTML, bottomIndicatorsNode, 'last');
           }
-        })(indicators[i]);
+        }
       }
     },
     onApplyRowTemplate: function onApplyRowTemplate(entry, rowNode) {
@@ -157,10 +136,9 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
       this.inherited(arguments);
     },
     applyRowIndicators: function applyRowIndicators(entry, rowNode) {
-      var topIndicatorsNode, bottomIndicatorsNode;
       if (this.itemIndicators && this.itemIndicators.length > 0) {
-        topIndicatorsNode = (0, _query['default'])('> #top_item_indicators', rowNode);
-        bottomIndicatorsNode = (0, _query['default'])('> #bottom_item_indicators', rowNode);
+        var topIndicatorsNode = (0, _query['default'])('> #top_item_indicators', rowNode);
+        var bottomIndicatorsNode = (0, _query['default'])('> #bottom_item_indicators', rowNode);
         if (bottomIndicatorsNode[0] && topIndicatorsNode[0]) {
           if (bottomIndicatorsNode[0].childNodes.length === 0 && topIndicatorsNode[0].childNodes.length === 0) {
             this.createIndicators(topIndicatorsNode[0], bottomIndicatorsNode[0], this._createCustomizedLayout(this.itemIndicators, 'indicators'), entry);
@@ -178,11 +156,10 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
       }]);
     },
     hasBeenTouched: function hasBeenTouched(entry) {
-      var modifiedDate, currentDate, weekAgo;
-      if (entry['ModifyDate']) {
-        modifiedDate = (0, _moment2['default'])(_convert['default'].toDateFromString(entry['ModifyDate']));
-        currentDate = (0, _moment2['default'])().endOf('day');
-        weekAgo = (0, _moment2['default'])().subtract(1, 'weeks');
+      if (entry.ModifyDate) {
+        var modifiedDate = (0, _moment2['default'])(_convert['default'].toDateFromString(entry.ModifyDate));
+        var currentDate = (0, _moment2['default'])().endOf('day');
+        var weekAgo = (0, _moment2['default'])().subtract(1, 'weeks');
 
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
@@ -200,8 +177,8 @@ define('crm/Views/_CardLayoutListMixin', ['exports', 'module', 'dojo/_base/array
      * Returns a rendered html snap shot of the entry.
      */
     getContextSnapShot: function getContextSnapShot(options) {
-      var snapShot,
-          entry = this.entries[options.key];
+      var entry = this.entries[options.key];
+      var snapShot = undefined;
       if (entry) {
         snapShot = this.itemRowContainerTemplate.apply(entry, this);
       }

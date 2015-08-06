@@ -1,9 +1,7 @@
-define('crm/Views/_RightDrawerBaseMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang) {
+define('crm/Views/_RightDrawerBaseMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
-
-  var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
@@ -60,11 +58,11 @@ define('crm/Views/_RightDrawerBaseMixin', ['exports', 'module', 'dojo/_base/decl
       }
     },
     onToolLayoutCreated: function onToolLayoutCreated(tools) {
-      tools = tools || {
+      var theTools = tools || {
         tbar: []
       };
       if (!this.toolsAdded) {
-        this._addTools(tools);
+        this._addTools(theTools);
         this.toolsAdded = true;
       }
       this.inherited(arguments);
