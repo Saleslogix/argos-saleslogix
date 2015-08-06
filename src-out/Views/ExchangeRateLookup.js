@@ -18,13 +18,13 @@ define('crm/Views/ExchangeRateLookup', ['exports', 'module', 'dojo/_base/declare
    *
    */
   var __class = (0, _declare['default'])('crm.Views.ExchangeRateLookup', [_List['default'], _LegacySDataListMixin2['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.$key %} ({%: $.Rate %})</h3>']),
 
-    //Localization
+    // Localization
     titleText: 'Exchange Rates',
 
-    //View Properties
+    // View Properties
     expose: false,
     enableSearch: false,
     id: 'exchangerate_lookup',
@@ -33,13 +33,11 @@ define('crm/Views/ExchangeRateLookup', ['exports', 'module', 'dojo/_base/declare
       this.processFeed();
     },
     processFeed: function processFeed() {
-      var rates, list, prop, feed;
+      var rates = App.context && App.context.exchangeRates;
+      var list = [];
+      var feed = {};
 
-      rates = App.context && App.context.exchangeRates;
-      list = [];
-      feed = {};
-
-      for (prop in rates) {
+      for (var prop in rates) {
         if (rates.hasOwnProperty(prop)) {
           list.push({
             '$key': prop,
@@ -49,7 +47,7 @@ define('crm/Views/ExchangeRateLookup', ['exports', 'module', 'dojo/_base/declare
         }
       }
 
-      feed['$resources'] = list;
+      feed.$resources = list;
 
       this.inherited(arguments, [feed]);
     },

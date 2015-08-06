@@ -1,10 +1,6 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
-import string from 'dojo/string';
-import domAttr from 'dojo/dom-attr';
-import domClass from 'dojo/dom-class';
 import Memory from 'dojo/store/Memory';
 import _ConfigureBase from 'argos/_ConfigureBase';
 
@@ -15,18 +11,16 @@ import _ConfigureBase from 'argos/_ConfigureBase';
  * @extends argos._ConfigureBase
  *
  */
-var __class = declare('crm.Views.Configure', [_ConfigureBase], {
+const __class = declare('crm.Views.Configure', [_ConfigureBase], {
   // Localization
   titleText: 'Configure',
 
-  //View Properties
+  // View Properties
   id: 'configure',
   idProperty: '$key',
   labelProperty: '$descriptor',
 
-  onSave: function() {
-    var view;
-
+  onSave: function onSave() {
     App.preferences.home = App.preferences.home || {};
     App.preferences.configure = App.preferences.configure || {};
 
@@ -36,21 +30,19 @@ var __class = declare('crm.Views.Configure', [_ConfigureBase], {
     App.persistPreferences();
 
     ReUI.back();
-    view = App.getView('left_drawer');
+    const view = App.getView('left_drawer');
     if (view) {
       view.refresh();
     }
   },
-  createStore: function() {
-    var list = [],
-      exposed = App.getExposedViews(),
-      order = this.getSavedOrderedKeys(),
-      reduced,
-      all;
+  createStore: function createStore() {
+    const exposed = App.getExposedViews();
+    const order = this.getSavedOrderedKeys();
+    let list = [];
 
     // De-dup id's
-    all = order.concat(exposed);
-    reduced = all.reduce(function(previous, current) {
+    const all = order.concat(exposed);
+    let reduced = all.reduce(function setReduced(previous, current) {
       if (previous.indexOf(current) === -1) {
         previous.push(current);
       }
@@ -59,30 +51,30 @@ var __class = declare('crm.Views.Configure', [_ConfigureBase], {
     }, []);
 
     // The order array could have had stale id's, filter out valid views here
-    reduced = array.filter(reduced, function(key) {
-      var view = App.getView(key);
+    reduced = array.filter(reduced, function filterReduced(key) {
+      const view = App.getView(key);
       return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
     });
 
-    list = array.map(reduced, function(key) {
-      var view = App.getView(key);
+    list = array.map(reduced, function setList(key) {
+      const view = App.getView(key);
       return {
         '$key': view.id,
         '$descriptor': view.titleText,
-        'icon': view.icon
+        'icon': view.icon,
       };
     });
 
-    return Memory({
-      data: list
+    return Memory({ // eslint-disable-line
+      data: list,
     });
   },
-  getSavedOrderedKeys: function() {
+  getSavedOrderedKeys: function getSavedOrderedKeys() {
     return (App.preferences.configure && App.preferences.configure.order) || [];
   },
-  getSavedSelectedKeys: function() {
+  getSavedSelectedKeys: function getSavedSelectedKeys() {
     return (App.preferences.home && App.preferences.home.visible) || [];
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Configure', __class);

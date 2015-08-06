@@ -27,9 +27,7 @@ define('crm/Views/FooterToolbar', ['exports', 'module', 'dojo/_base/declare', 'd
       }
     },
     showTools: function showTools(tools) {
-      var contents, i;
-
-      contents = [];
+      var contents = [];
       if (tools && tools.length <= 0 || tools !== false) {
         this.show();
       } else if (tools === false) {
@@ -40,7 +38,7 @@ define('crm/Views/FooterToolbar', ['exports', 'module', 'dojo/_base/declare', 'd
       argos.MainToolbar.superclass.showTools.apply(this, arguments);
 
       if (tools) {
-        for (i = 0; i < tools.length; i++) {
+        for (var i = 0; i < tools.length; i++) {
           contents.push(this.toolTemplate.apply(tools[i]));
         }
         this.set('footerContents', contents.join(''));

@@ -11,51 +11,50 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
  * @mixins argos._LegacySDataListMixin
  *
  */
-var __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
-  //Templates
+const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
+  // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.$key %} ({%: $.Rate %})</h3>'
+    '<h3>{%: $.$key %} ({%: $.Rate %})</h3>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Exchange Rates',
 
-  //View Properties
+  // View Properties
   expose: false,
   enableSearch: false,
   id: 'exchangerate_lookup',
 
-  requestData: function() {
+  requestData: function requestData() {
     this.processFeed();
   },
-  processFeed: function() {
-    var rates, list, prop, feed;
+  processFeed: function processFeed() {
+    const rates = App.context && App.context.exchangeRates;
+    const list = [];
+    const feed = {};
 
-    rates = App.context && App.context.exchangeRates;
-    list = [];
-    feed = {};
-
-    for (prop in rates) {
+    for (const prop in rates) {
       if (rates.hasOwnProperty(prop)) {
         list.push({
           '$key': prop,
           '$descriptor': prop,
-          'Rate': rates[prop]
+          'Rate': rates[prop],
         });
       }
     }
 
-    feed['$resources'] = list;
+    feed.$resources = list;
 
     this.inherited(arguments, [feed]);
   },
-  hasMoreData: function() {
+  hasMoreData: function hasMoreData() {
     return false;
   },
-  refreshRequiredFor: function() {
+  refreshRequiredFor: function refreshRequiredFor() {
     return true;
   },
-  formatSearchQuery: function() {}
+  formatSearchQuery: function formatSearchQuery() {
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.ExchangeRateLookup', __class);

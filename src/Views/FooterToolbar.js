@@ -9,7 +9,7 @@ import MainToolbar from 'argos/MainToolbar';
  * @extends argos.MainToolbar
  *
  */
-var __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
+const __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
   // Localization
   copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
 
@@ -19,7 +19,7 @@ var __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
     '<div data-dojo-attach-point="contentNode"></div>',
     '<span data-dojo-attach-point="copyrightNode" class="copyright">{%= $.copyrightText %}</span>',
     '<span data-dojo-attach-point="version" class="copyright">{%= App.getVersionInfo() %}</span>',
-    '</div>'
+    '</div>',
   ]),
   toolTemplate: new Simplate([
     '<button class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invokeTool" data-tool="{%= $.id %}">',
@@ -27,19 +27,16 @@ var __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
     '<img src="{%= $.icon %}" alt="{%= $.id %}" />',
     '{% } %}',
     '<span>{%: $.title %}</span>',
-    '</button>'
+    '</button>',
   ]),
   attributeMap: {
     footerContents: {
       node: 'contentNode',
-      type: 'innerHTML'
-    }
+      type: 'innerHTML',
+    },
   },
-  showTools: function(tools) {
-    var contents,
-      i;
-
-    contents = [];
+  showTools: function showTools(tools) {
+    const contents = [];
     if ((tools && tools.length <= 0) || (tools !== false)) {
       this.show();
     } else if (tools === false) {
@@ -50,12 +47,12 @@ var __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
     argos.MainToolbar.superclass.showTools.apply(this, arguments);
 
     if (tools) {
-      for (i = 0; i < tools.length; i++) {
+      for (let i = 0; i < tools.length; i++) {
         contents.push(this.toolTemplate.apply(tools[i]));
       }
       this.set('footerContents', contents.join(''));
     }
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.FooterToolbar', __class);
