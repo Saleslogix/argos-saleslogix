@@ -21,7 +21,7 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
    *
    */
   var __class = (0, _declare['default'])('crm.Views.LeftDrawer', [_GroupedList['default']], {
-    //Templates
+    // Templates
     cls: ' contextualContent',
     rowTemplate: new Simplate(['<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>', '{% if ($$._hasIcon($)) { %}', '<div class="list-item-static-selector">', '{% if ($.iconTemplate) { %}', '{%! $.iconTemplate %}', '{% } else if ($.cls) { %}', '<div class="{%: $.cls %}"></div>', '{% } else if ($.icon) { %}', '<img src="{%: $.icon %}" alt="icon" class="icon" />', '{% } %}', '</div>', '{% } %}', '<div class="list-item-content">{%! $$.itemTemplate %}</div>', '</li>']),
     _hasIcon: function _hasIcon(entry) {
@@ -29,7 +29,7 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
     },
     itemTemplate: new Simplate(['<h3>{%: $.title %}</h3>']),
 
-    //Localization
+    // Localization
     configureText: 'Configure Menu',
     addAccountContactText: 'Add Account/Contact',
     titleText: 'Main Menu',
@@ -41,7 +41,7 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
     logOutText: 'Log Out',
     logOutConfirmText: 'Are you sure you want to log out?',
 
-    //View Properties
+    // View Properties
     id: 'left_drawer',
     expose: false,
     enableSearch: true,
@@ -55,7 +55,7 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
     searchView: 'speedsearch_list',
 
     logOut: function logOut() {
-      var sure = window.confirm(this.logOutConfirmText);
+      var sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
       if (sure) {
         App.logOut();
       }
@@ -94,7 +94,7 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var expression = new RegExp(searchQuery, 'i');
 
-      return function (entry) {
+      return function testExpression(entry) {
         return expression.test(entry.title);
       };
     },
@@ -132,37 +132,31 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
         return this.layout;
       }
 
-      var quickActions, goTo, footer, layout, configured, view, i;
+      var layout = [];
 
-      layout = [];
-
-      quickActions = {
+      var quickActions = {
         id: 'actions',
         children: [{
           'name': 'AddAccountContactAction',
           'action': 'addAccountContact',
-          //'cls': 'fa fa-plus-square-o',
           'title': this.addAccountContactText
         }]
       };
 
       layout.push(quickActions);
 
-      goTo = {
+      var goTo = {
         id: 'views',
         children: []
       };
 
-      configured = _lang['default'].getObject('preferences.home.visible', false, window.App);
-      for (i = 0; i < configured.length; i++) {
-        view = App.getView(configured[i]);
+      var configured = _lang['default'].getObject('preferences.home.visible', false, window.App);
+      for (var i = 0; i < configured.length; i++) {
+        var view = App.getView(configured[i]);
         if (view) {
           goTo.children.push({
             'action': 'loadAndNavigateToView',
             'view': view.id,
-            //'icon': view.icon,
-            //'cls': view.iconClass,
-            //'iconTemplate': view.iconTemplate,
             'title': view.titleText,
             'security': view.getSecurity()
           });
@@ -171,27 +165,23 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
 
       layout.push(goTo);
 
-      footer = {
+      var footer = {
         id: 'footer',
         children: [{
           'name': 'ConfigureMenu',
           'action': 'navigateToConfigurationView',
-          //'cls': 'fa fa-wrench fa-lg',
           'title': this.configureText
         }, {
           'name': 'SettingsAction',
           'action': 'navigateToSettingsView',
-          //'cls': 'fa fa-cog fa-lg',
           'title': this.settingsText
         }, {
           'name': 'HelpAction',
           'action': 'navigateToHelpView',
-          //'cls': 'fa fa-question fa-lg',
           'title': this.helpText
         }, {
           'name': 'Logout',
           'action': 'logOut',
-          //'cls': 'fa fa-sign-out fa-lg',
           'title': this.logOutText
         }]
       };
@@ -201,24 +191,20 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
       return layout;
     },
     createStore: function createStore() {
-      var layout = this._createCustomizedLayout(this.createLayout()),
-          list = [],
-          store,
-          i,
-          section,
-          j,
-          row,
-          total = 0;
+      var layout = this._createCustomizedLayout(this.createLayout());
+      var list = [];
+      var total = 0;
+      var section = undefined;
 
-      for (i = 0; i < layout.length; i++) {
+      for (var i = 0; i < layout.length; i++) {
         section = layout[i].children;
 
-        for (j = 0; j < section.length; j++) {
+        for (var j = 0; j < section.length; j++) {
           total = total + 1;
-          row = section[j];
+          var row = section[j];
           row.$key = total;
 
-          if (row['security'] && !App.hasAccessTo(row['security'])) {
+          if (row.security && !App.hasAccessTo(row.security)) {
             continue;
           }
           if (typeof this.query !== 'function' || this.query(row)) {
@@ -227,7 +213,7 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
         }
       }
 
-      store = new _Memory['default']({
+      var store = new _Memory['default']({
         data: list
       });
       store.idProperty = '$key';
@@ -253,16 +239,15 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
       this.refresh();
     },
     refreshRequiredFor: function refreshRequiredFor() {
-      var visible = _lang['default'].getObject('preferences.home.visible', false, App) || [],
-          i,
-          shown = this.feed && this.feed['$resources'];
+      var visible = _lang['default'].getObject('preferences.home.visible', false, App) || [];
+      var shown = this.feed && this.feed.$resources;
 
       if (!visible || !shown || visible.length !== shown.length) {
         return true;
       }
 
-      for (i = 0; i < visible.length; i++) {
-        if (visible[i] !== shown[i]['$key']) {
+      for (var i = 0; i < visible.length; i++) {
+        if (visible[i] !== shown[i].$key) {
           return true;
         }
       }
@@ -273,9 +258,8 @@ define('crm/Views/LeftDrawer', ['exports', 'module', 'dojo/_base/declare', 'dojo
       this.refreshRequired = true;
     },
     _onSearchExpression: function _onSearchExpression(expression) {
-      var view, current;
-      view = App.getView(this.searchView);
-      current = App.getPrimaryActiveView();
+      var view = App.getView(this.searchView);
+      var current = App.getPrimaryActiveView();
 
       if (view) {
         // If the speedsearch list is not our current view, show it first

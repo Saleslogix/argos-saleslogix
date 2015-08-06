@@ -10,8 +10,8 @@ import Edit from 'argos/Edit';
  * @extends argos.Edit
  *
  */
-var __class = declare('crm.Views.Login', [Edit], {
-  //Templates
+const __class = declare('crm.Views.Login', [Edit], {
+  // Templates
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
     '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
@@ -19,10 +19,10 @@ var __class = declare('crm.Views.Login', [Edit], {
     '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
     '<span class="copyright">{%= $.copyrightText %}</span>',
     '<span class="copyright">{%= App.getVersionInfo() %}</span>',
-    '</div>'
+    '</div>',
   ]),
 
-  //Localization
+  // Localization
   id: 'login',
   busy: false,
   copyrightText: 'Copyright &copy; 2015 Infor. All rights reserved. www.infor.com',
@@ -38,133 +38,130 @@ var __class = declare('crm.Views.Login', [Edit], {
 
   ENTER_KEY: 13,
 
-  _onKeyPress: function(evt) {
+  _onKeyPress: function _onKeyPress(evt) {
     if (evt.charOrCode === this.ENTER_KEY) {
       this.authenticate();
     }
   },
-  _onKeyUp: function() {
-    var username = this.fields.username.getValue();
+  _onKeyUp: function _onKeyUp() {
+    const username = this.fields.username.getValue();
     if (username && username.length > 0) {
       domClass.add(this.domNode, 'login-active');
     } else {
       domClass.remove(this.domNode, 'login-active');
     }
   },
-  onShow: function() {
-    var credentials;
-    credentials = App.getCredentials();
+  onShow: function onShow() {
+    const credentials = App.getCredentials();
 
     if (credentials) {
       App.authenticateUser(credentials, {
-        success: function() {
-          App.initAppState().then(function() {
+        success: function authSuccess() {
+          App.initAppState().then(function initAppStateSuccess() {
             App.navigateToInitialView();
           });
         },
-        scope: this
+        scope: this,
       });
     }
   },
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
       bbar: false,
-      tbar: false
+      tbar: false,
     });
   },
-  getContext: function() {
+  getContext: function getContext() {
     return {
-      id: this.id
+      id: this.id,
     };
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       name: 'username',
       placeHolderText: this.userText,
-      type: 'text'
+      type: 'text',
     }, {
       name: 'password',
       placeHolderText: this.passText,
       type: 'text',
-      inputType: 'password'
+      inputType: 'password',
     }, {
       name: 'remember',
       label: this.rememberText,
-      type: 'boolean'
+      type: 'boolean',
     }]);
   },
-  authenticate: function() {
+  authenticate: function authenticate() {
     if (this.busy) {
       return;
     }
 
-    var credentials = this.getValues(),
-      username = credentials && credentials.username;
+    const credentials = this.getValues();
+    const username = credentials && credentials.username;
 
     if (username) {
       this.validateCredentials(credentials);
     }
   },
-  createErrorHandlers: function() {
+  createErrorHandlers: function createErrorHandlers() {
     this.errorText.status[this.HTTP_STATUS.FORBIDDEN] = this.invalidUserText;
 
     this.errorHandlers = [{
       name: 'NoResponse',
-      test: function(error) {
+      test: function testNoResponse(error) {
         return !error.xhr;
       },
-      handle: function(error, next) {
-        alert(this.missingUserText);
+      handle: function handleNoResponse(error, next) {
+        alert(this.missingUserText);// eslint-disable-line
         next();
-      }
+      },
     }, {
       name: 'GeneralError',
-      test: function(error) {
+      test: function testError(error) {
         return typeof error.xhr !== 'undefined' && error.xhr !== null;
       },
-      handle: function(error, next) {
-        alert(this.getErrorMessage(error));
+      handle: function handleError(error, next) {
+        alert(this.getErrorMessage(error));// eslint-disable-line
         next();
-      }
+      },
     }];
 
     return this.errorHandlers;
   },
-  validateCredentials: function(credentials) {
+  validateCredentials: function validateCredentials(credentials) {
     this.disable();
 
     App.authenticateUser(credentials, {
       success: function success() {
         this.enable();
 
-        var attr = this.domNode.attributes.getNamedItem('selected');
+        const attr = this.domNode.attributes.getNamedItem('selected');
         if (attr) {
           attr.value = 'false';
         }
 
         App.setPrimaryTitle(App.loadingText);
-        App.initAppState().then(function() {
+        App.initAppState().then(function initAppStateSuccess() {
           App.navigateToInitialView();
         });
       },
-      failure: function(result) {
-        var error;
-
+      failure: function failure(result) {
         this.enable();
 
-        error = new Error();
+        const error = new Error();
         error.status = result && result.response && result.response.status;
         error.xhr = result && result.response;
         this.handleError(error);
       },
-      aborted: function() {
+      aborted: function aborted() {
         this.enable();
 
-        alert(this.requestAbortedText);
+        alert(this.requestAbortedText);// eslint-disable-line
       },
-      scope: this
+      scope: this,
     });
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Login', __class);
