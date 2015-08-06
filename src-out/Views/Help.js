@@ -26,15 +26,15 @@ define('crm/Views/Help', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Help', [_Detail['default'], _LegacySDataDetailMixin2['default']], {
-    //Templates
+    // Templates
     errorTemplate: new Simplate(['<div data-dojo-attach-point="errorNode" class="panel-validation-summary">', '<h2>{%: $.errorText %}</h2>', '<ul>', '<li>{%: $.errorMessageText %}</li>', '</ul>', '</div>']),
 
-    //Localization
+    // Localization
     titleText: 'Help',
     errorText: 'Error',
     errorMessageText: 'Unable to load the help document.',
 
-    //View Properties
+    // View Properties
     id: 'help',
     url: 'help/help.html',
     expose: false,
@@ -71,13 +71,13 @@ define('crm/Views/Help', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
       _domClass['default'].remove(this.domNode, 'panel-loading');
     },
     resolveLocalizedUrl: function resolveLocalizedUrl() {
-      var localizedUrl = _string['default'].substitute('help/help_${0}.html', [Mobile.CultureInfo['name']]);
+      var localizedUrl = _string['default'].substitute('help/help_${0}.html', [Mobile.CultureInfo.name]);
       return localizedUrl;
     },
     resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl() {
-      var languageSpec = Mobile.CultureInfo['name'],
-          languageGen = languageSpec.indexOf('-') !== -1 ? languageSpec.split('-')[0] : languageSpec,
-          localizedUrl = _string['default'].substitute('help/help_${0}.html', [languageGen]);
+      var languageSpec = Mobile.CultureInfo.name;
+      var languageGen = languageSpec.indexOf('-') !== -1 ? languageSpec.split('-')[0] : languageSpec;
+      var localizedUrl = _string['default'].substitute('help/help_${0}.html', [languageGen]);
       return localizedUrl;
     },
     requestData: function requestData() {

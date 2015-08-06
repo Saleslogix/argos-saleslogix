@@ -37,15 +37,15 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
    *
    */
   var __class = (0, _declare['default'])('crm.Views.SpeedSearchList', [_List['default'], _LegacySDataListMixin2['default'], _SpeedSearchRightDrawerListMixin3['default'], _CardLayoutListMixin3['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h4><strong>{%: $.$heading %}</strong></h4>', '{%! $$.fieldTemplate %}']),
 
     fieldTemplate: new Simplate(['<ul class="speedsearch-fields">', '{% for(var i = 0; i < $.fields.length; i++) { %}', '<li><h4><span>{%= $.fields[i].fieldName %}</span> {%= $.fields[i].fieldValue %}</h4></li>', '{% } %}', '</ul>']),
 
-    //Localization
+    // Localization
     titleText: 'SpeedSearch',
 
-    //View Properties
+    // View Properties
     id: 'speedsearch_list',
     enableSearch: true,
     enableActions: true,
@@ -108,11 +108,9 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
     },
     _formatFieldName: function _formatFieldName() {},
     getItemIconClass: function getItemIconClass(entry) {
-      var cls,
-          typeCls,
-          type = entry && entry.type;
-      cls = this.itemIconClass;
-      typeCls = this.itemIconByType[type];
+      var type = entry && entry.type;
+      var typeCls = this.itemIconByType[type];
+      var cls = this.itemIconClass;
       if (typeCls) {
         cls = typeCls;
       }
@@ -133,13 +131,11 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       return null;
     },
     extractDescriptorFromItem: function extractDescriptorFromItem(item) {
-      var descriptor, entityName, rest;
-
-      descriptor = item && item.uiDisplayName;
+      var descriptor = item && item.uiDisplayName;
+      var rest = undefined;
 
       if (descriptor) {
         descriptor = descriptor.split(':');
-        entityName = descriptor[0];
         rest = descriptor[1];
       }
 
@@ -147,13 +143,12 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
     },
     extractKeyFromItem: function extractKeyFromItem(item) {
       // Extract the entityId from the display name, which is the last 12 characters
-      var displayName, len;
-      displayName = item.displayName;
+      var displayName = item.displayName;
       if (!displayName) {
         return '';
       }
 
-      len = displayName.length;
+      var len = displayName.length;
       return displayName.substring(len - 12);
     },
     more: function more() {
@@ -161,16 +156,18 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       this.inherited(arguments);
     },
     hasMoreData: function hasMoreData() {
-      var total, count;
-      total = this.feed.totalCount;
-      count = (this.currentPage + 1) * this.pageSize;
+      var total = this.feed.totalCount;
+      var count = (this.currentPage + 1) * this.pageSize;
       return count < total;
     },
-    processFeed: function processFeed(feed) {
-      var i, entry, docfrag, remaining, rowNode;
-
+    processFeed: function processFeed(_feed) {
+      var feed = _feed;
       if (!this.feed) {
         this.set('listContent', '');
+      }
+
+      function filter(field) {
+        return field.fieldName !== 'seccodelist' && field.fieldName !== 'filename';
       }
 
       this.feed = feed = feed.response;
@@ -178,21 +175,19 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       if (feed.totalCount === 0) {
         this.set('listContent', this.noDataTemplate.apply(this));
       } else if (feed.items) {
-        docfrag = document.createDocumentFragment();
+        var docfrag = document.createDocumentFragment();
 
-        for (i = 0; i < feed.items.length; i++) {
-          entry = feed.items[i];
+        for (var i = 0; i < feed.items.length; i++) {
+          var entry = feed.items[i];
           entry.type = this.extractTypeFromItem(entry);
           entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
           entry.$key = this.extractKeyFromItem(entry);
           entry.$heading = this.extractDescriptorFromItem(entry);
           entry.synopsis = window.unescape(entry.synopsis);
-          entry.fields = _array['default'].filter(entry.fields, function (field) {
-            return field.fieldName !== 'seccodelist' && field.fieldName !== 'filename';
-          });
+          entry.fields = _array['default'].filter(entry.fields, filter);
 
           this.entries[entry.$key] = entry;
-          rowNode = _domConstruct['default'].toDom(this.rowTemplate.apply(entry, this));
+          var rowNode = _domConstruct['default'].toDom(this.rowTemplate.apply(entry, this));
           docfrag.appendChild(rowNode);
           this.onApplyRowTemplate(entry, rowNode);
         }
@@ -203,7 +198,7 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       }
 
       if (typeof feed.totalCount !== 'undefined') {
-        remaining = this.feed.totalCount - (this.currentPage + 1) * this.pageSize;
+        var remaining = this.feed.totalCount - (this.currentPage + 1) * this.pageSize;
         this.set('remainingContent', _string['default'].substitute(this.remainingText, [remaining]));
       }
 
@@ -235,10 +230,10 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       return entry;
     },
     getActiveIndexes: function getActiveIndexes() {
-      var results = [],
-          self = this;
-      _array['default'].forEach(this.activeIndexes, function (indexName) {
-        _array['default'].forEach(self.indexes, function (index) {
+      var results = [];
+      var self = this;
+      _array['default'].forEach(this.activeIndexes, function forEachActiveIndex(indexName) {
+        _array['default'].forEach(self.indexes, function forEachIndex(index) {
           if (index.indexName === indexName) {
             results.push(index);
           }
@@ -250,8 +245,8 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
     requestData: function requestData() {
       _domClass['default'].add(this.domNode, 'list-loading');
 
-      var request = this.createRequest(),
-          entry = this.createSearchEntry();
+      var request = this.createRequest();
+      var entry = this.createSearchEntry();
 
       request.execute(entry, {
         success: _lang['default'].hitch(this, this.onRequestDataSuccess),
@@ -295,10 +290,9 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       indicator.valueText = this.indexesText[entry.type];
     },
     _intSearchExpressionNode: function _intSearchExpressionNode() {
-      var html, listNode;
-      listNode = (0, _query['default'])('#' + this.id);
+      var listNode = (0, _query['default'])('#' + this.id);
       if (listNode[0]) {
-        html = this.searchExpressionTemplate.apply(this);
+        var html = this.searchExpressionTemplate.apply(this);
         _domConstruct['default'].place(html, listNode[0], 'first');
       }
     },
@@ -310,9 +304,9 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       return indexFound;
     },
     selectIndex: function selectIndex(e) {
-      var button = e.$source,
-          indexName = _domAttr['default'].get(button, 'data-index'),
-          activated = this.activateIndex(indexName);
+      var button = e.$source;
+      var indexName = _domAttr['default'].get(button, 'data-index');
+      var activated = this.activateIndex(indexName);
       if (activated) {
         _domClass['default'].add(button, 'card-layout-speed-search-index-selected');
       } else {
@@ -320,14 +314,15 @@ define('crm/Views/SpeedSearchList', ['exports', 'module', 'dojo/_base/declare', 
       }
     },
     activateIndex: function activateIndex(indexName) {
-      var activated = false,
-          tempActiveIndex = [],
-          indexFound = false;
+      var tempActiveIndex = [];
+      var indexFound = false;
+      var activated = false;
+
       if (this.activeIndexes.indexOf(indexName) > -1) {
         indexFound = true;
       }
       if (indexFound) {
-        _array['default'].forEach(this.activeIndexes, function (aIndexName) {
+        _array['default'].forEach(this.activeIndexes, function forEach(aIndexName) {
           if (aIndexName !== indexName) {
             tempActiveIndex.push(aIndexName);
           }

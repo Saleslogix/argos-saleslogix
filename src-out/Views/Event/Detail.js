@@ -17,7 +17,7 @@ define('crm/Views/Event/Detail', ['exports', 'module', 'dojo/_base/declare', 'do
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.Event.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     eventTypeText: {
       'atToDo': 'To-Do',
       'atPhoneCall': 'Phone Call',
@@ -35,10 +35,10 @@ define('crm/Views/Event/Detail', ['exports', 'module', 'dojo/_base/declare', 'do
     startDateFormatText: 'M/D/YYYY h:mm:ss A',
     endDateFormatText: 'M/D/YYYY h:mm:ss A',
 
-    //View Properties
+    // View Properties
     id: 'event_detail',
     editView: 'event_edit',
-    security: null, //'Entities/Event/View',
+    security: null, // 'Entities/Event/View',
     querySelect: ['Description', 'EndDate', 'StartDate', 'UserId', 'Type'],
     resourceKind: 'events',
 

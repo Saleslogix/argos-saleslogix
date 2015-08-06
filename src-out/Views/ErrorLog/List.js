@@ -1,4 +1,4 @@
-define('crm/Views/ErrorLog/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/store/Memory', 'crm/Format', 'argos/Convert', 'argos/ErrorManager', 'argos/List'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoStoreMemory, _crmFormat, _argosConvert, _argosErrorManager, _argosList) {
+define('crm/Views/ErrorLog/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/store/Memory', 'argos/Convert', 'argos/ErrorManager', 'argos/List'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoStoreMemory, _argosConvert, _argosErrorManager, _argosList) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -6,8 +6,6 @@ define('crm/Views/ErrorLog/List', ['exports', 'module', 'dojo/_base/declare', 'd
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
   var _Memory = _interopRequireDefault(_dojoStoreMemory);
-
-  var _format = _interopRequireDefault(_crmFormat);
 
   var _convert = _interopRequireDefault(_argosConvert);
 
@@ -24,14 +22,14 @@ define('crm/Views/ErrorLog/List', ['exports', 'module', 'dojo/_base/declare', 'd
    * @requires argos.ErrorManager
    */
   var __class = (0, _declare['default'])('crm.Views.ErrorLog.List', [_List['default']], {
-    //Localization
+    // Localization
     titleText: 'Error Logs',
     errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>', '<h4>{%: $.Description %}</h4>']),
 
-    //View Properties
+    // View Properties
     id: 'errorlog_list',
     enableSearch: false,
     enablePullToRefresh: false,
@@ -48,13 +46,13 @@ define('crm/Views/ErrorLog/List', ['exports', 'module', 'dojo/_base/declare', 'd
     createStore: function createStore() {
       var errorItems = _ErrorManager['default'].getAllErrors();
 
-      errorItems.sort(function (a, b) {
-        a.errorDateStamp = a.errorDateStamp || a['Date'];
-        b.errorDateStamp = b.errorDateStamp || b['Date'];
-        a['Date'] = a.errorDateStamp;
-        b['Date'] = b.errorDateStamp;
-        var A = _convert['default'].toDateFromString(a.errorDateStamp),
-            B = _convert['default'].toDateFromString(b.errorDateStamp);
+      errorItems.sort(function sortErrorItems(a, b) {
+        a.errorDateStamp = a.errorDateStamp || a.Date;
+        b.errorDateStamp = b.errorDateStamp || b.Date;
+        a.Date = a.errorDateStamp;
+        b.Date = b.errorDateStamp;
+        var A = _convert['default'].toDateFromString(a.errorDateStamp);
+        var B = _convert['default'].toDateFromString(b.errorDateStamp);
 
         return A.valueOf() > B.valueOf();
       });

@@ -19,7 +19,7 @@ define('crm/Fields/NameField', ['exports', 'module', 'dojo/_base/declare', 'dojo
 
     createNavigationOptions: function createNavigationOptions() {
       var options = this.inherited(arguments);
-      //Name does not have an entity.
+      // Name does not have an entity.
       delete options.entityName;
 
       return options;

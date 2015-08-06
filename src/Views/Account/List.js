@@ -1,11 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import action from '../../Action';
-import format from 'argos/Format';
 import utility from 'argos/Utility';
-import Cmonvert from 'argos/Convert';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
@@ -47,7 +44,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
     '<h4>',
     '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}',
     '</h4>',
-    '{% } %}'
+    '{% } %}',
   ]),
   groupsEnabled: true,
   enableDynamicGroupLayout: true,
@@ -58,15 +55,15 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
     '</div><div style="float:left;">',
     '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></h4>',
     '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></h4>',
-    '</div>'
+    '</div>',
   ]),
 
 
-  joinFields: function(sep, fields) {
+  joinFields: function joinFields(sep, fields) {
     return utility.joinFields(sep, fields);
   },
 
-  //Localization
+  // Localization
   titleText: 'Accounts',
   activitiesText: 'Activities',
   notesText: 'Notes',
@@ -80,7 +77,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   phoneAbbreviationText: 'Phone: ',
   faxAbbreviationText: 'Fax: ',
 
-  //View Properties
+  // View Properties
   detailView: 'account_detail',
   itemIconClass: 'fa fa-building-o fa-2x',
   id: 'account_list',
@@ -102,54 +99,54 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
     'Status',
     'SubType',
     'Type',
-    'ModifyDate'
+    'ModifyDate',
   ],
   resourceKind: 'accounts',
   entityName: 'Account',
   allowSelection: true,
   enableActions: true,
   pageSize: 10,
-  callMain: function(params) {
-    this.invokeActionItemBy(function(action) {
-      return action.id === 'callMain';
+  callMain: function callMain(params) {
+    this.invokeActionItemBy(function setActionId(actions) {
+      return actions.id === 'callMain';
     }, params.key);
   },
-  createActionLayout: function() {
+  createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
-      action: 'navigateToEditView'
+      action: 'navigateToEditView',
     }, {
       id: 'callMain',
       cls: 'fa fa-phone-square fa-2x',
       label: this.callMainActionText,
       enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
-      fn: action.callPhone.bindDelegate(this, 'MainPhone')
+      fn: action.callPhone.bindDelegate(this, 'MainPhone'),
     }, {
       id: 'viewContacts',
       label: this.viewContactsActionText,
-      fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
+      fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"'),
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
       label: this.addNoteActionText,
-      fn: action.addNote.bindDelegate(this)
+      fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
       cls: 'fa fa-calendar fa-2x',
       label: this.addActivityActionText,
-      fn: action.addActivity.bindDelegate(this)
+      fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
       cls: 'fa fa-paperclip fa-2x',
       label: this.addAttachmentActionText,
-      fn: action.addAttachment.bindDelegate(this)
+      fn: action.addAttachment.bindDelegate(this),
     }]);
   },
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Account.List', __class);

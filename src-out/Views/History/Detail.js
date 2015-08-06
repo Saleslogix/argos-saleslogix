@@ -30,10 +30,10 @@ define('crm/Views/History/Detail', ['exports', 'module', 'dojo/_base/declare', '
    * @requires crm.Template
    */
   var __class = (0, _declare['default'])('crm.Views.History.Detail', [_Detail['default']], {
-    //Templates
+    // Templates
     createUserTemplate: _template['default'].nameLF,
 
-    //Localization
+    // Localization
     categoryText: 'category',
     completedText: 'completed',
     durationText: 'duration',
@@ -67,36 +67,35 @@ define('crm/Views/History/Detail', ['exports', 'module', 'dojo/_base/declare', '
       'atQuestion': 'Question',
       'atEMail': 'E-mail'
     },
-    //View Properties
+    // View Properties
     id: 'history_detail',
     existsRE: /^[\w]{12}$/,
     editView: 'history_edit',
     dateFormatText: 'M/D/YYYY h:mm:ss A',
     resourceKind: 'history',
-    security: null, //'Entities/History/View',
+    security: null, // 'Entities/History/View',
     querySelect: ['AccountId', 'AccountName', 'Category', 'ModifyDate', 'CompletedDate', 'ContactId', 'ContactName', 'CompletedUser', 'Description', 'Duration', 'Notes', 'LongNotes', 'OpportunityId', 'OpportunityName', 'Priority', 'StartDate', 'TicketId', 'TicketNumber', 'LeadId', 'LeadName', 'Timeless', 'Type', 'UserName', 'UserId'],
 
     formatActivityType: function formatActivityType(val) {
       return this.activityTypeText[val] || val;
     },
     isHistoryForLead: function isHistoryForLead(entry) {
-      return this.existsRE.test(entry && entry['LeadId']);
+      return this.existsRE.test(entry && entry.LeadId);
     },
     isHistoryForActivity: function isHistoryForActivity(entry) {
-      return this.existsRE.test(entry && entry['ActivityId']);
+      return this.existsRE.test(entry && entry.ActivityId);
     },
     isHistoryOfType: function isHistoryOfType(entry, type) {
-      return entry && entry['Type'] === type;
+      return entry && entry.Type === type;
     },
     provideText: function provideText(entry) {
-      return entry && (entry['LongNotes'] || entry['Notes']);
+      return entry && (entry.LongNotes || entry.Notes);
     },
     requestCompletedUser: function requestCompletedUser(entry) {
-      var request, completedUser;
-      completedUser = entry['CompletedUser'];
+      var completedUser = entry.CompletedUser;
 
       if (completedUser) {
-        request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('users').setResourceSelector(_string['default'].substitute('\'${0}\'', [completedUser])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('users').setResourceSelector(_string['default'].substitute("'${0}'", [completedUser])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
 
         request.allowCacheUse = true;
 
@@ -123,7 +122,7 @@ define('crm/Views/History/Detail', ['exports', 'module', 'dojo/_base/declare', '
     onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
       var rowNode = (0, _query['default'])('[data-property="CompletedUser"]');
       if (rowNode) {
-        this.setNodeText(rowNode[0], this.entry['UserName']);
+        this.setNodeText(rowNode[0], this.entry.UserName);
       }
 
       _ErrorManager['default'].addError(response, o, this.options, 'failure');

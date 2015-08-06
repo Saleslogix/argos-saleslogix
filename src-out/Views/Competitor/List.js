@@ -18,13 +18,13 @@ define('crm/Views/Competitor/List', ['exports', 'module', 'dojo/_base/declare', 
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Competitor.List', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%= $.CompetitorName %}</h3>', '{% if ($.WebAddress) { %}<h4>{%= $.WebAddress %}</h4>{% } %}']),
 
-    //Localization
+    // Localization
     titleText: 'Competitors',
 
-    //View Properties
+    // View Properties
     detailView: 'competitor_detail',
     id: 'competitor_list',
     security: 'Entities/Competitor/View',

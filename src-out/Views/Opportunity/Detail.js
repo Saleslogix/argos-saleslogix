@@ -1,13 +1,9 @@
-define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/dom-construct', 'dojo/query', 'dojo/string', 'argos/Detail', '../../Format'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoDomConstruct, _dojoQuery, _dojoString, _argosDetail, _Format) {
+define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Detail', '../../Format'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _argosDetail, _Format) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _domConstruct = _interopRequireDefault(_dojoDomConstruct);
-
-  var _query = _interopRequireDefault(_dojoQuery);
 
   var _string = _interopRequireDefault(_dojoString);
 
@@ -23,7 +19,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.Opportunity.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     accountText: 'acct',
     acctMgrText: 'acct mgr',
     estCloseText: 'est close',
@@ -61,7 +57,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
     multiCurrencyLockedText: 'rate locked',
     exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
 
-    //View Properties
+    // View Properties
     id: 'opportunity_detail',
     editView: 'opportunity_edit',
     noteEditView: 'history_edit',
@@ -90,25 +86,23 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
       }
     },
     getValues: function getValues() {
-      var values = this.inherited(arguments),
-          estimatedCloseDate = this.fields['EstimatedClose'].getValue(),
-          timelessStartDate = estimatedCloseDate.clone().clearTime().add({
+      var estimatedCloseDate = this.fields.EstimatedClose.getValue();
+      var timelessStartDate = estimatedCloseDate.clone().clearTime().add({
         minutes: -1 * estimatedCloseDate.getTimezoneOffset(),
         seconds: 5
       });
+      var values = this.inherited(arguments);
 
       values = values || {};
-      values['EstimatedClose'] = timelessStartDate;
+      values.EstimatedClose = timelessStartDate;
 
       return values;
     },
     formatAccountRelatedQuery: function formatAccountRelatedQuery(fmt) {
-      return _string['default'].substitute(fmt, [this.entry['Account']['$key']]);
+      return _string['default'].substitute(fmt, [this.entry.Account.$key]);
     },
     createLayout: function createLayout() {
-      var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
-
-      quickActions = {
+      var quickActions = {
         list: true,
         title: this.actionsText,
         cls: 'action-list',
@@ -128,7 +122,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
         }]
       };
 
-      details = {
+      var details = {
         title: this.detailsText,
         name: 'DetailsSection',
         children: [{
@@ -154,11 +148,10 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
           label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
           name: 'SalesPotential',
           property: 'SalesPotential',
-          renderer: (function (val) {
-            var exhangeRate, convertedValue;
+          renderer: (function renderSalesPotential(val) {
             if (App.hasMultiCurrency()) {
-              exhangeRate = App.getBaseExchangeRate();
-              convertedValue = val * exhangeRate.rate;
+              var exhangeRate = App.getBaseExchangeRate();
+              var convertedValue = val * exhangeRate.rate;
               return _format['default'].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
             return _format['default'].currency.call(null, val);
@@ -166,7 +159,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
         }]
       };
 
-      multiCurrency = {
+      var multiCurrency = {
         title: this.multiCurrencyText,
         name: 'MultiCurrencySection',
         children: [{
@@ -189,7 +182,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
         }]
       };
 
-      moreDetails = {
+      var moreDetails = {
         title: this.moreDetailsText,
         name: 'MoreDetailsSection',
         collapsed: true,
@@ -219,7 +212,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
         }]
       };
 
-      relatedItems = {
+      var relatedItems = {
         list: true,
         title: this.relatedItemsText,
         name: 'RelatedItemsSection',
@@ -255,7 +248,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
         }]
       };
 
-      layout = this.layout || (this.layout = []);
+      var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;
@@ -269,11 +262,10 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
           label: this.potentialMyRateText,
           name: 'SalesPotentialMine',
           property: 'SalesPotential',
-          renderer: (function (val) {
-            var exhangeRate, convertedValue;
+          renderer: (function renderMySalesPotential(val) {
             if (App.hasMultiCurrency()) {
-              exhangeRate = App.getMyExchangeRate();
-              convertedValue = val * exhangeRate.rate;
+              var exhangeRate = App.getMyExchangeRate();
+              var convertedValue = val * exhangeRate.rate;
               return _format['default'].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
@@ -283,7 +275,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
           label: this.potentialOpportunityText,
           name: 'SalesPotentialOpportunity',
           property: 'SalesPotentialOpportunity',
-          renderer: function renderer(val) {
+          renderer: function renderSalesPotentialOpportunity(val) {
             if (App.hasMultiCurrency()) {
               return _format['default'].multiCurrency.call(null, val.SalesPotential * val.ExchangeRate, val.ExchangeRateCode);
             }

@@ -27,7 +27,7 @@ define('crm/Views/Groups/Selector', ['exports', 'module', 'dojo/_base/declare', 
     listViewId: 'groups_list',
     family: '',
 
-    //Localization
+    // Localization
     titleText: 'Groups Lookup',
 
     itemTemplate: new Simplate(['<h3>{%: $[$$.labelProperty] %}</h3>']),
@@ -39,10 +39,6 @@ define('crm/Views/Groups/Selector', ['exports', 'module', 'dojo/_base/declare', 
     },
 
     activateEntry: function activateEntry(params) {
-      var key;
-
-      key = params.key;
-
       if (this._selectionModel && this.isNavigationDisabled()) {
         this._selectionModel.toggle(params.key, this.entries[params.key] || params.descriptor, params.$source);
         if (this.options.singleSelect && this.options.singleSelectAction) {
@@ -67,7 +63,7 @@ define('crm/Views/Groups/Selector', ['exports', 'module', 'dojo/_base/declare', 
           service: App.services.crm,
           resourceKind: 'groups',
           contractName: 'system',
-          where: 'upper(family) eq \'' + entityName.toUpperCase() + '\'',
+          where: "upper(family) eq '" + entityName.toUpperCase() + "'",
           orderBy: 'name asc',
           include: ['layout', 'tableAliases'],
           idProperty: '$key',

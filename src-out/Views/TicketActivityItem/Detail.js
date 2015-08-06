@@ -17,7 +17,7 @@ define('crm/Views/TicketActivityItem/Detail', ['exports', 'module', 'dojo/_base/
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.TicketActivityItem.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     titleText: 'Ticket Activity Part',
     productNameText: 'product',
     skuText: 'SKU',
@@ -25,7 +25,7 @@ define('crm/Views/TicketActivityItem/Detail', ['exports', 'module', 'dojo/_base/
     itemAmountText: 'price',
     itemDescriptionText: 'description',
 
-    //View Properties
+    // View Properties
     id: 'ticketactivityitem_detail',
 
     querySelect: ['Product/Name', 'Product/ActualId', 'AccountProduct/SerialNumber', 'ItemDescription', 'ItemAmount', 'TicketActivity/$key'],

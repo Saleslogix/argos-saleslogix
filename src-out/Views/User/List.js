@@ -15,13 +15,13 @@ define('crm/Views/User/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/
    * @extends argos.List
    */
   var __class = (0, _declare['default'])('crm.Views.User.List', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>', '<h4>{%: $.UserInfo.Title %}</h4>']),
 
-    //Localization
+    // Localization
     titleText: 'Users',
 
-    //View Properties
+    // View Properties
     id: 'user_list',
     queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
 

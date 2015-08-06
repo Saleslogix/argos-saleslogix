@@ -1,13 +1,9 @@
-define('crm/Views/History/RelatedView', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', '../../Format', 'argos/Convert', 'argos/RelatedViewWidget'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _Format, _argosConvert, _argosRelatedViewWidget) {
+define('crm/Views/History/RelatedView', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/RelatedViewWidget'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _argosRelatedViewWidget) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _format = _interopRequireDefault(_Format);
-
-  var _convert = _interopRequireDefault(_argosConvert);
 
   var _RelatedViewWidget = _interopRequireDefault(_argosRelatedViewWidget);
 

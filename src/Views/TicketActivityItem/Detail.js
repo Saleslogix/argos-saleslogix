@@ -10,8 +10,8 @@ import Detail from 'argos/Detail';
  *
  * @requires crm.Format
  */
-var __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
-  //Localization
+const __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
+  // Localization
   titleText: 'Ticket Activity Part',
   productNameText: 'product',
   skuText: 'SKU',
@@ -19,7 +19,7 @@ var __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
   itemAmountText: 'price',
   itemDescriptionText: 'description',
 
-  //View Properties
+  // View Properties
   id: 'ticketactivityitem_detail',
 
   querySelect: [
@@ -28,43 +28,43 @@ var __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
     'AccountProduct/SerialNumber',
     'ItemDescription',
     'ItemAmount',
-    'TicketActivity/$key'
+    'TicketActivity/$key',
   ],
   resourceKind: 'ticketActivityItems',
 
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': []
+      'tbar': [],
     });
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.detailsText,
       name: 'DetailsSection',
       children: [{
         name: 'ProductName',
         property: 'Product.Name',
-        label: this.productNameText
+        label: this.productNameText,
       }, {
         name: 'ProductActualId',
         property: 'Product.ActualId',
-        label: this.skuText
+        label: this.skuText,
       }, {
         name: 'SerialNumber',
         property: 'AccountProduct.SerialNumber',
-        label: this.serialNumberText
+        label: this.serialNumberText,
       }, {
         name: 'ItemAmount',
         property: 'ItemAmount',
         label: this.itemAmountText,
-        renderer: format.currency
+        renderer: format.currency,
       }, {
         name: 'ItemDescription',
         property: 'ItemDescription',
-        label: this.itemDescriptionText
-      }]
+        label: this.itemDescriptionText,
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TicketActivityItem.Detail', __class);

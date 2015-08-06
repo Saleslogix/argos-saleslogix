@@ -10,14 +10,14 @@ import Detail from 'argos/Detail';
  *
  * @requires crm.Format
  */
-var __class = declare('crm.Views.Event.Detail', [Detail], {
-  //Localization
+const __class = declare('crm.Views.Event.Detail', [Detail], {
+  // Localization
   eventTypeText: {
     'atToDo': 'To-Do',
     'atPhoneCall': 'Phone Call',
     'atAppointment': 'Meeting',
     'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity'
+    'atPersonal': 'Personal Activity',
   },
   actionsText: 'Quick Actions',
   startTimeText: 'start date',
@@ -29,26 +29,26 @@ var __class = declare('crm.Views.Event.Detail', [Detail], {
   startDateFormatText: 'M/D/YYYY h:mm:ss A',
   endDateFormatText: 'M/D/YYYY h:mm:ss A',
 
-  //View Properties
+  // View Properties
   id: 'event_detail',
   editView: 'event_edit',
-  security: null, //'Entities/Event/View',
+  security: null, // 'Entities/Event/View',
   querySelect: [
     'Description',
     'EndDate',
     'StartDate',
     'UserId',
-    'Type'
+    'Type',
   ],
   resourceKind: 'events',
 
-  formatEventType: function(val) {
+  formatEventType: function formatEventType(val) {
     return this.eventTypeText[val] || val;
   },
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.detailsText,
       name: 'DetailsSection',
@@ -56,12 +56,12 @@ var __class = declare('crm.Views.Event.Detail', [Detail], {
         name: 'Type',
         property: 'Type',
         label: this.typeText,
-        renderer: this.formatEventType.bindDelegate(this)
+        renderer: this.formatEventType.bindDelegate(this),
       }, {
         name: 'Description',
         property: 'Description',
-        label: this.descriptionText
-      }]
+        label: this.descriptionText,
+      }],
     }, {
       title: this.whenText,
       name: 'WhenSection',
@@ -70,16 +70,16 @@ var __class = declare('crm.Views.Event.Detail', [Detail], {
         property: 'StartDate',
         label: this.startTimeText,
         renderer: format.date.bindDelegate(
-          this, this.startDateFormatText)
+          this, this.startDateFormatText),
       }, {
         name: 'EndDate',
         property: 'EndDate',
         label: this.endTimeText,
         renderer: format.date.bindDelegate(
-          this, this.endDateFormatText)
-      }]
+          this, this.endDateFormatText),
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Event.Detail', __class);

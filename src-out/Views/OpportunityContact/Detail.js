@@ -20,7 +20,7 @@ define('crm/Views/OpportunityContact/Detail', ['exports', 'module', 'dojo/_base/
    * @mixins argos._LegacySDataDetailMixin
    */
   var __class = (0, _declare['default'])('crm.Views.OpportunityContact.Detail', [_Detail['default'], _LegacySDataDetailMixin2['default']], {
-    //Localization
+    // Localization
     titleText: 'Opportunity Contact',
     accountText: 'account',
     contactTitleText: 'title',
@@ -36,7 +36,7 @@ define('crm/Views/OpportunityContact/Detail', ['exports', 'module', 'dojo/_base/
     confirmDeleteText: 'Remove "${0}" from the opportunity?',
     contactText: 'Contact',
 
-    //View Properties
+    // View Properties
     id: 'opportunitycontact_detail',
     editView: 'opportunitycontact_edit',
     security: 'Entities/Contact/View',
@@ -45,22 +45,21 @@ define('crm/Views/OpportunityContact/Detail', ['exports', 'module', 'dojo/_base/
 
     createEntryForDelete: function createEntryForDelete() {
       var entry = {
-        '$key': this.entry['$key'],
-        '$etag': this.entry['$etag'],
-        '$name': this.entry['$name']
+        '$key': this.entry.$key,
+        '$etag': this.entry.$etag,
+        '$name': this.entry.$name
       };
       return entry;
     },
     removeContact: function removeContact() {
-      var confirmMessage, entry, request;
-
-      confirmMessage = _string['default'].substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+      var confirmMessage = _string['default'].substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
       if (!confirm(confirmMessage)) {
+        // eslint-disable-line
         return;
       }
 
-      entry = this.createEntryForDelete();
-      request = this.createRequest();
+      var entry = this.createEntryForDelete();
+      var request = this.createRequest();
 
       if (request) {
         request['delete'](entry, {

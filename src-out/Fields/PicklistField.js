@@ -13,12 +13,13 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
 
   var _FieldManager = _interopRequireDefault(_argosFieldManager);
 
-  var viewsByName = {},
-      getOrCreateViewFor,
-      control,
-      viewsByNameCount = 0;
+  var viewsByName = {};
+  var viewsByNameCount = 0;
+  //   getOrCreateViewFor,
+  //   control,
+  //   viewsByNameCount = 0;
 
-  getOrCreateViewFor = function (name) {
+  var getOrCreateViewFor = function getOrCreateViewFor(name) {
     if (viewsByName[name]) {
       return viewsByName[name];
     }
@@ -34,7 +35,7 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
     return App.getView(view.id);
   };
 
-  control = (0, _declare['default'])('crm.Fields.PicklistField', [_LookupField['default']], {
+  var control = (0, _declare['default'])('crm.Fields.PicklistField', [_LookupField['default']], {
     picklist: false,
     storageMode: 'text',
     requireSelection: false,
@@ -58,6 +59,9 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
           this.textProperty = 'text';
           this.requireSelection = typeof options.requireSelection !== 'undefined' ? options.requireSelection : true;
           break;
+        default:
+          this.keyProperty = 'text';
+          this.textProperty = 'text';
       }
     },
     isReadOnly: function isReadOnly() {
@@ -67,15 +71,14 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
       return _string['default'].substitute('name eq "${0}"', [name]);
     },
     _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value) {
-      var values, key, data;
       if (typeof value === 'string') {
         return value;
       }
 
-      values = [];
-      for (key in value) {
+      var values = [];
+      for (var key in value) {
         if (value.hasOwnProperty(key)) {
-          data = value[key].data;
+          var data = value[key].data;
           if (data && data.text) {
             values.push(data.text);
           } else if (typeof data === 'string') {
@@ -87,7 +90,7 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
       return values.join(', ');
     },
     textRenderer: function textRenderer(value) {
-      var results;
+      var results = undefined;
 
       if (this.singleSelect) {
         if (typeof value === 'string' || typeof value === 'number') {
@@ -102,7 +105,7 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
       return results;
     },
     formatValue: function formatValue(value) {
-      var results;
+      var results = undefined;
       if (this.singleSelect) {
         results = this.inherited(arguments);
       } else {
@@ -112,8 +115,15 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
       return results || value;
     },
     createSelections: function createSelections() {
-      var value = this.getText(),
-          selections = value ? value.indexOf(', ') !== -1 ? value.split(', ') : [value] : [];
+      var value = this.getText();
+      var selections = [];
+      if (value) {
+        if (value.indexOf(', ') !== -1) {
+          selections = value.split(', ');
+        } else {
+          selections.push(value);
+        }
+      }
       return selections;
     },
     createNavigationOptions: function createNavigationOptions() {
@@ -152,8 +162,8 @@ define('crm/Fields/PicklistField', ['exports', 'module', 'dojo/_base/declare', '
         return;
       }
 
-      var options = this.createNavigationOptions(),
-          view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
+      var options = this.createNavigationOptions();
+      var view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
       if (view && options) {
         view.show(options);

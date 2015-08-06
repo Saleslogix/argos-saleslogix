@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import json from 'dojo/_base/json';
 import string from 'dojo/string';
-import Memory from 'dojo/store/Memory';
 import format from 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
@@ -15,8 +14,8 @@ import Detail from 'argos/Detail';
  * @requires crm.Format
  * @requires argos.ErrorManager
  */
-var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
-  //Localization
+const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
+  // Localization
   titleText: 'Error Log',
 
   detailsText: 'Details',
@@ -31,14 +30,14 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   emailSubjectText: 'Error received in Saleslogix Mobile Client',
   copiedSuccessText: 'Copied to clipboard',
 
-  //Templates
+  // Templates
   longDetailProperty: new Simplate([
     '<div class="row note-text-row" data-property="{%= $.name %}">',
     '<label>{%: $.label %}</label>',
     '<pre>',
     '{%= $.value %}',
     '</pre>',
-    '</div>'
+    '</div>',
   ]),
   copyButtonTemplate: new Simplate([
     '<div class="copyButton button toolButton toolButton-right">',
@@ -51,11 +50,11 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
     '<param name="wmode" value="transparent" />',
     '<embed src="content/clippy.swf" width="45" height="36" scale="noscale" name="clippy" quality="high" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="{%= $.flashVars %}" wmode="transparent" />',
     '</object>',
-    '</div>'
+    '</div>',
   ]),
 
 
-  //View Properties
+  // View Properties
   id: 'errorlog_detail',
   sendType: null,
 
@@ -64,17 +63,14 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
    */
   defaultToAddress: null,
 
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
     this.determineSendType();
   },
 
-  createToolLayout: function() {
-    var tools,
-      flashVars;
-
-    tools = {
-      'tbar': []
+  createToolLayout: function createToolLayout() {
+    const tools = {
+      'tbar': [],
     };
 
     if (this.sendType === 'mailto') {
@@ -82,20 +78,20 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         id: 'generateEmail',
         action: 'constructReport',
         cls: 'fa fa-envelope fa-lg',
-        title: 'Generate Email Report'
+        title: 'Generate Email Report',
       });
     }
 
     if (this.sendType === 'copy') {
-      flashVars = this.constructFlashVars({
+      const flashVars = this.constructFlashVars({
         'retrieveFunction': 'App.views.' + this.id + '.constructReport',
         'callbackFunction': 'App.views.' + this.id + '.onCopySuccess',
-        'labelVisible': '0'
+        'labelVisible': '0',
       });
 
       tools.tbar.push({
         template: this.copyButtonTemplate,
-        flashVars: flashVars
+        flashVars: flashVars,
       });
     }
 
@@ -107,7 +103,7 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
    * 'mailto': Used on Mobile devices to indicate to form a mailto: url
    * 'copy': Used on desktops to indicate a "copy" button should be placed on the page
    */
-  determineSendType: function() {
+  determineSendType: function determineSendType() {
     switch (true) {
       case (typeof window.orientation !== 'undefined'):
         this.sendType = 'mailto';
@@ -117,10 +113,9 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
     }
   },
 
-  constructFlashVars: function(options) {
-    var flashVars = [],
-      key;
-    for (key in options) {
+  constructFlashVars: function constructFlashVars(options) {
+    const flashVars = [];
+    for (const key in options) {
       if (options.hasOwnProperty(key)) {
         flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
       }
@@ -129,12 +124,12 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
     return flashVars.join('&');
   },
 
-  onCopySuccess: function() {
-    alert(this.copiedSuccessText);
+  onCopySuccess: function onCopySuccess() {
+    alert(this.copiedSuccessText); // eslint-disable-line
   },
 
-  constructReport: function() {
-    var body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}', [json.toJson(this.entry, true)]);
+  constructReport: function constructReport() {
+    const body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}', [json.toJson(this.entry, true)]);
 
     if (this.sendType === 'mailto') {
       this.sendEmailReport(body);
@@ -143,19 +138,19 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
     }
   },
 
-  sendEmailReport: function(body) {
-    var email = this.defaultToAddress || '',
-      subject = encodeURIComponent(this.emailSubjectText);
-    body = encodeURIComponent(body);
-    App.initiateEmail(email, subject, body);
+  sendEmailReport: function sendEmailReport(body) {
+    const email = this.defaultToAddress || '';
+    const subject = encodeURIComponent(this.emailSubjectText);
+    const theBody = encodeURIComponent(body);
+    App.initiateEmail(email, subject, theBody);
   },
 
-  requestData: function() {
-    var errorItem = ErrorManager.getError('$key', this.options.key);
+  requestData: function requestData() {
+    const errorItem = ErrorManager.getError('$key', this.options.key);
     this.processEntry(errorItem);
   },
 
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.detailsText,
       name: 'DetailsSection',
@@ -163,12 +158,12 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         label: this.errorDateText,
         name: 'Date',
         property: 'Date',
-        renderer: format.date.bindDelegate(this, this.errorDateFormatText)
+        renderer: format.date.bindDelegate(this, this.errorDateFormatText),
       }, {
         label: this.statusTextText,
         name: 'Description',
-        property: 'Description'
-      }]
+        property: 'Description',
+      }],
     }, {
       title: this.moreDetailsText,
       collapsed: true,
@@ -176,10 +171,10 @@ var __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
       children: [{
         label: this.errorText,
         name: 'Error',
-        property: 'Error'
-      }]
+        property: 'Error',
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.ErrorLog.Detail', __class);

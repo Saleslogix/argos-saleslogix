@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import format from '../../Format';
 import List from 'argos/List';
 
 /**
@@ -11,19 +10,19 @@ import List from 'argos/List';
  *
  * @requires crm.Format
  */
-var __class = declare('crm.Views.Product.List', [List], {
-  //Templates
+const __class = declare('crm.Views.Product.List', [List], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.Name %} | {%: $.Description %}</h3>',
     '<h4>',
     '{%: $.Family %}',
-    '</h4>'
+    '</h4>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Products',
 
-  //View Properties
+  // View Properties
   id: 'product_list',
   security: 'Entities/Product/View',
   queryOrderBy: 'Name',
@@ -33,13 +32,13 @@ var __class = declare('crm.Views.Product.List', [List], {
     'Family',
     'Price',
     'Program',
-    'FixedCost'
+    'FixedCost',
   ],
   resourceKind: 'products',
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Product.List', __class);

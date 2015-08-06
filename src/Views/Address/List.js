@@ -16,43 +16,43 @@ import List from 'argos/List';
  * @requires crm.Format
  *
  */
-var __class = declare('crm.Views.Address.List', [List], {
-  //Templates
+const __class = declare('crm.Views.Address.List', [List], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.$descriptor %}</h3>',
-    '<h4>{%= crm.Format.address($, true) %}</h4>'
+    '<h4>{%= crm.Format.address($, true) %}</h4>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Addresses',
 
-  //View Properties
+  // View Properties
   detailView: null,
   id: 'address_list',
-  security: null, //'Entities/Address/View',
+  security: null, // 'Entities/Address/View',
   insertSecurity: 'Entities/Address/Add',
   insertView: 'address_edit',
   resourceKind: 'addresses',
   allowSelection: true,
   enableActions: true,
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(Description like "${0}%" or City like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   // Disable Add/Insert on toolbar
-  createToolLayout: function() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      tbar: []
+      tbar: [],
     });
   },
-  selectEntry: function(params) {
-    var row = query(params.$source).closest('[data-key]')[0],
-      key = row ? domAttr.get(row, 'data-key') : false;
+  selectEntry: function selectEntry(params) {
+    const row = query(params.$source).closest('[data-key]')[0];
+    const key = row ? domAttr.get(row, 'data-key') : false;
 
     if (this._selectionModel && key) {
       App.showMapForAddress(format.address(this.entries[key], true, ' '));
     }
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Address.List', __class);

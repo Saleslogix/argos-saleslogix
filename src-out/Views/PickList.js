@@ -17,10 +17,10 @@ define('crm/Views/PickList', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
    *
    */
   var __class = (0, _declare['default'])('crm.Views.PickList', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.text %}</h3>']),
 
-    //View Properties
+    // View Properties
     id: 'pick_list',
     expose: false,
     resourceKind: 'picklists',

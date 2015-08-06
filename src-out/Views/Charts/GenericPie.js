@@ -51,19 +51,16 @@ define('crm/Views/Charts/GenericPie', ['exports', 'module', 'dojo/_base/declare'
     createChart: function createChart(rawData) {
       this.inherited(arguments);
 
-      var ctx, box, data, chart, defaultRenderAs;
-
-      defaultRenderAs = 'Doughnut';
+      var defaultRenderAs = 'Doughnut';
 
       this.showSearchExpression();
 
-      data = _array['default'].map(rawData, (function (item, idx) {
+      var data = _array['default'].map(rawData, (function mapData(item, idx) {
         return {
           value: Math.round(item.value),
           color: this._getItemColor(idx),
           highlight: '',
           label: item.name
-
         };
       }).bind(this));
 
@@ -71,13 +68,13 @@ define('crm/Views/Charts/GenericPie', ['exports', 'module', 'dojo/_base/declare'
         this.chart.destroy();
       }
 
-      box = _domGeo['default'].getMarginBox(this.domNode);
+      var box = _domGeo['default'].getMarginBox(this.domNode);
       this.contentNode.width = box.w;
       this.contentNode.height = box.h;
 
-      ctx = this.contentNode.getContext('2d');
+      var ctx = this.contentNode.getContext('2d');
 
-      chart = new window.Chart(ctx);
+      var chart = new window.Chart(ctx);
 
       // Ensure the chart has the ability to render this type
       this.renderAs = window.Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
@@ -86,17 +83,17 @@ define('crm/Views/Charts/GenericPie', ['exports', 'module', 'dojo/_base/declare'
       this.showLegend();
     },
     _getItemColor: function _getItemColor(index) {
-      var len, n;
-      len = this.seriesColors.length;
-      n = Math.floor(index / len);
+      var len = this.seriesColors.length;
+      var n = Math.floor(index / len);
+      var theIndex = index;
 
       // if n is 0, the index will fall within the seriesColor array,
       // otherwise we will need to re-scale the index to fall within that array.
       if (n > 0) {
-        index = index - len * n;
+        theIndex = index - len * n;
       }
 
-      return this.seriesColors[index];
+      return this.seriesColors[theIndex];
     }
   });
 

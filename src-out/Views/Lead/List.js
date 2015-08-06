@@ -1,4 +1,4 @@
-define('crm/Views/Lead/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Action', 'argos/Format', 'argos/Utility', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_RightDrawerListMixin', '../_CardLayoutListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Action, _argosFormat, _argosUtility, _argosList, _GroupListMixin2, _MetricListMixin2, _RightDrawerListMixin2, _CardLayoutListMixin2) {
+define('crm/Views/Lead/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Action', 'argos/Utility', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_RightDrawerListMixin', '../_CardLayoutListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Action, _argosUtility, _argosList, _GroupListMixin2, _MetricListMixin2, _RightDrawerListMixin2, _CardLayoutListMixin2) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -8,8 +8,6 @@ define('crm/Views/Lead/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/
   var _string = _interopRequireDefault(_dojoString);
 
   var _action = _interopRequireDefault(_Action);
-
-  var _format = _interopRequireDefault(_argosFormat);
 
   var _utility = _interopRequireDefault(_argosUtility);
 
@@ -38,29 +36,29 @@ define('crm/Views/Lead/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/
    * @requires crm.Action
    */
   var __class = (0, _declare['default'])('crm.Views.Lead.List', [_List['default'], _RightDrawerListMixin3['default'], _MetricListMixin3['default'], _CardLayoutListMixin3['default'], _GroupListMixin3['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.LeadNameLastFirst %}</h3>', '<h4>', '{%: $$.joinFields(" | ", [$.Title, $.Company]) %}', '</h4>', '{% if ($.WorkPhone) { %}', '<h4>', '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', '</h4>', '{% } %}', '{% if ($.Mobile) { %}', '<h4>', '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', '</h4>', '{% } %}', '{% if ($.TollFree) { %}', '<h4>', '{%: $$.tollFreeAbbreviationText %} {%: argos.Format.phone($.TollFree) %}', '</h4>', '{% } %}', '<h4>{%: $.WebAddress %}</h4>', '{% if ($.Email) { %}', '<h4>', '<span class="href" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>', '</h4>', '{% } %}']),
 
     joinFields: function joinFields(sep, fields) {
       return _utility['default'].joinFields(sep, fields);
     },
     callWork: function callWork(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'callWork';
+      this.invokeActionItemBy(function setActionId(theAction) {
+        return theAction.id === 'callWork';
       }, params.key);
     },
     callMobile: function callMobile(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'callMobile';
+      this.invokeActionItemBy(function setActionId(theAction) {
+        return theAction.id === 'callMobile';
       }, params.key);
     },
     sendEmail: function sendEmail(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'sendEmail';
+      this.invokeActionItemBy(function setActionId(theAction) {
+        return theAction.id === 'sendEmail';
       }, params.key);
     },
 
-    //Localization
+    // Localization
     titleText: 'Leads',
     activitiesText: 'Activities',
     notesText: 'Notes',
@@ -78,7 +76,7 @@ define('crm/Views/Lead/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/
     mobileAbbreviationText: 'Mobile: ',
     tollFreeAbbreviationText: 'Toll Free: ',
 
-    //View Properties
+    // View Properties
     detailView: 'lead_detail',
     itemIconClass: 'fa fa-filter fa-2x',
     iconTemplate: new Simplate(['<span class="fa-stack">', '<i class="fa fa-square-o fa-stack-2x"></i>', '<i class="fa fa-user fa-stack-1x fa-inverse"></i>', '</span>']),

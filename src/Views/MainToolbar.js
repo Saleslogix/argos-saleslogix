@@ -11,17 +11,15 @@ import MainToolbar from 'argos/MainToolbar';
  * @extends argos.MainToolbar
  *
  */
-var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
-  showTools: function(tools) {
-    var hasLeftDrawer,
-      isOnFirstView,
-      i,
-      isOnEdit;
-
-    isOnFirstView = App.isOnFirstView();
+const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
+  showTools: function showTools(_tools) {
+    let tools = _tools;
+    let hasLeftDrawer;
+    let isOnEdit;
+    const isOnFirstView = App.isOnFirstView();
 
     if (tools) {
-      for (i = 0; i < tools.length; i++) {
+      for (let i = 0; i < tools.length; i++) {
         if (tools[i].id === 'toggleLeftDrawer') {
           hasLeftDrawer = true;
         }
@@ -45,7 +43,7 @@ var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
           'cls': 'fa fa-bars fa-fw fa-lg',
           side: 'left',
           fn: this.toggleLeftDrawer,
-          scope: this
+          scope: this,
         });
       }
 
@@ -55,34 +53,31 @@ var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
           cls: 'fa fa-angle-left fa-fw fa-lg',
           side: 'left',
           fn: this.navigateBack,
-          scope: this
+          scope: this,
         }]);
       }
-
     }
 
     this.inherited(arguments);
   },
-  navigateBack: function() {
+  navigateBack: function navigateBack() {
     ReUI.back();
   },
-  navigateToHomeView: function() {
+  navigateToHomeView: function navigateToHomeView() {
     App.navigateToHomeView();
   },
-  toggleRightDrawer: function() {
+  toggleRightDrawer: function toggleRightDrawer() {
     this._toggleDrawer('right');
   },
-  toggleLeftDrawer: function() {
+  toggleLeftDrawer: function toggleLeftDrawer() {
     this._toggleDrawer('left');
   },
-  onTitleClick: function() {
-    var view, state, scrollerNode;
-
-    state = App.snapper && App.snapper.state();
-    view = App.getPrimaryActiveView();
+  onTitleClick: function onTitleClick() {
+    const state = App.snapper && App.snapper.state();
+    const view = App.getPrimaryActiveView();
 
     if (view && state && state.state === 'closed') {
-      scrollerNode = view.get('scroller');
+      const scrollerNode = view.get('scroller');
       if (has('android')) {
         // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
         domStyle.set(scrollerNode, 'overflow', 'hidden');
@@ -93,14 +88,14 @@ var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       }
     }
   },
-  _toggleDrawer: function(state) {
-    var snapperState = App.snapper.state();
+  _toggleDrawer: function _toggleDrawer(state) {
+    const snapperState = App.snapper.state();
     if (snapperState.state === state) {
       App.snapper.close();
     } else {
       App.snapper.open(state);
     }
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);

@@ -15,7 +15,7 @@ define('crm/Views/TextEdit', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
    *
    */
   var __class = (0, _declare['default'])('crm.Views.TextEdit', [_Edit['default']], {
-    //View Properties
+    // View Properties
     id: 'text_edit',
     titleText: 'Edit Text',
 

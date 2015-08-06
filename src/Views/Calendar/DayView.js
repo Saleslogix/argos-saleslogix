@@ -25,7 +25,7 @@ import moment from 'moment';
  * @requires moment
  *
  */
-var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
+const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: 'Calendar',
   eventDateFormatText: 'M/D/YYYY',
@@ -58,7 +58,7 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     '<h2>{%= $.activityHeaderText %}</h2>',
     '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
     '{%! $.moreTemplate %}',
-    '</div>'
+    '</div>',
   ]),
   rowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">',
@@ -70,7 +70,7 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
     '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',
     '</tr></table>',
-    '</li>'
+    '</li>',
   ]),
   eventRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
@@ -81,22 +81,22 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     '</td>',
     '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
     '</tr></table>',
-    '</li>'
+    '</li>',
   ]),
   timeTemplate: new Simplate([
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
     '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-    '{% } %}'
+    '{% } %}',
   ]),
   itemTemplate: new Simplate([
     '<h3 class="p-description">{%: $.Description %}</h3>',
-    '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
+    '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
   ]),
   eventItemTemplate: new Simplate([
     '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
-    '<h4>{%! $$.eventNameTemplate %}</h4>'
+    '<h4>{%! $$.eventNameTemplate %}</h4>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
@@ -105,12 +105,12 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     '{%: $.AccountName %}',
     '{% } else { %}',
     '{%: $.LeadName %}',
-    '{% } %}'
+    '{% } %}',
   ]),
   eventNameTemplate: new Simplate([
     '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
     '&nbsp;-&nbsp;',
-    '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}'
+    '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}',
   ]),
   navigationTemplate: new Simplate([
     '<div class="split-buttons">',
@@ -124,39 +124,39 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     '<button data-tool="next" data-action="getNextDay" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
     '<button data-tool="prev" data-action="getPrevDay" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
     '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
-    '</div>'
+    '</div>',
   ]),
   eventMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
     '<button class="button" data-action="activateEventMore">',
     '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.eventMoreText %}</span>',
     '</button>',
-    '</div>'
+    '</div>',
   ]),
   attributeMap: {
     listContent: {
       node: 'contentNode',
-      type: 'innerHTML'
+      type: 'innerHTML',
     },
     eventListContent: {
       node: 'eventContentNode',
-      type: 'innerHTML'
+      type: 'innerHTML',
     },
     dateContent: {
       node: 'dateNode',
-      type: 'innerHTML'
+      type: 'innerHTML',
     },
     eventRemainingContent: {
       node: 'eventRemainingContentNode',
-      type: 'innerHTML'
+      type: 'innerHTML',
     },
     remainingContent: {
       node: 'remainingContentNode',
-      type: 'innerHTML'
-    }
+      type: 'innerHTML',
+    },
   },
 
-  //View Properties
+  // View Properties
   id: 'calendar_daylist',
   cls: 'activities-for-day',
   iconClass: 'fa fa-calendar fa-lg',
@@ -181,7 +181,7 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     'LeadName',
     'UserId',
     'Timeless',
-    'Recurring'
+    'Recurring',
   ],
   eventFeed: null,
   eventPageSize: 3,
@@ -189,7 +189,7 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     'StartDate',
     'EndDate',
     'Description',
-    'Type'
+    'Type',
   ],
   activityIconByType: {
     'atToDo': 'fa fa-list-ul',
@@ -199,7 +199,7 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     'atPersonal': 'fa fa-check-square-o',
     'atQuestion': 'fa fa-question-circle',
     'atNote': 'fa fa-file-text-o',
-    'atEMail': 'fa fa-envelope'
+    'atEMail': 'fa fa-envelope',
   },
   eventIcon: 'fa fa-calendar-o',
   resourceKind: 'activities',
@@ -207,26 +207,23 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
 
   continuousScrolling: false,
 
-  _onRefresh: function(o) {
+  _onRefresh: function _onRefresh(o) {
     this.inherited(arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
   },
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
     this.currentDate = moment().startOf('day');
   },
-  toggleGroup: function(params) {
-    var node,
-      button;
-
-    node = params.$source;
+  toggleGroup: function toggleGroup(params) {
+    const node = params.$source;
     if (node && node.parentNode) {
       domClass.toggle(node, 'collapsed');
       domClass.toggle(node.parentNode, 'collapsed-event');
 
-      button = this.collapseButton;
+      const button = this.collapseButton;
 
       if (button) {
         domClass.toggle(button, this.toggleCollapseClass);
@@ -234,11 +231,11 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
       }
     }
   },
-  refresh: function() {
+  refresh: function refresh() {
     this.clear();
 
     this.options = this.options || {};
-    this.options['where'] = this.formatQueryForActivities();
+    this.options.where = this.formatQueryForActivities();
     this.feed = null;
     this.eventFeed = null;
     this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
@@ -246,29 +243,29 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     this.requestData();
     this.requestEventData();
   },
-  requestEventData: function() {
-    var request = this.createEventRequest();
+  requestEventData: function requestEventData() {
+    const request = this.createEventRequest();
     request.read({
       success: this.onRequestEventDataSuccess,
       failure: this.onRequestEventDataFailure,
       aborted: this.onRequestEventDataAborted,
-      scope: this
+      scope: this,
     });
   },
-  onRequestEventDataFailure: function(response, o) {
-    alert(string.substitute(this.requestErrorText, [response, o]));
+  onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
+    alert(string.substitute(this.requestErrorText, [response, o])); // eslint-disable-line
     ErrorManager.addError(response, o, this.options, 'failure');
   },
-  onRequestEventDataAborted: function() {
+  onRequestEventDataAborted: function onRequestEventDataAborted() {
     this.options = false; // force a refresh
   },
-  onRequestEventDataSuccess: function(feed) {
+  onRequestEventDataSuccess: function onRequestEventDataSuccess(feed) {
     this.processEventFeed(feed);
   },
-  createEventRequest: function() {
-    var eventSelect = this.eventQuerySelect,
-      eventWhere = this.getEventQuery(),
-      request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+  createEventRequest: function createEventRequest() {
+    const eventSelect = this.eventQuerySelect;
+    const eventWhere = this.getEventQuery();
+    const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
       .setCount(this.eventPageSize)
       .setStartIndex(1)
       .setResourceKind('events')
@@ -276,58 +273,55 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
       .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
     return request;
   },
-  getEventQuery: function() {
+  getEventQuery: function getEventQuery() {
     return string.substitute(
       [
         'UserId eq "${0}" and (',
         '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
         'StartDate lt @${2}@',
-        ')'
+        ')',
       ].join(''), [
-        App.context['user'] && App.context['user']['$key'],
+        App.context.user && App.context.user.$key,
         convert.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())
+        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
       ]
     );
   },
-  activateEventMore: function() {
-    var view = App.getView('event_related'),
-      where = this.getEventQuery();
+  activateEventMore: function activateEventMore() {
+    const view = App.getView('event_related');
     if (view) {
+      const where = this.getEventQuery();
       view.show({
-        'where': where
+        'where': where,
       });
     }
   },
-  hideEventList: function() {
+  hideEventList: function hideEventList() {
     domClass.add(this.eventContainerNode, 'event-hidden');
   },
-  showEventList: function() {
+  showEventList: function showEventList() {
     domClass.remove(this.eventContainerNode, 'event-hidden');
   },
-  processEventFeed: function(feed) {
-    var r = feed['$resources'],
-      feedLength = r.length,
-      i,
-      row,
-      o = [];
+  processEventFeed: function processEventFeed(feed) {
+    const r = feed.$resources;
+    const feedLength = r.length;
+    const o = [];
     this.eventFeed = feed;
 
     if (feedLength === 0) {
       this.hideEventList();
       return false;
-    } else {
-      this.showEventList();
     }
+    this.showEventList();
 
-    for (i = 0; i < feedLength; i++) {
-      row = r[i];
+    for (let i = 0; i < feedLength; i++) {
+      const row = r[i];
       row.isEvent = true;
       this.entries[row.$key] = row;
       o.push(this.eventRowTemplate.apply(row, this));
     }
 
-    if (feed['$totalResults'] > feedLength) {
+    if (feed.$totalResults > feedLength) {
       domClass.add(this.eventContainerNode, 'list-has-more');
       this.set('eventRemainingContent', this.eventMoreText);
     } else {
@@ -337,16 +331,14 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
 
     this.set('eventListContent', o.join(''));
   },
-  processFeed: function(feed) {
-    var r = feed['$resources'],
-      feedLength = r.length,
-      i,
-      row,
-      o = [];
+  processFeed: function processFeed(feed) {
+    const r = feed.$resources;
+    const feedLength = r.length;
+    const o = [];
 
     this.feed = feed;
-    for (i = 0; i < feedLength; i++) {
-      row = r[i];
+    for (let i = 0; i < feedLength; i++) {
+      const row = r[i];
       row.isEvent = false;
       this.entries[row.$key] = row;
       o.push(this.rowTemplate.apply(row, this));
@@ -373,37 +365,37 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
 
     this._loadPreviousSelections();
   },
-  show: function(options) {
+  show: function show(options) {
     if (options) {
       this.processShowOptions(options);
     }
 
-    options = options || {};
-    options['where'] = this.formatQueryForActivities();
+    const theOptions = options || {};
+    theOptions.where = this.formatQueryForActivities();
 
     this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
-    this.inherited(arguments, [options]);
+    this.inherited(arguments, [theOptions]);
   },
-  processShowOptions: function(options) {
+  processShowOptions: function processShowOptions(options) {
     if (options.currentDate) {
       this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
       this.refreshRequired = true;
     }
   },
-  isLoading: function() {
+  isLoading: function isLoading() {
     return domClass.contains(this.domNode, 'list-loading');
   },
-  getNextDay: function() {
+  getNextDay: function getNextDay() {
     if (this.isLoading()) {
       return;
     }
 
     this.currentDate.add({
-      days: 1
+      days: 1,
     });
     this.refresh();
   },
-  getToday: function() {
+  getToday: function getToday() {
     if (this.isLoading()) {
       return;
     }
@@ -415,47 +407,43 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
     this.currentDate = moment().startOf('day');
     this.refresh();
   },
-  getPrevDay: function() {
+  getPrevDay: function getPrevDay() {
     if (this.isLoading()) {
       return;
     }
 
     this.currentDate.subtract({
-      days: 1
+      days: 1,
     });
     this.refresh();
   },
-  formatQueryForActivities: function() {
-    var queryWhere,
-      startDate,
-      endDate;
-
-    queryWhere = [
+  formatQueryForActivities: function formatQueryForActivities() {
+    const queryWhere = [
       'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
       '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
-      '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
+      '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
     ].join('');
 
-    startDate = this.currentDate.clone().startOf('day').toDate();
-    endDate = this.currentDate.clone().endOf('day').toDate();
+    const startDate = this.currentDate.clone().startOf('day').toDate();
+    const endDate = this.currentDate.clone().endOf('day').toDate();
 
     return string.substitute(
-      queryWhere, [App.context['user'] && App.context['user']['$key'],
+      queryWhere, [App.context.user && App.context.user.$key,
         convert.toIsoStringFromDate(startDate),
         convert.toIsoStringFromDate(endDate),
         this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')
+        this.currentDate.format('YYYY-MM-DDT23:59:59[Z]'),
       ]
     );
   },
-  selectEntry: function(params) {
-    var row = query(params.$source).closest('[data-key]')[0],
-      key = row ? row.getAttribute('data-key') : false;
+  selectEntry: function selectEntry(params) {
+    const row = query(params.$source).closest('[data-key]')[0];
+    const key = row ? row.getAttribute('data-key') : false;
 
     this.navigateToDetailView(key);
   },
-  selectDate: function() {
-    var options = {
+  selectDate: function selectDate() {
+    const options = {
         date: this.currentDate,
         showTimePicker: false,
         timeless: false,
@@ -464,45 +452,45 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
             id: 'complete',
             cls: 'fa fa-check fa-fw fa-lg',
             fn: this.selectDateSuccess,
-            scope: this
+            scope: this,
           }, {
             id: 'cancel',
             side: 'left',
             cls: 'fa fa-ban fa-fw fa-lg',
             fn: ReUI.back,
-            scope: ReUI
-          }]
-        }
-      },
-      view = App.getView(this.datePickerView);
+            scope: ReUI,
+          }],
+        },
+      };
+    const view = App.getView(this.datePickerView);
     if (view) {
       view.show(options);
     }
   },
-  selectDateSuccess: function() {
-    var view = App.getPrimaryActiveView();
+  selectDateSuccess: function selectDateSuccess() {
+    const view = App.getPrimaryActiveView();
     this.currentDate = moment(view.getDateTime()).startOf('day');
     this.refresh();
     ReUI.back();
   },
-  navigateToWeekView: function() {
-    var view = App.getView(this.weekView),
-      navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
-      options = {
-        currentDate: navDate.valueOf()
+  navigateToWeekView: function navigateToWeekView() {
+    const view = App.getView(this.weekView);
+    const navDate = this.currentDate ? this.currentDate : moment().startOf('day');
+    const options = {
+        currentDate: navDate.valueOf(),
       };
     view.show(options);
   },
-  navigateToMonthView: function() {
-    var view = App.getView(this.monthView),
-      navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
-      options = {
-        currentDate: navDate.valueOf()
+  navigateToMonthView: function navigateToMonthView() {
+    const view = App.getView(this.monthView);
+    const navDate = this.currentDate ? this.currentDate : moment().startOf('day');
+    const options = {
+        currentDate: navDate.valueOf(),
       };
     view.show(options);
   },
-  navigateToInsertView: function() {
-    var view = App.getView(this.insertView || this.editView);
+  navigateToInsertView: function navigateToInsertView() {
+    const view = App.getView(this.insertView || this.editView);
 
     this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || moment().startOf('day');
     if (view) {
@@ -510,23 +498,23 @@ var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin
         negateHistory: true,
         returnTo: this.id,
         insert: true,
-        currentDate: this.options.currentDate.valueOf()
+        currentDate: this.options.currentDate.valueOf(),
       });
     }
   },
-  navigateToDetailView: function(key, descriptor) {
-    var entry = this.entries[key],
-      detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
-      view = App.getView(detailView);
+  navigateToDetailView: function navigateToDetailView(key, descriptor) {
+    const entry = this.entries[key];
+    const detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
+    const view = App.getView(detailView);
 
-    descriptor = (entry.isEvent) ? descriptor : entry.Description;
+    const theDescriptor = (entry.isEvent) ? descriptor : entry.Description;
     if (view) {
       view.show({
-        title: descriptor,
-        key: key
+        title: theDescriptor,
+        key: key,
       });
     }
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);

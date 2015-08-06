@@ -12,8 +12,8 @@ import GroupedList from 'argos/GroupedList';
  * @extends argos.GroupedList
  *
  */
-var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
-  //Templates
+const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
+  // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
@@ -29,16 +29,16 @@ var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     '</div>',
     '{% } %}',
     '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-    '</li>'
+    '</li>',
   ]),
-  _hasIcon: function(entry) {
+  _hasIcon: function _hasIcon(entry) {
     return entry.iconTemplate || entry.cls || entry.icon;
   },
   itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>'
+    '<h3>{%: $.title %}</h3>',
   ]),
 
-  //Localization
+  // Localization
   configureText: 'Configure Menu',
   addAccountContactText: 'Add Account/Contact',
   titleText: 'Main Menu',
@@ -50,7 +50,7 @@ var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   logOutText: 'Log Out',
   logOutConfirmText: 'Are you sure you want to log out?',
 
-  //View Properties
+  // View Properties
   id: 'left_drawer',
   expose: false,
   enableSearch: true,
@@ -63,182 +63,162 @@ var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   addAccountContactView: 'add_account_contact',
   searchView: 'speedsearch_list',
 
-  logOut: function() {
-    var sure = window.confirm(this.logOutConfirmText);
+  logOut: function logOut() {
+    const sure = window.confirm(this.logOutConfirmText);// eslint-disable-line
     if (sure) {
       App.logOut();
     }
   },
-  loadAndNavigateToView: function(params) {
-    var view = App.getView(params && params.view);
+  loadAndNavigateToView: function loadAndNavigateToView(params) {
+    const view = App.getView(params && params.view);
     this.navigateToView(view);
   },
-  navigateToView: function(view) {
+  navigateToView: function navigateToView(view) {
     App.snapper.close();
     if (view) {
       view.show();
     }
   },
-  addAccountContact: function() {
+  addAccountContact: function addAccountContact() {
     App.snapper.close();
-    var view = App.getView('add_account_contact');
+    const view = App.getView('add_account_contact');
     if (view) {
       view.show({
-        insert: true
+        insert: true,
       });
     }
   },
-  navigateToConfigurationView: function() {
-    var view = App.getView(this.configurationView);
+  navigateToConfigurationView: function navigateToConfigurationView() {
+    const view = App.getView(this.configurationView);
     this.navigateToView(view);
   },
-  navigateToSettingsView: function() {
-    var view = App.getView(this.settingsView);
+  navigateToSettingsView: function navigateToSettingsView() {
+    const view = App.getView(this.settingsView);
     this.navigateToView(view);
   },
-  navigateToHelpView: function() {
-    var view = App.getView(this.helpView);
+  navigateToHelpView: function navigateToHelpView() {
+    const view = App.getView(this.helpView);
     this.navigateToView(view);
   },
-  formatSearchQuery: function(searchQuery) {
-    var expression = new RegExp(searchQuery, 'i');
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
+    const expression = new RegExp(searchQuery, 'i');
 
-    return function(entry) {
+    return function testExpression(entry) {
       return expression.test(entry.title);
     };
   },
-  hasMoreData: function() {
+  hasMoreData: function hasMoreData() {
     return false;
   },
-  getGroupForEntry: function(entry) {
-    var footerItems = [
+  getGroupForEntry: function getGroupForEntry(entry) {
+    const footerItems = [
       'ConfigureMenu',
       'SettingsAction',
       'HelpAction',
-      'Logout'
+      'Logout',
     ];
 
     if (entry.view) {
       return {
         tag: 'view',
-        title: this.viewsText
+        title: this.viewsText,
       };
     }
 
     if (array.indexOf(footerItems, entry.name) >= 0) {
       return {
         tag: 'footer',
-        title: this.footerText
+        title: this.footerText,
       };
     }
 
     return {
       tag: 'action',
-      title: this.actionsText
+      title: this.actionsText,
     };
   },
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     if (this.layout) {
       return this.layout;
     }
 
-    var quickActions,
-      goTo,
-      footer,
-      layout,
-      configured,
-      view,
-      i;
+    const layout = [];
 
-    layout = [];
-
-    quickActions = {
+    const quickActions = {
       id: 'actions',
       children: [{
         'name': 'AddAccountContactAction',
         'action': 'addAccountContact',
-        //'cls': 'fa fa-plus-square-o',
-        'title': this.addAccountContactText
-      }]
+        'title': this.addAccountContactText,
+      }],
     };
 
     layout.push(quickActions);
 
-    goTo = {
+    const goTo = {
       id: 'views',
-      children: []
+      children: [],
     };
 
-    configured = lang.getObject('preferences.home.visible', false, window.App);
-    for (i = 0; i < configured.length; i++) {
-      view = App.getView(configured[i]);
+    const configured = lang.getObject('preferences.home.visible', false, window.App);
+    for (let i = 0; i < configured.length; i++) {
+      const view = App.getView(configured[i]);
       if (view) {
         goTo.children.push({
           'action': 'loadAndNavigateToView',
           'view': view.id,
-          //'icon': view.icon,
-          //'cls': view.iconClass,
-          //'iconTemplate': view.iconTemplate,
           'title': view.titleText,
-          'security': view.getSecurity()
+          'security': view.getSecurity(),
         });
       }
     }
 
     layout.push(goTo);
 
-    footer = {
+    const footer = {
       id: 'footer',
       children: [{
         'name': 'ConfigureMenu',
         'action': 'navigateToConfigurationView',
-        //'cls': 'fa fa-wrench fa-lg',
-        'title': this.configureText
+        'title': this.configureText,
       }, {
         'name': 'SettingsAction',
         'action': 'navigateToSettingsView',
-        //'cls': 'fa fa-cog fa-lg',
-        'title': this.settingsText
+        'title': this.settingsText,
       }, {
         'name': 'HelpAction',
         'action': 'navigateToHelpView',
-        //'cls': 'fa fa-question fa-lg',
-        'title': this.helpText
+        'title': this.helpText,
       }, {
         'name': 'Logout',
         'action': 'logOut',
-        //'cls': 'fa fa-sign-out fa-lg',
-        'title': this.logOutText
-      }]
+        'title': this.logOutText,
+      }],
     };
 
     layout.push(footer);
 
     return layout;
   },
-  createStore: function() {
-    var layout = this._createCustomizedLayout(this.createLayout()),
-      list = [],
-      store,
-      i,
-      section,
-      j,
-      row,
-      total = 0;
+  createStore: function createStore() {
+    const layout = this._createCustomizedLayout(this.createLayout());
+    const list = [];
+    let total = 0;
+    let section;
 
-    for (i = 0; i < layout.length; i++) {
+    for (let i = 0; i < layout.length; i++) {
       section = layout[i].children;
 
-      for (j = 0; j < section.length; j++) {
+      for (let j = 0; j < section.length; j++) {
         total = total + 1;
-        row = section[j];
+        const row = section[j];
         row.$key = total;
 
-        if (row['security'] && !App.hasAccessTo(row['security'])) {
+        if (row.security && !App.hasAccessTo(row.security)) {
           continue;
         }
         if (typeof this.query !== 'function' || this.query(row)) {
@@ -247,8 +227,8 @@ var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       }
     }
 
-    store = new Memory({
-      data: list
+    const store = new Memory({
+      data: list,
     });
     store.idProperty = '$key';
     return store;
@@ -256,58 +236,56 @@ var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   /**
    * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
    */
-  refresh: function() {
+  refresh: function refresh() {
     this.clear();
     this.requestData();
   },
-  clear: function() {
+  clear: function clear() {
     this.inherited(arguments);
     this.layout = null;
     this.store = null;
   },
-  show: function() {
+  show: function show() {
     if (this.onShow(this) === false) {
       return;
     }
 
     this.refresh();
   },
-  refreshRequiredFor: function() {
-    var visible = lang.getObject('preferences.home.visible', false, App) || [],
-      i,
-      shown = this.feed && this.feed['$resources'];
+  refreshRequiredFor: function refreshRequiredFor() {
+    const visible = lang.getObject('preferences.home.visible', false, App) || [];
+    const shown = this.feed && this.feed.$resources;
 
     if (!visible || !shown || (visible.length !== shown.length)) {
       return true;
     }
 
-    for (i = 0; i < visible.length; i++) {
-      if (visible[i] !== shown[i]['$key']) {
+    for (let i = 0; i < visible.length; i++) {
+      if (visible[i] !== shown[i].$key) {
         return true;
       }
     }
 
     return this.inherited(arguments);
   },
-  _onRegistered: function() {
+  _onRegistered: function _onRegistered() {
     this.refreshRequired = true;
   },
-  _onSearchExpression: function(expression) {
-    var view, current;
-    view = App.getView(this.searchView);
-    current = App.getPrimaryActiveView();
+  _onSearchExpression: function _onSearchExpression(expression) {
+    const view = App.getView(this.searchView);
+    const current = App.getPrimaryActiveView();
 
     if (view) {
       // If the speedsearch list is not our current view, show it first
       if (view.id !== current.id) {
         view.show({
-          query: expression
+          query: expression,
         });
       }
 
       // Set the search term on the list and call search.
       // This will keep the search terms on each widget in sync.
-      setTimeout(function() {
+      setTimeout(() => {
         view.setSearchTerm(expression);
         if (current && current.id === view.id) {
           view.search();
@@ -316,7 +294,7 @@ var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     }
 
     App.snapper.close();
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);

@@ -1,6 +1,8 @@
 define('crm/Views/Home', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', '../SpeedSearchWidget', 'argos/GroupedList'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _SpeedSearchWidget, _argosGroupedList) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+  /*eslint-disable*/
+
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _array = _interopRequireDefault(_dojo_baseArray);
@@ -12,6 +14,7 @@ define('crm/Views/Home', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
   var _GroupedList = _interopRequireDefault(_argosGroupedList);
 
   /**
+   * @deprecated
    * @class crm.Views.Home
    *
    *

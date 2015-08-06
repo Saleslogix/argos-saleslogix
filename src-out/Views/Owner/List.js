@@ -17,13 +17,13 @@ define('crm/Views/Owner/List', ['exports', 'module', 'dojo/_base/declare', 'dojo
    * @extends argos.List
    */
   var __class = (0, _declare['default'])('crm.Views.Owner.List', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.OwnerDescription %}</h3>']),
 
-    //Localization
+    // Localization
     titleText: 'Owners',
 
-    //View Properties
+    // View Properties
     id: 'owner_list',
     security: 'Entities/Owner/View',
     queryOrderBy: 'OwnerDescription',
@@ -36,7 +36,8 @@ define('crm/Views/Owner/List', ['exports', 'module', 'dojo/_base/declare', 'dojo
     },
     processData: function processData(items) {
       if (items) {
-        items = _array['default'].filter(items, function (item) {
+        items = _array['default'].filter(items, function filterItems(item) {
+          // eslint-disable-line
           return this._userEnabled(item) && this._isCorrectType(item);
         }, this);
       }

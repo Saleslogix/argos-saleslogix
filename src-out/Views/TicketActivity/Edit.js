@@ -24,7 +24,7 @@ define('crm/Views/TicketActivity/Edit', ['exports', 'module', 'dojo/_base/declar
    * @requires crm.Validator
    */
   var __class = (0, _declare['default'])('crm.Views.TicketActivity.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     titleText: 'Edit Ticket Activity',
     activityTypeText: 'type',
     activityTypeTitleText: 'Type',
@@ -36,7 +36,7 @@ define('crm/Views/TicketActivity/Edit', ['exports', 'module', 'dojo/_base/declar
     commentsText: 'comments',
     startingFormatText: 'M/D/YYYY h:mm A',
 
-    //View Properties
+    // View Properties
     entityName: 'TicketActivity',
     id: 'ticketactivity_edit',
     querySelect: ['ActivityDescription', 'ActivityTypeCode', 'AssignedDate', 'CompletedDate', 'PublicAccessCode', 'User/UserName', 'User/UserInfo/FirstName', 'User/UserInfo/LastName'],
@@ -45,15 +45,14 @@ define('crm/Views/TicketActivity/Edit', ['exports', 'module', 'dojo/_base/declar
     processTemplateEntry: function processTemplateEntry(entry) {
       this.inherited(arguments);
 
-      if (entry['PublicAccessCode']) {
-        this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
+      if (entry.PublicAccessCode) {
+        this.requestCodeData('name eq "Ticket Activity Public Access"', entry.PublicAccessCode, this.fields.PublicAccessCode);
       }
     },
     createPicklistRequest: function createPicklistRequest(name) {
-      var request, uri;
-      request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
 
-      uri = request.getUri();
+      var uri = request.getUri();
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate(name);
 
@@ -77,12 +76,10 @@ define('crm/Views/TicketActivity/Edit', ['exports', 'module', 'dojo/_base/declar
       _ErrorManager['default'].addError(response, o, this.options, 'failure');
     },
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-      var keyProperty, textProperty, i;
+      var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+      var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-      keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-      textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-      for (i = 0; i < feed.$resources.length; i++) {
+      for (var i = 0; i < feed.$resources.length; i++) {
         if (feed.$resources[i][keyProperty] === currentValue) {
           return feed.$resources[i][textProperty];
         }
@@ -94,13 +91,13 @@ define('crm/Views/TicketActivity/Edit', ['exports', 'module', 'dojo/_base/declar
     applyContext: function applyContext() {
       this.inherited(arguments);
 
-      var ticketContext = App.isNavigationFromResourceKind(['tickets']),
-          ticketKey = ticketContext && ticketContext.key,
-          user = App.context.user,
-          userField = this.fields.User;
+      var ticketContext = App.isNavigationFromResourceKind(['tickets']);
+      var ticketKey = ticketContext && ticketContext.key;
+      var user = App.context.user;
+      var userField = this.fields.User;
 
       if (ticketKey) {
-        this.fields['TicketId'].setValue(ticketKey);
+        this.fields.TicketId.setValue(ticketKey);
       }
 
       if (userField) {

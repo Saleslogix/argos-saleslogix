@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
-import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 
 /**
@@ -11,8 +10,8 @@ import Edit from 'argos/Edit';
  *
  * @requires argos.Utility
  */
-var __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
+  // Localization
   titleText: 'Edit Opp. Contact',
   nameText: 'name',
   accountNameText: 'account',
@@ -27,7 +26,7 @@ var __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
   contactText: 'Contact',
   competitorPrefText: 'competitor pref',
 
-  //View Properties
+  // View Properties
   entityName: 'OpportunityContact',
   id: 'opportunitycontact_edit',
   insertSecurity: 'Entities/Contact/Add',
@@ -35,11 +34,11 @@ var __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
   querySelect: [
     'Contact/Account/AccountName',
     'Contact/NameLF',
-    'Contact/Title'
+    'Contact/Title',
   ],
   resourceKind: 'opportunityContacts',
 
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.contactText,
       name: 'ContactSection',
@@ -50,70 +49,70 @@ var __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
         type: 'text',
         property: 'Contact.NameLF',
         readonly: true,
-        exclude: true
+        exclude: true,
       }, {
         label: this.accountNameText,
         name: 'ContactAccountName',
         property: 'Contact.AccountName',
         type: 'text',
         readonly: true,
-        exclude: true
+        exclude: true,
       }, {
         label: this.contactTitleText,
         name: 'ContactTitle',
         property: 'Contact.Title',
         type: 'text',
         readonly: true,
-        exclude: true
-      }]
+        exclude: true,
+      }],
     }, {
       label: this.salesRoleText,
       name: 'SalesRole',
       property: 'SalesRole',
       type: 'picklist',
       title: this.salesRoleTitleText,
-      picklist: 'Role'
+      picklist: 'Role',
     }, {
       label: this.standingText,
       name: 'Standing',
       property: 'Standing',
       type: 'picklist',
       title: this.standingTitleText,
-      picklist: 'Standing'
+      picklist: 'Standing',
     }, {
       label: this.personalBenefitsText,
       name: 'PersonalBenefits',
       property: 'PersonalBenefits',
-      type: 'text'
+      type: 'text',
     }, {
       label: this.competitorPrefText,
       name: 'Competitors',
       property: 'Competitors',
       textProperty: 'CompetitorName',
       view: 'competitor_related',
-      type: 'lookup'
+      type: 'lookup',
     }, {
       label: this.strategyText,
       name: 'Strategy',
       property: 'Strategy',
-      type: 'textarea'
+      type: 'textarea',
     }, {
       label: this.issuesText,
       name: 'Issues',
       property: 'Issues',
-      type: 'textarea'
+      type: 'textarea',
     }, {
       name: 'OpportunityKey',
       property: 'Opportunity.$key',
       type: 'hidden',
-      include: true
+      include: true,
     }, {
       name: 'ContactKey',
       property: 'Contact.$key',
       type: 'hidden',
-      include: true
+      include: true,
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Edit', __class);

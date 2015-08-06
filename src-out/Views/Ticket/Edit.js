@@ -26,7 +26,7 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
    * @requires crm.Validator
    */
   var __class = (0, _declare['default'])('crm.Views.Ticket.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     accountText: 'acct',
     areaText: 'area',
     assignedDateText: 'assigned date',
@@ -58,7 +58,7 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
     titleText: 'Ticket',
     urgencyText: 'urgency',
 
-    //View Properties
+    // View Properties
     entityName: 'Ticket',
     id: 'ticket_edit',
     insertSecurity: 'Entities/Ticket/Add',
@@ -69,22 +69,22 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
     init: function init() {
       this.inherited(arguments);
 
-      this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-      this.connect(this.fields['Contact'], 'onChange', this.onContactChange);
-      this.connect(this.fields['Urgency'], 'onChange', this.onUrgencyChange);
-      this.connect(this.fields['Area'], 'onChange', this.onAreaChange);
-      this.connect(this.fields['Category'], 'onChange', this.onCategoryChange);
+      this.connect(this.fields.Account, 'onChange', this.onAccountChange);
+      this.connect(this.fields.Contact, 'onChange', this.onContactChange);
+      this.connect(this.fields.Urgency, 'onChange', this.onUrgencyChange);
+      this.connect(this.fields.Area, 'onChange', this.onAreaChange);
+      this.connect(this.fields.Category, 'onChange', this.onCategoryChange);
     },
     convertEntry: function convertEntry() {
       var entry = this.inherited(arguments);
 
       if (!this.options.entry) {
-        if (entry['StatusCode']) {
-          this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode'], entry, 'Status');
+        if (entry.StatusCode) {
+          this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
         }
 
-        if (entry['ViaCode']) {
-          this.requestCodeData('name eq "Source"', entry['ViaCode'], this.fields['ViaCode'], entry, 'SourceText');
+        if (entry.ViaCode) {
+          this.requestCodeData('name eq "Source"', entry.ViaCode, this.fields.ViaCode, entry, 'SourceText');
         }
       }
 
@@ -93,16 +93,14 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
     processTemplateEntry: function processTemplateEntry(entry) {
       this.inherited(arguments);
 
-      if (entry['StatusCode']) {
-        this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode'], entry, 'Status');
+      if (entry.StatusCode) {
+        this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
       }
     },
     createPicklistRequest: function createPicklistRequest(name) {
-      var request, uri;
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
 
-      request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
-
-      uri = request.getUri();
+      var uri = request.getUri();
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate(name);
 
@@ -127,12 +125,10 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
       _ErrorManager['default'].addError(response, o, this.options, 'failure');
     },
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-      var keyProperty, textProperty, i;
+      var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+      var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-      keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-      textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-      for (i = 0; i < feed.$resources.length; i++) {
+      for (var i = 0; i < feed.$resources.length; i++) {
         if (feed.$resources[i][keyProperty] === currentValue) {
           return feed.$resources[i][textProperty];
         }
@@ -144,43 +140,41 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
     setValues: function setValues(entry) {
       this.inherited(arguments);
 
-      if (entry['SourceText']) {
-        this.fields['ViaCode'].setText(entry['SourceText']);
+      if (entry.SourceText) {
+        this.fields.ViaCode.setText(entry.SourceText);
       }
 
-      if (entry['Status']) {
-        this.fields['StatusCode'].setText(entry['Status']);
+      if (entry.Status) {
+        this.fields.StatusCode.setText(entry.Status);
       }
     },
     onUrgencyChange: function onUrgencyChange(value, field) {
       var selection = field.getSelection();
       if (selection) {
-        this.fields['UrgencyCode'].setValue(selection['UrgencyCode']);
+        this.fields.UrgencyCode.setValue(selection.UrgencyCode);
       }
     },
     onContactChange: function onContactChange(value, field) {
-      var selection = field.getSelection(),
-          accountField = this.fields['Account'];
+      var selection = field.getSelection();
+      var accountField = this.fields.Account;
 
-      if (selection && selection['Account'] && !accountField.getValue()) {
+      if (selection && selection.Account && !accountField.getValue()) {
         accountField.setValue({
-          '$key': selection['Account']['$key'],
-          'AccountName': selection['Account']['AccountName']
+          '$key': selection.Account.$key,
+          'AccountName': selection.Account.AccountName
         });
       }
     },
     onAccountChange: function onAccountChange(value, field) {
-      var selection, request;
+      var selection = field.getSelection();
 
-      selection = field.getSelection();
-
-      if (selection && selection['$key']) {
-        request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_string['default'].substitute('\'${0}\'', [selection['$key']])).setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
+      if (selection && selection.$key) {
+        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_string['default'].substitute("'${0}'", [selection.$key])).setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
 
         request.readFeed({
           success: function success(feed) {
-            if (feed && feed['$resources']) {
-              this.fields['Contact'].setValue(feed['$resources'][0]);
+            if (feed && feed.$resources) {
+              this.fields.Contact.setValue(feed.$resources[0]);
             }
           },
           failure: function failure() {},
@@ -189,26 +183,24 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
       }
     },
     onAreaChange: function onAreaChange() {
-      this.fields['Issue'].clearValue();
-      this.fields['Category'].clearValue();
+      this.fields.Issue.clearValue();
+      this.fields.Category.clearValue();
     },
     onCategoryChange: function onCategoryChange() {
-      this.fields['Issue'].clearValue();
+      this.fields.Issue.clearValue();
     },
     formatAccountQuery: function formatAccountQuery() {
-      var value = this.fields['Account'].getValue(),
-          key = value && value['$key'];
+      var value = this.fields.Account.getValue();
+      var key = value && value.$key;
 
       return key ? _string['default'].substitute('Account.id eq "${0}"', [key]) : false;
     },
     applyContext: function applyContext() {
-      var found, lookup;
-
-      found = App.queryNavigationContext(function (o) {
+      var found = App.queryNavigationContext(function queryNavigationContext(o) {
         return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
       });
 
-      lookup = {
+      var lookup = {
         'accounts': this.applyAccountContext,
         'contacts': this.applyContactContext
       };
@@ -218,36 +210,34 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
       }
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id),
-          accountField,
-          entry = view && view.entry;
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       accountField.setValue(entry);
       this.onAccountChange(entry, accountField);
     },
     applyContactContext: function applyContactContext(context) {
-      var view = App.getView(context.id),
-          accountField,
-          entry = view && view.entry;
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
 
-      accountField = this.fields['Account'];
+      var accountField = this.fields.Account;
       accountField.setValue(entry.Account);
       this.onAccountChange(entry.Account, accountField);
 
-      this.fields['Contact'].setValue(entry);
+      this.fields.Contact.setValue(entry);
     },
     formatCategoryQuery: function formatCategoryQuery(value) {
       return {
-        'Area': value // dependent value
-      };
+        'Area': value };
     },
+    // dependent value
     formatIssueQuery: function formatIssueQuery(value) {
       return {
-        'Area': this.fields['Area'].getValue(),
-        'Category': value // dependent value
-      };
+        'Area': this.fields.Area.getValue(),
+        'Category': value };
     },
+    // dependent value
     includeIfValueExists: function includeIfValueExists(value) {
       return value;
     },

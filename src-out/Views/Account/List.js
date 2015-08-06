@@ -1,21 +1,15 @@
-define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/string', '../../Action', 'argos/Format', 'argos/Utility', 'argos/Convert', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', '../_RightDrawerListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoString, _Action, _argosFormat, _argosUtility, _argosConvert, _argosList, _GroupListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _RightDrawerListMixin2) {
+define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Action', 'argos/Utility', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_CardLayoutListMixin', '../_RightDrawerListMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Action, _argosUtility, _argosList, _GroupListMixin2, _MetricListMixin2, _CardLayoutListMixin2, _RightDrawerListMixin2) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
-  var _array = _interopRequireDefault(_dojo_baseArray);
-
   var _string = _interopRequireDefault(_dojoString);
 
   var _action = _interopRequireDefault(_Action);
 
-  var _format = _interopRequireDefault(_argosFormat);
-
   var _utility = _interopRequireDefault(_argosUtility);
-
-  var _Cmonvert = _interopRequireDefault(_argosConvert);
 
   var _List = _interopRequireDefault(_argosList);
 
@@ -54,7 +48,7 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
       return _utility['default'].joinFields(sep, fields);
     },
 
-    //Localization
+    // Localization
     titleText: 'Accounts',
     activitiesText: 'Activities',
     notesText: 'Notes',
@@ -68,7 +62,7 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
     phoneAbbreviationText: 'Phone: ',
     faxAbbreviationText: 'Fax: ',
 
-    //View Properties
+    // View Properties
     detailView: 'account_detail',
     itemIconClass: 'fa fa-building-o fa-2x',
     id: 'account_list',
@@ -83,8 +77,8 @@ define('crm/Views/Account/List', ['exports', 'module', 'dojo/_base/declare', 'do
     enableActions: true,
     pageSize: 10,
     callMain: function callMain(params) {
-      this.invokeActionItemBy(function (action) {
-        return action.id === 'callMain';
+      this.invokeActionItemBy(function setActionId(actions) {
+        return actions.id === 'callMain';
       }, params.key);
     },
     createActionLayout: function createActionLayout() {

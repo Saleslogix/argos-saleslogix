@@ -1,4 +1,4 @@
-define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/aspect', './MetricWidget', '../GroupUtility'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoAspect, _MetricWidget, _GroupUtility) {
+define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', './MetricWidget', '../GroupUtility'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _MetricWidget, _GroupUtility) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -6,8 +6,6 @@ define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare',
   var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _aspect = _interopRequireDefault(_dojoAspect);
 
   var _MetricWidget2 = _interopRequireDefault(_MetricWidget);
 
@@ -37,13 +35,13 @@ define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare',
       this.widgetTemplate = new Simplate(['<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '<div data-dojo-attach-point="searchNode"></div>', '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">', '<div class="metric-list">', '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>', '</div>', '{%! $.emptySelectionTemplate %}', '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>', '{%! $.moreTemplate %}', '{%! $.listActionTemplate %}', '</div>', '</div>']);
     },
     createMetricWidgetsLayout: function createMetricWidgetsLayout() {
-      var filtered = [],
-          metrics = [];
+      var metrics = [];
+      var filtered = [];
 
       metrics = App.getMetricsByResourceKind(this.resourceKind);
 
       if (metrics.length > 0) {
-        filtered = _array['default'].filter(metrics, function (item) {
+        filtered = _array['default'].filter(metrics, function enableFilteredItems(item) {
           return item.enabled;
         });
       }
@@ -54,7 +52,7 @@ define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare',
       this.inherited(arguments);
     },
     destroyWidgets: function destroyWidgets() {
-      _array['default'].forEach(this.metricWidgets, function (widget) {
+      _array['default'].forEach(this.metricWidgets, function destroy(widget) {
         widget.destroy();
       }, this);
 
@@ -80,10 +78,9 @@ define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare',
         return;
       }
 
-      var widgetOptions;
       // Create metrics widgets and place them in the metricNode
-      widgetOptions = this.createMetricWidgetsLayout() || [];
-      _array['default'].forEach(widgetOptions, function (options) {
+      var widgetOptions = this.createMetricWidgetsLayout() || [];
+      _array['default'].forEach(widgetOptions, function createAndPlaceWidgets(options) {
         if (this._hasValidOptions(options)) {
           options.returnToId = this.id;
 
@@ -112,9 +109,9 @@ define('crm/Views/_MetricListMixin', ['exports', 'module', 'dojo/_base/declare',
     },
     _getCurrentQuery: function _getCurrentQuery() {
       // Get the current query from the search box, and any context query located in options.where
-      var query = this.query,
-          where = this.options && this.options.where;
-      return _array['default'].filter([query, where], function (item) {
+      var query = this.query;
+      var where = this.options && this.options.where;
+      return _array['default'].filter([query, where], function checkItem(item) {
         return !!item;
       }).join(' and ');
     },

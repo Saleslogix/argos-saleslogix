@@ -15,18 +15,18 @@ define('crm/Views/User/CalendarAccessList', ['exports', 'module', 'dojo/_base/de
    * @extends argos.List
    */
   var __class = (0, _declare['default'])('crm.Views.User.CalendarAccessList', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.Name %}</h3>', '<h4>{%: $.SubType %}</h4>']),
 
-    //Localization
+    // Localization
     titleText: 'Activity Resources',
 
-    //View Properties
+    // View Properties
     id: 'calendar_access_list',
     queryOrderBy: 'Name',
 
     queryWhere: function queryWhere() {
-      return 'AllowAdd AND (AccessId eq \'EVERYONE\' or AccessId eq \'' + App.context.user.$key + '\') AND Type eq \'User\'';
+      return "AllowAdd AND (AccessId eq 'EVERYONE' or AccessId eq '" + App.context.user.$key + "') AND Type eq 'User'";
     },
     querySelect: ['Name', 'SubType', 'AccessId', 'ResourceId'],
     resourceKind: 'activityresourceviews',

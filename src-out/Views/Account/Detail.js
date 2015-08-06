@@ -24,7 +24,7 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Account.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     accountText: 'account',
     acctMgrText: 'acct mgr',
     addressText: 'address',
@@ -62,7 +62,7 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
     moreDetailsText: 'More Details',
     calledText: 'Called ${0}',
 
-    //View Properties
+    // View Properties
     id: 'account_detail',
     editView: 'account_edit',
     historyEditView: 'history_edit',
@@ -89,11 +89,11 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
     recordCallToHistory: function recordCallToHistory(complete) {
       var entry = {
         'Type': 'atPhoneCall',
-        'AccountId': this.entry['$key'],
-        'AccountName': this.entry['AccountName'],
-        'Description': _string['default'].substitute(this.calledText, [this.entry['AccountName']]),
-        'UserId': App.context && App.context.user['$key'],
-        'UserName': App.context && App.context.user['UserName'],
+        'AccountId': this.entry.$key,
+        'AccountName': this.entry.AccountName,
+        'Description': _string['default'].substitute(this.calledText, [this.entry.AccountName]),
+        'UserId': App.context && App.context.user.$key,
+        'UserName': App.context && App.context.user.UserName,
         'Duration': 15,
         'CompletedDate': new Date()
       };
@@ -101,8 +101,8 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
       this.navigateToHistoryInsert('atPhoneCall', entry, complete);
     },
     callMainPhone: function callMainPhone() {
-      this.recordCallToHistory(_lang['default'].hitch(this, function () {
-        App.initiateCall(this.entry['MainPhone']);
+      this.recordCallToHistory(_lang['default'].hitch(this, function initiateCall() {
+        App.initiateCall(this.entry.MainPhone);
       }));
     },
     scheduleActivity: function scheduleActivity() {

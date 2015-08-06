@@ -15,22 +15,21 @@ define('crm/Views/Ticket/UrgencyLookup', ['exports', 'module', 'dojo/_base/decla
    * @extends argos.List
    */
   var __class = (0, _declare['default'])('crm.Views.Ticket.UrgencyLookup', [_List['default']], {
-    //Localization
+    // Localization
     titleText: 'Ticket Urgency',
 
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.Description %}</h3>']),
 
-    //View Properties
+    // View Properties
     id: 'urgency_list',
     queryOrderBy: 'UrgencyCode asc',
     querySelect: ['Description', 'UrgencyCode'],
     resourceKind: 'urgencies',
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var escaped, toUpper;
-      toUpper = searchQuery && searchQuery.toUpperCase() || '';
-      escaped = this.escapeSearchQuery(toUpper);
+      var toUpper = searchQuery && searchQuery.toUpperCase() || '';
+      var escaped = this.escapeSearchQuery(toUpper);
       return _string['default'].substitute('upper(Description) like "%${0}%"', [escaped]);
     }
   });

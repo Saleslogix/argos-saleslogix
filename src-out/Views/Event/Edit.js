@@ -22,7 +22,7 @@ define('crm/Views/Event/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo
    * @requires crm.Validator
    */
   var __class = (0, _declare['default'])('crm.Views.Event.Edit', [_Edit['default']], {
-    //Localization
+    // Localization
     titleText: 'Event',
     typeText: 'type',
     descriptionText: 'description',
@@ -30,11 +30,11 @@ define('crm/Views/Event/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo
     endDateText: 'end date',
     startingFormatText: 'M/D/YYYY h:mm A',
 
-    //View Properties
+    // View Properties
     entityName: 'Event',
     id: 'event_edit',
-    insertSecurity: null, //'Entities/Event/Add',
-    updateSecurity: null, //'Entities/Event/Edit',
+    insertSecurity: null, // 'Entities/Event/Add',
+    updateSecurity: null, // 'Entities/Event/Edit',
     querySelect: ['Description', 'EndDate', 'StartDate', 'UserId', 'Type'],
     resourceKind: 'events',
 
@@ -47,23 +47,22 @@ define('crm/Views/Event/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo
     startup: function startup() {
       this.inherited(arguments);
 
-      this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
+      this.connect(this.fields.StartDate, 'onChange', this.onStartDateChange);
     },
     onStartDateChange: function onStartDateChange(val) {
-      var endDate = this.fields['EndDate'].getValue();
+      var endDate = this.fields.EndDate.getValue();
 
       if (endDate < val) {
-        this.fields['EndDate'].setValue(val);
+        this.fields.EndDate.setValue(val);
       }
     },
     formatTypeText: function formatTypeText(val, key, text) {
       return this.eventTypesText[key] || text;
     },
     createTypeData: function createTypeData() {
-      var list = [],
-          type;
+      var list = [];
 
-      for (type in this.eventTypesText) {
+      for (var type in this.eventTypesText) {
         if (this.eventTypesText.hasOwnProperty(type)) {
           list.push({
             '$key': type,
@@ -77,15 +76,13 @@ define('crm/Views/Event/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo
       };
     },
     applyUserActivityContext: function applyUserActivityContext(context) {
-      var view, currentDate, userOptions, startTimeOption, startTime, startDate, endDate;
-
-      view = App.getView(context.id);
+      var view = App.getView(context.id);
       if (view && view.currentDate) {
-        currentDate = (0, _moment2['default'])(view.currentDate).clone().startOf('day');
-        userOptions = App.context['userOptions'];
-        startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
-        startTime = startTimeOption && (0, _moment2['default'])(startTimeOption, 'h:mma');
-        startDate = currentDate.clone();
+        var currentDate = (0, _moment2['default'])(view.currentDate).clone().startOf('day');
+        var userOptions = App.context.userOptions;
+        var startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
+        var startDate = currentDate.clone();
+        var startTime = startTimeOption && (0, _moment2['default'])(startTimeOption, 'h:mma');
 
         if (startTime && !(0, _moment2['default'])(currentDate).isSame((0, _moment2['default'])())) {
           startDate.hours(startTime.hours());
@@ -98,27 +95,25 @@ define('crm/Views/Event/Edit', ['exports', 'module', 'dojo/_base/declare', 'dojo
           });
         }
 
-        endDate = startDate.clone().add({
+        var endDate = startDate.clone().add({
           minutes: 15
         });
 
-        this.fields['StartDate'].setValue(startDate.toDate());
-        this.fields['EndDate'].setValue(endDate.toDate());
+        this.fields.StartDate.setValue(startDate.toDate());
+        this.fields.EndDate.setValue(endDate.toDate());
       }
     },
     applyContext: function applyContext() {
       this.inherited(arguments);
 
-      var found, context, lookup;
-
-      found = App.queryNavigationContext(function (o) {
+      var found = App.queryNavigationContext(function queryNavigationContext(o) {
         var context = o.options && o.options.source || o;
 
         return /^(useractivities||activities||events)$/.test(context.resourceKind);
       });
 
-      context = found && found.options && found.options.source || found;
-      lookup = {
+      var context = found && found.options && found.options.source || found;
+      var lookup = {
         'useractivities': this.applyUserActivityContext,
         'activities': this.applyUserActivityContext
       };

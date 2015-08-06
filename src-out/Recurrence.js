@@ -1,19 +1,9 @@
-define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'dijit/_Widget', 'argos/_ActionMixin', 'argos/_CustomizationMixin', 'argos/_Templated', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _dijit_Widget, _argos_ActionMixin, _argos_CustomizationMixin, _argos_Templated, _moment) {
+define('crm/Recurrence', ['exports', 'module', 'dojo/_base/lang', 'dojo/string', 'moment'], function (exports, module, _dojo_baseLang, _dojoString, _moment) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-  var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
 
   var _string = _interopRequireDefault(_dojoString);
-
-  var _Widget2 = _interopRequireDefault(_dijit_Widget);
-
-  var _ActionMixin2 = _interopRequireDefault(_argos_ActionMixin);
-
-  var _CustomizationMixin2 = _interopRequireDefault(_argos_CustomizationMixin);
-
-  var _Templated2 = _interopRequireDefault(_argos_Templated);
 
   var _moment2 = _interopRequireDefault(_moment);
 
@@ -65,8 +55,8 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
     1048576, // wed
     2097152, // thu
     4194304, // fri
-    8388608 // sat
-    ],
+    8388608],
+    // sat
     simplifiedOptions: [{
       label: 'neverText',
       Recurring: false,
@@ -133,16 +123,15 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
     createSimplifiedOptions: function createSimplifiedOptions(startDate) {
       this.recalculateSimplifiedPeriodSpec(startDate);
 
-      var list = [],
-          currentDate = startDate || new Date(),
-          recurOption,
-          wrapped = (0, _moment2['default'])(currentDate),
-          day = currentDate.getDate(),
-          ord = this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1],
-          textOptions = [null, // scale, replaced in loop
+      var list = [];
+      var currentDate = startDate || new Date();
+      var wrapped = (0, _moment2['default'])(currentDate);
+      var day = currentDate.getDate();
+      var ord = this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1];
+      var textOptions = [null, // scale, replaced in loop
       day, wrapped.format(this.dayFormatText), wrapped.lang().weekdays(wrapped), wrapped.lang().monthsShort(wrapped), ord];
 
-      for (recurOption in this.simplifiedOptions) {
+      for (var recurOption in this.simplifiedOptions) {
         if (this.simplifiedOptions.hasOwnProperty(recurOption)) {
           textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
           this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod] || 0;
@@ -182,23 +171,20 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
       }
     },
     isAfterCompletion: function isAfterCompletion(panel) {
-      return 0 <= '1369'.indexOf(panel);
+      return '1369'.indexOf(panel) >= 0;
     },
     recalculateSimplifiedPeriodSpec: function recalculateSimplifiedPeriodSpec(startDate) {
-      var opt, recurOption;
-      for (recurOption in this.simplifiedOptions) {
+      for (var recurOption in this.simplifiedOptions) {
         if (this.simplifiedOptions.hasOwnProperty(recurOption)) {
-          opt = this.simplifiedOptions[recurOption];
+          var opt = this.simplifiedOptions[recurOption];
           this.simplifiedOptions[recurOption].RecurPeriodSpec = this.getRecurPeriodSpec(opt.RecurPeriod, startDate, opt.weekdays);
         }
       }
     },
     getWeekdays: function getWeekdays(rps, names) {
       // pass a RecurPeriodSpec (as long as RecurPeriod corresponds to a Spec with weekdays)
-      var weekdays, i;
-
-      weekdays = [];
-      for (i = 0; i < this._weekDayValues.length; i++) {
+      var weekdays = [];
+      for (var i = 0; i < this._weekDayValues.length; i++) {
         if (names) {
           if (rps & this._weekDayValues[i]) {
             weekdays.push(this.weekDaysText[i]);
@@ -211,13 +197,13 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
       return weekdays;
     },
     getOrd: function getOrd(entry) {
-      var nthWeek = 0,
-          weekday = entry['StartDate'].getDay(),
-          monthNum = entry['StartDate'].getMonth() + 1,
-          ordBits = entry.RecurPeriodSpec % 524288,
-          monthBits = entry.RecurPeriodSpec % 4194304 - ordBits;
+      var nthWeek = 0;
+      var weekday = entry.StartDate.getDay();
+      var monthNum = entry.StartDate.getMonth() + 1;
+      var ordBits = entry.RecurPeriodSpec % 524288;
+      var monthBits = entry.RecurPeriodSpec % 4194304 - ordBits;
 
-      if (entry && (5 === entry.RecurPeriod || 8 === entry.RecurPeriod)) {
+      if (entry && (entry.RecurPeriod === 5 || entry.RecurPeriod === 8)) {
         nthWeek = parseInt((ordBits / 65536).toString(), 10) + 1;
         weekday = parseInt((monthBits / 524288).toString(), 10) - 1;
         monthNum = parseInt(((entry.RecurPeriodSpec - monthBits - ordBits) / 4194304).toString(), 10);
@@ -229,14 +215,15 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
         month: monthNum
       };
     },
-    getRecurPeriodSpec: function getRecurPeriodSpec(recurPeriod, startDate, weekdays, interval) {
-      var spec, weekDay, nthWeek, monthNum, i;
-
-      spec = 0;
-      interval = interval || this.interval;
+    getRecurPeriodSpec: function getRecurPeriodSpec(recurPeriod, startDate, weekdays, inter) {
+      var spec = 0;
+      var interval = inter || this.interval;
+      var weekDay = undefined;
+      var nthWeek = undefined;
+      var monthNum = undefined;
 
       if (!startDate) {
-        return;
+        return null;
       }
 
       switch (recurPeriod) {
@@ -249,10 +236,10 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
           break;
         case 2:
           // weekly
-          for (i = 0; i < weekdays.length; i++) {
+          for (var i = 0; i < weekdays.length; i++) {
             spec += weekdays[i] ? this._weekDayValues[i] : 0;
           }
-          if (0 === spec) {
+          if (spec === 0) {
             spec += this._weekDayValues[startDate.getDay()];
           }
 
@@ -304,14 +291,14 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
         return '';
       }
 
-      var rp = parseInt(entry['RecurPeriod'], 10),
-          recurPeriodSpec = parseInt(entry['RecurPeriodSpec'], 10),
-          interval = recurPeriodSpec % 65536,
-          text = 1 < interval ? _string['default'].substitute(this.everyText, [interval, this.getPanel(rp, true)]) : true === dependsOnPanel ? '' : this.getPanel(rp),
-          currentDate = argos.Convert.toDateFromString(entry['StartDate']),
-          day = currentDate.getDate(),
-          weekday = (0, _moment2['default'])(currentDate).format(this.weekdayFormatText),
-          textOptions = [text, day, (0, _moment2['default'])(currentDate).format(this.monthAndDayFormatText), this.getWeekdays(recurPeriodSpec, true), (0, _moment2['default'])(currentDate).format(this.monthFormatText), this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1]];
+      var rp = parseInt(entry.RecurPeriod, 10);
+      var recurPeriodSpec = parseInt(entry.RecurPeriodSpec, 10);
+      var interval = recurPeriodSpec % 65536;
+      var text = 1 < interval ? _string['default'].substitute(this.everyText, [interval, this.getPanel(rp, true)]) : true === dependsOnPanel ? '' : this.getPanel(rp); // eslint-disable-line
+      var currentDate = argos.Convert.toDateFromString(entry.StartDate);
+      var day = currentDate.getDate();
+      var weekday = (0, _moment2['default'])(currentDate).format(this.weekdayFormatText);
+      var textOptions = [text, day, (0, _moment2['default'])(currentDate).format(this.monthAndDayFormatText), this.getWeekdays(recurPeriodSpec, true), (0, _moment2['default'])(currentDate).format(this.monthFormatText), this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1]];
 
       switch (rp) {
         case 0:
@@ -358,35 +345,35 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
       return text;
     },
     calcEndDate: function calcEndDate(date, entry) {
-      var interval = entry['RecurPeriodSpec'] % 65536,
-          weekDay,
-          nthWeek,
-          tempDate = _moment2['default'].isMoment(date) ? date.clone() : new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+      var interval = entry.RecurPeriodSpec % 65536;
+      var weekDay = undefined;
+      var nthWeek = undefined;
+      var tempDate = _moment2['default'].isMoment(date) ? date.clone() : new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 
       tempDate = (0, _moment2['default'])(tempDate);
-      switch (parseInt(entry['RecurPeriod'], 10)) {
+      switch (parseInt(entry.RecurPeriod, 10)) {
         case 0:
-          tempDate.add(interval * (entry['RecurIterations'] - 1), 'days');
+          tempDate.add(interval * (entry.RecurIterations - 1), 'days');
           break;
         case 2:
-          tempDate.add(interval * (entry['RecurIterations'] - 1), 'weeks');
+          tempDate.add(interval * (entry.RecurIterations - 1), 'weeks');
           break;
         case 4:
-          tempDate.add(interval * (entry['RecurIterations'] - 1), 'months');
+          tempDate.add(interval * (entry.RecurIterations - 1), 'months');
           break;
         case 5:
           weekDay = tempDate.day();
           nthWeek = parseInt((tempDate.date() / 7).toString(), 10) + 1;
-          tempDate.add(interval * (entry['RecurIterations'] - 1), 'months');
+          tempDate.add(interval * (entry.RecurIterations - 1), 'months');
           tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
           break;
         case 7:
-          tempDate.add(interval * (entry['RecurIterations'] - 1), 'years');
+          tempDate.add(interval * (entry.RecurIterations - 1), 'years');
           break;
         case 8:
           weekDay = tempDate.day();
           nthWeek = parseInt((tempDate.date() / 7).toString(), 10) + 1;
-          tempDate.add(interval * (entry['RecurIterations'] - 1), 'years');
+          tempDate.add(interval * (entry.RecurIterations - 1), 'years');
           tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
           break;
         default:
@@ -397,14 +384,13 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
     },
     calcDateOfNthWeekday: function calcDateOfNthWeekday(date, weekDay, nthWeek) {
       // calculate date of #nthWeek #weekDay  e.g. First Friday
-      var tempDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-          i;
+      var tempDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       tempDate = (0, _moment2['default'])(tempDate);
 
       if (nthWeek === 5) {
-        //"last" - count backwards...
+        // "last" - count backwards...
         tempDate.endOf('month');
-        for (i = 0; i < 7; i++) {
+        for (var i = 0; i < 7; i++) {
           if (tempDate.day() === weekDay) {
             break;
           }
@@ -413,23 +399,23 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base
       } else {
         // count from the beginning...
         tempDate.startOf('month');
-        //get to the first day that matches...
-        for (i = 0; i < 7; i++) {
+        // get to the first day that matches...
+        for (var i = 0; i < 7; i++) {
           if (tempDate.day() === weekDay) {
             break;
           }
           tempDate.add(1, 'days');
         }
-        //then add correct number of weeks (first week - add 0 etc.)
+        // then add correct number of weeks (first week - add 0 etc.)
         tempDate.add(nthWeek - 1, 'weeks');
       }
       return tempDate;
     },
     calcRecurIterations: function calcRecurIterations(endDate, startDate, interval, recurPeriod) {
       // calculate number of occurances based on start and end dates
-      var days = (endDate - startDate) / (1000 * 60 * 60 * 24),
-          years = endDate.getFullYear() - startDate.getFullYear(),
-          result;
+      var days = (endDate - startDate) / (1000 * 60 * 60 * 24);
+      var years = endDate.getFullYear() - startDate.getFullYear();
+      var result = undefined;
 
       switch (parseInt(recurPeriod, 10)) {
         case 8:

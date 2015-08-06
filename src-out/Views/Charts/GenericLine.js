@@ -1,4 +1,4 @@
-define('crm/Views/Charts/GenericLine', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/dom-geometry', 'dojo/dom-attr', 'argos/View', './_ChartMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoDomGeometry, _dojoDomAttr, _argosView, _ChartMixin2) {
+define('crm/Views/Charts/GenericLine', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/dom-geometry', 'argos/View', './_ChartMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoDomGeometry, _argosView, _ChartMixin2) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -8,8 +8,6 @@ define('crm/Views/Charts/GenericLine', ['exports', 'module', 'dojo/_base/declare
   var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _domGeo = _interopRequireDefault(_dojoDomGeometry);
-
-  var _domAttr = _interopRequireDefault(_dojoDomAttr);
 
   var _View = _interopRequireDefault(_argosView);
 
@@ -53,17 +51,15 @@ define('crm/Views/Charts/GenericLine', ['exports', 'module', 'dojo/_base/declare
     createChart: function createChart(rawData) {
       this.inherited(arguments);
 
-      var ctx, box, data, labels, seriesData;
-
       this.showSearchExpression();
 
-      labels = [];
-      seriesData = _array['default'].map(rawData, (function (item) {
+      var labels = [];
+      var seriesData = _array['default'].map(rawData, function mapData(item) {
         labels.push(item.$descriptor);
         return Math.round(item.value);
-      }).bind(this));
+      });
 
-      data = {
+      var data = {
         labels: labels,
         datasets: [{
           label: 'Default',
@@ -78,13 +74,13 @@ define('crm/Views/Charts/GenericLine', ['exports', 'module', 'dojo/_base/declare
         this.chart.destroy();
       }
 
-      box = _domGeo['default'].getMarginBox(this.domNode);
+      var box = _domGeo['default'].getMarginBox(this.domNode);
       this.contentNode.width = box.w;
       this.contentNode.height = box.h;
 
-      ctx = this.contentNode.getContext('2d');
+      var ctx = this.contentNode.getContext('2d');
 
-      this.chart = new window.Chart(ctx).Line(data, this.chartOptions);
+      this.chart = new window.Chart(ctx).Line(data, this.chartOptions); // eslint-disable-line
     }
   });
 

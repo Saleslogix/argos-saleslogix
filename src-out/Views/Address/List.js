@@ -26,16 +26,16 @@ define('crm/Views/Address/List', ['exports', 'module', 'dojo/_base/declare', 'do
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Address.List', [_List['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.$descriptor %}</h3>', '<h4>{%= crm.Format.address($, true) %}</h4>']),
 
-    //Localization
+    // Localization
     titleText: 'Addresses',
 
-    //View Properties
+    // View Properties
     detailView: null,
     id: 'address_list',
-    security: null, //'Entities/Address/View',
+    security: null, // 'Entities/Address/View',
     insertSecurity: 'Entities/Address/Add',
     insertView: 'address_edit',
     resourceKind: 'addresses',
@@ -52,8 +52,8 @@ define('crm/Views/Address/List', ['exports', 'module', 'dojo/_base/declare', 'do
       });
     },
     selectEntry: function selectEntry(params) {
-      var row = (0, _query['default'])(params.$source).closest('[data-key]')[0],
-          key = row ? _domAttr['default'].get(row, 'data-key') : false;
+      var row = (0, _query['default'])(params.$source).closest('[data-key]')[0];
+      var key = row ? _domAttr['default'].get(row, 'data-key') : false;
 
       if (this._selectionModel && key) {
         App.showMapForAddress(_format['default'].address(this.entries[key], true, ' '));

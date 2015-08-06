@@ -18,8 +18,8 @@ import utility from 'argos/Utility';
  * @requires crm.Template
  * @requires crm.Validator
  */
-var __class = declare('crm.Views.Contact.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.Contact.Edit', [Edit], {
+  // Localization
   titleText: 'Contact',
   nameText: 'name',
   workText: 'work phone',
@@ -38,7 +38,7 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
   cuisinePreferenceText: 'cuisine',
   cuisinePreferenceTitleText: 'Cuisine',
 
-  //View Properties
+  // View Properties
   entityName: 'Contact',
   id: 'contact_edit',
   insertSecurity: 'Entities/Contact/Add',
@@ -66,61 +66,58 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
     'Suffix',
     'Title',
     'WebAddress',
-    'WorkPhone'
+    'WorkPhone',
   ],
   resourceKind: 'contacts',
 
-  startup: function() {
+  startup: function startup() {
     this.inherited(arguments);
-    this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+    this.connect(this.fields.Account, 'onChange', this.onAccountChange);
   },
-  beforeTransitionTo: function() {
+  beforeTransitionTo: function beforeTransitionTo() {
     this.inherited(arguments);
     if (this.options.insert) {
-      this.fields['Account'].enable();
+      this.fields.Account.enable();
     } else {
-      this.fields['Account'].disable();
+      this.fields.Account.disable();
     }
   },
-  onAccountChange: function(value) {
+  onAccountChange: function onAccountChange(value) {
     if (value && value.text) {
-      this.fields['AccountName'].setValue(value.text);
+      this.fields.AccountName.setValue(value.text);
     }
-    this.requestAccount(value['key']);
+    this.requestAccount(value.key);
   },
-  applyContext: function() {
-    var found,
-      lookup;
-
-    found = App.queryNavigationContext(function(o) {
-      o = (o.options && o.options.source) || o;
-      return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
+  applyContext: function applyContext() {
+    const found = App.queryNavigationContext(function testNavigation(o) {
+      const ob = (o.options && o.options.source) || o;
+      return (/^(accounts|opportunities)$/).test(ob.resourceKind) && ob.key;
     });
 
-    lookup = {
+    const lookup = {
       'accounts': this.applyAccountContext,
-      'opportunities': this.applyOpportunityContext
+      'opportunities': this.applyOpportunityContext,
     };
 
-    this.fields['AccountManager'].setValue(App.context.user);
-    this.fields['Owner'].setValue(App.context['defaultOwner']);
+    this.fields.AccountManager.setValue(App.context.user);
+    this.fields.Owner.setValue(App.context.defaultOwner);
 
     if (found && lookup[found.resourceKind]) {
       lookup[found.resourceKind].call(this, found);
     }
   },
-  applyAccountContext: function(context) {
-    var view = App.getView(context.id),
-      entry = view && view.entry;
+  applyAccountContext: function applyAccountContext(context) {
+    const view = App.getView(context.id);
+    const entry = view && view.entry;
 
     if (!entry && context.options && context.options.source && context.options.source.entry) {
-      this.requestAccount(context.options.source.entry['$key']);
+      this.requestAccount(context.options.source.entry.$key);
     }
 
     this.processAccount(entry);
   },
-  requestAccount: function(accountId) {
-    var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+  requestAccount: function requestAccount(accountId) {
+    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('accounts')
       .setResourceSelector(dString.substitute("'${0}'", [accountId]))
       .setQueryArg('select', [
@@ -128,81 +125,81 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
         'Address/*',
         'Fax',
         'MainPhone',
-        'WebAddress'
+        'WebAddress',
       ].join(','));
 
     request.allowCacheUse = true;
     request.read({
       success: this.processAccount,
       failure: this.requestAccountFailure,
-      scope: this
+      scope: this,
     });
   },
-  requestAccountFailure: function() {},
-  processAccount: function(entry) {
-    var account = entry,
-      accountName = utility.getValue(entry, 'AccountName'),
-      webAddress = utility.getValue(entry, 'WebAddress'),
-      mainPhone = utility.getValue(entry, 'MainPhone'),
-      address = utility.getValue(entry, 'Address'),
-      fax = utility.getValue(entry, 'Fax');
+  requestAccountFailure: function requestAccountFailure() {},
+  processAccount: function processAccount(entry) {
+    const account = entry;
+    const accountName = utility.getValue(entry, 'AccountName');
+    const webAddress = utility.getValue(entry, 'WebAddress');
+    const mainPhone = utility.getValue(entry, 'MainPhone');
+    const address = utility.getValue(entry, 'Address');
+    const fax = utility.getValue(entry, 'Fax');
 
     if (account) {
-      this.fields['Account'].setValue(account);
+      this.fields.Account.setValue(account);
     }
     if (accountName) {
-      this.fields['AccountName'].setValue(accountName);
+      this.fields.AccountName.setValue(accountName);
     }
     if (webAddress) {
-      this.fields['WebAddress'].setValue(webAddress);
+      this.fields.WebAddress.setValue(webAddress);
     }
     if (mainPhone) {
-      this.fields['WorkPhone'].setValue(mainPhone);
+      this.fields.WorkPhone.setValue(mainPhone);
     }
     if (address) {
-      this.fields['Address'].setValue(this.cleanAddressEntry(address));
+      this.fields.Address.setValue(this.cleanAddressEntry(address));
     }
     if (fax) {
-      this.fields['Fax'].setValue(fax);
+      this.fields.Fax.setValue(fax);
     }
   },
-  applyOpportunityContext: function(context) {
-    var view = App.getView(context.id),
-      entry = view && view.entry,
-      opportunityId = utility.getValue(entry, '$key'),
-      account = utility.getValue(entry, 'Account'),
-      accountName = utility.getValue(entry, 'Account.AccountName'),
-      webAddress = utility.getValue(entry, 'Account.WebAddress'),
-      mainPhone = utility.getValue(entry, 'Account.MainPhone'),
-      address = utility.getValue(entry, 'Account.Address'),
-      fax = utility.getValue(entry, 'Account.Fax');
+  applyOpportunityContext: function applyOpportunityContext(context) {
+    const view = App.getView(context.id);
+    const entry = view && view.entry;
+    const opportunityId = utility.getValue(entry, '$key');
+    const account = utility.getValue(entry, 'Account');
+    const accountName = utility.getValue(entry, 'Account.AccountName');
+    const webAddress = utility.getValue(entry, 'Account.WebAddress');
+    const mainPhone = utility.getValue(entry, 'Account.MainPhone');
+    const address = utility.getValue(entry, 'Account.Address');
+    const fax = utility.getValue(entry, 'Account.Fax');
 
     if (opportunityId) {
       this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
     }
     if (account) {
-      this.fields['Account'].setValue(account);
+      this.fields.Account.setValue(account);
     }
     if (accountName) {
-      this.fields['AccountName'].setValue(accountName);
+      this.fields.AccountName.setValue(accountName);
     }
     if (webAddress) {
-      this.fields['WebAddress'].setValue(webAddress);
+      this.fields.WebAddress.setValue(webAddress);
     }
     if (mainPhone) {
-      this.fields['WorkPhone'].setValue(mainPhone);
+      this.fields.WorkPhone.setValue(mainPhone);
     }
     if (address) {
-      this.fields['Address'].setValue(this.cleanAddressEntry(address));
+      this.fields.Address.setValue(this.cleanAddressEntry(address));
     }
     if (fax) {
-      this.fields['Fax'].setValue(fax);
+      this.fields.Fax.setValue(fax);
     }
   },
-  cleanAddressEntry: function(address) {
+  cleanAddressEntry: function cleanAddressEntry(address) {
     if (address) {
-      var clean = {},
-        skip = {
+      const clean = {};
+      const skip = {
           '$key': true,
           '$lookup': true,
           '$url': true,
@@ -210,24 +207,21 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
           'ModifyDate': true,
           'ModifyUser': true,
           'CreateDate': true,
-          'CreateUser': true
-        },
-        name;
+          'CreateUser': true,
+        };
 
-      for (name in address) {
+      for (const name in address) {
         if (address.hasOwnProperty(name)) {
           if (!skip[name]) {
             clean[name] = address[name];
           }
         }
       }
-
       return clean;
-    } else {
-      return null;
     }
+    return null;
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       applyTo: '.',
       formatValue: format.nameLF,
@@ -236,7 +230,7 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
       property: 'ContactName',
       type: 'name',
       validator: validator.name,
-      view: 'name_edit'
+      view: 'name_edit',
     }, {
       label: this.accountNameText,
       name: 'Account',
@@ -244,11 +238,11 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
       textProperty: 'AccountName',
       type: 'lookup',
       validator: validator.exists,
-      view: 'account_related'
+      view: 'account_related',
     }, {
       name: 'AccountName',
       property: 'AccountName',
-      type: 'hidden'
+      type: 'hidden',
     }, {
       name: 'WebAddress',
       property: 'WebAddress',
@@ -256,55 +250,55 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
       type: 'text',
       inputType: 'url',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       name: 'WorkPhone',
       property: 'WorkPhone',
       label: this.workText,
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       name: 'Email',
       property: 'Email',
       label: this.emailText,
       type: 'text',
-      inputType: 'email'
+      inputType: 'email',
     }, {
       label: this.contactTitleText,
       name: 'Title',
       property: 'Title',
       picklist: 'Title',
       title: this.titleTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }, {
       formatValue: format.address.bindDelegate(this, true),
       label: this.addressText,
       name: 'Address',
       property: 'Address',
       type: 'address',
-      view: 'address_edit'
+      view: 'address_edit',
     }, {
       name: 'HomePhone',
       property: 'HomePhone',
       label: this.homePhoneText,
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       name: 'Mobile',
       property: 'Mobile',
       label: this.mobileText,
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       name: 'Fax',
       property: 'Fax',
       label: this.faxText,
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.acctMgrText,
       name: 'AccountManager',
@@ -312,18 +306,18 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
       textProperty: 'UserInfo',
       textTemplate: template.nameLF,
       type: 'lookup',
-      view: 'user_list'
+      view: 'user_list',
     }, {
       label: this.ownerText,
       name: 'Owner',
       property: 'Owner',
       textProperty: 'OwnerDescription',
       type: 'lookup',
-      view: 'owner_list'
+      view: 'owner_list',
     }, {
       name: 'Opportunities.$resources[0].Opportunity.$key',
       property: 'Opportunities.$resources[0].Opportunity.$key',
-      type: 'hidden'
+      type: 'hidden',
     }, {
       label: this.cuisinePreferenceText,
       name: 'CuisinePreference',
@@ -331,9 +325,9 @@ var __class = declare('crm.Views.Contact.Edit', [Edit], {
       type: 'picklist',
       picklist: 'CuisinePrefs',
       singleSelect: false,
-      title: this.cuisinePreferenceTitleText
+      title: this.cuisinePreferenceTitleText,
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);

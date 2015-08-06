@@ -49,7 +49,7 @@ define('crm/Views/Account/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     typeText: 'type',
     webText: 'web',
 
-    //View Properties
+    // View Properties
     entityName: 'Account',
     id: 'account_edit',
     insertSecurity: 'Entities/Account/Add',
@@ -57,17 +57,17 @@ define('crm/Views/Account/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     querySelect: ['AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'BusinessDescription', 'Description', 'Fax', 'Industry', 'LeadSource/Description', 'MainPhone', 'Notes', 'Owner/OwnerDescription', 'Status', 'SubType', 'Type', 'User/UserInfo/UserName', 'WebAddress'],
     resourceKind: 'accounts',
 
-    formatDependentPicklist: function formatDependentPicklist(dependentValue, format) {
-      return _string['default'].substitute(format, [dependentValue]);
+    formatDependentPicklist: function formatDependentPicklist(dependentValue, nformat) {
+      return _string['default'].substitute(nformat, [dependentValue]);
     },
     applyContext: function applyContext(templateEntry) {
       this.inherited(arguments);
 
-      this.fields['AccountManager'].setValue(App.context.user);
-      this.fields['Owner'].setValue(App.context['defaultOwner']);
+      this.fields.AccountManager.setValue(App.context.user);
+      this.fields.Owner.setValue(App.context.defaultOwner);
 
-      this.fields['Type'].setValue(templateEntry.Type);
-      this.fields['Status'].setValue(templateEntry.Status);
+      this.fields.Type.setValue(templateEntry.Type);
+      this.fields.Status.setValue(templateEntry.Status);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{

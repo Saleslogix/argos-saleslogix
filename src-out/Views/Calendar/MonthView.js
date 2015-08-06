@@ -17,8 +17,6 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
 
   var _domConstruct = _interopRequireDefault(_dojoDomConstruct);
 
-  var _format = _interopRequireDefault(_crmFormat);
-
   var _ErrorManager = _interopRequireDefault(_argosErrorManager);
 
   var _convert = _interopRequireDefault(_argosConvert);
@@ -69,7 +67,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
 
     enablePullToRefresh: false,
 
-    //Templates
+    // Templates
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '<div data-dojo-attach-point="searchNode"></div>', '{%! $.navigationTemplate %}', '<div style="clear:both"></div>', '<div class="month-content" data-dojo-attach-point="monthNode">', '{%! $.navBarTemplate %}', '<div class="month-calendar" data-dojo-attach-point="contentNode"></div>', '</div>', '<div class="day-content">', '<h2 class="date-day-text" data-dojo-attach-point="dayTitleNode"></h2>', '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">', '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>', '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>', '{%! $.eventMoreTemplate %}', '</div>', '<div class="activity-content" data-dojo-attach-point="activityContainerNode">', '<h2>{%= $.activityHeaderText %}</h2>', '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>', '{%! $.activityMoreTemplate %}', '</div>', '</div>', '<div style="clear:both"></div>', '</div>']),
     navigationTemplate: new Simplate(['<div class="split-buttons">', '<button data-tool="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>', '<button data-tool="selectdate" data-action="selectDate" class="button fa fa-calendar"><span></span></button>', '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>', '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>', '<button data-tool="month" class="button current">{%: $.monthText %}</button>', '</div>']),
     navBarTemplate: new Simplate(['<div class="nav-bar">', '<button data-tool="next" data-action="goToNextMonth" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>', '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>', '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>', '</div>']),
@@ -126,7 +124,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
     eventContainerNode: null,
     activityContainerNode: null,
 
-    //View Properties
+    // View Properties
     id: 'calendar_monthlist',
     cls: 'activities-for-month',
     dayView: 'calendar_daylist',
@@ -198,8 +196,8 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.navigateToDayView();
     },
     activateEventMore: function activateEventMore() {
-      var view = App.getView('event_related'),
-          where = this.getSelectedDateEventQuery();
+      var view = App.getView('event_related');
+      var where = this.getSelectedDateEventQuery();
       if (view) {
         view.show({
           'where': where
@@ -207,14 +205,12 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       }
     },
     toggleGroup: function toggleGroup(params) {
-      var node, button;
-
-      node = params.$source;
+      var node = params.$source;
       if (node && node.parentNode) {
         _domClass['default'].toggle(node, 'collapsed');
         _domClass['default'].toggle(node.parentNode, 'collapsed-event');
 
-        button = this.collapseButton;
+        var button = this.collapseButton;
 
         if (button) {
           _domClass['default'].toggle(button, this.toggleCollapseClass);
@@ -276,12 +272,10 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.cancelRequests(this.monthRequests);
       this.monthRequests = [];
 
-      var request, xhr;
-
-      request = this.createRequest();
+      var request = this.createRequest();
       request.setContractName(this.contractName || 'system');
 
-      xhr = request.read({
+      var xhr = request.read({
         success: this.onRequestDataSuccess,
         failure: this.onRequestDataFailure,
         aborted: this.onRequestDataAborted,
@@ -290,9 +284,9 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.monthRequests.push(xhr);
     },
     createEventRequest: function createEventRequest() {
-      var querySelect = this.eventQuerySelect,
-          queryWhere = this.getEventQuery(),
-          request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.pageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+      var querySelect = this.eventQuerySelect;
+      var queryWhere = this.getEventQuery();
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.pageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
 
       return request;
     },
@@ -300,10 +294,8 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.cancelRequests(this.monthEventRequests);
       this.monthEventRequests = [];
 
-      var request, xhr;
-
-      request = this.createEventRequest();
-      xhr = request.read({
+      var request = this.createEventRequest();
+      var xhr = request.read({
         success: this.onRequestEventDataSuccess,
         failure: this.onRequestEventDataFailure,
         aborted: this.onRequestEventDataAborted,
@@ -312,7 +304,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.monthEventRequests.push(xhr);
     },
     onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
-      alert(_string['default'].substitute(this.requestErrorText, [response, o]));
+      alert(_string['default'].substitute(this.requestErrorText, [response, o])); // eslint-disable-line
       _ErrorManager['default'].addError(response, o, this.options, 'failure');
     },
     onRequestEventDataAborted: function onRequestEventDataAborted() {
@@ -322,42 +314,40 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.processEventFeed(feed);
     },
     getActivityQuery: function getActivityQuery() {
-      var startDate = this.getFirstDayOfCurrentMonth(),
-          endDate = this.getLastDayOfCurrentMonth();
-      return _string['default'].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate', ' between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate', ' between @${3}@ and @${4}@))'].join(''), [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(startDate.toDate()), _convert['default'].toIsoStringFromDate(endDate.toDate()), startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      var startDate = this.getFirstDayOfCurrentMonth();
+      var endDate = this.getLastDayOfCurrentMonth();
+      return _string['default'].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate', ' between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate', ' between @${3}@ and @${4}@))'].join(''), [App.context.user && App.context.user.$key, _convert['default'].toIsoStringFromDate(startDate.toDate()), _convert['default'].toIsoStringFromDate(endDate.toDate()), startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     getEventQuery: function getEventQuery() {
-      var startDate = this.getFirstDayOfCurrentMonth(),
-          endDate = this.getLastDayOfCurrentMonth();
-      return _string['default'].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(startDate.toDate()), _convert['default'].toIsoStringFromDate(endDate.toDate())]);
+      var startDate = this.getFirstDayOfCurrentMonth();
+      var endDate = this.getLastDayOfCurrentMonth();
+      return _string['default'].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, _convert['default'].toIsoStringFromDate(startDate.toDate()), _convert['default'].toIsoStringFromDate(endDate.toDate())]);
     },
     processFeed: function processFeed(feed) {
       if (!feed) {
         return;
       }
 
-      var r, row, i, dateIndex, startDay, isEvent;
-
-      r = feed['$resources'];
+      var r = feed.$resources;
       this.feed = feed;
 
-      for (i = 0; i < r.length; i++) {
-        row = r[i];
+      for (var i = 0; i < r.length; i++) {
+        var row = r[i];
 
         // Preserve the isEvent flag if we have an existing entry for it already,
         // the order of processFeed and processEventFeed is not predictable
-        row.isEvent = isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
+        row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
 
         this.entries[row.$key] = row;
 
-        startDay = (0, _moment2['default'])(_convert['default'].toDateFromString(row.StartDate));
+        var startDay = (0, _moment2['default'])(_convert['default'].toDateFromString(row.StartDate));
         if (r[i].Timeless) {
           startDay.add({
             minutes: startDay.zone()
           });
         }
 
-        dateIndex = startDay.format('YYYY-MM-DD');
+        var dateIndex = startDay.format('YYYY-MM-DD');
         this.dateCounts[dateIndex] = this.dateCounts[dateIndex] ? this.dateCounts[dateIndex] + 1 : 1;
       }
 
@@ -368,29 +358,22 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         return;
       }
 
-      var dateIndex,
-          r = feed['$resources'],
-          feedLength = r.length,
-          i,
-          row,
-          startDay,
-          endDay,
-          isEvent;
-
+      var r = feed.$resources;
+      var feedLength = r.length;
       this.eventFeed = feed;
 
-      for (i = 0; i < feedLength; i++) {
-        row = r[i];
+      for (var i = 0; i < feedLength; i++) {
+        var row = r[i];
         // Preserve the isEvent flag if we have an existing entry for it already,
         // the order of processFeed and processEventFeed is not predictable
-        row.isEvent = isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
+        row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
         this.entries[row.$key] = row;
 
-        startDay = (0, _moment2['default'])(_convert['default'].toDateFromString(row.StartDate));
-        endDay = _convert['default'].toDateFromString(row.EndDate);
+        var startDay = (0, _moment2['default'])(_convert['default'].toDateFromString(row.StartDate));
+        var endDay = _convert['default'].toDateFromString(row.EndDate);
 
         while (startDay.valueOf() <= endDay.valueOf()) {
-          dateIndex = startDay.format('YYYY-MM-DD');
+          var dateIndex = startDay.format('YYYY-MM-DD');
           this.dateCounts[dateIndex] = this.dateCounts[dateIndex] ? this.dateCounts[dateIndex] + 1 : 1;
           startDay.add({
             days: 1
@@ -402,18 +385,16 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
     },
 
     highlightActivities: function highlightActivities() {
-      (0, _query['default'])('.calendar-day').forEach(function (node) {
-        var dataDate, countMarkup, existingCount;
-
-        dataDate = _domAttr['default'].get(node, 'data-date');
+      (0, _query['default'])('.calendar-day').forEach(function queryDays(node) {
+        var dataDate = _domAttr['default'].get(node, 'data-date');
         if (!this.dateCounts[dataDate]) {
           return;
         }
 
         _domClass['default'].add(node, 'activeDay');
 
-        countMarkup = _string['default'].substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
-        existingCount = (0, _query['default'])(node).children('div');
+        var countMarkup = _string['default'].substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
+        var existingCount = (0, _query['default'])(node).children('div');
 
         if (existingCount.length > 0) {
           _domConstruct['default'].place(countMarkup, existingCount[0], 'only');
@@ -447,7 +428,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         return;
       }
 
-      _array['default'].forEach(requests, function (xhr) {
+      _array['default'].forEach(requests, function forEach(xhr) {
         if (xhr) {
           // if request was fulfilled by offline storage, xhr will be undefined
           xhr.abort();
@@ -458,9 +439,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.cancelRequests(this.selectedDateRequests);
       this.selectedDateRequests = [];
 
-      var request, xhr;
-
-      request = this.createSelectedDateRequest({
+      var request = this.createSelectedDateRequest({
         pageSize: this.activityPageSize,
         resourceKind: 'activities',
         contractName: 'system',
@@ -468,7 +447,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         queryWhere: this.getSelectedDateActivityQuery()
       });
 
-      xhr = request.read({
+      var xhr = request.read({
         success: this.onRequestSelectedDateActivityDataSuccess,
         failure: this.onRequestDataFailure,
         aborted: this.onRequestDataAborted,
@@ -480,9 +459,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.cancelRequests(this.selectedDateEventRequests);
       this.selectedDateEventRequests = [];
 
-      var request, xhr;
-
-      request = this.createSelectedDateRequest({
+      var request = this.createSelectedDateRequest({
         pageSize: this.eventPageSize,
         resourceKind: 'events',
         contractName: 'dynamic',
@@ -490,7 +467,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         queryWhere: this.getSelectedDateEventQuery()
       });
 
-      xhr = request.read({
+      var xhr = request.read({
         success: this.onRequestSelectedDateEventDataSuccess,
         failure: this.onRequestDataFailure,
         aborted: this.onRequestDataAborted,
@@ -503,32 +480,28 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       return request;
     },
     getSelectedDateActivityQuery: function getSelectedDateActivityQuery() {
-      var activityQuery, results;
+      var activityQuery = ['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join('');
 
-      activityQuery = ['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join('');
-
-      results = _string['default'].substitute(activityQuery, [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(this.currentDate.toDate()), _convert['default'].toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()), this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'), this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      var results = _string['default'].substitute(activityQuery, [App.context.user && App.context.user.$key, _convert['default'].toIsoStringFromDate(this.currentDate.toDate()), _convert['default'].toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()), this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'), this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')]);
 
       return results;
     },
     getSelectedDateEventQuery: function getSelectedDateEventQuery() {
-      return _string['default'].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(this.currentDate.toDate()), _convert['default'].toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())]);
+      return _string['default'].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, _convert['default'].toIsoStringFromDate(this.currentDate.toDate()), _convert['default'].toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())]);
     },
     onRequestSelectedDateActivityDataSuccess: function onRequestSelectedDateActivityDataSuccess(feed) {
       if (!feed) {
-        return;
+        return false;
       }
 
       _domClass['default'].remove(this.activityContainerNode, 'list-loading');
 
-      var r = feed['$resources'],
-          feedLength = r.length,
-          row,
-          i,
-          o = [];
+      var r = feed.$resources;
+      var feedLength = r.length;
+      var o = [];
 
-      for (i = 0; i < feedLength; i++) {
-        row = r[i];
+      for (var i = 0; i < feedLength; i++) {
+        var row = r[i];
         row.isEvent = false;
         this.entries[row.$key] = row;
         o.push(this.activityRowTemplate.apply(row, this));
@@ -539,7 +512,7 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         return false;
       }
 
-      if (feed['$totalResults'] > feedLength) {
+      if (feed.$totalResults > feedLength) {
         _domClass['default'].add(this.activityContainerNode, 'list-has-more');
         this.set('activityRemainingContent', this.countMoreText);
       } else {
@@ -551,32 +524,29 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
     },
     onRequestSelectedDateEventDataSuccess: function onRequestSelectedDateEventDataSuccess(feed) {
       if (!feed) {
-        return;
+        return false;
       }
 
-      var r = feed['$resources'],
-          feedLength = r.length,
-          i,
-          row,
-          o = [];
+      var r = feed.$resources;
+      var feedLength = r.length;
+      var o = [];
 
       this.eventFeed = feed;
 
       if (feedLength === 0) {
         this.hideEventList();
         return false;
-      } else {
-        this.showEventList();
       }
+      this.showEventList();
 
-      for (i = 0; i < feedLength; i++) {
-        row = r[i];
+      for (var i = 0; i < feedLength; i++) {
+        var row = r[i];
         row.isEvent = true;
         this.entries[row.$key] = row;
         o.push(this.eventRowTemplate.apply(row, this));
       }
 
-      if (feed['$totalResults'] > feedLength) {
+      if (feed.$totalResults > feedLength) {
         _domClass['default'].add(this.eventContainerNode, 'list-has-more');
         this.set('eventRemainingContent', this.countMoreText);
       } else {
@@ -588,29 +558,27 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
     },
 
     renderCalendar: function renderCalendar() {
-      var calHTML = [],
-          startingDay = this.getFirstDayOfCurrentMonth().day(),
-          weekendClass = '',
-          day = 1,
-          dayDate = this.currentDate.clone().startOf('month'),
-          monthLength = this.currentDate.daysInMonth(),
-          weekEnds = [0, 6],
-          i,
-          j;
+      var calHTML = [];
+      var startingDay = this.getFirstDayOfCurrentMonth().day();
+      var dayDate = this.currentDate.clone().startOf('month');
+      var monthLength = this.currentDate.daysInMonth();
+      var weekEnds = [0, 6];
+      var weekendClass = '';
+      var day = 1;
 
       calHTML.push(this.calendarStartTemplate);
 
       calHTML.push(this.calendarWeekHeaderStartTemplate);
-      for (i = 0; i <= 6; i++) {
+      for (var i = 0; i <= 6; i++) {
         calHTML.push(_string['default'].substitute(this.calendarWeekHeaderTemplate, [this.weekDaysShortText[i]]));
       }
       calHTML.push(this.calendarWeekHeaderEndTemplate);
 
-      //Weeks
-      for (i = 0; i <= 6; i++) {
+      // Weeks
+      for (var i = 0; i <= 6; i++) {
         calHTML.push(this.calendarWeekStartTemplate);
-        //Days
-        for (j = 0; j <= 6; j++) {
+        // Days
+        for (var j = 0; j <= 6; j++) {
           if (day <= monthLength && (i > 0 || j >= startingDay)) {
             dayDate.date(day);
             weekendClass = weekEnds.indexOf(j) !== -1 ? ' weekend' : '';
@@ -666,12 +634,10 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       this.highlightToday();
     },
     highlightToday: function highlightToday() {
-      var todayCls, todayNode;
-
       // Remove the existing "today" highlight class because it might be out of date,
       // like when we tick past midnight.
-      todayCls = '.calendar-day.today';
-      todayNode = (0, _query['default'])(todayCls, this.contentNode)[0];
+      var todayCls = '.calendar-day.today';
+      var todayNode = (0, _query['default'])(todayCls, this.contentNode)[0];
       if (todayNode) {
         _domClass['default'].remove(todayNode, 'today');
       }
@@ -684,8 +650,8 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       }
     },
     selectEntry: function selectEntry(params) {
-      var row = (0, _query['default'])(params.$source).closest('[data-key]')[0],
-          key = row ? row.getAttribute('data-key') : false;
+      var row = (0, _query['default'])(params.$source).closest('[data-key]')[0];
+      var key = row ? row.getAttribute('data-key') : false;
 
       this.navigateToDetailView(key);
     },
@@ -708,8 +674,8 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
             scope: ReUI
           }]
         }
-      },
-          view = App.getView(this.datePickerView);
+      };
+      var view = App.getView(this.datePickerView);
       if (view) {
         view.show(options);
       }
@@ -721,15 +687,15 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
       ReUI.back();
     },
     navigateToWeekView: function navigateToWeekView() {
-      var view = App.getView(this.weekView),
-          options = {
+      var view = App.getView(this.weekView);
+      var options = {
         currentDate: this.currentDate.valueOf() || (0, _moment2['default'])().startOf('day')
       };
       view.show(options);
     },
     navigateToDayView: function navigateToDayView() {
-      var view = App.getView(this.dayView),
-          options = {
+      var view = App.getView(this.dayView);
+      var options = {
         currentDate: this.currentDate.valueOf() || (0, _moment2['default'])().startOf('day')
       };
       view.show(options);
@@ -751,10 +717,11 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
         });
       }
     },
-    navigateToDetailView: function navigateToDetailView(key, descriptor) {
-      var entry = this.entries[key],
-          detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView,
-          view = App.getView(detailView);
+    navigateToDetailView: function navigateToDetailView(key, _descriptor) {
+      var descriptor = _descriptor;
+      var entry = this.entries[key];
+      var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
+      var view = App.getView(detailView);
       descriptor = entry.isEvent ? descriptor : entry.Description;
       if (view) {
         view.show({
@@ -768,5 +735,3 @@ define('crm/Views/Calendar/MonthView', ['exports', 'module', 'dojo/_base/declare
   _lang['default'].setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
   module.exports = __class;
 });
-
-//this.inherited(arguments);

@@ -9,7 +9,7 @@ import 'argos/Format';
  * @requires argos.Format
  *
  */
-var __class = lang.setObject('crm.Template', {
+const __class = lang.setObject('crm.Template', {
   /**
    * @property {Simplate} nameLF
    * Template for lastname, firstname
@@ -21,7 +21,7 @@ var __class = lang.setObject('crm.Template', {
     '{% } else { %}',
     '{%: $.LastName ? $.LastName : $.FirstName %}',
     '{% } %}',
-    '{% } %}'
+    '{% } %}',
   ]),
 
   /**
@@ -29,7 +29,7 @@ var __class = lang.setObject('crm.Template', {
    * Template for alternate key, takes a prefix and suffix
    */
   alternateKeyPrefixSuffix: new Simplate([
-    '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
+    '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}',
   ]),
 
   /**
@@ -45,7 +45,7 @@ var __class = lang.setObject('crm.Template', {
     '{%= F.nl2br(F.encode($.value)) %}',
     '</div>',
     '</div>',
-    '</div>'
+    '</div>',
   ]),
 
   /**
@@ -59,8 +59,8 @@ var __class = lang.setObject('crm.Template', {
     '<pre>',
     '{%= F.encode($.value) %}',
     '</pre>',
-    '</div>'
-  ])
+    '</div>',
+  ]),
 });
 
 lang.setObject('Mobile.SalesLogix.Template', __class);

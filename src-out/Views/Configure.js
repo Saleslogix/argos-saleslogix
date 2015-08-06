@@ -1,4 +1,4 @@
-define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/query', 'dojo/string', 'dojo/dom-attr', 'dojo/dom-class', 'dojo/store/Memory', 'argos/_ConfigureBase'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoQuery, _dojoString, _dojoDomAttr, _dojoDomClass, _dojoStoreMemory, _argos_ConfigureBase) {
+define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/store/Memory', 'argos/_ConfigureBase'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoStoreMemory, _argos_ConfigureBase) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -6,14 +6,6 @@ define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/
   var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _query = _interopRequireDefault(_dojoQuery);
-
-  var _string = _interopRequireDefault(_dojoString);
-
-  var _domAttr = _interopRequireDefault(_dojoDomAttr);
-
-  var _domClass = _interopRequireDefault(_dojoDomClass);
 
   var _Memory = _interopRequireDefault(_dojoStoreMemory);
 
@@ -30,14 +22,12 @@ define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/
     // Localization
     titleText: 'Configure',
 
-    //View Properties
+    // View Properties
     id: 'configure',
     idProperty: '$key',
     labelProperty: '$descriptor',
 
     onSave: function onSave() {
-      var view;
-
       App.preferences.home = App.preferences.home || {};
       App.preferences.configure = App.preferences.configure || {};
 
@@ -47,21 +37,19 @@ define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/
       App.persistPreferences();
 
       ReUI.back();
-      view = App.getView('left_drawer');
+      var view = App.getView('left_drawer');
       if (view) {
         view.refresh();
       }
     },
     createStore: function createStore() {
-      var list = [],
-          exposed = App.getExposedViews(),
-          order = this.getSavedOrderedKeys(),
-          reduced,
-          all;
+      var exposed = App.getExposedViews();
+      var order = this.getSavedOrderedKeys();
+      var list = [];
 
       // De-dup id's
-      all = order.concat(exposed);
-      reduced = all.reduce(function (previous, current) {
+      var all = order.concat(exposed);
+      var reduced = all.reduce(function setReduced(previous, current) {
         if (previous.indexOf(current) === -1) {
           previous.push(current);
         }
@@ -70,12 +58,12 @@ define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/
       }, []);
 
       // The order array could have had stale id's, filter out valid views here
-      reduced = _array['default'].filter(reduced, function (key) {
+      reduced = _array['default'].filter(reduced, function filterReduced(key) {
         var view = App.getView(key);
         return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
       });
 
-      list = _array['default'].map(reduced, function (key) {
+      list = _array['default'].map(reduced, function setList(key) {
         var view = App.getView(key);
         return {
           '$key': view.id,
@@ -84,7 +72,7 @@ define('crm/Views/Configure', ['exports', 'module', 'dojo/_base/declare', 'dojo/
         };
       });
 
-      return (0, _Memory['default'])({
+      return (0, _Memory['default'])({ // eslint-disable-line
         data: list
       });
     },
