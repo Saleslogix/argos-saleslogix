@@ -17,10 +17,10 @@ define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Login', [_Edit['default']], {
-    //Templates
+    // Templates
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">', '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>', '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>', '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>', '<span class="copyright">{%= $.copyrightText %}</span>', '<span class="copyright">{%= App.getVersionInfo() %}</span>', '</div>']),
 
-    //Localization
+    // Localization
     id: 'login',
     busy: false,
     copyrightText: 'Copyright &copy; 2015 Infor. All rights reserved. www.infor.com',
@@ -50,13 +50,12 @@ define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
       }
     },
     onShow: function onShow() {
-      var credentials;
-      credentials = App.getCredentials();
+      var credentials = App.getCredentials();
 
       if (credentials) {
         App.authenticateUser(credentials, {
-          success: function success() {
-            App.initAppState().then(function () {
+          success: function authSuccess() {
+            App.initAppState().then(function initAppStateSuccess() {
               App.navigateToInitialView();
             });
           },
@@ -96,8 +95,8 @@ define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
         return;
       }
 
-      var credentials = this.getValues(),
-          username = credentials && credentials.username;
+      var credentials = this.getValues();
+      var username = credentials && credentials.username;
 
       if (username) {
         this.validateCredentials(credentials);
@@ -108,20 +107,20 @@ define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
 
       this.errorHandlers = [{
         name: 'NoResponse',
-        test: function test(error) {
+        test: function testNoResponse(error) {
           return !error.xhr;
         },
-        handle: function handle(error, next) {
-          alert(this.missingUserText);
+        handle: function handleNoResponse(error, next) {
+          alert(this.missingUserText); // eslint-disable-line
           next();
         }
       }, {
         name: 'GeneralError',
-        test: function test(error) {
+        test: function testError(error) {
           return typeof error.xhr !== 'undefined' && error.xhr !== null;
         },
-        handle: function handle(error, next) {
-          alert(this.getErrorMessage(error));
+        handle: function handleError(error, next) {
+          alert(this.getErrorMessage(error)); // eslint-disable-line
           next();
         }
       }];
@@ -141,16 +140,14 @@ define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
           }
 
           App.setPrimaryTitle(App.loadingText);
-          App.initAppState().then(function () {
+          App.initAppState().then(function initAppStateSuccess() {
             App.navigateToInitialView();
           });
         },
         failure: function failure(result) {
-          var error;
-
           this.enable();
 
-          error = new Error();
+          var error = new Error();
           error.status = result && result.response && result.response.status;
           error.xhr = result && result.response;
           this.handleError(error);
@@ -158,7 +155,7 @@ define('crm/Views/Login', ['exports', 'module', 'dojo/_base/declare', 'dojo/_bas
         aborted: function aborted() {
           this.enable();
 
-          alert(this.requestAbortedText);
+          alert(this.requestAbortedText); // eslint-disable-line
         },
         scope: this
       });
