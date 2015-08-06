@@ -1,4 +1,4 @@
-define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/query', 'dojo/string', 'dojo/dom-construct', 'dojo/dom-class', 'argos/ErrorManager', 'argos/Convert', 'argos/List', 'argos/_LegacySDataListMixin', 'crm/Format', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoQuery, _dojoString, _dojoDomConstruct, _dojoDomClass, _argosErrorManager, _argosConvert, _argosList, _argos_LegacySDataListMixin, _crmFormat, _moment) {
+define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/query', 'dojo/string', 'dojo/dom-construct', 'dojo/dom-class', 'argos/ErrorManager', 'argos/Convert', 'argos/List', 'argos/_LegacySDataListMixin', 'moment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoQuery, _dojoString, _dojoDomConstruct, _dojoDomClass, _argosErrorManager, _argosConvert, _argosList, _argos_LegacySDataListMixin, _moment) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -21,8 +21,6 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
 
   var _LegacySDataListMixin2 = _interopRequireDefault(_argos_LegacySDataListMixin);
 
-  var _format = _interopRequireDefault(_crmFormat);
-
   var _moment2 = _interopRequireDefault(_moment);
 
   /**
@@ -43,7 +41,7 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Calendar.WeekView', [_List['default'], _LegacySDataListMixin2['default']], {
-    //Localization
+    // Localization
     titleText: 'Calendar',
     weekTitleFormatText: 'MMM D, YYYY',
     dayHeaderLeftFormatText: 'dddd',
@@ -102,7 +100,7 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       }
     },
 
-    //View Properties
+    // View Properties
     id: 'calendar_weeklist',
     cls: 'list activities-for-week',
     activityDetailView: 'activity_detail',
@@ -153,14 +151,12 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       this.currentDate = this.todayDate.clone();
     },
     toggleGroup: function toggleGroup(params) {
-      var node, button;
-
-      node = params.$source;
+      var node = params.$source;
       if (node && node.parentNode) {
         _domClass['default'].toggle(node, 'collapsed');
         _domClass['default'].toggle(node.parentNode, 'collapsed-event');
 
-        button = this.collapseButton;
+        var button = this.collapseButton;
 
         if (button) {
           _domClass['default'].toggle(button, this.toggleCollapseClass);
@@ -200,11 +196,11 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       var setDate = this.currentDate || this.todayDate;
       this.weekStartDate = this.getStartDay(setDate);
       this.weekEndDate = this.getEndDay(setDate);
-      this.queryWhere = _string['default'].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join(''), [App.context['user'] && App.context['user']['$key'], _convert['default'].toIsoStringFromDate(this.weekStartDate.toDate()), _convert['default'].toIsoStringFromDate(this.weekEndDate.toDate()), this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      this.queryWhere = _string['default'].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join(''), [App.context.user && App.context.user.$key, _convert['default'].toIsoStringFromDate(this.weekStartDate.toDate()), _convert['default'].toIsoStringFromDate(this.weekEndDate.toDate()), this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     setWeekTitle: function setWeekTitle() {
-      var start = this.getStartDay(this.currentDate),
-          end = this.getEndDay(this.currentDate);
+      var start = this.getStartDay(this.currentDate);
+      var end = this.getEndDay(this.currentDate);
 
       this.set('dateContent', _string['default'].substitute('${0}-${1}', [start.format(this.weekTitleFormatText), end.format(this.weekTitleFormatText)]));
     },
@@ -214,42 +210,34 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
     processFeed: function processFeed(feed) {
       this.feed = feed;
 
-      var todayNode = this.addTodayDom(),
-          entryGroups = this.entryGroups,
-          feedLength = feed['$resources'].length,
-          entryOrder = [],
-          dateCompareString = 'YYYY-MM-DD',
-          o = [],
-          i,
-          currentEntry,
-          entryOrderLength,
-          entryGroup,
-          currentDateCompareKey,
-          currentGroup,
-          startDate;
+      var todayNode = this.addTodayDom();
+      var entryGroups = this.entryGroups;
+      var feedLength = feed.$resources.length;
+      var entryOrder = [];
+      var dateCompareString = 'YYYY-MM-DD';
+      var o = [];
 
       // If we fetched a page that has no data due to un-reliable counts,
       // check if we fetched anything in the previous pages before assuming there is no data.
       if (feedLength === 0 && Object.keys(this.entries).length === 0) {
         (0, _query['default'])(this.contentNode).append(this.noDataTemplate.apply(this));
-      } else if (feed['$resources']) {
-
+      } else if (feed.$resources) {
         if (todayNode && !entryGroups[this.todayDate.format(dateCompareString)]) {
           entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];
         }
 
-        for (i = 0; i < feed['$resources'].length; i++) {
-          currentEntry = feed['$resources'][i];
-          startDate = _convert['default'].toDateFromString(currentEntry.StartDate);
+        for (var i = 0; i < feed.$resources.length; i++) {
+          var currentEntry = feed.$resources[i];
+          var startDate = _convert['default'].toDateFromString(currentEntry.StartDate);
           if (currentEntry.Timeless) {
             startDate = this.dateToUTC(startDate);
           }
-          currentEntry['StartDate'] = startDate;
-          currentEntry['isEvent'] = false;
+          currentEntry.StartDate = startDate;
+          currentEntry.isEvent = false;
           this.entries[currentEntry.$key] = currentEntry;
 
-          currentDateCompareKey = (0, _moment2['default'])(currentEntry.StartDate).format(dateCompareString);
-          currentGroup = entryGroups[currentDateCompareKey];
+          var currentDateCompareKey = (0, _moment2['default'])(currentEntry.StartDate).format(dateCompareString);
+          var currentGroup = entryGroups[currentDateCompareKey];
           if (currentGroup) {
             if (currentEntry.Timeless) {
               currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
@@ -263,13 +251,13 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
           entryGroups[currentDateCompareKey] = currentGroup;
         }
 
-        for (entryGroup in entryGroups) {
+        for (var entryGroup in entryGroups) {
           if (entryGroups.hasOwnProperty(entryGroup)) {
             entryOrder.push((0, _moment2['default'])(entryGroup, dateCompareString));
           }
         }
 
-        entryOrder.sort(function (a, b) {
+        entryOrder.sort(function sortEntryOrder(a, b) {
           if (a.valueOf() < b.valueOf()) {
             return 1;
           } else if (a.valueOf() > b.valueOf()) {
@@ -279,8 +267,8 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
           return 0;
         });
 
-        entryOrderLength = entryOrder.length;
-        for (i = 0; i < entryOrderLength; i++) {
+        var entryOrderLength = entryOrder.length;
+        for (var i = 0; i < entryOrderLength; i++) {
           o.push(entryGroups[entryOrder[i].format(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
         }
 
@@ -319,7 +307,7 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       });
     },
     onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
-      alert(_string['default'].substitute(this.requestErrorText, [response, o]));
+      alert(_string['default'].substitute(this.requestErrorText, [response, o])); // eslint-disable-line
       _ErrorManager['default'].addError(response, o, this.options, 'failure');
     },
     onRequestEventDataAborted: function onRequestEventDataAborted() {
@@ -329,15 +317,15 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       this.processEventFeed(feed);
     },
     createEventRequest: function createEventRequest() {
-      var querySelect = this.eventQuerySelect,
-          queryWhere = this.getEventQuery(),
-          request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.eventPageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+      var querySelect = this.eventQuerySelect;
+      var queryWhere = this.getEventQuery();
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.eventPageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
       return request;
     },
     getEventQuery: function getEventQuery() {
-      var startDate = this.weekStartDate,
-          endDate = this.weekEndDate;
-      return _string['default'].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context['user'] && App.context['user']['$key'], startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      var startDate = this.weekStartDate;
+      var endDate = this.weekEndDate;
+      return _string['default'].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     hideEventList: function hideEventList() {
       _domClass['default'].add(this.eventContainerNode, 'event-hidden');
@@ -346,30 +334,28 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       _domClass['default'].remove(this.eventContainerNode, 'event-hidden');
     },
     processEventFeed: function processEventFeed(feed) {
-      var o = [],
-          i,
-          event,
-          feedLength = feed['$resources'].length;
+      var o = [];
+      var feedLength = feed.$resources.length;
 
       if (feedLength === 0) {
         this.hideEventList();
         return false;
-      } else {
-        this.showEventList();
       }
 
-      for (i = 0; i < feedLength; i++) {
-        event = feed['$resources'][i];
-        event['isEvent'] = true;
-        event['StartDate'] = (0, _moment2['default'])(_convert['default'].toDateFromString(event.StartDate));
-        event['EndDate'] = (0, _moment2['default'])(_convert['default'].toDateFromString(event.EndDate));
-        this.entries[event.$key] = event;
-        o.push(this.eventRowTemplate.apply(event, this));
+      this.showEventList();
+
+      for (var i = 0; i < feedLength; i++) {
+        var _event = feed.$resources[i];
+        _event.isEvent = true;
+        _event.StartDate = (0, _moment2['default'])(_convert['default'].toDateFromString(_event.StartDate));
+        _event.EndDate = (0, _moment2['default'])(_convert['default'].toDateFromString(_event.EndDate));
+        this.entries[_event.$key] = _event;
+        o.push(this.eventRowTemplate.apply(_event, this));
       }
 
-      if (feed['$totalResults'] > feedLength) {
+      if (feed.$totalResults > feedLength) {
         _domClass['default'].add(this.eventContainerNode, 'list-has-more');
-        this.set('eventRemainingContent', _string['default'].substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
+        this.set('eventRemainingContent', _string['default'].substitute(this.eventMoreText, [feed.$totalResults - feedLength]));
       } else {
         _domClass['default'].remove(this.eventContainerNode, 'list-has-more');
         _domConstruct['default'].empty(this.eventRemainingContentNode);
@@ -403,8 +389,8 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       }
     },
     activateEventMore: function activateEventMore() {
-      var view = App.getView('event_related'),
-          where = this.getEventQuery();
+      var view = App.getView('event_related');
+      var where = this.getEventQuery();
       if (view) {
         view.show({
           'where': where
@@ -418,8 +404,8 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       this.set('listContent', '');
     },
     selectEntry: function selectEntry(params) {
-      var row = (0, _query['default'])(params.$source).closest('[data-key]')[0],
-          key = row ? row.getAttribute('data-key') : false;
+      var row = (0, _query['default'])(params.$source).closest('[data-key]')[0];
+      var key = row ? row.getAttribute('data-key') : false;
 
       this.navigateToDetailView(key);
     },
@@ -442,8 +428,8 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
             scope: ReUI
           }]
         }
-      },
-          view = App.getView(this.datePickerView);
+      };
+      var view = App.getView(this.datePickerView);
       if (view) {
         view.show(options);
       }
@@ -455,15 +441,15 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       ReUI.back();
     },
     navigateToDayView: function navigateToDayView() {
-      var view = App.getView(this.activityListView),
-          options = {
+      var view = App.getView(this.activityListView);
+      var options = {
         currentDate: this.currentDate.toDate().valueOf() || (0, _moment2['default'])().startOf('day').valueOf()
       };
       view.show(options);
     },
     navigateToMonthView: function navigateToMonthView() {
-      var view = App.getView(this.monthView),
-          options = {
+      var view = App.getView(this.monthView);
+      var options = {
         currentDate: this.currentDate.toDate().valueOf() || (0, _moment2['default'])().startOf('day').valueOf()
       };
       view.show(options);
@@ -482,15 +468,15 @@ define('crm/Views/Calendar/WeekView', ['exports', 'module', 'dojo/_base/declare'
       }
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor) {
-      var entry = this.entries[key],
-          detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView,
-          view = App.getView(detailView);
+      var entry = this.entries[key];
+      var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
+      var view = App.getView(detailView);
 
-      descriptor = entry.isEvent ? descriptor : entry.Description;
+      var theDescriptor = entry.isEvent ? descriptor : entry.Description;
 
       if (view) {
         view.show({
-          title: descriptor,
+          title: theDescriptor,
           key: key
         });
       }
