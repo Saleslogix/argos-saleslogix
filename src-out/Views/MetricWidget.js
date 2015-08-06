@@ -1,11 +1,9 @@
-define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/array', 'dojo/Deferred', 'dojo/when', 'dojo/promise/all', 'dojo/dom-construct', 'dijit/_Widget', 'argos/_Templated', 'argos/Store/SData'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojo_baseArray, _dojoDeferred, _dojoWhen, _dojoPromiseAll, _dojoDomConstruct, _dijit_Widget, _argos_Templated, _argosStoreSData) {
+define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/Deferred', 'dojo/when', 'dojo/promise/all', 'dojo/dom-construct', 'dijit/_Widget', 'argos/_Templated', 'argos/Store/SData'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoDeferred, _dojoWhen, _dojoPromiseAll, _dojoDomConstruct, _dijit_Widget, _argos_Templated, _argosStoreSData) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
   var _lang = _interopRequireDefault(_dojo_baseLang);
-
-  var _array = _interopRequireDefault(_dojo_baseArray);
 
   var _Deferred = _interopRequireDefault(_dojoDeferred);
 
@@ -111,18 +109,17 @@ define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'do
      * @param {Array} data Array of data used for the metric
      * @return {int} Returns a value calculated from data (SUM/AVG/MAX/MIN/Whatever)
      */
-    valueFn: function valueFn(data) {
-      var total = 0;
-      _array['default'].forEach(data, function (item) {
-        total = total + item.value;
-      }, this);
+    valueFn: function valueFn() {
+      var data = arguments[0] === undefined ? [] : arguments[0];
 
-      return total;
+      return data.reduce(function (p, c) {
+        return p + c.value;
+      }, 0);
     },
 
     // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
     aggregateModule: 'crm/Aggregate',
-    aggregate: null, //'valueFn',
+    aggregate: null,
 
     /**
      * Loads a module/function via AMD and wraps it in a deferred
@@ -142,14 +139,13 @@ define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'do
       // Attempt to load the function fn from the AMD module
       var def = new _Deferred['default']();
       try {
-        require([module], _lang['default'].hitch(this, function (mod) {
-          var instance;
+        require([module], _lang['default'].hitch(this, function requireFn(Mod) {
           // Handle if required module is a ctor else object
-          if (typeof mod === 'function') {
-            instance = new mod();
+          if (typeof Mod === 'function') {
+            var instance = new Mod();
             def.resolve(instance[fn]);
           } else {
-            def.resolve(mod[fn]);
+            def.resolve(Mod[fn]);
           }
         }));
       } catch (err) {
@@ -163,8 +159,6 @@ define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'do
      * Requests the widget's data, value fn, format fn, and renders it's itemTemplate
      */
     requestData: function requestData() {
-      var loadFormatter, loadValueFn;
-
       this.inherited(arguments);
 
       if (this._data && this._data.length > 0) {
@@ -175,18 +169,17 @@ define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'do
       this.requestDataDeferred = new _Deferred['default']();
       this._getData();
 
-      loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
-      loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
+      var loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
+      var loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
 
-      (0, _all['default'])([loadValueFn, loadFormatter, this.requestDataDeferred]).then(_lang['default'].hitch(this, function (results) {
-        var valueFn, formatterFn, data, value;
+      (0, _all['default'])([loadValueFn, loadFormatter, this.requestDataDeferred]).then((function success(results) {
         if (!results[0] || !results[1] || !results[2]) {
           throw new Error('An error occurred loading the KPI widget data.');
         }
 
-        valueFn = results[0];
-        formatterFn = results[1];
-        data = results[2];
+        var valueFn = results[0];
+        var formatterFn = results[1];
+        var data = results[2];
 
         if (typeof valueFn === 'function') {
           this.valueFn = valueFn;
@@ -196,19 +189,18 @@ define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'do
           this.formatter = formatterFn;
         }
 
-        value = this.value = this.valueFn.call(this, data);
+        var value = this.value = this.valueFn.call(this, data);
         _domConstruct['default'].place(this.itemTemplate.apply({
           value: value
         }, this), this.metricDetailNode, 'replace');
-      }), _lang['default'].hitch(this, function (err) {
+      }).bind(this), (function error(err) {
         // Error
-        console.error(err);
+        console.error(err); // eslint-disable-line
         _domConstruct['default'].place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
-      }));
+      }).bind(this));
     },
     navToReportView: function navToReportView() {
-      var view;
-      view = App.getView(this.chartTypeMapping[this.chartType]);
+      var view = App.getView(this.chartTypeMapping[this.chartType]);
 
       if (view) {
         view.parent = this;
@@ -221,25 +213,22 @@ define('crm/Views/MetricWidget', ['exports', 'module', 'dojo/_base/declare', 'do
       }
     },
     _getData: function _getData() {
-      var store, queryOptions, queryResults;
-      queryOptions = {
+      var queryOptions = {
         count: this.pageSize,
         start: this.position
       };
 
-      store = this.get('store');
-      queryResults = store.query(null, queryOptions);
+      var store = this.get('store');
+      var queryResults = store.query(null, queryOptions);
 
       (0, _when['default'])(queryResults, _lang['default'].hitch(this, this._onQuerySuccess, queryResults), _lang['default'].hitch(this, this._onQueryError));
     },
     _onQuerySuccess: function _onQuerySuccess(queryResults) {
-      var total, left;
-
-      total = queryResults.total;
+      var total = queryResults.total;
 
       queryResults.forEach(_lang['default'].hitch(this, this._processItem));
 
-      left = -1;
+      var left = -1;
       if (total > -1) {
         left = total - (this.position + this.pageSize);
       }

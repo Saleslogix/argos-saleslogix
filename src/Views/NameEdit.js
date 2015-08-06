@@ -10,8 +10,8 @@ import Edit from 'argos/Edit';
  * @extends argos.Edit
  *
  */
-var __class = declare('crm.Views.NameEdit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.NameEdit', [Edit], {
+  // Localization
   titleText: 'Edit Name',
   firstNameText: 'first',
   middleNameText: 'middle',
@@ -21,10 +21,10 @@ var __class = declare('crm.Views.NameEdit', [Edit], {
   suffixText: 'suffix',
   suffixTitleText: 'Name Suffix',
 
-  //View Properties
+  // View Properties
   id: 'name_edit',
 
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       emptyText: '',
       label: this.prefixText,
@@ -33,28 +33,28 @@ var __class = declare('crm.Views.NameEdit', [Edit], {
       picklist: 'Name Prefix',
       requireSelection: true,
       title: this.prefixTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }, {
       name: 'FirstName',
       property: 'FirstName',
       label: this.firstNameText,
       type: 'text',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       name: 'MiddleName',
       property: 'MiddleName',
       label: this.middleNameText,
       type: 'text',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       name: 'LastName',
       property: 'LastName',
       label: this.lastNameText,
       type: 'text',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       emptyText: '',
       label: this.suffixText,
@@ -63,9 +63,9 @@ var __class = declare('crm.Views.NameEdit', [Edit], {
       picklist: 'Name Suffix',
       requireSelection: true,
       title: this.suffixTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.NameEdit', __class);
