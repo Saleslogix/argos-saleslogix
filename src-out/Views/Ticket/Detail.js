@@ -25,7 +25,7 @@ define('crm/Views/Ticket/Detail', ['exports', 'module', 'dojo/_base/declare', 'd
    * @requires crm.Format
    */
   var __class = (0, _declare['default'])('crm.Views.Ticket.Detail', [_Detail['default']], {
-    //Localization
+    // Localization
     accountText: 'account',
     areaText: 'area',
     assignedDateText: 'assigned date',
@@ -56,7 +56,7 @@ define('crm/Views/Ticket/Detail', ['exports', 'module', 'dojo/_base/declare', 'd
     relatedTicketActivitiesText: 'Ticket Activities',
     loadingText: 'loading...',
 
-    //View Properties
+    // View Properties
     id: 'ticket_detail',
     editView: 'ticket_edit',
     security: 'Entities/Ticket/View',
@@ -68,10 +68,8 @@ define('crm/Views/Ticket/Detail', ['exports', 'module', 'dojo/_base/declare', 'd
     },
 
     createPicklistRequest: function createPicklistRequest(predicate) {
-      var request, uri;
-
-      request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
-      uri = request.getUri();
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
+      var uri = request.getUri();
 
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate(predicate);
@@ -101,12 +99,10 @@ define('crm/Views/Ticket/Detail', ['exports', 'module', 'dojo/_base/declare', 'd
     },
 
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-      var keyProperty, textProperty, i;
+      var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+      var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-      keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-      textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-      for (i = 0; i < feed.$resources.length; i++) {
+      for (var i = 0; i < feed.$resources.length; i++) {
         if (feed.$resources[i][keyProperty] === currentValue) {
           return feed.$resources[i][textProperty];
         }

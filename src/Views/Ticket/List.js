@@ -3,7 +3,6 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import array from 'dojo/_base/array';
 import action from '../../Action';
-import format from '../../Format';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
@@ -22,8 +21,8 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
  * @requires crm.Action
  * @requires crm.Format
  */
-var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
-  //Templates
+const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.TicketNumber %}</h3>',
     '<h4>{%: $.Subject %}</h3>',
@@ -48,17 +47,17 @@ var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _Me
     '{% } %}',
     '{% if($.NeededByDate) { %}',
     '<h4>{%: $$.neededByText %}  {%: crm.Format.relativeDate($.NeededByDate) %}</h4>',
-    '{% } %}'
+    '{% } %}',
   ]),
 
-  _areaCategoryIssueText: function(feedItem) {
-    var results = [feedItem.Area, feedItem.Category, feedItem.Issue];
-    return array.filter(results, function(item) {
+  _areaCategoryIssueText: function _areaCategoryIssueText(feedItem) {
+    const results = [feedItem.Area, feedItem.Category, feedItem.Issue];
+    return array.filter(results, function filterItems(item) {
       return item !== '' && typeof item !== 'undefined' && item !== null;
     }).join(' > ');
   },
 
-  //Localization
+  // Localization
   titleText: 'Tickets',
   activitiesText: 'Activities',
   scheduleText: 'Schedule',
@@ -75,7 +74,7 @@ var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _Me
   modifiedText: 'Modified ',
   neededByText: 'Needed  ',
 
-  //View Properties
+  // View Properties
   detailView: 'ticket_detail',
   itemIconClass: 'fa fa-clipboard fa-2x',
   id: 'ticket_list',
@@ -99,7 +98,7 @@ var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _Me
     'Urgency/Description',
     'ModifyDate',
     'CreateDate',
-    'NeededByDate'
+    'NeededByDate',
   ],
   resourceKind: 'tickets',
   entityName: 'Ticket',
@@ -107,12 +106,12 @@ var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _Me
   allowSelection: true,
   enableActions: true,
 
-  createActionLayout: function() {
+  createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
-      action: 'navigateToEditView'
+      action: 'navigateToEditView',
     }, {
       id: 'viewAccount',
       label: this.viewAccountActionText,
@@ -120,8 +119,8 @@ var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _Me
       fn: action.navigateToEntity.bindDelegate(this, {
         view: 'account_detail',
         keyProperty: 'Account.$key',
-        textProperty: 'Account.AccountName'
-      })
+        textProperty: 'Account.AccountName',
+      }),
     }, {
       id: 'viewContact',
       label: this.viewContactActionText,
@@ -129,31 +128,31 @@ var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _Me
       fn: action.navigateToEntity.bindDelegate(this, {
         view: 'contact_detail',
         keyProperty: 'Contact.$key',
-        textProperty: 'Contact.NameLF'
-      })
+        textProperty: 'Contact.NameLF',
+      }),
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
       label: this.addNoteActionText,
-      fn: action.addNote.bindDelegate(this)
+      fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
       cls: 'fa fa-calendar fa-2x',
       label: this.addActivityActionText,
-      fn: action.addActivity.bindDelegate(this)
+      fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
       cls: 'fa fa-paperclip fa-2x',
       label: this.addAttachmentActionText,
-      fn: action.addAttachment.bindDelegate(this)
+      fn: action.addAttachment.bindDelegate(this),
     }]);
   },
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute(
       'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]
     );
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Ticket.List', __class);

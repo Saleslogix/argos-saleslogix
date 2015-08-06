@@ -16,8 +16,8 @@ import Edit from 'argos/Edit';
  * @requires crm.Format
  * @requires crm.Validator
  */
-var __class = declare('crm.Views.Ticket.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.Ticket.Edit', [Edit], {
+  // Localization
   accountText: 'acct',
   areaText: 'area',
   assignedDateText: 'assigned date',
@@ -49,7 +49,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
   titleText: 'Ticket',
   urgencyText: 'urgency',
 
-  //View Properties
+  // View Properties
   entityName: 'Ticket',
   id: 'ticket_edit',
   insertSecurity: 'Entities/Ticket/Add',
@@ -76,82 +76,75 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
     'TicketSolution/Notes',
     'Urgency/Description',
     'Urgency/UrgencyCode',
-    'CompletedBy/OwnerDescription'
+    'CompletedBy/OwnerDescription',
   ],
   resourceKind: 'tickets',
 
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
 
-    this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-    this.connect(this.fields['Contact'], 'onChange', this.onContactChange);
-    this.connect(this.fields['Urgency'], 'onChange', this.onUrgencyChange);
-    this.connect(this.fields['Area'], 'onChange', this.onAreaChange);
-    this.connect(this.fields['Category'], 'onChange', this.onCategoryChange);
+    this.connect(this.fields.Account, 'onChange', this.onAccountChange);
+    this.connect(this.fields.Contact, 'onChange', this.onContactChange);
+    this.connect(this.fields.Urgency, 'onChange', this.onUrgencyChange);
+    this.connect(this.fields.Area, 'onChange', this.onAreaChange);
+    this.connect(this.fields.Category, 'onChange', this.onCategoryChange);
   },
-  convertEntry: function() {
-    var entry = this.inherited(arguments);
+  convertEntry: function convertEntry() {
+    const entry = this.inherited(arguments);
 
     if (!this.options.entry) {
-      if (entry['StatusCode']) {
-        this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode'], entry, 'Status');
+      if (entry.StatusCode) {
+        this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
       }
 
-      if (entry['ViaCode']) {
-        this.requestCodeData('name eq "Source"', entry['ViaCode'], this.fields['ViaCode'], entry, 'SourceText');
+      if (entry.ViaCode) {
+        this.requestCodeData('name eq "Source"', entry.ViaCode, this.fields.ViaCode, entry, 'SourceText');
       }
     }
 
     return entry;
   },
-  processTemplateEntry: function(entry) {
+  processTemplateEntry: function processTemplateEntry(entry) {
     this.inherited(arguments);
 
-    if (entry['StatusCode']) {
-      this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode'], entry, 'Status');
+    if (entry.StatusCode) {
+      this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
     }
   },
-  createPicklistRequest: function(name) {
-    var request,
-      uri;
-
-    request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+  createPicklistRequest: function createPicklistRequest(name) {
+    const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
       .setResourceKind('picklists')
       .setContractName('system');
 
-    uri = request.getUri();
+    const uri = request.getUri();
     uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
     uri.setCollectionPredicate(name);
 
     request.allowCacheUse = true;
     return request;
   },
-  requestCodeData: function(picklistName, code, field, entry, name) {
-    var request = this.createPicklistRequest(picklistName);
+  requestCodeData: function requestCodeData(picklistName, code, field, entry, name) {
+    const request = this.createPicklistRequest(picklistName);
     request.read({
       success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
       failure: this.onRequestCodeDataFailure,
-      scope: this
+      scope: this,
     });
   },
-  onRequestCodeDataSuccess: function(code, field, entry, name, feed) {
-    var value = this.processCodeDataFeed(feed, code);
+  onRequestCodeDataSuccess: function onRequestCodeDataSuccess(code, field, entry, name, feed) {
+    const value = this.processCodeDataFeed(feed, code);
     entry[name] = value;
     field.setValue(code);
     field.setText(value);
   },
-  onRequestCodeDataFailure: function(response, o) {
+  onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
     ErrorManager.addError(response, o, this.options, 'failure');
   },
-  processCodeDataFeed: function(feed, currentValue, options) {
-    var keyProperty,
-      textProperty,
-      i;
+  processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
+    const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+    const textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-    keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-    textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-    for (i = 0; i < feed.$resources.length; i++) {
+    for (let i = 0; i < feed.$resources.length; i++) {
       if (feed.$resources[i][keyProperty] === currentValue) {
         return feed.$resources[i][textProperty];
       }
@@ -160,125 +153,117 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
     return currentValue;
   },
 
-  setValues: function(entry) {
+  setValues: function setValues(entry) {
     this.inherited(arguments);
 
-    if (entry['SourceText']) {
-      this.fields['ViaCode'].setText(entry['SourceText']);
+    if (entry.SourceText) {
+      this.fields.ViaCode.setText(entry.SourceText);
     }
 
-    if (entry['Status']) {
-      this.fields['StatusCode'].setText(entry['Status']);
+    if (entry.Status) {
+      this.fields.StatusCode.setText(entry.Status);
     }
   },
-  onUrgencyChange: function(value, field) {
-    var selection = field.getSelection();
+  onUrgencyChange: function onUrgencyChange(value, field) {
+    const selection = field.getSelection();
     if (selection) {
-      this.fields['UrgencyCode'].setValue(selection['UrgencyCode']);
+      this.fields.UrgencyCode.setValue(selection.UrgencyCode);
     }
   },
-  onContactChange: function(value, field) {
-    var selection = field.getSelection(),
-      accountField = this.fields['Account'];
+  onContactChange: function onContactChange(value, field) {
+    const selection = field.getSelection();
+    const accountField = this.fields.Account;
 
-    if (selection && selection['Account'] && !accountField.getValue()) {
+    if (selection && selection.Account && !accountField.getValue()) {
       accountField.setValue({
-        '$key': selection['Account']['$key'],
-        'AccountName': selection['Account']['AccountName']
+        '$key': selection.Account.$key,
+        'AccountName': selection.Account.AccountName,
       });
     }
   },
-  onAccountChange: function(value, field) {
-    var selection,
-      request;
+  onAccountChange: function onAccountChange(value, field) {
+    const selection = field.getSelection();
 
-    selection = field.getSelection();
-
-    if (selection && selection['$key']) {
-      request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+    if (selection && selection.$key) {
+      const request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
         .setResourceKind('accounts')
-        .setResourceSelector(string.substitute("'${0}'", [selection['$key']]))
+        .setResourceSelector(string.substitute("'${0}'", [selection.$key]))
         .setResourceProperty('Contacts')
         .setQueryArg('count', 1)
         .setQueryArg('select', 'NameLF')
         .setQueryArg('where', 'IsPrimary eq true');
 
       request.readFeed({
-        success: function(feed) {
-          if (feed && feed['$resources']) {
-            this.fields['Contact'].setValue(feed['$resources'][0]);
+        success: function success(feed) {
+          if (feed && feed.$resources) {
+            this.fields.Contact.setValue(feed.$resources[0]);
           }
         },
-        failure: function() {},
-        scope: this
+        failure: function failure() {},
+        scope: this,
       });
     }
   },
-  onAreaChange: function() {
-    this.fields['Issue'].clearValue();
-    this.fields['Category'].clearValue();
+  onAreaChange: function onAreaChange() {
+    this.fields.Issue.clearValue();
+    this.fields.Category.clearValue();
   },
-  onCategoryChange: function() {
-    this.fields['Issue'].clearValue();
+  onCategoryChange: function onCategoryChange() {
+    this.fields.Issue.clearValue();
   },
-  formatAccountQuery: function() {
-    var value = this.fields['Account'].getValue(),
-      key = value && value['$key'];
+  formatAccountQuery: function formatAccountQuery() {
+    const value = this.fields.Account.getValue();
+    const key = value && value.$key;
 
     return key ? string.substitute('Account.id eq "${0}"', [key]) : false;
   },
-  applyContext: function() {
-    var found,
-      lookup;
-
-    found = App.queryNavigationContext(function(o) {
+  applyContext: function applyContext() {
+    const found = App.queryNavigationContext(function queryNavigationContext(o) {
       return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
     });
 
-    lookup = {
+    const lookup = {
       'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext
+      'contacts': this.applyContactContext,
     };
 
     if (found && lookup[found.resourceKind]) {
       lookup[found.resourceKind].call(this, found);
     }
   },
-  applyAccountContext: function(context) {
-    var view = App.getView(context.id),
-      accountField,
-      entry = view && view.entry;
+  applyAccountContext: function applyAccountContext(context) {
+    const view = App.getView(context.id);
+    const entry = view && view.entry;
 
-    accountField = this.fields['Account'];
+    const accountField = this.fields.Account;
     accountField.setValue(entry);
     this.onAccountChange(entry, accountField);
   },
-  applyContactContext: function(context) {
-    var view = App.getView(context.id),
-      accountField,
-      entry = view && view.entry;
+  applyContactContext: function applyContactContext(context) {
+    const view = App.getView(context.id);
+    const entry = view && view.entry;
 
-    accountField = this.fields['Account'];
+    const accountField = this.fields.Account;
     accountField.setValue(entry.Account);
     this.onAccountChange(entry.Account, accountField);
 
-    this.fields['Contact'].setValue(entry);
+    this.fields.Contact.setValue(entry);
   },
-  formatCategoryQuery: function(value) {
+  formatCategoryQuery: function formatCategoryQuery(value) {
     return {
-      'Area': value // dependent value
+      'Area': value, // dependent value
     };
   },
-  formatIssueQuery: function(value) {
+  formatIssueQuery: function formatIssueQuery(value) {
     return {
-      'Area': this.fields['Area'].getValue(),
-      'Category': value // dependent value
+      'Area': this.fields.Area.getValue(),
+      'Category': value, // dependent value
     };
   },
-  includeIfValueExists: function(value) {
+  includeIfValueExists: function includeIfValueExists(value) {
     return value;
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       label: this.accountText,
       name: 'Account',
@@ -287,7 +272,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       type: 'lookup',
       requireSelection: true,
       validator: validator.exists,
-      view: 'account_related'
+      view: 'account_related',
     }, {
       label: this.contactText,
       name: 'Contact',
@@ -297,7 +282,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       requireSelection: true,
       validator: validator.exists,
       view: 'contact_related',
-      where: this.formatAccountQuery.bindDelegate(this)
+      where: this.formatAccountQuery.bindDelegate(this),
     }, {
       label: this.contractText,
       name: 'Contract',
@@ -306,7 +291,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       type: 'lookup',
       requireSelection: true,
       view: 'contract_related',
-      where: this.formatAccountQuery.bindDelegate(this)
+      where: this.formatAccountQuery.bindDelegate(this),
     }, {
       label: this.areaText,
       name: 'Area',
@@ -316,7 +301,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       requireSelection: true,
       valueKeyProperty: false,
       valueTextProperty: false,
-      view: 'areacategoryissue_lookup'
+      view: 'areacategoryissue_lookup',
     }, {
       label: this.categoryText,
       name: 'Category',
@@ -328,7 +313,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       valueKeyProperty: false,
       valueTextProperty: false,
       where: this.formatCategoryQuery.bindDelegate(this),
-      view: 'areacategoryissue_lookup'
+      view: 'areacategoryissue_lookup',
     }, {
       label: this.issueText,
       name: 'Issue',
@@ -340,7 +325,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       valueKeyProperty: false,
       valueTextProperty: false,
       where: this.formatIssueQuery.bindDelegate(this),
-      view: 'areacategoryissue_lookup'
+      view: 'areacategoryissue_lookup',
     }, {
       label: this.sourceText,
       name: 'ViaCode',
@@ -349,7 +334,7 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       requireSelection: true,
       storageMode: 'id',
       title: this.sourceTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }, {
       label: this.statusText,
       name: 'StatusCode',
@@ -358,11 +343,11 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       requireSelection: true,
       storageMode: 'id',
       title: this.ticketStatusTitleText,
-      type: 'picklist'
+      type: 'picklist',
     }, {
       name: 'UrgencyCode',
       property: 'UrgencyCode',
-      type: 'hidden'
+      type: 'hidden',
     }, {
       label: this.urgencyText,
       name: 'Urgency',
@@ -371,55 +356,55 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       requireSelection: true,
       textProperty: 'Description',
       type: 'lookup',
-      view: 'urgency_list'
+      view: 'urgency_list',
     }, {
       label: this.needByText,
       name: 'NeededByDate',
       property: 'NeededByDate',
       renderer: format.date,
-      type: 'date'
+      type: 'date',
     }, {
       label: this.assignedDateText,
       name: 'AssignedDate',
       property: 'AssignedDate',
       renderer: format.date,
-      type: 'date'
+      type: 'date',
     }, {
       label: this.assignedToText,
       name: 'AssignedTo',
       property: 'AssignedTo',
       textProperty: 'OwnerDescription',
       type: 'lookup',
-      view: 'owner_list'
+      view: 'owner_list',
     }, {
       label: this.subjectText,
       name: 'Subject',
       property: 'Subject',
-      type: 'text'
+      type: 'text',
     }, {
       name: 'TicketProblem.$key',
       property: 'TicketProblem.$key',
       type: 'hidden',
-      include: this.includeIfValueExists
+      include: this.includeIfValueExists,
     }, {
       label: this.descriptionText,
       name: 'TicketProblem.Notes',
       property: 'TicketProblem.Notes',
       title: this.descriptionTitleText,
       type: 'note',
-      view: 'text_edit'
+      view: 'text_edit',
     }, {
       name: 'TicketSolution.$key',
       property: 'TicketSolution.$key',
       type: 'hidden',
-      include: this.includeIfValueExists
+      include: this.includeIfValueExists,
     }, {
       label: this.resolutionText,
       name: 'TicketSolution.Notes',
       property: 'TicketSolution.Notes',
       title: this.resolutionTitleText,
       type: 'note',
-      view: 'text_edit'
+      view: 'text_edit',
     }, {
       label: this.notesText,
       name: 'Notes',
@@ -427,9 +412,9 @@ var __class = declare('crm.Views.Ticket.Edit', [Edit], {
       noteProperty: false,
       title: this.notesTitleText,
       type: 'note',
-      view: 'text_edit'
+      view: 'text_edit',
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Ticket.Edit', __class);
