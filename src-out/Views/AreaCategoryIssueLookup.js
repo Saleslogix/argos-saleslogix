@@ -18,13 +18,13 @@ define('crm/Views/AreaCategoryIssueLookup', ['exports', 'module', 'dojo/_base/de
    *
    */
   var __class = (0, _declare['default'])('crm.Views.AreaCategoryIssueLookup', [_List['default'], _LegacySDataListMixin2['default']], {
-    //Templates
+    // Templates
     itemTemplate: new Simplate(['<h3>{%: $.$descriptor %}</h3>']),
 
-    //Localization
+    // Localization
     titleText: 'Accounts',
 
-    //View Properties
+    // View Properties
     pageSize: 200,
     expose: false,
     enableSearch: false,
@@ -49,43 +49,41 @@ define('crm/Views/AreaCategoryIssueLookup', ['exports', 'module', 'dojo/_base/de
       }
     },
     processFeed: function processFeed(feed) {
+      var theFeed = feed;
       // assume order is preserved
-      if (feed) {
+      if (theFeed) {
         this.createCacheFrom(feed);
       }
 
       var use = this.cache;
 
-      if (use && this.active && this.active['Area']) {
-        use = use[this.active['Area']];
+      if (use && this.active && this.active.Area) {
+        use = use[this.active.Area];
       }
-      if (use && this.active && this.active['Category']) {
-        use = use[this.active['Category']];
+      if (use && this.active && this.active.Category) {
+        use = use[this.active.Category];
       }
 
-      feed = this.buildFeedFrom(use);
+      theFeed = this.buildFeedFrom(use);
 
-      this.inherited(arguments, [feed]);
+      this.inherited(arguments, [theFeed]);
     },
     createCacheFrom: function createCacheFrom(feed) {
-      var feedLength, i, entry, area, category;
-
-      feedLength = feed['$resources'].length;
+      var feedLength = feed.$resources.length;
       this.cache = {};
 
-      for (i = 0; i < feedLength; i += 1) {
-        entry = feed['$resources'][i];
-        area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {});
-        category = area[entry['Category']] || (area[entry['Category']] = {});
+      for (var i = 0; i < feedLength; i += 1) {
+        var entry = feed.$resources[i];
+        var area = this.cache[entry.Area] || (this.cache[entry.Area] = {});
+        var category = area[entry.Category] || (area[entry.Category] = {});
 
-        category[entry['Issue']] = true;
+        category[entry.Issue] = true;
       }
     },
     buildFeedFrom: function buildFeedFrom(segment) {
-      var list = [],
-          n;
+      var list = [];
 
-      for (n in segment) {
+      for (var n in segment) {
         if (segment.hasOwnProperty(n)) {
           list.push({
             '$key': n,

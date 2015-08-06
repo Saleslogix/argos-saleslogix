@@ -25,7 +25,7 @@ define('crm/Views/AddAccountContact', ['exports', 'module', 'dojo/_base/declare'
    *
    */
   var __class = (0, _declare['default'])('crm.Views.AddAccountContact', [_Edit['default']], {
-    //Localization
+    // Localization
     accountNameText: 'account',
     accountStatusTitleText: 'Account Status',
     accountSubTypeTitleText: 'Account SubType',
@@ -55,7 +55,7 @@ define('crm/Views/AddAccountContact', ['exports', 'module', 'dojo/_base/declare'
     workText: 'work phone',
     industryTitleText: 'Industry',
 
-    //View Properties
+    // View Properties
     id: 'add_account_contact',
     resourceKind: 'accounts',
     entityName: 'Account',
@@ -69,15 +69,16 @@ define('crm/Views/AddAccountContact', ['exports', 'module', 'dojo/_base/declare'
       var values = this.inherited(arguments);
 
       _utility['default'].setValue(values, 'Contacts.$resources[0].$name', 'Contact');
-      _utility['default'].setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
+      _utility['default'].setValue(values, 'Contacts.$resources[0].AccountName', values.AccountName);
 
       return values;
     },
     formatDependentPicklist: function formatDependentPicklist(dependentValue, fmt) {
-      if (!_lang['default'].isArray(dependentValue)) {
-        dependentValue = [dependentValue];
+      var dependValue = dependentValue;
+      if (!_lang['default'].isArray(dependValue)) {
+        dependValue = [dependValue];
       }
-      return _string['default'].substitute(fmt, [dependentValue]);
+      return _string['default'].substitute(fmt, [dependValue]);
     },
     onInsertCompleted: function onInsertCompleted(entry) {
       var view = App.getView('account_detail');
@@ -93,25 +94,26 @@ define('crm/Views/AddAccountContact', ['exports', 'module', 'dojo/_base/declare'
       }
     },
     onContactAddressChange: function onContactAddressChange(value) {
+      var address = undefined;
+      var address1 = undefined;
       // Copy contact address down into the account address if the account address is not set
-      var address, address1;
-      if (this.fields['Address']) {
-        address = this.fields['Address'].getValue();
+      if (this.fields.Address) {
+        address = this.fields.Address.getValue();
         address1 = address && address.Address1;
       }
 
       if (!address || !address1) {
-        this.fields['Address'].setValue(value);
+        this.fields.Address.setValue(value);
       }
     },
     applyContext: function applyContext(templateEntry) {
       this.inherited(arguments);
 
-      this.fields['AccountManager'].setValue(App.context.user);
-      this.fields['Owner'].setValue(App.context['defaultOwner']);
+      this.fields.AccountManager.setValue(App.context.user);
+      this.fields.Owner.setValue(App.context.defaultOwner);
 
-      this.fields['Type'].setValue(templateEntry.Type);
-      this.fields['Status'].setValue(templateEntry.Status);
+      this.fields.Type.setValue(templateEntry.Type);
+      this.fields.Status.setValue(templateEntry.Status);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
