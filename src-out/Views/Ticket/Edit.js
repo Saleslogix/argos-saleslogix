@@ -175,7 +175,7 @@ define('crm/Views/Ticket/Edit', ['exports', 'module', 'dojo/_base/declare', 'doj
       selection = field.getSelection();
 
       if (selection && selection['$key']) {
-        request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_string['default'].substitute("'${0}'", [selection['$key']])).setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
+        request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector(_string['default'].substitute('\'${0}\'', [selection['$key']])).setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
 
         request.readFeed({
           success: function success(feed) {

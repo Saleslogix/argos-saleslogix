@@ -38,7 +38,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
       fn: function exists(value) {
         return !value;
       },
-      message: "The field '${2}' must have a value."
+      message: 'The field \'${2}\' must have a value.'
     },
 
     /**
@@ -52,7 +52,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
         }
         return true;
       },
-      message: "The field '${2}' must have a first and last name specified."
+      message: 'The field \'${2}\' must have a first and last name specified.'
     },
     /**
      * @property {Object}
@@ -60,7 +60,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     notEmpty: {
       test: /.+/,
-      message: "The field '${2}' cannot be empty."
+      message: 'The field \'${2}\' cannot be empty.'
     },
     /**
      * @deprecated
@@ -69,7 +69,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     hasText: {
       test: /\w+/,
-      message: "The field '${2}' must contain some text."
+      message: 'The field \'${2}\' must contain some text.'
     },
     /**
      * @property {Object}
@@ -77,7 +77,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     isInteger: {
       test: /^\d+$/,
-      message: "The value '${0}' is not a valid number."
+      message: 'The value \'${0}\' is not a valid number.'
     },
 
     /**
@@ -86,7 +86,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
      */
     isDecimal: {
       test: /^[\d.]+$/,
-      message: "The value '${0}' is not a valid number."
+      message: 'The value \'${0}\' is not a valid number.'
     },
 
     /**
@@ -97,7 +97,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
       fn: function isCurrency(value) {
         return !new RegExp(_string['default'].substitute('^[\\d]+(\\.\\d{1,${0}})?$', [Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value);
       },
-      message: "The value '${0}' is not a valid currency number."
+      message: 'The value \'${0}\' is not a valid currency number.'
     },
 
     /**
@@ -111,7 +111,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
         }
         return false;
       },
-      message: "The field '${2}' value exceeds the allowed numeric range."
+      message: 'The field \'${2}\' value exceeds the allowed numeric range.'
     },
 
     /**
@@ -126,7 +126,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
         }
         return false;
       },
-      message: "The field '${2}' value exceeds the allowed limit in length."
+      message: 'The field \'${2}\' value exceeds the allowed limit in length.'
     },
 
     /**
@@ -158,7 +158,7 @@ define('crm/Validator', ['exports', 'module', 'dojo/_base/lang', 'dojo/string'],
 
         return true;
       },
-      message: "The field '${2}' value is out of allowed date range."
+      message: 'The field \'${2}\' value is out of allowed date range.'
     },
 
     /**

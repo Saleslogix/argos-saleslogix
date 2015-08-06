@@ -157,7 +157,7 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       // Check to ensure we have a composite key (meaning we have the occurance, not the master)
       if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
         // Fetch the occurance, and continue on to the complete screen
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', "id eq '" + key + "'").setCount(1);
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', 'id eq \'' + key + '\'').setCount(1);
 
         request.read({
           success: this.processOccurance,
@@ -195,7 +195,7 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       return _convert['default'].toBoolean(entry && entry.Alarm);
     },
     requestLeader: function requestLeader(userId) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector(_string['default'].substitute("'${0}'", [userId])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector(_string['default'].substitute('\'${0}\'', [userId])).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
 
       request.read({
         success: this.processLeader,
@@ -224,7 +224,7 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
       }
     },
     requestRecurrence: function requestRecurrence(key) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind(this.resourceKind).setResourceSelector(_string['default'].substitute("'${0}'", [key])).setContractName(this.contractName).setQueryArg('select', this.querySelect.join(','));
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind(this.resourceKind).setResourceSelector(_string['default'].substitute('\'${0}\'', [key])).setContractName(this.contractName).setQueryArg('select', this.querySelect.join(','));
 
       request.allowCacheUse = false;
       request.read({

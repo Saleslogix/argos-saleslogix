@@ -56,7 +56,6 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/lang', 'dojo/string',
     2097152, // thu
     4194304, // fri
     8388608],
-    // sat
     simplifiedOptions: [{
       label: 'neverText',
       Recurring: false,
@@ -443,3 +442,4 @@ define('crm/Recurrence', ['exports', 'module', 'dojo/_base/lang', 'dojo/string',
   _lang['default'].setObject('Mobile.SalesLogix.Recurrence', __class);
   module.exports = __class;
 });
+// sat

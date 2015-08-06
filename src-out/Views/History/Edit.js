@@ -46,7 +46,7 @@ define('crm/Views/History/Edit', ['exports', 'module', 'dojo/_base/declare', 'do
     relatedItemsText: 'Related Items',
     yesText: 'YES',
     noText: 'NO',
-    validationText: "The field '${2}' must have a value",
+    validationText: 'The field \'${2}\' must have a value',
     validationCanEditText: 'You are not allowed to edit',
     // View Properties
     id: 'history_edit',

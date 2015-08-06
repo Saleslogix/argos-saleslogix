@@ -331,7 +331,6 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
           disabled: true }]
       };
 
-      // TODO: Create an SDK issue for this (NOT WORKING!!!)
       var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
@@ -351,3 +350,4 @@ define('crm/Views/Opportunity/Edit', ['exports', 'module', 'dojo/_base/declare',
   _lang['default'].setObject('Mobile.SalesLogix.Views.Opportunity.Edit', __class);
   module.exports = __class;
 });
+// TODO: Create an SDK issue for this (NOT WORKING!!!)

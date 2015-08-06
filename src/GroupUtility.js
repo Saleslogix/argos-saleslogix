@@ -4,37 +4,32 @@ import format from './Format';
 import sdkFormat from 'argos/Format';
 import moment from 'moment';
 
-var _createGroupRequest,
-  __class;
-
-_createGroupRequest = function(options) {
-  var request, defaultOptions, arg;
-
-  defaultOptions = {
+function _createGroupRequest(o) {
+  const defaultOptions = {
     connection: App.getService(false),
     groupId: '',
     resourceKind: 'groups',
     contractName: 'system',
     queryName: 'execute',
-    queryArgs: null
+    queryArgs: null,
   };
 
-  options = lang.mixin(defaultOptions, options);
+  const options = lang.mixin(defaultOptions, o);
 
-  request = new Sage.SData.Client.SDataNamedQueryRequest(options.connection);
+  const request = new Sage.SData.Client.SDataNamedQueryRequest(options.connection);
   request.setQueryName(options.queryName);
   request.setResourceKind(options.resourceKind);
   request.setContractName(options.contractName);
   request.getUri().setCollectionPredicate("'" + options.groupId + "'");
 
-  for (arg in options.queryArgs) {
+  for (const arg in options.queryArgs) {
     if (options.queryArgs.hasOwnProperty(arg)) {
       request.setQueryArg(arg, options.queryArgs[arg]);
     }
   }
 
   return request;
-};
+}
 
 /**
  * @class crm.GroupUtility
@@ -44,7 +39,7 @@ _createGroupRequest = function(options) {
  * @singleton
  *
  */
-__class = lang.setObject('crm.GroupUtility', {
+const __class = lang.setObject('crm.GroupUtility', {
   groupDateFormatText: 'M/D/YYYY h:mm:ss a',
   /**
    * Returns an SDataNamedQueryRequest setup for groups
@@ -54,9 +49,9 @@ __class = lang.setObject('crm.GroupUtility', {
    * @param {Object} [options.connection] SData connection. Defaults to use App.getService(false)
    *
    */
-  createGroupRequest: function(options) {
-    var defaults = {
-      queryName: 'execute'
+  createGroupRequest: function createGroupRequest(options) {
+    const defaults = {
+      queryName: 'execute',
     };
 
     return _createGroupRequest(lang.mixin(defaults, options));
@@ -70,9 +65,9 @@ __class = lang.setObject('crm.GroupUtility', {
    * @param {Object} [options.connection] SData connection. Defaults to use App.getService(false)
    *
    */
-  createGroupMetricRequest: function(options) {
-    var defaults = {
-      queryName: 'executeMetric'
+  createGroupMetricRequest: function createGroupMetricRequest(options) {
+    const defaults = {
+      queryName: 'executeMetric',
     };
 
     return _createGroupRequest(lang.mixin(defaults, options));
@@ -81,80 +76,78 @@ __class = lang.setObject('crm.GroupUtility', {
    * Array of functions that will filter out group layout
    */
   groupFilters: [
-    function(layoutItem) {
+    function groupFilter(layoutItem) {
       return layoutItem.visible;
-    }
+    },
   ],
   groupFormatters: [{
     name: 'None',
-    test: function(layoutItem) {
+    test: function testNone(layoutItem) {
       return layoutItem.format === 'None';
     },
-    formatter: function(value) {
+    formatter: function formatNone(value) {
       return value;
-    }
+    },
   }, {
     name: 'Phone',
-    test: function(layoutItem) {
+    test: function testPhone(layoutItem) {
       return layoutItem.format === 'Phone';
     },
-    formatter: function(value) {
+    formatter: function formatPhone(value) {
       return format.phone(value);
-    }
+    },
   }, {
     name: 'Fixed',
     options: {
-      clss: 'group-fixed'
+      clss: 'group-fixed',
     },
-    test: function(layoutItem) {
+    test: function testFixed(layoutItem) {
       return layoutItem.format === 'Fixed';
     },
-    formatter: function(value) {
+    formatter: function formatFixed(value) {
       return format.fixedLocale(value, 2);
-    }
+    },
   }, {
     name: 'Percent',
     options: {
-      clss: 'group-percent'
+      clss: 'group-percent',
     },
-    test: function(layoutItem) {
+    test: function testPercent(layoutItem) {
       return layoutItem.format === 'Percent';
     },
-    formatter: function(value) {
+    formatter: function formatPercent(value) {
       return format.percent(value, 0);
-    }
+    },
   }, {
     name: 'Integer',
-    test: function(layoutItem) {
+    test: function testInteger(layoutItem) {
       return layoutItem.format === 'Integer';
     },
-    formatter: function(value) {
+    formatter: function formatInteger(value) {
       return format.fixedLocale(value, 0);
-    }
+    },
   }, {
     name: 'Currency',
-    test: function(layoutItem) {
+    test: function testCurrency(layoutItem) {
       return layoutItem.format === 'Currency';
     },
     options: {
-      clss: 'group-currency'
+      clss: 'group-currency',
     },
-    formatter: function(value) {
+    formatter: function formatCurrency(value) {
       return format.currency(value);
-    }
+    },
   }, {
     name: 'DateTime',
     options: {
-      useRelative: true
+      useRelative: true,
     },
-    test: function(layoutItem) {
+    test: function testDate(layoutItem) {
       return layoutItem.format === 'DateTime';
     },
-    formatter: function(value, formatString, formatOptions) {
-      var dateValue;
-
+    formatter: function formatDate(value, formatString, formatOptions) {
       if (typeof value === 'string') {
-        dateValue = moment(value);
+        const dateValue = moment(value);
         if (dateValue.isValid()) {
           if (formatOptions && formatOptions.useRelative) {
             return format.relativeDate(dateValue);
@@ -165,25 +158,26 @@ __class = lang.setObject('crm.GroupUtility', {
       }
 
       return value;
-    }
+    },
   }, {
     name: 'Boolean',
-    test: function(layoutItem) {
+    test: function testBoolean(layoutItem) {
       return layoutItem.format === 'Boolean';
     },
-    formatter: function(value) {
-      var truthy = [
+    formatter: function formatBoolean(value) {
+      const truthy = [
         'T',
         't',
         'Y',
         '1',
-        '+'
+        '+',
       ];
 
       return array.indexOf(truthy, value) === -1 ? sdkFormat.noText : sdkFormat.yesText;
-    }
+    },
   }],
-  transformDateFormatString: function(groupFormat, defaultFormat) {
+  transformDateFormatString: function transformDateFormatString(gf, defaultFormat) {
+    let groupFormat = gf;
     if (groupFormat) {
       groupFormat = groupFormat.replace('MM', 'M');
       groupFormat = groupFormat.replace('mm', 'M');
@@ -199,75 +193,74 @@ __class = lang.setObject('crm.GroupUtility', {
   },
   formatTypeByField: {
     'DateTime': {
-      name: 'DateTime'
+      name: 'DateTime',
     },
     'Date': {
-      name: 'DateTime'
+      name: 'DateTime',
     },
     'Time': {
-      name: 'DateTime'
+      name: 'DateTime',
     },
     'Boolean': {
-      name: 'Boolean'
+      name: 'Boolean',
     },
     'BCD': {
-      name: 'Currency'
+      name: 'Currency',
     },
     'Fixed': {
-      name: 'Fixed'
+      name: 'Fixed',
     },
     'Float': {
-      name: 'Fixed'
+      name: 'Fixed',
     },
     'Integer': {
-      name: 'Integer'
+      name: 'Integer',
     },
     'Smallint': {
-      name: 'Integer'
+      name: 'Integer',
     },
     'Largeint': {
-      name: 'Integer'
-    }
+      name: 'Integer',
+    },
   },
-  getFormatterByLayout: function(layoutItem) {
-    var fieldFormatter, fieldFormatType, results;
-
+  getFormatterByLayout: function getFormatterByLayout(layoutItem) {
+    let results;
     if (layoutItem.format && layoutItem.format !== 'None') {
-      results = array.filter(this.groupFormatters, function(formatter) {
+      results = array.filter(this.groupFormatters, function filter(formatter) {
         return (formatter.name === layoutItem.format);
       });
       if (results.length === 0) {
-        results = array.filter(this.groupFormatters, function(formatter) {
+        results = array.filter(this.groupFormatters, function filter(formatter) {
           return (formatter.name === 'None');
         });
       }
     } else {
-      fieldFormatType = this.formatTypeByField[layoutItem.fieldType];
+      let fieldFormatType = this.formatTypeByField[layoutItem.fieldType];
       if (!fieldFormatType) {
         fieldFormatType = {
           name: 'None',
-          formatString: ''
+          formatString: '',
         };
       }
-      results = array.filter(this.groupFormatters, function(formatter) {
+      results = array.filter(this.groupFormatters, function filter(formatter) {
         return (formatter.name === fieldFormatType.name);
       });
     }
-    //this means there are no formatters defined.
+    // this means there are no formatters defined.
     if (results.length === 0) {
       results.push({
         name: 'NoFormat',
         formatString: '',
-        formatter: function(value) {
+        formatter: function noFormatter(value) {
           return value;
-        }
+        },
       });
     }
 
-    fieldFormatter = {
-      name: results[0]['name'],
-      options: results[0]['options'],
-      formatter: results[0]['formatter'].bind(this)
+    const fieldFormatter = {
+      name: results[0].name,
+      options: results[0].options,
+      formatter: results[0].formatter.bind(this),
     };
 
     if (fieldFormatter.name === 'DateTime') {
@@ -277,66 +270,58 @@ __class = lang.setObject('crm.GroupUtility', {
     }
     return fieldFormatter;
   },
-  getLayout: function(group) {
-    var layout,
-      i;
-
-    i = 0;
-    layout = array.filter(group.layout, function(item) {
+  getLayout: function getLayout(group) {
+    let i = 0;
+    const layout = array.filter(group.layout, function filterLayout(item) {
       item.index = i++;
-      return array.every(this.groupFilters, function(filter) {
+      return array.every(this.groupFilters, function every(filter) {
         return filter(item);
-      }, this);
+      });
     }, this);
     return layout;
   },
-  getColumnNames: function(layout) {
-    var columns, extraSelectColumns;
-    extraSelectColumns = [];
-    columns = array.map(layout, function(layout) {
-      if (layout.format === 'PickList Item') {
-        extraSelectColumns.push(layout.alias + 'TEXT');
+  getColumnNames: function getColumnNames(layout) {
+    const extraSelectColumns = [];
+    const columns = array.map(layout, function mapLayout(item) {
+      if (item.format === 'PickList Item') {
+        extraSelectColumns.push(item.alias + 'TEXT');
       }
 
-      if (layout.format === 'User' || layout.format === 'Owner') {
-        extraSelectColumns.push(layout.alias + 'NAME');
+      if (item.format === 'User' || item.format === 'Owner') {
+        extraSelectColumns.push(item.alias + 'NAME');
       }
 
-      return layout.alias;
+      return item.alias;
     });
     return columns.concat(extraSelectColumns);
   },
-  setDefaultGroupPreference: function(entityName, groupName) {
+  setDefaultGroupPreference: function setDefaultGroupPreference(entityName, groupName) {
     App.preferences['default-group-' + entityName] = groupName;
     App.persistPreferences();
   },
-  getDefaultGroupPreference: function(entityName) {
-    var defaultGroupName = App.preferences['default-group-' + entityName];
+  getDefaultGroupPreference: function getDefaultGroupPreference(entityName) {
+    let defaultGroupName = App.preferences['default-group-' + entityName];
     if (!defaultGroupName) {
       defaultGroupName = this.getDefaultGroupUserPreference(entityName);
     }
     return defaultGroupName;
   },
-  getDefaultGroupUserPreference: function(entityName) {
-    var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
+  getDefaultGroupUserPreference: function getDefaultGroupUserPreference(entityName) {
+    let defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
     if (defaultGroupName) {
       defaultGroupName = defaultGroupName.split(':')[1];
     }
     return defaultGroupName;
   },
-  getDefaultGroup: function(entityName) {
-    var groupList,
-      defaultGroup,
-      defaultGroupName;
-
-    groupList = App.preferences['groups-' + entityName];
-    defaultGroup = null;
-    defaultGroupName = null;
+  getDefaultGroup: function getDefaultGroup(entityName) {
+    const groupList = App.preferences['groups-' + entityName];
+    let defaultGroup = null;
+    let defaultGroupName = null;
 
     defaultGroupName = this.getDefaultGroupPreference(entityName);
 
     if (groupList && groupList.length > 0) {
-      array.forEach(groupList, function(group) {
+      array.forEach(groupList, function forEach(group) {
         if (group.name === defaultGroupName) {
           defaultGroup = group;
         }
@@ -348,14 +333,14 @@ __class = lang.setObject('crm.GroupUtility', {
       return defaultGroup;
     }
   },
-  addToGroupPreferences: function(items, entityName, overwrite) {
-    var found, groupList;
-    groupList = this.getGroupPreferences(entityName);
+  addToGroupPreferences: function addToGroupPreferences(items, entityName, overwrite) {
+    let found;
+    let groupList = this.getGroupPreferences(entityName);
     if (!overwrite && groupList && groupList.length > 0) {
       if (items && items.length > 0) {
-        array.forEach(items, function(item) {
+        array.forEach(items, function forEachItem(item) {
           found = -1;
-          array.forEach(groupList, function(group, i) {
+          array.forEach(groupList, function forEachList(group, i) {
             if (group.$key === item.$key) {
               found = i;
             }
@@ -375,12 +360,11 @@ __class = lang.setObject('crm.GroupUtility', {
     App.preferences['groups-' + entityName] = groupList;
     App.persistPreferences();
   },
-  removeGroupPreferences: function(itemKey, entityName) {
-    var found, groupList;
-    found = -1;
-    groupList = this.getGroupPreferences(entityName);
+  removeGroupPreferences: function removeGroupPreferences(itemKey, entityName) {
+    let found = -1;
+    const groupList = this.getGroupPreferences(entityName);
     if (groupList && groupList.length > 0) {
-      array.forEach(groupList, function(group, i) {
+      array.forEach(groupList, function forEach(group, i) {
         if (group.$key === itemKey) {
           found = i;
         }
@@ -393,54 +377,53 @@ __class = lang.setObject('crm.GroupUtility', {
       App.persistPreferences();
     }
   },
-  getGroupPreferences: function(entityName) {
-    var groupList = App.preferences['groups-' + entityName];
+  getGroupPreferences: function getGroupPreferences(entityName) {
+    const groupList = App.preferences['groups-' + entityName];
     return groupList;
   },
   groupFieldNames: [{
     name: 'PickList',
-    test: function(layoutItem) {
+    test: function testPickList(layoutItem) {
       return layoutItem.format === 'PickList Item';
     },
-    fieldName: function(layoutItem) {
+    fieldName: function pickListFieldName(layoutItem) {
       return layoutItem.alias.toUpperCase() + 'TEXT';
-    }
+    },
   }, {
     name: 'OwnerOrUser',
-    test: function(layoutItem) {
+    test: function testOwnerOrUser(layoutItem) {
       return layoutItem.format === 'Owner' || layoutItem.format === 'User';
     },
-    fieldName: function(layoutItem) {
+    fieldName: function ownerOrUserFieldName(layoutItem) {
       return layoutItem.alias.toUpperCase() + 'NAME';
-    }
+    },
   }],
-  getFieldNameByLayout: function(layoutItem) {
+  getFieldNameByLayout: function getFieldNameByLayout(layoutItem) {
     // Determines what field/property name should be used in the feed for a layout item.
     // This is usually just the layout item's alias in upper case, however there are some exceptions:
     // Picklist layout items need to select the alias + 'TEXT',
     // Owner and user items need to select the alias + 'NAME'
-    var results = array.filter(this.groupFieldNames, function(name) {
+    const results = array.filter(this.groupFieldNames, function filterFields(name) {
       return name.test(layoutItem);
     });
 
     if (results.length === 0) {
       results.push({
-        fieldName: function(layoutItem) {
-          return layoutItem.alias.toUpperCase();
-        }
+        fieldName: function fieldName(item) {
+          return item.alias.toUpperCase();
+        },
       });
     }
 
     return results[0].fieldName(layoutItem);
   },
-  getSelectedGroupLayoutTemplate: function(entityName) {
+  getSelectedGroupLayoutTemplate: function getSelectedGroupLayoutTemplate(entityName) {
     return App.preferences['groups-selected-template-name' + entityName];
   },
-  setSelectedGroupLayoutTemplate: function(entityName, name) {
-
+  setSelectedGroupLayoutTemplate: function setSelectedGroupLayoutTemplate(entityName, name) {
     App.preferences['groups-selected-template-name' + entityName] = name;
     App.persistPreferences();
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.GroupUtility', __class);

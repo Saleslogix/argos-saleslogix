@@ -35,16 +35,13 @@ define('crm/Environment', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/w
       }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
     },
     showMapForAddress: function showMapForAddress(address) {
-      var hiddenLink,
-          href,
-          windowName = '_blank';
-
-      href = _string['default'].substitute('http://maps.google.com/maps?q=${0}', [address]);
+      var windowName = '_blank';
+      var href = _string['default'].substitute('http://maps.google.com/maps?q=${0}', [address]);
 
       if ((0, _has['default'])('ie') || (0, _has['default'])('ff')) {
         window.open(href, windowName);
       } else {
-        hiddenLink = _domConstruct['default'].create('a', {
+        var hiddenLink = _domConstruct['default'].create('a', {
           href: href,
           target: windowName
         }, _win['default'].body(), 'last');
@@ -76,8 +73,8 @@ define('crm/Environment', ['exports', 'module', 'dojo/_base/lang', 'dojo/_base/w
     },
     refreshViews: function refreshViews(views) {
       if (views && views.length > 0) {
-        _array['default'].forEach(views, function (view_id) {
-          var view = App.getView(view_id);
+        _array['default'].forEach(views, function (viewId) {
+          var view = App.getView(viewId);
           if (view) {
             view.refreshRequired = true;
           }
