@@ -122,68 +122,68 @@ import './Utility';
  *
  */
 const __class = declare('crm.ApplicationModule', [ApplicationModule], {
-    searchText: 'Lookup',
+  searchText: 'Lookup',
   loadViews: function loadViews() {
-        this.inherited(arguments);
+    this.inherited(arguments);
 
-        this.registerView(new Calendar({
+    this.registerView(new Calendar({
       expose: false,
-        }));
+    }));
 
-        this.registerView(new Signature({
+    this.registerView(new Signature({
       expose: false,
-        }));
+    }));
 
-        this.registerView(new Login());
-        this.registerView(new LogOff());
+    this.registerView(new Login());
+    this.registerView(new LogOff());
 
-        this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
-        this.registerView(new RightDrawer(), query('.right-drawer')[0]);
+    this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
+    this.registerView(new RightDrawer(), query('.right-drawer')[0]);
 
-        this.registerView(new OfflineDetail());
-        this.registerView(new OfflineList({
-            expose: true
-        }));
+    this.registerView(new OfflineDetail());
+    this.registerView(new OfflineList({
+      expose: true,
+    }));
 
-        this.registerView(new Help());
-        this.registerView(new Settings());
-        this.registerView(new Configure());
-        this.registerView(new PickList());
-        this.registerView(new SelectList());
-        this.registerView(new SpeedSearchList());
-        this.registerView(new AddAccountContact());
-        this.registerView(new AreaCategoryIssueLookup());
-        this.registerView(new ExchangeRateLookup());
-        this.registerView(new FileSelect());
+    this.registerView(new Help());
+    this.registerView(new Settings());
+    this.registerView(new Configure());
+    this.registerView(new PickList());
+    this.registerView(new SelectList());
+    this.registerView(new SpeedSearchList());
+    this.registerView(new AddAccountContact());
+    this.registerView(new AreaCategoryIssueLookup());
+    this.registerView(new ExchangeRateLookup());
+    this.registerView(new FileSelect());
 
-        this.registerView(new NameEdit());
-        this.registerView(new TextEdit());
-        this.registerView(new AddressList({
-            id: 'address_related',
-            expose: false,
+    this.registerView(new NameEdit());
+    this.registerView(new TextEdit());
+    this.registerView(new AddressList({
+      id: 'address_related',
+      expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AddressEdit());
+    }));
+    this.registerView(new AddressEdit());
 
-        this.registerView(new AccountList());
-        this.registerView(new AccountDetail());
-        this.registerView(new AccountEdit());
-        this.registerView(new AccountList({
-            id: 'account_related',
-            expose: false,
-            groupsEnabled: false,
+    this.registerView(new AccountList());
+    this.registerView(new AccountDetail());
+    this.registerView(new AccountEdit());
+    this.registerView(new AccountList({
+      id: 'account_related',
+      expose: false,
+      groupsEnabled: false,
       defaultSearchTerm: function defaultSearchTerm() {
-                return '';
+        return '';
       },
-        }));
+    }));
 
-        this.registerView(new CalendarMonthView());
-        this.registerView(new CalendarWeekView());
-        this.registerView(new CalendarDayView());
+    this.registerView(new CalendarMonthView());
+    this.registerView(new CalendarWeekView());
+    this.registerView(new CalendarDayView());
 
-        // Charts
+    // Charts
     this.registerView(new GenericBar({
       expose: false,
     }));
@@ -194,282 +194,282 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       expose: false,
     }));
 
-        this.registerView(new CompetitorList({
-            id: 'competitor_related',
-            expose: false,
+    this.registerView(new CompetitorList({
+      id: 'competitor_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
+    }));
 
-        this.registerView(new ContactList());
-        this.registerView(new ContactDetail());
-        this.registerView(new ContactEdit());
-        this.registerView(new ContactList({
-            id: 'contact_related',
-            expose: false,
-            groupsEnabled: false,
+    this.registerView(new ContactList());
+    this.registerView(new ContactDetail());
+    this.registerView(new ContactEdit());
+    this.registerView(new ContactList({
+      id: 'contact_related',
+      expose: false,
+      groupsEnabled: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
+    }));
 
-        this.registerView(new ContractList({
-            id: 'contract_related',
-            expose: false,
+    this.registerView(new ContractList({
+      id: 'contract_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
+    }));
 
-        this.registerView(new ErrorLogList());
-        this.registerView(new ErrorLogDetail());
+    this.registerView(new ErrorLogList());
+    this.registerView(new ErrorLogDetail());
 
-        this.registerView(new EventEdit());
+    this.registerView(new EventEdit());
     this.registerView(new EventList({
       expose: false,
     }));
-        this.registerView(new EventDetail());
-        this.registerView(new EventList({
-            id: 'event_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new GroupsSelector());
-
-        this.registerView(new OpportunityEdit());
-        this.registerView(new OpportunityQuickEdit());
-        this.registerView(new OpportunityList());
-        this.registerView(new OpportunityDetail());
-        this.registerView(new OpportunityList({
-            id: 'opportunity_related',
-            expose: false,
-            groupsEnabled: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new OpportunityContactEdit());
-        this.registerView(new OpportunityContactList());
-        this.registerView(new OpportunityContactDetail());
-        this.registerView(new OpportunityContactList({
-            id: 'opportunitycontact_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new OpportunityProductList({
-            id: 'opportunityproduct_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new OpportunityProductDetail({
-            id: 'opportunityproduct_detail',
+    this.registerView(new EventDetail());
+    this.registerView(new EventList({
+      id: 'event_related',
       expose: false,
-        }));
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
 
-        this.registerView(new OpportunityProductEdit({
-            id: 'opportunityproduct_edit',
+    this.registerView(new GroupsSelector());
+
+    this.registerView(new OpportunityEdit());
+    this.registerView(new OpportunityQuickEdit());
+    this.registerView(new OpportunityList());
+    this.registerView(new OpportunityDetail());
+    this.registerView(new OpportunityList({
+      id: 'opportunity_related',
       expose: false,
-        }));
-
-        this.registerView(new LeadEdit());
-        this.registerView(new LeadList());
-        this.registerView(new LeadDetail());
-        this.registerView(new LeadList({
-            id: 'lead_related',
-            expose: false,
-            groupsEnabled: false,
+      groupsEnabled: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
+    }));
 
-        this.registerView(new TicketList());
-        this.registerView(new TicketDetail());
-        this.registerView(new TicketEdit());
-        this.registerView(new TicketList({
-            id: 'ticket_related',
-            expose: false,
-            groupsEnabled: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new TicketActivityList());
-        this.registerView(new TicketActivityDetail());
-        this.registerView(new TicketActivityEdit());
-        this.registerView(new TicketActivityRateLookup());
-        this.registerView(new TicketActivityList({
-            id: 'ticketactivity_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new TicketActivityItemList());
-        this.registerView(new TicketActivityItemDetail());
-        this.registerView(new TicketActivityItemList({
-            id: 'ticketactivityitem_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new ActivityDetail());
-        this.registerView(new ActivityEdit());
-        this.registerView(new ActivityComplete());
-        this.registerView(new ActivityTypesList());
-        this.registerView(new ActivityList({
-            id: 'activity_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new MyActivityList());
-        this.registerView(new ActivityRecurring());
-
-        this.registerView(new HistoryDetail());
-        this.registerView(new HistoryList());
-        this.registerView(new HistoryEdit());
-        this.registerView(new HistoryList({
-            id: 'history_related',
-            expose: false,
-            groupsEnabled: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new CalendarAccessList({
+    this.registerView(new OpportunityContactEdit());
+    this.registerView(new OpportunityContactList());
+    this.registerView(new OpportunityContactDetail());
+    this.registerView(new OpportunityContactList({
+      id: 'opportunitycontact_related',
       expose: false,
-        }));
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
 
-        this.registerView(new UserList({
+    this.registerView(new OpportunityProductList({
+      id: 'opportunityproduct_related',
       expose: false,
-        }));
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
 
-        this.registerView(new OwnerList({
+    this.registerView(new OpportunityProductDetail({
+      id: 'opportunityproduct_detail',
       expose: false,
-        }));
+    }));
 
-        this.registerView(new ProductList({
-            id: 'product_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new ProductProgramList({
-            id: 'productprogram_related',
-            expose: false,
-      defaultSearchTerm: () => {
-                return '';
-      },
-        }));
-
-        this.registerView(new LeadSourceList({
+    this.registerView(new OpportunityProductEdit({
+      id: 'opportunityproduct_edit',
       expose: false,
-        }));
+    }));
 
-        this.registerView(new TicketUrgencyLookup({
+    this.registerView(new LeadEdit());
+    this.registerView(new LeadList());
+    this.registerView(new LeadDetail());
+    this.registerView(new LeadList({
+      id: 'lead_related',
       expose: false,
-        }));
+      groupsEnabled: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
 
-        this.registerView(new ViewAttachment());
-        this.registerView(new AddAttachment());
-        this.registerView(new MyAttachmentList());
-        this.registerView(new AttachmentList({
-            id: 'account_attachment_related',
-            expose: false,
+    this.registerView(new TicketList());
+    this.registerView(new TicketDetail());
+    this.registerView(new TicketEdit());
+    this.registerView(new TicketList({
+      id: 'ticket_related',
+      expose: false,
+      groupsEnabled: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AttachmentList({
-            id: 'contact_attachment_related',
-            expose: false,
+    }));
+
+    this.registerView(new TicketActivityList());
+    this.registerView(new TicketActivityDetail());
+    this.registerView(new TicketActivityEdit());
+    this.registerView(new TicketActivityRateLookup());
+    this.registerView(new TicketActivityList({
+      id: 'ticketactivity_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AttachmentList({
-            id: 'lead_attachment_related',
-            expose: false,
+    }));
+
+    this.registerView(new TicketActivityItemList());
+    this.registerView(new TicketActivityItemDetail());
+    this.registerView(new TicketActivityItemList({
+      id: 'ticketactivityitem_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AttachmentList({
-            id: 'ticket_attachment_related',
-            expose: false,
+    }));
+
+    this.registerView(new ActivityDetail());
+    this.registerView(new ActivityEdit());
+    this.registerView(new ActivityComplete());
+    this.registerView(new ActivityTypesList());
+    this.registerView(new ActivityList({
+      id: 'activity_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AttachmentList({
-            id: 'opportunity_attachment_related',
-            expose: false,
+    }));
+
+    this.registerView(new MyActivityList());
+    this.registerView(new ActivityRecurring());
+
+    this.registerView(new HistoryDetail());
+    this.registerView(new HistoryList());
+    this.registerView(new HistoryEdit());
+    this.registerView(new HistoryList({
+      id: 'history_related',
+      expose: false,
+      groupsEnabled: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AttachmentList({
-            id: 'activity_attachment_related',
-            expose: false,
+    }));
+
+    this.registerView(new CalendarAccessList({
+      expose: false,
+    }));
+
+    this.registerView(new UserList({
+      expose: false,
+    }));
+
+    this.registerView(new OwnerList({
+      expose: false,
+    }));
+
+    this.registerView(new ProductList({
+      id: 'product_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-        this.registerView(new AttachmentList({
-            id: 'history_attachment_related',
-            expose: false,
+    }));
+
+    this.registerView(new ProductProgramList({
+      id: 'productprogram_related',
+      expose: false,
       defaultSearchTerm: () => {
-                return '';
+        return '';
       },
-        }));
-    },
+    }));
+
+    this.registerView(new LeadSourceList({
+      expose: false,
+    }));
+
+    this.registerView(new TicketUrgencyLookup({
+      expose: false,
+    }));
+
+    this.registerView(new ViewAttachment());
+    this.registerView(new AddAttachment());
+    this.registerView(new MyAttachmentList());
+    this.registerView(new AttachmentList({
+      id: 'account_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+    this.registerView(new AttachmentList({
+      id: 'contact_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+    this.registerView(new AttachmentList({
+      id: 'lead_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+    this.registerView(new AttachmentList({
+      id: 'ticket_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+    this.registerView(new AttachmentList({
+      id: 'opportunity_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+    this.registerView(new AttachmentList({
+      id: 'activity_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+    this.registerView(new AttachmentList({
+      id: 'history_attachment_related',
+      expose: false,
+      defaultSearchTerm: () => {
+        return '';
+      },
+    }));
+  },
   loadToolbars: function loadToolbars() {
-        this.inherited(arguments);
+    this.inherited(arguments);
 
-        this.registerToolbar(new MainToolbar({
+    this.registerToolbar(new MainToolbar({
       name: 'tbar',
-        }));
+    }));
 
-        this.registerToolbar(new UpdateToolbar({
+    this.registerToolbar(new UpdateToolbar({
       name: 'updatebar',
-        }));
-    },
+    }));
+  },
   loadCustomizations: function loadCustomizations() {
-        this.loadBaseCustomizations();
-    },
+    this.loadBaseCustomizations();
+  },
   loadBaseCustomizations: function loadBaseCustomizations() {
-        lang.extend(List, {
-            expose: true,
+    lang.extend(List, {
+      expose: true,
       getSecurity: function getSecurity() {
-                return (this.expose && this.security); // only check security on exposed views
+        return (this.expose && this.security); // only check security on exposed views
       },
-        });
+    });
 
-        lang.extend(SearchWidget, {
+    lang.extend(SearchWidget, {
       searchText: this.searchText,
-        });
-    },
+    });
+  },
   /**
    * @deprecated typo, use loadAppStatePromises instead.
    */
