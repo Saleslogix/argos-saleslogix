@@ -1,11 +1,10 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
-import win from 'dojo/_base/window';
 import ApplicationModule from 'argos/ApplicationModule';
 import Calendar from 'argos/Calendar';
-import RelatedViewManager from 'argos/RelatedViewManager';
-import RelatedViewWidget from 'argos/RelatedViewWidget';
+import 'argos/RelatedViewManager';
+import 'argos/RelatedViewWidget';
 import List from 'argos/List';
 import Signature from 'argos/Views/Signature';
 import SearchWidget from 'argos/SearchWidget';
@@ -88,7 +87,7 @@ import TicketActivityItemDetail from './Views/TicketActivityItem/Detail';
 import HistoryList from './Views/History/List';
 import HistoryDetail from './Views/History/Detail';
 import HistoryEdit from './Views/History/Edit';
-import HistoryRelatedView from './Views/History/RelatedView';
+import './Views/History/RelatedView';
 import CalendarAccessList from './Views/User/CalendarAccessList';
 import UserList from './Views/User/List';
 import ViewAttachment from './Views/Attachment/ViewAttachment';
@@ -122,17 +121,17 @@ import './Utility';
  * @requires argos.SearchWidget
  *
  */
-var __class = declare('crm.ApplicationModule', [ApplicationModule], {
+const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     searchText: 'Lookup',
-    loadViews: function() {
+  loadViews: function loadViews() {
         this.inherited(arguments);
 
         this.registerView(new Calendar({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new Signature({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new Login());
@@ -162,9 +161,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new AddressList({
             id: 'address_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: function defaultSearchTerm() {
                 return '';
-            }
+      },
         }));
         this.registerView(new AddressEdit());
 
@@ -175,9 +174,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
             id: 'account_related',
             expose: false,
             groupsEnabled: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: function defaultSearchTerm() {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new CalendarMonthView());
@@ -185,16 +184,22 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new CalendarDayView());
 
         // Charts
-        this.registerView(new GenericBar({ expose: false }));
-        this.registerView(new GenericLine({ expose: false }));
-        this.registerView(new GenericPie({ expose: false }));
+    this.registerView(new GenericBar({
+      expose: false,
+    }));
+    this.registerView(new GenericLine({
+      expose: false,
+    }));
+    this.registerView(new GenericPie({
+      expose: false,
+    }));
 
         this.registerView(new CompetitorList({
             id: 'competitor_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new ContactList());
@@ -204,31 +209,33 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
             id: 'contact_related',
             expose: false,
             groupsEnabled: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new ContractList({
             id: 'contract_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new ErrorLogList());
         this.registerView(new ErrorLogDetail());
 
         this.registerView(new EventEdit());
-        this.registerView(new EventList({expose: false}));
+    this.registerView(new EventList({
+      expose: false,
+    }));
         this.registerView(new EventDetail());
         this.registerView(new EventList({
             id: 'event_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new GroupsSelector());
@@ -241,9 +248,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
             id: 'opportunity_related',
             expose: false,
             groupsEnabled: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new OpportunityContactEdit());
@@ -252,27 +259,27 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new OpportunityContactList({
             id: 'opportunitycontact_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new OpportunityProductList({
             id: 'opportunityproduct_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new OpportunityProductDetail({
             id: 'opportunityproduct_detail',
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new OpportunityProductEdit({
             id: 'opportunityproduct_edit',
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new LeadEdit());
@@ -282,9 +289,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
             id: 'lead_related',
             expose: false,
             groupsEnabled: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new TicketList());
@@ -294,9 +301,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
             id: 'ticket_related',
             expose: false,
             groupsEnabled: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new TicketActivityList());
@@ -306,9 +313,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new TicketActivityList({
             id: 'ticketactivity_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new TicketActivityItemList());
@@ -316,9 +323,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new TicketActivityItemList({
             id: 'ticketactivityitem_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new ActivityDetail());
@@ -328,9 +335,9 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new ActivityList({
             id: 'activity_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new MyActivityList());
@@ -343,45 +350,45 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
             id: 'history_related',
             expose: false,
             groupsEnabled: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new CalendarAccessList({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new UserList({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new OwnerList({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new ProductList({
             id: 'product_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new ProductProgramList({
             id: 'productprogram_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
 
         this.registerView(new LeadSourceList({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new TicketUrgencyLookup({
-            expose: false
+      expose: false,
         }));
 
         this.registerView(new ViewAttachment());
@@ -390,91 +397,91 @@ var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         this.registerView(new AttachmentList({
             id: 'account_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
         this.registerView(new AttachmentList({
             id: 'contact_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
         this.registerView(new AttachmentList({
             id: 'lead_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
         this.registerView(new AttachmentList({
             id: 'ticket_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
         this.registerView(new AttachmentList({
             id: 'opportunity_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
         this.registerView(new AttachmentList({
             id: 'activity_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
         this.registerView(new AttachmentList({
             id: 'history_attachment_related',
             expose: false,
-            defaultSearchTerm: function() {
+      defaultSearchTerm: () => {
                 return '';
-            }
+      },
         }));
     },
-    loadToolbars: function() {
+  loadToolbars: function loadToolbars() {
         this.inherited(arguments);
 
         this.registerToolbar(new MainToolbar({
-            name: 'tbar'
+      name: 'tbar',
         }));
 
         this.registerToolbar(new UpdateToolbar({
-            name: 'updatebar'
+      name: 'updatebar',
         }));
     },
-    loadCustomizations: function() {
+  loadCustomizations: function loadCustomizations() {
         this.loadBaseCustomizations();
     },
-    loadBaseCustomizations: function() {
+  loadBaseCustomizations: function loadBaseCustomizations() {
         lang.extend(List, {
             expose: true,
-            getSecurity: function() {
+      getSecurity: function getSecurity() {
                 return (this.expose && this.security); // only check security on exposed views
-            }
+      },
         });
 
         lang.extend(SearchWidget, {
-            searchText: this.searchText
+      searchText: this.searchText,
         });
     },
-    loadAppStatPromises: function() {
-        this.registerAppStatePromise(function() {
-            return App.requestUserDetails();
-
-        });
-        this.registerAppStatePromise(function() {
-            return App.requestUserOptions();
-        });
-        this.registerAppStatePromise(function() {
-            return App.requestSystemOptions();
-        });
-    }
+  /**
+   * @deprecated typo, use loadAppStatePromises instead.
+   */
+  loadAppStatPromises: function loadAppStatPromises() {
+    // Redirect to the typo fix.
+    this.loadAppStatePromises();
+  },
+  loadAppStatePromises: function loadAppStatePromises() {
+    this.registerAppStatePromise(() => App.requestUserDetails());
+    this.registerAppStatePromise(() => App.requestUserOptions());
+    this.registerAppStatePromise(() => App.requestSystemOptions());
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.ApplicationModule', __class);

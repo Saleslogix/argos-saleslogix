@@ -9,19 +9,19 @@ import Edit from 'argos/Edit';
  * @extends argos.Edit
  *
  */
-var __class = declare('crm.Views.TextEdit', [Edit], {
-    //View Properties
-    id: 'text_edit',
-    titleText: 'Edit Text',
+const __class = declare('crm.Views.TextEdit', [Edit], {
+  // View Properties
+  id: 'text_edit',
+  titleText: 'Edit Text',
 
-    createLayout: function() {
-        return this.layout || (this.layout = [{
-            label: '',
-            cls: 'note-text-row',
-            name: 'Notes',
-            type: 'textarea'
-        }]);
-    }
+  createLayout: function createLayout() {
+    return this.layout || (this.layout = [{
+      label: '',
+      cls: 'note-text-row',
+      name: 'Notes',
+      type: 'textarea',
+    }]);
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TextEdit', __class);

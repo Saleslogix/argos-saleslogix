@@ -1,15 +1,12 @@
-module.exports = function(grunt) {
-    grunt.config('eslint', {
-        options: {
-            configFile: '.eslintrc'
-        },
-        target: [
-            'src/**/*.js',
-            'tests/src/**/*.js',
-            'configuration/**/*.js',
-            'grunt-tasks/**/*.js'
-        ]
-    });
+module.exports = function gruntEslint(grunt) {
+  grunt.config('eslint', {
+    options: {
+      configFile: '.eslintrc',
+    },
+    target: [
+      'src/**/*.js',
+    ],
+  });
 
-    grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-eslint');
 };
