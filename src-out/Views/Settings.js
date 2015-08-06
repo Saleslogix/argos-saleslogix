@@ -19,14 +19,14 @@ define('crm/Views/Settings', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
    *
    */
   var __class = (0, _declare['default'])('crm.Views.Settings', [_List['default'], _CardLayoutListMixin3['default']], {
-    //Templates
+    // Templates
     itemIconTemplate: new Simplate(['<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">', '{% if ($$.getItemIconClass($)) { %}', '<span class="{%= $$.getItemIconClass($) %}"></span>', '{% } else { %}', '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />', '{% } %}', '</button>']),
 
     itemTemplate: new Simplate(['<h3 data-action="{%= $.action %}">{%: $.title %}</h3>']),
 
     itemRowContainerTemplate: new Simplate(['<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>', '{%! $$.itemRowContentTemplate %}', '</li>']),
 
-    //Localization
+    // Localization
     clearLocalStorageTitleText: 'Clear Storage',
     clearAuthenticationTitleText: 'Clear Saved Credentials',
     errorLogTitleText: 'View Error Logs',
@@ -34,7 +34,7 @@ define('crm/Views/Settings', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
     credentialsClearedText: 'Saved credentials cleared successfully.',
     titleText: 'Settings',
 
-    //View Properties
+    // View Properties
     id: 'settings',
     expose: false,
     enableSearch: false,
@@ -80,25 +80,23 @@ define('crm/Views/Settings', ['exports', 'module', 'dojo/_base/declare', 'dojo/_
         resourceKind: 'localStorage'
       }]);
 
-      alert(this.localStorageClearedText);
+      alert(this.localStorageClearedText); // eslint-disable-line
     },
     clearAuthentication: function clearAuthentication() {
       if (window.localStorage) {
         window.localStorage.removeItem('credentials');
       }
 
-      alert(this.credentialsClearedText);
+      alert(this.credentialsClearedText); // eslint-disable-line
     },
     hasMoreData: function hasMoreData() {
       return false;
     },
     requestData: function requestData() {
-      var list, i, action;
+      var list = [];
 
-      list = [];
-
-      for (i = 0; i < this.actionOrder.length; i++) {
-        action = this.actions[this.actionOrder[i]];
+      for (var i = 0; i < this.actionOrder.length; i++) {
+        var action = this.actions[this.actionOrder[i]];
         if (action) {
           list.push({
             action: this.actionOrder[i],

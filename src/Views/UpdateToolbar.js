@@ -11,43 +11,43 @@ import MainToolbar from 'argos/MainToolbar';
  * @extends argos.MainToolbar
  *
  */
-var __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
+const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
   widgetTemplate: new Simplate([
     '<div class="update-toolbar">',
     '<h1 data-action="reload">{%= $.updateText %}</h1>',
-    '</div>'
+    '</div>',
   ]),
 
   updateText: 'An update is available.  Click to reload.',
 
   managed: false,
 
-  show: function() {
+  show: function show() {
     domClass.add(win.body(), 'update-available');
 
     this.showTools([{
       id: 'cancel',
       side: 'right',
       fn: this.cancel,
-      scope: this
+      scope: this,
     }]);
 
     this.inherited(arguments);
   },
 
-  showTools: function() {
+  showTools: function showTools() {
     this.inherited(arguments);
   },
 
-  hide: function() {
+  hide: function hide() {
     domClass.remove(win.body(), 'update-available');
   },
-  reload: function() {
+  reload: function reload() {
     App.reload();
   },
-  cancel: function() {
+  cancel: function cancel() {
     this.hide();
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.UpdateToolbar', __class);
