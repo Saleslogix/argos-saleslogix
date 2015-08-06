@@ -8,17 +8,17 @@ import List from 'argos/List';
  *
  * @extends argos.List
  */
-var __class = declare('crm.Views.User.List', [List], {
-  //Templates
+const __class = declare('crm.Views.User.List', [List], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
-    '<h4>{%: $.UserInfo.Title %}</h4>'
+    '<h4>{%: $.UserInfo.Title %}</h4>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Users',
 
-  //View Properties
+  // View Properties
   id: 'user_list',
   queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
 
@@ -33,13 +33,13 @@ var __class = declare('crm.Views.User.List', [List], {
     'UserInfo/FirstName',
     'UserInfo/LastName',
     'UserInfo/Title',
-    'UserInfo/UserName'
+    'UserInfo/UserName',
   ],
   resourceKind: 'users',
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.User.List', __class);
