@@ -12,8 +12,7 @@ import MainToolbar from 'argos/MainToolbar';
  *
  */
 const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
-  showTools: function showTools(_tools) {
-    let tools = _tools;
+  showTools: function showTools(tools) {
     let hasLeftDrawer;
     let isOnEdit;
     const isOnFirstView = App.isOnFirstView();
@@ -35,7 +34,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
     }
 
     if (tools !== false) {
-      tools = tools || [];
+      tools = tools || []; // eslint-disable-line
 
       if (!hasLeftDrawer) {
         tools.unshift({
@@ -48,7 +47,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       }
 
       if (!isOnEdit && !isOnFirstView) {
-        tools = tools.concat([{
+        tools = tools.concat([{ //eslint-disable-line
           id: 'back',
           cls: 'fa fa-angle-left fa-fw fa-lg',
           side: 'left',

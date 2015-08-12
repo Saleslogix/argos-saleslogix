@@ -19,8 +19,7 @@ define('crm/Views/MainToolbar', ['exports', 'module', 'dojo/_base/declare', 'doj
    *
    */
   var __class = (0, _declare['default'])('crm.Views.MainToolbar', [_MainToolbar['default']], {
-    showTools: function showTools(_tools) {
-      var tools = _tools;
+    showTools: function showTools(tools) {
       var hasLeftDrawer = undefined;
       var isOnEdit = undefined;
       var isOnFirstView = App.isOnFirstView();
@@ -42,7 +41,7 @@ define('crm/Views/MainToolbar', ['exports', 'module', 'dojo/_base/declare', 'doj
       }
 
       if (tools !== false) {
-        tools = tools || [];
+        tools = tools || []; // eslint-disable-line
 
         if (!hasLeftDrawer) {
           tools.unshift({
@@ -55,7 +54,7 @@ define('crm/Views/MainToolbar', ['exports', 'module', 'dojo/_base/declare', 'doj
         }
 
         if (!isOnEdit && !isOnFirstView) {
-          tools = tools.concat([{
+          tools = tools.concat([{ //eslint-disable-line
             id: 'back',
             cls: 'fa fa-angle-left fa-fw fa-lg',
             side: 'left',
