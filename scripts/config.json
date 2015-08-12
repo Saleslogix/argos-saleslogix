@@ -1,8 +1,0 @@
-{
-    "port": 8000,
-    "proxy": {
-        "host": "slx81.saleslogixcloud.com",
-        "port": 443,
-        "protocol": "https"
-    }
-}
