@@ -27,7 +27,6 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
   ]),
-
   getTitle: function getTitle(entry) {
     return entry && entry.doc && entry.doc.entity && entry.doc.entity.$descriptor;
   },
@@ -38,9 +37,29 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
       databaseName: this.OFFLINE_DB_NAME,
     });
   },
+  getActiveEntityFilters: function getActiveEntityFilters() {
+    return Object.keys(this.entityMappings).map((entityName) => {
+      const prefs = App.preferences && App.preferences.offlineEntityFilters || [];
+      const entityPref = prefs.filter((pref) => {
+        return pref.name === entityName;
+      });
+      return entityPref[0];
+    }).filter((f) => f && f.enabled);
+  },
   _buildQueryExpression: function _buildQueryExpression() {
+    const filters = this.getActiveEntityFilters();
     return function queryFn(doc, emit) {
-      emit(doc);
+      // If the user has entity filters stored in preferences, filter based on that
+      if (App.preferences && App.preferences.offlineEntityFilters) {
+        filters.forEach((f) => {
+          if (doc.entityName === f.name) {
+            emit(doc);
+          }
+        });
+      } else {
+        // User has no entity filter preferences (from right drawer)
+        emit(doc);
+      }
     };
   },
   _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
@@ -59,10 +78,6 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
       results = `fa ${iconClass} fa-2x`;
     }
     return results;
-  },
-  activateEntityFilter: function activateEntityFilter(entityName) {
-    // TODO: Filter and refresh the view.
-    return entityName;
   },
   // Localization
   entityText: {

@@ -47,14 +47,14 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      if (this.rebuildWidgets) {
-        App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
-          if (this._hasChangedEntityPrefs) {
-            this.rebuildWidgets();
-            this._hasChangedEntityPrefs = false;
-          }
-        }));
-      }
+      App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
+        if (this._hasChangedEntityPrefs) {
+          this.clear();
+          this.refreshRequired = true;
+          this.refresh();
+          this._hasChangedEntityPrefs = false;
+        }
+      }));
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
@@ -72,13 +72,13 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.
     const actions = {
-      entityFilterClicked: lang.hitch(this, function onentityFilterClicked(params) {
+      entityFilterClicked: function onentityFilterClicked(params) {
         const prefs = App.preferences && App.preferences.offlineEntityFilters;
 
         const results = array.filter(prefs, function getResults(pref) {
           return pref.name === params.entityname;
         });
-        this.activateEntityFilter(params.entityname);
+
         if (results.length > 0) {
           const enabled = !!results[0].enabled;
           results[0].enabled = !enabled;
@@ -86,7 +86,7 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
           this._hasChangedEntityPrefs = true;
           domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
         }
-      }),
+      }.bind(this),
     };
 
     return actions;
@@ -109,8 +109,7 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
         const entityPref = array.filter(prefs, (pref) => {
           return pref.name === entityName;
         });
-        const [enabled] = entityPref;
-
+        const {enabled} = entityPref[0];
         return {
           'name': entityName,
           'action': 'entityFilterClicked',

@@ -33,7 +33,6 @@ define('crm/Views/Offline/List', ['exports', 'module', 'dojo/_base/declare', 'ar
     OFFLINE_DB_NAME: 'crm-offline',
 
     itemTemplate: new Simplate(['<h3>{%: $$.getTitle($) %}</h3>']),
-
     getTitle: function getTitle(entry) {
       return entry && entry.doc && entry.doc.entity && entry.doc.entity.$descriptor;
     },
@@ -44,9 +43,31 @@ define('crm/Views/Offline/List', ['exports', 'module', 'dojo/_base/declare', 'ar
         databaseName: this.OFFLINE_DB_NAME
       });
     },
+    getActiveEntityFilters: function getActiveEntityFilters() {
+      return Object.keys(this.entityMappings).map(function (entityName) {
+        var prefs = App.preferences && App.preferences.offlineEntityFilters || [];
+        var entityPref = prefs.filter(function (pref) {
+          return pref.name === entityName;
+        });
+        return entityPref[0];
+      }).filter(function (f) {
+        return f && f.enabled;
+      });
+    },
     _buildQueryExpression: function _buildQueryExpression() {
+      var filters = this.getActiveEntityFilters();
       return function queryFn(doc, emit) {
-        emit(doc);
+        // If the user has entity filters stored in preferences, filter based on that
+        if (App.preferences && App.preferences.offlineEntityFilters) {
+          filters.forEach(function (f) {
+            if (doc.entityName === f.name) {
+              emit(doc);
+            }
+          });
+        } else {
+          // User has no entity filter preferences (from right drawer)
+          emit(doc);
+        }
       };
     },
     _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
@@ -67,10 +88,6 @@ define('crm/Views/Offline/List', ['exports', 'module', 'dojo/_base/declare', 'ar
         results = 'fa ' + iconClass + ' fa-2x';
       }
       return results;
-    },
-    activateEntityFilter: function activateEntityFilter(entityName) {
-      // TODO: Filter and refresh the view.
-      return entityName;
     },
     // Localization
     entityText: {

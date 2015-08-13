@@ -1,6 +1,4 @@
 define('crm/Views/Offline/_OfflineRightDrawerListMixin', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/array', 'dojo/_base/lang', 'dojo/dom-attr', '../_RightDrawerBaseMixin'], function (exports, module, _dojo_baseDeclare, _dojo_baseArray, _dojo_baseLang, _dojoDomAttr, _RightDrawerBaseMixin2) {
-  var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
   var _declare = _interopRequireDefault(_dojo_baseDeclare);
@@ -56,14 +54,14 @@ define('crm/Views/Offline/_OfflineRightDrawerListMixin', ['exports', 'module', '
           return this.getGroupForRightDrawerEntry(entry);
         });
 
-        if (this.rebuildWidgets) {
-          App.snapper.on('close', _lang['default'].hitch(this, function onSnapperClose() {
-            if (this._hasChangedEntityPrefs) {
-              this.rebuildWidgets();
-              this._hasChangedEntityPrefs = false;
-            }
-          }));
-        }
+        App.snapper.on('close', _lang['default'].hitch(this, function onSnapperClose() {
+          if (this._hasChangedEntityPrefs) {
+            this.clear();
+            this.refreshRequired = true;
+            this.refresh();
+            this._hasChangedEntityPrefs = false;
+          }
+        }));
       }
     },
     unloadRightDrawer: function unloadRightDrawer() {
@@ -81,13 +79,13 @@ define('crm/Views/Offline/_OfflineRightDrawerListMixin', ['exports', 'module', '
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
       var actions = {
-        entityFilterClicked: _lang['default'].hitch(this, function onentityFilterClicked(params) {
+        entityFilterClicked: (function onentityFilterClicked(params) {
           var prefs = App.preferences && App.preferences.offlineEntityFilters;
 
           var results = _array['default'].filter(prefs, function getResults(pref) {
             return pref.name === params.entityname;
           });
-          this.activateEntityFilter(params.entityname);
+
           if (results.length > 0) {
             var enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
@@ -95,7 +93,7 @@ define('crm/Views/Offline/_OfflineRightDrawerListMixin', ['exports', 'module', '
             this._hasChangedEntityPrefs = true;
             _domAttr['default'].set(params.$source, 'data-enabled', (!enabled).toString());
           }
-        })
+        }).bind(this)
       };
 
       return actions;
@@ -120,10 +118,7 @@ define('crm/Views/Offline/_OfflineRightDrawerListMixin', ['exports', 'module', '
           var entityPref = _array['default'].filter(prefs, function (pref) {
             return pref.name === entityName;
           });
-
-          var _entityPref = _slicedToArray(entityPref, 1);
-
-          var enabled = _entityPref[0];
+          var enabled = entityPref[0].enabled;
 
           return {
             'name': entityName,
