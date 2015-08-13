@@ -5,6 +5,7 @@ import Deferred from 'dojo/Deferred';
 
 export default declare('crm.Models.Account', [_ModelBase], {
   app: null,
+  entityName: 'Account',
   metadata: {
     sdata: {
       security: 'Entities/Account/View',

@@ -21,37 +21,37 @@ export default {
   },
   /**
    *
-   * @param detailView Required instance of a detail view
+   * @param view Required instance of a detail view
    * @returns {Promise}
    */
-  saveOffline: function saveOffline(detailView) {
+  saveOffline: function saveOffline(view) {
     const def = new Deferred();
-    if (!detailView) {
+    if (!view) {
       def.reject('A detail view must be specified.');
       return def.promise;
     }
 
-    const id = detailView.entry[detailView.idProperty || '$key'];
+    const model = view.getModel();
+    const id = view.entry[view.idProperty || '$key'];
     let doc;
 
     // Try to fetch the previously cached doc/entity
     return store.get(id).then(function querySuccess(results) {
       // Refresh the offline store with the latest info
-      results._id = id;
-      results.entity = detailView.entry;
+      results.entity = view.entry;
       results.modifyDate = moment().toDate();
-      results.resourceKind = detailView.resourceKind;
-      results.storedBy = detailView.id;
+      results.entityName = model.entityName;
 
       return store.put(results);
     }, function queryError() {
       // Fetching the doc/entity failed, so we will insert a new doc instead.
       doc = {
         _id: id,
-        entity: detailView.entry,
+        entity: view.entry,
         createDate: moment().toDate(),
         resourceKind: this.resourceKind,
-        storedBy: detailView.id,
+        storedBy: view.id,
+        entityName: model.entityName,
       };
 
       return store.add(doc);
@@ -59,17 +59,17 @@ export default {
   },
   /**
    *
-   * @param detailView
+   * @param view
    * @returns {window.Promise}
    */
-  removeOffline: function removeOffline(detailView) {
+  removeOffline: function removeOffline(view) {
     const def = new Deferred();
-    if (!detailView) {
+    if (!view) {
       def.reject('A detail view must be specified.');
       return def.promise;
     }
 
-    const id = detailView.entry[detailView.idProperty || '$key'];
+    const id = view.entry[view.idProperty || '$key'];
 
     return store.remove(id);
   },

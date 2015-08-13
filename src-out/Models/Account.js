@@ -11,6 +11,7 @@ define('crm/Models/Account', ['exports', 'module', 'dojo/_base/declare', 'argos/
 
   module.exports = (0, _declare['default'])('crm.Models.Account', [_ModelBase2['default']], {
     app: null,
+    entityName: 'Account',
     metadata: {
       sdata: {
         security: 'Entities/Account/View',
@@ -65,7 +66,7 @@ define('crm/Models/Account', ['exports', 'module', 'dojo/_base/declare', 'argos/
     setStore: function setStore(store) {
       this._store = store;
     },
-    getEntries: function getEntries() {
+    getEntries: function getEntries() /*query*/{
       return {};
     },
     getEntry: function getEntry(options) {
@@ -106,4 +107,3 @@ define('crm/Models/Account', ['exports', 'module', 'dojo/_base/declare', 'argos/
     }
   });
 });
-/*query*/
