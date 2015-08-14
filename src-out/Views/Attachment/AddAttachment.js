@@ -1,74 +1,70 @@
-define('crm/Views/Attachment/AddAttachment', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../../Format', 'argos/Format', 'argos/Views/FileSelect', '../../AttachmentManager', '../../Environment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _dojoString, _Format, _argosFormat, _argosViewsFileSelect, _AttachmentManager, _Environment) {
-    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+define('crm/Views/Attachment/AddAttachment', ['exports', 'module', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/Format', 'argos/Views/FileSelect', '../../AttachmentManager', '../../Environment'], function (exports, module, _dojo_baseDeclare, _dojo_baseLang, _argosFormat, _argosViewsFileSelect, _AttachmentManager, _Environment) {
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-    var _declare = _interopRequireDefault(_dojo_baseDeclare);
+  var _declare = _interopRequireDefault(_dojo_baseDeclare);
 
-    var _lang = _interopRequireDefault(_dojo_baseLang);
+  var _lang = _interopRequireDefault(_dojo_baseLang);
 
-    var _string = _interopRequireDefault(_dojoString);
+  var _sdkFormat = _interopRequireDefault(_argosFormat);
 
-    var _format = _interopRequireDefault(_Format);
+  var _FileSelect = _interopRequireDefault(_argosViewsFileSelect);
 
-    var _sdkFormat = _interopRequireDefault(_argosFormat);
+  var _AttachmentManager2 = _interopRequireDefault(_AttachmentManager);
 
-    var _FileSelect = _interopRequireDefault(_argosViewsFileSelect);
+  var _Environment2 = _interopRequireDefault(_Environment);
 
-    var _AttachmentManager2 = _interopRequireDefault(_AttachmentManager);
+  /**
+   * @class crm.Views.Attachment.AddAttachment
+   *
+   * @extends argos.Views.FileSelect
+   *
+   * @requires argos.Views.FileSelect
+   * @requires argos.Format
+   *
+   * @requires crm.AttachmentManager
+   * @requires crm.Environment
+   *
+   */
+  var __class = (0, _declare['default'])('crm.Views.Attachment.AddAttachment', [_FileSelect['default']], {
+    // Localization
+    titleText: 'Add Attachments',
 
-    var _Environment2 = _interopRequireDefault(_Environment);
+    // View Properties
+    id: 'attachment_Add',
 
-    /**
-     * @class crm.Views.Attachment.AddAttachment
-     *
-     * @extends argos.Views.FileSelect
-     *
-     * @requires argos.Views.FileSelect
-     * @requires argos.Format
-     *
-     * @requires crm.AttachmentManager
-     * @requires crm.Environment
-     *
-     */
-    var __class = (0, _declare['default'])('crm.Views.Attachment.AddAttachment', [_FileSelect['default']], {
-        //Localization
-        titleText: 'Add Attachments',
+    onUploadFiles: function onUploadFiles() {
+      var self = this;
+      if (this._files && this._files.length > 0) {
+        this.inherited(arguments);
+        var fileItems = this.getFileItems();
+        var am = new _AttachmentManager2['default']();
 
-        //View Properties
-        id: 'attachment_Add',
+        am.onSuccessUpdate = function onSuccessUpdate() {
+          _Environment2['default'].refreshAttachmentViews();
+          ReUI.back();
+        };
 
-        onUploadFiles: function onUploadFiles() {
-            var fileItems, am, self;
+        am.onFailedUpload = function onFailedUpload(errorMessage) {
+          self.onUpdateFailed(errorMessage);
+          alert(errorMessage); // eslint-disable-line
+          ReUI.back();
+        };
 
-            self = this;
-            if (this._files && this._files.length > 0) {
-                this.inherited(arguments);
-                fileItems = this.getFileItems();
-                am = new _AttachmentManager2['default']();
+        am.onUpdateProgress = function onUpdateProgress(percent) {
+          var msg = _sdkFormat['default'].percent(percent / 100);
+          self.onUpdateProgress(msg);
+        };
 
-                am.onSuccessUpdate = function () {
-                    _Environment2['default'].refreshAttachmentViews();
-                    ReUI.back();
-                };
+        am.createAttachment(fileItems[0].file, {
+          description: fileItems[0].description
+        });
+      }
+    },
+    cancelSelect: function cancelSelect() {
+      ReUI.back();
+    }
+  });
 
-                am.onFailedUpload = function (errorMessage) {
-                    self.onUpdateFailed(errorMessage);
-                    alert(errorMessage);
-                    ReUI.back();
-                };
-
-                am.onUpdateProgress = function (percent) {
-                    var msg = _sdkFormat['default'].percent(percent / 100);
-                    self.onUpdateProgress(msg);
-                };
-
-                am.createAttachment(fileItems[0].file, { description: fileItems[0].description });
-            }
-        },
-        cancelSelect: function cancelSelect() {
-            ReUI.back();
-        }
-    });
-
-    _lang['default'].setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
-    module.exports = __class;
+  _lang['default'].setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
+  module.exports = __class;
 });
