@@ -35,6 +35,7 @@ define('crm/Views/OpportunityContact/Detail', ['exports', 'module', 'dojo/_base/
         removeContactTitleText: 'Remove Contact',
         confirmDeleteText: 'Remove "${0}" from the opportunity?',
         contactText: 'Contact',
+        entityText: 'Opportunity Contact',
 
         //View Properties
         id: 'opportunitycontact_detail',

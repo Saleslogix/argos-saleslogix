@@ -24,6 +24,7 @@ define('crm/Views/TicketActivityItem/Detail', ['exports', 'module', 'dojo/_base/
         serialNumberText: 'serial #',
         itemAmountText: 'price',
         itemDescriptionText: 'description',
+        entityText: 'Ticket Activity Item',
 
         //View Properties
         id: 'ticketactivityitem_detail',

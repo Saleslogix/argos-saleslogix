@@ -49,6 +49,7 @@ define('crm/Views/TicketActivity/Detail', ['exports', 'module', 'dojo/_base/decl
         activityDescriptionText: 'comments',
         ticketNumberText: 'ticket number',
         userText: 'user',
+        entityText: 'Ticket Activity',
 
         completeTicketText: 'Complete Ticket Activity',
         moreDetailsText: 'More Details',

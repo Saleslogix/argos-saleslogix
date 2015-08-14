@@ -53,6 +53,7 @@ var __class = declare('crm.Views.Account.Detail', [Detail], {
     addNoteText: 'Add note',
     moreDetailsText: 'More Details',
     calledText: 'Called ${0}',
+    entityText: 'Account',
 
     //View Properties
     id: 'account_detail',

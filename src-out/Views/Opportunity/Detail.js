@@ -60,6 +60,7 @@ define('crm/Views/Opportunity/Detail', ['exports', 'module', 'dojo/_base/declare
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
         exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
+        entityText: 'Opportunity',
 
         //View Properties
         id: 'opportunity_detail',

@@ -58,6 +58,7 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
         moreDetailsText: 'More Details',
         calledText: 'Called ${0}',
         emailedText: 'Emailed ${0}',
+        entityText: 'Lead',
 
         //View Properties
         id: 'lead_detail',
@@ -154,7 +155,7 @@ define('crm/Views/Lead/Detail', ['exports', 'module', 'dojo/_base/declare', 'doj
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
-                name: 'QuickActionSection',
+                name: 'QuickActionsSection',
                 children: [{
                     name: 'CallWorkPhoneAction',
                     property: 'WorkPhone',

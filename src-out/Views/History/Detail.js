@@ -67,6 +67,7 @@ define('crm/Views/History/Detail', ['exports', 'module', 'dojo/_base/declare', '
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
+        entityText: 'History',
         //View Properties
         id: 'history_detail',
         existsRE: /^[\w]{12}$/,

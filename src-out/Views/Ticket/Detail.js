@@ -55,6 +55,7 @@ define('crm/Views/Ticket/Detail', ['exports', 'module', 'dojo/_base/declare', 'd
         moreDetailsText: 'More Details',
         relatedTicketActivitiesText: 'Ticket Activities',
         loadingText: 'loading...',
+        entityText: 'Ticket',
 
         //View Properties
         id: 'ticket_detail',

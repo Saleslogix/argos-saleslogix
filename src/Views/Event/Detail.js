@@ -28,6 +28,7 @@ var __class = declare('crm.Views.Event.Detail', [Detail], {
     whenText: 'When',
     startDateFormatText: 'M/D/YYYY h:mm:ss A',
     endDateFormatText: 'M/D/YYYY h:mm:ss A',
+    entityText: 'Event',
 
     //View Properties
     id: 'event_detail',

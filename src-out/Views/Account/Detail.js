@@ -61,6 +61,7 @@ define('crm/Views/Account/Detail', ['exports', 'module', 'dojo/_base/declare', '
         addNoteText: 'Add note',
         moreDetailsText: 'More Details',
         calledText: 'Called ${0}',
+        entityText: 'Account',
 
         //View Properties
         id: 'account_detail',

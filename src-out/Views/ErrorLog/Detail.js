@@ -34,6 +34,7 @@ define('crm/Views/ErrorLog/Detail', ['exports', 'module', 'dojo/_base/declare', 
         errorDateFormatText: 'MM/DD/YYYY hh:mm A',
         statusTextText: 'error',
         urlText: 'url',
+        entityText: 'Error Log',
 
         moreDetailsText: 'More Details',
         errorText: 'error',

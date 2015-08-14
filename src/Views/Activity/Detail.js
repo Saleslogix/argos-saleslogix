@@ -78,6 +78,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
     relatedItemsText:'Related Items',
     phoneText: 'phone',
     moreDetailsText: 'More Details',
+    entityText: 'Activity',
 
     //View Properties
     id: 'activity_detail',
@@ -506,4 +507,3 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
 
 lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
 export default __class;
-

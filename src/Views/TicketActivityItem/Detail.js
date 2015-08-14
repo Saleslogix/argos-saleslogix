@@ -18,6 +18,7 @@ var __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
     serialNumberText: 'serial #',
     itemAmountText: 'price',
     itemDescriptionText: 'description',
+    entityText: 'Ticket Activity Item',
 
     //View Properties
     id: 'ticketactivityitem_detail',

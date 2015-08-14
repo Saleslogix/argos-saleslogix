@@ -61,6 +61,7 @@ define('crm/Views/Contact/Detail', ['exports', 'module', 'dojo/_base/declare', '
         sendEmailText: 'Send email',
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
+        entityText: 'Contact',
 
         //View Properties
         id: 'contact_detail',

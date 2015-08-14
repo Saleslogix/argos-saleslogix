@@ -40,6 +40,7 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
     activityDescriptionText: 'comments',
     ticketNumberText: 'ticket number',
     userText: 'user',
+    entityText: 'Ticket Activity',
 
     completeTicketText: 'Complete Ticket Activity',
     moreDetailsText: 'More Details',

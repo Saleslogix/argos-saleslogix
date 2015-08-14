@@ -93,6 +93,7 @@ define('crm/Views/Activity/Detail', ['exports', 'module', 'dojo/_base/declare', 
         relatedItemsText: 'Related Items',
         phoneText: 'phone',
         moreDetailsText: 'More Details',
+        entityText: 'Activity',
 
         //View Properties
         id: 'activity_detail',

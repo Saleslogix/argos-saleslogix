@@ -45,6 +45,7 @@ define('crm/Views/OpportunityProduct/Detail', ['exports', 'module', 'dojo/_base/
         myAdjustedPriceText: 'user',
         confirmDeleteText: 'Remove ${0} from the opportunity products?',
         removeOppProductTitleText: 'remove opportunity product',
+        entityText: 'Opportunity Product',
 
         //View Properties
         id: 'opportunityproduct_detail',

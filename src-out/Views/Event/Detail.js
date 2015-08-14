@@ -34,6 +34,7 @@ define('crm/Views/Event/Detail', ['exports', 'module', 'dojo/_base/declare', 'do
         whenText: 'When',
         startDateFormatText: 'M/D/YYYY h:mm:ss A',
         endDateFormatText: 'M/D/YYYY h:mm:ss A',
+        entityText: 'Event',
 
         //View Properties
         id: 'event_detail',
