@@ -31,12 +31,13 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
     }
   },
   getDefaultEntityPreferences: function getDefaultEntityPreferences() {
-    return Object.keys(this.entityMappings).map((name) => {
-      return {
-        name,
-        enabled: true,
-      };
-    });
+    return Object.keys(this.entityMappings)
+      .map((name) => {
+        return {
+          name,
+          enabled: true,
+        };
+      });
   },
   setupRightDrawer: function setupRightDrawer() {
     const drawer = App.getView('right_drawer');
@@ -84,7 +85,8 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
           results[0].enabled = !enabled;
           App.persistPreferences();
           this._hasChangedEntityPrefs = true;
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          domAttr.set(params.$source, 'data-enabled', (!enabled)
+            .toString());
         }
       }.bind(this),
     };
@@ -104,22 +106,25 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
     const layout = [];
     const entitySection = {
       id: 'actions',
-      children: Object.keys(this.entityMappings).map((entityName) => {
-        const prefs = App.preferences && App.preferences.offlineEntityFilters;
-        const entityPref = array.filter(prefs, (pref) => {
-          return pref.name === entityName;
-        });
-        const {enabled} = entityPref[0];
-        return {
-          'name': entityName,
-          'action': 'entityFilterClicked',
-          'title': this.entityText[entityName] || entityName,
-          'dataProps': {
-            'entityname': entityName,
-            'enabled': !!enabled,
-          },
-        };
-      }),
+      children: Object.keys(this.entityMappings)
+        .map((entityName) => {
+          const prefs = App.preferences && App.preferences.offlineEntityFilters;
+          const entityPref = array.filter(prefs, (pref) => {
+            return pref.name === entityName;
+          });
+          const {
+            enabled,
+          } = entityPref[0];
+          return {
+            'name': entityName,
+            'action': 'entityFilterClicked',
+            'title': this.entityText[entityName] || entityName,
+            'dataProps': {
+              'entityname': entityName,
+              'enabled': !!enabled,
+            },
+          };
+        }),
     };
 
     layout.push(entitySection);

@@ -38,13 +38,15 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     });
   },
   getActiveEntityFilters: function getActiveEntityFilters() {
-    return Object.keys(this.entityMappings).map((entityName) => {
-      const prefs = App.preferences && App.preferences.offlineEntityFilters || [];
-      const entityPref = prefs.filter((pref) => {
-        return pref.name === entityName;
-      });
-      return entityPref[0];
-    }).filter((f) => f && f.enabled);
+    return Object.keys(this.entityMappings)
+      .map((entityName) => {
+        const prefs = App.preferences && App.preferences.offlineEntityFilters || [];
+        const entityPref = prefs.filter((pref) => {
+          return pref.name === entityName;
+        });
+        return entityPref[0];
+      })
+      .filter((f) => f && f.enabled);
   },
   _buildQueryExpression: function _buildQueryExpression() {
     const filters = this.getActiveEntityFilters();
@@ -70,9 +72,13 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     return [];
   },
   getItemIconClass: function getItemIconClass(entry) {
-    const {entityName} = entry.doc;
+    const {
+      entityName,
+    } = entry.doc;
     const mapping = this.entityMappings[entityName];
-    const {iconClass} = mapping;
+    const {
+      iconClass,
+    } = mapping;
     let results = '';
     if (iconClass) {
       results = `fa ${iconClass} fa-2x`;

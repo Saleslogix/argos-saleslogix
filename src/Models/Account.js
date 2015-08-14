@@ -4,7 +4,6 @@ import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 
 export default declare('crm.Models.Account', [_ModelBase], {
-  app: null,
   entityName: 'Account',
   metadata: {
     sdata: {
@@ -50,17 +49,11 @@ export default declare('crm.Models.Account', [_ModelBase], {
       },
     },
   },
-  _appGetter: function _appGetter() {
-    return this.app || window.App;
-  },
-  _appSetter: function _appSetter(value) {
-    this.app = value;
-  },
-  createStore: function createStore() {
-    const m = this.metadata && this.metadata.sdata;
+  createStore: function createStore(metadata, service) {
+    const m = metadata || this.metadata && this.metadata.sdata;
     const app = this.get('app');
     return new SDataStore({
-      service: app.getService(false),
+      service: service || app.getService(false),
       contractName: m.contractName,
       resourceKind: m.resourceKind,
       resourceProperty: m.resourceProperty,
@@ -75,13 +68,7 @@ export default declare('crm.Models.Account', [_ModelBase], {
       scope: this,
     });
   },
-  getStore: function getStore() {
-    return this._store;
-  },
-  setStore: function setStore(store) {
-    this._store = store;
-  },
-  getEntries: function getEntries(/*query*/) {
+  getEntries: function getEntries(query) { // eslint-disable-line
     return {};
   },
   getEntry: function getEntry(options) {
@@ -91,11 +78,11 @@ export default declare('crm.Models.Account', [_ModelBase], {
     return store.get(m.getId(options), m.getOptions(options));
   },
   insertEntry: function insertEntry(entry, options) {
-    const store = this.getStore();
+    const store = this.createStore();
     return store.add(entry, options);
   },
   updateEntry: function updateEntry(entry, options) {
-    const store = this.getStore();
+    const store = this.createStore();
 
     if (!store) {
       throw new Error('No store set.');

@@ -34,9 +34,10 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase], {
     return entry.entity;
   },
   createLayout: function createLayout() {
-    const views = App.getViews().filter((view) => {
-      return view.id === this.offlineDoc.storedBy && view.createLayout;
-    });
+    const views = App.getViews()
+      .filter((view) => {
+        return view.id === this.offlineDoc.storedBy && view.createLayout;
+      });
 
     const view = views[0];
     let layout = [];
