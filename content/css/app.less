@@ -1075,12 +1075,17 @@ td.entry-table-description {
         margin: 0;
         padding: 0;
 
+        .list-action-selected {
+          border-bottom: 0;
+        }
+
         > li.no-data, li.list-loading-indicator {
             min-height: inherit;
         }
 
         > li.actions-row {
-            background-color: @color-azure;
+            background-color: @color-deep-slate;
+            color: @color-light-slate;
         }
 
         > li {
@@ -1149,6 +1154,7 @@ td.entry-table-description {
         top: 0;
         left: 0;
         z-index: 10;
+        border: 0;
         border-right: 1px solid @color-lighter-slate;
         border-radius: 0;
         background: none;
@@ -1169,7 +1175,6 @@ td.entry-table-description {
             padding: 0 2px 0 2px;
             color: #000;
             text-shadow: #fff 0px 1px 0px;
-            border: 1px solid #ececec;
             background-color: #ffffff;
             background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
             background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ececec) );
@@ -1217,7 +1222,7 @@ td.entry-table-description {
 
     .actions-row {
         > button {
-            background: @color-azure;
+            background: @color-deep-slate;
             border: 0 solid #000000;
             height: 44px;
             margin: 5px !important;
@@ -1227,7 +1232,7 @@ td.entry-table-description {
             width: 10%;
             min-width: 68px;
             border-radius: 5px;
-            color:  #fff;
+            color:  @color-lighter-slate;
             >  span {
                font-size: 25px;
             }
@@ -1250,13 +1255,24 @@ td.entry-table-description {
             -webkit-box-sizing: border-box;
 
             margin: 0;
-            background-color: @color-azure;
-            color: #fff;
+            background-color: @color-deep-slate;
+            color: @color-lighter-slate;
             text-shadow: none;
             .border-radius(0);
             .box-sizing(border-box);
             .box-shadow(none) !important;
         }
+    }
+
+    .list-more{
+        > .button {
+        border: 0;
+        background-color: #fff;
+        color: @color-graphite;
+      }
+      button:active {
+        color: @color-azure;
+      }
     }
 
     .list-item-tab {
@@ -1307,6 +1323,15 @@ td.entry-table-description {
             left: 0;
             top: 18px;
             width: 0;
+
+            > img {
+                border: 0 none black;
+                height: 24px;
+                left: -13px !important;
+                position: relative !important;
+                top: 0px !important;
+                width: 24px;
+            }
         }
     }
 
@@ -1319,19 +1344,6 @@ td.entry-table-description {
         top: 0;
         width: 28px;
         z-index: 10;
-    }
-
-    .list-action-selected {
-        .footer-item-selector {
-            > img {
-                border: 0 none black;
-                height: 24px;
-                left: -13px !important;
-                position: relative !important;
-                top: 0px !important;
-                width: 24px;
-            }
-        }
     }
 }
 
@@ -1509,5 +1521,3 @@ canvas,
         }
     }
 }
-
-

@@ -18,7 +18,8 @@
 .row > div > a,
 .row > span,
 .row > a {
-  /*display: inline-block;*/
+  display: inline-block;
+  vertical-align: middle;
 }
 .list-item-selected {
   background-color: #D5EFFA;
@@ -429,6 +430,9 @@ td.calendar-day {
 }
 .toolButton {
   color: #ffffff;
+}
+.toolButton .fa-bars {
+  color: #69b5dd;
 }
 .toolbar button.disabled > span {
   opacity: .1;
@@ -914,6 +918,10 @@ td.entry-table-description {
   margin: 0;
   padding: 0;
 }
+.card-layout .list-content .list-action-selected,
+.context-snapshot .list-content .list-action-selected {
+  border-bottom: 0;
+}
 .card-layout .list-content > li.no-data,
 .context-snapshot .list-content > li.no-data,
 .card-layout .list-content li.list-loading-indicator,
@@ -922,7 +930,8 @@ td.entry-table-description {
 }
 .card-layout .list-content > li.actions-row,
 .context-snapshot .list-content > li.actions-row {
-  background-color: #368ac0;
+  background-color: #313236;
+  color: #888b94;
 }
 .card-layout .list-content > li,
 .context-snapshot .list-content > li {
@@ -995,6 +1004,7 @@ td.entry-table-description {
   top: 0;
   left: 0;
   z-index: 10;
+  border: 0;
   border-right: 1px solid #c8cbd4;
   border-radius: 0;
   background: none;
@@ -1014,7 +1024,6 @@ td.entry-table-description {
   padding: 0 2px 0 2px;
   color: #000;
   text-shadow: #fff 0px 1px 0px;
-  border: 1px solid #ececec;
   background-color: #ffffff;
   background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ececec));
@@ -1057,7 +1066,7 @@ td.entry-table-description {
 }
 .card-layout .actions-row > button,
 .context-snapshot .actions-row > button {
-  background: #368ac0;
+  background: #313236;
   border: 0 solid #000000;
   height: 44px;
   margin: 5px !important;
@@ -1067,7 +1076,7 @@ td.entry-table-description {
   width: 10%;
   min-width: 68px;
   border-radius: 5px;
-  color: #fff;
+  color: #c8cbd4;
 }
 .card-layout .actions-row > button > span,
 .context-snapshot .actions-row > button > span {
@@ -1086,8 +1095,8 @@ td.entry-table-description {
   border-color: #c8cbd4;
   background-image: none !important;
   margin: 0;
-  background-color: #368ac0;
-  color: #fff;
+  background-color: #313236;
+  color: #c8cbd4;
   text-shadow: none;
   border-radius: 0;
   -webkit-border-radius: 0;
@@ -1098,6 +1107,16 @@ td.entry-table-description {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
+}
+.card-layout .list-more > .button,
+.context-snapshot .list-more > .button {
+  border: 0;
+  background-color: #fff;
+  color: #5c5c5c;
+}
+.card-layout .list-more button:active,
+.context-snapshot .list-more button:active {
+  color: #368ac0;
 }
 .card-layout .list-item-tab,
 .context-snapshot .list-item-tab {
@@ -1150,6 +1169,15 @@ td.entry-table-description {
   top: 18px;
   width: 0;
 }
+.card-layout .list-action-selected .footer-item-selector > img,
+.context-snapshot .list-action-selected .footer-item-selector > img {
+  border: 0 none black;
+  height: 24px;
+  left: -13px !important;
+  position: relative !important;
+  top: 0px !important;
+  width: 24px;
+}
 .card-layout .footer-item-selector,
 .context-snapshot .footer-item-selector {
   border: 0px none #000000;
@@ -1160,15 +1188,6 @@ td.entry-table-description {
   top: 0;
   width: 28px;
   z-index: 10;
-}
-.card-layout .list-action-selected .footer-item-selector > img,
-.context-snapshot .list-action-selected .footer-item-selector > img {
-  border: 0 none black;
-  height: 24px;
-  left: -13px !important;
-  position: relative !important;
-  top: 0px !important;
-  width: 24px;
 }
 .footer-item-selector > img {
   border: 0 none black;
@@ -1247,9 +1266,9 @@ td.entry-table-description {
   white-space: normal;
 }
 .group-configuration {
-  background-color: #4b5656 !important;
+  background-color: #50535a !important;
   border-width: 1px 0px 1px 0px;
-  border-color: #878e8e;
+  border-color: #888b94;
   border-style: solid;
 }
 .group-configuration > .list-item-content {
