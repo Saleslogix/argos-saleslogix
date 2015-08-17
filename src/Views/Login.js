@@ -28,19 +28,6 @@ const __class = declare('crm.Views.Login', [Edit], {
   // Localization
   localeId: 'loginView',
 
-  constructor: function constructor() {
-    this.loadStrings();
-  },
-
-  loadStrings: function loadStrings() {
-    const entity = App.localeContext.getEntitySync(this.localeId);
-    for (const attribute in entity.attributes) {
-      if (entity.attributes.hasOwnProperty(attribute)) {
-        this[attribute] = entity.attributes[attribute];
-      }
-    }
-  },
-
   ENTER_KEY: 13,
 
   _onKeyPress: function _onKeyPress(evt) {
