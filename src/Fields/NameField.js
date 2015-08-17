@@ -5,7 +5,7 @@ import FieldManager from 'argos/FieldManager';
 
 const control = declare('crm.Fields.NameField', [EditorField], {
   // Localization
-  emptyText: '',
+  localeId: 'nameField',
 
   widgetTemplate: new Simplate([
     '<label for="{%= $.name %}">{%: $.label %}</label>',

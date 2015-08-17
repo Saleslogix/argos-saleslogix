@@ -4,8 +4,7 @@ import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
 const control = declare('crm.Fields.RecurrencesField', [EditorField], {
   // Localization
-  titleText: 'Recurring',
-  emptyText: '',
+  localeId: 'recurrencesField',
   attributeMap: {
     noteText: {
       node: 'inputNode',

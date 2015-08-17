@@ -31,16 +31,7 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
   // Localization
-  allDayText: 'Timeless',
-  completeActivityText: 'Complete',
-  callText: 'Call',
-  calledText: 'Called',
-  addAttachmentActionText: 'Add Attachment',
-  overdueText: 'overdue',
-  alarmText: 'alarm',
-  touchedText: 'touched',
-  importantText: 'important',
-  recurringText: 'recurring',
+  localeId: 'activityList',
 
   // Card View
   itemIcon: 'content/images/icons/man_1.png',

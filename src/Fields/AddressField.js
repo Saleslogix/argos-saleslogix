@@ -19,8 +19,8 @@ const control = declare('crm.Fields.AddressField', [EditorField], {
     },
   },
   rows: 4,
-  lookupLabelText: 'edit',
-  emptyText: '',
+  // localization
+  localeId: 'addressField',
 
   _enableTextElement: function _enableTextElement() {},
   _disableTextElement: function _disableTextElement() {},

@@ -64,18 +64,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   },
 
   // Localization
-  titleText: 'Accounts',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  callMainActionText: 'Call Main',
-  viewContactsActionText: 'Contacts',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  phoneAbbreviationText: 'Phone: ',
-  faxAbbreviationText: 'Fax: ',
+  localeId: 'accountList',
 
   // View Properties
   detailView: 'account_detail',

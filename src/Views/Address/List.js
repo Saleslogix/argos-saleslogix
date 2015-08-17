@@ -24,7 +24,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Addresses',
+  localeId: 'addressList',
 
   // View Properties
   detailView: null,

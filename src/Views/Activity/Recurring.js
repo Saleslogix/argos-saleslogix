@@ -24,18 +24,7 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   // Localization
-  startingText: 'start date',
-  endingText: 'end date',
-  repeatsText: 'repeats',
-  everyText: 'every',
-  afterCompletionText: 'after completed',
-  singleWeekdayText: 'weekday',
-  weekdaysText: 'weekday(s)',
-  dayText: 'day',
-  monthText: 'month',
-  onText: 'on',
-  occurrencesText: 'occurrences',
-  summaryText: 'summary',
+  localeId: 'activityRecurring',
   weekDaysText: [
     'Sunday',
     'Monday',
@@ -65,10 +54,6 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     'months',
     'years',
   ],
-  recurringFrequencyText: 'Recurring Frequency',
-  yesText: 'Yes',
-  noText: 'No',
-  titleText: 'Recurrence',
 
   // View Properties
   monthNames: moment.monthsShort,

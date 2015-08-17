@@ -35,7 +35,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   ]),
 
   // Localization
-  titleText: 'Schedule...',
+  localeId: 'activityTypesList',
   activityTypeText: {
     'atToDo': 'To-Do',
     'atPhoneCall': 'Phone Call',

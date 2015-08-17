@@ -71,16 +71,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   ]),
 
   // Localization
-  titleText: 'My Activities',
-  completeActivityText: 'Complete',
-  acceptActivityText: 'Accept',
-  declineActivityText: 'Decline',
-  callText: 'Call',
-  calledText: 'Called',
-  addAttachmentActionText: 'Add Attachment',
-  viewContactActionText: 'Contact',
-  viewAccountActionText: 'Account',
-  viewOpportunityActionText: 'Opportunity',
+  localeId: 'activityMyList',
 
   // View Properties
   id: 'myactivity_list',

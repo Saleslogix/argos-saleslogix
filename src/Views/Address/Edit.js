@@ -18,22 +18,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Address.Edit', [Edit], {
   // Localization
-  address1Text: 'address 1',
-  address2Text: 'address 2',
-  address3Text: 'address 3',
-  cityText: 'city',
-  cityTitleText: 'City',
-  countryText: 'country',
-  countryTitleText: 'Country',
-  descriptionText: 'description',
-  descriptionTitleText: 'Description',
-  isMailingText: 'shipping',
-  isPrimaryText: 'primary',
-  postalCodeText: 'postal',
-  salutationText: 'attention',
-  stateText: 'state',
-  stateTitleText: 'State',
-  titleText: 'Address',
+  localeId: 'addressEdit',
   /**
    * Each locale key contains an array of field names to be hidden
    * Set to null to skip and leave all fields visible

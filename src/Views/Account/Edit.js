@@ -19,26 +19,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Account.Edit', [Edit], {
   // Localization
-  accountStatusTitleText: 'Account Status',
-  accountSubTypeTitleText: 'Account Subtype',
-  accountText: 'account',
-  accountTypeTitleText: 'Account Type',
-  acctMgrText: 'acct mgr',
-  businessDescriptionText: 'bus desc',
-  businessDescriptionTitleText: 'Business Description',
-  descriptionText: 'desc',
-  faxText: 'fax',
-  fullAddressText: 'address',
-  importSourceText: 'lead source',
-  industryText: 'industry',
-  industryTitleText: 'Industry',
-  ownerText: 'owner',
-  phoneText: 'phone',
-  statusText: 'status',
-  subTypeText: 'subtype',
-  titleText: 'Account',
-  typeText: 'type',
-  webText: 'web',
+  localeId: 'accountEdit',
 
   // View Properties
   entityName: 'Account',
