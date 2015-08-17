@@ -22,19 +22,24 @@ const __class = declare('crm.Views.Login', [Edit], {
     '</div>',
   ]),
 
-  // Localization
   id: 'login',
   busy: false,
-  copyrightText: 'Copyright &copy; 2015 Infor. All rights reserved. www.infor.com',
-  logOnText: 'Sign in',
-  passText: 'Password',
-  rememberText: 'Remember me',
-  titleText: 'Sign in',
-  userText: 'User ID',
-  invalidUserText: 'The user name or password is invalid.',
-  missingUserText: 'The user record was not found.',
-  requestAbortedText: 'The request was aborted.',
-  logoText: 'Infor CRM',
+
+  // Localization
+  localeId: 'loginView',
+
+  constructor: function constructor() {
+    this.loadStrings();
+  },
+
+  loadStrings: function loadStrings() {
+    const entity = App.localeContext.getEntitySync(this.localeId);
+    for (const attribute in entity.attributes) {
+      if (entity.attributes.hasOwnProperty(attribute)) {
+        this[attribute] = entity.attributes[attribute];
+      }
+    }
+  },
 
   ENTER_KEY: 13,
 
