@@ -22,11 +22,11 @@ public class CacheManifestHandler : IHttpHandler
         public string Culture { get; set; }
         public string Content { get; set; }
     }
-   
+
     public void Refresh(string key, object item, CacheItemRemovedReason reason)
     {
-        
-    }            
+
+    }
 
     public string ProcessManifest(string culture)
     {
@@ -34,7 +34,7 @@ public class CacheManifestHandler : IHttpHandler
         var physicalPath = Path.IsPathRooted(manifestPath) ? manifestPath : HostingEnvironment.MapPath(manifestPath);
 
         string content = null;
-                
+
         using (var output = new StringWriter())
         {
             var processor = new CacheManifestProcessor(physicalPath);
@@ -43,7 +43,7 @@ public class CacheManifestHandler : IHttpHandler
 
             content = output.ToString();
         }
-                
+
         HttpRuntime.Cache.Insert(
             String.Format(CACHE_KEY, culture),
             content,
@@ -53,7 +53,7 @@ public class CacheManifestHandler : IHttpHandler
             CacheItemPriority.Default,
             new CacheItemRemovedCallback(Refresh)
         );
-        
+
         return content;
     }
 
@@ -76,22 +76,22 @@ public class CacheManifestHandler : IHttpHandler
         {
             return false;
         }
-    }    
+    }
 }
 
 public class CacheManifestProcessor
 {
     private Regex _commandSignature = new Regex(@"^@");
-    private CommandParser _parser = new CommandParser();  
-    
-    public string Path { get; protected set; }    
+    private CommandParser _parser = new CommandParser();
+
+    public string Path { get; protected set; }
 
     public CacheManifestProcessor(string path)
     {
         Path = path;
     }
-    
-    public void Process(TextWriter output) 
+
+    public void Process(TextWriter output)
     {
         using (var input = new StreamReader(Path))
         {
@@ -110,8 +110,8 @@ public class CacheManifestProcessor
                         var methodParameters = method.GetParameters();
                         var invokeParameters = new object[methodParameters.Length];
 
-                        for (var i = 0; i < methodParameters.Length - 1 && i < command.Arguments.Count; i++)                        
-                            invokeParameters[i] = command.Arguments.ElementAt(i);                        
+                        for (var i = 0; i < methodParameters.Length - 1 && i < command.Arguments.Count; i++)
+                            invokeParameters[i] = command.Arguments.ElementAt(i);
 
                         invokeParameters[methodParameters.Length - 1] = output;
 
@@ -144,7 +144,7 @@ public class CacheManifestProcessor
     {
         var rootDirectory = new DirectoryInfo(System.IO.Path.GetDirectoryName(Path));
         var includeDirectory = new DirectoryInfo(System.IO.Path.Combine(rootDirectory.FullName, path));
-    
+
         var rootPath = System.IO.Path.GetDirectoryName(Path);
         var includePath = System.IO.Path.Combine(rootPath, path);
 
@@ -199,14 +199,36 @@ public class CacheManifestProcessor
 
     public void CommandVersion(TextWriter output)
     {
-        output.WriteLine("# version {0}", DateTime.UtcNow.ToString("s"));
+        try
+        {
+            var files = Directory.GetFiles(HttpRuntime.AppDomainAppPath, "*.*", SearchOption.AllDirectories);
+            DateTime mostRecent = DateTime.MinValue;
+            FileInfo mostRecentFile = null;
+
+            foreach (var file in files)
+            {
+                var fi = new FileInfo(file);
+                var current = fi.LastWriteTimeUtc;
+                if (current > mostRecent)
+                {
+                    mostRecent = current;
+                    mostRecentFile = fi;
+                }
+            }
+
+            output.WriteLine("# Last modified on: {0}; File: {1}", mostRecent.ToString(), mostRecentFile.Name);
+        }
+        catch (Exception ex)
+        {
+            output.WriteLine("# Error getting the last modified: " + ex.Message);
+        }
     }
 
     public void CommandCulture(TextWriter output)
     {
         output.WriteLine("# culture {0}", CultureInfo.CurrentCulture.Name);
-    } 
-            
+    }
+
     class Command
     {
         public string Name { get; set; }

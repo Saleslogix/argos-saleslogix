@@ -126,9 +126,22 @@
                         return;
                     }
 
-                    var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-                    moment.lang(culture);
+                    var culture, results;
+
+                    culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
                     configuration.currentCulture = culture;
+                    results = moment.lang(culture);
+
+                    // moment will return the set culture if successful, otherwise it returns the currently set culture.
+                    // Check to see if the culture set failed, and attept to use the specific culture instead
+                    if (results !== culture) {
+                        culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>';
+                        results = moment.lang(culture);
+                        if (results !== culture) {
+                            console.error("Failed to set the culture for moment.js, culture set to " + results);
+                        }
+                    }
+
                     window.moment = moment;
 
                     var instance = new application(configuration);

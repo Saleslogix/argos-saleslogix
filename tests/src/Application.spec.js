@@ -46,7 +46,7 @@ define('spec/Application.spec', [
                 expect(instance.connections.crm).toBeDefined();
                 expect(instance.connections.crm.isDefault).toBe(true);
                 expect(instance.connections.crm.offline).toBe(true);
-                expect(instance.connections.crm.url).toBe('http://localhost/sdata/slx/dynamic/-/');
+                expect(instance.connections.crm.url).toBe('http://localhost:8000/sdata/slx/dynamic/-/');
                 expect(instance.connections.crm.json).toBe(true);
                 expect(instance.enableUpdateNotification).toBe(true);
                 expect(instance.multiCurrency).toBe(false);
@@ -149,4 +149,3 @@ define('spec/Application.spec', [
         });
     });
 });
-

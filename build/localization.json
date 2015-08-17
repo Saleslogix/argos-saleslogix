@@ -36,6 +36,20 @@
                     ],
                 "out": "products/argos-saleslogix/localization/saleslogix/ru.js"
             },
+            "zh-CN": {
+                "in": [
+                        "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-format_zh-CN.xml",
+                        "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-text_zh-CN.xml"
+                    ],
+                "out": "products/argos-saleslogix/localization/saleslogix/zh-CN.js"
+            },
+            "zh-TW": {
+                "in": [
+                        "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-format_zh-TW.xml",
+                        "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-text_zh-TW.xml"
+                    ],
+                "out": "products/argos-saleslogix/localization/saleslogix/zh-TW.js"
+            },
             "en-GB": {
                 "in": "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-format_en-GB.xml",
                 "out": "products/argos-saleslogix/localization/saleslogix/en-GB.js"
