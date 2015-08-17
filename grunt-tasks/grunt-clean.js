@@ -1,12 +1,7 @@
 module.exports = function gruntClean(grunt) {
   grunt.config('clean', {
-    deploys: {
-      options: {
-        // force to allow deleting outside our working directory (for argos-sdk)
-        force: true,
-      },
-      src: '',
-    },
+    js: ['src-out/**/*.js'],
+    css: ['min/css/**/*.css'],
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');

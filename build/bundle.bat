@@ -2,6 +2,8 @@ SET SDK=%CD%\..\..\argos-sdk
 SET VERSION=%~1
 SET BUNDLE_NAME=ICRM Mobile v%VERSION% for 8.0 and later VFS.zip
 
+call grunt clean:css clean:js less babel
+
 rmdir /S /Q deploy
 rmdir /S /Q %SDK%\deploy
 
