@@ -30,8 +30,6 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   getTitle: function getTitle(entry) {
     return entry && entry.doc && entry.doc.entity && entry.doc.entity.$descriptor;
   },
-
-  // TODO: Move to a mixin
   createStore: function createStore() {
     return new Store({
       databaseName: this.OFFLINE_DB_NAME,
