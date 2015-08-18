@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en" class="gtie9 modern">
@@ -93,9 +93,6 @@
 
     <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.5.min.js"></script>
 
-    <!-- JSON -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
-
     <!-- SData Client Library -->
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
@@ -115,6 +112,10 @@
     <!-- page.js -->
     <script type="text/javascript" src="../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
 
+    <!-- Babel -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
+
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -125,8 +126,8 @@
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
-            { name: 'argos', location: '../../argos-sdk/src' },
-            { name: 'crm', location: 'src' },
+            { name: 'argos', location: '../../argos-sdk/src-out' },
+            { name: 'crm', location: 'src-out' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
         ],
@@ -187,7 +188,7 @@
     </script>
 </head>
 <body>
-    <!-- Run "grunt watch" to enable this script -->
-    <script src="http://localhost:35729/livereload.js"></script>
+    <!-- Run "grunt watch" to enable this script
+    <script src="http://localhost:35729/livereload.js"></script>-->
 </body>
 </html>

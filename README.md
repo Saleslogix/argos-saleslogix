@@ -3,7 +3,7 @@ Installation
 ### Prerequisites
 *	A web server (see NodeJS steps if you do not have a web server installed or would like to use a lightweight dev server)
 
-### NodeJS (optional)
+### NodeJS
 1.	Install NodeJS from: http://nodejs.org/
 2.	Open a command prompt in the argos-saleslogix directory
 3.	Install gruntjs (http://gruntjs.com/getting-started)
@@ -13,13 +13,17 @@ Installation
 	
 		npm install
 
-GruntJS is a task runner. We have defined tasks to run in Gruntfile.coffee. Here are some commands you can run via the command line (in the argos-saleslogix directory)
+GruntJS is a task runner. We have defined tasks to run in Gruntfile.js. Here are some commands you can run via the command line (in the argos-saleslogix directory)
 * Unit tests: `grunt test`
-* Missing a web server? Run `grunt connect:server:keepalive` and open your browsser to http://localhost:8000/
-* JSHint: `grunt jshint`
-* csslint: `grunt csslint`
-* cssmin: `grunt cssmin` - cssmin will output to the min/css folder. This folder is included in the build\release.cmd script
+* Missing a web server? Run `npm start` and open your browsser to http://localhost:8000/
+* ESLint: `grunt lint`
+* LESSCSS: `grunt less`
+* Babel: `grunt babel`
+* Watch: `grunt watch` - Watches the src folder for changes and runs grunt babel automatically when a file is changed.
 * Plus many more: http://gruntjs.com/plugins
+
+### NOTICED TO CUSTOMIZERS
+Starting in mobile 3.4, the index-dev* files no longer point to src, instead they point to src-out. The src folder now contains EcmaScript2015 (ES6) source code. A build step is required to populate the src-out. You will need to run `grunt babel` from the argos-saleslogix directory if working from git. We will include a populated src-out in the AA VFS bundle.
 
 ### Clone repository
 1.	Open a command prompt.

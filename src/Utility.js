@@ -1,6 +1,5 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+import lang from 'dojo/_base/lang';
+import Utility from 'argos/Utility';
 
 /**
  * @class crm.Utility
@@ -11,99 +10,89 @@
  * @singleton
  *
  */
-define('crm/Utility', [
-    'dojo/_base/lang',
-    'dojo/string',
-    'argos/Utility'
-], function(
-    lang,
-    string,
-    Utility
-) {
-    var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
-        base64ArrayBuffer: function (arrayBuffer) {
-            var base64    = '';
-            var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
+  base64ArrayBuffer: function base64ArrayBuffer(arrayBuffer) {
+    let base64 = '';
+    let chunk;
+    let a;
+    let b;
+    let c;
+    let d;
+    const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    const bytes = new Uint8Array(arrayBuffer);
+    const byteLength = bytes.byteLength;
+    const byteRemainder = byteLength % 3;
+    const mainLength = byteLength - byteRemainder;
 
-            var bytes         = new Uint8Array(arrayBuffer);
-            var byteLength    = bytes.byteLength;
-            var byteRemainder = byteLength % 3;
-            var mainLength    = byteLength - byteRemainder;
+    // Main loop deals with bytes in chunks of 3
+    for (let i = 0; i < mainLength; i = i + 3) {
+      // Combine the three bytes into a single integer
+      chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
 
-            var a, b, c, d;
-            var chunk;
+      // Use bitmasks to extract 6-bit segments from the triplet
+      a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
+      b = (chunk & 258048) >> 12; // 258048   = (2^6 - 1) << 12
+      c = (chunk & 4032) >> 6; // 4032     = (2^6 - 1) << 6
+      d = chunk & 63; // 63       = 2^6 - 1
 
-            // Main loop deals with bytes in chunks of 3
-            for (var i = 0; i < mainLength; i = i + 3) {
-                // Combine the three bytes into a single integer
-                chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
+      // Convert the raw binary segments to the appropriate ASCII encoding
+      base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
+    }
 
-                // Use bitmasks to extract 6-bit segments from the triplet
-                a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
-                b = (chunk & 258048)   >> 12; // 258048   = (2^6 - 1) << 12
-                c = (chunk & 4032)     >>  6; // 4032     = (2^6 - 1) << 6
-                d = chunk & 63;               // 63       = 2^6 - 1
+    // Deal with the remaining bytes and padding
+    if (byteRemainder === 1) {
+      chunk = bytes[mainLength];
 
-                // Convert the raw binary segments to the appropriate ASCII encoding
-                base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
-            }
+      a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
 
-            // Deal with the remaining bytes and padding
-            if (byteRemainder == 1) {
-                chunk = bytes[mainLength];
+      // Set the 4 least significant bits to zero
+      b = (chunk & 3) << 4; // 3   = 2^2 - 1
 
-                a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
+      base64 += encodings[a] + encodings[b] + '==';
+    } else if (byteRemainder === 2) {
+      chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
 
-                // Set the 4 least significant bits to zero
-                b = (chunk & 3)   << 4; // 3   = 2^2 - 1
+      a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
+      b = (chunk & 1008) >> 4; // 1008  = (2^6 - 1) << 4
 
-                base64 += encodings[a] + encodings[b] + '==';
-            } else if (byteRemainder == 2) {
-                chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
+      // Set the 2 least significant bits to zero
+      c = (chunk & 15) << 2; // 15    = 2^4 - 1
 
-                a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
-                b = (chunk & 1008)  >>  4; // 1008  = (2^6 - 1) << 4
+      base64 += encodings[a] + encodings[b] + encodings[c] + '=';
+    }
 
-                // Set the 2 least significant bits to zero
-                c = (chunk & 15)    <<  2; // 15    = 2^4 - 1
+    return base64;
+  },
 
-                base64 += encodings[a] + encodings[b] + encodings[c] + '=';
-            }
+  /** Gets the extension for a file.
+   * @param {String} fileName
+   * The file name including the extension
+   * @returns {String}
+   * Returns the file extension, if fileName is null or undefined, returns the string '.'
+   */
+  getFileExtension: function getFileExtension(fileName) {
+    if (!fileName) {
+      return '.';
+    }
+    return fileName.substr(fileName.lastIndexOf('.'));
+  },
+  /** Parses the activity ID
+   * @param {String} activityId
+   * A string with the activity id seperated by a semi-colon
+   * @returns {String}
+   */
+  getRealActivityId: function getRealActivityId(activityId) {
+    let id = activityId;
+    if (activityId) {
+      if (activityId.indexOf(';') > 0) {
+        id = activityId.substring(0, 12);
+      } else {
+        id = activityId;
+      }
+    }
+    return id;
+  },
+}));
 
-            return base64;
-        },
-
-        /** Gets the extension for a file.
-         * @param {String} fileName
-         * The file name including the extension
-         * @returns {String}
-         * Returns the file extension, if fileName is null or undefined, returns the string '.'
-         */
-        getFileExtension: function(fileName) {
-            if (!fileName){
-                return '.';
-            }
-            return fileName.substr(fileName.lastIndexOf('.'));
-        },
-        /** Parses the activity ID
-         * @param {String} activityId
-         * A string with the activity id seperated by a semi-colon
-         * @returns {String}
-         */
-        getRealActivityId: function(activityId) {
-            var Id = activityId;
-            if (activityId) {
-                if (activityId.indexOf(';') > 0) {
-                    Id = activityId.substring(0, 12);
-                } else {
-                    Id = activityId;
-                }
-            }
-            return Id;
-        }
-    }));
-
-    lang.setObject('Mobile.SalesLogix.Utility', __class);
-    return __class;
-});
-
+lang.setObject('Mobile.SalesLogix.Utility', __class);
+export default __class;

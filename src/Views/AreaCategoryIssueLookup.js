@@ -1,6 +1,7 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
+import List from 'argos/List';
+import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 
 /**
  * @class crm.Views.AreaCategoryIssueLookup
@@ -10,109 +11,100 @@
  * @mixins argos._LegacySDataListMixin
  *
  */
-define('crm/Views/AreaCategoryIssueLookup', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'argos/List',
-    'argos/_LegacySDataListMixin'
-], function(
-    declare,
-    lang,
-    List,
-    _LegacySDataListMixin
-) {
+const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
+  // Templates
+  itemTemplate: new Simplate([
+    '<h3>{%: $.$descriptor %}</h3>',
+  ]),
 
-    var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
-        //Templates
-        itemTemplate: new Simplate([
-            '<h3>{%: $.$descriptor %}</h3>'
-        ]),
+  // Localization
+  titleText: 'Accounts',
 
-        //Localization
-        titleText: 'Accounts',
+  // View Properties
+  pageSize: 200,
+  expose: false,
+  enableSearch: false,
+  enablePullToRefresh: false,
+  id: 'areacategoryissue_lookup',
+  queryOrderBy: 'Area,Category,Issue',
+  querySelect: [
+    'Area',
+    'Category',
+    'Issue',
+  ],
+  resourceKind: 'areaCategoryIssues',
 
-        //View Properties
-        pageSize: 200,
-        expose: false,
-        enableSearch: false,
-        enablePullToRefresh: false,
-        id: 'areacategoryissue_lookup',
-        queryOrderBy: 'Area,Category,Issue',
-        querySelect: [
-            'Area',
-            'Category',
-            'Issue'
-        ],
-        resourceKind: 'areaCategoryIssues',
+  show: function show(options) {
+    this.active = options.where;
 
-        show: function(options) {
-            this.active = options.where;
+    options.where = false;
 
-            options.where = false;
+    this.inherited(arguments, [options]);
+  },
+  requestData: function requestData() {
+    if (this.cache) {
+      this.processFeed();
+    } else {
+      this.inherited(arguments);
+    }
+  },
+  processFeed: function processFeed(feed) {
+    let theFeed = feed;
+    // assume order is preserved
+    if (theFeed) {
+      this.createCacheFrom(feed);
+    }
 
-            this.inherited(arguments, [options]);
-        },
-        requestData: function() {
-            if (this.cache) {
-                this.processFeed();
-            } else {
-                this.inherited(arguments);
-            }
-        },
-        processFeed: function(feed) {
-            // assume order is preserved
-            if (feed) {
-                this.createCacheFrom(feed);
-            }
+    let use = this.cache;
 
-            var use = this.cache;
+    if (use && this.active && this.active.Area) {
+      use = use[this.active.Area];
+    }
+    if (use && this.active && this.active.Category) {
+      use = use[this.active.Category];
+    }
 
-            if (use && this.active && this.active['Area']) {
-                use = use[this.active['Area']];
-            }
-            if (use && this.active && this.active['Category']) {
-                use = use[this.active['Category']];
-            }
+    theFeed = this.buildFeedFrom(use);
 
-            feed = this.buildFeedFrom(use);
+    this.inherited(arguments, [theFeed]);
+  },
+  createCacheFrom: function createCacheFrom(feed) {
+    const feedLength = feed.$resources.length;
+    this.cache = {};
 
-            this.inherited(arguments, [feed]);
-        },
-        createCacheFrom: function(feed) {
-            var feedLength = feed['$resources'].length;
-            this.cache = {};
+    for (let i = 0; i < feedLength; i += 1) {
+      const entry = feed.$resources[i];
+      const area = this.cache[entry.Area] || (this.cache[entry.Area] = {});
+      const category = area[entry.Category] || (area[entry.Category] = {});
 
-            for (var i = 0; i < feedLength; i += 1) {
-                var entry = feed['$resources'][i],
-                    area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
-                    category = area[entry['Category']] || (area[entry['Category']] = {});
+      category[entry.Issue] = true;
+    }
+  },
+  buildFeedFrom: function buildFeedFrom(segment) {
+    const list = [];
 
-                category[entry['Issue']] = true;
-            }
-        },
-        buildFeedFrom: function(segment) {
-            var list = [];
+    for (const n in segment) {
+      if (segment.hasOwnProperty(n)) {
+        list.push({
+          '$key': n,
+          '$descriptor': n,
+        });
+      }
+    }
 
-            for (var n in segment) {
-                list.push({
-                    '$key': n,
-                    '$descriptor': n
-                });
-            }
-
-            return {'$resources': list};
-        },
-        hasMoreData: function() {
-            return false; // todo: implement paging?
-        },
-        refreshRequiredFor: function(options) {
-            return true; // todo: implement refresh detection?
-        },
-        formatSearchQuery: function(searchQuery) {
-        }
-    });
-
-    lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
-    return __class;
+    return {
+      '$resources': list,
+    };
+  },
+  hasMoreData: function hasMoreData() {
+    return false; // todo: implement paging?
+  },
+  refreshRequiredFor: function refreshRequiredFor() {
+    return true; // todo: implement refresh detection?
+  },
+  formatSearchQuery: function formatSearchQuery() {
+  },
 });
 
+lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
+export default __class;

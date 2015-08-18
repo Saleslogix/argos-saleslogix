@@ -46,7 +46,13 @@
                 "name": "Mixins",
                 "classes": [
                     "argos._ActionMixin",
+                    "argos._ConfigureBase",
+                    "argos._RelatedViewWidgetBase",
+                    "argos._RelatedViewWidgetDetailMixin",
+                    "argos._RelatedViewWidgetEditMixin",
+                    "argos._RelatedViewWidgetListMixin",
                     "argos._CustomizationMixin",
+                    "argos._ErrorHandleMixin",
                     "argos._PullToRefreshMixin",
                     "argos._ServiceMixin",
                     "argos._Templated",

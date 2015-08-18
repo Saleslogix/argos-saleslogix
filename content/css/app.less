@@ -182,55 +182,6 @@
     }
 }
 
-#configure {
-    .list-content {
-        > li {
-            color: #aaa;
-            padding-right: 6px;
-
-            .resource {
-                display: block;
-                margin: -8px 0 -8px -10px;
-                padding: 8px 32px 8px 36px;
-            }
-
-            h3 {
-                > span {
-                    &:first-child {
-                        float: left;
-                    }
-                }
-
-                > [data-action="moveUp"],
-                > [data-action="moveDown"] {
-                    float: right;
-                    display: block;
-                    width: 48px;
-                    height: 24px;
-                    cursor: pointer;
-                }
-
-                > .icon {
-                    opacity: 0.5;
-                    margin-right: .2em;
-                }
-            }
-
-            &:first-child h3 > [data-action="moveUp"],
-            &:last-child h3 > [data-action="moveDown"] {
-                visibility: hidden;
-            }
-        }
-
-        > li.list-item-selected {
-            color: #000;
-            h3 > .icon {
-                opacity: 1.0;
-            }
-        }
-    }
-}
-
 #note_edit .row label,
 #note_detail .row label {
     display: none
@@ -404,7 +355,8 @@ li[data-ticket-status] .list-item-selector,
 
 .row-edit[data-field-type="multiCurrency"] div > span {
     position: absolute;
-    right: 4px;
+    right: 12px;
+    line-height: 44px;
 }
 
 .row-edit[data-field-type="lookup"] > div > .button span,
@@ -716,6 +668,20 @@ body.transition > .viewContainer > .footer-toolbar {
     font-weight: bold;
 }
 
+.event-content > h2 > button {
+    float: right;
+    background-color: transparent;
+    border: none;
+    height: 32px;
+}
+
+#calendar_daylist,
+#calendar_monthlist,
+#calendar_weeklist {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 #calendar_daylist .event-content > h2,
 #calendar_monthlist .event-content > h2,
 #calendar_monthlist .activity-content > h2,
@@ -949,6 +915,8 @@ td.entry-table-description {
 }
 
 .update-toolbar {
+    @height: 44px;
+
     display: none;
     position: absolute;
     top: 0;
@@ -964,26 +932,30 @@ td.entry-table-description {
     z-index: 10;
 
     background-color: @color-emerald;
-}
 
-.update-toolbar > h1 {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: normal;
-    color: #fff;
+    height: @height;
 
-    position: absolute;
-    z-index: 0;
-}
+    > h1 {
+        width: 100%;
+        line-height: @height;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: normal;
+        color: #fff;
 
-.update-toolbar > .toolButton {
-    background: transparent;
-    border: none 0 black;
+        position: absolute;
+        z-index: 0;
+    }
 
-    .box-shadow(none);
+    > .toolButton {
+        background: transparent;
+        border: none 0 black;
+
+        .box-shadow(none);
+    }
 }
 
 .update-available /* body */
@@ -1071,7 +1043,7 @@ td.entry-table-description {
 
 }
 
-.card-layout {
+.card-layout, .context-snapshot {
 
     .group-label {
         color: @form-label-color;
@@ -1086,7 +1058,7 @@ td.entry-table-description {
         font-size: 16px;
     }
     .group-currency {
-        color: @color-emerald;
+        color: @currency-color;
     }
     .group-column {
         overflow: hidden;
@@ -1242,7 +1214,6 @@ td.entry-table-description {
         > button {
             background: @color-azure;
             border: 0 solid #000000;
-            float: right;
             height: 44px;
             margin: 5px !important;
             padding: 0 !important;
@@ -1254,10 +1225,10 @@ td.entry-table-description {
             color:  #fff;
             >  span {
                font-size: 25px;
-            } 
+            }
             >  label {
                font-size: 10px;
-            } 
+            }
         }
     }
 
@@ -1511,3 +1482,27 @@ canvas,
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* ios */
     -webkit-tap-highlight-color: transparent; /* android */
 }
+
+.related-edit-widget {
+    padding: 5px 5px 0px 5px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+.related-context-widget {
+    background-color: #fff;
+
+    .context-snapshot {
+        border-radius: 3px;
+        padding: 5px;
+        line-height: initial;
+        > li {
+          display: inherit;
+        }
+
+        .list-item-selector {
+            visibility: visible;
+        }
+    }
+}
+
+

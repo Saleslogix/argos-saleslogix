@@ -1,6 +1,9 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
+import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
+import Memory from 'dojo/store/Memory';
+import convert from 'argos/Convert';
+import ErrorManager from 'argos/ErrorManager';
+import List from 'argos/List';
 
 /**
  * @class crm.Views.ErrorLog.List
@@ -10,73 +13,55 @@
  * @requires crm.Format
  * @requires argos.ErrorManager
  */
-define('crm/Views/ErrorLog/List', [
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/store/Memory',
-    'crm/Format',
-    'argos/Convert',
-    'argos/ErrorManager',
-    'argos/List'
-], function(
-    declare,
-    lang,
-    Memory,
-    format,
-    convert,
-    ErrorManager,
-    List
-) {
+const __class = declare('crm.Views.ErrorLog.List', [List], {
+  // Localization
+  titleText: 'Error Logs',
+  errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
-    var __class = declare('crm.Views.ErrorLog.List', [List], {
-        //Localization
-        titleText: 'Error Logs',
-        errorDateFormatText: 'MM/DD/YYYY hh:mm A',
+  // Templates
+  itemTemplate: new Simplate([
+    '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
+    '<h4>{%: $.Description %}</h4>',
+  ]),
 
-        //Templates
-        itemTemplate: new Simplate([
-            '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
-            '<h4>{%: $.Description %}</h4>'
-        ]),
+  // View Properties
+  id: 'errorlog_list',
+  enableSearch: false,
+  enablePullToRefresh: false,
+  hideSearch: true,
+  expose: false,
+  detailView: 'errorlog_detail',
 
-        //View Properties
-        id: 'errorlog_list',
-        enableSearch: false,
-        enablePullToRefresh: false,
-        hideSearch: true,
-        expose: false,
-        detailView: 'errorlog_detail',
+  _onRefresh: function _onRefresh(o) {
+    this.inherited(arguments);
+    if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
+      this.refreshRequired = true;
+    }
+  },
+  createStore: function createStore() {
+    const errorItems = ErrorManager.getAllErrors();
 
-        _onRefresh: function(o) {
-            this.inherited(arguments);
-            if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
-                this.refreshRequired = true;
-            }
-        },
-        createStore: function() {
-            var errorItems = ErrorManager.getAllErrors();
+    errorItems.sort(function sortErrorItems(a, b) {
+      a.errorDateStamp = a.errorDateStamp || a.Date;
+      b.errorDateStamp = b.errorDateStamp || b.Date;
+      a.Date = a.errorDateStamp;
+      b.Date = b.errorDateStamp;
+      const A = convert.toDateFromString(a.errorDateStamp);
+      const B = convert.toDateFromString(b.errorDateStamp);
 
-            errorItems.sort(function(a, b) {
-                a.errorDateStamp = a.errorDateStamp || a['Date'];
-                b.errorDateStamp = b.errorDateStamp || b['Date'];
-                a['Date'] = a.errorDateStamp;
-                b['Date'] = b.errorDateStamp;
-                var A = convert.toDateFromString(a.errorDateStamp),
-                    B = convert.toDateFromString(b.errorDateStamp);
-
-                return A.valueOf() > B.valueOf();
-            });
-
-            return new Memory({data: errorItems});
-        },
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                'tbar': []
-            });
-        }
+      return A.valueOf() > B.valueOf();
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
-    return __class;
+    return new Memory({
+      data: errorItems,
+    });
+  },
+  createToolLayout: function createToolLayout() {
+    return this.tools || (this.tools = {
+      'tbar': [],
+    });
+  },
 });
 
+lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
+export default __class;

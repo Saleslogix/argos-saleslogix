@@ -1,69 +1,69 @@
 define('localization/saleslogix/en-GB', ['localization/en-GB', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
-localize("Sage.Platform.Mobile.Calendar", {
+localize("argos.Calendar", {
   "timeFormatText": "h:mm A"
 });
 
-localize("Sage.Platform.Mobile.Fields.DateField", {
+localize("argos.Fields.DateField", {
   "dateFormatText": "DD/MM/YYYY"
 });
 
-localize("Sage.Platform.Mobile.Format", {
+localize("argos.Format", {
   "shortDateFormatText": "D/M/YYYY",
   "percentFormatText": "${0}${1}"
 });
 
-localize("Mobile.SalesLogix.GroupUtility", {
-  "groupDateFormatText": "D/M/YYYY h:mm:ss A"
+localize("crm.GroupUtility", {
+  "groupDateFormatText": "M/D/YYYY h:mm:ss a"
 });
 
-localize("Mobile.SalesLogix.Recurrence", {
+localize("crm.Recurrence", {
   "dayFormatText": "DD",
   "monthFormatText": "MM",
-  "monthAndDayFormatText": "DD/MM",
+  "monthAndDayFormatText": "MM/DD",
   "weekdayFormatText": "dddd",
   "endDateFormatText": "D/M/YYYY"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Complete", {
+localize("crm.Views.Activity.Complete", {
   "completedFormatText": "D/M/YYYY h:mm A",
   "startingFormatText": "D/M/YYYY h:mm A",
   "startingTimelessFormatText": "D/M/YYYY"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Detail", {
+localize("crm.Views.Activity.Detail", {
   "startDateFormatText": "D/M/YYYY h:mm:ss A",
   "timelessDateFormatText": "D/M/YYYY",
   "alarmDateFormatText": "D/M/YYYY h:mm:ss A"
 });
 
-localize("Mobile.SalesLogix.Views.Activity.Edit", {
+localize("crm.Views.Activity.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
-  "startingTimelessFormatText": "D/M/YYYY"
+  "startingTimelessFormatText": "M/D/YYYY"
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.List", {
+localize("crm.Views.Attachment.List", {
   "attachmentDateFormatText": "ddd D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
+localize("crm.Views.Attachment.ViewAttachment", {
   "attachmentDateFormatText": "ddd D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.DayView", {
+localize("crm.Views.Calendar.DayView", {
   "eventDateFormatText": "D/M/YYYY",
   "dateHeaderFormatText": "dddd, D/M/YYYY",
   "startTimeFormatText": "h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
+localize("crm.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
+localize("crm.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D MMM, YYYY",
   "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D MMM, YYYY",
@@ -71,53 +71,53 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "startTimeFormatText": "h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
+localize("crm.Views.ErrorLog.Detail", {
   "errorDateFormatText": "DD/MM/YYYY hh:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.ErrorLog.List", {
+localize("crm.Views.ErrorLog.List", {
   "errorDateFormatText": "DD/MM/YYYY hh:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Event.Detail", {
+localize("crm.Views.Event.Detail", {
   "startDateFormatText": "D/M/YYYY h:mm:ss A",
   "endDateFormatText": "D/M/YYYY h:mm:ss A"
 });
 
-localize("Mobile.SalesLogix.Views.Event.Edit", {
+localize("crm.Views.Event.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Event.List", {
+localize("crm.Views.Event.List", {
   "eventDateFormatText": "D/M/YYYY"
 });
 
-localize("Mobile.SalesLogix.Views.History.Detail", {
+localize("crm.Views.History.Detail", {
   "dateFormatText": "D/M/YYYY h:mm:ss A"
 });
 
-localize("Mobile.SalesLogix.Views.History.Edit", {
+localize("crm.Views.History.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.History.List", {
+localize("crm.Views.History.List", {
   "hourMinuteFormatText": "h:mm A",
   "dateFormatText": "D/M/YY"
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
+localize("crm.Views.Opportunity.Detail", {
   "exchangeRateDateFormatText": "D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
+localize("crm.Views.Opportunity.Edit", {
   "exchangeRateDateFormatText": "D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+localize("crm.Views.TicketActivity.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A"
 });
 
-localize("Mobile.SalesLogix.Views.TicketActivity.List", {
+localize("crm.Views.TicketActivity.List", {
   "startDateFormatText": "DD/MM/YYYY h:mm A"
 });
 });

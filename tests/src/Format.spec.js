@@ -111,9 +111,24 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format', 'moment'],function(Forma
                 expect(Format.bigNumber(1000)).toEqual('1.0K');
             });
 
-            it('should return the original value for NaN', function() {
+            it('should return the original value for non-numbers', function() {
                 expect(Format.bigNumber('foo')).toEqual('foo');
+                
+                // isNaN returns false for an empty string.. test that case
+                expect(Format.bigNumber('')).toEqual('');
+
+                // Test if the original object reference is returned back
+                var orig = {};
+                expect(Format.bigNumber(orig)).toEqual(orig);
             });
+
+            it('should format negative values', function(){
+                expect(Format.bigNumber(-9999999999)).toEqual('-10.0B');
+                expect(Format.bigNumber(-1000000)).toEqual('-1.0M');
+                expect(Format.bigNumber(-100000)).toEqual('-100.0K');
+                expect(Format.bigNumber(-999999)).toEqual('-1,000.0K');
+                expect(Format.bigNumber(-1000)).toEqual('-1.0K');
+            })
         });
 
         describe('phone', function() {
@@ -248,4 +263,3 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format', 'moment'],function(Forma
         });
     });
 });
-
