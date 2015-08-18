@@ -64,7 +64,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
 
   getModel: function getModel() {
     const model = new AccountModel();
-    this.setSDataModelProperties(model);
     return model;
   },
 
