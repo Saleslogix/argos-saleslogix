@@ -23,6 +23,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   errorDateFormatText: 'MM/DD/YYYY hh:mm A',
   statusTextText: 'error',
   urlText: 'url',
+  entityText: 'Error Log',
 
   moreDetailsText: 'More Details',
   errorText: 'error',

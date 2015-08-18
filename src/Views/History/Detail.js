@@ -56,6 +56,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
     'atQuestion': 'Question',
     'atEMail': 'E-mail',
   },
+  entityText: 'History',
   // View Properties
   id: 'history_detail',
   existsRE: /^[\w]{12}$/,

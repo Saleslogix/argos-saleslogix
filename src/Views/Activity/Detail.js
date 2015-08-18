@@ -45,6 +45,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     'atPersonal',
   ],
   activityTypeValues: null,
+  entityText: 'Activity',
 
   // View Properties
   id: 'activity_detail',
