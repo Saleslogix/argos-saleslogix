@@ -5,6 +5,7 @@ import domClass from 'dojo/dom-class';
 import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
+import TicketModel from '../../Models/Ticket';
 
 /**
  * @class crm.Views.Ticket.Detail
@@ -51,32 +52,11 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   // View Properties
   id: 'ticket_detail',
   editView: 'ticket_edit',
-  security: 'Entities/Ticket/View',
-  querySelect: [
-    'Account/AccountName',
-    'Account/MainPhone',
-    'Area',
-    'AssignedDate',
-    'AssignedTo/OwnerDescription',
-    'Category',
-    'Contact/NameLF',
-    'Contact/WorkPhone',
-    'Contract/ReferenceNumber',
-    'Issue',
-    'NeededByDate',
-    'Notes',
-    'ViaCode',
-    'StatusCode',
-    'UrgencyCode',
-    'Subject',
-    'TicketNumber',
-    'TicketProblem/Notes',
-    'TicketSolution/Notes',
-    'Urgency/Description',
-    'Urgency/UrgencyCode',
-    'CompletedBy/OwnerDescription',
-  ],
-  resourceKind: 'tickets',
+
+  getModel: function getModel() {
+    const model = new TicketModel();
+    return model;
+  },
 
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();

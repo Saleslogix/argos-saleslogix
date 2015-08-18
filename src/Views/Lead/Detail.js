@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
 import Detail from 'argos/Detail';
+import LeadModel from '../../Models/Lead';
 
 /**
  * @class crm.Views.Lead.Detail
@@ -58,35 +59,11 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   editView: 'lead_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
-  security: 'Entities/Lead/View',
-  querySelect: [
-    'Address/*',
-    'BusinessDescription',
-    'Company',
-    'CreateDate',
-    'CreateUser',
-    'Email',
-    'FirstName',
-    'FullAddress',
-    'Industry',
-    'Interests',
-    'LastName',
-    'LeadNameLastFirst',
-    'LeadSource/Description',
-    'MiddleName',
-    'Mobile',
-    'Notes',
-    'Owner/OwnerDescription',
-    'Prefix',
-    'SICCode',
-    'Suffix',
-    'Title',
-    'TollFree',
-    'WebAddress',
-    'WorkPhone',
-  ],
-  resourceKind: 'leads',
 
+  getModel: function getModel() {
+    const model = new LeadModel();
+    return model;
+  },
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
     if (view) {

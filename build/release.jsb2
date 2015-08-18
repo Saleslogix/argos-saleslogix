@@ -189,6 +189,22 @@
           "path": "../src-out/Models/"
         },
         {
+          "text": "Contact.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Opportunity.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Lead.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Ticket.js",
+          "path": "../src-out/Models/"
+        },
+        {
           "text": "Environment.js",
           "path": "../src-out/"
         },

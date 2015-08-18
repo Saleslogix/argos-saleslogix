@@ -4,6 +4,7 @@ import string from 'dojo/string';
 import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
+import ContactModel from '../../Models/Contact';
 
 /**
  * @class crm.Views.Contact.Detail
@@ -60,34 +61,10 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   editView: 'contact_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
-  security: 'Entities/Contact/View',
-  querySelect: [
-    'Account/AccountName',
-    'AccountManager/UserInfo/FirstName',
-    'AccountManager/UserInfo/LastName',
-    'AccountName',
-    'Address/*',
-    'CuisinePreference',
-    'CreateDate',
-    'CreateUser',
-    'Email',
-    'Fax',
-    'FirstName',
-    'HomePhone',
-    'LastName',
-    'MiddleName',
-    'Mobile',
-    'Name',
-    'NameLF',
-    'Owner/OwnerDescription',
-    'Prefix',
-    'Suffix',
-    'Title',
-    'WebAddress',
-    'WorkPhone',
-  ],
-  resourceKind: 'contacts',
-
+  getModel: function getModel() {
+    const model = new ContactModel();
+    return model;
+  },
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
     if (view) {
