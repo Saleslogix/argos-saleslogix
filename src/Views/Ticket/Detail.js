@@ -46,6 +46,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   moreDetailsText: 'More Details',
   relatedTicketActivitiesText: 'Ticket Activities',
   loadingText: 'loading...',
+  entityText: 'Ticket',
 
   // View Properties
   id: 'ticket_detail',

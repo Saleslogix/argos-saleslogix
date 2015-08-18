@@ -53,6 +53,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   sendEmailText: 'Send email',
   viewAddressText: 'View address',
   moreDetailsText: 'More Details',
+  entityText: 'Contact',
 
   // View Properties
   id: 'contact_detail',

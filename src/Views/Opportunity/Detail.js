@@ -49,6 +49,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   multiCurrencyDateText: 'rate date',
   multiCurrencyLockedText: 'rate locked',
   exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
+  entityText: 'Opportunity',
 
   // View Properties
   id: 'opportunity_detail',

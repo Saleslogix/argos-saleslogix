@@ -27,6 +27,7 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
   removeContactTitleText: 'Remove Contact',
   confirmDeleteText: 'Remove "${0}" from the opportunity?',
   contactText: 'Contact',
+  entityText: 'Opportunity Contact',
 
   // View Properties
   id: 'opportunitycontact_detail',
