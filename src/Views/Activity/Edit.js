@@ -31,23 +31,28 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   // Localization
   localeId: 'activityEdit',
 
-  updateUserActErrorText: 'An error occured updating user activities.',
   reminderValueText: {
-    0: 'none',
-    5: '5 minutes',
-    15: '15 minutes',
-    30: '30 minutes',
-    60: '1 hour',
-    1440: '1 day',
   },
+  reminderKeys: [
+    0,
+    5,
+    15,
+    30,
+    60,
+    1440,
+  ],
+  reminderValues: null,
   durationValueText: {
-    0: 'none',
-    15: '15 minutes',
-    30: '30 minutes',
-    60: '1 hour',
-    90: '1.5 hours',
-    120: '2 hours',
   },
+  durationKeys: [
+    0,
+    15,
+    30,
+    60,
+    90,
+    120,
+  ],
+  durationValues: null,
 
   /**
    * @property {Number}
@@ -884,6 +889,16 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   createReminderData: function createReminderData() {
     const list = [];
 
+    this.reminderValues = [
+      this.noneText,
+      this.fiveMinText,
+      this.quarterHourText,
+      this.halfHourText,
+      this.hourText,
+      this.dayText,
+    ];
+    utility.extendObjectKeyValue(this.reminderValueText, this.reminderKeys, this.reminderValues);
+
     for (const duration in this.reminderValueText) {
       if (this.reminderValueText.hasOwnProperty(duration)) {
         list.push({
@@ -899,6 +914,16 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   createDurationData: function createDurationData() {
     const list = [];
+
+    this.durationValues = [
+      this.noneText,
+      this.quarterHourText,
+      this.halfHourText,
+      this.hourText,
+      this.hourAndHalfText,
+      this.twoHoursText,
+    ];
+    utility.extendObjectKeyValue(this.durationValueText, this.durationKeys, this.durationValues);
 
     for (const duration in this.durationValueText) {
       if (this.durationValueText.hasOwnProperty(duration)) {

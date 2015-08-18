@@ -60,9 +60,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   ]),
 
   // Localization
-  titleText: 'Attachments',
-  attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
-  uploadedOnText: 'Uploaded ', // Uploaded 10 days ago
+  localeId: 'attachmentList',
 
   // View Properties
   id: 'attachment_list',

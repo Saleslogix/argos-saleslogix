@@ -30,20 +30,26 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   // Localization
   localeId: 'activityComplete',
   durationValueText: {
-    0: 'none',
-    15: '15 minutes',
-    30: '30 minutes',
-    60: '1 hour',
-    90: '1.5 hours',
-    120: '2 hours',
   },
+  durationKeys: [
+    0,
+    15,
+    30,
+    60,
+    90,
+    120,
+  ],
+  durationValues: null,
   followupValueText: {
-    'none': 'None',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atToDo': 'To-Do',
-    'atPersonal': 'Personal Activity',
   },
+  followupKeys: [
+    'none',
+    'atPhoneCall',
+    'atAppointment',
+    'atToDo',
+    'atPersonal',
+  ],
+  followupValues: null,
 
   // View Properties
   id: 'activity_complete',
@@ -377,6 +383,24 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     return string.substitute(format, [utility.getValue(dependentValue, theProperty)]);
   },
   createLayout: function createLayout() {
+    this.followupValues = [
+      this.nonePropText,
+      this.phoneCallText,
+      this.meetingText,
+      this.toDoText,
+      this.personalText,
+    ];
+    utility.extendObjectKeyValue(this.followupValueText, this.followupKeys, this.followupValues);
+    this.durationValues = [
+      this.noneText,
+      this.quarterHourText,
+      this.halfHourText,
+      this.hourText,
+      this.hourAndHalfText,
+      this.twoHoursText,
+    ];
+    utility.extendObjectKeyValue(this.durationValueText, this.durationKeys, this.durationValues);
+
     return this.layout || (this.layout = [{
       title: this.activityInfoText,
       name: 'ActivityInfoSection',

@@ -29,16 +29,7 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  */
 const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
   // Localization
-  detailsText: 'Attachment Details',
-  descriptionText: 'description',
-  fileNameText: 'file name',
-  attachDateText: 'attachment date',
-  fileSizeText: 'file size',
-  userText: 'user',
-  attachmentNotSupportedText: 'The attachment type is not supported for viewing.',
-  attachmentDateFormatText: 'ddd M/D/YYYY h:mm a',
-  downloadingText: 'Downloading attachment ...',
-  notSupportedText: 'Viewing attachments is not supported by your device.',
+  localeId: 'attachmentView',
 
   // View Properties
   id: 'view_attachment',

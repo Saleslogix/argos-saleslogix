@@ -19,7 +19,7 @@ import Environment from '../../Environment';
  */
 const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   // Localization
-  titleText: 'Add Attachments',
+  localeId: 'attachmentAdd',
 
   // View Properties
   id: 'attachment_Add',

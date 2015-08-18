@@ -25,35 +25,9 @@ import moment from 'moment';
 const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   // Localization
   localeId: 'activityRecurring',
-  weekDaysText: [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ],
-  monthsText: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ],
-  frequencyOptionsText: [
-    'days',
-    'weeks',
-    'months',
-    'years',
-  ],
+  weekDaysText: null,
+  monthsText: null,
+  frequencyOptionsText: null,
 
   // View Properties
   monthNames: moment.monthsShort,
@@ -387,6 +361,14 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createScaleData: function createScaleData() {
     const list = [];
+    if (!this.frequencyOptionsText) {
+      this.frequencyOptionsText = [
+        this.days,
+        this.weeks,
+        this.months,
+        this.years,
+      ];
+    }
 
     for (const opt in this.frequencyOptionsText) {
       if (this.frequencyOptionsText.hasOwnProperty(opt)) {
@@ -403,6 +385,17 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createWeekdaysData: function createWeekdaysData() {
     const list = [];
+    if (!this.weedaysText) {
+      this.weekdaysText = [
+        this.sunday,
+        this.monday,
+        this.tuesday,
+        this.wednesday,
+        this.thursday,
+        this.friday,
+        this.saturday,
+      ];
+    }
 
     array.forEach(this.weekDaysText, function makeWeekdayList(name, idx) {
       list.push({
@@ -417,6 +410,22 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createMonthsData: function createMonthsData() {
     const list = [];
+    if (!this.monthsText) {
+      this.monthsText = [
+        this.january,
+        this.february,
+        this.march,
+        this.april,
+        this.may,
+        this.june,
+        this.july,
+        this.august,
+        this.september,
+        this.october,
+        this.november,
+        this.december,
+      ];
+    }
     array.forEach(this.monthsText, function makeMonthList(name, idx) {
       list.push({
         '$key': idx,

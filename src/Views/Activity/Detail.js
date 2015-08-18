@@ -36,12 +36,15 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   // Localization
   localeId: 'activityDetail',
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
   },
+  activityTypeKeys: [
+    'atLiterature',
+    'atPhoneCall',
+    'atAppointment',
+    'atToDo',
+    'atPersonal',
+  ],
+  activityTypeValues: null,
 
   // View Properties
   id: 'activity_detail',
@@ -274,6 +277,14 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     return toReturn;
   },
   createLayout: function createLayout() {
+    this.activityTypeValues = [
+      this.literatureText,
+      this.phoneCallText,
+      this.meetingText,
+      this.toDoText,
+      this.personalText,
+    ];
+    platformUtility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
     return this.layout || (this.layout = [{
       list: true,
       title: this.actionsText,

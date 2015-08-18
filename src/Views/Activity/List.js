@@ -9,6 +9,7 @@ import convert from 'argos/Convert';
 import action from '../../Action';
 import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
+import utility from 'argos/Utility';
 import moment from 'moment';
 
 /**
@@ -79,17 +80,27 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     'atEMail': 'fa fa-envelope',
   },
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Lit Request',
-    'atPersonal': 'Personal',
-    'atQuestion': 'Question',
-    'atNote': 'Note',
-    'atEMail': 'Email',
   },
-  // Localization
-  titleText: 'Activities',
+  activityTypeKeys: [
+    'atToDo',
+    'atPhoneCall',
+    'atAppointment',
+    'atLiterature',
+    'atPersonal',
+    'atQuestion',
+    'atNote',
+    'atEmail',
+  ],
+  activityTypeValues: [
+    this.toDoText,
+    this.phoneCallText,
+    this.meetingText,
+    this.literatureText,
+    this.personalText,
+    this.questionText,
+    this.noteText,
+    this.emailText,
+  ],
 
   // View Properties
   id: 'activity_list',
@@ -385,6 +396,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
+    utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
     if (view) {
       environment.refreshActivityLists();
       view.show({

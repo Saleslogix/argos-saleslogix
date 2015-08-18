@@ -14,7 +14,7 @@ import AttachmentList from './List';
  */
 const __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
   id: 'myattachment_list',
-  titleText: 'My Attachments',
+  localeId: 'attachmentMyList',
   queryWhere: function queryWhere() {
     return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context.user.$key)]);
   },

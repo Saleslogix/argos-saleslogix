@@ -27,19 +27,7 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  eventDateFormatText: 'M/D/YYYY',
-  dateHeaderFormatText: 'dddd, M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  todayText: 'Today',
-  dayText: 'Day',
-  weekText: 'Week',
-  monthText: 'Month',
-  allDayText: 'All-Day',
-  eventHeaderText: 'Events',
-  activityHeaderText: 'Activities',
-  eventMoreText: 'View More Event(s)',
-  toggleCollapseText: 'toggle collapse',
+  localeId: 'calendarDayView',
   enablePullToRefresh: false,
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',

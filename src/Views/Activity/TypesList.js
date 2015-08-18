@@ -2,6 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
+import utility from 'argos/Utility';
 
 /**
  * @class crm.Views.Activity.TypesList
@@ -36,14 +37,16 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
 
   // Localization
   localeId: 'activityTypesList',
-  activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
-    'event': 'Event',
-  },
+  activityTypeText: {},
+  activityTypeKeys: [
+    'atToDo',
+    'atPhoneCall',
+    'atAppointment',
+    'atLiterature',
+    'atPersonal',
+    'event',
+  ],
+  activityTypeValues: null,
   activityTypeIcons: {
     'atToDo': 'fa fa-list-ul',
     'atPhoneCall': 'fa fa-phone',
@@ -130,6 +133,15 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   },
   init: function init() {
     this.inherited(arguments);
+    this.activityTypeValues = [
+      this.toDo,
+      this.phoneCall,
+      this.meeting,
+      this.literature,
+      this.personal,
+      this.eventText,
+    ];
+    utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {

@@ -32,32 +32,10 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  todayText: 'Today',
-  dayText: 'Day',
-  weekText: 'Week',
-  monthText: 'Month',
-  monthTitleFormatText: 'MMMM YYYY',
-  dayTitleFormatText: 'ddd MMM D, YYYY',
-  eventDateFormatText: 'M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  allDayText: 'All-Day',
-  eventText: 'Event',
-  eventHeaderText: 'Events',
-  countMoreText: 'View More',
-  activityHeaderText: 'Activities',
-  toggleCollapseText: 'toggle collapse',
+  localeId: 'calendarMonthView',
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
-  weekDaysShortText: [
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-  ],
+  weekDaysShortText: [],
 
   enablePullToRefresh: false,
 
@@ -285,6 +263,15 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.eventFeed = {};
     this.entries = {};
     this.dateCounts = [];
+    this.weekdaysShortText = [
+      this.sundayShortText,
+      this.mondayShortText,
+      this.tuesdayShortText,
+      this.wednesdayShortText,
+      this.thursdayShortText,
+      this.fridayShortText,
+      this.saturdayShortText,
+    ];
   },
   _onRefresh: function _onRefresh(o) {
     this.inherited(arguments);

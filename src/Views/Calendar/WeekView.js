@@ -29,20 +29,7 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  weekTitleFormatText: 'MMM D, YYYY',
-  dayHeaderLeftFormatText: 'dddd',
-  dayHeaderRightFormatText: 'MMM D, YYYY',
-  eventDateFormatText: 'M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  todayText: 'Today',
-  dayText: 'Day',
-  weekText: 'Week',
-  monthText: 'Month',
-  allDayText: 'All Day',
-  eventHeaderText: 'Events',
-  eventMoreText: 'View ${0} More Event(s)',
-  toggleCollapseText: 'toggle collapse',
+  localeId: 'calendarWeekView',
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
 
