@@ -8,6 +8,7 @@ import query from 'dojo/query';
 import domAttr from 'dojo/dom-attr';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
+import Utility from 'argos/Utility';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
@@ -37,7 +38,19 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   ]),
 
   // Localization
-  titleText: 'SpeedSearch',
+  localeId: 'speedSearchList',
+  indexesText: {
+  },
+  indexesKeys: [
+    'Account',
+    'Activity',
+    'Contact',
+    'History',
+    'Lead',
+    'Opportunity',
+    'Ticket',
+  ],
+  indexesValues: null,
 
   // View Properties
   id: 'speedsearch_list',
@@ -76,15 +89,6 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     isSecure: false,
   }],
   types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
-  indexesText: {
-    'Account': 'Account',
-    'Activity': 'Activity',
-    'Contact': 'Contact',
-    'History': 'History',
-    'Lead': 'Lead',
-    'Opportunity': 'Opportunity',
-    'Ticket': 'Ticket',
-  },
   itemIconByType: {
     'Contact': 'fa-user',
     'Account': 'fa-building-o',
@@ -280,6 +284,18 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     }]);
   },
   applyActivityIndicator: function applyActivityIndicator(entry, indicator) {
+    if (!this.indexesValues) {
+      this.indexesValues = [
+        this.accountText,
+        this.activityText,
+        this.contactText,
+        this.historyText,
+        this.leadText,
+        this.opportunityText,
+        this.ticketText,
+      ];
+      Utility.extendObjectKeyValue(this.indexesText, this.indexesKeys, this.indexesValues);
+    }
     indicator.isEnabled = true;
     indicator.showIcon = false;
     indicator.label = this.indexesText[entry.type];

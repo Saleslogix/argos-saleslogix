@@ -16,7 +16,7 @@ const mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
  */
 const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
-  indexSectionText: 'Indexes',
+  localeId: 'speedSearchRightDrawerListMixin',
 
   _hasChangedIndexPrefs: false, // Dirty flag so we know when to reload the widgets
 

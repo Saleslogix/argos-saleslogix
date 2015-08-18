@@ -13,7 +13,7 @@ import _ConfigureBase from 'argos/_ConfigureBase';
  */
 const __class = declare('crm.Views.Configure', [_ConfigureBase], {
   // Localization
-  titleText: 'Configure',
+  localeId: 'configure',
 
   // View Properties
   id: 'configure',

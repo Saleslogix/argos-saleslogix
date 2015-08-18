@@ -11,7 +11,7 @@ import MainToolbar from 'argos/MainToolbar';
  */
 const __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
   // Localization
-  copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
+  localeId: 'footerToolbar',
 
   widgetTemplate: new Simplate([
     '<div class="footer-toolbar {%= $.cls %}">',

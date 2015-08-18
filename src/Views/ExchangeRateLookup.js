@@ -18,7 +18,7 @@ const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListM
   ]),
 
   // Localization
-  titleText: 'Exchange Rates',
+  localeId: 'exchangeRateLookup',
 
   // View Properties
   expose: false,

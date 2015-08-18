@@ -59,8 +59,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
 
   // Localization
   title: '',
-  loadingText: 'loading...',
-  errorText: 'Error loading widget.',
+  localeId: 'metricWidget',
 
   // Store Options
   querySelect: null,

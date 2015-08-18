@@ -19,7 +19,7 @@ const mixinName = 'crm.Views._CardLayoutListMixin';
  */
 const __class = declare('crm.Views._CardLayoutListMixin', null, {
   itemIcon: 'content/images/icons/man_1.png',
-  itemIconAltText: 'Contact',
+  localeId: 'cardLayoutListMixin',
   itemIconClass: '',
   allRecordsText: 'no search applied',
   itemIndicators: null,

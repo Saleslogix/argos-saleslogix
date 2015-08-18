@@ -12,9 +12,7 @@ const __class = declare('crm.Views.LogOff', [View], {
   ]),
 
   // Localization
-  messageText: 'You have been logged out. Please close your browser window.',
-  loginText: 'Click here to log back in.',
-  titleText: 'Logged Out',
+  localeId: 'logOff',
 
   id: 'logoff',
 

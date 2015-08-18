@@ -34,12 +34,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   ]),
 
   // Localization
-  clearLocalStorageTitleText: 'Clear Storage',
-  clearAuthenticationTitleText: 'Clear Saved Credentials',
-  errorLogTitleText: 'View Error Logs',
-  localStorageClearedText: 'Local storage cleared successfully.',
-  credentialsClearedText: 'Saved credentials cleared successfully.',
-  titleText: 'Settings',
+  localeId: 'settings',
 
   // View Properties
   id: 'settings',

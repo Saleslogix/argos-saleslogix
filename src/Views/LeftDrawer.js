@@ -39,16 +39,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   ]),
 
   // Localization
-  configureText: 'Configure Menu',
-  addAccountContactText: 'Add Account/Contact',
-  titleText: 'Main Menu',
-  actionsText: 'Quick Actions',
-  viewsText: 'Go To',
-  footerText: 'Other',
-  settingsText: 'Settings',
-  helpText: 'Help',
-  logOutText: 'Log Out',
-  logOutConfirmText: 'Are you sure you want to log out?',
+  localeId: 'leftDrawer',
 
   // View Properties
   id: 'left_drawer',

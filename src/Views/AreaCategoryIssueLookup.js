@@ -18,7 +18,7 @@ const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySData
   ]),
 
   // Localization
-  titleText: 'Accounts',
+  localeId: 'areaCategoryIssueLookup',
 
   // View Properties
   pageSize: 200,

@@ -18,7 +18,7 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
     '</div>',
   ]),
 
-  updateText: 'An update is available.  Click to reload.',
+  localeId: 'updateToolbar',
 
   managed: false,
 

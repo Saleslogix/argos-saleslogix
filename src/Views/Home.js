@@ -30,11 +30,7 @@ var __class = declare('crm.Views.Home', [GroupedList], {
   ]),
 
   //Localization
-  configureText: 'Configure',
-  addAccountContactText: 'Add Account/Contact',
-  titleText: 'Home',
-  actionsText: 'Quick Actions',
-  viewsText: 'Go To',
+  localeId: 'home',
 
   //View Properties
   id: 'home',

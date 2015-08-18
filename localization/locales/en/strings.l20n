@@ -3,19 +3,6 @@
   long: "Mobile {{ version.short}} / CRM Platform 8.0+"
 }>
 
-<loginView ""
-  copyrightText: "Copyright &copy; 2015 Infor. All rights reserved. www.infor.com"
-  logOnText: "Sign in"
-  passText: "Password"
-  rememberText: "Remember me"
-  titleText: "Sign in"
-  userText: "User ID"
-  invalidUserText: "The user name or password is invalid."
-  missingUserText: "The user record was not found."
-  requestAbortedText: "The request was aborted."
-  logoText: "Infor CRM"
->
-
 <editorField ""
   lookupLabelText: "edit"
   lookupText: "..."
@@ -1127,4 +1114,165 @@
 
 <userList ""
   titleText: "Users"
+>
+
+<cardLayoutListMixin ""
+  itemIconAltText: "Contact"
+>
+
+<groupListMixin ""
+  noDefaultGroupText: "No default group set. Click here to configure groups."
+  currentGroupNotFoundText: "The current group was not found."
+  groupTemplateSummaryText: "Summary"
+  groupTemplateDetailText: "Detail"
+>
+
+<rightDrawerListMixin ""
+  hashTagsSectionText: "Hash Tags"
+  groupsSectionText: "Groups"
+  kpiSectionText: "KPI"
+  configureGroupsText: "Configure"
+  refreshGroupsText: "Refresh"
+  layoutsText: "Layouts"
+>
+
+<speedSearchRightDrawerListMixin ""
+  indexSectionText: "Indexes"
+>
+
+<addAccountContact ""
+  accountNameText: "account"
+  accountStatusTitleText: "Account Status"
+  accountSubTypeTitleText: "Account SubType"
+  accountText: "Account"
+  accountTypeTitleText: "Account Type"
+  acctMgrText: "acct mgr"
+  addressText: "address"
+  contactTitleText: "Title"
+  descriptionText: "description"
+  detailsAccountText: "Account Info"
+  detailsContactText: "Contact Info"
+  detailsText: "Contact / Account Info"
+  emailText: "email"
+  faxText: "fax"
+  homePhoneText: "home phone"
+  industryText: "industry"
+  ownerText: "owner"
+  lastNameText: "last"
+  mobileText: "mobile"
+  nameText: "name"
+  statusText: "status"
+  subTypeText: "sub-type"
+  titleText: "Add Account / Contact"
+  typeText: "type"
+  webText: "web"
+  phoneText: "phone"
+  workText: "work phone"
+  industryTitleText: "Industry"
+>
+
+<areaCategoryIssueLookup ""
+  titleText: "Accounts"
+>
+
+<configure ""
+  titleText: "Configure"
+>
+
+<exchangeRateLookup ""
+  titleText: "Exchange Rates"
+>
+
+<footerToolbar ""
+  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. All rights reserved."
+>
+
+<help ""
+  titleText: "Help"
+  errorText: "Error"
+  errorMessageText: "Unable to load the help document."
+>
+
+<home ""
+  configureText: "Configure"
+  addAccountContactText: "Add Account/Contact"
+  titleText: "Home"
+  actionsText: "Quick Actions"
+  viewsText: "Go To"
+>
+
+<leftDrawer ""
+  configureText: "Configure Menu"
+  addAccountContactText: "Add Account/Contact"
+  titleText: "Main Menu"
+  actionsText: "Quick Actions"
+  viewsText: "Go To"
+  footerText: "Other"
+  settingsText: "Settings"
+  helpText: "Help"
+  logOutText: "Log Out"
+  logOutConfirmText: "Are you sure you want to log out?"
+>
+
+<login ""
+  copyrightText: "Copyright &copy; 2015 Infor. All rights reserved. www.infor.com"
+  logOnText: "Sign in"
+  passText: "Password"
+  rememberText: "Remember me"
+  titleText: "Sign in"
+  userText: "User ID"
+  invalidUserText: "The user name or password is invalid."
+  missingUserText: "The user record was not found."
+  requestAbortedText: "The request was aborted."
+  logoText: "Infor CRM"
+>
+
+<logOff ""
+  messageText: "You have been logged out. Please close your browser window."
+  loginText: "Click here to log back in."
+  titleText: "Logged Out"
+>
+
+<metricWidget ""
+  loadingText: "loading..."
+  errorText: "Error loading widget."
+>
+
+<nameEdit ""
+  titleText: "Edit Name"
+  firstNameText: "first"
+  middleNameText: "middle"
+  lastNameText: "last"
+  prefixText: "prefix"
+  prefixTitleText: "Name Prefix"
+  suffixText: "suffix"
+  suffixTitleText: "Name Suffix"
+>
+
+<settings ""
+  clearLocalStorageTitleText: "Clear Storage"
+  clearAuthenticationTitleText: "Clear Saved Credentials"
+  errorLogTitleText: "View Error Logs"
+  localStorageClearedText: "Local storage cleared successfully."
+  credentialsClearedText: "Saved credentials cleared successfully."
+  titleText: "Settings"
+>
+
+<speedSearchList ""
+  titleText: "SpeedSearch"
+  accountText: "Account"
+  activityText: "Activity"
+  contactText: "Contact"
+  historyText: "History"
+  leadText: "Lead"
+  opportunityText: "Opportunity"
+  ticketText: "Ticket"
+>
+
+<textEdit ""
+  titleText: "Edit Text"
+>
+
+<updateToolbar ""
+  updateText: "An update is available.  Click to reload."
 >

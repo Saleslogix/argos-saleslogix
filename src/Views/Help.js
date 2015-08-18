@@ -28,9 +28,7 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
   ]),
 
   // Localization
-  titleText: 'Help',
-  errorText: 'Error',
-  errorMessageText: 'Unable to load the help document.',
+  localeId: 'help',
 
   // View Properties
   id: 'help',

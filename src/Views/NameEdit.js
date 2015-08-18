@@ -12,14 +12,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.NameEdit', [Edit], {
   // Localization
-  titleText: 'Edit Name',
-  firstNameText: 'first',
-  middleNameText: 'middle',
-  lastNameText: 'last',
-  prefixText: 'prefix',
-  prefixTitleText: 'Name Prefix',
-  suffixText: 'suffix',
-  suffixTitleText: 'Name Suffix',
+  localeId: 'nameEdit',
 
   // View Properties
   id: 'name_edit',

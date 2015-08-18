@@ -20,12 +20,7 @@ const mixinName = 'crm.Views._RightDrawerListMixin';
  */
 const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
-  hashTagsSectionText: 'Hash Tags',
-  groupsSectionText: 'Groups',
-  kpiSectionText: 'KPI',
-  configureGroupsText: 'Configure',
-  refreshGroupsText: 'Refresh',
-  layoutsText: 'Layouts',
+  localeId: 'rightDrawerListMixin',
 
   _hasChangedKPIPrefs: false, // Dirty flag so we know when to reload the widgets
   groupList: null,

@@ -26,7 +26,7 @@ const __class = declare('crm.Views.Login', [Edit], {
   busy: false,
 
   // Localization
-  localeId: 'loginView',
+  localeId: 'login',
 
   ENTER_KEY: 13,
 

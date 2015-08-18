@@ -12,7 +12,7 @@ import Edit from 'argos/Edit';
 const __class = declare('crm.Views.TextEdit', [Edit], {
   // View Properties
   id: 'text_edit',
-  titleText: 'Edit Text',
+  localeId: 'textEdit',
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

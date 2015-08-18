@@ -22,10 +22,7 @@ const mixinName = 'crm.Views._GroupListMixin';
  *
  */
 const __class = declare('crm.Views._GroupListMixin', null, {
-  noDefaultGroupText: 'No default group set. Click here to configure groups.',
-  currentGroupNotFoundText: 'The current group was not found.',
-  groupTemplateSummaryText: 'Summary',
-  groupTemplateDetailText: 'Detail',
+  localeId: 'groupListMixin',
   hasDefaultGroup: true,
   noDefaultGroupTemplate: new Simplate([
     '<li class="no-data" data-action="openConfigure">',
