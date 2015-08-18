@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
 import Detail from 'argos/Detail';
+import Utility from 'argos/Utility';
 
 /**
  * @class crm.Views.Lead.Detail
@@ -13,45 +14,14 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.Lead.Detail', [Detail], {
   // Localization
+  localeId: 'leadDetail',
   activityTypeText: {
-    'atPhoneCall': 'Phone Call',
-    'atEMail': 'E-mail',
   },
-  accountText: 'company',
-  addressText: 'address',
-  businessDescriptionText: 'bus desc',
-  createDateText: 'create date',
-  createUserText: 'create user',
-  eMailText: 'email',
-  leadSourceText: 'lead source',
-  industryText: 'industry',
-  interestsText: 'interests',
-  leadTitleText: 'title',
-  nameText: 'name',
-  notesText: 'comments',
-  ownerText: 'owner',
-  relatedActivitiesText: 'Activities',
-  relatedHistoriesText: 'Notes/History',
-  relatedItemsText: 'Related Items',
-  relatedNotesText: 'Notes',
-  relatedAttachmentText: 'Attachments',
-  relatedAttachmentTitleText: 'Lead Attachments',
-  sicCodeText: 'sic code',
-  titleText: 'Lead',
-  tollFreeText: 'toll free',
-  mobileText: 'mobile phone',
-  webText: 'web',
-  workText: 'work phone',
-  actionsText: 'Quick Actions',
-  callWorkNumberText: 'Call main number',
-  scheduleActivityText: 'Schedule activity',
-  addNoteText: 'Add note',
-  sendEmailText: 'Send email',
-  viewAddressText: 'View address',
-  moreDetailsText: 'More Details',
-  calledText: 'Called ${0}',
-  emailedText: 'Emailed ${0}',
-  entityText: 'Lead',
+  activityTypeKeys: [
+    'atPhoneCall',
+    'atEMail',
+  ],
+  activityTypeValues: null,
 
   // View Properties
   id: 'lead_detail',
@@ -89,6 +59,13 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
+    if (!this.activityTypeValues) {
+      this.activityTypeValues = [
+        this.phoneCall,
+        this.email,
+      ];
+      Utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
+    }
     if (view) {
       this.refreshRequired = true;
 

@@ -17,18 +17,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
   // Localization
-  estCloseText: 'est close',
-  detailsText: 'Details',
-  opportunityStageTitleText: 'Opportunity Stage',
-  opportunityText: 'opportunity',
-  stageText: 'stage',
-  statusOpenText: 'Open',
-  statusClosedLostText: 'Closed - Lost',
-  statusClosedWonText: 'Closed - Won',
-  salesProcessText: 'stage locked by sales process:',
-  probabilityText: 'close prob',
-  probabilityTitleText: 'Opportunity Probability',
-  potentialText: 'sales potential',
+  localeId: 'opportunityQuickEdit',
 
   // View Properties
   entityName: 'Opportunity',

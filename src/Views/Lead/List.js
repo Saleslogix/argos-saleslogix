@@ -73,22 +73,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   },
 
   // Localization
-  titleText: 'Leads',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  emailedText: 'E-mailed ${0}',
-  calledText: 'Called ${0}',
-  editActionText: 'Edit',
-  callMobileActionText: 'Call Mobile',
-  callWorkActionText: 'Call Work',
-  sendEmailActionText: 'Email',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  phoneAbbreviationText: 'Work: ',
-  mobileAbbreviationText: 'Mobile: ',
-  tollFreeAbbreviationText: 'Toll Free: ',
+  localeId: 'leadList',
 
   // View Properties
   detailView: 'lead_detail',

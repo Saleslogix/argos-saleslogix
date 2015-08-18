@@ -18,29 +18,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   // Localization
-  accountText: 'acct',
-  acctMgrText: 'acct mgr',
-  estCloseText: 'est close',
-  importSourceText: 'lead source',
-  detailsText: 'Details',
-  opportunityStatusTitleText: 'Opportunity Status',
-  opportunityText: 'opportunity',
-  opportunityTypeTitleText: 'Opportunity Type',
-  ownerText: 'owner',
-  potentialText: 'sales potential',
-  probabilityText: 'close prob',
-  probabilityTitleText: 'Opportunity Probability',
-  resellerText: 'reseller',
-  statusText: 'status',
-  titleText: 'Opportunity',
-  typeText: 'type',
-  multiCurrencyText: 'Multi Currency',
-  multiCurrencyRateText: 'exchange rate',
-  multiCurrencyCodeText: 'code',
-  multiCurrencyDateText: 'rate date',
-  multiCurrencyLockedText: 'rate locked',
-  exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
-  subTypePickListResellerText: 'RESELLER',
+  localeId: 'opportunityEdit',
 
   // View Properties
   entityName: 'Opportunity',

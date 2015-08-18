@@ -13,10 +13,10 @@ import RelatedViewWidget from 'argos/RelatedViewWidget';
  *
  */
 const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
-  regardingText: 'Regarding',
-  byText: 'wrote ',
+  // Localization
+  localeId: 'historyRelated',
+
   id: 'relatedNotes',
-  titleText: 'Notes',
   detailViewId: 'history_detail',
   listViewId: 'history_related',
   listViewWhere: null,

@@ -7,6 +7,7 @@ import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import template from '../../Template';
 import Detail from 'argos/Detail';
+import utility from 'argos/Utility';
 
 /**
  * @class crm.Views.History.Detail
@@ -23,40 +24,19 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   createUserTemplate: template.nameLF,
 
   // Localization
-  categoryText: 'category',
-  completedText: 'completed',
-  durationText: 'duration',
-  leaderText: 'leader',
-  longNotesText: 'notes',
-  notesText: 'Notes',
-  priorityText: 'priority',
-  regardingText: 'regarding',
-  completedByText: 'completed by',
-  scheduledText: 'scheduled',
-  timelessText: 'timeless',
-  companyText: 'company',
-  leadText: 'lead',
-  titleText: 'History',
-  accountText: 'account',
-  contactText: 'contact',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  moreDetailsText: 'More Details',
-  relatedItemsText: 'Related Items',
-  relatedAttachmentText: 'Attachments',
-  relatedAttachmentTitleText: 'History Attachments',
-  modifiedText: 'modified',
-  typeText: 'type',
+  localeId: 'historyDetail',
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
-    'atQuestion': 'Question',
-    'atEMail': 'E-mail',
   },
-  entityText: 'History',
+  activityTypeKeys: [
+    'atToDo',
+    'atPhoneCall',
+    'atAppointment',
+    'atLiterature',
+    'atPersonal',
+    'atQuestion',
+    'atEMail',
+  ],
+  activityTypeValues: null,
   // View Properties
   id: 'history_detail',
   existsRE: /^[\w]{12}$/,
@@ -92,6 +72,18 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   ],
 
   formatActivityType: function formatActivityType(val) {
+    if (!this.activityTypeValues) {
+      this.activityTypeValues = [
+        this.toDo,
+        this.phoneCall,
+        this.meeting,
+        this.literature,
+        this.personal,
+        this.question,
+        this.email,
+      ];
+      utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
+    }
     return this.activityTypeText[val] || val;
   },
   isHistoryForLead: function isHistoryForLead(entry) {

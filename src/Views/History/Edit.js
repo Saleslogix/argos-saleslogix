@@ -19,25 +19,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.History.Edit', [Edit], {
   // Localization
-  accountText: 'account',
-  noteDescriptionTitleText: 'Note Description',
-  contactText: 'contact',
-  longNotesText: 'notes',
-  longNotesTitleText: 'Notes',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  regardingText: 'regarding',
-  isLeadText: 'for lead',
-  startingText: 'time',
-  startingFormatText: 'M/D/YYYY h:mm A',
-  titleText: 'Note',
-  companyText: 'company',
-  leadText: 'lead',
-  relatedItemsText: 'Related Items',
-  yesText: 'YES',
-  noText: 'NO',
-  validationText: "The field '${2}' must have a value",
-  validationCanEditText: 'You are not allowed to edit',
+  localeId: 'historyEdit',
   // View Properties
   id: 'history_edit',
   fieldsForLeads: ['AccountName', 'Lead'],

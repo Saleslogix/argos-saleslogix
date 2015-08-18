@@ -263,15 +263,6 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.eventFeed = {};
     this.entries = {};
     this.dateCounts = [];
-    this.weekdaysShortText = [
-      this.sundayShortText,
-      this.mondayShortText,
-      this.tuesdayShortText,
-      this.wednesdayShortText,
-      this.thursdayShortText,
-      this.fridayShortText,
-      this.saturdayShortText,
-    ];
   },
   _onRefresh: function _onRefresh(o) {
     this.inherited(arguments);
@@ -717,12 +708,24 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     const weekEnds = [0, 6];
     let weekendClass = '';
     let day = 1;
+    let weekdaysText = this.weekdaysShortText;
+    if (!weekdaysText) {
+      weekdaysText = [
+        this.sundayShortText,
+        this.mondayShortText,
+        this.tuesdayShortText,
+        this.wednesdayShortText,
+        this.thursdayShortText,
+        this.fridayShortText,
+        this.saturdayShortText,
+      ];
+    }
 
     calHTML.push(this.calendarStartTemplate);
 
     calHTML.push(this.calendarWeekHeaderStartTemplate);
     for (let i = 0; i <= 6; i++) {
-      calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [this.weekDaysShortText[i]]));
+      calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [weekdaysText[i]]));
     }
     calHTML.push(this.calendarWeekHeaderEndTemplate);
 

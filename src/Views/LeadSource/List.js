@@ -16,7 +16,7 @@ const __class = declare('crm.Views.LeadSource.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Lead Sources',
+  localeId: 'leadSourceList',
 
   // View Properties
   id: 'leadsource_list',

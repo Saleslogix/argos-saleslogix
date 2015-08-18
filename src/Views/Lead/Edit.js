@@ -14,30 +14,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Lead.Edit', [Edit], {
   // Localization
-  accountText: 'account',
-  addressText: 'address',
-  businessText: 'bus desc',
-  businessTitleText: 'Business Description',
-  companyText: 'company',
-  contactTitleText: 'title',
-  emailText: 'email',
-  faxText: 'fax',
-  importSourceText: 'lead source',
-  industryText: 'industry',
-  industryTitleText: 'Industry',
-  interestsText: 'interests',
-  leadNameLastFirstText: 'name',
-  leadOwnerText: 'owner',
-  nameText: 'name',
-  notesText: 'comments',
-  notesTitleText: 'Comments',
-  sicCodeText: 'sic code',
-  titleText: 'Lead',
-  titleTitleText: 'Title',
-  tollFreeText: 'toll free',
-  webText: 'web',
-  workText: 'work phone',
-  mobileText: 'mobile phone',
+  localeId: 'leadEdit',
 
   // View Properties
   entityName: 'Lead',

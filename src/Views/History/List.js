@@ -9,6 +9,7 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import moment from 'moment';
+import utility from 'argos/Utility';
 
 /**
  * @class crm.Views.History.List
@@ -61,31 +62,30 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   ]),
 
   // Localization
+  localeId: 'historyList',
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
-    'atQuestion': 'Question',
-    'atEMail': 'E-mail',
   },
-  hourMinuteFormatText: 'h:mm A',
+  activityTypeKeys: [
+    'atToDo',
+    'atPhoneCall',
+    'atAppointment',
+    'atLiterature',
+    'atPersonal',
+    'atQuestion',
+    'atEMail',
+  ],
+  activityTypeValues: null,
   hashTagQueriesText: {
-    'my-history': 'my-history',
-    'note': 'note',
-    'phonecall': 'phonecall',
-    'meeting': 'meeting',
-    'personal': 'personal',
-    'email': 'email',
   },
-  dateFormatText: 'M/D/YY',
-  titleText: 'Notes/History',
-  viewAccountActionText: 'Account',
-  viewOpportunityActionText: 'Opp.',
-  viewContactActionText: 'Contact',
-  addAttachmentActionText: 'Add Attachment',
-  regardingText: 'Regarding: ',
+  hashTagQueriesKeys: [
+    'my-history',
+    'note',
+    'phonecall',
+    'meeting',
+    'personal',
+    'email',
+  ],
+  hashTagQueriesValues: null,
 
   // View Properties
   detailView: 'history_detail',
@@ -252,6 +252,32 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     }
 
     return cls;
+  },
+  init: function init() {
+    this.inherited(arguments);
+    if (!this.hashTagQueriesValues) {
+      this.hashTagQueriesValues = [
+        this.myHistoryHash,
+        this.noteHash,
+        this.phoneCallHash,
+        this.meetingHash,
+        this.personalHash,
+        this.emailHash,
+      ];
+      utility.extendObjectKeyValue(this.hashTagQueriesText, this.hashTagQueriesKeys, this.hashTagQueriesValues);
+    }
+    if (!this.activityTypeValues) {
+      this.activityTypeValues = [
+        this.toDo,
+        this.phoneCall,
+        this.meeting,
+        this.literature,
+        this.personal,
+        this.question,
+        this.email,
+      ];
+      utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
+    }
   },
 });
 

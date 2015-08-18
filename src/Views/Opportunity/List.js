@@ -60,20 +60,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   ]),
 
   // Localization
-  titleText: 'Opportunities',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  viewAccountActionText: 'Account',
-  viewContactsActionText: 'Contacts',
-  viewProductsActionText: 'Products',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  actualCloseText: 'Closed ',
-  estimatedCloseText: 'Estimated close ',
-  quickEditActionText: 'Quick Edit',
+  localeId: 'opportunityList',
 
   // View Properties
   id: 'opportunity_list',

@@ -16,6 +16,7 @@ import utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Contact.Detail', [Detail], {
   // Localization
+  localeId: 'contactDetail',
   activityTypeText: {},
   activityTypeKeys: [
     'atPhoneCall',
