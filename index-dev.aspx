@@ -99,9 +99,6 @@
     </script>
     <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.0.min.js"></script>
 
-    <!-- JSON -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
-
     <!-- SData Client Library -->
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
@@ -117,6 +114,9 @@
 
     <!-- Chart.js -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
+
+    <!-- Babel -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
 
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -238,16 +238,16 @@
     {
         var rootPath = rootDirectory.FullName;
         var filePath = file.FullName;
-        
-        if (filePath.StartsWith(rootPath)) 
-        {           
+
+        if (filePath.StartsWith(rootPath))
+        {
             var relativePath = filePath.Substring(rootPath.Length + 1);
             return relativePath.Replace('\\', '/');
         }
 
         throw new ApplicationException("Invalid root path specified.");
-    }              
-                
+    }
+
     protected IEnumerable<FileItem> Enumerate(string path, Predicate<FileInfo> predicate)
     {
         var rootDirectory = new DirectoryInfo(Path.GetDirectoryName(Request.PhysicalPath));
@@ -259,12 +259,12 @@
 
             if (predicate != null) files = files.Where(file => predicate(file));
 
-            foreach (var file in files)            
+            foreach (var file in files)
                 yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, file),
                     File = file
-                };            
+                };
         }
     }
 
@@ -288,46 +288,46 @@
         var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
         var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
         var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
-        
+
         if (includeDirectory.Exists)
         {
             var parentFileName = String.Format(@"{0}.js", culture ?? currentCulture.Parent.Name);
             var parentFile = new FileInfo(Path.Combine(includeDirectory.FullName, parentFileName));
             var targetFileName = String.Format(@"{0}.js", culture ?? currentCulture.Name);
-            var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName)); 
-                                  
-            if (targetFile.Exists)            
+            var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName));
+
+            if (targetFile.Exists)
                 yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, targetFile),
                     File = targetFile
-                };    
+                };
             else if (parentFile.Exists)
                 yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, parentFile),
                     File = targetFile
-                };  
-            
+                };
+
             foreach (var moduleDirectory in includeDirectory.GetDirectories())
             {
                 parentFile = new FileInfo(Path.Combine(moduleDirectory.FullName, parentFileName));
                 targetFile = new FileInfo(Path.Combine(moduleDirectory.FullName, targetFileName));
-                
-                if (targetFile.Exists)            
+
+                if (targetFile.Exists)
                     yield return new FileItem
                     {
                         Path = ToRelativeUrlPath(rootDirectory, targetFile),
                         File = targetFile
-                    };    
+                    };
                 else if (parentFile.Exists)
                     yield return new FileItem
                     {
                         Path = ToRelativeUrlPath(rootDirectory, parentFile),
                         File = targetFile
-                    };   
-            }    
+                    };
+            }
         }
     }
-     
+
 </script>

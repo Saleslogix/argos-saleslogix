@@ -1,8 +1,0 @@
-{
-    "port": 8000,
-    "proxy": {
-        "host": "localhost",
-        "port": 80,
-        "protocol": "http"
-    }
-}

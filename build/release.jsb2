@@ -358,14 +358,6 @@
           "path": "../src-out/Views/"
         },
         {
-          "text": "MetricConfigure.js",
-          "path": "../src-out/Views/"
-        },
-        {
-          "text": "MetricFilterLookup.js",
-          "path": "../src-out/Views/"
-        },
-        {
           "text": "SpeedSearchList.js",
           "path": "../src-out/Views/"
         },
