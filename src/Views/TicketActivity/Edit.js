@@ -17,16 +17,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   // Localization
-  titleText: 'Edit Ticket Activity',
-  activityTypeText: 'type',
-  activityTypeTitleText: 'Type',
-  publicAccessText: 'public access',
-  publicAccessTitleText: 'Public Access',
-  userText: 'user',
-  startDateText: 'start date',
-  endDateText: 'end date',
-  commentsText: 'comments',
-  startingFormatText: 'M/D/YYYY h:mm A',
+  localeId: 'ticketActivityEdit',
 
   // View Properties
   entityName: 'TicketActivity',

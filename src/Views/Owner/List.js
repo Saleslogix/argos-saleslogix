@@ -16,7 +16,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Owners',
+  localeId: 'ownerList',
 
   // View Properties
   id: 'owner_list',

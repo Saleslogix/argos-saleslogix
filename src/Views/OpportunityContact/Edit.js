@@ -12,19 +12,7 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
   // Localization
-  titleText: 'Edit Opp. Contact',
-  nameText: 'name',
-  accountNameText: 'account',
-  contactTitleText: 'title',
-  salesRoleText: 'role',
-  salesRoleTitleText: 'Role',
-  personalBenefitsText: 'personal ben.',
-  strategyText: 'strategy',
-  issuesText: 'issues',
-  standingText: 'standing',
-  standingTitleText: 'Standing',
-  contactText: 'Contact',
-  competitorPrefText: 'competitor pref',
+  localeId: 'opportunityContactEdit',
 
   // View Properties
   entityName: 'OpportunityContact',

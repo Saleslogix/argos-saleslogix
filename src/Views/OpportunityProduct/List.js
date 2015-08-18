@@ -32,7 +32,7 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Products',
+  localeId: 'opportunityProductList',
 
   // View Properties
   id: 'opportunityproduct_list',

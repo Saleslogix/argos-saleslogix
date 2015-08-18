@@ -12,13 +12,7 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
   // Localization
-  titleText: 'Ticket Activity Part',
-  productNameText: 'product',
-  skuText: 'SKU',
-  serialNumberText: 'serial #',
-  itemAmountText: 'price',
-  itemDescriptionText: 'description',
-  entityText: 'Ticket Activity Item',
+  localeId: 'ticketActivityItemDetail',
 
   // View Properties
   id: 'ticketactivityitem_detail',

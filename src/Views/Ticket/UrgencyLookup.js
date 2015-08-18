@@ -10,7 +10,7 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
   // Localization
-  titleText: 'Ticket Urgency',
+  localeId: 'ticketUrgencyLookup',
 
   // Templates
   itemTemplate: new Simplate([

@@ -16,7 +16,7 @@ const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
   ]),
 
   // Localization
-  titleText: 'Rates',
+  localeId: 'ticketActivityRateLookup',
 
   // View Properties
   id: 'ticketactivity_ratelookup',

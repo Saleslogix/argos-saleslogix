@@ -58,21 +58,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   },
 
   // Localization
-  titleText: 'Tickets',
-  activitiesText: 'Activities',
-  scheduleText: 'Schedule',
-  notAssignedText: 'Not assigned',
-  editActionText: 'Edit',
-  viewAccountActionText: 'Account',
-  viewContactActionText: 'Contact',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  assignedToText: 'Assigned To: ',
-  urgencyText: 'Urgency: ',
-  createdOnText: 'Created  ',
-  modifiedText: 'Modified ',
-  neededByText: 'Needed  ',
+  localeId: 'ticketList',
 
   // View Properties
   detailView: 'ticket_detail',

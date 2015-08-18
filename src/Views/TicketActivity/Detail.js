@@ -21,31 +21,7 @@ import 'dojo/NodeList-manipulate';
  */
 const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   // Localization
-  titleText: 'Ticket Activity',
-
-  accountText: 'account',
-  contactText: 'contact',
-  typeText: 'type',
-  publicAccessText: 'public access',
-  assignedDateText: 'start date',
-  completedDateText: 'end date',
-  followUpText: 'follow up',
-  unitsText: 'time units',
-  elapsedUnitsText: 'elapsed hours',
-  rateTypeDescriptionText: 'charge type',
-  rateText: 'rate',
-  totalLaborText: 'total labor',
-  totalPartsText: 'total parts',
-  totalFeeText: 'total fee',
-  activityDescriptionText: 'comments',
-  ticketNumberText: 'ticket number',
-  userText: 'user',
-  entityText: 'Ticket Activity',
-
-  completeTicketText: 'Complete Ticket Activity',
-  moreDetailsText: 'More Details',
-  relatedItemsText: 'Related Items',
-  relatedTicketActivityItemText: 'Ticket Activity Parts',
+  localeId: 'ticketActivityDetail',
 
   // View Properties
   id: 'ticketactivity_detail',

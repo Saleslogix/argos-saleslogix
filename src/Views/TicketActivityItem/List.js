@@ -19,7 +19,7 @@ const __class = declare('crm.Views.TicketActivityItem.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Ticket Activity Parts',
+  localeId: 'ticketActivityItemList',
 
   // View Properties
   id: 'ticketactivityitem_list',

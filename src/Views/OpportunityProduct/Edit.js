@@ -18,23 +18,7 @@ import Utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
   // Localization
-  titleText: 'Opportunity Product',
-  detailsText: 'Details',
-  opportunityText: 'opportunity',
-  productText: 'product',
-  productFamilyText: 'product family',
-  priceLevelText: 'price level',
-  priceText: 'price',
-  basePriceText: 'base price',
-  discountText: 'discount %',
-  adjustedPriceText: 'adjusted price',
-  myAdjustedPriceText: 'user',
-  baseAdjustedPriceText: 'base',
-  quantityText: 'quantity',
-  baseExtendedPriceText: 'base',
-  extendedPriceText: 'extended price',
-  extendedPriceSectionText: 'Extended Price',
-  adjustedPriceSectionText: 'Adjusted Price',
+  localeId: 'opportunityProductEdit',
 
   // View Properties
   entityName: 'Opportunity',

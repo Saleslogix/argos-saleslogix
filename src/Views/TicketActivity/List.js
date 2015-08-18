@@ -28,8 +28,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Ticket Activities',
-  startDateFormatText: 'MM/DD/YYYY h:mm A',
+  localeId: 'ticketActivityList',
 
   // View Properties
   id: 'ticketactivity_list',

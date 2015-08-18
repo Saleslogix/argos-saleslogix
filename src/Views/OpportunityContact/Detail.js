@@ -13,21 +13,7 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  */
 const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
   // Localization
-  titleText: 'Opportunity Contact',
-  accountText: 'account',
-  contactTitleText: 'title',
-  nameText: 'contact',
-  moreDetailsText: 'More Details',
-  salesRoleText: 'role',
-  strategyText: 'strategy',
-  personalBenefitsText: 'personal ben',
-  standingText: 'standing',
-  issuesText: 'issues',
-  competitorNameText: 'competitor pref',
-  removeContactTitleText: 'Remove Contact',
-  confirmDeleteText: 'Remove "${0}" from the opportunity?',
-  contactText: 'Contact',
-  entityText: 'Opportunity Contact',
+  localeId: 'opportunityContactDetail',
 
   // View Properties
   id: 'opportunitycontact_detail',

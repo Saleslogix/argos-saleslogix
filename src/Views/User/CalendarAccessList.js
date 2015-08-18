@@ -16,7 +16,7 @@ const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   ]),
 
   // Localization
-  titleText: 'Activity Resources',
+  localeId: 'userCalendarAccessList',
 
   // View Properties
   id: 'calendar_access_list',

@@ -20,11 +20,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Opportunity Contacts',
-  selectTitleText: 'Select Contact',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
+  localeId: 'opportunityContactList',
 
   // View Properties
   id: 'opportunitycontact_list',

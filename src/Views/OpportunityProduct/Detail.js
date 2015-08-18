@@ -17,25 +17,7 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  */
 const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
   // Localization
-  detailsText: 'Details',
-  opportunityText: 'opportunity',
-  productText: 'product',
-  productFamilyText: 'product family',
-  priceLevelText: 'price level',
-  priceText: 'price',
-  basePriceText: 'base price',
-  discountText: 'discount',
-  quantityText: 'quantity',
-  baseExtendedPriceText: 'base',
-  extendedPriceText: 'extended price',
-  extendedPriceSectionText: 'Extended Price',
-  adjustedPriceSectionText: 'Adjusted Price',
-  baseAdjustedPriceText: 'base',
-  adjustedPriceText: 'adjusted price',
-  myAdjustedPriceText: 'user',
-  confirmDeleteText: 'Remove ${0} from the opportunity products?',
-  removeOppProductTitleText: 'remove opportunity product',
-  entityText: 'Opportunity Product',
+  localeId: 'opportunityProductDetail',
 
   // View Properties
   id: 'opportunityproduct_detail',
