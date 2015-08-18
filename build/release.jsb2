@@ -353,6 +353,10 @@
           "path": "../src-out/Views/"
         },
         {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
           "text": "_MetricListMixin.js",
           "path": "../src-out/Views/"
         },

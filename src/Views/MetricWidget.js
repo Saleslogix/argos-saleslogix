@@ -174,32 +174,33 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     const loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
     const loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
 
-    all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(function success(results) {
-      if (!results[0] || !results[1] || !results[2]) {
-        throw new Error('An error occurred loading the KPI widget data.');
-      }
+    all([loadValueFn, loadFormatter, this.requestDataDeferred])
+      .then(function success(results) {
+        if (!results[0] || !results[1] || !results[2]) {
+          throw new Error('An error occurred loading the KPI widget data.');
+        }
 
-      const valueFn = results[0];
-      const formatterFn = results[1];
-      const data = results[2];
+        const valueFn = results[0];
+        const formatterFn = results[1];
+        const data = results[2];
 
-      if (typeof valueFn === 'function') {
-        this.valueFn = valueFn;
-      }
+        if (typeof valueFn === 'function') {
+          this.valueFn = valueFn;
+        }
 
-      if (typeof formatterFn === 'function') {
-        this.formatter = formatterFn;
-      }
+        if (typeof formatterFn === 'function') {
+          this.formatter = formatterFn;
+        }
 
-      const value = this.value = this.valueFn.call(this, data);
-      domConstruct.place(this.itemTemplate.apply({
-        value: value,
-      }, this), this.metricDetailNode, 'replace');
-    }.bind(this), function error(err) {
-      // Error
-      console.error(err); // eslint-disable-line
-      domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
-    }.bind(this));
+        const value = this.value = this.valueFn.call(this, data);
+        domConstruct.place(this.itemTemplate.apply({
+          value: value,
+        }, this), this.metricDetailNode, 'replace');
+      }.bind(this), function error(err) {
+        // Error
+        console.error(err); // eslint-disable-line
+        domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
+      }.bind(this));
   },
   navToReportView: function navToReportView() {
     const view = App.getView(this.chartTypeMapping[this.chartType]);
@@ -214,14 +215,20 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
       });
     }
   },
-  _getData: function _getData() {
-    const queryOptions = {
+  _buildQueryOptions: function _buildQueryOptions() {
+    return {
       count: this.pageSize,
       start: this.position,
     };
-
+  },
+  _buildQueryExpression: function _buildQueryExpression() {
+    return null;
+  },
+  _getData: function _getData() {
+    const queryOptions = this._buildQueryOptions();
+    const queryExpression = this._buildQueryExpression();
     const store = this.get('store');
-    const queryResults = store.query(null, queryOptions);
+    const queryResults = store.query(queryExpression, queryOptions);
 
     when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },

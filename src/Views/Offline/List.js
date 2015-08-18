@@ -10,19 +10,23 @@ import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _OfflineRightDrawerListMixin from './_OfflineRightDrawerListMixin';
+import _MetricListMixin from '../_MetricListMixin';
+import TotalMetricWidget from './TotalMetricWidget';
 import Store from 'argos/Store/PouchDB';
 
-export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixin, _OfflineRightDrawerListMixin], {
+export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   id: 'offline_list',
   idProperty: 'id',
   detailView: 'offline_detail',
   offlineSupport: true,
   enableSearch: false,
   enableActions: true,
+  resourceKind: 'offline',
 
   titleText: 'Recently Viewed',
 
   OFFLINE_DB_NAME: 'crm-offline',
+  metricWidgetCtor: TotalMetricWidget,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
@@ -62,7 +66,14 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
       }
     };
   },
+  _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
+    const options = widgetOptions;
+    options.OFFLINE_DB_NAME = this.OFFLINE_DB_NAME;
+    return options;
+  },
   _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
+    delete queryOptions.count;
+    delete queryOptions.start;
     queryOptions.include_docs = true;
     return queryOptions;
   },

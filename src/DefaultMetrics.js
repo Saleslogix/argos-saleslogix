@@ -187,6 +187,15 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         formatter: 'bigNumber',
         enabled: false,
       }],
+    }, {
+      resourceKind: 'offline',
+      children: [{
+        title: this.offlineText.total,
+        chartType: 'bar',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
     }];
   },
 });

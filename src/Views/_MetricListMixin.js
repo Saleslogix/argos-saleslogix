@@ -24,7 +24,6 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   ]),
   metricNode: null,
   metricWidgets: null,
-  configurationView: 'metric_configure',
   entityName: '',
 
   metricWidgetsBuilt: false,
