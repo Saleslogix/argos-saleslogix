@@ -78,6 +78,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   relatedItemsText: 'Related Items',
   phoneText: 'phone',
   moreDetailsText: 'More Details',
+  entityText: 'Activity',
 
   // View Properties
   id: 'activity_detail',

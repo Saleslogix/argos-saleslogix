@@ -51,6 +51,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   moreDetailsText: 'More Details',
   calledText: 'Called ${0}',
   emailedText: 'Emailed ${0}',
+  entityText: 'Lead',
 
   // View Properties
   id: 'lead_detail',
@@ -172,7 +173,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
       list: true,
       title: this.actionsText,
       cls: 'action-list',
-      name: 'QuickActionSection',
+      name: 'QuickActionsSection',
       children: [{
         name: 'CallWorkPhoneAction',
         property: 'WorkPhone',
