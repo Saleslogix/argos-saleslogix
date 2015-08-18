@@ -31,6 +31,9 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
     total: 'Total History',
     duration: 'Total Duration',
   },
+  offlineText: {
+    total: 'Total Recently Viewed',
+  },
   customizationSet: 'metrics',
   id: 'default_metrics',
   getDefinitions: function getDefinitions() {
