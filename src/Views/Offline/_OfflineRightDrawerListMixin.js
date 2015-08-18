@@ -17,9 +17,11 @@ const mixinName = 'crm.Views.Offline._OfflineRightDrawerListMixin';
 const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
   entitySectionText: 'Entity',
+  kpiSectionText: 'KPI',
 
-  _hasChangedEntityPrefs: false, // Dirty flag so we know when to reload the widgets
-
+  // Dirty flags to refresh the mainview and/or widgets
+  _hasChangedEntityPrefs: false,
+  _hasChangedKPIPrefs: false,
   onShow: function onShow() {
     this.setDefaultEntityPreferences();
   },
@@ -55,6 +57,12 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
           this.refresh();
           this._hasChangedEntityPrefs = false;
         }
+
+        if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
+          this.destroyWidgets();
+          this.rebuildWidgets();
+          this._hasChangedKPIPrefs = false;
+        }
       }));
     }
   },
@@ -89,18 +97,43 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
             .toString());
         }
       }.bind(this),
+      kpiClicked: function kpiClicked(params) {
+        const metrics = App.getMetricsByResourceKind(this.resourceKind);
+        let results;
+
+        if (metrics.length > 0) {
+          results = array.filter(metrics, function setMetricTitle(metric) {
+            return metric.title === params.title;
+          });
+        }
+
+        if (results.length > 0) {
+          const enabled = !!results[0].enabled;
+          results[0].enabled = !enabled;
+          App.persistPreferences();
+          this._hasChangedKPIPrefs = true;
+
+          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+        }
+      }.bind(this),
     };
 
     return actions;
   },
   getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
+    const mixin = lang.getObject(mixinName);
+
     if (entry.dataProps && entry.dataProps.entityname) {
-      const mixin = lang.getObject(mixinName);
       return {
         tag: 'view',
         title: mixin.prototype.entitySectionText,
       };
     }
+
+    return {
+      tag: 'kpi',
+      title: mixin.prototype.kpiSectionText,
+    };
   },
   createRightDrawerLayout: function createRightDrawerLayout() {
     const layout = [];
@@ -128,6 +161,25 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
     };
 
     layout.push(entitySection);
+
+    const metrics = App.getMetricsByResourceKind(this.resourceKind);
+
+    const kpiSection = {
+      id: 'kpi',
+      children: metrics.filter((m) => m.title).map((metric, i) => {
+        return {
+          'name': 'KPI' + i,
+          'action': 'kpiClicked',
+          'title': metric.title,
+          'dataProps': {
+            'title': metric.title,
+            'enabled': !!metric.enabled,
+          },
+        };
+      }),
+    };
+
+    layout.push(kpiSection);
     return layout;
   },
 });

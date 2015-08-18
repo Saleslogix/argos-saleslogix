@@ -233,22 +233,22 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
   _onQuerySuccess: function _onQuerySuccess(queryResults) {
-    const total = queryResults.total;
+    when(queryResults.total, (total) => {
+      queryResults.forEach(lang.hitch(this, this._processItem));
 
-    queryResults.forEach(lang.hitch(this, this._processItem));
+      let left = -1;
+      if (total > -1) {
+        left = total - (this.position + this.pageSize);
+      }
 
-    let left = -1;
-    if (total > -1) {
-      left = total - (this.position + this.pageSize);
-    }
-
-    if (left > 0) {
-      this.position = this.position + this.pageSize;
-      this._getData();
-    } else {
-      // Signal complete
-      this.requestDataDeferred.resolve(this._data);
-    }
+      if (left > 0) {
+        this.position = this.position + this.pageSize;
+        this._getData();
+      } else {
+        // Signal complete
+        this.requestDataDeferred.resolve(this._data);
+      }
+    });
   },
   _processItem: function _processItem(item) {
     this._data.push(item);

@@ -103,14 +103,13 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     // Create metrics widgets and place them in the metricNode
     const widgetOptions = this.createMetricWidgetsLayout() || [];
-    this.metricWidgets = array.map(widgetOptions, function createAndPlaceWidgets(options) {
-      if (this._hasValidOptions(options)) {
+    this.metricWidgets = widgetOptions.filter((options) => this._hasValidOptions(options))
+      .map((options) => {
         const widget = this._instantiateMetricWidget(options);
         widget.placeAt(this.metricNode, 'last');
         widget.requestData();
         return widget;
-      }
-    }, this);
+      });
 
     this.metricWidgetsBuilt = true;
   },
@@ -119,8 +118,9 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const query = this.query;
     const where = this.options && this.options.where;
     return array.filter([query, where], function checkItem(item) {
-      return !!item;
-    }).join(' and ');
+        return !!item;
+      })
+      .join(' and ');
   },
   _hasValidOptions: function _hasValidOptions(options) {
     return options && options.queryArgs && options.queryArgs._filterName && options.queryArgs._metricName;
