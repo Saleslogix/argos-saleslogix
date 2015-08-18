@@ -176,11 +176,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
    */
   loadingFont: '#000',
 
-  /**
-   * @property {String}
-   * Loading message
-   */
-  loadingText: 'loading...',
+  localeId: 'chartMixin',
 
   /**
    * Overrides View widgetTemplate

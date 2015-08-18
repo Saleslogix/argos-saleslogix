@@ -19,7 +19,7 @@ const __class = declare('crm.Views.Competitor.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Competitors',
+  localeId: 'competitorList',
 
   // View Properties
   detailView: 'competitor_detail',

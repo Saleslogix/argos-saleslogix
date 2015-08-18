@@ -89,7 +89,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     'atPersonal',
     'atQuestion',
     'atNote',
-    'atEmail',
+    'atEMail',
   ],
   activityTypeValues: [
     this.toDoText,

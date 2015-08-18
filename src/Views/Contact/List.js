@@ -52,21 +52,7 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   ]),
 
   // Localization
-  titleText: 'Contacts',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  callMainActionText: 'Call Main',
-  callWorkActionText: 'Call Work',
-  callMobileActionText: 'Call Mobile',
-  sendEmailActionText: 'Email',
-  viewAccountActionText: 'Account',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  phoneAbbreviationText: 'Work: ',
-  mobileAbbreviationText: 'Mobile: ',
+  localeId: 'contactList',
 
   // View Properties
   detailView: 'contact_detail',

@@ -21,7 +21,7 @@ const __class = declare('crm.Views.Groups.Selector', [List], {
   family: '',
 
   // Localization
-  titleText: 'Groups Lookup',
+  localeId: 'groupsSelector',
 
   itemTemplate: new Simplate([
     '<h3>{%: $[$$.labelProperty] %}</h3>',

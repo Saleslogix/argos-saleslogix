@@ -16,20 +16,7 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   // Localization
-  titleText: 'Error Log',
-
-  detailsText: 'Details',
-  errorDateText: 'date',
-  errorDateFormatText: 'MM/DD/YYYY hh:mm A',
-  statusTextText: 'error',
-  urlText: 'url',
-  entityText: 'Error Log',
-
-  moreDetailsText: 'More Details',
-  errorText: 'error',
-
-  emailSubjectText: 'Error received in Saleslogix Mobile Client',
-  copiedSuccessText: 'Copied to clipboard',
+  localeId: 'errorLogDetail',
 
   // Templates
   longDetailProperty: new Simplate([

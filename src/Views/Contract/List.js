@@ -16,7 +16,7 @@ const __class = declare('crm.Views.Contract.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Contracts',
+  localeId: 'contractList',
 
   // View Properties
   contextView: 'context_dialog',

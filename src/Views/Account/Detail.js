@@ -24,7 +24,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
     'atPhoneCall',
   ],
   activityTypeValue: null,
-  entityText: 'Account',
 
   // View Properties
   id: 'account_detail',

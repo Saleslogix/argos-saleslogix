@@ -15,12 +15,7 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Event.Edit', [Edit], {
   // Localization
-  titleText: 'Event',
-  typeText: 'type',
-  descriptionText: 'description',
-  startDateText: 'start date',
-  endDateText: 'end date',
-  startingFormatText: 'M/D/YYYY h:mm A',
+  localeId: 'eventEdit',
 
   // View Properties
   entityName: 'Event',

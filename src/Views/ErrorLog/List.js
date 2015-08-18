@@ -15,8 +15,7 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
-  titleText: 'Error Logs',
-  errorDateFormatText: 'MM/DD/YYYY hh:mm A',
+  localeId: 'errorLogList',
 
   // Templates
   itemTemplate: new Simplate([

@@ -12,9 +12,7 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.Event.List', [List], {
   // Localization
-  titleText: 'Events',
-  eventDateFormatText: 'M/D/YYYY',
-  eventText: 'Event',
+  localeId: 'eventList',
 
   // Templates
   itemTemplate: new Simplate([

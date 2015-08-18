@@ -20,23 +20,7 @@ import utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Contact.Edit', [Edit], {
   // Localization
-  titleText: 'Contact',
-  nameText: 'name',
-  workText: 'work phone',
-  mobileText: 'mobile phone',
-  emailText: 'email',
-  webText: 'web',
-  acctMgrText: 'acct mgr',
-  accountNameText: 'account',
-  homePhoneText: 'home phone',
-  faxText: 'fax',
-  addressText: 'address',
-  contactTitleText: 'title',
-  titleTitleText: 'Title',
-  addressTitleText: 'Address',
-  ownerText: 'owner',
-  cuisinePreferenceText: 'cuisine',
-  cuisinePreferenceTitleText: 'Cuisine',
+  localeId: 'contactEdit',
 
   // View Properties
   entityName: 'Contact',
