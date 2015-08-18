@@ -4,6 +4,7 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
+import utility from 'argos/Utility';
 
 /**
  * @class crm.Views.Account.Detail
@@ -18,9 +19,11 @@ import Detail from 'argos/Detail';
 const __class = declare('crm.Views.Account.Detail', [Detail], {
   // Localization
   localeId: 'accountDetail',
-  activityTypeText: {
-    'atPhoneCall': 'Phone Call',
-  },
+  activityTypeText: {},
+  activityTypeKey: [
+    'atPhoneCall',
+  ],
+  activityTypeValue: null,
   entityText: 'Account',
 
   // View Properties
@@ -55,6 +58,12 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
+    if (!this.activityTypeValue) {
+      this.activityTypeValue = [
+        this.phoneCallHistoryTitle,
+      ];
+      utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKey, this.activityTypeValue);
+    }
     if (view) {
       this.refreshRequired = true;
 
