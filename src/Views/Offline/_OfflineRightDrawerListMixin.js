@@ -55,11 +55,11 @@ const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_Righ
           this.clear();
           this.refreshRequired = true;
           this.refresh();
+          this.rebuildWidgets();
           this._hasChangedEntityPrefs = false;
         }
 
         if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
-          this.destroyWidgets();
           this.rebuildWidgets();
           this._hasChangedKPIPrefs = false;
         }

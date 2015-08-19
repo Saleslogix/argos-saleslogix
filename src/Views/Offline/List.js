@@ -72,6 +72,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
     const options = widgetOptions;
     options.OFFLINE_DB_NAME = this.OFFLINE_DB_NAME;
+    options.activeEntityFilters = this.getActiveEntityFilters();
     return options;
   },
   _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {

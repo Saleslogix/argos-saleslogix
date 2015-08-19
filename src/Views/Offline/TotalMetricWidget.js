@@ -8,9 +8,20 @@ export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
     return {};
   },
   _buildQueryExpression: function _buildQueryExpression() {
+    const filters = this.activeEntityFilters || [];
     return {
       map: function map(doc, emit) {
-        emit(1);
+        // If the user has entity filters stored in preferences, filter based on that
+        if (App.preferences && App.preferences.offlineEntityFilters) {
+          filters.forEach((f) => {
+            if (doc.entityName === f.name) {
+              emit(1);
+            }
+          });
+        } else {
+          // User has no entity filter preferences (from right drawer)
+          emit(1);
+        }
       },
       reduce: '_count',
     };

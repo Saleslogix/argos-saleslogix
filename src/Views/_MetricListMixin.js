@@ -63,7 +63,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     this.inherited(arguments);
     this.destroyWidgets();
   },
-  _applyStateToWidgetOptions: function _applyStateToWidgetOptions(options) {
+  _applyStateToWidgetOptions: function _applyStateToWidgetOptions(options) {// eslint-disable-line
     if (!this._hasValidOptions(options)) {
       return options;
     }
