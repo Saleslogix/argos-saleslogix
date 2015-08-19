@@ -3,6 +3,7 @@ import declare from 'dojo/_base/declare';
 import Store from 'argos/Store/PouchDB';
 
 export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
+  navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
     return {};
   },
