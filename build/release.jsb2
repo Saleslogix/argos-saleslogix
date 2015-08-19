@@ -313,10 +313,6 @@
           "path": "../src-out/Views/"
         },
         {
-          "text": "_OfflineRightDrawerListMixin.js",
-          "path": "../src-out/Views/Offline/"
-        },
-        {
           "text": "List.js",
           "path": "../src-out/Views/Offline/"
         },
@@ -395,6 +391,10 @@
 		{
           "text": "_GroupListMixin.js",
           "path": "../src-out/Views/"
+        },
+        {
+          "text": "_OfflineRightDrawerListMixin.js",
+          "path": "../src-out/Views/Offline/"
         },
         {
           "text": "SpeedSearchList.js",
