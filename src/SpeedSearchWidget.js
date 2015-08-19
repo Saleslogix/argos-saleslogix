@@ -38,10 +38,7 @@ const __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
    */
   queryNode: null,
 
-  /**
-   * @property {String} searchText The placeholder text for the input.
-   */
-  searchText: 'SpeedSearch',
+  localeId: 'speedSearchWidget',
 
   _setQueryValueAttr: function _setQueryValueAttr(value) {
     this._onFocus();

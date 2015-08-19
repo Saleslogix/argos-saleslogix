@@ -4,36 +4,98 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _CustomizationMixin from 'argos/_CustomizationMixin';
+import Utility from 'argos/Utility';
 
 const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
-  // Localiztion
+  // Localization
+  localeId: 'defaultMetrics',
   accountsText: {
-    totalRevenue: 'Total Revenue',
-    averageTime: 'Avg Time as Customer',
-    total: 'Total Accounts',
   },
+  accountsKeys: [
+    'totalRevenue',
+    'averageTime',
+    'total',
+  ],
+  accountsValues: null,
   opportunitiesText: {
-    total: 'Total Opportunities',
-    potential: 'Total Sales Potential',
-    montlyPotential: 'Average Monthly Sales Potential',
   },
+  opportunitiesKeys: [
+    'total',
+    'potential',
+    'monthlyPotential',
+  ],
+  opportunitiesValues: null,
   ticketsText: {
-    total: 'Total Tickets',
-    averageOpen: 'Open Age Average',
   },
+  ticketsKeys: [
+    'total',
+    'averageOpen',
+  ],
+  ticketsValues: null,
   contactsText: {
-    total: 'Total Contacts',
   },
+  contactsKeys: [
+    'total',
+  ],
+  contactsValues: null,
   leadsText: {
-    total: 'Total Leads',
   },
+  leadsKeys: [
+    'total',
+  ],
+  leadsValues: null,
   historyText: {
-    total: 'Total History',
-    duration: 'Total Duration',
   },
+  historyKeys: [
+    'total',
+    'duration',
+  ],
+  historyValues: null,
   customizationSet: 'metrics',
   id: 'default_metrics',
   getDefinitions: function getDefinitions() {
+    if (!this.accountsValues) {
+      this.accountsValues = [
+        this.totalRevenue,
+        this.averageTime,
+        this.totalAccounts,
+      ];
+      Utility.extendObjectKeyValue(this.accountsText, this.accountsKeys, this.accountsValues);
+    }
+    if (!this.opportunitiesValues) {
+      this.opportunitiesValues = [
+        this.totalOpportunities,
+        this.potential,
+        this.montlyPotential,
+      ];
+      Utility.extendObjectKeyValue(this.opportunitiesText, this.opportunitiesKeys, this.opportunitiesValues);
+    }
+    if (!this.ticketsValues) {
+      this.ticketsValues = [
+        this.totalTickets,
+        this.averageOpen,
+      ];
+      Utility.extendObjectKeyValue(this.ticketsText, this.ticketsKeys, this.ticketsValues);
+    }
+    if (!this.contactsValues) {
+      this.contactsValues = [
+        this.totalContacts,
+      ];
+      Utility.extendObjectKeyValue(this.contactsText, this.contactsKeys, this.contactsValues);
+    }
+    if (!this.leadsValues) {
+      this.leadsValues = [
+        this.totalLeads,
+      ];
+      Utility.extendObjectKeyValue(this.leadsText, this.leadsKeys, this.leadsValues);
+    }
+    if (!this.historyValues) {
+      this.historyValues = [
+        this.totalHistory,
+        this.duration,
+      ];
+      Utility.extendObjectKeyValue(this.historyText, this.historyKeys, this.historyValues);
+    }
     return this._createCustomizedLayout(this.createLayout(), 'definitions');
   },
   createLayout: function createLayout() {

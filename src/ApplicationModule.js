@@ -109,7 +109,6 @@ import './Validator';
 import './Environment';
 import './Utility';
 
-
 /**
  * @class crm.ApplicationModule
  *
@@ -124,7 +123,7 @@ import './Utility';
  *
  */
 const __class = declare('crm.ApplicationModule', [ApplicationModule], {
-  searchText: 'Lookup',
+  localeId: 'applicationModule',
   loadViews: function loadViews() {
     this.inherited(arguments);
 

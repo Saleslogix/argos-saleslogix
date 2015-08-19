@@ -320,6 +320,12 @@
 
 <activityTypesList ""
   titleText: "Schedule..."
+  toDo: "To-Do"
+  phoneCall: "Phone Call"
+  meeting: "Meeting"
+  literature: "Literature Request"
+  personal: "Personal Activity"
+  eventText: "Event"
 >
 
 <addressEdit ""
@@ -339,12 +345,6 @@
   stateText: "state"
   stateTitleText: "State"
   titleText: "Address"
-  toDo: "To-Do"
-  phoneCall: "Phone Call"
-  meeting: "Meeting"
-  literature: "Literature Request"
-  personal: "Personal Activity"
-  eventText: "Event"
 >
 
 <addressList ""
@@ -1275,4 +1275,89 @@
 
 <updateToolbar ""
   updateText: "An update is available.  Click to reload."
+>
+
+<action ""
+  calledText: "Called ${0}"
+  emailedText: "E-mailed ${0}"
+>
+
+<application ""
+  versionInfoText: "Mobile v${0}.${1}.${2}"
+  loadingText: "Loading application state"
+  authText: "Authenticating"
+>
+
+<applicationModule ""
+  searchText: "Lookup"
+>
+
+<defaultMetrics ""
+  totalRevenue: "Total Revenue"
+  averageTime: "Avg Time as Customer"
+  totalAccounts: "Total Accounts"
+  totalOpportunities: "Total Opportunities"
+  potential: "Total Sales Potential"
+  montlyPotential: "Average Monthly Sales Potential"
+  totalTickets: "Total Tickets"
+  averageOpen: "Open Age Average"
+  totalContacts: "Total Contacts"
+  totalLeads: "Total Leads"
+  totalHistory: "Total History"
+  duration: "Total Duration"
+>
+
+<fileManager ""
+  unableToUploadText: "This browser does not support HTML5 File API."
+  unknownSizeText: "unknown"
+  unknownErrorText: "Warning: An error occured and the file failed to upload."
+  largeFileWarningText: "Warning: This request exceeds the size limit set by your administrator and failed to upload."
+  largeFileWarningTitle: "Warning"
+  percentCompleteText: "Uploading, please wait..."
+>
+
+<groupUtility ""
+  groupDateFormatText: "M/D/YYYY h:mm:ss a"
+>
+
+<recurrence ""
+  neverText: "Never"
+  daysText: "days"
+  dailyText: "Daily"
+  weeksText: "weeks"
+  weeklyText: "Weekly"
+  weeklyOnText: "Weekly on ${3}"
+  monthsText: "months"
+  monthlyText: "Monthly"
+  monthlyOnDayText: "Monthly on day ${1}"
+  monthlyOnText: "Monthly on ${5} ${3}"
+  yearsText: "years"
+  yearlyText: "Yearly"
+  yearlyOnText: "Yearly on ${2}"
+  yearlyOnWeekdayText: "Yearly on ${5} ${3} in ${4}"
+  everyText: "every ${0} ${1}"
+  afterCompletionText: "after completion"
+  untilEndDateText: "${0} until ${1}"
+  dayFormatText: "DD"
+  monthFormatText: "MM"
+  monthAndDayFormatText: "MM/DD"
+  weekdayFormatText: "dddd"
+  endDateFormatText: "M/D/YYYY"
+  sunday: "Sunday"
+  monday: "Monday"
+  tuesday: "Tuesday"
+  wednesday: "Wednesday"
+  thursday: "Thursday"
+  friday: "Friday"
+  saturday: "Saturday"
+  day: "day"
+  first: "first"
+  second: "second"
+  third: "third"
+  fourth: "fourth"
+  last: "last"
+>
+
+<speedSearchWidget ""
+  searchText: "SpeedSearch"
 >

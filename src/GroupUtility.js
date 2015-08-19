@@ -3,6 +3,7 @@ import array from 'dojo/_base/array';
 import format from './Format';
 import sdkFormat from 'argos/Format';
 import moment from 'moment';
+import _l20nMixin from 'argos/_l20nMixin';
 
 function _createGroupRequest(o) {
   const defaultOptions = {
@@ -40,7 +41,7 @@ function _createGroupRequest(o) {
  *
  */
 const __class = lang.setObject('crm.GroupUtility', {
-  groupDateFormatText: 'M/D/YYYY h:mm:ss a',
+  localeId: 'groupUtility',
   /**
    * Returns an SDataNamedQueryRequest setup for groups
    * @param {Object} options Options for creating the request
@@ -426,5 +427,6 @@ const __class = lang.setObject('crm.GroupUtility', {
   },
 });
 
+lang.mixin(__class, _l20nMixin);
 lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
 export default __class;

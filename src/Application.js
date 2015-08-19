@@ -12,6 +12,7 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
 import moment from 'moment';
+import _l20nMixin from 'argos/_l20nMixin';
 
 /**
  * @class crm.Application
@@ -22,7 +23,7 @@ import moment from 'moment';
  * @requires moment
  *
  */
-const __class = declare('crm.Application', [Application], {
+const __class = declare('crm.Application', [Application, _l20nMixin], {
   navigationState: null,
   rememberNavigationState: true,
   enableUpdateNotification: false,
@@ -78,9 +79,7 @@ const __class = declare('crm.Application', [Application], {
     'minor': 4,
     'revision': 0,
   },
-  versionInfoText: 'Mobile v${0}.${1}.${2}',
-  loadingText: 'Loading application state',
-  authText: 'Authenticating',
+  localeId: 'application',
   homeViewId: 'myactivity_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',

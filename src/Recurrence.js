@@ -1,6 +1,7 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import moment from 'moment';
+import _l20nMixin from 'argos/_l20nMixin';
 
 /**
  * @class crm.Recurrence
@@ -12,45 +13,9 @@ import moment from 'moment';
  */
 const __class = lang.setObject('crm.Recurrence', {
   // Localization
-  neverText: 'Never',
-  daysText: 'days',
-  dailyText: 'Daily',
-  weeksText: 'weeks',
-  weeklyText: 'Weekly',
-  weeklyOnText: 'Weekly on ${3}', // eg. {weekly} on {friday}
-  monthsText: 'months',
-  monthlyText: 'Monthly',
-  monthlyOnDayText: 'Monthly on day ${1}', // eg. {monthly} on day {15}
-  monthlyOnText: 'Monthly on ${5} ${3}', // eg. {monthly} on {second} {Monday}
-  yearsText: 'years',
-  yearlyText: 'Yearly',
-  yearlyOnText: 'Yearly on ${2}', // eg. {yearly} on {short_date}
-  yearlyOnWeekdayText: 'Yearly on ${5} ${3} in ${4}', // eg. {yearly} on {first} {Thursday} in {April}
-  everyText: 'every ${0} ${1}', // eg. every {2} {weeks}
-  afterCompletionText: 'after completion',
-  untilEndDateText: '${0} until ${1}', // eg. {daily} until {31/10/2012}
-  dayFormatText: 'DD',
-  monthFormatText: 'MM',
-  monthAndDayFormatText: 'MM/DD',
-  weekdayFormatText: 'dddd',
-  endDateFormatText: 'M/D/YYYY',
-  weekDaysText: [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ],
-  ordText: [
-    'day',
-    'first',
-    'second',
-    'third',
-    'fourth',
-    'last',
-  ],
+  localeId: 'recurrence',
+  weekDaysText: [],
+  ordText: [],
 
   interval: 1, // repeat every interval days/weeks/months/years
   defaultIterations: [ // by RecurPeriod, -1 for After Completed. Configurable.
@@ -135,6 +100,16 @@ const __class = lang.setObject('crm.Recurrence', {
     RecurrenceState: 'rstMaster',
   }],
 
+  constructor: function constructor() {
+    this.ordText = [
+      this.day,
+      this.first,
+      this.second,
+      this.third,
+      this.fourth,
+      this.last,
+    ];
+  },
   createSimplifiedOptions: function createSimplifiedOptions(startDate) {
     this.recalculateSimplifiedPeriodSpec(startDate);
 
@@ -208,10 +183,22 @@ const __class = lang.setObject('crm.Recurrence', {
   },
   getWeekdays: function getWeekdays(rps, names) { // pass a RecurPeriodSpec (as long as RecurPeriod corresponds to a Spec with weekdays)
     const weekdays = [];
+    const weekdaysText = [
+      this.sunday,
+      this.monday,
+      this.tuesday,
+      this.wednesday,
+      this.thursday,
+      this.friday,
+      this.saturday,
+    ];
+    if (this.weekdaysText) {
+      weekdaysText.push(this.weekdaysText);
+    }
     for (let i = 0; i < this._weekDayValues.length; i++) {
       if (names) {
         if (rps & this._weekDayValues[i]) {
-          weekdays.push(this.weekDaysText[i]);
+          weekdays.push(weekdaysText[i]);
         }
       } else {
         weekdays.push((rps & this._weekDayValues[i]) ? 1 : 0);
@@ -472,5 +459,6 @@ const __class = lang.setObject('crm.Recurrence', {
   },
 });
 
+lang.mixin(__class, _l20nMixin);
 lang.setObject('Mobile.SalesLogix.Recurrence', __class);
 export default __class;

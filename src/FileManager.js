@@ -2,18 +2,14 @@ import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import dNumber from 'dojo/number';
 import has from 'dojo/has';
+import _l20nMixin from 'argos/_l20nMixin';
 
 /**
  * @class crm.FileManager
  *
  */
-const __class = declare('crm.FileManager', null, {
-  unableToUploadText: 'This browser does not support HTML5 File API.',
-  unknownSizeText: 'unknown',
-  unknownErrorText: 'Warning: An error occured and the file failed to upload.',
-  largeFileWarningText: 'Warning: This request exceeds the size limit set by your administrator and failed to upload.',
-  largeFileWarningTitle: 'Warning',
-  percentCompleteText: 'Uploading, please wait...',
+const __class = declare('crm.FileManager', [ _l20nMixin ], {
+  localeId: 'fileManager',
   fileUploadOptions: {
     maxFileSize: 4000000,
   },
