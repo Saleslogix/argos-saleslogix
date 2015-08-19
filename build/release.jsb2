@@ -313,14 +313,6 @@
           "path": "../src-out/Views/"
         },
         {
-          "text": "List.js",
-          "path": "../src-out/Views/Offline/"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src-out/Views/Offline/"
-        },
-        {
           "text": "Home.js",
           "path": "../src-out/Views/"
         },
@@ -394,6 +386,14 @@
         },
         {
           "text": "_OfflineRightDrawerListMixin.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
+          "text": "List.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
+          "text": "Detail.js",
           "path": "../src-out/Views/Offline/"
         },
         {
