@@ -46,6 +46,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   },
   _finishSetup: function _finishSetup(drawer) {
     lang.mixin(drawer, this._createActions());
+    lang.getObject(mixinName).prototype.loadStrings();
     drawer.setLayout(this.createRightDrawerLayout());
     drawer.getGroupForEntry = function getGroupForEntry(entry) {
       return this.getGroupForRightDrawerEntry(entry);
