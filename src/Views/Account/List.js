@@ -8,7 +8,7 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import OfflineManager from '../../OfflineManager';
+import OfflineManager from 'argos/OfflineManager';
 
 /**
  * @class crm.Views.Account.List
