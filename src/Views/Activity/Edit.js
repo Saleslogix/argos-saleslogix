@@ -429,10 +429,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     }
   },
   onAccountChange: function onAccountChange(value, field) {
-    if (value === null || typeof value === 'undefined') {
-      return;
-    }
-
     const fields = this.fields;
     array.forEach(['Contact', 'Opportunity', 'Ticket'], function checkFields(f) {
       if (value) {
@@ -453,6 +449,10 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
         fields[f].where = 'Account.AccountName ne null';
       }
     });
+
+    if (value === null || typeof value === 'undefined') {
+      return;
+    }
 
     const entry = field.currentSelection;
     if (entry && entry.MainPhone) {
