@@ -456,10 +456,6 @@ define('crm/Views/Activity/Edit', [
             }
         },
         onAccountChange: function(value, field) {
-            if (value === null || typeof value === 'undefined') {
-                return;
-            }
-
             var fields, entry, phoneField;
 
             fields = this.fields;
@@ -484,6 +480,10 @@ define('crm/Views/Activity/Edit', [
                     fields[f].where = 'Account.AccountName ne null';
                 }
             });
+
+            if (value === null || typeof value === 'undefined') {
+                return;
+            }
 
             entry = field.currentSelection;
             if (entry && entry.MainPhone) {
