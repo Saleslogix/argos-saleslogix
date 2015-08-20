@@ -56,7 +56,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   id: 'opportunity_detail',
   editView: 'opportunity_edit',
   noteEditView: 'history_edit',
-
+  enableOffline: true,
   getModel: function getModel() {
     const model = new OppModel();
     return model;

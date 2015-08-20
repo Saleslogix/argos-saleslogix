@@ -52,7 +52,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   // View Properties
   id: 'ticket_detail',
   editView: 'ticket_edit',
-
+  enableOffline: true,
   getModel: function getModel() {
     const model = new TicketModel();
     return model;

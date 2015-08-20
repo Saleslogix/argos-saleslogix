@@ -59,7 +59,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   editView: 'lead_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
-
+  enableOffline: true,
   getModel: function getModel() {
     const model = new LeadModel();
     return model;

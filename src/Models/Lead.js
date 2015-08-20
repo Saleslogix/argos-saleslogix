@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/_ModelBase';
 import _SDataModelMixin from 'argos/_SDataModelMixin';
-import Deferred from 'dojo/Deferred';
 
 export default declare('crm.Models.Lead', [_ModelBase, _SDataModelMixin], {
   entityName: 'Lead',
@@ -31,7 +30,6 @@ export default declare('crm.Models.Lead', [_ModelBase, _SDataModelMixin], {
    'Title',
    'TollFree',
    'WebAddress',
-   'WorkPhone'
-  ]
-  
+   'WorkPhone',
+  ],
 });

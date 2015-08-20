@@ -4,7 +4,6 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
-import OfflineManager from '../../OfflineManager';
 import AccountModel from '../../Models/Account';
 
 /**
@@ -62,7 +61,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   editView: 'account_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
-
+  enableOffline: true,
   getModel: function getModel() {
     const model = new AccountModel();
     return model;
@@ -113,15 +112,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         insert: true,
       });
     }
-  },
-  onContentChange: function onContentChange() {
-    this.saveOffline();
-  },
-  saveOffline: function saveOffline() {
-    OfflineManager.saveOffline(this).then(function success() {
-    }, function err(error) {
-      console.error(error);// eslint-disable-line
-    });
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

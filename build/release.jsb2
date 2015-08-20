@@ -225,10 +225,6 @@
           "path": "../src-out/"
         },
         {
-          "text": "OfflineManager.js",
-          "path": "../src-out/"
-        },
-        {
           "text": "AttachmentManager.js",
           "path": "../src-out/"
         },

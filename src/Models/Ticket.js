@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/_ModelBase';
 import _SDataModelMixin from 'argos/_SDataModelMixin';
-import Deferred from 'dojo/Deferred';
 
 export default declare('crm.Models.Ticket', [_ModelBase, _SDataModelMixin], {
   entityName: 'Ticket',
@@ -29,7 +28,6 @@ export default declare('crm.Models.Ticket', [_ModelBase, _SDataModelMixin], {
       'TicketSolution/Notes',
       'Urgency/Description',
       'Urgency/UrgencyCode',
-      'CompletedBy/OwnerDescription'
-  ]
-  
+      'CompletedBy/OwnerDescription',
+  ],
 });

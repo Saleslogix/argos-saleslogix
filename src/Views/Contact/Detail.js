@@ -61,6 +61,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   editView: 'contact_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
+  enableOffline: true,
   getModel: function getModel() {
     const model = new ContactModel();
     return model;
