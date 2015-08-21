@@ -148,8 +148,14 @@
     (function() {
       function buildContext() {
         var filePaths = {
-          './localization/locales/crm': ['strings.l20n', 'regional.l20n'],
-          '../../argos-sdk/localization/locales/argos': ['strings.l20n', 'regional.l20n']
+          './localization/locales/crm': [
+            'strings.l20n',
+            'regional.l20n'
+          ],
+          '../../argos-sdk/localization/locales/argos': [
+            'strings.l20n',
+            'regional.l20n'
+          ]
         };
         var supportedLocales = [
           'en',
@@ -186,6 +192,8 @@
       ctx.ready(function() {
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
           var completed = false;
+
+          // Legacy Localization scripts
           var localization = [
             'localization/saleslogix/en'
           ];
