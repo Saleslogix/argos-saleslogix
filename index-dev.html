@@ -152,15 +152,28 @@
           '../../argos-sdk/localization/locales': 'strings.l20n',
           './localization/locales': 'dates.l20n'
         };
+        var supportedLocales = [
+          'en',
+          'en-GB',
+          'de',
+          'fr',
+          'it',
+          'ru',
+          'zh-CN',
+          'zh-TW'
+        ]
         var ctx = L20n.getContext();
+        var defaultLocale = 'en';
+        var currentLocale = 'en';
+
         Object.keys(filePaths).forEach(function(path) {
           var file = filePaths[path];
           ctx.linkResource(function(locale) {
             return [path, locale, file].join('/');
           });
         });
-        ctx.registerLocales('en', ['en', 'de', 'en-GB', 'fr', 'it', 'ru']);
-        ctx.requestLocales('en-GB');
+        ctx.registerLocales(defaultLocale, supportedLocales);
+        ctx.requestLocales(currentLocale);
         window.localeContext = ctx;
         return ctx;
       }
