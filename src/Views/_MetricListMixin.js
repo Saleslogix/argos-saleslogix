@@ -23,6 +23,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   entityName: '',
 
   metricWidgetsBuilt: false,
+  widgetsPerRow: 3,
 
   widgetWrapper: new Simplate([
     '<div class="metric-wrapper"></div>',
@@ -115,13 +116,13 @@ const __class = declare('crm.Views._MetricListMixin', null, {
         widget.placeAt(widgetRow, 'last');
         widget.requestData();
         this.metricWidgets.push(widget);
-        if (widgetRow.children.length === 3) {
+        if (widgetRow.children.length === this.widgetsPerRow) {
           domConstruct.place(widgetRow, this.metricNode, 'last');
           widgetRow = domConstruct.toDom(this.widgetWrapper.apply(this));
         }
       }
     }, this);
-    if (widgetRow.children.length && widgetRow.children.length < 3) {
+    if (widgetRow.children.length && widgetRow.children.length < this.widgetsPerRow) {
       domConstruct.place(widgetRow, this.metricNode, 'last');
     }
 
