@@ -3,7 +3,7 @@ import array from 'dojo/_base/array';
 import format from './Format';
 import sdkFormat from 'argos/Format';
 import moment from 'moment';
-import _l20nMixin from 'argos/_l20nMixin';
+import _L20NMixin from 'argos/_L20NMixin';
 
 function _createGroupRequest(o) {
   const defaultOptions = {
@@ -427,6 +427,6 @@ const __class = lang.setObject('crm.GroupUtility', {
   },
 });
 
-lang.mixin(__class, _l20nMixin);
+lang.mixin(__class, _L20NMixin);
 lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
 export default __class;

@@ -10,9 +10,9 @@ import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
-import 'dojo/sniff';
 import moment from 'moment';
-import _l20nMixin from 'argos/_l20nMixin';
+import _L20NMixin from 'argos/_L20NMixin';
+import 'dojo/sniff';
 
 /**
  * @class crm.Application
@@ -23,7 +23,7 @@ import _l20nMixin from 'argos/_l20nMixin';
  * @requires moment
  *
  */
-const __class = declare('crm.Application', [Application, _l20nMixin], {
+const __class = declare('crm.Application', [Application, _L20NMixin], {
   navigationState: null,
   rememberNavigationState: true,
   enableUpdateNotification: false,

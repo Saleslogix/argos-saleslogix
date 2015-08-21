@@ -2,13 +2,13 @@ import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import dNumber from 'dojo/number';
 import has from 'dojo/has';
-import _l20nMixin from 'argos/_l20nMixin';
+import _L20NMixin from 'argos/_L20NMixin';
 
 /**
  * @class crm.FileManager
  *
  */
-const __class = declare('crm.FileManager', [ _l20nMixin ], {
+const __class = declare('crm.FileManager', [ _L20NMixin ], {
   localeId: 'fileManager',
   fileUploadOptions: {
     maxFileSize: 4000000,

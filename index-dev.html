@@ -148,9 +148,8 @@
     (function() {
       function buildContext() {
         var filePaths = {
-          './localization/locales/crm': 'strings.l20n',
-          '../../argos-sdk/localization/locales/argos': 'strings.l20n',
-          './localization/locales/crm': 'dates.l20n'
+          './localization/locales/crm': ['strings.l20n', 'regional.l20n'],
+          '../../argos-sdk/localization/locales/argos': ['strings.l20n', 'regional.l20n']
         };
         var supportedLocales = [
           'en',
@@ -167,9 +166,11 @@
         var currentLocale = 'en';
 
         Object.keys(filePaths).forEach(function(path) {
-          var file = filePaths[path];
-          ctx.linkResource(function(locale) {
-            return [path, locale, file].join('/');
+          var files = filePaths[path];
+          files.forEach(function(file) {
+            ctx.linkResource(function(locale) {
+              return [path, locale, file].join('/');
+            });
           });
         });
         ctx.registerLocales(defaultLocale, supportedLocales);

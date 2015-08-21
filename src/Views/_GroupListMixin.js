@@ -9,7 +9,7 @@ import lang from 'dojo/_base/lang';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
-import _l20nMixin from 'argos/_l20nMixin';
+import _L20NMixin from 'argos/_L20NMixin';
 
 const mixinName = 'crm.Views._GroupListMixin';
 
@@ -22,7 +22,7 @@ const mixinName = 'crm.Views._GroupListMixin';
  *
  *
  */
-const __class = declare('crm.Views._GroupListMixin', [ _l20nMixin ], {
+const __class = declare('crm.Views._GroupListMixin', [ _L20NMixin ], {
   localeId: 'groupListMixin',
   hasDefaultGroup: true,
   noDefaultGroupTemplate: new Simplate([

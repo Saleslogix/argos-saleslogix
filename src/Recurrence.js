@@ -1,7 +1,7 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import moment from 'moment';
-import _l20nMixin from 'argos/_l20nMixin';
+import _L20NMixin from 'argos/_L20NMixin';
 
 /**
  * @class crm.Recurrence
@@ -459,6 +459,6 @@ const __class = lang.setObject('crm.Recurrence', {
   },
 });
 
-lang.mixin(__class, _l20nMixin);
+lang.mixin(__class, _L20NMixin);
 lang.setObject('Mobile.SalesLogix.Recurrence', __class);
 export default __class;
