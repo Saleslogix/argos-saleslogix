@@ -340,7 +340,6 @@ and was found from http://stackoverflow.com/questions/8720931/can-css-detect-the
 
 .metric-list {
     width: 100%;
-    height: 70px;
     .box-sizing(border-box);
     background-color: @color-deep-slate;
 }
@@ -361,7 +360,12 @@ and was found from http://stackoverflow.com/questions/8720931/can-css-detect-the
 .metric-wrapper {
     display: inline-flex;
     width: 100%;
-    height: 100%;
+    height: 70px;
+    border: 0;
+    border-top: 1px solid @color-lighter-slate;
+}
+.metric-wrapper:first-child {
+  border-top: 0;
 }
 
 .metric-title > .list-loading-indicator {

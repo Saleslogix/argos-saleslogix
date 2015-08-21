@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
+import domConstruct from 'dojo/dom-construct';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
 
@@ -23,14 +24,17 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
   metricWidgetsBuilt: false,
 
+  widgetWrapper: new Simplate([
+    '<div class="metric-wrapper"></div>',
+  ]),
+
   postMixInProperties: function postMixInProperties() {
     this.inherited(arguments);
     this.widgetTemplate = new Simplate([
       '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
       '<div data-dojo-attach-point="searchNode"></div>',
       '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-      '<div class="metric-list">',
-      '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
+      '<div class="metric-list" data-dojo-attach-point="metricNode">',
       '</div>',
       '{%! $.emptySelectionTemplate %}',
       '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
@@ -62,6 +66,8 @@ const __class = declare('crm.Views._MetricListMixin', null, {
       widget.destroy();
     }, this);
 
+    domConstruct.empty(this.metricNode);
+
     this.metricWidgetsBuilt = false;
   },
   requestData: function requestData() {
@@ -86,6 +92,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     // Create metrics widgets and place them in the metricNode
     const widgetOptions = this.createMetricWidgetsLayout() || [];
+    let widgetRow = domConstruct.toDom(this.widgetWrapper.apply(this));
     array.forEach(widgetOptions, function createAndPlaceWidgets(options) {
       if (this._hasValidOptions(options)) {
         options.returnToId = this.id;
@@ -105,11 +112,18 @@ const __class = declare('crm.Views._MetricListMixin', null, {
         }
 
         const widget = new MetricWidget(options);
-        widget.placeAt(this.metricNode, 'last');
+        widget.placeAt(widgetRow, 'last');
         widget.requestData();
         this.metricWidgets.push(widget);
+        if (widgetRow.children.length === 3) {
+          domConstruct.place(widgetRow, this.metricNode, 'last');
+          widgetRow = domConstruct.toDom(this.widgetWrapper.apply(this));
+        }
       }
     }, this);
+    if (widgetRow.children.length && widgetRow.children.length < 3) {
+      domConstruct.place(widgetRow, this.metricNode, 'last');
+    }
 
     this.metricWidgetsBuilt = true;
   },
