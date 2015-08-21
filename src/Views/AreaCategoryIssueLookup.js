@@ -11,16 +11,16 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
  * @mixins argos._LegacySDataListMixin
  *
  */
-var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
-  //Templates
+const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
+  // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>'
+    '<h3>{%: $.$descriptor %}</h3>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Accounts',
 
-  //View Properties
+  // View Properties
   pageSize: 200,
   expose: false,
   enableSearch: false,
@@ -30,85 +30,80 @@ var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataLi
   querySelect: [
     'Area',
     'Category',
-    'Issue'
+    'Issue',
   ],
   resourceKind: 'areaCategoryIssues',
 
-  show: function(options) {
+  show: function show(options) {
     this.active = options.where;
 
     options.where = false;
 
     this.inherited(arguments, [options]);
   },
-  requestData: function() {
+  requestData: function requestData() {
     if (this.cache) {
       this.processFeed();
     } else {
       this.inherited(arguments);
     }
   },
-  processFeed: function(feed) {
+  processFeed: function processFeed(feed) {
+    let theFeed = feed;
     // assume order is preserved
-    if (feed) {
+    if (theFeed) {
       this.createCacheFrom(feed);
     }
 
-    var use = this.cache;
+    let use = this.cache;
 
-    if (use && this.active && this.active['Area']) {
-      use = use[this.active['Area']];
+    if (use && this.active && this.active.Area) {
+      use = use[this.active.Area];
     }
-    if (use && this.active && this.active['Category']) {
-      use = use[this.active['Category']];
+    if (use && this.active && this.active.Category) {
+      use = use[this.active.Category];
     }
 
-    feed = this.buildFeedFrom(use);
+    theFeed = this.buildFeedFrom(use);
 
-    this.inherited(arguments, [feed]);
+    this.inherited(arguments, [theFeed]);
   },
-  createCacheFrom: function(feed) {
-    var feedLength,
-      i,
-      entry,
-      area,
-      category;
-
-    feedLength = feed['$resources'].length;
+  createCacheFrom: function createCacheFrom(feed) {
+    const feedLength = feed.$resources.length;
     this.cache = {};
 
-    for (i = 0; i < feedLength; i += 1) {
-      entry = feed['$resources'][i];
-      area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {});
-      category = area[entry['Category']] || (area[entry['Category']] = {});
+    for (let i = 0; i < feedLength; i += 1) {
+      const entry = feed.$resources[i];
+      const area = this.cache[entry.Area] || (this.cache[entry.Area] = {});
+      const category = area[entry.Category] || (area[entry.Category] = {});
 
-      category[entry['Issue']] = true;
+      category[entry.Issue] = true;
     }
   },
-  buildFeedFrom: function(segment) {
-    var list = [],
-      n;
+  buildFeedFrom: function buildFeedFrom(segment) {
+    const list = [];
 
-    for (n in segment) {
+    for (const n in segment) {
       if (segment.hasOwnProperty(n)) {
         list.push({
           '$key': n,
-          '$descriptor': n
+          '$descriptor': n,
         });
       }
     }
 
     return {
-      '$resources': list
+      '$resources': list,
     };
   },
-  hasMoreData: function() {
+  hasMoreData: function hasMoreData() {
     return false; // todo: implement paging?
   },
-  refreshRequiredFor: function() {
+  refreshRequiredFor: function refreshRequiredFor() {
     return true; // todo: implement refresh detection?
   },
-  formatSearchQuery: function() {}
+  formatSearchQuery: function formatSearchQuery() {
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);

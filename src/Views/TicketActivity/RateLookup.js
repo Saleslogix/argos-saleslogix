@@ -8,30 +8,30 @@ import List from 'argos/List';
  *
  * @extends argos.List
  */
-var __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
-  //Templates
+const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',
-    '<h4>{%: $.TypeDescription %}</h4>'
+    '<h4>{%: $.TypeDescription %}</h4>',
   ]),
 
-  //Localization
+  // Localization
   titleText: 'Rates',
 
-  //View Properties
+  // View Properties
   id: 'ticketactivity_ratelookup',
   expose: false,
   queryOrderBy: 'Amount asc',
   querySelect: [
     'Amount',
     'RateTypeCode',
-    'TypeDescription'
+    'TypeDescription',
   ],
   resourceKind: 'ticketActivityRates',
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TicketActivity.RateLookup', __class);

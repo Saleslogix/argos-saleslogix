@@ -3,7 +3,6 @@ import lang from 'dojo/_base/lang';
 import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import validator from '../../Validator';
-import template from '../../Template';
 import Edit from 'argos/Edit';
 import Utility from 'argos/Utility';
 
@@ -17,8 +16,8 @@ import Utility from 'argos/Utility';
  * @requires crm.Validator
  * @requires crm.Template
  */
-var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
+  // Localization
   titleText: 'Opportunity Product',
   detailsText: 'Details',
   opportunityText: 'opportunity',
@@ -37,7 +36,7 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
   extendedPriceSectionText: 'Extended Price',
   adjustedPriceSectionText: 'Adjusted Price',
 
-  //View Properties
+  // View Properties
   entityName: 'Opportunity',
   id: 'opportunityproduct_edit',
   resourceKind: 'opportunityProducts',
@@ -53,44 +52,40 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     'AdjustedPrice',
     'CalculatedPrice',
     'Quantity',
-    'ExtendedPrice'
+    'ExtendedPrice',
   ],
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
-    this.connect(this.fields['Product'], 'onChange', this.onProductChange);
-    this.connect(this.fields['Program'], 'onChange', this.onProgramChange);
-    this.connect(this.fields['Discount'], 'onChange', this.onDiscountChange);
-    this.connect(this.fields['CalculatedPrice'], 'onChange', this.onAdjustedPriceChange);
-    this.connect(this.fields['CalculatedPriceMine'], 'onChange', this.onAdjustedPriceMineChange);
-    this.connect(this.fields['Quantity'], 'onChange', this.onQuantityChange);
+    this.connect(this.fields.Product, 'onChange', this.onProductChange);
+    this.connect(this.fields.Program, 'onChange', this.onProgramChange);
+    this.connect(this.fields.Discount, 'onChange', this.onDiscountChange);
+    this.connect(this.fields.CalculatedPrice, 'onChange', this.onAdjustedPriceChange);
+    this.connect(this.fields.CalculatedPriceMine, 'onChange', this.onAdjustedPriceMineChange);
+    this.connect(this.fields.Quantity, 'onChange', this.onQuantityChange);
   },
-  setValues: function(values) {
+  setValues: function setValues(values) {
     this.inherited(arguments);
-    var adjusted, myCode, baseCode;
-    this.fields['Program'].setValue({
+    this.fields.Program.setValue({
       '$key': '',
-      'Program': values.Program
+      'Program': values.Program,
     });
 
     if (values.Discount > 0) {
-      adjusted = values.Price - (values.Discount * values.Price);
       // transform the discount into a percentage number 0.10 to 10.00%
-      this.fields['Discount'].setValue(values.Discount * 100);
-    } else {
-      adjusted = values.Price;
+      this.fields.Discount.setValue(values.Discount * 100);
     }
 
-    myCode = App.getMyExchangeRate().code;
-    baseCode = App.getBaseExchangeRate().code;
-    this.fields['Price'].setCurrencyCode(baseCode);
-    this.fields['CalculatedPrice'].setCurrencyCode(baseCode);
+    const myCode = App.getMyExchangeRate().code;
+    const baseCode = App.getBaseExchangeRate().code;
+    this.fields.Price.setCurrencyCode(baseCode);
+    this.fields.CalculatedPrice.setCurrencyCode(baseCode);
 
     if (App.hasMultiCurrency()) {
-      this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * values.CalculatedPrice);
-      this.fields['CalculatedPriceMine'].setCurrencyCode(myCode);
+      this.fields.CalculatedPriceMine.setValueNoTrigger(this._getMyRate() * values.CalculatedPrice);
+      this.fields.CalculatedPriceMine.setCurrencyCode(myCode);
     }
 
-    this.fields['ExtendedPrice'].setCurrencyCode(baseCode);
+    this.fields.ExtendedPrice.setCurrencyCode(baseCode);
     this._updateExtendedPrice();
 
     if ((values.Product.Family !== null) && (values.Price !== null)) {
@@ -99,28 +94,28 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
       this._enableUI(false);
     }
   },
-  _enableUI: function(enable) {
+  _enableUI: function _enableUI(enable) {
     if (enable) {
-      this.fields['Discount'].enable();
-      this.fields['Quantity'].enable();
-      this.fields['CalculatedPrice'].enable();
+      this.fields.Discount.enable();
+      this.fields.Quantity.enable();
+      this.fields.CalculatedPrice.enable();
       if (App.hasMultiCurrency()) {
-        this.fields['CalculatedPriceMine'].enable();
+        this.fields.CalculatedPriceMine.enable();
       }
     } else {
-      this.fields['Discount'].disable();
-      this.fields['Quantity'].disable();
-      this.fields['CalculatedPrice'].disable();
+      this.fields.Discount.disable();
+      this.fields.Quantity.disable();
+      this.fields.CalculatedPrice.disable();
       if (App.hasMultiCurrency()) {
-        this.fields['CalculatedPriceMine'].disable();
+        this.fields.CalculatedPriceMine.disable();
       }
     }
   },
-  _getMyRate: function() {
+  _getMyRate: function _getMyRate() {
     return App.getMyExchangeRate().rate;
   },
-  getValues: function() {
-    var o = this.inherited(arguments);
+  getValues: function getValues() {
+    const o = this.inherited(arguments);
     o.Program = o.Program.Program;
 
     /*
@@ -136,94 +131,90 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
 
     return o;
   },
-  applyContext: function() {
-    var entry = this.options && this.options.selectedEntry;
+  applyContext: function applyContext() {
+    const entry = this.options && this.options.selectedEntry;
 
     if (entry) {
-      this.fields['Opportunity'].setValue(entry);
+      this.fields.Opportunity.setValue(entry);
     }
   },
-  onProductChange: function(value, field) {
-    var selection = field && field.currentSelection;
+  onProductChange: function onProductChange(value, field) {
+    const selection = field && field.currentSelection;
     if (selection) {
-      this.fields['ProductId'].setValueNoTrigger(value.key);
+      this.fields.ProductId.setValueNoTrigger(value.key);
       this.fields['Product.Family'].setValueNoTrigger(selection.Family);
-      this.fields['Program'].clearValue();
+      this.fields.Program.clearValue();
 
-      this.fields['Price'].setValueNoTrigger(selection.Price);
-      this.fields['Discount'].clearValue();
-      this.fields['CalculatedPrice'].setValueNoTrigger(selection.Price);
+      this.fields.Price.setValueNoTrigger(selection.Price);
+      this.fields.Discount.clearValue();
+      this.fields.CalculatedPrice.setValueNoTrigger(selection.Price);
 
       if (App.hasMultiCurrency()) {
-        this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * selection.Price);
+        this.fields.CalculatedPriceMine.setValueNoTrigger(this._getMyRate() * selection.Price);
       }
-      this.fields['Quantity'].setValueNoTrigger(1);
+      this.fields.Quantity.setValueNoTrigger(1);
       this._updateExtendedPrice();
     }
   },
-  onProgramChange: function(value, field) {
-    var selection = field && field.currentSelection;
+  onProgramChange: function onProgramChange(value, field) {
+    const selection = field && field.currentSelection;
     if (selection) {
-      this.fields['Price'].setValueNoTrigger(selection.Price);
-      this.fields['Discount'].clearValue();
-      this.fields['CalculatedPrice'].setValueNoTrigger(selection.Price);
+      this.fields.Price.setValueNoTrigger(selection.Price);
+      this.fields.Discount.clearValue();
+      this.fields.CalculatedPrice.setValueNoTrigger(selection.Price);
       if (App.hasMultiCurrency()) {
-        this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * selection.Price);
+        this.fields.CalculatedPriceMine.setValueNoTrigger(this._getMyRate() * selection.Price);
       }
       this._updateExtendedPrice();
       this._enableUI(true);
     }
   },
-  onDiscountChange: function() {
-    var price, discount, adjusted, quantity;
-    price = parseFloat(this.fields['Price'].getValue()) || 0;
-    discount = this.fields['Discount'].getValue();
-    quantity = parseFloat(this.fields['Quantity'].getValue()) || 0;
+  onDiscountChange: function onDiscountChange() {
+    const price = parseFloat(this.fields.Price.getValue()) || 0;
+    const discount = this.fields.Discount.getValue();
 
-    adjusted = this._calculateAdjustedPrice(price, discount);
-    this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
+    const adjusted = this._calculateAdjustedPrice(price, discount);
+    this.fields.CalculatedPrice.setValueNoTrigger(adjusted);
 
     this._updateAdjustedPrices(adjusted);
     this._updateExtendedPrice();
   },
-  onAdjustedPriceChange: function() {
-    var price, discount, adjusted, myadjusted;
-    price = parseFloat(this.fields['Price'].getValue()) || 0;
-    adjusted = parseFloat(this.fields['CalculatedPrice'].getValue()) || 0;
+  onAdjustedPriceChange: function onAdjustedPriceChange() {
+    const price = parseFloat(this.fields.Price.getValue()) || 0;
+    const adjusted = parseFloat(this.fields.CalculatedPrice.getValue()) || 0;
 
-    discount = this._calculateDiscount(price, adjusted);
-    this.fields['Discount'].setValueNoTrigger(discount);
+    const discount = this._calculateDiscount(price, adjusted);
+    this.fields.Discount.setValueNoTrigger(discount);
 
     if (App.hasMultiCurrency()) {
-      myadjusted = this._getMyRate() * adjusted;
-      this.fields['CalculatedPriceMine'].setValueNoTrigger(myadjusted);
+      const myadjusted = this._getMyRate() * adjusted;
+      this.fields.CalculatedPriceMine.setValueNoTrigger(myadjusted);
     }
     this._updateExtendedPrice();
   },
-  onAdjustedPriceMineChange: function() {
-    var price, myprice, discount, myadjusted, adjusted, myrate;
-    myadjusted = this.fields['CalculatedPriceMine'].getValue();
-    price = this.fields['Price'].getValue() || 0;
+  onAdjustedPriceMineChange: function onAdjustedPriceMineChange() {
+    const myadjusted = this.fields.CalculatedPriceMine.getValue();
+    const price = this.fields.Price.getValue() || 0;
 
-    myrate = this._getMyRate();
-    myprice = price * myrate; // get the price in the users exchange rate
+    const myrate = this._getMyRate();
+    const myprice = price * myrate; // get the price in the users exchange rate
 
-    discount = this._calculateDiscount(myprice, myadjusted);
-    this.fields['Discount'].setValueNoTrigger(discount);
+    const discount = this._calculateDiscount(myprice, myadjusted);
+    this.fields.Discount.setValueNoTrigger(discount);
 
-    adjusted = this._calculateAdjustedPrice(price, discount);
-    this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
+    const adjusted = this._calculateAdjustedPrice(price, discount);
+    this.fields.CalculatedPrice.setValueNoTrigger(adjusted);
 
     this._updateExtendedPrice();
   },
-  onQuantityChange: function(value) {
+  onQuantityChange: function onQuantityChange(value) {
     if (isNaN(value)) {
-      this.fields['Quantity'].setValueNoTrigger(0);
+      this.fields.Quantity.setValueNoTrigger(0);
     }
     this._updateExtendedPrice();
   },
-  _calculateDiscount: function(price, adjusted) {
-    var discount;
+  _calculateDiscount: function _calculateDiscount(price, adjusted) {
+    let discount;
     if (price === 0) {
       discount = 0.0;
     } else {
@@ -231,8 +222,8 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     }
     return discount;
   },
-  _calculateAdjustedPrice: function(price, discount) {
-    var adjusted;
+  _calculateAdjustedPrice: function _calculateAdjustedPrice(price, discount) {
+    let adjusted;
     if (discount === 0) {
       adjusted = price;
     } else {
@@ -240,46 +231,43 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     }
     return adjusted;
   },
-  _updateAdjustedPrices: function(adjusted) {
-    var myadjusted;
-    this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
+  _updateAdjustedPrices: function _updateAdjustedPrices(adjusted) {
+    let myadjusted;
+    this.fields.CalculatedPrice.setValueNoTrigger(adjusted);
     if (App.hasMultiCurrency()) {
       myadjusted = this._getMyRate() * adjusted;
-      this.fields['CalculatedPriceMine'].setValueNoTrigger(myadjusted);
+      this.fields.CalculatedPriceMine.setValueNoTrigger(myadjusted);
     }
   },
-  _updateExtendedPrice: function() {
-    var adjusted, quantity, extended;
-    quantity = parseFloat(this.fields['Quantity'].getValue()) || 0;
-    adjusted = parseFloat(this.fields['CalculatedPrice'].getValue()) || 0;
-    extended = adjusted * quantity;
-    this.fields['ExtendedPrice'].setValueNoTrigger(extended);
+  _updateExtendedPrice: function _updateExtendedPrice() {
+    const quantity = parseFloat(this.fields.Quantity.getValue()) || 0;
+    const adjusted = parseFloat(this.fields.CalculatedPrice.getValue()) || 0;
+    const extended = adjusted * quantity;
+    this.fields.ExtendedPrice.setValueNoTrigger(extended);
   },
-  onUpdateCompleted: function() {
+  onUpdateCompleted: function onUpdateCompleted() {
     this._refreshOpportunityViews();
     this.inherited(arguments);
   },
-  onInsertCompleted: function() {
+  onInsertCompleted: function onInsertCompleted() {
     this._refreshOpportunityViews();
     this.inherited(arguments);
   },
-  _refreshOpportunityViews: function() {
-    var views = [
+  _refreshOpportunityViews: function _refreshOpportunityViews() {
+    const views = [
       App.getView('opportunityproduct_related'),
       App.getView('opportunity_detail'),
-      App.getView('opportunity_list')
+      App.getView('opportunity_list'),
     ];
 
-    array.forEach(views, function(view) {
+    array.forEach(views, function setViewRefreshRequired(view) {
       if (view) {
         view.refreshRequired = true;
       }
     }, this);
   },
-  createLayout: function() {
-    var layout, details, extendedPrice, adjustedPrice;
-
-    details = {
+  createLayout: function createLayout() {
+    const details = {
       title: this.detailsText,
       name: 'OpportunityProductDetailsEdit',
       children: [{
@@ -289,11 +277,11 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         type: 'lookup',
         textProperty: 'Description',
         view: 'opportunity_related',
-        validator: validator.exists
+        validator: validator.exists,
       }, {
         name: 'ProductId',
         property: 'ProductId',
-        type: 'hidden'
+        type: 'hidden',
       }, {
         label: this.productText,
         name: 'Product',
@@ -301,13 +289,13 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         type: 'lookup',
         textProperty: 'Name',
         view: 'product_related',
-        validator: validator.exists
+        validator: validator.exists,
       }, {
         label: this.productFamilyText,
         name: 'Product.Family',
         property: 'Product.Family',
         type: 'text',
-        readonly: true
+        readonly: true,
       }, {
         label: this.priceLevelText,
         name: 'Program',
@@ -316,29 +304,29 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         type: 'lookup',
         view: 'productprogram_related',
         validator: validator.exists,
-        where: (function() {
-          var val = this.fields['Product'].getValue();
+        where: (function where() {
+          const val = this.fields.Product.getValue();
           return string.substitute('Product.Name eq "${0}"', [Utility.escapeSearchQuery(val.Name)]);
-        }).bindDelegate(this)
+        }).bindDelegate(this),
       }, {
         label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
         name: 'Price',
         property: 'Price',
         type: 'multiCurrency',
-        readonly: true
+        readonly: true,
       }, {
         label: this.discountText,
         name: 'Discount',
         property: 'Discount',
         type: 'decimal',
-        notificationTrigger: 'blur'
+        notificationTrigger: 'blur',
       }, {
         label: this.quantityText,
         name: 'Quantity',
         property: 'Quantity',
         type: 'decimal',
-        notificationTrigger: 'blur'
-      }]
+        notificationTrigger: 'blur',
+      }],
     };
 
     if (!App.hasMultiCurrency()) {
@@ -347,18 +335,18 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         name: 'CalculatedPrice',
         property: 'CalculatedPrice',
         type: 'multiCurrency',
-        notificationTrigger: 'blur'
+        notificationTrigger: 'blur',
       });
       details.children.push({
         label: this.extendedPriceText,
         name: 'ExtendedPrice',
         property: 'ExtendedPrice',
         type: 'multiCurrency',
-        readonly: true
+        readonly: true,
       });
     }
 
-    extendedPrice = {
+    const extendedPrice = {
       title: this.extendedPriceSectionText,
       name: 'OpportunityProductExtendedPriceEdit',
       children: [{
@@ -366,11 +354,11 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         name: 'ExtendedPrice',
         property: 'ExtendedPrice',
         type: 'multiCurrency',
-        readonly: true
-      }]
+        readonly: true,
+      }],
     };
 
-    adjustedPrice = {
+    const adjustedPrice = {
       title: this.adjustedPriceSectionText,
       name: 'OpportunityProductAdjustedPriceEdit',
       children: [{
@@ -378,17 +366,17 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         name: 'CalculatedPrice',
         property: 'CalculatedPrice',
         type: 'multiCurrency',
-        notificationTrigger: 'blur'
+        notificationTrigger: 'blur',
       }, {
         label: this.myAdjustedPriceText,
         name: 'CalculatedPriceMine',
         property: 'CalculatedPriceMine',
         type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
-        notificationTrigger: 'blur'
-      }]
+        notificationTrigger: 'blur',
+      }],
     };
 
-    layout = this.layout || (this.layout = []);
+    const layout = this.layout || (this.layout = []);
 
     if (layout.length > 0) {
       return layout;
@@ -401,7 +389,7 @@ var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
       layout.push(extendedPrice);
     }
     return layout;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Edit', __class);

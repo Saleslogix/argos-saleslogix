@@ -1,7 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domConstruct from 'dojo/dom-construct';
-import query from 'dojo/query';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import format from '../../Format';
@@ -13,8 +11,8 @@ import format from '../../Format';
  *
  * @requires crm.Format
  */
-var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
-  //Localization
+const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
+  // Localization
   accountText: 'acct',
   acctMgrText: 'acct mgr',
   estCloseText: 'est close',
@@ -51,8 +49,9 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   multiCurrencyDateText: 'rate date',
   multiCurrencyLockedText: 'rate locked',
   exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
+  entityText: 'Opportunity',
 
-  //View Properties
+  // View Properties
   id: 'opportunity_detail',
   editView: 'opportunity_edit',
   noteEditView: 'history_edit',
@@ -79,23 +78,23 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
     'Stage',
     'Status',
     'Type',
-    'Weighted'
+    'Weighted',
   ],
   resourceKind: 'opportunities',
 
-  scheduleActivity: function() {
+  scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();
   },
-  addNote: function() {
-    var view = App.getView(this.noteEditView);
+  addNote: function addNote() {
+    const view = App.getView(this.noteEditView);
     if (view) {
       view.show({
         template: {},
-        insert: true
+        insert: true,
       });
     }
   },
-  processEntry: function() {
+  processEntry: function processEntry() {
     this.inherited(arguments);
 
     if (App.hasMultiCurrency() && this.options && this.entry && this.entry.ExchangeRate) {
@@ -103,28 +102,26 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
       this.options.ExchangeRateCode = this.entry.ExchangeRateCode;
     }
   },
-  getValues: function() {
-    var values = this.inherited(arguments),
-      estimatedCloseDate = this.fields['EstimatedClose'].getValue(),
-      timelessStartDate = estimatedCloseDate.clone()
+  getValues: function getValues() {
+    const estimatedCloseDate = this.fields.EstimatedClose.getValue();
+    const timelessStartDate = estimatedCloseDate.clone()
       .clearTime()
       .add({
         minutes: -1 * estimatedCloseDate.getTimezoneOffset(),
-        seconds: 5
+        seconds: 5,
       });
+    let values = this.inherited(arguments);
 
     values = values || {};
-    values['EstimatedClose'] = timelessStartDate;
+    values.EstimatedClose = timelessStartDate;
 
     return values;
   },
-  formatAccountRelatedQuery: function(fmt) {
-    return string.substitute(fmt, [this.entry['Account']['$key']]);
+  formatAccountRelatedQuery: function formatAccountRelatedQuery(fmt) {
+    return string.substitute(fmt, [this.entry.Account.$key]);
   },
-  createLayout: function() {
-    var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
-
-    quickActions = {
+  createLayout: function createLayout() {
+    const quickActions = {
       list: true,
       title: this.actionsText,
       cls: 'action-list',
@@ -134,108 +131,107 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         property: 'Description',
         label: this.scheduleActivityText,
         iconClass: 'fa fa-calendar fa-lg',
-        action: 'scheduleActivity'
+        action: 'scheduleActivity',
       }, {
         name: 'AddNoteAction',
         property: 'Description',
         label: this.addNoteText,
         iconClass: 'fa fa-edit fa-lg',
-        action: 'addNote'
-      }]
+        action: 'addNote',
+      }],
     };
 
-    details = {
+    const details = {
       title: this.detailsText,
       name: 'DetailsSection',
       children: [{
         label: this.opportunityText,
         name: 'Description',
-        property: 'Description'
+        property: 'Description',
       }, {
         label: this.accountText,
         key: 'Account.$key',
         name: 'Account.AccountName',
         property: 'Account.AccountName',
-        view: 'account_detail'
+        view: 'account_detail',
       }, {
         label: this.statusText,
         name: 'Status',
-        property: 'Status'
+        property: 'Status',
       }, {
         label: this.estCloseText,
         name: 'EstimatedClose',
         property: 'EstimatedClose',
-        renderer: format.date.bindDelegate(this, null, true)
+        renderer: format.date.bindDelegate(this, null, true),
       }, {
         label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
         name: 'SalesPotential',
         property: 'SalesPotential',
-        renderer: (function(val) {
-          var exhangeRate, convertedValue;
+        renderer: (function renderSalesPotential(val) {
           if (App.hasMultiCurrency()) {
-            exhangeRate = App.getBaseExchangeRate();
-            convertedValue = val * exhangeRate.rate;
+            const exhangeRate = App.getBaseExchangeRate();
+            const convertedValue = val * exhangeRate.rate;
             return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
           }
           return format.currency.call(null, val);
-        }).bindDelegate(this)
-      }]
+        }).bindDelegate(this),
+      }],
     };
 
-    multiCurrency = {
+    const multiCurrency = {
       title: this.multiCurrencyText,
       name: 'MultiCurrencySection',
       children: [{
         label: this.multiCurrencyRateText,
         name: 'ExchangeRate',
-        property: 'ExchangeRate'
+        property: 'ExchangeRate',
       }, {
         label: this.multiCurrencyCodeText,
         name: 'ExchangeRateCode',
-        property: 'ExchangeRateCode'
+        property: 'ExchangeRateCode',
       }, {
         label: this.multiCurrencyDateText,
         name: 'ExchangeRateDate',
         property: 'ExchangeRateDate',
-        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false)
+        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false),
       }, {
         label: this.multiCurrencyLockedText,
         name: 'ExchangeRateLocked',
-        property: 'ExchangeRateLocked'
-      }]
+        property: 'ExchangeRateLocked',
+      }],
     };
 
-    moreDetails = {
+    const moreDetails = {
       title: this.moreDetailsText,
       name: 'MoreDetailsSection',
       collapsed: true,
       children: [{
         label: this.typeText,
         name: 'Type',
-        property: 'Type'
+        property: 'Type',
       }, {
         label: this.resellerText,
         key: 'Reseller.$key',
         name: 'Reseller.AccountName',
         property: 'Reseller.AccountName',
-        view: 'account_detail'
+        view: 'account_detail',
       }, {
         label: this.probabilityText,
         name: 'CloseProbability',
-        property: 'CloseProbability'
+        property: 'CloseProbability',
       }, {
         label: this.acctMgrText,
         name: 'AccountManager.UserInfo',
         property: 'AccountManager.UserInfo',
-        renderer: format.nameLF
+        renderer: format.nameLF,
       }, {
         label: this.importSourceText,
         name: 'LeadSource.Description',
-        property: 'LeadSource.Description'
-      }]
+        property: 'LeadSource.Description',
+      }],
     };
 
-    relatedItems = {
+    const relatedItems = {
       list: true,
       title: this.relatedItemsText,
       name: 'RelatedItemsSection',
@@ -243,35 +239,35 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         name: 'OpportunityRelated',
         label: this.relatedProductsText,
         view: 'opportunityproduct_related',
-        where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
+        where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"'),
       }, {
         name: 'ActivityRelated',
         label: this.relatedActivitiesText,
         view: 'activity_related',
-        where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"')
+        where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"'),
       }, {
         name: 'ContactRelated',
         label: this.relatedContactsText,
         options: {
-          prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"')
+          prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"'),
         },
         view: 'opportunitycontact_related',
-        where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
+        where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"'),
       }, {
         name: 'HistoryRelated',
         label: this.relatedHistoriesText,
         where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}" and Type ne "atDatabaseChange"'),
-        view: 'history_related'
+        view: 'history_related',
       }, {
         name: 'AttachmentRelated',
         label: this.relatedAttachmentText,
         where: this.formatRelatedQuery.bindDelegate(this, 'opportunityId eq "${0}"'), // must be lower case because of feed
         view: 'opportunity_attachment_related',
-        title: this.relatedAttachmentTitleText
-      }]
+        title: this.relatedAttachmentTitleText,
+      }],
     };
 
-    layout = this.layout || (this.layout = []);
+    const layout = this.layout || (this.layout = []);
 
     if (layout.length > 0) {
       return layout;
@@ -285,27 +281,26 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         label: this.potentialMyRateText,
         name: 'SalesPotentialMine',
         property: 'SalesPotential',
-        renderer: (function(val) {
-          var exhangeRate, convertedValue;
+        renderer: (function renderMySalesPotential(val) {
           if (App.hasMultiCurrency()) {
-            exhangeRate = App.getMyExchangeRate();
-            convertedValue = val * exhangeRate.rate;
+            const exhangeRate = App.getMyExchangeRate();
+            const convertedValue = val * exhangeRate.rate;
             return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
           }
 
           return '-';
-        }).bindDelegate(this)
+        }).bindDelegate(this),
       }, {
         label: this.potentialOpportunityText,
         name: 'SalesPotentialOpportunity',
         property: 'SalesPotentialOpportunity',
-        renderer: function(val) {
+        renderer: function renderSalesPotentialOpportunity(val) {
           if (App.hasMultiCurrency()) {
             return format.multiCurrency.call(null, (val.SalesPotential * val.ExchangeRate), val.ExchangeRateCode);
           }
 
           return '-';
-        }
+        },
       });
 
       layout.push(multiCurrency);
@@ -314,7 +309,7 @@ var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
     layout.push(moreDetails);
     layout.push(relatedItems);
     return layout;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);

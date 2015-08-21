@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import action from '../../Action';
-import format from 'argos/Format';
 import utility from 'argos/Utility';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
@@ -24,8 +23,8 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
  *
  * @requires crm.Action
  */
-var __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
-  //Templates
+const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.LeadNameLastFirst %}</h3>',
     '<h4>',
@@ -51,29 +50,29 @@ var __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Metr
     '<h4>',
     '<span class="href" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>',
     '</h4>',
-    '{% } %}'
+    '{% } %}',
   ]),
 
-  joinFields: function(sep, fields) {
+  joinFields: function joinFields(sep, fields) {
     return utility.joinFields(sep, fields);
   },
-  callWork: function(params) {
-    this.invokeActionItemBy(function(action) {
-      return action.id === 'callWork';
+  callWork: function callWork(params) {
+    this.invokeActionItemBy(function setActionId(theAction) {
+      return theAction.id === 'callWork';
     }, params.key);
   },
-  callMobile: function(params) {
-    this.invokeActionItemBy(function(action) {
-      return action.id === 'callMobile';
+  callMobile: function callMobile(params) {
+    this.invokeActionItemBy(function setActionId(theAction) {
+      return theAction.id === 'callMobile';
     }, params.key);
   },
-  sendEmail: function(params) {
-    this.invokeActionItemBy(function(action) {
-      return action.id === 'sendEmail';
+  sendEmail: function sendEmail(params) {
+    this.invokeActionItemBy(function setActionId(theAction) {
+      return theAction.id === 'sendEmail';
     }, params.key);
   },
 
-  //Localization
+  // Localization
   titleText: 'Leads',
   activitiesText: 'Activities',
   notesText: 'Notes',
@@ -91,14 +90,14 @@ var __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Metr
   mobileAbbreviationText: 'Mobile: ',
   tollFreeAbbreviationText: 'Toll Free: ',
 
-  //View Properties
+  // View Properties
   detailView: 'lead_detail',
   itemIconClass: 'fa fa-filter fa-2x',
   iconTemplate: new Simplate([
     '<span class="fa-stack">',
     '<i class="fa fa-square-o fa-stack-2x"></i>',
     '<i class="fa fa-user fa-stack-1x fa-inverse"></i>',
-    '</span>'
+    '</span>',
   ]),
   id: 'lead_list',
   security: 'Entities/Lead/View',
@@ -113,58 +112,58 @@ var __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Metr
     'Mobile',
     'TollFree',
     'Title',
-    'ModifyDate'
+    'ModifyDate',
   ],
   resourceKind: 'leads',
   entityName: 'Lead',
   groupsEnabled: true,
   allowSelection: true,
   enableActions: true,
-  createActionLayout: function() {
+  createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
-      action: 'navigateToEditView'
+      action: 'navigateToEditView',
     }, {
       id: 'callWork',
       cls: 'fa fa-phone-square fa-2x',
       label: this.callWorkActionText,
       enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
-      fn: action.callPhone.bindDelegate(this, 'WorkPhone')
+      fn: action.callPhone.bindDelegate(this, 'WorkPhone'),
     }, {
       id: 'callMobile',
       cls: 'fa fa-mobile fa-2x',
       label: this.callMobileActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
-      fn: action.callPhone.bindDelegate(this, 'Mobile')
+      fn: action.callPhone.bindDelegate(this, 'Mobile'),
     }, {
       id: 'sendEmail',
       cls: 'fa fa-envelope fa-2x',
       label: this.sendEmailActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Email'),
-      fn: action.sendEmail.bindDelegate(this, 'Email')
+      fn: action.sendEmail.bindDelegate(this, 'Email'),
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
       label: this.addNoteActionText,
-      fn: action.addNote.bindDelegate(this)
+      fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
       cls: 'fa fa-calendar fa-2x',
       label: this.addActivityActionText,
-      fn: action.addActivity.bindDelegate(this)
+      fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
       cls: 'fa fa-paperclip fa-2x',
       label: this.addAttachmentActionText,
-      fn: action.addAttachment.bindDelegate(this)
+      fn: action.addAttachment.bindDelegate(this),
     }]);
   },
 
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%" or upper(LeadNameLastFirst) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Lead.List', __class);

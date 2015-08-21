@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import format from '../../Format';
 import AttachmentList from './List';
 
 /**
@@ -13,18 +12,19 @@ import AttachmentList from './List';
  * @requires crm.Views.Attachments.List
  *
  */
-var __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
+const __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
   id: 'myattachment_list',
   titleText: 'My Attachments',
-  queryWhere: function() {
-    return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context['user'].$key)]);
+  queryWhere: function queryWhere() {
+    return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context.user.$key)]);
   },
-  _formatUserKey: function(userKey) {
-    if (userKey === 'ADMIN') {
-      userKey = 'ADMIN       '; //The attachment feed is picky and requires the Admin key to be padded to a 12 char.
+  _formatUserKey: function _formatUserKey(userKey) {
+    let key = userKey;
+    if (key === 'ADMIN') {
+      key = 'ADMIN       '; // The attachment feed is picky and requires the Admin key to be padded to a 12 char.
     }
-    return userKey;
-  }
+    return key;
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);

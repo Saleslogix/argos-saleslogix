@@ -30,7 +30,8 @@
 .row > div > a,
 .row > span,
 .row > a {
-    /*display: inline-block;*/
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .list-item-selected {
@@ -617,6 +618,9 @@ td.calendar-day {
  }
 
 .toolButton {
+    .fa-bars {
+        color: @color-light-azure;
+    }
     color: @icon-color;
 }
 
@@ -1183,23 +1187,29 @@ td.entry-table-description {
         margin: 0;
         padding: 0;
 
+        .list-action-selected {
+          border-bottom: 0;
+        }
+
         > li.no-data, li.list-loading-indicator {
             min-height: inherit;
         }
 
         > li.actions-row {
-            background-color: @color-azure;
+            background-color: @color-deep-slate;
+            color: @color-light-slate;
         }
 
         > li {
             min-height: 55px;
             font-weight: bold;
             list-style: none;
-            padding: 8px 0px 8px 10px;
+            padding: 8px 0 8px 10px;
             position: relative;
             cursor: pointer;
-            .border-radius(3px);
-            margin: 3px;
+            .border-radius(0);
+            margin: 0;
+            border-bottom: 1px solid @color-lighter-slate;
 
             > img.icon,
             * > img.icon {
@@ -1214,14 +1224,14 @@ td.entry-table-description {
 
             > input.list-selector {
                 float: left;
-                margin: 2px 0 0 0px;
+                margin: 2px 0 0 0;
             }
         }
     }
 
     .list-content, .group-content {
         > li {
-            padding: 8px 6px 8px 6px;
+            padding: 8px 0;
             background-color: #fff;
             font-weight: normal;
         }
@@ -1251,14 +1261,15 @@ td.entry-table-description {
         visibility: hidden;
         width: 44px;
         /* todo: remove !important in the SDK */
-        height: 44px !important;
+        height: 100%;
         position: absolute;
-        top: 6px;
-        left: 10px;
+        top: 0;
+        left: 0;
         z-index: 10;
-        border: 0 none #000;
-        border-radius: 48px;
-        background: @gray1-light none;
+        border: 0;
+        border-right: 1px solid @color-lighter-slate;
+        border-radius: 0;
+        background: none;
         font-size: 10px;
 
         > span {
@@ -1274,13 +1285,7 @@ td.entry-table-description {
             left: 6px;
             line-height: 30px;
             padding: 0 2px 0 2px;
-            color: #000;
-            text-shadow: #fff 0px 1px 0px;
-            border: 1px solid #ececec;
-            background-color: #ffffff;
-            background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
-            background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ececec) );
-            background-image: -moz-linear-gradient(top, #ffffff, #ececec);
+            color: @color-slate;
 
             > img {
                 position: absolute;
@@ -1324,7 +1329,7 @@ td.entry-table-description {
 
     .actions-row {
         > button {
-            background: @color-azure;
+            background: @color-deep-slate;
             border: 0 solid #000000;
             height: 44px;
             margin: 5px !important;
@@ -1334,7 +1339,7 @@ td.entry-table-description {
             width: 10%;
             min-width: 68px;
             border-radius: 5px;
-            color:  #fff;
+            color:  @color-lighter-slate;
             >  span {
                font-size: 25px;
             }
@@ -1351,19 +1356,30 @@ td.entry-table-description {
 
         > .list-item-selector {
 
-            border-color: #AAAAAA;
+            border-color: @color-lighter-slate;
             background-image: none !important;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
 
             margin: 0;
-            background-color: @color-azure;
-            color: #fff;
+            background-color: @color-deep-slate;
+            color: @color-lighter-slate;
             text-shadow: none;
-            .border-radius(22px);
+            .border-radius(0);
             .box-sizing(border-box);
             .box-shadow(none) !important;
         }
+    }
+
+    .list-more{
+        > .button {
+        border: 0;
+        background-color: #fff;
+        color: @color-graphite;
+      }
+      button:active {
+        color: @color-azure;
+      }
     }
 
     .list-item-tab {
@@ -1414,6 +1430,15 @@ td.entry-table-description {
             left: 0;
             top: 18px;
             width: 0;
+
+            > img {
+                border: 0 none black;
+                height: 24px;
+                left: -13px !important;
+                position: relative !important;
+                top: 0px !important;
+                width: 24px;
+            }
         }
     }
 
@@ -1426,19 +1451,6 @@ td.entry-table-description {
         top: 0;
         width: 28px;
         z-index: 10;
-    }
-
-    .list-action-selected {
-        .footer-item-selector {
-            > img {
-                border: 0 none black;
-                height: 24px;
-                left: -13px !important;
-                position: relative !important;
-                top: 0px !important;
-                width: 24px;
-            }
-        }
     }
 }
 
@@ -1533,9 +1545,9 @@ td.entry-table-description {
 }
 
 .group-configuration {
-    background-color: @black-dark !important;
+    background-color: @color-slate !important;
     border-width: 1px 0px 1px 0px;
-    border-color: @black-light;
+    border-color: @color-light-slate;
     border-style: solid;
 }
 
@@ -1616,5 +1628,3 @@ canvas,
         }
     }
 }
-
-

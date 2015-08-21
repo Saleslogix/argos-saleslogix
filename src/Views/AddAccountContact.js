@@ -14,8 +14,8 @@ import Edit from 'argos/Edit';
  * @extends argos.Edit
  *
  */
-var __class = declare('crm.Views.AddAccountContact', [Edit], {
-  //Localization
+const __class = declare('crm.Views.AddAccountContact', [Edit], {
+  // Localization
   accountNameText: 'account',
   accountStatusTitleText: 'Account Status',
   accountSubTypeTitleText: 'Account SubType',
@@ -45,7 +45,7 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
   workText: 'work phone',
   industryTitleText: 'Industry',
 
-  //View Properties
+  // View Properties
   id: 'add_account_contact',
   resourceKind: 'accounts',
   entityName: 'Account',
@@ -71,62 +71,64 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
     'Owner/OwnerDescription',
     'Status',
     'SubType',
-    'Type'
+    'Type',
   ],
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
 
     this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
   },
-  getValues: function() {
-    var values = this.inherited(arguments);
+  getValues: function getValues() {
+    const values = this.inherited(arguments);
 
     utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
-    utility.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
+    utility.setValue(values, 'Contacts.$resources[0].AccountName', values.AccountName);
 
     return values;
   },
-  formatDependentPicklist: function(dependentValue, fmt) {
-    if (!lang.isArray(dependentValue)) {
-      dependentValue = [dependentValue];
+  formatDependentPicklist: function formatDependentPicklist(dependentValue, fmt) {
+    let dependValue = dependentValue;
+    if (!lang.isArray(dependValue)) {
+      dependValue = [dependValue];
     }
-    return string.substitute(fmt, [dependentValue]);
+    return string.substitute(fmt, [dependValue]);
   },
-  onInsertCompleted: function(entry) {
-    var view = App.getView('account_detail');
+  onInsertCompleted: function onInsertCompleted(entry) {
+    const view = App.getView('account_detail');
     if (view) {
       view.show({
         descriptor: entry.$descriptor,
-        key: entry.$key
+        key: entry.$key,
       }, {
-        returnTo: -1
+        returnTo: -1,
       });
     } else {
       this.inherited(arguments);
     }
   },
-  onContactAddressChange: function(value) {
+  onContactAddressChange: function onContactAddressChange(value) {
+    let address;
+    let address1;
     // Copy contact address down into the account address if the account address is not set
-    var address, address1;
-    if (this.fields['Address']) {
-      address = this.fields['Address'].getValue();
+    if (this.fields.Address) {
+      address = this.fields.Address.getValue();
       address1 = address && address.Address1;
     }
 
     if (!address || !address1) {
-      this.fields['Address'].setValue(value);
+      this.fields.Address.setValue(value);
     }
   },
-  applyContext: function(templateEntry) {
+  applyContext: function applyContext(templateEntry) {
     this.inherited(arguments);
 
-    this.fields['AccountManager'].setValue(App.context.user);
-    this.fields['Owner'].setValue(App.context['defaultOwner']);
+    this.fields.AccountManager.setValue(App.context.user);
+    this.fields.Owner.setValue(App.context.defaultOwner);
 
-    this.fields['Type'].setValue(templateEntry.Type);
-    this.fields['Status'].setValue(templateEntry.Status);
+    this.fields.Type.setValue(templateEntry.Type);
+    this.fields.Status.setValue(templateEntry.Status);
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       emptyText: '',
       formatValue: format.nameLF,
@@ -135,19 +137,19 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
       property: 'Contacts.$resources[0]',
       type: 'name',
       validator: validator.name,
-      view: 'name_edit'
+      view: 'name_edit',
     }, {
       label: this.accountNameText,
       name: 'AccountName',
       property: 'AccountName',
       type: 'text',
-      validator: validator.notEmpty
+      validator: validator.notEmpty,
     }, {
       label: this.emailText,
       name: 'Contacts.$resources[0].Email',
       property: 'Contacts.$resources[0].Email',
       type: 'text',
-      inputType: 'email'
+      inputType: 'email',
     }, {
       label: this.webText,
       name: 'WebAddress',
@@ -155,14 +157,14 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
       type: 'text',
       inputType: 'url',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.phoneText,
       name: 'MainPhone',
       property: 'MainPhone',
       type: 'phone',
       maxTextLength: 32,
-      validator: validator.exceedsMaxTextLength
+      validator: validator.exceedsMaxTextLength,
     }, {
       title: this.detailsContactText,
       name: 'ContactInfoSection',
@@ -173,35 +175,35 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
         picklist: 'Title',
         title: this.contactTitleText,
         type: 'picklist',
-        orderBy: 'text asc'
+        orderBy: 'text asc',
       }, {
         label: this.homePhoneText,
         name: 'Contacts.$resources[0].HomePhone',
         property: 'Contacts.$resources[0].HomePhone',
         type: 'phone',
         maxTextLength: 32,
-        validator: validator.exceedsMaxTextLength
+        validator: validator.exceedsMaxTextLength,
       }, {
         name: 'Contacts.$resources[0].Mobile',
         property: 'Contacts.$resources[0].Mobile',
         label: this.mobileText,
         type: 'phone',
         maxTextLength: 32,
-        validator: validator.exceedsMaxTextLength
+        validator: validator.exceedsMaxTextLength,
       }, {
         name: 'Contacts.$resources[0].WorkPhone',
         property: 'Contacts.$resources[0].WorkPhone',
         label: this.workText,
         type: 'phone',
         maxTextLength: 32,
-        validator: validator.exceedsMaxTextLength
+        validator: validator.exceedsMaxTextLength,
       }, {
         name: 'Contacts.$resources[0].Fax',
         property: 'Contacts.$resources[0].Fax',
         label: this.faxText,
         type: 'phone',
         maxTextLength: 32,
-        validator: validator.exceedsMaxTextLength
+        validator: validator.exceedsMaxTextLength,
       }, {
         emptyText: '',
         formatValue: format.address.bindDelegate(this, true, true),
@@ -210,8 +212,8 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
         property: 'Contacts.$resources[0].Address',
         type: 'address',
         view: 'address_edit',
-        entityName: 'Contact'
-      }]
+        entityName: 'Contact',
+      }],
     }, {
       title: this.detailsAccountText,
       name: 'AccountInfoSection',
@@ -221,14 +223,14 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
         label: this.faxText,
         type: 'phone',
         maxTextLength: 32,
-        validator: validator.exceedsMaxTextLength
+        validator: validator.exceedsMaxTextLength,
       }, {
         name: 'Type',
         property: 'Type',
         label: this.typeText,
         type: 'picklist',
         picklist: 'Account Type',
-        title: this.accountTypeTitleText
+        title: this.accountTypeTitleText,
       }, {
         name: 'SubType',
         property: 'SubType',
@@ -239,26 +241,26 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
           this, 'Account ${0}', true
         ),
         title: this.accountSubTypeTitleText,
-        dependsOn: 'Type'
+        dependsOn: 'Type',
       }, {
         name: 'Status',
         property: 'Status',
         label: this.statusText,
         type: 'picklist',
         picklist: 'Account Status',
-        title: this.accountStatusTitleText
+        title: this.accountStatusTitleText,
       }, {
         name: 'Industry',
         property: 'Industry',
         label: this.industryText,
         type: 'picklist',
         picklist: 'Industry',
-        title: this.industryTitleText
+        title: this.industryTitleText,
       }, {
         name: 'BusinessDescription',
         property: 'BusinessDescription',
         label: this.descriptionText,
-        type: 'text'
+        type: 'text',
       }, {
         label: this.acctMgrText,
         name: 'AccountManager',
@@ -266,14 +268,14 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
         textProperty: 'UserInfo',
         textTemplate: template.nameLF,
         type: 'lookup',
-        view: 'user_list'
+        view: 'user_list',
       }, {
         label: this.ownerText,
         name: 'Owner',
         property: 'Owner',
         textProperty: 'OwnerDescription',
         type: 'lookup',
-        view: 'owner_list'
+        view: 'owner_list',
       }, {
         emptyText: '',
         formatValue: format.address.bindDelegate(this, true, true),
@@ -282,10 +284,10 @@ var __class = declare('crm.Views.AddAccountContact', [Edit], {
         property: 'Address',
         type: 'address',
         view: 'address_edit',
-        entityName: 'Account'
-      }]
+        entityName: 'Account',
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);

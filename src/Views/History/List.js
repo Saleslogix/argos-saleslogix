@@ -1,19 +1,14 @@
-import lang from 'dojo/_base/lang'
-import array from 'dojo/_base/array'
-import declare from 'dojo/_base/declare'
-import string from 'dojo/string'
-import domStyle from 'dojo/dom-style'
-import domGeom from 'dojo/dom-geometry'
-import query from 'dojo/query'
-import domClass from 'dojo/dom-class'
-import format from '../../Format'
-import convert from 'argos/Convert'
-import action from '../../Action'
-import List from 'argos/List'
-import _RightDrawerListMixin from '../_RightDrawerListMixin'
-import _MetricListMixin from '../_MetricListMixin'
-import _CardLayoutListMixin from '../_CardLayoutListMixin'
-import moment from 'moment'
+import lang from 'dojo/_base/lang';
+import declare from 'dojo/_base/declare';
+import string from 'dojo/string';
+import format from '../../Format';
+import convert from 'argos/Convert';
+import action from '../../Action';
+import List from 'argos/List';
+import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import _MetricListMixin from '../_MetricListMixin';
+import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import moment from 'moment';
 
 /**
  * @class crm.Views.History.List
@@ -31,8 +26,8 @@ import moment from 'moment'
  *
  * @requires moment
  */
-var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
-  //Templates
+const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+  // Templates
   itemTemplate: new Simplate([
     '<h3>',
     '{% if ($.Type === "atNote") { %}',
@@ -49,7 +44,7 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
     '<div class="note-text-wrap">',
     '{%: $.Notes %}',
     '</div>',
-    '</div>'
+    '</div>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.LeadName && $.AccountName) { %}',
@@ -62,10 +57,10 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
     '{%: $.ContactName %}',
     '{% } else { %}',
     '{%: $.AccountName %}',
-    '{% } %}'
+    '{% } %}',
   ]),
 
-  //Localization
+  // Localization
   activityTypeText: {
     'atToDo': 'To-Do',
     'atPhoneCall': 'Phone Call',
@@ -73,7 +68,7 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
     'atLiterature': 'Literature Request',
     'atPersonal': 'Personal Activity',
     'atQuestion': 'Question',
-    'atEMail': 'E-mail'
+    'atEMail': 'E-mail',
   },
   hourMinuteFormatText: 'h:mm A',
   hashTagQueriesText: {
@@ -82,7 +77,7 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
     'phonecall': 'phonecall',
     'meeting': 'meeting',
     'personal': 'personal',
-    'email': 'email'
+    'email': 'email',
   },
   dateFormatText: 'M/D/YY',
   titleText: 'Notes/History',
@@ -92,11 +87,11 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
   addAttachmentActionText: 'Add Attachment',
   regardingText: 'Regarding: ',
 
-  //View Properties
+  // View Properties
   detailView: 'history_detail',
   itemIconClass: 'fa fa-archive fa-2x',
   id: 'history_list',
-  security: null, //'Entities/History/View',
+  security: null, // 'Entities/History/View',
   existsRE: /^[\w]{12}$/,
   insertView: 'history_edit',
   queryOrderBy: 'CompletedDate desc',
@@ -116,21 +111,21 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
     'ContactId',
     'TicketId',
     'ModifyDate',
-    'Notes'
+    'Notes',
 
   ],
   queryWhere: 'Type ne "atDatabaseChange"',
   resourceKind: 'history',
   entityName: 'History',
   hashTagQueries: {
-    'my-history': function() {
+    'my-history': function myHistory() {
       return 'UserId eq "' + App.context.user.$key + '"';
     },
     'note': 'Type eq "atNote"',
     'phonecall': 'Type eq "atPhoneCall"',
     'meeting': 'Type eq "atAppointment"',
     'personal': 'Type eq "atPersonal"',
-    'email': 'Type eq "atEMail"'
+    'email': 'Type eq "atEMail"',
   },
   activityIndicatorIconByType: {
     'atToDo': 'fa fa-list-ul fa-2x',
@@ -140,12 +135,12 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
     'atPersonal': 'fa fa-check-square-o fa-2x',
     'atQuestion': 'fa fa-question-circle fa-2x',
     'atNote': 'fa fa-file-text-o fa-2x',
-    'atEMail': 'fa fa-envelope fa-2x'
+    'atEMail': 'fa fa-envelope fa-2x',
   },
   allowSelection: true,
   enableActions: true,
 
-  createActionLayout: function() {
+  createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'viewAccount',
       label: this.viewAccountActionText,
@@ -153,8 +148,8 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
       fn: action.navigateToEntity.bindDelegate(this, {
         view: 'account_detail',
         keyProperty: 'AccountId',
-        textProperty: 'AccountName'
-      })
+        textProperty: 'AccountName',
+      }),
     }, {
       id: 'viewOpportunity',
       label: this.viewOpportunityActionText,
@@ -162,70 +157,70 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
       fn: action.navigateToEntity.bindDelegate(this, {
         view: 'opportunity_detail',
         keyProperty: 'OpportunityId',
-        textProperty: 'OpportunityName'
-      })
+        textProperty: 'OpportunityName',
+      }),
     }, {
       id: 'viewContact',
       label: this.viewContactActionText,
       action: 'navigateToContactOrLead',
-      enabled: this.hasContactOrLead
+      enabled: this.hasContactOrLead,
     }, {
       id: 'addAttachment',
       cls: 'fa fa-paperclip fa-2x',
       label: this.addAttachmentActionText,
-      fn: action.addAttachment.bindDelegate(this)
+      fn: action.addAttachment.bindDelegate(this),
     }]);
   },
-  hasContactOrLead: function(action, selection) {
-    return (selection.data['ContactId']) || (selection.data['LeadId']);
+  hasContactOrLead: function hasContactOrLead(theAction, selection) {
+    return (selection.data.ContactId) || (selection.data.LeadId);
   },
-  navigateToContactOrLead: function(action, selection) {
-    var entity = this.resolveContactOrLeadEntity(selection.data),
-      viewId,
-      view,
-      options;
+  navigateToContactOrLead: function navigateToContactOrLead(theAction, selection) {
+    const entity = this.resolveContactOrLeadEntity(selection.data);
+    let viewId;
+    let options;
 
     switch (entity) {
       case 'Contact':
         viewId = 'contact_detail';
         options = {
-          key: selection.data['ContactId'],
-          descriptor: selection.data['ContactName']
+          key: selection.data.ContactId,
+          descriptor: selection.data.ContactName,
         };
         break;
       case 'Lead':
         viewId = 'lead_detail';
         options = {
-          key: selection.data['LeadId'],
-          descriptor: selection.data['LeadName']
+          key: selection.data.LeadId,
+          descriptor: selection.data.LeadName,
         };
         break;
+      default:
     }
 
-    view = App.getView(viewId);
+    const view = App.getView(viewId);
 
     if (view && options) {
       view.show(options);
     }
   },
-  resolveContactOrLeadEntity: function(entry) {
-    var exists = this.existsRE;
+  resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
+    const exists = this.existsRE;
 
     if (entry) {
-      if (exists.test(entry['LeadId'])) {
+      if (exists.test(entry.LeadId)) {
         return 'Lead';
       }
-      if (exists.test(entry['ContactId'])) {
+      if (exists.test(entry.ContactId)) {
         return 'Contact';
       }
     }
   },
-  formatDate: function(date) {
-    var startDate = moment(convert.toDateFromString(date)),
-      nextDate = startDate.clone().add({
-        hours: 24
-      }),
-      fmt = this.dateFormatText;
+  formatDate: function formatDate(date) {
+    const startDate = moment(convert.toDateFromString(date));
+    const nextDate = startDate.clone().add({
+        hours: 24,
+      });
+    let fmt = this.dateFormatText;
 
     if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
       fmt = this.hourMinuteFormatText;
@@ -233,31 +228,31 @@ var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _M
 
     return format.date(startDate.toDate(), fmt);
   },
-  formatSearchQuery: function(searchQuery) {
+  formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
-  createIndicatorLayout: function() {
+  createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'fa fa-hand-o-up fa-lg',
       label: 'Touched',
-      onApply: function(entry, parent) {
+      onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
-      }
+      },
     }]);
   },
-  getItemIconClass: function(entry) {
-    var type = entry && entry.Type;
+  getItemIconClass: function getItemIconClass(entry) {
+    const type = entry && entry.Type;
     return this._getItemIconClass(type);
   },
-  _getItemIconClass: function(type) {
-    var cls = this.activityIndicatorIconByType[type];
+  _getItemIconClass: function _getItemIconClass(type) {
+    let cls = this.activityIndicatorIconByType[type];
     if (!cls) {
       cls = this.itemIconClass;
     }
 
     return cls;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.History.List', __class);

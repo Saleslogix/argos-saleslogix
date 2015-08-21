@@ -13,8 +13,8 @@ import moment from 'moment';
  * @requires crm.Format
  * @requires crm.Validator
  */
-var __class = declare('crm.Views.Event.Edit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.Event.Edit', [Edit], {
+  // Localization
   titleText: 'Event',
   typeText: 'type',
   descriptionText: 'description',
@@ -22,17 +22,17 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
   endDateText: 'end date',
   startingFormatText: 'M/D/YYYY h:mm A',
 
-  //View Properties
+  // View Properties
   entityName: 'Event',
   id: 'event_edit',
-  insertSecurity: null, //'Entities/Event/Add',
-  updateSecurity: null, //'Entities/Event/Edit',
+  insertSecurity: null, // 'Entities/Event/Add',
+  updateSecurity: null, // 'Entities/Event/Edit',
   querySelect: [
     'Description',
     'EndDate',
     'StartDate',
     'UserId',
-    'Type'
+    'Type',
   ],
   resourceKind: 'events',
 
@@ -40,56 +40,47 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
     'Vacation': 'Vacation',
     'Business Trip': 'Business Trip',
     'Conference': 'Conference',
-    'Holiday': 'Holiday'
+    'Holiday': 'Holiday',
   },
-  startup: function() {
+  startup: function startup() {
     this.inherited(arguments);
 
-    this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
+    this.connect(this.fields.StartDate, 'onChange', this.onStartDateChange);
   },
-  onStartDateChange: function(val) {
-    var endDate = this.fields['EndDate'].getValue();
+  onStartDateChange: function onStartDateChange(val) {
+    const endDate = this.fields.EndDate.getValue();
 
     if (endDate < val) {
-      this.fields['EndDate'].setValue(val);
+      this.fields.EndDate.setValue(val);
     }
   },
-  formatTypeText: function(val, key, text) {
+  formatTypeText: function formatTypeText(val, key, text) {
     return this.eventTypesText[key] || text;
   },
-  createTypeData: function() {
-    var list = [],
-      type;
+  createTypeData: function createTypeData() {
+    const list = [];
 
-    for (type in this.eventTypesText) {
+    for (const type in this.eventTypesText) {
       if (this.eventTypesText.hasOwnProperty(type)) {
         list.push({
           '$key': type,
-          '$descriptor': this.eventTypesText[type]
+          '$descriptor': this.eventTypesText[type],
         });
       }
     }
 
     return {
-      '$resources': list
+      '$resources': list,
     };
   },
-  applyUserActivityContext: function(context) {
-    var view,
-      currentDate,
-      userOptions,
-      startTimeOption,
-      startTime,
-      startDate,
-      endDate;
-
-    view = App.getView(context.id);
+  applyUserActivityContext: function applyUserActivityContext(context) {
+    const view = App.getView(context.id);
     if (view && view.currentDate) {
-      currentDate = moment(view.currentDate).clone().startOf('day');
-      userOptions = App.context['userOptions'];
-      startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
-      startTime = startTimeOption && moment(startTimeOption, 'h:mma');
-      startDate = currentDate.clone();
+      const currentDate = moment(view.currentDate).clone().startOf('day');
+      const userOptions = App.context.userOptions;
+      const startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
+      const startDate = currentDate.clone();
+      let startTime = startTimeOption && moment(startTimeOption, 'h:mma');
 
       if (startTime && (!moment(currentDate).isSame(moment()))) {
         startDate.hours(startTime.hours());
@@ -98,42 +89,38 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
         startTime = moment();
         startDate.hours(startTime.hours());
         startDate.add({
-          'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
+          'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15,
         });
       }
 
-      endDate = startDate.clone().add({
-        minutes: 15
+      const endDate = startDate.clone().add({
+        minutes: 15,
       });
 
-      this.fields['StartDate'].setValue(startDate.toDate());
-      this.fields['EndDate'].setValue(endDate.toDate());
+      this.fields.StartDate.setValue(startDate.toDate());
+      this.fields.EndDate.setValue(endDate.toDate());
     }
   },
-  applyContext: function() {
+  applyContext: function applyContext() {
     this.inherited(arguments);
 
-    var found,
-      context,
-      lookup;
-
-    found = App.queryNavigationContext(function(o) {
-      var context = (o.options && o.options.source) || o;
+    const found = App.queryNavigationContext(function queryNavigationContext(o) {
+      const context = (o.options && o.options.source) || o;
 
       return (/^(useractivities||activities||events)$/.test(context.resourceKind));
     });
 
-    context = (found && found.options && found.options.source) || found;
-    lookup = {
+    const context = (found && found.options && found.options.source) || found;
+    const lookup = {
       'useractivities': this.applyUserActivityContext,
-      'activities': this.applyUserActivityContext
+      'activities': this.applyUserActivityContext,
     };
 
     if (context && lookup[context.resourceKind]) {
       lookup[context.resourceKind].call(this, context);
     }
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       label: this.typeText,
       name: 'Type',
@@ -144,11 +131,11 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
       maxTextLength: 64,
       validator: [
         validator.exceedsMaxTextLength,
-        validator.notEmpty
+        validator.notEmpty,
       ],
       textRenderer: this.formatTypeText.bindDelegate(this),
       data: this.createTypeData(),
-      autoFocus: true
+      autoFocus: true,
     }, {
       label: this.descriptionText,
       name: 'Description',
@@ -157,8 +144,8 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
       maxTextLength: 64,
       validator: [
         validator.exceedsMaxTextLength,
-        validator.notEmpty
-      ]
+        validator.notEmpty,
+      ],
     }, {
       label: this.startDateText,
       name: 'StartDate',
@@ -170,8 +157,8 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
-        validator.isDateInRange
-      ]
+        validator.isDateInRange,
+      ],
     }, {
       label: this.endDateText,
       name: 'EndDate',
@@ -183,10 +170,10 @@ var __class = declare('crm.Views.Event.Edit', [Edit], {
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
-        validator.isDateInRange
-      ]
+        validator.isDateInRange,
+      ],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Event.Edit', __class);

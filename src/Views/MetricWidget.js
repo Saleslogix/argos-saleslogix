@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import Deferred from 'dojo/Deferred';
 import when from 'dojo/when';
 import all from 'dojo/promise/all';
@@ -17,7 +16,7 @@ import SDataStore from 'argos/Store/SData';
  * @requires argos.Store.SData
  *
  */
-var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
+const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
   /**
    * @property {Simplate}
    * Simple that defines the HTML Markup
@@ -29,7 +28,7 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     '{%! $.loadingTemplate %}',
     '</div>',
     '</button>',
-    '</div>'
+    '</div>',
   ]),
 
   /**
@@ -38,14 +37,14 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    */
   itemTemplate: new Simplate([
     '<h1 class="metric-value">{%: $$.formatter($.value) %}</h1>',
-    '<span class="metric-title">{%: $$.title %}</span>'
+    '<span class="metric-title">{%: $$.title %}</span>',
   ]),
 
   /**
    * @property {Simplate}
    */
   errorTemplate: new Simplate([
-    '<div class="metric-title">{%: $$.errorText %}</div>'
+    '<div class="metric-title">{%: $$.errorText %}</div>',
   ]),
 
   /**
@@ -55,7 +54,7 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
   loadingTemplate: new Simplate([
     '<div class="metric-title list-loading">',
     '<span class="list-loading-indicator"><span class="fa fa-spinner fa-spin"></span><div>{%= $.loadingText %}</div></span>',
-    '</div>'
+    '</div>',
   ]),
 
   // Localization
@@ -89,7 +88,7 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
   chartTypeMapping: {
     'pie': 'chart_generic_pie',
     'bar': 'chart_generic_bar',
-    'line': 'chart_generic_line'
+    'line': 'chart_generic_line',
   },
 
   // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
@@ -100,13 +99,13 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    * Loads a module/function via AMD and wraps it in a deferred
    * @return {object} Returns a deferred with the function loaded via AMD require
    */
-  getFormatterFnDeferred: function() {
+  getFormatterFnDeferred: function getFormatterFnDeferred() {
     if (this.formatModule && this.formatter) {
       return this._loadModuleFunction(this.formatModule, this.formatter);
     }
 
     // Return the default fn if aggregateModule and aggregate were not assigned
-    var d = new Deferred();
+    const d = new Deferred();
     d.resolve(this.formatter);
     return d.promise;
   },
@@ -116,45 +115,39 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    * @param {Array} data Array of data used for the metric
    * @return {int} Returns a value calculated from data (SUM/AVG/MAX/MIN/Whatever)
    */
-  valueFn: function(data) {
-    var total = 0;
-    array.forEach(data, function(item) {
-      total = total + item.value;
-    }, this);
-
-    return total;
+  valueFn: function valueFn(data = []) {
+    return data.reduce((p, c) => p + c.value, 0);
   },
 
   // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
   aggregateModule: 'crm/Aggregate',
-  aggregate: null, //'valueFn',
+  aggregate: null,
 
   /**
    * Loads a module/function via AMD and wraps it in a deferred
    * @return {object} Returns a deferred with the function loaded via AMD require
    */
-  getValueFnDeferred: function() {
+  getValueFnDeferred: function getValueFnDeferred() {
     if (this.aggregateModule && this.aggregate) {
       return this._loadModuleFunction(this.aggregateModule, this.aggregate);
     }
 
     // Return the default fn if aggregateModule and aggregate were not assigned
-    var d = new Deferred();
+    const d = new Deferred();
     d.resolve(this.valueFn);
     return d.promise;
   },
-  _loadModuleFunction: function(module, fn) {
+  _loadModuleFunction: function _loadModuleFunction(module, fn) {
     // Attempt to load the function fn from the AMD module
-    var def = new Deferred();
+    const def = new Deferred();
     try {
-      require([module], lang.hitch(this, function(mod) {
-        var instance;
+      require([module], lang.hitch(this, function requireFn(Mod) {
         // Handle if required module is a ctor else object
-        if (typeof mod === 'function') {
-          instance = new mod();
+        if (typeof Mod === 'function') {
+          const instance = new Mod();
           def.resolve(instance[fn]);
         } else {
-          def.resolve(mod[fn]);
+          def.resolve(Mod[fn]);
         }
       }));
     } catch (err) {
@@ -167,9 +160,7 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
   /**
    * Requests the widget's data, value fn, format fn, and renders it's itemTemplate
    */
-  requestData: function() {
-    var loadFormatter, loadValueFn;
-
+  requestData: function requestData() {
     this.inherited(arguments);
 
     if (this._data && this._data.length > 0) {
@@ -180,18 +171,17 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     this.requestDataDeferred = new Deferred();
     this._getData();
 
-    loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
-    loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
+    const loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
+    const loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
 
-    all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(lang.hitch(this, function(results) {
-      var valueFn, formatterFn, data, value;
+    all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(function success(results) {
       if (!results[0] || !results[1] || !results[2]) {
         throw new Error('An error occurred loading the KPI widget data.');
       }
 
-      valueFn = results[0];
-      formatterFn = results[1];
-      data = results[2];
+      const valueFn = results[0];
+      const formatterFn = results[1];
+      const data = results[2];
 
       if (typeof valueFn === 'function') {
         this.valueFn = valueFn;
@@ -201,19 +191,18 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
         this.formatter = formatterFn;
       }
 
-      value = this.value = this.valueFn.call(this, data);
+      const value = this.value = this.valueFn.call(this, data);
       domConstruct.place(this.itemTemplate.apply({
-        value: value
+        value: value,
       }, this), this.metricDetailNode, 'replace');
-    }), lang.hitch(this, function(err) {
+    }.bind(this), function error(err) {
       // Error
-      console.error(err);
+      console.error(err); // eslint-disable-line
       domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
-    }));
+    }.bind(this));
   },
-  navToReportView: function() {
-    var view;
-    view = App.getView(this.chartTypeMapping[this.chartType]);
+  navToReportView: function navToReportView() {
+    const view = App.getView(this.chartTypeMapping[this.chartType]);
 
     if (view) {
       view.parent = this;
@@ -221,31 +210,27 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
       view.show({
         returnTo: this.returnToId,
         currentSearchExpression: this.currentSearchExpression,
-        title: this.title
+        title: this.title,
       });
     }
   },
-  _getData: function() {
-    var store, queryOptions, queryResults;
-    queryOptions = {
+  _getData: function _getData() {
+    const queryOptions = {
       count: this.pageSize,
-      start: this.position
+      start: this.position,
     };
 
-    store = this.get('store');
-    queryResults = store.query(null, queryOptions);
+    const store = this.get('store');
+    const queryResults = store.query(null, queryOptions);
 
     when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
-  _onQuerySuccess: function(queryResults) {
-    var total,
-      left;
-
-    total = queryResults.total;
+  _onQuerySuccess: function _onQuerySuccess(queryResults) {
+    const total = queryResults.total;
 
     queryResults.forEach(lang.hitch(this, this._processItem));
 
-    left = -1;
+    let left = -1;
     if (total > -1) {
       left = total - (this.position + this.pageSize);
     }
@@ -258,14 +243,14 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
       this.requestDataDeferred.resolve(this._data);
     }
   },
-  _processItem: function(item) {
+  _processItem: function _processItem(item) {
     this._data.push(item);
   },
-  _onQueryError: function(error) {
+  _onQueryError: function _onQueryError(error) {
     this.requestDataDeferred.reject(error);
   },
-  createStore: function() {
-    var store = new SDataStore({
+  createStore: function createStore() {
+    const store = new SDataStore({
       request: this.request,
       service: App.services.crm,
       resourceKind: this.resourceKind,
@@ -277,14 +262,14 @@ var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
       orderBy: this.queryOrderBy,
       idProperty: this.keyProperty,
       applicationName: this.applicationName,
-      scope: this
+      scope: this,
     });
 
     return store;
   },
-  _getStoreAttr: function() {
+  _getStoreAttr: function _getStoreAttr() {
     return this.store || (this.store = this.createStore());
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);

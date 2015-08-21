@@ -1,13 +1,8 @@
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
-import domConstruct from 'dojo/dom-construct';
 import domAttr from 'dojo/dom-attr';
-import string from 'dojo/string';
 import validator from '../../Validator';
-import template from '../../Template';
 import salesProcessUtility from '../../SalesProcessUtility';
-import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 
 /**
@@ -20,8 +15,8 @@ import Edit from 'argos/Edit';
  * @requires crm.Validator
  * @requires crm.Template
  */
-var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
-  //Localization
+const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
+  // Localization
   estCloseText: 'est close',
   detailsText: 'Details',
   opportunityStageTitleText: 'Opportunity Stage',
@@ -35,7 +30,7 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
   probabilityTitleText: 'Opportunity Probability',
   potentialText: 'sales potential',
 
-  //View Properties
+  // View Properties
   entityName: 'Opportunity',
   id: 'opportunity_quick_edit',
   resourceKind: 'opportunities',
@@ -51,25 +46,23 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     'ExchangeRateLocked',
     'SalesPotential',
     'Stage',
-    'status'
+    'status',
   ],
-  init: function() {
+  init: function init() {
     this.inherited(arguments);
   },
-  applyContext: function(templateEntry) {
-    this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
+  applyContext: function applyContext(templateEntry) {
+    this.fields.EstimatedClose.setValue(templateEntry.EstimatedClose);
   },
-  createLayout: function() {
-    var layout, details;
-
-    details = {
+  createLayout: function createLayout() {
+    const details = {
       title: this.detailsText,
       name: 'OpportunityDetailsEdit',
       children: [{
         relatedView: {
           widgetType: 'relatedContext',
-          id: 'opp_related_context_quickEdit'
-        }
+          id: 'opp_related_context_quickEdit',
+        },
       }, {
         label: this.stageText,
         name: 'Stage',
@@ -78,7 +71,7 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
         requireSelection: true,
         enabled: false,
         title: this.opportunityStageTitleText,
-        type: 'picklist'
+        type: 'picklist',
       }, {
         label: this.probabilityText,
         name: 'CloseProbability',
@@ -88,8 +81,8 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
         type: 'picklist',
         validator: [
           validator.isInt32,
-          validator.isInteger
-        ]
+          validator.isInteger,
+        ],
       }, {
         label: this.potentialText,
         name: 'SalesPotential',
@@ -97,18 +90,18 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
         precision: 2,
         type: 'multiCurrency',
         validationTrigger: 'keyup',
-        validator: validator.isCurrency
+        validator: validator.isCurrency,
       }, {
         label: this.estCloseText,
         name: 'EstimatedClose',
         property: 'EstimatedClose',
         type: 'date',
         timeless: true,
-        validator: validator.exists
-      }]
+        validator: validator.exists,
+      }],
     };
 
-    layout = this.layout || (this.layout = []);
+    const layout = this.layout || (this.layout = []);
 
     if (layout.length > 0) {
       return layout;
@@ -117,23 +110,22 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     layout.push(details);
     return layout;
   },
-  setValues: function(values) {
+  setValues: function setValues(values) {
     this.inherited(arguments);
-    this.enableStage(values['$key']);
+    this.enableStage(values.$key);
     this.enableProbability(values);
-    this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
+    this.fields.SalesPotential.setCurrencyCode(App.getBaseExchangeRate().code);
   },
-  enableStage: function(opportunityId) {
-    var field, label;
-    field = this.fields['Stage'];
-    label = this.stageText;
+  enableStage: function enableStage(opportunityId) {
+    const field = this.fields.Stage;
+    let label = this.stageText;
 
     if (!field) {
       return;
     }
 
     field.disable();
-    salesProcessUtility.getSalesProcessByEntityId(opportunityId).then(function(salesProcess) {
+    salesProcessUtility.getSalesProcessByEntityId(opportunityId).then(function postGetSalesProcess(salesProcess) {
       if (salesProcess) {
         field.disable();
         label = this.salesProcessText + salesProcess.$descriptor;
@@ -144,19 +136,17 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     }.bind(this));
     this.setStageLabel(label);
   },
-  setStageLabel: function(label) {
-    var field, node;
-    field = this.fields['Stage'];
+  setStageLabel: function setStageLabel(label) {
+    const field = this.fields.Stage;
     if (field && field.domNode) {
-      node = query('[for="Stage"]', field.domNode);
+      const node = query('[for="Stage"]', field.domNode);
       if (node && node.length > 0) {
         domAttr.set(node[0], 'innerHTML', label); // TODO: SDK's _Field should provide a label setter
       }
     }
   },
-  enableProbability: function(entry) {
-    var field;
-    field = this.fields['CloseProbability'];
+  enableProbability: function enableProbability(entry) {
+    const field = this.fields.CloseProbability;
     if (!field) {
       return;
     }
@@ -165,14 +155,13 @@ var __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
       field.disable();
     }
   },
-  isClosed: function(entry) {
-    var status;
-    status = entry['Status'];
+  isClosed: function isClosed(entry) {
+    const status = entry.Status;
     if ((status === this.statusClosedWonText) || (status === this.statusClosedLostText)) {
       return true;
     }
     return false;
-  }
+  },
 });
 
 export default __class;

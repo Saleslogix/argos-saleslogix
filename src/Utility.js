@@ -1,5 +1,4 @@
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import Utility from 'argos/Utility';
 
 /**
@@ -11,31 +10,22 @@ import Utility from 'argos/Utility';
  * @singleton
  *
  */
-var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
-  base64ArrayBuffer: function(arrayBuffer) {
-    var base64,
-      encodings,
-      bytes,
-      byteLength,
-      mainLength,
-      byteRemainder,
-      a,
-      b,
-      c,
-      d,
-      chunk,
-      i;
-
-    base64 = '';
-    encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-    bytes = new Uint8Array(arrayBuffer);
-    byteLength = bytes.byteLength;
-    byteRemainder = byteLength % 3;
-    mainLength = byteLength - byteRemainder;
+const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
+  base64ArrayBuffer: function base64ArrayBuffer(arrayBuffer) {
+    let base64 = '';
+    let chunk;
+    let a;
+    let b;
+    let c;
+    let d;
+    const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    const bytes = new Uint8Array(arrayBuffer);
+    const byteLength = bytes.byteLength;
+    const byteRemainder = byteLength % 3;
+    const mainLength = byteLength - byteRemainder;
 
     // Main loop deals with bytes in chunks of 3
-    for (i = 0; i < mainLength; i = i + 3) {
+    for (let i = 0; i < mainLength; i = i + 3) {
       // Combine the three bytes into a single integer
       chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
 
@@ -80,7 +70,7 @@ var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
    * @returns {String}
    * Returns the file extension, if fileName is null or undefined, returns the string '.'
    */
-  getFileExtension: function(fileName) {
+  getFileExtension: function getFileExtension(fileName) {
     if (!fileName) {
       return '.';
     }
@@ -91,17 +81,17 @@ var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
    * A string with the activity id seperated by a semi-colon
    * @returns {String}
    */
-  getRealActivityId: function(activityId) {
-    var Id = activityId;
+  getRealActivityId: function getRealActivityId(activityId) {
+    let id = activityId;
     if (activityId) {
       if (activityId.indexOf(';') > 0) {
-        Id = activityId.substring(0, 12);
+        id = activityId.substring(0, 12);
       } else {
-        Id = activityId;
+        id = activityId;
       }
     }
-    return Id;
-  }
+    return id;
+  },
 }));
 
 lang.setObject('Mobile.SalesLogix.Utility', __class);

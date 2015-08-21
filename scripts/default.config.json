@@ -1,7 +1,7 @@
 {
     "port": 8000,
     "proxy": {
-        "host": "localhost",
+        "host": "sdatahostname",
         "port": 80,
         "protocol": "http"
     }

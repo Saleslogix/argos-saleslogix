@@ -1,5 +1,11 @@
 var Hapi = require('hapi');
-var config = require('./config.json');
+var config;
+try {
+    config = require('./config.json');
+} catch (e) {
+    console.warn('WARNING:: Failed loading config.json, falling back to default.config.json. Copy the default.config.json to config.json for your environment.');
+    config = require('./default.config.json');
+}
 
 var server = new Hapi.Server();
 server.connection({port: config.port});

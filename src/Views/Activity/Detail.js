@@ -29,7 +29,7 @@ import platformUtility from 'argos/Utility';
  * @requires crm.Utility
  *
  */
-var __class = declare('crm.Views.Activity.Detail', [Detail], {
+const __class = declare('crm.Views.Activity.Detail', [Detail], {
   // Templates
   leaderTemplate: template.nameLF,
 
@@ -39,7 +39,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
     'atPhoneCall': 'Phone Call',
     'atAppointment': 'Meeting',
     'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity'
+    'atPersonal': 'Personal Activity',
   },
   actionsText: 'Quick Actions',
   completeActivityText: 'Complete Activity',
@@ -78,12 +78,13 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
   relatedItemsText: 'Related Items',
   phoneText: 'phone',
   moreDetailsText: 'More Details',
+  entityText: 'Activity',
 
-  //View Properties
+  // View Properties
   id: 'activity_detail',
   completeView: 'activity_complete',
   editView: 'activity_edit',
-  security: null, //'Entities/Activity/View',
+  security: null, // 'Entities/Activity/View',
   contractName: 'system',
   querySelect: [
     'AccountId',
@@ -120,43 +121,40 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
     'AllowAdd',
     'AllowEdit',
     'AllowDelete',
-    'AllowComplete'
+    'AllowComplete',
 
   ],
   resourceKind: 'activities',
   recurringActivityIdSeparator: ';',
   recurrence: {},
 
-  formatActivityType: function(val) {
+  formatActivityType: function formatActivityType(val) {
     return this.activityTypeText[val] || val;
   },
-  navigateToEditView: function() {
-    var view = App.getView(this.editView);
+  navigateToEditView: function navigateToEditView() {
+    const view = App.getView(this.editView);
 
     if (view) {
-      if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
+      if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) { // eslint-disable-line
         this.recurrence.Leader = this.entry.Leader;
         view.show({
-          entry: this.recurrence
+          entry: this.recurrence,
         });
-
       } else {
         view.show({
-          entry: this.entry
+          entry: this.entry,
         });
       }
     }
   },
-  navigateToCompleteView: function(completionTitle, isSeries) {
-    var view, options;
-
-    view = App.getView(this.completeView);
+  navigateToCompleteView: function navigateToCompleteView(completionTitle, isSeries) {
+    const view = App.getView(this.completeView);
 
     if (view) {
       environment.refreshActivityLists();
-      options = {
+      const options = {
         title: completionTitle,
-        template: {}
+        template: {},
       };
 
       if (isSeries) {
@@ -167,21 +165,21 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
       }
 
       view.show(options, {
-        returnTo: -1
+        returnTo: -1,
       });
     }
   },
-  completeActivity: function() {
+  completeActivity: function completeActivity() {
     this.navigateToCompleteView(this.completeActivityText);
   },
-  completeOccurrence: function() {
-    var request, key, entry = this.entry;
-    key = entry['$key'];
+  completeOccurrence: function completeOccurrence() {
+    const entry = this.entry;
+    const key = entry.$key;
 
     // Check to ensure we have a composite key (meaning we have the occurance, not the master)
     if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
       // Fetch the occurance, and continue on to the complete screen
-      request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+      const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')
         .setContractName('system')
         .setQueryArg('where', "id eq '" + key + "'")
@@ -189,13 +187,13 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
 
       request.read({
         success: this.processOccurance,
-        scope: this
+        scope: this,
       });
     } else {
       this.navigateToCompleteView(this.completeOccurrenceText);
     }
   },
-  processOccurance: function(feed) {
+  processOccurance: function processOccurance(feed) {
     if (feed && feed.$resources && feed.$resources.length > 0) {
       if (this.entry.Leader) {
         feed.$resources[0].Leader = this.entry.Leader;
@@ -204,61 +202,61 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
       this.navigateToCompleteView(this.completeOccurrenceText);
     }
   },
-  completeSeries: function() {
+  completeSeries: function completeSeries() {
     this.navigateToCompleteView(this.completeSeriesText, true);
   },
-  isActivityRecurring: function(entry) {
-    return entry && (entry['Recurring'] || entry['RecurrenceState'] === 'rstOccurrence');
+  isActivityRecurring: function isActivityRecurring(entry) {
+    return entry && (entry.Recurring || entry.RecurrenceState === 'rstOccurrence');
   },
-  isActivityRecurringSeries: function(entry) {
-    return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
+  isActivityRecurringSeries: function isActivityRecurringSeries(entry) {
+    return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry.RecurPeriod);
   },
-  isActivityForLead: function(entry) {
-    return entry && /^[\w]{12}$/.test(entry['LeadId']);
+  isActivityForLead: function isActivityForLead(entry) {
+    return entry && /^[\w]{12}$/.test(entry.LeadId);
   },
-  isActivityTimeless: function(entry) {
-    return entry && convert.toBoolean(entry['Timeless']);
+  isActivityTimeless: function isActivityTimeless(entry) {
+    return entry && convert.toBoolean(entry.Timeless);
   },
-  doesActivityHaveReminder: function(entry) {
-    return convert.toBoolean(entry && entry['Alarm']);
+  doesActivityHaveReminder: function doesActivityHaveReminder(entry) {
+    return convert.toBoolean(entry && entry.Alarm);
   },
-  requestLeader: function(userId) {
-    var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
+  requestLeader: function requestLeader(userId) {
+    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
       .setResourceKind('users')
       .setResourceSelector(string.substitute("'${0}'", [userId]))
       .setQueryArg('select', [
         'UserInfo/FirstName',
-        'UserInfo/LastName'
+        'UserInfo/LastName',
       ].join(','));
 
     request.read({
       success: this.processLeader,
       failure: this.requestLeaderFailure,
-      scope: this
+      scope: this,
     });
   },
-  requestLeaderFailure: function() {},
-  processLeader: function(leader) {
+  requestLeaderFailure: function requestLeaderFailure() {},
+  processLeader: function processLeader(leader) {
     if (leader) {
-      this.entry['Leader'] = leader;
+      this.entry.Leader = leader;
 
       // There could be a timing issue here. The call to request the leader is done before the layout is processed,
       // so we could potentially end up in here before any dom was created for the view.
       // TODO: Fix
-      var rowNode = query('[data-property="Leader"]'),
-        contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
+      const rowNode = query('[data-property="Leader"]');
+      const contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
 
       if (rowNode && rowNode.length > 0) {
         domClass.remove(rowNode[0], 'content-loading');
       }
 
       if (contentNode && contentNode.length > 0) {
-        contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
+        contentNode[0].innerHTML = this.leaderTemplate.apply(leader.UserInfo);
       }
     }
   },
-  requestRecurrence: function(key) {
-    var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+  requestRecurrence: function requestRecurrence(key) {
+    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind(this.resourceKind)
       .setResourceSelector(string.substitute("'${0}'", [key]))
       .setContractName(this.contractName)
@@ -268,18 +266,16 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
     request.read({
       success: this.processRecurrence,
       failure: this.requestRecurrenceFailure,
-      scope: this
+      scope: this,
     });
     return;
   },
-  processRecurrence: function(recurrence) {
-    var rowNode, contentNode;
-
+  processRecurrence: function processRecurrence(recurrence) {
     if (recurrence) {
       this.recurrence = recurrence;
 
-      rowNode = query('[data-property="RecurrenceUI"]');
-      contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
+      const rowNode = query('[data-property="RecurrenceUI"]');
+      const contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
 
       if (rowNode && rowNode.length > 0) {
         domClass.remove(rowNode[0], 'content-loading');
@@ -290,29 +286,31 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
       }
     }
   },
-  requestRecurrenceFailure: function() {},
-  checkCanComplete: function(entry) {
-    return !(entry && (entry['AllowComplete']));
+  requestRecurrenceFailure: function requestRecurrenceFailure() {},
+  checkCanComplete: function checkCanComplete(entry) {
+    return !(entry && (entry.AllowComplete));
   },
-  preProcessEntry: function(entry) {
-    if (entry && entry['Leader']['$key']) {
-      this.requestLeader(entry['Leader']['$key']);
+  preProcessEntry: function preProcessEntry(entry) {
+    if (entry && entry.Leader.$key) {
+      this.requestLeader(entry.Leader.$key);
     }
     if (this.isActivityRecurring(entry)) {
-      this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
+      this.requestRecurrence(entry.$key.split(this.recurringActivityIdSeparator).shift());
     }
 
     return entry;
   },
-  formatRelatedQuery: function(entry, fmt, property) {
+  formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
+    let toReturn;
     if (property === 'activityId') {
-      return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
+      toReturn = string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
     } else {
-      property = property || '$key';
-      return string.substitute(fmt, [platformUtility.getValue(entry, property, '')]);
+      const theProperty = property || '$key';
+      toReturn = string.substitute(fmt, [platformUtility.getValue(entry, theProperty, '')]);
     }
+    return toReturn;
   },
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       list: true,
       title: this.actionsText,
@@ -325,7 +323,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeActivity',
         disabled: this.checkCanComplete,
-        exclude: this.isActivityRecurringSeries
+        exclude: this.isActivityRecurringSeries,
       }, {
         name: 'completeOccurrenceAction',
         property: 'StartDate',
@@ -334,7 +332,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         action: 'completeOccurrence',
         disabled: this.checkCanComplete,
         renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-        include: this.isActivityRecurringSeries
+        include: this.isActivityRecurringSeries,
       }, {
         name: 'completeSeriesAction',
         property: 'Description',
@@ -342,8 +340,8 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeSeries',
         disabled: this.checkCanComplete,
-        include: this.isActivityRecurringSeries
-      }]
+        include: this.isActivityRecurringSeries,
+      }],
     }, {
       title: this.detailsText,
       name: 'DetailsSection',
@@ -351,21 +349,21 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         name: 'Type',
         property: 'Type',
         label: this.typeText,
-        renderer: this.formatActivityType.bindDelegate(this)
+        renderer: this.formatActivityType.bindDelegate(this),
       }, {
         name: 'Description',
         property: 'Description',
-        label: this.regardingText
+        label: this.regardingText,
       }, {
         name: 'PhoneNumber',
         property: 'PhoneNumber',
         label: this.phoneText,
-        renderer: format.phone.bindDelegate(this, false)
+        renderer: format.phone.bindDelegate(this, false),
       }, {
         name: 'LongNotes',
         property: 'LongNotes',
-        label: this.longNotesText
-      }]
+        label: this.longNotesText,
+      }],
     }, {
       title: this.whenText,
       name: 'WhenSection',
@@ -374,51 +372,51 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'StartDate',
         label: this.startTimeText,
         renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-        exclude: this.isActivityTimeless
+        exclude: this.isActivityTimeless,
       }, {
         name: 'StartDateTimeless',
         property: 'StartDate',
         label: this.allDayText,
         renderer: format.date.bindDelegate(this, this.timelessDateFormatText, true),
-        include: this.isActivityTimeless
+        include: this.isActivityTimeless,
       }, {
         name: 'Timeless',
         property: 'Timeless',
         label: this.timelessText,
         type: 'boolean',
-        include: false
+        include: false,
       }, {
         name: 'Duration',
         property: 'Duration',
         label: this.durationText,
         renderer: format.timespan,
-        exclude: this.isActivityTimeless
+        exclude: this.isActivityTimeless,
       }, {
         name: 'Alarm',
         property: 'Alarm',
         label: this.alarmText,
         renderer: format.yesNo,
-        exclude: this.doesActivityHaveReminder
+        exclude: this.doesActivityHaveReminder,
       }, {
         name: 'AlarmTime',
         property: 'AlarmTime',
         label: this.alarmTimeText,
         renderer: format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
-        include: this.doesActivityHaveReminder
+        include: this.doesActivityHaveReminder,
       }, {
         name: 'Rollover',
         property: 'Rollover',
         label: this.rolloverText,
         include: this.isActivityTimeless,
-        renderer: format.yesNo
+        renderer: format.yesNo,
       }, {
         name: 'RecurrenceUI',
         property: 'RecurrenceUI',
         label: this.recurrenceText,
         include: this.isActivityRecurring,
         cls: 'content-loading',
-        value: 'loading...'
-      }]
+        value: 'loading...',
+      }],
     }, {
       title: this.whoText,
       name: 'WhoSection',
@@ -427,7 +425,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'Leader',
         label: this.leaderText,
         cls: 'content-loading',
-        value: 'loading...'
+        value: 'loading...',
       }, {
         name: 'ContactName',
         property: 'ContactName',
@@ -435,7 +433,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.contactText,
         view: 'contact_detail',
         key: 'ContactId',
-        descriptor: 'ContactName'
+        descriptor: 'ContactName',
       }, {
         name: 'AccountName',
         property: 'AccountName',
@@ -443,7 +441,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.accountText,
         view: 'account_detail',
         key: 'AccountId',
-        descriptor: 'AccountName'
+        descriptor: 'AccountName',
       }, {
         name: 'OpportunityName',
         property: 'OpportunityName',
@@ -451,7 +449,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.opportunityText,
         view: 'opportunity_detail',
         key: 'OpportunityId',
-        descriptor: 'OpportunityName'
+        descriptor: 'OpportunityName',
       }, {
         name: 'TicketNumber',
         property: 'TicketNumber',
@@ -459,7 +457,7 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.ticketNumberText,
         view: 'ticket_detail',
         key: 'TicketId',
-        descriptor: 'TicketNumber'
+        descriptor: 'TicketNumber',
       }, {
         name: 'LeadName',
         property: 'LeadName',
@@ -467,13 +465,13 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.leadText,
         view: 'lead_detail',
         key: 'LeadId',
-        descriptor: 'LeadName'
+        descriptor: 'LeadName',
       }, {
         name: 'AccountName',
         property: 'AccountName',
         include: this.isActivityForLead,
-        label: this.companyText
-      }]
+        label: this.companyText,
+      }],
     }, {
       title: this.moreDetailsText,
       name: 'MoreDetailsSection',
@@ -481,16 +479,16 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
       children: [{
         name: 'Category',
         property: 'Category',
-        label: this.categoryText
+        label: this.categoryText,
       }, {
         name: 'Location',
         property: 'Location',
-        label: this.locationText
+        label: this.locationText,
       }, {
         name: 'Priority',
         property: 'Priority',
-        label: this.priorityText
-      }]
+        label: this.priorityText,
+      }],
     }, {
       title: this.relatedItemsText,
       list: true,
@@ -500,10 +498,10 @@ var __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.relatedAttachmentText,
         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'), // must be lower case because of feed
         view: 'activity_attachment_related',
-        title: this.relatedAttachmentTitleText
-      }]
+        title: this.relatedAttachmentTitleText,
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);

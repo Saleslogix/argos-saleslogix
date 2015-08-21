@@ -19,8 +19,8 @@ import 'dojo/NodeList-manipulate';
  * @requires crm.Format
  * @requires crm.Template
  */
-var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
-  //Localization
+const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
+  // Localization
   titleText: 'Ticket Activity',
 
   accountText: 'account',
@@ -40,13 +40,14 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   activityDescriptionText: 'comments',
   ticketNumberText: 'ticket number',
   userText: 'user',
+  entityText: 'Ticket Activity',
 
   completeTicketText: 'Complete Ticket Activity',
   moreDetailsText: 'More Details',
   relatedItemsText: 'Related Items',
   relatedTicketActivityItemText: 'Ticket Activity Parts',
 
-  //View Properties
+  // View Properties
   id: 'ticketactivity_detail',
   editView: 'ticketactivity_edit',
 
@@ -70,18 +71,15 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
     'Ticket/TicketNumber',
     'Ticket/Contact/Name',
     'User/UserInfo/LastName',
-    'User/UserInfo/FirstName'
+    'User/UserInfo/FirstName',
   ],
   resourceKind: 'ticketActivities',
 
-  createPicklistRequest: function(predicate) {
-    var request,
-      uri;
-
-    request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+  createPicklistRequest: function createPicklistRequest(predicate) {
+    const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
       .setResourceKind('picklists')
       .setContractName('system');
-    uri = request.getUri();
+    const uri = request.getUri();
 
     uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
     uri.setCollectionPredicate(predicate);
@@ -91,36 +89,32 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
     return request;
   },
 
-  requestCodeData: function(row, node, value, entry, predicate) {
-    var request = this.createPicklistRequest(predicate);
+  requestCodeData: function requestCodeData(row, node, value, entry, predicate) {
+    const request = this.createPicklistRequest(predicate);
     request.read({
       success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
       failure: this.onRequestCodeDataFailure,
-      scope: this
+      scope: this,
     });
   },
 
-  onRequestCodeDataSuccess: function(row, node, value, entry, data) {
-    var codeText = this.processCodeDataFeed(data, entry[row.property]);
+  onRequestCodeDataSuccess: function onRequestCodeDataSuccess(row, node, value, entry, data) {
+    const codeText = this.processCodeDataFeed(data, entry[row.property]);
     if (codeText) {
       this.setNodeText(node, codeText);
       this.entry[row.name] = codeText;
     }
   },
 
-  onRequestCodeDataFailure: function(response, o) {
+  onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
     ErrorManager.addError(response, o, this.options, 'failure');
   },
 
-  processCodeDataFeed: function(feed, currentValue, options) {
-    var keyProperty,
-      textProperty,
-      i;
+  processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
+    const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+    const textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-    keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-    textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-    for (i = 0; i < feed.$resources.length; i++) {
+    for (let i = 0; i < feed.$resources.length; i++) {
       if (feed.$resources[i][keyProperty] === currentValue) {
         return feed.$resources[i][textProperty];
       }
@@ -128,71 +122,71 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
 
     return currentValue;
   },
-  setNodeText: function(node, value) {
+  setNodeText: function setNodeText(node, value) {
     domClass.remove(node, 'content-loading');
 
     query('span', node).text(value);
   },
 
-  createLayout: function() {
+  createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.detailsText,
       name: 'DetailsSection',
       children: [{
         label: this.activityDescriptionText,
         name: 'ActivityDescription',
-        property: 'ActivityDescription'
+        property: 'ActivityDescription',
       }, {
         label: this.ticketNumberText,
         name: 'Ticket.TicketNumber',
         property: 'Ticket.TicketNumber',
         view: 'ticket_detail',
-        key: 'Ticket.$key'
+        key: 'Ticket.$key',
       }, {
         name: 'Ticket.Account.AccountName',
         property: 'Ticket.Account.AccountName',
         descriptor: 'Ticket.Account.AccountName',
         label: this.accountText,
         view: 'account_detail',
-        key: 'Ticket.Account.$key'
+        key: 'Ticket.Account.$key',
       }, {
         name: 'Ticket.Contact',
         property: 'Ticket.Contact.Name',
         descriptor: 'Ticket.Contact.Name',
         label: this.contactText,
         view: 'contact_detail',
-        key: 'Ticket.Contact.$key'
+        key: 'Ticket.Contact.$key',
       }, {
         name: 'User.UserInfo',
         property: 'User.UserInfo',
         label: this.userText,
-        tpl: template.nameLF
+        tpl: template.nameLF,
       }, {
         label: this.typeText,
         name: 'ActivityTypeCode',
         property: 'ActivityTypeCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"')
+        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"'),
       }, {
         label: this.publicAccessText,
         name: 'PublicAccessCode',
         property: 'PublicAccessCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
+        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"'),
       }, {
         label: this.assignedDateText,
         name: 'AssignedDate',
         property: 'AssignedDate',
-        renderer: format.date
+        renderer: format.date,
       }, {
         label: this.completedDateText,
         name: 'CompletedDate',
         property: 'CompletedDate',
-        renderer: format.date
+        renderer: format.date,
       }, {
         label: this.followUpText,
         name: 'FollowUp',
         property: 'FollowUp',
-        renderer: format.yesNo
-      }]
+        renderer: format.yesNo,
+      }],
     }, {
       title: this.moreDetailsText,
       collapsed: true,
@@ -200,37 +194,37 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
       children: [{
         label: this.unitsText,
         name: 'Units',
-        property: 'Units'
+        property: 'Units',
       }, {
         label: this.elapsedUnitsText,
         name: 'ElapsedUnits',
         property: 'ElapsedUnits',
-        renderer: format.fixedLocale
+        renderer: format.fixedLocale,
       }, {
         label: this.rateTypeDescriptionText,
         name: 'RateTypeDescription.RateTypeCode',
-        property: 'RateTypeDescription.RateTypeCode'
+        property: 'RateTypeDescription.RateTypeCode',
       }, {
         label: this.rateText,
         name: 'Rate',
         property: 'Rate',
-        renderer: format.currency
+        renderer: format.currency,
       }, {
         label: this.totalLaborText,
         name: 'TotalLabor',
         property: 'TotalLabor',
-        renderer: format.currency
+        renderer: format.currency,
       }, {
         label: this.totalPartsText,
         name: 'TotalParts',
         property: 'TotalParts',
-        renderer: format.currency
+        renderer: format.currency,
       }, {
         label: this.totalFeeText,
         name: 'TotalFee',
         property: 'TotalFee',
-        renderer: format.currency
-      }]
+        renderer: format.currency,
+      }],
     }, {
       list: true,
       title: this.relatedItemsText,
@@ -239,10 +233,10 @@ var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         name: 'TicketActivityItemRelated',
         label: this.relatedTicketActivityItemText,
         where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
-        view: 'ticketactivityitem_related'
-      }]
+        view: 'ticketactivityitem_related',
+      }],
     }]);
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Detail', __class);
