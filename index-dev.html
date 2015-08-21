@@ -178,7 +178,7 @@
         window.localeContext = ctx;
         return ctx;
       }
-      var application = 'Mobile/SalesLogix/Application';
+      var application = 'crm/Application';
       var configuration = [
         'configuration/development'
       ];
@@ -187,12 +187,10 @@
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
           var completed = false;
           var localization = [
-            'localization/en',
             'localization/saleslogix/en'
           ];
 
           var fallBackLocalization = [
-            'localization/en',
             'localization/saleslogix/en'
           ];
 
