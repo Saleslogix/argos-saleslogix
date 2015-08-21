@@ -3,13 +3,6 @@
   long: "Mobile {{ version.short}} / CRM Platform 8.0+"
 }>
 
-<editorField ""
-  lookupLabelText: "edit"
-  lookupText: "..."
-  emptyText: "empty"
-  completeText: "Ok"
->
-
 <addressField ""
   lookupLabelText: "edit"
   emptyText: ""

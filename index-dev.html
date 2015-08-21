@@ -175,9 +175,12 @@
                         return './localization/locales/' + locale + '/strings.l20n';
                     });
                     ctx.linkResource(function(locale) {
+                        return '../../argos-sdk/localization/locales/' + locale + '/strings.l20n';
+                    });
+                    ctx.linkResource(function(locale) {
                         return './localization/locales/' + locale + '/dates.l20n';
                     });
-                    ctx.registerLocales('en', ['de', 'en-GB', 'fr', 'it', 'ru']);
+                    ctx.registerLocales('en', ['en', 'de', 'en-GB', 'fr', 'it', 'ru']);
                     ctx.requestLocales('en-GB');
                     window.localeContext = ctx;
 
