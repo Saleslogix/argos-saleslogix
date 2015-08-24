@@ -287,32 +287,11 @@
 
 .metric-widget {
     width: 33.3%;
-
-    /*
-    These styles are optimized for 3 KPI widgets on the top.
-    The total margin for 3 widgets will be 12px.
-    The ideal width for each widget will be slightly less than: (minWidth - 12px) / 3
-    */
-    // @media (min-width: @mobile-landscape) {
-    //     width: 155px;
-    // }
-    //
-    // @media (min-width: @tablet-portrait) {
-    //     width: 250px;
-    // }
-    //
-    // @media (min-width: @tablet-landscape) {
-    //     width: 335px;
-    // }
-    //
-    // @media (min-width: @desktop) {
-    //     width: 420px;
-    // }
 }
 
 /*
 These styles can determine the number of siblings the metric-widget has (up to three)
-and was found from http://stackoverflow.com/questions/8720931/can-css-detect-the-number-of-children-an-element-has
+and was adapted from http://stackoverflow.com/questions/8720931/can-css-detect-the-number-of-children-an-element-has
 */
 // One item
 .metric-widget:first-child:nth-last-child(1) {
