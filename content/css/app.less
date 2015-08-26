@@ -274,49 +274,28 @@
 
 .metric-widget,
 .metric-detail {
-    display: inline-block;
+    display: inline-flex;
     padding: 0px;
+    background-color: @color-deep-slate;
 }
 
 .metric-widget > button {
     padding: 5px 2px 5px 2px;
     border: 0px #000;
     width: 100%;
-    background-color: @color-deep-azure;
-    color: #fff;
-    vertical-align: top;
+    background-color: @color-deep-slate;
+    color: @color-lighter-slate;
 }
 
 .metric-widget {
-    width: 100px;
-    margin: 0 2px;
-
-    /*
-    These styles are optimized for 3 KPI widgets on the top.
-    The total margin for 3 widgets will be 12px.
-    The ideal width for each widget will be slightly less than: (minWidth - 12px) / 3
-    */
-    @media (min-width: @mobile-landscape) {
-        width: 155px;
-    }
-
-    @media (min-width: @tablet-portrait) {
-        width: 250px;
-    }
-
-    @media (min-width: @tablet-landscape) {
-        width: 335px;
-    }
-
-    @media (min-width: @desktop) {
-        width: 420px;
-    }
+    flex: auto;
+    flex-basis: 125px;
+    border: 1px solid @color-slate;
 }
 
 .metric-list {
     width: 100%;
     .box-sizing(border-box);
-    background-color: @color-deep-azure;
 }
 
 .groups-notice {
@@ -333,8 +312,8 @@
 }
 
 .metric-wrapper {
-    display: table;
-    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .metric-title > .list-loading-indicator {
