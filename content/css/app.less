@@ -1240,12 +1240,14 @@ td.entry-table-description {
 
     .list-more{
         > .button {
-        border: 0;
-        background-color: #fff;
-        color: @color-graphite;
+        border: 1px solid @color-graphite;
+        background-color: @color-graphite;
+        > span {
+          color: #fff;
+        }
       }
       button:active {
-        color: @color-azure;
+        background-color: @color-azure;
       }
     }
 
