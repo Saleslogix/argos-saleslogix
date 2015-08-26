@@ -122,8 +122,8 @@
                   .Select(item => item.Directory.Name).Distinct()
           ) %>;
         var ctx = L20n.getContext();
-        var defaultLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-        var currentLocale = 'en';
+        var defaultLocale = 'en';
+        var currentLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
 
         filePaths.forEach(function(path) {
           ctx.linkResource(path);
@@ -150,7 +150,7 @@
 
               var culture, results;
 
-              culture = defaultLocale;
+              culture = currentLocale;
               configuration.currentCulture = culture;
               results = moment.lang(culture);
 
@@ -319,9 +319,9 @@
                     {
                         Path = ToRelativeUrlPath(rootDirectory, parentFile),
                         File = targetFile
-                    };   
-            }    
+                    };
+            }
         }
     }
-     
+
 </script>
