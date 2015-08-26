@@ -151,7 +151,7 @@
 
             var culture, results;
 
-            culture = currentLocale;
+            culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
             configuration.currentCulture = culture;
             results = moment.lang(culture);
 
