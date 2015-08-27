@@ -4,6 +4,8 @@ import connect from 'dojo/_base/connect';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('settings').attributes;
+
 /**
  * @class crm.Views.Settings
  *
@@ -34,7 +36,12 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   ]),
 
   // Localization
-  localeId: 'settings',
+  clearLocalStorageTitleText: resource.clearLocalStorageTitleText,
+  clearAuthenticationTitleText: resource.clearAuthenticationTitleText,
+  errorLogTitleText: resource.errorLogTitleText,
+  localStorageClearedText: resource.localStorageClearedText,
+  credentialsClearedText: resource.credentialsClearedText,
+  titleText: resource.titleText,
 
   // View Properties
   id: 'settings',

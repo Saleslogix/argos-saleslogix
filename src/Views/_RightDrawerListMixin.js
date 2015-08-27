@@ -7,7 +7,7 @@ import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
 
-const mixinName = 'crm.Views._RightDrawerListMixin';
+const resource = window.localeContext.getEntitySync('rightDrawerListMixin').attributes;
 
 /**
  * @class crm.Views._RightDrawerListMixin
@@ -20,7 +20,12 @@ const mixinName = 'crm.Views._RightDrawerListMixin';
  */
 const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
-  localeId: 'rightDrawerListMixin',
+  hashTagsSectionText: resource.hashTagsSectionText,
+  groupsSectionText: resource.groupsSectionText,
+  kpiSectionText: resource.kpiSectionText,
+  configureGroupsText: resource.configureGroupsText,
+  refreshGroupsText: resource.refreshGroupsText,
+  layoutsText: resource.layoutsText,
 
   _hasChangedKPIPrefs: false, // Dirty flag so we know when to reload the widgets
   groupList: null,
@@ -46,7 +51,6 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   },
   _finishSetup: function _finishSetup(drawer) {
     lang.mixin(drawer, this._createActions());
-    lang.getObject(mixinName).prototype.loadStrings();
     drawer.setLayout(this.createRightDrawerLayout());
     drawer.getGroupForEntry = function getGroupForEntry(entry) {
       return this.getGroupForRightDrawerEntry(entry);
@@ -204,33 +208,31 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     field.navigateToListView();
   },
   getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
-    const mixin = lang.getObject(mixinName);
     if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags() && App.enableHashTags) {
       return {
         tag: 'view',
-        title: mixin.prototype.hashTagsSectionText,
+        title: resource.hashTagsSectionText,
       };
     }
 
     if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') && this.groupsEnabled) {
       return {
         tag: 'group',
-        title: mixin.prototype.groupsSectionText,
+        title: resource.groupsSectionText,
       };
     }
     if ((entry.action === 'layoutSelectedClicked') && this.groupsEnabled) {
       return {
         tag: 'layoutTemplates',
-        title: mixin.prototype.layoutsText,
+        title: resource.layoutsText,
       };
     }
     return {
       tag: 'kpi',
-      title: mixin.prototype.kpiSectionText,
+      title: resource.kpiSectionText,
     };
   },
   createRightDrawerLayout: function createRightDrawerLayout() {
-    const mixin = lang.getObject(mixinName);
     const layout = [];
 
     if (this.groupsEnabled) {
@@ -242,7 +244,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       groupsSection.children.push({
         'name': 'configureGroups',
         'action': 'groupConfigureClicked',
-        'title': mixin.prototype.configureGroupsText,
+        'title': resource.configureGroupsText,
         'cls': 'group-configuration',
         'iconCls': 'fa fa-cog fa-fw ',
       });

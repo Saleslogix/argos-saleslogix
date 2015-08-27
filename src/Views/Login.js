@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('login').attributes;
+
 /**
  * @class crm.Views.Login
  *
@@ -26,7 +28,16 @@ const __class = declare('crm.Views.Login', [Edit], {
   busy: false,
 
   // Localization
-  localeId: 'login',
+  copyrightText: resource.copyrightText,
+  logOnText: resource.logOnText,
+  passText: resource.passText,
+  rememberText: resource.rememberText,
+  titleText: resource.titleText,
+  userText: resource.userText,
+  invalidUserText: resource.invalidUserText,
+  missingUserText: resource.missingUserText,
+  requestAbortedText: resource.requestAbortedText,
+  logoText: resource.logoText,
 
   ENTER_KEY: 13,
 

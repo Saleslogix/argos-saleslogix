@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import _L20NMixin from 'argos/_L20NMixin';
 
 // Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
 //
@@ -21,7 +20,7 @@ import _L20NMixin from 'argos/_L20NMixin';
  * @since 3.0
  *
  */
-const __class = declare('crm.Views._RightDrawerBaseMixin', [ _L20NMixin ], {
+const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
   drawerLoaded: false,
 
   /**

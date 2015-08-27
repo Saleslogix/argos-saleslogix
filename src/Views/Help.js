@@ -8,6 +8,8 @@ import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import 'dojo/NodeList-manipulate';
 
+const resource = window.localeContext.getEntitySync('help').attributes;
+
 /**
  * @class crm.Views.Help
  *
@@ -28,7 +30,9 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
   ]),
 
   // Localization
-  localeId: 'help',
+  titleText: resource.titleText,
+  errorText: resource.errorText,
+  errorMessageText: resource.errorMessageText,
 
   // View Properties
   id: 'help',

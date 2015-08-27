@@ -9,9 +9,8 @@ import lang from 'dojo/_base/lang';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
-import _L20NMixin from 'argos/_L20NMixin';
 
-const mixinName = 'crm.Views._GroupListMixin';
+const resource = window.localeContext.getEntitySync('groupListMixin').attributes;
 
 /**
  * @class crm.Views._GroupListMixin
@@ -22,8 +21,12 @@ const mixinName = 'crm.Views._GroupListMixin';
  *
  *
  */
-const __class = declare('crm.Views._GroupListMixin', [ _L20NMixin ], {
-  localeId: 'groupListMixin',
+const __class = declare('crm.Views._GroupListMixin', null, {
+  noDefaultGroupText: resource.noDefaultGroupText,
+  currentGroupNotFoundText: resource.currentGroupNotFoundText,
+  groupTemplateSummaryText: resource.groupTemplateSummaryText,
+  groupTemplateDetailText: resource.groupTemplateDetailText,
+  groupsModeText: resource.groupsModeText,
   hasDefaultGroup: true,
   noDefaultGroupTemplate: new Simplate([
     '<li class="no-data" data-action="openConfigure">',
@@ -37,23 +40,16 @@ const __class = declare('crm.Views._GroupListMixin', [ _L20NMixin ], {
   ]),
 
   _getNoDefaultGroupMessage: function _getNoDefaultGroupMessage() {
-    const mixin = lang.getObject(mixinName);
-    if (mixin) {
-      return mixin.prototype.noDefaultGroupText;
-    }
+    return resource.noDefaultGroupText;
   },
   _getCurrentGroupNotFoundMessage: function _getCurrentGroupNotFoundMessage() {
-    const mixin = lang.getObject(mixinName);
-    if (mixin) {
-      return mixin.prototype.currentGroupNotFoundText;
-    }
+    return resource.currentGroupNotFoundText;
   },
   openConfigure: function openConfigure() {
     if (this._selectGroups) {
       this._selectGroups();
     }
   },
-  groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
   // View Properties
   entityName: null,
   groupsEnabled: false,
@@ -317,11 +313,9 @@ const __class = declare('crm.Views._GroupListMixin', [ _L20NMixin ], {
     '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>',
   ]),
   createGroupTemplateLayouts: function createGroupTemplateLayouts() {
-    const mixin = lang.getObject(mixinName);
-    lang.getObject(mixinName).prototype.loadStrings();
     this.groupTemplateLayouts = [{
       name: 'Summary',
-      displayName: mixin ? mixin.prototype.groupTemplateSummaryText : this.groupTemplateSummaryText,
+      displayName: resource.groupTemplateSummaryText,
       type: 'Dynamic',
       options: {
         columns: [{
@@ -331,7 +325,7 @@ const __class = declare('crm.Views._GroupListMixin', [ _L20NMixin ], {
       },
     }, {
       name: 'Detail',
-      displayName: mixin ? mixin.prototype.groupTemplateDetailText : this.groupTemplateDetailText,
+      displayName: resource.groupTemplateDetailText,
       type: 'Dynamic',
       options: {
         columns: [{

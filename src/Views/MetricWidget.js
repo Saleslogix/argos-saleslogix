@@ -8,6 +8,8 @@ import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import SDataStore from 'argos/Store/SData';
 
+const resource = window.localeContext.getEntitySync('metricWidget').attributes;
+
 /**
  * @class crm.Views.MetricWidget
  *
@@ -59,7 +61,8 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
 
   // Localization
   title: '',
-  localeId: 'metricWidget',
+  loadingText: resource.loadingText,
+  errorText: resource.errorText,
 
   // Store Options
   querySelect: null,

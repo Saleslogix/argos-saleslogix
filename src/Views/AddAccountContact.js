@@ -7,6 +7,8 @@ import template from '../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('addAccountContact').attributes;
+
 /**
  * @class crm.Views.AddAccountContact
  *
@@ -16,7 +18,34 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.AddAccountContact', [Edit], {
   // Localization
-  localeId: 'addAccountContact',
+  accountNameText: resource.accountNameText,
+  accountStatusTitleText: resource.accountStatusTitleText,
+  accountSubTypeTitleText: resource.accountSubTypeTitleText,
+  accountText: resource.accountText,
+  accountTypeTitleText: resource.accountTypeTitleText,
+  acctMgrText: resource.acctMgrText,
+  addressText: resource.addressText,
+  contactTitleText: resource.contactTitleText,
+  descriptionText: resource.descriptionText,
+  detailsAccountText: resource.detailsAccountText,
+  detailsContactText: resource.detailsContactText,
+  detailsText: resource.detailsText,
+  emailText: resource.emailText,
+  faxText: resource.faxText,
+  homePhoneText: resource.homePhoneText,
+  industryText: resource.industryText,
+  ownerText: resource.ownerText,
+  lastNameText: resource.lastNameText,
+  mobileText: resource.mobileText,
+  nameText: resource.nameText,
+  statusText: resource.statusText,
+  subTypeText: resource.subTypeText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  webText: resource.webText,
+  phoneText: resource.phoneText,
+  workText: resource.workText,
+  industryTitleText: resource.industryTitleText,
 
   // View Properties
   id: 'add_account_contact',

@@ -5,6 +5,8 @@ import lang from 'dojo/_base/lang';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';
 
+const resource = window.localeContext.getEntitySync('home').attributes;
+
 /**
  * @deprecated
  * @class crm.Views.Home
@@ -30,7 +32,11 @@ var __class = declare('crm.Views.Home', [GroupedList], {
   ]),
 
   //Localization
-  localeId: 'home',
+  configureText: resource.configureText,
+  addAccountContactText: resource.addAccountContactText,
+  titleText: resource.titleText,
+  actionsText: resource.actionsText,
+  viewsText: resource.viewsText,
 
   //View Properties
   id: 'home',

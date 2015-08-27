@@ -2,6 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('textEdit').attributes;
+
 /**
  * @class crm.Views.TextEdit
  *
@@ -12,7 +14,7 @@ import Edit from 'argos/Edit';
 const __class = declare('crm.Views.TextEdit', [Edit], {
   // View Properties
   id: 'text_edit',
-  localeId: 'textEdit',
+  titleText: resource.titleText,
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

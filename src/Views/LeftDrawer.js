@@ -5,6 +5,8 @@ import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';
 
+const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
+
 /**
  * @class crm.Views.LeftDrawer
  *
@@ -39,7 +41,16 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   ]),
 
   // Localization
-  localeId: 'leftDrawer',
+  configureText: resource.configureText,
+  addAccountContactText: resource.addAccountContactText,
+  titleText: resource.titleText,
+  actionsText: resource.actionsText,
+  viewsText: resource.viewsText,
+  footerText: resource.footerText,
+  settingsText: resource.settingsText,
+  helpText: resource.helpText,
+  logOutText: resource.logOutText,
+  logOutConfirmText: resource.logOutConfirmText,
 
   // View Properties
   id: 'left_drawer',

@@ -1111,6 +1111,7 @@
 
 <cardLayoutListMixin ""
   itemIconAltText: "Contact"
+  allRecordsText: "no search applied"
 >
 
 <groupListMixin ""
