@@ -12,6 +12,8 @@ import recur from '../../Recurrence';
 import utility from '../../Utility';
 import platformUtility from 'argos/Utility';
 
+const resource = window.localeContext.getEntitySync('activityDetail').attributes;
+
 /**
  * @class crm.Views.Activity.Detail
  *
@@ -34,17 +36,51 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   leaderTemplate: template.nameLF,
 
   // Localization
-  localeId: 'activityDetail',
+  actionsText: resource.actionsText,
+  completeActivityText: resource.completeActivityText,
+  completeOccurrenceText: resource.completeOccurrenceText,
+  completeSeriesText: resource.completeSeriesText,
+  locationText: resource.locationText,
+  alarmText: resource.alarmText,
+  alarmTimeText: resource.alarmTimeText,
+  categoryText: resource.categoryText,
+  durationText: resource.durationText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  priorityText: resource.priorityText,
+  regardingText: resource.regardingText,
+  rolloverText: resource.rolloverText,
+  startTimeText: resource.startTimeText,
+  allDayText: resource.allDayText,
+  timelessText: resource.timelessText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  whenText: resource.whenText,
+  whoText: resource.whoText,
+  startDateFormatText: resource.startDateFormatText,
+  timelessDateFormatText: resource.timelessDateFormatText,
+  alarmDateFormatText: resource.alarmDateFormatText,
+  recurrenceText: resource.recurrenceText,
+  confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  relatedItemsText: resource.relatedItemsText,
+  phoneText: resource.phoneText,
+  moreDetailsText: resource.moreDetailsText,
+  entityText: resource.entityText,
   activityTypeText: {
+    'atToDo': resource.toDoText,
+    'atPhoneCall': resource.phoneCallText,
+    'atAppointment': resource.meetingText,
+    'atLiterature': resource.literatureText,
+    'atPersonal': resource.personalText,
   },
-  activityTypeKeys: [
-    'atLiterature',
-    'atPhoneCall',
-    'atAppointment',
-    'atToDo',
-    'atPersonal',
-  ],
-  activityTypeValues: null,
 
   // View Properties
   id: 'activity_detail',
@@ -143,7 +179,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     const key = entry.$key;
 
     // Check to ensure we have a composite key (meaning we have the occurance, not the master)
-    if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
+    if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator)
+      .length !== 2) {
       // Fetch the occurance, and continue on to the complete screen
       const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')
@@ -261,7 +298,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       this.requestLeader(entry.Leader.$key);
     }
     if (this.isActivityRecurring(entry)) {
-      this.requestRecurrence(entry.$key.split(this.recurringActivityIdSeparator).shift());
+      this.requestRecurrence(entry.$key.split(this.recurringActivityIdSeparator)
+        .shift());
     }
 
     return entry;
@@ -277,14 +315,6 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     return toReturn;
   },
   createLayout: function createLayout() {
-    this.activityTypeValues = [
-      this.literatureText,
-      this.phoneCallText,
-      this.meetingText,
-      this.toDoText,
-      this.personalText,
-    ];
-    platformUtility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
     return this.layout || (this.layout = [{
       list: true,
       title: this.actionsText,
