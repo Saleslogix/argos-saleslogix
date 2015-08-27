@@ -6,9 +6,6 @@ import string from 'dojo/string';
 import utility from 'argos/Utility';
 
 const resource = window.localeContext.getEntitySync('action').attributes;
-const App = window.App;
-const crm = window.crm;
-
 /**
  * @class crm.Action
  *
