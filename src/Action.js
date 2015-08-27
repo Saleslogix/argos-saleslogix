@@ -5,9 +5,6 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import utility from 'argos/Utility';
 
-const App = window.App;
-const crm = window.crm;
-
 /**
  * @class crm.Action
  *
