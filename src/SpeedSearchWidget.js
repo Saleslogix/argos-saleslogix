@@ -5,6 +5,8 @@ import domClass from 'dojo/dom-class';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 
+const resource = window.localeContext.getEntitySync('speedSearchWidget').attributes;
+
 /**
  * @class crm.SpeedSearchWidget
  *
@@ -38,7 +40,10 @@ const __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
    */
   queryNode: null,
 
-  localeId: 'speedSearchWidget',
+  /**
+   * @property {String} searchText The placeholder text for the input.
+   */
+  searchText: resource.searchText,
 
   _setQueryValueAttr: function _setQueryValueAttr(value) {
     this._onFocus();

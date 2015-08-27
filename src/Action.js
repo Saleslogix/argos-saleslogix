@@ -4,8 +4,8 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import utility from 'argos/Utility';
-import _L20NMixin from 'argos/_L20NMixin';
 
+const resource = window.localeContext.getEntitySync('action').attributes;
 const App = window.App;
 const crm = window.crm;
 
@@ -17,7 +17,8 @@ const crm = window.crm;
  *
  */
 const __class = lang.setObject('crm.Action', {
-  localeId: 'action',
+  calledText: resource.calledText,
+  emailedText: resource.emailedText,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete) {
     const view = App.getView('history_edit');
@@ -137,6 +138,6 @@ const __class = lang.setObject('crm.Action', {
     }
   },
 });
-lang.mixin(__class, _L20NMixin);
+
 lang.setObject('Mobile.SalesLogix.Action', __class);
 export default __class;

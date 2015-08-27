@@ -2,14 +2,20 @@ import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import dNumber from 'dojo/number';
 import has from 'dojo/has';
-import _L20NMixin from 'argos/_L20NMixin';
+
+const resource = window.localeContext.getEntitySync('fileManager').attributes;
 
 /**
  * @class crm.FileManager
  *
  */
-const __class = declare('crm.FileManager', [ _L20NMixin ], {
-  localeId: 'fileManager',
+const __class = declare('crm.FileManager', null, {
+  unableToUploadText: resource.unableToUploadText,
+  unknownSizeText: resource.unknownSizeText,
+  unknownErrorText: resource.unknownErrorText,
+  largeFileWarningText: resource.largeFileWarningText,
+  largeFileWarningTitle: resource.largeFileWarningTitle,
+  percentCompleteText: resource.percentCompleteText,
   fileUploadOptions: {
     maxFileSize: 4000000,
   },

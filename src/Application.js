@@ -11,8 +11,9 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import moment from 'moment';
-import _L20NMixin from 'argos/_L20NMixin';
 import 'dojo/sniff';
+
+const resource = window.localeContext.getEntitySync('application').attributes;
 
 /**
  * @class crm.Application
@@ -23,7 +24,7 @@ import 'dojo/sniff';
  * @requires moment
  *
  */
-const __class = declare('crm.Application', [Application, _L20NMixin], {
+const __class = declare('crm.Application', [Application], {
   navigationState: null,
   rememberNavigationState: true,
   enableUpdateNotification: false,
@@ -79,7 +80,9 @@ const __class = declare('crm.Application', [Application, _L20NMixin], {
     'minor': 4,
     'revision': 0,
   },
-  localeId: 'application',
+  versionInfoText: resource.versionInfoText,
+  loadingText: resource.loadingText,
+  authText: resource.authText,
   homeViewId: 'myactivity_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',

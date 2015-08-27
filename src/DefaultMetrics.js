@@ -4,98 +4,38 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _CustomizationMixin from 'argos/_CustomizationMixin';
-import Utility from 'argos/Utility';
+
+const resource = window.localeContext.getEntitySync('defaultMetrics').attributes;
 
 const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
-  // Localization
-  localeId: 'defaultMetrics',
+  // Localiztion
   accountsText: {
+    totalRevenue: resource.totalRevenue,
+    averageTime: resource.averageTime,
+    total: resource.totalAccounts,
   },
-  accountsKeys: [
-    'totalRevenue',
-    'averageTime',
-    'total',
-  ],
-  accountsValues: null,
   opportunitiesText: {
+    total: resource.totalOpportunities,
+    potential: resource.potential,
+    montlyPotential: resource.montlyPotential,
   },
-  opportunitiesKeys: [
-    'total',
-    'potential',
-    'monthlyPotential',
-  ],
-  opportunitiesValues: null,
   ticketsText: {
+    total: resource.totalTickets,
+    averageOpen: resource.averageOpen,
   },
-  ticketsKeys: [
-    'total',
-    'averageOpen',
-  ],
-  ticketsValues: null,
   contactsText: {
+    total: resource.totalContacts,
   },
-  contactsKeys: [
-    'total',
-  ],
-  contactsValues: null,
   leadsText: {
+    total: resource.totalLeads,
   },
-  leadsKeys: [
-    'total',
-  ],
-  leadsValues: null,
   historyText: {
+    total: resource.totalHistory,
+    duration: resource.duration,
   },
-  historyKeys: [
-    'total',
-    'duration',
-  ],
-  historyValues: null,
   customizationSet: 'metrics',
   id: 'default_metrics',
   getDefinitions: function getDefinitions() {
-    if (!this.accountsValues) {
-      this.accountsValues = [
-        this.totalRevenue,
-        this.averageTime,
-        this.totalAccounts,
-      ];
-      Utility.extendObjectKeyValue(this.accountsText, this.accountsKeys, this.accountsValues);
-    }
-    if (!this.opportunitiesValues) {
-      this.opportunitiesValues = [
-        this.totalOpportunities,
-        this.potential,
-        this.montlyPotential,
-      ];
-      Utility.extendObjectKeyValue(this.opportunitiesText, this.opportunitiesKeys, this.opportunitiesValues);
-    }
-    if (!this.ticketsValues) {
-      this.ticketsValues = [
-        this.totalTickets,
-        this.averageOpen,
-      ];
-      Utility.extendObjectKeyValue(this.ticketsText, this.ticketsKeys, this.ticketsValues);
-    }
-    if (!this.contactsValues) {
-      this.contactsValues = [
-        this.totalContacts,
-      ];
-      Utility.extendObjectKeyValue(this.contactsText, this.contactsKeys, this.contactsValues);
-    }
-    if (!this.leadsValues) {
-      this.leadsValues = [
-        this.totalLeads,
-      ];
-      Utility.extendObjectKeyValue(this.leadsText, this.leadsKeys, this.leadsValues);
-    }
-    if (!this.historyValues) {
-      this.historyValues = [
-        this.totalHistory,
-        this.duration,
-      ];
-      Utility.extendObjectKeyValue(this.historyText, this.historyKeys, this.historyValues);
-    }
     return this._createCustomizedLayout(this.createLayout(), 'definitions');
   },
   createLayout: function createLayout() {

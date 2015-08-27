@@ -3,7 +3,8 @@ import array from 'dojo/_base/array';
 import format from './Format';
 import sdkFormat from 'argos/Format';
 import moment from 'moment';
-import _L20NMixin from 'argos/_L20NMixin';
+
+const resource = window.localeContext.getEntitySync('groupUtility').attributes;
 
 function _createGroupRequest(o) {
   const defaultOptions = {
@@ -41,7 +42,7 @@ function _createGroupRequest(o) {
  *
  */
 const __class = lang.setObject('crm.GroupUtility', {
-  localeId: 'groupUtility',
+  groupDateFormatText: resource.groupDateFormatText,
   /**
    * Returns an SDataNamedQueryRequest setup for groups
    * @param {Object} options Options for creating the request
@@ -427,6 +428,5 @@ const __class = lang.setObject('crm.GroupUtility', {
   },
 });
 
-lang.mixin(__class, _L20NMixin);
 lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
 export default __class;

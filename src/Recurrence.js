@@ -1,7 +1,8 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import moment from 'moment';
-import _L20NMixin from 'argos/_L20NMixin';
+
+const resource = window.localeContext.getEntitySync('recurrence').attributes;
 
 /**
  * @class crm.Recurrence
@@ -13,9 +14,45 @@ import _L20NMixin from 'argos/_L20NMixin';
  */
 const __class = lang.setObject('crm.Recurrence', {
   // Localization
-  localeId: 'recurrence',
-  weekDaysText: [],
-  ordText: [],
+  neverText: resource.neverText,
+  daysText: resource.daysText,
+  dailyText: resource.dailyText,
+  weeksText: resource.weeksText,
+  weeklyText: resource.weeklyText,
+  weeklyOnText: resource.weeklyOnText, // eg. {weekly} on {friday}
+  monthsText: resource.monthsText,
+  monthlyText: resource.monthlyText,
+  monthlyOnDayText: resource.monthlyOnDayText, // eg. {monthly} on day {15}
+  monthlyOnText: resource.monthlyOnText, // eg. {monthly} on {second} {Monday}
+  yearsText: resource.yearsText,
+  yearlyText: resource.yearlyText,
+  yearlyOnText: resource.yearlyOnText, // eg. {yearly} on {short_date}
+  yearlyOnWeekdayText: resource.yearlyOnWeekdayText, // eg. {yearly} on {first} {Thursday} in {April}
+  everyText: resource.everyText, // eg. every {2} {weeks}
+  afterCompletionText: resource.afterCompletionText,
+  untilEndDateText: resource.untilEndDateText, // eg. {daily} until {31/10/2012}
+  dayFormatText: resource.dayFormatText,
+  monthFormatText: resource.monthFormatText,
+  monthAndDayFormatText: resource.monthAndDayFormatText,
+  weekdayFormatText: resource.weekdayFormatText,
+  endDateFormatText: resource.endDateFormatText,
+  weekDaysText: [
+    resource.sunday,
+    resource.monday,
+    resource.tuesday,
+    resource.wednesday,
+    resource.thursday,
+    resource.friday,
+    resource.saturday,
+  ],
+  ordText: [
+    resource.day,
+    resource.first,
+    resource.second,
+    resource.third,
+    resource.fourth,
+    resource.last,
+  ],
 
   interval: 1, // repeat every interval days/weeks/months/years
   defaultIterations: [ // by RecurPeriod, -1 for After Completed. Configurable.
@@ -100,16 +137,6 @@ const __class = lang.setObject('crm.Recurrence', {
     RecurrenceState: 'rstMaster',
   }],
 
-  constructor: function constructor() {
-    this.ordText = [
-      this.day,
-      this.first,
-      this.second,
-      this.third,
-      this.fourth,
-      this.last,
-    ];
-  },
   createSimplifiedOptions: function createSimplifiedOptions(startDate) {
     this.recalculateSimplifiedPeriodSpec(startDate);
 
@@ -183,22 +210,10 @@ const __class = lang.setObject('crm.Recurrence', {
   },
   getWeekdays: function getWeekdays(rps, names) { // pass a RecurPeriodSpec (as long as RecurPeriod corresponds to a Spec with weekdays)
     const weekdays = [];
-    const weekdaysText = [
-      this.sunday,
-      this.monday,
-      this.tuesday,
-      this.wednesday,
-      this.thursday,
-      this.friday,
-      this.saturday,
-    ];
-    if (this.weekdaysText) {
-      weekdaysText.push(this.weekdaysText);
-    }
     for (let i = 0; i < this._weekDayValues.length; i++) {
       if (names) {
         if (rps & this._weekDayValues[i]) {
-          weekdays.push(weekdaysText[i]);
+          weekdays.push(this.weekDaysText[i]);
         }
       } else {
         weekdays.push((rps & this._weekDayValues[i]) ? 1 : 0);
@@ -459,6 +474,5 @@ const __class = lang.setObject('crm.Recurrence', {
   },
 });
 
-lang.mixin(__class, _L20NMixin);
 lang.setObject('Mobile.SalesLogix.Recurrence', __class);
 export default __class;
