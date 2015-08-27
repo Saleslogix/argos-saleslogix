@@ -5,7 +5,7 @@ import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 
-const resource = window.localeContext.getEntitySync('opportunityContactEdit').attributes;
+const resource = window.localeContext.getEntitySync('opportunityContactDetail').attributes;
 
 /**
  * @class crm.Views.OpportunityContact.Detail

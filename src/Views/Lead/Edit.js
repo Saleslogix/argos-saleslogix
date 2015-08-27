@@ -4,6 +4,8 @@ import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('leadEdit').attributes;
+
 /**
  * @class crm.Views.Lead.Edit
  *
@@ -14,7 +16,30 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Lead.Edit', [Edit], {
   // Localization
-  localeId: 'leadEdit',
+  accountText: resource.accountText,
+  addressText: resource.addressText,
+  businessText: resource.businessTitleText,
+  businessTitleText: resource.businessTitleText,
+  companyText: resource.companyText,
+  contactTitleText: resource.contactTitleText,
+  emailText: resource.emailText,
+  faxText: resource.faxText,
+  importSourceText: resource.importSourceText,
+  industryText: resource.industryText,
+  industryTitleText: resource.industryTitleText,
+  interestsText: resource.interestsText,
+  leadNameLastFirstText: resource.leadNameLastFirstText,
+  leadOwnerText: resource.leadOwnerText,
+  nameText: resource.nameText,
+  notesText: resource.notesText,
+  notesTitleText: resource.notesTitleText,
+  sicCodeText: resource.sicCodeText,
+  titleText: resource.titleText,
+  titleTitleText: resource.titleTitleText,
+  tollFreeText: resource.tollFreeText,
+  webText: resource.webText,
+  workText: resource.workText,
+  mobileText: resource.mobileText,
 
   // View Properties
   entityName: 'Lead',

@@ -4,6 +4,8 @@ import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import format from '../../Format';
 
+const resource = window.localeContext.getEntitySync('opportunityDetail').attributes;
+
 /**
  * @class crm.Views.Opportunity.Detail
  *
@@ -13,7 +15,43 @@ import format from '../../Format';
  */
 const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   // Localization
-  localeId: 'opportunityDetail',
+  accountText: resource.accountText,
+  acctMgrText: resource.acctMgrText,
+  estCloseText: resource.estCloseText,
+  detailsText: resource.detailsText,
+  fbarHomeTitleText: resource.fbarHomeTitleText,
+  fbarScheduleTitleText: resource.fbarScheduleTitleText,
+  importSourceText: resource.importSourceText,
+  opportunityText: resource.opportunityText,
+  ownerText: resource.ownerText,
+  actionsText: resource.actionsText,
+  potentialText: resource.potentialText,
+  potentialBaseText: resource.potentialBaseText,
+  potentialOpportunityText: resource.potentialOpportunityText,
+  potentialMyRateText: resource.potentialMyRateText,
+  probabilityText: resource.probabilityText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedContactsText: resource.relatedContactsText,
+  relatedHistoriesText: resource.relatedHistoriesText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedNotesText: resource.relatedNotesText,
+  relatedProductsText: resource.relatedProductsText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  resellerText: resource.resellerText,
+  statusText: resource.statusText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  scheduleActivityText: resource.scheduleActivityText,
+  addNoteText: resource.addNoteText,
+  moreDetailsText: resource.moreDetailsText,
+  multiCurrencyText: resource.multiCurrencyText,
+  multiCurrencyRateText: resource.multiCurrencyRateText,
+  multiCurrencyCodeText: resource.multiCurrencyCodeText,
+  multiCurrencyDateText: resource.multiCurrencyDateText,
+  multiCurrencyLockedText: resource.multiCurrencyLockedText,
+  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'opportunity_detail',

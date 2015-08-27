@@ -9,6 +9,8 @@ import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 
+const resource = window.localeContext.getEntitySync('leadList').attributes;
+
 /**
  * @class crm.Views.Lead.List
  *
@@ -73,7 +75,22 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   },
 
   // Localization
-  localeId: 'leadList',
+  titleText: resource.titleText,
+  activitiesText: resource.activitiesText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  emailedText: resource.emailedText,
+  calledText: resource.calledText,
+  editActionText: resource.editActionText,
+  callMobileActionText: resource.callMobileActionText,
+  callWorkActionText: resource.callWorkActionText,
+  sendEmailActionText: resource.sendEmailActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  phoneAbbreviationText: resource.phoneAbbreviationText,
+  mobileAbbreviationText: resource.mobileAbbreviationText,
+  tollFreeAbbreviationText: resource.tollFreeAbbreviationText,
 
   // View Properties
   detailView: 'lead_detail',

@@ -3,7 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
 import Detail from 'argos/Detail';
-import Utility from 'argos/Utility';
+
+const resource = window.localeContext.getEntitySync('leadDetail').attributes;
 
 /**
  * @class crm.Views.Lead.Detail
@@ -14,14 +15,45 @@ import Utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Lead.Detail', [Detail], {
   // Localization
-  localeId: 'leadDetail',
+  accountText: resource.accountText,
+  addressText: resource.addressText,
+  businessDescriptionText: resource.businessDescriptionText,
+  createDateText: resource.createDateText,
+  createUserText: resource.createUserText,
+  eMailText: resource.eMailText,
+  leadSourceText: resource.leadSourceText,
+  industryText: resource.industryText,
+  interestsText: resource.interestsText,
+  leadTitleText: resource.leadTitleText,
+  nameText: resource.nameText,
+  notesText: resource.notesText,
+  ownerText: resource.ownerText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedHistoriesText: resource.relatedHistoriesText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedNotesText: resource.relatedNotesText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  sicCodeText: resource.sicCodeText,
+  titleText: resource.titleText,
+  tollFreeText: resource.tollFreeText,
+  mobileText: resource.mobileText,
+  webText: resource.webText,
+  workText: resource.workText,
+  actionsText: resource.actionsText,
+  callWorkNumberText: resource.callWorkNumberText,
+  scheduleActivityText: resource.scheduleActivityText,
+  addNoteText: resource.addNoteText,
+  sendEmailText: resource.sendEmailText,
+  viewAddressText: resource.viewAddressText,
+  moreDetailsText: resource.moreDetailsText,
+  calledText: resource.calledText,
+  emailedText: resource.emailedText,
+  entityText: resource.entityText,
   activityTypeText: {
+    'atPhoneCall': resource.phoneCall,
+    'atEMail': resource.email,
   },
-  activityTypeKeys: [
-    'atPhoneCall',
-    'atEMail',
-  ],
-  activityTypeValues: null,
 
   // View Properties
   id: 'lead_detail',
@@ -59,13 +91,6 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
-    if (!this.activityTypeValues) {
-      this.activityTypeValues = [
-        this.phoneCall,
-        this.email,
-      ];
-      Utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
-    }
     if (view) {
       this.refreshRequired = true;
 

@@ -9,6 +9,8 @@ import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 
+const resource = window.localeContext.getEntitySync('opportunityList').attributes;
+
 /**
  * @class crm.Views.Opportunity.List
  *
@@ -60,7 +62,20 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   ]),
 
   // Localization
-  localeId: 'opportunityList',
+  titleText: resource.titleText,
+  activitiesText: resource.activitiesText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  editActionText: resource.editActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  viewContactsActionText: resource.viewContactsActionText,
+  viewProductsActionText: resource.viewProductsActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  actualCloseText: resource.actualCloseText,
+  estimatedCloseText: resource.estimatedCloseText,
+  quickEditActionText: resource.quickEditActionText,
 
   // View Properties
   id: 'opportunity_list',

@@ -6,6 +6,8 @@ import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('opportunityEdit').attributes;
+
 /**
  * @class crm.Views.Opportunity.Edit
  *
@@ -18,7 +20,29 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   // Localization
-  localeId: 'opportunityEdit',
+  accountText: resource.accountText,
+  acctMgrText: resource.acctMgrText,
+  estCloseText: resource.estCloseText,
+  importSourceText: resource.importSourceText,
+  detailsText: resource.detailsText,
+  opportunityStatusTitleText: resource.opportunityStatusTitleText,
+  opportunityText: resource.opportunityText,
+  opportunityTypeTitleText: resource.opportunityTypeTitleText,
+  ownerText: resource.ownerText,
+  potentialText: resource.potentialText,
+  probabilityText: resource.probabilityText,
+  probabilityTitleText: resource.probabilityTitleText,
+  resellerText: resource.resellerText,
+  statusText: resource.statusText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  multiCurrencyText: resource.multiCurrencyText,
+  multiCurrencyRateText: resource.multiCurrencyRateText,
+  multiCurrencyCodeText: resource.multiCurrencyCodeText,
+  multiCurrencyDateText: resource.multiCurrencyDateText,
+  multiCurrencyLockedText: resource.multiCurrencyLockedText,
+  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  subTypePickListResellerText: resource.subTypePickListResellerText,
 
   // View Properties
   entityName: 'Opportunity',
