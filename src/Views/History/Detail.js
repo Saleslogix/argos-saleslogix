@@ -7,7 +7,8 @@ import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import template from '../../Template';
 import Detail from 'argos/Detail';
-import utility from 'argos/Utility';
+
+const resource = window.localeContext.getEntitySync('historyDetail').attributes;
 
 /**
  * @class crm.Views.History.Detail
@@ -24,19 +25,40 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   createUserTemplate: template.nameLF,
 
   // Localization
-  localeId: 'historyDetail',
+  categoryText: resource.categoryText,
+  completedText: resource.completedText,
+  durationText: resource.durationText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  notesText: resource.notesText,
+  priorityText: resource.priorityText,
+  regardingText: resource.regardingText,
+  completedByText: resource.completedByText,
+  scheduledText: resource.scheduledText,
+  timelessText: resource.timelessText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  titleText: resource.titleText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  moreDetailsText: resource.moreDetailsText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  modifiedText: resource.modifiedText,
+  typeText: resource.typeText,
+  entityText: resource.entityText,
   activityTypeText: {
+    'atToDo': resource.toDo,
+    'atPhoneCall': resource.phoneCall,
+    'atAppointment': resource.meeting,
+    'atLiterature': resource.literature,
+    'atPersonal': resource.personal,
+    'atQuestion': resource.question,
+    'atEMail': resource.email,
   },
-  activityTypeKeys: [
-    'atToDo',
-    'atPhoneCall',
-    'atAppointment',
-    'atLiterature',
-    'atPersonal',
-    'atQuestion',
-    'atEMail',
-  ],
-  activityTypeValues: null,
   // View Properties
   id: 'history_detail',
   existsRE: /^[\w]{12}$/,
@@ -72,18 +94,6 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   ],
 
   formatActivityType: function formatActivityType(val) {
-    if (!this.activityTypeValues) {
-      this.activityTypeValues = [
-        this.toDo,
-        this.phoneCall,
-        this.meeting,
-        this.literature,
-        this.personal,
-        this.question,
-        this.email,
-      ];
-      utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
-    }
     return this.activityTypeText[val] || val;
   },
   isHistoryForLead: function isHistoryForLead(entry) {

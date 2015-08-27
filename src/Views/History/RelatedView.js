@@ -2,6 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import RelatedViewWidget from 'argos/RelatedViewWidget';
 
+const resource = window.localeContext.getEntitySync('historyRelated').attributes;
+
 /**
  * @class crm.Views.History.RelatedView
  *
@@ -14,7 +16,9 @@ import RelatedViewWidget from 'argos/RelatedViewWidget';
  */
 const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
   // Localization
-  localeId: 'historyRelated',
+  regardingText: resource.regardingText,
+  byText: resource.byText,
+  titleText: resource.titleText,
 
   id: 'relatedNotes',
   detailViewId: 'history_detail',

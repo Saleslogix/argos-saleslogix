@@ -2,7 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Detail from 'argos/Detail';
-import utility from 'argos/Utility';
+
+const resource = window.localeContext.getEntitySync('eventDetail').attributes;
 
 /**
  * @class crm.Views.Event.Detail
@@ -13,16 +14,23 @@ import utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Event.Detail', [Detail], {
   // Localization
-  localeId: 'eventDetail',
-  eventTypeText: {},
-  eventTypeKeys: [
-    'atToDo',
-    'atPhoneCall',
-    'atAppointment',
-    'atLiterature',
-    'atPersonal',
-  ],
-  eventTypeValues: null,
+  actionsText: resource.actionsText,
+  startTimeText: resource.startTimeText,
+  endTimeText: resource.endTimeText,
+  titleText: resource.titleText,
+  descriptionText: resource.descriptionText,
+  typeText: resource.typeText,
+  whenText: resource.whenText,
+  startDateFormatText: resource.startDateFormatText,
+  endDateFormatText: resource.endDateFormatText,
+  entityText: resource.entityText,
+  eventTypeText: {
+    'atToDo': resource.toDo,
+    'atPhoneCall': resource.phoneCall,
+    'atAppointment': resource.meeting,
+    'atLiterature': resource.literature,
+    'atPersonal': resource.personal,
+  },
 
   // View Properties
   id: 'event_detail',
@@ -38,16 +46,6 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
   resourceKind: 'events',
 
   formatEventType: function formatEventType(val) {
-    if (!this.eventTypeValues) {
-      this.eventTypeValues = [
-        this.toDo,
-        this.phoneCall,
-        this.meeting,
-        this.literature,
-        this.personal,
-      ];
-      utility.extendObjectKeyValue(this.eventTypeText, this.eventTypeKeys, this.eventTypeValues);
-    }
     return this.eventTypeText[val] || val;
   },
   init: function init() {

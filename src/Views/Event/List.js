@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('eventList').attributes;
+
 /**
  * @class crm.Views.Event.List
  *
@@ -12,7 +14,9 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.Event.List', [List], {
   // Localization
-  localeId: 'eventList',
+  titleText: resource.titleText,
+  eventDateFormatText: resource.eventDateFormatText,
+  eventText: resource.eventText,
 
   // Templates
   itemTemplate: new Simplate([
