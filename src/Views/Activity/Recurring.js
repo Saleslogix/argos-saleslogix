@@ -7,6 +7,8 @@ import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import moment from 'moment';
 
+const resource = window.localeContext.getEntitySync('activityRecurring').attributes;
+
 /**
  * @class crm.Views.Activity.Recurring
  *
@@ -24,10 +26,51 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   // Localization
-  localeId: 'activityRecurring',
-  weekDaysText: null,
-  monthsText: null,
-  frequencyOptionsText: null,
+  startingText: resource.startingText,
+  endingText: resource.endingText,
+  repeatsText: resource.repeatsText,
+  everyText: resource.everyText,
+  afterCompletionText: resource.afterCompletionText,
+  singleWeekdayText: resource.singleWeekdayText,
+  weekdaysText: resource.weekdaysText,
+  dayText: resource.dayText,
+  monthText: resource.monthText,
+  onText: resource.onText,
+  occurrencesText: resource.occurrencesText,
+  summaryText: resource.summaryText,
+  weekDaysText: [
+    resource.sunday,
+    resource.monday,
+    resource.tuesday,
+    resource.wednesday,
+    resource.thursday,
+    resource.friday,
+    resource.saturday,
+  ],
+  monthsText: [
+    resource.january,
+    resource.february,
+    resource.march,
+    resource.april,
+    resource.may,
+    resource.june,
+    resource.july,
+    resource.august,
+    resource.september,
+    resource.october,
+    resource.november,
+    resource.december,
+  ],
+  frequencyOptionsText: [
+    resource.days,
+    resource.weeks,
+    resource.months,
+    resource.years,
+  ],
+  recurringFrequencyText: resource.recurringFrequencyText,
+  yesText: resource.yesText,
+  noText: resource.noText,
+  titleText: resource.titleText,
 
   // View Properties
   monthNames: moment.monthsShort,
@@ -361,14 +404,6 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createScaleData: function createScaleData() {
     const list = [];
-    if (!this.frequencyOptionsText) {
-      this.frequencyOptionsText = [
-        this.days,
-        this.weeks,
-        this.months,
-        this.years,
-      ];
-    }
 
     for (const opt in this.frequencyOptionsText) {
       if (this.frequencyOptionsText.hasOwnProperty(opt)) {
@@ -385,17 +420,6 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createWeekdaysData: function createWeekdaysData() {
     const list = [];
-    if (!this.weedaysText) {
-      this.weekdaysText = [
-        this.sunday,
-        this.monday,
-        this.tuesday,
-        this.wednesday,
-        this.thursday,
-        this.friday,
-        this.saturday,
-      ];
-    }
 
     array.forEach(this.weekDaysText, function makeWeekdayList(name, idx) {
       list.push({
@@ -410,22 +434,6 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createMonthsData: function createMonthsData() {
     const list = [];
-    if (!this.monthsText) {
-      this.monthsText = [
-        this.january,
-        this.february,
-        this.march,
-        this.april,
-        this.may,
-        this.june,
-        this.july,
-        this.august,
-        this.september,
-        this.october,
-        this.november,
-        this.december,
-      ];
-    }
     array.forEach(this.monthsText, function makeMonthList(name, idx) {
       list.push({
         '$key': idx,

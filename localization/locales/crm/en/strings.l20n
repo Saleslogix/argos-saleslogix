@@ -254,6 +254,10 @@
   questionText: "Question"
   noteText: "Note"
   emailText: "Email"
+  timelessText: "timeless"
+  todayText: "today"
+  thisWeekText: "this-week"
+  yesterdayText: "yesterday"
 >
 
 <activityMyList ""
