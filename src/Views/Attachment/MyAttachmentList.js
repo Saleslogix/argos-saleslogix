@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import AttachmentList from './List';
 
+const resource = window.localeContext.getEntitySync('attachmentMyList').attributes;
+
 /**
  * @class crm.Views.Attachments.MyAttachmentList
  *
@@ -14,7 +16,7 @@ import AttachmentList from './List';
  */
 const __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
   id: 'myattachment_list',
-  localeId: 'attachmentMyList',
+  titleText: resource.titleText,
   queryWhere: function queryWhere() {
     return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context.user.$key)]);
   },
