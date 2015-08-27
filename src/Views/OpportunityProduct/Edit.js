@@ -6,6 +6,8 @@ import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import Utility from 'argos/Utility';
 
+const resource = window.localeContext.getEntitySync('opportunityProductEdit').attributes;
+
 /**
  * @class crm.Views.OpportunityProduct.Edit
  *
@@ -18,7 +20,23 @@ import Utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
   // Localization
-  localeId: 'opportunityProductEdit',
+  titleText: resource.titleText,
+  detailsText: resource.detailsText,
+  opportunityText: resource.opportunityText,
+  productText: resource.productText,
+  productFamilyText: resource.productFamilyText,
+  priceLevelText: resource.priceLevelText,
+  priceText: resource.priceText,
+  basePriceText: resource.basePriceText,
+  discountText: resource.discountText,
+  adjustedPriceText: resource.adjustedPriceText,
+  myAdjustedPriceText: resource.myAdjustedPriceText,
+  baseAdjustedPriceText: resource.baseAdjustedPriceText,
+  quantityText: resource.quantityText,
+  baseExtendedPriceText: resource.baseExtendedPriceText,
+  extendedPriceText: resource.extendedPriceText,
+  extendedPriceSectionText: resource.extendedPriceSectionText,
+  adjustedPriceSectionText: resource.adjustedPriceSectionText,
 
   // View Properties
   entityName: 'Opportunity',

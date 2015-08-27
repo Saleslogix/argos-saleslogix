@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('ticketUrgencyLookup').attributes;
+
 /**
  * @class crm.Views.Ticket.UrgencyLookup
  *
@@ -10,7 +12,7 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
   // Localization
-  localeId: 'ticketUrgencyLookup',
+  titleText: resource.titleText,
 
   // Templates
   itemTemplate: new Simplate([
