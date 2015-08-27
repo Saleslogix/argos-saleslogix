@@ -2,9 +2,13 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
+
+const resource = window.localeContext.getEntitySync('recurrencesField').attributes;
+
 const control = declare('crm.Fields.RecurrencesField', [EditorField], {
   // Localization
-  localeId: 'recurrencesField',
+  titleText: resource.titleText,
+  emptyText: resource.emptyText,
   attributeMap: {
     noteText: {
       node: 'inputNode',

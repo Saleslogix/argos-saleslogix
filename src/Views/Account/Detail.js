@@ -4,7 +4,8 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
-import utility from 'argos/Utility';
+
+const resource = window.localeContext.getEntitySync('accountDetail').attributes;
 
 /**
  * @class crm.Views.Account.Detail
@@ -18,12 +19,42 @@ import utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Account.Detail', [Detail], {
   // Localization
-  localeId: 'accountDetail',
-  activityTypeText: {},
-  activityTypeKey: [
-    'atPhoneCall',
-  ],
-  activityTypeValue: null,
+  accountText: resource.accountText,
+  acctMgrText: resource.acctMgrText,
+  addressText: resource.addressText,
+  businessDescriptionText: resource.businessDescriptionText,
+  createDateText: resource.createDateText,
+  createUserText: resource.createUserText,
+  faxText: resource.faxText,
+  importSourceText: resource.importSourceText,
+  industryText: resource.industryText,
+  notesText: resource.notesText,
+  ownerText: resource.ownerText,
+  phoneText: resource.phoneText,
+  activityTypeText: {
+    'atPhoneCall': resource.phoneCallHistoryTitle,
+  },
+  actionsText: resource.actionsText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedContactsText: resource.relatedContactsText,
+  relatedHistoriesText: resource.relatedHistoriesText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedNotesText: resource.relatedNotesText,
+  relatedOpportunitiesText: resource.relatedOpportunitiesText,
+  relatedTicketsText: resource.relatedTicketsText,
+  relatedAddressesText: resource.relatedAddressesText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  statusText: resource.statusText,
+  subTypeText: resource.subTypeText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  webText: resource.webText,
+  scheduleActivityText: resource.scheduleActivityText,
+  addNoteText: resource.addNoteText,
+  moreDetailsText: resource.moreDetailsText,
+  calledText: resource.calledText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'account_detail',
@@ -57,15 +88,8 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
-    if (!this.activityTypeValue) {
-      this.activityTypeValue = [
-        this.phoneCallHistoryTitle,
-      ];
-      utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKey, this.activityTypeValue);
-    }
     if (view) {
       this.refreshRequired = true;
-
       view.show({
         title: this.activityTypeText[type],
         template: {},

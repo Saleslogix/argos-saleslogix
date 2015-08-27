@@ -6,6 +6,8 @@ import format from '../../Format';
 import template from '../../Template';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('accountEdit').attributes;
+
 /**
  * @class crm.Views.Account.Edit
  *
@@ -19,7 +21,26 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Account.Edit', [Edit], {
   // Localization
-  localeId: 'accountEdit',
+  accountStatusTitleText: resource.accountStatusTitleText,
+  accountSubTypeTitleText: resource.accountSubTypeTitleText,
+  accountText: resource.accountText,
+  accountTypeTitleText: resource.accountTypeTitleText,
+  acctMgrText: resource.acctMgrText,
+  businessDescriptionText: resource.businessDescriptionText,
+  businessDescriptionTitleText: resource.businessDescriptionTitleText,
+  descriptionText: resource.descriptionText,
+  faxText: resource.faxText,
+  fullAddressText: resource.fullAddressText,
+  importSourceText: resource.importSourceText,
+  industryText: resource.industryText,
+  industryTitleText: resource.industryTitleText,
+  ownerText: resource.ownerText,
+  phoneText: resource.phoneText,
+  statusText: resource.statusText,
+  subTypeText: resource.subTypeText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  webText: resource.webText,
 
   // View Properties
   entityName: 'Account',
