@@ -7,6 +7,8 @@ import validator from 'crm/Validator';
 import Edit from 'argos/Edit';
 import utility from 'argos/Utility';
 
+const resource = window.localeContext.getEntitySync('contactEdit').attributes;
+
 /**
  * @class crm.Views.Contact.Edit
  *
@@ -20,7 +22,22 @@ import utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Contact.Edit', [Edit], {
   // Localization
-  localeId: 'contactEdit',
+  titleText: resource.titleText,
+  nameText: resource.nameText,
+  workText: resource.workText,
+  mobileText: resource.mobileText,
+  emailText: resource.emailText,
+  webText: resource.webText,
+  acctMgrText: resource.acctMgrText,
+  accountNameText: resource.accountNameText,
+  homePhoneText: resource.homePhoneText,
+  faxText: resource.faxText,
+  addressText: resource.addressText,
+  contactTitleText: resource.contactTitleText,
+  titleTitleText: resource.titleTitleText,
+  addressTitleText: resource.addressTitleText,
+  ownerText: resource.ownerText,
+  cuisinePreferenceText: resource.cuisinePreferenceText,
 
   // View Properties
   entityName: 'Contact',
