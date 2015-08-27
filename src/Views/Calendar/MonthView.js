@@ -843,7 +843,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
 
     // Get the updated "today"
     todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment()
-      .format('YYYY-MM-DD')
+      .format('YYYY-MM-DD'),
     ]);
     todayNode = query(todayCls, this.contentNode)[0];
     if (todayNode) {

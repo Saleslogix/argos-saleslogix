@@ -8,6 +8,8 @@ import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 
+const resource = window.localeContext.getEntitySync('contactList').attributes;
+
 /**
  * @class crm.Views.Contact.List
  *
@@ -52,7 +54,21 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   ]),
 
   // Localization
-  localeId: 'contactList',
+  titleText: resource.titleText,
+  activitiesText: resource.activitiesText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  editActionText: resource.editActionText,
+  callMainActionText: resource.callMainActionText,
+  callWorkActionText: resource.callWorkActionText,
+  callMobileActionText: resource.callMobileActionText,
+  sendEmailActionText: resource.sendEmailActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  phoneAbbreviationText: resource.phoneAbbreviationText,
+  mobileAbbreviationText: resource.mobileAbbreviationText,
 
   // View Properties
   detailView: 'contact_detail',
