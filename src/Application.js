@@ -29,6 +29,7 @@ const __class = declare('crm.Application', [Application], {
   multiCurrency: false,
   enableGroups: true,
   enableHashTags: true,
+  enableOfflineSupport: true,
   speedSearch: {
     includeStemming: true,
     includePhonic: true,
@@ -81,7 +82,10 @@ const __class = declare('crm.Application', [Application], {
   versionInfoText: 'Mobile v${0}.${1}.${2}',
   loadingText: 'Loading application state',
   authText: 'Authenticating',
+  offlinePromptText: 'Your internet connection is no longer working. Would you like to switch to offline mode?',
+  onlinePromptText: 'Your connection is working. Would you like to go back online?',
   homeViewId: 'myactivity_list',
+  offlineHomeViewId: 'offline_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',
 
@@ -166,7 +170,7 @@ const __class = declare('crm.Application', [Application], {
       if (window.localStorage) {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
-    } catch (e) {}// eslint-disable-line
+    } catch (e) {} // eslint-disable-line
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
@@ -240,8 +244,8 @@ const __class = declare('crm.Application', [Application], {
   },
   getCurrentOpportunityExchangeRate: function getCurrentOpportunityExchangeRate() {
     const results = {
-        code: '',
-        rate: 1,
+      code: '',
+      rate: 1,
     };
 
     let found = this.queryNavigationContext((o) => {
@@ -309,7 +313,7 @@ const __class = declare('crm.Application', [Application], {
             password: credentials.password || '',
           })));
         }
-      } catch (e) {}//eslint-disable-line
+      } catch (e) {} //eslint-disable-line
     }
 
     if (callback) {
@@ -397,7 +401,7 @@ const __class = declare('crm.Application', [Application], {
         const encoded = stored && Base64.decode(stored);
         credentials = encoded && json.parse(encoded);
       }
-    } catch (e) {}//eslint-disable-line
+    } catch (e) {} //eslint-disable-line
 
     return credentials;
   },
@@ -406,8 +410,10 @@ const __class = declare('crm.Application', [Application], {
       if (window.localStorage) {
         window.localStorage.removeItem('credentials');
       }
-    } catch (e) {}//eslint-disable-line
+    } catch (e) {} //eslint-disable-line
   },
+  isAuthenticated: false,
+  hasState: false,
   handleAuthentication: function handleAuthentication() {
     const credentials = this.getCredentials();
 
@@ -415,8 +421,10 @@ const __class = declare('crm.Application', [Application], {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(credentials, {
         success: function success() {
+          this.isAuthenticated = true;
           this.setPrimaryTitle(this.loadingText);
           this.initAppState().then(() => {
+            this.hasState = true;
             this.navigateToInitialView();
           });
         },
@@ -440,14 +448,14 @@ const __class = declare('crm.Application', [Application], {
       if (window.localStorage) {
         window.localStorage.removeItem('navigationState');
       }
-    } catch (e) {}//eslint-disable-line
+    } catch (e) {} //eslint-disable-line
   },
   _loadNavigationState: function _loadNavigationState() {
     try {
       if (window.localStorage) {
         this.navigationState = window.localStorage.getItem('navigationState');
       }
-    } catch (e) {}// eslint-disable-line
+    } catch (e) {} // eslint-disable-line
   },
   _saveDefaultPreferences: function _saveDefaultPreferences() {
     if (this.preferences) {
@@ -603,8 +611,7 @@ const __class = declare('crm.Application', [Application], {
         const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
         array.forEach(feed && feed.$resources, (item) => {
-          const {name, value} = item;
-
+          const { name, value } = item;
           if (value && name && array.indexOf(this.systemOptionsToRequest, name) > -1) {
             systemOptions[name] = value;
           }
@@ -692,6 +699,7 @@ const __class = declare('crm.Application', [Application], {
     'opportunity_list',
     'ticket_list',
     'myattachment_list',
+    'offline_list',
   ],
   getDefaultViews: function getDefaultViews() {
     return this.defaultViews;
@@ -765,6 +773,26 @@ const __class = declare('crm.Application', [Application], {
       this.redirectHash = '';
     }
   },
+  onOffline: function onOffline() {
+    this.inherited(arguments);
+    let results = confirm(this.offlinePromptText); // eslint-disable-line
+    if (results) {
+      this.navigateToInitialView();
+    }
+  },
+  onOnline: function onOnline() {
+    this.inherited(arguments);
+    let results = confirm(this.onlinePromptText); // eslint-disable-line
+    if (results) {
+      this.navigateToLoginView();
+    }
+  },
+  onConnectionChange: function onConnectionChange(/*online*/) {
+    const view = App.getView('left_drawer');
+    if (view) {
+      view.refresh();
+    }
+  },
   navigateToLoginView: function navigateToLoginView() {
     this.setupRedirectHash();
 
@@ -814,6 +842,10 @@ const __class = declare('crm.Application', [Application], {
           }
         }
       }
+    }
+
+    if (!App.isOnline()) {
+      view = this.getView(this.offlineHomeViewId);
     }
 
     if (view) {

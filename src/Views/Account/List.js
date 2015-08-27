@@ -8,6 +8,7 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import OfflineManager from 'argos/OfflineManager';
 
 /**
  * @class crm.Views.Account.List
@@ -76,6 +77,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   addAttachmentActionText: 'Add Attachment',
   phoneAbbreviationText: 'Phone: ',
   faxAbbreviationText: 'Fax: ',
+  offlineText: 'Offline',
 
   // View Properties
   detailView: 'account_detail',
@@ -106,9 +108,19 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   allowSelection: true,
   enableActions: true,
   pageSize: 10,
+  offlineIds: null,
+  onTransitionTo: function onTransitionTo() {
+    OfflineManager.getAllIds().then(function success(results) {
+      this.offlineIds = results;
+    }.bind(this), function error(err) {
+      console.error(err);// eslint-disable-line
+    });
+
+    this.inherited(arguments);
+  },
   callMain: function callMain(params) {
-    this.invokeActionItemBy(function setActionId(actions) {
-      return actions.id === 'callMain';
+    this.invokeActionItemBy(function invoke(a) {
+      return a.id === 'callMain';
     }, params.key);
   },
   createActionLayout: function createActionLayout() {

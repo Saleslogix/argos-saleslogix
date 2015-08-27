@@ -185,6 +185,26 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "Account.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Contact.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Opportunity.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Lead.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "Ticket.js",
+          "path": "../src-out/Models/"
+        },
+        {
           "text": "Environment.js",
           "path": "../src-out/"
         },
@@ -256,7 +276,6 @@
           "text": "RelatedEditWidget.js",
           "path": "../src-out/Views/"
         },
-
         {
           "text": "AddAccountContact.js",
           "path": "../src-out/Views/"
@@ -334,6 +353,10 @@
           "path": "../src-out/Views/"
         },
         {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
           "text": "_MetricListMixin.js",
           "path": "../src-out/Views/"
         },
@@ -356,6 +379,18 @@
 		{
           "text": "_GroupListMixin.js",
           "path": "../src-out/Views/"
+        },
+        {
+          "text": "_OfflineRightDrawerListMixin.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
+          "text": "List.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src-out/Views/Offline/"
         },
         {
           "text": "SpeedSearchList.js",

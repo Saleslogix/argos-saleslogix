@@ -31,6 +31,9 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
     total: 'Total History',
     duration: 'Total Duration',
   },
+  offlineText: {
+    total: 'Total Recently Viewed',
+  },
   customizationSet: 'metrics',
   id: 'default_metrics',
   getDefinitions: function getDefinitions() {
@@ -182,6 +185,15 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
           _filterName: 'Type',
           _metricName: 'TotalDuration',
         },
+        chartType: 'bar',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
+    }, {
+      resourceKind: 'offline',
+      children: [{
+        title: this.offlineText.total,
         chartType: 'bar',
         aggregate: 'sum',
         formatter: 'bigNumber',

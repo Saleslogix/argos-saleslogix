@@ -97,7 +97,7 @@
                                 //resource
         };
     </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.0.min.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.5.min.js"></script>
 
     <!-- SData Client Library -->
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
@@ -111,6 +111,9 @@
 
     <!-- Deep Diff -->
     <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
+
+     <!-- PouchDB -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.0.min.js"></script>
 
     <!-- Chart.js -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
@@ -150,6 +153,7 @@
             ];
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
+
             bootstrap = function(requires) {
                 require(requires.concat('dojo/domReady!'), function() {
                     if (completed) {

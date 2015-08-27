@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
+import domConstruct from 'dojo/dom-construct';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
 
@@ -16,30 +17,18 @@ import GroupUtility from '../GroupUtility';
  */
 const __class = declare('crm.Views._MetricListMixin', null, {
   // Metrics
+  metricTemplate: new Simplate([
+    '<div class="metric-list">',
+    '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
+    '</div>',
+  ]),
   metricNode: null,
   metricWidgets: null,
-  configurationView: 'metric_configure',
   entityName: '',
 
   metricWidgetsBuilt: false,
+  metricWidgetCtor: MetricWidget,
 
-  postMixInProperties: function postMixInProperties() {
-    this.inherited(arguments);
-    this.widgetTemplate = new Simplate([
-      '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-      '<div data-dojo-attach-point="searchNode"></div>',
-      '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-      '<div class="metric-list">',
-      '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
-      '</div>',
-      '{%! $.emptySelectionTemplate %}',
-      '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
-      '{%! $.moreTemplate %}',
-      '{%! $.listActionTemplate %}',
-      '</div>',
-      '</div>',
-    ]);
-  },
   createMetricWidgetsLayout: function createMetricWidgetsLayout() {
     let metrics = [];
     let filtered = [];
@@ -56,6 +45,8 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
+    this.metricNode = domConstruct.toDom(this.metricTemplate.apply(this));
+    domConstruct.place(this.metricNode, this.scrollerNode, 'first');
   },
   destroyWidgets: function destroyWidgets() {
     array.forEach(this.metricWidgets, function destroy(widget) {
@@ -72,13 +63,39 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     this.inherited(arguments);
     this.destroyWidgets();
   },
+  _applyStateToWidgetOptions: function _applyStateToWidgetOptions(options) {// eslint-disable-line
+    if (!this._hasValidOptions(options)) {
+      return options;
+    }
+
+    options.returnToId = this.id;
+
+    if (this.groupsMode) {
+      options.queryArgs._activeFilter = '';
+      options.request = GroupUtility.createGroupMetricRequest({
+        groupId: this.currentGroupId,
+        queryArgs: options.queryArgs,
+      });
+      options.currentSearchExpression = this._currentGroup && this._currentGroup.displayName;
+    } else {
+      options.request = null;
+      options.resourceKind = this.resourceKind;
+      options.currentSearchExpression = this.currentSearchExpression;
+      options.queryArgs._activeFilter = this._getCurrentQuery();
+    }
+
+    return options;
+  },
+  _instantiateMetricWidget: function _instantiateWidget(options) {
+    const Ctor = this.metricWidgetCtor || MetricWidget;
+    return new Ctor(this._applyStateToWidgetOptions(options));
+  },
   rebuildWidgets: function rebuildWidgets() {
     if (this.metricWidgetsBuilt) {
       return;
     }
 
     this.destroyWidgets();
-    this.metricWidgets = [];
 
     if (this.options && this.options.simpleMode && (this.options.simpleMode === true)) {
       return;
@@ -86,30 +103,13 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     // Create metrics widgets and place them in the metricNode
     const widgetOptions = this.createMetricWidgetsLayout() || [];
-    array.forEach(widgetOptions, function createAndPlaceWidgets(options) {
-      if (this._hasValidOptions(options)) {
-        options.returnToId = this.id;
-
-        if (this.groupsMode) {
-          options.queryArgs._activeFilter = '';
-          options.request = GroupUtility.createGroupMetricRequest({
-            groupId: this.currentGroupId,
-            queryArgs: options.queryArgs,
-          });
-          options.currentSearchExpression = this._currentGroup && this._currentGroup.displayName;
-        } else {
-          options.request = null;
-          options.resourceKind = this.resourceKind;
-          options.currentSearchExpression = this.currentSearchExpression;
-          options.queryArgs._activeFilter = this._getCurrentQuery();
-        }
-
-        const widget = new MetricWidget(options);
+    this.metricWidgets = widgetOptions.filter((options) => this._hasValidOptions(options))
+      .map((options) => {
+        const widget = this._instantiateMetricWidget(options);
         widget.placeAt(this.metricNode, 'last');
         widget.requestData();
-        this.metricWidgets.push(widget);
-      }
-    }, this);
+        return widget;
+      });
 
     this.metricWidgetsBuilt = true;
   },
@@ -118,8 +118,9 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const query = this.query;
     const where = this.options && this.options.where;
     return array.filter([query, where], function checkItem(item) {
-      return !!item;
-    }).join(' and ');
+        return !!item;
+      })
+      .join(' and ');
   },
   _hasValidOptions: function _hasValidOptions(options) {
     return options && options.queryArgs && options.queryArgs._filterName && options.queryArgs._metricName;

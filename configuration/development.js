@@ -19,5 +19,6 @@ define('configuration/development', ['crm/ApplicationModule'], function cb(Appli
     enableHashTags: true,
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
+    enableOfflineSupport: true,
   };
 });

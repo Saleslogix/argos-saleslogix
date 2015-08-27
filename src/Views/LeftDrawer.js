@@ -64,7 +64,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   searchView: 'speedsearch_list',
 
   logOut: function logOut() {
-    const sure = window.confirm(this.logOutConfirmText);// eslint-disable-line
+    const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
     if (sure) {
       App.logOut();
     }
@@ -173,6 +173,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           'view': view.id,
           'title': view.titleText,
           'security': view.getSecurity(),
+          'offlineSupport': view.offlineSupport,
         });
       }
     }
@@ -185,18 +186,22 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'name': 'ConfigureMenu',
         'action': 'navigateToConfigurationView',
         'title': this.configureText,
+        'offlineSupport': true,
       }, {
         'name': 'SettingsAction',
         'action': 'navigateToSettingsView',
         'title': this.settingsText,
+        'offlineSupport': true,
       }, {
         'name': 'HelpAction',
         'action': 'navigateToHelpView',
         'title': this.helpText,
+        'offlineSupport': true,
       }, {
         'name': 'Logout',
         'action': 'logOut',
         'title': this.logOutText,
+        'offlineSupport': false,
       }],
     };
 
@@ -221,6 +226,11 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         if (row.security && !App.hasAccessTo(row.security)) {
           continue;
         }
+
+        if (!App.isOnline() && !row.offlineSupport) {
+          continue;
+        }
+
         if (typeof this.query !== 'function' || this.query(row)) {
           list.push(row);
         }
