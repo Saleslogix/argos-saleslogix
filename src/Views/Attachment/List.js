@@ -10,6 +10,8 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import moment from 'moment';
 
+const resource = window.localeContext.getEntitySync('attachmentList').attributes;
+
 /**
  * @class crm.Views.Attachments.List
  *
@@ -60,7 +62,9 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   ]),
 
   // Localization
-  localeId: 'attachmentList',
+  titleText: resource.titleText,
+  attachmentDateFormatText: resource.attachmentDateFormatText,
+  uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
 
   // View Properties
   id: 'attachment_list',

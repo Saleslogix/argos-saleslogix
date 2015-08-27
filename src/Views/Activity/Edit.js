@@ -11,6 +11,8 @@ import recur from '../../Recurrence';
 import format from 'argos/Format';
 import moment from 'moment';
 
+const resource = window.localeContext.getEntitySync('activityEdit').attributes;
+
 /**
  * @class crm.Views.Activity.Edit
  *
@@ -29,30 +31,61 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.Edit', [Edit], {
   // Localization
-  localeId: 'activityEdit',
-
+  activityCategoryTitleText: resource.activityCategoryTitleText,
+  activityDescriptionTitleText: resource.activityDescriptionTitleText,
+  locationText: resource.locationText,
+  activityTypeTitleText: resource.activityTypeTitleText,
+  alarmText: resource.alarmText,
+  reminderText: resource.reminderText,
+  categoryText: resource.categoryText,
+  durationText: resource.durationText,
+  durationTitleText: resource.durationTitleText,
+  durationInvalidText: resource.durationInvalidText,
+  reminderInvalidText: resource.reminderInvalidText,
+  reminderTitleText: resource.reminderInvalidText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  longNotesTitleText: resource.longNotesTitleText,
+  priorityText: resource.priorityText,
+  priorityTitleText: resource.priorityTitleText,
+  regardingText: resource.regardingText,
+  rolloverText: resource.rolloverText,
+  startingText: resource.startingText,
+  startingFormatText: resource.startingFormatText,
+  startingTimelessFormatText: resource.startingTimelessFormatText,
+  repeatsText: resource.repeatsText,
+  recurringText: resource.recurringText,
+  recurringTitleText: resource.recurringTitleText,
+  timelessText: resource.timelessText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  isLeadText: resource.isLeadText,
+  yesText: resource.yesText,
+  noText: resource.noText,
+  phoneText: resource.phoneText,
+  updateUserActErrorText: resource.updateUserActErrorText,
   reminderValueText: {
+    0: resource.noneText,
+    5: resource.fiveMinText,
+    15: resource.quarterHourText,
+    30: resource.halfHourText,
+    60: resource.hourText,
+    1440: resource.dayText,
   },
-  reminderKeys: [
-    0,
-    5,
-    15,
-    30,
-    60,
-    1440,
-  ],
-  reminderValues: null,
   durationValueText: {
+    0: resource.noneText,
+    15: resource.quarterHourText,
+    30: resource.halfHourText,
+    60: resource.hourText,
+    90: resource.hourAndHalfText,
+    120: resource.twoHoursText,
   },
-  durationKeys: [
-    0,
-    15,
-    30,
-    60,
-    90,
-    120,
-  ],
-  durationValues: null,
 
   /**
    * @property {Number}
@@ -236,7 +269,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     return entry && /^[\w]{12}$/.test(entry.LeadId);
   },
   isActivityRecurring: function isActivityRecurring() {
-    return (/rstMaster/).test(this.fields.RecurrenceState.getValue());
+    return (/rstMaster/)
+      .test(this.fields.RecurrenceState.getValue());
   },
   isInLeadContext: function isInLeadContext() {
     const insert = this.options && this.options.insert;
@@ -569,7 +603,9 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     // 11:24 -> 11:30
     // 11:12 -> 11:15
     // 11:31 -> 11:45
-    const startDate = thisSelectedDate.clone().startOf('day').hours(now.hours())
+    const startDate = thisSelectedDate.clone()
+      .startOf('day')
+      .hours(now.hours())
       .add({
         'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES,
       });
@@ -775,9 +811,12 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   setValues: function setValues(values) {
     if (values.StartDate && values.AlarmTime) {
-      const startTime = (this.isDateTimeless(values.StartDate)) ? moment(values.StartDate).add({
-        minutes: values.StartDate.getTimezoneOffset(),
-      }).toDate().getTime() : values.StartDate.getTime();
+      const startTime = (this.isDateTimeless(values.StartDate)) ? moment(values.StartDate)
+        .add({
+          minutes: values.StartDate.getTimezoneOffset(),
+        })
+        .toDate()
+        .getTime() : values.StartDate.getTime();
 
       const span = startTime - values.AlarmTime.getTime(); // ms
       const reminder = span / (1000 * 60);
@@ -821,7 +860,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (allowSetAlarm) {
       this.enableFields(function alarmReminderTest(f) {
-        return (/^Alarm|Reminder$/).test(f.name);
+        return (/^Alarm|Reminder$/)
+          .test(f.name);
       });
     }
 
@@ -889,16 +929,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   createReminderData: function createReminderData() {
     const list = [];
 
-    this.reminderValues = [
-      this.noneText,
-      this.fiveMinText,
-      this.quarterHourText,
-      this.halfHourText,
-      this.hourText,
-      this.dayText,
-    ];
-    utility.extendObjectKeyValue(this.reminderValueText, this.reminderKeys, this.reminderValues);
-
     for (const duration in this.reminderValueText) {
       if (this.reminderValueText.hasOwnProperty(duration)) {
         list.push({
@@ -914,16 +944,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   createDurationData: function createDurationData() {
     const list = [];
-
-    this.durationValues = [
-      this.noneText,
-      this.quarterHourText,
-      this.halfHourText,
-      this.hourText,
-      this.hourAndHalfText,
-      this.twoHoursText,
-    ];
-    utility.extendObjectKeyValue(this.durationValueText, this.durationKeys, this.durationValues);
 
     for (const duration in this.durationValueText) {
       if (this.durationValueText.hasOwnProperty(duration)) {
@@ -990,15 +1010,22 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       wrapped.minutes(0);
       wrapped.seconds(0);
       alarmTime = wrapped.toDate();
-      alarmTime = moment(alarmTime).clone().add({
-        'days': -1,
-      }).add({
-        'minutes': -1 * reminderIn,
-      }).toDate();
+      alarmTime = moment(alarmTime)
+        .clone()
+        .add({
+          'days': -1,
+        })
+        .add({
+          'minutes': -1 * reminderIn,
+        })
+        .toDate();
     } else {
-      alarmTime = moment(startDate).clone().add({
-        'minutes': -1 * reminderIn,
-      }).toDate();
+      alarmTime = moment(startDate)
+        .clone()
+        .add({
+          'minutes': -1 * reminderIn,
+        })
+        .toDate();
     }
 
     return alarmTime;

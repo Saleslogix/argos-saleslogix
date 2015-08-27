@@ -5,6 +5,8 @@ import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('addressEdit').attributes;
+
 /**
  * @class crm.Views.Address.Edit
  *
@@ -18,7 +20,22 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Address.Edit', [Edit], {
   // Localization
-  localeId: 'addressEdit',
+  address1Text: resource.address1Text,
+  address2Text: resource.address2Text,
+  address3Text: resource.address3Text,
+  cityText: resource.cityText,
+  cityTitleText: resource.cityTitleText,
+  countryText: resource.countryText,
+  countryTitleText: resource.countryTitleText,
+  descriptionText: resource.descriptionText,
+  descriptionTitleText: resource.descriptionTitleText,
+  isMailingText: resource.isMailingText,
+  isPrimaryText: resource.isPrimaryText,
+  postalCodeText: resource.postalCodeText,
+  salutationText: resource.salutationText,
+  stateText: resource.stateText,
+  stateTitleText: resource.stateTitleText,
+  titleText: resource.titleText,
   /**
    * Each locale key contains an array of field names to be hidden
    * Set to null to skip and leave all fields visible

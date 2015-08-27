@@ -2,7 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
-import utility from 'argos/Utility';
+
+const resource = window.localeContext.getEntitySync('activityTypesList').attributes;
 
 /**
  * @class crm.Views.Activity.TypesList
@@ -36,17 +37,17 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   ]),
 
   // Localization
-  localeId: 'activityTypesList',
-  activityTypeText: {},
-  activityTypeKeys: [
-    'atToDo',
-    'atPhoneCall',
-    'atAppointment',
-    'atLiterature',
-    'atPersonal',
-    'event',
-  ],
-  activityTypeValues: null,
+  titleText: resource.titleText,
+  activityTypeText: {
+    'atToDo': resource.toDo,
+    'atPhoneCall': resource.phoneCall,
+    'atAppointment': resource.meeting,
+    'atLiterature': resource.literature,
+    'atPersonal': resource.personal,
+    'event': resource.eventText,
+  },
+
+  // View Properties
   activityTypeIcons: {
     'atToDo': 'fa fa-list-ul',
     'atPhoneCall': 'fa fa-phone',
@@ -55,8 +56,6 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     'atPersonal': 'fa fa-check-square-o',
     'event': 'fa fa-calendar-o',
   },
-
-  // View Properties
   activityTypeOrder: [
     'atAppointment',
     // 'atLiterature', // For [#7206791], We will enable this later.
@@ -133,15 +132,6 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   },
   init: function init() {
     this.inherited(arguments);
-    this.activityTypeValues = [
-      this.toDo,
-      this.phoneCall,
-      this.meeting,
-      this.literature,
-      this.personal,
-      this.eventText,
-    ];
-    utility.extendObjectKeyValue(this.activityTypeText, this.activityTypeKeys, this.activityTypeValues);
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {

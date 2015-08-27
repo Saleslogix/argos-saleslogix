@@ -10,6 +10,8 @@ import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import moment from 'moment';
 
+const resource = window.localeContext.getEntitySync('calendarWeekView').attributes;
+
 /**
  * @class crm.Views.Calendar.WeekView
  *
@@ -29,10 +31,23 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
-  localeId: 'calendarWeekView',
+  titleText: resource.titleText,
+  weekTitleFormatText: resource.weekTitleFormatText,
+  dayHeaderLeftFormatText: resource.dayHeaderLeftFormatText,
+  dayHeaderRightFormatText: resource.dayHeaderRightFormatText,
+  eventDateFormatText: resource.eventDateFormatText,
+  startTimeFormatText: resource.startTimeFormatText,
+  todayText: resource.todayText,
+  dayText: resource.dayText,
+  weekText: resource.weekText,
+  monthText: resource.monthText,
+  allDayText: resource.allDayText,
+  eventHeaderText: resource.eventHeaderText,
+  eventMoreText: resource.eventMoreText,
+  toggleCollapseText: resource.toggleCollapseText,
+
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
-
   enablePullToRefresh: false,
 
   // Templates

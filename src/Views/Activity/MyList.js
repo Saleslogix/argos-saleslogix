@@ -10,6 +10,8 @@ import ErrorManager from 'argos/ErrorManager';
 import moment from 'moment';
 import action from '../../Action';
 
+const resource = window.localeContext.getEntitySync('activityMyList').attributes;
+
 /**
  * @class crm.Views.Activity.MyList
  *
@@ -71,7 +73,16 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   ]),
 
   // Localization
-  localeId: 'activityMyList',
+  titleText: resource.titleText,
+  completeActivityText: resource.completeActivityText,
+  acceptActivityText: resource.acceptActivityText,
+  declineActivityText: resource.declineActivityText,
+  callText: resource.callText,
+  calledText: resource.calledText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  viewContactActionText: resource.viewContactActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  viewOpportunityActionText: resource.viewOpportunityActionText,
 
   // View Properties
   id: 'myactivity_list',
