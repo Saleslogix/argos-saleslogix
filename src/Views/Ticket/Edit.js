@@ -6,6 +6,8 @@ import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('ticketEdit').attributes;
+
 /**
  * @class crm.Views.Ticket.Edit
  *
@@ -18,7 +20,36 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Ticket.Edit', [Edit], {
   // Localization
-  localeId: 'ticketEdit',
+  accountText: resource.accountText,
+  areaText: resource.areaText,
+  assignedDateText: resource.assignedDateText,
+  assignedToText: resource.assignedToText,
+  categoryText: resource.categoryText,
+  contactText: resource.contactText,
+  contractText: resource.contractText,
+  descriptionText: resource.descriptionText,
+  descriptionTitleText: resource.descriptionTitleText,
+  issueText: resource.issueText,
+  needByText: resource.needByText,
+  notesText: resource.notesText,
+  notesTitleText: resource.notesTitleText,
+  phoneText: resource.phoneText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedItemsText: resource.relatedItemsText,
+  resolutionText: resource.resolutionText,
+  resolutionTitleText: resource.resolutionTitleText,
+  sourceText: resource.sourceText,
+  sourceTitleText: resource.sourceTitleText,
+  statusText: resource.statusText,
+  subjectText: resource.subjectText,
+  ticketAreaTitleText: resource.ticketAreaTitleText,
+  ticketCategoryTitleText: resource.ticketCategoryTitleText,
+  ticketIdText: resource.ticketIdText,
+  ticketIssueTitleText: resource.ticketIssueTitleText,
+  ticketStatusTitleText: resource.ticketStatusTitleText,
+  ticketUrgencyTitleText: resource.ticketUrgencyTitleText,
+  titleText: resource.titleText,
+  urgencyText: resource.urgencyText,
 
   // View Properties
   entityName: 'Ticket',

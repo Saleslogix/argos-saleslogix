@@ -8,6 +8,8 @@ import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 import 'dojo/NodeList-manipulate';
 
+const resource = window.localeContext.getEntitySync('ticketActivityDetail').attributes;
+
 /**
  * @class crm.Views.TicketActivity.Detail
  *
@@ -21,7 +23,29 @@ import 'dojo/NodeList-manipulate';
  */
 const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   // Localization
-  localeId: 'ticketActivityDetail',
+  titleText: resource.titleText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  typeText: resource.typeText,
+  publicAccessText: resource.publicAccessText,
+  assignedDateText: resource.assignedDateText,
+  completedDateText: resource.completedDateText,
+  followUpText: resource.followUpText,
+  unitsText: resource.unitsText,
+  elapsedUnitsText: resource.elapsedUnitsText,
+  rateTypeDescriptionText: resource.rateTypeDescriptionText,
+  rateText: resource.rateText,
+  totalLaborText: resource.totalLaborText,
+  totalPartsText: resource.totalPartsText,
+  totalFeeText: resource.totalFeeText,
+  activityDescriptionText: resource.activityDescriptionText,
+  ticketNumberText: resource.ticketNumberText,
+  userText: resource.userText,
+  entityText: resource.entityText,
+  completeTicketText: resource.completeTicketText,
+  moreDetailsText: resource.moreDetailsText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedTicketActivityItemText: resource.relatedTicketActivityItemText,
 
   // View Properties
   id: 'ticketactivity_detail',

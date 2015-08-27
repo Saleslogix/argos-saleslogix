@@ -4,6 +4,8 @@ import string from 'dojo/string';
 import array from 'dojo/_base/array';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('ownerList').attributes;
+
 /**
  * @class crm.Views.Owner.List
  *
@@ -16,7 +18,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
   ]),
 
   // Localization
-  localeId: 'ownerList',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'owner_list',

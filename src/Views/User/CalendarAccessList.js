@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('userCalendarAccessList').attributes;
+
 /**
  * @class crm.Views.User.CalendarAccessList
  *
@@ -16,7 +18,7 @@ const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   ]),
 
   // Localization
-  localeId: 'userCalendarAccessList',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'calendar_access_list',

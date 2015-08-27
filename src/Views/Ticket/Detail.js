@@ -6,6 +6,8 @@ import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 
+const resource = window.localeContext.getEntitySync('ticketDetail').attributes;
+
 /**
  * @class crm.Views.Ticket.Detail
  *
@@ -17,7 +19,36 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   // Localization
-  localeId: 'ticketDetail',
+  accountText: resource.accountText,
+  areaText: resource.areaText,
+  assignedDateText: resource.assignedDateText,
+  assignedToText: resource.assignedToText,
+  completedByText: resource.completedByText,
+  categoryText: resource.categoryText,
+  contactText: resource.contactText,
+  contractText: resource.contractText,
+  descriptionText: resource.descriptionText,
+  issueText: resource.issueText,
+  needByText: resource.needByText,
+  notesText: resource.notesText,
+  phoneText: resource.phoneText,
+  actionsText: resource.actionsText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedItemsText: resource.relatedItemsText,
+  resolutionText: resource.resolutionText,
+  sourceText: resource.sourceText,
+  statusText: resource.statusText,
+  subjectText: resource.subjectText,
+  ticketIdText: resource.ticketIdText,
+  titleText: resource.titleText,
+  urgencyText: resource.urgencyText,
+  scheduleActivityText: resource.scheduleActivityText,
+  moreDetailsText: resource.moreDetailsText,
+  relatedTicketActivitiesText: resource.relatedTicketActivitiesText,
+  loadingText: resource.loadingText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'ticket_detail',
