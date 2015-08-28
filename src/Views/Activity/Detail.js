@@ -11,6 +11,7 @@ import Detail from 'argos/Detail';
 import recur from '../../Recurrence';
 import utility from '../../Utility';
 import platformUtility from 'argos/Utility';
+import ActivityModel from 'crm/Models/Activity';
 
 /**
  * @class crm.Views.Activity.Detail
@@ -85,46 +86,11 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   completeView: 'activity_complete',
   editView: 'activity_edit',
   security: null, // 'Entities/Activity/View',
-  contractName: 'system',
-  querySelect: [
-    'AccountId',
-    'AccountName',
-    'Alarm',
-    'AlarmTime',
-    'Category',
-    'Company',
-    'ContactId',
-    'ContactName',
-    'Description',
-    'Duration',
-    'Leader/$key',
-    'LeadId',
-    'LeadName',
-    'Location',
-    'LongNotes',
-    'OpportunityId',
-    'OpportunityName',
-    'PhoneNumber',
-    'Priority',
-    'Rollover',
-    'StartDate',
-    'EndDate',
-    'TicketId',
-    'TicketNumber',
-    'Timeless',
-    'Type',
-    'Recurring',
-    'RecurPeriod',
-    'RecurPeriodSpec',
-    'RecurIterations',
-    'RecurrenceState',
-    'AllowAdd',
-    'AllowEdit',
-    'AllowDelete',
-    'AllowComplete',
-
-  ],
-  resourceKind: 'activities',
+  enableOffline: true,
+  getModel: function getModel() {
+    const model = new ActivityModel();
+    return model;
+  },
   recurringActivityIdSeparator: ';',
   recurrence: {},
 
@@ -202,6 +168,37 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       this.navigateToCompleteView(this.completeOccurrenceText);
     }
   },
+  processLeader: function processLeader() {
+    if (this.entry.Leader) {
+      // There could be a timing issue here. The call to request the leader is done before the layout is processed,
+      // so we could potentially end up in here before any dom was created for the view.
+      // TODO: Fix
+      const rowNode = query('[data-property="Leader"]');
+      const contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
+
+      if (rowNode && rowNode.length > 0) {
+        domClass.remove(rowNode[0], 'content-loading');
+      }
+
+      if (contentNode && contentNode.length > 0) {
+        contentNode[0].innerHTML = this.leaderTemplate.apply(this.entry.Leader.UserInfo);
+      }
+    }
+  },
+  processRecurrence: function processRecurrence() {
+    if (this.recurrence) {
+      const rowNode = query('[data-property="RecurrenceUI"]');
+      const contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
+
+      if (rowNode && rowNode.length > 0) {
+        domClass.remove(rowNode[0], 'content-loading');
+      }
+
+      if (contentNode && contentNode.length > 0) {
+        contentNode[0].innerHTML = recur.toString(this.recurrence);
+      }
+    }
+  },
   completeSeries: function completeSeries() {
     this.navigateToCompleteView(this.completeSeriesText, true);
   },
@@ -220,85 +217,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   doesActivityHaveReminder: function doesActivityHaveReminder(entry) {
     return convert.toBoolean(entry && entry.Alarm);
   },
-  requestLeader: function requestLeader(userId) {
-    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
-      .setResourceKind('users')
-      .setResourceSelector(string.substitute("'${0}'", [userId]))
-      .setQueryArg('select', [
-        'UserInfo/FirstName',
-        'UserInfo/LastName',
-      ].join(','));
-
-    request.read({
-      success: this.processLeader,
-      failure: this.requestLeaderFailure,
-      scope: this,
-    });
-  },
-  requestLeaderFailure: function requestLeaderFailure() {},
-  processLeader: function processLeader(leader) {
-    if (leader) {
-      this.entry.Leader = leader;
-
-      // There could be a timing issue here. The call to request the leader is done before the layout is processed,
-      // so we could potentially end up in here before any dom was created for the view.
-      // TODO: Fix
-      const rowNode = query('[data-property="Leader"]');
-      const contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
-
-      if (rowNode && rowNode.length > 0) {
-        domClass.remove(rowNode[0], 'content-loading');
-      }
-
-      if (contentNode && contentNode.length > 0) {
-        contentNode[0].innerHTML = this.leaderTemplate.apply(leader.UserInfo);
-      }
-    }
-  },
-  requestRecurrence: function requestRecurrence(key) {
-    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-      .setResourceKind(this.resourceKind)
-      .setResourceSelector(string.substitute("'${0}'", [key]))
-      .setContractName(this.contractName)
-      .setQueryArg('select', this.querySelect.join(','));
-
-    request.allowCacheUse = false;
-    request.read({
-      success: this.processRecurrence,
-      failure: this.requestRecurrenceFailure,
-      scope: this,
-    });
-    return;
-  },
-  processRecurrence: function processRecurrence(recurrence) {
-    if (recurrence) {
-      this.recurrence = recurrence;
-
-      const rowNode = query('[data-property="RecurrenceUI"]');
-      const contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
-
-      if (rowNode && rowNode.length > 0) {
-        domClass.remove(rowNode[0], 'content-loading');
-      }
-
-      if (contentNode && contentNode.length > 0) {
-        contentNode[0].innerHTML = recur.toString(this.recurrence);
-      }
-    }
-  },
-  requestRecurrenceFailure: function requestRecurrenceFailure() {},
   checkCanComplete: function checkCanComplete(entry) {
     return !(entry && (entry.AllowComplete));
-  },
-  preProcessEntry: function preProcessEntry(entry) {
-    if (entry && entry.Leader.$key) {
-      this.requestLeader(entry.Leader.$key);
-    }
-    if (this.isActivityRecurring(entry)) {
-      this.requestRecurrence(entry.$key.split(this.recurringActivityIdSeparator).shift());
-    }
-
-    return entry;
   },
   formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
     let toReturn;
@@ -309,6 +229,11 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       toReturn = string.substitute(fmt, [platformUtility.getValue(entry, theProperty, '')]);
     }
     return toReturn;
+  },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+    this.processLeader();
+    this.processRecurrence();
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
@@ -323,7 +248,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeActivity',
         disabled: this.checkCanComplete,
-        exclude: this.isActivityRecurringSeries,
+        exclude: this.isActivityRecurringSeries.bind(this),
       }, {
         name: 'completeOccurrenceAction',
         property: 'StartDate',
@@ -332,7 +257,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         action: 'completeOccurrence',
         disabled: this.checkCanComplete,
         renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-        include: this.isActivityRecurringSeries,
+        include: this.isActivityRecurringSeries.bind(this),
       }, {
         name: 'completeSeriesAction',
         property: 'Description',
@@ -340,7 +265,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeSeries',
         disabled: this.checkCanComplete,
-        include: this.isActivityRecurringSeries,
+        include: this.isActivityRecurringSeries.bind(this),
       }],
     }, {
       title: this.detailsText,
