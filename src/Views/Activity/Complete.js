@@ -227,7 +227,7 @@ define('crm/Views/Activity/Complete', [
                 startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
-                if (!this.isDateTimeless(startDate)) {
+                if (!this.isDateTimeless(startDate) && (typeof startDate.clone !== 'undefined')) {
                     startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
                 }
                 startDateField.setValue(startDate);
