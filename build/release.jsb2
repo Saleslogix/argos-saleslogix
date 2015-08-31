@@ -189,6 +189,10 @@
           "path": "../src-out/Models/"
         },
         {
+          "text": "Activity.js",
+          "path": "../src-out/Models/"
+        },
+        {
           "text": "Contact.js",
           "path": "../src-out/Models/"
         },
