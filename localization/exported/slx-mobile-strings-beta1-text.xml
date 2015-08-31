@@ -444,6 +444,10 @@
     <description/>
     <value>Another user has updated this field.</value>
   </data>
+  <data class="argos._EditBase" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
   <data class="argos._ErrorHandleMixin" property="errorText[general]" type="text">
     <description/>
     <value>A server error occured.</value>
