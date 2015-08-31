@@ -209,7 +209,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       startDateField.dateFormatText = this.startingTimelessFormatText;
       startDateField.showTimePicker = false;
       startDateField.timeless = true;
-      if (!this.isDateTimeless(startDate)) {
+      if (!this.isDateTimeless(startDate) && startDate.clone) {
         startDate = startDate.clone().clearTime().add({
           minutes: -1 * startDate.getTimezoneOffset(),
           seconds: 5,

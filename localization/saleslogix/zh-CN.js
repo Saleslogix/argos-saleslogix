@@ -83,7 +83,7 @@ localize("crm.Recurrence", {
     "2": "第二",
     "3": "第三",
     "4": "第四",
-    "5": "姓"
+    "5": "最后"
   }
 });
 
@@ -1054,7 +1054,7 @@ localize("crm.Views.AddAccountContact", {
   "homePhoneText": "住宅电话",
   "industryText": "行业",
   "ownerText": "所有者",
-  "lastNameText": "最后",
+  "lastNameText": "姓",
   "mobileText": "移动电话",
   "nameText": "姓名",
   "statusText": "状态",
@@ -1387,9 +1387,9 @@ localize("crm.Views.MetricWidget", {
 
 localize("crm.Views.NameEdit", {
   "titleText": "编辑姓名",
-  "firstNameText": "第一",
+  "firstNameText": "名",
   "middleNameText": "中间名",
-  "lastNameText": "最后",
+  "lastNameText": "姓",
   "prefixText": "前缀",
   "prefixTitleText": "姓名前缀",
   "suffixText": "后缀",

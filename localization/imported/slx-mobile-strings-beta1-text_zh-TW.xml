@@ -737,7 +737,7 @@
   </data>
   <data class="crm.Recurrence" property="ordText[1]" type="text">
     <description/>
-    <value>名字</value>
+    <value>第一個</value>
   </data>
   <data class="crm.Recurrence" property="ordText[2]" type="text">
     <description/>
@@ -753,7 +753,7 @@
   </data>
   <data class="crm.Recurrence" property="ordText[5]" type="text">
     <description/>
-    <value>姓氏</value>
+    <value>最後一個</value>
   </data>
   <data class="crm.SpeedSearchWidget" property="searchText" type="text">
     <description/>
@@ -2005,7 +2005,7 @@
   </data>
   <data class="crm.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>最後一個</value>
+    <value>姓氏</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -3541,7 +3541,7 @@
   </data>
   <data class="crm.Views.NameEdit" property="firstNameText" type="text">
     <description/>
-    <value>第一個</value>
+    <value>名字</value>
   </data>
   <data class="crm.Views.NameEdit" property="middleNameText" type="text">
     <description/>
