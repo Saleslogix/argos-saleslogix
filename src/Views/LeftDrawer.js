@@ -3,6 +3,7 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
+import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 
 /**
@@ -49,6 +50,9 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   helpText: 'Help',
   logOutText: 'Log Out',
   logOutConfirmText: 'Are you sure you want to log out?',
+  onlineText: 'Online',
+  offlineText: 'Offline',
+  connectionText: 'Connection: ${0}',
 
   // View Properties
   id: 'left_drawer',
@@ -116,6 +120,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       'SettingsAction',
       'HelpAction',
       'Logout',
+      'ConnectionIndicator',
     ];
 
     if (entry.view) {
@@ -202,6 +207,10 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'action': 'logOut',
         'title': this.logOutText,
         'offlineSupport': false,
+      }, {
+        'name': 'ConnectionIndicator',
+        'title': string.substitute(this.connectionText, [App.onLine ? this.onlineText : this.offlineText]),
+        'offlineSupport': true,
       }],
     };
 
