@@ -113,7 +113,7 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
      <!-- PouchDB -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.0.min.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
 
     <!-- Chart.js -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
