@@ -12,6 +12,7 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
 import moment from 'moment';
+import Toast from 'argos/Toast';
 
 /**
  * @class crm.Application
@@ -94,6 +95,7 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
     this._loadNavigationState();
     this._saveDefaultPreferences();
+    this._setupToasts();
 
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
@@ -167,6 +169,10 @@ const __class = declare('crm.Application', [Application], {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
     } catch (e) {}// eslint-disable-line
+  },
+  _setupToasts: function _setupToasts() {
+    this.Toast = new Toast();
+    this.Toast.show();
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
