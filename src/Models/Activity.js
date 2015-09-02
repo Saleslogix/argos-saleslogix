@@ -85,7 +85,7 @@ export default declare('crm.Models.Activity', [_ModelBase, _SDataModelMixin], {
       return all([leader$, recurrence$])
         .then(([leader, recurrence]) => {
           entry.Leader = leader;
-          this.recurrence = recurrence;
+          entry.recurrence = recurrence;
           return entry;
         });
     });
