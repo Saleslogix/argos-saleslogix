@@ -1,15 +1,15 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
+import platformUtility from 'argos/Utility';
+import convert from 'argos/Convert';
+import Detail from 'argos/Detail';
 import template from '../../Template';
 import format from '../../Format';
 import environment from '../../Environment';
-import convert from 'argos/Convert';
-import Detail from 'argos/Detail';
 import recur from '../../Recurrence';
+import ActivityModel from '../../Models/Activity';
 import utility from '../../Utility';
-import platformUtility from 'argos/Utility';
-import ActivityModel from 'crm/Models/Activity';
 
 /**
  * @class crm.Views.Activity.Detail
