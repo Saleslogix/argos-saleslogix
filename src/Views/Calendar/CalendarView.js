@@ -1,5 +1,6 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
+import connect from 'dojo/_base/connect';
 import query from 'dojo/query';
 import string from 'dojo/string';
 import domClass from 'dojo/dom-class';
@@ -48,13 +49,19 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   // Templates
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-    '<div data-dojo-attach-point="calendarNode"></div>',
-    '</div>',
-    '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
-    '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
-    '{%! $.activityMoreTemplate %}',
-    '</div>',
-    '<div style="clear:both"></div>',
+      '<div class="panel-content">',
+        '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
+        '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+          '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
+          '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
+          '{%! $.eventMoreTemplate %}',
+        '</div>',
+        '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
+          '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
+          '{%! $.activityMoreTemplate %}',
+        '</div>',
+        '<div style="clear:both"></div>',
+      '</div>',
     '</div>',
   ]),
   activityRowTemplate: new Simplate([
@@ -237,7 +244,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   },
   startup: function startup() {
     this.inherited(arguments);
-    this.currentDate = moment().startOf('day');
   },
   render: function render() {
     this.inherited(arguments);
@@ -272,6 +278,12 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   selectDay: function selectDay() {
     this.currentDate = this._calendar.getSelectedDateMoment();
     this.getSelectedDate();
+  },
+  getFirstDayOfCurrentMonth: function getFirstDayOfCurrentMonth() {
+    return this.currentDate.clone().startOf('month');
+  },
+  getLastDayOfCurrentMonth: function getLastDayOfCurrentMonth() {
+    return this.currentDate.clone().endOf('month');
   },
   getTodayMonthActivities: function getTodayMonthActivities() {
     const today = moment().startOf('day');
@@ -437,8 +449,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
 
     this.highlightActivities();
   },
-  setCurrentDateTitle: function setCurrentDateTitle() {
-    this.set('dayTitleContent', this.currentDate.format(this.dayTitleFormatText));
+  highlightActivities: function highlightActivities() {
+    // TODO: Make this function add the indicator to the day to show there is an activity for that day
+    return this;
   },
   hideEventList: function hideEventList() {
     domClass.add(this.eventContainerNode, 'event-hidden');
@@ -448,7 +461,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   },
   getSelectedDate: function getSelectedDate() {
     this.clearSelectedDate();
-    this.setCurrentDateTitle();
     this.requestSelectedDateActivities();
     this.requestSelectedDateEvents();
   },
@@ -619,12 +631,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   },
 
   renderCalendar: function renderCalendar() {
-    this._calendar = new Calendar({ id: 'calendar-view__calendar'});
-    domConstruct.place(this._calendar.domNode, this.calendarNode);
-    this._calendar.show();
-  },
-  setDateTitle: function setDateTitle() {
-    this.set('dateContent', this.currentDate.format(this.monthTitleFormatText));
+    if (!this._calendar) {
+      this._calendar = new Calendar({ id: 'calendar-view__calendar'});
+      domConstruct.place(this._calendar.domNode, this.calendarNode);
+      connect.connect(this._calendar, 'changeDay', this, this.selectDay);
+      this._calendar.show();
+    }
+    this.currentDate = this._calendar.getSelectedDateMoment();
   },
   show: function show(options) {
     this.inherited(arguments);
