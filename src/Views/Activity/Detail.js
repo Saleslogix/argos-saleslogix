@@ -297,9 +297,9 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'recurrence',
         label: this.recurrenceText,
         include: this.isActivityRecurring.bind(this),
-        renderer: function renderRecurrence(r, value) {
-          return r.toString(value);
-        }.bind(this, recur),
+        renderer: function renderRecurrence(value) {
+          return recur.toString(value);
+        },
       }],
     }, {
       title: this.whoText,
