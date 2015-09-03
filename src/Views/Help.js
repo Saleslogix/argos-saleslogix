@@ -77,21 +77,21 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
   },
   getHelp: function getHelp({baseUrl, fileName, defaultUrl}, domNode) {
     const def = new Deferred();
-    const r = Sage.SData.Client.Ajax.request;
+    const req = Sage.SData.Client.Ajax.request;
     const cleanBaseUrl = this._sanitizeUrl(baseUrl);
-    r({
+    req({
       url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
       cache: true,
       success: (response) => def.resolve({response, domNode}),
       failure: () => {
         // First failure, try to get the parent locale
-        r({
+        req({
           url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
           cache: true,
           success: (response) => def.resolve({response, domNode}),
           failure: () => {
             // Second failure, use the default url
-            r({
+            req({
               url: defaultUrl,
               cache: true,
               success: (response) => def.resolve({response, domNode}),
