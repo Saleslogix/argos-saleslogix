@@ -1,4 +1,5 @@
 define('configuration/development', ['crm/ApplicationModule'], function cb(ApplicationModule) {
+  PouchDB.debug.enable('*');
   return {
     modules: [
       new ApplicationModule(),
