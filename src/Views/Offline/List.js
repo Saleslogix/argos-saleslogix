@@ -57,12 +57,12 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
       if (App.preferences && App.preferences.offlineEntityFilters) {
         filters.forEach((f) => {
           if (doc.entityName === f.name) {
-            emit(doc.createDate);
+            emit(doc.modifyDate);
           }
         });
       } else {
         // User has no entity filter preferences (from right drawer)
-        emit(doc.createDate);
+        emit(doc.modifyDate);
       }
     };
   },
