@@ -57,12 +57,12 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
       if (App.preferences && App.preferences.offlineEntityFilters) {
         filters.forEach((f) => {
           if (doc.entityName === f.name) {
-            emit(doc);
+            emit(doc.createDate);
           }
         });
       } else {
         // User has no entity filter preferences (from right drawer)
-        emit(doc);
+        emit(doc.createDate);
       }
     };
   },
@@ -79,6 +79,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
     delete queryOptions.count;
     delete queryOptions.start;
     queryOptions.include_docs = true;
+    queryOptions.descending = true;
     return queryOptions;
   },
   createIndicatorLayout: function createIndicatorLayout() {
