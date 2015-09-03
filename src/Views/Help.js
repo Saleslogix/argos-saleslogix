@@ -1,5 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
+import Deferred from 'dojo/Deferred';
+import all from 'dojo/promise/all';
 import string from 'dojo/string';
 import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
@@ -31,66 +33,76 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
   titleText: 'Help',
   errorText: 'Error',
   errorMessageText: 'Unable to load the help document.',
+  sectionTitleText: 'Infor CRM Help',
 
   // View Properties
   id: 'help',
-  url: 'help/help.html',
   expose: false,
-
+  promises: null,
+  constructor: function constructor() {
+    this.promises = [];
+  },
   createToolLayout: function createToolLayout() {
     return this.tools && (this.tools.tbar = []);
   },
-  onRequestFailure: function onRequestFailure(response, o) {
-    domConstruct.place(this.errorTemplate.apply(this), this.contentNode, 'last');
-    domClass.remove(this.domNode, 'panel-loading');
-
-    ErrorManager.addError(response, o, this.options, 'failure');
-  },
-  onLocalizedRequestFirstFailure: function onLocalizedRequestFirstFailure() {
-    Sage.SData.Client.Ajax.request({
-      url: this.resolveGenericLocalizedUrl(),
-      cache: true,
-      success: this.onRequestSuccess,
-      failure: this.onLocalizedRequestSecondFailure,
-      scope: this,
-    });
-  },
-  onLocalizedRequestSecondFailure: function onLocalizedRequestSecondFailure() {
-    Sage.SData.Client.Ajax.request({
-      url: this.url,
-      cache: true,
-      success: this.onRequestSuccess,
-      failure: this.onRequestFailure,
-      scope: this,
-    });
-  },
-  onRequestSuccess: function onRequestSuccess(response, o) {
-    this.processContent(response, o);
-    domClass.remove(this.domNode, 'panel-loading');
-  },
-  resolveLocalizedUrl: function resolveLocalizedUrl() {
-    const localizedUrl = string.substitute('help/help_${0}.html', [Mobile.CultureInfo.name]);
+  resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
+    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, Mobile.CultureInfo.name, fileName]);
     return localizedUrl;
   },
-  resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl() {
+  resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
     const languageSpec = Mobile.CultureInfo.name;
     const languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec;
-    const localizedUrl = string.substitute('help/help_${0}.html', [languageGen]);
+    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, languageGen, fileName]);
     return localizedUrl;
   },
   requestData: function requestData() {
-    domClass.add(this.domNode, 'panel-loading');
-
-    Sage.SData.Client.Ajax.request({
-      url: this.resolveLocalizedUrl(),
-      cache: true,
-      success: this.onRequestSuccess,
-      failure: this.onLocalizedRequestFirstFailure,
-      scope: this,
+    this.processEntry({});
+  },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+    console.dir(this.promises);
+    all(this.promises).then((results) => {
+      results.forEach((result) => {
+        this.processContent(result.response, result.domNode);
+      });
+      this.promises = [];
     });
   },
-  processContent: function processContent(xhr) {
-    domConstruct.place(xhr.responseText, this.contentNode, 'last');
+  processContent: function processContent(xhr, domNode) {
+    domConstruct.place(xhr.responseText, domNode, 'last');
+  },
+  getHelp: function getHelp({baseUrl, fileName, defaultUrl}, domNode) {
+    const def = new Deferred();
+    const r = Sage.SData.Client.Ajax.request;
+    r({
+      url: this.resolveLocalizedUrl(baseUrl, fileName),
+      cache: true,
+      success: (response) => def.resolve({response, domNode}),
+      failure: () => {
+        // First failure, try to get the parent locale
+        r({
+          url: this.resolveGenericLocalizedUrl(baseUrl, fileName),
+          cache: true,
+          success: (response) => def.resolve({response, domNode}),
+          failure: () => {
+            // Second failure, use the default url
+            r({
+              url: defaultUrl,
+              cache: true,
+              success: (response) => def.resolve({response, domNode}),
+              failure: (response, o) => {
+                def.reject({response, o});
+              },
+            });
+          },
+        });
+      },
+    });
+
+    return def.promise;
+  },
+  onHelpRowCreated: function onHelpRowCreated(layoutRow, domNode) {
+    this.promises.push(this.getHelp(layoutRow, domNode));
   },
   createLayout: function createLayout() {
     if (this.layout) {
@@ -98,9 +110,22 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
     }
 
     const layout = [];
-    
+
+    layout.push({
+      title: this.sectionTitleText,
+      name: 'HelpSection',
+      children: [{
+        name: 'CRMHelp',
+        baseUrl: 'help/locales/crm',
+        fileName: 'help.html',
+        defaultUrl: 'help/locales/crm/en/help.html',
+        onCreate: this.onHelpRowCreated,
+      }],
+    });
+
+    this.layout = layout;
     return layout;
-  }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Help', __class);
