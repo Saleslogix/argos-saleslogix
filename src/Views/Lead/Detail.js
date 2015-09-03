@@ -187,7 +187,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         action: 'viewAddress',
         iconClass: 'fa fa-map-marker fa-lg',
         disabled: this.checkAddress,
-        renderer: format.address.bindDelegate(this, [true, ' ']),
+        renderer: format.address.bindDelegate(this, true, ' '),
       }],
     }, {
       title: this.detailsText,

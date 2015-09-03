@@ -8,7 +8,6 @@ import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
-import moment from 'moment';
 
 /**
  * @class crm.Views.Activity.Complete
@@ -209,7 +208,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       startDateField.dateFormatText = this.startingTimelessFormatText;
       startDateField.showTimePicker = false;
       startDateField.timeless = true;
-      if (!this.isDateTimeless(startDate)) {
+      if (!this.isDateTimeless(startDate) && startDate.clone) {
         startDate = startDate.clone().clearTime().add({
           minutes: -1 * startDate.getTimezoneOffset(),
           seconds: 5,
