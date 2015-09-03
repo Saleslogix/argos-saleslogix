@@ -3,11 +3,9 @@ import lang from 'dojo/_base/lang';
 import Deferred from 'dojo/Deferred';
 import all from 'dojo/promise/all';
 import string from 'dojo/string';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
+import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
-import Detail from 'argos/Detail';
-import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import 'dojo/NodeList-manipulate';
 
 /**
@@ -18,7 +16,7 @@ import 'dojo/NodeList-manipulate';
  * @mixins argos._LegacySDataDetailMixin
  *
  */
-const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
+const __class = declare('crm.Views.Help', [_DetailBase], {
   // Templates
   errorTemplate: new Simplate([
     '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',
@@ -39,6 +37,8 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
   id: 'help',
   expose: false,
   promises: null,
+  placeDetailHeader: function placeDetailHeader() {
+  },
   constructor: function constructor() {
     this.promises = [];
   },
@@ -55,12 +55,16 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
     const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, languageGen, fileName]);
     return localizedUrl;
   },
+  _sanitizeUrl: function _sanitizeUrl(url = '') {
+    // Remove trailing slashes
+    return url.replace(/[\/|\\]*$/, '');
+  },
   requestData: function requestData() {
     this.processEntry({});
   },
   processEntry: function processEntry() {
     this.inherited(arguments);
-    console.dir(this.promises);
+    // Processing the layout should be done now
     all(this.promises).then((results) => {
       results.forEach((result) => {
         this.processContent(result.response, result.domNode);
@@ -69,19 +73,20 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
     });
   },
   processContent: function processContent(xhr, domNode) {
-    domConstruct.place(xhr.responseText, domNode, 'last');
+    domConstruct.place(xhr.responseText, domNode, 'only');
   },
   getHelp: function getHelp({baseUrl, fileName, defaultUrl}, domNode) {
     const def = new Deferred();
     const r = Sage.SData.Client.Ajax.request;
+    const cleanBaseUrl = this._sanitizeUrl(baseUrl);
     r({
-      url: this.resolveLocalizedUrl(baseUrl, fileName),
+      url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
       cache: true,
       success: (response) => def.resolve({response, domNode}),
       failure: () => {
         // First failure, try to get the parent locale
         r({
-          url: this.resolveGenericLocalizedUrl(baseUrl, fileName),
+          url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
           cache: true,
           success: (response) => def.resolve({response, domNode}),
           failure: () => {
@@ -91,6 +96,9 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
               cache: true,
               success: (response) => def.resolve({response, domNode}),
               failure: (response, o) => {
+                // The default help failed. Log the error, as something is
+                // probably wrong with the layout.
+                ErrorManager.addError(response, o, this.options, 'failure');
                 def.reject({response, o});
               },
             });
