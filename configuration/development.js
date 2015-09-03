@@ -1,5 +1,8 @@
 define('configuration/development', ['crm/ApplicationModule'], function cb(ApplicationModule) {
-  PouchDB.debug.enable('*');
+  // Toggle console logs for PouchDB
+  // PouchDB.debug.enable('*');
+  PouchDB.debug.disable();
+
   return {
     modules: [
       new ApplicationModule(),
