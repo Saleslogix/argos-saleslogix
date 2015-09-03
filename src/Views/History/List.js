@@ -8,7 +8,6 @@ import List from 'argos/List';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-import moment from 'moment';
 
 /**
  * @class crm.Views.History.List

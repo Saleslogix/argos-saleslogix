@@ -110,7 +110,7 @@
             configuration = [
                 'configuration/production'
             ];
-        require(['moment', application].concat(configuration), function(moment, application, configuration) {
+        require([application].concat(configuration), function(application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
 
             localization = [
@@ -130,7 +130,6 @@
                     }
 
                     moment.lang('en');
-                    window.moment = moment;
 
                     var instance = new application(configuration);
 

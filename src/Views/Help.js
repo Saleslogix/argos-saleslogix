@@ -92,6 +92,15 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
   processContent: function processContent(xhr) {
     domConstruct.place(xhr.responseText, this.contentNode, 'last');
   },
+  createLayout: function createLayout() {
+    if (this.layout) {
+      return this.layout;
+    }
+
+    const layout = [];
+    
+    return layout;
+  }
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Help', __class);

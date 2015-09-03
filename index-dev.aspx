@@ -118,6 +118,9 @@
     <!-- Babel -->
     <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
 
+    <!-- moment -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -127,7 +130,6 @@
             { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
-            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
             { name: 'argos', location: '../../argos-sdk/src-out' },
             { name: 'crm', location: 'src-out' },
             { name: 'configuration', location: 'configuration' },
@@ -148,7 +150,7 @@
             configuration = [
                 'configuration/development'
             ];
-        require(['moment', application].concat(configuration), function(moment, application, configuration) {
+        require([application].concat(configuration), function(application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
             bootstrap = function(requires) {
                 require(requires.concat('dojo/domReady!'), function() {
@@ -171,8 +173,6 @@
                             console.error("Failed to set the culture for moment.js, culture set to " + results);
                         }
                     }
-
-                    window.moment = moment;
 
                     var instance = new application(configuration);
 

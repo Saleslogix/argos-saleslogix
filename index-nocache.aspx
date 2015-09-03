@@ -117,7 +117,7 @@
                 Enumerate("configuration", (file) => file.Name == "production.js")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-        require(['moment', application].concat(configuration), function(moment, application, configuration) {
+        require([application].concat(configuration), function(application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
             bootstrap = function(requires) {
                 require(requires.concat('dojo/domReady!'), function() {
@@ -140,8 +140,6 @@
                             console.error("Failed to set the culture for moment.js, culture set to " + results);
                         }
                     }
-
-                    window.moment = moment;
 
                     var instance = new application(configuration);
 
@@ -293,9 +291,9 @@
                     {
                         Path = ToRelativeUrlPath(rootDirectory, parentFile),
                         File = targetFile
-                    };   
-            }    
+                    };
+            }
         }
     }
-     
+
 </script>

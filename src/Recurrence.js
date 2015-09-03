@@ -1,6 +1,5 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import moment from 'moment';
 
 /**
  * @class crm.Recurrence
