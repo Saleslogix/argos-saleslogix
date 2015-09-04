@@ -4,7 +4,10 @@ import _SDataModelMixin from 'argos/_SDataModelMixin';
 
 export default declare('crm.Models.Contact', [_ModelBase, _SDataModelMixin], {
   entityName: 'Contact',
+  entityDisplayName: 'Contact',
+  entityDisplayNamePlural: 'Contacts',
   resourceKind: 'contacts',
+  iconClass: 'fa fa-user fa-lg',
   security: 'Entities/Contact/View',
   querySelect: [
     'Account/AccountName',

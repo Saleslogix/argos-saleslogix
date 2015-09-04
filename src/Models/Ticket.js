@@ -7,6 +7,9 @@ import ErrorManager from 'argos/ErrorManager';
 
 export default declare('crm.Models.Ticket', [_ModelBase, _SDataModelMixin], {
   entityName: 'Ticket',
+  entityDisplayName: 'Ticket',
+  entityDisplayNamePlural: 'Tickets',
+  iconClass: 'fa fa-clipboard fa-2x',
   resourceKind: 'tickets',
   security: 'Entities/Ticket/View',
   querySelect: [

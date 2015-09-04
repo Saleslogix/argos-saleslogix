@@ -1,6 +1,6 @@
 import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
-import Store from 'argos/Store/PouchDB';
+import OfflineManager from 'argos/OfflineManager';
 
 export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
@@ -27,8 +27,6 @@ export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
     };
   },
   createStore: function createStore() {
-    return new Store({
-      databaseName: this.OFFLINE_DB_NAME,
-    });
+    return OfflineManager.getStore();
   },
 });

@@ -12,32 +12,38 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _OfflineRightDrawerListMixin from './_OfflineRightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import TotalMetricWidget from './TotalMetricWidget';
-import Store from 'argos/Store/PouchDB';
+import OfflineManager from 'argos/OfflineManager';
+import lang from 'dojo/_base/lang';
+import format from '../../Format';
 
 export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   id: 'offline_list',
   idProperty: 'id',
   detailView: 'offline_detail',
-  offlineSupport: true,
   enableSearch: false,
   enableActions: true,
+  enableOfflineSupport: true,
   resourceKind: 'offline',
 
   titleText: 'Recently Viewed',
 
-  OFFLINE_DB_NAME: 'crm-offline',
   metricWidgetCtor: TotalMetricWidget,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
+    '<h4>{%: $$.getOfflineDate($) %}</h4>',
   ]),
   getTitle: function getTitle(entry) {
-    return entry && entry.doc && entry.doc.entity && entry.doc.entity.$descriptor;
+    return entry && entry.doc && entry.doc.entity && entry.doc.description;
+  },
+  getOfflineDate: function getOfflineDate(entry) {
+    if (entry && entry.doc && entry.doc.entity && entry.doc.modifyDate) {
+      return format.relativeDate(entry.doc.modifyDate);
+    }
+    return '';
   },
   createStore: function createStore() {
-    return new Store({
-      databaseName: this.OFFLINE_DB_NAME,
-    });
+    return OfflineManager.getStore();
   },
   getActiveEntityFilters: function getActiveEntityFilters() {
     return Object.keys(this.entityMappings)
@@ -71,7 +77,6 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
   },
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
     const options = widgetOptions;
-    options.OFFLINE_DB_NAME = this.OFFLINE_DB_NAME;
     options.activeEntityFilters = this.getActiveEntityFilters();
     return options;
   },
@@ -86,18 +91,38 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
     return [];
   },
   getItemIconClass: function getItemIconClass(entry) {
-    const {
-      entityName,
-    } = entry.doc;
-    const mapping = this.entityMappings[entityName];
-    const {
-      iconClass,
-    } = mapping;
-    let results = '';
-    if (iconClass) {
-      results = `fa ${iconClass} fa-2x`;
+    let iconClass;
+    iconClass = entry.doc.iconClass;
+    if (!iconClass) {
+      iconClass = 'fa fa-cloud fa-2x';
     }
-    return results;
+    return iconClass;
+  },
+  navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
+    const entry = this.entries && this.entries[key];
+    const detailViewId = this.getDetailViewId(entry);
+    const view = this.app.getView(detailViewId);
+
+    let options = {
+      descriptor: entry.doc.description, // keep for backwards compat
+      title: entry.doc.description,
+      key: key,
+      fromContext: this,
+    };
+
+    if (additionalOptions) {
+      options = lang.mixin(options, additionalOptions);
+    }
+
+    if (view) {
+      view.show(options);
+    }
+  },
+  getDetailViewId: function getDetailViewId(entry) {
+    if (App.onLine && entry && entry.doc && entry.doc.viewId) {
+      return entry.doc.viewId;
+    }
+    return this.detailView;
   },
   // Localization
   entityText: {

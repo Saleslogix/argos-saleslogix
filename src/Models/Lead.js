@@ -4,6 +4,9 @@ import _SDataModelMixin from 'argos/_SDataModelMixin';
 
 export default declare('crm.Models.Lead', [_ModelBase, _SDataModelMixin], {
   entityName: 'Lead',
+  entityDisplayName: 'Lead',
+  entityDisplayNamePlural: 'Leads',
+  iconClass: 'fa fa-filter fa-2x',
   resourceKind: 'leads',
   security: 'Entities/Lead/View',
   querySelect: [

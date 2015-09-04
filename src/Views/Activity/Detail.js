@@ -385,6 +385,10 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }],
     }]);
   },
+  getOfflineIcon: function getOfflineIcon() {
+    const model = this.getModel();
+    return model.getIconClass(this.entry);
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);

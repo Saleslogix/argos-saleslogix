@@ -4,6 +4,9 @@ import _SDataModelMixin from 'argos/_SDataModelMixin';
 
 export default declare('crm.Models.Opportunity', [_ModelBase, _SDataModelMixin], {
   entityName: 'Opportunity',
+  entityDisplayName: 'Opportunity',
+  entityDisplayNamePlural: 'Opportunities',
+  iconClass: 'fa fa-money fa-2x',
   resourceKind: 'opportunities',
   security: 'Entities/Opportunity/View',
   querySelect: [

@@ -4,6 +4,9 @@ import _SDataModelMixin from 'argos/_SDataModelMixin';
 
 export default declare('crm.Models.Account', [_ModelBase, _SDataModelMixin], {
   entityName: 'Account',
+  entityDisplayName: 'Account',
+  entityDisplayNamePlural: 'Accounts',
+  iconClass: 'fa fa-building-o fa-2x',
   resourceKind: 'accounts',
   security: 'Entities/Account/View',
   querySelect: [
