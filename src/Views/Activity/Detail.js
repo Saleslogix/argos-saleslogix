@@ -1,16 +1,15 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import query from 'dojo/query';
-import domClass from 'dojo/dom-class';
+import platformUtility from 'argos/Utility';
+import convert from 'argos/Convert';
+import Detail from 'argos/Detail';
 import template from '../../Template';
 import format from '../../Format';
 import environment from '../../Environment';
-import convert from 'argos/Convert';
-import Detail from 'argos/Detail';
 import recur from '../../Recurrence';
+import ActivityModel from '../../Models/Activity';
 import utility from '../../Utility';
-import platformUtility from 'argos/Utility';
 
 /**
  * @class crm.Views.Activity.Detail
@@ -30,9 +29,6 @@ import platformUtility from 'argos/Utility';
  *
  */
 const __class = declare('crm.Views.Activity.Detail', [Detail], {
-  // Templates
-  leaderTemplate: template.nameLF,
-
   // Localization
   activityTypeText: {
     'atToDo': 'To-Do',
@@ -85,48 +81,12 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   completeView: 'activity_complete',
   editView: 'activity_edit',
   security: null, // 'Entities/Activity/View',
-  contractName: 'system',
-  querySelect: [
-    'AccountId',
-    'AccountName',
-    'Alarm',
-    'AlarmTime',
-    'Category',
-    'Company',
-    'ContactId',
-    'ContactName',
-    'Description',
-    'Duration',
-    'Leader/$key',
-    'LeadId',
-    'LeadName',
-    'Location',
-    'LongNotes',
-    'OpportunityId',
-    'OpportunityName',
-    'PhoneNumber',
-    'Priority',
-    'Rollover',
-    'StartDate',
-    'EndDate',
-    'TicketId',
-    'TicketNumber',
-    'Timeless',
-    'Type',
-    'Recurring',
-    'RecurPeriod',
-    'RecurPeriodSpec',
-    'RecurIterations',
-    'RecurrenceState',
-    'AllowAdd',
-    'AllowEdit',
-    'AllowDelete',
-    'AllowComplete',
-
-  ],
-  resourceKind: 'activities',
+  enableOffline: true,
+  getModel: function getModel() {
+    const model = new ActivityModel();
+    return model;
+  },
   recurringActivityIdSeparator: ';',
-  recurrence: {},
 
   formatActivityType: function formatActivityType(val) {
     return this.activityTypeText[val] || val;
@@ -136,9 +96,9 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
 
     if (view) {
       if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) { // eslint-disable-line
-        this.recurrence.Leader = this.entry.Leader;
+        this.entry.recurrence.Leader = this.entry.Leader;
         view.show({
-          entry: this.recurrence,
+          entry: this.entry.recurrence,
         });
       } else {
         view.show({
@@ -158,8 +118,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       };
 
       if (isSeries) {
-        this.recurrence.Leader = this.entry.Leader;
-        options.entry = this.recurrence;
+        this.entry.recurrence.Leader = this.entry.Leader;
+        options.entry = this.entry.recurrence;
       } else {
         options.entry = this.entry;
       }
@@ -220,85 +180,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   doesActivityHaveReminder: function doesActivityHaveReminder(entry) {
     return convert.toBoolean(entry && entry.Alarm);
   },
-  requestLeader: function requestLeader(userId) {
-    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
-      .setResourceKind('users')
-      .setResourceSelector(string.substitute("'${0}'", [userId]))
-      .setQueryArg('select', [
-        'UserInfo/FirstName',
-        'UserInfo/LastName',
-      ].join(','));
-
-    request.read({
-      success: this.processLeader,
-      failure: this.requestLeaderFailure,
-      scope: this,
-    });
-  },
-  requestLeaderFailure: function requestLeaderFailure() {},
-  processLeader: function processLeader(leader) {
-    if (leader) {
-      this.entry.Leader = leader;
-
-      // There could be a timing issue here. The call to request the leader is done before the layout is processed,
-      // so we could potentially end up in here before any dom was created for the view.
-      // TODO: Fix
-      const rowNode = query('[data-property="Leader"]');
-      const contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
-
-      if (rowNode && rowNode.length > 0) {
-        domClass.remove(rowNode[0], 'content-loading');
-      }
-
-      if (contentNode && contentNode.length > 0) {
-        contentNode[0].innerHTML = this.leaderTemplate.apply(leader.UserInfo);
-      }
-    }
-  },
-  requestRecurrence: function requestRecurrence(key) {
-    const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-      .setResourceKind(this.resourceKind)
-      .setResourceSelector(string.substitute("'${0}'", [key]))
-      .setContractName(this.contractName)
-      .setQueryArg('select', this.querySelect.join(','));
-
-    request.allowCacheUse = false;
-    request.read({
-      success: this.processRecurrence,
-      failure: this.requestRecurrenceFailure,
-      scope: this,
-    });
-    return;
-  },
-  processRecurrence: function processRecurrence(recurrence) {
-    if (recurrence) {
-      this.recurrence = recurrence;
-
-      const rowNode = query('[data-property="RecurrenceUI"]');
-      const contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
-
-      if (rowNode && rowNode.length > 0) {
-        domClass.remove(rowNode[0], 'content-loading');
-      }
-
-      if (contentNode && contentNode.length > 0) {
-        contentNode[0].innerHTML = recur.toString(this.recurrence);
-      }
-    }
-  },
-  requestRecurrenceFailure: function requestRecurrenceFailure() {},
   checkCanComplete: function checkCanComplete(entry) {
     return !(entry && (entry.AllowComplete));
-  },
-  preProcessEntry: function preProcessEntry(entry) {
-    if (entry && entry.Leader.$key) {
-      this.requestLeader(entry.Leader.$key);
-    }
-    if (this.isActivityRecurring(entry)) {
-      this.requestRecurrence(entry.$key.split(this.recurringActivityIdSeparator).shift());
-    }
-
-    return entry;
   },
   formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
     let toReturn;
@@ -322,25 +205,25 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         label: this.completeActivityText,
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeActivity',
-        disabled: this.checkCanComplete,
-        exclude: this.isActivityRecurringSeries,
+        disabled: this.checkCanComplete.bind(this),
+        exclude: this.isActivityRecurringSeries.bind(this),
       }, {
         name: 'completeOccurrenceAction',
         property: 'StartDate',
         label: this.completeOccurrenceText,
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeOccurrence',
-        disabled: this.checkCanComplete,
+        disabled: this.checkCanComplete.bind(this),
         renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-        include: this.isActivityRecurringSeries,
+        include: this.isActivityRecurringSeries.bind(this),
       }, {
         name: 'completeSeriesAction',
         property: 'Description',
         label: this.completeSeriesText,
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeSeries',
-        disabled: this.checkCanComplete,
-        include: this.isActivityRecurringSeries,
+        disabled: this.checkCanComplete.bind(this),
+        include: this.isActivityRecurringSeries.bind(this),
       }],
     }, {
       title: this.detailsText,
@@ -372,13 +255,13 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'StartDate',
         label: this.startTimeText,
         renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-        exclude: this.isActivityTimeless,
+        exclude: this.isActivityTimeless.bind(this),
       }, {
         name: 'StartDateTimeless',
         property: 'StartDate',
         label: this.allDayText,
         renderer: format.date.bindDelegate(this, this.timelessDateFormatText, true),
-        include: this.isActivityTimeless,
+        include: this.isActivityTimeless.bind(this),
       }, {
         name: 'Timeless',
         property: 'Timeless',
@@ -390,46 +273,46 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'Duration',
         label: this.durationText,
         renderer: format.timespan,
-        exclude: this.isActivityTimeless,
+        exclude: this.isActivityTimeless.bind(this),
       }, {
         name: 'Alarm',
         property: 'Alarm',
         label: this.alarmText,
         renderer: format.yesNo,
-        exclude: this.doesActivityHaveReminder,
+        exclude: this.doesActivityHaveReminder.bind(this),
       }, {
         name: 'AlarmTime',
         property: 'AlarmTime',
         label: this.alarmTimeText,
         renderer: format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
-        include: this.doesActivityHaveReminder,
+        include: this.doesActivityHaveReminder.bind(this),
       }, {
         name: 'Rollover',
         property: 'Rollover',
         label: this.rolloverText,
-        include: this.isActivityTimeless,
+        include: this.isActivityTimeless.bind(this),
         renderer: format.yesNo,
       }, {
         name: 'RecurrenceUI',
-        property: 'RecurrenceUI',
+        property: 'recurrence',
         label: this.recurrenceText,
-        include: this.isActivityRecurring,
-        cls: 'content-loading',
-        value: 'loading...',
+        include: this.isActivityRecurring.bind(this),
+        renderer: function renderRecurrence(value) {
+          return recur.toString(value);
+        },
       }],
     }, {
       title: this.whoText,
       name: 'WhoSection',
       children: [{
         name: 'Leader',
-        property: 'Leader',
+        property: 'Leader.UserInfo',
         label: this.leaderText,
-        cls: 'content-loading',
-        value: 'loading...',
+        template: template.nameLF,
       }, {
         name: 'ContactName',
         property: 'ContactName',
-        exclude: this.isActivityForLead,
+        exclude: this.isActivityForLead.bind(this),
         label: this.contactText,
         view: 'contact_detail',
         key: 'ContactId',
@@ -437,7 +320,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'AccountName',
         property: 'AccountName',
-        exclude: this.isActivityForLead,
+        exclude: this.isActivityForLead.bind(this),
         label: this.accountText,
         view: 'account_detail',
         key: 'AccountId',
@@ -445,7 +328,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'OpportunityName',
         property: 'OpportunityName',
-        exclude: this.isActivityForLead,
+        exclude: this.isActivityForLead.bind(this),
         label: this.opportunityText,
         view: 'opportunity_detail',
         key: 'OpportunityId',
@@ -453,7 +336,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'TicketNumber',
         property: 'TicketNumber',
-        exclude: this.isActivityForLead,
+        exclude: this.isActivityForLead.bind(this),
         label: this.ticketNumberText,
         view: 'ticket_detail',
         key: 'TicketId',
@@ -461,7 +344,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'LeadName',
         property: 'LeadName',
-        include: this.isActivityForLead,
+        include: this.isActivityForLead.bind(this),
         label: this.leadText,
         view: 'lead_detail',
         key: 'LeadId',
@@ -469,7 +352,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'AccountName',
         property: 'AccountName',
-        include: this.isActivityForLead,
+        include: this.isActivityForLead.bind(this),
         label: this.companyText,
       }],
     }, {
@@ -501,6 +384,10 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         title: this.relatedAttachmentTitleText,
       }],
     }]);
+  },
+  getOfflineIcon: function getOfflineIcon() {
+    const model = this.getModel();
+    return model.getIconClass(this.entry);
   },
 });
 

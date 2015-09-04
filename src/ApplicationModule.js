@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
@@ -19,6 +16,8 @@ import MainToolbar from './Views/MainToolbar';
 import UpdateToolbar from './Views/UpdateToolbar';
 import LeftDrawer from './Views/LeftDrawer';
 import RightDrawer from './Views/RightDrawer';
+import OfflineDetail from './Views/Offline/Detail';
+import OfflineList from './Views/Offline/List';
 import Login from './Views/Login';
 import LogOff from './Views/LogOff';
 import Settings from './Views/Settings';
@@ -109,7 +108,6 @@ import './Validator';
 import './Environment';
 import './Utility';
 
-
 /**
  * @class crm.ApplicationModule
  *
@@ -141,6 +139,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
     this.registerView(new RightDrawer(), query('.right-drawer')[0]);
+
+    this.registerView(new OfflineDetail());
+    this.registerView(new OfflineList({
+      expose: true,
+    }));
 
     this.registerView(new Help());
     this.registerView(new Settings());
