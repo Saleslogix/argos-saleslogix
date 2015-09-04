@@ -16,7 +16,8 @@
     "module": false,
     "Base64": false,
     "define": false,
-    "require": false
+    "require": false,
+    "moment": false
   },
   "ecmaFeatures": {
     "arrowFunctions": true,
