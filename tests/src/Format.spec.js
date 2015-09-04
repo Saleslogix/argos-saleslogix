@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('spec/Format.spec', ['Mobile/SalesLogix/Format', 'moment'],function(Format, moment) {
+define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
     // Verify the the argos-saleslogix version of these work OK - SDK really contains the phone formatter.
     describe('Mobile/SalesLogix/Format', function() {
         describe('address', function() {

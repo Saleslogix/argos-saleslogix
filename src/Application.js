@@ -11,7 +11,6 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
-import moment from 'moment';
 import Toast from 'argos/Toast';
 
 /**
@@ -571,13 +570,13 @@ const __class = declare('crm.Application', [Application], {
    */
   loadCustomizedMoment: function loadCustomizedMoment() {
     const custom = this.buildCustomizedMoment();
-    const currentLang = moment.lang();
+    const currentLang = moment.locale();
 
-    moment.lang(currentLang, custom);
-    this.moment = moment().lang(currentLang, custom);
+    moment.locale(currentLang, custom);
+    this.moment = moment().locale(currentLang, custom);
   },
   /*
-   * Builds an object that will get passed into moment.lang()
+   * Builds an object that will get passed into moment.locale()
    */
   buildCustomizedMoment: function buildCustomizedMoment() {
     if (!App.context.userOptions) {
