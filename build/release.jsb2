@@ -186,11 +186,11 @@
       "fileIncludes": [
         {
           "text": "DateRangeWidget.js",
-          "path": "../src-out/"
+          "path": "../src-out/Views/"
         },
         {
           "text": "_DashboardWidgetBase.js",
-          "path": "../src-out/"
+          "path": "../src-out/Views/"
         },
         {
           "text": "Environment.js",
