@@ -185,6 +185,14 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "DateRangeWidget.js",
+          "path": "../src-out/"
+        },
+        {
+          "text": "_DashboardWidgetBase.js",
+          "path": "../src-out/"
+        },
+        {
           "text": "Environment.js",
           "path": "../src-out/"
         },
