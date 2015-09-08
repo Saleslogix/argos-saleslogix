@@ -529,27 +529,34 @@ td.calendar-day {
     display: inline-flex;
     flex-flow: row wrap;
     width: 100%;
-    
+
     .dashboard-metric-item {
         text-align: center;
+        display: flex;
         width: 33.3%;
-        
+
+        .metric-detail {
+          display: block;
+          background-color: transparent;
+          padding: 0;
+        }
+
         @media (min-width: @mobile-landscape) {
             width: 25%;
         }
-    
+
         @media (min-width: @tablet-portrait) {
             width: 20%;
         }
-    
+
         @media (min-width: @tablet-landscape) {
             width: 16.66%;
         }
-    
+
         @media (min-width: @desktop) {
             width: 12.5%;
         }
-        
+
         div > button {
             background-color: transparent;
             height: inherit;
@@ -565,17 +572,23 @@ td.calendar-day {
         }
      }
 }
- 
+
  .dashboard-metric-item > .metric-widget {
     height: inherit;
     width: auto;
+    border: 0;
+    background-color: transparent;
+    display: block;
+   > button {
+     color: #fff;
+   }
  }
  .dashboard-range-list {
     margin: 4px 0;
     width: 100%;
     background-color: transparent;
     display: inline-flex;
-    
+
      .dashboard-range-item {
         width: auto;
         color: white;
