@@ -9,14 +9,13 @@ import all from 'dojo/promise/all';
 import Deferred from 'dojo/_base/Deferred';
 import domConstruct from 'dojo/dom-construct';
 import array from 'dojo/_base/array';
-import crmFormat from 'crm/Format';
+import crmFormat from '../Format';
 import convert from 'argos/Convert';
-import moment from 'moment';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import SData from 'argos/Store/SData';
-import MetricWidget from 'crm/Views/MetricWidget';
-import DateRangeWidget from 'crm/Views/DateRangeWidget';
+import MetricWidget from './MetricWidget';
+import DateRangeWidget from './DateRangeWidget';
 
 /**
  * @class crm.Views._DashboardWidgetBase
