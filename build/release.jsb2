@@ -185,14 +185,6 @@
       "isDebug": true,
       "fileIncludes": [
         {
-          "text": "DateRangeWidget.js",
-          "path": "../src-out/Views/"
-        },
-        {
-          "text": "_DashboardWidgetBase.js",
-          "path": "../src-out/Views/"
-        },
-        {
           "text": "Environment.js",
           "path": "../src-out/"
         },
@@ -339,6 +331,14 @@
         },
         {
           "text": "MetricWidget.js",
+          "path": "../src-out/Views/"
+        },
+        {
+          "text": "DateRangeWidget.js",
+          "path": "../src-out/Views/"
+        },
+        {
+          "text": "_DashboardWidgetBase.js",
           "path": "../src-out/Views/"
         },
         {
