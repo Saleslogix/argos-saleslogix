@@ -8,7 +8,6 @@ import template from '../../Template';
 import format from '../../Format';
 import environment from '../../Environment';
 import recur from '../../Recurrence';
-import ActivityModel from '../../Models/Activity';
 import utility from '../../Utility';
 
 /**
@@ -82,10 +81,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   editView: 'activity_edit',
   security: null, // 'Entities/Activity/View',
   enableOffline: true,
-  getModel: function getModel() {
-    const model = new ActivityModel();
-    return model;
-  },
+  modelName: 'activity',
   recurringActivityIdSeparator: ';',
 
   formatActivityType: function formatActivityType(val) {

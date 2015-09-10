@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Detail from 'argos/Detail';
-import TicketModel from '../../Models/Ticket';
 
 /**
  * @class crm.Views.Ticket.Detail
@@ -50,10 +49,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   id: 'ticket_detail',
   editView: 'ticket_edit',
   enableOffline: true,
-  getModel: function getModel() {
-    const model = new TicketModel();
-    return model;
-  },
+  modelName: 'ticket',
 
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();

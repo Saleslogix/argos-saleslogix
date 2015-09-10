@@ -3,7 +3,6 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import format from '../../Format';
-import OppModel from '../../Models/Opportunity';
 
 /**
  * @class crm.Views.Opportunity.Detail
@@ -57,10 +56,8 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   editView: 'opportunity_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
-  getModel: function getModel() {
-    const model = new OppModel();
-    return model;
-  },
+  modelName: 'opportunity',
+
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();
   },

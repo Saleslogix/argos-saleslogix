@@ -3,7 +3,6 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
 import Detail from 'argos/Detail';
-import LeadModel from '../../Models/Lead';
 
 /**
  * @class crm.Views.Lead.Detail
@@ -60,10 +59,8 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
-  getModel: function getModel() {
-    const model = new LeadModel();
-    return model;
-  },
+  modelName: 'lead',
+
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);
     if (view) {
