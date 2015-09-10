@@ -9,6 +9,7 @@ import format from '../../Format';
 import environment from '../../Environment';
 import recur from '../../Recurrence';
 import utility from '../../Utility';
+import MODEL_NAMES from '../../Models/Names';
 
 /**
  * @class crm.Views.Activity.Detail
@@ -81,7 +82,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   editView: 'activity_edit',
   security: null, // 'Entities/Activity/View',
   enableOffline: true,
-  modelName: 'activity',
+  modelName: MODEL_NAMES.ACTIVITY,
   recurringActivityIdSeparator: ';',
 
   formatActivityType: function formatActivityType(val) {

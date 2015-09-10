@@ -3,6 +3,7 @@ import _ModelBase from 'argos/Models/_ModelBase';
 import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
+import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.SData.Lead', [_ModelBase, _SDataModelMixin], {
   entityName: 'Lead',
@@ -39,5 +40,5 @@ const __class = declare('crm.Models.SData.Lead', [_ModelBase, _SDataModelMixin],
   ],
 });
 
-Manager.register('lead', MODEL_TYPE.SDATA, __class);
+Manager.register(MODEL_NAMES.LEAD, MODEL_TYPE.SDATA, __class);
 export default __class;

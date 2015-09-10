@@ -7,6 +7,7 @@ import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import ErrorManager from 'argos/ErrorManager';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
+import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMixin], {
   entityName: 'Activity',
@@ -133,5 +134,5 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
   },
 });
 
-Manager.register('activity', MODEL_TYPE.SDATA, __class);
+Manager.register(MODEL_NAMES.ACTIVITY, MODEL_TYPE.SDATA, __class);
 export default __class;
