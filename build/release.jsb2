@@ -186,27 +186,51 @@
       "fileIncludes": [
         {
           "text": "Account.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Offline/"
         },
         {
           "text": "Activity.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Offline/"
         },
         {
           "text": "Contact.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Offline/"
         },
         {
           "text": "Opportunity.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Offline/"
         },
         {
           "text": "Lead.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Offline/"
         },
         {
           "text": "Ticket.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Offline/"
+        },
+        {
+          "text": "Account.js",
+          "path": "../src-out/Models/SData/"
+        },
+        {
+          "text": "Activity.js",
+          "path": "../src-out/Models/SData/"
+        },
+        {
+          "text": "Contact.js",
+          "path": "../src-out/Models/SData/"
+        },
+        {
+          "text": "Opportunity.js",
+          "path": "../src-out/Models/SData/"
+        },
+        {
+          "text": "Lead.js",
+          "path": "../src-out/Models/SData/"
+        },
+        {
+          "text": "Ticket.js",
+          "path": "../src-out/Models/SData/"
         },
         {
           "text": "Environment.js",
