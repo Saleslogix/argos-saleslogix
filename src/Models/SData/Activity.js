@@ -2,11 +2,11 @@ import declare from 'dojo/_base/declare';
 import string from 'dojo/string';
 import all from 'dojo/promise/all';
 import Deferred from 'dojo/Deferred';
-import _ModelBase from 'argos/_ModelBase';
-import _SDataModelMixin from 'argos/_SDataModelMixin';
+import _ModelBase from 'argos/Models/_ModelBase';
+import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import ErrorManager from 'argos/ErrorManager';
 
-export default declare('crm.Models.Activity', [_ModelBase, _SDataModelMixin], {
+export default declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMixin], {
   entityName: 'Activity',
   entityDisplayName: 'Activity',
   entityDisplayNamePlural: 'Activities',

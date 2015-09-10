@@ -1,11 +1,11 @@
 import declare from 'dojo/_base/declare';
-import _ModelBase from 'argos/_ModelBase';
+import _ModelBase from 'argos/Models/_ModelBase';
 import all from 'dojo/promise/all';
 import Deferred from 'dojo/Deferred';
-import _SDataModelMixin from 'argos/_SDataModelMixin';
+import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import ErrorManager from 'argos/ErrorManager';
 
-export default declare('crm.Models.Ticket', [_ModelBase, _SDataModelMixin], {
+export default declare('crm.Models.SData.Ticket', [_ModelBase, _SDataModelMixin], {
   entityName: 'Ticket',
   entityDisplayName: 'Ticket',
   entityDisplayNamePlural: 'Tickets',

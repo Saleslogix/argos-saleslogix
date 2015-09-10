@@ -4,7 +4,7 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
-import AccountModel from '../../Models/Account';
+import Adapter from '../../Models/Adapter';
 
 /**
  * @class crm.Views.Account.Detail
@@ -62,8 +62,9 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
+  entityName: 'account',
   getModel: function getModel() {
-    const model = new AccountModel();
+    const model = Adapter.getModel(this.entityName);
     return model;
   },
 

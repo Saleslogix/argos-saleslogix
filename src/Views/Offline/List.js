@@ -12,7 +12,7 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _OfflineRightDrawerListMixin from './_OfflineRightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import TotalMetricWidget from './TotalMetricWidget';
-import OfflineManager from 'argos/OfflineManager';
+import OfflineManager from 'argos/Offline/Manager';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 

@@ -10,7 +10,7 @@ import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
 import array from 'dojo/_base/array';
 import domConstruct from 'dojo/dom-construct';
-import OfflineManager from 'argos/OfflineManager';
+import OfflineManager from 'argos/Offline/Manager';
 import format from '../../Format';
 
 export default declare('crm.Views.Offline.Detail', [_DetailBase], {

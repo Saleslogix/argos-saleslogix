@@ -1,8 +1,8 @@
 import declare from 'dojo/_base/declare';
-import _ModelBase from 'argos/_ModelBase';
-import _SDataModelMixin from 'argos/_SDataModelMixin';
+import _ModelBase from 'argos/Models/_ModelBase';
+import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 
-export default declare('crm.Models.Opportunity', [_ModelBase, _SDataModelMixin], {
+export default declare('crm.Models.SData.Opportunity', [_ModelBase, _SDataModelMixin], {
   entityName: 'Opportunity',
   entityDisplayName: 'Opportunity',
   entityDisplayNamePlural: 'Opportunities',
