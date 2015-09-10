@@ -1,8 +1,10 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
+import Manager from 'argos/Models/Manager';
+import MODEL_TYPE from 'argos/Models/Types';
 
-export default declare('crm.Models.SData.Contact', [_ModelBase, _SDataModelMixin], {
+const __class = declare('crm.Models.SData.Contact', [_ModelBase, _SDataModelMixin], {
   entityName: 'Contact',
   entityDisplayName: 'Contact',
   entityDisplayNamePlural: 'Contacts',
@@ -35,3 +37,6 @@ export default declare('crm.Models.SData.Contact', [_ModelBase, _SDataModelMixin
     'WorkPhone',
   ],
 });
+
+Manager.register('contact', MODEL_TYPE.SDATA, __class);
+export default __class;

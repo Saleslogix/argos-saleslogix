@@ -107,6 +107,13 @@ import './Template';
 import './Validator';
 import './Environment';
 import './Utility';
+import './Models/Offline/Account';
+import './Models/SData/Account';
+import './Models/SData/Activity';
+import './Models/SData/Contact';
+import './Models/SData/Lead';
+import './Models/SData/Opportunity';
+import './Models/SData/Ticket';
 
 /**
  * @class crm.ApplicationModule

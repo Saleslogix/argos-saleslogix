@@ -5,8 +5,10 @@ import Deferred from 'dojo/Deferred';
 import _ModelBase from 'argos/Models/_ModelBase';
 import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import ErrorManager from 'argos/ErrorManager';
+import Manager from 'argos/Models/Manager';
+import MODEL_TYPE from 'argos/Models/Types';
 
-export default declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMixin], {
+const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMixin], {
   entityName: 'Activity',
   entityDisplayName: 'Activity',
   entityDisplayNamePlural: 'Activities',
@@ -130,3 +132,6 @@ export default declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMixi
     return name;
   },
 });
+
+Manager.register('activity', MODEL_TYPE.SDATA, __class);
+export default __class;

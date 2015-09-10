@@ -4,8 +4,10 @@ import all from 'dojo/promise/all';
 import Deferred from 'dojo/Deferred';
 import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import ErrorManager from 'argos/ErrorManager';
+import Manager from 'argos/Models/Manager';
+import MODEL_TYPE from 'argos/Models/Types';
 
-export default declare('crm.Models.SData.Ticket', [_ModelBase, _SDataModelMixin], {
+const __class = declare('crm.Models.SData.Ticket', [_ModelBase, _SDataModelMixin], {
   entityName: 'Ticket',
   entityDisplayName: 'Ticket',
   entityDisplayNamePlural: 'Tickets',
@@ -78,3 +80,6 @@ export default declare('crm.Models.SData.Ticket', [_ModelBase, _SDataModelMixin]
       });
   },
 });
+
+Manager.register('ticket', MODEL_TYPE.SDATA, __class);
+export default __class;

@@ -1,8 +1,10 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
+import Manager from 'argos/Models/Manager';
+import MODEL_TYPE from 'argos/Models/Types';
 
-export default declare('crm.Models.SData.Lead', [_ModelBase, _SDataModelMixin], {
+const __class = declare('crm.Models.SData.Lead', [_ModelBase, _SDataModelMixin], {
   entityName: 'Lead',
   entityDisplayName: 'Lead',
   entityDisplayNamePlural: 'Leads',
@@ -36,3 +38,6 @@ export default declare('crm.Models.SData.Lead', [_ModelBase, _SDataModelMixin], 
    'WorkPhone',
   ],
 });
+
+Manager.register('lead', MODEL_TYPE.SDATA, __class);
+export default __class;

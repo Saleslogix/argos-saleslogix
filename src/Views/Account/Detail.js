@@ -4,7 +4,7 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
-import Adapter from '../../Models/Adapter';
+import Adapter from 'argos/Models/Adapter';
 
 /**
  * @class crm.Views.Account.Detail
