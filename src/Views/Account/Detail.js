@@ -62,9 +62,9 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
-  entityName: 'account',
+  modelName: 'account',
   getModel: function getModel() {
-    const model = Adapter.getModel(this.entityName);
+    const model = Adapter.getModel(this.modelName);
     return model;
   },
 
