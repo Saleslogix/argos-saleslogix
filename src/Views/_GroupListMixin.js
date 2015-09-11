@@ -560,7 +560,9 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     original.itemFooterTemplate = this.itemFooterTemplate;
     original.relatedViews = this.relatedViews;
     original.title = this.get('title');
+    original._model = this._model;
 
+    this._model = null;
     this.itemFooterTemplate = new Simplate(['<div></div>']);
 
     this.groupsMode = true;
@@ -584,6 +586,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.itemTemplate = original.itemTemplate;
     this.relatedViews = original.relatedViews;
     this.itemFooterTemplate = original.itemFooterTemplate;
+    this._model = original._model;
 
     this._originalProps = null;
 

@@ -8,6 +8,7 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import MODEL_NAMES from '../../Models/Names';
 import OfflineManager from 'argos/Offline/Manager';
 
 /**
@@ -85,30 +86,13 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   id: 'account_list',
   security: 'Entities/Account/View',
   insertView: 'account_edit',
-  queryOrderBy: 'AccountNameUpper',
   insertSecurity: 'Entities/Account/Add',
-  querySelect: [
-    'AccountName',
-    'AccountManager/UserInfo/UserName',
-    'AccountManager/UserInfo/LastName',
-    'AccountManager/UserInfo/FirstName',
-    'Owner/OwnerDescription',
-    'WebAddress',
-    'Industry',
-    'LeadSource/Description',
-    'MainPhone',
-    'Fax',
-    'Status',
-    'SubType',
-    'Type',
-    'ModifyDate',
-  ],
-  resourceKind: 'accounts',
   entityName: 'Account',
   allowSelection: true,
   enableActions: true,
   pageSize: 10,
   offlineIds: null,
+  modelName: MODEL_NAMES.ACCOUNT,
   onTransitionTo: function onTransitionTo() {
     OfflineManager.getAllIds().then(function success(results) {
       this.offlineIds = results;
