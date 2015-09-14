@@ -4,7 +4,6 @@ import string from 'dojo/string';
 import dojoNumber from 'dojo/number';
 import template from './Template';
 import format from 'argos/Format';
-import moment from 'moment';
 
 /**
  * @class crm.Format

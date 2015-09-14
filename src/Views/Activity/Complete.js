@@ -8,7 +8,6 @@ import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
-import moment from 'moment';
 
 /**
  * @class crm.Views.Activity.Complete

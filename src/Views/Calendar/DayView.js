@@ -8,7 +8,6 @@ import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
-import moment from 'moment';
 
 /**
  * @class crm.Views.Calendar.DayView

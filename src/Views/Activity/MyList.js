@@ -7,7 +7,6 @@ import environment from '../../Environment';
 import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
-import moment from 'moment';
 import action from '../../Action';
 
 /**
