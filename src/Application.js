@@ -170,8 +170,8 @@ const __class = declare('crm.Application', [Application], {
     } catch (e) {}// eslint-disable-line
   },
   _setupToasts: function _setupToasts() {
-    this.Toast = new Toast();
-    this.Toast.show();
+    this.toast = new Toast();
+    this.toast.show();
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
