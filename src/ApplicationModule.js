@@ -174,9 +174,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new CalendarView({
-      expose: true,
-    }));
+    this.registerView(new CalendarView());
 
     // Charts
     this.registerView(new GenericBar({

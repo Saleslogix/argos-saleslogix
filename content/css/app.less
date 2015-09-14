@@ -602,13 +602,29 @@ body.transition > .viewContainer > .footer-toolbar {
     padding: 0px;
 }
 
-td.entry-table-time {
-    width: 65px;
-    text-align: right;
+table.calendar-entry-table {
+  width: 100%;
+  .button {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+  }
+}
+
+td.entry-table-icon {
+  width: 10%;
+  max-width: 40px;
 }
 
 td.entry-table-description {
-    padding-left: 3px;
+    padding: 0 3px;
+    width: 75%
+}
+
+td.entry-table-time {
+    min-width: 65px;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .nav-bar > .button {

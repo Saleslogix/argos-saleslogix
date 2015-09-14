@@ -65,32 +65,32 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-    '<table class="calendar-entry-table"><tr>',
-    '<td class="entry-table-icon">',
-    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
-    '</button>',
-    '</td>',
-    '<td class="entry-table-time">{%! $$.activityTimeTemplate %}</td>',
-    '<td class="entry-table-description">{%! $$.activityItemTemplate %}</td>',
-    '</tr></table>',
+      '<table class="calendar-entry-table"><tr>',
+        '<td class="entry-table-icon">',
+          '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
+          '</button>',
+        '</td>',
+        '<td class="entry-table-description">{%! $$.activityItemTemplate %}</td>',
+        '<td class="entry-table-time">{%! $$.activityTimeTemplate %}</td>',
+      '</tr></table>',
     '</li>',
   ]),
   eventRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
-    '<table class="calendar-entry-table"><tr>',
-    '<td class="entry-table-icon">',
-    '<button data-action="selectEntry" class="list-item-selector button {%= $$.eventIcon %}">',
-    '</button>',
-    '</td>',
-    '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
-    '</tr></table>',
+      '<table class="calendar-entry-table"><tr>',
+        '<td class="entry-table-icon">',
+          '<button data-action="selectEntry" class="list-item-selector button {%= $$.eventIcon %}">',
+          '</button>',
+        '</td>',
+      '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
+      '</tr></table>',
     '</li>',
   ]),
   activityTimeTemplate: new Simplate([
     '{% if ($.Timeless) { %}',
-    '<span class="p-time">{%= $$.allDayText %}</span>',
+      '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+      '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   activityItemTemplate: new Simplate([
@@ -103,11 +103,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
-    '{%: $.ContactName %} / {%: $.AccountName %}',
+      '{%: $.ContactName %} / {%: $.AccountName %}',
     '{% } else if ($.AccountName) { %}',
-    '{%: $.AccountName %}',
+      '{%: $.AccountName %}',
     '{% } else { %}',
-    '{%: $.LeadName %}',
+      '{%: $.LeadName %}',
     '{% } %}',
   ]),
   eventNameTemplate: new Simplate([
@@ -117,16 +117,16 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
-    '<button class="button" data-action="activateActivityMore">',
-    '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
-    '</button>',
+      '<button class="button" data-action="activateActivityMore">',
+        '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
+      '</button>',
     '</div>',
   ]),
   eventMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
-    '<button class="button" data-action="activateEventMore">',
-    '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>',
-    '</button>',
+      '<button class="button" data-action="activateEventMore">',
+        '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>',
+      '</button>',
     '</div>',
   ]),
 
@@ -170,13 +170,12 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   activityDetailView: 'activity_detail',
   eventDetailView: 'event_detail',
   enableSearch: false,
-  expose: false,
   dateCounts: null,
   currentDate: null,
 
   pageSize: 500,
   queryWhere: null,
-  queryOrderBy: 'StartDate desc',
+  queryOrderBy: 'StartDate asc', // desc
   querySelect: [
     'StartDate',
     'Timeless',
@@ -631,7 +630,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
 
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
-      this._calendar = new Calendar({ id: 'calendar-view__calendar'});
+      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true});
       domConstruct.place(this._calendar.domNode, this.calendarNode);
       connect.connect(this._calendar, 'changeDay', this, this.selectDay);
       this._calendar.show();
