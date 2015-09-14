@@ -10,7 +10,6 @@ import Calendar from 'argos/Calendar';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
-import moment from 'moment';
 
 /**
  * @class crm.Views.Calendar.MonthView
