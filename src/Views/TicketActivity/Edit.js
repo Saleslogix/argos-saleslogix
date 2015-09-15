@@ -5,6 +5,8 @@ import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('ticketActivityEdit').attributes;
+
 /**
  * @class crm.Views.TicketActivity.Edit
  *
@@ -17,16 +19,16 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   // Localization
-  titleText: 'Edit Ticket Activity',
-  activityTypeText: 'type',
-  activityTypeTitleText: 'Type',
-  publicAccessText: 'public access',
-  publicAccessTitleText: 'Public Access',
-  userText: 'user',
-  startDateText: 'start date',
-  endDateText: 'end date',
-  commentsText: 'comments',
-  startingFormatText: 'M/D/YYYY h:mm A',
+  titleText: resource.titleText,
+  activityTypeText: resource.activityTypeText,
+  activityTypeTitleText: resource.activityTypeTitleText,
+  publicAccessText: resource.publicAccessText,
+  publicAccessTitleText: resource.publicAccessTitleText,
+  userText: resource.userText,
+  startDateText: resource.startDateText,
+  endDateText: resource.endDateText,
+  commentsText: resource.commentsText,
+  startingFormatText: resource.startingFormatText,
 
   // View Properties
   entityName: 'TicketActivity',

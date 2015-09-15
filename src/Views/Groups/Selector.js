@@ -4,6 +4,8 @@ import string from 'dojo/string';
 import List from 'argos/List';
 import SDataStore from 'argos/Store/SData';
 
+const resource = window.localeContext.getEntitySync('groupsSelector').attributes;
+
 /**
  * @class crm.Views.Groups.Selector
  *
@@ -21,7 +23,7 @@ const __class = declare('crm.Views.Groups.Selector', [List], {
   family: '',
 
   // Localization
-  titleText: 'Groups Lookup',
+  titleText: resource.titleText,
 
   itemTemplate: new Simplate([
     '<h3>{%: $[$$.labelProperty] %}</h3>',

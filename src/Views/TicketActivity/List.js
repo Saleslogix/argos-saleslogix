@@ -7,6 +7,8 @@ import topic from 'dojo/topic';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('ticketActivityList').attributes;
+
 /**
  * @class crm.Views.TicketActivity.List
  *
@@ -28,8 +30,8 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Ticket Activities',
-  startDateFormatText: 'MM/DD/YYYY h:mm A',
+  titleText: resource.titleText,
+  startDateFormatText: resource.startDateFormatText,
 
   // View Properties
   id: 'ticketactivity_list',

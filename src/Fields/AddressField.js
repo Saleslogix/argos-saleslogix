@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
 
+const resource = window.localeContext.getEntitySync('addressField').attributes;
+
 const control = declare('crm.Fields.AddressField', [EditorField], {
   widgetTemplate: new Simplate([
     '<label for="{%= $.name %}">{%: $.label %}</label>',
@@ -19,8 +21,8 @@ const control = declare('crm.Fields.AddressField', [EditorField], {
     },
   },
   rows: 4,
-  lookupLabelText: 'edit',
-  emptyText: '',
+  lookupLabelText: resource.lookupLabelText,
+  emptyText: resource.emptyText,
 
   _enableTextElement: function _enableTextElement() {},
   _disableTextElement: function _disableTextElement() {},

@@ -5,6 +5,7 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import utility from 'argos/Utility';
 
+const resource = window.localeContext.getEntitySync('action').attributes;
 /**
  * @class crm.Action
  *
@@ -13,8 +14,8 @@ import utility from 'argos/Utility';
  *
  */
 const __class = lang.setObject('crm.Action', {
-  calledText: 'Called ${0}',
-  emailedText: 'E-mailed ${0}',
+  calledText: resource.calledText,
+  emailedText: resource.emailedText,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete) {
     const view = App.getView('history_edit');

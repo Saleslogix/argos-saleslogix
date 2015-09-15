@@ -12,6 +12,8 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
 
+const resource = window.localeContext.getEntitySync('application').attributes;
+
 /**
  * @class crm.Application
  *
@@ -77,9 +79,9 @@ const __class = declare('crm.Application', [Application], {
     'minor': 4,
     'revision': 0,
   },
-  versionInfoText: 'Mobile v${0}.${1}.${2}',
-  loadingText: 'Loading application state',
-  authText: 'Authenticating',
+  versionInfoText: resource.versionInfoText,
+  loadingText: resource.loadingText,
+  authText: resource.authText,
   homeViewId: 'myactivity_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',
