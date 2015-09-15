@@ -212,13 +212,20 @@
     font-size: inherit;
 }
 
-#help > .panel-content > ul > li {
+#help .row > ul > li {
     padding: 8px;
     line-height: inherit;
 }
 
+#help .detailContent .row {
+  display: block;
+}
 
-#help > .panel-content > ul > li > div {
+#help .detailContent li {
+  border: none;
+}
+
+#help .row > ul > li > div {
     line-height: 24px;
     vertical-align: middle;
     display: inline;
@@ -365,16 +372,6 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="note"] > div > .button span {
     visibility: hidden;
     display: none;
-}
-
-.row-edit[data-field-type="recurrences"] > div > .button {
-    margin: 0;
-    padding: 0 12px;
-    position: absolute;
-    right: 5px;
-    display: block;
-    width: 44px;
-    height: 44px;
 }
 
 .row-edit[data-field-type="recurrences"] > div > input {

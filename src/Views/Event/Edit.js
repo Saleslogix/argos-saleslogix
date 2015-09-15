@@ -3,7 +3,6 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
-import moment from 'moment';
 
 const resource = window.localeContext.getEntitySync('eventEdit').attributes;
 

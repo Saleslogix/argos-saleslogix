@@ -79,7 +79,7 @@
     };
   </script>
 
-  <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.5.min.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/less/less.min.js"></script>
 
   <!-- SData Client Library -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
@@ -100,6 +100,9 @@
   <!-- Babel -->
   <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
 
+  <!-- moment -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
+
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
@@ -118,10 +121,6 @@
         name: 'snap',
         location: '../../argos-sdk/libraries/snap',
         main: 'snap'
-      }, {
-        name: 'moment',
-        location: '../../argos-sdk/libraries/moment',
-        main: 'moment-with-langs.min'
       }, {
         name: 'argos',
         location: '../../argos-sdk/src-out'
@@ -190,7 +189,7 @@
       ];
       var ctx = buildContext();
       ctx.ready(function() {
-        require(['moment', application].concat(configuration), function(moment, application, configuration) {
+        require([application].concat(configuration), function(application, configuration) {
           var completed = false;
 
           // Legacy Localization scripts
@@ -208,8 +207,7 @@
                 return;
               }
 
-              moment.lang('en');
-              window.moment = moment;
+              moment.locale('en');
               var instance = new application(configuration);
               instance.localeContext = ctx;
               instance.activate();

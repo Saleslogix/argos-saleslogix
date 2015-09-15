@@ -9,7 +9,6 @@ import convert from 'argos/Convert';
 import action from '../../Action';
 import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
-import moment from 'moment';
 
 
 const resource = window.localeContext.getEntitySync('activityList').attributes;

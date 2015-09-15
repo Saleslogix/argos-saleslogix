@@ -9,7 +9,6 @@ import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import format from 'argos/Format';
-import moment from 'moment';
 
 const resource = window.localeContext.getEntitySync('activityEdit').attributes;
 

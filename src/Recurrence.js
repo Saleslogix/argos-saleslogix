@@ -1,6 +1,5 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import moment from 'moment';
 
 const resource = window.localeContext.getEntitySync('recurrence').attributes;
 
@@ -149,8 +148,8 @@ const __class = lang.setObject('crm.Recurrence', {
       null, // scale, replaced in loop
       day,
       wrapped.format(this.dayFormatText),
-      wrapped.lang().weekdays(wrapped),
-      wrapped.lang().monthsShort(wrapped),
+      wrapped.localeData().weekdays(wrapped),
+      wrapped.localeData().monthsShort(wrapped),
       ord,
     ];
 

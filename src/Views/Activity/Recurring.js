@@ -5,7 +5,6 @@ import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
-import moment from 'moment';
 
 const resource = window.localeContext.getEntitySync('activityRecurring').attributes;
 

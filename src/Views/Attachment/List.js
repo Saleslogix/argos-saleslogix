@@ -8,7 +8,6 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-import moment from 'moment';
 
 const resource = window.localeContext.getEntitySync('attachmentList').attributes;
 
