@@ -1189,7 +1189,7 @@
   titleText: "Help"
   errorText: "Error"
   errorMessageText: "Unable to load the help document."
-  sectionTitleText "Infor CRM Help"
+  sectionTitleText: "Infor CRM Help"
 >
 
 <home ""
