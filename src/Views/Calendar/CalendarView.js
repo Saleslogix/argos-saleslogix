@@ -42,6 +42,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   toggleCollapseText: 'toggle collapse',
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
+  withFromText: 'with ${contactName} from ${accountName}',
+  withText: 'with ${object}',
+  string: string,
 
   enablePullToRefresh: false,
 
@@ -81,7 +84,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
     '<div class="activityEntry__header">',
       '<div class="header__content">',
         '<h3 class="header__title">{%: $.Description %}</h3>',
-        '<h4 class="header__subTitle">{%= $$.activityNameTemplate.apply($) %}</h4>',
+        '<h4 class="header__subTitle">{%! $$.activityNameTemplate %}</h4>',
       '</div>',
       '<div class="header__timeStamp">',
         '<span class="timeStamp__time">',
@@ -119,11 +122,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
-      '{%: $.ContactName %} / {%: $.AccountName %}',
+      '{%= $$.string.substitute($$.withFromText, { contactName: $.ContactName, accountName: $.AccountName}) %}',
     '{% } else if ($.AccountName) { %}',
-      '{%: $.AccountName %}',
-    '{% } else { %}',
-      '{%: $.LeadName %}',
+      '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
+    '{% } else if ($.LeadName) { %}',
+      '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
     '{% } %}',
   ]),
   eventNameTemplate: new Simplate([
