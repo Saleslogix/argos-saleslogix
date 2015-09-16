@@ -11,6 +11,8 @@ import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 
+const resource = window.localeContext.getEntitySync('calendarView').attributes;
+
 /**
  * @class crm.Views.Calendar.MonthView
  *
@@ -30,23 +32,23 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
  */
 const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  monthTitleFormatText: 'MMMM YYYY',
-  dayTitleFormatText: 'ddd MMM D, YYYY',
-  eventDateFormatText: 'M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  allDayText: 'All-Day',
-  eventText: 'Event',
-  eventHeaderText: 'Events',
-  countMoreText: 'View More',
-  toggleCollapseText: 'toggle collapse',
-  toggleCollapseClass: 'fa fa-chevron-down',
-  toggleExpandClass: 'fa fa-chevron-right',
-  withFromText: 'with ${contactName} from ${accountName}',
-  withText: 'with ${object}',
-  string: string,
+  titleText: resource.titleText,
+  monthTitleFormatText: resource.monthTitleFormatText,
+  dayTitleFormatText: resource.dayTitleFormatText,
+  eventDateFormatText: resource.eventDateFormatText,
+  startTimeFormatText: resource.startTimeFormatText,
+  allDayText: resource.allDayText,
+  eventText: resource.eventText,
+  eventHeaderText: resource.eventHeaderText,
+  countMoreText: resource.countMoreText,
+  toggleCollapseText: resource.toggleCollapseText,
+  withFromText: resource.withFromText,
+  withText: resource.withText,
 
   enablePullToRefresh: false,
+  string: string,
+  toggleCollapseClass: 'fa fa-chevron-down',
+  toggleExpandClass: 'fa fa-chevron-right',
 
   // Templates
   widgetTemplate: new Simplate([
