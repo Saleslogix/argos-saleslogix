@@ -96,13 +96,15 @@
   <% with (scripts) { %>
   var ctx = buildContext();
   ctx.ready(function() {
-    '<%= boot %>',
-    '<%= reporters[0] %>',
-    '<%= reporters[1] %>'
+    require([
+      'spec/all'
+    ]);
   });
 
   require([
-    'spec/all'
+    '<%= boot %>',
+    '<%= reporters[0] %>',
+    '<%= reporters[1] %>'
   ]);
   <% }; %>
   </script>

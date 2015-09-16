@@ -108,11 +108,12 @@
     }
     var ctx = buildContext();
     ctx.ready(function() {
-      require(['../../../argos-sdk/libraries/jasmine-2.0.0/boot.js'])
+      require([
+        'spec/all'
+      ]);
     });
-    require([
-      'spec/all'
-    ]);
+
+    require(['../../../argos-sdk/libraries/jasmine-2.0.0/boot.js']);
   </script>
 </body>
 
