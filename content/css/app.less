@@ -572,6 +572,7 @@ body.transition > .viewContainer > .footer-toolbar {
     > li{
       padding: 1px 0 0 3px;
       border-bottom: 1px solid @color-lighter-slate;
+      color: @color-deeper-graphite;
     }
   }
   .list-content > li.no-data,
@@ -603,29 +604,29 @@ body.transition > .viewContainer > .footer-toolbar {
     padding: 0px;
 }
 
-table.calendar-entry-table {
-  width: 100%;
+.activityEntry__icon {
+  display: inline-block;
+  width: 10%;
+  max-width: 44px;
   .button {
     width: 100%;
     background-color: transparent;
     border: 0;
   }
 }
-
-td.entry-table-icon {
-  width: 10%;
-  max-width: 40px;
+.activityEntry__header {
+  display: inline-flex;
+  flex-flow: row wrap;
+  width: 85%;
+  padding: 0 3px;
 }
-
-td.entry-table-description {
-    padding: 0 3px;
-    width: 75%
+.header__content {
+  display: inline-block;
+  width: 0;
+  flex-grow: 1;
 }
-
-td.entry-table-time {
-    min-width: 65px;
-    text-align: right;
-    padding-right: 10px;
+.header__subTitle {
+  color: @color-deep-graphite;
 }
 
 .nav-bar > .button {
