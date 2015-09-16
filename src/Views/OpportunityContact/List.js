@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('opportunityContactList').attributes;
+
 /**
  * @class crm.Views.OpportunityContact.List
  *
@@ -20,11 +22,11 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Opportunity Contacts',
-  selectTitleText: 'Select Contact',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
+  titleText: resource.titleText,
+  selectTitleText: resource.selectTitleText,
+  activitiesText: resource.activitiesText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
 
   // View Properties
   id: 'opportunitycontact_list',

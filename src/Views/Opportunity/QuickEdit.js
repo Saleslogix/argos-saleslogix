@@ -5,6 +5,8 @@ import validator from '../../Validator';
 import salesProcessUtility from '../../SalesProcessUtility';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('opportunityQuickEdit').attributes;
+
 /**
  * @class crm.Views.Opportunity.QuickEdit
  *
@@ -17,18 +19,18 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
   // Localization
-  estCloseText: 'est close',
-  detailsText: 'Details',
-  opportunityStageTitleText: 'Opportunity Stage',
-  opportunityText: 'opportunity',
-  stageText: 'stage',
-  statusOpenText: 'Open',
-  statusClosedLostText: 'Closed - Lost',
-  statusClosedWonText: 'Closed - Won',
-  salesProcessText: 'stage locked by sales process:',
-  probabilityText: 'close prob',
-  probabilityTitleText: 'Opportunity Probability',
-  potentialText: 'sales potential',
+  estCloseText: resource.estCloseText,
+  detailsText: resource.detailsText,
+  opportunityStageTitleText: resource.opportunityStageTitleText,
+  opportunityText: resource.opportunityText,
+  stageText: resource.stageText,
+  statusOpenText: resource.statusOpenText,
+  statusClosedLostText: resource.statusClosedLostText,
+  statusClosedWonText: resource.statusClosedWonText,
+  salesProcessText: resource.salesProcessText,
+  probabilityText: resource.probabilityText,
+  probabilityTitleText: resource.probabilityTitleText,
+  potentialText: resource.potentialText,
 
   // View Properties
   entityName: 'Opportunity',

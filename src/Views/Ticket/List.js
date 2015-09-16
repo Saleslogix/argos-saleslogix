@@ -9,6 +9,8 @@ import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 
+const resource = window.localeContext.getEntitySync('ticketList').attributes;
+
 /**
  * @class crm.Views.Ticket.List
  *
@@ -58,21 +60,21 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   },
 
   // Localization
-  titleText: 'Tickets',
-  activitiesText: 'Activities',
-  scheduleText: 'Schedule',
-  notAssignedText: 'Not assigned',
-  editActionText: 'Edit',
-  viewAccountActionText: 'Account',
-  viewContactActionText: 'Contact',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  assignedToText: 'Assigned To: ',
-  urgencyText: 'Urgency: ',
-  createdOnText: 'Created  ',
-  modifiedText: 'Modified ',
-  neededByText: 'Needed  ',
+  titleText: resource.titleText,
+  activitiesText: resource.activitiesText,
+  scheduleText: resource.scheduleText,
+  notAssignedText: resource.notAssignedText,
+  editActionText: resource.editActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  viewContactActionText: resource.viewContactActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  assignedToText: resource.assignedToText,
+  urgencyText: resource.urgencyText,
+  createdOnText: resource.createdOnText,
+  modifiedText: resource.modifiedText,
+  neededByText: resource.neededByText,
 
   // View Properties
   detailView: 'ticket_detail',

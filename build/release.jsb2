@@ -817,6 +817,11 @@
   ],
   "resources": [
     {
+      "src": "../localization/locales/crm",
+      "dest": "localization/locales/crm",
+      "filters": ".*(\\.l20n)",
+    },
+    {
       "src": "../content",
       "dest": "content",
       "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"

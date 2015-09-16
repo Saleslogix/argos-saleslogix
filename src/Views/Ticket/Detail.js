@@ -6,6 +6,8 @@ import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 
+const resource = window.localeContext.getEntitySync('ticketDetail').attributes;
+
 /**
  * @class crm.Views.Ticket.Detail
  *
@@ -17,36 +19,36 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   // Localization
-  accountText: 'account',
-  areaText: 'area',
-  assignedDateText: 'assigned date',
-  assignedToText: 'assigned to',
-  completedByText: 'completed by',
-  categoryText: 'category',
-  contactText: 'contact',
-  contractText: 'contract',
-  descriptionText: 'desc',
-  issueText: 'issue',
-  needByText: 'needed date',
-  notesText: 'comments',
-  phoneText: 'phone',
-  actionsText: 'Quick Actions',
-  relatedAttachmentText: 'Attachments',
-  relatedAttachmentTitleText: 'Ticket Attachments',
-  relatedActivitiesText: 'Activities',
-  relatedItemsText: 'Related Items',
-  resolutionText: 'resolution',
-  sourceText: 'source',
-  statusText: 'status',
-  subjectText: 'subject',
-  ticketIdText: 'ticket number',
-  titleText: 'Ticket',
-  urgencyText: 'urgency',
-  scheduleActivityText: 'Schedule activity',
-  moreDetailsText: 'More Details',
-  relatedTicketActivitiesText: 'Ticket Activities',
-  loadingText: 'loading...',
-  entityText: 'Ticket',
+  accountText: resource.accountText,
+  areaText: resource.areaText,
+  assignedDateText: resource.assignedDateText,
+  assignedToText: resource.assignedToText,
+  completedByText: resource.completedByText,
+  categoryText: resource.categoryText,
+  contactText: resource.contactText,
+  contractText: resource.contractText,
+  descriptionText: resource.descriptionText,
+  issueText: resource.issueText,
+  needByText: resource.needByText,
+  notesText: resource.notesText,
+  phoneText: resource.phoneText,
+  actionsText: resource.actionsText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedItemsText: resource.relatedItemsText,
+  resolutionText: resource.resolutionText,
+  sourceText: resource.sourceText,
+  statusText: resource.statusText,
+  subjectText: resource.subjectText,
+  ticketIdText: resource.ticketIdText,
+  titleText: resource.titleText,
+  urgencyText: resource.urgencyText,
+  scheduleActivityText: resource.scheduleActivityText,
+  moreDetailsText: resource.moreDetailsText,
+  relatedTicketActivitiesText: resource.relatedTicketActivitiesText,
+  loadingText: resource.loadingText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'ticket_detail',

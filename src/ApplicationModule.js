@@ -107,6 +107,7 @@ import './Validator';
 import './Environment';
 import './Utility';
 
+const resource = window.localeContext.getEntitySync('applicationModule').attributes;
 
 /**
  * @class crm.ApplicationModule
@@ -122,7 +123,7 @@ import './Utility';
  *
  */
 const __class = declare('crm.ApplicationModule', [ApplicationModule], {
-  searchText: 'Lookup',
+  searchText: resource.searchText,
   loadViews: function loadViews() {
     this.inherited(arguments);
 

@@ -5,6 +5,8 @@ import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('errorLogList').attributes;
+
 /**
  * @class crm.Views.ErrorLog.List
  *
@@ -15,8 +17,8 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
-  titleText: 'Error Logs',
-  errorDateFormatText: 'MM/DD/YYYY hh:mm A',
+  titleText: resource.titleText,
+  errorDateFormatText: resource.errorDateFormatText,
 
   // Templates
   itemTemplate: new Simplate([
