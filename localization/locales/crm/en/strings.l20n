@@ -359,8 +359,7 @@
 >
 
 <attachmentMyList ""
-  titleText: "My Attachments",
-
+  titleText: "My Attachments"
 >
 
 <attachmentView ""
@@ -606,7 +605,7 @@
   modifiedText: "modified"
   typeText: "type"
   entityText: "History"
-  toDo: 'To-Do'
+  toDo: "To-Do"
   phoneCall: "Phone Call"
   meeting: "Meeting"
   literature: "Literature Request"
