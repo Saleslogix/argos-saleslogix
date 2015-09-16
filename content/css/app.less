@@ -472,12 +472,54 @@ body.transition > .viewContainer > .footer-toolbar {
     border-bottom: 1px solid @color-lighter-slate !important;
 }
 
+.activityEntry__icon {
+  display: inline-block;
+  width: 36px;
+  .button {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    padding-top: 10px;
+  }
+}
+.activityEntry__header {
+  display: inline-flex;
+  flex-flow: row wrap;
+  width: 85%;
+}
+.header__content {
+  display: inline-block;
+  width: 0;
+  flex-grow: 1;
+}
+.header__subTitle {
+  color: @color-graphite;
+}
+.header__timeStamp {
+  line-height: 30px;
+  text-align: center;
+}
+.activityEntry__content {
+  display: block;
+  width: 85%;
+  margin-left: 36px;
+  font-size: @font-size-h4;
+}
+
 /* Excludes iphone <= 3 */
 @media only screen and (min-width: 568px) {
     .calendarContainer,
     .activity-content {
         width: 50%;
         float: left;
+    }
+
+    .calendarContainer {
+      border-right: 1px solid @color-light-slate;
+    }
+
+    .activityEntry__content {
+      // display: block;
     }
 }
 
@@ -570,7 +612,7 @@ body.transition > .viewContainer > .footer-toolbar {
 .event-content {
   .list-content {
     > li{
-      padding: 1px 0 0 3px;
+      padding: 0 0 10px 3px;
       border-bottom: 1px solid @color-lighter-slate;
       color: @color-deeper-graphite;
     }
@@ -602,31 +644,6 @@ body.transition > .viewContainer > .footer-toolbar {
 
 .event-rows {
     padding: 0px;
-}
-
-.activityEntry__icon {
-  display: inline-block;
-  width: 10%;
-  max-width: 44px;
-  .button {
-    width: 100%;
-    background-color: transparent;
-    border: 0;
-  }
-}
-.activityEntry__header {
-  display: inline-flex;
-  flex-flow: row wrap;
-  width: 85%;
-  padding: 0 3px;
-}
-.header__content {
-  display: inline-block;
-  width: 0;
-  flex-grow: 1;
-}
-.header__subTitle {
-  color: @color-deep-graphite;
 }
 
 .nav-bar > .button {

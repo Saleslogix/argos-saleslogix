@@ -9,6 +9,7 @@ import List from 'argos/List';
 import Calendar from 'argos/Calendar';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
+import Utility from '../../Utility';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 
 const resource = window.localeContext.getEntitySync('calendarView').attributes;
@@ -47,6 +48,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
 
   enablePullToRefresh: false,
   string: string,
+  Utility: Utility,
+  trimTo: 16,
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
 
@@ -101,6 +104,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityContentTemplate: new Simplate([
     '<div class="activityEntry__content">',
+      '{%: $$.Utility.trimText($.Notes, $$.trimTo) %}',
     '</div>',
   ]),
   activityFooterTemplate: new Simplate([
@@ -232,6 +236,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
     'UserId',
     'Timeless',
     'Recurring',
+    'Notes',
   ],
   activityIconByType: {
     'atToDo': 'fa fa-list-ul',
