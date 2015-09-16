@@ -3,6 +3,7 @@ import array from 'dojo/_base/array';
 import connect from 'dojo/_base/connect';
 import query from 'dojo/query';
 import string from 'dojo/string';
+import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import List from 'argos/List';
@@ -45,6 +46,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   toggleCollapseText: resource.toggleCollapseText,
   withFromText: resource.withFromText,
   withText: resource.withText,
+  unspecifiedText: resource.unspecifiedText,
 
   enablePullToRefresh: false,
   string: string,
@@ -128,11 +130,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
-      '{%= $$.string.substitute($$.withFromText, { contactName: $.ContactName, accountName: $.AccountName}) %}',
+      '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName}) %}',
     '{% } else if ($.AccountName) { %}',
       '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
     '{% } else if ($.LeadName) { %}',
-      '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
+      '{%= $$.string.substitute($$.withText, { object: $$.parseName($.LeadName) }) %}',
+    '{% } else { %}',
+      '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
     '{% } %}',
   ]),
   eventNameTemplate: new Simplate([
@@ -413,6 +417,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
       ]
     );
   },
+  parseName: function parseName(name = {}) {
+    return name.split(' ').splice(-1);
+  },
   processFeed: function processFeed(feed) {
     if (!feed) {
       return;
@@ -475,6 +482,15 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   },
   highlightActivities: function highlightActivities() {
     // TODO: Make this function add the indicator to the day to show there is an activity for that day
+    array.forEach(this._calendar.weeksNode.childNodes, (week) => {
+      array.forEach(week.childNodes, (day) => {
+        if (!this.dateCounts[domAttr.get(day, 'data-date')]) {
+          return;
+        }
+        day.subValue = this.dateCounts[domAttr.get(day, 'data-date')];
+        this._calendar.setActiveDay(day);
+      }, this);
+    }, this);
     return this;
   },
   hideEventList: function hideEventList() {

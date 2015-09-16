@@ -386,10 +386,9 @@
   eventHeaderText: "Events"
   countMoreText: "View More"
   toggleCollapseText: "toggle collapse"
-  toggleCollapseClass: "fa fa-chevron-down"
-  toggleExpandClass: "fa fa-chevron-right"
   withFromText: "with ${contactName} from ${accountName}"
   withText: "with ${object}"
+  unspecifiedText: "unspecified"
 >
 
 <calendarDayView ""
