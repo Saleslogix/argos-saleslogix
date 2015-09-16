@@ -120,6 +120,8 @@ import './Models/SData/Lead';
 import './Models/SData/Opportunity';
 import './Models/SData/Ticket';
 
+const resource = window.localeContext.getEntitySync('applicationModule').attributes;
+
 /**
  * @class crm.ApplicationModule
  *
@@ -134,7 +136,7 @@ import './Models/SData/Ticket';
  *
  */
 const __class = declare('crm.ApplicationModule', [ApplicationModule], {
-  searchText: 'Lookup',
+  searchText: resource.searchText,
   loadViews: function loadViews() {
     this.inherited(arguments);
 

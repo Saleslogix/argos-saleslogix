@@ -11,6 +11,8 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import OfflineManager from 'argos/Offline/Manager';
 
+const resource = window.localeContext.getEntitySync('accountList').attributes;
+
 /**
  * @class crm.Views.Account.List
  *
@@ -66,19 +68,19 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   },
 
   // Localization
-  titleText: 'Accounts',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  callMainActionText: 'Call Main',
-  viewContactsActionText: 'Contacts',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  phoneAbbreviationText: 'Phone: ',
-  faxAbbreviationText: 'Fax: ',
-  offlineText: 'Offline',
+  titleText: resource.titleText,
+  activitiesText: resource.titleText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  editActionText: resource.editActionText,
+  callMainActionText: resource.callMainActionText,
+  viewContactsActionText: resource.viewContactsActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  phoneAbbreviationText: resource.phoneAbbreviationText,
+  faxAbbreviationText: resource.faxAbbreviationText,
+  offlineText: resource.offlineText,
 
   // View Properties
   detailView: 'account_detail',

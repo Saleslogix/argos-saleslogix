@@ -4,7 +4,7 @@ import domConstruct from 'dojo/dom-construct';
 import query from 'dojo/query';
 import convert from 'argos/Convert';
 
-const mixinName = 'crm.Views._CardLayoutListMixin';
+const resource = window.localeContext.getEntitySync('cardLayoutListMixin').attributes;
 
 /**
  * @class crm.Views._CardLayoutListMixin
@@ -18,9 +18,9 @@ const mixinName = 'crm.Views._CardLayoutListMixin';
  */
 const __class = declare('crm.Views._CardLayoutListMixin', null, {
   itemIcon: 'content/images/icons/man_1.png',
-  itemIconAltText: 'Contact',
+  itemIconAltText: resource.itemIconAltText,
   itemIconClass: '',
-  allRecordsText: 'no search applied',
+  allRecordsText: resource.allRecordsText,
   itemIndicators: null,
   itemExts: null,
   itemIndicatorIconPath: 'content/images/icons/',
@@ -192,9 +192,8 @@ const __class = declare('crm.Views._CardLayoutListMixin', null, {
     return false;
   },
   requestData: function requestData() {
-    const mixin = lang.getObject(mixinName);
     if (this.searchWidget) {
-      this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;
+      this.currentSearchExpression = this.searchWidget.getSearchExpression() || resource.allRecordsText;
     }
 
     this.inherited(arguments);

@@ -6,6 +6,8 @@ import SpeedSearchWidget from '../SpeedSearchWidget';
 import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 
+const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
+
 /**
  * @class crm.Views.LeftDrawer
  *
@@ -40,19 +42,19 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   ]),
 
   // Localization
-  configureText: 'Configure Menu',
-  addAccountContactText: 'Add Account/Contact',
-  titleText: 'Main Menu',
-  actionsText: 'Quick Actions',
-  viewsText: 'Go To',
-  footerText: 'Other',
-  settingsText: 'Settings',
-  helpText: 'Help',
-  logOutText: 'Log Out',
-  logOutConfirmText: 'Are you sure you want to log out?',
-  onlineText: 'Online',
-  offlineText: 'Offline',
-  connectionText: 'Connection: ${0}',
+  configureText: resource.configureText,
+  addAccountContactText: resource.addAccountContactText,
+  titleText: resource.titleText,
+  actionsText: resource.actionsText,
+  viewsText: resource.viewsText,
+  footerText: resource.footerText,
+  settingsText: resource.settingsText,
+  helpText: resource.helpText,
+  logOutText: resource.logOutText,
+  logOutConfirmText: resource.logOutConfirmText,
+  onlineText: resource.onlineText,
+  offlineText: resource.offlineText,
+  connectionText: resource.connectionText,
 
   // View Properties
   id: 'left_drawer',
@@ -209,7 +211,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'offlineSupport': false,
       }, {
         'name': 'ConnectionIndicator',
-        'title': string.substitute(this.connectionText, [App.onLine ? this.onlineText : this.offlineText]),
+        'title': string.substitute(this.connectionText, {connectionStatus: App.onLine ? this.onlineText : this.offlineText}),
         'offlineSupport': true,
       }],
     };

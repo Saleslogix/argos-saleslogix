@@ -111,66 +111,90 @@
     <!--{{modules}}-->
 
     <script type="text/javascript">
-    (function() {
-        var application = 'Mobile/SalesLogix/Application',
-            configuration = <%= Serialize(
-                Enumerate("configuration", (file) => file.Name == "production.js")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>;
-        require([application].concat(configuration), function(application, configuration) {
-            var localization, bootstrap, fallBackLocalization, completed = false;
-            bootstrap = function(requires) {
-                require(requires.concat('dojo/domReady!'), function() {
-                    if (completed) {
-                        return;
-                    }
+      (function() {
+        function buildContext() {
+        var filePaths = <%= Serialize(
+              Enumerate(@"localization", (file) => file.Extension == ".l20n")
+                  .Select(item => item.Path)
+        ) %>;
+        var supportedLocales = <%= Serialize(
+              Enumerate(@"localization\locales\crm", (file) => true)
+                  .Select(item => item.Directory.Name).Distinct()
+          ) %>;
+        var ctx = L20n.getContext();
+        var defaultLocale = 'en';
+        var currentLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
 
-                    var culture, results;
-
-                    culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-                    configuration.currentCulture = culture;
-                    results = moment.locale(culture);
-
-                    // moment will return the set culture if successful, otherwise it returns the currently set culture.
-                    // Check to see if the culture set failed, and attept to use the specific culture instead
-                    if (results !== culture) {
-                        culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>';
-                        results = moment.locale(culture);
-                        if (results !== culture) {
-                            console.error("Failed to set the culture for moment.js, culture set to " + results);
-                        }
-                    }
-
-                    var instance = new application(configuration);
-
-                    instance.activate();
-                    instance.init();
-                    instance.run();
-                    completed = true;
-                });
-            };
-
-            localization = <%= Serialize(
-                EnumerateLocalizations("localization")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>;
-
-            fallBackLocalization = <%= Serialize(
-                EnumerateLocalizations(string.Empty, "localization", "en")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>;
-
-            require.on('error', function(error) {
-                console.log('Error loading localization, falling back to "en"');
-                bootstrap(fallBackLocalization);
-            });
-
-            if (localization.length === 0) {
-                bootstrap(fallBackLocalization);
-            } else {
-                bootstrap(localization);
-            }
+        filePaths.forEach(function(path) {
+          ctx.linkResource(path);
         });
+        ctx.registerLocales(defaultLocale, supportedLocales);
+        ctx.requestLocales(currentLocale);
+        window.localeContext = ctx;
+        return ctx;
+      }
+      var application = 'crm/Application';
+      var configuration = <%= Serialize(
+              Enumerate("configuration", (file) => file.Name == "production.js")
+                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+          ) %>;
+      var ctx = buildContext();
+      ctx.ready(function() {
+        require([application].concat(configuration), function(application, configuration) {
+          var localization, bootstrap, fallBackLocalization, completed = false;
+          bootstrap = function(requires) {
+            require(requires.concat('dojo/domReady!'), function() {
+              if (completed) {
+                  return;
+              }
+
+              var culture, results;
+
+              culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
+              configuration.currentCulture = culture;
+              results = moment.locale(culture);
+
+              // moment will return the set culture if successful, otherwise it returns the currently set culture.
+              // Check to see if the culture set failed, and attept to use the specific culture instead
+              if (results !== culture) {
+                  culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>';
+                  results = moment.locale(culture);
+                  if (results !== culture) {
+                      console.error("Failed to set the culture for moment.js, culture set to " + results);
+                  }
+              }
+
+              var instance = new application(configuration);
+
+              instance.activate();
+              instance.init();
+              instance.run();
+              completed = true;
+            });
+          };
+
+          localization = <%= Serialize(
+              EnumerateLocalizations("localization")
+                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+          ) %>;
+
+          fallBackLocalization = <%= Serialize(
+              EnumerateLocalizations(string.Empty, "localization", "en")
+                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+          ) %>;
+
+          require.on('error', function(error) {
+            console.log('Error loading localization, falling back to "en"');
+            bootstrap(fallBackLocalization);
+          });
+
+          if (localization.length === 0) {
+            bootstrap(fallBackLocalization);
+          } else {
+            bootstrap(localization);
+          }
+        });
+      });
     })();
     </script>
 </head>
@@ -192,6 +216,7 @@
     {
         public string Path { get; set; }
         public FileInfo File { get; set; }
+        public DirectoryInfo Directory { get; set; }
     }
 
     protected string Serialize(object item)
@@ -229,7 +254,8 @@
                 yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, file),
-                    File = file
+                    File = file,
+                    Directory = file.Directory
                 };
         }
     }

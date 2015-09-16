@@ -12,6 +12,8 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
 
+const resource = window.localeContext.getEntitySync('application').attributes;
+
 /**
  * @class crm.Application
  *
@@ -78,11 +80,11 @@ const __class = declare('crm.Application', [Application], {
     'minor': 4,
     'revision': 0,
   },
-  versionInfoText: 'Mobile v${0}.${1}.${2}',
-  loadingText: 'Loading application state',
-  authText: 'Authenticating',
-  offlinePromptText: 'Your internet connection is no longer working. Would you like to switch to offline mode?',
-  onlinePromptText: 'Your connection is working. Would you like to go back online?',
+  versionInfoText: resource.versionInfoText,
+  loadingText: resource.loadingText,
+  authText: resource.authText,
+  offlinePromptText: resource.offlinePromptText,
+  onlinePromptText: resource.onlinePromptText,
   homeViewId: 'myactivity_list',
   offlineHomeViewId: 'offline_list',
   loginViewId: 'login',

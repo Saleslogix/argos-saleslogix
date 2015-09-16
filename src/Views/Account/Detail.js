@@ -6,6 +6,8 @@ import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
 
+const resource = window.localeContext.getEntitySync('accountDetail').attributes;
+
 /**
  * @class crm.Views.Account.Detail
  *
@@ -18,43 +20,42 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.Account.Detail', [Detail], {
   // Localization
-  accountText: 'account',
-  acctMgrText: 'acct mgr',
-  addressText: 'address',
-  businessDescriptionText: 'bus desc',
-  createDateText: 'create date',
-  createUserText: 'create user',
-  faxText: 'fax',
-  importSourceText: 'lead source',
-  industryText: 'industry',
-  notesText: 'notes',
-  ownerText: 'owner',
-  phoneCallHistoryTitle: 'Phone Call',
-  phoneText: 'phone',
+  accountText: resource.accountText,
+  acctMgrText: resource.acctMgrText,
+  addressText: resource.addressText,
+  businessDescriptionText: resource.businessDescriptionText,
+  createDateText: resource.createDateText,
+  createUserText: resource.createUserText,
+  faxText: resource.faxText,
+  importSourceText: resource.importSourceText,
+  industryText: resource.industryText,
+  notesText: resource.notesText,
+  ownerText: resource.ownerText,
+  phoneText: resource.phoneText,
   activityTypeText: {
-    'atPhoneCall': 'Phone Call',
+    'atPhoneCall': resource.phoneCallHistoryTitle,
   },
-  actionsText: 'Quick Actions',
-  relatedActivitiesText: 'Activities',
-  relatedContactsText: 'Contacts',
-  relatedHistoriesText: 'Notes/History',
-  relatedItemsText: 'Related Items',
-  relatedNotesText: 'Notes',
-  relatedOpportunitiesText: 'Opportunities',
-  relatedTicketsText: 'Tickets',
-  relatedAddressesText: 'Addresses',
-  relatedAttachmentText: 'Attachments',
-  relatedAttachmentTitleText: 'Account Attachments',
-  statusText: 'status',
-  subTypeText: 'subtype',
-  titleText: 'Account',
-  typeText: 'type',
-  webText: 'web',
-  scheduleActivityText: 'Schedule activity',
-  addNoteText: 'Add note',
-  moreDetailsText: 'More Details',
-  calledText: 'Called ${0}',
-  entityText: 'Account',
+  actionsText: resource.actionsText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedContactsText: resource.relatedContactsText,
+  relatedHistoriesText: resource.relatedHistoriesText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedNotesText: resource.relatedNotesText,
+  relatedOpportunitiesText: resource.relatedOpportunitiesText,
+  relatedTicketsText: resource.relatedTicketsText,
+  relatedAddressesText: resource.relatedAddressesText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  statusText: resource.statusText,
+  subTypeText: resource.subTypeText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  webText: resource.webText,
+  scheduleActivityText: resource.scheduleActivityText,
+  addNoteText: resource.addNoteText,
+  moreDetailsText: resource.moreDetailsText,
+  calledText: resource.calledText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'account_detail',
@@ -68,7 +69,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
     const view = App.getView(this.historyEditView);
     if (view) {
       this.refreshRequired = true;
-
       view.show({
         title: this.activityTypeText[type],
         template: {},

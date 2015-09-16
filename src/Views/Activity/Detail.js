@@ -11,6 +11,8 @@ import recur from '../../Recurrence';
 import utility from '../../Utility';
 import MODEL_NAMES from '../../Models/Names';
 
+const resource = window.localeContext.getEntitySync('activityDetail').attributes;
+
 /**
  * @class crm.Views.Activity.Detail
  *
@@ -30,51 +32,51 @@ import MODEL_NAMES from '../../Models/Names';
  */
 const __class = declare('crm.Views.Activity.Detail', [Detail], {
   // Localization
+  actionsText: resource.actionsText,
+  completeActivityText: resource.completeActivityText,
+  completeOccurrenceText: resource.completeOccurrenceText,
+  completeSeriesText: resource.completeSeriesText,
+  locationText: resource.locationText,
+  alarmText: resource.alarmText,
+  alarmTimeText: resource.alarmTimeText,
+  categoryText: resource.categoryText,
+  durationText: resource.durationText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  priorityText: resource.priorityText,
+  regardingText: resource.regardingText,
+  rolloverText: resource.rolloverText,
+  startTimeText: resource.startTimeText,
+  allDayText: resource.allDayText,
+  timelessText: resource.timelessText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  whenText: resource.whenText,
+  whoText: resource.whoText,
+  startDateFormatText: resource.startDateFormatText,
+  timelessDateFormatText: resource.timelessDateFormatText,
+  alarmDateFormatText: resource.alarmDateFormatText,
+  recurrenceText: resource.recurrenceText,
+  confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  relatedItemsText: resource.relatedItemsText,
+  phoneText: resource.phoneText,
+  moreDetailsText: resource.moreDetailsText,
+  entityText: resource.entityText,
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
+    'atToDo': resource.toDoText,
+    'atPhoneCall': resource.phoneCallText,
+    'atAppointment': resource.meetingText,
+    'atLiterature': resource.literatureText,
+    'atPersonal': resource.personalText,
   },
-  actionsText: 'Quick Actions',
-  completeActivityText: 'Complete Activity',
-  completeOccurrenceText: 'Complete Occurrence',
-  completeSeriesText: 'Complete Series',
-  locationText: 'location',
-  alarmText: 'alarm',
-  alarmTimeText: 'alarm',
-  categoryText: 'category',
-  durationText: 'duration',
-  leaderText: 'leader',
-  longNotesText: 'notes',
-  priorityText: 'priority',
-  regardingText: 'regarding',
-  rolloverText: 'auto rollover',
-  startTimeText: 'start time',
-  allDayText: 'all day',
-  timelessText: 'timeless',
-  titleText: 'Activity',
-  typeText: 'type',
-  companyText: 'company',
-  leadText: 'lead',
-  accountText: 'account',
-  contactText: 'contact',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  whenText: 'When',
-  whoText: 'Who',
-  startDateFormatText: 'M/D/YYYY h:mm:ss A',
-  timelessDateFormatText: 'M/D/YYYY',
-  alarmDateFormatText: 'M/D/YYYY h:mm:ss A',
-  recurrenceText: 'recurrence',
-  confirmEditRecurrenceText: 'Edit all Occurrences? Cancel to edit single Occurrence.',
-  relatedAttachmentText: 'Attachments',
-  relatedAttachmentTitleText: 'Activity Attachments',
-  relatedItemsText: 'Related Items',
-  phoneText: 'phone',
-  moreDetailsText: 'More Details',
-  entityText: 'Activity',
 
   // View Properties
   id: 'activity_detail',
@@ -134,7 +136,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     const key = entry.$key;
 
     // Check to ensure we have a composite key (meaning we have the occurance, not the master)
-    if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
+    if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator)
+      .length !== 2) {
       // Fetch the occurance, and continue on to the complete screen
       const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')

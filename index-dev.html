@@ -1,194 +1,240 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en" class="gtie9 modern">
 <!--<![endif]-->
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="format-detection" content="telephone=no,email=no,address=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no,email=no,address=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
 
-    <title>Infor CRM</title>
+  <title>Infor CRM</title>
 
-    <link rel="icon" type="image/png" href="content/images/icon.png" />
-    <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="content/images/72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="content/images/touch-icon-ipad.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="content/images/114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="content/images/touch-icon-iphone-retina.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="content/images/144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="content/images/touch-icon-ipad-retina.png" />
-    <!-- Startup images -->
+  <link rel="icon" type="image/png" href="content/images/icon.png" />
+  <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="content/images/72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="content/images/touch-icon-ipad.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="content/images/114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="content/images/touch-icon-iphone-retina.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="content/images/144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="content/images/touch-icon-ipad-retina.png" />
+  <!-- Startup images -->
 
-    <!-- iOS 6 & 7 iPad (retina, portrait) -->
-    <link href="content/images/apple-touch-startup-image-1536x2008.png"
-          media="(device-width: 768px) and (device-height: 1024px)
+  <!-- iOS 6 & 7 iPad (retina, portrait) -->
+  <link href="content/images/apple-touch-startup-image-1536x2008.png" media="(device-width: 768px) and (device-height: 1024px)
              and (orientation: portrait)
-             and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image">
+             and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-    <!-- iOS 6 & 7 iPad (retina, landscape) -->
-    <link href="content/images/apple-touch-startup-image-1496x2048.png"
-          media="(device-width: 768px) and (device-height: 1024px)
+  <!-- iOS 6 & 7 iPad (retina, landscape) -->
+  <link href="content/images/apple-touch-startup-image-1496x2048.png" media="(device-width: 768px) and (device-height: 1024px)
              and (orientation: landscape)
-             and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image">
+             and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-    <!-- iOS 6 iPad (portrait) -->
-    <link href="content/images/apple-touch-startup-image-768x1004.png"
-          media="(device-width: 768px) and (device-height: 1024px)
+  <!-- iOS 6 iPad (portrait) -->
+  <link href="content/images/apple-touch-startup-image-768x1004.png" media="(device-width: 768px) and (device-height: 1024px)
              and (orientation: portrait)
-             and (-webkit-device-pixel-ratio: 1)"
-          rel="apple-touch-startup-image">
+             and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
-    <!-- iOS 6 iPad (landscape) -->
-    <link href="content/images/apple-touch-startup-image-748x1024.png"
-          media="(device-width: 768px) and (device-height: 1024px)
+  <!-- iOS 6 iPad (landscape) -->
+  <link href="content/images/apple-touch-startup-image-748x1024.png" media="(device-width: 768px) and (device-height: 1024px)
              and (orientation: landscape)
-             and (-webkit-device-pixel-ratio: 1)"
-          rel="apple-touch-startup-image">
+             and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
-    <!-- iOS 6 & 7 iPhone 5 -->
-    <link href="content/images/apple-touch-startup-image-640x1096.png"
-          media="(device-width: 320px) and (device-height: 568px)
-             and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image">
+  <!-- iOS 6 & 7 iPhone 5 -->
+  <link href="content/images/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px)
+             and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-    <!-- iOS 6 & 7 iPhone (retina) -->
-    <link href="content/images/apple-touch-startup-image-640x920.png"
-          media="(device-width: 320px) and (device-height: 480px)
-             and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image">
+  <!-- iOS 6 & 7 iPhone (retina) -->
+  <link href="content/images/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (device-height: 480px)
+             and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-    <!-- iOS 6 iPhone -->
-    <link href="content/images/apple-touch-startup-image-320x480.png"
-          media="(device-width: 320px) and (device-height: 480px)
-             and (-webkit-device-pixel-ratio: 1)"
-          rel="apple-touch-startup-image">
+  <!-- iOS 6 iPhone -->
+  <link href="content/images/apple-touch-startup-image-320x480.png" media="(device-width: 320px) and (device-height: 480px)
+             and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
-    <!-- less files -->
-    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/crm.less" />
-    <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
+  <!-- less files -->
+  <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/crm.less" />
+  <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
 
-    <!-- less -->
-    <script type="text/javascript">
-        less = {
-            env: "development", // or "production"
-            async: false,       // load imports async
-            fileAsync: false,   // load imports async when in a page under
-                                // a file protocol
-            poll: 1000,         // when in watch mode, time in ms between polls
-            functions: {},      // user functions, keyed by name
-            dumpLineNumbers: "all", // or "mediaQuery" or "all"
-            relativeUrls: true,// whether to adjust url's to be relative
-                                // if false, url's are already relative to the
-                                // entry less file
-            rootpath: ""// a path to add on to the start of every url
-                                //resource
-        };
-    </script>
+  <!-- less -->
+  <script type="text/javascript">
+    less = {
+      env: "development", // or "production"
+      async: false, // load imports async
+      fileAsync: false, // load imports async when in a page under
+      // a file protocol
+      poll: 1000, // when in watch mode, time in ms between polls
+      functions: {}, // user functions, keyed by name
+      dumpLineNumbers: "all", // or "mediaQuery" or "all"
+      relativeUrls: true, // whether to adjust url's to be relative
+      // if false, url's are already relative to the
+      // entry less file
+      rootpath: "" // a path to add on to the start of every url
+        //resource
+    };
+  </script>
 
-    <script type="text/javascript" src="../../argos-sdk/libraries/less/less.min.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/less/less.min.js"></script>
 
-    <!-- SData Client Library -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+  <!-- SData Client Library -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-    <!-- Simplate -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
+  <!-- Simplate -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
-    <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
+  <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
 
-    <!-- Deep Diff -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
+  <!-- Deep Diff -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
-    <!-- PouchDB -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
+  <!-- Chart.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
 
-    <!-- Chart.js -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
+  <!-- Babel -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
 
-    <!-- Babel -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
+  <!-- moment -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
 
-    <!-- moment -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
+  <!-- PouchDB -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
 
-    <!-- Dojo -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
-    <script type="text/javascript">
+  <!-- L20N.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
+
+  <!-- Dojo -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+  <script type="text/javascript">
     require({
-        baseUrl: "./",
-        packages: [
-            { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
-            { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-            { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
-            { name: 'argos', location: '../../argos-sdk/src-out' },
-            { name: 'crm', location: 'src-out' },
-            { name: 'configuration', location: 'configuration' },
-            { name: 'localization', location: 'localization' }
-        ],
-        map: {
-            '*': {
-                'Sage/Platform/Mobile': 'argos',
-                'Mobile/SalesLogix': 'crm'
-            }
+      baseUrl: "./",
+      packages: [{
+        name: 'dojo',
+        location: '../../argos-sdk/libraries/dojo/dojo'
+      }, {
+        name: 'dijit',
+        location: '../../argos-sdk/libraries/dojo/dijit'
+      }, {
+        name: 'snap',
+        location: '../../argos-sdk/libraries/snap',
+        main: 'snap'
+      }, {
+        name: 'argos',
+        location: '../../argos-sdk/src-out'
+      }, {
+        name: 'crm',
+        location: 'src-out'
+      }, {
+        name: 'configuration',
+        location: 'configuration'
+      }, {
+        name: 'localization',
+        location: 'localization'
+      }],
+      map: {
+        '*': {
+          'Sage/Platform/Mobile': 'argos',
+          'Mobile/SalesLogix': 'crm'
         }
+      }
     });
-    </script>
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
     (function() {
-        var application = 'Mobile/SalesLogix/Application',
-            configuration = [
-                'configuration/development'
-            ];
-        require([application].concat(configuration), function(application, configuration) {
-            var localization, bootstrap, fallBackLocalization, completed = false;
+      function buildContext() {
+        var filePaths = {
+          './localization/locales/crm': [
+            'strings.l20n',
+            'regional.l20n'
+          ],
+          '../../argos-sdk/localization/locales/argos': [
+            'strings.l20n',
+            'regional.l20n'
+          ]
+        };
+        var supportedLocales = [
+          'en',
+          'en-GB',
+          'de',
+          'fr',
+          'it',
+          'ru',
+          'zh-CN',
+          'zh-TW'
+        ]
+        var ctx = L20n.getContext();
+        var defaultLocale = 'en';
+        var currentLocale = 'en';
 
-            localization = [
-                'localization/en',
-                'localization/saleslogix/en'
-            ];
-
-            fallBackLocalization = [
-                'localization/en',
-                'localization/saleslogix/en'
-            ];
-
-            bootstrap = function(requires) {
-                require(requires.concat('dojo/domReady!'), function() {
-                    if (completed) {
-                        return;
-                    }
-
-                    moment.locale('en');
-
-                    var instance = new application(configuration);
-
-                    instance.activate();
-                    instance.init();
-                    instance.run();
-                    completed = true;
-                });
-            };
-
-            require.on('error', function(error) {
-                console.log('Error loading localization, falling back to "en"');
-                bootstrap(fallBackLocalization);
+        Object.keys(filePaths).forEach(function(path) {
+          var files = filePaths[path];
+          files.forEach(function(file) {
+            ctx.linkResource(function(locale) {
+              return [path, locale, file].join('/');
             });
-
-            bootstrap(localization);
+          });
         });
+        ctx.registerLocales(defaultLocale, supportedLocales);
+        ctx.requestLocales(currentLocale);
+        window.localeContext = ctx;
+        return ctx;
+      }
+      var application = 'crm/Application';
+      var configuration = [
+        'configuration/development'
+      ];
+      var ctx = buildContext();
+      ctx.ready(function() {
+        require([application].concat(configuration), function(application, configuration) {
+          var completed = false;
+
+          // Legacy Localization scripts
+          var localization = [
+            'localization/saleslogix/en'
+          ];
+
+          var fallBackLocalization = [
+            'localization/saleslogix/en'
+          ];
+
+          var bootstrap = function(requires) {
+            require(requires.concat('dojo/domReady!'), function() {
+              if (completed) {
+                return;
+              }
+
+              moment.locale('en');
+              var instance = new application(configuration);
+              instance.localeContext = ctx;
+              instance.activate();
+              instance.init();
+              instance.run();
+              completed = true;
+            });
+          };
+
+          require.on('error', function(error) {
+            console.log('Error loading localization, falling back to "en"');
+            bootstrap(fallBackLocalization);
+          });
+
+          bootstrap(localization);
+        });
+      });
     })();
-    </script>
+  </script>
 </head>
+
 <body>
-    <!-- Run "grunt watch" to enable this script
+  <!-- Run "grunt watch" to enable this script
     <script src="http://localhost:35729/livereload.js"></script>-->
 </body>
+
 </html>

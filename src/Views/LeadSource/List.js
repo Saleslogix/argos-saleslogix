@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('leadSourceList').attributes;
+
 /**
  * @class crm.Views.LeadSource.List
  *
@@ -16,7 +18,7 @@ const __class = declare('crm.Views.LeadSource.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Lead Sources',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'leadsource_list',

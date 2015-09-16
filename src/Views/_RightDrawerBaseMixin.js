@@ -94,7 +94,6 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     if (this.disableRightDrawer) {
       return;
     }
-
     this.loadRightDrawer();
   },
   onTransitionAway: function onTransitionAway() {
