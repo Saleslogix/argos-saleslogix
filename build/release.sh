@@ -3,7 +3,7 @@ if [ -d "deploy" ]; then
     rm -rf deploy
 fi
 
-mkdir -p deploy/localization
+mkdir -p deploy/localization/locales/crm
 mkdir -p deploy/help
 mkdir -p deploy/content/javascript
 mkdir -p deploy/content/images
@@ -23,5 +23,5 @@ cp index.aspx ./deploy
 cp index-nocache.html ./deploy
 cp index-nocache.aspx ./deploy
 cp unsupported.html ./deploy
-cp manfiest.appcache ./deploy
+cp manifest.appcache ./deploy
 cp web.config ./deploy
