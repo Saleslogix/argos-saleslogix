@@ -16,7 +16,10 @@ grunt less
 grunt babel
 
 # Java Build Tool
-java -Dfile.encoding=UTF-8 -jar "../../argos-sdk/tools/JSBuilder/JSBuilder2.jar" -v -p "build/release.jsb2" -d "."
+#java -Dfile.encoding=UTF-8 -jar "../../argos-sdk/tools/JSBuilder/JSBuilder2.jar" -v -p "build/release.jsb2" -d "."
+
+# Mono build Tool
+mono ../../argos-sdk/tools/JsBit/jsbit.exe -p "build/release.jsb2" -d "."
 
 cp index.html ./deploy
 cp index.aspx ./deploy
