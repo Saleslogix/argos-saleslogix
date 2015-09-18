@@ -72,8 +72,8 @@
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
-    <!-- PhoneGap -->
-    <script type="text/javascript" src="cordova-2.3.0.js"></script>
+    <!-- cordovaApp -->
+    <script type="text/javascript" src="cordova.js"></script>
 
     <!-- Global (window) dependencies. Load these before the AMD loader -->
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
@@ -109,7 +109,7 @@
 </head>
 <body>
 <script type="text/javascript">
-    var phoneGap = {
+    var cordovaApp = {
         // Application Constructor
         initialize: function() {
             this.bindEvents();
@@ -126,55 +126,94 @@
         // The scope of 'this' is the event. In order to call the 'receivedEvent'
         // function, we must explicity call 'app.receivedEvent(...);'
         onDeviceReady: function() {
-            phoneGap.receivedEvent('deviceready');
+            cordovaApp.receivedEvent('deviceready');
         },
         // Update DOM on a Received Event
         receivedEvent: function(id) {
-            var application = 'Mobile/SalesLogix/Application',
-                configuration = [
-                    'configuration/production'
-                ];
-            require([application].concat(configuration), function(application, configuration) {
-                var localization, bootstrap, fallBackLocalization, completed = false;
+          function buildContext() {
+            var filePaths = {
+              './localization/locales/crm': [
+                'strings.l20n',
+                'regional.l20n'
+              ],
+              './localization/locales/argos': [
+                'strings.l20n',
+                'regional.l20n'
+              ]
+            };
+            var supportedLocales = [
+              'en',
+              'en-GB',
+              'de',
+              'fr',
+              'it',
+              'ru',
+              'zh-CN',
+              'zh-TW'
+            ]
+            var ctx = L20n.getContext();
+            var defaultLocale = 'en';
+            var currentLocale = 'en';
 
-                localization = [
-                    'localization/en',
-                    'localization/saleslogix/en'
-                ];
-
-                fallBackLocalization = [
-                    'localization/en',
-                    'localization/saleslogix/en'
-                ];
-
-                bootstrap = function(requires) {
-                    require(requires.concat('dojo/domReady!'), function() {
-                        if (completed) {
-                            return;
-                        }
-
-                        moment.locale('en');
-
-                        var instance = new application(configuration);
-
-                        instance.activate();
-                        instance.init();
-                        instance.run();
-                        completed = true;
-                    });
-                };
-
-                require.on('error', function(error) {
-                    console.log('Error loading localization, falling back to "en"');
-                    bootstrap(fallBackLocalization);
+            Object.keys(filePaths).forEach(function(path) {
+              var files = filePaths[path];
+              files.forEach(function(file) {
+                ctx.linkResource(function(locale) {
+                  return [path, locale, file].join('/');
                 });
-
-                bootstrap(localization);
+              });
             });
+            ctx.registerLocales(defaultLocale, supportedLocales);
+            ctx.requestLocales(currentLocale);
+            window.localeContext = ctx;
+            return ctx;
+          }
+          var application = 'crm/Application';
+          var configuration = [
+            'configuration/development'
+          ];
+          var ctx = buildContext();
+          ctx.ready(function() {
+            require([application].concat(configuration), function(application, configuration) {
+              var completed = false;
+
+              // Legacy Localization scripts
+              var localization = [
+                'localization/saleslogix/en'
+              ];
+
+              var fallBackLocalization = [
+                'localization/saleslogix/en'
+              ];
+
+              var bootstrap = function(requires) {
+                require(requires.concat('dojo/domReady!'), function() {
+                  if (completed) {
+                    return;
+                  }
+
+                  moment.locale('en');
+                  var instance = new application(configuration);
+                  instance.localeContext = ctx;
+                  instance.activate();
+                  instance.init();
+                  instance.run();
+                  completed = true;
+                });
+              };
+
+              require.on('error', function(error) {
+                console.log('Error loading localization, falling back to "en"');
+                bootstrap(fallBackLocalization);
+              });
+
+              bootstrap(localization);
+            });
+          });
         }
     };
 
-    phoneGap.initialize();
+    cordovaApp.initialize();
 </script>
 </body>
 </html>
