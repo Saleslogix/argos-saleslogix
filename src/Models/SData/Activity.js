@@ -39,6 +39,37 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
   },
   createLayout: function createLayout() {
     return [{
+      name: 'dayprep',
+      queryWhere: function queryWhere() {
+        return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context.user.$key]);
+      },
+      queryOrderBy: 'Activity.StartDate desc',
+      querySelect: [
+        'Alarm',
+        'AlarmTime',
+        'Status',
+        'Activity/Description',
+        'Activity/StartDate',
+        'Activity/EndDate',
+        'Activity/Type',
+        'Activity/AccountName',
+        'Activity/AccountId',
+        'Activity/ContactId',
+        'Activity/ContactName',
+        'Activity/Leader',
+        'Activity/LeadName',
+        'Activity/LeadId',
+        'Activity/OpportunityId',
+        'Activity/TicketId',
+        'Activity/UserId',
+        'Activity/Timeless',
+        'Activity/PhoneNumber',
+        'Activity/Recurring',
+        'Activity/Alarm',
+        'Activity/ModifyDate',
+        'Activity/Priority',
+      ],
+    }, {
       name: 'list',
       queryOrderBy: 'StartDate desc',
       querySelect: [
@@ -150,6 +181,10 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
           return entry;
         });
     });
+  },
+  getMyDayEntries: function getEntries(query, options) { // eslint-disable-line
+    const store = this.createStore('dayprep');
+    return store.query(this.buildQueryExpression(query, options), this.getOptions(options));
   },
   getIconClass: function getIconClass(entry) {
     let cls = this.iconClass;
