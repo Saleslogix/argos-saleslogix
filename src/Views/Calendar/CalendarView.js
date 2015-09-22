@@ -338,7 +338,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     // this.monthActivities = null;
   },
   formatQuery: function formatQuery(value) {
-    return string.substitute('StartDate between @${start}@ and @${end}@', {start: value.startOf('month').format(), end: value.endOf('month').format()});
+    return string.substitute('UserActivities.UserId eq "${user}" and Type ne "atLiterature" and StartDate between @${start}@ and @${end}@', {
+      user: App.context.user && App.context.user.$key,
+      start: value.startOf('month').format(),
+      end: value.endOf('month').format(),
+    });
   },
   highlightActivities: function highlightActivities() {
     // TODO: Make this function add the indicator to the day to show there is an activity for that day
