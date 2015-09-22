@@ -274,6 +274,19 @@
   viewOpportunityActionText: "Opportunity"
 >
 
+<activityMyDay ""
+  titleText: "Prep My Day"
+  completeActivityText: "Complete"
+  acceptActivityText: "Accept"
+  declineActivityText: "Decline"
+  callText: "Call"
+  calledText: "Called"
+  addAttachmentActionText: "Add Attachment"
+  viewContactActionText: "Contact"
+  viewAccountActionText: "Account"
+  viewOpportunityActionText: "Opportunity"
+>
+
 <activityRecurring ""
   startingText: "start date"
   endingText: "end date"

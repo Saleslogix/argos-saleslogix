@@ -9,10 +9,10 @@ import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import action from '../../Action';
 
-const resource = window.localeContext.getEntitySync('activityMyList').attributes;
+const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
 
 /**
- * @class crm.Views.Activity.MyList
+ * @class crm.Views.Activity.MyDay
  *
  * @extends crm.Views.Activity.List
  * @mixins crm.Views.Activity.List
@@ -31,7 +31,7 @@ const resource = window.localeContext.getEntitySync('activityMyList').attributes
  * @requires moment
  *
  */
-const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
+const __class = declare('crm.Views.Activity.MyDay', [ActivityList], {
 
   // Templates
   // Card View
@@ -84,13 +84,30 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   viewOpportunityActionText: resource.viewOpportunityActionText,
 
   // View Properties
-  id: 'myactivity_list',
-  expose: false,
+  id: 'myday_list',
+  hashTagQueries: null,
 
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
   queryWhere: function queryWhere() {
-    return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context.user.$key]);
+    const now = moment();
+    const todayStart = now.clone().startOf('day');
+    const todayEnd = todayStart.clone().endOf('day');
+
+    const theQuery = string.substitute(
+      '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
+        convert.toIsoStringFromDate(todayStart.toDate()),
+        convert.toIsoStringFromDate(todayEnd.toDate()),
+        todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
+        todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
+      ]
+    );
+    const userQuery = string.substitute('(User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature")', [App.context.user.$key]);
+
+    return [userQuery, theQuery].join(' and ');
+  },
+  defaultSearchTerm: function defaultSearchTerm() {
+    return '';
   },
   queryOrderBy: 'Activity.StartDate desc',
   querySelect: [
@@ -121,70 +138,6 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   resourceKind: 'userActivities',
   allowSelection: true,
   enableActions: true,
-  hashTagQueries: {
-    'alarm': 'Alarm eq true',
-    'status-unconfirmed': 'Status eq "asUnconfirmed"',
-    'status-accepted': 'Status eq "asAccepted"',
-    'status-declined': 'Status eq "asDeclned"',
-    'recurring': 'Activity.Recurring eq true',
-    'timeless': 'Activity.Timeless eq true',
-    'yesterday': function yesterday() {
-      const now = moment();
-      const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-      const yesterdayEnd = yesterdayStart.clone().endOf('day');
-
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(yesterdayStart.toDate()),
-          convert.toIsoStringFromDate(yesterdayEnd.toDate()),
-          yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
-      return theQuery;
-    },
-    'today': function today() {
-      const now = moment();
-      const todayStart = now.clone().startOf('day');
-      const todayEnd = todayStart.clone().endOf('day');
-
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(todayStart.toDate()),
-          convert.toIsoStringFromDate(todayEnd.toDate()),
-          todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
-      return theQuery;
-    },
-    'this-week': function thisWeek() {
-      const now = moment();
-      const weekStartDate = now.clone().startOf('week');
-      const weekEndDate = weekStartDate.clone().endOf('week');
-
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(weekStartDate.toDate()),
-          convert.toIsoStringFromDate(weekEndDate.toDate()),
-          weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-          weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
-      return theQuery;
-    },
-  },
-  hashTagQueriesText: {
-    'alarm': 'alarm',
-    'status-unconfirmed': 'status-unconfirmed',
-    'status-accepted': 'status-accepted',
-    'status-declined': 'status-declined',
-    'recurring': 'recurring',
-    'timeless': 'timeless',
-    'today': 'today',
-    'this-week': 'this-week',
-    'yesterday': 'yesterday',
-  },
   createToolLayout: function createToolLayout() {
     this.inherited(arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
@@ -213,13 +166,6 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
     this.invokeActionItemBy(function setActionId(theAction) {
       return theAction.id === 'call';
     }, params.key);
-  },
-  defaultSearchTerm: function defaultSearchTerm() {
-    if (App.enableHashTags) {
-      return '#' + this.hashTagQueriesText['this-week'];
-    }
-
-    return '';
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
@@ -622,5 +568,5 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
+lang.setObject('Mobile.SalesLogix.Views.Activity.MyDay', __class);
 export default __class;
