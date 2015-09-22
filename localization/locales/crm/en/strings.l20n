@@ -275,7 +275,7 @@
 >
 
 <activityMyDay ""
-  titleText: "Prep My Day"
+  titleText: "Prep For My Day"
   completeActivityText: "Complete"
   acceptActivityText: "Accept"
   declineActivityText: "Decline"

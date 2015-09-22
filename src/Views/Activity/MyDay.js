@@ -9,7 +9,7 @@ import ErrorManager from 'argos/ErrorManager';
 import List from 'argos/List';
 import action from '../../Action';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-import _RightDrawerListMixin from '../_RightDrawerListMixin';
+/*import _RightDrawerListMixin from '../_RightDrawerListMixin';*/
 import MODEL_NAMES from '../../Models/Names';
 
 const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
@@ -28,7 +28,7 @@ const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
  * @requires crm.Views.Activity.List
  * @requires crm.Action
  */
-const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.Activity.MyDay', [List, /*_RightDrawerListMixin,*/ _CardLayoutListMixin], {
 
   // Templates
   // Card View
@@ -84,8 +84,12 @@ const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin
   id: 'myday_list',
   modelName: MODEL_NAMES.ACTIVITY,
   enableSearch: false,
-
+  iconClass: 'fa fa-check-square-o fa-lg',
+  detailView: 'activity_detail',
+  insertView: 'activity_types_list',
   historyEditView: 'history_edit',
+  pageSize: 105,
+
   existsRE: /^[\w]{12}$/,
   requestDataUsingModel: function requestDataUsingModel() {
     return this._model.getMyDayEntries(this.query, this.options);
@@ -274,9 +278,6 @@ const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin
     if (this.options.singleSelect && this.options.singleSelectAction && !this.enableActions) {
       this.invokeSingleSelectAction();
     }
-  },
-  formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   declineActivityFor: function declineActivityFor(activityId, userId) {
     this._getUserNotifications(activityId, userId, false);
