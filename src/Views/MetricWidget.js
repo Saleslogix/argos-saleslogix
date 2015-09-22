@@ -205,6 +205,10 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
       }.bind(this));
   },
   navToReportView: function navToReportView() {
+    if (!this.chartType) {
+      return;
+    }
+
     const view = App.getView(this.chartTypeMapping[this.chartType]);
 
     if (view) {

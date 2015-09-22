@@ -1322,6 +1322,11 @@
   totalLeads: "Total Leads"
   totalHistory: "Total History"
   duration: "Total Duration"
+  meetings: "Meetings"
+  calls: "Calls"
+  todos: "Todos"
+  personal: "Personal"
+  lastRefresh: "Last Refresh"
 >
 
 <fileManager ""

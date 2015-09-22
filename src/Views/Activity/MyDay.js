@@ -9,7 +9,8 @@ import ErrorManager from 'argos/ErrorManager';
 import List from 'argos/List';
 import action from '../../Action';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-/*import _RightDrawerListMixin from '../_RightDrawerListMixin';*/
+import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import _MetricListMixin from '../_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
 
 const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
@@ -28,7 +29,7 @@ const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
  * @requires crm.Views.Activity.List
  * @requires crm.Action
  */
-const __class = declare('crm.Views.Activity.MyDay', [List, /*_RightDrawerListMixin,*/ _CardLayoutListMixin], {
+const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
 
   // Templates
   // Card View
@@ -93,6 +94,14 @@ const __class = declare('crm.Views.Activity.MyDay', [List, /*_RightDrawerListMix
   existsRE: /^[\w]{12}$/,
   requestDataUsingModel: function requestDataUsingModel() {
     return this._model.getMyDayEntries(this.query, this.options);
+  },
+  _getCurrentQuery: function _getCurrentQuery(options) {
+    const myDayQuery = this._model.getMyDayQuery();
+    const optionsQuery = options && options.queryArgs && options.queryArgs._activeFilter;
+    return [myDayQuery, optionsQuery].filter(function checkItem(item) {
+        return !!item;
+      })
+      .join(' and ');
   },
   resourceKind: 'userActivities',
   allowSelection: true,

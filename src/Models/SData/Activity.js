@@ -198,6 +198,10 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
         });
     });
   },
+  getMyDayQuery: function getMyDayQuery() {
+    const layout = this._getLayoutByName('myday');
+    return layout && layout.queryWhere();
+  },
   getMyDayEntries: function getEntries(query, options) { // eslint-disable-line
     const store = this.createStore('myday');
     return store.query(this.buildQueryExpression(query, options), this.getOptions(options));
