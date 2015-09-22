@@ -4,20 +4,20 @@ import string from 'dojo/string';
 import query from 'dojo/query';
 import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
-import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
+import List from 'argos/List';
 import action from '../../Action';
+import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
 
 /**
  * @class crm.Views.Activity.MyDay
  *
- * @extends crm.Views.Activity.List
- * @mixins crm.Views.Activity.List
- *
- * @requires argos.List
+ * @requires argos._ListBase
  * @requires argos.Format
  * @requires argos.Utility
  * @requires argos.Convert
@@ -27,11 +27,8 @@ const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
  * @requires crm.Environment
  * @requires crm.Views.Activity.List
  * @requires crm.Action
- *
- * @requires moment
- *
  */
-const __class = declare('crm.Views.Activity.MyDay', [ActivityList], {
+const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
 
   // Templates
   // Card View
@@ -85,56 +82,14 @@ const __class = declare('crm.Views.Activity.MyDay', [ActivityList], {
 
   // View Properties
   id: 'myday_list',
-  hashTagQueries: null,
+  modelName: MODEL_NAMES.ACTIVITY,
+  enableSearch: false,
 
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
-  queryWhere: function queryWhere() {
-    const now = moment();
-    const todayStart = now.clone().startOf('day');
-    const todayEnd = todayStart.clone().endOf('day');
-
-    const theQuery = string.substitute(
-      '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-        convert.toIsoStringFromDate(todayStart.toDate()),
-        convert.toIsoStringFromDate(todayEnd.toDate()),
-        todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-        todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
-    );
-    const userQuery = string.substitute('(User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature")', [App.context.user.$key]);
-
-    return [userQuery, theQuery].join(' and ');
+  requestDataUsingModel: function requestDataUsingModel() {
+    return this._model.getMyDayEntries(this.query, this.options);
   },
-  defaultSearchTerm: function defaultSearchTerm() {
-    return '';
-  },
-  queryOrderBy: 'Activity.StartDate desc',
-  querySelect: [
-    'Alarm',
-    'AlarmTime',
-    'Status',
-    'Activity/Description',
-    'Activity/StartDate',
-    'Activity/EndDate',
-    'Activity/Type',
-    'Activity/AccountName',
-    'Activity/AccountId',
-    'Activity/ContactId',
-    'Activity/ContactName',
-    'Activity/Leader',
-    'Activity/LeadName',
-    'Activity/LeadId',
-    'Activity/OpportunityId',
-    'Activity/TicketId',
-    'Activity/UserId',
-    'Activity/Timeless',
-    'Activity/PhoneNumber',
-    'Activity/Recurring',
-    'Activity/Alarm',
-    'Activity/ModifyDate',
-    'Activity/Priority',
-  ],
   resourceKind: 'userActivities',
   allowSelection: true,
   enableActions: true,
@@ -482,6 +437,14 @@ const __class = declare('crm.Views.Activity.MyDay', [ActivityList], {
   getItemIconClass: function getItemIconClass(entry) {
     const type = entry && entry.Activity && entry.Activity.Type;
     return this._getItemIconClass(type);
+  },
+  _getItemIconClass: function _getItemIconClass(type) {
+    let cls = this._model.activityIndicatorIconByType[type];
+    if (cls) {
+      cls = cls + ' fa-2x';
+    }
+
+    return cls;
   },
   getItemActionKey: function getItemActionKey(entry) {
     return entry.Activity.$key;
