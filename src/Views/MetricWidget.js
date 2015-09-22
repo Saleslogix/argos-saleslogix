@@ -25,7 +25,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    */
   widgetTemplate: new Simplate([
     '<div class="metric-widget">',
-    '<button data-dojo-attach-event="onclick:navToReportView">',
+    '<button data-dojo-attach-event="onclick:navToReportView" {% if (!$.chartType) { %} disabled {% } %}>',
     '<div data-dojo-attach-point="metricDetailNode" class="metric-detail">',
     '{%! $.loadingTemplate %}',
     '</div>',
