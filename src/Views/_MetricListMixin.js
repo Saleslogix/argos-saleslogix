@@ -19,8 +19,10 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   // Metrics
   metricTemplate: new Simplate([
     '<div class="metric-list">',
-    '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
     '</div>',
+  ]),
+  metricWrapper: new Simplate([
+    '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
   ]),
   metricNode: null,
   metricWidgets: null,
@@ -45,8 +47,10 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
-    this.metricNode = domConstruct.toDom(this.metricTemplate.apply(this));
-    domConstruct.place(this.metricNode, this.scrollerNode, 'first');
+    const metricList = domConstruct.toDom(this.metricTemplate.apply(this));
+    this.metricNode = domConstruct.toDom(this.metricWrapper.apply(this));
+    domConstruct.place(this.metricNode, metricList, 'only');
+    domConstruct.place(metricList, this.scrollerNode, 'first');
   },
   destroyWidgets: function destroyWidgets() {
     array.forEach(this.metricWidgets, function destroy(widget) {
