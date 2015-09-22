@@ -337,12 +337,19 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   clear: function clear() {
     // this.monthActivities = null;
   },
-  formatQuery: function formatQuery(value) {
+  formatQueryActivity: function formatQueryActivity(value) {
     return string.substitute('UserActivities.UserId eq "${user}" and Type ne "atLiterature" and StartDate between @${start}@ and @${end}@', {
       user: App.context.user && App.context.user.$key,
-      start: value.startOf('month').format(),
-      end: value.endOf('month').format(),
+      start: value.clone().startOf('month').format(),
+      end: value.clone().endOf('month').format(),
     });
+  },
+  formatQueryEvent: function formatQueryEvent(value) {
+    return string.substitute('UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${end}@) and StartDate lt @${start}@)', {
+          user: App.context.user && App.context.user.$key,
+          start: convert.toIsoStringFromDate(value.clone().startOf('day').toDate()),
+          end: convert.toIsoStringFromDate(value.clone().endOf('day').toDate()),
+        });
   },
   highlightActivities: function highlightActivities() {
     // TODO: Make this function add the indicator to the day to show there is an activity for that day
@@ -376,7 +383,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         // setup with an idProperty
         const entryKey = store.getIdentity(entry);
         this.entries[entryKey] = entry;
-        const date = moment(convert.toDateFromString(entry.StartDate)).clone().format('YYYY-MM-DD');
+        const date = moment(convert.toDateFromString(entry.StartDate)).format('YYYY-MM-DD');
         if (this.monthActivities[date]) {
           this.monthActivities[date].push(entryKey);
         } else {
@@ -391,7 +398,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   processShowOptions: function processShowOptions(options) {
     if (options.currentDate) {
-      this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
+      this.currentDate = moment(options.currentDate).startOf('day') || moment().clone().startOf('day');
       this.refreshRequired = true;
     }
   },
@@ -410,7 +417,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     this.set('activityContent', this.loadingTemplate.apply(this));
     this.currentDate = this._calendar.getSelectedDateMoment();
     this.queryText = '';
-    this.query = this.formatQuery(this.currentDate);
+    this.query = this.formatQueryActivity(this.currentDate);
     this.requestData();
   },
   render: function render() {
@@ -429,7 +436,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     const store = this.get('store');
 
     if (store) {
-      this._setLoading();
       // attempt to use a dojo store
       const queryOptions = {
         count: this.pageSize,
@@ -449,6 +455,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
 
     console.warn('Error requesting data, no store was defined. Did you mean to mixin _SDataListMixin to your list view?'); // eslint-disable-line
+  },
+  requestEventData: function requestEventData() {
+
   },
   selectDay: function selectDay() {
     const selected = this._calendar.getSelectedDateMoment();
