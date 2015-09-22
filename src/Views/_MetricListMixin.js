@@ -81,7 +81,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
       options.request = null;
       options.resourceKind = this.resourceKind;
       options.currentSearchExpression = this.currentSearchExpression;
-      options.queryArgs._activeFilter = this._getCurrentQuery();
+      options.queryArgs._activeFilter = this._getCurrentQuery(options);
     }
 
     return options;
@@ -113,11 +113,12 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     this.metricWidgetsBuilt = true;
   },
-  _getCurrentQuery: function _getCurrentQuery() {
+  _getCurrentQuery: function _getCurrentQuery(options) {
     // Get the current query from the search box, and any context query located in options.where
     const query = this.query;
     const where = this.options && this.options.where;
-    return array.filter([query, where], function checkItem(item) {
+    const optionsQuery = options && options.queryArgs && options.queryArgs._activeFilter;
+    return array.filter([query, where, optionsQuery], function checkItem(item) {
         return !!item;
       })
       .join(' and ');
