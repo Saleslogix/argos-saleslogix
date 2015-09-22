@@ -1,7 +1,7 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import connect from 'dojo/_base/connect';
-import query from 'dojo/query';
+// import query from 'dojo/query';
 import string from 'dojo/string';
 import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
@@ -9,9 +9,10 @@ import domConstruct from 'dojo/dom-construct';
 import List from 'argos/List';
 import Calendar from 'argos/Calendar';
 import convert from 'argos/Convert';
-import ErrorManager from 'argos/ErrorManager';
+// import ErrorManager from 'argos/ErrorManager';
 import Utility from '../../Utility';
-import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
+import when from 'dojo/when';
+// import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 
 const resource = window.localeContext.getEntitySync('calendarView').attributes;
 
@@ -32,7 +33,7 @@ const resource = window.localeContext.getEntitySync('calendarView').attributes;
  * @requires moment
  *
  */
-const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataListMixin], {
+const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // Localization
   titleText: resource.titleText,
   monthTitleFormatText: resource.monthTitleFormatText,
@@ -61,7 +62,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
       '<div class="panel-content">',
         '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
         '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-          '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
           '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
           '{%! $.eventMoreTemplate %}',
         '</div>',
@@ -83,7 +83,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   ]),
   activityIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-      '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
+      '<button class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
       '</button>',
     '</div>',
   ]),
@@ -117,7 +117,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
       '<table class="calendar-entry-table"><tr>',
         '<td class="entry-table-icon">',
-          '<button data-action="selectEntry" class="list-item-selector button {%= $$.eventIcon %}">',
+          '<button class="list-item-selector button {%= $$.eventIcon %}">',
           '</button>',
         '</td>',
       '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
@@ -201,47 +201,49 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
   enableSearch: false,
   dateCounts: null,
   currentDate: null,
+  monthActivities: null,
+  _dataLoaded: false,
 
-  pageSize: 500,
-  queryWhere: null,
-  queryOrderBy: 'StartDate asc', // desc
-  querySelect: [
-    'StartDate',
-    'Timeless',
-    'Type',
-  ],
-  feed: null,
-  eventFeed: null,
-  entries: null,
-  selectedDateRequests: null,
-  selectedDateEventRequests: null,
-  monthRequests: null,
-  monthEventRequests: null,
-
-  eventPageSize: 3,
-  eventQueryWhere: null,
-  eventQuerySelect: [
-    'StartDate',
-    'EndDate',
-    'Description',
-    'Type',
-  ],
-
-  activityPageSize: 10,
-  activityQueryWhere: null,
-  activityQuerySelect: [
-    'StartDate',
-    'Description',
-    'Type',
-    'AccountName',
-    'ContactName',
-    'LeadId',
-    'LeadName',
-    'UserId',
-    'Timeless',
-    'Recurring',
-    'Notes',
-  ],
+  // pageSize: 500,
+  // queryWhere: null,
+  // queryOrderBy: 'StartDate asc', // desc
+  // querySelect: [
+  //   'StartDate',
+  //   'Timeless',
+  //   'Type',
+  // ],
+  // feed: null,
+  // eventFeed: null,
+  // entries: null,
+  // selectedDateRequests: null,
+  // selectedDateEventRequests: null,
+  // monthRequests: null,
+  // monthEventRequests: null,
+  //
+  // eventPageSize: 3,
+  // eventQueryWhere: null,
+  // eventQuerySelect: [
+  //   'StartDate',
+  //   'EndDate',
+  //   'Description',
+  //   'Type',
+  // ],
+  //
+  // activityPageSize: 10,
+  // activityQueryWhere: null,
+  // activityQuerySelect: [
+  //   'StartDate',
+  //   'Description',
+  //   'Type',
+  //   'AccountName',
+  //   'ContactName',
+  //   'LeadId',
+  //   'LeadName',
+  //   'UserId',
+  //   'Timeless',
+  //   'Recurring',
+  //   'Notes',
+  // ],
   activityIconByType: {
     'atToDo': 'fa fa-list-ul',
     'atPhoneCall': 'fa fa-phone',
@@ -252,432 +254,205 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
     'atNote': 'fa fa-calendar-o',
     'atEMail': 'fa fa-envelope',
   },
-  eventIcon: 'fa fa-calendar-o',
+  // eventIcon: 'fa fa-calendar-o',
+  //
+  // resourceKind: 'activities',
 
+  queryOrderBy: 'StartDate desc',
+  querySelect: [
+    'Description',
+    'StartDate',
+    'Type',
+    'AccountId',
+    'AccountName',
+    'ContactId',
+    'ContactName',
+    'PhoneNumber',
+    'LeadId',
+    'LeadName',
+    'TicketId',
+    'OpportunityId',
+    'Leader',
+    'UserId',
+    'Timeless',
+    'Alarm',
+    'Priority',
+    'ModifyDate',
+    'RecurrenceState',
+    'Recurring',
+    'Notes',
+  ],
+  queryInclude: [
+    '$descriptors',
+  ],
   resourceKind: 'activities',
+  contractName: 'system',
+  pageSize: 105,
 
   constructor: function constructor() {
-    this.feed = {};
-    this.eventFeed = {};
-    this.entries = {};
-    this.dateCounts = [];
+    // this.feed = {};
+    // this.eventFeed = {};
+    // this.entries = {};
+    // this.dateCounts = [];
   },
-  _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
-    if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
-      this.refreshRequired = true;
+  // _onRefresh: function _onRefresh(o) {
+  //   this.inherited(arguments);
+  //   if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
+  //     this.refreshRequired = true;
+  //   }
+  // },
+  changeDayActivities: function changeDayActivities() {
+    domClass.remove(this.activityContainerNode, 'list-loading');
+    const entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
+    if (!entries) {
+      this.set('activityContent', this.noDataTemplate.apply(this));
+      return;
+    }
+
+    const count = entries.length;
+
+    if (count > 0) {
+      const docfrag = document.createDocumentFragment();
+      for (let i = 0; i < count; i++) {
+        const entry = this.entries[entries[i]];
+        let rowNode;
+        try {
+          rowNode = domConstruct.toDom(this.activityRowTemplate.apply(entry, this));
+        } catch (err) {
+          console.error(err); // eslint-disable-line
+          rowNode = domConstruct.toDom(this.rowTemplateError.apply(entry, this));
+        }
+
+        docfrag.appendChild(rowNode);
+        this.onApplyRowTemplate(entry, rowNode);
+      }
+
+      if (docfrag.childNodes.length > 0) {
+        domConstruct.place(docfrag, this.activityContentNode, 'last');
+      }
+    } else {
+      this.set('activityContent', this.noDataTemplate.apply(this));
     }
   },
   clear: function clear() {
+    // this.monthActivities = null;
   },
-  startup: function startup() {
-    this.inherited(arguments);
-  },
-  render: function render() {
-    this.inherited(arguments);
-    this.renderCalendar();
-  },
-  activateActivityMore: function activateActivityMore() {
-    this.navigateToDayView();
-  },
-  activateEventMore: function activateEventMore() {
-    const view = App.getView('event_related');
-    const where = this.getSelectedDateEventQuery();
-    if (view) {
-      view.show({
-        'where': where,
-      });
-    }
-  },
-  toggleGroup: function toggleGroup(params) {
-    const node = params.$source;
-    if (node && node.parentNode) {
-      domClass.toggle(node, 'collapsed');
-      domClass.toggle(node.parentNode, 'collapsed-event');
-
-      const button = this.collapseButton;
-
-      if (button) {
-        domClass.toggle(button, this.toggleCollapseClass);
-        domClass.toggle(button, this.toggleExpandClass);
-      }
-    }
-  },
-  selectDay: function selectDay() {
-    this.currentDate = this._calendar.getSelectedDateMoment();
-    this.getSelectedDate();
-  },
-  getFirstDayOfCurrentMonth: function getFirstDayOfCurrentMonth() {
-    return this.currentDate.clone().startOf('month');
-  },
-  getLastDayOfCurrentMonth: function getLastDayOfCurrentMonth() {
-    return this.currentDate.clone().endOf('month');
-  },
-  getTodayMonthActivities: function getTodayMonthActivities() {
-    const today = moment().startOf('day');
-
-    if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
-      this.currentDate = today;
-      this.highlightCurrentDate();
-      this.getSelectedDate();
-    } else {
-      this.currentDate = today;
-      this.refresh();
-    }
-  },
-  refresh: function refresh() {
-    this.renderCalendar();
-    this.queryWhere = this.getActivityQuery();
-    this.feed = null;
-    this.eventFeed = null;
-    this.dateCounts = [];
-    this.requestData();
-    this.requestEventData();
-  },
-  requestData: function requestData() {
-    this.cancelRequests(this.monthRequests);
-    this.monthRequests = [];
-
-    const request = this.createRequest();
-    request.setContractName(this.contractName || 'system');
-
-    const xhr = request.read({
-      success: this.onRequestDataSuccess,
-      failure: this.onRequestDataFailure,
-      aborted: this.onRequestDataAborted,
-      scope: this,
-    });
-    this.monthRequests.push(xhr);
-  },
-  createEventRequest: function createEventRequest() {
-    const querySelect = this.eventQuerySelect;
-    const queryWhere = this.getEventQuery();
-    const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-      .setCount(this.pageSize)
-      .setStartIndex(1)
-      .setResourceKind('events')
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
-
-    return request;
-  },
-  requestEventData: function requestEventData() {
-    this.cancelRequests(this.monthEventRequests);
-    this.monthEventRequests = [];
-
-    const request = this.createEventRequest();
-    const xhr = request.read({
-      success: this.onRequestEventDataSuccess,
-      failure: this.onRequestEventDataFailure,
-      aborted: this.onRequestEventDataAborted,
-      scope: this,
-    });
-    this.monthEventRequests.push(xhr);
-  },
-  onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
-    alert(string.substitute(this.requestErrorText, [response, o]));// eslint-disable-line
-    ErrorManager.addError(response, o, this.options, 'failure');
-  },
-  onRequestEventDataAborted: function onRequestEventDataAborted() {
-    this.options = false; // force a refresh
-  },
-  onRequestEventDataSuccess: function onRequestEventDataSuccess(feed) {
-    this.processEventFeed(feed);
-  },
-  getActivityQuery: function getActivityQuery() {
-    const startDate = this.getFirstDayOfCurrentMonth();
-    const endDate = this.getLastDayOfCurrentMonth();
-    return string.substitute(
-      [
-        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-        '(Timeless eq false and StartDate',
-        ' between @${1}@ and @${2}@) or ',
-        '(Timeless eq true and StartDate',
-        ' between @${3}@ and @${4}@))',
-      ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
-    );
-  },
-  getEventQuery: function getEventQuery() {
-    const startDate = this.getFirstDayOfCurrentMonth();
-    const endDate = this.getLastDayOfCurrentMonth();
-    return string.substitute(
-      [
-        'UserId eq "${0}" and (',
-        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-        'StartDate lt @${2}@',
-        ')',
-      ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-      ]
-    );
-  },
-  parseName: function parseName(name = {}) {
-    return name.split(' ').splice(-1);
-  },
-  processFeed: function processFeed(feed) {
-    if (!feed) {
-      return;
-    }
-
-    const r = feed.$resources;
-    this.feed = feed;
-
-    for (let i = 0; i < r.length; i++) {
-      const row = r[i];
-
-      // Preserve the isEvent flag if we have an existing entry for it already,
-      // the order of processFeed and processEventFeed is not predictable
-      row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
-
-      this.entries[row.$key] = row;
-
-      const startDay = moment(convert.toDateFromString(row.StartDate));
-      if (r[i].Timeless) {
-        startDay.add({
-          minutes: startDay.zone(),
-        });
-      }
-
-      const dateIndex = startDay.format('YYYY-MM-DD');
-      this.dateCounts[dateIndex] = (this.dateCounts[dateIndex]) ? this.dateCounts[dateIndex] + 1 : 1;
-    }
-
-    this.highlightActivities();
-  },
-  processEventFeed: function processEventFeed(feed) {
-    if (!feed) {
-      return;
-    }
-
-    const r = feed.$resources;
-    const feedLength = r.length;
-    this.eventFeed = feed;
-
-    for (let i = 0; i < feedLength; i++) {
-      const row = r[i];
-      // Preserve the isEvent flag if we have an existing entry for it already,
-      // the order of processFeed and processEventFeed is not predictable
-      row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
-      this.entries[row.$key] = row;
-
-      const startDay = moment(convert.toDateFromString(row.StartDate));
-      const endDay = convert.toDateFromString(row.EndDate);
-
-      while (startDay.valueOf() <= endDay.valueOf()) {
-        const dateIndex = startDay.format('YYYY-MM-DD');
-        this.dateCounts[dateIndex] = (this.dateCounts[dateIndex]) ? this.dateCounts[dateIndex] + 1 : 1;
-        startDay.add({
-          days: 1,
-        });
-      }
-    }
-
-    this.highlightActivities();
+  formatQuery: function formatQuery(value) {
+    return string.substitute('StartDate between @${start}@ and @${end}@', {start: value.startOf('month').format(), end: value.endOf('month').format()});
   },
   highlightActivities: function highlightActivities() {
     // TODO: Make this function add the indicator to the day to show there is an activity for that day
     array.forEach(this._calendar.weeksNode.childNodes, (week) => {
       array.forEach(week.childNodes, (day) => {
-        if (!this.dateCounts[domAttr.get(day, 'data-date')]) {
+        if (!this.monthActivities[domAttr.get(day, 'data-date')]) {
           return;
         }
-        day.subValue = this.dateCounts[domAttr.get(day, 'data-date')];
+        day.subValue = this.monthActivities[domAttr.get(day, 'data-date')];
         this._calendar.setActiveDay(day);
       }, this);
     }, this);
     return this;
   },
-  hideEventList: function hideEventList() {
-    domClass.add(this.eventContainerNode, 'event-hidden');
+  parseName: function parseName(name = {}) {
+    return name.split(' ').splice(-1)[0];
   },
-  showEventList: function showEventList() {
-    domClass.remove(this.eventContainerNode, 'event-hidden');
-  },
-  getSelectedDate: function getSelectedDate() {
-    this.clearSelectedDate();
-    this.requestSelectedDateActivities();
-    this.requestSelectedDateEvents();
-  },
-  clearSelectedDate: function clearSelectedDate() {
-    domClass.add(this.activityContainerNode, 'list-loading');
-    this.set('activityContent', this.loadingTemplate.apply(this));
-    this.hideEventList();
-  },
-  cancelRequests: function cancelRequests(requests) {
-    if (!requests) {
+  processData: function processData(entries) {
+    if (!entries) {
       return;
     }
 
-    array.forEach(requests, function forEach(xhr) {
-      if (xhr) { // if request was fulfilled by offline storage, xhr will be undefined
-        xhr.abort();
+    const store = this.get('store');
+    const count = entries.length;
+    this.monthActivities = [];
+
+    if (count > 0) {
+      for (let i = 0; i < count; i++) {
+        const entry = this._processEntry(entries[i]);
+        // If key comes back with nothing, check that the store is properly
+        // setup with an idProperty
+        const entryKey = store.getIdentity(entry);
+        this.entries[entryKey] = entry;
+        const date = moment(convert.toDateFromString(entry.StartDate)).clone().format('YYYY-MM-DD');
+        if (this.monthActivities[date]) {
+          this.monthActivities[date].push(entryKey);
+        } else {
+          this.monthActivities[date] = [entryKey];
+        }
       }
-    });
-  },
-  requestSelectedDateActivities: function requestSelectedDateActivities() {
-    this.cancelRequests(this.selectedDateRequests);
-    this.selectedDateRequests = [];
-
-    const request = this.createSelectedDateRequest({
-      pageSize: this.activityPageSize,
-      resourceKind: 'activities',
-      contractName: 'system',
-      querySelect: this.activityQuerySelect,
-      queryWhere: this.getSelectedDateActivityQuery(),
-    });
-
-    const xhr = request.read({
-      success: this.onRequestSelectedDateActivityDataSuccess,
-      failure: this.onRequestDataFailure,
-      aborted: this.onRequestDataAborted,
-      scope: this,
-    });
-    this.selectedDateRequests.push(xhr);
-  },
-  requestSelectedDateEvents: function requestSelectedDateEvents() {
-    this.cancelRequests(this.selectedDateEventRequests);
-    this.selectedDateEventRequests = [];
-
-    const request = this.createSelectedDateRequest({
-      pageSize: this.eventPageSize,
-      resourceKind: 'events',
-      contractName: 'dynamic',
-      querySelect: this.eventQuerySelect,
-      queryWhere: this.getSelectedDateEventQuery(),
-    });
-
-    const xhr = request.read({
-      success: this.onRequestSelectedDateEventDataSuccess,
-      failure: this.onRequestDataFailure,
-      aborted: this.onRequestDataAborted,
-      scope: this,
-    });
-    this.selectedDateEventRequests.push(xhr);
-  },
-  createSelectedDateRequest: function createSelectedDateRequest(o) {
-    const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-      .setCount(o.pageSize)
-      .setStartIndex(1)
-      .setResourceKind(o.resourceKind)
-      .setContractName(o.contractName || App.defaultService.getContractName().text)
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, o.queryOrderBy || this.queryOrderBy)
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect).join(','))
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
-    return request;
-  },
-  getSelectedDateActivityQuery: function getSelectedDateActivityQuery() {
-    const activityQuery = [
-      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-      '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
-      '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
-    ].join('');
-
-    const results = string.substitute(
-      activityQuery, [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(this.currentDate.toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
-        this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        this.currentDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]);
-
-    return results;
-  },
-  getSelectedDateEventQuery: function getSelectedDateEventQuery() {
-    return string.substitute(
-      [
-        'UserId eq "${0}" and (',
-        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-        'StartDate lt @${2}@',
-        ')',
-      ].join(''), [
-        App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(this.currentDate.toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
-      ]
-    );
-  },
-  onRequestSelectedDateActivityDataSuccess: function onRequestSelectedDateActivityDataSuccess(feed) {
-    if (!feed) {
-      return false;
     }
-
-    domClass.remove(this.activityContainerNode, 'list-loading');
-
-    const r = feed.$resources;
-    const feedLength = r.length;
-    const o = [];
-
-    for (let i = 0; i < feedLength; i++) {
-      const row = r[i];
-      row.isEvent = false;
-      this.entries[row.$key] = row;
-      o.push(this.activityRowTemplate.apply(row, this));
-    }
-
-    if (feedLength === 0) {
-      this.set('activityContent', this.noDataTemplate.apply(this));
-      return false;
-    }
-
-    if (feed.$totalResults > feedLength) {
-      domClass.add(this.activityContainerNode, 'list-has-more');
-      this.set('activityRemainingContent', this.countMoreText);
-    } else {
-      domClass.remove(this.activityContainerNode, 'list-has-more');
-      this.set('activityRemainingContent', '');
-    }
-
-    this.set('activityContent', o.join(''));
+    this._dataLoaded = true;
+    this.highlightActivities();
+    this.changeDayActivities();
   },
-  onRequestSelectedDateEventDataSuccess: function onRequestSelectedDateEventDataSuccess(feed) {
-    if (!feed) {
-      return false;
+  processShowOptions: function processShowOptions(options) {
+    if (options.currentDate) {
+      this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
+      this.refreshRequired = true;
     }
-
-    const r = feed.$resources;
-    const feedLength = r.length;
-    const o = [];
-
-    this.eventFeed = feed;
-
-    if (feedLength === 0) {
-      this.hideEventList();
-      return false;
-    }
-    this.showEventList();
-
-    for (let i = 0; i < feedLength; i++) {
-      const row = r[i];
-      row.isEvent = true;
-      this.entries[row.$key] = row;
-      o.push(this.eventRowTemplate.apply(row, this));
-    }
-
-    if (feed.$totalResults > feedLength) {
-      domClass.add(this.eventContainerNode, 'list-has-more');
-      this.set('eventRemainingContent', this.countMoreText);
-    } else {
-      domClass.remove(this.eventContainerNode, 'list-has-more');
-      this.set('eventRemainingContent', '');
-    }
-
-    this.set('eventContent', o.join(''));
   },
-
+  refresh: function refresh() {
+    this.renderCalendar();
+    // this.queryWhere = this.getActivityQuery();
+    // this.feed = null;
+    // this.eventFeed = null;
+    // this.dateCounts = [];
+    // this.requestData();
+    // this.requestEventData();
+  },
+  refreshData: function refreshData() {
+    this.currentDate = this._calendar.getSelectedDateMoment();
+    this.queryText = '';
+    this.query = this.formatQuery(this.currentDate);
+    this.requestData();
+  },
+  render: function render() {
+    this.inherited(arguments);
+    this.renderCalendar();
+  },
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
-      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true});
+      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true, postRenderCalendar: this.refreshData.bind(this)});
       domConstruct.place(this._calendar.domNode, this.calendarNode);
       connect.connect(this._calendar, 'changeDay', this, this.selectDay);
       this._calendar.show();
     }
-    this.currentDate = this._calendar.getSelectedDateMoment();
+    // this.currentDate = this._calendar.getSelectedDateMoment();
+  },
+  requestData: function requestData() {
+    const store = this.get('store');
+
+    if (store) {
+      this._setLoading();
+      // attempt to use a dojo store
+      const queryOptions = {
+        count: this.pageSize,
+        start: this.position,
+      };
+
+      this._applyStateToQueryOptions(queryOptions);
+
+      const queryExpression = this._buildQueryExpression() || null;
+      const queryResults = store.query(queryExpression, queryOptions);
+
+      when(queryResults,
+        this.processData.bind(this),
+        this._onQueryError.bind(this, queryOptions));
+
+      return queryResults;
+    }
+
+    console.warn('Error requesting data, no store was defined. Did you mean to mixin _SDataListMixin to your list view?'); // eslint-disable-line
+  },
+  selectDay: function selectDay() {
+    const selected = this._calendar.getSelectedDateMoment();
+    domClass.add(this.activityContainerNode, 'list-loading');
+    this.set('activityContent', this.loadingTemplate.apply(this));
+    if (this.currentDate && this._dataLoaded) {
+      domConstruct.empty(this.activityContentNode);
+      this.currentDate = selected;
+      this.changeDayActivities();
+    }
+    // this.getSelectedDate();
   },
   show: function show(options) {
     this.inherited(arguments);
@@ -688,48 +463,408 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List, _LegacySDataLi
       this.renderCalendar();
     }
   },
-  processShowOptions: function processShowOptions(options) {
-    if (options.currentDate) {
-      this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
-      this.refreshRequired = true;
-    }
+  startup: function startup() {
+    this.inherited(arguments);
   },
-  selectEntry: function selectEntry(params) {
-    const row = query(params.$source).closest('[data-key]')[0];
-    const key = row ? row.getAttribute('data-key') : false;
-
-    this.navigateToDetailView(key);
-  },
-  navigateToInsertView: function navigateToInsertView() {
-    const view = App.getView(this.insertView || this.editView);
-
-    if (!this.options) {
-      this.options = {};
-    }
-
-    this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
-    if (view) {
-      view.show({
-        negateHistory: true,
-        returnTo: this.id,
-        insert: true,
-        currentDate: this.options.currentDate.valueOf(),
-      });
-    }
-  },
-  navigateToDetailView: function navigateToDetailView(key, _descriptor) {
-    let descriptor = _descriptor;
-    const entry = this.entries[key];
-    const detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
-    const view = App.getView(detailView);
-    descriptor = (entry.isEvent) ? descriptor : entry.Description;
-    if (view) {
-      view.show({
-        title: descriptor,
-        key: key,
-      });
-    }
-  },
+  // activateActivityMore: function activateActivityMore() {
+  //   this.navigateToDayView();
+  // },
+  // activateEventMore: function activateEventMore() {
+  //   const view = App.getView('event_related');
+  //   const where = this.getSelectedDateEventQuery();
+  //   if (view) {
+  //     view.show({
+  //       'where': where,
+  //     });
+  //   }
+  // },
+  // toggleGroup: function toggleGroup(params) {
+  //   const node = params.$source;
+  //   if (node && node.parentNode) {
+  //     domClass.toggle(node, 'collapsed');
+  //     domClass.toggle(node.parentNode, 'collapsed-event');
+  //
+  //     const button = this.collapseButton;
+  //
+  //     if (button) {
+  //       domClass.toggle(button, this.toggleCollapseClass);
+  //       domClass.toggle(button, this.toggleExpandClass);
+  //     }
+  //   }
+  // },
+  // getFirstDayOfCurrentMonth: function getFirstDayOfCurrentMonth() {
+  //   return this.currentDate.clone().startOf('month');
+  // },
+  // getLastDayOfCurrentMonth: function getLastDayOfCurrentMonth() {
+  //   return this.currentDate.clone().endOf('month');
+  // },
+  // getTodayMonthActivities: function getTodayMonthActivities() {
+  //   const today = moment().startOf('day');
+  //
+  //   if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
+  //     this.currentDate = today;
+  //     this.highlightCurrentDate();
+  //     this.getSelectedDate();
+  //   } else {
+  //     this.currentDate = today;
+  //     this.refresh();
+  //   }
+  // },
+  // requestData: function requestData() {
+  //   this.cancelRequests(this.monthRequests);
+  //   this.monthRequests = [];
+  //
+  //   const request = this.createRequest();
+  //   request.setContractName(this.contractName || 'system');
+  //
+  //   const xhr = request.read({
+  //     success: this.onRequestDataSuccess,
+  //     failure: this.onRequestDataFailure,
+  //     aborted: this.onRequestDataAborted,
+  //     scope: this,
+  //   });
+  //   this.monthRequests.push(xhr);
+  // },
+  // createEventRequest: function createEventRequest() {
+  //   const querySelect = this.eventQuerySelect;
+  //   const queryWhere = this.getEventQuery();
+  //   const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+  //     .setCount(this.pageSize)
+  //     .setStartIndex(1)
+  //     .setResourceKind('events')
+  //     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
+  //     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+  //
+  //   return request;
+  // },
+  // requestEventData: function requestEventData() {
+  //   this.cancelRequests(this.monthEventRequests);
+  //   this.monthEventRequests = [];
+  //
+  //   const request = this.createEventRequest();
+  //   const xhr = request.read({
+  //     success: this.onRequestEventDataSuccess,
+  //     failure: this.onRequestEventDataFailure,
+  //     aborted: this.onRequestEventDataAborted,
+  //     scope: this,
+  //   });
+  //   this.monthEventRequests.push(xhr);
+  // },
+  // onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
+  //   alert(string.substitute(this.requestErrorText, [response, o]));// eslint-disable-line
+  //   ErrorManager.addError(response, o, this.options, 'failure');
+  // },
+  // onRequestEventDataAborted: function onRequestEventDataAborted() {
+  //   this.options = false; // force a refresh
+  // },
+  // onRequestEventDataSuccess: function onRequestEventDataSuccess(feed) {
+  //   this.processEventFeed(feed);
+  // },
+  // getActivityQuery: function getActivityQuery() {
+  //   const startDate = this.getFirstDayOfCurrentMonth();
+  //   const endDate = this.getLastDayOfCurrentMonth();
+  //   return string.substitute(
+  //     [
+  //       'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+  //       '(Timeless eq false and StartDate',
+  //       ' between @${1}@ and @${2}@) or ',
+  //       '(Timeless eq true and StartDate',
+  //       ' between @${3}@ and @${4}@))',
+  //     ].join(''), [App.context.user && App.context.user.$key,
+  //       convert.toIsoStringFromDate(startDate.toDate()),
+  //       convert.toIsoStringFromDate(endDate.toDate()),
+  //       startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+  //       endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+  //     ]
+  //   );
+  // },
+  // getEventQuery: function getEventQuery() {
+  //   const startDate = this.getFirstDayOfCurrentMonth();
+  //   const endDate = this.getLastDayOfCurrentMonth();
+  //   return string.substitute(
+  //     [
+  //       'UserId eq "${0}" and (',
+  //       '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+  //       'StartDate lt @${2}@',
+  //       ')',
+  //     ].join(''), [App.context.user && App.context.user.$key,
+  //       convert.toIsoStringFromDate(startDate.toDate()),
+  //       convert.toIsoStringFromDate(endDate.toDate()),
+  //     ]
+  //   );
+  // },
+  // processFeed: function processFeed(feed) {
+  //   if (!feed) {
+  //     return;
+  //   }
+  //
+  //   const r = feed.$resources;
+  //   this.feed = feed;
+  //
+  //   for (let i = 0; i < r.length; i++) {
+  //     const row = r[i];
+  //
+  //     // Preserve the isEvent flag if we have an existing entry for it already,
+  //     // the order of processFeed and processEventFeed is not predictable
+  //     row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
+  //
+  //     this.entries[row.$key] = row;
+  //
+  //     const startDay = moment(convert.toDateFromString(row.StartDate));
+  //     if (r[i].Timeless) {
+  //       startDay.add({
+  //         minutes: startDay.zone(),
+  //       });
+  //     }
+  //
+  //     const dateIndex = startDay.format('YYYY-MM-DD');
+  //     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex]) ? this.dateCounts[dateIndex] + 1 : 1;
+  //   }
+  //
+  //   this.highlightActivities();
+  // },
+  // processEventFeed: function processEventFeed(feed) {
+  //   if (!feed) {
+  //     return;
+  //   }
+  //
+  //   const r = feed.$resources;
+  //   const feedLength = r.length;
+  //   this.eventFeed = feed;
+  //
+  //   for (let i = 0; i < feedLength; i++) {
+  //     const row = r[i];
+  //     // Preserve the isEvent flag if we have an existing entry for it already,
+  //     // the order of processFeed and processEventFeed is not predictable
+  //     row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
+  //     this.entries[row.$key] = row;
+  //
+  //     const startDay = moment(convert.toDateFromString(row.StartDate));
+  //     const endDay = convert.toDateFromString(row.EndDate);
+  //
+  //     while (startDay.valueOf() <= endDay.valueOf()) {
+  //       const dateIndex = startDay.format('YYYY-MM-DD');
+  //       this.dateCounts[dateIndex] = (this.dateCounts[dateIndex]) ? this.dateCounts[dateIndex] + 1 : 1;
+  //       startDay.add({
+  //         days: 1,
+  //       });
+  //     }
+  //   }
+  //
+  //   this.highlightActivities();
+  // },
+  // hideEventList: function hideEventList() {
+  //   domClass.add(this.eventContainerNode, 'event-hidden');
+  // },
+  // showEventList: function showEventList() {
+  //   domClass.remove(this.eventContainerNode, 'event-hidden');
+  // },
+  // getSelectedDate: function getSelectedDate() {
+  //   this.clearSelectedDate();
+  //   this.requestSelectedDateActivities();
+  //   this.requestSelectedDateEvents();
+  // },
+  // clearSelectedDate: function clearSelectedDate() {
+  //   domClass.add(this.activityContainerNode, 'list-loading');
+  //   this.set('activityContent', this.loadingTemplate.apply(this));
+  //   this.hideEventList();
+  // },
+  // cancelRequests: function cancelRequests(requests) {
+  //   if (!requests) {
+  //     return;
+  //   }
+  //
+  //   array.forEach(requests, function forEach(xhr) {
+  //     if (xhr) { // if request was fulfilled by offline storage, xhr will be undefined
+  //       xhr.abort();
+  //     }
+  //   });
+  // },
+  // requestSelectedDateActivities: function requestSelectedDateActivities() {
+  //   this.cancelRequests(this.selectedDateRequests);
+  //   this.selectedDateRequests = [];
+  //
+  //   const request = this.createSelectedDateRequest({
+  //     pageSize: this.activityPageSize,
+  //     resourceKind: 'activities',
+  //     contractName: 'system',
+  //     querySelect: this.activityQuerySelect,
+  //     queryWhere: this.getSelectedDateActivityQuery(),
+  //   });
+  //
+  //   const xhr = request.read({
+  //     success: this.onRequestSelectedDateActivityDataSuccess,
+  //     failure: this.onRequestDataFailure,
+  //     aborted: this.onRequestDataAborted,
+  //     scope: this,
+  //   });
+  //   this.selectedDateRequests.push(xhr);
+  // },
+  // requestSelectedDateEvents: function requestSelectedDateEvents() {
+  //   this.cancelRequests(this.selectedDateEventRequests);
+  //   this.selectedDateEventRequests = [];
+  //
+  //   const request = this.createSelectedDateRequest({
+  //     pageSize: this.eventPageSize,
+  //     resourceKind: 'events',
+  //     contractName: 'dynamic',
+  //     querySelect: this.eventQuerySelect,
+  //     queryWhere: this.getSelectedDateEventQuery(),
+  //   });
+  //
+  //   const xhr = request.read({
+  //     success: this.onRequestSelectedDateEventDataSuccess,
+  //     failure: this.onRequestDataFailure,
+  //     aborted: this.onRequestDataAborted,
+  //     scope: this,
+  //   });
+  //   this.selectedDateEventRequests.push(xhr);
+  // },
+  // createSelectedDateRequest: function createSelectedDateRequest(o) {
+  //   const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+  //     .setCount(o.pageSize)
+  //     .setStartIndex(1)
+  //     .setResourceKind(o.resourceKind)
+  //     .setContractName(o.contractName || App.defaultService.getContractName().text)
+  //     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, o.queryOrderBy || this.queryOrderBy)
+  //     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect).join(','))
+  //     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
+  //   return request;
+  // },
+  // getSelectedDateActivityQuery: function getSelectedDateActivityQuery() {
+  //   const activityQuery = [
+  //     'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+  //     '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
+  //     '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
+  //   ].join('');
+  //
+  //   const results = string.substitute(
+  //     activityQuery, [App.context.user && App.context.user.$key,
+  //       convert.toIsoStringFromDate(this.currentDate.toDate()),
+  //       convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
+  //       this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
+  //       this.currentDate.format('YYYY-MM-DDT23:59:59[Z]'),
+  //     ]);
+  //
+  //   return results;
+  // },
+  // getSelectedDateEventQuery: function getSelectedDateEventQuery() {
+  //   return string.substitute(
+  //     [
+  //       'UserId eq "${0}" and (',
+  //       '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+  //       'StartDate lt @${2}@',
+  //       ')',
+  //     ].join(''), [
+  //       App.context.user && App.context.user.$key,
+  //       convert.toIsoStringFromDate(this.currentDate.toDate()),
+  //       convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
+  //     ]
+  //   );
+  // },
+  // onRequestSelectedDateActivityDataSuccess: function onRequestSelectedDateActivityDataSuccess(feed) {
+  //   if (!feed) {
+  //     return false;
+  //   }
+  //
+  //   domClass.remove(this.activityContainerNode, 'list-loading');
+  //
+  //   const r = feed.$resources;
+  //   const feedLength = r.length;
+  //   const o = [];
+  //
+  //   for (let i = 0; i < feedLength; i++) {
+  //     const row = r[i];
+  //     row.isEvent = false;
+  //     this.entries[row.$key] = row;
+  //     o.push(this.activityRowTemplate.apply(row, this));
+  //   }
+  //
+  //   if (feedLength === 0) {
+  //     this.set('activityContent', this.noDataTemplate.apply(this));
+  //     return false;
+  //   }
+  //
+  //   if (feed.$totalResults > feedLength) {
+  //     domClass.add(this.activityContainerNode, 'list-has-more');
+  //     this.set('activityRemainingContent', this.countMoreText);
+  //   } else {
+  //     domClass.remove(this.activityContainerNode, 'list-has-more');
+  //     this.set('activityRemainingContent', '');
+  //   }
+  //
+  //   this.set('activityContent', o.join(''));
+  // },
+  // onRequestSelectedDateEventDataSuccess: function onRequestSelectedDateEventDataSuccess(feed) {
+  //   if (!feed) {
+  //     return false;
+  //   }
+  //
+  //   const r = feed.$resources;
+  //   const feedLength = r.length;
+  //   const o = [];
+  //
+  //   this.eventFeed = feed;
+  //
+  //   if (feedLength === 0) {
+  //     this.hideEventList();
+  //     return false;
+  //   }
+  //   this.showEventList();
+  //
+  //   for (let i = 0; i < feedLength; i++) {
+  //     const row = r[i];
+  //     row.isEvent = true;
+  //     this.entries[row.$key] = row;
+  //     o.push(this.eventRowTemplate.apply(row, this));
+  //   }
+  //
+  //   if (feed.$totalResults > feedLength) {
+  //     domClass.add(this.eventContainerNode, 'list-has-more');
+  //     this.set('eventRemainingContent', this.countMoreText);
+  //   } else {
+  //     domClass.remove(this.eventContainerNode, 'list-has-more');
+  //     this.set('eventRemainingContent', '');
+  //   }
+  //
+  //   this.set('eventContent', o.join(''));
+  // },
+  // selectEntry: function selectEntry(params) {
+  //   const row = query(params.$source).closest('[data-key]')[0];
+  //   const key = row ? row.getAttribute('data-key') : false;
+  //
+  //   this.navigateToDetailView(key);
+  // },
+  // navigateToInsertView: function navigateToInsertView() {
+  //   const view = App.getView(this.insertView || this.editView);
+  //
+  //   if (!this.options) {
+  //     this.options = {};
+  //   }
+  //
+  //   this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
+  //   if (view) {
+  //     view.show({
+  //       negateHistory: true,
+  //       returnTo: this.id,
+  //       insert: true,
+  //       currentDate: this.options.currentDate.valueOf(),
+  //     });
+  //   }
+  // },
+  // navigateToDetailView: function navigateToDetailView(key, _descriptor) {
+  //   let descriptor = _descriptor;
+  //   const entry = this.entries[key];
+  //   const detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
+  //   const view = App.getView(detailView);
+  //   descriptor = (entry.isEvent) ? descriptor : entry.Description;
+  //   if (view) {
+  //     view.show({
+  //       title: descriptor,
+  //       key: key,
+  //     });
+  //   }
+  // },
 });
 
 export default __class;
