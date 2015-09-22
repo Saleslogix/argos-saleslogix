@@ -385,6 +385,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       }
     }
     this._dataLoaded = true;
+    domConstruct.empty(this.activityContentNode);
     this.highlightActivities();
     this.changeDayActivities();
   },
@@ -404,6 +405,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     // this.requestEventData();
   },
   refreshData: function refreshData() {
+    this._dataLoaded = false;
+    domClass.add(this.activityContainerNode, 'list-loading');
+    this.set('activityContent', this.loadingTemplate.apply(this));
     this.currentDate = this._calendar.getSelectedDateMoment();
     this.queryText = '';
     this.query = this.formatQuery(this.currentDate);
@@ -420,7 +424,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       connect.connect(this._calendar, 'changeDay', this, this.selectDay);
       this._calendar.show();
     }
-    // this.currentDate = this._calendar.getSelectedDateMoment();
   },
   requestData: function requestData() {
     const store = this.get('store');
@@ -449,12 +452,12 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   selectDay: function selectDay() {
     const selected = this._calendar.getSelectedDateMoment();
-    domClass.add(this.activityContainerNode, 'list-loading');
-    this.set('activityContent', this.loadingTemplate.apply(this));
     if (this.currentDate && this._dataLoaded) {
       domConstruct.empty(this.activityContentNode);
       this.currentDate = selected;
       this.changeDayActivities();
+    } else {
+      this.currentDate = selected;
     }
     // this.getSelectedDate();
   },
