@@ -37,7 +37,7 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
     'atNote': 'Note',
     'atEMail': 'Email',
   },
-  createLayout: function createLayout() {
+  createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
       queryOrderBy: 'StartDate desc',

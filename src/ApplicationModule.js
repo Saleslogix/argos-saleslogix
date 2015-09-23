@@ -5,6 +5,7 @@ import ApplicationModule from 'argos/ApplicationModule';
 import Calendar from 'argos/Calendar';
 import 'argos/RelatedViewManager';
 import 'argos/RelatedViewWidget';
+import 'argos/Data/main';
 import List from 'argos/List';
 import Signature from 'argos/Views/Signature';
 import SearchWidget from 'argos/SearchWidget';

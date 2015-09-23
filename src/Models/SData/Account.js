@@ -8,7 +8,7 @@ import MODEL_NAMES from '../Names';
 const __class = declare('crm.Models.SData.Account', [_ModelBase, _SDataModelMixin], {
   resourceKind: 'accounts',
   id: 'models_account_sdata',
-  createLayout: function createLayout() {
+  createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
       queryOrderBy: 'AccountNameUpper',
@@ -53,6 +53,48 @@ const __class = declare('crm.Models.SData.Account', [_ModelBase, _SDataModelMixi
         'WebAddress',
       ],
     }];
+  },
+  createRelationships: function createRelationships() {
+    let rel;
+    rel = this.relationships || (this.relationships = [{
+      name: 'Addresses',
+      displayName: 'Addresses',
+      propertyName: 'Addresses',
+      type: 'OneToMany',
+      parentEntity: 'Account',
+      parentProperty: 'AccountId',
+      childEntity: 'Address',
+      childProperty: 'EntityId',
+    }, {
+      name: 'Contacts',
+      displayName: 'Contacts',
+      propertyName: 'Contacts',
+      type: 'OneToMany',
+      parentEntity: 'Account',
+      parentProperty: 'AccountId',
+      childEntity: 'Contact',
+      childProperty: 'AccountId',
+      dataPath: 'Account.Id',
+    }, {
+      name: 'History',
+      displayName: 'History',
+      propertyName: 'History',
+      type: 'OneToMany',
+      parentEntity: 'Account',
+      parentProperty: 'AccountId',
+      childEntity: 'History',
+      childProperty: 'AccountId',
+    }, {
+      name: 'Activity',
+      displayName: 'Activity',
+      propertyName: 'Activity',
+      type: 'OneToMany',
+      parentEntity: 'Account',
+      parentProperty: 'AccountId',
+      childEntity: 'Activity',
+      childProperty: 'AccountId',
+    }]);
+    return rel;
   },
 });
 

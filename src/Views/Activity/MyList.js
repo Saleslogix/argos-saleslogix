@@ -85,7 +85,8 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
 
   // View Properties
   id: 'myactivity_list',
-
+  entityName: 'UserActivity',
+  modelName: 'UserActivity',
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
   queryWhere: function queryWhere() {

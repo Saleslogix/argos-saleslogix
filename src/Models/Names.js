@@ -1,8 +1,9 @@
 export default {
-  ACCOUNT: 'account',
-  ACTIVITY: 'activity',
-  CONTACT: 'contact',
-  LEAD: 'lead',
-  OPPORTUNITY: 'opportunity',
-  TICKET: 'ticket',
+  ACCOUNT: 'Account',
+  ACTIVITY: 'Activity',
+  CONTACT: 'Contact',
+  LEAD: 'Lead',
+  OPPORTUNITY: 'Opportunity',
+  TICKET: 'Ticket',
+  xUSERACTIVITY: 'UserActivity',
 };
