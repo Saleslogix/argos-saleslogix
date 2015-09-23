@@ -62,6 +62,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
+  resourceKind: 'leads',
   modelName: MODEL_NAMES.LEAD,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {

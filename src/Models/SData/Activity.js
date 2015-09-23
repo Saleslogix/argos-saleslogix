@@ -179,13 +179,14 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
   },
   getEntry: function getEntry(options) {
     const results$ = this.inherited(arguments);
+    const layout = this._getLayoutByName('detail');
     return results$.then((entry) => {
       const leader$ = this.createRequestPromise(entry.Leader.$key, [
           'UserInfo/FirstName',
           'UserInfo/LastName',
       ], 'users', 'dynamic', options);
       const recurrence$ = this.createRequestPromise(entry.$key.split(this.recurringActivityIdSeparator).shift(),
-        this.querySelect,
+        layout.querySelect,
         this.resourceKind,
         this.contractName,
         options);

@@ -83,6 +83,7 @@ const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin
 
   // View Properties
   id: 'myday_list',
+  resourceKind: 'userActivities',
   modelName: MODEL_NAMES.ACTIVITY,
   enableSearch: false,
   iconClass: 'fa fa-check-square-o fa-lg',
@@ -103,7 +104,6 @@ const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin
       })
       .join(' and ');
   },
-  resourceKind: 'userActivities',
   allowSelection: true,
   enableActions: true,
   createToolLayout: function createToolLayout() {
