@@ -1,18 +1,15 @@
-import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
-import connect from 'dojo/_base/connect';
-// import query from 'dojo/query';
-import string from 'dojo/string';
+import aspect from 'dojo/aspect';
+import convert from 'argos/Convert';
+import declare from 'dojo/_base/declare';
 import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
-import List from 'argos/List';
-import Calendar from 'argos/Calendar';
-import convert from 'argos/Convert';
-// import ErrorManager from 'argos/ErrorManager';
-import Utility from '../../Utility';
+import string from 'dojo/string';
 import when from 'dojo/when';
-// import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
+import Calendar from 'argos/Calendar';
+import List from 'argos/List';
+import Utility from '../../Utility';
 
 const resource = window.localeContext.getEntitySync('calendarView').attributes;
 
@@ -113,6 +110,29 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<div class="activityEntry__footer">',
     '</div>',
   ]),
+  activityNameTemplate: new Simplate([
+    '{% if ($.ContactName) { %}',
+      '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName}) %}',
+    '{% } else if ($.AccountName) { %}',
+      '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
+    '{% } else if ($.LeadName) { %}',
+      '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
+    '{% } else { %}',
+      '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
+    '{% } %}',
+  ]),
+  activityMoreTemplate: new Simplate([
+    '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
+      '<button class="button" data-action="activateActivityMore">',
+        '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
+      '</button>',
+    '</div>',
+  ]),
+  eventNameTemplate: new Simplate([
+    '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
+    '&nbsp;-&nbsp;',
+    '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}',
+  ]),
   eventRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
       '<table class="calendar-entry-table"><tr>',
@@ -127,29 +147,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventItemTemplate: new Simplate([
     '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
     '<h4>{%! $$.eventNameTemplate %}</h4>',
-  ]),
-  activityNameTemplate: new Simplate([
-    '{% if ($.ContactName) { %}',
-      '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName}) %}',
-    '{% } else if ($.AccountName) { %}',
-      '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
-    '{% } else if ($.LeadName) { %}',
-      '{%= $$.string.substitute($$.withText, { object: $$.parseName($.LeadName) }) %}',
-    '{% } else { %}',
-      '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
-    '{% } %}',
-  ]),
-  eventNameTemplate: new Simplate([
-    '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
-    '&nbsp;-&nbsp;',
-    '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}',
-  ]),
-  activityMoreTemplate: new Simplate([
-    '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
-      '<button class="button" data-action="activateActivityMore">',
-        '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
-      '</button>',
-    '</div>',
   ]),
   eventMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
@@ -204,22 +201,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   monthActivities: null,
   _dataLoaded: false,
 
-  // pageSize: 500,
-  // queryWhere: null,
-  // queryOrderBy: 'StartDate asc', // desc
-  // querySelect: [
-  //   'StartDate',
-  //   'Timeless',
-  //   'Type',
-  // ],
-  // feed: null,
-  // eventFeed: null,
-  // entries: null,
-  // selectedDateRequests: null,
-  // selectedDateEventRequests: null,
-  // monthRequests: null,
-  // monthEventRequests: null,
-  //
   // eventPageSize: 3,
   // eventQueryWhere: null,
   // eventQuerySelect: [
@@ -227,22 +208,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   //   'EndDate',
   //   'Description',
   //   'Type',
-  // ],
-  //
-  // activityPageSize: 10,
-  // activityQueryWhere: null,
-  // activityQuerySelect: [
-  //   'StartDate',
-  //   'Description',
-  //   'Type',
-  //   'AccountName',
-  //   'ContactName',
-  //   'LeadId',
-  //   'LeadName',
-  //   'UserId',
-  //   'Timeless',
-  //   'Recurring',
-  //   'Notes',
   // ],
   activityIconByType: {
     'atToDo': 'fa fa-list-ul',
@@ -254,31 +219,19 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     'atNote': 'fa fa-calendar-o',
     'atEMail': 'fa fa-envelope',
   },
-  // eventIcon: 'fa fa-calendar-o',
-  //
-  // resourceKind: 'activities',
+  eventIcon: 'fa fa-calendar-o',
 
-  queryOrderBy: 'StartDate desc',
+  queryOrderBy: 'StartDate asc',
   querySelect: [
-    'Description',
     'StartDate',
+    'Description',
     'Type',
-    'AccountId',
     'AccountName',
-    'ContactId',
     'ContactName',
-    'PhoneNumber',
     'LeadId',
     'LeadName',
-    'TicketId',
-    'OpportunityId',
-    'Leader',
     'UserId',
     'Timeless',
-    'Alarm',
-    'Priority',
-    'ModifyDate',
-    'RecurrenceState',
     'Recurring',
     'Notes',
   ],
@@ -289,12 +242,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   contractName: 'system',
   pageSize: 105,
 
-  constructor: function constructor() {
-    // this.feed = {};
-    // this.eventFeed = {};
-    // this.entries = {};
-    // this.dateCounts = [];
-  },
   // _onRefresh: function _onRefresh(o) {
   //   this.inherited(arguments);
   //   if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
@@ -352,7 +299,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         });
   },
   highlightActivities: function highlightActivities() {
-    // TODO: Make this function add the indicator to the day to show there is an activity for that day
     array.forEach(this._calendar.weeksNode.childNodes, (week) => {
       array.forEach(week.childNodes, (day) => {
         if (!this.monthActivities[domAttr.get(day, 'data-date')]) {
@@ -363,6 +309,36 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       }, this);
     }, this);
     return this;
+  },
+  navigateToDetailView: function navigateToDetailView(key, _descriptor) {
+    let descriptor = _descriptor;
+    const entry = this.entries[key];
+    const detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
+    const view = App.getView(detailView);
+    descriptor = (entry.isEvent) ? descriptor : entry.Description;
+    if (view) {
+      view.show({
+        title: descriptor,
+        key: key,
+      });
+    }
+  },
+  navigateToInsertView: function navigateToInsertView() {
+    const view = App.getView(this.insertView || this.editView);
+
+    if (!this.options) {
+      this.options = {};
+    }
+
+    this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
+    if (view) {
+      view.show({
+        negateHistory: true,
+        returnTo: this.id,
+        insert: true,
+        currentDate: this.options.currentDate.valueOf(),
+      });
+    }
   },
   parseName: function parseName(name = {}) {
     return name.split(' ').splice(-1)[0];
@@ -404,12 +380,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   refresh: function refresh() {
     this.renderCalendar();
-    // this.queryWhere = this.getActivityQuery();
-    // this.feed = null;
-    // this.eventFeed = null;
-    // this.dateCounts = [];
-    // this.requestData();
-    // this.requestEventData();
   },
   refreshData: function refreshData() {
     this._dataLoaded = false;
@@ -428,7 +398,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (!this._calendar) {
       this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true, postRenderCalendar: this.refreshData.bind(this)});
       domConstruct.place(this._calendar.domNode, this.calendarNode);
-      connect.connect(this._calendar, 'changeDay', this, this.selectDay);
+      // connect.connect(this._calendar, 'changeDay', this, this.selectDay);
+      aspect.after(this._calendar, 'changeDay', this.selectDay.bind(this));
       this._calendar.show();
     }
   },
@@ -468,7 +439,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     } else {
       this.currentDate = selected;
     }
-    // this.getSelectedDate();
   },
   show: function show(options) {
     this.inherited(arguments);
@@ -493,53 +463,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   //       'where': where,
   //     });
   //   }
-  // },
-  // toggleGroup: function toggleGroup(params) {
-  //   const node = params.$source;
-  //   if (node && node.parentNode) {
-  //     domClass.toggle(node, 'collapsed');
-  //     domClass.toggle(node.parentNode, 'collapsed-event');
-  //
-  //     const button = this.collapseButton;
-  //
-  //     if (button) {
-  //       domClass.toggle(button, this.toggleCollapseClass);
-  //       domClass.toggle(button, this.toggleExpandClass);
-  //     }
-  //   }
-  // },
-  // getFirstDayOfCurrentMonth: function getFirstDayOfCurrentMonth() {
-  //   return this.currentDate.clone().startOf('month');
-  // },
-  // getLastDayOfCurrentMonth: function getLastDayOfCurrentMonth() {
-  //   return this.currentDate.clone().endOf('month');
-  // },
-  // getTodayMonthActivities: function getTodayMonthActivities() {
-  //   const today = moment().startOf('day');
-  //
-  //   if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
-  //     this.currentDate = today;
-  //     this.highlightCurrentDate();
-  //     this.getSelectedDate();
-  //   } else {
-  //     this.currentDate = today;
-  //     this.refresh();
-  //   }
-  // },
-  // requestData: function requestData() {
-  //   this.cancelRequests(this.monthRequests);
-  //   this.monthRequests = [];
-  //
-  //   const request = this.createRequest();
-  //   request.setContractName(this.contractName || 'system');
-  //
-  //   const xhr = request.read({
-  //     success: this.onRequestDataSuccess,
-  //     failure: this.onRequestDataFailure,
-  //     aborted: this.onRequestDataAborted,
-  //     scope: this,
-  //   });
-  //   this.monthRequests.push(xhr);
   // },
   // createEventRequest: function createEventRequest() {
   //   const querySelect = this.eventQuerySelect;
@@ -609,36 +532,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   //     ]
   //   );
   // },
-  // processFeed: function processFeed(feed) {
-  //   if (!feed) {
-  //     return;
-  //   }
-  //
-  //   const r = feed.$resources;
-  //   this.feed = feed;
-  //
-  //   for (let i = 0; i < r.length; i++) {
-  //     const row = r[i];
-  //
-  //     // Preserve the isEvent flag if we have an existing entry for it already,
-  //     // the order of processFeed and processEventFeed is not predictable
-  //     row.isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
-  //
-  //     this.entries[row.$key] = row;
-  //
-  //     const startDay = moment(convert.toDateFromString(row.StartDate));
-  //     if (r[i].Timeless) {
-  //       startDay.add({
-  //         minutes: startDay.zone(),
-  //       });
-  //     }
-  //
-  //     const dateIndex = startDay.format('YYYY-MM-DD');
-  //     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex]) ? this.dateCounts[dateIndex] + 1 : 1;
-  //   }
-  //
-  //   this.highlightActivities();
-  // },
   // processEventFeed: function processEventFeed(feed) {
   //   if (!feed) {
   //     return;
@@ -675,47 +568,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // showEventList: function showEventList() {
   //   domClass.remove(this.eventContainerNode, 'event-hidden');
   // },
-  // getSelectedDate: function getSelectedDate() {
-  //   this.clearSelectedDate();
-  //   this.requestSelectedDateActivities();
-  //   this.requestSelectedDateEvents();
-  // },
-  // clearSelectedDate: function clearSelectedDate() {
-  //   domClass.add(this.activityContainerNode, 'list-loading');
-  //   this.set('activityContent', this.loadingTemplate.apply(this));
-  //   this.hideEventList();
-  // },
-  // cancelRequests: function cancelRequests(requests) {
-  //   if (!requests) {
-  //     return;
-  //   }
-  //
-  //   array.forEach(requests, function forEach(xhr) {
-  //     if (xhr) { // if request was fulfilled by offline storage, xhr will be undefined
-  //       xhr.abort();
-  //     }
-  //   });
-  // },
-  // requestSelectedDateActivities: function requestSelectedDateActivities() {
-  //   this.cancelRequests(this.selectedDateRequests);
-  //   this.selectedDateRequests = [];
-  //
-  //   const request = this.createSelectedDateRequest({
-  //     pageSize: this.activityPageSize,
-  //     resourceKind: 'activities',
-  //     contractName: 'system',
-  //     querySelect: this.activityQuerySelect,
-  //     queryWhere: this.getSelectedDateActivityQuery(),
-  //   });
-  //
-  //   const xhr = request.read({
-  //     success: this.onRequestSelectedDateActivityDataSuccess,
-  //     failure: this.onRequestDataFailure,
-  //     aborted: this.onRequestDataAborted,
-  //     scope: this,
-  //   });
-  //   this.selectedDateRequests.push(xhr);
-  // },
   // requestSelectedDateEvents: function requestSelectedDateEvents() {
   //   this.cancelRequests(this.selectedDateEventRequests);
   //   this.selectedDateEventRequests = [];
@@ -747,23 +599,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   //     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
   //   return request;
   // },
-  // getSelectedDateActivityQuery: function getSelectedDateActivityQuery() {
-  //   const activityQuery = [
-  //     'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-  //     '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
-  //     '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
-  //   ].join('');
-  //
-  //   const results = string.substitute(
-  //     activityQuery, [App.context.user && App.context.user.$key,
-  //       convert.toIsoStringFromDate(this.currentDate.toDate()),
-  //       convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
-  //       this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
-  //       this.currentDate.format('YYYY-MM-DDT23:59:59[Z]'),
-  //     ]);
-  //
-  //   return results;
-  // },
   // getSelectedDateEventQuery: function getSelectedDateEventQuery() {
   //   return string.substitute(
   //     [
@@ -777,39 +612,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   //       convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
   //     ]
   //   );
-  // },
-  // onRequestSelectedDateActivityDataSuccess: function onRequestSelectedDateActivityDataSuccess(feed) {
-  //   if (!feed) {
-  //     return false;
-  //   }
-  //
-  //   domClass.remove(this.activityContainerNode, 'list-loading');
-  //
-  //   const r = feed.$resources;
-  //   const feedLength = r.length;
-  //   const o = [];
-  //
-  //   for (let i = 0; i < feedLength; i++) {
-  //     const row = r[i];
-  //     row.isEvent = false;
-  //     this.entries[row.$key] = row;
-  //     o.push(this.activityRowTemplate.apply(row, this));
-  //   }
-  //
-  //   if (feedLength === 0) {
-  //     this.set('activityContent', this.noDataTemplate.apply(this));
-  //     return false;
-  //   }
-  //
-  //   if (feed.$totalResults > feedLength) {
-  //     domClass.add(this.activityContainerNode, 'list-has-more');
-  //     this.set('activityRemainingContent', this.countMoreText);
-  //   } else {
-  //     domClass.remove(this.activityContainerNode, 'list-has-more');
-  //     this.set('activityRemainingContent', '');
-  //   }
-  //
-  //   this.set('activityContent', o.join(''));
   // },
   // onRequestSelectedDateEventDataSuccess: function onRequestSelectedDateEventDataSuccess(feed) {
   //   if (!feed) {
@@ -844,42 +646,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   //   }
   //
   //   this.set('eventContent', o.join(''));
-  // },
-  // selectEntry: function selectEntry(params) {
-  //   const row = query(params.$source).closest('[data-key]')[0];
-  //   const key = row ? row.getAttribute('data-key') : false;
-  //
-  //   this.navigateToDetailView(key);
-  // },
-  // navigateToInsertView: function navigateToInsertView() {
-  //   const view = App.getView(this.insertView || this.editView);
-  //
-  //   if (!this.options) {
-  //     this.options = {};
-  //   }
-  //
-  //   this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
-  //   if (view) {
-  //     view.show({
-  //       negateHistory: true,
-  //       returnTo: this.id,
-  //       insert: true,
-  //       currentDate: this.options.currentDate.valueOf(),
-  //     });
-  //   }
-  // },
-  // navigateToDetailView: function navigateToDetailView(key, _descriptor) {
-  //   let descriptor = _descriptor;
-  //   const entry = this.entries[key];
-  //   const detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
-  //   const view = App.getView(detailView);
-  //   descriptor = (entry.isEvent) ? descriptor : entry.Description;
-  //   if (view) {
-  //     view.show({
-  //       title: descriptor,
-  //       key: key,
-  //     });
-  //   }
   // },
 });
 
