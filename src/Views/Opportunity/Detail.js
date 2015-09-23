@@ -59,6 +59,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   editView: 'opportunity_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
+  resourceKind: 'opportunities',
   modelName: MODEL_NAMES.OPPORTUNITY,
 
   scheduleActivity: function scheduleActivity() {

@@ -63,6 +63,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
+  resourceKind: 'accounts',
   modelName: MODEL_NAMES.ACCOUNT,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {

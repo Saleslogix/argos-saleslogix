@@ -84,6 +84,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   editView: 'activity_edit',
   security: null, // 'Entities/Activity/View',
   enableOffline: true,
+  resourceKind: 'activities',
   modelName: MODEL_NAMES.ACTIVITY,
   recurringActivityIdSeparator: ';',
 
