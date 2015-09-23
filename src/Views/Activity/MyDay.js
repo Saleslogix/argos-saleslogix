@@ -104,7 +104,6 @@ const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin
       })
       .join(' and ');
   },
-  resourceKind: 'userActivities',
   allowSelection: true,
   enableActions: true,
   createToolLayout: function createToolLayout() {
