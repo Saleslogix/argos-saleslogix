@@ -165,8 +165,6 @@
   contactText: "contact"
   opportunityText: "opportunity"
   ticketNumberText: "ticket"
-  whenText: "When"
-  whoText: "Who"
   startDateFormatText: "M/D/YYYY h:mm:ss A"
   timelessDateFormatText: "M/D/YYYY"
   alarmDateFormatText: "M/D/YYYY h:mm:ss A"
