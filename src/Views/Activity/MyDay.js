@@ -4,20 +4,21 @@ import string from 'dojo/string';
 import query from 'dojo/query';
 import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
-import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
+import List from 'argos/List';
 import action from '../../Action';
+import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import _MetricListMixin from '../_MetricListMixin';
+import MODEL_NAMES from '../../Models/Names';
 
-const resource = window.localeContext.getEntitySync('activityMyList').attributes;
+const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
 
 /**
- * @class crm.Views.Activity.MyList
+ * @class crm.Views.Activity.MyDay
  *
- * @extends crm.Views.Activity.List
- * @mixins crm.Views.Activity.List
- *
- * @requires argos.List
+ * @requires argos._ListBase
  * @requires argos.Format
  * @requires argos.Utility
  * @requires argos.Convert
@@ -27,11 +28,8 @@ const resource = window.localeContext.getEntitySync('activityMyList').attributes
  * @requires crm.Environment
  * @requires crm.Views.Activity.List
  * @requires crm.Action
- *
- * @requires moment
- *
  */
-const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
+const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
 
   // Templates
   // Card View
@@ -84,107 +82,30 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   viewOpportunityActionText: resource.viewOpportunityActionText,
 
   // View Properties
-  id: 'myactivity_list',
-  expose: false,
-
+  id: 'myday_list',
+  modelName: MODEL_NAMES.ACTIVITY,
+  enableSearch: false,
+  iconClass: 'fa fa-check-square-o fa-lg',
+  detailView: 'activity_detail',
+  insertView: 'activity_types_list',
   historyEditView: 'history_edit',
+  pageSize: 105,
+
   existsRE: /^[\w]{12}$/,
-  queryWhere: function queryWhere() {
-    return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context.user.$key]);
+  requestDataUsingModel: function requestDataUsingModel() {
+    return this._model.getMyDayEntries(this.query, this.options);
   },
-  queryOrderBy: 'Activity.StartDate desc',
-  querySelect: [
-    'Alarm',
-    'AlarmTime',
-    'Status',
-    'Activity/Description',
-    'Activity/StartDate',
-    'Activity/EndDate',
-    'Activity/Type',
-    'Activity/AccountName',
-    'Activity/AccountId',
-    'Activity/ContactId',
-    'Activity/ContactName',
-    'Activity/Leader',
-    'Activity/LeadName',
-    'Activity/LeadId',
-    'Activity/OpportunityId',
-    'Activity/TicketId',
-    'Activity/UserId',
-    'Activity/Timeless',
-    'Activity/PhoneNumber',
-    'Activity/Recurring',
-    'Activity/Alarm',
-    'Activity/ModifyDate',
-    'Activity/Priority',
-  ],
+  _getCurrentQuery: function _getCurrentQuery(options) {
+    const myDayQuery = this._model.getMyDayQuery();
+    const optionsQuery = options && options.queryArgs && options.queryArgs._activeFilter;
+    return [myDayQuery, optionsQuery].filter(function checkItem(item) {
+        return !!item;
+      })
+      .join(' and ');
+  },
   resourceKind: 'userActivities',
   allowSelection: true,
   enableActions: true,
-  hashTagQueries: {
-    'alarm': 'Alarm eq true',
-    'status-unconfirmed': 'Status eq "asUnconfirmed"',
-    'status-accepted': 'Status eq "asAccepted"',
-    'status-declined': 'Status eq "asDeclned"',
-    'recurring': 'Activity.Recurring eq true',
-    'timeless': 'Activity.Timeless eq true',
-    'yesterday': function yesterday() {
-      const now = moment();
-      const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-      const yesterdayEnd = yesterdayStart.clone().endOf('day');
-
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(yesterdayStart.toDate()),
-          convert.toIsoStringFromDate(yesterdayEnd.toDate()),
-          yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
-      return theQuery;
-    },
-    'today': function today() {
-      const now = moment();
-      const todayStart = now.clone().startOf('day');
-      const todayEnd = todayStart.clone().endOf('day');
-
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(todayStart.toDate()),
-          convert.toIsoStringFromDate(todayEnd.toDate()),
-          todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
-      return theQuery;
-    },
-    'this-week': function thisWeek() {
-      const now = moment();
-      const weekStartDate = now.clone().startOf('week');
-      const weekEndDate = weekStartDate.clone().endOf('week');
-
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(weekStartDate.toDate()),
-          convert.toIsoStringFromDate(weekEndDate.toDate()),
-          weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-          weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
-      return theQuery;
-    },
-  },
-  hashTagQueriesText: {
-    'alarm': 'alarm',
-    'status-unconfirmed': 'status-unconfirmed',
-    'status-accepted': 'status-accepted',
-    'status-declined': 'status-declined',
-    'recurring': 'recurring',
-    'timeless': 'timeless',
-    'today': 'today',
-    'this-week': 'this-week',
-    'yesterday': 'yesterday',
-  },
   createToolLayout: function createToolLayout() {
     this.inherited(arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
@@ -213,13 +134,6 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
     this.invokeActionItemBy(function setActionId(theAction) {
       return theAction.id === 'call';
     }, params.key);
-  },
-  defaultSearchTerm: function defaultSearchTerm() {
-    if (App.enableHashTags) {
-      return '#' + this.hashTagQueriesText['this-week'];
-    }
-
-    return '';
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
@@ -373,9 +287,6 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
     if (this.options.singleSelect && this.options.singleSelectAction && !this.enableActions) {
       this.invokeSingleSelectAction();
     }
-  },
-  formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   declineActivityFor: function declineActivityFor(activityId, userId) {
     this._getUserNotifications(activityId, userId, false);
@@ -537,6 +448,14 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
     const type = entry && entry.Activity && entry.Activity.Type;
     return this._getItemIconClass(type);
   },
+  _getItemIconClass: function _getItemIconClass(type) {
+    let cls = this._model.activityIndicatorIconByType[type];
+    if (cls) {
+      cls = cls + ' fa-2x';
+    }
+
+    return cls;
+  },
   getItemActionKey: function getItemActionKey(entry) {
     return entry.Activity.$key;
   },
@@ -622,5 +541,5 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
+lang.setObject('Mobile.SalesLogix.Views.Activity.MyDay', __class);
 export default __class;

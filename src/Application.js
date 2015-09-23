@@ -691,7 +691,7 @@ const __class = declare('crm.Application', [Application], {
     ErrorManager.addError(response, o, {}, 'failure');
   },
   defaultViews: [
-    'myactivity_list',
+    'myday_list',
     'calendar_daylist',
     'history_list',
     'account_list',

@@ -274,6 +274,19 @@
   viewOpportunityActionText: "Opportunity"
 >
 
+<activityMyDay ""
+  titleText: "Prep For My Day"
+  completeActivityText: "Complete"
+  acceptActivityText: "Accept"
+  declineActivityText: "Decline"
+  callText: "Call"
+  calledText: "Called"
+  addAttachmentActionText: "Add Attachment"
+  viewContactActionText: "Contact"
+  viewAccountActionText: "Account"
+  viewOpportunityActionText: "Opportunity"
+>
+
 <activityRecurring ""
   startingText: "start date"
   endingText: "end date"
@@ -1309,6 +1322,11 @@
   totalLeads: "Total Leads"
   totalHistory: "Total History"
   duration: "Total Duration"
+  meetings: "Meetings"
+  calls: "Calls"
+  todos: "Todos"
+  personal: "Personal"
+  lastRefresh: "Last Refresh"
 >
 
 <fileManager ""

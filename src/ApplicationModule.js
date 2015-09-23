@@ -34,6 +34,7 @@ import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
 import ActivityList from './Views/Activity/List';
+import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
 import ActivityDetail from './Views/Activity/Detail';
 import ActivityEdit from './Views/Activity/Edit';
@@ -354,6 +355,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
+    this.registerView(new MyDayList());
     this.registerView(new MyActivityList());
     this.registerView(new ActivityRecurring());
 

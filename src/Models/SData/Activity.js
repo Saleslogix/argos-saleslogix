@@ -5,6 +5,7 @@ import Deferred from 'dojo/Deferred';
 import _ModelBase from 'argos/Models/_ModelBase';
 import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
 import ErrorManager from 'argos/ErrorManager';
+import convert from 'argos/Convert';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
@@ -39,9 +40,23 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
   },
   createLayout: function createLayout() {
     return [{
-      name: 'dayprep',
+      name: 'myday',
       queryWhere: function queryWhere() {
-        return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context.user.$key]);
+        const now = moment();
+        const todayStart = now.clone().startOf('day');
+        const todayEnd = todayStart.clone().endOf('day');
+
+        const theQuery = string.substitute(
+          '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
+            convert.toIsoStringFromDate(todayStart.toDate()),
+            convert.toIsoStringFromDate(todayEnd.toDate()),
+            todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
+            todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
+          ]
+        );
+        const userQuery = string.substitute('(User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature")', [App.context.user.$key]);
+
+        return [userQuery, theQuery].join(' and ');
       },
       queryOrderBy: 'Activity.StartDate desc',
       querySelect: [
@@ -69,6 +84,7 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
         'Activity/ModifyDate',
         'Activity/Priority',
       ],
+      resourceKind: 'userActivities',
     }, {
       name: 'list',
       queryOrderBy: 'StartDate desc',
@@ -182,8 +198,12 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
         });
     });
   },
+  getMyDayQuery: function getMyDayQuery() {
+    const layout = this._getLayoutByName('myday');
+    return layout && layout.queryWhere();
+  },
   getMyDayEntries: function getEntries(query, options) { // eslint-disable-line
-    const store = this.createStore('dayprep');
+    const store = this.createStore('myday');
     return store.query(this.buildQueryExpression(query, options), this.getOptions(options));
   },
   getIconClass: function getIconClass(entry) {

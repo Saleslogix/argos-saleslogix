@@ -19,8 +19,10 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   // Metrics
   metricTemplate: new Simplate([
     '<div class="metric-list">',
-    '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
     '</div>',
+  ]),
+  metricWrapper: new Simplate([
+    '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
   ]),
   metricNode: null,
   metricWidgets: null,
@@ -45,8 +47,10 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
-    this.metricNode = domConstruct.toDom(this.metricTemplate.apply(this));
-    domConstruct.place(this.metricNode, this.scrollerNode, 'first');
+    const metricList = domConstruct.toDom(this.metricTemplate.apply(this));
+    this.metricNode = domConstruct.toDom(this.metricWrapper.apply(this));
+    domConstruct.place(this.metricNode, metricList, 'only');
+    domConstruct.place(metricList, this.scrollerNode, 'first');
   },
   destroyWidgets: function destroyWidgets() {
     array.forEach(this.metricWidgets, function destroy(widget) {
@@ -81,14 +85,26 @@ const __class = declare('crm.Views._MetricListMixin', null, {
       options.request = null;
       options.resourceKind = this.resourceKind;
       options.currentSearchExpression = this.currentSearchExpression;
-      options.queryArgs._activeFilter = this._getCurrentQuery(options);
+      if (options.queryArgs) {
+        options.queryArgs._activeFilter = this._getCurrentQuery(options);
+      }
     }
 
     return options;
   },
   _instantiateMetricWidget: function _instantiateWidget(options) {
-    const Ctor = this.metricWidgetCtor || MetricWidget;
-    return new Ctor(this._applyStateToWidgetOptions(options));
+    return new Promise((resolve) => {
+      if (options.widgetModule) {
+        require([options.widgetModule], (Ctor) => {
+          const instance = new Ctor(this._applyStateToWidgetOptions(options));
+          resolve(instance);
+        });
+      } else {
+        const Ctor = this.metricWidgetCtor || MetricWidget;
+        const instance = new Ctor(this._applyStateToWidgetOptions(options));
+        resolve(instance);
+      }
+    });
   },
   rebuildWidgets: function rebuildWidgets() {
     if (this.metricWidgetsBuilt) {
@@ -103,15 +119,19 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     // Create metrics widgets and place them in the metricNode
     const widgetOptions = this.createMetricWidgetsLayout() || [];
-    this.metricWidgets = widgetOptions.filter((options) => this._hasValidOptions(options))
+    const widgets = widgetOptions.filter((options) => this._hasValidOptions(options))
       .map((options) => {
-        const widget = this._instantiateMetricWidget(options);
-        widget.placeAt(this.metricNode, 'last');
-        widget.requestData();
-        return widget;
+        return this._instantiateMetricWidget(options).then((widget) => {
+          widget.placeAt(this.metricNode, 'last');
+          widget.requestData();
+          return widget;
+        });
       });
 
-    this.metricWidgetsBuilt = true;
+    Promise.all(widgets).then((results) => {
+      this.metricWidgets = results;
+      this.metricWidgetsBuilt = true;
+    });
   },
   _getCurrentQuery: function _getCurrentQuery(options) {
     // Get the current query from the search box, and any context query located in options.where
@@ -124,7 +144,8 @@ const __class = declare('crm.Views._MetricListMixin', null, {
       .join(' and ');
   },
   _hasValidOptions: function _hasValidOptions(options) {
-    return options && options.queryArgs && options.queryArgs._filterName && options.queryArgs._metricName;
+    return (options && options.queryArgs && options.queryArgs._filterName) ||
+      (options && options.widgetModule);
   },
 });
 

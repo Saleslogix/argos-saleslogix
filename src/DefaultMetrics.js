@@ -43,6 +43,54 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   },
   createLayout: function createLayout() {
     return [{
+      resourceKind: 'userActivities',
+      children: [{
+        title: resource.lastRefresh,
+        widgetModule: 'crm/Views/Activity/LastRefresh',
+        formatter: 'relativeDate',
+        enabled: false,
+      }, {
+        title: resource.meetings,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atAppointment'",
+        },
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.calls,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atPhoneCall'",
+        },
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.todos,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atToDo'",
+        },
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.personal,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atPersonal'",
+        },
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
+    }, {
       resourceKind: 'accounts',
       children: [{
         title: this.accountsText.totalRevenue,
