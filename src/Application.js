@@ -11,6 +11,7 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
+import Toast from 'argos/Toast';
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
@@ -99,6 +100,7 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
     this._loadNavigationState();
     this._saveDefaultPreferences();
+    this._setupToasts();
 
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
@@ -172,6 +174,10 @@ const __class = declare('crm.Application', [Application], {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
     } catch (e) {} // eslint-disable-line
+  },
+  _setupToasts: function _setupToasts() {
+    this.toast = new Toast();
+    this.toast.show();
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
