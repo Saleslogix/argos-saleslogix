@@ -111,6 +111,66 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
       name: 'edit',
     }];
   },
+  createRelationships: function createRelationships() {
+    let rel;
+    rel = this.relationships || (this.relationships = [ {
+      name: 'Account',
+      displayName: 'Account',
+      propertyName: 'Account',
+      type: 'ManyToOne',
+      parentEntity: 'Activity',
+      parentProperty: 'AccountId',
+      childEntity: 'Account',
+      childProperty: 'AccountId',
+      childDataPath: 'Id',
+      queryModelName: 'detail',
+    }, {
+      name: 'Contact',
+      displayName: 'Contact',
+      propertyName: 'Contact',
+      type: 'ManyToOne',
+      parentEntity: 'Activity',
+      parentProperty: 'ContactId',
+      childEntity: 'Contact',
+      childProperty: 'ContactId',
+      childDataPath: 'Id',
+      queryModelName: 'list',
+    }, {
+      name: 'Ticket',
+      displayName: 'Ticket',
+      propertyName: 'Ticket',
+      type: 'ManyToOne',
+      parentEntity: 'Activity',
+      parentProperty: 'TicketId',
+      childEntity: 'Ticket',
+      childProperty: 'TicketId',
+      childDataPath: 'Id',
+      queryModelName: 'detail',
+    }, {
+      name: 'Opportunity',
+      displayName: 'Opportunity',
+      propertyName: 'Opportunnity',
+      type: 'ManyToOne',
+      parentEntity: 'Activity',
+      parentProperty: 'OpportunityId',
+      childEntity: 'OpportunityId',
+      childProperty: 'OpportunityId',
+      childDataPath: 'Id',
+      queryModelName: 'detail',
+    }, {
+      name: 'Lead',
+      displayName: 'Lead',
+      propertyName: 'Lead',
+      type: 'ManyToOne',
+      parentEntity: 'Activity',
+      parentProperty: 'LeadId',
+      childEntity: 'Lead',
+      childProperty: 'LeadId',
+      childDataPath: 'Id',
+      queryModelName: 'detail',
+    }]);
+    return rel;
+  },
   createRequestPromise: function createRequestPromise(key, querySelect, resourceKind, contractName, options) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService())
       .setResourceKind(resourceKind)
@@ -137,8 +197,9 @@ const __class = declare('crm.Models.SData.Activity', [_ModelBase, _SDataModelMix
           'UserInfo/FirstName',
           'UserInfo/LastName',
       ], 'users', 'dynamic', options);
+      const queryModel = this._getQueryModelByName('detail');
       const recurrence$ = this.createRequestPromise(entry.$key.split(this.recurringActivityIdSeparator).shift(),
-        this.querySelect,
+        queryModel.querySelect,
         this.resourceKind,
         this.contractName,
         options);

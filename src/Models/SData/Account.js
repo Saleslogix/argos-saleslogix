@@ -7,6 +7,8 @@ import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.SData.Account', [_ModelBase, _SDataModelMixin], {
   resourceKind: 'accounts',
+  entityName: 'Account',
+  modelName: MODEL_NAMES.ACCOUNT,
   id: 'models_account_sdata',
   createQueryModels: function createQueryModels() {
     return [{
