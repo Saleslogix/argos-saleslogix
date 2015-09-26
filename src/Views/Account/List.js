@@ -9,7 +9,7 @@ import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
-import OfflineManager from 'argos/Offline/Manager';
+
 
 const resource = window.localeContext.getEntitySync('accountList').attributes;
 
@@ -95,15 +95,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   pageSize: 10,
   offlineIds: null,
   modelName: MODEL_NAMES.ACCOUNT,
-  onTransitionTo: function onTransitionTo() {
-    OfflineManager.getAllIds().then(function success(results) {
-      this.offlineIds = results;
-    }.bind(this), function error(err) {
-      console.error(err);// eslint-disable-line
-    });
 
-    this.inherited(arguments);
-  },
   callMain: function callMain(params) {
     this.invokeActionItemBy(function invoke(a) {
       return a.id === 'callMain';

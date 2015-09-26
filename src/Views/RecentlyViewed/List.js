@@ -16,16 +16,16 @@ import OfflineManager from 'argos/Offline/Manager';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 
-export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
-  id: 'offline_list',
+export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _OfflineRightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+  id: 'recently_viewed_list',
   idProperty: 'id',
-  detailView: 'offline_detail',
+  detailView: 'RecentlyViewed_detail',
   enableSearch: false,
   enableActions: true,
   enableOfflineSupport: true,
-  resourceKind: 'offline',
+  resourceKind: '',
   entityName: 'RecentlyViewd',
-  titleText: 'Recently Viewed',
+  titleText: 'xRecently Viewed',
 
   metricWidgetCtor: TotalMetricWidget,
 
@@ -42,7 +42,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _OfflineRightDrawer
     }
     return '';
   },
-  createStore: function createStore() {
+  xcreateStore: function createStore() {
     return OfflineManager.getStore();
   },
   getActiveEntityFilters: function getActiveEntityFilters() {

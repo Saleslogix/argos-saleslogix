@@ -95,6 +95,8 @@ import ViewAttachment from './Views/Attachment/ViewAttachment';
 import AttachmentList from './Views/Attachment/List';
 import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
+import RecentlyViewedDetail from './Views/RecentlyViewed/Detail';
+import RecentlyViewedList from './Views/RecentlyViewed/List';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -159,7 +161,10 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new OfflineList({
       expose: true,
     }));
-
+    this.registerView(new RecentlyViewedDetail());
+    this.registerView(new RecentlyViewedList({
+      expose: true,
+    }));
     this.registerView(new Help());
     this.registerView(new Settings());
     this.registerView(new Configure());

@@ -1,15 +1,9 @@
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
-import all from 'dojo/promise/all';
-import Deferred from 'dojo/Deferred';
-import _ModelBase from 'argos/Models/_ModelBase';
-import _SDataModelMixin from 'argos/Models/_SDataModelMixin';
-import ErrorManager from 'argos/ErrorManager';
+import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
-import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.SData.UserActivity', [_ModelBase, _SDataModelMixin], {
+const __class = declare('crm.Models.SData.UserActivity', [_SDataModelBase], {
   entityName: 'UserActivity',
   entityDisplayName: 'User Activity',
   entityDisplayNamePlural: 'User Activities',
