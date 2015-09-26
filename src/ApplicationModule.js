@@ -115,6 +115,9 @@ import './Models/Offline/Activity';
 import './Models/Offline/Contact';
 import './Models/Offline/Lead';
 import './Models/Offline/Opportunity';
+import './Models/Offline/UserActivity';
+import './Models/Offline/Address';
+import './Models/Offline/History';
 import './Models/Offline/Ticket';
 import './Models/SData/Account';
 import './Models/SData/Activity';
@@ -122,6 +125,9 @@ import './Models/SData/Contact';
 import './Models/SData/Lead';
 import './Models/SData/Opportunity';
 import './Models/SData/Ticket';
+import './Models/SData/UserActivity';
+import './Models/SData/Address';
+import './Models/SData/History';
 
 const resource = window.localeContext.getEntitySync('applicationModule').attributes;
 

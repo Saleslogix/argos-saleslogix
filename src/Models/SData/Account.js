@@ -75,7 +75,7 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
       parentProperty: 'AccountId',
       childEntity: 'Contact',
       childProperty: 'AccountId',
-      dataPath: 'Account.Id',
+      childDataPath: 'Account.Id',
     }, {
       name: 'History',
       displayName: 'History',

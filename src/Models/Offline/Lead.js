@@ -5,6 +5,11 @@ import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Offline.Lead', [_OfflineModelBase], {
+  entityName: 'Lead',
+  entityDisplayName: 'Lead',
+  entityDisplayNamePlural: 'Leads',
+  resourceKind: 'leads',
+  modelName: MODEL_NAMES.LEAD,
 });
 
 Manager.register(MODEL_NAMES.LEAD, MODEL_TYPE.OFFLINE, __class);
