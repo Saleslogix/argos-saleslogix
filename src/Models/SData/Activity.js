@@ -133,7 +133,7 @@ const __class = declare('crm.Models.SData.Activity', [_SDataModelBase], {
       childEntity: 'Contact',
       childProperty: 'ContactId',
       childDataPath: 'Id',
-      queryModelName: 'list',
+      queryModelName: 'detail',
     }, {
       name: 'Ticket',
       displayName: 'Ticket',

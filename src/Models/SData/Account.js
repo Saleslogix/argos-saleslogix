@@ -64,6 +64,7 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
       type: 'OneToMany',
       parentEntity: 'Account',
       parentProperty: 'AccountId',
+      parentPrimaryKey: true,
       childEntity: 'Address',
       childProperty: 'EntityId',
     }, {
@@ -73,6 +74,7 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
       type: 'OneToMany',
       parentEntity: 'Account',
       parentProperty: 'AccountId',
+      parentPrimaryKey: true,
       childEntity: 'Contact',
       childProperty: 'AccountId',
       childDataPath: 'Account.Id',
@@ -83,6 +85,7 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
       type: 'OneToMany',
       parentEntity: 'Account',
       parentProperty: 'AccountId',
+      parentPrimaryKey: true,
       childEntity: 'History',
       childProperty: 'AccountId',
     }, {
@@ -92,6 +95,7 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
       type: 'OneToMany',
       parentEntity: 'Account',
       parentProperty: 'AccountId',
+      parentPrimaryKey: true,
       childEntity: 'Activity',
       childProperty: 'AccountId',
     }]);
