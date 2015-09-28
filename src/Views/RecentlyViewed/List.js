@@ -9,14 +9,15 @@
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-import _OfflineRightDrawerListMixin from './_OfflineRightDrawerListMixin';
-import _MetricListMixin from '../_MetricListMixin';
-import TotalMetricWidget from './TotalMetricWidget';
+// import _OfflineRightDrawerListMixin from './_OfflineRightDrawerListMixin';
+// import _MetricListMixin from '../_MetricListMixin';
+// import TotalMetricWidget from './TotalMetricWidget';
 import OfflineManager from 'argos/Offline/Manager';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
+import MODEL_TYPES from 'argos/Models/Types';
 
-export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _OfflineRightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutListMixin], {
   id: 'recently_viewed_list',
   idProperty: 'id',
   detailView: 'RecentlyViewed_detail',
@@ -25,59 +26,36 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _OfflineRigh
   enableOfflineSupport: true,
   resourceKind: '',
   entityName: 'RecentlyViewd',
-  titleText: 'xRecently Viewed',
+  titleText: 'Recently Viewed',
 
-  metricWidgetCtor: TotalMetricWidget,
+  // metricWidgetCtor: TotalMetricWidget,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
     '<h4>{%: $$.getOfflineDate($) %}</h4>',
   ]),
+  getModel: function getModel() {
+    const model = App.ModelManager.getModel('RecentlyViewed', MODEL_TYPES.OFFLINE);
+    return model;
+  },
   getTitle: function getTitle(entry) {
-    return entry && entry.doc && entry.doc.entity && entry.doc.description;
+    return entry && entry.description;
   },
   getOfflineDate: function getOfflineDate(entry) {
-    if (entry && entry.doc && entry.doc.entity && entry.doc.modifyDate) {
-      return format.relativeDate(entry.doc.modifyDate);
+    if (entry && entry.modifyDate) {
+      return format.relativeDate(entry.modifyDate);
     }
     return '';
   },
-  xcreateStore: function createStore() {
+  xcreateStore: function xcreateStore() {
     return OfflineManager.getStore();
-  },
-  getActiveEntityFilters: function getActiveEntityFilters() {
-    return Object.keys(this.entityMappings)
-      .map((entityName) => {
-        const prefs = App.preferences && App.preferences.offlineEntityFilters || [];
-        const entityPref = prefs.filter((pref) => {
-          return pref.name === entityName;
-        });
-        return entityPref[0];
-      })
-      .filter((f) => f && f.enabled);
-  },
-  _buildQueryExpression: function _buildQueryExpression() {
-    const filters = this.getActiveEntityFilters();
-    return function queryFn(doc, emit) {
-      // If the user has entity filters stored in preferences, filter based on that
-      if (App.preferences && App.preferences.offlineEntityFilters) {
-        filters.forEach((f) => {
-          if (doc.entityName === f.name) {
-            emit(doc.modifyDate);
-          }
-        });
-      } else {
-        // User has no entity filter preferences (from right drawer)
-        emit(doc.modifyDate);
-      }
-    };
   },
   _hasValidOptions: function _hasValidOptions(options) {
     return options;
   },
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
     const options = widgetOptions;
-    options.activeEntityFilters = this.getActiveEntityFilters();
+    options.activeEntityFilters = this._model.getActiveEntityFilters();
     return options;
   },
   _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
@@ -92,7 +70,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _OfflineRigh
   },
   getItemIconClass: function getItemIconClass(entry) {
     let iconClass;
-    iconClass = entry.doc.iconClass;
+    iconClass = entry.iconClass;
     if (!iconClass) {
       iconClass = 'fa fa-cloud fa-2x';
     }
@@ -104,8 +82,8 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _OfflineRigh
     const view = this.app.getView(detailViewId);
 
     let options = {
-      descriptor: entry.doc.description, // keep for backwards compat
-      title: entry.doc.description,
+      descriptor: entry.description, // keep for backwards compat
+      title: entry.description,
       key: key,
       fromContext: this,
     };
@@ -119,8 +97,8 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _OfflineRigh
     }
   },
   getDetailViewId: function getDetailViewId(entry) {
-    if (App.onLine && entry && entry.doc && entry.doc.viewId) {
-      return entry.doc.viewId;
+    if (App.onLine && entry.viewId) {
+      return entry.viewId;
     }
     return this.detailView;
   },
