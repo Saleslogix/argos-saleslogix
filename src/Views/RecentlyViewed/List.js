@@ -84,7 +84,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     let options = {
       descriptor: entry.description, // keep for backwards compat
       title: entry.description,
-      key: key,
+      key: entry.entitiyId,
       fromContext: this,
     };
 
@@ -97,7 +97,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     }
   },
   getDetailViewId: function getDetailViewId(entry) {
-    if (App.onLine && entry.viewId) {
+    if (entry.viewId) {
       return entry.viewId;
     }
     return this.detailView;

@@ -701,6 +701,7 @@ const __class = declare('crm.Application', [Application], {
     'ticket_list',
     'myattachment_list',
     'recently_viewed_list',
+    'briefcase_list',
   ],
   getDefaultViews: function getDefaultViews() {
     return this.defaultViews;

@@ -10,6 +10,7 @@ const __class = declare('crm.Models.SData.History', [_SDataModelBase], {
   entityDisplayName: 'History',
   entityDisplayNamePlural: 'History',
   modelName: 'History',
+  iconClass: 'fa fa-list-ul fa-2x',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',

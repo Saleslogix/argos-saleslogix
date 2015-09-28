@@ -10,6 +10,7 @@ const __class = declare('crm.Models.SData.Address', [_SDataModelBase], {
   entityDisplayName: 'Address',
   entityDisplayNamePlural: 'Addresses',
   modelName: 'Address',
+  iconClass: 'fa fa-list-ul fa-2x',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',

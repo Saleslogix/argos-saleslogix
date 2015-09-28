@@ -9,6 +9,7 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
   entityName: 'Account',
   modelName: MODEL_NAMES.ACCOUNT,
   id: 'models_account_sdata',
+  iconClass: 'fa fa-building-o fa-2x',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
