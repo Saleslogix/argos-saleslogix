@@ -17,6 +17,7 @@ const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
 const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
+  enablePullToRefresh: false,
   rowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{% if ($$._hasIcon($)) { %}',
