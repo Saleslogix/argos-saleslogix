@@ -305,7 +305,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (this._eventStore) {
       return this._eventStore;
     }
-    const store = this.get('store');
+    const temp = this.get('store');
+    const store = Object.assign({}, temp);
+    Object.setPrototypeOf(store, Object.getPrototypeOf(temp));
     store.select = this.eventQuerySelect;
     store.resourceKind = this.eventResourceKind;
     store.contractName = this.eventContractName;
@@ -373,7 +375,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   parseName: function parseName(name = {}) {
     return name.split(' ').splice(-1)[0];
   },
-  process: function process(store, entries) {
+  process: function process(store, entries, isEvent) {
     const count = entries.length;
 
     if (count > 0) {
@@ -381,6 +383,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         const entry = this._processEntry(entries[i]);
         // If key comes back with nothing, check that the store is properly
         // setup with an idProperty
+        entry.isEvent = isEvent;
         const entryKey = store.getIdentity(entry);
         this.entries[entryKey] = entry;
         const date = moment(convert.toDateFromString(entry.StartDate)).format('YYYY-MM-DD');
@@ -399,7 +402,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
 
     const store = this.get('store');
 
-    this.process(store, entries);
+    this.process(store, entries, false);
   },
   processEventData: function processEventData(entries) {
     if (!entries) {
@@ -407,7 +410,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
     const store = this.createEventStore();
 
-    this.process(store, entries);
+    this.process(store, entries, true);
   },
   processShowOptions: function processShowOptions(options) {
     if (options.currentDate) {
@@ -420,8 +423,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   refreshData: function refreshData() {
     this._dataLoaded = false;
+    this._eventStore = null;
     domClass.add(this.activityContainerNode, 'list-loading');
     this.set('activityContent', this.loadingTemplate.apply(this));
+    domConstruct.empty(this.eventContentNode);
     this.currentDate = this._calendar.getSelectedDateMoment();
     this.queryText = '';
     this.monthActivities = [];
