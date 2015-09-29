@@ -42,6 +42,9 @@ import ActivityComplete from './Views/Activity/Complete';
 import ActivityTypesList from './Views/Activity/TypesList';
 import ActivityRecurring from './Views/Activity/Recurring';
 import CalendarView from './Views/Calendar/CalendarView';
+import DayView from './Views/Calendar/DayView';
+import MonthView from './Views/Calendar/MonthView';
+import WeekView from './Views/Calendar/WeekView';
 import GenericBar from './Views/Charts/GenericBar';
 import GenericLine from './Views/Charts/GenericLine';
 import GenericPie from './Views/Charts/GenericPie';
@@ -176,6 +179,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
 
     this.registerView(new CalendarView());
+    this.registerView(new DayView());
+    this.registerView(new MonthView());
+    this.registerView(new WeekView());
 
     // Charts
     this.registerView(new GenericBar({
