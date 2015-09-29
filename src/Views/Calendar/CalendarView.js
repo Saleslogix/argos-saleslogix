@@ -15,18 +15,16 @@ import Utility from '../../Utility';
 const resource = window.localeContext.getEntitySync('calendarView').attributes;
 
 /**
- * @class crm.Views.Calendar.MonthView
+ * @class crm.Views.Calendar.CalendarView
  *
  * @extends argos.List
  * @mixins argos.List
- * @mixins argos._LegacySDataListMixin
  *
  * @requires argos.List
- * @requires argos._LegacySDataListMixin
  * @requires argos.Convert
- * @requires argos.ErrorManager
  *
  * @requires crm.Format
+ * @requires crm.Utility
  *
  * @requires moment
  *
@@ -241,7 +239,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   resourceKind: 'activities',
   contractName: 'system',
   pageSize: 105,
-  // eventPageSize: 3,
   eventQueryWhere: null,
   eventQuerySelect: [
     'StartDate',
@@ -253,12 +250,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventResourceKind: 'events',
   eventContractName: 'dynamic',
 
-  // _onRefresh: function _onRefresh(o) {
-  //   this.inherited(arguments);
-  //   if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
-  //     this.refreshRequired = true;
-  //   }
-  // },
   changeDayActivities: function changeDayActivities() {
     domClass.remove(this.activityContainerNode, 'list-loading');
     const entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
@@ -309,9 +300,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     } else {
       this.set('activityContent', this.noDataTemplate.apply(this));
     }
-  },
-  clear: function clear() {
-    // this.monthActivities = null;
   },
   createEventStore: function createEventStore() {
     if (this._eventStore) {
