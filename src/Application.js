@@ -691,7 +691,7 @@ const __class = declare('crm.Application', [Application], {
   },
   defaultViews: [
     'myactivity_list',
-    'calendar_monthlist',
+    'calendar_view',
     'history_list',
     'account_list',
     'contact_list',

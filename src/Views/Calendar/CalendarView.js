@@ -194,7 +194,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   activityContainerNode: null,
 
   // View Properties
-  id: 'calendar_monthlist',
+  id: 'calendar_view',
   cls: 'activities-for-month',
   insertView: 'activity_types_list',
   activityDetailView: 'activity_detail',
@@ -432,13 +432,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     this.monthActivities = [];
     this.activityQuery = this.formatQueryActivity(this.currentDate);
     this.eventQuery = this.formatQueryEvent(this.currentDate);
-    const activityPromise = new Promise((resolve, reject) => { // eslint-disable-line
-      resolve(this.requestData());
-    });
-    const eventPromise = new Promise((resolve, reject) => { // eslint-disable-line
-      resolve(this.requestEventData());
-    });
-    Promise.all([activityPromise, eventPromise]).then(() => {
+    Promise.all([this.requestData(), this.requestEventData()]).then(() => {
       domConstruct.empty(this.activityContentNode);
       domConstruct.empty(this.eventContentNode);
       this.highlightActivities();
