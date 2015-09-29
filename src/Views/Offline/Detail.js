@@ -12,10 +12,11 @@ import array from 'dojo/_base/array';
 import domConstruct from 'dojo/dom-construct';
 import OfflineManager from 'argos/Offline/Manager';
 import format from '../../Format';
+import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
 
-export default declare('crm.Views.Offline.Detail', [_DetailBase], {
+export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {
   id: 'offline_detail',
-  titleText: 'Recently Viewed Detail',
+  titleText: 'Offline Detail',
   offlineText: 'Offline',
   idProperty: 'id',
   offlineDoc: null,

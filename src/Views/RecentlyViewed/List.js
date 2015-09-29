@@ -20,7 +20,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutListMixin], {
   id: 'recently_viewed_list',
   idProperty: 'id',
-  detailView: 'RecentlyViewed_detail',
+  detailView: 'offline_detail',
   enableSearch: false,
   enableActions: true,
   enableOfflineSupport: true,
@@ -50,10 +50,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     }
     return '';
   },
-  xcreateStore: function xcreateStore() {
-    return OfflineManager.getStore();
-  },
-  _hasValidOptions: function _hasValidOptions(options) {
+   _hasValidOptions: function _hasValidOptions(options) {
     return options;
   },
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
@@ -100,7 +97,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     }
   },
   getDetailViewId: function getDetailViewId(entry) {
-    if (entry.viewId) {
+    if (App.onLine && entry && entry.viewId) {
       return entry.viewId;
     }
     return this.detailView;
