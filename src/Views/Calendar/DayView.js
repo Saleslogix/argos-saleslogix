@@ -206,6 +206,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   eventIcon: 'fa fa-calendar-o',
   resourceKind: 'activities',
   pageSize: 1000,
+  expose: false,
 
   continuousScrolling: false,
 
