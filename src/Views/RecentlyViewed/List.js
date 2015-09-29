@@ -34,6 +34,9 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     '<h3>{%: $$.getTitle($) %}</h3>',
     '<h4>{%: $$.getOfflineDate($) %}</h4>',
   ]),
+  refreshRequiredFor: function refreshRequiredFor(options) {
+    return true;
+  },
   getModel: function getModel() {
     const model = App.ModelManager.getModel('RecentlyViewed', MODEL_TYPES.OFFLINE);
     return model;
@@ -84,7 +87,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     let options = {
       descriptor: entry.description, // keep for backwards compat
       title: entry.description,
-      key: entry.entitiyId,
+      key: entry.entityId,
       fromContext: this,
     };
 

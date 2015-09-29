@@ -8,6 +8,8 @@ import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import action from '../../Action';
+import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
+
 
 const resource = window.localeContext.getEntitySync('activityMyList').attributes;
 
@@ -31,7 +33,7 @@ const resource = window.localeContext.getEntitySync('activityMyList').attributes
  * @requires moment
  *
  */
-const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
+const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOfflineMixin], {
 
   // Templates
   // Card View
@@ -87,6 +89,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   id: 'myactivity_list',
   entityName: 'UserActivity',
   modelName: 'UserActivity',
+  enableOffline: true,
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
   queryWhere: function queryWhere() {
@@ -619,6 +622,18 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
         complete: complete,
       });
     }
+  },
+  createBriefcaseEntity: function createBriefcaseEntry(entry) {
+    const entity = {
+      entityId: entry.Activity.$key,
+      entityName: 'Activity',
+      options: {
+        includeRelated: true,
+        viewId: this.detailView,
+        iconClass: this.getItemIconClass(entry),
+      },
+    };
+    return entity;
   },
 });
 
