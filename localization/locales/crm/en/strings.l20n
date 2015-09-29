@@ -379,7 +379,7 @@
   titleText: "Calendar"
   monthTitleFormatText: "MMMM YYYY"
   dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D/YYYY"
+  eventDateFormatText: "M/D"
   startTimeFormatText: "h:mm A"
   allDayText: "All-Day"
   eventText: "Event"
@@ -389,6 +389,7 @@
   withFromText: "with ${contactName} from ${accountName}"
   withText: "with ${object}"
   unspecifiedText: "unspecified"
+  forText: "for ${reason}"
 >
 
 <calendarDayView ""
