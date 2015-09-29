@@ -446,6 +446,10 @@
           "path": "../src-out/Views/Activity/"
         },
         {
+          "text": "CalendarView.js",
+          "path": "../src-out/Views/Calendar/"
+        },
+        {
           "text": "DayView.js",
           "path": "../src-out/Views/Calendar/"
         },
