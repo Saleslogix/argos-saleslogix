@@ -99,6 +99,16 @@ const __class = declare('crm.Models.SData.Account', [_SDataModelBase], {
       parentPrimaryKey: true,
       childEntity: 'Activity',
       childProperty: 'AccountId',
+    }, {
+      name: 'Opportunity',
+      displayName: 'Opportunties',
+      type: 'OneToMany',
+      parentEntity: 'Account',
+      parentProperty: 'AccountId',
+      parentPrimaryKey: true,
+      childEntity: 'Opportunity',
+      childProperty: 'AccountId',
+      childDataPath: 'Account.Id',
     }]);
     return rel;
   },

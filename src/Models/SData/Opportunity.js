@@ -10,6 +10,7 @@ const __class = declare('crm.Models.SData.Opportunity', [_SDataModelBase], {
   entityDisplayNamePlural: 'Opportunities',
   iconClass: 'fa fa-money fa-2x',
   resourceKind: 'opportunities',
+  modelName: 'Opportunity',
   security: 'Entities/Opportunity/View',
   querySelect: [
     'Account/AccountName',

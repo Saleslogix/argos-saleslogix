@@ -16,6 +16,8 @@ import OfflineManager from 'argos/Offline/Manager';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
+// import Deferred from 'dojo/Deferred';
+import all from 'dojo/promise/all';
 
 export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutListMixin], {
   id: 'recently_viewed_list',
@@ -134,5 +136,41 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     'History': {
       iconClass: 'fa-history',
     },
+  },
+  createToolLayout: function createToolLayout() {
+    if (this.tools) {
+      return this.tools;
+    }
+    const tools = this.inherited(arguments);
+    if (tools && tools.tbar) {
+      tools.tbar.push({
+        id: 'clear',
+        cls: 'fa fa-eraser fa-fw fa-lg',
+        action: 'clearList',
+        security: '',
+      });
+    }
+    return tools;
+  },
+  clearList: function clearList(action, selection) { // eslint-disable-line
+    const requests = [];
+    if (this.entries) {
+      for (const entryId in this.entries) {
+        if (this.entries.hasOwnProperty(entryId)) {
+          requests.push(this.removeItem(entryId));
+        }
+      }
+    }
+    all(requests).then(() => {
+      this.clear();
+      this.refreshRequired = true;
+      this.refresh();
+    }, (err) => {
+      console.error(err);// eslint-disable-line
+    });
+  },
+  removeItem: function removeItem(entryId) {
+    const rvModel = App.ModelManager.getModel('RecentlyViewed', MODEL_TYPES.OFFLINE);
+    return rvModel.deleteEntry(entryId);
   },
 });
