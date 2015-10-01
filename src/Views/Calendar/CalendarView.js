@@ -250,6 +250,12 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventResourceKind: 'events',
   eventContractName: 'dynamic',
 
+  _onRefresh: function _onRefresh(o) {
+    this.inherited(arguments);
+    if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
+      this.refreshRequired = true;
+    }
+  },
   changeDayActivities: function changeDayActivities() {
     domClass.remove(this.activityContainerNode, 'list-loading');
     const entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
@@ -420,6 +426,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   refresh: function refresh() {
     this.renderCalendar();
+    this.refreshData();
   },
   refreshData: function refreshData() {
     this._dataLoaded = false;
@@ -446,7 +453,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
-      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true, postRenderCalendar: this.refreshData.bind(this)});
+      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true});
       domConstruct.place(this._calendar.domNode, this.calendarNode);
       aspect.after(this._calendar, 'changeDay', this.selectDay.bind(this));
       this._calendar.show();
