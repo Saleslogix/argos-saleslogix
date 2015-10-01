@@ -6,12 +6,12 @@ import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
-import List from 'argos/List';
 import action from '../../Action';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
+import ActivityList from './List';
 
 const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
 
@@ -29,7 +29,7 @@ const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
  * @requires crm.Views.Activity.List
  * @requires crm.Action
  */
-const __class = declare('crm.Views.Activity.MyDay', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.Activity.MyDay', [ActivityList, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
 
   // Templates
   // Card View
