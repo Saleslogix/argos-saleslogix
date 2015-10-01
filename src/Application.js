@@ -780,24 +780,22 @@ const __class = declare('crm.Application', [Application], {
       this.redirectHash = '';
     }
   },
-  onOffline: function onOffline() {
-    this.inherited(arguments);
-    let results = confirm(this.offlinePromptText); // eslint-disable-line
-    if (results) {
-      this.navigateToInitialView();
-    }
-  },
-  onOnline: function onOnline() {
-    this.inherited(arguments);
-    let results = confirm(this.onlinePromptText); // eslint-disable-line
-    if (results) {
-      this.navigateToLoginView();
-    }
-  },
-  onConnectionChange: function onConnectionChange(/*online*/) {
+  onConnectionChange: function onConnectionChange(online) {
     const view = App.getView('left_drawer');
     if (view) {
       view.refresh();
+    }
+
+    if (online) {
+      let results = confirm(this.onlinePromptText); // eslint-disable-line
+      if (results) {
+        this.navigateToLoginView();
+      }
+    } else {
+      let results = confirm(this.offlinePromptText); // eslint-disable-line
+      if (results) {
+        this.navigateToInitialView();
+      }
     }
   },
   navigateToLoginView: function navigateToLoginView() {
