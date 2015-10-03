@@ -1,16 +1,11 @@
 import declare from 'dojo/_base/declare';
+import AddressBase from '../AddressBase';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
-import MODEL_TYPE from 'argos/Models/Types';
+import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.SData.Address', [_SDataModelBase], {
-  resourceKind: 'addresses',
-  entityName: 'Address',
-  entityDisplayName: 'Address',
-  entityDisplayNamePlural: 'Addresses',
-  modelName: 'Address',
-  iconClass: 'fa fa-list-ul fa-2x',
+const __class = declare('crm.Models.SData.Address', [AddressBase, _SDataModelBase], {
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
@@ -22,5 +17,5 @@ const __class = declare('crm.Models.SData.Address', [_SDataModelBase], {
   },
 });
 
-Manager.register('Address', MODEL_TYPE.SDATA, __class);
+Manager.register('Address', MODEL_TYPES.SDATA, __class);
 export default __class;

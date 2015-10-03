@@ -1,17 +1,11 @@
 import declare from 'dojo/_base/declare';
+import OpportunityBase from '../OpportunityBase';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.SData.Opportunity', [_SDataModelBase], {
-  entityName: 'Opportunity',
-  entityDisplayName: 'Opportunity',
-  entityDisplayNamePlural: 'Opportunities',
-  iconClass: 'fa fa-money fa-2x',
-  resourceKind: 'opportunities',
-  modelName: 'Opportunity',
-  security: 'Entities/Opportunity/View',
+const __class = declare('crm.Models.SData.Opportunity', [OpportunityBase, _SDataModelBase], {
   querySelect: [
     'Account/AccountName',
     'Account/WebAddress',

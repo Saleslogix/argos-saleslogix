@@ -134,6 +134,13 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
       title: briefcase.description,
       key: briefcase.entityId,
       fromContext: this,
+      offlineContext: {
+        entityId: briefcase.entityId,
+        entityName: briefcase.entityName,
+        viewId: briefcase.viewId,
+        offlineDate: briefcase.modifyDate,
+        source: briefcase,
+      },
     };
 
     if (view) {

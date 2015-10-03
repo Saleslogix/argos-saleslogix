@@ -1,16 +1,11 @@
 import declare from 'dojo/_base/declare';
+import HistoryBase from '../HistoryBase';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
-import MODEL_TYPE from 'argos/Models/Types';
+import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.SData.History', [_SDataModelBase], {
-  resourceKind: 'history',
-  entityName: 'History',
-  entityDisplayName: 'History',
-  entityDisplayNamePlural: 'History',
-  modelName: 'History',
-  iconClass: 'fa fa-list-ul fa-2x',
+const __class = declare('crm.Models.SData.History', [HistoryBase, _SDataModelBase], {
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
@@ -66,5 +61,5 @@ const __class = declare('crm.Models.SData.History', [_SDataModelBase], {
   },
 });
 
-Manager.register('History', MODEL_TYPE.SDATA, __class);
+Manager.register('History', MODEL_TYPES.SDATA, __class);
 export default __class;

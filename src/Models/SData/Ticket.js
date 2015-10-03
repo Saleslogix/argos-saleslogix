@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import TicketBase from '../TicketBase';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import all from 'dojo/promise/all';
 import Deferred from 'dojo/Deferred';
@@ -7,7 +8,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.SData.Ticket', [_SDataModelBase], {
+const __class = declare('crm.Models.SData.Ticket', [TicketBase, _SDataModelBase], {
   entityName: 'Ticket',
   entityDisplayName: 'Ticket',
   entityDisplayNamePlural: 'Tickets',

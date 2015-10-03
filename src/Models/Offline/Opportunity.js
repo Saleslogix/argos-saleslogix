@@ -1,10 +1,11 @@
 import declare from 'dojo/_base/declare';
+import OpportunityBase from '../OpportunityBase';
 import _OfflineModelBase from 'argos/Models/_OfflineModelBase';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.Offline.Opportunity', [_OfflineModelBase], {
+const __class = declare('crm.Models.Offline.Opportunity', [OpportunityBase, _OfflineModelBase], {
   entityName: 'Opportunity',
   entityDisplayName: 'Opportunity',
   entityDisplayNamePlural: 'Opportunities',
