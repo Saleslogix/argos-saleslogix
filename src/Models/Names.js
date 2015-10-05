@@ -5,5 +5,7 @@ export default {
   LEAD: 'Lead',
   OPPORTUNITY: 'Opportunity',
   TICKET: 'Ticket',
-  xUSERACTIVITY: 'UserActivity',
+  USERACTIVITY: 'UserActivity',
+  ADDRESS: 'Address',
+  HISTORY: 'History',
 };

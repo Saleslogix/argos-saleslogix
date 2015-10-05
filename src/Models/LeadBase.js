@@ -9,7 +9,7 @@ const __class = declare('crm.Models.LeadBase', [_ModelBase], {
   entityDisplayNamePlural: 'Leads',
   iconClass: 'fa fa-filter fa-2x',
   security: 'Entities/Lead/View',
-  modelName: MODEL_NAMES.LEAD,
+  modelName: MODEL_NAMES.OPPORTUNITY,
   createRelationships: function createRelationships() {
     let rel;
     rel = this.relationships || (this.relationships = [{

@@ -9,7 +9,6 @@
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-import OfflineManager from 'argos/Offline/Manager';
 import format from '../../Format';
 import lang from 'dojo/_base/lang';
 import MODEL_TYPES from 'argos/Models/Types';

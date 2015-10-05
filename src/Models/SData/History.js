@@ -61,5 +61,5 @@ const __class = declare('crm.Models.SData.History', [HistoryBase, _SDataModelBas
   },
 });
 
-Manager.register('History', MODEL_TYPES.SDATA, __class);
+Manager.register(MODEL_NAMES.HISTORY, MODEL_TYPES.SDATA, __class);
 export default __class;

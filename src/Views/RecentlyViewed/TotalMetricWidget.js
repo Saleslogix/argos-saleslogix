@@ -2,7 +2,7 @@ import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
 import OfflineManager from 'argos/Offline/Manager';
 
-export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
+export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
     return {};

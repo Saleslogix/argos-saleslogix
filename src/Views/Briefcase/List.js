@@ -14,7 +14,7 @@ import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineManager from 'argos/Offline/Manager';
 import Deferred from 'dojo/Deferred';
-import all from 'dojo/promise/all';
+
 
 export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin], {
   id: 'briefcase_list',
@@ -31,7 +31,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
     '<h3>{%: $$.getTitle($) %}</h3>',
     '<h4>{%: $$.getOfflineDate($) %}</h4>',
   ]),
-  refreshRequiredFor: function refreshRequiredFor(options) {
+  refreshRequiredFor: function refreshRequiredFor() {
     return true;
   },
   getModel: function getModel() {

@@ -7,7 +7,7 @@ const __class = declare('crm.Models.HistoryBase', [_ModelBase], {
   entityName: 'History',
   entityDisplayName: 'History',
   entityDisplayNamePlural: 'History',
-  modelName: 'History',
+  modelName: MODEL_NAMES.HISTORY,
   iconClass: 'fa fa-list-ul fa-2x',
 });
 export default __class;

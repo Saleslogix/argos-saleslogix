@@ -9,14 +9,12 @@
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-// import _OfflineRightDrawerListMixin from './_OfflineRightDrawerListMixin';
+// import _RightDrawerListMixin from './_RightDrawerListMixin';
 // import _MetricListMixin from '../_MetricListMixin';
 // import TotalMetricWidget from './TotalMetricWidget';
-import OfflineManager from 'argos/Offline/Manager';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
-// import Deferred from 'dojo/Deferred';
 import all from 'dojo/promise/all';
 
 export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutListMixin], {
@@ -36,7 +34,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     '<h3>{%: $$.getTitle($) %}</h3>',
     '<h4>{%: $$.getOfflineDate($) %}</h4>',
   ]),
-  refreshRequiredFor: function refreshRequiredFor(options) {
+  refreshRequiredFor: function refreshRequiredFor() {
     return true;
   },
   getModel: function getModel() {

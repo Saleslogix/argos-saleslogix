@@ -3,6 +3,7 @@ import UserActivityBase from '../UserActivityBase';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
+import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.SData.UserActivity', [UserActivityBase, _SDataModelBase], {
   createQueryModels: function createQueryModels() {
@@ -41,5 +42,5 @@ const __class = declare('crm.Models.SData.UserActivity', [UserActivityBase, _SDa
   },
 });
 
-Manager.register('UserActivity', MODEL_TYPES.SDATA, __class);
+Manager.register(MODEL_NAMES.USERACTIVITY, MODEL_TYPES.SDATA, __class);
 export default __class;

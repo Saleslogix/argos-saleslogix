@@ -9,5 +9,5 @@ const __class = declare('crm.Models.Offline.History', [HistoryBase, _OfflineMode
 
 });
 
-Manager.register('History', MODEL_TYPES.OFFLINE, __class);
+Manager.register(MODEL_NAMES.HISTORY, MODEL_TYPES.OFFLINE, __class);
 export default __class;

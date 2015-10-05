@@ -9,5 +9,5 @@ const __class = declare('crm.Models.Offline.Address', [AddressBase, _OfflineMode
 
 });
 
-Manager.register('Address', MODEL_TYPES.OFFLINE, __class);
+Manager.register(MODEL_NAMES.ADDRESS, MODEL_TYPES.OFFLINE, __class);
 export default __class;

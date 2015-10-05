@@ -3,7 +3,7 @@ import ActivityBase from './ActivityBase';
 import MODEL_NAMES from './Names';
 
 const __class = declare('crm.Models.UserActivityBase', [ActivityBase], {
-  modelName: 'UserActivity',
+  modelName: MODEL_NAMES.USERACTIVITY,
   entityName: 'UserActivity',
   entityDisplayName: 'User Activity',
   entityDisplayNamePlural: 'User Activities',

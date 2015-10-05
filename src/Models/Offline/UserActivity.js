@@ -9,5 +9,5 @@ const __class = declare('crm.Models.Offline.UserActivity', [UserActivityBase, _O
 
 });
 
-Manager.register('UserActivity', MODEL_TYPE.OFFLINE, __class);
+Manager.register(MODEL_NAMES.USERACTIVITY, MODEL_TYPE.OFFLINE, __class);
 export default __class;

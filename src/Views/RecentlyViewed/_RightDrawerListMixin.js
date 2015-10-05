@@ -4,7 +4,7 @@ import lang from 'dojo/_base/lang';
 import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 
-const mixinName = 'crm.Views.Offline._OfflineRightDrawerListMixin';
+const mixinName = 'crm.Views.RecentlyViewd._RightDrawerListMixin';
 
 /**
  * @class crm.Views._SpeedSearchRightDrawerListMixin
@@ -14,7 +14,7 @@ const mixinName = 'crm.Views.Offline._OfflineRightDrawerListMixin';
  * @mixins crm.Views._RightDrawerBaseMixin
  *
  */
-const __class = declare('crm.Views.Offline._OfflineRightDrawerListMixin', [_RightDrawerBaseMixin], {
+const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
   entitySectionText: 'Entity',
   kpiSectionText: 'KPI',

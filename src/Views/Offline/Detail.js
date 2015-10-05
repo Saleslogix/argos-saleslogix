@@ -10,7 +10,6 @@ import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
 import array from 'dojo/_base/array';
 import domConstruct from 'dojo/dom-construct';
-import OfflineManager from 'argos/Offline/Manager';
 import format from '../../Format';
 import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
 import MODEL_TYPES from 'argos/Models/Types';
@@ -140,7 +139,6 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
       }
     }, this);
   },
-  
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
     const labelNode = query('.related-item-label', rowNode)[0];
     if (labelNode) {
