@@ -387,6 +387,23 @@
   notSupportedText: "Viewing attachments is not supported by your device."
 >
 
+<calendarView ""
+  titleText: "Calendar"
+  monthTitleFormatText: "MMMM YYYY"
+  dayTitleFormatText: "ddd MMM D, YYYY"
+  eventDateFormatText: "M/D"
+  startTimeFormatText: "h:mm A"
+  allDayText: "All-Day"
+  eventText: "Event"
+  eventHeaderText: "Events"
+  countMoreText: "View More"
+  toggleCollapseText: "toggle collapse"
+  withFromText: "with ${contactName} from ${accountName}"
+  withText: "with ${object}"
+  unspecifiedText: "unspecified"
+  forText: "for ${reason}"
+>
+
 <calendarDayView ""
   titleText: "Calendar"
   eventDateFormatText: "M/D/YYYY"
