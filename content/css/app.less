@@ -281,7 +281,7 @@
 
 .metric-widget,
 .metric-detail {
-    display: inline-flex;
+    .display-inline-flex();
     padding: 0px;
     background-color: @color-deep-slate;
 }
@@ -295,8 +295,8 @@
 }
 
 .metric-widget {
-    flex: auto;
-    flex-basis: 125px;
+    .flex(auto);
+    .flex-basis(125px);
     border: 1px solid @color-slate;
 }
 
@@ -319,8 +319,8 @@
 }
 
 .metric-wrapper {
-    display: flex;
-    flex-flow: row wrap;
+    .display-flex();
+    .flex-flow(row wrap);
 }
 
 .metric-title > .list-loading-indicator {
@@ -483,14 +483,14 @@ body.transition > .viewContainer > .footer-toolbar {
   }
 }
 .activityEntry__header {
-  display: inline-flex;
-  flex-flow: row wrap;
+  .display-inline-flex;
+  .flex-flow(row wrap);
   width: 85%;
 }
 .header__content {
   display: inline-block;
   width: 0;
-  flex-grow: 1;
+  .flex-grow(1);
 }
 .header__subTitle {
   color: @color-graphite;
