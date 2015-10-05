@@ -70,17 +70,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   },
   allowSelection: true,
   enableActions: true,
-  hashTagQueriesText: {
-    'alarm': 'alarm',
-    'status-unconfirmed': 'status-unconfirmed',
-    'status-accepted': 'status-accepted',
-    'status-declined': 'status-declined',
-    'recurring': 'recurring',
-    'timeless': 'timeless',
-    'today': 'today',
-    'this-week': 'this-week',
-    'yesterday': 'yesterday',
-  },
+  hashTagQueriesText: {},
 });
 
 lang.setObject('Mobile.SalesLogix.Views.Activity.MyDay', __class);
