@@ -5,6 +5,7 @@ import string from 'dojo/string';
 import all from 'dojo/promise/all';
 import Deferred from 'dojo/Deferred';
 import ErrorManager from 'argos/ErrorManager';
+// import convert from 'argos/Convert';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
@@ -125,7 +126,7 @@ const __class = declare('crm.Models.SData.Activity', [ActivityBase, _SDataModelB
         });
     });
   },
-});
+  });
 
 Manager.register(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA, __class);
 export default __class;

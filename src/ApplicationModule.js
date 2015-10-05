@@ -5,7 +5,6 @@ import ApplicationModule from 'argos/ApplicationModule';
 import Calendar from 'argos/Calendar';
 import 'argos/RelatedViewManager';
 import 'argos/RelatedViewWidget';
-import 'argos/Data/main';
 import List from 'argos/List';
 import Signature from 'argos/Views/Signature';
 import SearchWidget from 'argos/SearchWidget';
@@ -35,15 +34,17 @@ import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
 import ActivityList from './Views/Activity/List';
+import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
 import ActivityDetail from './Views/Activity/Detail';
 import ActivityEdit from './Views/Activity/Edit';
 import ActivityComplete from './Views/Activity/Complete';
 import ActivityTypesList from './Views/Activity/TypesList';
 import ActivityRecurring from './Views/Activity/Recurring';
-import CalendarDayView from './Views/Calendar/DayView';
-import CalendarWeekView from './Views/Calendar/WeekView';
-import CalendarMonthView from './Views/Calendar/MonthView';
+import CalendarView from './Views/Calendar/CalendarView';
+import DayView from './Views/Calendar/DayView';
+import MonthView from './Views/Calendar/MonthView';
+import WeekView from './Views/Calendar/WeekView';
 import GenericBar from './Views/Charts/GenericBar';
 import GenericLine from './Views/Charts/GenericLine';
 import GenericPie from './Views/Charts/GenericPie';
@@ -95,7 +96,6 @@ import ViewAttachment from './Views/Attachment/ViewAttachment';
 import AttachmentList from './Views/Attachment/List';
 import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
-import RecentlyViewedDetail from './Views/RecentlyViewed/Detail';
 import RecentlyViewedList from './Views/RecentlyViewed/List';
 import BriefcaseList from './Views/Briefcase/List';
 import './Fields/AddressField';
@@ -168,7 +168,6 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new OfflineList({
       expose: true,
     }));
-    this.registerView(new RecentlyViewedDetail());
     this.registerView(new RecentlyViewedList({
       expose: true,
     }));
@@ -209,9 +208,10 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new CalendarMonthView());
-    this.registerView(new CalendarWeekView());
-    this.registerView(new CalendarDayView());
+    this.registerView(new CalendarView());
+    this.registerView(new DayView());
+    this.registerView(new MonthView());
+    this.registerView(new WeekView());
 
     // Charts
     this.registerView(new GenericBar({
@@ -370,6 +370,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
+    this.registerView(new MyDayList());
     this.registerView(new MyActivityList());
     this.registerView(new ActivityRecurring());
 

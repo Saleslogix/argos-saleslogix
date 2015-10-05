@@ -64,6 +64,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
+  resourceKind: 'contacts',
   modelName: MODEL_NAMES.CONTACT,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {

@@ -52,6 +52,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   id: 'ticket_detail',
   editView: 'ticket_edit',
   enableOffline: true,
+  resourceKind: 'tickets',
   modelName: MODEL_NAMES.TICKET,
 
   scheduleActivity: function scheduleActivity() {

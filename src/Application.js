@@ -11,6 +11,7 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
+import Toast from 'argos/Toast';
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
@@ -99,6 +100,7 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
     this._loadNavigationState();
     this._saveDefaultPreferences();
+    this._setupToasts();
 
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
@@ -172,6 +174,10 @@ const __class = declare('crm.Application', [Application], {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
     } catch (e) {} // eslint-disable-line
+  },
+  _setupToasts: function _setupToasts() {
+    this.toast = new Toast();
+    this.toast.show();
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
@@ -691,8 +697,8 @@ const __class = declare('crm.Application', [Application], {
     ErrorManager.addError(response, o, {}, 'failure');
   },
   defaultViews: [
-    'myactivity_list',
-    'calendar_daylist',
+    'myday_list',
+    'calendar_view',
     'history_list',
     'account_list',
     'contact_list',
@@ -775,24 +781,22 @@ const __class = declare('crm.Application', [Application], {
       this.redirectHash = '';
     }
   },
-  onOffline: function onOffline() {
-    this.inherited(arguments);
-    let results = confirm(this.offlinePromptText); // eslint-disable-line
-    if (results) {
-      this.navigateToInitialView();
-    }
-  },
-  onOnline: function onOnline() {
-    this.inherited(arguments);
-    let results = confirm(this.onlinePromptText); // eslint-disable-line
-    if (results) {
-      this.navigateToLoginView();
-    }
-  },
-  onConnectionChange: function onConnectionChange(/*online*/) {
+  onConnectionChange: function onConnectionChange(online) {
     const view = App.getView('left_drawer');
     if (view) {
       view.refresh();
+    }
+
+    if (online) {
+      let results = confirm(this.onlinePromptText); // eslint-disable-line
+      if (results) {
+        this.navigateToLoginView();
+      }
+    } else {
+      let results = confirm(this.offlinePromptText); // eslint-disable-line
+      if (results) {
+        this.navigateToInitialView();
+      }
     }
   },
   navigateToLoginView: function navigateToLoginView() {

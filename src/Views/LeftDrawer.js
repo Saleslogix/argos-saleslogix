@@ -18,6 +18,7 @@ const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
 const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
+  enablePullToRefresh: false,
   rowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{% if ($$._hasIcon($)) { %}',
@@ -180,7 +181,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           'view': view.id,
           'title': view.titleText,
           'security': view.getSecurity(),
-          'offlineSupport': view.offlineSupport,
+          'enableOfflineSupport': view.enableOfflineSupport,
         });
       }
     }
@@ -193,26 +194,26 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'name': 'ConfigureMenu',
         'action': 'navigateToConfigurationView',
         'title': this.configureText,
-        'offlineSupport': true,
+        'enableOfflineSupport': true,
       }, {
         'name': 'SettingsAction',
         'action': 'navigateToSettingsView',
         'title': this.settingsText,
-        'offlineSupport': true,
+        'enableOfflineSupport': true,
       }, {
         'name': 'HelpAction',
         'action': 'navigateToHelpView',
         'title': this.helpText,
-        'offlineSupport': true,
+        'enableOfflineSupport': true,
       }, {
         'name': 'Logout',
         'action': 'logOut',
         'title': this.logOutText,
-        'offlineSupport': false,
+        'enableOfflineSupport': false,
       }, {
         'name': 'ConnectionIndicator',
         'title': string.substitute(this.connectionText, {connectionStatus: App.onLine ? this.onlineText : this.offlineText}),
-        'offlineSupport': true,
+        'enableOfflineSupport': true,
       }],
     };
 
@@ -238,7 +239,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           continue;
         }
 
-        if (!App.isOnline() && !row.offlineSupport) {
+        if (!App.isOnline() && !row.enableOfflineSupport) {
           continue;
         }
 

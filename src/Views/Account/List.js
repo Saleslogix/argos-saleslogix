@@ -94,6 +94,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   enableActions: true,
   pageSize: 10,
   offlineIds: null,
+  resourceKind: 'accounts',
   modelName: MODEL_NAMES.ACCOUNT,
 
   callMain: function callMain(params) {

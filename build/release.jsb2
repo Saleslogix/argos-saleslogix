@@ -547,7 +547,15 @@
           "path": "../src-out/Views/Address/"
         },
         {
+          "text": "LastRefresh.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
           "text": "List.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+          "text": "MyDay.js",
           "path": "../src-out/Views/Activity/"
         },
         {
@@ -573,6 +581,10 @@
         {
           "text": "Recurring.js",
           "path": "../src-out/Views/Activity/"
+        },
+        {
+          "text": "CalendarView.js",
+          "path": "../src-out/Views/Calendar/"
         },
         {
           "text": "DayView.js",

@@ -165,8 +165,6 @@
   contactText: "contact"
   opportunityText: "opportunity"
   ticketNumberText: "ticket"
-  whenText: "When"
-  whoText: "Who"
   startDateFormatText: "M/D/YYYY h:mm:ss A"
   timelessDateFormatText: "M/D/YYYY"
   alarmDateFormatText: "M/D/YYYY h:mm:ss A"
@@ -263,6 +261,19 @@
 
 <activityMyList ""
   titleText: "My Activities"
+  completeActivityText: "Complete"
+  acceptActivityText: "Accept"
+  declineActivityText: "Decline"
+  callText: "Call"
+  calledText: "Called"
+  addAttachmentActionText: "Add Attachment"
+  viewContactActionText: "Contact"
+  viewAccountActionText: "Account"
+  viewOpportunityActionText: "Opportunity"
+>
+
+<activityMyDay ""
+  titleText: "My Schedule"
   completeActivityText: "Complete"
   acceptActivityText: "Accept"
   declineActivityText: "Decline"
@@ -374,6 +385,23 @@
   attachmentDateFormatText: "ddd M/D/YYYY h:mm a"
   downloadingText: "Downloading attachment ..."
   notSupportedText: "Viewing attachments is not supported by your device."
+>
+
+<calendarView ""
+  titleText: "Calendar"
+  monthTitleFormatText: "MMMM YYYY"
+  dayTitleFormatText: "ddd MMM D, YYYY"
+  eventDateFormatText: "M/D"
+  startTimeFormatText: "h:mm A"
+  allDayText: "All-Day"
+  eventText: "Event"
+  eventHeaderText: "Events"
+  countMoreText: "View More"
+  toggleCollapseText: "toggle collapse"
+  withFromText: "with ${contactName} from ${accountName}"
+  withText: "with ${object}"
+  unspecifiedText: "unspecified"
+  forText: "for ${reason}"
 >
 
 <calendarDayView ""
@@ -1309,6 +1337,11 @@
   totalLeads: "Total Leads"
   totalHistory: "Total History"
   duration: "Total Duration"
+  meetings: "Meetings"
+  calls: "Calls"
+  todos: "Todos"
+  personal: "Personal"
+  lastRefresh: "Last Refresh"
 >
 
 <fileManager ""

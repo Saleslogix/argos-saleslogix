@@ -11,7 +11,6 @@ import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 
-
 const resource = window.localeContext.getEntitySync('activityList').attributes;
 
 /**
@@ -118,6 +117,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   historyEditView: 'history_edit',
   enableActions: true,
   pageSize: 105,
+  resourceKind: 'activities',
   modelName: MODEL_NAMES.ACTIVITY,
 
   hashTagQueries: {
