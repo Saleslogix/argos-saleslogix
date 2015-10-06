@@ -2,10 +2,12 @@ import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from './Names';
 
+const resource = window.localeContext.getEntitySync('opportunityModel').attributes;
+
 const __class = declare('crm.Models.OpportunityBase', [_ModelBase], {
   entityName: 'Opportunity',
-  entityDisplayName: 'Opportunity',
-  entityDisplayNamePlural: 'Opportunities',
+  entityDisplayName: resource.entityDisplayName,
+  entityDisplayNamePlural: resource.entityDisplayNamePlural,
   iconClass: 'fa fa-money fa-2x',
   resourceKind: 'opportunities',
   modelName: MODEL_NAMES.OPPORTUNITY,

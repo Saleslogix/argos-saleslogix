@@ -273,16 +273,7 @@
 >
 
 <activityMyDay ""
-  titleText: "My Schedule"
-  completeActivityText: "Complete"
-  acceptActivityText: "Accept"
-  declineActivityText: "Decline"
-  callText: "Call"
-  calledText: "Called"
-  addAttachmentActionText: "Add Attachment"
-  viewContactActionText: "Contact"
-  viewAccountActionText: "Account"
-  viewOpportunityActionText: "Opportunity"
+  titleText: "My Schedule"  
 >
 
 <activityRecurring ""
@@ -1397,4 +1388,55 @@
 
 <speedSearchWidget ""
   searchText: "SpeedSearch"
+>
+
+<activityTypeText ""
+  atToDoText: "To-Do"
+  atPhoneCallText: "Phone Call"
+  atAppointmentText: "Meeting"
+  atLiteratureText: "Lit Request"
+  atPersonalText: "Personal"
+  atQuestionText: "Question"
+  atNoteText: "Note"
+  atEMailText: "Email" 
+>
+
+<accountModel ""
+  entityDisplayName: "Account"
+  entityDisplayNamePlural : "Accounts"
+>
+
+<contactModel ""
+  entityDisplayName: "Contact"
+  entityDisplayNamePlural : "Contacts"
+>
+
+<leadModel ""
+  entityDisplayName: "Lead"
+  entityDisplayNamePlural : "Leads"
+>
+<activityModel ""
+  entityDisplayName: "Activity"
+  entityDisplayNamePlural : "Activities"
+>
+<userActivityModel ""
+  entityDisplayName: "User Activity"
+  entityDisplayNamePlural : "User Actvvities"
+>
+<opportunityModel ""
+  entityDisplayName: "Opportunity"
+  entityDisplayNamePlural : "Opportunites"
+>
+<ticketModel ""
+  entityDisplayName: "Ticket"
+  entityDisplayNamePlural : "Tickets"
+>
+<addressModel ""
+  entityDisplayName: "Address"
+  entityDisplayNamePlural : "Addresses"
+>
+
+<historyModel ""
+  entityDisplayName: "History"
+  entityDisplayNamePlural : "History"
 >

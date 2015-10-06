@@ -2,11 +2,13 @@ import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from './Names';
 
+const resource = window.localeContext.getEntitySync('accountModel').attributes;
+
 const __class = declare('crm.Models.AccountBase', [_ModelBase], {
   resourceKind: 'accounts',
   entityName: 'Account',
-  entityDisplayName: 'Account',
-  entityDisplayNamePlural: 'Accounts',
+  entityDisplayName: resource.entityDisplayName,
+  entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ACCOUNT,
   iconClass: 'fa fa-building-o fa-2x',
   detailViewId: 'account_detail',

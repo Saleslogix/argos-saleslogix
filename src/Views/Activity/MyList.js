@@ -623,7 +623,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       });
     }
   },
-  createBriefcaseEntity: function createBriefcaseEntry(entry) {
+  createBriefcaseEntity: function createBriefcaseEntity(entry) {
     const entity = {
       entityId: entry.Activity.$key,
       entityName: 'Activity',

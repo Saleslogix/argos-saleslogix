@@ -1,36 +1,21 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from './Names';
+import ACTIVITY_TYPE_TEXT from './ActivityTypeText';
+import ACTIVITY_TYPE_ICON from './ActivityTypeIcon';
+
+const resource = window.localeContext.getEntitySync('activityModel').attributes;
 
 const __class = declare('crm.Models.ActivityBase', [_ModelBase], {
   modelName: MODEL_NAMES.ACTIVITY,
   entityName: 'Activity',
-  entityDisplayName: 'Activity',
-  entityDisplayNamePlural: 'Activities',
+  entityDisplayName: resource.entityDisplayName,
+  entityDisplayNamePlural: resource.entityDisplayNamePlural,
   iconClass: 'fa fa-list-ul fa-2x',
   resourceKind: 'activities',
   contractName: 'system',
   recurringActivityIdSeparator: ';',
-  activityIndicatorIconByType: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-book',
-    'atPersonal': 'fa fa-check-square-o',
-    'atQuestion': 'fa fa-question-circle',
-    'atNote': 'fa fa-file-text-o',
-    'atEMail': 'fa fa-envelope',
-  },
-  activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Lit Request',
-    'atPersonal': 'Personal',
-    'atQuestion': 'Question',
-    'atNote': 'Note',
-    'atEMail': 'Email',
-  },
+
   createRelationships: function createRelationships() {
     let rel;
     rel = this.relationships || (this.relationships = [ {
@@ -94,7 +79,7 @@ const __class = declare('crm.Models.ActivityBase', [_ModelBase], {
   getIconClass: function getIconClass(entry) {
     let cls = this.iconClass;
     if (entry && entry.Type) {
-      cls = this.activityIndicatorIconByType[entry.Type];
+      cls = ACTIVITY_TYPE_ICON[entry.Type];
       if (cls) {
         cls = cls + ' fa-2x';
       }
@@ -104,7 +89,7 @@ const __class = declare('crm.Models.ActivityBase', [_ModelBase], {
   getTypeText: function getTypeText(entry) {
     let name = '';
     if (entry && entry.Type) {
-      name = this.activityTypeText[entry.Type];
+      name = ACTIVITY_TYPE_TEXT[entry.Type];
     }
     return name;
   },

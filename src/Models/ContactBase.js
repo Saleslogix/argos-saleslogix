@@ -2,11 +2,13 @@ import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from './Names';
 
+const resource = window.localeContext.getEntitySync('contactModel').attributes;
+
 const __class = declare('crm.Models.ContactBase', [_ModelBase], {
   resourceKind: 'contacts',
   entityName: 'Contact',
-  entityDisplayName: 'Contact',
-  entityDisplayNamePlural: 'Contacts',
+  entityDisplayName: resource.entityDisplayName,
+  entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.CONTACT,
   iconClass: 'fa fa-user fa-lg',
   security: 'Entities/Contact/View',
