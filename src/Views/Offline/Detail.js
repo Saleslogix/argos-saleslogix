@@ -10,12 +10,16 @@ import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
 import array from 'dojo/_base/array';
 import domConstruct from 'dojo/dom-construct';
-import OfflineManager from 'argos/Offline/Manager';
 import format from '../../Format';
+import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
+import MODEL_TYPES from 'argos/Models/Types';
+import lang from 'dojo/_base/lang';
+import query from 'dojo/query';
 
-export default declare('crm.Views.Offline.Detail', [_DetailBase], {
+
+export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {
   id: 'offline_detail',
-  titleText: 'Recently Viewed Detail',
+  titleText: 'Offline Detail',
   offlineText: 'Offline',
   idProperty: 'id',
   offlineDoc: null,
@@ -27,8 +31,40 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase], {
     '{%: $.offlineDate %}',
     '</div>',
   ]),
-  createStore: function createStore() {
-    return OfflineManager.getStore();
+  relatedTemplate: new Simplate([
+    '<li class="{%= $.cls %}">',
+    '<a data-action="activateRelatedList" data-view="{%= $.view %}" data-name="{%: $.name %}" data-context="{%: $.context %}" {% if ($.disabled) { %}data-disable-action="true"{% } %} class="{% if ($.disabled) { %}disabled{% } %}">',
+    '{% if ($.icon) { %}',
+    '<img src="{%= $.icon %}" alt="icon" class="icon" />',
+    '{% } else if ($.iconClass) { %}',
+    '<div class="{%= $.iconClass %}" alt="icon"></div>',
+    '{% } %}',
+    '<span class="related-item-label">{%: $.label %}</span>',
+    '</a>',
+    '</li>',
+  ]),
+  show: function show(options) {
+    this._initOfflineView(options);
+    this.inherited(arguments);
+  },
+  _initOfflineView: function _initOfflineView(options) {
+    this.offlineContext = {
+      entityName: null,
+      entityId: null,
+      viewId: null,
+      offlineDate: null,
+      source: null,
+    };
+    this.refreshRequired = true;
+    lang.mixin(this.offlineContext, options.offlineContext);
+    this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
+
+    const views = App.getViews()
+      .filter((view) => {
+        return view.id === this.offlineContext.viewId && view.createLayout;
+      });
+
+    this._entityView = views[0];
   },
   _applyStateToGetOptions: function _applyStateToGetOptions() {},
   _buildGetExpression: function _buildGetExpression() {
@@ -38,34 +74,26 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase], {
   placeDetailHeader: function placeDetailHeader() {
     let value;
     let offlineDate = '';
-    if (this.offlineDoc && this.offlineDoc.entityDisplayName) {
-      value = this.offlineDoc.entityDisplayName + ' ' + this.informationText;
+    if (this._model && this._model.entityDisplayName) {
+      value = this._model.entityDisplayName + ' ' + this.informationText;
     } else {
       value = this.entityText + ' ' + this.informationText;
     }
     value = value + ' - ' + this.offlineText;
-    if (this.offlineDoc && this.offlineDoc.modifyDate) {
-      offlineDate = format.relativeDate(this.offlineDoc.modifyDate);
+    if (this.entry.$offlineDate) {
+      offlineDate = format.relativeDate(this.entry.$offlineDate);
     }
     domConstruct.place(this.detailHeaderTemplate.apply({ value: value, offlineDate: offlineDate }, this), this.tabList, 'before');
   },
-  preProcessEntry: function preProcessEntry(entry) {
-    this.offlineDoc = entry;
-    return entry.entity;
-  },
   createLayout: function createLayout() {
-    const views = App.getViews()
-      .filter((view) => {
-        return view.id === this.offlineDoc.viewId && view.createLayout;
-      });
-
-    const view = views[0];
+    const view = this._entityView;
     let layout = [];
     if (view) {
-      view.entry = this.entry.entity;
+      view.entry = this.entry;
       layout = view.createLayout.apply(view);
     }
     this.disableSections(layout);
+    this.applyRelatedSections(layout);
     return layout;
   },
   disableSections: function disableSections(sections) {
@@ -84,4 +112,66 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase], {
     }
     property.disabled = true;
   },
+  applyRelatedSections: function applyRelatedSections(sections) {
+    this._relatedItems = {};
+    array.forEach(sections, (section) => {
+      if (section.name === 'RelatedItemsSection') {
+        section.children = [];
+        this.addRelatedLayout(section);
+      }
+    }, this);
+  },
+  addRelatedLayout: function addRelatedLayout(section) {
+    const rels = this.entry.$relatedEntities;
+    array.forEach(rels, (rel) => {
+      if (rel && rel.relationship && rel.entityName) {
+        const viewId = (rel.relationship.viewId) ? rel.relationship.viewId : rel.entityName.toLowerCase() + '_list';
+        const item = {
+          name: rel.relationship.name,
+          entityName: rel.entityName,
+          label: rel.relationship.displayName,
+          view: viewId,
+          count: (rel.count || 0),
+          relationship: rel.relationship,
+        };
+        this._relatedItems[item.name] = item;
+        section.children.push(item);
+      }
+    }, this);
+  },
+  _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
+    const labelNode = query('.related-item-label', rowNode)[0];
+    if (labelNode) {
+      const html = '<span class="related-item-count">' + data.count + '</span>';
+      domConstruct.place(html, labelNode, 'before');
+    } else {
+      console.warn('Missing the "related-item-label" dom node.'); //eslint-disable-line
+    }
+  },
+  activateRelatedList: function activateRelatedList(params) {
+    if (params.context) {
+     // this.navigateToRelatedView(params.view, parseInt(params.context, 10), params.descriptor);
+      this.navigateToRelatedView(params);
+    }
+  },
+  navigateToRelatedView: function navigateToRelatedView(params) {
+    const rel = this._relatedItems[params.name];
+    const view = App.getView('offline_list');
+    const options = {
+      offlineContext: {
+        parentEntity: this.entry,
+        parentEntityId: this._model.getEntityId(this.entry),
+        entityName: rel.entityName,
+        viewId: rel.view,
+        related: rel,
+        source: this,
+      }};
+    options.fromContext = this;
+    options.selectedEntry = this.entry;
+    if (view && options) {
+      view.show(options);
+    }
+  },
 });
+
+

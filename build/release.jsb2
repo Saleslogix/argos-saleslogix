@@ -189,6 +189,42 @@
           "path": "../src-out/Models/"
         },
         {
+          "text": "AccountBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "ContactBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "LeadBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "OpportunityBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "ActivityBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "TicketBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "AddressBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "UserActivityBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "HistoryBase.js",
+          "path": "../src-out/Models/"
+        },
+        {
           "text": "Account.js",
           "path": "../src-out/Models/Offline/"
         },
@@ -213,6 +249,18 @@
           "path": "../src-out/Models/Offline/"
         },
         {
+          "text": "UserActivity.js",
+          "path": "../src-out/Models/Offline/"
+        },
+        {
+          "text": "Address.js",
+          "path": "../src-out/Models/Offline/"
+        },
+        {
+          "text": "History.js",
+          "path": "../src-out/Models/Offline/"
+        },
+        {
           "text": "Account.js",
           "path": "../src-out/Models/SData/"
         },
@@ -234,6 +282,16 @@
         },
         {
           "text": "Ticket.js",
+          "path": "../src-out/Models/SData/"
+        },
+        {
+          "text": "UserActivity.js",
+          "path": "../src-out/Models/SData/"
+        },{
+          "text": "Address.js",
+          "path": "../src-out/Models/SData/"
+        },{
+          "text": "History.js",
           "path": "../src-out/Models/SData/"
         },
         {
@@ -413,7 +471,11 @@
           "path": "../src-out/Views/"
         },
         {
-          "text": "_OfflineRightDrawerListMixin.js",
+          "text": "_RightDrawerListMixin.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
+          "text": "TotalMetricWidget.js",
           "path": "../src-out/Views/Offline/"
         },
         {
@@ -703,6 +765,22 @@
         {
           "text": "List.js",
           "path": "../src-out/Views/User/"
+        },
+        {
+          "text": "List.js",
+          "path": "../src-out/Views/RecentlyViewed/"
+        },
+        {
+          "text": "_RightDrawerListMixin.js",
+          "path": "../src-out/Views/RecentlyViewed/"
+        },
+        {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/RecentlyViewed/"
+        },
+        {
+          "text": "List.js",
+          "path": "../src-out/Views/Briefcase/"
         },
         {
           "text": "CalendarAccessList.js",

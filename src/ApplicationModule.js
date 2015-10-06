@@ -96,6 +96,8 @@ import ViewAttachment from './Views/Attachment/ViewAttachment';
 import AttachmentList from './Views/Attachment/List';
 import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
+import RecentlyViewedList from './Views/RecentlyViewed/List';
+import BriefcaseList from './Views/Briefcase/List';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -114,6 +116,9 @@ import './Models/Offline/Activity';
 import './Models/Offline/Contact';
 import './Models/Offline/Lead';
 import './Models/Offline/Opportunity';
+import './Models/Offline/UserActivity';
+import './Models/Offline/Address';
+import './Models/Offline/History';
 import './Models/Offline/Ticket';
 import './Models/SData/Account';
 import './Models/SData/Activity';
@@ -121,6 +126,9 @@ import './Models/SData/Contact';
 import './Models/SData/Lead';
 import './Models/SData/Opportunity';
 import './Models/SData/Ticket';
+import './Models/SData/UserActivity';
+import './Models/SData/Address';
+import './Models/SData/History';
 
 const resource = window.localeContext.getEntitySync('applicationModule').attributes;
 
@@ -160,7 +168,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new OfflineList({
       expose: true,
     }));
-
+    this.registerView(new RecentlyViewedList({
+      expose: true,
+    }));
+    this.registerView(new BriefcaseList({
+      expose: true,
+    }));
     this.registerView(new Help());
     this.registerView(new Settings());
     this.registerView(new Configure());

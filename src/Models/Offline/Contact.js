@@ -1,11 +1,13 @@
 import declare from 'dojo/_base/declare';
-import _ModelBase from 'argos/Models/_ModelBase';
+import ContactBase from '../ContactBase';
+import _OfflineModelBase from 'argos/Models/_OfflineModelBase';
 import Manager from 'argos/Models/Manager';
-import MODEL_TYPE from 'argos/Models/Types';
+import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('crm.Models.Offline.Contact', [_ModelBase], {
+const __class = declare('crm.Models.Offline.Contact', [ContactBase, _OfflineModelBase], {
+
 });
 
-Manager.register(MODEL_NAMES.CONTACT, MODEL_TYPE.OFFLINE, __class);
+Manager.register(MODEL_NAMES.CONTACT, MODEL_TYPES.OFFLINE, __class);
 export default __class;
