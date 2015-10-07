@@ -287,7 +287,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
 
     if (this._showMulti) {
       const dateIterator = this.currentDate.clone().add(1, 'days');
-      for (let i = 1; i < this.multiSelect; i++) {
+      for (let i = 0; i < this.multiSelect; i++) {
         entries = this.monthActivities[dateIterator.format('YYYY-MM-DD')];
         if (entries) {
           multiDays = multiDays.concat(entries);
@@ -501,6 +501,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       domConstruct.place(toggle, this._calendar.footerNode, 'last');
       on(toggle, 'click', this.toggleMultiSelect.bind(this));
       aspect.after(this._calendar, 'changeDay', this.selectDay.bind(this));
+      aspect.after(this._calendar, 'refreshCalendar', this.refreshData.bind(this));
       this._calendar.show();
     }
   },
