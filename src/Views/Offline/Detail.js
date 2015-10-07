@@ -122,17 +122,16 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     }, this);
   },
   addRelatedLayout: function addRelatedLayout(section) {
-    const rels = this.entry.$relatedEntities;
+    const rels = this._model.relationships;
     array.forEach(rels, (rel) => {
-      if (rel && rel.relationship && rel.entityName) {
-        const viewId = (rel.relationship.viewId) ? rel.relationship.viewId : rel.entityName.toLowerCase() + '_list';
+      if (rel && rel.childEntity) {
+        const viewId = (rel.viewId) ? rel.viewId : rel.childEntity.toLowerCase() + '_related';
         const item = {
-          name: rel.relationship.name,
-          entityName: rel.entityName,
-          label: rel.relationship.displayName,
+          name: rel.name,
+          entityName: rel.childEntity,
+          label: rel.displayName,
           view: viewId,
-          count: (rel.count || 0),
-          relationship: rel.relationship,
+          relationship: rel,
         };
         this._relatedItems[item.name] = item;
         section.children.push(item);
@@ -141,8 +140,9 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
     const labelNode = query('.related-item-label', rowNode)[0];
+    const count = this._model.getRelatedCount(context.relationship, this.entry);
     if (labelNode) {
-      const html = '<span class="related-item-count">' + data.count + '</span>';
+      const html = '<span class="related-item-count">' + count + '</span>';
       domConstruct.place(html, labelNode, 'before');
     } else {
       console.warn('Missing the "related-item-label" dom node.'); //eslint-disable-line
@@ -157,14 +157,16 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   navigateToRelatedView: function navigateToRelatedView(params) {
     const rel = this._relatedItems[params.name];
     const view = App.getView('offline_list');
+    const queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
     const options = {
       offlineContext: {
-        parentEntity: this.entry,
+        parentEntry: this.entry,
         parentEntityId: this._model.getEntityId(this.entry),
         entityName: rel.entityName,
         viewId: rel.view,
         related: rel,
         source: this,
+        queryExpression: queryExpression,
       }};
     options.fromContext = this;
     options.selectedEntry = this.entry;

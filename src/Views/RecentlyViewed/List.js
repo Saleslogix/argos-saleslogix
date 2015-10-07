@@ -9,15 +9,15 @@
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-// import _RightDrawerListMixin from './_RightDrawerListMixin';
-// import _MetricListMixin from '../_MetricListMixin';
-// import TotalMetricWidget from './TotalMetricWidget';
+import _RightDrawerListMixin from './_RightDrawerListMixin';
+import _MetricListMixin from '../_MetricListMixin';
+import TotalMetricWidget from './TotalMetricWidget';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import all from 'dojo/promise/all';
 
-export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutListMixin], {
+export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   id: 'recently_viewed_list',
   idProperty: 'id',
   detailView: 'offline_detail',
@@ -28,7 +28,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
   entityName: 'RecentlyViewd',
   titleText: 'Recently Viewed',
 
-  // metricWidgetCtor: TotalMetricWidget,
+  metricWidgetCtor: TotalMetricWidget,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
@@ -102,6 +102,37 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _CardLayoutL
     }
     return this.detailView;
   },
+
+  buildQueryExpression: function xbuildQueryExpression() {
+    const filters = this.getActiveEntityFilters();
+    return function queryFn(doc, emit) {
+      // If the user has entity filters stored in preferences, filter based on that
+      if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
+        filters.forEach((f) => {
+          if ((doc.entity.entityName === f.name) && (doc.entityName === 'RecentlyViewed')) {
+            emit(doc.modifyDate);
+          }
+        });
+      } else {
+        // User has no entity filter preferences (from right drawer)
+        if (doc.entityName === 'RecentlyViewed') {
+          emit(doc.modifyDate);
+        }
+      }
+    };
+  },
+  getActiveEntityFilters: function getActiveEntityFilters() {
+    return Object.keys(this.entityMappings)
+      .map((entityName) => {
+        const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters || [];
+        const entityPref = prefs.filter((pref) => {
+          return pref.name === entityName;
+        });
+        return entityPref[0];
+      })
+      .filter((f) => f && f.enabled);
+  },
+
   // Localization
   entityText: {
     'Contact': 'Contacts',

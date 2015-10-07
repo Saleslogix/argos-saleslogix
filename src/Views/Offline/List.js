@@ -49,7 +49,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   },
   _initOfflineView: function _initOfflineView(options) {
     this.offlineContext = {
-      parentEntity: null,
+      parentEntry: null,
       parentEntityId: null,
       entityName: null,
       entityId: null,
@@ -59,14 +59,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     this.refreshRequired = true;
     lang.mixin(this.offlineContext, options.offlineContext);
     this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
-
-    const views = App.getViews()
-      .filter((view) => {
-        return view.id === this.offlineContext.viewId;
-      });
-
-    this._entityView = views[0];
-    // this.itemTemplate  = this._entityView.itemTemplate;
+    this._entityView = this.getEntityView();
   },
   _xbuildQueryExpression: function _xbuildQueryExpression() {
     return function queryFn(doc, emit) {
@@ -84,5 +77,15 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
       return entry.viewId;
     }
     return this.detailView;
+  },
+  getEntityView: function getEntityView() {
+    return App.getView(this.offlineContext.viewId);
+  },
+  createItemRowNode: function createItemRowNode(entry) {
+    const view = this.getEntityView();
+    if (view) {
+      return view.createItemRowNode(entry);
+    }
+    return this.inherited(arguments);
   },
 });

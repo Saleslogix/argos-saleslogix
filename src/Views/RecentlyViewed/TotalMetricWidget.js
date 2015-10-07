@@ -1,6 +1,5 @@
 import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
-import OfflineManager from 'argos/Offline/Manager';
 
 export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
@@ -12,7 +11,7 @@ export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidg
     return {
       map: function map(doc, emit) {
         // If the user has entity filters stored in preferences, filter based on that
-        if (App.preferences && App.preferences.offlineEntityFilters) {
+        if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
           filters.forEach((f) => {
             if (doc.entityName === f.name) {
               emit(1);
@@ -25,8 +24,5 @@ export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidg
       },
       reduce: '_count',
     };
-  },
-  createStore: function createStore() {
-    return OfflineManager.getStore();
   },
 });
