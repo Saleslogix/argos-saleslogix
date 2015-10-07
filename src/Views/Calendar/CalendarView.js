@@ -496,7 +496,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (!this._calendar) {
       this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true});
       domConstruct.place(this._calendar.domNode, this.calendarNode);
-      // TODO: Place the toggle? for week view in the calendar toolbar by calling this._calendar.footerNode and placing the domNode there
       const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
       domConstruct.place(toggle, this._calendar.footerNode, 'last');
       on(toggle, 'click', this.toggleMultiSelect.bind(this));
