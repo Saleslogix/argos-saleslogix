@@ -472,6 +472,30 @@ body.transition > .viewContainer > .footer-toolbar {
     border-bottom: 1px solid @color-lighter-slate !important;
 }
 
+.calendar__weekToggle {
+  width: 100px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.weekToggle__thumb {
+  height: 28px !important;
+  width: 45px !important;
+  .transition(left 0.2s cubic-bezier(0.17, 0.04, 0.03, 0.94) 0s);
+}
+
+.weekToggle__on {
+  float: left;
+  padding-left: 8px;
+  color: #fff;
+}
+
+.weekToggle__off {
+  float: right;
+  padding-right: 8px;
+  color: #fff;
+}
+
 .activityEntry__icon {
   display: inline-block;
   width: 36px;
@@ -486,6 +510,9 @@ body.transition > .viewContainer > .footer-toolbar {
   .display-inline-flex;
   .flex-flow(row wrap);
   width: 85%;
+}
+.dayHeader {
+  padding: 10px 0 0 8px;
 }
 .header__content {
   display: inline-block;
