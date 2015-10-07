@@ -189,6 +189,14 @@
           "path": "../src-out/Models/"
         },
         {
+          "text": "ActivityTypeText.js",
+          "path": "../src-out/Models/"
+        },
+        {
+          "text": "ActivityTypeIcon.js",
+          "path": "../src-out/Models/"
+        },
+        {
           "text": "AccountBase.js",
           "path": "../src-out/Models/"
         },
