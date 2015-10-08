@@ -390,6 +390,8 @@
   withText: "with ${object}"
   unspecifiedText: "unspecified"
   forText: "for ${reason}"
+  dayText: "Day"
+  weekText: "Week"
 >
 
 <calendarDayView ""
