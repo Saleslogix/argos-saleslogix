@@ -153,7 +153,6 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
   activateRelatedList: function activateRelatedList(params) {
     if (params.context) {
-     // this.navigateToRelatedView(params.view, parseInt(params.context, 10), params.descriptor);
       this.navigateToRelatedView(params);
     }
   },
