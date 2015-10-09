@@ -7,19 +7,12 @@ module.exports = function gruntDeps(grunt) {
   grunt.config('deps', {
     files: '../src/**/*.js',
     cwd: './build',
-    modules: [/*{
-      name: 'dojo',
-      location: '../../../argos-sdk/libraries/dojo/dojo'
-    }, {
-      name: 'dijit',
-      location: '../../../argos-sdk/libraries/dojo/dijit'
-    }, */{
+    template: 'release.tmpl',
+    output: 'release.jsb2',
+    modules: [{
       name: 'crm',
       location: '../src'
-    }/*, {
-      name: 'argos',
-      location: '../../../argos-sdk/src'
-    }*/]
+    }]
   });
 
   grunt.registerTask('deps', function() {
@@ -29,6 +22,7 @@ module.exports = function gruntDeps(grunt) {
     var graph = new Graph();
     var nodes = {};
 
+    // Resolves import modules into a relative file path
     function resolvePath(module, sourceFile) {
       var config = grunt.config.get('deps');
       var relative = module[0] === '.';
@@ -49,6 +43,7 @@ module.exports = function gruntDeps(grunt) {
       }
     }
 
+    // Add nodes to the graph where f is the file path.
     function add(f) {
       if (nodes[f] || f === null || typeof f === 'undefined') {
         return nodes[f];
@@ -66,8 +61,8 @@ module.exports = function gruntDeps(grunt) {
       return nodes[f];
     }
 
+    // Khan topological sort (https://en.wikipedia.org/wiki/Topological_sorting#Algorithms)
     function sortGraph(graph) {
-      // Khan topological sort (https://en.wikipedia.org/wiki/Topological_sorting#Algorithms)
       var set = [];
       var sorted = [];
       // start nodes which have no incoming edges
@@ -104,6 +99,11 @@ module.exports = function gruntDeps(grunt) {
       return sorted;
     }
 
+    // - Iterate our ES6 files
+    // - parse them in esprima to get a list of imports (dependencies)
+    // - Add each file to the graph
+    // - Resolve the dependencies to a filename and add them to the graph
+    // - Link dependency to file.
     files.forEach(function(file) {
       var sourceDir = path.dirname(file);
       var base = path.basename(file);
@@ -132,10 +132,28 @@ module.exports = function gruntDeps(grunt) {
       }
     });
 
-    var sorted = sortGraph(graph);
-    grunt.log.writeln('-----sorted results-----');
-    sorted.forEach(function(i) {
-      grunt.log.writeln(i.name);
+    // Sort the graph and transform the data so it is template friendly
+    var sorted = sortGraph(graph)
+      .map(function(node) {
+        return {
+          folderName: path.dirname(node.name)
+            .replace(/\\/gi, '/') // force unix path seperator
+            .replace(/\/src/gi, '/src-out'), // replace src with src-out since our dependencies were scanned in ES6
+          fileName: path.basename(node.name)
+        };
+      });
+
+    // Template processing
+    var template = grunt.file.read(config.template, {
+      encoding: 'utf8'
+    });
+    var content = grunt.template.process(template, {
+      data: {
+        files: sorted
+      }
+    });
+    grunt.file.write(config.output, content, {
+      encoding: 'utf8'
     });
   });
 };
