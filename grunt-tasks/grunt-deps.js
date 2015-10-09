@@ -7,19 +7,19 @@ module.exports = function gruntDeps(grunt) {
   grunt.config('deps', {
     files: '../src/**/*.js',
     cwd: './build',
-    modules: [{
+    modules: [/*{
       name: 'dojo',
       location: '../../../argos-sdk/libraries/dojo/dojo'
     }, {
       name: 'dijit',
       location: '../../../argos-sdk/libraries/dojo/dijit'
-    }, {
+    }, */{
       name: 'crm',
       location: '../src'
-    }, {
+    }/*, {
       name: 'argos',
       location: '../../../argos-sdk/src'
-    }]
+    }*/]
   });
 
   grunt.registerTask('deps', function() {
