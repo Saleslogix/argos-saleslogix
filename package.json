@@ -7,7 +7,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "deps": "node --harmony ./scripts/deps.js",
     "start": "node scripts/server.js"
   },
   "devDependencies": {
