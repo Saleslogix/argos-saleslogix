@@ -26,9 +26,9 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
     this.setDefaultEntityPreferences();
   },
   setDefaultEntityPreferences: function setDefaultEntityPreferences() {
-    if (!App.preferences.offlineEntityFilters) {
+    if (!App.preferences.recentlyViewedEntityFilters) {
       const defaults = this.getDefaultEntityPreferences();
-      App.preferences.offlineEntityFilters = defaults;
+      App.preferences.recentlyViewedEntityFilters = defaults;
       App.persistPreferences();
     }
   },
@@ -82,7 +82,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
     // These actions will get mixed into the right drawer view.
     const actions = {
       entityFilterClicked: function onentityFilterClicked(params) {
-        const prefs = App.preferences && App.preferences.offlineEntityFilters;
+        const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
 
         const results = array.filter(prefs, function getResults(pref) {
           return pref.name === params.entityname;
@@ -141,7 +141,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
       id: 'actions',
       children: Object.keys(this.entityMappings)
         .map((entityName) => {
-          const prefs = App.preferences && App.preferences.offlineEntityFilters;
+          const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
           const entityPref = array.filter(prefs, (pref) => {
             return pref.name === entityName;
           });

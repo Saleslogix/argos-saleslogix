@@ -1,7 +1,7 @@
 import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
-import OfflineManager from 'argos/Offline/Manager';
-
+import lang from 'dojo/_base/lang';
+import when from 'dojo/when';
 export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
@@ -12,7 +12,7 @@ export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidg
     return {
       map: function map(doc, emit) {
         // If the user has entity filters stored in preferences, filter based on that
-        if (App.preferences && App.preferences.offlineEntityFilters) {
+        if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
           filters.forEach((f) => {
             if (doc.entityName === f.name) {
               emit(1);
@@ -26,7 +26,12 @@ export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidg
       reduce: '_count',
     };
   },
-  createStore: function createStore() {
-    return OfflineManager.getStore();
+  _getData: function _getData() {
+    const queryOptions = this._buildQueryOptions();
+    const queryExpression = this._buildQueryExpression();
+    const model = App.modelManager.getModel('RecentlyViewed');
+    queryOptions.returnQueryResult = true; // I dont like this we need to change this.
+    const queryResults = model.getEnttries(queryExpression, queryOptions);
+    when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
 });

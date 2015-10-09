@@ -32,10 +32,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   modelName: MODEL_NAMES.USERACTIVITY,
   enableSearch: false,
   pageSize: 105,
-  requestDataUsingModel: function requestDataUsingModel() {
-    this.options.queryModelName = 'myday';
-    return this._model.getEntries(this.query, this.options);
-  },
+  queryModelName: 'myday',
   createToolLayout: function createToolLayout() {
     this.inherited(arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
