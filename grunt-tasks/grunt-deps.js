@@ -25,8 +25,8 @@ module.exports = function gruntDeps(grunt) {
     // Resolves import modules into a relative file path
     function resolvePath(module, sourceFile) {
       var config = grunt.config.get('deps');
-      var relative = module[0] === '.';
-      if (relative) {
+      // Relative modules start with a period
+      if (module[0] === '.') {
         var sourceDir = path.dirname(sourceFile);
         return path.join(sourceDir, module) + '.js';
       } else {
@@ -35,10 +35,9 @@ module.exports = function gruntDeps(grunt) {
         var config = config.modules.filter(function(m) {
           return m.name === moduleName;
         })[0];
-        var location = config && config.location;
-        if (location) {
+        if (config && config.location) {
           var relativeModule = parts.join(path.sep);
-          return path.join(location, relativeModule) + '.js';
+          return path.join(config.location, relativeModule) + '.js';
         }
       }
     }
@@ -52,10 +51,6 @@ module.exports = function gruntDeps(grunt) {
       nodes[f] = {
         name: f
       };
-
-      if (graph.has(nodes[f])) {
-        return nodes[f];
-      }
 
       graph.add(nodes[f]);
       return nodes[f];
