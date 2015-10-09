@@ -140,10 +140,13 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
     const labelNode = query('.related-item-label', rowNode)[0];
-    const count = this._model.getRelatedCount(context.relationship, this.entry);
     if (labelNode) {
-      const html = '<span class="related-item-count">' + count + '</span>';
-      domConstruct.place(html, labelNode, 'before');
+      this._model.getRelatedCount(data.relationship, this.entry).then((result) => {
+        const html = '<span class="related-item-count">' + result.length + '</span>';
+        domConstruct.place(html, labelNode, 'before');
+      }, (err) => {
+        console.warn('Error getting related item count: ' + err); //eslint-disable-line
+      });
     } else {
       console.warn('Missing the "related-item-label" dom node.'); //eslint-disable-line
     }

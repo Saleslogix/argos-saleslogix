@@ -235,7 +235,6 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     const queryExpression = this._buildQueryExpression();
     const store = this.get('store');
     const queryResults = store.query(queryExpression, queryOptions);
-
     when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
   _onQuerySuccess: function _onQuerySuccess(queryResults) {

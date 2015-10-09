@@ -1,6 +1,5 @@
 import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
-import OfflineManager from 'argos/Offline/Manager';
 
 export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
@@ -27,6 +26,6 @@ export default declare('crm.Views.Offline.TotalMetricWidget', [MetricWidget], {
     };
   },
   createStore: function createStore() {
-    return OfflineManager.getStore();
+    this._model = App.modelManager.getModel('');
   },
 });

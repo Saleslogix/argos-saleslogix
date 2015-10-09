@@ -1,6 +1,7 @@
 import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
-
+import lang from 'dojo/_base/lang';
+import when from 'dojo/when';
 export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
@@ -24,5 +25,13 @@ export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidg
       },
       reduce: '_count',
     };
+  },
+  _getData: function _getData() {
+    const queryOptions = this._buildQueryOptions();
+    const queryExpression = this._buildQueryExpression();
+    const model = App.modelManager.getModel('RecentlyViewed');
+    queryOptions.returnQueryResult = true; // I dont like this we need to change this.
+    const queryResults = model.getEnttries(queryExpression, queryOptions);
+    when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
 });
