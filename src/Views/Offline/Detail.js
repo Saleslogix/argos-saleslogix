@@ -58,13 +58,26 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this.refreshRequired = true;
     lang.mixin(this.offlineContext, options.offlineContext);
     this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
-
+    this._entityView = this.getEntityView(this.offlineContext.viewId);
+  },
+  getEntityView: function getEntityView(viewId) {
+    let newView;
+    const newViewId = 'offline_detail' + viewId;
     const views = App.getViews()
       .filter((view) => {
-        return view.id === this.offlineContext.viewId && view.createLayout;
+        return view.id === viewId && view.createLayout;
       });
 
-    this._entityView = views[0];
+    if (this._entityView) {
+      this._entityView.destroy();
+      this._entityView = null;
+    }
+
+    if (views[0]) {
+      const ViewCtor = views[0].constructor;
+      newView = new ViewCtor({id: newViewId});
+    }
+    return newView;
   },
   _applyStateToGetOptions: function _applyStateToGetOptions() {},
   _buildGetExpression: function _buildGetExpression() {
@@ -92,6 +105,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
       view.entry = this.entry;
       layout = view.createLayout.apply(view);
     }
+
     this.disableSections(layout);
     this.applyRelatedSections(layout);
     return layout;
