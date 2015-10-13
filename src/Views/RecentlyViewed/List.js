@@ -79,7 +79,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   },
   navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
     const entry = this.entries && this.entries[key];
-    if (!App.onLine) {
+    if (App.onLine) {
       this.navigateToOnlineDetailView(entry, additionalOptions);
     } else {
       this.navigateToOfflineDetailView(entry, additionalOptions);

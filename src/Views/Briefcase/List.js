@@ -63,7 +63,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   },
   navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
     const entry = this.entries && this.entries[key];
-    if (!App.onLine) {
+    if (App.onLine) {
       this.navigateToOnlineDetailView(entry, additionalOptions);
     } else {
       this.navigateToOfflineDetailView(entry, additionalOptions);
