@@ -167,12 +167,18 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
       console.warn('Missing the "related-item-label" dom node.'); //eslint-disable-line
     }
   },
-  activateRelatedList: function activateRelatedList(params) {
+  activateRelatedEntry: function activateRelatedEntry(params) {
     if (params.context) {
-      this.navigateToRelatedView(params);
+      // this.navigateToRelatedView(params.view, parseInt(params.context, 10), params.descriptor);
+      this.navigateToRelatedDetailView(params);
     }
   },
-  navigateToRelatedView: function navigateToRelatedView(params) {
+  activateRelatedList: function activateRelatedList(params) {
+    if (params.context) {
+      this.navigateToRelatedListView(params);
+    }
+  },
+  navigateToRelatedListView: function navigateToRelatedListView(params) {
     const rel = this._relatedItems[params.name];
     const view = App.getView('offline_list');
     const queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
@@ -192,6 +198,47 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
       view.show(options);
     }
   },
+  navigateToRelatedDetailView: function navigateToRelatedDetailView(params) {
+    const slot = parseInt(params.context, 10);
+    const rel = this._navigationOptions[slot];
+    const relViewId = params.view;
+    const relView = App.getView(relViewId);
+
+    if (relView) {
+      const model = relView.getModel();
+      if (model) {
+        const options = {
+          descriptor: params.descriptor,
+          title: params.descriptor,
+          key: rel.key,
+          fromContext: this,
+          offlineContext: {
+            entityId: rel.key,
+            entityName: model.entityName,
+            viewId: relViewId,
+          },
+        };
+        const view = this.getRelatedDetailView(model.entityName);
+
+        if (view) {
+          view.show(options);
+        }
+      }
+    }
+  },
+  getRelatedDetailView: function getRelatedDetailView(entityName) {
+    const viewId = 'offline_detail' + '_' + entityName;
+    let view = this.app.getView(viewId);
+
+    if (view) {
+      return view;
+    }
+
+    this.app.registerView(new this.constructor({id: viewId}));
+    view = this.app.getView(viewId);
+    return view;
+  },
+
 });
 
 
