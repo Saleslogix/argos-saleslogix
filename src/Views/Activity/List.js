@@ -303,8 +303,8 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   _isTimelessToday: function _isTimelessToday(start) {
     // Start is UTC, convert it to local time so we can compare it against "now"
-    start.add({
-      minutes: start.zone(),
+    start.subtract({
+      minutes: start.utcOffset(),
     });
     return start.isAfter(moment()
       .startOf('day')) && start.isBefore(moment()

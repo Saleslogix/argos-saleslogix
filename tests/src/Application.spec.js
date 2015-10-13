@@ -13,7 +13,6 @@ define('spec/Application.spec', [
                 spyOn(instance, 'activate').and.callThrough();
                 spyOn(instance, 'init').and.callThrough();
                 spyOn(instance, 'initConnects').and.callThrough();
-                spyOn(instance, 'initCaching').and.callThrough();
                 spyOn(instance, 'initServices').and.callThrough();
                 spyOn(instance, 'initModules');
                 spyOn(instance, 'initToolbars');
@@ -25,7 +24,6 @@ define('spec/Application.spec', [
 
                 instance.init();
                 expect(instance.initConnects).toHaveBeenCalled();
-                expect(instance.initCaching).toHaveBeenCalled();
                 expect(instance.initServices).toHaveBeenCalled();
                 expect(instance.initModules).toHaveBeenCalled();
                 expect(instance.initToolbars).toHaveBeenCalled();

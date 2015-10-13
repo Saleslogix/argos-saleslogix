@@ -982,8 +982,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       if (isTimeLessDate) {
         const currentTime = moment();
         const wrapped = moment(startDate);
-        wrapped.add({
-          minutes: wrapped.zone(),
+        wrapped.subtract({
+          minutes: wrapped.utcOffset(),
         });
         wrapped.hours(currentTime.hours());
         wrapped.minutes(currentTime.minutes());
@@ -1002,8 +1002,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (timeless) {
       const wrapped = moment(startDate);
-      wrapped.add({
-        minutes: wrapped.zone(),
+      wrapped.subtract({
+        minutes: wrapped.utcOffset(),
       });
       wrapped.hours(24);
       wrapped.minutes(0);

@@ -485,8 +485,8 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
 
       const startDay = moment(convert.toDateFromString(row.StartDate));
       if (r[i].Timeless) {
-        startDay.add({
-          minutes: startDay.zone(),
+        startDay.subtract({
+          minutes: startDay.utcOffset(),
         });
       }
 
