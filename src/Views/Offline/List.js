@@ -12,6 +12,7 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import format from '../../Format';
 import lang from 'dojo/_base/lang';
 import MODEL_TYPES from 'argos/Models/Types';
+import OfflineDetail from './Detail';
 
 export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixin], {
   id: 'offline_list',
@@ -21,6 +22,17 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   resourceKind: '',
   entityName: '',
   titleText: '',
+  offlineText: 'offline',
+
+  itemIndicatorTemplate: new Simplate([
+    '<span{% if ($.iconCls) { %} class="{%= $.iconCls %}" {% } %} style="color:black; margin:0" >',
+    '{% if ($.showIcon === false) { %}',
+    '{%: $.label + " " +  $.valueText %}',
+    '{% } else if ($.indicatorIcon && !$.iconCls) { %}',
+    '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
+    '{% } %}',
+    '</span>',
+  ]),
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getDescription($) %}</h3>',
@@ -68,7 +80,16 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     return options;
   },
   createIndicatorLayout: function createIndicatorLayout() {
-    return [];
+    return this.itemIndicators || (this.itemIndicators = [{
+      id: 'offline',
+      showIcon: false,
+      location: 'top',
+      onApply: function onApply(entry, view) {
+        this.isEnable = true;
+        this.valueText = view.getOfflineDate(entry);
+        this.label = view.offlineText;
+      },
+    }]);
   },
   getDetailViewId: function getDetailViewId(entry) {
     if (entry && entry.viewId) {
@@ -86,4 +107,44 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     }
     return this.inherited(arguments);
   },
+  navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
+    this.navigateToOfflineDetailView(key, descriptor, additionalOptions);
+  },
+  navigateToOfflineDetailView: function navigateToOfflineDetailView(key, descriptor, additionalOptions) {
+    const entry = this.entries && this.entries[key];
+    const view = this.getDetailView();
+    let options = {
+      descriptor: entry.description, // keep for backwards compat
+      title: entry.description,
+      key: key,
+      fromContext: this,
+      offlineContext: {
+        entityId: this._model.getEntityId(entry),
+        entityName: this._model.entityName,
+        viewId: this._model.detailViewId,
+        offlineDate: entry.$offlineData,
+        source: entry,
+      },
+    };
+    if (additionalOptions) {
+      options = lang.mixin(options, additionalOptions);
+    }
+
+    if (view) {
+      view.show(options);
+    }
+  },
+  getDetailView: function getDetailView() {
+    const viewId = this.detailView + '_' + this._model.entityName;
+    let view = this.app.getView(viewId);
+
+    if (view) {
+      return view;
+    }
+
+    this.app.registerView(new OfflineDetail({id: viewId}));
+    view = this.app.getView(viewId);
+    return view;
+  },
+
 });

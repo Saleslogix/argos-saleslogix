@@ -14,7 +14,7 @@ import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineManager from 'argos/Offline/Manager';
 import Deferred from 'dojo/Deferred';
-
+import OfflineDetail from '../Offline/Detail';
 
 export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin], {
   id: 'briefcase_list',
@@ -63,8 +63,14 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   },
   navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
     const entry = this.entries && this.entries[key];
-    const detailViewId = this.getDetailViewId(entry);
-    const view = this.app.getView(detailViewId);
+    if (App.onLine) {
+      this.navigateToOnlineDetailView(entry, additionalOptions);
+    } else {
+      this.navigateToOfflineDetailView(entry, additionalOptions);
+    }
+  },
+  navigateToOnlineDetailView: function navigateToDetailView(entry, additionalOptions) {
+    const view = this.app.getView(entry.viewId);
 
     let options = {
       descriptor: entry.description, // keep for backwards compat
@@ -81,11 +87,39 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
       view.show(options);
     }
   },
-  getDetailViewId: function getDetailViewId(entry) {
-    if (App.onLine && entry && entry.viewId) {
-      return entry.viewId;
+  navigateToOfflineDetailView: function navigateToOfflineDetailView(entry, additionalOptions) {
+    const view = this.getDetailView(entry.entityName);
+    let options = {
+      descriptor: entry.description, // keep for backwards compat
+      title: entry.description,
+      key: entry.entityId,
+      fromContext: this,
+      offlineContext: {
+        entityId: entry.entityId,
+        entityName: entry.entityName,
+        viewId: entry.viewId,
+        source: entry,
+      },
+    };
+    if (additionalOptions) {
+      options = lang.mixin(options, additionalOptions);
     }
-    return this.detailView;
+
+    if (view) {
+      view.show(options);
+    }
+  },
+  getDetailView: function getDetailView(entityName) {
+    const viewId = this.detailView + '_' + entityName;
+    let view = this.app.getView(viewId);
+
+    if (view) {
+      return view;
+    }
+
+    this.app.registerView(new OfflineDetail({id: viewId}));
+    view = this.app.getView(viewId);
+    return view;
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
@@ -113,39 +147,12 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   navToOnlineView: function navToOnlineVie(action, selection) {
     const briefcaseId = selection.tag.attributes['data-key'].value;
     const briefcase = this.entries[briefcaseId];
-    const view = this.app.getView(briefcase.viewId);
-    const options = {
-      descriptor: briefcase.description, // keep for backwards compat
-      title: briefcase.description,
-      key: briefcase.entityId,
-      fromContext: this,
-    };
-
-    if (view) {
-      view.show(options);
-    }
+    this.navigateToOnlineDetailView(briefcase);
   },
   navToOfflineView: function navToOfflineView(action, selection) {
     const briefcaseId = selection.tag.attributes['data-key'].value;
     const briefcase = this.entries[briefcaseId];
-    const view = this.app.getView(this.detailView);
-    const options = {
-      descriptor: briefcase.description, // keep for backwards compat
-      title: briefcase.description,
-      key: briefcase.entityId,
-      fromContext: this,
-      offlineContext: {
-        entityId: briefcase.entityId,
-        entityName: briefcase.entityName,
-        viewId: briefcase.viewId,
-        offlineDate: briefcase.modifyDate,
-        source: briefcase,
-      },
-    };
-
-    if (view) {
-      view.show(options);
-    }
+    this.navigateToOfflineDetailView(briefcase);
   },
   removeItemAction: function removeItemAction(action, selection) { // eslint-disable-line
     const briefcaseId = selection.tag.attributes['data-key'].value;
