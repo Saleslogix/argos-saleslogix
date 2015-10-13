@@ -58,23 +58,25 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this.refreshRequired = true;
     lang.mixin(this.offlineContext, options.offlineContext);
     this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
-    this._entityView = this.getEntityView(this.offlineContext.viewId);
+
+    if (!this.offlineContext.viewId) {
+      this.offlineContext.viewId = (this._model.detailViewId) ? this._model.detailViewId : this._model.entityName.toLowerCase() + '_detail';
+    }
+
+    this._entityView = this.getEntityView();
   },
-  getEntityView: function getEntityView(viewId) {
+  getEntityView: function getEntityView() {
     let newView;
-    const newViewId = 'offline_detail' + viewId;
-    const views = App.getViews()
-      .filter((view) => {
-        return view.id === viewId && view.createLayout;
-      });
+    const newViewId = this.id + '_' + this.offlineContext.viewId;
+    const view = App.getView(this.offlineContext.viewId);
 
     if (this._entityView) {
       this._entityView.destroy();
       this._entityView = null;
     }
 
-    if (views[0]) {
-      const ViewCtor = views[0].constructor;
+    if (view) {
+      const ViewCtor = view.constructor;
       newView = new ViewCtor({id: newViewId});
     }
     return newView;

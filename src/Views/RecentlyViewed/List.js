@@ -16,6 +16,7 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import all from 'dojo/promise/all';
+import OfflineDetail from '../Offline/Detail';
 
 export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   id: 'recently_viewed_list',
@@ -78,8 +79,14 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   },
   navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
     const entry = this.entries && this.entries[key];
-    const detailViewId = this.getDetailViewId(entry);
-    const view = this.app.getView(detailViewId);
+    if (!App.onLine) {
+      this.navigateToOnlineDetailView(entry, additionalOptions);
+    } else {
+      this.navigateToOfflineDetailView(entry, additionalOptions);
+    }
+  },
+  navigateToOnlineDetailView: function navigateToDetailView(entry, additionalOptions) {
+    const view = this.app.getView(entry.viewId);
 
     let options = {
       descriptor: entry.description, // keep for backwards compat
@@ -96,13 +103,42 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
       view.show(options);
     }
   },
-  getDetailViewId: function getDetailViewId(entry) {
-    if (App.onLine && entry && entry.viewId) {
-      return entry.viewId;
+  navigateToOfflineDetailView: function navigateToOfflineDetailView(entry, additionalOptions) {
+    const view = this.getDetailView(entry.entityName);
+    let options = {
+      descriptor: entry.description, // keep for backwards compat
+      title: entry.description,
+      key: entry.entityId,
+      fromContext: this,
+      offlineContext: {
+        entityId: entry.entityId,
+        entityName: entry.entityName,
+        viewId: entry.viewId,
+        source: entry,
+      },
+    };
+    if (additionalOptions) {
+      options = lang.mixin(options, additionalOptions);
     }
-    return this.detailView;
-  },
 
+    if (view) {
+      view.show(options);
+    }
+  },
+  getDetailView: function getDetailView(entityName) {
+    const viewId = this.detailView + '_' + entityName;
+    let view = this.app.getView(viewId);
+
+    if (view) {
+      return view;
+    }
+
+    this.app.registerView(new OfflineDetail({id: viewId}));
+
+    view = this.app.getView(viewId);
+
+    return view;
+  },
   buildQueryExpression: function xbuildQueryExpression() {
     const filters = this.getActiveEntityFilters();
     return function queryFn(doc, emit) {
