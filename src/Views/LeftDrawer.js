@@ -194,7 +194,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'name': 'ConfigureMenu',
         'action': 'navigateToConfigurationView',
         'title': this.configureText,
-        'enableOfflineSupport': true,
+        'enableOfflineSupport': false,
       }, {
         'name': 'SettingsAction',
         'action': 'navigateToSettingsView',
@@ -261,6 +261,13 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   refresh: function refresh() {
     this.clear();
     this.requestData();
+    if (this.searchWidget) {
+      if (App.onLine) {
+        this.searchWidget.enable();
+      } else {
+        this.searchWidget.disable();
+      }
+    }
   },
   clear: function clear() {
     this.inherited(arguments);
