@@ -34,6 +34,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   enableSearch: false,
   pageSize: 105,
   queryModelName: 'myday',
+  enableOfflineSupport: true,
 
   show: function show(options) {
     if (!App.onLine) {

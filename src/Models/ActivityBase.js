@@ -44,7 +44,7 @@ const __class = declare('crm.Models.ActivityBase', [_ModelBase], {
       displayName: 'Opportunity',
       type: 'ManyToOne',
       parentProperty: 'OpportunityId',
-      childEntity: 'OpportunityId',
+      childEntity: 'Opportunity',
       queryModelName: 'detail',
     }, {
       name: 'Lead',
