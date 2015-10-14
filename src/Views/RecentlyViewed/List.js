@@ -139,7 +139,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
 
     return view;
   },
-  buildQueryExpression: function xbuildQueryExpression() {
+  buildQueryExpression: function buildQueryExpression() {
     const filters = this.getActiveEntityFilters();
     return function queryFn(doc, emit) {
       // If the user has entity filters stored in preferences, filter based on that
@@ -207,6 +207,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
       return this.tools;
     }
     const tools = this.inherited(arguments);
+    tools.tbar = [];
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'clear',

@@ -50,6 +50,9 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   _hasValidOptions: function _hasValidOptions(options) {
     return options;
   },
+  createToolLayout: function createToolLayout() {
+    return [];
+  },
   createIndicatorLayout: function createIndicatorLayout() {
     return [];
   },

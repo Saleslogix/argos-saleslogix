@@ -4,6 +4,7 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import MyList from './MyList';
+import MyDayOffline from './MyDayOffline';
 
 const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
 
@@ -33,6 +34,26 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   enableSearch: false,
   pageSize: 105,
   queryModelName: 'myday',
+
+  show: function show(options) {
+    if (App.onLine) {
+      this._showOfflineView(options);
+      return;
+    }
+    this.inherited(arguments);
+  },
+  _showOfflineView: function _showOfflineView(options) {
+    let view = App.getView('myday_offline_list');
+    if (!view) {
+      view = new MyDayOffline();
+      App.registerView(view);
+    }
+
+    view = App.getView('myday_offline_list');
+    if (view) {
+      view.show(options);
+    }
+  },
   createToolLayout: function createToolLayout() {
     this.inherited(arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {

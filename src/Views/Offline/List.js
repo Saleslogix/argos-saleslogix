@@ -74,10 +74,15 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     this._entityView = this.getEntityView();
   },
   _buildQueryExpression: function _buildQueryExpression() {
-    return this.offlineContext.queryExpression;
+    if (this.offlineContext && this.offlineContext.queryExpression) {
+      return this.offlineContext.queryExpression;
+    }
   },
   _hasValidOptions: function _hasValidOptions(options) {
     return options;
+  },
+  createToolLayout: function createToolLayout() {
+    return [];
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
@@ -91,19 +96,12 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
       },
     }]);
   },
-  getDetailViewId: function getDetailViewId(entry) {
-    if (entry && entry.viewId) {
-      return entry.viewId;
-    }
-    return this.detailView;
-  },
   getEntityView: function getEntityView() {
     return App.getView(this.offlineContext.viewId);
   },
   createItemRowNode: function createItemRowNode(entry) {
-    const view = this.getEntityView();
-    if (view) {
-      return view.createItemRowNode(entry);
+    if (this._entityView) {
+      return this._entityView.createItemRowNode(entry);
     }
     return this.inherited(arguments);
   },
