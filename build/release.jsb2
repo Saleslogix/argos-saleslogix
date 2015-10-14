@@ -567,6 +567,10 @@
           "path": "../src-out/Views/Activity/"
         },
         {
+          "text": "MyDayOffline.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
           "text": "MyDay.js",
           "path": "../src-out/Views/Activity/"
         },
