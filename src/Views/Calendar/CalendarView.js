@@ -433,7 +433,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         entry.isEvent = isEvent;
         const entryKey = store.getIdentity(entry);
         this.entries[entryKey] = entry;
-        const date = moment(convert.toDateFromString(entry.StartDate)).format('YYYY-MM-DD');
+        const startDate = moment(convert.toDateFromString(entry.StartDate));
+        if (entry.Timeless) {
+          startDate.subtract({
+            minutes: startDate.utcOffset(),
+          });
+        }
+        const date = startDate.format('YYYY-MM-DD');
         if (this.monthActivities[date]) {
           this.monthActivities[date].push(entryKey);
         } else {
