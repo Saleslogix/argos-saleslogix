@@ -423,11 +423,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     return name.split(' ').splice(-1)[0];
   },
   process: function process(store, entries, isEvent) {
-    const count = entries.length;
-
-    if (count > 0) {
-      for (let i = 0; i < count; i++) {
-        const entry = this._processEntry(entries[i]);
+    if (entries.length > 0) {
+      entries.forEach( (entryPreProcess) => {
+        const entry = this._processEntry(entryPreProcess);
         // If key comes back with nothing, check that the store is properly
         // setup with an idProperty
         entry.isEvent = isEvent;
@@ -445,7 +443,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         } else {
           this.monthActivities[date] = [entryKey];
         }
-      }
+      });
     }
   },
   processData: function processData(entries) {
@@ -506,8 +504,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       domConstruct.place(toggle, this._calendar.footerNode, 'last');
       on(toggle, 'click', this.toggleMultiSelect.bind(this));
       aspect.after(this._calendar, 'changeDay', this.selectDay.bind(this));
-      aspect.after(this._calendar, 'refreshCalendar', this.refreshData.bind(this));
       this._calendar.show();
+      aspect.after(this._calendar, 'refreshCalendar', this.refreshData.bind(this)); // Must be called after show because this will call requestData since show calls refreshCalendar
     }
   },
   requestData: function requestData() {
