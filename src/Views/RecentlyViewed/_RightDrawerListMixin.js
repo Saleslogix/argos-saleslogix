@@ -4,7 +4,7 @@ import lang from 'dojo/_base/lang';
 import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 
-const mixinName = 'crm.Views.RecentlyViewd._RightDrawerListMixin';
+const resource = window.localeContext.getEntitySync('rightDrawerListMixin').attributes;
 
 /**
  * @class crm.Views._SpeedSearchRightDrawerListMixin
@@ -15,9 +15,6 @@ const mixinName = 'crm.Views.RecentlyViewd._RightDrawerListMixin';
  *
  */
 const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin], {
-  // Localization
-  entitySectionText: 'Entity',
-  kpiSectionText: 'KPI',
 
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedEntityPrefs: false,
@@ -121,18 +118,16 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
     return actions;
   },
   getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
-    const mixin = lang.getObject(mixinName);
-
     if (entry.dataProps && entry.dataProps.entityname) {
       return {
         tag: 'view',
-        title: mixin.prototype.entitySectionText,
+        title: resource.entitySectionText,
       };
     }
 
     return {
       tag: 'kpi',
-      title: mixin.prototype.kpiSectionText,
+      title: resource.kpiSectionText,
     };
   },
   createRightDrawerLayout: function createRightDrawerLayout() {
