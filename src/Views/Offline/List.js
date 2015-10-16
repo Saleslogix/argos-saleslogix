@@ -82,7 +82,8 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     return options;
   },
   createToolLayout: function createToolLayout() {
-    return [];
+    this.toolsAdded = false;
+    return {tbar: []};
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{

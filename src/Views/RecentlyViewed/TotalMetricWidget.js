@@ -5,7 +5,7 @@ import when from 'dojo/when';
 export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
-    return {};
+    return {returnQueryResults: true};
   },
   _buildQueryExpression: function _buildQueryExpression() {
     const filters = this.activeEntityFilters || [];
@@ -29,9 +29,8 @@ export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidg
   _getData: function _getData() {
     const queryOptions = this._buildQueryOptions();
     const queryExpression = this._buildQueryExpression();
-    const model = App.modelManager.getModel('RecentlyViewed');
-    queryOptions.returnQueryResult = true; // I dont like this we need to change this.
-    const queryResults = model.getEnttries(queryExpression, queryOptions);
+    const model = App.ModelManager.getModel('RecentlyViewed');
+    const queryResults = model.getEntries(queryExpression, queryOptions);
     when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
 });

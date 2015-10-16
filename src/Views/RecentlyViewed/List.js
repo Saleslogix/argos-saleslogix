@@ -1,5 +1,5 @@
 /**
- * @class crm.Views.Offline.List
+ * @class crm.Views.RecentlyViewed.List
  *
  * @extends argos._ListBase
  * @requires argos._ListBase
@@ -28,7 +28,6 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   resourceKind: '',
   entityName: 'RecentlyViewd',
   titleText: 'Recently Viewed',
-
   metricWidgetCtor: TotalMetricWidget,
 
   itemTemplate: new Simplate([

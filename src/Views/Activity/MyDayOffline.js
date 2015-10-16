@@ -1,5 +1,5 @@
 /**
- * @class crm.Views.Offline.List
+ * @class crm.Views.MyDayOffline.List
  *
  * @extends argos._ListBase
  * @requires argos._ListBase
@@ -8,9 +8,8 @@
  */
 import declare from 'dojo/_base/declare';
 import OfflineList from '../Offline/List';
-// import _MetricListMixin from '../_MetricListMixin';
-// import MyDayMetricWidget from './MyDayMetricWidget';
-// import MyDayRightDrawerListMixin from './_MyDayRightDrawerListMixin';
+import MyDayMetricListMixin from './MyDayMetricListMixin';
+import MyDayRightDrawerListMixin from './MyDayRightDrawerListMixin';
 // import lang from 'dojo/_base/lang';
 // import format from '../../Format';
 // import MODEL_TYPES from 'argos/Models/Types';
@@ -20,13 +19,12 @@ import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import convert from 'argos/Convert';
 
-export default declare('crm.Views.Activity.MyDayOffline', [OfflineList], {
+export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMetricListMixin, MyDayRightDrawerListMixin], {
   id: 'myday_offline_list',
 
   entityName: 'Activity',
   titleText: 'My Schedule Offline',
   modelName: MODEL_NAMES.ACTIVITY,
- // metricWidgetCtor: MyDayMetricWidget,
   _initOfflineView: function _initOfflineView() {
     this.offlineContext = {
       entityName: 'Activity',

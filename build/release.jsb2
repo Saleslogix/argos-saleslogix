@@ -563,7 +563,15 @@
           "path": "../src-out/Views/Activity/"
         },
         {
-          "text": "MyDayOffline.js",
+          "text": "MyDayMetricWidget.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+         "text": "MyDayMetricListMixin.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+          "text": "MyDayRightDrawerListMixin.js",
           "path": "../src-out/Views/Activity/"
         },
         {
