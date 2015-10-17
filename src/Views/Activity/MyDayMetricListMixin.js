@@ -17,7 +17,11 @@ import _MetricListMixin from '../_MetricListMixin';
 const __class = declare('crm.Views.Activity.MyDayMetricListMixin', _MetricListMixin, {
 
   metricWidgetCtor: MyDayMetricWidget,
-
+  _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
+    const options = widgetOptions;
+    options.parent = this;
+    return options;
+  },
   createMetricWidgetsLayout: function createMetricWidgetsLayout() {
     let metrics = [];
     let filtered = [];

@@ -37,7 +37,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   enableOfflineSupport: true,
 
   show: function show(options) {
-    if (!App.onLine) {
+    if (App.onLine) {
       this._showOfflineView(options);
       return;
     }

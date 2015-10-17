@@ -1,6 +1,5 @@
 import MetricWidget from '../MetricWidget';
 import declare from 'dojo/_base/declare';
-import convert from 'argos/Convert';
 import lang from 'dojo/_base/lang';
 import when from 'dojo/when';
 import Deferred from 'dojo/Deferred';
@@ -14,19 +13,20 @@ export default declare('crm.Views.Activity.MyDayMetricWidget', [MetricWidget], {
     return {returnQueryResults: true};
   },
   _buildQueryExpression: function _buildQueryExpression() {
-    const metric = this;
+    const self = this;
     return function map(doc, emit) {
-      if (doc.entity.StartDate) {
-        const currentDate = moment();
-        const startDate = moment(convert.toDateFromString(doc.entity.StartDate));
-        startDate.add({
-          minutes: startDate.zone(),
-        });
-        if (startDate.isAfter(currentDate.startOf('day')) && currentDate.isBefore(moment().endOf('day'))) {
-          if (doc.entity.Type === metric.activityType) {
-            emit(doc);
+      if (doc.entity.Type === self.activityType) {
+        if (self.parent) {
+          const filter = self.parent.getCurrentFilter();
+          if (filter && filter.fn) {
+            const result = filter.fn.apply(self.parent, [doc.entity]);
+            if (result) {
+              emit(doc.entity);
+            }
+            return;
           }
         }
+        emit(doc.entity);
       }
     };
   },
@@ -41,7 +41,7 @@ export default declare('crm.Views.Activity.MyDayMetricWidget', [MetricWidget], {
     const def = new Deferred();
     when(results.total, (total) => {
       const metricResults = [{
-        name: 'x',
+        name: this.activityType,
         value: total,
       }];
       def.resolve(metricResults);

@@ -17,9 +17,36 @@ const mixinName = 'crm.Views.Activity.MyDayRightDrawerListMixin';
 const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
   kpiSectionText: 'KPI',
+  filterSectionText: 'Filter',
 
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedKPIPrefs: false,
+  _hasChangedKFilterPrefs: false,
+  onShow: function onShow() {
+    this.setDefaultFilterPreferences();
+  },
+  setDefaultFilterPreferences: function setDefaultFilterPreferences() {
+    if (!App.preferences.myDayFilters) {
+      const defaults = this.getDefaultFilterPreferences();
+      App.preferences.myDayFilters = defaults;
+      App.persistPreferences();
+    }
+  },
+  getDefaultFilterPreferences: function getDefaultFilterPreferences() {
+    const filters = this.getFilters();
+    const filterPrefs = Object.keys(filters)
+      .map((name) => {
+        let enabled = false;
+        if (this._currentFilterName === name) {
+          enabled = false;
+        }
+        return {
+          name,
+          enabled: enabled,
+        };
+      });
+    return filterPrefs;
+  },
   setupRightDrawer: function setupRightDrawer() {
     const drawer = App.getView('right_drawer');
     if (drawer) {
@@ -29,13 +56,22 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
-        if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
-          this.metricWidgetsBuilt = false;
-          this.rebuildWidgets();
-          this._hasChangedKPIPrefs = false;
-        }
-      }));
+      App.snapper.on('close', lang.hitch(this, this.onSnapperClose));
+    }
+  },
+  onSnapperClose: function onSnapperClose() {
+    if (this._hasChangedFilterPrefs && this.rebuildWidgets) {
+      this.clear();
+      this.refreshRequired = true;
+      this.refresh();
+      this._hasChangedFilterPrefs = false;
+      this._hasChangedKPIPrefs = false;
+    }
+
+    if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
+      this.destroyWidgets();
+      this.rebuildWidgets();
+      this._hasChangedKPIPrefs = false;
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
@@ -53,6 +89,33 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.
     const actions = {
+      filterClicked: function onFilterClicked(params) {
+        const prefs = App.preferences && App.preferences.myDayFilters;
+
+        const filterPref = array.filter(prefs, function getResults(pref) {
+          return pref.name === params.filtername;
+        });
+
+        if (filterPref.length > 0) {
+          const enabled = !!filterPref[0].enabled;
+          filterPref[0].enabled = !enabled;
+          prefs.forEach((pref) => {
+            if (pref.name !== filterPref[0].name) {
+              pref.enabled = false;
+            }
+          });
+          this.setCurrentFilter(null);
+          if (filterPref[0].enabled) {
+            this.setCurrentFilter(filterPref[0].name);
+          }
+          App.persistPreferences();
+          this._hasChangedFilterPrefs = true;
+          domAttr.set(params.$source, 'data-enabled', (!enabled)
+            .toString());
+          this.onSnapperClose();
+          this.toggleRightDrawer();
+        }
+      }.bind(this),
       kpiClicked: function kpiClicked(params) {
         const metrics = this.getMetrics();
         let results;
@@ -79,8 +142,14 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
   getMetrics: function getMetrics() {
     return App.getMetricsByResourceKind('userActivities');
   },
-  getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry() {
+  getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
     const mixin = lang.getObject(mixinName);
+    if (entry.dataProps && entry.dataProps.filtername) {
+      return {
+        tag: 'view',
+        title: mixin.prototype.filterSectionText,
+      };
+    }
     return {
       tag: 'kpi',
       title: mixin.prototype.kpiSectionText,
@@ -89,7 +158,30 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
   createRightDrawerLayout: function createRightDrawerLayout() {
     const layout = [];
     const metrics = this.getMetrics();
-
+    const filters = this.getFilters();
+    const filterSection = {
+      id: 'actions',
+      children: Object.keys(filters)
+        .map((filterName) => {
+          const prefs = App.preferences && App.preferences.myDayFilters;
+          const filterPref = array.filter(prefs, (pref) => {
+            return pref.name === filterName;
+          });
+          const {
+            enabled,
+            } = filterPref[0];
+          return {
+            'name': filterName,
+            'action': 'filterClicked',
+            'title': filters[filterName].label || filterName,
+            'dataProps': {
+              'filtername': filterName,
+              'enabled': !!enabled,
+            },
+          };
+        }),
+    };
+    layout.push(filterSection);
     const kpiSection = {
       id: 'kpi',
       children: metrics.filter((m) => m.title).map((metric, i) => {

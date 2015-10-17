@@ -23,7 +23,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   entityName: '',
   titleText: '',
   offlineText: 'offline',
-
+  pageSize: 1000,
   itemIndicatorTemplate: new Simplate([
     '<span{% if ($.iconCls) { %} class="{%= $.iconCls %}" {% } %} style="color:black; margin:0" >',
     '{% if ($.showIcon === false) { %}',
