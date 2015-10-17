@@ -56,7 +56,7 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
     return filters[this._currentFilterName];
   },
   setCurrentFilter: function setCurrentFilter(name) {
-    return this._currentFilterName = name;
+    this._currentFilterName = name;
   },
   _buildQueryExpression: function _buildQueryExpression() {
     const self = this;
