@@ -273,7 +273,7 @@
 >
 
 <activityMyDay ""
-  titleText: "My Schedule"  
+  titleText: "My Schedule"
 >
 
 <activityRecurring ""
@@ -1147,6 +1147,7 @@
 <rightDrawerListMixin ""
   hashTagsSectionText: "Hash Tags"
   groupsSectionText: "Groups"
+  entitySectionText: "Entity"
   kpiSectionText: "KPI"
   configureGroupsText: "Configure"
   refreshGroupsText: "Refresh"
@@ -1398,7 +1399,7 @@
   atPersonalText: "Personal"
   atQuestionText: "Question"
   atNoteText: "Note"
-  atEMailText: "Email" 
+  atEMailText: "Email"
 >
 
 <accountModel ""
