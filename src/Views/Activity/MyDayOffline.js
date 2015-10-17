@@ -1,5 +1,5 @@
 /**
- * @class crm.Views.MyDayOffline.List
+ * @class crm.Views.Activity.MyDayOffline
  *
  * @extends argos._ListBase
  * @requires argos._ListBase
