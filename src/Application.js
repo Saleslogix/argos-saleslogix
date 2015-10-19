@@ -87,7 +87,7 @@ const __class = declare('crm.Application', [Application], {
   offlinePromptText: resource.offlinePromptText,
   onlinePromptText: resource.onlinePromptText,
   homeViewId: 'myactivity_list',
-  offlineHomeViewId: 'offline_list',
+  offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',
 

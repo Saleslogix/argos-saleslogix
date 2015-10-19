@@ -1,5 +1,5 @@
 /**
- * @class crm.Views.Offline.List
+ * @class crm.Views.RecentlyViewed.List
  *
  * @extends argos._ListBase
  * @requires argos._ListBase
@@ -28,7 +28,6 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   resourceKind: 'offline',
   entityName: 'RecentlyViewd',
   titleText: 'Recently Viewed',
-
   metricWidgetCtor: TotalMetricWidget,
 
   itemTemplate: new Simplate([
@@ -56,7 +55,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   },
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
     const options = widgetOptions;
-    options.activeEntityFilters = this._model.getActiveEntityFilters();
+    options.activeEntityFilters = this.getActiveEntityFilters();
     return options;
   },
   _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
@@ -139,21 +138,18 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
 
     return view;
   },
-  buildQueryExpression: function xbuildQueryExpression() {
+  _buildQueryExpression: function _buildQueryExpression() {
     const filters = this.getActiveEntityFilters();
     return function queryFn(doc, emit) {
       // If the user has entity filters stored in preferences, filter based on that
       if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
         filters.forEach((f) => {
-          if ((doc.entity.entityName === f.name) && (doc.entityName === 'RecentlyViewed')) {
+          if (doc.entity.entityName === f.name) {
             emit(doc.modifyDate);
           }
         });
       } else {
-        // User has no entity filter preferences (from right drawer)
-        if (doc.entityName === 'RecentlyViewed') {
-          emit(doc.modifyDate);
-        }
+        emit(doc.modifyDate);
       }
     };
   },
@@ -207,6 +203,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
       return this.tools;
     }
     const tools = this.inherited(arguments);
+    tools.tbar = [];
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'clear',

@@ -483,6 +483,10 @@
           "path": "../src-out/Views/Offline/"
         },
         {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/Offline/"
+        },
+        {
           "text": "List.js",
           "path": "../src-out/Views/Offline/"
         },
@@ -559,11 +563,27 @@
           "path": "../src-out/Views/Activity/"
         },
         {
-          "text": "MyList.js",
+          "text": "MyDayMetricWidget.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+         "text": "MyDayMetricListMixin.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+          "text": "MyDayRightDrawerListMixin.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+          "text": "MyDayOffline.js",
           "path": "../src-out/Views/Activity/"
         },
         {
           "text": "MyDay.js",
+          "path": "../src-out/Views/Activity/"
+        },
+        {
+          "text": "MyList.js",
           "path": "../src-out/Views/Activity/"
         },
         {
