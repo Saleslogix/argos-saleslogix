@@ -8,7 +8,7 @@ import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 const mixinName = 'crm.Views.Activity.MyDayRightDrawerListMixin';
 
 /**
- * @class crm.Views.MyDayRightDrawerListMixin
+ * @class crm.Views.Activity.MyDayRightDrawerListMixin
  *
  *
  * @mixins crm.Views._RightDrawerBaseMixin
