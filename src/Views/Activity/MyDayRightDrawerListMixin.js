@@ -59,6 +59,15 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
       App.snapper.on('close', lang.hitch(this, this.onSnapperClose));
     }
   },
+  refreshRightDrawer: function refreshRightDrawer() {
+    const drawer = App.getView('right_drawer');
+    if (drawer) {
+      drawer.clear();
+      drawer.layout = null;
+      drawer.setLayout(this.createRightDrawerLayout());
+      drawer.refresh();
+    }
+  },
   onSnapperClose: function onSnapperClose() {
     if (this._hasChangedFilterPrefs && this.rebuildWidgets) {
       this.clear();
@@ -112,8 +121,10 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
           this._hasChangedFilterPrefs = true;
           domAttr.set(params.$source, 'data-enabled', (!enabled)
             .toString());
+
           this.onSnapperClose();
           this.toggleRightDrawer();
+          this.refreshRightDrawer();
         }
       }.bind(this),
       kpiClicked: function kpiClicked(params) {
