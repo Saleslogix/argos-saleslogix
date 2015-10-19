@@ -69,7 +69,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     }
   },
   onSnapperClose: function onSnapperClose() {
-    if (this._hasChangedFilterPrefs && this.rebuildWidgets) {
+    if (this._hasChangedFilterPrefs) {
       this.clear();
       this.refreshRequired = true;
       this.refresh();

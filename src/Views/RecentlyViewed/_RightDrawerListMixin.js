@@ -7,9 +7,8 @@ import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 const resource = window.localeContext.getEntitySync('rightDrawerListMixin').attributes;
 
 /**
- * @class crm.Views._SpeedSearchRightDrawerListMixin
+ * @class crm.Views.RecentlyViewed._RightDrawerListMixin
  *
- * Speedsearch specific mixin for right drawer functionality.
  *
  * @mixins crm.Views._RightDrawerBaseMixin
  *
@@ -52,11 +51,12 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
           this.clear();
           this.refreshRequired = true;
           this.refresh();
-          this.rebuildWidgets();
           this._hasChangedEntityPrefs = false;
+          this._hasChangedKPIPrefs = false;
         }
 
         if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
+          this.destroyWidgets();
           this.rebuildWidgets();
           this._hasChangedKPIPrefs = false;
         }

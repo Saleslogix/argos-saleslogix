@@ -35,9 +35,9 @@ export default declare('crm.Views.Activity.MyDayMetricWidget', [MetricWidget], {
     const queryExpression = this._buildQueryExpression();
     const model = App.ModelManager.getModel('Activity', MODEL_TYPES.OFFLINE);
     const queryResults = model.getEntries(queryExpression, queryOptions);
-    when(queryResults, lang.hitch(this, this._onQuerySuccessA, queryResults), lang.hitch(this, this._onQueryError));
+    when(queryResults, lang.hitch(this, this._onQuerySuccessCount, queryResults), lang.hitch(this, this._onQueryError));
   },
-  _onQuerySuccessA: function _onQuerySuccessA(results) {
+  _onQuerySuccessCount: function _onQuerySuccessCount(results) {
     const def = new Deferred();
     when(results.total, (total) => {
       const metricResults = [{
