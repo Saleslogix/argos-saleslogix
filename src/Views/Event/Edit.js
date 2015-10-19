@@ -3,7 +3,8 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
-import moment from 'moment';
+
+const resource = window.localeContext.getEntitySync('eventEdit').attributes;
 
 /**
  * @class crm.Views.Event.Edit
@@ -15,12 +16,12 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Event.Edit', [Edit], {
   // Localization
-  titleText: 'Event',
-  typeText: 'type',
-  descriptionText: 'description',
-  startDateText: 'start date',
-  endDateText: 'end date',
-  startingFormatText: 'M/D/YYYY h:mm A',
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  descriptionText: resource.descriptionText,
+  startDateText: resource.startDateText,
+  endDateText: resource.endDateText,
+  startingFormatText: resource.startingFormatText,
 
   // View Properties
   entityName: 'Event',

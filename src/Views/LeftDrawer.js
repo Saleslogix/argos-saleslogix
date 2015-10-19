@@ -5,6 +5,8 @@ import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';
 
+const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
+
 /**
  * @class crm.Views.LeftDrawer
  *
@@ -15,6 +17,7 @@ import GroupedList from 'argos/GroupedList';
 const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
+  enablePullToRefresh: false,
   rowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{% if ($$._hasIcon($)) { %}',
@@ -39,16 +42,16 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   ]),
 
   // Localization
-  configureText: 'Configure Menu',
-  addAccountContactText: 'Add Account/Contact',
-  titleText: 'Main Menu',
-  actionsText: 'Quick Actions',
-  viewsText: 'Go To',
-  footerText: 'Other',
-  settingsText: 'Settings',
-  helpText: 'Help',
-  logOutText: 'Log Out',
-  logOutConfirmText: 'Are you sure you want to log out?',
+  configureText: resource.configureText,
+  addAccountContactText: resource.addAccountContactText,
+  titleText: resource.titleText,
+  actionsText: resource.actionsText,
+  viewsText: resource.viewsText,
+  footerText: resource.footerText,
+  settingsText: resource.settingsText,
+  helpText: resource.helpText,
+  logOutText: resource.logOutText,
+  logOutConfirmText: resource.logOutConfirmText,
 
   // View Properties
   id: 'left_drawer',

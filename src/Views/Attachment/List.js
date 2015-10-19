@@ -8,7 +8,8 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
-import moment from 'moment';
+
+const resource = window.localeContext.getEntitySync('attachmentList').attributes;
 
 /**
  * @class crm.Views.Attachments.List
@@ -60,9 +61,9 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   ]),
 
   // Localization
-  titleText: 'Attachments',
-  attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
-  uploadedOnText: 'Uploaded ', // Uploaded 10 days ago
+  titleText: resource.titleText,
+  attachmentDateFormatText: resource.attachmentDateFormatText,
+  uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
 
   // View Properties
   id: 'attachment_list',

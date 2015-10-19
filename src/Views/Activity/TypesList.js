@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
 
+const resource = window.localeContext.getEntitySync('activityTypesList').attributes;
+
 /**
  * @class crm.Views.Activity.TypesList
  *
@@ -35,15 +37,17 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   ]),
 
   // Localization
-  titleText: 'Schedule...',
+  titleText: resource.titleText,
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
-    'event': 'Event',
+    'atToDo': resource.toDo,
+    'atPhoneCall': resource.phoneCall,
+    'atAppointment': resource.meeting,
+    'atLiterature': resource.literature,
+    'atPersonal': resource.personal,
+    'event': resource.eventText,
   },
+
+  // View Properties
   activityTypeIcons: {
     'atToDo': 'fa fa-list-ul',
     'atPhoneCall': 'fa fa-phone',
@@ -52,8 +56,6 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     'atPersonal': 'fa fa-check-square-o',
     'event': 'fa fa-calendar-o',
   },
-
-  // View Properties
   activityTypeOrder: [
     'atAppointment',
     // 'atLiterature', // For [#7206791], We will enable this later.

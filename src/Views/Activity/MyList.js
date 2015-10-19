@@ -7,8 +7,9 @@ import environment from '../../Environment';
 import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
-import moment from 'moment';
 import action from '../../Action';
+
+const resource = window.localeContext.getEntitySync('activityMyList').attributes;
 
 /**
  * @class crm.Views.Activity.MyList
@@ -71,16 +72,16 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   ]),
 
   // Localization
-  titleText: 'My Activities',
-  completeActivityText: 'Complete',
-  acceptActivityText: 'Accept',
-  declineActivityText: 'Decline',
-  callText: 'Call',
-  calledText: 'Called',
-  addAttachmentActionText: 'Add Attachment',
-  viewContactActionText: 'Contact',
-  viewAccountActionText: 'Account',
-  viewOpportunityActionText: 'Opportunity',
+  titleText: resource.titleText,
+  completeActivityText: resource.completeActivityText,
+  acceptActivityText: resource.acceptActivityText,
+  declineActivityText: resource.declineActivityText,
+  callText: resource.callText,
+  calledText: resource.calledText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  viewContactActionText: resource.viewContactActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  viewOpportunityActionText: resource.viewOpportunityActionText,
 
   // View Properties
   id: 'myactivity_list',

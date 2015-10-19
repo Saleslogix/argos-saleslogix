@@ -9,7 +9,8 @@ import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import format from 'argos/Format';
-import moment from 'moment';
+
+const resource = window.localeContext.getEntitySync('activityEdit').attributes;
 
 /**
  * @class crm.Views.Activity.Edit
@@ -29,61 +30,60 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.Edit', [Edit], {
   // Localization
-  activityCategoryTitleText: 'Activity Category',
-  activityDescriptionTitleText: 'Activity Description',
-  locationText: 'location',
-  activityTypeTitleText: 'Activity Type',
-  alarmText: 'alarm',
-  reminderText: 'reminder',
-  categoryText: 'category',
-  durationText: 'duration',
-  durationTitleText: 'Duration',
-  durationInvalidText: "The field '${2}' must have a value.",
-  reminderInvalidText: "The field 'reminder' must have a value.",
-  reminderTitleText: 'Reminder',
-  leaderText: 'leader',
-  longNotesText: 'notes',
-  longNotesTitleText: 'Notes',
-  priorityText: 'priority',
-  priorityTitleText: 'Priority',
-  regardingText: 'regarding',
-  rolloverText: 'auto rollover',
-  startingText: 'start time',
-  startingFormatText: 'M/D/YYYY h:mm A',
-  startingTimelessFormatText: 'M/D/YYYY',
-  repeatsText: 'repeats',
-  recurringText: 'recurring',
-  recurringTitleText: 'Recurring',
-  timelessText: 'timeless',
-  titleText: 'Activity',
-  typeText: 'type',
-  accountText: 'account',
-  contactText: 'contact',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  companyText: 'company',
-  leadText: 'lead',
-  isLeadText: 'for lead',
-  yesText: 'YES',
-  noText: 'NO',
-  phoneText: 'phone',
-
-  updateUserActErrorText: 'An error occured updating user activities.',
+  activityCategoryTitleText: resource.activityCategoryTitleText,
+  activityDescriptionTitleText: resource.activityDescriptionTitleText,
+  locationText: resource.locationText,
+  activityTypeTitleText: resource.activityTypeTitleText,
+  alarmText: resource.alarmText,
+  reminderText: resource.reminderText,
+  categoryText: resource.categoryText,
+  durationText: resource.durationText,
+  durationTitleText: resource.durationTitleText,
+  durationInvalidText: resource.durationInvalidText,
+  reminderInvalidText: resource.reminderInvalidText,
+  reminderTitleText: resource.reminderInvalidText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  longNotesTitleText: resource.longNotesTitleText,
+  priorityText: resource.priorityText,
+  priorityTitleText: resource.priorityTitleText,
+  regardingText: resource.regardingText,
+  rolloverText: resource.rolloverText,
+  startingText: resource.startingText,
+  startingFormatText: resource.startingFormatText,
+  startingTimelessFormatText: resource.startingTimelessFormatText,
+  repeatsText: resource.repeatsText,
+  recurringText: resource.recurringText,
+  recurringTitleText: resource.recurringTitleText,
+  timelessText: resource.timelessText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  isLeadText: resource.isLeadText,
+  yesText: resource.yesText,
+  noText: resource.noText,
+  phoneText: resource.phoneText,
+  updateUserActErrorText: resource.updateUserActErrorText,
   reminderValueText: {
-    0: 'none',
-    5: '5 minutes',
-    15: '15 minutes',
-    30: '30 minutes',
-    60: '1 hour',
-    1440: '1 day',
+    0: resource.noneText,
+    5: resource.fiveMinText,
+    15: resource.quarterHourText,
+    30: resource.halfHourText,
+    60: resource.hourText,
+    1440: resource.dayText,
   },
   durationValueText: {
-    0: 'none',
-    15: '15 minutes',
-    30: '30 minutes',
-    60: '1 hour',
-    90: '1.5 hours',
-    120: '2 hours',
+    0: resource.noneText,
+    15: resource.quarterHourText,
+    30: resource.halfHourText,
+    60: resource.hourText,
+    90: resource.hourAndHalfText,
+    120: resource.twoHoursText,
   },
 
   /**
@@ -268,7 +268,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     return entry && /^[\w]{12}$/.test(entry.LeadId);
   },
   isActivityRecurring: function isActivityRecurring() {
-    return (/rstMaster/).test(this.fields.RecurrenceState.getValue());
+    return (/rstMaster/)
+      .test(this.fields.RecurrenceState.getValue());
   },
   isInLeadContext: function isInLeadContext() {
     const insert = this.options && this.options.insert;
@@ -429,10 +430,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     }
   },
   onAccountChange: function onAccountChange(value, field) {
-    if (value === null || typeof value === 'undefined') {
-      return;
-    }
-
     const fields = this.fields;
     array.forEach(['Contact', 'Opportunity', 'Ticket'], function checkFields(f) {
       if (value) {
@@ -453,6 +450,10 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
         fields[f].where = 'Account.AccountName ne null';
       }
     });
+
+    if (value === null || typeof value === 'undefined') {
+      return;
+    }
 
     const entry = field.currentSelection;
     if (entry && entry.MainPhone) {
@@ -601,7 +602,9 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     // 11:24 -> 11:30
     // 11:12 -> 11:15
     // 11:31 -> 11:45
-    const startDate = thisSelectedDate.clone().startOf('day').hours(now.hours())
+    const startDate = thisSelectedDate.clone()
+      .startOf('day')
+      .hours(now.hours())
       .add({
         'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES,
       });
@@ -807,9 +810,12 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   setValues: function setValues(values) {
     if (values.StartDate && values.AlarmTime) {
-      const startTime = (this.isDateTimeless(values.StartDate)) ? moment(values.StartDate).add({
-        minutes: values.StartDate.getTimezoneOffset(),
-      }).toDate().getTime() : values.StartDate.getTime();
+      const startTime = (this.isDateTimeless(values.StartDate)) ? moment(values.StartDate)
+        .add({
+          minutes: values.StartDate.getTimezoneOffset(),
+        })
+        .toDate()
+        .getTime() : values.StartDate.getTime();
 
       const span = startTime - values.AlarmTime.getTime(); // ms
       const reminder = span / (1000 * 60);
@@ -853,7 +859,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (allowSetAlarm) {
       this.enableFields(function alarmReminderTest(f) {
-        return (/^Alarm|Reminder$/).test(f.name);
+        return (/^Alarm|Reminder$/)
+          .test(f.name);
       });
     }
 
@@ -975,8 +982,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       if (isTimeLessDate) {
         const currentTime = moment();
         const wrapped = moment(startDate);
-        wrapped.add({
-          minutes: wrapped.zone(),
+        wrapped.subtract({
+          minutes: wrapped.utcOffset(),
         });
         wrapped.hours(currentTime.hours());
         wrapped.minutes(currentTime.minutes());
@@ -995,22 +1002,29 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (timeless) {
       const wrapped = moment(startDate);
-      wrapped.add({
-        minutes: wrapped.zone(),
+      wrapped.subtract({
+        minutes: wrapped.utcOffset(),
       });
       wrapped.hours(24);
       wrapped.minutes(0);
       wrapped.seconds(0);
       alarmTime = wrapped.toDate();
-      alarmTime = moment(alarmTime).clone().add({
-        'days': -1,
-      }).add({
-        'minutes': -1 * reminderIn,
-      }).toDate();
+      alarmTime = moment(alarmTime)
+        .clone()
+        .add({
+          'days': -1,
+        })
+        .add({
+          'minutes': -1 * reminderIn,
+        })
+        .toDate();
     } else {
-      alarmTime = moment(startDate).clone().add({
-        'minutes': -1 * reminderIn,
-      }).toDate();
+      alarmTime = moment(startDate)
+        .clone()
+        .add({
+          'minutes': -1 * reminderIn,
+        })
+        .toDate();
     }
 
     return alarmTime;

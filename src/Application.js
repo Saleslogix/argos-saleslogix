@@ -11,7 +11,9 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
-import moment from 'moment';
+import Toast from 'argos/Toast';
+
+const resource = window.localeContext.getEntitySync('application').attributes;
 
 /**
  * @class crm.Application
@@ -78,9 +80,9 @@ const __class = declare('crm.Application', [Application], {
     'minor': 4,
     'revision': 0,
   },
-  versionInfoText: 'Mobile v${0}.${1}.${2}',
-  loadingText: 'Loading application state',
-  authText: 'Authenticating',
+  versionInfoText: resource.versionInfoText,
+  loadingText: resource.loadingText,
+  authText: resource.authText,
   homeViewId: 'myactivity_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',
@@ -94,6 +96,7 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
     this._loadNavigationState();
     this._saveDefaultPreferences();
+    this._setupToasts();
 
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
@@ -167,6 +170,10 @@ const __class = declare('crm.Application', [Application], {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
     } catch (e) {}// eslint-disable-line
+  },
+  _setupToasts: function _setupToasts() {
+    this.toast = new Toast();
+    this.toast.show();
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
@@ -565,13 +572,13 @@ const __class = declare('crm.Application', [Application], {
    */
   loadCustomizedMoment: function loadCustomizedMoment() {
     const custom = this.buildCustomizedMoment();
-    const currentLang = moment.lang();
+    const currentLang = moment.locale();
 
-    moment.lang(currentLang, custom);
-    this.moment = moment().lang(currentLang, custom);
+    moment.locale(currentLang, custom);
+    this.moment = moment().locale(currentLang, custom);
   },
   /*
-   * Builds an object that will get passed into moment.lang()
+   * Builds an object that will get passed into moment.locale()
    */
   buildCustomizedMoment: function buildCustomizedMoment() {
     if (!App.context.userOptions) {
@@ -684,7 +691,7 @@ const __class = declare('crm.Application', [Application], {
   },
   defaultViews: [
     'myactivity_list',
-    'calendar_daylist',
+    'calendar_view',
     'history_list',
     'account_list',
     'contact_list',

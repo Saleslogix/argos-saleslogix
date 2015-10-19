@@ -3,7 +3,7 @@ if [ -d "deploy" ]; then
     rm -rf deploy
 fi
 
-mkdir -p deploy/localization
+mkdir -p deploy/localization/locales/crm
 mkdir -p deploy/help
 mkdir -p deploy/content/javascript
 mkdir -p deploy/content/images
@@ -16,12 +16,15 @@ grunt less
 grunt babel
 
 # Java Build Tool
-java -Dfile.encoding=UTF-8 -jar "../../argos-sdk/tools/JSBuilder/JSBuilder2.jar" -v -p "build/release.jsb2" -d "."
+#java -Dfile.encoding=UTF-8 -jar "../../argos-sdk/tools/JSBuilder/JSBuilder2.jar" -v -p "build/release.jsb2" -d "."
+
+# Mono build Tool
+mono ../../argos-sdk/tools/JsBit/jsbit.exe -p "build/release.jsb2" -d "."
 
 cp index.html ./deploy
 cp index.aspx ./deploy
 cp index-nocache.html ./deploy
 cp index-nocache.aspx ./deploy
 cp unsupported.html ./deploy
-cp manfiest.appcache ./deploy
+cp manifest.appcache ./deploy
 cp web.config ./deploy

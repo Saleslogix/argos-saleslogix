@@ -7,6 +7,8 @@ import template from '../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('addAccountContact').attributes;
+
 /**
  * @class crm.Views.AddAccountContact
  *
@@ -16,34 +18,34 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.AddAccountContact', [Edit], {
   // Localization
-  accountNameText: 'account',
-  accountStatusTitleText: 'Account Status',
-  accountSubTypeTitleText: 'Account SubType',
-  accountText: 'Account',
-  accountTypeTitleText: 'Account Type',
-  acctMgrText: 'acct mgr',
-  addressText: 'address',
-  contactTitleText: 'Title',
-  descriptionText: 'description',
-  detailsAccountText: 'Account Info',
-  detailsContactText: 'Contact Info',
-  detailsText: 'Contact / Account Info',
-  emailText: 'email',
-  faxText: 'fax',
-  homePhoneText: 'home phone',
-  industryText: 'industry',
-  ownerText: 'owner',
-  lastNameText: 'last',
-  mobileText: 'mobile',
-  nameText: 'name',
-  statusText: 'status',
-  subTypeText: 'sub-type',
-  titleText: 'Add Account / Contact',
-  typeText: 'type',
-  webText: 'web',
-  phoneText: 'phone',
-  workText: 'work phone',
-  industryTitleText: 'Industry',
+  accountNameText: resource.accountNameText,
+  accountStatusTitleText: resource.accountStatusTitleText,
+  accountSubTypeTitleText: resource.accountSubTypeTitleText,
+  accountText: resource.accountText,
+  accountTypeTitleText: resource.accountTypeTitleText,
+  acctMgrText: resource.acctMgrText,
+  addressText: resource.addressText,
+  contactTitleText: resource.contactTitleText,
+  descriptionText: resource.descriptionText,
+  detailsAccountText: resource.detailsAccountText,
+  detailsContactText: resource.detailsContactText,
+  detailsText: resource.detailsText,
+  emailText: resource.emailText,
+  faxText: resource.faxText,
+  homePhoneText: resource.homePhoneText,
+  industryText: resource.industryText,
+  ownerText: resource.ownerText,
+  lastNameText: resource.lastNameText,
+  mobileText: resource.mobileText,
+  nameText: resource.nameText,
+  statusText: resource.statusText,
+  subTypeText: resource.subTypeText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  webText: resource.webText,
+  phoneText: resource.phoneText,
+  workText: resource.workText,
+  industryTitleText: resource.industryTitleText,
 
   // View Properties
   id: 'add_account_contact',

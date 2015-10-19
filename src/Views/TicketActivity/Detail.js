@@ -8,6 +8,8 @@ import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 import 'dojo/NodeList-manipulate';
 
+const resource = window.localeContext.getEntitySync('ticketActivityDetail').attributes;
+
 /**
  * @class crm.Views.TicketActivity.Detail
  *
@@ -21,30 +23,29 @@ import 'dojo/NodeList-manipulate';
  */
 const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   // Localization
-  titleText: 'Ticket Activity',
-
-  accountText: 'account',
-  contactText: 'contact',
-  typeText: 'type',
-  publicAccessText: 'public access',
-  assignedDateText: 'start date',
-  completedDateText: 'end date',
-  followUpText: 'follow up',
-  unitsText: 'time units',
-  elapsedUnitsText: 'elapsed hours',
-  rateTypeDescriptionText: 'charge type',
-  rateText: 'rate',
-  totalLaborText: 'total labor',
-  totalPartsText: 'total parts',
-  totalFeeText: 'total fee',
-  activityDescriptionText: 'comments',
-  ticketNumberText: 'ticket number',
-  userText: 'user',
-
-  completeTicketText: 'Complete Ticket Activity',
-  moreDetailsText: 'More Details',
-  relatedItemsText: 'Related Items',
-  relatedTicketActivityItemText: 'Ticket Activity Parts',
+  titleText: resource.titleText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  typeText: resource.typeText,
+  publicAccessText: resource.publicAccessText,
+  assignedDateText: resource.assignedDateText,
+  completedDateText: resource.completedDateText,
+  followUpText: resource.followUpText,
+  unitsText: resource.unitsText,
+  elapsedUnitsText: resource.elapsedUnitsText,
+  rateTypeDescriptionText: resource.rateTypeDescriptionText,
+  rateText: resource.rateText,
+  totalLaborText: resource.totalLaborText,
+  totalPartsText: resource.totalPartsText,
+  totalFeeText: resource.totalFeeText,
+  activityDescriptionText: resource.activityDescriptionText,
+  ticketNumberText: resource.ticketNumberText,
+  userText: resource.userText,
+  entityText: resource.entityText,
+  completeTicketText: resource.completeTicketText,
+  moreDetailsText: resource.moreDetailsText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedTicketActivityItemText: resource.relatedTicketActivityItemText,
 
   // View Properties
   id: 'ticketactivity_detail',

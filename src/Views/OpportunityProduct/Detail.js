@@ -7,6 +7,8 @@ import format from '../../Format';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 
+const resource = window.localeContext.getEntitySync('opportunityProductDetail').attributes;
+
 /**
  * @class crm.Views.OpportunityProduct.Detail
  *
@@ -17,24 +19,25 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  */
 const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
   // Localization
-  detailsText: 'Details',
-  opportunityText: 'opportunity',
-  productText: 'product',
-  productFamilyText: 'product family',
-  priceLevelText: 'price level',
-  priceText: 'price',
-  basePriceText: 'base price',
-  discountText: 'discount',
-  quantityText: 'quantity',
-  baseExtendedPriceText: 'base',
-  extendedPriceText: 'extended price',
-  extendedPriceSectionText: 'Extended Price',
-  adjustedPriceSectionText: 'Adjusted Price',
-  baseAdjustedPriceText: 'base',
-  adjustedPriceText: 'adjusted price',
-  myAdjustedPriceText: 'user',
-  confirmDeleteText: 'Remove ${0} from the opportunity products?',
-  removeOppProductTitleText: 'remove opportunity product',
+  detailsText: resource.detailsText,
+  opportunityText: resource.opportunityText,
+  productText: resource.productText,
+  productFamilyText: resource.productFamilyText,
+  priceLevelText: resource.priceLevelText,
+  priceText: resource.priceText,
+  basePriceText: resource.basePriceText,
+  discountText: resource.discountText,
+  quantityText: resource.quantityText,
+  baseExtendedPriceText: resource.baseExtendedPriceText,
+  extendedPriceText: resource.extendedPriceText,
+  extendedPriceSectionText: resource.extendedPriceSectionText,
+  adjustedPriceSectionText: resource.adjustedPriceSectionText,
+  baseAdjustedPriceText: resource.baseAdjustedPriceText,
+  adjustedPriceText: resource.adjustedPriceText,
+  myAdjustedPriceText: resource.myAdjustedPriceText,
+  confirmDeleteText: resource.confirmDeleteText,
+  removeOppProductTitleText: resource.removeOppProductTitleText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'opportunityproduct_detail',

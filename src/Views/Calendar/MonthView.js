@@ -11,7 +11,8 @@ import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
-import moment from 'moment';
+
+const resource = window.localeContext.getEntitySync('calendarMonthView').attributes;
 
 /**
  * @class crm.Views.Calendar.MonthView
@@ -32,33 +33,33 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  todayText: 'Today',
-  dayText: 'Day',
-  weekText: 'Week',
-  monthText: 'Month',
-  monthTitleFormatText: 'MMMM YYYY',
-  dayTitleFormatText: 'ddd MMM D, YYYY',
-  eventDateFormatText: 'M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  allDayText: 'All-Day',
-  eventText: 'Event',
-  eventHeaderText: 'Events',
-  countMoreText: 'View More',
-  activityHeaderText: 'Activities',
-  toggleCollapseText: 'toggle collapse',
-  toggleCollapseClass: 'fa fa-chevron-down',
-  toggleExpandClass: 'fa fa-chevron-right',
+  titleText: resource.titleText,
+  todayText: resource.todayText,
+  dayText: resource.dayText,
+  weekText: resource.weekText,
+  monthText: resource.monthText,
+  monthTitleFormatText: resource.monthTitleFormatText,
+  dayTitleFormatText: resource.dayTitleFormatText,
+  eventDateFormatText: resource.eventDateFormatText,
+  startTimeFormatText: resource.startTimeFormatText,
+  allDayText: resource.allDayText,
+  eventText: resource.eventText,
+  eventHeaderText: resource.eventHeaderText,
+  countMoreText: resource.countMoreText,
+  activityHeaderText: resource.activityHeaderText,
+  toggleCollapseText: resource.toggleCollapseText,
   weekDaysShortText: [
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
+    resource.sundayShortText,
+    resource.mondayShortText,
+    resource.tuesdayShortText,
+    resource.wednesdayShortText,
+    resource.thursdayShortText,
+    resource.fridayShortText,
+    resource.saturdayShortText,
   ],
 
+  toggleCollapseClass: 'fa fa-chevron-down',
+  toggleExpandClass: 'fa fa-chevron-right',
   enablePullToRefresh: false,
 
   // Templates
@@ -292,11 +293,11 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       this.refreshRequired = true;
     }
   },
-  clear: function clear() {
-  },
+  clear: function clear() {},
   startup: function startup() {
     this.inherited(arguments);
-    this.currentDate = moment().startOf('day');
+    this.currentDate = moment()
+      .startOf('day');
   },
   render: function render() {
     this.inherited(arguments);
@@ -340,13 +341,16 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.getSelectedDate();
   },
   getFirstDayOfCurrentMonth: function getFirstDayOfCurrentMonth() {
-    return this.currentDate.clone().startOf('month');
+    return this.currentDate.clone()
+      .startOf('month');
   },
   getLastDayOfCurrentMonth: function getLastDayOfCurrentMonth() {
-    return this.currentDate.clone().endOf('month');
+    return this.currentDate.clone()
+      .endOf('month');
   },
   getTodayMonthActivities: function getTodayMonthActivities() {
-    const today = moment().startOf('day');
+    const today = moment()
+      .startOf('day');
 
     if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
       this.currentDate = today;
@@ -400,7 +404,8 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       .setCount(this.pageSize)
       .setStartIndex(1)
       .setResourceKind('events')
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
+      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect)
+        .join(','))
       .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
 
     return request;
@@ -419,7 +424,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.monthEventRequests.push(xhr);
   },
   onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
-    alert(string.substitute(this.requestErrorText, [response, o]));// eslint-disable-line
+    alert(string.substitute(this.requestErrorText, [response, o])); // eslint-disable-line
     ErrorManager.addError(response, o, this.options, 'failure');
   },
   onRequestEventDataAborted: function onRequestEventDataAborted() {
@@ -480,8 +485,8 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
 
       const startDay = moment(convert.toDateFromString(row.StartDate));
       if (r[i].Timeless) {
-        startDay.add({
-          minutes: startDay.zone(),
+        startDay.subtract({
+          minutes: startDay.utcOffset(),
         });
       }
 
@@ -523,23 +528,25 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
 
   highlightActivities: function highlightActivities() {
-    query('.calendar-day').forEach(function queryDays(node) {
-      const dataDate = domAttr.get(node, 'data-date');
-      if (!this.dateCounts[dataDate]) {
-        return;
-      }
+    query('.calendar-day')
+      .forEach(function queryDays(node) {
+        const dataDate = domAttr.get(node, 'data-date');
+        if (!this.dateCounts[dataDate]) {
+          return;
+        }
 
-      domClass.add(node, 'activeDay');
+        domClass.add(node, 'activeDay');
 
-      const countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
-      const existingCount = query(node).children('div');
+        const countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
+        const existingCount = query(node)
+          .children('div');
 
-      if (existingCount.length > 0) {
-        domConstruct.place(countMarkup, existingCount[0], 'only');
-      } else {
-        domConstruct.place('<div>' + countMarkup + '</div>', node, 'first');
-      }
-    }, this);
+        if (existingCount.length > 0) {
+          domConstruct.place(countMarkup, existingCount[0], 'only');
+        } else {
+          domConstruct.place('<div>' + countMarkup + '</div>', node, 'first');
+        }
+      }, this);
   },
   setCurrentDateTitle: function setCurrentDateTitle() {
     this.set('dayTitleContent', this.currentDate.format(this.dayTitleFormatText));
@@ -617,9 +624,11 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       .setCount(o.pageSize)
       .setStartIndex(1)
       .setResourceKind(o.resourceKind)
-      .setContractName(o.contractName || App.defaultService.getContractName().text)
+      .setContractName(o.contractName || App.defaultService.getContractName()
+        .text)
       .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, o.queryOrderBy || this.queryOrderBy)
-      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect).join(','))
+      .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect)
+        .join(','))
       .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
     return request;
   },
@@ -633,7 +642,9 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     const results = string.substitute(
       activityQuery, [App.context.user && App.context.user.$key,
         convert.toIsoStringFromDate(this.currentDate.toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
+        convert.toIsoStringFromDate(this.currentDate.clone()
+          .endOf('day')
+          .toDate()),
         this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
         this.currentDate.format('YYYY-MM-DDT23:59:59[Z]'),
       ]);
@@ -650,7 +661,9 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       ].join(''), [
         App.context.user && App.context.user.$key,
         convert.toIsoStringFromDate(this.currentDate.toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
+        convert.toIsoStringFromDate(this.currentDate.clone()
+          .endOf('day')
+          .toDate()),
       ]
     );
   },
@@ -724,8 +737,10 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
 
   renderCalendar: function renderCalendar() {
     const calHTML = [];
-    const startingDay = this.getFirstDayOfCurrentMonth().day();
-    const dayDate = this.currentDate.clone().startOf('month');
+    const startingDay = this.getFirstDayOfCurrentMonth()
+      .day();
+    const dayDate = this.currentDate.clone()
+      .startOf('month');
     const monthLength = this.currentDate.daysInMonth();
     const weekEnds = [0, 6];
     let weekendClass = '';
@@ -783,7 +798,9 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
   processShowOptions: function processShowOptions(options) {
     if (options.currentDate) {
-      this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
+      this.currentDate = moment(options.currentDate)
+        .startOf('day') || moment()
+        .startOf('day');
       this.refreshRequired = true;
     }
   },
@@ -812,37 +829,40 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
 
     // Get the updated "today"
-    todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment().format('YYYY-MM-DD')]);
+    todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment()
+      .format('YYYY-MM-DD'),
+    ]);
     todayNode = query(todayCls, this.contentNode)[0];
     if (todayNode) {
       domClass.add(todayNode, 'today');
     }
   },
   selectEntry: function selectEntry(params) {
-    const row = query(params.$source).closest('[data-key]')[0];
+    const row = query(params.$source)
+      .closest('[data-key]')[0];
     const key = row ? row.getAttribute('data-key') : false;
 
     this.navigateToDetailView(key);
   },
   selectDate: function selectDate() {
     const options = {
-        date: this.currentDate.toDate(),
-        showTimePicker: false,
-        timeless: false,
-        tools: {
-          tbar: [{
-            id: 'complete',
-            cls: 'fa fa-check fa-fw fa-lg',
-            fn: this.selectDateSuccess,
-            scope: this,
-          }, {
-            id: 'cancel',
-            cls: 'fa fa-ban fa-fw fa-lg',
-            side: 'left',
-            fn: ReUI.back,
-            scope: ReUI,
-          }],
-        },
+      date: this.currentDate.toDate(),
+      showTimePicker: false,
+      timeless: false,
+      tools: {
+        tbar: [{
+          id: 'complete',
+          cls: 'fa fa-check fa-fw fa-lg',
+          fn: this.selectDateSuccess,
+          scope: this,
+        }, {
+          id: 'cancel',
+          cls: 'fa fa-ban fa-fw fa-lg',
+          side: 'left',
+          fn: ReUI.back,
+          scope: ReUI,
+        }],
+      },
     };
     const view = App.getView(this.datePickerView);
     if (view) {
@@ -851,21 +871,24 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
   selectDateSuccess: function selectDateSuccess() {
     const view = App.getPrimaryActiveView();
-    this.currentDate = moment(view.getDateTime()).startOf('day');
+    this.currentDate = moment(view.getDateTime())
+      .startOf('day');
     this.refresh();
     ReUI.back();
   },
   navigateToWeekView: function navigateToWeekView() {
     const view = App.getView(this.weekView);
     const options = {
-      currentDate: this.currentDate.valueOf() || moment().startOf('day'),
+      currentDate: this.currentDate.valueOf() || moment()
+        .startOf('day'),
     };
     view.show(options);
   },
   navigateToDayView: function navigateToDayView() {
     const view = App.getView(this.dayView);
     const options = {
-      currentDate: this.currentDate.valueOf() || moment().startOf('day'),
+      currentDate: this.currentDate.valueOf() || moment()
+        .startOf('day'),
     };
     view.show(options);
   },
@@ -876,7 +899,8 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       this.options = {};
     }
 
-    this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().startOf('day');
+    this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment()
+      .startOf('day');
     if (view) {
       view.show({
         negateHistory: true,

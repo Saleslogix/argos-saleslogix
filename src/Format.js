@@ -4,7 +4,6 @@ import string from 'dojo/string';
 import dojoNumber from 'dojo/number';
 import template from './Template';
 import format from 'argos/Format';
-import moment from 'moment';
 
 /**
  * @class crm.Format
@@ -195,7 +194,6 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   },
   bigNumber: function bigNumber(val) {
     let numParse = typeof val !== 'number' ? parseFloat(val) : val;
-    let results = '';
     const absVal = Math.abs(numParse);
     const text = crm.Format.bigNumberAbbrText;
 
@@ -203,6 +201,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
       return val;
     }
 
+    let results = numParse.toString();
     if (absVal >= 1000000000) {
       numParse = numParse / 1000000000;
       results = dojoNumber.format(numParse, {
@@ -230,8 +229,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
 
     if (timeless) {
       // utc
-      date = date.add({
-        minutes: date.zone(),
+      date = date.subtract({
+        minutes: date.utcOffset(),
       });
     }
 

@@ -5,31 +5,33 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _CustomizationMixin from 'argos/_CustomizationMixin';
 
+const resource = window.localeContext.getEntitySync('defaultMetrics').attributes;
+
 const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   // Localiztion
   accountsText: {
-    totalRevenue: 'Total Revenue',
-    averageTime: 'Avg Time as Customer',
-    total: 'Total Accounts',
+    totalRevenue: resource.totalRevenue,
+    averageTime: resource.averageTime,
+    total: resource.totalAccounts,
   },
   opportunitiesText: {
-    total: 'Total Opportunities',
-    potential: 'Total Sales Potential',
-    montlyPotential: 'Average Monthly Sales Potential',
+    total: resource.totalOpportunities,
+    potential: resource.potential,
+    montlyPotential: resource.montlyPotential,
   },
   ticketsText: {
-    total: 'Total Tickets',
-    averageOpen: 'Open Age Average',
+    total: resource.totalTickets,
+    averageOpen: resource.averageOpen,
   },
   contactsText: {
-    total: 'Total Contacts',
+    total: resource.totalContacts,
   },
   leadsText: {
-    total: 'Total Leads',
+    total: resource.totalLeads,
   },
   historyText: {
-    total: 'Total History',
-    duration: 'Total Duration',
+    total: resource.totalHistory,
+    duration: resource.duration,
   },
   customizationSet: 'metrics',
   id: 'default_metrics',

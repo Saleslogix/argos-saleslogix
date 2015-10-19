@@ -5,6 +5,8 @@ import FileSelect from 'argos/Views/FileSelect';
 import AttachmentManager from '../../AttachmentManager';
 import Environment from '../../Environment';
 
+const resource = window.localeContext.getEntitySync('attachmentAdd').attributes;
+
 /**
  * @class crm.Views.Attachment.AddAttachment
  *
@@ -19,7 +21,7 @@ import Environment from '../../Environment';
  */
 const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   // Localization
-  titleText: 'Add Attachments',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'attachment_Add',

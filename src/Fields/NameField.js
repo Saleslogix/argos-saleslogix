@@ -3,9 +3,11 @@ import lang from 'dojo/_base/lang';
 import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
 
+const resource = window.localeContext.getEntitySync('nameField').attributes;
+
 const control = declare('crm.Fields.NameField', [EditorField], {
   // Localization
-  emptyText: '',
+  emptyText: resource.emptyText,
 
   widgetTemplate: new Simplate([
     '<label for="{%= $.name %}">{%: $.label %}</label>',
