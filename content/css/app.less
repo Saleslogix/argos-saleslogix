@@ -281,7 +281,7 @@
 
 .metric-widget,
 .metric-detail {
-    display: inline-flex;
+    .display-inline-flex();
     padding: 0px;
     background-color: @color-deep-slate;
 }
@@ -295,8 +295,8 @@
 }
 
 .metric-widget {
-    flex: auto;
-    flex-basis: 125px;
+    .flex(auto);
+    .flex-basis(125px);
     border: 1px solid @color-slate;
 }
 
@@ -319,8 +319,8 @@
 }
 
 .metric-wrapper {
-    display: flex;
-    flex-flow: row wrap;
+    .display-flex();
+    .flex-flow(row wrap);
 }
 
 .metric-title > .list-loading-indicator {
@@ -472,6 +472,29 @@ body.transition > .viewContainer > .footer-toolbar {
     border-bottom: 1px solid @color-lighter-slate !important;
 }
 
+.calendar__weekToggle {
+  width: 100px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.weekToggle__thumb {
+  height: 28px !important;
+  width: 45px !important;
+}
+
+.weekToggle__on {
+  float: left;
+  padding-left: 8px;
+  color: #fff;
+}
+
+.weekToggle__off {
+  float: right;
+  padding-right: 8px;
+  color: #fff;
+}
+
 .activityEntry__icon {
   display: inline-block;
   width: 36px;
@@ -483,14 +506,17 @@ body.transition > .viewContainer > .footer-toolbar {
   }
 }
 .activityEntry__header {
-  display: inline-flex;
-  flex-flow: row wrap;
+  .display-inline-flex;
+  .flex-flow(row wrap);
   width: 85%;
+}
+.dayHeader {
+  padding: 10px 0 0 8px;
 }
 .header__content {
   display: inline-block;
   width: 0;
-  flex-grow: 1;
+  .flex-grow(1);
 }
 .header__subTitle {
   color: @color-graphite;

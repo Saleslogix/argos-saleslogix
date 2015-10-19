@@ -6,6 +6,7 @@ import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
+import on from'dojo/on';
 import string from 'dojo/string';
 import when from 'dojo/when';
 import Calendar from 'argos/Calendar';
@@ -45,6 +46,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   withText: resource.withText,
   unspecifiedText: resource.unspecifiedText,
   forText: resource.forText,
+  dayText: resource.dayText,
+  weekText: resource.weekText,
 
   enablePullToRefresh: false,
   string: string,
@@ -159,6 +162,20 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       '</button>',
     '</div>',
   ]),
+  headerRowTemplate: new Simplate([
+    '<li data-descriptor="{%: $.day %}">',
+      '<div class="dayHeader">',
+        '<h3 class="header__title">{%: $.day %}</h3>',
+      '</div>',
+    '</li>',
+  ]),
+  weekSelectTemplate: new Simplate([
+    '<div class="toggle toggle-horizontal calendar__weekToggle">',
+        '<span class="thumb horizontal weekToggle__thumb"></span>',
+        '<span class="toggleOn weekToggle__on">{%= $.weekText %}</span>',
+        '<span class="toggleOff weekToggle__off">{%= $.dayText %}</span>',
+    '</div>',
+  ]),
 
   attributeMap: {
     calendarContent: {
@@ -200,12 +217,15 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   activityDetailView: 'activity_detail',
   eventDetailView: 'event_detail',
   enableSearch: false,
+  dayHeaderFormat: 'dddd, MMMM Do',
   dateCounts: null,
   currentDate: null,
   monthActivities: null,
   monthEvents: null,
+  multiSelect: 7,
   _dataLoaded: false,
   _eventStore: null,
+  _showMulti: false,
 
   activityIconByType: {
     'atToDo': 'fa fa-list-ul',
@@ -250,19 +270,48 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventResourceKind: 'events',
   eventContractName: 'dynamic',
 
+  _onRefresh: function _onRefresh(o) {
+    this.inherited(arguments);
+    if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
+      this.refreshRequired = true;
+    }
+  },
   changeDayActivities: function changeDayActivities() {
     domClass.remove(this.activityContainerNode, 'list-loading');
-    const entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
-    if (!entries) {
+    let multiDays = [];
+    let entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
+    if (entries) {
+      multiDays = multiDays.concat(entries);
+    }
+    this.createActivityRows(entries, this.currentDate.format(this.dayHeaderFormat));
+
+    if (this._showMulti) {
+      const dateIterator = this.currentDate.clone().add(1, 'days');
+      for (let i = 0; i < this.multiSelect; i++) {
+        entries = this.monthActivities[dateIterator.format('YYYY-MM-DD')];
+        if (entries) {
+          multiDays = multiDays.concat(entries);
+        }
+        this.createActivityRows(entries, dateIterator.format(this.dayHeaderFormat));
+        dateIterator.add(1, 'days');
+      }
+    }
+
+    if (multiDays.length === 0) {
       this.set('activityContent', this.noDataTemplate.apply(this));
       return;
     }
-
+  },
+  createActivityRows: function createActivityRows(entries = [], day) {
     const count = entries.length;
 
     if (count > 0) {
       const activityDocfrag = document.createDocumentFragment();
       const eventDocfrag = document.createDocumentFragment();
+      if (this._showMulti) {
+        const headerNode = domConstruct.toDom(this.headerRowTemplate.apply({day: day}, this));
+        activityDocfrag.appendChild(headerNode);
+      }
       for (let i = 0; i < count; i++) {
         const entry = this.entries[entries[i]];
         let rowNode;
@@ -297,8 +346,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       } else {
         domClass.add(this.eventContainerNode, 'event-hidden');
       }
-    } else {
-      this.set('activityContent', this.noDataTemplate.apply(this));
     }
   },
   createEventStore: function createEventStore() {
@@ -376,23 +423,27 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     return name.split(' ').splice(-1)[0];
   },
   process: function process(store, entries, isEvent) {
-    const count = entries.length;
-
-    if (count > 0) {
-      for (let i = 0; i < count; i++) {
-        const entry = this._processEntry(entries[i]);
+    if (entries.length > 0) {
+      entries.forEach( (entryPreProcess) => {
+        const entry = this._processEntry(entryPreProcess);
         // If key comes back with nothing, check that the store is properly
         // setup with an idProperty
         entry.isEvent = isEvent;
         const entryKey = store.getIdentity(entry);
         this.entries[entryKey] = entry;
-        const date = moment(convert.toDateFromString(entry.StartDate)).format('YYYY-MM-DD');
+        const startDate = moment(convert.toDateFromString(entry.StartDate));
+        if (entry.Timeless) {
+          startDate.subtract({
+            minutes: startDate.utcOffset(),
+          });
+        }
+        const date = startDate.format('YYYY-MM-DD');
         if (this.monthActivities[date]) {
           this.monthActivities[date].push(entryKey);
         } else {
           this.monthActivities[date] = [entryKey];
         }
-      }
+      });
     }
   },
   processData: function processData(entries) {
@@ -420,6 +471,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   refresh: function refresh() {
     this.renderCalendar();
+    this.refreshData();
   },
   refreshData: function refreshData() {
     this._dataLoaded = false;
@@ -446,10 +498,14 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
-      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true, postRenderCalendar: this.refreshData.bind(this)});
+      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true});
       domConstruct.place(this._calendar.domNode, this.calendarNode);
+      const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
+      domConstruct.place(toggle, this._calendar.footerNode, 'last');
+      on(toggle, 'click', this.toggleMultiSelect.bind(this));
       aspect.after(this._calendar, 'changeDay', this.selectDay.bind(this));
       this._calendar.show();
+      aspect.after(this._calendar, 'refreshCalendar', this.refreshData.bind(this)); // Must be called after show because this will call requestData since show calls refreshCalendar
     }
   },
   requestData: function requestData() {
@@ -520,6 +576,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   startup: function startup() {
     this.inherited(arguments);
+  },
+  toggleMultiSelect: function toggleMultiSelect({currentTarget}) {
+    this._showMulti = !this._showMulti;
+    domClass.toggle(currentTarget, 'toggleStateOn');
+    domConstruct.empty(this.activityContentNode);
+    domConstruct.empty(this.eventContentNode);
+    this.changeDayActivities();
   },
   _buildQueryExpression: function _buildQueryExpression(query = {}) {
     return lang.mixin(query || {}, this.options && (this.options.query || this.options.where));
