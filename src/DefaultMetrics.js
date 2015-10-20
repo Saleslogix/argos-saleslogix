@@ -33,6 +33,9 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
     total: resource.totalHistory,
     duration: resource.duration,
   },
+  offlineText: {
+    total: 'Total Recently Viewed',
+  },
   customizationSet: 'metrics',
   id: 'default_metrics',
   getDefinitions: function getDefinitions() {
@@ -40,6 +43,58 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   },
   createLayout: function createLayout() {
     return [{
+      resourceKind: 'userActivities',
+      children: [{
+        title: resource.lastRefresh,
+        widgetModule: 'crm/Views/Activity/LastRefresh',
+        formatter: 'relativeDate',
+        enabled: false,
+      }, {
+        title: resource.meetings,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atAppointment'",
+        },
+        activityType: 'atAppointment',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.calls,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atPhoneCall'",
+        },
+        activityType: 'atPhoneCall',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.todos,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atToDo'",
+        },
+        activityType: 'atToDo',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.personal,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          _activeFilter: "Activity.Type eq 'atPersonal'",
+        },
+        activityType: 'atPersonal',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
+    }, {
       resourceKind: 'accounts',
       children: [{
         title: this.accountsText.totalRevenue,
@@ -184,6 +239,15 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
           _filterName: 'Type',
           _metricName: 'TotalDuration',
         },
+        chartType: 'bar',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
+    }, {
+      resourceKind: 'offline',
+      children: [{
+        title: this.offlineText.total,
         chartType: 'bar',
         aggregate: 'sum',
         formatter: 'bigNumber',

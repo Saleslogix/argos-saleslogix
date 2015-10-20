@@ -9,7 +9,7 @@ import convert from 'argos/Convert';
 import action from '../../Action';
 import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
-
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = window.localeContext.getEntitySync('activityList').attributes;
 
@@ -116,35 +116,9 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   insertView: 'activity_types_list',
   historyEditView: 'history_edit',
   enableActions: true,
-  queryOrderBy: 'StartDate desc',
-  querySelect: [
-    'Description',
-    'StartDate',
-    'Type',
-    'AccountId',
-    'AccountName',
-    'ContactId',
-    'ContactName',
-    'PhoneNumber',
-    'LeadId',
-    'LeadName',
-    'TicketId',
-    'OpportunityId',
-    'Leader',
-    'UserId',
-    'Timeless',
-    'Alarm',
-    'Priority',
-    'ModifyDate',
-    'RecurrenceState',
-    'Recurring',
-  ],
-  queryInclude: [
-    '$descriptors',
-  ],
-  resourceKind: 'activities',
-  contractName: 'system',
   pageSize: 105,
+  resourceKind: 'activities',
+  modelName: MODEL_NAMES.ACTIVITY,
 
   hashTagQueries: {
     'alarm': 'Alarm eq true',

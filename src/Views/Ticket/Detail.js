@@ -1,9 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
-import domClass from 'dojo/dom-class';
 import format from '../../Format';
-import ErrorManager from 'argos/ErrorManager';
+import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
 
 const resource = window.localeContext.getEntitySync('ticketDetail').attributes;
@@ -53,86 +51,12 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   // View Properties
   id: 'ticket_detail',
   editView: 'ticket_edit',
-  security: 'Entities/Ticket/View',
-  querySelect: [
-    'Account/AccountName',
-    'Account/MainPhone',
-    'Area',
-    'AssignedDate',
-    'AssignedTo/OwnerDescription',
-    'Category',
-    'Contact/NameLF',
-    'Contact/WorkPhone',
-    'Contract/ReferenceNumber',
-    'Issue',
-    'NeededByDate',
-    'Notes',
-    'ViaCode',
-    'StatusCode',
-    'UrgencyCode',
-    'Subject',
-    'TicketNumber',
-    'TicketProblem/Notes',
-    'TicketSolution/Notes',
-    'Urgency/Description',
-    'Urgency/UrgencyCode',
-    'CompletedBy/OwnerDescription',
-  ],
+  enableOffline: true,
   resourceKind: 'tickets',
+  modelName: MODEL_NAMES.TICKET,
 
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();
-  },
-
-  createPicklistRequest: function createPicklistRequest(predicate) {
-    const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
-      .setResourceKind('picklists')
-      .setContractName('system');
-    const uri = request.getUri();
-
-    uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
-    uri.setCollectionPredicate(predicate);
-
-    request.allowCacheUse = true;
-
-    return request;
-  },
-
-  requestCodeData: function requestCodeData(row, node, value, entry, predicate) {
-    const request = this.createPicklistRequest(predicate);
-    request.read({
-      success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
-      failure: this.onRequestCodeDataFailure,
-      scope: this,
-    });
-  },
-
-  onRequestCodeDataSuccess: function onRequestCodeDataSuccess(row, node, value, entry, data) {
-    const codeText = this.processCodeDataFeed(data, entry[row.property]);
-    this.setNodeText(node, codeText);
-    this.entry[row.name] = codeText;
-  },
-
-  onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
-    ErrorManager.addError(response, o, this.options, 'failure');
-  },
-
-  processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-    const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-    const textProperty = options && options.textProperty ? options.textProperty : 'text';
-
-    for (let i = 0; i < feed.$resources.length; i++) {
-      if (feed.$resources[i][keyProperty] === currentValue) {
-        return feed.$resources[i][textProperty];
-      }
-    }
-
-    return currentValue;
-  },
-  setNodeText: function setNodeText(node, value) {
-    domClass.remove(node, 'content-loading');
-
-    query('span', node).text(value);
   },
 
   createLayout: function createLayout() {
@@ -205,11 +129,8 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
         property: 'TicketProblem.Notes',
       }, {
         label: this.statusText,
-        cls: 'content-loading',
-        value: this.loadingText,
         name: 'StatusCode',
         property: 'StatusCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Status"'),
       }, {
         label: this.completedByText,
         name: 'CompletedBy.OwnerDescription',
@@ -222,9 +143,6 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
         label: this.sourceText,
         name: 'ViaCode',
         property: 'ViaCode',
-        value: this.loadingText,
-        cls: 'content-loading',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Source"'),
       }, {
         label: this.assignedDateText,
         name: 'AssignedDate',

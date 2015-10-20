@@ -90,6 +90,7 @@
   addAttachmentActionText: "Add Attachment"
   phoneAbbreviationText: "Phone: "
   faxAbbreviationText: "Fax: "
+  offlineText: "Offline"
 >
 
 <activityComplete
@@ -164,8 +165,6 @@
   contactText: "contact"
   opportunityText: "opportunity"
   ticketNumberText: "ticket"
-  whenText: "When"
-  whoText: "Who"
   startDateFormatText: "M/D/YYYY h:mm:ss A"
   timelessDateFormatText: "M/D/YYYY"
   alarmDateFormatText: "M/D/YYYY h:mm:ss A"
@@ -271,6 +270,10 @@
   viewContactActionText: "Contact"
   viewAccountActionText: "Account"
   viewOpportunityActionText: "Opportunity"
+>
+
+<activityMyDay ""
+  titleText: "My Schedule"
 >
 
 <activityRecurring ""
@@ -1146,6 +1149,7 @@
 <rightDrawerListMixin ""
   hashTagsSectionText: "Hash Tags"
   groupsSectionText: "Groups"
+  entitySectionText: "Entity"
   kpiSectionText: "KPI"
   configureGroupsText: "Configure"
   refreshGroupsText: "Refresh"
@@ -1229,6 +1233,9 @@
   helpText: "Help"
   logOutText: "Log Out"
   logOutConfirmText: "Are you sure you want to log out?"
+  onlineText: "Online"
+  offlineText: "Offline"
+  connectionText: "Connection: ${connectionStatus}"
 >
 
 <login ""
@@ -1303,6 +1310,8 @@
   versionInfoText: "Mobile v${0}.${1}.${2}"
   loadingText: "Loading application state"
   authText: "Authenticating"
+  offlinePromptText: "Your internet connection is no longer working. Would you like to switch to offline mode?"
+  onlinePromptText: "Your connection is working. Would you like to go back online?"
 >
 
 <applicationModule ""
@@ -1322,6 +1331,11 @@
   totalLeads: "Total Leads"
   totalHistory: "Total History"
   duration: "Total Duration"
+  meetings: "Meetings"
+  calls: "Calls"
+  todos: "Todos"
+  personal: "Personal"
+  lastRefresh: "Last Refresh"
 >
 
 <fileManager ""
@@ -1377,4 +1391,55 @@
 
 <speedSearchWidget ""
   searchText: "SpeedSearch"
+>
+
+<activityTypeText ""
+  atToDoText: "To-Do"
+  atPhoneCallText: "Phone Call"
+  atAppointmentText: "Meeting"
+  atLiteratureText: "Lit Request"
+  atPersonalText: "Personal"
+  atQuestionText: "Question"
+  atNoteText: "Note"
+  atEMailText: "Email"
+>
+
+<accountModel ""
+  entityDisplayName: "Account"
+  entityDisplayNamePlural : "Accounts"
+>
+
+<contactModel ""
+  entityDisplayName: "Contact"
+  entityDisplayNamePlural : "Contacts"
+>
+
+<leadModel ""
+  entityDisplayName: "Lead"
+  entityDisplayNamePlural : "Leads"
+>
+<activityModel ""
+  entityDisplayName: "Activity"
+  entityDisplayNamePlural : "Activities"
+>
+<userActivityModel ""
+  entityDisplayName: "User Activity"
+  entityDisplayNamePlural : "User Actvvities"
+>
+<opportunityModel ""
+  entityDisplayName: "Opportunity"
+  entityDisplayNamePlural : "Opportunites"
+>
+<ticketModel ""
+  entityDisplayName: "Ticket"
+  entityDisplayNamePlural : "Tickets"
+>
+<addressModel ""
+  entityDisplayName: "Address"
+  entityDisplayNamePlural : "Addresses"
+>
+
+<historyModel ""
+  entityDisplayName: "History"
+  entityDisplayNamePlural : "History"
 >
