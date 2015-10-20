@@ -66,7 +66,6 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this._entityView = this.getEntityView();
   },
   getEntityView: function getEntityView() {
-    let newView;
     const newViewId = this.id + '_' + this.offlineContext.viewId;
     const view = App.getView(this.offlineContext.viewId);
 
@@ -77,9 +76,9 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
 
     if (view) {
       const ViewCtor = view.constructor;
-      newView = new ViewCtor({id: newViewId});
+      this._entityView = new ViewCtor({id: newViewId});
     }
-    return newView;
+    return this._entityView;
   },
   _applyStateToGetOptions: function _applyStateToGetOptions() {},
   _buildGetExpression: function _buildGetExpression() {
