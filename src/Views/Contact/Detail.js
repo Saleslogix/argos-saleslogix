@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
 import template from '../../Template';
+import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
 
 const resource = window.localeContext.getEntitySync('contactDetail').attributes;
@@ -62,33 +63,9 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   editView: 'contact_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
-  security: 'Entities/Contact/View',
-  querySelect: [
-    'Account/AccountName',
-    'AccountManager/UserInfo/FirstName',
-    'AccountManager/UserInfo/LastName',
-    'AccountName',
-    'Address/*',
-    'CuisinePreference',
-    'CreateDate',
-    'CreateUser',
-    'Email',
-    'Fax',
-    'FirstName',
-    'HomePhone',
-    'LastName',
-    'MiddleName',
-    'Mobile',
-    'Name',
-    'NameLF',
-    'Owner/OwnerDescription',
-    'Prefix',
-    'Suffix',
-    'Title',
-    'WebAddress',
-    'WorkPhone',
-  ],
+  enableOffline: true,
   resourceKind: 'contacts',
+  modelName: MODEL_NAMES.CONTACT,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);

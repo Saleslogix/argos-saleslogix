@@ -2,6 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
+import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
 
 const resource = window.localeContext.getEntitySync('leadDetail').attributes;
@@ -60,34 +61,9 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   editView: 'lead_edit',
   historyEditView: 'history_edit',
   noteEditView: 'history_edit',
-  security: 'Entities/Lead/View',
-  querySelect: [
-    'Address/*',
-    'BusinessDescription',
-    'Company',
-    'CreateDate',
-    'CreateUser',
-    'Email',
-    'FirstName',
-    'FullAddress',
-    'Industry',
-    'Interests',
-    'LastName',
-    'LeadNameLastFirst',
-    'LeadSource/Description',
-    'MiddleName',
-    'Mobile',
-    'Notes',
-    'Owner/OwnerDescription',
-    'Prefix',
-    'SICCode',
-    'Suffix',
-    'Title',
-    'TollFree',
-    'WebAddress',
-    'WorkPhone',
-  ],
+  enableOffline: true,
   resourceKind: 'leads',
+  modelName: MODEL_NAMES.LEAD,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
     const view = App.getView(this.historyEditView);

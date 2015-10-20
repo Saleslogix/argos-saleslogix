@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
@@ -19,6 +16,8 @@ import MainToolbar from './Views/MainToolbar';
 import UpdateToolbar from './Views/UpdateToolbar';
 import LeftDrawer from './Views/LeftDrawer';
 import RightDrawer from './Views/RightDrawer';
+import OfflineDetail from './Views/Offline/Detail';
+import OfflineList from './Views/Offline/List';
 import Login from './Views/Login';
 import LogOff from './Views/LogOff';
 import Settings from './Views/Settings';
@@ -35,6 +34,7 @@ import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
 import ActivityList from './Views/Activity/List';
+import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
 import ActivityDetail from './Views/Activity/Detail';
 import ActivityEdit from './Views/Activity/Edit';
@@ -96,6 +96,8 @@ import ViewAttachment from './Views/Attachment/ViewAttachment';
 import AttachmentList from './Views/Attachment/List';
 import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
+import RecentlyViewedList from './Views/RecentlyViewed/List';
+import BriefcaseList from './Views/Briefcase/List';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -109,6 +111,24 @@ import './Template';
 import './Validator';
 import './Environment';
 import './Utility';
+import './Models/Offline/Account';
+import './Models/Offline/Activity';
+import './Models/Offline/Contact';
+import './Models/Offline/Lead';
+import './Models/Offline/Opportunity';
+import './Models/Offline/UserActivity';
+import './Models/Offline/Address';
+import './Models/Offline/History';
+import './Models/Offline/Ticket';
+import './Models/SData/Account';
+import './Models/SData/Activity';
+import './Models/SData/Contact';
+import './Models/SData/Lead';
+import './Models/SData/Opportunity';
+import './Models/SData/Ticket';
+import './Models/SData/UserActivity';
+import './Models/SData/Address';
+import './Models/SData/History';
 
 const resource = window.localeContext.getEntitySync('applicationModule').attributes;
 
@@ -144,6 +164,16 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
     this.registerView(new RightDrawer(), query('.right-drawer')[0]);
 
+    this.registerView(new OfflineDetail());
+    this.registerView(new OfflineList({
+      expose: true,
+    }));
+    this.registerView(new RecentlyViewedList({
+      expose: true,
+    }));
+    this.registerView(new BriefcaseList({
+      expose: true,
+    }));
     this.registerView(new Help());
     this.registerView(new Settings());
     this.registerView(new Configure());
@@ -340,6 +370,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
+    this.registerView(new MyDayList());
     this.registerView(new MyActivityList());
     this.registerView(new ActivityRecurring());
 

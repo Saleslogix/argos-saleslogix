@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import format from '../../Format';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = window.localeContext.getEntitySync('opportunityDetail').attributes;
 
@@ -57,32 +58,9 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   id: 'opportunity_detail',
   editView: 'opportunity_edit',
   noteEditView: 'history_edit',
-  security: 'Entities/Opportunity/View',
-  querySelect: [
-    'Account/AccountName',
-    'Account/WebAddress',
-    'Account/MainPhone',
-    'Account/Fax',
-    'Account/Address/*',
-    'AccountManager/UserInfo/FirstName',
-    'AccountManager/UserInfo/LastName',
-    'CloseProbability',
-    'Description',
-    'EstimatedClose',
-    'ExchangeRate',
-    'ExchangeRateCode',
-    'ExchangeRateDate',
-    'ExchangeRateLocked',
-    'LeadSource/Description',
-    'Owner/OwnerDescription',
-    'Reseller/AccountName',
-    'SalesPotential',
-    'Stage',
-    'Status',
-    'Type',
-    'Weighted',
-  ],
+  enableOffline: true,
   resourceKind: 'opportunities',
+  modelName: MODEL_NAMES.OPPORTUNITY,
 
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();
