@@ -17,6 +17,7 @@
     "Base64": false,
     "define": false,
     "require": false,
+    "Rx": false,
     "moment": false,
     "PouchDB": false
   },
