@@ -36,6 +36,13 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   queryModelName: 'myday',
   enableOfflineSupport: true,
 
+  _onRefresh: function _onRefresh(options) {
+    this.inherited(arguments);
+    if (options.resourceKind === 'activities') {
+      this.refreshRequired = true;
+    }
+  },
+
   show: function show(options) {
     if (!App.onLine) {
       this._showOfflineView(options);
