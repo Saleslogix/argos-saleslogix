@@ -73,6 +73,10 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
     this._entityView = this.getEntityView();
   },
+  onTransitionTo: function onTransitionTo() {
+    this.inherited(arguments);
+    App.setToolBarMode(false);
+  },
   _buildQueryExpression: function _buildQueryExpression() {
     if (this.offlineContext && this.offlineContext.queryExpression) {
       return this.offlineContext.queryExpression;

@@ -65,6 +65,10 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
 
     this._entityView = this.getEntityView();
   },
+  onTransitionTo: function onTransitionTo() {
+    this.inherited(arguments);
+    App.setToolBarMode(false);
+  },
   getEntityView: function getEntityView() {
     const newViewId = this.id + '_' + this.offlineContext.viewId;
     const view = App.getView(this.offlineContext.viewId);
