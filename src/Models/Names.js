@@ -3,6 +3,7 @@ export default {
   ACTIVITY: 'Activity',
   CONTACT: 'Contact',
   LEAD: 'Lead',
+  LEADADDRESS: 'LeadAddress',
   OPPORTUNITY: 'Opportunity',
   TICKET: 'Ticket',
   USERACTIVITY: 'UserActivity',

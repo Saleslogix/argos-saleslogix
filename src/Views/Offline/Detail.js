@@ -143,15 +143,25 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   addRelatedLayout: function addRelatedLayout(section) {
     const rels = this._model.relationships;
     array.forEach(rels, (rel) => {
-      if (rel && rel.childEntity) {
-        const viewId = (rel.viewId) ? rel.viewId : rel.childEntity.toLowerCase() + '_related';
+      if (rel && rel.relatedEntity) {
+        const relatedModel = App.ModelManager.getModel(rel.relatedEntity, MODEL_TYPES.OFFLINE);
+        let viewId;
+        if (rel.viewId) {
+          viewId = rel.viewId;
+        } else if (relatedModel && relatedModel.listViewId) {
+          viewId = relatedModel.listViewId;
+        } else {
+          viewId = rel.relatedEntity.toLowerCase() + '_related';
+        }
+
         const item = {
           name: rel.name,
-          entityName: rel.childEntity,
+          entityName: rel.relatedEntity,
           label: rel.displayName,
           view: viewId,
           relationship: rel,
         };
+
         this._relatedItems[item.name] = item;
         section.children.push(item);
       }
