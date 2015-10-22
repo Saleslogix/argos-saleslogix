@@ -378,7 +378,7 @@ const __class = declare('crm.Application', [Application], {
     return !!userSecurity[security];
   },
   reload: function reload() {
-    ReUI.disableLocationCheck();
+    this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
   },
@@ -787,17 +787,29 @@ const __class = declare('crm.Application', [Application], {
       view.refresh();
     }
 
+    this.ReUI.disableLocationCheck();
     if (online) {
       let results = confirm(this.onlinePromptText); // eslint-disable-line
       if (results) {
-        this.navigateToLoginView();
+        this.ReUI.switchHistorySet('primary');
+        if (this.context && this.context.user) {
+          if (!this.ReUI.restoreLastHistory()) {
+            this.navigateToInitialView();
+          }
+        } else {
+          this.navigateToLoginView();
+        }
       }
     } else {
       let results = confirm(this.offlinePromptText); // eslint-disable-line
       if (results) {
-        this.navigateToInitialView();
+        this.ReUI.switchHistorySet('secondary');
+        if (!this.ReUI.restoreLastHistory()) {
+          this.navigateToInitialView();
+        }
       }
     }
+    this.ReUI.enableLocationCheck();
   },
   navigateToLoginView: function navigateToLoginView() {
     this.setupRedirectHash();
