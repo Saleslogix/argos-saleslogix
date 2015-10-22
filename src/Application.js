@@ -787,15 +787,12 @@ const __class = declare('crm.Application', [Application], {
       view.refresh();
     }
 
-    this.ReUI.disableLocationCheck();
+    this.ReUI.resetHistory();
     if (online) {
       let results = confirm(this.onlinePromptText); // eslint-disable-line
       if (results) {
-        this.ReUI.switchHistorySet('primary');
         if (this.context && this.context.user) {
-          if (!this.ReUI.restoreLastHistory()) {
-            this.navigateToInitialView();
-          }
+          this.navigateToInitialView();
         } else {
           this.navigateToLoginView();
         }
@@ -803,13 +800,9 @@ const __class = declare('crm.Application', [Application], {
     } else {
       let results = confirm(this.offlinePromptText); // eslint-disable-line
       if (results) {
-        this.ReUI.switchHistorySet('secondary');
-        if (!this.ReUI.restoreLastHistory()) {
-          this.navigateToInitialView();
-        }
+        this.navigateToInitialView();
       }
     }
-    this.ReUI.enableLocationCheck();
   },
   navigateToLoginView: function navigateToLoginView() {
     this.setupRedirectHash();
