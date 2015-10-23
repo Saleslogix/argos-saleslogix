@@ -9,12 +9,6 @@ import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Ticket.SData', [Base, _SDataModelBase], {
-  entityName: 'Ticket',
-  entityDisplayName: 'Ticket',
-  entityDisplayNamePlural: 'Tickets',
-  iconClass: 'fa fa-clipboard fa-2x',
-  resourceKind: 'tickets',
-  security: 'Entities/Ticket/View',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
