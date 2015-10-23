@@ -1456,13 +1456,26 @@
   titleText: "Offline List"
   offlineText: "Offline"
 >
+
 <activityMyDayRightDrawerList ""
   kpiSectionText: "KPI"
   filterSectionText: "Filter"
 >
+
 <activityMyDayOffline ""
   titleText: "My Schedule Offline"
   todayFilterLabel: "today"
   thisWeekFilterLabel: "this week"
   yesterdayFilterLabel: "yesterday"
+>
+<briefcaseList ""
+  titleText: "My Briefcase"
+  removeText: "remove"
+  reSyncText: "re sync"
+  goToOnlineText: "go to online view"
+  goToOfflineText: "go to offline view"
+>
+
+<recenltyViewedList ""
+  titleText: "xRecently Viewed"
 >

@@ -16,6 +16,8 @@ import OfflineManager from 'argos/Offline/Manager';
 import Deferred from 'dojo/Deferred';
 import OfflineDetail from '../Offline/Detail';
 
+const resource = window.localeContext.getEntitySync('briefcaseList').attributes;
+
 export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin], {
   id: 'briefcase_list',
   idProperty: 'id',
@@ -25,7 +27,8 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   enableOfflineSupport: true,
   resourceKind: '',
   entityName: 'Briefcase',
-  titleText: 'My Briefcase',
+  titleText: resource.titleText,
+  pageSize: 1000,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
@@ -124,22 +127,22 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
     return this.actions || (this.actions = [{
       id: 'remove',
       cls: 'fa fa-remove fa-2x',
-      label: 'remove',
+      label: resource.removeText,
       action: 'removeItemAction',
     }, {
       id: 'resync',
       cls: 'fa fa-refresh fa-2x',
-      label: 're sync',
+      label: resource.reSyncText,
       action: 'reSyncItemAction',
     }, {
       id: 'navToOnline',
       cls: 'fa fa-level-down fa-2x',
-      label: 'go to online',
+      label: resource.goToOnlineText,
       action: 'navToOnlineView',
     }, {
       id: 'navToOffline',
       cls: 'fa fa-level-down fa-2x',
-      label: 'go to offline',
+      label: resource.goToOfflineText,
       action: 'navToOfflineView',
     }]);
   },

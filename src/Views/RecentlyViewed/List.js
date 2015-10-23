@@ -18,6 +18,15 @@ import MODEL_TYPES from 'argos/Models/Types';
 import all from 'dojo/promise/all';
 import OfflineDetail from '../Offline/Detail';
 
+const resource = window.localeContext.getEntitySync('recentlyViewedList').attributes;
+const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
+const contactResource = window.localeContext.getEntitySync('contactModel').attributes;
+const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
+const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
+const oppResource = window.localeContext.getEntitySync('opportunityModel').attributes;
+const ticketResource = window.localeContext.getEntitySync('ticketModel').attributes;
+const leadResource = window.localeContext.getEntitySync('leadModel').attributes;
+
 export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   id: 'recently_viewed_list',
   idProperty: 'id',
@@ -27,8 +36,9 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   enableOfflineSupport: true,
   resourceKind: 'offline',
   entityName: 'RecentlyViewd',
-  titleText: 'Recently Viewed',
+  titleText: resource.titleText,
   metricWidgetCtor: TotalMetricWidget,
+  pageSize: 1000,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
@@ -167,13 +177,13 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
 
   // Localization
   entityText: {
-    'Contact': 'Contacts',
-    'Account': 'Accounts',
-    'Opportunity': 'Opportunities',
-    'Ticket': 'Tickets',
-    'Lead': 'Leads',
-    'Activity': 'Activities',
-    'History': 'History',
+    'Contact': contactResource.entityDisplayNamePlural,
+    'Account': accountResource.entityDisplayNamePlural,
+    'Opportunity': oppResource.entityDisplayNamePlural,
+    'Ticket': ticketResource.entityDisplayNamePlural,
+    'Lead': leadResource.entityDisplayNamePlural,
+    'Activity': activityResource.entityDisplayNamePlural,
+    'History': historyResource.entityDisplayNamePlural,
   },
   entityMappings: {
     'Contact': {
