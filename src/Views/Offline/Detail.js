@@ -196,6 +196,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     const view = App.getView('offline_list');
     const queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
     const options = {
+      title: rel.label,
       offlineContext: {
         parentEntry: this.entry,
         parentEntityId: this._model.getEntityId(this.entry),
