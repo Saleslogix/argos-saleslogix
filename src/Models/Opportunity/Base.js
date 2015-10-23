@@ -3,6 +3,9 @@ import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
 
 const resource = window.localeContext.getEntitySync('opportunityModel').attributes;
+const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
+const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
+const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
 
 const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
   entityName: 'Opportunity',
@@ -17,7 +20,7 @@ const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
     let rel;
     rel = this.relationships || (this.relationships = [{
       name: 'Account',
-      displayName: 'Account',
+      displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'Account',
       parentPropertyType: 'object',
@@ -25,14 +28,14 @@ const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
       relatedPropertyType: 'object',
     }, {
       name: 'History',
-      displayName: 'History',
+      displayName: historyResource.entityDisplayNamePlural,
       type: 'OneToMany',
       relatedEntity: 'History',
       relatedProperty: 'OpportunityId',
       where: 'Type ne "atDatabaseChange"',
     }, {
       name: 'Activity',
-      displayName: 'Activity',
+      displayName: activityResource.entityDisplayNamePlural,
       type: 'OneToMany',
       relatedEntity: 'Activity',
       relatedProperty: 'OpportunityId',

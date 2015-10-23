@@ -3,6 +3,10 @@ import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
 
 const resource = window.localeContext.getEntitySync('leadModel').attributes;
+const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
+const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
+const addressResource = window.localeContext.getEntitySync('addressModel').attributes;
+
 
 const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
   resourceKind: 'leads',
@@ -16,14 +20,14 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
     let rel;
     rel = this.relationships || (this.relationships = [{
       name: 'Addresses',
-      displayName: 'Addresses',
+      displayName: addressResource.entityDisplayNamePlural,
       propertyName: 'Addresses',
       type: 'OneToMany',
       relatedEntity: 'LeadAddress',
       relatedProperty: 'LeadId',
     }, {
       name: 'History',
-      displayName: 'History',
+      displayName: historyResource.entityDisplayNamePlural,
       propertyName: 'History',
       type: 'OneToMany',
       relatedEntity: 'History',
@@ -31,7 +35,7 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
       where: 'Type ne "atDatabaseChange"',
     }, {
       name: 'Activity',
-      displayName: 'Activities',
+      displayName: activityResource.entityDisplayNamePlural,
       propertyName: 'Activity',
       type: 'OneToMany',
       relatedEntity: 'Activity',

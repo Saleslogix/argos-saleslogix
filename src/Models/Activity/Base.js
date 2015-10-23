@@ -5,6 +5,11 @@ import ACTIVITY_TYPE_TEXT from './ActivityTypeText';
 import ACTIVITY_TYPE_ICON from './ActivityTypeIcon';
 
 const resource = window.localeContext.getEntitySync('activityModel').attributes;
+const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
+const contactResource = window.localeContext.getEntitySync('contactModel').attributes;
+const oppResource = window.localeContext.getEntitySync('opportunityModel').attributes;
+const ticketResource = window.localeContext.getEntitySync('ticketModel').attributes;
+const leadResource = window.localeContext.getEntitySync('leadModel').attributes;
 
 const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
   modelName: MODEL_NAMES.ACTIVITY,
@@ -20,31 +25,31 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
     let rel;
     rel = this.relationships || (this.relationships = [ {
       name: 'Account',
-      displayName: 'Account',
+      displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'AccountId',
       relatedEntity: 'Account',
     }, {
       name: 'Contact',
-      displayName: 'Contacts',
+      displayName: contactResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'ContactId',
       relatedEntity: 'Contact',
     }, {
       name: 'Ticket',
-      displayName: 'Ticket',
+      displayName: ticketResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'TicketId',
       relatedEntity: 'Ticket',
     }, {
       name: 'Opportunity',
-      displayName: 'Opportunity',
+      displayName: oppResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'OpportunityId',
       relatedEntity: 'Opportunity',
     }, {
       name: 'Lead',
-      displayName: 'Lead',
+      displayName: leadResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'LeadId',
       relatedEntity: 'Lead',

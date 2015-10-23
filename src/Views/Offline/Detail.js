@@ -16,11 +16,11 @@ import MODEL_TYPES from 'argos/Models/Types';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
 
-
+const resource = window.localeContext.getEntitySync('offlineDetail').attributes;
 export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {
   id: 'offline_detail',
-  titleText: 'Offline Detail',
-  offlineText: 'Offline',
+  titleText: resource.titleText,
+  offlineText: resource.offlineText,
   idProperty: 'id',
   offlineDoc: null,
   detailHeaderTemplate: new Simplate([

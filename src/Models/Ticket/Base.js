@@ -3,6 +3,10 @@ import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
 
 const resource = window.localeContext.getEntitySync('ticketModel').attributes;
+const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
+const contactResource = window.localeContext.getEntitySync('contactModel').attributes;
+const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
+const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
 
 const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
   entityName: 'Ticket',
@@ -17,7 +21,7 @@ const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
     let rel;
     rel = this.relationships || (this.relationships = [{
       name: 'Account',
-      displayName: 'Account',
+      displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'Account',
       parentPropertyType: 'object',
@@ -25,7 +29,7 @@ const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
       relatedPropertyType: 'object',
     }, {
       name: 'Contact',
-      displayName: 'Contact',
+      displayName: contactResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'Contact',
       parentPropertyType: 'object',
@@ -33,14 +37,14 @@ const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
       relatedPropertyType: 'object',
     }, {
       name: 'History',
-      displayName: 'History',
+      displayName: historyResource.entityDisplayNamePlural,
       type: 'OneToMany',
       relatedEntity: 'History',
       relatedProperty: 'TicketId',
       where: 'Type ne "atDatabaseChange"',
     }, {
       name: 'Activity',
-      displayName: 'Activity',
+      displayName: activityResource.entityDisplayNamePlural,
       type: 'OneToMany',
       relatedEntity: 'Activity',
       relatedProperty: 'TicketId',

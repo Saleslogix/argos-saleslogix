@@ -125,7 +125,43 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
         });
     });
   },
-  });
+  completeActivity: function completeActivity(entry) {
+    const completeActivityEntry = {
+      '$name': 'ActivityComplete',
+      'request': {
+        'entity': {
+          '$key': entry.$key,
+        },
+        'ActivityId': entry.$key,
+        'userId': entry.Leader.$key,
+        'result': entry.Result,
+        'completeDate': entry.CompletedDate,
+      },
+    };
+
+    const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService())
+      .setResourceKind(this.resourceKind)
+      .setContractName(this.contractName)
+      .setOperationName('Complete');
+    const def = new Deferred();
+
+    request.execute(completeActivityEntry, {
+      success: function success() { // Can we get back the history to add to the Offline?
+        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
+        if (oModel) {
+          oModel.deleteEntry(entry.$key);
+        }
+
+        def.resolve();
+      },
+      failure: function failure(err) {
+        def.reject(err);
+      },
+      scope: this,
+    });
+    return def.promise;
+  },
+});
 
 Manager.register(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA, __class);
 export default __class;

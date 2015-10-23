@@ -1418,18 +1418,22 @@
   entityDisplayName: "Lead"
   entityDisplayNamePlural : "Leads"
 >
+
 <activityModel ""
   entityDisplayName: "Activity"
   entityDisplayNamePlural : "Activities"
 >
+
 <userActivityModel ""
   entityDisplayName: "User Activity"
   entityDisplayNamePlural : "User Actvvities"
 >
+
 <opportunityModel ""
   entityDisplayName: "Opportunity"
-  entityDisplayNamePlural : "Opportunites"
+  entityDisplayNamePlural : "Opportunities"
 >
+
 <ticketModel ""
   entityDisplayName: "Ticket"
   entityDisplayNamePlural : "Tickets"
@@ -1442,4 +1446,23 @@
 <historyModel ""
   entityDisplayName: "History"
   entityDisplayNamePlural : "History"
+>
+<offlineDetail ""
+  titleText: "Offline Detail"
+  offlineText: "Offline"
+>
+
+<offlineList ""
+  titleText: "Offline List"
+  oflfineText: "Offline"
+>
+<activityMyDayRightDrawerList ""
+  kpiSectionText: "KPI"
+  filterSectionText: "Filter"
+>
+<activityMyDayOffline ""
+  titleText: "My Schedule Offline"
+  todayFilterLabel: "today"
+  thisWeekFilterLabel: "this week"
+  yesterdayFilterLabel: "yesterday"
 >

@@ -3,6 +3,11 @@ import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
 
 const resource = window.localeContext.getEntitySync('contactModel').attributes;
+const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
+const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
+const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
+const addressResource = window.localeContext.getEntitySync('addressModel').attributes;
+const ticketResource = window.localeContext.getEntitySync('ticketModel').attributes;
 
 const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
   resourceKind: 'contacts',
@@ -16,7 +21,7 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
     let rel;
     rel = this.relationships || (this.relationships = [{
       name: 'Account',
-      displayName: 'Account',
+      displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',
       parentProperty: 'Account',
       parentPropertyType: 'object',
@@ -24,14 +29,14 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
       relatedPropertyType: 'object',
     }, {
       name: 'Addresses',
-      displayName: 'Addresses',
+      displayName: addressResource.entityDisplayNamePlural,
       propertyName: 'Addresses',
       type: 'OneToMany',
       relatedEntity: 'Address',
       relatedProperty: 'EntityId',
     }, {
       name: 'History',
-      displayName: 'History',
+      displayName: historyResource.entityDisplayNamePlural,
       propertyName: 'History',
       type: 'OneToMany',
       relatedEntity: 'History',
@@ -39,14 +44,14 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
       where: 'Type ne "atDatabaseChange"',
     }, {
       name: 'Activity',
-      displayName: 'Activities',
+      displayName: activityResource.entityDisplayNamePlural,
       propertyName: 'Activity',
       type: 'OneToMany',
       relatedEntity: 'Activity',
       relatedProperty: 'ContactId',
     }, {
       name: 'Tickets',
-      displayName: 'Tickets',
+      displayName: ticketResource.entityDisplayNamePlural,
       type: 'OneToMany',
       relatedEntity: 'Ticket',
       relatedProperty: 'Contact',
