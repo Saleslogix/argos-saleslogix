@@ -126,7 +126,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
         entityId: this._model.getEntityId(entry),
         entityName: this._model.entityName,
         viewId: this._model.detailViewId,
-        offlineDate: entry.$offlineData,
+        offlineDate: entry.$offlineDate,
         source: entry,
       },
     };

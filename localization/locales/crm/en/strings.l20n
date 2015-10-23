@@ -1454,7 +1454,7 @@
 
 <offlineList ""
   titleText: "Offline List"
-  oflfineText: "Offline"
+  offlineText: "Offline"
 >
 <activityMyDayRightDrawerList ""
   kpiSectionText: "KPI"
