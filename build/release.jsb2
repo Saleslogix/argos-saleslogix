@@ -331,11 +331,11 @@
           "text": "Names.js",
           "path": "../src-out/Models/"
         }, {
-          "text": "ActivityTypeText.js",
-          "path": "../src-out/Models/"
-        }, {
           "text": "ActivityTypeIcon.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "ActivityTypeText.js",
+          "path": "../src-out/Models/Activity/"
         }, {
           "text": "Recurrence.js",
           "path": "../src-out/"
@@ -394,29 +394,32 @@
           "text": "AttachmentManager.js",
           "path": "../src-out/"
         }, {
-          "text": "AccountBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/Account/"
         }, {
-          "text": "AddressBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/Address/"
         }, {
-          "text": "ContactBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/Contact/"
         }, {
-          "text": "HistoryBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/History/"
         }, {
-          "text": "LeadBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/Lead/"
         }, {
-          "text": "OpportunityBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/LeadAddress/"
         }, {
-          "text": "TicketBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/Opportunity/"
         }, {
-          "text": "ActivityBase.js",
-          "path": "../src-out/Models/"
+          "text": "Base.js",
+          "path": "../src-out/Models/Ticket/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Models/Activity/"
         }, {
           "text": "Edit.js",
           "path": "../src-out/Views/Activity/"
@@ -550,56 +553,62 @@
           "text": "ViewAttachment.js",
           "path": "../src-out/Views/Attachment/"
         }, {
-          "text": "Account.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Account/"
         }, {
-          "text": "Account.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/Account/"
         }, {
-          "text": "Address.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Address/"
         }, {
-          "text": "Address.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/Address/"
         }, {
-          "text": "Contact.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Contact/"
         }, {
-          "text": "Contact.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/Contact/"
         }, {
-          "text": "History.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/History/"
         }, {
-          "text": "History.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/History/"
         }, {
-          "text": "Lead.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Lead/"
         }, {
-          "text": "Lead.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/Lead/"
         }, {
-          "text": "Opportunity.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/LeadAddress/"
         }, {
-          "text": "Opportunity.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/LeadAddress/"
         }, {
-          "text": "Ticket.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Opportunity/"
         }, {
-          "text": "Ticket.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/Opportunity/"
         }, {
-          "text": "Activity.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Ticket/"
         }, {
-          "text": "Activity.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/Ticket/"
         }, {
-          "text": "UserActivityBase.js",
-          "path": "../src-out/Models/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Models/UserActivity/"
         }, {
           "text": "SpeedSearchList.js",
           "path": "../src-out/Views/"
@@ -619,11 +628,11 @@
           "text": "List.js",
           "path": "../src-out/Views/Offline/"
         }, {
-          "text": "UserActivity.js",
-          "path": "../src-out/Models/Offline/"
+          "text": "Offline.js",
+          "path": "../src-out/Models/UserActivity/"
         }, {
-          "text": "UserActivity.js",
-          "path": "../src-out/Models/SData/"
+          "text": "SData.js",
+          "path": "../src-out/Models/UserActivity/"
         }, {
           "text": "MyDayMetricListMixin.js",
           "path": "../src-out/Views/Activity/"

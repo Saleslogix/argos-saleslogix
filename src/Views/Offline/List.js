@@ -14,6 +14,7 @@ import lang from 'dojo/_base/lang';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineDetail from './Detail';
 
+const resource = window.localeContext.getEntitySync('offlineList').attributes;
 export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixin], {
   id: 'offline_list',
   detailView: 'offline_detail',
@@ -21,8 +22,8 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   enableActions: true,
   resourceKind: '',
   entityName: '',
-  titleText: '',
-  offlineText: 'offline',
+  titleText: resource.titleText,
+  offlineText: resource.offlineText,
   pageSize: 1000,
   itemIndicatorTemplate: new Simplate([
     '<span{% if ($.iconCls) { %} class="{%= $.iconCls %}" {% } %} style="color:black; margin:0" >',
@@ -125,7 +126,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
         entityId: this._model.getEntityId(entry),
         entityName: this._model.entityName,
         viewId: this._model.detailViewId,
-        offlineDate: entry.$offlineData,
+        offlineDate: entry.$offlineDate,
         source: entry,
       },
     };

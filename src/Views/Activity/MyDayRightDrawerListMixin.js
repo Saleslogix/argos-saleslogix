@@ -4,7 +4,7 @@ import lang from 'dojo/_base/lang';
 import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 
-
+const resource = window.localeContext.getEntitySync('myDayRightDrawerList').attributes;
 const mixinName = 'crm.Views.Activity.MyDayRightDrawerListMixin';
 
 /**
@@ -16,8 +16,8 @@ const mixinName = 'crm.Views.Activity.MyDayRightDrawerListMixin';
  */
 const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
-  kpiSectionText: 'KPI',
-  filterSectionText: 'Filter',
+  kpiSectionText: resource.kpiSectionText,
+  filterSectionText: resource.filterSectionText,
 
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedKPIPrefs: false,

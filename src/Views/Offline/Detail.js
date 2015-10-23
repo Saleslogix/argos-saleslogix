@@ -16,11 +16,11 @@ import MODEL_TYPES from 'argos/Models/Types';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
 
-
+const resource = window.localeContext.getEntitySync('offlineDetail').attributes;
 export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {
   id: 'offline_detail',
-  titleText: 'Offline Detail',
-  offlineText: 'Offline',
+  titleText: resource.titleText,
+  offlineText: resource.offlineText,
   idProperty: 'id',
   offlineDoc: null,
   detailHeaderTemplate: new Simplate([
@@ -143,15 +143,25 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   addRelatedLayout: function addRelatedLayout(section) {
     const rels = this._model.relationships;
     array.forEach(rels, (rel) => {
-      if (rel && rel.childEntity) {
-        const viewId = (rel.viewId) ? rel.viewId : rel.childEntity.toLowerCase() + '_related';
+      if (rel && rel.relatedEntity) {
+        const relatedModel = App.ModelManager.getModel(rel.relatedEntity, MODEL_TYPES.OFFLINE);
+        let viewId;
+        if (rel.viewId) {
+          viewId = rel.viewId;
+        } else if (relatedModel && relatedModel.listViewId) {
+          viewId = relatedModel.listViewId;
+        } else {
+          viewId = rel.relatedEntity.toLowerCase() + '_related';
+        }
+
         const item = {
           name: rel.name,
-          entityName: rel.childEntity,
+          entityName: rel.relatedEntity,
           label: rel.displayName,
           view: viewId,
           relationship: rel,
         };
+
         this._relatedItems[item.name] = item;
         section.children.push(item);
       }
@@ -186,6 +196,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     const view = App.getView('offline_list');
     const queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
     const options = {
+      title: rel.label,
       offlineContext: {
         parentEntry: this.entry,
         parentEntityId: this._model.getEntityId(this.entry),

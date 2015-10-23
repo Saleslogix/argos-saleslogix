@@ -13,12 +13,13 @@ import MyDayRightDrawerListMixin from './MyDayRightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import convert from 'argos/Convert';
+const resource = window.localeContext.getEntitySync('activityMyDayOffline').attributes;
 
 export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMetricListMixin, MyDayRightDrawerListMixin], {
   id: 'myday_offline_list',
 
   entityName: 'Activity',
-  titleText: 'My Schedule Offline',
+  titleText: resource.titleText,
   modelName: MODEL_NAMES.ACTIVITY,
   _currentFilterName: 'today',
   filters: null,
@@ -35,15 +36,15 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
     if (!this.filters) {
       this.filters = {
         'today': {
-          label: 'today',
+          label: resource.todayFilterLabel,
           fn: this.isToday,
         },
         'this-week': {
-          label: 'this week',
+          label: resource.thisWeekFilterLabel,
           fn: this.isThisWeek,
         },
         'yesterday': {
-          label: 'yesterday',
+          label: resource.yesterdayFilterLabel,
           fn: this.isYesterday,
         },
       };
