@@ -55,6 +55,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     'clearAuthentication',
     'clearLocalStorage',
     'viewErrorLogs',
+    'viewOfflineOptions',
   ],
   createActions: function createActions() {
     this.actions = {
@@ -68,6 +69,10 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
       },
       'viewErrorLogs': {
         title: this.errorLogTitleText,
+        cls: 'fa fa-list-alt fa-2x',
+      },
+      'viewOfflineOptions': {
+        title: 'offline options',
         cls: 'fa fa-list-alt fa-2x',
       },
     };
@@ -101,6 +106,12 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     }
 
     alert(this.credentialsClearedText); // eslint-disable-line
+  },
+  viewOfflineOptions: function viewOfflineOptions() {
+    const view = App.getView('offline_options_edit');
+    if (view) {
+      view.show();
+    }
   },
   hasMoreData: function hasMoreData() {
     return false;

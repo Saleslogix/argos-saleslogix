@@ -1479,3 +1479,7 @@
 <recentlyViewedList ""
   titleText: "Recently Viewed"
 >
+
+<offlineOptionsEdit ""
+  titleText: "Offline Options"
+>

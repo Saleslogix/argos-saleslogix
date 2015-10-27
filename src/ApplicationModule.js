@@ -98,6 +98,7 @@ import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
 import RecentlyViewedList from './Views/RecentlyViewed/List';
 import BriefcaseList from './Views/Briefcase/List';
+import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -475,6 +476,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       defaultSearchTerm: () => {
         return '';
       },
+    }));
+    this.registerView(new OfflineOptionsEdit({
+      expose: false,
     }));
   },
   loadToolbars: function loadToolbars() {
