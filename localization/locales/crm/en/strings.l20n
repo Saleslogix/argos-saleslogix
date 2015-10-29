@@ -1426,7 +1426,7 @@
 
 <userActivityModel ""
   entityDisplayName: "User Activity"
-  entityDisplayNamePlural : "User Actvvities"
+  entityDisplayNamePlural : "User Activities"
 >
 
 <opportunityModel ""
@@ -1441,6 +1441,10 @@
 <addressModel ""
   entityDisplayName: "Address"
   entityDisplayNamePlural : "Addresses"
+>
+<leadAddressModel ""
+  entityDisplayName: "Lead Address"
+  entityDisplayNamePlural : "Lead Addresses"
 >
 
 <historyModel ""
