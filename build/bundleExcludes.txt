@@ -12,6 +12,8 @@ argos-saleslogix.v12.suo
 .jscsrc
 Gruntfile.js
 GruntRunner.tmpl
+src-out\placeholder.txt
+min\css\placeholder.txt
 node_modules
 deploy
 index-dev.aspx
@@ -32,6 +34,8 @@ obj
 bin
 argos-sdk.csproj.user
 npm-debug.log
+\argos-sdk\src-out\placeholder.txt
+\argos-sdk\min\css\themes\crm\placeholder.txt
 \argos-sdk\npm-debug.log
 \argos-sdk\tools\bundler
 \argos-sdk\tools\jsduck
