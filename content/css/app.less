@@ -1341,21 +1341,33 @@ canvas,
     }
 }
 .offline-usage {
-    padding: 6px
+    padding: 6px;
+    .button {
+      background-color: @color-azure;
+      border: none;
+      color: #fff;
+      padding: 6px;
+      margin: 6px;
+    }
+}
+.offline-usage-header { 
+    width:100%;
 }
 .offline-usage-item {
     margin: 6px;
     display: inline-block;
-    min-width: 200px;
+    min-width: 180px;
+    padding: 6px;
+
     .header {
-       .label{
-        font-weight: bold;
-        font-size: 18px;
-        vertical-align: top;
-       }
+      .label {
+         font-weight: bold;
+         font-size: 18px;
+         vertical-align: top;
+      }
     }
-    .content{ 
-         margin-bottom:6px;
+    .content { 
+        margin-bottom:6px;
        .item {
           width:100%;
          .label {
@@ -1381,12 +1393,4 @@ canvas,
         }
       }
     }
-    .button {
-      background-color: @color-azure;
-      border: none;
-      color: #fff;
-      padding: 6px;
-      margin: 0 6px 0 0;
-    }
-
 }

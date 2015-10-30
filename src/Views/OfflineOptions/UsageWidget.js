@@ -1,11 +1,12 @@
 import declare from 'dojo/_base/declare';
 import aspect from 'dojo/aspect';
 import domConstruct from 'dojo/dom-construct';
+// import domClass from 'dojo/dom-class';
 import format from '../../Format';
 import utility from 'argos/Utility';
-import Deferred from 'dojo/Deferred';
-import all from 'dojo/promise/all';
-import MODEL_TYPES from 'argos/Models/Types';
+// import Deferred from 'dojo/Deferred';
+// import all from 'dojo/promise/all';
+// import MODEL_TYPES from 'argos/Models/Types';
 import offlineManager from 'argos/Offline/Manager';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
@@ -18,11 +19,35 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   sizeAVGText: 'Avg.',
   clearAllText: 'Clear All',
   clearOldText: 'Clear Old',
+  showUsageText: 'Show Usage',
+  processingText: 'processing please wait ...',
+  calculatingUsageText: 'caclulating usage please wait ...',
+  clearingAllDataText: 'clearing all data please wait ...',
+  clearingOldDataText: 'clearing old data please wait ...',
 
   cls: 'related-offline-usage-widget',
-  contextCls: null,
-  usageHeaderTemplate: new Simplate([
+  relatedContentTemplate: new Simplate([
    '<div class="offline-usage">',
+   '<button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData"">{%: $$.clearAllText %}</button>',
+   '<button class="button actionButton" data-dojo-attach-event="onclick:onClearOldData">{%: $$.clearOldText %}</button>',
+   '<button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button>',
+   '<div data-dojo-attach-point="usageNode" >',
+   '</div>',
+  ]),
+  processingTemplate: new Simplate([
+   '<div>',
+   '<span class="fa fa-spinner fa-spin fa-2x"></span>',
+   '<h2>{%= $.message %}</h2>',
+   '</span>',
+  ]),
+  errorTemplate: new Simplate([
+   '<div class="error">',
+   '<span class="fa fa-waring fa-2x"></span>',
+   '<h2>{%= $.message %}</h2>',
+   '</div>',
+  ]),
+  usageHeaderTemplate: new Simplate([
+   '<div class="offline-usage-header">',
    '{%! $$.usageItemTemplate %}',
    '</div>',
   ]),
@@ -37,10 +62,6 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '<div class="item"><div class="label">{%: $$.sizeText %}</div> <span class="value">{%: $.size %}</span><span class="value percent">{%: $.sizePercent %}</span></div>',
     '<div class="item"><div class="label">{%: $$.sizeAVGText %}</div> <span class="value">{%: $.sizeAVG %}</span></div>',
     '</div>',
-    '<div>',
-    '<button data-entityname="{%: $.entityName %}" class="button actionButton">{%: $$.clearAllText %}</button>',
-    '<button data-entityname="{%: $.entityName %}" class="button actionButton">{%: $$.clearOldText %}</button>',
-    '</div>',
     '</div>',
   ]),
   onInit: function onInit() {
@@ -53,43 +74,51 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     }
   },
   onLoad: function onLoad() {
-    return this.getUsage().then((data) => {
-      this._onGetComplete(data);
+    // this.createUI();
+  },
+  onShowUsage: function onShowUsage() {
+    this.showProcessing(true, this.calculatingUsageText);
+    this.getUsage().then((data) => {
+      this.showProcessing(false);
+      this.processUsage(data);
+    }, () => {
+      this.showProcessing(false);
+    });
+  },
+  showProcessing: function showProcessing(show, message) {
+    if (show) {
+      if (this.usageNode) {
+        const node = domConstruct.toDom(this.processingTemplate.apply({message: message}, this));
+        domConstruct.place(node, this.usageNode, 'only');
+      }
+    } else {
+      this.destroyUsage();
+    }
+  },
+  showError: function showError(message) {
+    if (this.usageNode) {
+      const node = domConstruct.toDom(this.errorTemplate.apply({message: message}, this));
+      domConstruct.place(node, this.usageNode, 'only');
+    }
+  },
+  onClearAllData: function onClearAllData() {
+    this.showProcessing(true, this.clearingAllDataText);
+    offlineManager.clearData(null, null).then(() => {
+      this.onShowUsage();
     }, (err) => {
-      this._onGetError(err);
+      this.showError(err);
+    });
+  },
+  onClearOldData: function onClearOldData() {
+    this.showProcessing(true, this.clearingOldDataText);
+    offlineManager.clearData(null, null).then(() => {
+      this.onShowUsage();
+    }, (err) => {
+      this.showError(err);
     });
   },
   getUsage: function getUsage() {
     return offlineManager.getUsage();
-  },
-  getUsage2: function getUsage2() {
-    const def = new Deferred();
-    let usageRequests = [];
-    this.models = App.ModelManager.getModels(MODEL_TYPES.OFFLINE).filter((model) => {
-      if (model && (model.entityName !== 'RecentlyViewed') && (model.entityName !== 'Briefcase')) {
-        return model;
-      }
-    });
-    usageRequests = this.models.map((model) => {
-      return model.getUsage();
-    });
-    if (usageRequests.length > 0) {
-      all(usageRequests).then((results) => {
-        const usage = {};
-        usage.entities = results;
-        def.resolve(usage);
-      }, (err) => {
-        def.reject(err);
-      });
-    } else {
-      def.resolve();
-    }
-    return def.promise;
-  },
-  _onGetComplete: function _onGetComplete(data) {
-    this.processUsage(data);
-  },
-  _onGetError: function _onGetComplete() {
   },
   processUsage: function processUsage(usage) {
     let i;
@@ -104,6 +133,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     totalItem.countPercent = format.percent(1);
     const headerNode = domConstruct.toDom(this.usageHeaderTemplate.apply(totalItem, this));
     docfrag.appendChild(headerNode);
+    this._selectFields = {};
     const entities = usage.entities;
     for (i = 0; i < entities.length; i++) {
       const entity = entities[i];
@@ -123,14 +153,17 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         console.log(err); // eslint-disable-line
       }
     }
-    domConstruct.place(docfrag, this.containerNode, 'last');
+    domConstruct.place(docfrag, this.usageNode, 'last');
+  },
+  destroyUsage: function destroyUsage() {
+    if (this.usageNode) {
+      const node = domConstruct.toDom('<div></div>');
+      domConstruct.place(node, this.usageNode, 'only');
+    }
   },
   onRefreshView: function onRefreshView() {
-    if (this.containerNode) {
-      const node = domConstruct.toDom('<div></div>');
-      domConstruct.place(node, this.containerNode, 'only');
-      this.onLoad();
-    }
+    this.destroyUsage();
+    this.onLoad();
   },
 });
 const rvm = new RelatedViewManager();

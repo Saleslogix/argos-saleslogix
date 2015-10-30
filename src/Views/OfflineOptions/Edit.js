@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import Edit from 'argos/Edit';
-// import UsageWidget from './UsageWidget';
 import Deferred from 'dojo/Deferred';
 
 const resource = window.localeContext.getEntitySync('offlineOptionsEdit').attributes;
