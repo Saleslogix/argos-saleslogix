@@ -17,6 +17,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   countText: 'Count',
   sizeText: 'Size',
   sizeAVGText: 'Avg.',
+  oldestText: 'Oldest',
+  newestText: 'Newest',
   clearAllText: 'Clear All',
   clearOldText: 'Clear Old',
   showUsageText: 'Show Usage',
@@ -61,6 +63,9 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '<div class="item"><div class="label">{%: $$.countText %}</div> <span class="value">{%: $.count %}</span><span class="value percent">{%: $.countPercent %}</span></div>',
     '<div class="item"><div class="label">{%: $$.sizeText %}</div> <span class="value">{%: $.size %}</span><span class="value percent">{%: $.sizePercent %}</span></div>',
     '<div class="item"><div class="label">{%: $$.sizeAVGText %}</div> <span class="value">{%: $.sizeAVG %}</span></div>',
+    '<div class="bar"></div>',
+    '<div class="item"><div class="label small">{%: $$.oldestText %}</div> <span class="value small">{%: $.oldestDate %}</span></div>',
+    '<div class="item"><div class="label small">{%: $$.newestText %}</div> <span class="value small">{%: $.newestDate %}</span></div>',
     '</div>',
     '</div>',
   ]),
@@ -124,6 +129,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     let i;
     const docfrag = document.createDocumentFragment();
     const totalItem = {};
+    let oldestDate;
+    let newestDate;
     totalItem.iconClass = 'fa fa-database fa-2x';
     totalItem.label = this.totalUsageText;
     totalItem.entityName = '*';
@@ -131,6 +138,10 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     totalItem.sizePercent = format.percent(1);
     totalItem.count = format.bigNumber(utility.getValue(usage, 'count'));
     totalItem.countPercent = format.percent(1);
+    oldestDate = utility.getValue(usage, 'oldestDate');
+    newestDate = utility.getValue(usage, 'newestDate');
+    totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
+    totalItem.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
     const headerNode = domConstruct.toDom(this.usageHeaderTemplate.apply(totalItem, this));
     docfrag.appendChild(headerNode);
     this._selectFields = {};
@@ -147,6 +158,10 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         item.sizeAVG = format.bigNumber(utility.getValue(entity, 'sizeAVG'));
         item.count = format.bigNumber(utility.getValue(entity, 'count'));
         item.countPercent = format.percent(utility.getValue(entity, 'countPercent'));
+        oldestDate = utility.getValue(entity, 'oldestDate');
+        newestDate = utility.getValue(entity, 'newestDate');
+        item.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
+        item.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
         const itemNode = domConstruct.toDom(this.usageItemTemplate.apply(item, this));
         docfrag.appendChild(itemNode);
       } catch (err) {
