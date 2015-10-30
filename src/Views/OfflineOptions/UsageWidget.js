@@ -13,7 +13,7 @@ import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 
 const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
 
-  totalUsageText: 'Total Storeage Usage',
+  totalUsageText: 'Total Storage Usage',
   countText: 'Count',
   sizeText: 'Size',
   sizeAVGText: 'Avg.',
