@@ -1432,6 +1432,7 @@
 <opportunityModel ""
   entityDisplayName: "Opportunity"
   entityDisplayNamePlural : "Opportunities"
+  resellerText: "Reseller"
 >
 
 <ticketModel ""
