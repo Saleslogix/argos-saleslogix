@@ -1,15 +1,12 @@
 import declare from 'dojo/_base/declare';
 import aspect from 'dojo/aspect';
 import domConstruct from 'dojo/dom-construct';
-// import domClass from 'dojo/dom-class';
 import format from '../../Format';
 import utility from 'argos/Utility';
-// import Deferred from 'dojo/Deferred';
-// import all from 'dojo/promise/all';
-// import MODEL_TYPES from 'argos/Models/Types';
 import offlineManager from 'argos/Offline/Manager';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
+import Dropdown from 'argos/Dropdown';
 
 const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
 
@@ -19,9 +16,10 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   sizeAVGText: 'Avg.',
   oldestText: 'Oldest',
   newestText: 'Newest',
-  clearAllText: 'Clear All',
-  clearOldText: 'Clear Old',
-  showUsageText: 'Show Usage',
+  clearAllText: 'Clear',
+  olderThanText: 'Clear Data older than',
+  daysText: 'days',
+  showUsageText: 'Show usage',
   processingText: 'processing please wait ...',
   calculatingUsageText: 'caclulating usage please wait ...',
   clearingAllDataText: 'clearing all data please wait ...',
@@ -30,9 +28,11 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
    '<div class="offline-usage">',
-   '<button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData"">{%: $$.clearAllText %}</button>',
-   '<button class="button actionButton" data-dojo-attach-event="onclick:onClearOldData">{%: $$.clearOldText %}</button>',
-   '<button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button>',
+   '<span class="label"> {%: $$.olderThanText %} </span>',
+   '<span data-dojo-attach-point="_olderThanNode" ></span>',
+   '<span class="label"> {%: $$.daysText %} </span>',
+   '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearAllText %}</button></div>',
+   '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
    '<div data-dojo-attach-point="usageNode" >',
    '</div>',
   ]),
@@ -76,10 +76,36 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       aspect.after(this.owner, 'show', function after() {
         self.onRefreshView();
       });
+
+      aspect.after(this.owner, 'save', function after() {
+        self.onSave();
+      });
     }
   },
   onLoad: function onLoad() {
-    // this.createUI();
+    const options = offlineManager.getOptions();
+    this._options = {
+      olderThan: options.olderThan,
+    };
+    this._olderThanValues = offlineManager.getOlderThanValues();
+    this.initUI();
+  },
+  initUI: function initUI() {
+    if (!this._olderThanDropdown) {
+      this._olderThanDropdown = new Dropdown({
+        id: 'olderThan-dropdown ' + this.id,
+      });
+      this._olderThanDropdown.createList({
+        items: this._olderThanValues,
+        defaultValue: this._options.olderThan,
+        action: 'olderThanSelect',
+        actionScope: this,
+      });
+      domConstruct.place(this._olderThanDropdown.domNode, this._olderThanNode);
+    }
+  },
+  olderThanSelect: function olderThanSelect() {
+    this._options.olderThan = this._olderThanDropdown.getValue();
   },
   onShowUsage: function onShowUsage() {
     this.showProcessing(true, this.calculatingUsageText);
@@ -107,16 +133,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     }
   },
   onClearAllData: function onClearAllData() {
-    this.showProcessing(true, this.clearingAllDataText);
-    offlineManager.clearData(null, null).then(() => {
-      this.onShowUsage();
-    }, (err) => {
-      this.showError(err);
-    });
-  },
-  onClearOldData: function onClearOldData() {
     this.showProcessing(true, this.clearingOldDataText);
-    offlineManager.clearData(null, null).then(() => {
+    offlineManager.clearData(this._options).then(() => {
       this.onShowUsage();
     }, (err) => {
       this.showError(err);
@@ -178,9 +196,23 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   },
   onRefreshView: function onRefreshView() {
     this.destroyUsage();
+    this.destroyUsage();
     this.onLoad();
+  },
+  destroy: function destroy() {
+    if (this._olderThanDropdown) {
+      this._olderThanDropdown.destroy();
+    }
+    this.inherited(arguments);
+  },
+  onSave: function onSave() {
+    const options = offlineManager.getOptions();
+    options.olderThan = this._options.olderThan;
+    offlineManager.saveOptions(options );
   },
 });
 const rvm = new RelatedViewManager();
 rvm.registerType('offlineUsageWidget', __class);
 export default __class;
+
+

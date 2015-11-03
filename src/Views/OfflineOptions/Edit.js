@@ -17,13 +17,6 @@ const __class = declare('crm.Views.OfflineOptions.Edit', [Edit], {
   id: 'offline_options_edit',
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
-      name: 'maxdays',
-      property: 'maxdays',
-      label: 'keep offline data for n days',
-      type: 'lookup',
-      textProperty: 'days',
-      view: 'offline_days_list',
-    }, {
       relatedView: {
         widgetType: 'offlineUsageWidget',
         id: 'offline_usage_widget',
