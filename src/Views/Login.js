@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('login').attributes;
+
 /**
  * @class crm.Views.Login
  *
@@ -22,19 +24,20 @@ const __class = declare('crm.Views.Login', [Edit], {
     '</div>',
   ]),
 
-  // Localization
   id: 'login',
   busy: false,
-  copyrightText: 'Copyright &copy; 2015 Infor. All rights reserved. www.infor.com',
-  logOnText: 'Sign in',
-  passText: 'Password',
-  rememberText: 'Remember me',
-  titleText: 'Sign in',
-  userText: 'User ID',
-  invalidUserText: 'The user name or password is invalid.',
-  missingUserText: 'The user record was not found.',
-  requestAbortedText: 'The request was aborted.',
-  logoText: 'Infor CRM',
+
+  // Localization
+  copyrightText: resource.copyrightText,
+  logOnText: resource.logOnText,
+  passText: resource.passText,
+  rememberText: resource.rememberText,
+  titleText: resource.titleText,
+  userText: resource.userText,
+  invalidUserText: resource.invalidUserText,
+  missingUserText: resource.missingUserText,
+  requestAbortedText: resource.requestAbortedText,
+  logoText: resource.logoText,
 
   ENTER_KEY: 13,
 

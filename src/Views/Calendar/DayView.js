@@ -9,6 +9,8 @@ import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 
+const resource = window.localeContext.getEntitySync('calendarDayView').attributes;
+
 /**
  * @class crm.Views.Calendar.DayView
  *
@@ -26,19 +28,20 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
  */
 const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  eventDateFormatText: 'M/D/YYYY',
-  dateHeaderFormatText: 'dddd, M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  todayText: 'Today',
-  dayText: 'Day',
-  weekText: 'Week',
-  monthText: 'Month',
-  allDayText: 'All-Day',
-  eventHeaderText: 'Events',
-  activityHeaderText: 'Activities',
-  eventMoreText: 'View More Event(s)',
-  toggleCollapseText: 'toggle collapse',
+  titleText: resource.titleText,
+  eventDateFormatText: resource.eventDateFormatText,
+  dateHeaderFormatText: resource.dateHeaderFormatText,
+  startTimeFormatText: resource.startTimeFormatText,
+  todayText: resource.todayText,
+  dayText: resource.dayText,
+  weekText: resource.weekText,
+  monthText: resource.monthText,
+  allDayText: resource.allDayText,
+  eventHeaderText: resource.eventHeaderText,
+  activityHeaderText: resource.activityHeaderText,
+  eventMoreText: resource.eventMoreText,
+  toggleCollapseText: resource.toggleCollapseText,
+
   enablePullToRefresh: false,
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
@@ -203,6 +206,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   eventIcon: 'fa fa-calendar-o',
   resourceKind: 'activities',
   pageSize: 1000,
+  expose: false,
 
   continuousScrolling: false,
 

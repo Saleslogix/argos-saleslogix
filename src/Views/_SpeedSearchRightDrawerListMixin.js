@@ -4,7 +4,7 @@ import lang from 'dojo/_base/lang';
 import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 
-const mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
+const resource = window.localeContext.getEntitySync('speedSearchRightDrawerListMixin').attributes;
 
 /**
  * @class crm.Views._SpeedSearchRightDrawerListMixin
@@ -16,7 +16,7 @@ const mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
  */
 const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
-  indexSectionText: 'Indexes',
+  indexSectionText: resource.indexSectionText,
 
   _hasChangedIndexPrefs: false, // Dirty flag so we know when to reload the widgets
 
@@ -96,10 +96,9 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   },
   getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
     if (entry.dataProps && entry.dataProps.indexname) {
-      const mixin = lang.getObject(mixinName);
       return {
         tag: 'view',
-        title: mixin.prototype.indexSectionText,
+        title: resource.indexSectionText,
       };
     }
   },

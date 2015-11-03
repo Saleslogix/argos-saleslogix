@@ -2,6 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import View from 'argos/View';
 
+const resource = window.localeContext.getEntitySync('logOff').attributes;
+
 const __class = declare('crm.Views.LogOff', [View], {
   // Templates
   widgetTemplate: new Simplate([
@@ -12,9 +14,9 @@ const __class = declare('crm.Views.LogOff', [View], {
   ]),
 
   // Localization
-  messageText: 'You have been logged out. Please close your browser window.',
-  loginText: 'Click here to log back in.',
-  titleText: 'Logged Out',
+  messageText: resource.messageText,
+  loginText: resource.loginText,
+  titleText: resource.titleText,
 
   id: 'logoff',
 

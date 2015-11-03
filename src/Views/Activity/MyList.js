@@ -8,6 +8,11 @@ import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import action from '../../Action';
+import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
+import MODEL_TYPES from 'argos/Models/Types';
+import MODEL_NAMES from '../../Models/Names';
+
+const resource = window.localeContext.getEntitySync('activityMyList').attributes;
 
 /**
  * @class crm.Views.Activity.MyList
@@ -29,7 +34,7 @@ import action from '../../Action';
  * @requires moment
  *
  */
-const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
+const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOfflineMixin], {
 
   // Templates
   // Card View
@@ -70,20 +75,22 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
   ]),
 
   // Localization
-  titleText: 'My Activities',
-  completeActivityText: 'Complete',
-  acceptActivityText: 'Accept',
-  declineActivityText: 'Decline',
-  callText: 'Call',
-  calledText: 'Called',
-  addAttachmentActionText: 'Add Attachment',
-  viewContactActionText: 'Contact',
-  viewAccountActionText: 'Account',
-  viewOpportunityActionText: 'Opportunity',
+  titleText: resource.titleText,
+  completeActivityText: resource.completeActivityText,
+  acceptActivityText: resource.acceptActivityText,
+  declineActivityText: resource.declineActivityText,
+  callText: resource.callText,
+  calledText: resource.calledText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  viewContactActionText: resource.viewContactActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  viewOpportunityActionText: resource.viewOpportunityActionText,
 
   // View Properties
   id: 'myactivity_list',
-
+  entityName: 'UserActivity',
+  modelName: 'UserActivity',
+  enableOffline: true,
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
   queryWhere: function queryWhere() {
@@ -441,36 +448,19 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
     });
   },
   completeActivity: function completeActivity(entry) {
-    const completeActivityEntry = {
-      '$name': 'ActivityComplete',
-      'request': {
-        'entity': {
-          '$key': entry.$key,
-        },
-        'ActivityId': entry.$key,
-        'userId': entry.Leader.$key,
-        'result': entry.Result,
-        'completeDate': entry.CompletedDate,
-      },
-    };
-
-    const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-      .setResourceKind('activities')
-      .setContractName('system')
-      .setOperationName('Complete');
-
-    request.execute(completeActivityEntry, {
-      success: function success() {
+    const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
+    if (activityModel) {
+      activityModel.completeActivity(entry).then(() => {
         connect.publish('/app/refresh', [{
           resourceKind: 'history',
         }]);
 
         this.clear();
         this.refresh();
-      },
-      failure: this.onRequestFailure,
-      scope: this,
-    });
+      }, (err) => {
+        ErrorManager.addError(err, this, {}, 'failure');
+      });
+    }
   },
   onRequestFailure: function onRequestFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');
@@ -616,6 +606,18 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList], {
         complete: complete,
       });
     }
+  },
+  createBriefcaseEntity: function createBriefcaseEntity(entry) {
+    const entity = {
+      entityId: entry.Activity.$key,
+      entityName: 'Activity',
+      options: {
+        includeRelated: true,
+        viewId: this.detailView,
+        iconClass: this.getItemIconClass(entry),
+      },
+    };
+    return entity;
   },
 });
 

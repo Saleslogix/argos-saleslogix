@@ -17,7 +17,9 @@
     "Base64": false,
     "define": false,
     "require": false,
-    "moment": false
+    "Rx": false,
+    "moment": false,
+    "PouchDB": false
   },
   "ecmaFeatures": {
     "arrowFunctions": true,

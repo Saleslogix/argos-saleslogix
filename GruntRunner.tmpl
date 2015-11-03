@@ -26,8 +26,14 @@
   <!-- Deep Diff -->
   <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
+   <!-- PouchDB -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
+
   <!-- moment -->
   <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
+
+  <!-- L20N.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
   <!-- Dojo -->
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -59,17 +65,51 @@
 </head>
 <body>
   <script type="text/javascript">
-  require([
-    'spec/all',
-    'localization/en',
-    'localization/saleslogix/en',
+  function buildContext() {
+    var filePaths = {
+      '../localization/locales/crm': [
+        'strings.l20n',
+        'regional.l20n'
+      ],
+      '../../../argos-sdk/localization/locales/argos': [
+        'strings.l20n',
+        'regional.l20n'
+      ]
+    };
+    var supportedLocales = [
+      'en'
+    ];
+    var ctx = L20n.getContext();
+    var defaultLocale = 'en';
+    var currentLocale = 'en';
+
+    Object.keys(filePaths).forEach(function(path) {
+      var files = filePaths[path];
+      files.forEach(function(file) {
+        ctx.linkResource(function(locale) {
+          return [path, locale, file].join('/');
+        });
+      });
+    });
+    ctx.registerLocales(defaultLocale, supportedLocales);
+    ctx.requestLocales(currentLocale);
+    window.localeContext = ctx;
+    return ctx;
+  }
   <% with (scripts) { %>
+  var ctx = buildContext();
+  ctx.ready(function() {
+    require([
+      'spec/all'
+    ]);
+  });
+
+  require([
     '<%= boot %>',
     '<%= reporters[0] %>',
     '<%= reporters[1] %>'
+  ]);
   <% }; %>
-  ], function() {
-  });
   </script>
 </body>
 </html>

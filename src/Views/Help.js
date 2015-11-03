@@ -8,6 +8,8 @@ import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
 import 'dojo/NodeList-manipulate';
 
+const resource = window.localeContext.getEntitySync('help').attributes;
+
 /**
  * @class crm.Views.Help
  *
@@ -28,10 +30,10 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
   ]),
 
   // Localization
-  titleText: 'Help',
-  errorText: 'Error',
-  errorMessageText: 'Unable to load the help document.',
-  sectionTitleText: 'Infor CRM Help',
+  titleText: resource.titleText,
+  errorText: resource.errorText,
+  errorMessageText: resource.errorMessageText,
+  sectionTitleText: resource.sectionTitleText,
 
   // View Properties
   id: 'help',

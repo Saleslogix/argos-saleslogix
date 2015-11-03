@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 
+const resource = window.localeContext.getEntitySync('exchangeRateLookup').attributes;
+
 /**
  * @class crm.Views.ExchangeRateLookup
  *
@@ -18,7 +20,7 @@ const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListM
   ]),
 
   // Localization
-  titleText: 'Exchange Rates',
+  titleText: resource.titleText,
 
   // View Properties
   expose: false,

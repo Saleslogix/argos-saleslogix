@@ -8,6 +8,10 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import MODEL_NAMES from '../../Models/Names';
+
+
+const resource = window.localeContext.getEntitySync('accountList').attributes;
 
 /**
  * @class crm.Views.Account.List
@@ -64,18 +68,19 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   },
 
   // Localization
-  titleText: 'Accounts',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  callMainActionText: 'Call Main',
-  viewContactsActionText: 'Contacts',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  phoneAbbreviationText: 'Phone: ',
-  faxAbbreviationText: 'Fax: ',
+  titleText: resource.titleText,
+  activitiesText: resource.titleText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  editActionText: resource.editActionText,
+  callMainActionText: resource.callMainActionText,
+  viewContactsActionText: resource.viewContactsActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  phoneAbbreviationText: resource.phoneAbbreviationText,
+  faxAbbreviationText: resource.faxAbbreviationText,
+  offlineText: resource.offlineText,
 
   // View Properties
   detailView: 'account_detail',
@@ -83,32 +88,18 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   id: 'account_list',
   security: 'Entities/Account/View',
   insertView: 'account_edit',
-  queryOrderBy: 'AccountNameUpper',
   insertSecurity: 'Entities/Account/Add',
-  querySelect: [
-    'AccountName',
-    'AccountManager/UserInfo/UserName',
-    'AccountManager/UserInfo/LastName',
-    'AccountManager/UserInfo/FirstName',
-    'Owner/OwnerDescription',
-    'WebAddress',
-    'Industry',
-    'LeadSource/Description',
-    'MainPhone',
-    'Fax',
-    'Status',
-    'SubType',
-    'Type',
-    'ModifyDate',
-  ],
-  resourceKind: 'accounts',
   entityName: 'Account',
   allowSelection: true,
   enableActions: true,
   pageSize: 10,
+  offlineIds: null,
+  resourceKind: 'accounts',
+  modelName: MODEL_NAMES.ACCOUNT,
+
   callMain: function callMain(params) {
-    this.invokeActionItemBy(function setActionId(actions) {
-      return actions.id === 'callMain';
+    this.invokeActionItemBy(function invoke(a) {
+      return a.id === 'callMain';
     }, params.key);
   },
   createActionLayout: function createActionLayout() {

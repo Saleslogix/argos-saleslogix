@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('opportunityProductList').attributes;
+
 /**
  * @class crm.Views.OpportunityProduct.List
  *
@@ -32,7 +34,7 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Products',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'opportunityproduct_list',

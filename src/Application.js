@@ -11,6 +11,9 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
+import Toast from 'argos/Toast';
+
+const resource = window.localeContext.getEntitySync('application').attributes;
 
 /**
  * @class crm.Application
@@ -28,6 +31,7 @@ const __class = declare('crm.Application', [Application], {
   multiCurrency: false,
   enableGroups: true,
   enableHashTags: true,
+  enableOfflineSupport: true,
   speedSearch: {
     includeStemming: true,
     includePhonic: true,
@@ -77,10 +81,13 @@ const __class = declare('crm.Application', [Application], {
     'minor': 4,
     'revision': 0,
   },
-  versionInfoText: 'Mobile v${0}.${1}.${2}',
-  loadingText: 'Loading application state',
-  authText: 'Authenticating',
+  versionInfoText: resource.versionInfoText,
+  loadingText: resource.loadingText,
+  authText: resource.authText,
+  offlinePromptText: resource.offlinePromptText,
+  onlinePromptText: resource.onlinePromptText,
   homeViewId: 'myactivity_list',
+  offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',
 
@@ -93,6 +100,7 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
     this._loadNavigationState();
     this._saveDefaultPreferences();
+    this._setupToasts();
 
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
@@ -165,7 +173,11 @@ const __class = declare('crm.Application', [Application], {
       if (window.localStorage) {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
-    } catch (e) {}// eslint-disable-line
+    } catch (e) {} // eslint-disable-line
+  },
+  _setupToasts: function _setupToasts() {
+    this.toast = new Toast();
+    this.toast.show();
   },
   hasMultiCurrency: function hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
@@ -239,8 +251,8 @@ const __class = declare('crm.Application', [Application], {
   },
   getCurrentOpportunityExchangeRate: function getCurrentOpportunityExchangeRate() {
     const results = {
-        code: '',
-        rate: 1,
+      code: '',
+      rate: 1,
     };
 
     let found = this.queryNavigationContext((o) => {
@@ -308,7 +320,7 @@ const __class = declare('crm.Application', [Application], {
             password: credentials.password || '',
           })));
         }
-      } catch (e) {}//eslint-disable-line
+      } catch (e) {} //eslint-disable-line
     }
 
     if (callback) {
@@ -366,7 +378,7 @@ const __class = declare('crm.Application', [Application], {
     return !!userSecurity[security];
   },
   reload: function reload() {
-    ReUI.disableLocationCheck();
+    this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
   },
@@ -396,7 +408,7 @@ const __class = declare('crm.Application', [Application], {
         const encoded = stored && Base64.decode(stored);
         credentials = encoded && json.parse(encoded);
       }
-    } catch (e) {}//eslint-disable-line
+    } catch (e) {} //eslint-disable-line
 
     return credentials;
   },
@@ -405,8 +417,10 @@ const __class = declare('crm.Application', [Application], {
       if (window.localStorage) {
         window.localStorage.removeItem('credentials');
       }
-    } catch (e) {}//eslint-disable-line
+    } catch (e) {} //eslint-disable-line
   },
+  isAuthenticated: false,
+  hasState: false,
   handleAuthentication: function handleAuthentication() {
     const credentials = this.getCredentials();
 
@@ -414,8 +428,10 @@ const __class = declare('crm.Application', [Application], {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(credentials, {
         success: function success() {
+          this.isAuthenticated = true;
           this.setPrimaryTitle(this.loadingText);
           this.initAppState().then(() => {
+            this.hasState = true;
             this.navigateToInitialView();
           });
         },
@@ -439,14 +455,14 @@ const __class = declare('crm.Application', [Application], {
       if (window.localStorage) {
         window.localStorage.removeItem('navigationState');
       }
-    } catch (e) {}//eslint-disable-line
+    } catch (e) {} //eslint-disable-line
   },
   _loadNavigationState: function _loadNavigationState() {
     try {
       if (window.localStorage) {
         this.navigationState = window.localStorage.getItem('navigationState');
       }
-    } catch (e) {}// eslint-disable-line
+    } catch (e) {} // eslint-disable-line
   },
   _saveDefaultPreferences: function _saveDefaultPreferences() {
     if (this.preferences) {
@@ -602,8 +618,7 @@ const __class = declare('crm.Application', [Application], {
         const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
         array.forEach(feed && feed.$resources, (item) => {
-          const {name, value} = item;
-
+          const { name, value } = item;
           if (value && name && array.indexOf(this.systemOptionsToRequest, name) > -1) {
             systemOptions[name] = value;
           }
@@ -682,8 +697,8 @@ const __class = declare('crm.Application', [Application], {
     ErrorManager.addError(response, o, {}, 'failure');
   },
   defaultViews: [
-    'myactivity_list',
-    'calendar_daylist',
+    'myday_list',
+    'calendar_view',
     'history_list',
     'account_list',
     'contact_list',
@@ -691,6 +706,8 @@ const __class = declare('crm.Application', [Application], {
     'opportunity_list',
     'ticket_list',
     'myattachment_list',
+    'recently_viewed_list',
+    'briefcase_list',
   ],
   getDefaultViews: function getDefaultViews() {
     return this.defaultViews;
@@ -764,6 +781,29 @@ const __class = declare('crm.Application', [Application], {
       this.redirectHash = '';
     }
   },
+  onConnectionChange: function onConnectionChange(online) {
+    const view = App.getView('left_drawer');
+    if (view) {
+      view.refresh();
+    }
+
+    this.ReUI.resetHistory();
+    if (online) {
+      let results = confirm(this.onlinePromptText); // eslint-disable-line
+      if (results) {
+        if (this.context && this.context.user) {
+          this.navigateToInitialView();
+        } else {
+          this.navigateToLoginView();
+        }
+      }
+    } else {
+      let results = confirm(this.offlinePromptText); // eslint-disable-line
+      if (results) {
+        this.navigateToInitialView();
+      }
+    }
+  },
   navigateToLoginView: function navigateToLoginView() {
     this.setupRedirectHash();
 
@@ -813,6 +853,10 @@ const __class = declare('crm.Application', [Application], {
           }
         }
       }
+    }
+
+    if (!App.isOnline()) {
+      view = this.getView(this.offlineHomeViewId);
     }
 
     if (view) {

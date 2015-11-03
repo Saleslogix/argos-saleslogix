@@ -229,8 +229,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
 
     if (timeless) {
       // utc
-      date = date.add({
-        minutes: date.zone(),
+      date = date.subtract({
+        minutes: date.utcOffset(),
       });
     }
 

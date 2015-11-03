@@ -92,6 +92,18 @@ const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
     }
     return id;
   },
+  trimText: function trimText(text = '', wordCount = 0) {
+    const words = text.split(' ');
+    if (words.length > wordCount) {
+      const intermediate = words.slice(0, wordCount);
+      if (intermediate[wordCount - 1].endsWith('.')) {
+        intermediate[wordCount - 1] = intermediate[wordCount - 1].slice(0, -1);
+      }
+      const value = `${intermediate.join(' ')} ...`;
+      return value;
+    }
+    return text;
+  },
 }));
 
 lang.setObject('Mobile.SalesLogix.Utility', __class);

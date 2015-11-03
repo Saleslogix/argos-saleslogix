@@ -3,6 +3,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('ticketActivityItemList').attributes;
+
 /**
  * @class crm.Views.TicketActivityItem.List
  *
@@ -19,7 +21,7 @@ const __class = declare('crm.Views.TicketActivityItem.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Ticket Activity Parts',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'ticketactivityitem_list',

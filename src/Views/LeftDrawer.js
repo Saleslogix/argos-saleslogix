@@ -3,7 +3,10 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
+import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
+
+const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
 
 /**
  * @class crm.Views.LeftDrawer
@@ -15,6 +18,7 @@ import GroupedList from 'argos/GroupedList';
 const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
+  enablePullToRefresh: false,
   rowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{% if ($$._hasIcon($)) { %}',
@@ -39,16 +43,19 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   ]),
 
   // Localization
-  configureText: 'Configure Menu',
-  addAccountContactText: 'Add Account/Contact',
-  titleText: 'Main Menu',
-  actionsText: 'Quick Actions',
-  viewsText: 'Go To',
-  footerText: 'Other',
-  settingsText: 'Settings',
-  helpText: 'Help',
-  logOutText: 'Log Out',
-  logOutConfirmText: 'Are you sure you want to log out?',
+  configureText: resource.configureText,
+  addAccountContactText: resource.addAccountContactText,
+  titleText: resource.titleText,
+  actionsText: resource.actionsText,
+  viewsText: resource.viewsText,
+  footerText: resource.footerText,
+  settingsText: resource.settingsText,
+  helpText: resource.helpText,
+  logOutText: resource.logOutText,
+  logOutConfirmText: resource.logOutConfirmText,
+  onlineText: resource.onlineText,
+  offlineText: resource.offlineText,
+  connectionText: resource.connectionText,
 
   // View Properties
   id: 'left_drawer',
@@ -64,7 +71,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   searchView: 'speedsearch_list',
 
   logOut: function logOut() {
-    const sure = window.confirm(this.logOutConfirmText);// eslint-disable-line
+    const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
     if (sure) {
       App.logOut();
     }
@@ -116,6 +123,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       'SettingsAction',
       'HelpAction',
       'Logout',
+      'ConnectionIndicator',
     ];
 
     if (entry.view) {
@@ -173,6 +181,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           'view': view.id,
           'title': view.titleText,
           'security': view.getSecurity(),
+          'enableOfflineSupport': view.enableOfflineSupport,
         });
       }
     }
@@ -185,18 +194,26 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'name': 'ConfigureMenu',
         'action': 'navigateToConfigurationView',
         'title': this.configureText,
+        'enableOfflineSupport': false,
       }, {
         'name': 'SettingsAction',
         'action': 'navigateToSettingsView',
         'title': this.settingsText,
+        'enableOfflineSupport': true,
       }, {
         'name': 'HelpAction',
         'action': 'navigateToHelpView',
         'title': this.helpText,
+        'enableOfflineSupport': true,
       }, {
         'name': 'Logout',
         'action': 'logOut',
         'title': this.logOutText,
+        'enableOfflineSupport': false,
+      }, {
+        'name': 'ConnectionIndicator',
+        'title': string.substitute(this.connectionText, {connectionStatus: App.onLine ? this.onlineText : this.offlineText}),
+        'enableOfflineSupport': true,
       }],
     };
 
@@ -221,6 +238,11 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         if (row.security && !App.hasAccessTo(row.security)) {
           continue;
         }
+
+        if (!App.isOnline() && !row.enableOfflineSupport) {
+          continue;
+        }
+
         if (typeof this.query !== 'function' || this.query(row)) {
           list.push(row);
         }
@@ -239,6 +261,13 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   refresh: function refresh() {
     this.clear();
     this.requestData();
+    if (this.searchWidget) {
+      if (App.onLine) {
+        this.searchWidget.enable();
+      } else {
+        this.searchWidget.disable();
+      }
+    }
   },
   clear: function clear() {
     this.inherited(arguments);

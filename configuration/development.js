@@ -1,4 +1,8 @@
 define('configuration/development', ['crm/ApplicationModule'], function cb(ApplicationModule) {
+  // Toggle console logs for PouchDB
+  // PouchDB.debug.enable('*');
+  PouchDB.debug.disable();
+
   return {
     modules: [
       new ApplicationModule(),
@@ -19,5 +23,6 @@ define('configuration/development', ['crm/ApplicationModule'], function cb(Appli
     enableHashTags: true,
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
+    enableOfflineSupport: true,
   };
 });

@@ -5,7 +5,7 @@ module.exports = function gruntWatch(grunt) {
     },
     babel: {
       files: ['src/**/*.js'],
-      tasks: ['babel'],
+      tasks: ['babel', 'lint'],
       options: {
         spawn: false,
       },

@@ -6,6 +6,8 @@ import query from 'dojo/query';
 import format from '../../Format';
 import List from 'argos/List';
 
+const resource = window.localeContext.getEntitySync('addressList').attributes;
+
 /**
  * @class crm.Views.Address.List
  *
@@ -24,7 +26,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Addresses',
+  titleText: resource.titleText,
 
   // View Properties
   detailView: null,

@@ -7,6 +7,8 @@ import validator from '../../Validator';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 
+const resource = window.localeContext.getEntitySync('historyEdit').attributes;
+
 /**
  * @class crm.Views.History.Edit
  *
@@ -19,25 +21,25 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.History.Edit', [Edit], {
   // Localization
-  accountText: 'account',
-  noteDescriptionTitleText: 'Note Description',
-  contactText: 'contact',
-  longNotesText: 'notes',
-  longNotesTitleText: 'Notes',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  regardingText: 'regarding',
-  isLeadText: 'for lead',
-  startingText: 'time',
-  startingFormatText: 'M/D/YYYY h:mm A',
-  titleText: 'Note',
-  companyText: 'company',
-  leadText: 'lead',
-  relatedItemsText: 'Related Items',
-  yesText: 'YES',
-  noText: 'NO',
-  validationText: "The field '${2}' must have a value",
-  validationCanEditText: 'You are not allowed to edit',
+  accountText: resource.accountText,
+  noteDescriptionTitleText: resource.noteDescriptionTitleText,
+  contactText: resource.contactText,
+  longNotesText: resource.longNotesText,
+  longNotesTitleText: resource.longNotesTitleText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  regardingText: resource.regardingText,
+  isLeadText: resource.isLeadText,
+  startingText: resource.startingText,
+  startingFormatText: resource.startingFormatText,
+  titleText: resource.titleText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  relatedItemsText: resource.relatedItemsText,
+  yesText: resource.yesText,
+  noText: resource.noText,
+  validationText: resource.validationText,
+  validationCanEditText: resource.validationCanEditText,
   // View Properties
   id: 'history_edit',
   fieldsForLeads: ['AccountName', 'Lead'],
