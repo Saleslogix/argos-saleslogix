@@ -456,7 +456,7 @@
 >
 
 <chartMixin ""
-  loadingText: "loading..."
+  loadingText: "Loading"
 >
 
 <competitorList ""
@@ -1005,7 +1005,7 @@
   scheduleActivityText: "Schedule activity"
   moreDetailsText: "More Details"
   relatedTicketActivitiesText: "Ticket Activities"
-  loadingText: "loading..."
+  loadingText: "Loading"
   entityText: "Ticket"
 >
 
@@ -1258,7 +1258,7 @@
 >
 
 <metricWidget ""
-  loadingText: "loading..."
+  loadingText: "Loading"
   errorText: "Error loading widget."
 >
 
