@@ -519,6 +519,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerAppStatePromise(() => App.requestUserDetails());
     this.registerAppStatePromise(() => App.requestUserOptions());
     this.registerAppStatePromise(() => App.requestSystemOptions());
+    this.registerAppStatePromise(() => App.processOfflineOptions());
   },
 });
 

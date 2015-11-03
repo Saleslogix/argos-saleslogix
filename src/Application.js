@@ -12,6 +12,7 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
 import Toast from 'argos/Toast';
+import offlineManager from 'argos/Offline/Manager';
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
@@ -884,6 +885,15 @@ const __class = declare('crm.Application', [Application], {
       this.serverVersion.major,
     ]);
     return info;
+  },
+  processOfflineOptions: function processOfflineOptions() {
+    const def = new Deferred();
+    offlineManager.secureData().then(()=> {
+      def.resolve();
+    }, (err)=> {
+      def.reject(err);
+    });
+    return def.promise;
   },
 });
 

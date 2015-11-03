@@ -16,14 +16,13 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   sizeAVGText: 'Avg.',
   oldestText: 'Oldest',
   newestText: 'Newest',
-  clearAllText: 'Clear',
-  olderThanText: 'Clear Data older than',
+  clearDataText: 'Clear',
+  olderThanText: 'Clear offline data older than',
   daysText: 'days',
   showUsageText: 'Show usage',
   processingText: 'processing please wait ...',
-  calculatingUsageText: 'caclulating usage please wait ...',
-  clearingAllDataText: 'clearing all data please wait ...',
-  clearingOldDataText: 'clearing old data please wait ...',
+  calculatingUsageText: 'calculating usage please wait ...',
+  clearingDataText: 'clearing data please wait ...',
 
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
@@ -31,7 +30,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
    '<span class="label"> {%: $$.olderThanText %} </span>',
    '<span data-dojo-attach-point="_olderThanNode" ></span>',
    '<span class="label"> {%: $$.daysText %} </span>',
-   '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearAllText %}</button></div>',
+   '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
    '<div data-dojo-attach-point="usageNode" >',
    '</div>',
@@ -108,13 +107,17 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     this._options.olderThan = this._olderThanDropdown.getValue();
   },
   onShowUsage: function onShowUsage() {
-    this.showProcessing(true, this.calculatingUsageText);
-    this.getUsage().then((data) => {
-      this.showProcessing(false);
-      this.processUsage(data);
-    }, () => {
-      this.showProcessing(false);
-    });
+    if (this._showingUsage) {
+      this.destroyUsage();
+    } else {
+      this.showProcessing(true, this.calculatingUsageText);
+      this.getUsage().then((data) => {
+        this.showProcessing(false);
+        this.processUsage(data);
+      }, () => {
+        this.showProcessing(false);
+      });
+    }
   },
   showProcessing: function showProcessing(show, message) {
     if (show) {
@@ -133,7 +136,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     }
   },
   onClearAllData: function onClearAllData() {
-    this.showProcessing(true, this.clearingOldDataText);
+    this.showProcessing(true, this.clearingDataText);
     offlineManager.clearData(this._options).then(() => {
       this.onShowUsage();
     }, (err) => {
@@ -187,15 +190,16 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       }
     }
     domConstruct.place(docfrag, this.usageNode, 'last');
+    this._showingUsage = true;
   },
   destroyUsage: function destroyUsage() {
     if (this.usageNode) {
       const node = domConstruct.toDom('<div></div>');
       domConstruct.place(node, this.usageNode, 'only');
+      this._showingUsage = false;
     }
   },
   onRefreshView: function onRefreshView() {
-    this.destroyUsage();
     this.destroyUsage();
     this.onLoad();
   },
