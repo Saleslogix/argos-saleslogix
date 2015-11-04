@@ -134,7 +134,9 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
       options = lang.mixin(options, additionalOptions);
     }
 
-    if (view) {
+    // Ensure we have a valid offline detail view and the
+    // entity has a detail view that it can use for layout.
+    if (view && App.getView(this._model.detailViewId)) {
       view.show(options);
     }
   },
