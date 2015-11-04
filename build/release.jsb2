@@ -358,6 +358,9 @@
           "text": "_ChartMixin.js",
           "path": "../src-out/Views/Charts/"
         }, {
+          "text": "DateRangeWidget.js",
+          "path": "../src-out/Views/"
+        }, {
           "text": "FooterToolbar.js",
           "path": "../src-out/Views/"
         }, {
@@ -546,6 +549,9 @@
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/TicketActivityItem/"
+        }, {
+          "text": "_DashboardWidgetBase.js",
+          "path": "../src-out/Views/"
         }, {
           "text": "AddAttachment.js",
           "path": "../src-out/Views/Attachment/"
