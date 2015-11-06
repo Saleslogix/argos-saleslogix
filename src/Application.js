@@ -84,8 +84,9 @@ const __class = declare('crm.Application', [Application], {
   versionInfoText: resource.versionInfoText,
   loadingText: resource.loadingText,
   authText: resource.authText,
-  offlinePromptText: resource.offlinePromptText,
-  onlinePromptText: resource.onlinePromptText,
+  connectionToastTitleText: resource.connectionToastTitleText,
+  offlineText: resource.offlineText,
+  onlineText: resource.onlineText,
   homeViewId: 'myactivity_list',
   offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
@@ -789,19 +790,15 @@ const __class = declare('crm.Application', [Application], {
 
     this.ReUI.resetHistory();
     if (online) {
-      let results = confirm(this.onlinePromptText); // eslint-disable-line
-      if (results) {
-        if (this.context && this.context.user) {
-          this.navigateToInitialView();
-        } else {
-          this.navigateToLoginView();
-        }
+      this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
+      if (this.context && this.context.user) {
+        this.navigateToInitialView();
+      } else {
+        this.navigateToLoginView();
       }
     } else {
-      let results = confirm(this.offlinePromptText); // eslint-disable-line
-      if (results) {
-        this.navigateToInitialView();
-      }
+      this.toast.add({ message: this.offlineText, title: this.connectionToastTitleText });
+      this.navigateToInitialView();
     }
   },
   navigateToLoginView: function navigateToLoginView() {
