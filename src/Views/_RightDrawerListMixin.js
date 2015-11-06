@@ -190,17 +190,22 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
       if (hasDefaultGroup) {
         // We will transition back to the list, pop back open the right drawer so the user is back where they started
-        aspect.after(list, 'processData', function postProcessData() {
+        const processDataHandle = aspect.after(list, 'processData', function postProcessData() {
           this.toggleRightDrawer();
-          this.transitionHandle.remove();
+          processDataHandle.remove();
+          if (this.transitionHandle) {
+            this.transitionHandle.remove();
+          }
         }.bind(list));
       } else {
         // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
-        aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
+        this.transitionHandle = aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
           this.refreshRequired = true;
           this.clear();
           this.refresh();
-          this.transitionHandle.remove();
+          if (this.transitionHandle) {
+            this.transitionHandle.remove();
+          }
         }.bind(list));
       }
     }.bind(field));
