@@ -279,14 +279,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   changeDayActivities: function changeDayActivities() {
     domClass.remove(this.activityContainerNode, 'list-loading');
     let multiDays = [];
-    let entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
-    if (entries) {
-      multiDays = multiDays.concat(entries);
-    }
-    this.createActivityRows(entries, this.currentDate.format(this.dayHeaderFormat));
+    let entries;
 
     if (this._showMulti) {
-      const dateIterator = this.currentDate.clone().add(1, 'days');
+      const dateIterator = this.currentDate.clone().startOf('week');
       for (let i = 0; i < this.multiSelect; i++) {
         entries = this.monthActivities[dateIterator.format('YYYY-MM-DD')];
         if (entries) {
@@ -295,12 +291,18 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         this.createActivityRows(entries, dateIterator.format(this.dayHeaderFormat));
         dateIterator.add(1, 'days');
       }
+      if (multiDays.length === 0) {
+        this.set('activityContent', this.noDataTemplate.apply(this));
+      }
+    } else {
+      entries = this.monthActivities[this.currentDate.format('YYYY-MM-DD')];
+      this.createActivityRows(entries, this.currentDate.format(this.dayHeaderFormat));
+      if (!entries) {
+        this.set('activityContent', this.noDataTemplate.apply(this));
+      }
     }
 
-    if (multiDays.length === 0) {
-      this.set('activityContent', this.noDataTemplate.apply(this));
-      return;
-    }
+    return;
   },
   createActivityRows: function createActivityRows(entries = [], day) {
     const count = entries.length;
@@ -579,6 +581,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   toggleMultiSelect: function toggleMultiSelect({currentTarget}) {
     this._showMulti = !this._showMulti;
+    this._calendar.toggleSelectWeek();
     domClass.toggle(currentTarget, 'toggleStateOn');
     domConstruct.empty(this.activityContentNode);
     domConstruct.empty(this.eventContentNode);

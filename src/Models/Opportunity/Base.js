@@ -27,6 +27,14 @@ const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
       relatedEntity: 'Account',
       relatedPropertyType: 'object',
     }, {
+      name: 'Reseller',
+      displayName: resource.resellerText,
+      type: 'ManyToOne',
+      parentProperty: 'Reseller',
+      parentPropertyType: 'object',
+      relatedEntity: 'Account',
+      relatedPropertyType: 'object',
+    }, {
       name: 'History',
       displayName: historyResource.entityDisplayNamePlural,
       type: 'OneToMany',

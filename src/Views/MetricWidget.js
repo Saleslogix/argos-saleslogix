@@ -55,7 +55,18 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    */
   loadingTemplate: new Simplate([
     '<div class="metric-title list-loading">',
-    '<span class="list-loading-indicator"><span class="fa fa-spinner fa-spin"></span><div>{%= $.loadingText %}</div></span>',
+    '<span class="list-loading-indicator">',
+    '<div aria-live="polite">',
+      '<div class="busyIndicator busyIndicator--small busyIndicator--active">',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--one"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--two"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--three"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--four"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--five"></div>',
+      '</div>',
+      '<span class="busyIndicator__label">{%: $.loadingText %}</span>',
+    '</div>',
+    '</span>',
     '</div>',
   ]),
 

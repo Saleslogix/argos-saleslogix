@@ -11,7 +11,7 @@ import _MetricListMixin from '../_MetricListMixin';
  * @extends crm.Views._MetricListMixin
  *
  */
-const __class = declare('crm.Views.Activity.MyDayMetricListMixin', _MetricListMixin, {
+const __class = declare('crm.Views.Activity.MyDayMetricListMixin', [_MetricListMixin], {
 
   metricWidgetCtor: MyDayMetricWidget,
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {

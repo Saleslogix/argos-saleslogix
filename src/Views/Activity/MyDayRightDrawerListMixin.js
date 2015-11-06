@@ -4,8 +4,7 @@ import lang from 'dojo/_base/lang';
 import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 
-const resource = window.localeContext.getEntitySync('myDayRightDrawerList').attributes;
-const mixinName = 'crm.Views.Activity.MyDayRightDrawerListMixin';
+const resource = window.localeContext.getEntitySync('activityMyDayRightDrawerList').attributes;
 
 /**
  * @class crm.Views.Activity.MyDayRightDrawerListMixin
@@ -154,16 +153,15 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     return App.getMetricsByResourceKind('userActivities');
   },
   getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
-    const mixin = lang.getObject(mixinName);
     if (entry.dataProps && entry.dataProps.filtername) {
       return {
         tag: 'view',
-        title: mixin.prototype.filterSectionText,
+        title: resource.filterSectionText,
       };
     }
     return {
       tag: 'kpi',
-      title: mixin.prototype.kpiSectionText,
+      title: resource.kpiSectionText,
     };
   },
   createRightDrawerLayout: function createRightDrawerLayout() {

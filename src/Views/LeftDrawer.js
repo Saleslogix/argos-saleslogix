@@ -107,13 +107,6 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     const view = App.getView(this.helpView);
     this.navigateToView(view);
   },
-  formatSearchQuery: function formatSearchQuery(searchQuery) {
-    const expression = new RegExp(searchQuery, 'i');
-
-    return function testExpression(entry) {
-      return expression.test(entry.title);
-    };
-  },
   hasMoreData: function hasMoreData() {
     return false;
   },
