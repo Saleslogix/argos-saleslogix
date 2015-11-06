@@ -1310,8 +1310,9 @@
   versionInfoText: "Mobile v${0}.${1}.${2}"
   loadingText: "Loading application state"
   authText: "Authenticating"
-  offlinePromptText: "Your internet connection is no longer working. Would you like to switch to offline mode?"
-  onlinePromptText: "Your connection is working. Would you like to go back online?"
+  offlineText: "Your internet connection is no longer working."
+  onlineText: "Your connection is working."
+  connectionToastTitleText: "Connection Status"
 >
 
 <applicationModule ""
