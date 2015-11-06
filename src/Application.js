@@ -11,7 +11,7 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
-import Toast from 'argos/Toast';
+import Toast from 'argos/Dialogs/Toast';
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
