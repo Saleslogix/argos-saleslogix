@@ -516,31 +516,30 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.loadAppStatePromises();
   },
   loadAppStatePromises: function loadAppStatePromises() {
-    // this.registerAppStatePromise(() => App.requestUserDetails());
     this.registerAppStatePromise({
       seq: 1,
-      description: 'User context and options',
+      description: resource.userContextAndOptionsText,
       items: [{
         name: 'user_detail',
-        description: 'User Information',
+        description: resource.userInformationText,
         fn: () => App.requestUserDetails(),
       }, {
         name: 'user_options',
-        description: 'Ueser Options',
+        description: resource.userOptionsText,
         fn: () => App.requestUserOptions(),
       }, {
         name: 'system_options',
-        description: 'System Options',
+        description: resource.systemOptionsText,
         fn: () => App.requestSystemOptions(),
       }],
     });
     this.registerAppStatePromise({
       seq: 2,
-      description: 'Offline Data',
+      description: resource.offlineDataText,
       items: [{
         name: 'offline_options',
         fn: () => App.processOfflineOptions(),
-        description: 'Processing offline options.',
+        description: resource.offlineOptionsText,
       }],
     });
   },

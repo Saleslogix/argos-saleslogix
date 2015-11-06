@@ -7,22 +7,25 @@ import offlineManager from 'argos/Offline/Manager';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Dropdown from 'argos/Dropdown';
+import BusyIndicator from 'argos/Dialogs/BusyIndicator';
+
+const resource = window.localeContext.getEntitySync('offlineUsageWidget').attributes;
 
 const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
 
-  totalUsageText: 'Total Storage Usage',
-  countText: 'Count',
-  sizeText: 'Size',
-  sizeAVGText: 'Avg.',
-  oldestText: 'Oldest',
-  newestText: 'Newest',
-  clearDataText: 'Clear',
-  olderThanText: 'Clear offline data older than',
-  daysText: 'days',
-  showUsageText: 'Show usage',
-  processingText: 'processing please wait ...',
-  calculatingUsageText: 'calculating usage please wait ...',
-  clearingDataText: 'clearing data please wait ...',
+  totalUsageText: resource.totalUsageText,
+  countText: resource.countText,
+  sizeText: resource.sizeText,
+  sizeAVGText: resource.sizeAVGText,
+  oldestText: resource.oldestText,
+  newestText: resource.newestText,
+  clearDataText: resource.clearDataText,
+  olderThanText: resource.olderThanText,
+  daysText: resource.daysText,
+  showUsageText: resource.showUsageText,
+  processingText: resource.processingText,
+  calculatingUsageText: resource.calculatingUsageText,
+  clearingDataText: resource.clearingDataText,
 
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
@@ -34,12 +37,6 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
    '<div data-dojo-attach-point="usageNode" >',
    '</div>',
-  ]),
-  processingTemplate: new Simplate([
-   '<div>',
-   '<span class="fa fa-spinner fa-spin fa-2x"></span>',
-   '<h2>{%= $.message %}</h2>',
-   '</span>',
   ]),
   errorTemplate: new Simplate([
    '<div class="error">',
@@ -84,27 +81,27 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   onLoad: function onLoad() {
     const options = offlineManager.getOptions();
     this._options = {
-      olderThan: options.olderThan,
+      clearOlderThan: options.clearOlderThan,
     };
-    this._olderThanValues = offlineManager.getOlderThanValues();
+    this._olderThanValues = offlineManager.getClearOlderThanValues();
     this.initUI();
   },
   initUI: function initUI() {
     if (!this._olderThanDropdown) {
       this._olderThanDropdown = new Dropdown({
         id: 'olderThan-dropdown ' + this.id,
+        onSelect: 'olderThanSelect',
+        onSelectScope: this,
       });
       this._olderThanDropdown.createList({
         items: this._olderThanValues,
-        defaultValue: this._options.olderThan,
-        action: 'olderThanSelect',
-        actionScope: this,
+        defaultValue: this._options.clearOlderThan,
       });
       domConstruct.place(this._olderThanDropdown.domNode, this._olderThanNode);
     }
   },
   olderThanSelect: function olderThanSelect() {
-    this._options.olderThan = this._olderThanDropdown.getValue();
+    this._options.clearOlderThan = this._olderThanDropdown.getValue();
   },
   onShowUsage: function onShowUsage() {
     if (this._showingUsage) {
@@ -122,10 +119,23 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   showProcessing: function showProcessing(show, message) {
     if (show) {
       if (this.usageNode) {
-        const node = domConstruct.toDom(this.processingTemplate.apply({message: message}, this));
-        domConstruct.place(node, this.usageNode, 'only');
+        this._indicator = new BusyIndicator({
+          id: 'busyIndicator__offlineusage',
+          label: message,
+        });
+        App.modal.disableClose = true;
+        App.modal.showToolbar = false;
+        App.modal.add(this._indicator);
+        this._indicator.start();
       }
     } else {
+      if (this._indicator) {
+        this._indicator.complete(true);
+        this._indicator = null;
+      }
+      App.modal.disableClose = false;
+      App.modal.hide();
+
       this.destroyUsage();
     }
   },
@@ -138,6 +148,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   onClearAllData: function onClearAllData() {
     this.showProcessing(true, this.clearingDataText);
     offlineManager.clearData(this._options).then(() => {
+      this.showProcessing(false);
       this.onShowUsage();
     }, (err) => {
       this.showError(err);
@@ -211,7 +222,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   },
   onSave: function onSave() {
     const options = offlineManager.getOptions();
-    options.olderThan = this._options.olderThan;
+    options.clearOlderThan = this._options.clearOlderThan;
     offlineManager.saveOptions(options );
   },
 });

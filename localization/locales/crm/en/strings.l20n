@@ -1312,10 +1312,20 @@
   authText: "Authenticating"
   offlinePromptText: "Your internet connection is no longer working. Would you like to switch to offline mode?"
   onlinePromptText: "Your connection is working. Would you like to go back online?"
+  initializingText: "Initializing:"
+  loadingApplicationStateText: "Loading application state"
+  pleaseWaitText: "Please wait."
 >
 
 <applicationModule ""
   searchText: "Lookup"
+  offlineDataText: "Offline Data"
+  offlineOptions: "Offline Options"
+  userInformationText: "User Information"
+  userOptionsText: "User Options"
+  systemOptionsText: "System Options"
+  userContextAndOptionsText: "User context and options"
+
 >
 
 <defaultMetrics ""
@@ -1487,4 +1497,19 @@
 
 <offlineOptionsEdit ""
   titleText: "Offline Options"
+>
+<offlineUsageWidget ""
+  totalUsageText: "Total Storage Usage"
+  countText: "Count"
+  sizeText: "Size"
+  sizeAVGText: "Avg."
+  oldestText: "Oldest"
+  newestText: "Newest"
+  clearDataText: "Clear"
+  olderThanText: "Clear offline data older than"
+  daysText: "days"
+  showUsageText: "Show usage"
+  processingText: "processing please wait."
+  calculatingUsageText: "calculating usage please wait."
+  clearingDataText: "clearing data please wait."
 >
