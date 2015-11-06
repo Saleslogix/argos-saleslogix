@@ -85,6 +85,9 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
         'Activity/ModifyDate',
         'Activity/Priority',
       ],
+      queryInclude: [
+        '$descriptors',
+      ],
     },
     ];
   },
