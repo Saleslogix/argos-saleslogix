@@ -383,10 +383,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     array.forEach(this._calendar.weeksNode.childNodes, (week) => {
       array.forEach(week.childNodes, (day) => {
         if (!this.monthActivities[domAttr.get(day, 'data-date')]) {
+          this._calendar.removeActive(day);
           return;
         }
-        day.subValue = this.monthActivities[domAttr.get(day, 'data-date')];
-        this._calendar.setActiveDay(day);
+        if (!this._calendar.isActive(day)) {
+          day.subValue = this.monthActivities[domAttr.get(day, 'data-date')];
+          this._calendar.setActiveDay(day);
+        }
       }, this);
     }, this);
     return this;
