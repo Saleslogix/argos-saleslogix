@@ -889,7 +889,35 @@ const __class = declare('crm.Application', [Application], {
     ]);
     return info;
   },
-  processOfflineOptions: function processOfflineOptions() {
+  initOfflineData: function initOfflineData() {
+    const def = new Deferred();
+    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    if (model) {
+      model.initAuthentication(App.context.user.$key).then((result) => {
+        let options = offlineManager.getOptions();
+        if (result.hasUserChanged) {
+          options = {
+            clearAll: true,
+          };
+        }
+        if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
+          offlineManager.clearData(options).then(() => {
+            def.resolve();
+          }, (err) => {
+            def.reject(err);
+          });
+        } else {
+          def.resolve(); // Do nothing since this not the first time athuenticating.
+        }
+      }, (err) => {
+        def.reject(err);
+      });
+    } else {
+      def.resolve();
+    }
+    return def.promise;
+  },
+  initOfflineData2: function initOfflineData2() {
     const def = new Deferred();
     const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
     if (model) {

@@ -42,6 +42,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   localStorageClearedText: resource.localStorageClearedText,
   credentialsClearedText: resource.credentialsClearedText,
   titleText: resource.titleText,
+  offlineOptionsText: resource.offlineOptionsText,
 
   // View Properties
   id: 'settings',
@@ -72,7 +73,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
         cls: 'fa fa-list-alt fa-2x',
       },
       'viewOfflineOptions': {
-        title: 'offline options',
+        title: this.offlineOptionsText,
         cls: 'fa fa-list-alt fa-2x',
       },
     };

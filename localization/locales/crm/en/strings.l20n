@@ -1280,6 +1280,7 @@
   localStorageClearedText: "Local storage cleared successfully."
   credentialsClearedText: "Saved credentials cleared successfully."
   titleText: "Settings"
+  offlineOptionsText: "Offline Options"
 >
 
 <speedSearchList ""

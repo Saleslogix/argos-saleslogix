@@ -1,5 +1,6 @@
 import declare from 'dojo/_base/declare';
-import Edit from 'argos/Edit';
+import _EditBase from 'argos/_EditBase';
+import _RelatedWidgetEditMixin from 'argos/_RelatedViewWidgetEditMixin';
 import Deferred from 'dojo/Deferred';
 
 const resource = window.localeContext.getEntitySync('offlineOptionsEdit').attributes;
@@ -10,7 +11,7 @@ const resource = window.localeContext.getEntitySync('offlineOptionsEdit').attrib
  * @extends argos.Edit
  *
  */
-const __class = declare('crm.Views.OfflineOptions.Edit', [Edit], {
+const __class = declare('crm.Views.OfflineOptions.Edit', [_EditBase, _RelatedWidgetEditMixin], {
   // Localization
   titleText: resource.titleText,
   // View Properties

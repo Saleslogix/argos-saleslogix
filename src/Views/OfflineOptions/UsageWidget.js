@@ -66,15 +66,14 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '</div>',
   ]),
   onInit: function onInit() {
-    const self = this;
     this.onLoad();
     if (this.owner) {
-      aspect.after(this.owner, 'show', function after() {
-        self.onRefreshView();
+      aspect.after(this.owner, 'show', () => {
+        this.onRefreshView();
       });
 
-      aspect.after(this.owner, 'save', function after() {
-        self.onSave();
+      aspect.after(this.owner, 'save', () => {
+        this.onSave();
       });
     }
   },

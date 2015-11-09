@@ -538,9 +538,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       seq: 2,
       description: resource.offlineDataText,
       items: [{
-        name: 'offline_options',
-        fn: () => App.processOfflineOptions(),
-        description: resource.offlineOptionsText,
+        name: 'offline_data',
+        fn: () => App.initOfflineData(),
+        description: resource.offlineDataText,
       }],
     });
   },

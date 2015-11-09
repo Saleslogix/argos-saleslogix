@@ -3,6 +3,7 @@ import _OfflineModelBase from 'argos/Models/_OfflineModelBase';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import Deferred from 'dojo/Deferred';
+import convert from 'argos/Convert';
 
 const resource = window.localeContext.getEntitySync('autenticationModel').attributes;
 
@@ -18,27 +19,50 @@ const __class = declare('crm.Models.Autentication.Offline', [_OfflineModelBase],
     entity.$descriptor = resource.entityDisplayName;
     entity.CreateDate = moment().toDate();
     entity.ModifyDate = moment().toDate();
-    entity.userId = userId;
+    entity.UserId = userId;
     return entity;
   },
-  hasAuthenticationChanged: function hasAuthenticationChanged(userId) {
+  initAuthentication: function initAuthentication(userId) {
     const def = new Deferred();
+    const result = {
+      entry: null,
+      hasUserChanged: false,
+      hasAuthenticatedToday: false,
+    };
     this.getEntry('Auth_00000000000').then((entry) => {
       if (entry) {
-        if (entry.userId === userId) {
-          def.resolve(false);
+        if (entry.UserId === userId) {
+          result.hasUserChanged = false;
+          result.hasAuthenticatedToday = this._hasAuthenticatedToday(entry);
         } else {
-          def.resolve(true);
-          entry.userId = userId;
-          this.updateEntry(entry);
+          result.hasUserChanged = true;
+          result.hasAuthenticatedToday = false;
+          entry.UserId = userId;
         }
+        entry.ModifyDate = moment().toDate();
+        this.updateEntry(entry);
+        result.entry = entry;
       }
+      def.resolve(result);
     }, () => {
-      def.resolve(true);
       const newEntry = this.createEntry(userId);
       this.insertEntry(newEntry);
+      result.hasUserChanged = true;
+      result.hasAuthenticatedToday = false;
+      result.entry = newEntry;
+      def.resolve(result);
     });
     return def.promise;
+  },
+  _hasAuthenticatedToday: function _hasAuthenticatedToday(entry) {
+    if (entry.ModifyDate) {
+      const currentDate = moment();
+      const authDate = moment(convert.toDateFromString(entry.ModifyDate));
+      if (authDate.isAfter(currentDate.startOf('day')) && authDate.isBefore(moment().endOf('day'))) {
+        return true;
+      }
+    }
+    return false;
   },
 });
 
