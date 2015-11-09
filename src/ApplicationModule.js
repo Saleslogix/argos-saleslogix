@@ -170,7 +170,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new OfflineDetail());
     this.registerView(new OfflineList({
-      expose: true,
+      expose: false,
     }));
     this.registerView(new RecentlyViewedList({
       expose: true,

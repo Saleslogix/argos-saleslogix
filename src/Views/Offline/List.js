@@ -116,10 +116,11 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   },
   navigateToOfflineDetailView: function navigateToOfflineDetailView(key, descriptor, additionalOptions) {
     const entry = this.entries && this.entries[key];
+    const desc = this.getDescription(entry);
     const view = this.getDetailView();
     let options = {
-      descriptor: entry.description, // keep for backwards compat
-      title: entry.description,
+      descriptor: entry.description || desc, // keep for backwards compat
+      title: entry.description || desc,
       key: key,
       fromContext: this,
       offlineContext: {

@@ -11,8 +11,11 @@ import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
-import Toast from 'argos/Toast';
+import Toast from 'argos/Dialogs/Toast';
 import offlineManager from 'argos/Offline/Manager';
+import MODEL_TYPES from 'argos/Models/Types';
+
+
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
@@ -85,8 +88,9 @@ const __class = declare('crm.Application', [Application], {
   versionInfoText: resource.versionInfoText,
   loadingText: resource.loadingText,
   authText: resource.authText,
-  offlinePromptText: resource.offlinePromptText,
-  onlinePromptText: resource.onlinePromptText,
+  connectionToastTitleText: resource.connectionToastTitleText,
+  offlineText: resource.offlineText,
+  onlineText: resource.onlineText,
   homeViewId: 'myactivity_list',
   offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
@@ -790,19 +794,15 @@ const __class = declare('crm.Application', [Application], {
 
     this.ReUI.resetHistory();
     if (online) {
-      let results = confirm(this.onlinePromptText); // eslint-disable-line
-      if (results) {
-        if (this.context && this.context.user) {
-          this.navigateToInitialView();
-        } else {
-          this.navigateToLoginView();
-        }
+      this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
+      if (this.context && this.context.user) {
+        this.navigateToInitialView();
+      } else {
+        this.navigateToLoginView();
       }
     } else {
-      let results = confirm(this.offlinePromptText); // eslint-disable-line
-      if (results) {
-        this.navigateToInitialView();
-      }
+      this.toast.add({ message: this.offlineText, title: this.connectionToastTitleText });
+      this.navigateToInitialView();
     }
   },
   navigateToLoginView: function navigateToLoginView() {
@@ -893,11 +893,26 @@ const __class = declare('crm.Application', [Application], {
   },
   processOfflineOptions: function processOfflineOptions() {
     const def = new Deferred();
-    offlineManager.secureData().then(()=> {
+    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    if (model) {
+      model.hasAuthenticationChanged(App.context.user.$key).then((result) => {
+        let options = offlineManager.getOptions();
+        if (result) {
+          options = {
+            clearAll: true,
+          };
+        }
+        offlineManager.clearData(options).then(() => {
+          def.resolve();
+        }, (err) => {
+          def.reject(err);
+        });
+      }, (err) => {
+        def.reject(err);
+      });
+    } else {
       def.resolve();
-    }, (err)=> {
-      def.reject(err);
-    });
+    }
     return def.promise;
   },
 });

@@ -1315,6 +1315,9 @@
   initializingText: "Initializing:"
   loadingApplicationStateText: "Loading application state"
   pleaseWaitText: "Please wait."
+  offlineText: "Your internet connection is no longer working."
+  onlineText: "Your connection is working."
+  connectionToastTitleText: "Connection Status"
 >
 
 <applicationModule ""
