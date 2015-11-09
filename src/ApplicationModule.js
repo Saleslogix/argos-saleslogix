@@ -133,6 +133,7 @@ import './Models/History/Offline';
 import './Models/History/SData';
 import './Models/Ticket/Offline';
 import './Models/Ticket/SData';
+import './Models/Authentication/Offline';
 
 const resource = window.localeContext.getEntitySync('applicationModule').attributes;
 
