@@ -98,6 +98,8 @@ import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
 import RecentlyViewedList from './Views/RecentlyViewed/List';
 import BriefcaseList from './Views/Briefcase/List';
+import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
+import './Views/OfflineOptions/UsageWidget';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -131,6 +133,7 @@ import './Models/History/Offline';
 import './Models/History/SData';
 import './Models/Ticket/Offline';
 import './Models/Ticket/SData';
+import './Models/Authentication/Offline';
 
 const resource = window.localeContext.getEntitySync('applicationModule').attributes;
 
@@ -476,6 +479,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
         return '';
       },
     }));
+    this.registerView(new OfflineOptionsEdit({
+      expose: false,
+    }));
   },
   loadToolbars: function loadToolbars() {
     this.inherited(arguments);
@@ -511,9 +517,32 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.loadAppStatePromises();
   },
   loadAppStatePromises: function loadAppStatePromises() {
-    this.registerAppStatePromise(() => App.requestUserDetails());
-    this.registerAppStatePromise(() => App.requestUserOptions());
-    this.registerAppStatePromise(() => App.requestSystemOptions());
+    this.registerAppStatePromise({
+      seq: 1,
+      description: resource.userContextAndOptionsText,
+      items: [{
+        name: 'user_detail',
+        description: resource.userInformationText,
+        fn: () => App.requestUserDetails(),
+      }, {
+        name: 'user_options',
+        description: resource.userOptionsText,
+        fn: () => App.requestUserOptions(),
+      }, {
+        name: 'system_options',
+        description: resource.systemOptionsText,
+        fn: () => App.requestSystemOptions(),
+      }],
+    });
+    this.registerAppStatePromise({
+      seq: 2,
+      description: resource.offlineDataText,
+      items: [{
+        name: 'offline_data',
+        fn: () => App.initOfflineData(),
+        description: resource.offlineDataText,
+      }],
+    });
   },
 });
 

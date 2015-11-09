@@ -12,6 +12,8 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import 'dojo/sniff';
 import Toast from 'argos/Dialogs/Toast';
+import offlineManager from 'argos/Offline/Manager';
+import MODEL_TYPES from 'argos/Models/Types';
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
@@ -886,6 +888,58 @@ const __class = declare('crm.Application', [Application], {
       this.serverVersion.major,
     ]);
     return info;
+  },
+  initOfflineData: function initOfflineData() {
+    const def = new Deferred();
+    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    if (model) {
+      model.initAuthentication(App.context.user.$key).then((result) => {
+        let options = offlineManager.getOptions();
+        if (result.hasUserChanged) {
+          options = {
+            clearAll: true,
+          };
+        }
+        if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
+          offlineManager.clearData(options).then(() => {
+            def.resolve();
+          }, (err) => {
+            def.reject(err);
+          });
+        } else {
+          def.resolve(); // Do nothing since this not the first time athuenticating.
+        }
+      }, (err) => {
+        def.reject(err);
+      });
+    } else {
+      def.resolve();
+    }
+    return def.promise;
+  },
+  initOfflineData2: function initOfflineData2() {
+    const def = new Deferred();
+    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    if (model) {
+      model.hasAuthenticationChanged(App.context.user.$key).then((result) => {
+        let options = offlineManager.getOptions();
+        if (result) {
+          options = {
+            clearAll: true,
+          };
+        }
+        offlineManager.clearData(options).then(() => {
+          def.resolve();
+        }, (err) => {
+          def.reject(err);
+        });
+      }, (err) => {
+        def.reject(err);
+      });
+    } else {
+      def.resolve();
+    }
+    return def.promise;
   },
 });
 

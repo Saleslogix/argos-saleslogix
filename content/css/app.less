@@ -1340,3 +1340,71 @@ canvas,
         }
     }
 }
+.offline-usage {
+    padding: 6px;
+    .button {
+      background-color: @color-azure;
+      border: none;
+      color: #fff;
+      padding: 6px;
+      margin: 6px;
+    }
+    .label{
+        font-weight: normal;
+        font-size: 18px;
+        color: @black-light;
+    }
+}
+.offline-usage-header { 
+    width:100%;
+}
+.offline-usage-item {
+    margin: 6px;
+    display: inline-block;
+    min-width: 180px;
+    padding: 6px;
+
+    .header {
+      .label {
+         font-weight: bold;
+         font-size: 18px;
+         vertical-align: top;
+      }
+    }
+    .content { 
+        margin-bottom:6px;
+       .item {
+          width:100%;
+         .label {
+          font-weight: bold;
+          font-size: 16px;
+          color: @black-light;
+          margin-right: 2px;
+          display:inline-block;
+          min-width: 50px;
+        }
+        .value {
+          font-weight: normal;
+          font-size: 25px;
+          color: @color-azure;
+          margin-right: 2px;
+        }
+        .percent {
+          font-weight: normal;
+          font-size: 12px;
+          color: @color-deep-azure;
+          margin-right: 2px;
+          vertical-align: top;
+        }
+        .small {
+          font-size: 14px;
+        }
+      }
+       .bar {
+          border-bottom-style:solid;
+          border-width:2px;
+          margin: 6px 0px 6px 0px;
+        }
+      
+    }
+}

@@ -1280,6 +1280,7 @@
   localStorageClearedText: "Local storage cleared successfully."
   credentialsClearedText: "Saved credentials cleared successfully."
   titleText: "Settings"
+  offlineOptionsText: "Offline Options"
 >
 
 <speedSearchList ""
@@ -1310,6 +1311,9 @@
   versionInfoText: "Mobile v${0}.${1}.${2}"
   loadingText: "Loading application state"
   authText: "Authenticating"
+  initializingText: "Initializing:"
+  loadingApplicationStateText: "Loading application state"
+  pleaseWaitText: "Please wait."
   offlineText: "Your internet connection is no longer working."
   onlineText: "Your connection is working."
   connectionToastTitleText: "Connection Status"
@@ -1317,6 +1321,13 @@
 
 <applicationModule ""
   searchText: "Lookup"
+  offlineDataText: "Offline Data"
+  offlineOptions: "Offline Options"
+  userInformationText: "User Information"
+  userOptionsText: "User Options"
+  systemOptionsText: "System Options"
+  userContextAndOptionsText: "User context and options"
+
 >
 
 <defaultMetrics ""
@@ -1427,7 +1438,7 @@
 
 <userActivityModel ""
   entityDisplayName: "User Activity"
-  entityDisplayNamePlural : "User Actvvities"
+  entityDisplayNamePlural : "User Activities"
 >
 
 <opportunityModel ""
@@ -1440,15 +1451,22 @@
   entityDisplayName: "Ticket"
   entityDisplayNamePlural : "Tickets"
 >
+
 <addressModel ""
   entityDisplayName: "Address"
   entityDisplayNamePlural : "Addresses"
+>
+
+<leadAddressModel ""
+  entityDisplayName: "Lead Address"
+  entityDisplayNamePlural : "Lead Addresses"
 >
 
 <historyModel ""
   entityDisplayName: "History"
   entityDisplayNamePlural : "History"
 >
+
 <offlineDetail ""
   titleText: "Offline Detail"
   offlineText: "Offline"
@@ -1481,3 +1499,29 @@
 <recentlyViewedList ""
   titleText: "Recently Viewed"
 >
+
+<offlineOptionsEdit ""
+  titleText: "Offline Options"
+>
+
+<offlineUsageWidget ""
+  totalUsageText: "Total Storage Usage"
+  countText: "Count"
+  sizeText: "Size"
+  sizeAVGText: "Avg."
+  oldestText: "Oldest"
+  newestText: "Newest"
+  clearDataText: "Clear"
+  olderThanText: "Clear offline data older than"
+  daysText: "days"
+  showUsageText: "Show usage"
+  processingText: "processing please wait."
+  calculatingUsageText: "calculating usage please wait."
+  clearingDataText: "clearing data please wait."
+>
+
+<authenticationModel ""
+  entityDisplayName: "Authentication"
+  entityDisplayNamePlural : "Authentication"
+>
+
