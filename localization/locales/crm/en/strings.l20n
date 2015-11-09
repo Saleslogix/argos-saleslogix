@@ -1452,10 +1452,12 @@
   entityDisplayName: "Ticket"
   entityDisplayNamePlural : "Tickets"
 >
+
 <addressModel ""
   entityDisplayName: "Address"
   entityDisplayNamePlural : "Addresses"
 >
+
 <leadAddressModel ""
   entityDisplayName: "Lead Address"
   entityDisplayNamePlural : "Lead Addresses"
@@ -1465,6 +1467,7 @@
   entityDisplayName: "History"
   entityDisplayNamePlural : "History"
 >
+
 <offlineDetail ""
   titleText: "Offline Detail"
   offlineText: "Offline"
@@ -1501,6 +1504,7 @@
 <offlineOptionsEdit ""
   titleText: "Offline Options"
 >
+
 <offlineUsageWidget ""
   totalUsageText: "Total Storage Usage"
   countText: "Count"
@@ -1516,3 +1520,9 @@
   calculatingUsageText: "calculating usage please wait."
   clearingDataText: "clearing data please wait."
 >
+
+<authenticationModel ""
+  entityDisplayName: "Authentication"
+  entityDisplayNamePlural : "Authentication"
+>
+

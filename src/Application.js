@@ -15,8 +15,6 @@ import Toast from 'argos/Dialogs/Toast';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 
-
-
 const resource = window.localeContext.getEntitySync('application').attributes;
 
 /**
