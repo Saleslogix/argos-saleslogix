@@ -46,6 +46,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   id: 'view_attachment',
   editView: '',
   security: null,
+  isTabbed: false,
   querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
   resourceKind: 'attachments',
   contractName: 'system',
