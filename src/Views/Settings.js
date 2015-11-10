@@ -131,6 +131,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
         });
       }
     }
+    this.set('listContent', '');
 
     this.processData(list);
   },
