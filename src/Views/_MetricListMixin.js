@@ -32,18 +32,8 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   metricWidgetCtor: MetricWidget,
 
   createMetricWidgetsLayout: function createMetricWidgetsLayout() {
-    let metrics = [];
-    let filtered = [];
-
-    metrics = App.getMetricsByResourceKind(this.resourceKind);
-
-    if (metrics.length > 0) {
-      filtered = array.filter(metrics, function enableFilteredItems(item) {
-        return item.enabled;
-      });
-    }
-
-    return lang.clone(filtered);
+    const metrics = App.getMetricsByResourceKind(this.resourceKind);
+    return metrics.filter((item) => item.enabled);
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
@@ -137,7 +127,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     // Get the current query from the search box, and any context query located in options.where
     const query = this.query;
     const where = this.options && this.options.where;
-    const optionsQuery = options && options.queryArgs && options.queryArgs._activeFilter;
+    const optionsQuery = options && options.queryArgs && options.queryArgs.activeFilter;
     return array.filter([query, where, optionsQuery], function checkItem(item) {
         return !!item;
       })

@@ -88,7 +88,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   onRefreshClicked: function onRefreshClicked() {},
   _getCurrentQuery: function _getCurrentQuery(options) {
     const myDayQuery = this._model.getMyDayQuery();
-    const optionsQuery = options && options.queryArgs && options.queryArgs._activeFilter;
+    const optionsQuery = options && options.queryArgs && options.queryArgs.activeFilter;
     return [myDayQuery, optionsQuery].filter(function checkItem(item) {
         return !!item;
       })
