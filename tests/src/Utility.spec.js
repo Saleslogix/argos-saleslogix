@@ -31,5 +31,15 @@ define('spec/Utility.spec', ['Mobile/SalesLogix/Utility'], function(Utility) {
       expect(Utility.base64ArrayBuffer([0, 0, 0, 0, 0, 0]))
         .toBe('AAAAAAAA');
     });
+    it('should strip query args', function() {
+      expect(Utility.stripQueryArgs(''))
+        .toBe('');
+      expect(Utility.stripQueryArgs('http://google.com?compact=true'))
+        .toBe('http://google.com');
+      expect(Utility.stripQueryArgs('https://google.com?foo=bar&something=something'))
+        .toBe('https://google.com');
+      expect(Utility.stripQueryArgs('google.com'))
+        .toBe('google.com');
+    });
   });
 });

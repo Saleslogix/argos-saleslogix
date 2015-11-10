@@ -104,6 +104,14 @@ const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
     }
     return text;
   },
+  stripQueryArgs: function stripQueryArgs(url = '') {
+    const idx = url.indexOf('?');
+    if (idx > -1) {
+      return url.substr(0, idx);
+    }
+
+    return url;
+  },
 }));
 
 lang.setObject('Mobile.SalesLogix.Utility', __class);

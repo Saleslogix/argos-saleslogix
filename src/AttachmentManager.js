@@ -38,14 +38,14 @@ const __class = declare('crm.AttachmentManager', null, {
     const service = App.getService(this.serviceName);
     const oldContractName = service.getContractName();
     service.setContractName(this.contractName);
-    this._baseUrl = service.getUri().toString();
+    this._baseUrl = utility.stripQueryArgs(service.getUri().toString());
     this._uploadUrl = this._baseUrl + '/attachments/file';
     service.setContractName(oldContractName);
   },
   /**
    * @param {Array} files
    */
-  createAttachments: () => {},
+  createAttachments: function createAttachments() {},
   createAttachment: function createAttachment(file, mixin) {
     if (!mixin.hasOwnProperty('description')) {
       mixin.description = this._getDefaultDescription(file.name);
@@ -228,7 +228,7 @@ const __class = declare('crm.AttachmentManager', null, {
       });
     }
   },
-  onRequestTemplateFailure: () => {},
+  onRequestTemplateFailure: function onRequestTemplateFailure() {},
   onRequestTemplateSuccess: function onRequestTemplateSuccess(entry) {
     this.processTemplateEntry(entry);
   },
@@ -257,7 +257,7 @@ const __class = declare('crm.AttachmentManager', null, {
    * @param response
    * @param o
    */
-  onRequestDataFailure: () => {},
+  onRequestDataFailure: function onRequestDataFailure() {},
   uploadFiles: function uploadFiles() {
     this._isUploading = true;
     this._fileCount = this._files.length;
@@ -314,7 +314,7 @@ const __class = declare('crm.AttachmentManager', null, {
   /**
    * @param attachment
    */
-  onSuccessUpdate: () => {},
+  onSuccessUpdate: function onSuccessUpdate() {},
   onFailedUpdate: function onFailedUpdate(resp) {
     const err = new Error('Failed to update.');
     err.resp = resp;
@@ -323,7 +323,7 @@ const __class = declare('crm.AttachmentManager', null, {
   /**
    * @param percent
    */
-  onUpdateProgress: () => {},
+  onUpdateProgress: function onUpdateProgress() {},
   _updateProgress: function _updateProgress(curFileProgress) {
     let pct = this._totalProgress;
 
