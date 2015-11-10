@@ -298,6 +298,9 @@
           "text": "List.js",
           "path": "../src-out/Views/User/"
         }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/OfflineOptions/"
+        }, {
           "text": "AddressField.js",
           "path": "../src-out/Fields/"
         }, {
@@ -324,6 +327,9 @@
         }, {
           "text": "Utility.js",
           "path": "../src-out/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Authentication/"
         }, {
           "text": "FileManager.js",
           "path": "../src-out/"
@@ -525,6 +531,9 @@
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Offline/"
+        }, {
+          "text": "UsageWidget.js",
+          "path": "../src-out/Views/OfflineOptions/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Opportunity/"
