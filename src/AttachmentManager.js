@@ -38,8 +38,7 @@ const __class = declare('crm.AttachmentManager', null, {
     const service = App.getService(this.serviceName);
     const oldContractName = service.getContractName();
     service.setContractName(this.contractName);
-    // TODO: Strip any query args after ?
-    this._baseUrl = service.getUri().toString().replace('?_compact=true', '');
+    this._baseUrl = utility.stripQueryArgs(service.getUri().toString());
     this._uploadUrl = this._baseUrl + '/attachments/file';
     service.setContractName(oldContractName);
   },
