@@ -208,7 +208,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'AccountName',
         property: 'AccountName',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.accountText,
         view: 'account_detail',
         key: 'AccountId',
@@ -216,7 +216,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'ContactName',
         property: 'ContactName',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.contactText,
         view: 'contact_detail',
         key: 'ContactId',
@@ -224,7 +224,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'OpportunityName',
         property: 'OpportunityName',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.opportunityText,
         view: 'opportunity_detail',
         key: 'OpportunityId',
@@ -232,7 +232,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'TicketNumber',
         property: 'TicketNumber',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.ticketNumberText,
         view: 'ticket_detail',
         key: 'TicketId',
@@ -240,7 +240,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'LeadName',
         property: 'LeadName',
-        include: this.isHistoryForLead,
+        include: this.isHistoryForLead.bind(this),
         label: this.leadText,
         view: 'lead_detail',
         key: 'LeadId',
@@ -248,7 +248,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'AccountName',
         property: 'AccountName',
-        include: this.isHistoryForLead,
+        include: this.isHistoryForLead.bind(this),
         label: this.companyText,
       }],
     }, {
