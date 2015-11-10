@@ -28,6 +28,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   layoutsText: resource.layoutsText,
 
   _hasChangedKPIPrefs: false, // Dirty flag so we know when to reload the widgets
+  _hashTagClicked: false,
   groupList: null,
   DRAWER_PAGESIZE: 100,
   groupLookupId: 'groups_configure',
@@ -60,9 +61,18 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       App.snapper.on('close', function onCloseofSnapper() {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
-          this.rebuildWidgets();
+
+          // HACK: Don't rebuild widgets if a hashtag was clicked,
+          // because the widget mixin will rebuild on a data refresh anyways.
+          // TODO: Fix multiple calls to rebuildWidets() at the same time.
+          if (!this._hashTagClicked) {
+            this.rebuildWidgets();
+          }
           this._hasChangedKPIPrefs = false;
         }
+
+        // Reset state
+        this._hashTagClicked = false;
       }.bind(this));
     }
   },
@@ -91,6 +101,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         }
 
         if (params.hashtag) {
+          this._hashTagClicked = true;
           this.setSearchTerm('#' + params.hashtag);
           this.search();
           this.toggleRightDrawer();

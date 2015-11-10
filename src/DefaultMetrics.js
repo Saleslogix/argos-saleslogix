@@ -54,7 +54,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         queryName: 'executeMetric',
         queryArgs: {
           _filterName: 'ActivityType',
-          _activeFilter: "Activity.Type eq 'atAppointment'",
+          activeFilter: "Activity.Type eq 'atAppointment'",
         },
         activityType: 'atAppointment',
         aggregate: 'sum',
@@ -65,7 +65,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         queryName: 'executeMetric',
         queryArgs: {
           _filterName: 'ActivityType',
-          _activeFilter: "Activity.Type eq 'atPhoneCall'",
+          activeFilter: "Activity.Type eq 'atPhoneCall'",
         },
         activityType: 'atPhoneCall',
         aggregate: 'sum',
@@ -76,7 +76,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         queryName: 'executeMetric',
         queryArgs: {
           _filterName: 'ActivityType',
-          _activeFilter: "Activity.Type eq 'atToDo'",
+          activeFilter: "Activity.Type eq 'atToDo'",
         },
         activityType: 'atToDo',
         aggregate: 'sum',
@@ -87,7 +87,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         queryName: 'executeMetric',
         queryArgs: {
           _filterName: 'ActivityType',
-          _activeFilter: "Activity.Type eq 'atPersonal'",
+          activeFilter: "Activity.Type eq 'atPersonal'",
         },
         activityType: 'atPersonal',
         aggregate: 'sum',
