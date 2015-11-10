@@ -802,6 +802,8 @@ const __class = declare('crm.Application', [Application], {
       this.toast.add({ message: this.offlineText, title: this.connectionToastTitleText });
       this.navigateToInitialView();
     }
+
+    this.setToolBarMode(online);
   },
   navigateToLoginView: function navigateToLoginView() {
     this.setupRedirectHash();
