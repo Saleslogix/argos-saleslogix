@@ -73,6 +73,9 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     lang.mixin(this.offlineContext, options.offlineContext);
     this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
     this._entityView = this.getEntityView();
+    if (this._entityView && this._entityView._clearGroupMode && this._entityView.groupsMode) {
+      this._entityView._clearGroupMode(); // For list views that are left in group mode we need to reset to use the card template.
+    }
   },
   onTransitionTo: function onTransitionTo() {
     this.inherited(arguments);
@@ -103,7 +106,19 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     }]);
   },
   getEntityView: function getEntityView() {
-    return App.getView(this.offlineContext.viewId);
+    const newViewId = this.id + '_' + this.offlineContext.viewId;
+    const view = App.getView(this.offlineContext.viewId);
+
+    if (this._entityView) {
+      this._entityView.destroy();
+      this._entityView = null;
+    }
+
+    if (view) {
+      const ViewCtor = view.constructor;
+      this._entityView = new ViewCtor({id: newViewId});
+    }
+    return this._entityView;
   },
   createItemRowNode: function createItemRowNode(entry) {
     if (this._entityView) {
