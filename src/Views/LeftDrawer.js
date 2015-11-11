@@ -63,6 +63,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   enableSearch: true,
   searchWidgetClass: SpeedSearchWidget,
   customizationSet: 'left_drawer',
+  pageSize: 100,
 
   settingsView: 'settings',
   helpView: 'help',
