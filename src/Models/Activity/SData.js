@@ -138,7 +138,9 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
         'completeDate': entry.CompletedDate,
       },
     };
-
+    if (entry.ResultCode) {
+      completeActivityEntry.reusltCode = entry.ResultCode;
+    }
     const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService())
       .setResourceKind(this.resourceKind)
       .setContractName(this.contractName)

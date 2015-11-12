@@ -10,6 +10,7 @@ import action from '../../Action';
 import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
 
 const resource = window.localeContext.getEntitySync('activityList').attributes;
 
@@ -393,36 +394,19 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     }
   },
   completeActivity: function completeActivity(entry) {
-    const completeActivityEntry = {
-      '$name': 'ActivityComplete',
-      'request': {
-        'entity': {
-          '$key': entry.$key,
-        },
-        'ActivityId': entry.$key,
-        'userId': entry.Leader.$key,
-        'result': entry.Result,
-        'completeDate': entry.CompletedDate,
-      },
-    };
-
-    const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-      .setResourceKind('activities')
-      .setContractName('system')
-      .setOperationName('Complete');
-
-    request.execute(completeActivityEntry, {
-      success: function success() {
+    const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
+    if (activityModel) {
+      activityModel.completeActivity(entry).then(() => {
         connect.publish('/app/refresh', [{
           resourceKind: 'history',
         }]);
 
         this.clear();
         this.refresh();
-      },
-      failure: this.onRequestFailure,
-      scope: this,
-    });
+      }, (err) => {
+        this.onRequestFailure(err, this);
+      });
+    }
   },
   onRequestFailure: function onRequestFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');
