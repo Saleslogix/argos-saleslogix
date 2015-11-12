@@ -217,6 +217,7 @@
     {
         public string Path { get; set; }
         public FileInfo File { get; set; }
+        public DirectoryInfo Directory { get; set; }
     }
 
     protected string Serialize(object item)
@@ -254,7 +255,8 @@
                 yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, file),
-                    File = file
+                    File = file,
+                    Directory = file.Directory
                 };
         }
     }
