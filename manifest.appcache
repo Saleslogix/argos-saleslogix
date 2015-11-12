@@ -3,11 +3,11 @@ CACHE MANIFEST
 # Time: Thu Sep 17 2015 16:57:10 GMT-0700 (MST)
 
 CACHE:
-content/css/themes/fonts/FontAwesome.otf?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.eot?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.svg?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.ttf?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0
+content/css/themes/fonts/FontAwesome.otf?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
 configuration/development.js
 configuration/production.js
 content/clippy.swf
@@ -491,8 +491,8 @@ NETWORK:
 ../sdata/
 
 FALLBACK:
-content/css/themes/fonts/FontAwesome.otf?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.eot?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.svg?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.ttf?v=4.1.0
-content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0
+content/css/themes/fonts/FontAwesome.otf?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0
+content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0

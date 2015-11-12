@@ -1,10 +1,10 @@
 module.exports = function gruntManifest(grunt) {
   var fontAwesome = [// eslint-disable-line
-    'content/css/themes/fonts/FontAwesome.otf?v=4.1.0',
-    'content/css/themes/fonts/fontawesome-webfont.eot?v=4.1.0',
-    'content/css/themes/fonts/fontawesome-webfont.svg?v=4.1.0',
-    'content/css/themes/fonts/fontawesome-webfont.ttf?v=4.1.0',
-    'content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0',
+    'content/css/themes/fonts/FontAwesome.otf?v=4.4.0',
+    'content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0',
+    'content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0',
+    'content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0',
+    'content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0',
   ];
 
   grunt.config('manifest', {
