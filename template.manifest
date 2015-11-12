@@ -20,6 +20,9 @@ content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0
 # dojo
 @include 'content/dojo', /.*(?<!uncompressed|-debug)\.js$/i
 
+# L20N
+@include 'localization/locales'
+
 # application
 @include 'content/javascript', /.*(?<!-debug)\.js$/i
 @include 'content/javascript', /.*(?<!-debug)\.txt$/i
@@ -31,8 +34,8 @@ content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0
 @localize 'localization', '{0}.js'
 
 # help
-@localize 'help', 'help_{0}.html'
-help/help.html
+@localize 'help', 'help/locales/crm/{0}/help.html'
+help/locales/crm/en/help.html
 
 NETWORK:
 ../sdata/
