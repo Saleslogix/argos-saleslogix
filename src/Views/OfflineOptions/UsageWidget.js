@@ -89,7 +89,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     if (!this._olderThanDropdown) {
       this._olderThanDropdown = new Dropdown({
         id: 'olderThan-dropdown ' + this.id,
-        onSelect: 'olderThanSelect',
+        onSelect: this.olderThanSelect,
         onSelectScope: this,
       });
       this._olderThanDropdown.createList({

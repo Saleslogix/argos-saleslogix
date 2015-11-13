@@ -8,6 +8,8 @@ import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
+import MODEL_NAMES from '../../Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
 
 const resource = window.localeContext.getEntitySync('activityComplete').attributes;
 
@@ -357,24 +359,11 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     });
   },
   completeActivity: function completeActivity(entry, callback) {
-    if (!entry.$key) {
-      return;
-    }
-
-    const leader = this.fields.Leader.getValue();
-    const completeActivityEntry = {
-      '$name': 'ActivityComplete',
-      'request': {
-        'entity': {
-          '$key': entry.$key,
-        },
-        'ActivityId': entry.$key,
-        'userId': leader.$key,
-        'result': this.fields.Result.getValue(),
-        'resultCode': this.fields.ResultCode.getValue(),
-        'completeDate': this.fields.CompletedDate.getValue(),
-      },
-    };
+    const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
+    entry.Leader = this.fields.Leader.getValue();
+    entry.Result = this.fields.Result.getValue();
+    entry.ResultCode = this.fields.ResultCode.getValue();
+    entry.CompleteDate = this.fields.CompletedDate.getValue();
 
     const success = (function refreshStale(scope, theCallback, theEntry) {
       return function refreshStaleViews() {
@@ -387,16 +376,9 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       };
     })(this, callback, entry);
 
-    const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-      .setResourceKind('activities')
-      .setContractName('system')
-      .setOperationName('Complete');
-
-    request.execute(completeActivityEntry, {
-      success: success,
-      failure: this.onRequestFailure,
-      scope: this,
-    });
+    if (activityModel) {
+      activityModel.completeActivity(entry).then(success, this.onRequestFailure);
+    }
   },
   onUpdateCompleted: function onUpdateCompleted(entry) {
     if (!entry) {
