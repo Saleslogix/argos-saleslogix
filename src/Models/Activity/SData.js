@@ -139,7 +139,7 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
       },
     };
     if (entry.ResultCode) {
-      completeActivityEntry.reusltCode = entry.ResultCode;
+      completeActivityEntry.resultCode = entry.ResultCode;
     }
     const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService())
       .setResourceKind(this.resourceKind)
@@ -163,6 +163,7 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
               bcModel.deleteEntryByEntityContext(entry.$key, this.entityName);
             }
           } catch(err) {
+            // Just log the error here since we still want to continue with a successfull complete from the online case.
             console.log(err); // eslint-disable-line
           }
         }
