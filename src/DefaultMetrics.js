@@ -45,11 +45,6 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
     return [{
       resourceKind: 'userActivities',
       children: [{
-        title: resource.lastRefresh,
-        widgetModule: 'crm/Views/Activity/LastRefresh',
-        formatter: 'relativeDate',
-        enabled: false,
-      }, {
         title: resource.meetings,
         queryName: 'executeMetric',
         queryArgs: {

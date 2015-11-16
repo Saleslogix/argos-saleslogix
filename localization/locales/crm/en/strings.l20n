@@ -1347,7 +1347,6 @@
   calls: "Calls"
   todos: "Todos"
   personal: "Personal"
-  lastRefresh: "Last Refresh"
 >
 
 <fileManager ""
@@ -1524,4 +1523,3 @@
   entityDisplayName: "Authentication"
   entityDisplayNamePlural : "Authentication"
 >
-
