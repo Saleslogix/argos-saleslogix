@@ -376,9 +376,6 @@
           "text": "Format.js",
           "path": "../src-out/"
         }, {
-          "text": "Complete.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
           "text": "Edit.js",
           "path": "../src-out/Views/History/"
         }, {
@@ -424,6 +421,9 @@
           "text": "Base.js",
           "path": "../src-out/Models/Ticket/"
         }, {
+          "text": "Complete.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
         }, {
@@ -441,9 +441,6 @@
         }, {
           "text": "Settings.js",
           "path": "../src-out/Views/"
-        }, {
-          "text": "LastRefresh.js",
-          "path": "../src-out/Views/Activity/"
         }, {
           "text": "MyDayMetricWidget.js",
           "path": "../src-out/Views/Activity/"
