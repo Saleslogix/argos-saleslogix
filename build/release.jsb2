@@ -114,6 +114,28 @@
       ]
     },
     {
+      "name": "SalesLogix Mobile Localization (pt)",
+      "file": "localization/saleslogix/pt.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "pt.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (pt)",
+      "file": "localization/pt.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "pt.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
       "name": "Core Mobile Localization (en-GB)",
       "file": "localization/en-GB.js",
       "isDebug": true,
@@ -352,7 +374,7 @@
         {
           "text": "_SpeedSearchRightDrawerListMixin.js",
           "path": "../src/Views"
-        }, 
+        },
 		{
           "text": "_GroupListMixin.js",
           "path": "../src/Views"
