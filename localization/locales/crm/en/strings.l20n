@@ -1522,8 +1522,8 @@
   calculatingUsageText: "calculating usage please wait."
   clearingDataText: "clearing data please wait."
   lastClearedText: "Last cleared"
-  errorCalculatingText "Error caclulating usage"
-  errorClearingDataText "Error clearing data"
+  errorCalculatingText: "Error caclulating usage"
+  errorClearingDataText: "Error clearing data"
 >
 
 <authenticationModel ""
