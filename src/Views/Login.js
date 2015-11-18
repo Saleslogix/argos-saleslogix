@@ -64,20 +64,6 @@ const __class = declare('crm.Views.Login', [Edit], {
       });
     }
   },
-  onShow2: function onShow2() {
-    const credentials = App.getCredentials();
-
-    if (credentials) {
-      App.authenticateUser(credentials, {
-        success: function authSuccess() {
-          App.initAppState().then(function initAppStateSuccess() {
-            App.navigateToInitialView();
-          });
-        },
-        scope: this,
-      });
-    }
-  },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
       bbar: false,
