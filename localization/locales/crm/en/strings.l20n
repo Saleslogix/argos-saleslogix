@@ -1317,6 +1317,10 @@
   offlineText: "Your internet connection is no longer working."
   onlineText: "Your connection is working."
   connectionToastTitleText: "Connection Status"
+  offlineOptionsText: "Offline Options"
+  offlineInitDataText: "Initializing Offline Data"
+  offlineInitErrorText: "An error occured during offline intitalization. All Offline options will be disabled."
+  appStateInitErrorText: "An error occured during application intitalization. Please try again."
 >
 
 <applicationModule ""
@@ -1490,7 +1494,7 @@
 <briefcaseList ""
   titleText: "My Briefcase"
   removeText: "remove"
-  reSyncText: "re sync"
+  reBriefcaseText: "re briefcase"
   goToOnlineText: "go to online view"
   goToOfflineText: "go to offline view"
 >
@@ -1517,6 +1521,9 @@
   processingText: "processing please wait."
   calculatingUsageText: "calculating usage please wait."
   clearingDataText: "clearing data please wait."
+  lastClearedText: "Last cleared"
+  errorCalculatingText "Error caclulating usage"
+  errorClearingDataText "Error clearing data"
 >
 
 <authenticationModel ""

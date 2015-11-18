@@ -212,4 +212,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
       'tbar': [],
     });
   },
+  isDisabled: function isDisabled() {
+    return !App.enableOfflineSupport;
+  },
 });

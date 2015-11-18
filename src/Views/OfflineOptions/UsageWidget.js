@@ -8,6 +8,7 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Dropdown from 'argos/Dropdown';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
+import ErrorManager from 'argos/ErrorManager';
 
 const resource = window.localeContext.getEntitySync('offlineUsageWidget').attributes;
 
@@ -26,6 +27,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   processingText: resource.processingText,
   calculatingUsageText: resource.calculatingUsageText,
   clearingDataText: resource.clearingDataText,
+  lastClearedText: resource.lastClearedText,
 
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
@@ -33,6 +35,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
    '<span class="label"> {%: $$.olderThanText %} </span>',
    '<span data-dojo-attach-point="_olderThanNode" ></span>',
    '<span class="label"> {%: $$.daysText %} </span>',
+   '<div data-dojo-attach-point="_lastClearDateNode"></div>',
    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
    '<div data-dojo-attach-point="usageNode" >',
@@ -65,6 +68,14 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '</div>',
     '</div>',
   ]),
+  lastClearDateTemplate: new Simplate([
+   '<span class="label">',
+   '{%: $$.lastClearedText %}',
+   '</span',
+   '<span class="value">',
+   ' {%: $.lastClearedDate %}',
+   '</span',
+  ]),
   onInit: function onInit() {
     this.onLoad();
     if (this.owner) {
@@ -81,6 +92,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     const options = offlineManager.getOptions();
     this._options = {
       clearOlderThan: options.clearOlderThan,
+      lastClearedDate: options.lastClearedDate,
     };
     this._olderThanValues = offlineManager.getClearOlderThanValues();
     this.initUI();
@@ -97,7 +109,16 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         defaultValue: this._options.clearOlderThan,
       });
       domConstruct.place(this._olderThanDropdown.domNode, this._olderThanNode);
+      this.setLastClearedDate(this._options.lastClearedDate);
     }
+  },
+  setLastClearedDate: function setLastClearedDate(lastClearedDate) {
+    const values = {
+      lastClearedDate: (lastClearedDate) ? format.relativeDate(lastClearedDate) : '',
+    };
+    this._options.lastClearedDate = lastClearedDate;
+    const clearDateNode = domConstruct.toDom(this.lastClearDateTemplate.apply(values, this));
+    domConstruct.place(clearDateNode, this._lastClearDateNode, 'only');
   },
   olderThanSelect: function olderThanSelect() {
     this._options.clearOlderThan = this._olderThanDropdown.getValue();
@@ -110,8 +131,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       this.getUsage().then((data) => {
         this.showProcessing(false);
         this.processUsage(data);
-      }, () => {
-        this.showProcessing(false);
+      }, (err) => {
+        this.showError(resource.errorCalculatingText, err);
       });
     }
   },
@@ -138,19 +159,23 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       this.destroyUsage();
     }
   },
-  showError: function showError(message) {
+  showError: function showError(message, error) {
     if (this.usageNode) {
-      const node = domConstruct.toDom(this.errorTemplate.apply({message: message}, this));
-      domConstruct.place(node, this.usageNode, 'only');
+      this.showProcessing(false);
+      ErrorManager.addSimpleError(message, error);
+      ErrorManager.showErrorDialog(null, message, () => {
+        this.onRefreshView();
+      });
     }
   },
   onClearAllData: function onClearAllData() {
     this.showProcessing(true, this.clearingDataText);
     offlineManager.clearData(this._options).then(() => {
       this.showProcessing(false);
+      this.setLastClearedDate(moment().toDate());
       this.onShowUsage();
     }, (err) => {
-      this.showError(err);
+      this.showError(resource.errorClearingDataText, err);
     });
   },
   getUsage: function getUsage() {

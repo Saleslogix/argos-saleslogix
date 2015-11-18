@@ -59,11 +59,7 @@ const __class = declare('crm.Views.Login', [Edit], {
 
     if (credentials) {
       App.authenticateUser(credentials, {
-        success: function authSuccess() {
-          App.initAppState().then(function initAppStateSuccess() {
-            App.navigateToInitialView();
-          });
-        },
+        success: App.onHandleAuthenticationSuccess,
         scope: this,
       });
     }
@@ -143,15 +139,10 @@ const __class = declare('crm.Views.Login', [Edit], {
         if (attr) {
           attr.value = 'false';
         }
-
-        App.setPrimaryTitle(App.loadingText);
-        App.initAppState().then(function initAppStateSuccess() {
-          App.navigateToInitialView();
-        });
+        App.onHandleAuthenticationSuccess();
       },
       failure: function failure(result) {
         this.enable();
-
         const error = new Error();
         error.status = result && result.response && result.response.status;
         error.xhr = result && result.response;
@@ -159,7 +150,6 @@ const __class = declare('crm.Views.Login', [Edit], {
       },
       aborted: function aborted() {
         this.enable();
-
         alert(this.requestAbortedText);// eslint-disable-line
       },
       scope: this,

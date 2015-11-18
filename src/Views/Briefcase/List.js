@@ -13,12 +13,12 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineManager from 'argos/Offline/Manager';
-import Deferred from 'dojo/Deferred';
 import OfflineDetail from '../Offline/Detail';
+import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 
 const resource = window.localeContext.getEntitySync('briefcaseList').attributes;
 
-export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin], {
+export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, _ListOfflineMixin ], {
   id: 'briefcase_list',
   idProperty: 'id',
   detailView: 'offline_detail',
@@ -29,6 +29,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   entityName: 'Briefcase',
   titleText: resource.titleText,
   pageSize: 1000,
+  autoNavigateToBriefcase: true,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
@@ -54,7 +55,15 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
     return options;
   },
   createToolLayout: function createToolLayout() {
-    return [];
+    const tools = {
+      tbar: [{
+        id: 'resync',
+        cls: 'fa fa-suitcase fa-fw fa-lg',
+        action: 'briefCaseList',
+        security: '',
+      }],
+    };
+    return tools;
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return [];
@@ -131,9 +140,9 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
       action: 'removeItemAction',
     }, {
       id: 'resync',
-      cls: 'fa fa-refresh fa-2x',
-      label: resource.reSyncText,
-      action: 'reSyncItemAction',
+      cls: 'fa fa-suitcase fa-2x',
+      label: resource.reBriefcaseText,
+      action: 'reBriefcaseItemAction',
     }, {
       id: 'navToOnline',
       cls: 'fa fa-level-down fa-2x',
@@ -166,34 +175,31 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
       console.error(error);// eslint-disable-line
     });
   },
-  reSyncItemAction: function reSynctItem(action, selection) { // eslint-disable-line
+  reBriefcaseItemAction: function reBriefcase(action, selection) { // eslint-disable-line
     const briefcaseId = selection.tag.attributes['data-key'].value;
     const briefcase = this.entries[briefcaseId];
     if (briefcase) {
-      this.reSyncItem(briefcase).then(() => {
-        this.clear();
-        this.refreshRequired = true;
-        this.refresh();
-      });
+      this.briefCaseItem(briefcase);
     }
   },
-  reSyncItem: function reSynctItem(briefcaseItem) { // eslint-disable-line
-    const def = new Deferred();
-    if (briefcaseItem) {
-      const entityName = briefcaseItem.entityName;
-      const entityId = briefcaseItem.entityId;
-      const options = {
+  onListBriefcased: function onListBriefcased() {
+    this.clear();
+    this.refreshRequired = true;
+    this.refresh();
+  },
+  createBriefcaseEntity: function createBriefcaseEntity(entry) {
+    const entity = {
+      entityId: entry.entityId,
+      entityName: entry.entityName,
+      options: {
         includeRelated: true,
-        iconClass: briefcaseItem.iconClass,
-        viewId: briefcaseItem.viewId,
-      };
-      OfflineManager.briefCaseEntity(entityName, entityId, options).then(function success(result) {
-        def.resolve(result);
-      }, function err(error) {
-        console.error(error);// eslint-disable-line
-        def.reject(error);
-      });
-    }
-    return def.promise;
+        viewId: entry.viewId,
+        iconClass: entry.iconClass,
+      },
+    };
+    return entity;
+  },
+  isDisabled: function isDisabled() {
+    return !App.enableOfflineSupport;
   },
 });
