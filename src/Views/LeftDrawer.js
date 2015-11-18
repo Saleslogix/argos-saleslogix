@@ -237,7 +237,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           continue;
         }
 
-        if ((!App.isOnline() && !row.enableOfflineSupport)) {
+        if (!App.isOnline() && !row.enableOfflineSupport) {
           continue;
         }
 
