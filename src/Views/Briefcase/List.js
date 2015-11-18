@@ -13,7 +13,6 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineManager from 'argos/Offline/Manager';
-import Deferred from 'dojo/Deferred';
 import OfflineDetail from '../Offline/Detail';
 import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 
@@ -182,25 +181,6 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, 
     if (briefcase) {
       this.briefCaseItem(briefcase);
     }
-  },
-  xreSyncItem: function xreSynctItem(briefcaseItem) { // eslint-disable-line
-    const def = new Deferred();
-    if (briefcaseItem) {
-      const entityName = briefcaseItem.entityName;
-      const entityId = briefcaseItem.entityId;
-      const options = {
-        includeRelated: true,
-        iconClass: briefcaseItem.iconClass,
-        viewId: briefcaseItem.viewId,
-      };
-      OfflineManager.briefCaseEntity(entityName, entityId, options).then(function success(result) {
-        def.resolve(result);
-      }, function err(error) {
-        console.error(error);// eslint-disable-line
-        def.reject(error);
-      });
-    }
-    return def.promise;
   },
   onListBriefcased: function onListBriefcased() {
     this.clear();
