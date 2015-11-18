@@ -1,7 +1,7 @@
 module.exports = function gruntBabel(grunt) {
   grunt.config('babel', {
     options: {
-      sourceMap: false,
+      sourceMaps: 'inline',
       modules: 'amd',
       moduleIds: true,
       moduleRoot: 'crm',
