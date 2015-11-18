@@ -176,6 +176,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           'title': view.titleText,
           'security': view.getSecurity(),
           'enableOfflineSupport': view.enableOfflineSupport,
+          'disabled': view.isDisabled(),
         });
       }
     }
@@ -229,11 +230,14 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         const row = section[j];
         row.$key = total;
 
+        if (row.disabled) {
+          continue;
+        }
         if (row.security && !App.hasAccessTo(row.security)) {
           continue;
         }
 
-        if (!App.isOnline() && !row.enableOfflineSupport) {
+        if ((!App.isOnline() && !row.enableOfflineSupport)) {
           continue;
         }
 

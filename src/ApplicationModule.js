@@ -534,15 +534,6 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
         fn: () => App.requestSystemOptions(),
       }],
     });
-    this.registerAppStatePromise({
-      seq: 2,
-      description: resource.offlineDataText,
-      items: [{
-        name: 'offline_data',
-        fn: () => App.initOfflineData(),
-        description: resource.offlineDataText,
-      }],
-    });
   },
 });
 

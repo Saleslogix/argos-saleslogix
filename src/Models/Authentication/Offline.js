@@ -40,7 +40,6 @@ const __class = declare('crm.Models.Autentication.Offline', [_OfflineModelBase],
           entry.UserId = userId;
         }
         entry.ModifyDate = moment().toDate();
-        this.updateEntry(entry);
         result.entry = entry;
       }
       def.resolve(result);

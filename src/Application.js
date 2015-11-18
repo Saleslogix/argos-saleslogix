@@ -14,6 +14,7 @@ import 'dojo/sniff';
 import Toast from 'argos/Dialogs/Toast';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
+import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 
 const resource = window.localeContext.getEntitySync('application').attributes;
 
@@ -430,26 +431,60 @@ const __class = declare('crm.Application', [Application], {
     if (credentials) {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(credentials, {
-        success: function success() {
-          this.isAuthenticated = true;
-          this.setPrimaryTitle(this.loadingText);
-          this.initAppState().then(() => {
-            this.hasState = true;
-            this.navigateToInitialView();
-          });
-        },
-        failure: function failure() {
-          this.navigateToLoginView();
-          this.removeCredentials();
-        },
-        aborted: function aborted() {
-          this.navigateToLoginView();
-        },
+        success: this.onAuthenticationSuccess,
+        failure: this.onAuthenticationFailed,
+        aborted: this.onAuthenticationAborted,
         scope: this,
       });
     } else {
       this.navigateToLoginView();
     }
+  },
+  onAuthenticationSuccess: function onAuthenticationSuccess() {
+    this.isAuthenticated = true;
+    this.setPrimaryTitle(this.loadingText);
+    this.initAppState().then(()=> {
+      this.onInitAppStateSuccess();
+    }, (err)=> {
+      this.onInitAppStateFailed(err);
+    });
+  },
+  onAuthenticationFailed: function onAuthenticationFailed() {
+    this.removeCredentials();
+    this.navigateToLoginView();
+  },
+  onAuthenticationAborted: function onAuthenticationAborted() {
+    this.navigateToLoginView();
+  },
+  onInitAppStateSuccess: function onInitAppStateSuccess() {
+    if (this.enableOfflineSupport) {
+      this.initOfflineData().then(() => {
+        this.hasState = true;
+        this.navigateToInitialView();
+      }, (error) => {
+        this.hasState = true;
+        this.enableOfflineSupport = false;
+        const message = 'An error occured during offline intitalization.';
+        const message2 = message + ' ' + 'Offline will be diasbled.';
+        ErrorManager.addSimpleError(message, error);
+        ErrorManager.showErrorDialog(null, message2, () => {
+          this.navigateToInitialView();
+        });
+      });
+    } else {
+      this.hasState = true;
+      this.navigateToInitialView();
+    }
+  },
+  onInitAppStateFailed: function onInitAppStateFailed(error) {
+    const message = 'An error occured during application intitalization.';
+    const message2 = message + 'please try again';
+    ErrorManager.addSimpleError(message, error);
+    ErrorManager.showErrorDialog(null, message2, () => {
+      this._clearNavigationState();
+      this.removeCredentials();
+      this.navigateToLoginView();
+    });
   },
   _clearNavigationState: function _clearNavigationState() {
     try {
@@ -895,6 +930,15 @@ const __class = declare('crm.Application', [Application], {
     const def = new Deferred();
     const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
     if (model) {
+      const indicator = new BusyIndicator({
+        id: 'busyIndicator__offlineData',
+        label: resource.initializingText + ' ' + 'Offline Data',
+      });
+      this.modal.disableClose = true;
+      this.modal.showToolbar = false;
+      this.modal.add(indicator);
+      indicator.start();
+
       model.initAuthentication(App.context.user.$key).then((result) => {
         let options = offlineManager.getOptions();
         if (result.hasUserChanged) {
@@ -904,37 +948,25 @@ const __class = declare('crm.Application', [Application], {
         }
         if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
           offlineManager.clearData(options).then(() => {
+            model.updateEntry(result.entry);
+            indicator.complete(true);
+            this.modal.disableClose = false;
+            this.modal.hide();
             def.resolve();
           }, (err) => {
+            indicator.complete(true);
+            this.modal.disableClose = false;
+            this.modal.hide();
             def.reject(err);
           });
         } else {
+          result.entry.ModifyDate = moment().toDate();
+          model.updateEntry(result.entry);
+          indicator.complete(true);
+          this.modal.disableClose = false;
+          this.modal.hide();
           def.resolve(); // Do nothing since this not the first time athuenticating.
         }
-      }, (err) => {
-        def.reject(err);
-      });
-    } else {
-      def.resolve();
-    }
-    return def.promise;
-  },
-  initOfflineData2: function initOfflineData2() {
-    const def = new Deferred();
-    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
-    if (model) {
-      model.hasAuthenticationChanged(App.context.user.$key).then((result) => {
-        let options = offlineManager.getOptions();
-        if (result) {
-          options = {
-            clearAll: true,
-          };
-        }
-        offlineManager.clearData(options).then(() => {
-          def.resolve();
-        }, (err) => {
-          def.reject(err);
-        });
       }, (err) => {
         def.reject(err);
       });

@@ -1518,6 +1518,7 @@
   processingText: "processing please wait."
   calculatingUsageText: "calculating usage please wait."
   clearingDataText: "clearing data please wait."
+  lastClearedText: "Last cleard"
 >
 
 <authenticationModel ""

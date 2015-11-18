@@ -15,10 +15,11 @@ import MODEL_TYPES from 'argos/Models/Types';
 import OfflineManager from 'argos/Offline/Manager';
 import Deferred from 'dojo/Deferred';
 import OfflineDetail from '../Offline/Detail';
+import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 
 const resource = window.localeContext.getEntitySync('briefcaseList').attributes;
 
-export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin], {
+export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, _ListOfflineMixin ], {
   id: 'briefcase_list',
   idProperty: 'id',
   detailView: 'offline_detail',
@@ -29,6 +30,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
   entityName: 'Briefcase',
   titleText: resource.titleText,
   pageSize: 1000,
+  autoNavigateToBriefcase: true,
 
   itemTemplate: new Simplate([
     '<h3>{%: $$.getTitle($) %}</h3>',
@@ -54,7 +56,15 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
     return options;
   },
   createToolLayout: function createToolLayout() {
-    return [];
+    const tools = {
+      tbar: [{
+        id: 'resync',
+        cls: 'fa fa-suitcase fa-fw fa-lg',
+        action: 'briefCaseList',
+        security: '',
+      }],
+    };
+    return tools;
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return [];
@@ -131,7 +141,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
       action: 'removeItemAction',
     }, {
       id: 'resync',
-      cls: 'fa fa-refresh fa-2x',
+      cls: 'fa fa-suitcase fa-2x',
       label: resource.reSyncText,
       action: 'reSyncItemAction',
     }, {
@@ -195,5 +205,25 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin],
       });
     }
     return def.promise;
+  },
+  onListBriefcased: function onListBriefcased() {
+    this.clear();
+    this.refreshRequired = true;
+    this.refresh();
+  },
+  createBriefcaseEntity: function createBriefcaseEntity(entry) {
+    const entity = {
+      entityId: entry.entityId,
+      entityName: entry.entityName,
+      options: {
+        includeRelated: true,
+        viewId: entry.viewId,
+        iconClass: entry.iconClass,
+      },
+    };
+    return entity;
+  },
+  isDisabled: function isDisabled() {
+    return !App.enableOfflineSupport;
   },
 });
