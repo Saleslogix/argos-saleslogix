@@ -132,7 +132,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         this.showProcessing(false);
         this.processUsage(data);
       }, (err) => {
-        this.showError('Error calculating usage', err);
+        this.showError(resource.errorCalculatingText, err);
       });
     }
   },
@@ -175,7 +175,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       this.setLastClearedDate(moment().toDate());
       this.onShowUsage();
     }, (err) => {
-      this.showError('Error clearing data', err);
+      this.showError(resource.errorClearingDataText, err);
     });
   },
   getUsage: function getUsage() {
