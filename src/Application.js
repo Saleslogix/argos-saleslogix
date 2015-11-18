@@ -431,16 +431,16 @@ const __class = declare('crm.Application', [Application], {
     if (credentials) {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(credentials, {
-        success: this.onAuthenticationSuccess,
-        failure: this.onAuthenticationFailed,
-        aborted: this.onAuthenticationAborted,
+        success: this.onHandleAuthenticationSuccess,
+        failure: this.onHandleAuthenticationFailed,
+        aborted: this.onHandleAuthenticationAborted,
         scope: this,
       });
     } else {
       this.navigateToLoginView();
     }
   },
-  onAuthenticationSuccess: function onAuthenticationSuccess() {
+  onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
     this.initAppState().then(()=> {
@@ -449,11 +449,11 @@ const __class = declare('crm.Application', [Application], {
       this.onInitAppStateFailed(err);
     });
   },
-  onAuthenticationFailed: function onAuthenticationFailed() {
+  onHandleAuthenticationFailed: function onHandleAuthenticationFailed() {
     this.removeCredentials();
     this.navigateToLoginView();
   },
-  onAuthenticationAborted: function onAuthenticationAborted() {
+  onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
     this.navigateToLoginView();
   },
   onInitAppStateSuccess: function onInitAppStateSuccess() {

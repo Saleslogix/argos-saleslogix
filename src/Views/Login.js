@@ -59,7 +59,7 @@ const __class = declare('crm.Views.Login', [Edit], {
 
     if (credentials) {
       App.authenticateUser(credentials, {
-        success: App.onAutthenticationSuccess,
+        success: App.onHandleAuthenticationSuccess,
         scope: this,
       });
     }
@@ -139,7 +139,7 @@ const __class = declare('crm.Views.Login', [Edit], {
         if (attr) {
           attr.value = 'false';
         }
-        App.onAuthenticationSuccess();
+        App.onHandleAuthenticationSuccess();
       },
       failure: function failure(result) {
         this.enable();
