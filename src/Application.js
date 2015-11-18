@@ -464,10 +464,9 @@ const __class = declare('crm.Application', [Application], {
       }, (error) => {
         this.hasState = true;
         this.enableOfflineSupport = false;
-        const message = 'An error occured during offline intitalization.';
-        const message2 = message + ' ' + 'Offline will be diasbled.';
+        const message = resource.offlineInitErrorText;
         ErrorManager.addSimpleError(message, error);
-        ErrorManager.showErrorDialog(null, message2, () => {
+        ErrorManager.showErrorDialog(null, message, () => {
           this.navigateToInitialView();
         });
       });
@@ -477,10 +476,9 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   onInitAppStateFailed: function onInitAppStateFailed(error) {
-    const message = 'An error occured during application intitalization.';
-    const message2 = message + 'please try again';
+    const message = resource.appStateInitErrorText;
     ErrorManager.addSimpleError(message, error);
-    ErrorManager.showErrorDialog(null, message2, () => {
+    ErrorManager.showErrorDialog(null, message, () => {
       this._clearNavigationState();
       this.removeCredentials();
       this.navigateToLoginView();
@@ -932,7 +930,7 @@ const __class = declare('crm.Application', [Application], {
     if (model) {
       const indicator = new BusyIndicator({
         id: 'busyIndicator__offlineData',
-        label: resource.initializingText + ' ' + 'Offline Data',
+        label: resource.offlineInitDataText,
       });
       this.modal.disableClose = true;
       this.modal.showToolbar = false;

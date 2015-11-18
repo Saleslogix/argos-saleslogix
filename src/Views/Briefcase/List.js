@@ -142,8 +142,8 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, 
     }, {
       id: 'resync',
       cls: 'fa fa-suitcase fa-2x',
-      label: resource.reSyncText,
-      action: 'reSyncItemAction',
+      label: resource.reBriefcaseText,
+      action: 'reBriefcaseItemAction',
     }, {
       id: 'navToOnline',
       cls: 'fa fa-level-down fa-2x',
@@ -176,18 +176,14 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, 
       console.error(error);// eslint-disable-line
     });
   },
-  reSyncItemAction: function reSynctItem(action, selection) { // eslint-disable-line
+  reBriefcaseItemAction: function reBriefcase(action, selection) { // eslint-disable-line
     const briefcaseId = selection.tag.attributes['data-key'].value;
     const briefcase = this.entries[briefcaseId];
     if (briefcase) {
-      this.reSyncItem(briefcase).then(() => {
-        this.clear();
-        this.refreshRequired = true;
-        this.refresh();
-      });
+      this.briefCaseItem(briefcase);
     }
   },
-  reSyncItem: function reSynctItem(briefcaseItem) { // eslint-disable-line
+  xreSyncItem: function xreSynctItem(briefcaseItem) { // eslint-disable-line
     const def = new Deferred();
     if (briefcaseItem) {
       const entityName = briefcaseItem.entityName;
