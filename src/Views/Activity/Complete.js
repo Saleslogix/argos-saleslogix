@@ -363,7 +363,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     entry.Leader = this.fields.Leader.getValue();
     entry.Result = this.fields.Result.getValue();
     entry.ResultCode = this.fields.ResultCode.getValue();
-    entry.CompleteDate = this.fields.CompletedDate.getValue();
+    entry.CompletedDate = this.fields.CompletedDate.getValue();
 
     const success = (function refreshStale(scope, theCallback, theEntry) {
       return function refreshStaleViews() {
