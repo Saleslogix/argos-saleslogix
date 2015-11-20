@@ -76,7 +76,12 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
   isToday: function isToday(entry) {
     if (entry.StartDate) {
       const currentDate = moment();
-      const startDate = moment(convert.toDateFromString(entry.StartDate));
+      let startDate = moment(convert.toDateFromString(entry.StartDate));
+      if (entry.Timeless) {
+        startDate = startDate.subtract({
+          minutes: startDate.utcOffset(),
+        });
+      }
       if (startDate.isAfter(currentDate.startOf('day')) && startDate.isBefore(moment().endOf('day'))) {
         return true;
       }
@@ -88,7 +93,12 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
       const now = moment();
       const weekStartDate = now.clone().startOf('week');
       const weekEndDate = weekStartDate.clone().endOf('week');
-      const startDate = moment(convert.toDateFromString(entry.StartDate));
+      let startDate = moment(convert.toDateFromString(entry.StartDate));
+      if (entry.Timeless) {
+        startDate = startDate.subtract({
+          minutes: startDate.utcOffset(),
+        });
+      }
       if (startDate.isAfter(weekStartDate.startOf('day')) && startDate.isBefore(weekEndDate.startOf('day'))) {
         return true;
       }
@@ -100,7 +110,12 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
       const now = moment();
       const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
       const yesterdayEnd = yesterdayStart.clone().endOf('day');
-      const startDate = moment(convert.toDateFromString(entry.StartDate));
+      let startDate = moment(convert.toDateFromString(entry.StartDate));
+      if (entry.Timeless) {
+        startDate = startDate.subtract({
+          minutes: startDate.utcOffset(),
+        });
+      }
       if (startDate.isAfter(yesterdayStart.startOf('day')) && startDate.isBefore(yesterdayEnd.startOf('day'))) {
         return true;
       }
