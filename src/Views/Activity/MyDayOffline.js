@@ -99,7 +99,7 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
           minutes: startDate.utcOffset(),
         });
       }
-      if (startDate.isAfter(weekStartDate.startOf('day')) && startDate.isBefore(weekEndDate.startOf('day'))) {
+      if (startDate.isAfter(weekStartDate.startOf('day')) && startDate.isBefore(weekEndDate.endOf('day'))) {
         return true;
       }
     }
@@ -108,15 +108,14 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
   isYesterday: function isYesterDay(entry) {
     if (entry.StartDate) {
       const now = moment();
-      const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-      const yesterdayEnd = yesterdayStart.clone().endOf('day');
+      const yesterday = now.clone().subtract(1, 'days');
       let startDate = moment(convert.toDateFromString(entry.StartDate));
       if (entry.Timeless) {
         startDate = startDate.subtract({
           minutes: startDate.utcOffset(),
         });
       }
-      if (startDate.isAfter(yesterdayStart.startOf('day')) && startDate.isBefore(yesterdayEnd.startOf('day'))) {
+      if (startDate.isAfter(yesterday.startOf('day')) && startDate.isBefore(yesterday.endOf('day'))) {
         return true;
       }
     }
