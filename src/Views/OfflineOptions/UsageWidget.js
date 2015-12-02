@@ -194,6 +194,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     totalItem.sizePercent = format.percent(1);
     totalItem.count = format.bigNumber(utility.getValue(usage, 'count'));
     totalItem.countPercent = format.percent(1);
+    totalItem.sizeAVG = format.bigNumber(utility.getValue(usage, 'sizeAVG'));
     oldestDate = utility.getValue(usage, 'oldestDate');
     newestDate = utility.getValue(usage, 'newestDate');
     totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
