@@ -63,6 +63,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   startingFormatText: resource.startingFormatText,
   startingTimelessFormatText: resource.startingTimelessFormatText,
   timelessText: resource.timelessText,
+  recurringActivityIdSeparator: ';',
   durationValueText: {
     0: resource.noneText,
     15: resource.quarterHourText,
@@ -380,13 +381,20 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       activityModel.completeActivity(entry).then(success, this.onRequestFailure);
     }
   },
+  onPutComplete: function onPutComplete(entry) {
+    this._completedBasedOn = null;
+    if (entry.$key.split(this.recurringActivityIdSeparator).length === 2) {
+      this._completedBasedOn = entry;
+    }
+    this.inherited(arguments);
+  },
   onUpdateCompleted: function onUpdateCompleted(entry) {
     if (!entry) {
       return;
     }
 
     const followup = this.fields.Followup.getValue() === 'none' ? this.getInherited(arguments) : this.navigateToFollowUpView;
-
+    entry.$completedBasedOn = this._completedBasedOn;
     this.completeActivity(entry, followup);
   },
   formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
