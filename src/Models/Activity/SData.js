@@ -149,34 +149,35 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
 
     request.execute(completeActivityEntry, {
       success: function success() { // Can we get back the history to add to the Offline?
-        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
-        if (oModel) {
+        if (App.enableOfflineSupport) {
           try {
-            const key = (entry.$completedBasedOn) ? entry.$completedBasedOn.$key : entry.$key;
-            oModel.deleteEntry(key);
-            // Todo add observable or event to remove delete items out of brifecase and recently viewed areas.
-            const rvModel = App.ModelManager.getModel('RecentlyViewed', MODEL_TYPES.OFFLINE);
-            const bcModel = App.ModelManager.getModel('Briefcase', MODEL_TYPES.OFFLINE);
-            if (rvModel) {
-              rvModel.deleteEntryByEntityContext(key, this.entityName);
-            }
-            if (bcModel) {
-              bcModel.deleteEntryByEntityContext(key, this.entityName);
-            }
-          } catch(err) {
-            // Just log the error here since we still want to continue with a successfull complete from the online case.
-            console.log(err); // eslint-disable-line
+            const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
+            oModel.processAfterCompleted(entry);
+            def.resolve();
+          } catch (error) {
+            // Log error
+            def.resolve();
           }
+        } else {
+          def.resolve();
         }
-
-        def.resolve();
-      },
+      }.bind(this),
       failure: function failure(err) {
         def.reject(err);
       },
       scope: this,
     });
     return def.promise;
+  },
+  onEntryUpdated: function onEntryUpdated(result, orginalEntry) {
+    if (App.enableOfflineSupport) {
+      try {
+        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
+        oModel.processAfterUpdate(orginalEntry);
+      } catch (error) {  // eslint-disable-line
+        // Log error
+      }
+    }
   },
 });
 

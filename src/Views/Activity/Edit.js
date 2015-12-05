@@ -9,6 +9,7 @@ import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import format from 'argos/Format';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = window.localeContext.getEntitySync('activityEdit').attributes;
 
@@ -130,6 +131,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
 
   entityName: 'Activity',
+  modelName: MODEL_NAMES.ACTIVITY,
   insertSecurity: null, // 'Entities/Activity/Add',
   updateSecurity: null, // 'Entities/Activity/Edit',
   contractName: 'system',

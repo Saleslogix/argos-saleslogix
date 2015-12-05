@@ -97,10 +97,12 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         this.entry.recurrence.Leader = this.entry.Leader;
         view.show({
           entry: this.entry.recurrence,
+          masterEntry: this.entry,
         });
       } else {
         view.show({
           entry: this.entry,
+          masterEntry: null,
         });
       }
     }
