@@ -833,6 +833,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
 
     return snapShot;
   },
+  initModel: function initModel() {
+    if (!this.groupsMode) {
+      this.inherited(arguments);
+    }
+  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
