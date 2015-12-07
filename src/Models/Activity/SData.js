@@ -149,18 +149,8 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
 
     request.execute(completeActivityEntry, {
       success: function success() { // Can we get back the history to add to the Offline?
-        if (App.enableOfflineSupport) {
-          try {
-            const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
-            oModel.processAfterCompleted(entry);
-            def.resolve();
-          } catch (error) {
-            // Log error
-            def.resolve();
-          }
-        } else {
-          def.resolve();
-        }
+        this.onActivityCompleted(entry);
+        def.resolve();
       }.bind(this),
       failure: function failure(err) {
         def.reject(err);
@@ -169,11 +159,21 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
     });
     return def.promise;
   },
-  onEntryUpdated: function onEntryUpdated(result, orginalEntry) {
+  onActivityCompleted: function onActivityCompleted(entry) {
     if (App.enableOfflineSupport) {
       try {
         const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
-        oModel.processAfterUpdate(orginalEntry);
+        oModel.onActivityCompleted(entry);
+      } catch (error) { // eslint-disable-line
+        // Log error
+      }
+    }
+  },
+  onEntryUpdated: function onEntryUpdated(entry, orginalEntry) {
+    if (App.enableOfflineSupport) {
+      try {
+        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
+        oModel.onEntryUpdated(entry, orginalEntry);
       } catch (error) {  // eslint-disable-line
         // Log error
       }
