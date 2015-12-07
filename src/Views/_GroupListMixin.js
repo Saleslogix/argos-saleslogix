@@ -56,7 +56,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   groupsMode: false,
   currentGroupId: null,
   _currentGroup: null,
-  _groupInitalized: false,
+  _groupInitialized: false,
   _originalProps: null,
   overrideGroupLayoutName: '@MobileLayout',
   _overrideLayoutInitalized: false,
@@ -84,7 +84,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   requestData: function requestData() {
     try {
-      if (!this._groupInitalized && this.groupsMode) {
+      if (!this._groupInitialized && this.groupsMode) {
         domClass.add(this.domNode, 'list-loading');
         this._setLoading();
         this.initGroup();
@@ -108,7 +108,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   setCurrentGroup: function setCurrentGroup(group) {
     if (group) {
       this.hasDefaultGroup = true;
-      this._groupInitalized = false;
+      this._groupInitialized = false;
       this._currentGroup = group;
       this.currentGroupId = group.$key;
       GroupUtility.setDefaultGroupPreference(this.entityName, group.name);
@@ -175,7 +175,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     App.setPrimaryTitle(title);
     this.set('title', title);
 
-    if (this._groupInitalized) {
+    if (this._groupInitialized) {
       return;
     }
 
@@ -198,7 +198,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.store = null;
     this.clear(true);
     this.refreshRequired = true;
-    this._groupInitalized = true;
+    this._groupInitialized = true;
     this.requestData();
   },
   _requestOverrideGroupLayout: function _requestOverrideGroupLayout() {
@@ -583,7 +583,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
 
     this._originalProps = null;
 
-    this._groupInitalized = false;
+    this._groupInitialized = false;
     this._currentGroup = null;
     this.currentGroupId = null;
     App.setPrimaryTitle(original.title);
@@ -823,7 +823,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   getContextSnapShot: function getContextSnapShot(options) {
     let snapShot;
-    if (this._groupInitalized && this.groupsMode) {
+    if (this._groupInitialized && this.groupsMode) {
       const entry = this.entries[options.key];
       const template = this.itemRowContainerTemplate;
       snapShot = template.apply(entry, this);
@@ -832,6 +832,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     snapShot = this.inherited(arguments);
 
     return snapShot;
+  },
+  initModel: function initModel() {
+    if (!this._groupInitialized || !this.groupsMode) {
+      this.inherited(arguments);
+    }
   },
 });
 
