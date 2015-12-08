@@ -10,6 +10,7 @@ import environment from '../../Environment';
 import recur from '../../Recurrence';
 import utility from '../../Utility';
 import MODEL_NAMES from '../../Models/Names';
+import Deferred from 'dojo/Deferred';
 
 const resource = window.localeContext.getEntitySync('activityDetail').attributes;
 
@@ -90,21 +91,66 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     return this.activityTypeText[val] || val;
   },
   navigateToEditView: function navigateToEditView() {
-    const view = App.getView(this.editView);
-
-    if (view) {
-      if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) { // eslint-disable-line
+    if (!this.isActivityRecurringSeries(this.entry)) {
+      // normal activity
+      this.onEditActivity(this.entry);
+    } else {
+      if (confirm(this.confirmEditRecurrenceText)) { // eslint-disable-line
+       // edit series
         this.entry.recurrence.Leader = this.entry.Leader;
-        view.show({
-          entry: this.entry.recurrence,
-          masterEntry: this.entry,
-        });
+        this.onEditActivity(this.entry.recurrence);
       } else {
-        view.show({
-          entry: this.entry,
-          masterEntry: null,
-        });
+        // complete the occrence
+        if (this.entry.RecurrenceState === 'rstOccurrence') {
+          this.onEditActivity(this.entry);
+        } else {
+          // we need to resolve occurance
+          this.getOccurance(this.entry).then(
+            (occurance) => {
+              if (occurance) {
+                if (this.entry.Leader) {
+                  occurance.Leader = this.entry.Leader;
+                }
+                this.onEditActivity(occurance);
+              }
+            });
+        }
       }
+    }
+  },
+  getOccurance: function getOccurance(entry) {
+    const def = new Deferred();
+    const key = entry.$key;
+    // Check to ensure we have a composite key (meaning we have the occurance, not the master)
+    if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator)
+      .length !== 2) {
+      // Fetch the occurance, and continue on to the complete screen
+      const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+        .setResourceKind('activities')
+        .setContractName('system')
+        .setQueryArg('where', "id eq '" + key + "'")
+        .setCount(1);
+
+      request.read({
+        success: function success(feed) {
+          if (feed && feed.$resources && feed.$resources.length > 0) {
+            def.resolve(feed.$resources[0]);
+          }
+          def.reject();
+        },
+        scope: this,
+      });
+    } else {
+      def.reject();
+    }
+    return def.promise;
+  },
+  onEditActivity: function onEditActivity(entry) {
+    const view = App.getView(this.editView);
+    if (view) {
+      view.show({
+        entry: entry,
+      });
     }
   },
   navigateToCompleteView: function navigateToCompleteView(completionTitle, isSeries) {

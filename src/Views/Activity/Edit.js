@@ -135,7 +135,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   insertSecurity: null, // 'Entities/Activity/Add',
   updateSecurity: null, // 'Entities/Activity/Edit',
   contractName: 'system',
-  querySelect: [
+  xquerySelect: [
     'AccountId',
     'AccountName',
     'Alarm',

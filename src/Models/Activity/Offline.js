@@ -7,7 +7,7 @@ import MODEL_NAMES from '../Names';
 import Deferred from 'dojo/Deferred';
 
 const __class = declare('crm.Models.Activity.Offline', [Base, _OfflineModelBase], {
-  onActvitiyCompleted: function onActvitiyCompleted(entry) {
+  onActivityCompleted: function onActivityCompleted(entry) {
     const def = new Deferred();
     const key = (entry.$completedBasedOn) ? entry.$completedBasedOn.$key : entry.$key;
     this.deleteEntry(key);
@@ -15,14 +15,19 @@ const __class = declare('crm.Models.Activity.Offline', [Base, _OfflineModelBase]
     def.resolve();
     return def.promise;
   },
-  onEntryUpdate: function onEntryUpdate(entry) {
+  onEntryUpdated: function onEntryUpdated(entry, orginalEntry) {
     const def = new Deferred();
-    const key = (entry.$completedBasedOn) ? entry.$completedBasedOn.$key : entry.$key;
-    this.deleteEntry(key);
-    this.removeFromAuxiliaryEntities(key);
+
+    if (entry && entry.$key && orginalEntry && orginalEntry.$key) {
+      if (entry.$key !== orginalEntry.$key) { // this happens when occurence is created
+        this.deleteEntry(orginalEntry.$key);
+        this.removeFromAuxiliaryEntities(orginalEntry.$key);
+      }
+    }
     def.resolve();
     return def.promise;
   },
+
 });
 
 Manager.register(MODEL_NAMES.ACTIVITY, MODEL_TYPES.OFFLINE, __class);
