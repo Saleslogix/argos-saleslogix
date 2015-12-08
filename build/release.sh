@@ -28,3 +28,4 @@ cp index-nocache.aspx ./deploy
 cp unsupported.html ./deploy
 cp manifest.appcache ./deploy
 cp web.config ./deploy
+cp ping.gif ./deploy

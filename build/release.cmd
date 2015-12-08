@@ -24,3 +24,4 @@ xcopy index-nocache.aspx .\deploy /Y /Q
 xcopy unsupported.html .\deploy /Y /Q
 xcopy manifest.appcache .\deploy /Y /Q
 xcopy web.config .\deploy /Y /Q
+xcopy ping.gif .\deploy /Y /Q
