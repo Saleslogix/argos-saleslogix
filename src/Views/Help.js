@@ -1,7 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import Deferred from 'dojo/Deferred';
-import all from 'dojo/promise/all';
 import string from 'dojo/string';
 import domConstruct from 'dojo/dom-construct';
 import _DetailBase from 'argos/_DetailBase';
@@ -21,7 +19,7 @@ const resource = window.localeContext.getEntitySync('help').attributes;
 const __class = declare('crm.Views.Help', [_DetailBase], {
   // Templates
   errorTemplate: new Simplate([
-    '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',
+    '<div data-dojo-attach-point="errorNode">',
     '<h2>{%: $.errorText %}</h2>',
     '<ul>',
     '<li>{%: $.errorMessageText %}</li>',
@@ -67,49 +65,51 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
   processEntry: function processEntry() {
     this.inherited(arguments);
     // Processing the layout should be done now
-    all(this.promises).then((results) => {
+    const self = this;
+    Promise.all(this.promises).then((results) => {
       results.forEach((result) => {
-        this.processContent(result.response, result.domNode);
+        self.processContent(result.response, result.domNode);
       });
-      this.promises = [];
+    }, (e) => {
+      self.processContent({responseText: self.errorTemplate.apply(self)}, e.domNode);
     });
+    this.promises = [];
   },
   processContent: function processContent(xhr, domNode) {
     domConstruct.place(xhr.responseText, domNode, 'only');
   },
   getHelp: function getHelp({baseUrl, fileName, defaultUrl}, domNode) {
-    const def = new Deferred();
     const req = Sage.SData.Client.Ajax.request;
     const cleanBaseUrl = this._sanitizeUrl(baseUrl);
-    req({
-      url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
-      cache: true,
-      success: (response) => def.resolve({response, domNode}),
-      failure: () => {
-        // First failure, try to get the parent locale
-        req({
-          url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
-          cache: true,
-          success: (response) => def.resolve({response, domNode}),
-          failure: () => {
-            // Second failure, use the default url
-            req({
-              url: defaultUrl,
-              cache: true,
-              success: (response) => def.resolve({response, domNode}),
-              failure: (response, o) => {
-                // The default help failed. Log the error, as something is
-                // probably wrong with the layout.
-                ErrorManager.addError(response, o, this.options, 'failure');
-                def.reject({response, o});
-              },
-            });
-          },
-        });
-      },
-    });
-
-    return def.promise;
+    return new Promise(function helpPromise(resolve, reject) {
+      req({
+        url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
+        cache: true,
+        success: (response) => resolve({response, domNode}),
+        failure: () => {
+          // First failure, try to get the parent locale
+          req({
+            url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
+            cache: true,
+            success: (response) => resolve({response, domNode}),
+            failure: () => {
+              // Second failure, use the default url
+              req({
+                url: defaultUrl,
+                cache: true,
+                success: (response) => resolve({response, domNode}),
+                failure: (response, o) => {
+                  // The default help failed. Log the error, as something is
+                  // probably wrong with the layout.
+                  ErrorManager.addError(response, o, this.options, 'failure');
+                  reject({response, o, domNode});
+                },
+              });
+            },
+          });
+        },
+      });
+    }.bind(this));
   },
   onHelpRowCreated: function onHelpRowCreated(layoutRow, domNode) {
     this.promises.push(this.getHelp(layoutRow, domNode));
