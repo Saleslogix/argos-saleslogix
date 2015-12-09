@@ -82,6 +82,43 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
       ],
     }, {
       name: 'edit',
+      querySelect: [
+        'AccountId',
+        'AccountName',
+        'Alarm',
+        'AlarmTime',
+        'Category',
+        'Company',
+        'ContactId',
+        'ContactName',
+        'Description',
+        'Duration',
+        'Leader/$key',
+        'LeadId',
+        'LeadName',
+        'Location',
+        'LongNotes',
+        'OpportunityId',
+        'OpportunityName',
+        'PhoneNumber',
+        'Priority',
+        'Rollover',
+        'StartDate',
+        'EndDate',
+        'TicketId',
+        'TicketNumber',
+        'Timeless',
+        'Type',
+        'Recurring',
+        'RecurPeriod',
+        'RecurPeriodSpec',
+        'RecurIterations',
+        'RecurrenceState',
+        'AllowAdd',
+        'AllowEdit',
+        'AllowDelete',
+        'AllowComplete',
+      ],
     }];
   },
   createRequestPromise: function createRequestPromise(key, querySelect, resourceKind, contractName, options) {
@@ -149,33 +186,35 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
 
     request.execute(completeActivityEntry, {
       success: function success() { // Can we get back the history to add to the Offline?
-        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
-        if (oModel) {
-          try {
-            oModel.deleteEntry(entry.$key);
-            // Todo add observable or event to remove delete items out of brifecase and recently viewed areas.
-            const rvModel = App.ModelManager.getModel('RecentlyViewed', MODEL_TYPES.OFFLINE);
-            const bcModel = App.ModelManager.getModel('Briefcase', MODEL_TYPES.OFFLINE);
-            if (rvModel) {
-              rvModel.deleteEntryByEntityContext(entry.$key, this.entityName);
-            }
-            if (bcModel) {
-              bcModel.deleteEntryByEntityContext(entry.$key, this.entityName);
-            }
-          } catch(err) {
-            // Just log the error here since we still want to continue with a successfull complete from the online case.
-            console.log(err); // eslint-disable-line
-          }
-        }
-
+        this.onActivityCompleted(entry);
         def.resolve();
-      },
+      }.bind(this),
       failure: function failure(err) {
         def.reject(err);
       },
       scope: this,
     });
     return def.promise;
+  },
+  onActivityCompleted: function onActivityCompleted(entry) {
+    if (App.enableOfflineSupport) {
+      try {
+        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
+        oModel.onActivityCompleted(entry);
+      } catch (error) { // eslint-disable-line
+        // Log error
+      }
+    }
+  },
+  onEntryUpdated: function onEntryUpdated(entry, orginalEntry) {
+    if (App.enableOfflineSupport) {
+      try {
+        const oModel = App.ModelManager.getModel(this.modelName, MODEL_TYPES.OFFLINE);
+        oModel.onEntryUpdated(entry, orginalEntry);
+      } catch (error) {  // eslint-disable-line
+        // Log error
+      }
+    }
   },
 });
 

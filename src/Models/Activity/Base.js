@@ -74,5 +74,8 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
     }
     return name;
   },
+  isActivityRecurring: function isActivityRecurring(entry) {
+    return entry && (entry.Recurring || entry.RecurrenceState === 'rstOccurrence');
+  },
 });
 export default __class;
