@@ -62,5 +62,11 @@ define('configuration/production', ['crm/ApplicationModule'], function cb(Applic
      * If this option is false, the last person to save "wins" if they happen to edit the same field.
      */
     enableConcurrencyCheck: false,
+
+    /**
+     * @property {Boolean} enableOfflineSupport
+     * Enables offline support for briefcasing data offline, that can be viewed when the connection is lost.
+     */
+    enableOfflineSupport: false,
   };
 });

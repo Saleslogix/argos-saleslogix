@@ -36,7 +36,7 @@ const __class = declare('crm.Application', [Application], {
   multiCurrency: false,
   enableGroups: true,
   enableHashTags: true,
-  enableOfflineSupport: true,
+  enableOfflineSupport: false,
   speedSearch: {
     includeStemming: true,
     includePhonic: true,
@@ -821,6 +821,10 @@ const __class = declare('crm.Application', [Application], {
   },
   onConnectionChange: function onConnectionChange(online) {
     const view = App.getView('left_drawer');
+    if (!this.enableOfflineSupport) {
+      return;
+    }
+
     if (view) {
       view.refresh();
     }
