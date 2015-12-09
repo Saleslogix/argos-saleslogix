@@ -149,7 +149,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       layoutSelectedClicked: function layoutSelectedClicked(params) {
         const name = params.name;
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
-        this._groupInitalized = false;
+        this._groupInitialized = false;
         this.refresh();
         this.toggleRightDrawer();
       }.bind(this),
