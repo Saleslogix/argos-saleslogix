@@ -9,8 +9,9 @@ import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import format from 'argos/Format';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityEdit').attributes;
+const resource = getResource('activityEdit');
 
 /**
  * @class crm.Views.Activity.Edit

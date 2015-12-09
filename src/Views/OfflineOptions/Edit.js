@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import _EditBase from 'argos/_EditBase';
 import _RelatedWidgetEditMixin from 'argos/_RelatedViewWidgetEditMixin';
 import Deferred from 'dojo/Deferred';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('offlineOptionsEdit').attributes;
+const resource = getResource('offlineOptionsEdit');
 
 /**
  * @class crm.Views.OfflineOptions.Edit

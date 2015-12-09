@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('ticketActivityRateLookup').attributes;
+const resource = getResource('ticketActivityRateLookup');
 
 /**
  * @class crm.Views.TicketActivity.RateLookup

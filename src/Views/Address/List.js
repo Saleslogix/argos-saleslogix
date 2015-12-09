@@ -5,8 +5,9 @@ import domAttr from 'dojo/dom-attr';
 import query from 'dojo/query';
 import format from '../../Format';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('addressList').attributes;
+const resource = getResource('addressList');
 
 /**
  * @class crm.Views.Address.List

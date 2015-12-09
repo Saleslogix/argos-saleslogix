@@ -11,8 +11,9 @@ import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityList').attributes;
+const resource = getResource('activityList');
 
 /**
  * @class crm.Views.Activity.List

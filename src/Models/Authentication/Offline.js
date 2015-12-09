@@ -4,8 +4,9 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import Deferred from 'dojo/Deferred';
 import convert from 'argos/Convert';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('autenticationModel').attributes;
+const resource = getResource('autenticationModel');
 
 const __class = declare('crm.Models.Autentication.Offline', [_OfflineModelBase], {
   entityName: 'Authentication',

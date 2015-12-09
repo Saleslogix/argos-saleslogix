@@ -4,9 +4,10 @@ import string from 'dojo/string';
 import domConstruct from 'dojo/dom-construct';
 import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
+import getResource from 'argos/I18n';
 import 'dojo/NodeList-manipulate';
 
-const resource = window.localeContext.getEntitySync('help').attributes;
+const resource = getResource('help');
 
 /**
  * @class crm.Views.Help

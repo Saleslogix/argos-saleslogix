@@ -4,8 +4,9 @@ import template from '../../Template';
 import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('ticketActivityEdit').attributes;
+const resource = getResource('ticketActivityEdit');
 
 /**
  * @class crm.Views.TicketActivity.Edit

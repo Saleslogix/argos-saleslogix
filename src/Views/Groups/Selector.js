@@ -3,8 +3,9 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 import SDataStore from 'argos/Store/SData';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('groupsSelector').attributes;
+const resource = getResource('groupsSelector');
 
 /**
  * @class crm.Views.Groups.Selector

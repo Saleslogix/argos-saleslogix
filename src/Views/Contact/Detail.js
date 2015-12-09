@@ -5,8 +5,9 @@ import format from '../../Format';
 import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('contactDetail').attributes;
+const resource = getResource('contactDetail');
 
 /**
  * @class crm.Views.Contact.Detail

@@ -5,8 +5,9 @@ import domGeo from 'dojo/dom-geometry';
 import domAttr from 'dojo/dom-attr';
 import has from 'dojo/has';
 import _PullToRefreshMixin from 'argos/_PullToRefreshMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('chartMixin').attributes;
+const resource = getResource('chartMixin');
 
 /**
  * @class crm.Views.Charts._ChartMixin

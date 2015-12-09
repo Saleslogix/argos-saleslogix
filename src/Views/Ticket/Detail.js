@@ -3,8 +3,9 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('ticketDetail').attributes;
+const resource = getResource('ticketDetail');
 
 /**
  * @class crm.Views.Ticket.Detail

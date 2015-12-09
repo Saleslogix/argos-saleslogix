@@ -10,13 +10,15 @@ import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
-import 'dojo/sniff';
 import Toast from 'argos/Dialogs/Toast';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
+import getResource from 'argos/I18n';
+import 'dojo/sniff';
 
-const resource = window.localeContext.getEntitySync('application').attributes;
+
+const resource = getResource('application');
 
 /**
  * @class crm.Application

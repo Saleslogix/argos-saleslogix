@@ -15,8 +15,9 @@ import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('offlineDetail').attributes;
+const resource = getResource('offlineDetail');
 export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {
   id: 'offline_detail',
   titleText: resource.titleText,
@@ -254,5 +255,3 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
 
 });
-
-

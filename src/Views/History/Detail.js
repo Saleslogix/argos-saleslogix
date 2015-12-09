@@ -7,8 +7,9 @@ import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import template from '../../Template';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('historyDetail').attributes;
+const resource = getResource('historyDetail');
 
 /**
  * @class crm.Views.History.Detail

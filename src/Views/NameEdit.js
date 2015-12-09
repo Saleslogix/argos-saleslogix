@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import validator from '../Validator';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('nameEdit').attributes;
+const resource = getResource('nameEdit');
 
 /**
  * @class crm.Views.NameEdit

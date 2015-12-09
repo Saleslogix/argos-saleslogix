@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import RelatedViewWidget from 'argos/RelatedViewWidget';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('historyRelated').attributes;
+const resource = getResource('historyRelated');
 
 /**
  * @class crm.Views.History.RelatedView

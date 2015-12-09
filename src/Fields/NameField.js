@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('nameField').attributes;
+const resource = getResource('nameField');
 
 const control = declare('crm.Fields.NameField', [EditorField], {
   // Localization

@@ -1,14 +1,15 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('accountModel').attributes;
-const contactResource = window.localeContext.getEntitySync('contactModel').attributes;
-const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
-const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
-const oppResource = window.localeContext.getEntitySync('opportunityModel').attributes;
-const addressResource = window.localeContext.getEntitySync('addressModel').attributes;
-const ticketResource = window.localeContext.getEntitySync('ticketModel').attributes;
+const resource = getResource('accountModel');
+const contactResource = getResource('contactModel');
+const activityResource = getResource('activityModel');
+const historyResource = getResource('historyModel');
+const oppResource = getResource('opportunityModel');
+const addressResource = getResource('addressModel');
+const ticketResource = getResource('ticketModel');
 
 const __class = declare('crm.Models.Account.Base', [_ModelBase], {
   resourceKind: 'accounts',

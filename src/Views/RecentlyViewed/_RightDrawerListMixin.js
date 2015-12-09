@@ -3,8 +3,9 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('rightDrawerListMixin').attributes;
+const resource = getResource('rightDrawerListMixin');
 
 /**
  * @class crm.Views.RecentlyViewed._RightDrawerListMixin

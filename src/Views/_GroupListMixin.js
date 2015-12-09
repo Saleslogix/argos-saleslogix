@@ -9,8 +9,9 @@ import lang from 'dojo/_base/lang';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('groupListMixin').attributes;
+const resource = getResource('groupListMixin');
 
 /**
  * @class crm.Views._GroupListMixin

@@ -4,8 +4,9 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import utility from 'argos/Utility';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('action').attributes;
+const resource = getResource('action');
 /**
  * @class crm.Action
  *

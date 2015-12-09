@@ -3,8 +3,9 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import array from 'dojo/_base/array';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('ownerList').attributes;
+const resource = getResource('ownerList');
 
 /**
  * @class crm.Views.Owner.List

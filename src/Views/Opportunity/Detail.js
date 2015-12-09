@@ -4,8 +4,9 @@ import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import format from '../../Format';
 import MODEL_NAMES from '../../Models/Names';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityDetail').attributes;
+const resource = getResource('opportunityDetail');
 
 /**
  * @class crm.Views.Opportunity.Detail

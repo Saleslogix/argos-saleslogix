@@ -13,8 +13,10 @@ import format from '../../Format';
 import lang from 'dojo/_base/lang';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineDetail from './Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('offlineList').attributes;
+const resource = getResource('offlineList');
+
 export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixin], {
   id: 'offline_list',
   detailView: 'offline_detail',

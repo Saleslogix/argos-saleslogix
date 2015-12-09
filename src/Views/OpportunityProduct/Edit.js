@@ -5,8 +5,9 @@ import string from 'dojo/string';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import Utility from 'argos/Utility';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityProductEdit').attributes;
+const resource = getResource('opportunityProductEdit');
 
 /**
  * @class crm.Views.OpportunityProduct.Edit

@@ -5,8 +5,9 @@ import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityRecurring').attributes;
+const resource = getResource('activityRecurring');
 
 /**
  * @class crm.Views.Activity.Recurring
