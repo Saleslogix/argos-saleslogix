@@ -6,8 +6,9 @@ import environment from '../../Environment';
 import validator from '../../Validator';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('historyEdit').attributes;
+const resource = getResource('historyEdit');
 
 /**
  * @class crm.Views.History.Edit

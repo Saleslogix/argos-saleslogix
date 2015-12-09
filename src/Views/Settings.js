@@ -3,8 +3,9 @@ import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('settings').attributes;
+const resource = getResource('settings');
 
 /**
  * @class crm.Views.Settings

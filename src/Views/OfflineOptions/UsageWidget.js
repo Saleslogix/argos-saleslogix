@@ -9,8 +9,9 @@ import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Dropdown from 'argos/Dropdown';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import ErrorManager from 'argos/ErrorManager';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('offlineUsageWidget').attributes;
+const resource = getResource('offlineUsageWidget');
 
 const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
 
@@ -254,5 +255,3 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
 const rvm = new RelatedViewManager();
 rvm.registerType('offlineUsageWidget', __class);
 export default __class;
-
-

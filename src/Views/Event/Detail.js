@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('eventDetail').attributes;
+const resource = getResource('eventDetail');
 
 /**
  * @class crm.Views.Event.Detail

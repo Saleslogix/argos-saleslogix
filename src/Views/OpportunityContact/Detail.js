@@ -4,8 +4,9 @@ import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityContactDetail').attributes;
+const resource = getResource('opportunityContactDetail');
 
 /**
  * @class crm.Views.OpportunityContact.Detail

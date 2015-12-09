@@ -5,8 +5,9 @@ import format from '../../Format';
 import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('ticketEdit').attributes;
+const resource = getResource('ticketEdit');
 
 /**
  * @class crm.Views.Ticket.Edit

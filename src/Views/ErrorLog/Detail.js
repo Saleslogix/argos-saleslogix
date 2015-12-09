@@ -5,8 +5,9 @@ import string from 'dojo/string';
 import format from 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('errorLogDetail').attributes;
+const resource = getResource('errorLogDetail');
 
 /**
  * @class crm.Views.ErrorLog.Detail

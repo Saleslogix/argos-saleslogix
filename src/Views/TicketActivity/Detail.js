@@ -6,9 +6,10 @@ import format from '../../Format';
 import template from '../../Template';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 import 'dojo/NodeList-manipulate';
 
-const resource = window.localeContext.getEntitySync('ticketActivityDetail').attributes;
+const resource = getResource('ticketActivityDetail');
 
 /**
  * @class crm.Views.TicketActivity.Detail

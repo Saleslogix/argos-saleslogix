@@ -4,8 +4,9 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('home').attributes;
+const resource = getResource('home');
 
 /**
  * @deprecated

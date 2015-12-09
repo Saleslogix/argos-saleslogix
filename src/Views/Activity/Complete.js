@@ -10,8 +10,9 @@ import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityComplete').attributes;
+const resource = getResource('activityComplete');
 
 /**
  * @class crm.Views.Activity.Complete

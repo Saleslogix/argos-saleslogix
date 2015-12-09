@@ -3,8 +3,9 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import _ConfigureBase from 'argos/_ConfigureBase';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('configure').attributes;
+const resource = getResource('configure');
 
 /**
  * @class crm.Views.Configure

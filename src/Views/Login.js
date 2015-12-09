@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('login').attributes;
+const resource = getResource('login');
 
 /**
  * @class crm.Views.Login
@@ -21,6 +22,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
     '<span class="copyright">{%= $.copyrightText %}</span>',
     '<span class="copyright">{%= App.getVersionInfo() %}</span>',
+    '<div style="visibility: hidden;" class="fa fa-bars"></div>',// force font-awesome to be included on login
     '</div>',
   ]),
 

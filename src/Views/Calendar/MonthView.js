@@ -11,8 +11,9 @@ import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('calendarMonthView').attributes;
+const resource = getResource('calendarMonthView');
 
 /**
  * @class crm.Views.Calendar.MonthView

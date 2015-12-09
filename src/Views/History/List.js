@@ -8,8 +8,9 @@ import List from 'argos/List';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('historyList').attributes;
+const resource = getResource('historyList');
 
 /**
  * @class crm.Views.History.List

@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityProductList').attributes;
+const resource = getResource('opportunityProductList');
 
 /**
  * @class crm.Views.OpportunityProduct.List

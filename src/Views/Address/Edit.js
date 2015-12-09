@@ -4,8 +4,9 @@ import string from 'dojo/string';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('addressEdit').attributes;
+const resource = getResource('addressEdit');
 
 /**
  * @class crm.Views.Address.Edit

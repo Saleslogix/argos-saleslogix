@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import AttachmentList from './List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('attachmentMyList').attributes;
+const resource = getResource('attachmentMyList');
 
 /**
  * @class crm.Views.Attachments.MyAttachmentList

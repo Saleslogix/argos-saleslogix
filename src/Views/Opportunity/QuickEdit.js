@@ -4,8 +4,9 @@ import domAttr from 'dojo/dom-attr';
 import validator from '../../Validator';
 import salesProcessUtility from '../../SalesProcessUtility';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityQuickEdit').attributes;
+const resource = getResource('opportunityQuickEdit');
 
 /**
  * @class crm.Views.Opportunity.QuickEdit

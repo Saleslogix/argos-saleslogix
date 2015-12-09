@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('textEdit').attributes;
+const resource = getResource('textEdit');
 
 /**
  * @class crm.Views.TextEdit

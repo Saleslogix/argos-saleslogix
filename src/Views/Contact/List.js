@@ -7,8 +7,9 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('contactList').attributes;
+const resource = getResource('contactList');
 
 /**
  * @class crm.Views.Contact.List

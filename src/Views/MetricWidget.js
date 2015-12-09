@@ -7,8 +7,9 @@ import domConstruct from 'dojo/dom-construct';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import SDataStore from 'argos/Store/SData';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('metricWidget').attributes;
+const resource = getResource('metricWidget');
 
 /**
  * @class crm.Views.MetricWidget

@@ -3,8 +3,9 @@ import lang from 'dojo/_base/lang';
 import domConstruct from 'dojo/dom-construct';
 import query from 'dojo/query';
 import convert from 'argos/Convert';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('cardLayoutListMixin').attributes;
+const resource = getResource('cardLayoutListMixin');
 
 /**
  * @class crm.Views._CardLayoutListMixin

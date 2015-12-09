@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import MainToolbar from 'argos/MainToolbar';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('footerToolbar').attributes;
+const resource = getResource('footerToolbar');
 
 /**
  * @class crm.Views.FooterToolbar

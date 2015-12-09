@@ -1,5 +1,6 @@
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityTypeText').attributes;
+const resource = getResource('activityTypeText');
 export default {
   atToDo: resource.atToDoText,
   atPhoneCall: resource.atPhoneCallText,

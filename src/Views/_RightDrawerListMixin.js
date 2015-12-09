@@ -6,8 +6,9 @@ import aspect from 'dojo/aspect';
 import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('rightDrawerListMixin').attributes;
+const resource = getResource('rightDrawerListMixin');
 
 /**
  * @class crm.Views._RightDrawerListMixin

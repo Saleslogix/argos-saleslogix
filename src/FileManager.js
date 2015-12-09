@@ -2,8 +2,9 @@ import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import dNumber from 'dojo/number';
 import has from 'dojo/has';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('fileManager').attributes;
+const resource = getResource('fileManager');
 
 /**
  * @class crm.FileManager

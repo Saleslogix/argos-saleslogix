@@ -6,8 +6,9 @@ import query from 'dojo/query';
 import topic from 'dojo/topic';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('ticketActivityList').attributes;
+const resource = getResource('ticketActivityList');
 
 /**
  * @class crm.Views.TicketActivity.List

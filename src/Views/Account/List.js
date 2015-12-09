@@ -9,9 +9,10 @@ import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
+import getResource from 'argos/I18n';
 
 
-const resource = window.localeContext.getEntitySync('accountList').attributes;
+const resource = getResource('accountList');
 
 /**
  * @class crm.Views.Account.List

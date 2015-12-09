@@ -4,8 +4,9 @@ import sdkFormat from 'argos/Format';
 import FileSelect from 'argos/Views/FileSelect';
 import AttachmentManager from '../../AttachmentManager';
 import Environment from '../../Environment';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('attachmentAdd').attributes;
+const resource = getResource('attachmentAdd');
 
 /**
  * @class crm.Views.Attachment.AddAttachment

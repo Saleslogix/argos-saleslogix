@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import SearchWidget from 'argos/SearchWidget';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('speedSearchWidget').attributes;
+const resource = getResource('speedSearchWidget');
 
 /**
  * @class crm.SpeedSearchWidget
