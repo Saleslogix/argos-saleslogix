@@ -6,8 +6,9 @@ import validator from '../Validator';
 import template from '../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('addAccountContact').attributes;
+const resource = getResource('addAccountContact');
 
 /**
  * @class crm.Views.AddAccountContact

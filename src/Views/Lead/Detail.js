@@ -4,8 +4,9 @@ import string from 'dojo/string';
 import format from '../../Format';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('leadDetail').attributes;
+const resource = getResource('leadDetail');
 
 /**
  * @class crm.Views.Lead.Detail

@@ -12,8 +12,9 @@ import when from 'dojo/when';
 import Calendar from 'argos/Calendar';
 import List from 'argos/List';
 import Utility from '../../Utility';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('calendarView').attributes;
+const resource = getResource('calendarView');
 
 /**
  * @class crm.Views.Calendar.CalendarView

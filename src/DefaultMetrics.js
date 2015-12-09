@@ -4,8 +4,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _CustomizationMixin from 'argos/_CustomizationMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('defaultMetrics').attributes;
+const resource = getResource('defaultMetrics');
 
 const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   // Localiztion

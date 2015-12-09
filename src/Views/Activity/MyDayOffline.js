@@ -13,7 +13,9 @@ import MyDayRightDrawerListMixin from './MyDayRightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import convert from 'argos/Convert';
-const resource = window.localeContext.getEntitySync('activityMyDayOffline').attributes;
+import getResource from 'argos/I18n';
+
+const resource = getResource('activityMyDayOffline');
 
 export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMetricListMixin, MyDayRightDrawerListMixin], {
   id: 'myday_offline_list',

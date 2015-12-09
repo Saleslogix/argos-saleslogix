@@ -2,8 +2,9 @@ import lang from 'dojo/_base/lang';
 import array from 'dojo/_base/array';
 import format from './Format';
 import sdkFormat from 'argos/Format';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('groupUtility').attributes;
+const resource = getResource('groupUtility');
 
 function _createGroupRequest(o) {
   const defaultOptions = {

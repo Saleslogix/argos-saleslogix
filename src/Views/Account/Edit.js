@@ -5,8 +5,9 @@ import validator from '../../Validator';
 import format from '../../Format';
 import template from '../../Template';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('accountEdit').attributes;
+const resource = getResource('accountEdit');
 
 /**
  * @class crm.Views.Account.Edit

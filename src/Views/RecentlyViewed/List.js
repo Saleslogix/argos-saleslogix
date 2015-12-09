@@ -16,15 +16,16 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
 import OfflineDetail from '../Offline/Detail';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('recentlyViewedList').attributes;
-const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
-const contactResource = window.localeContext.getEntitySync('contactModel').attributes;
-const activityResource = window.localeContext.getEntitySync('activityModel').attributes;
-const historyResource = window.localeContext.getEntitySync('historyModel').attributes;
-const oppResource = window.localeContext.getEntitySync('opportunityModel').attributes;
-const ticketResource = window.localeContext.getEntitySync('ticketModel').attributes;
-const leadResource = window.localeContext.getEntitySync('leadModel').attributes;
+const resource = getResource('recentlyViewedList');
+const accountResource = getResource('accountModel');
+const contactResource = getResource('contactModel');
+const activityResource = getResource('activityModel');
+const historyResource = getResource('historyModel');
+const oppResource = getResource('opportunityModel');
+const ticketResource = getResource('ticketModel');
+const leadResource = getResource('leadModel');
 
 export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   id: 'recently_viewed_list',

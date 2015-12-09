@@ -3,13 +3,14 @@ import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
 import ACTIVITY_TYPE_TEXT from './ActivityTypeText';
 import ACTIVITY_TYPE_ICON from './ActivityTypeIcon';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityModel').attributes;
-const accountResource = window.localeContext.getEntitySync('accountModel').attributes;
-const contactResource = window.localeContext.getEntitySync('contactModel').attributes;
-const oppResource = window.localeContext.getEntitySync('opportunityModel').attributes;
-const ticketResource = window.localeContext.getEntitySync('ticketModel').attributes;
-const leadResource = window.localeContext.getEntitySync('leadModel').attributes;
+const resource = getResource('activityModel');
+const accountResource = getResource('accountModel');
+const contactResource = getResource('contactModel');
+const oppResource = getResource('opportunityModel');
+const ticketResource = getResource('ticketModel');
+const leadResource = getResource('leadModel');
 
 const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
   modelName: MODEL_NAMES.ACTIVITY,

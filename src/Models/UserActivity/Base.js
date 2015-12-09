@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import ActivityBase from '../Activity/Base';
 import MODEL_NAMES from '../Names';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('userActivityModel').attributes;
+const resource = getResource('userActivityModel');
 
 const __class = declare('crm.Models.UserActivity.Base', [ActivityBase], {
   modelName: MODEL_NAMES.USERACTIVITY,

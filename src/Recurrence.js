@@ -1,7 +1,8 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('recurrence').attributes;
+const resource = getResource('recurrence');
 
 /**
  * @class crm.Recurrence

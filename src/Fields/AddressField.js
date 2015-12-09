@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('addressField').attributes;
+const resource = getResource('addressField');
 
 const control = declare('crm.Fields.AddressField', [EditorField], {
   widgetTemplate: new Simplate([

@@ -11,8 +11,9 @@ import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('speedSearchList').attributes;
+const resource = getResource('speedSearchList');
 
 /**
  * @class crm.Views.SpeedSearchList

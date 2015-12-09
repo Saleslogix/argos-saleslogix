@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import _ModelBase from 'argos/Models/_ModelBase';
 import MODEL_NAMES from '../Names';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('addressModel').attributes;
+const resource = getResource('addressModel');
 
 const __class = declare('crm.Models.Address.Base', [_ModelBase], {
   resourceKind: 'addresses',

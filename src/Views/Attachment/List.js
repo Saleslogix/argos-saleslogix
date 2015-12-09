@@ -8,8 +8,9 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('attachmentList').attributes;
+const resource = getResource('attachmentList');
 
 /**
  * @class crm.Views.Attachments.List

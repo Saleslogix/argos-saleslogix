@@ -4,8 +4,9 @@ import Memory from 'dojo/store/Memory';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('errorLogList').attributes;
+const resource = getResource('errorLogList');
 
 /**
  * @class crm.Views.ErrorLog.List

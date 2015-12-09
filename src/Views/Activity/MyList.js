@@ -11,8 +11,9 @@ import action from '../../Action';
 import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityMyList').attributes;
+const resource = getResource('activityMyList');
 
 /**
  * @class crm.Views.Activity.MyList

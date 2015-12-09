@@ -99,6 +99,7 @@ import MyAttachmentList from './Views/Attachment/MyAttachmentList';
 import RecentlyViewedList from './Views/RecentlyViewed/List';
 import BriefcaseList from './Views/Briefcase/List';
 import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
+import getResource from 'argos/I18n';
 import './Views/OfflineOptions/UsageWidget';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
@@ -135,7 +136,7 @@ import './Models/Ticket/Offline';
 import './Models/Ticket/SData';
 import './Models/Authentication/Offline';
 
-const resource = window.localeContext.getEntitySync('applicationModule').attributes;
+const resource = getResource('applicationModule');
 
 /**
  * @class crm.ApplicationModule

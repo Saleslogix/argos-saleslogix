@@ -8,8 +8,9 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('leadList').attributes;
+const resource = getResource('leadList');
 
 /**
  * @class crm.Views.Lead.List

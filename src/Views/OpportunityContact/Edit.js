@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityContactEdit').attributes;
+const resource = getResource('opportunityContactEdit');
 
 /**
  * @class crm.Views.OpportunityContact.Edit

@@ -2,8 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityTypesList').attributes;
+const resource = getResource('activityTypesList');
 
 /**
  * @class crm.Views.Activity.TypesList

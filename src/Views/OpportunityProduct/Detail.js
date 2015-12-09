@@ -6,8 +6,9 @@ import array from 'dojo/_base/array';
 import format from '../../Format';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityProductDetail').attributes;
+const resource = getResource('opportunityProductDetail');
 
 /**
  * @class crm.Views.OpportunityProduct.Detail

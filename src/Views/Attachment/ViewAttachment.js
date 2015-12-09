@@ -10,8 +10,9 @@ import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('attachmentView').attributes;
+const resource = getResource('attachmentView');
 
 /**
  * @class crm.Views.Attachment.ViewAttachment

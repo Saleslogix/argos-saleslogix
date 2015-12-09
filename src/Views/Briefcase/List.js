@@ -15,8 +15,9 @@ import MODEL_TYPES from 'argos/Models/Types';
 import OfflineManager from 'argos/Offline/Manager';
 import OfflineDetail from '../Offline/Detail';
 import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('briefcaseList').attributes;
+const resource = getResource('briefcaseList');
 
 export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, _ListOfflineMixin ], {
   id: 'briefcase_list',

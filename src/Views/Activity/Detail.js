@@ -10,8 +10,9 @@ import environment from '../../Environment';
 import recur from '../../Recurrence';
 import utility from '../../Utility';
 import MODEL_NAMES from '../../Models/Names';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityDetail').attributes;
+const resource = getResource('activityDetail');
 
 /**
  * @class crm.Views.Activity.Detail

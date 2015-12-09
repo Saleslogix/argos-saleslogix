@@ -5,8 +5,9 @@ import _MetricListMixin from '../_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import MyList from './MyList';
 import MyDayOffline from './MyDayOffline';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('activityMyDay').attributes;
+const resource = getResource('activityMyDay');
 
 /**
  * @class crm.Views.Activity.MyDay

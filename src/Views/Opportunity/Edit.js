@@ -5,8 +5,9 @@ import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('opportunityEdit').attributes;
+const resource = getResource('opportunityEdit');
 
 /**
  * @class crm.Views.Opportunity.Edit

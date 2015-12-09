@@ -1,8 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import View from 'argos/View';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('logOff').attributes;
+const resource = getResource('logOff');
 
 const __class = declare('crm.Views.LogOff', [View], {
   // Templates

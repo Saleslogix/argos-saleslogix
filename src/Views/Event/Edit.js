@@ -3,8 +3,9 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('eventEdit').attributes;
+const resource = getResource('eventEdit');
 
 /**
  * @class crm.Views.Event.Edit

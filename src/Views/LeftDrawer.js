@@ -5,8 +5,9 @@ import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
+import getResource from 'argos/I18n';
 
-const resource = window.localeContext.getEntitySync('leftDrawer').attributes;
+const resource = getResource('leftDrawer');
 
 /**
  * @class crm.Views.LeftDrawer
