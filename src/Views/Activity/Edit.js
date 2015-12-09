@@ -135,44 +135,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   insertSecurity: null, // 'Entities/Activity/Add',
   updateSecurity: null, // 'Entities/Activity/Edit',
   contractName: 'system',
-  xquerySelect: [
-    'AccountId',
-    'AccountName',
-    'Alarm',
-    'AlarmTime',
-    'Category',
-    'ContactId',
-    'ContactName',
-    'Description',
-    'Duration',
-    'Leader/$key',
-    'LeadId',
-    'LeadName',
-    'Location',
-    'LongNotes',
-    'OpportunityId',
-    'OpportunityName',
-    'PhoneNumber',
-    'Priority',
-    'Regarding',
-    'Rollover',
-    'StartDate',
-    'EndDate',
-    'TicketId',
-    'TicketNumber',
-    'Timeless',
-    'Type',
-    'UserId',
-    'Recurring',
-    'RecurrenceState',
-    'RecurPeriod',
-    'RecurPeriodSpec',
-    'RecurIterations',
-    'AllowAdd',
-    'AllowEdit',
-    'AllowDelete',
-    'AllowComplete',
-  ],
   resourceKind: 'activities',
   recurrence: null,
   _previousRecurrence: null,
@@ -204,28 +166,28 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     environment.refreshActivityLists();
     this.inherited(arguments);
   },
-  onPutComplete: function onPutComplete(entry) {
+  onPutComplete: function onPutComplete(entry, updatedEntry) {
     const view = App.getView(this.detailView);
-    const originalKey = (this.options.entry && this.options.entry.$key) || entry.$key;
+    const originalKey = (this.options.entry && this.options.entry.$key) || updatedEntry.$key;
 
     this.enable();
 
     environment.refreshActivityLists();
     connect.publish('/app/refresh', [{
       resourceKind: this.resourceKind,
-      key: entry.$key,
-      data: entry,
+      key: updatedEntry.$key,
+      data: updatedEntry,
     }]);
 
-    if (entry.$key !== originalKey && view) {
+    if (updatedEntry.$key !== originalKey && view) {
       // Editing single occurrence results in new $key/record
       view.show({
-        key: entry.$key,
+        key: updatedEntry.$key,
       }, {
         returnTo: -2,
       });
     } else {
-      this.onUpdateCompleted(entry);
+      this.onUpdateCompleted(updatedEntry);
     }
   },
   convertEntry: function convertEntry() {
