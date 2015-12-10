@@ -368,20 +368,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     this._eventStore = store;
     return store;
   },
-  // createToolLayout: function createToolLayout() {
-  //   return this.tools || (this.tools = {
-  //     'tbar': [{
-  //       id: 'new',
-  //       cls: 'fa fa-plus fa-fw fa-lg',
-  //       action: 'navigateToInsertView',
-  //       security: this.app.getViewSecurity(this.insertView, 'insert'),
-  //     }, {
-  //       id: 'refresh',
-  //       cls: 'fa fa-refresh fa-fw fa-lg',
-  //       action: 'refresh',
-  //     }],
-  //   });
-  // },
   formatQueryActivity: function formatQueryActivity(value) {
     return string.substitute('UserActivities.UserId eq "${user}" and Type ne "atLiterature" and StartDate between @${start}@ and @${end}@', {
       user: App.context.user && App.context.user.$key,
