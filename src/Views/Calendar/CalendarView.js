@@ -60,17 +60,19 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // Templates
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-      '<div class="panel-content">',
-        '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
-        '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-          '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
-          '{%! $.eventMoreTemplate %}',
+      '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
+        '<div class="panel-content">',
+          '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
+          '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+            '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
+            '{%! $.eventMoreTemplate %}',
+          '</div>',
+          '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
+            '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
+            '{%! $.activityMoreTemplate %}',
+          '</div>',
+          '<div style="clear:both"></div>',
         '</div>',
-        '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
-          '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
-          '{%! $.activityMoreTemplate %}',
-        '</div>',
-        '<div style="clear:both"></div>',
       '</div>',
     '</div>',
   ]),
@@ -365,20 +367,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     store.include = this.eventInclude;
     this._eventStore = store;
     return store;
-  },
-  createToolLayout: function createToolLayout() {
-    return this.tools || (this.tools = {
-      'tbar': [{
-        id: 'new',
-        cls: 'fa fa-plus fa-fw fa-lg',
-        action: 'navigateToInsertView',
-        security: this.app.getViewSecurity(this.insertView, 'insert'),
-      }, {
-        id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
-        action: 'refresh',
-      }],
-    });
   },
   formatQueryActivity: function formatQueryActivity(value) {
     return string.substitute('UserActivities.UserId eq "${user}" and Type ne "atLiterature" and StartDate between @${start}@ and @${end}@', {
