@@ -30,6 +30,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
   metricWidgetsBuilt: false,
   metricWidgetCtor: MetricWidget,
+  rebuildingWidgets: false,
 
   createMetricWidgetsLayout: function createMetricWidgetsLayout() {
     const metrics = App.getMetricsByResourceKind(this.resourceKind);
@@ -82,7 +83,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     return options;
   },
-  _instantiateMetricWidget: function _instantiateWidget(options) {
+  _instantiateMetricWidget: function _instantiateMetricWidget(options) {
     return new Promise((resolve) => {
       if (options.widgetModule) {
         require([options.widgetModule], (Ctor) => {
@@ -97,10 +98,10 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     });
   },
   rebuildWidgets: function rebuildWidgets() {
-    if (this.metricWidgetsBuilt) {
+    if (this.metricWidgetsBuilt || this.rebuildingWidgets) {
       return;
     }
-
+    this.rebuildingWidgets = true;
     this.destroyWidgets();
 
     if (this.options && this.options.simpleMode && (this.options.simpleMode === true)) {
@@ -111,7 +112,8 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const widgetOptions = this.createMetricWidgetsLayout() || [];
     const widgets = widgetOptions.filter((options) => this._hasValidOptions(options))
       .map((options) => {
-        return this._instantiateMetricWidget(options).then((widget) => {
+        const clonedOptions = Object.assign({}, options);
+        return this._instantiateMetricWidget(clonedOptions).then((widget) => {
           widget.placeAt(this.metricNode, 'last');
           widget.requestData();
           return widget;
@@ -121,6 +123,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     Promise.all(widgets).then((results) => {
       this.metricWidgets = results;
       this.metricWidgetsBuilt = true;
+      this.rebuildingWidgets = false;
     });
   },
   _getCurrentQuery: function _getCurrentQuery(options) {
