@@ -229,6 +229,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _dataLoaded: false,
   _eventStore: null,
   _showMulti: false,
+  _refreshAdded: false,
 
   activityIconByType: {
     'atToDo': 'fa fa-list-ul',
@@ -426,6 +427,21 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         currentDate: this.options.currentDate.valueOf(),
       });
     }
+  },
+  onToolLayoutCreated: function onToolLayoutCreated(tools) {
+    if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
+      const refreshTool = {
+        id: 'refresh',
+        cls: 'fa fa-refresh fa-fw fa-lg',
+        action: 'refresh',
+
+      };
+      if (tools.tbar) {
+        tools.tbar.push(refreshTool);
+        this._refreshAdded = true;
+      }
+    }
+    this.inherited(arguments);
   },
   parseName: function parseName(name = {}) {
     return name.split(' ').splice(-1)[0];
