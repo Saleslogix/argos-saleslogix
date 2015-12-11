@@ -17,7 +17,7 @@
   </data>
   <data class="crm.GroupUtility" property="groupDateFormatText" type="format">
     <description/>
-    <value>D/M/YYYY h:mm:ss A</value>
+    <value>D/M/YYYY h:mm:ss a</value>
   </data>
   <data class="crm.Recurrence" property="dayFormatText" type="format">
     <description/>

@@ -10,7 +10,7 @@ localize("argos.Calendar", {
     "1": "Fev",
     "2": "Mar",
     "3": "Abr",
-    "4": "Maio",
+    "4": "Mai",
     "5": "Jun",
     "6": "Jul",
     "7": "Ago",
@@ -34,15 +34,15 @@ localize("argos.Format", {
   "noText": "Não",
   "trueText": "V",
   "falseText": "F",
-  "hoursText": "Horas",
+  "hoursText": "horas",
   "hourText": "hora",
-  "minutesText": "Minutos",
+  "minutesText": "minutos",
   "minuteText": "minuto",
   "bytesText": "bytes"
 });
 
 localize("crm.GroupUtility", {
-  "groupDateFormatText": "D/M/YYYY h:mm:ss A"
+  "groupDateFormatText": "D/M/YYYY h:mm:ss a"
 });
 
 localize("crm.Recurrence", {
@@ -52,7 +52,7 @@ localize("crm.Recurrence", {
   "weekdayFormatText": "dddd",
   "endDateFormatText": "D/M/YYYY",
   "neverText": "Nunca",
-  "daysText": "Dias",
+  "daysText": "dias",
   "dailyText": "Diariamente",
   "weeksText": "semanas",
   "weeklyText": "Semanalmente",
@@ -78,12 +78,12 @@ localize("crm.Recurrence", {
     "6": "Sábado"
   },
   "ordText": {
-    "0": "Dia",
-    "1": "Primeiro",
+    "0": "dia",
+    "1": "primeiro",
     "2": "segundo",
     "3": "terceiro",
     "4": "quarto",
-    "5": "Último"
+    "5": "último"
   }
 });
 
@@ -92,36 +92,36 @@ localize("crm.Views.Activity.Complete", {
   "startingFormatText": "D/M/YYYY h:mm A",
   "startingTimelessFormatText": "D/M/YYYY",
   "activityInfoText": "Informação da Atividade",
-  "accountText": "Conta",
-  "contactText": "Contato",
-  "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
-  "companyText": "Empresa",
-  "leadText": "Lead",
-  "asScheduledText": "Agendamento",
-  "categoryText": "Categoria",
+  "accountText": "conta",
+  "contactText": "contato",
+  "opportunityText": "oportunidade",
+  "ticketNumberText": "ticket",
+  "companyText": "empresa",
+  "leadText": "lead",
+  "asScheduledText": "como agendado",
+  "categoryText": "categoria",
   "categoryTitleText": "Categoria da Atividade",
-  "completedText": "Data de Conclusão",
+  "completedText": "data de conclusão",
   "completionText": "Conclusão",
-  "durationText": "Duração",
+  "durationText": "duração",
   "durationInvalidText": "O campo '${2}' deve ter um valor.",
-  "carryOverNotesText": "Carregar Notas",
-  "followUpText": "Follow-Up",
+  "carryOverNotesText": "transportar notas",
+  "followUpText": "acompanhamento",
   "followUpTitleText": "Tipo de acompanhamento",
-  "leaderText": "Responsável",
-  "longNotesText": "Notas",
+  "leaderText": "responsável",
+  "longNotesText": "notas",
   "longNotesTitleText": "Notas",
   "otherInfoText": "Outras Informações",
-  "priorityText": "Prioridade",
+  "priorityText": "prioridade",
   "priorityTitleText": "Prioridade",
-  "regardingText": "Referência",
+  "regardingText": "referência",
   "regardingTitleText": "Referência da Atividade",
-  "resultText": "Resultado",
+  "resultText": "resultado",
   "resultTitleText": "Resultado",
-  "startingText": "Data Inicial",
-  "timelessText": "Duração Indeterminada",
+  "startingText": "data de início",
+  "timelessText": "horário indeterminado",
   "durationValueText": {
-    "0": "Nenhum",
+    "0": "nenhum",
     "15": "15 minutos",
     "30": "30 minutos",
     "60": "1 hora",
@@ -152,27 +152,27 @@ localize("crm.Views.Activity.Detail", {
   "completeActivityText": "Completar Atividade",
   "completeOccurrenceText": "Completar Ocorrência",
   "completeSeriesText": "Completar Série",
-  "locationText": "Localização",
-  "alarmText": "Alarme",
-  "alarmTimeText": "Alarme",
-  "categoryText": "Categoria",
-  "durationText": "Duração",
-  "leaderText": "Responsável",
-  "longNotesText": "Notas",
-  "priorityText": "Prioridade",
-  "regardingText": "Referência",
+  "locationText": "localização",
+  "alarmText": "alarme",
+  "alarmTimeText": "alarme",
+  "categoryText": "categoria",
+  "durationText": "duração",
+  "leaderText": "responsável",
+  "longNotesText": "notas",
+  "priorityText": "prioridade",
+  "regardingText": "referência",
   "rolloverText": "postergar automaticamente",
-  "startTimeText": "Hora de Inicio",
+  "startTimeText": "horário de início",
   "allDayText": "dia inteiro",
-  "timelessText": "Duração Indeterminada",
+  "timelessText": "horário indeterminado",
   "titleText": "Atividade",
-  "typeText": "Tipo",
-  "companyText": "Empresa",
-  "leadText": "Lead",
-  "accountText": "Conta",
-  "contactText": "Contato",
-  "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "typeText": "tipo",
+  "companyText": "empresa",
+  "leadText": "lead",
+  "accountText": "conta",
+  "contactText": "contato",
+  "opportunityText": "oportunidade",
+  "ticketNumberText": "ticket",
   "whenText": "Quando",
   "whoText": "Quem",
   "recurrenceText": "recorrência",
@@ -180,7 +180,7 @@ localize("crm.Views.Activity.Detail", {
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos da Atividade",
   "relatedItemsText": "Itens Relacionados",
-  "phoneText": "Telefone",
+  "phoneText": "telefone",
   "moreDetailsText": "Mais Detalhes"
 });
 
@@ -189,43 +189,43 @@ localize("crm.Views.Activity.Edit", {
   "startingTimelessFormatText": "D/M/YYYY",
   "activityCategoryTitleText": "Categoria da Atividade",
   "activityDescriptionTitleText": "Descrição da Atividade",
-  "locationText": "Localização",
+  "locationText": "localização",
   "activityTypeTitleText": "Tipo de Atividade",
-  "alarmText": "Alarme",
+  "alarmText": "alarme",
   "reminderText": "Lembrete",
-  "categoryText": "Categoria",
-  "durationText": "Duração",
+  "categoryText": "categoria",
+  "durationText": "duração",
   "durationTitleText": "Duração",
   "durationInvalidText": "O campo '${2}' deve ter um valor.",
   "reminderInvalidText": "O campo 'lembrete' deve ter um valor.",
   "reminderTitleText": "Lembrete",
-  "leaderText": "Responsável",
-  "longNotesText": "Notas",
+  "leaderText": "responsável",
+  "longNotesText": "notas",
   "longNotesTitleText": "Notas",
-  "priorityText": "Prioridade",
+  "priorityText": "prioridade",
   "priorityTitleText": "Prioridade",
-  "regardingText": "Referência",
+  "regardingText": "referência",
   "rolloverText": "postergar automaticamente",
-  "startingText": "Hora de Inicio",
+  "startingText": "horário de início",
   "repeatsText": "repetir",
-  "recurringText": "Recorrência",
+  "recurringText": "recorrência",
   "recurringTitleText": "Recorrência",
-  "timelessText": "Duração Indeterminada",
+  "timelessText": "horário indeterminado",
   "titleText": "Atividade",
-  "typeText": "Tipo",
-  "accountText": "Conta",
-  "contactText": "Contato",
-  "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
-  "companyText": "Empresa",
-  "leadText": "Lead",
+  "typeText": "tipo",
+  "accountText": "conta",
+  "contactText": "contato",
+  "opportunityText": "oportunidade",
+  "ticketNumberText": "ticket",
+  "companyText": "empresa",
+  "leadText": "lead",
   "isLeadText": "para o lead",
-  "yesText": "Sim",
-  "noText": "Não",
-  "phoneText": "Telefone",
+  "yesText": "SIM",
+  "noText": "NÃO",
+  "phoneText": "telefone",
   "updateUserActErrorText": "Ocorreu um erro ao atualizar as atividades do usuário.",
   "reminderValueText": {
-    "0": "Nenhum",
+    "0": "nenhum",
     "5": "5 minutos",
     "15": "15 minutos",
     "30": "30 minutos",
@@ -233,7 +233,7 @@ localize("crm.Views.Activity.Edit", {
     "1440": "1 dia"
   },
   "durationValueText": {
-    "0": "Nenhum",
+    "0": "nenhum",
     "15": "15 minutos",
     "30": "30 minutos",
     "60": "1 hora",
@@ -247,19 +247,19 @@ localize("crm.Views.Attachment.List", {
   "titleText": "Anexos",
   "uploadedOnText": "Carregado ",
   "hashTagQueriesText": {
-    "url": "Url",
-    "binary": "Binario"
+    "url": "url",
+    "binary": "binário"
   }
 });
 
 localize("crm.Views.Attachment.ViewAttachment", {
   "attachmentDateFormatText": "ddd D/M/YYYY h:mm a",
   "detailsText": "Detalhes do Anexo",
-  "descriptionText": "Descrição",
-  "fileNameText": "Nome do Arquivo",
+  "descriptionText": "descrição",
+  "fileNameText": "nome do arquivo",
   "attachDateText": "data do anexo",
-  "fileSizeText": "Tamanho do Arquivo",
-  "userText": "Usuário",
+  "fileSizeText": "tamanho do arquivo",
+  "userText": "usuário",
   "attachmentNotSupportedText": "O tipo do anexo não é suportado para visualização.",
   "downloadingText": "Fazendo download do anexo...",
   "notSupportedText": "A visualização do anexo não é suportada pelo seu dispositivo."
@@ -278,7 +278,7 @@ localize("crm.Views.Calendar.DayView", {
   "eventHeaderText": "Eventos",
   "activityHeaderText": "Atividades",
   "eventMoreText": "Visualizar Mais Eventos",
-  "toggleCollapseText": "alternar expansão"
+  "toggleCollapseText": "alternar recolher"
 });
 
 localize("crm.Views.Calendar.MonthView", {
@@ -296,7 +296,7 @@ localize("crm.Views.Calendar.MonthView", {
   "eventHeaderText": "Eventos",
   "countMoreText": "Visualizar Mais",
   "activityHeaderText": "Atividades",
-  "toggleCollapseText": "alternar expansão",
+  "toggleCollapseText": "alternar recolher",
   "weekDaysShortText": {
     "0": "Dom",
     "1": "Seg",
@@ -319,21 +319,21 @@ localize("crm.Views.Calendar.WeekView", {
   "dayText": "Dia",
   "weekText": "Semana",
   "monthText": "Mês",
-  "allDayText": "dia inteiro",
+  "allDayText": "Dia Inteiro",
   "eventHeaderText": "Eventos",
   "eventMoreText": "Visualizar ${0} Mais Eventos(s)",
-  "toggleCollapseText": "alternar expansão"
+  "toggleCollapseText": "alternar recolher"
 });
 
 localize("crm.Views.ErrorLog.Detail", {
   "errorDateFormatText": "DD/MM/YYYY hh:mm A",
   "titleText": "Log de Erro",
   "detailsText": "Detalhes",
-  "errorDateText": "Data",
-  "statusTextText": "Erro",
-  "urlText": "Url",
+  "errorDateText": "data",
+  "statusTextText": "erro",
+  "urlText": "url",
   "moreDetailsText": "Mais Detalhes",
-  "errorText": "Erro",
+  "errorText": "erro",
   "emailSubjectText": "Erro recebido no Saleslogix Mobile",
   "copiedSuccessText": "Copiado para a área de transferência"
 });
@@ -354,21 +354,21 @@ localize("crm.Views.Event.Detail", {
     "atPersonal": "Atividade Pessoal"
   },
   "actionsText": "Ações Rápidas",
-  "startTimeText": "Data Inicial",
-  "endTimeText": "Data Final",
+  "startTimeText": "data de início",
+  "endTimeText": "data de término",
   "titleText": "Evento",
-  "descriptionText": "Descrição",
-  "typeText": "Tipo",
+  "descriptionText": "descrição",
+  "typeText": "tipo",
   "whenText": "Quando"
 });
 
 localize("crm.Views.Event.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
   "titleText": "Evento",
-  "typeText": "Tipo",
-  "descriptionText": "Descrição",
-  "startDateText": "Data Inicial",
-  "endDateText": "Data Final",
+  "typeText": "tipo",
+  "descriptionText": "descrição",
+  "startDateText": "data de início",
+  "endDateText": "data de término",
   "eventTypesText": {
     "Vacation": "Férias",
     "Business Trip": "Viagem de Negócios",
@@ -385,30 +385,30 @@ localize("crm.Views.Event.List", {
 
 localize("crm.Views.History.Detail", {
   "dateFormatText": "D/M/YYYY h:mm:ss A",
-  "categoryText": "Categoria",
-  "completedText": "Concluído",
-  "durationText": "Duração",
-  "leaderText": "Responsável",
-  "longNotesText": "Notas",
+  "categoryText": "categoria",
+  "completedText": "concluído",
+  "durationText": "duração",
+  "leaderText": "responsável",
+  "longNotesText": "notas",
   "notesText": "Notas",
-  "priorityText": "Prioridade",
-  "regardingText": "Referência",
-  "completedByText": "Concluído Por",
-  "scheduledText": "Agendado",
-  "timelessText": "Duração Indeterminada",
-  "companyText": "Empresa",
-  "leadText": "Lead",
+  "priorityText": "prioridade",
+  "regardingText": "referência",
+  "completedByText": "concluído por",
+  "scheduledText": "agendado",
+  "timelessText": "horário indeterminado",
+  "companyText": "empresa",
+  "leadText": "lead",
   "titleText": "Histórico",
-  "accountText": "Conta",
-  "contactText": "Contato",
-  "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "accountText": "conta",
+  "contactText": "contato",
+  "opportunityText": "oportunidade",
+  "ticketNumberText": "ticket",
   "moreDetailsText": "Mais Detalhes",
   "relatedItemsText": "Itens Relacionados",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos do Histórico",
-  "modifiedText": "Modificado",
-  "typeText": "Tipo",
+  "modifiedText": "modificado",
+  "typeText": "tipo",
   "activityTypeText": {
     "atToDo": "Tarefa",
     "atPhoneCall": "Chamada Telefônica",
@@ -422,22 +422,22 @@ localize("crm.Views.History.Detail", {
 
 localize("crm.Views.History.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
-  "accountText": "Conta",
+  "accountText": "conta",
   "noteDescriptionTitleText": "Descrição da Nota",
-  "contactText": "Contato",
-  "longNotesText": "Notas",
+  "contactText": "contato",
+  "longNotesText": "notas",
   "longNotesTitleText": "Notas",
-  "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
-  "regardingText": "Referência",
+  "opportunityText": "oportunidade",
+  "ticketNumberText": "ticket",
+  "regardingText": "referência",
   "isLeadText": "para o lead",
-  "startingText": "Hora",
+  "startingText": "horário",
   "titleText": "Nota",
-  "companyText": "Empresa",
-  "leadText": "Lead",
+  "companyText": "empresa",
+  "leadText": "lead",
   "relatedItemsText": "Itens Relacionados",
-  "yesText": "Sim",
-  "noText": "Não",
+  "yesText": "SIM",
+  "noText": "NÃO",
   "validationText": "O campo '${2}' deve conter um valor",
   "validationCanEditText": "Você não possui autorização para editar"
 });
@@ -456,11 +456,11 @@ localize("crm.Views.History.List", {
   },
   "hashTagQueriesText": {
     "my-history": "meu-histórico",
-    "note": "Nota",
+    "note": "nota",
     "phonecall": "chamada telefônica",
-    "meeting": "Reunião",
-    "personal": "Pessoal",
-    "email": "E-mail"
+    "meeting": "reunião",
+    "personal": "pessoal",
+    "email": "e-mail"
   },
   "titleText": "Notas/Histórico",
   "viewAccountActionText": "Conta",
@@ -476,13 +476,13 @@ localize("crm.Views.Opportunity.Detail", {
   "acctMgrText": "ger. conta",
   "estCloseText": "estimativa de fechamento",
   "detailsText": "Detalhes",
-  "fbarHomeTitleText": "Início",
-  "fbarScheduleTitleText": "Agendar",
-  "importSourceText": "Origem do Lead",
-  "opportunityText": "Oportunidade",
-  "ownerText": "Proprietário",
+  "fbarHomeTitleText": "início",
+  "fbarScheduleTitleText": "agendar",
+  "importSourceText": "origem do lead",
+  "opportunityText": "oportunidade",
+  "ownerText": "proprietário",
   "actionsText": "Ações Rápidas",
-  "potentialText": "Potencial de Vendas",
+  "potentialText": "potencial de vendas",
   "potentialBaseText": "potencial de vendas (câmbio base)",
   "potentialOpportunityText": "potencial de vendas (câmbio da oport.)",
   "potentialMyRateText": "potencial de vendas (meu câmbio)",
@@ -495,16 +495,16 @@ localize("crm.Views.Opportunity.Detail", {
   "relatedProductsText": "Produtos",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos da Oportunidade",
-  "resellerText": "Revendedor",
-  "statusText": "Status",
+  "resellerText": "revendedor",
+  "statusText": "status",
   "titleText": "Oportunidade",
-  "typeText": "Tipo",
-  "scheduleActivityText": "Agendar Atividade",
-  "addNoteText": "Adicionar Nota",
+  "typeText": "tipo",
+  "scheduleActivityText": "Agendar atividade",
+  "addNoteText": "Adicionar nota",
   "moreDetailsText": "Mais Detalhes",
   "multiCurrencyText": "Multi Moedas",
-  "multiCurrencyRateText": "Taxa de Câmbio",
-  "multiCurrencyCodeText": "Código",
+  "multiCurrencyRateText": "taxa de câmbio",
+  "multiCurrencyCodeText": "código",
   "multiCurrencyDateText": "data do câmbio",
   "multiCurrencyLockedText": "câmbio bloqueado"
 });
@@ -514,38 +514,38 @@ localize("crm.Views.Opportunity.Edit", {
   "accountText": "conta",
   "acctMgrText": "ger. conta",
   "estCloseText": "estimativa de fechamento",
-  "importSourceText": "Origem do Lead",
+  "importSourceText": "origem do lead",
   "detailsText": "Detalhes",
   "opportunityStatusTitleText": "Status da Oportunidade",
-  "opportunityText": "Oportunidade",
+  "opportunityText": "oportunidade",
   "opportunityTypeTitleText": "Tipo da Oportunidade",
-  "ownerText": "Proprietário",
-  "potentialText": "Potencial de Vendas",
+  "ownerText": "proprietário",
+  "potentialText": "potencial de vendas",
   "probabilityText": "prob. de fechamento",
   "probabilityTitleText": "Probabilidade da Oportunidade",
-  "resellerText": "Revendedor",
-  "statusText": "Status",
+  "resellerText": "revendedor",
+  "statusText": "status",
   "titleText": "Oportunidade",
-  "typeText": "Tipo",
+  "typeText": "tipo",
   "multiCurrencyText": "Multi Moedas",
-  "multiCurrencyRateText": "Taxa de Câmbio",
-  "multiCurrencyCodeText": "Código",
+  "multiCurrencyRateText": "taxa de câmbio",
+  "multiCurrencyCodeText": "código",
   "multiCurrencyDateText": "data do câmbio",
   "multiCurrencyLockedText": "câmbio bloqueado",
-  "subTypePickListResellerText": "Revendedor"
+  "subTypePickListResellerText": "REVENDEDOR"
 });
 
 localize("crm.Views.TicketActivity.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
   "titleText": "Editar Atividade do Ticket",
-  "activityTypeText": "Tipo",
+  "activityTypeText": "tipo",
   "activityTypeTitleText": "Tipo",
-  "publicAccessText": "Acesso Público",
+  "publicAccessText": "acesso público",
   "publicAccessTitleText": "Acesso Público",
-  "userText": "Usuário",
-  "startDateText": "Data Inicial",
-  "endDateText": "Data Final",
-  "commentsText": "Comentários"
+  "userText": "usuário",
+  "startDateText": "data de início",
+  "endDateText": "data de término",
+  "commentsText": "comentários"
 });
 
 localize("crm.Views.TicketActivity.List", {
@@ -562,26 +562,26 @@ localize("argos.Fields.DurationField", {
   "emptyText": "",
   "invalidDurationErrorText": "O Campo '${0}' não é uma duração válida.",
   "autoCompleteText": {
-    "1": "Minuto(s)",
-    "60": "Hora(s)",
-    "1440": "Dia(s)",
+    "1": "minuto(s)",
+    "60": "hora(s)",
+    "1440": "dia(s)",
     "10080": "semana(s)",
     "525960": "ano(s)"
   }
 });
 
 localize("argos.Fields.EditorField", {
-  "lookupLabelText": "Editar",
+  "lookupLabelText": "editar",
   "lookupText": "...",
   "emptyText": "vazio",
-  "completeText": "OK"
+  "completeText": "Ok"
 });
 
 localize("argos.Fields.LookupField", {
   "dependentErrorText": "Um valor para '${0}' deve ser selecionado.",
   "emptyText": "",
   "completeText": "Selecionar",
-  "lookupLabelText": "Pesquisa",
+  "lookupLabelText": "pesquisa",
   "lookupText": "..."
 });
 
@@ -591,7 +591,7 @@ localize("argos.Fields.SignatureField", {
 });
 
 localize("argos.GroupedList", {
-  "toggleCollapseText": "alternar expansão"
+  "toggleCollapseText": "alternar recolher"
 });
 
 localize("argos.Groups.DateTimeSection", {
@@ -605,12 +605,12 @@ localize("argos.Groups.DateTimeSection", {
   "thisYearEarlierText": "Início desse ano",
   "thisYearLaterText": "Final desse ano",
   "yesterdayText": "Ontem",
-  "lastWeekText": "Última Semana",
-  "lastMonthText": "Último Mês",
+  "lastWeekText": "Última semana",
+  "lastMonthText": "Último mês",
   "pastYearText": "Ano(s) anterior(es)",
-  "nextYearText": "Próximo Ano",
-  "nextMonthText": "Próximo Mês",
-  "nextWeekText": "Próxima Semana",
+  "nextYearText": "Próximo ano",
+  "nextMonthText": "Próximo mês",
+  "nextWeekText": "Próxima semana",
   "futureText": "Futuro",
   "twoWeeksAgoText": "Duas semanas atrás",
   "threeWeeksAgoText": "Três semanas atrás",
@@ -632,7 +632,7 @@ localize("argos.RelatedViewWidget", {
   "selectMoreDataText": "ver ${0} mais de ${1} ... ",
   "navToListText": "visualizar lista",
   "loadingText": "carregando ... ",
-  "refreshViewText": "Atualizar",
+  "refreshViewText": "atualizar",
   "itemOfCountText": " ${0} de ${1}",
   "totalCountText": " (${0})",
   "titleText": "Visualização Relacionada"
@@ -661,13 +661,13 @@ localize("argos.Views.FileSelect", {
   "cancelText": "Cancelar",
   "selectFileText": "Selecionar arquivo",
   "loadingText": "Enviando ...",
-  "descriptionText": "Descrição",
+  "descriptionText": "descrição",
   "bytesText": "bytes",
   "notSupportedText": "A inclusão de anexos não é suportado pelo seu dispositivo."
 });
 
 localize("argos.Views.Signature", {
-  "titleText": "assinatura",
+  "titleText": "Assinatura",
   "clearCanvasText": "Apagar",
   "undoText": "Desfazer"
 });
@@ -680,9 +680,9 @@ localize("argos._DetailBase", {
   "editText": "Editar",
   "titleText": "Detalhe",
   "detailsText": "Detalhes",
-  "loadingText": "Carregando...",
+  "loadingText": "carregando...",
   "notAvailableText": "O dado solicitado não está disponível.",
-  "toggleCollapseText": "alternar expansão"
+  "toggleCollapseText": "alternar recolher"
 });
 
 localize("argos._EditBase", {
@@ -691,7 +691,7 @@ localize("argos._EditBase", {
   "validationSummaryText": "Resumo de Validação",
   "concurrencySummaryText": "Simultaneidade de Erro(s)",
   "detailsText": "Detalhes",
-  "loadingText": "Carregando...",
+  "loadingText": "carregando...",
   "errorText": {
     "general": "Ocorreu um erro no servidor enquanto solicitava dados.",
     "status": {
@@ -717,7 +717,7 @@ localize("argos._ListBase", {
   "cancelText": "Cancelar",
   "insertText": "Novo",
   "noDataText": "nenhum registro",
-  "loadingText": "Carregando..."
+  "loadingText": "carregando..."
 });
 
 localize("argos._PullToRefreshMixin", {
@@ -772,7 +772,7 @@ localize("crm.DefaultMetrics", {
 });
 
 localize("crm.Fields.AddressField", {
-  "lookupLabelText": "Editar",
+  "lookupLabelText": "editar",
   "emptyText": ""
 });
 
@@ -787,7 +787,7 @@ localize("crm.Fields.RecurrencesField", {
 
 localize("crm.FileManager", {
   "unableToUploadText": "Este navegador não suporta arquivos de APIs HTML5.",
-  "unknownSizeText": "Desconhecido",
+  "unknownSizeText": "desconhecido",
   "unknownErrorText": "Aviso: Ocorreu um erro e o arquivo falhou durante processo de upload.",
   "largeFileWarningText": "Aviso: Esta requisição excede o tamanho máximo definido pelo seu administrador e falhou durante processo de upload.",
   "percentCompleteText": "Carregando, favor aguardar..."
@@ -815,7 +815,7 @@ localize("crm.Validator", {
     "message": "O campo '${2}' deve ter um valor."
   },
   "name": {
-    "message": "O campo '${2}' deve ter o primeiro e o sobrenome especificados."
+    "message": "O campo '${2}' deve ter o primeiro nome e o sobrenome especificados."
   },
   "notEmpty": {
     "message": "O campo '${2}' não pode ser vazio."
@@ -845,18 +845,18 @@ localize("crm.Validator", {
 });
 
 localize("crm.Views.Account.Detail", {
-  "accountText": "Conta",
+  "accountText": "conta",
   "acctMgrText": "ger. conta",
-  "addressText": "Endereço",
-  "businessDescriptionText": "desc negócio",
-  "createDateText": "Data de Criação",
-  "createUserText": "Usuário de Criação",
-  "faxText": "Fax",
-  "importSourceText": "Origem do Lead",
-  "industryText": "Indústria",
-  "notesText": "Notas",
-  "ownerText": "Proprietário",
-  "phoneText": "Telefone",
+  "addressText": "endereço",
+  "businessDescriptionText": "descr. do negócio",
+  "createDateText": "data de criação",
+  "createUserText": "usuário de criação",
+  "faxText": "fax",
+  "importSourceText": "origem do lead",
+  "industryText": "indústria",
+  "notesText": "notas",
+  "ownerText": "proprietário",
+  "phoneText": "telefone",
   "activityTypeText": {
     "atPhoneCall": "Chamada Telefônica"
   },
@@ -871,13 +871,13 @@ localize("crm.Views.Account.Detail", {
   "relatedAddressesText": "Endereços",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos da Conta",
-  "statusText": "Status",
-  "subTypeText": "Sub-Tipo",
+  "statusText": "status",
+  "subTypeText": "subtipo",
   "titleText": "Conta",
-  "typeText": "Tipo",
-  "webText": "Web",
-  "scheduleActivityText": "Agendar Atividade",
-  "addNoteText": "Adicionar Nota",
+  "typeText": "tipo",
+  "webText": "web",
+  "scheduleActivityText": "Agendar atividade",
+  "addNoteText": "Adicionar nota",
   "moreDetailsText": "Mais Detalhes",
   "calledText": "Chamado ${0}"
 });
@@ -885,24 +885,24 @@ localize("crm.Views.Account.Detail", {
 localize("crm.Views.Account.Edit", {
   "accountStatusTitleText": "Status da Conta",
   "accountSubTypeTitleText": "Subtipo da Conta",
-  "accountText": "Conta",
+  "accountText": "conta",
   "accountTypeTitleText": "Tipo de Conta",
   "acctMgrText": "ger. conta",
-  "businessDescriptionText": "desc negócio",
+  "businessDescriptionText": "descr. do negócio",
   "businessDescriptionTitleText": "Descrição do Negócio",
-  "descriptionText": "Desc",
-  "faxText": "Fax",
-  "fullAddressText": "Endereço",
-  "importSourceText": "Origem do Lead",
-  "industryText": "Indústria",
+  "descriptionText": "descr.",
+  "faxText": "fax",
+  "fullAddressText": "endereço",
+  "importSourceText": "origem do lead",
+  "industryText": "indústria",
   "industryTitleText": "Indústria",
-  "ownerText": "Proprietário",
-  "phoneText": "Telefone",
-  "statusText": "Status",
-  "subTypeText": "Sub-Tipo",
+  "ownerText": "proprietário",
+  "phoneText": "telefone",
+  "statusText": "status",
+  "subTypeText": "subtipo",
   "titleText": "Conta",
-  "typeText": "Tipo",
-  "webText": "Web"
+  "typeText": "tipo",
+  "webText": "web"
 });
 
 localize("crm.Views.Account.List", {
@@ -926,11 +926,11 @@ localize("crm.Views.Activity.List", {
   "callText": "Chamada",
   "calledText": "Chamado",
   "addAttachmentActionText": "Adicionar Anexo",
-  "overdueText": "Vencido",
-  "alarmText": "Alarme",
+  "overdueText": "vencido",
+  "alarmText": "alarme",
   "touchedText": "alterado",
   "importantText": "importante",
-  "recurringText": "Recorrência",
+  "recurringText": "recorrência",
   "activityTypeText": {
     "atToDo": "Tarefa",
     "atPhoneCall": "Chamada Telefônica",
@@ -943,12 +943,12 @@ localize("crm.Views.Activity.List", {
   },
   "titleText": "Atividades",
   "hashTagQueriesText": {
-    "alarm": "Alarme",
-    "recurring": "Recorrência",
-    "timeless": "Duração Indeterminada",
-    "today": "Hoje",
+    "alarm": "alarme",
+    "recurring": "recorrência",
+    "timeless": "horário indeterminado",
+    "today": "hoje",
     "this-week": "esta-semana",
-    "yesterday": "Ontem"
+    "yesterday": "ontem"
   }
 });
 
@@ -964,31 +964,31 @@ localize("crm.Views.Activity.MyList", {
   "viewAccountActionText": "Conta",
   "viewOpportunityActionText": "Oportunidade",
   "hashTagQueriesText": {
-    "alarm": "Alarme",
+    "alarm": "alarme",
     "status-unconfirmed": "status-não-confirmado",
     "status-accepted": "status-aceito",
     "status-declined": "status-declinado",
-    "recurring": "Recorrência",
-    "timeless": "Duração Indeterminada",
-    "today": "Hoje",
+    "recurring": "recorrência",
+    "timeless": "horário indeterminado",
+    "today": "hoje",
     "this-week": "esta-semana",
-    "yesterday": "Ontem"
+    "yesterday": "ontem"
   }
 });
 
 localize("crm.Views.Activity.Recurring", {
-  "startingText": "Data Inicial",
-  "endingText": "Data Final",
+  "startingText": "data de início",
+  "endingText": "data de término",
   "repeatsText": "repetir",
-  "everyText": "Cada",
+  "everyText": "cada",
   "afterCompletionText": "após concluída",
   "singleWeekdayText": "dia útil",
   "weekdaysText": "dia(s) útil(eis)",
-  "dayText": "Dia",
-  "monthText": "Mês",
+  "dayText": "dia",
+  "monthText": "mês",
   "onText": "em",
   "occurrencesText": "ocorrências",
-  "summaryText": "Sumário",
+  "summaryText": "sumário",
   "weekDaysText": {
     "0": "Domingo",
     "1": "Segunda-Feira",
@@ -1013,7 +1013,7 @@ localize("crm.Views.Activity.Recurring", {
     "11": "Dezembro"
   },
   "frequencyOptionsText": {
-    "0": "Dias",
+    "0": "dias",
     "1": "semanas",
     "2": "meses",
     "3": "anos"
@@ -1021,7 +1021,7 @@ localize("crm.Views.Activity.Recurring", {
   "recurringFrequencyText": "Frequência da Recorrência",
   "yesText": "Sim",
   "noText": "Não",
-  "titleText": "recorrência"
+  "titleText": "Recorrência"
 });
 
 localize("crm.Views.Activity.TypesList", {
@@ -1037,51 +1037,51 @@ localize("crm.Views.Activity.TypesList", {
 });
 
 localize("crm.Views.AddAccountContact", {
-  "accountNameText": "Conta",
+  "accountNameText": "conta",
   "accountStatusTitleText": "Status da Conta",
   "accountSubTypeTitleText": "Subtipo da Conta",
   "accountText": "Conta",
   "accountTypeTitleText": "Tipo de Conta",
   "acctMgrText": "ger. conta",
-  "addressText": "Endereço",
+  "addressText": "endereço",
   "contactTitleText": "Cargo",
-  "descriptionText": "Descrição",
+  "descriptionText": "descrição",
   "detailsAccountText": "Informações da Conta",
   "detailsContactText": "Informações do Contato",
   "detailsText": "Informações do Contato / Conta",
-  "emailText": "E-mail",
-  "faxText": "Fax",
-  "homePhoneText": "Telefone Residencial",
-  "industryText": "Indústria",
-  "ownerText": "Proprietário",
-  "lastNameText": "Último",
-  "mobileText": "Celular",
-  "nameText": "Nome",
-  "statusText": "Status",
-  "subTypeText": "Sub-Tipo",
+  "emailText": "e-mail",
+  "faxText": "fax",
+  "homePhoneText": "telefone residencial",
+  "industryText": "indústria",
+  "ownerText": "proprietário",
+  "lastNameText": "sobrenome",
+  "mobileText": "celular",
+  "nameText": "nome",
+  "statusText": "status",
+  "subTypeText": "subtipo",
   "titleText": "Adicionar Conta / Contato",
-  "typeText": "Tipo",
-  "webText": "Web",
-  "phoneText": "Telefone",
-  "workText": "Telefone Comercial",
+  "typeText": "tipo",
+  "webText": "web",
+  "phoneText": "telefone",
+  "workText": "telefone comercial",
   "industryTitleText": "Indústria"
 });
 
 localize("crm.Views.Address.Edit", {
-  "address1Text": "Endereço 1",
-  "address2Text": "Endereço 2",
-  "address3Text": "Endereço 3",
-  "cityText": "Cidade",
+  "address1Text": "endereço 1",
+  "address2Text": "endereço 2",
+  "address3Text": "endereço 3",
+  "cityText": "cidade",
   "cityTitleText": "Cidade",
-  "countryText": "País",
+  "countryText": "país",
   "countryTitleText": "País",
-  "descriptionText": "Descrição",
+  "descriptionText": "descrição",
   "descriptionTitleText": "Descrição",
-  "isMailingText": "Enviar",
-  "isPrimaryText": "Primário",
-  "postalCodeText": "Postal",
-  "salutationText": "Atenção",
-  "stateText": "Estado",
+  "isMailingText": "envio",
+  "isPrimaryText": "principal",
+  "postalCodeText": "CEP",
+  "salutationText": "atenção",
+  "stateText": "estado",
   "stateTitleText": "Estado",
   "titleText": "Endereço"
 });
@@ -1115,7 +1115,7 @@ localize("crm.Views.Charts.GenericPie", {
 });
 
 localize("crm.Views.Charts._ChartMixin", {
-  "loadingText": "Carregando..."
+  "loadingText": "carregando..."
 });
 
 localize("crm.Views.Competitor.List", {
@@ -1131,17 +1131,17 @@ localize("crm.Views.Contact.Detail", {
     "atPhoneCall": "Chamada Telefônica",
     "atEMail": "E-mail"
   },
-  "accountText": "Conta",
+  "accountText": "conta",
   "acctMgrText": "ger. conta",
-  "addressText": "Endereço",
-  "contactTitleText": "Cargo",
-  "createDateText": "Data de Criação",
-  "createUserText": "Usuário de Criação",
-  "emailText": "E-mail",
-  "faxText": "Fax",
-  "homeText": "Telefone Residencial",
-  "nameText": "Contato",
-  "ownerText": "Proprietário",
+  "addressText": "endereço",
+  "contactTitleText": "cargo",
+  "createDateText": "data de criação",
+  "createUserText": "usuário de criação",
+  "emailText": "e-mail",
+  "faxText": "fax",
+  "homeText": "telefone residencial",
+  "nameText": "contato",
+  "ownerText": "proprietário",
   "actionsText": "Ações Rápidas",
   "relatedAccountsText": "Contas",
   "relatedActivitiesText": "Atividades",
@@ -1154,14 +1154,14 @@ localize("crm.Views.Contact.Detail", {
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos do Contato",
   "titleText": "Contato",
-  "webText": "Web",
-  "workText": "Telefone Comercial",
-  "cuisinePreferenceText": "Culinária",
+  "webText": "web",
+  "workText": "telefone comercial",
+  "cuisinePreferenceText": "culinária",
   "callMobileNumberText": "Ligar para o celular",
   "callWorkNumberText": "Ligar para o Comercial",
   "calledText": "Chamado",
-  "scheduleActivityText": "Agendar Atividade",
-  "addNoteText": "Adicionar Nota",
+  "scheduleActivityText": "Agendar atividade",
+  "addNoteText": "Adicionar nota",
   "sendEmailText": "Enviar e-mail",
   "viewAddressText": "Visualizar Endereços",
   "moreDetailsText": "Mais Detalhes"
@@ -1169,21 +1169,21 @@ localize("crm.Views.Contact.Detail", {
 
 localize("crm.Views.Contact.Edit", {
   "titleText": "Contato",
-  "nameText": "Nome",
-  "workText": "Telefone Comercial",
+  "nameText": "nome",
+  "workText": "telefone comercial",
   "mobileText": "telefone celular",
-  "emailText": "E-mail",
-  "webText": "Web",
+  "emailText": "e-mail",
+  "webText": "web",
   "acctMgrText": "ger. conta",
-  "accountNameText": "Conta",
-  "homePhoneText": "Telefone Residencial",
-  "faxText": "Fax",
-  "addressText": "Endereço",
-  "contactTitleText": "Cargo",
+  "accountNameText": "conta",
+  "homePhoneText": "telefone residencial",
+  "faxText": "fax",
+  "addressText": "endereço",
+  "contactTitleText": "cargo",
   "titleTitleText": "Cargo",
   "addressTitleText": "Endereço",
-  "ownerText": "Proprietário",
-  "cuisinePreferenceText": "Culinária",
+  "ownerText": "proprietário",
+  "cuisinePreferenceText": "culinária",
   "cuisinePreferenceTitleText": "Culinária"
 });
 
@@ -1195,7 +1195,7 @@ localize("crm.Views.Contact.List", {
   "editActionText": "Editar",
   "callMainActionText": "Ligar para o Tel. Principal",
   "callWorkActionText": "Ligar para o Comercial",
-  "callMobileActionText": "Ligar para o celular",
+  "callMobileActionText": "Ligar para o Celular",
   "sendEmailActionText": "E-mail",
   "viewAccountActionText": "Conta",
   "addNoteActionText": "Adicionar Nota",
@@ -1214,7 +1214,7 @@ localize("crm.Views.ExchangeRateLookup", {
 });
 
 localize("crm.Views.FooterToolbar", {
-  "copyrightText": "&copy; 2014 SalesLogix, NA, LLC. Todos os direitos reservados."
+  "copyrightText": "&cópia; 2014 SalesLogix, NA, LLC. Todos os direitos reservados."
 });
 
 localize("crm.Views.Groups.Selector", {
@@ -1246,35 +1246,35 @@ localize("crm.Views.Lead.Detail", {
     "atPhoneCall": "Chamada Telefônica",
     "atEMail": "E-mail"
   },
-  "accountText": "Empresa",
-  "addressText": "Endereço",
-  "businessDescriptionText": "desc negócio",
-  "createDateText": "Data de Criação",
-  "createUserText": "Usuário de Criação",
-  "eMailText": "E-mail",
-  "leadSourceText": "Origem do Lead",
-  "industryText": "Indústria",
-  "interestsText": "Interesses",
-  "leadTitleText": "Cargo",
-  "nameText": "Nome",
-  "notesText": "Comentários",
-  "ownerText": "Proprietário",
+  "accountText": "empresa",
+  "addressText": "endereço",
+  "businessDescriptionText": "descr. do negócio",
+  "createDateText": "data de criação",
+  "createUserText": "usuário de criação",
+  "eMailText": "e-mail",
+  "leadSourceText": "origem do lead",
+  "industryText": "indústria",
+  "interestsText": "interesses",
+  "leadTitleText": "cargo",
+  "nameText": "nome",
+  "notesText": "comentários",
+  "ownerText": "proprietário",
   "relatedActivitiesText": "Atividades",
   "relatedHistoriesText": "Notas/Histórico",
   "relatedItemsText": "Itens Relacionados",
   "relatedNotesText": "Notas",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos do Lead",
-  "sicCodeText": "Código SIC",
+  "sicCodeText": "código sic",
   "titleText": "Lead",
-  "tollFreeText": "Tel. Gratuito",
+  "tollFreeText": "telefone gratuito",
   "mobileText": "telefone celular",
-  "webText": "Web",
-  "workText": "Telefone Comercial",
+  "webText": "web",
+  "workText": "telefone comercial",
   "actionsText": "Ações Rápidas",
   "callWorkNumberText": "Ligar para o número principal",
-  "scheduleActivityText": "Agendar Atividade",
-  "addNoteText": "Adicionar Nota",
+  "scheduleActivityText": "Agendar atividade",
+  "addNoteText": "Adicionar nota",
   "sendEmailText": "Enviar e-mail",
   "viewAddressText": "Visualizar Endereços",
   "moreDetailsText": "Mais Detalhes",
@@ -1283,29 +1283,29 @@ localize("crm.Views.Lead.Detail", {
 });
 
 localize("crm.Views.Lead.Edit", {
-  "accountText": "Conta",
-  "addressText": "Endereço",
-  "businessText": "desc negócio",
+  "accountText": "conta",
+  "addressText": "endereço",
+  "businessText": "descr. do negócio",
   "businessTitleText": "Descrição do Negócio",
-  "companyText": "Empresa",
-  "contactTitleText": "Cargo",
-  "emailText": "E-mail",
-  "faxText": "Fax",
-  "importSourceText": "Origem do Lead",
-  "industryText": "Indústria",
+  "companyText": "empresa",
+  "contactTitleText": "cargo",
+  "emailText": "e-mail",
+  "faxText": "fax",
+  "importSourceText": "origem do lead",
+  "industryText": "indústria",
   "industryTitleText": "Indústria",
-  "interestsText": "Interesses",
-  "leadNameLastFirstText": "Nome",
-  "leadOwnerText": "Proprietário",
-  "nameText": "Nome",
-  "notesText": "Comentários",
+  "interestsText": "interesses",
+  "leadNameLastFirstText": "nome",
+  "leadOwnerText": "proprietário",
+  "nameText": "nome",
+  "notesText": "comentários",
   "notesTitleText": "Comentários",
-  "sicCodeText": "Código SIC",
+  "sicCodeText": "código sic",
   "titleText": "Lead",
   "titleTitleText": "Cargo",
-  "tollFreeText": "Tel. Gratuito",
-  "webText": "Web",
-  "workText": "Telefone Comercial",
+  "tollFreeText": "telefone gratuito",
+  "webText": "web",
+  "workText": "telefone comercial",
   "mobileText": "telefone celular"
 });
 
@@ -1317,7 +1317,7 @@ localize("crm.Views.Lead.List", {
   "emailedText": "E-mail enviado ${0}",
   "calledText": "Chamado ${0}",
   "editActionText": "Editar",
-  "callMobileActionText": "Ligar para o celular",
+  "callMobileActionText": "Ligar para o Celular",
   "callWorkActionText": "Ligar para o Comercial",
   "sendEmailActionText": "E-mail",
   "addNoteActionText": "Adicionar Nota",
@@ -1352,12 +1352,12 @@ localize("crm.Views.LogOff", {
 });
 
 localize("crm.Views.Login", {
-  "copyrightText": "Copyright © 2015 Infor. Todos os direitos reservados. www.infor.com",
+  "copyrightText": "Direitos Autorais &cópia; 2015 Infor. Todos os direitos reservados. www.infor.com",
   "logOnText": "Iniciar Sessão",
   "passText": "Senha",
   "rememberText": "Lembrar-se de mim",
   "titleText": "Iniciar Sessão",
-  "userText": "Id Usuário",
+  "userText": "ID de Usuário",
   "invalidUserText": "O nome de usuário ou senha estão inválidos.",
   "missingUserText": "O registro de usuário não foi encontrado.",
   "requestAbortedText": "A requisição foi abortada.",
@@ -1366,13 +1366,13 @@ localize("crm.Views.Login", {
 
 localize("crm.Views.MetricConfigure", {
   "titleText": "Configurar Métrica",
-  "metricTitleText": "Cargo",
-  "metricFilterText": "Filter",
-  "metricText": "Métrica",
+  "metricTitleText": "cargo",
+  "metricFilterText": "filtro",
+  "metricText": "métrica",
   "chartTypeText": "tipo de gráfico",
-  "advancedText": "Opções Avançadas",
+  "advancedText": "opções avançadas",
   "formatterText": "formatado",
-  "aggregateText": "Agregado",
+  "aggregateText": "agregado",
   "reportViewText": "id de visualização do gráfico"
 });
 
@@ -1381,18 +1381,18 @@ localize("crm.Views.MetricFilterLookup", {
 });
 
 localize("crm.Views.MetricWidget", {
-  "loadingText": "Carregando...",
+  "loadingText": "carregando...",
   "errorText": "Erro ao carregar o widget."
 });
 
 localize("crm.Views.NameEdit", {
   "titleText": "Editar Nome",
-  "firstNameText": "Primeiro",
-  "middleNameText": "meio",
-  "lastNameText": "Último",
-  "prefixText": "Prefixo",
+  "firstNameText": "primeiro nome",
+  "middleNameText": "segundo nome",
+  "lastNameText": "sobrenome",
+  "prefixText": "prefixo",
   "prefixTitleText": "Prefixo",
-  "suffixText": "Sufixo",
+  "suffixText": "sufixo",
   "suffixTitleText": "Sufixo do Nome"
 });
 
@@ -1409,7 +1409,7 @@ localize("crm.Views.Opportunity.List", {
   "addActivityActionText": "Adicionar Atividade",
   "addAttachmentActionText": "Adicionar Anexo",
   "actualCloseText": "Fechada ",
-  "estimatedCloseText": "Fechamento Estimado ",
+  "estimatedCloseText": "Estimativa de fechamento ",
   "quickEditActionText": "Edição Rápida"
 });
 
@@ -1417,28 +1417,28 @@ localize("crm.Views.Opportunity.QuickEdit", {
   "estCloseText": "estimativa de fechamento",
   "detailsText": "Detalhes",
   "opportunityStageTitleText": "Etapa da Oportunidade",
-  "opportunityText": "Oportunidade",
-  "stageText": "Estágio",
+  "opportunityText": "oportunidade",
+  "stageText": "estágio",
   "statusOpenText": "Aberta",
   "statusClosedLostText": "Fechada - Perdida",
   "statusClosedWonText": "Fechada - Ganha",
   "salesProcessText": "etapa bloqueada pelo processo de vendas:",
   "probabilityText": "prob. de fechamento",
   "probabilityTitleText": "Probabilidade da Oportunidade",
-  "potentialText": "Potencial de Vendas"
+  "potentialText": "potencial de vendas"
 });
 
 localize("crm.Views.OpportunityContact.Detail", {
   "titleText": "Contato da Oportunidade",
-  "accountText": "Conta",
-  "contactTitleText": "Cargo",
-  "nameText": "Contato",
+  "accountText": "conta",
+  "contactTitleText": "cargo",
+  "nameText": "contato",
   "moreDetailsText": "Mais Detalhes",
-  "salesRoleText": "Função",
-  "strategyText": "Estratégia",
+  "salesRoleText": "função",
+  "strategyText": "estratégia",
   "personalBenefitsText": "benefícios pessoais",
-  "standingText": "Posicionamento",
-  "issuesText": "Problemas",
+  "standingText": "posicionamento",
+  "issuesText": "ocorrências",
   "competitorNameText": "concorrente principal",
   "removeContactTitleText": "Remover Contato",
   "confirmDeleteText": "Remover \"${0}\" da oportunidade?",
@@ -1447,15 +1447,15 @@ localize("crm.Views.OpportunityContact.Detail", {
 
 localize("crm.Views.OpportunityContact.Edit", {
   "titleText": "Editar Contato da Oport.",
-  "nameText": "Nome",
-  "accountNameText": "Conta",
-  "contactTitleText": "Cargo",
-  "salesRoleText": "Função",
+  "nameText": "nome",
+  "accountNameText": "conta",
+  "contactTitleText": "cargo",
+  "salesRoleText": "função",
   "salesRoleTitleText": "Função",
   "personalBenefitsText": "benefícios pessoais",
-  "strategyText": "Estratégia",
-  "issuesText": "Problemas",
-  "standingText": "Posicionamento",
+  "strategyText": "estratégia",
+  "issuesText": "ocorrências",
+  "standingText": "posicionamento",
   "standingTitleText": "Posicionamento",
   "contactText": "Contato",
   "competitorPrefText": "concorrente principal"
@@ -1471,21 +1471,21 @@ localize("crm.Views.OpportunityContact.List", {
 
 localize("crm.Views.OpportunityProduct.Detail", {
   "detailsText": "Detalhes",
-  "opportunityText": "Oportunidade",
-  "productText": "Produto",
-  "productFamilyText": "Família do Produto",
-  "priceLevelText": "Tipo de Preço",
-  "priceText": "Preço",
-  "basePriceText": "Preço Base",
-  "discountText": "Desconto",
-  "quantityText": "Quantidade",
-  "baseExtendedPriceText": "Base",
-  "extendedPriceText": "Preço Estendido",
+  "opportunityText": "oportunidade",
+  "productText": "produto",
+  "productFamilyText": "família do produto",
+  "priceLevelText": "nível de preço",
+  "priceText": "preço",
+  "basePriceText": "preço base",
+  "discountText": "desconto",
+  "quantityText": "quantidade",
+  "baseExtendedPriceText": "base",
+  "extendedPriceText": "preço estendido",
   "extendedPriceSectionText": "Preço Estendido",
   "adjustedPriceSectionText": "Preço Ajustado",
-  "baseAdjustedPriceText": "Base",
-  "adjustedPriceText": "Preço Ajustado",
-  "myAdjustedPriceText": "Usuário",
+  "baseAdjustedPriceText": "base",
+  "adjustedPriceText": "preço ajustado",
+  "myAdjustedPriceText": "usuário",
   "confirmDeleteText": "Remover ${0} dos produtos da oportunidade?",
   "removeOppProductTitleText": "remover produto da oportunidade"
 });
@@ -1493,19 +1493,19 @@ localize("crm.Views.OpportunityProduct.Detail", {
 localize("crm.Views.OpportunityProduct.Edit", {
   "titleText": "Produto da Oportunidade",
   "detailsText": "Detalhes",
-  "opportunityText": "Oportunidade",
-  "productText": "Produto",
-  "productFamilyText": "Família do Produto",
-  "priceLevelText": "Tipo de Preço",
-  "priceText": "Preço",
-  "basePriceText": "Preço Base",
+  "opportunityText": "oportunidade",
+  "productText": "produto",
+  "productFamilyText": "família do produto",
+  "priceLevelText": "nível de preço",
+  "priceText": "preço",
+  "basePriceText": "preço base",
   "discountText": "desconto %",
-  "adjustedPriceText": "Preço Ajustado",
-  "myAdjustedPriceText": "Usuário",
-  "baseAdjustedPriceText": "Base",
-  "quantityText": "Quantidade",
-  "baseExtendedPriceText": "Base",
-  "extendedPriceText": "Preço Estendido",
+  "adjustedPriceText": "preço ajustado",
+  "myAdjustedPriceText": "usuário",
+  "baseAdjustedPriceText": "base",
+  "quantityText": "quantidade",
+  "baseExtendedPriceText": "base",
+  "extendedPriceText": "preço estendido",
   "extendedPriceSectionText": "Preço Estendido",
   "adjustedPriceSectionText": "Preço Ajustado"
 });
@@ -1531,7 +1531,7 @@ localize("crm.Views.Settings", {
   "clearAuthenticationTitleText": "Limpar Credenciais Salvas",
   "errorLogTitleText": "Visualizar Logs de Erro",
   "localStorageClearedText": "Dados locais excluídos com sucesso.",
-  "credentialsClearedText": "Alteração efetuada com sucesso.",
+  "credentialsClearedText": "Credenciais salvas com sucesso.",
   "titleText": "Definições"
 });
 
@@ -1553,68 +1553,68 @@ localize("crm.Views.TextEdit", {
 });
 
 localize("crm.Views.Ticket.Detail", {
-  "accountText": "Conta",
-  "areaText": "Área",
-  "assignedDateText": "Atribuído na Data",
-  "assignedToText": "Atribuído á",
-  "completedByText": "Concluído Por",
-  "categoryText": "Categoria",
-  "contactText": "Contato",
-  "contractText": "Contrato",
-  "descriptionText": "Desc",
-  "issueText": "Problema",
-  "needByText": "Data Requerida",
-  "notesText": "Comentários",
-  "phoneText": "Telefone",
+  "accountText": "conta",
+  "areaText": "área",
+  "assignedDateText": "data de atribuição",
+  "assignedToText": "atribuído a",
+  "completedByText": "concluído por",
+  "categoryText": "categoria",
+  "contactText": "contato",
+  "contractText": "contrato",
+  "descriptionText": "descr.",
+  "issueText": "ocorrência",
+  "needByText": "data requerida",
+  "notesText": "comentários",
+  "phoneText": "telefone",
   "actionsText": "Ações Rápidas",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos de Ticket",
   "relatedActivitiesText": "Atividades",
   "relatedItemsText": "Itens Relacionados",
-  "resolutionText": "Resolução",
-  "sourceText": "Origem",
-  "statusText": "Status",
-  "subjectText": "Assunto",
-  "ticketIdText": "Número Ticket",
+  "resolutionText": "resolução",
+  "sourceText": "origem",
+  "statusText": "status",
+  "subjectText": "assunto",
+  "ticketIdText": "número do ticket",
   "titleText": "Ticket",
-  "urgencyText": "Urgência",
-  "scheduleActivityText": "Agendar Atividade",
+  "urgencyText": "urgência",
+  "scheduleActivityText": "Agendar atividade",
   "moreDetailsText": "Mais Detalhes",
   "relatedTicketActivitiesText": "Atividades do Ticket",
-  "loadingText": "Carregando..."
+  "loadingText": "carregando..."
 });
 
 localize("crm.Views.Ticket.Edit", {
   "accountText": "conta",
-  "areaText": "Área",
-  "assignedDateText": "Atribuído na Data",
-  "assignedToText": "Atribuído á",
-  "categoryText": "Categoria",
-  "contactText": "Contato",
-  "contractText": "Contrato",
-  "descriptionText": "Desc",
+  "areaText": "área",
+  "assignedDateText": "data de atribuição",
+  "assignedToText": "atribuído a",
+  "categoryText": "categoria",
+  "contactText": "contato",
+  "contractText": "contrato",
+  "descriptionText": "descr.",
   "descriptionTitleText": "Descrição",
-  "issueText": "Problema",
-  "needByText": "Data Requerida",
-  "notesText": "Comentários",
+  "issueText": "ocorrência",
+  "needByText": "data requerida",
+  "notesText": "comentários",
   "notesTitleText": "Comentários",
-  "phoneText": "Telefone",
+  "phoneText": "telefone",
   "relatedActivitiesText": "Atividades",
   "relatedItemsText": "Itens Relacionados",
-  "resolutionText": "Resolução",
+  "resolutionText": "resolução",
   "resolutionTitleText": "Resolução",
-  "sourceText": "Origem",
+  "sourceText": "origem",
   "sourceTitleText": "Origem",
-  "statusText": "Status",
-  "subjectText": "Assunto",
+  "statusText": "status",
+  "subjectText": "assunto",
   "ticketAreaTitleText": "Área do Ticket",
   "ticketCategoryTitleText": "Categoria do Ticket",
-  "ticketIdText": "Número Ticket",
+  "ticketIdText": "número do ticket",
   "ticketIssueTitleText": "Ocorrência do Ticket",
   "ticketStatusTitleText": "Status do Ticket",
   "ticketUrgencyTitleText": "Urgência do Ticket",
   "titleText": "Ticket",
-  "urgencyText": "Urgência"
+  "urgencyText": "urgência"
 });
 
 localize("crm.Views.Ticket.List", {
@@ -1641,23 +1641,23 @@ localize("crm.Views.Ticket.UrgencyLookup", {
 
 localize("crm.Views.TicketActivity.Detail", {
   "titleText": "Atividade do Ticket",
-  "accountText": "Conta",
-  "contactText": "Contato",
-  "typeText": "Tipo",
-  "publicAccessText": "Acesso Público",
-  "assignedDateText": "Data Inicial",
-  "completedDateText": "Data Final",
-  "followUpText": "Follow Up",
-  "unitsText": "Unidades de Tempo",
-  "elapsedUnitsText": "Horas Decorridas",
+  "accountText": "conta",
+  "contactText": "contato",
+  "typeText": "tipo",
+  "publicAccessText": "acesso público",
+  "assignedDateText": "data de início",
+  "completedDateText": "data de término",
+  "followUpText": "acompanhamento",
+  "unitsText": "unidades de tempo",
+  "elapsedUnitsText": "horas decorridas",
   "rateTypeDescriptionText": "tipo de cobrança",
-  "rateText": "Taxa",
-  "totalLaborText": "Total Trabalho",
-  "totalPartsText": "Total Partes",
-  "totalFeeText": "Total Honorários",
-  "activityDescriptionText": "Comentários",
-  "ticketNumberText": "Número Ticket",
-  "userText": "Usuário",
+  "rateText": "câmbio",
+  "totalLaborText": "total de mão-de-obra",
+  "totalPartsText": "total de peças",
+  "totalFeeText": "total de taxas",
+  "activityDescriptionText": "comentários",
+  "ticketNumberText": "número do ticket",
+  "userText": "usuário",
   "completeTicketText": "Completar Atividades do Ticket",
   "moreDetailsText": "Mais Detalhes",
   "relatedItemsText": "Itens Relacionados",
@@ -1670,11 +1670,11 @@ localize("crm.Views.TicketActivity.RateLookup", {
 
 localize("crm.Views.TicketActivityItem.Detail", {
   "titleText": "Peça da Atividade do Ticket",
-  "productNameText": "Produto",
+  "productNameText": "produto",
   "skuText": "SKU",
-  "serialNumberText": "Serial #",
-  "itemAmountText": "Preço",
-  "itemDescriptionText": "Descrição"
+  "serialNumberText": "nº de série",
+  "itemAmountText": "preço",
+  "itemDescriptionText": "descrição"
 });
 
 localize("crm.Views.TicketActivityItem.List", {

@@ -29,7 +29,7 @@
   </data>
   <data class="argos.Calendar" property="monthsShortText[4]" type="text">
     <description/>
-    <value>Maio</value>
+    <value>Mai</value>
   </data>
   <data class="argos.Calendar" property="monthsShortText[5]" type="text">
     <description/>
@@ -85,15 +85,15 @@
   </data>
   <data class="argos.Fields.DurationField" property="autoCompleteText[1]" type="text">
     <description/>
-    <value>Minuto(s)</value>
+    <value>minuto(s)</value>
   </data>
   <data class="argos.Fields.DurationField" property="autoCompleteText[60]" type="text">
     <description/>
-    <value>Hora(s)</value>
+    <value>hora(s)</value>
   </data>
   <data class="argos.Fields.DurationField" property="autoCompleteText[1440]" type="text">
     <description/>
-    <value>Dia(s)</value>
+    <value>dia(s)</value>
   </data>
   <data class="argos.Fields.DurationField" property="autoCompleteText[10080]" type="text">
     <description/>
@@ -105,7 +105,7 @@
   </data>
   <data class="argos.Fields.EditorField" property="lookupLabelText" type="text">
     <description/>
-    <value>Editar</value>
+    <value>editar</value>
   </data>
   <data class="argos.Fields.EditorField" property="lookupText" type="text">
     <description/>
@@ -117,7 +117,7 @@
   </data>
   <data class="argos.Fields.EditorField" property="completeText" type="text">
     <description/>
-    <value>OK</value>
+    <value>Ok</value>
   </data>
   <data class="argos.Fields.LookupField" property="dependentErrorText" type="text">
     <description/>
@@ -133,7 +133,7 @@
   </data>
   <data class="argos.Fields.LookupField" property="lookupLabelText" type="text">
     <description/>
-    <value>Pesquisa</value>
+    <value>pesquisa</value>
   </data>
   <data class="argos.Fields.LookupField" property="lookupText" type="text">
     <description/>
@@ -165,7 +165,7 @@
   </data>
   <data class="argos.Format" property="hoursText" type="text">
     <description/>
-    <value>Horas</value>
+    <value>horas</value>
   </data>
   <data class="argos.Format" property="hourText" type="text">
     <description/>
@@ -173,7 +173,7 @@
   </data>
   <data class="argos.Format" property="minutesText" type="text">
     <description/>
-    <value>Minutos</value>
+    <value>minutos</value>
   </data>
   <data class="argos.Format" property="minuteText" type="text">
     <description/>
@@ -185,7 +185,7 @@
   </data>
   <data class="argos.GroupedList" property="toggleCollapseText" type="text">
     <description/>
-    <value>alternar expansão</value>
+    <value>alternar recolher</value>
   </data>
   <data class="argos.Groups.DateTimeSection" property="displayNameText" type="text">
     <description/>
@@ -229,11 +229,11 @@
   </data>
   <data class="argos.Groups.DateTimeSection" property="lastWeekText" type="text">
     <description/>
-    <value>Última Semana</value>
+    <value>Última semana</value>
   </data>
   <data class="argos.Groups.DateTimeSection" property="lastMonthText" type="text">
     <description/>
-    <value>Último Mês</value>
+    <value>Último mês</value>
   </data>
   <data class="argos.Groups.DateTimeSection" property="pastYearText" type="text">
     <description/>
@@ -241,15 +241,15 @@
   </data>
   <data class="argos.Groups.DateTimeSection" property="nextYearText" type="text">
     <description/>
-    <value>Próximo Ano</value>
+    <value>Próximo ano</value>
   </data>
   <data class="argos.Groups.DateTimeSection" property="nextMonthText" type="text">
     <description/>
-    <value>Próximo Mês</value>
+    <value>Próximo mês</value>
   </data>
   <data class="argos.Groups.DateTimeSection" property="nextWeekText" type="text">
     <description/>
-    <value>Próxima Semana</value>
+    <value>Próxima semana</value>
   </data>
   <data class="argos.Groups.DateTimeSection" property="futureText" type="text">
     <description/>
@@ -301,7 +301,7 @@
   </data>
   <data class="argos.RelatedViewWidget" property="refreshViewText" type="text">
     <description/>
-    <value>Atualizar</value>
+    <value>atualizar</value>
   </data>
   <data class="argos.RelatedViewWidget" property="itemOfCountText" type="text">
     <description/>
@@ -357,7 +357,7 @@
   </data>
   <data class="argos.Views.FileSelect" property="descriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="argos.Views.FileSelect" property="bytesText" type="text">
     <description/>
@@ -369,7 +369,7 @@
   </data>
   <data class="argos.Views.Signature" property="titleText" type="text">
     <description/>
-    <value>assinatura</value>
+    <value>Assinatura</value>
   </data>
   <data class="argos.Views.Signature" property="clearCanvasText" type="text">
     <description/>
@@ -397,7 +397,7 @@
   </data>
   <data class="argos._DetailBase" property="loadingText" type="text">
     <description/>
-    <value>Carregando...</value>
+    <value>carregando...</value>
   </data>
   <data class="argos._DetailBase" property="notAvailableText" type="text">
     <description/>
@@ -405,7 +405,7 @@
   </data>
   <data class="argos._DetailBase" property="toggleCollapseText" type="text">
     <description/>
-    <value>alternar expansão</value>
+    <value>alternar recolher</value>
   </data>
   <data class="argos._EditBase" property="saveText" type="text">
     <description/>
@@ -429,7 +429,7 @@
   </data>
   <data class="argos._EditBase" property="loadingText" type="text">
     <description/>
-    <value>Carregando...</value>
+    <value>carregando...</value>
   </data>
   <data class="argos._EditBase" property="errorText[general]" type="text">
     <description/>
@@ -485,7 +485,7 @@
   </data>
   <data class="argos._ListBase" property="loadingText" type="text">
     <description/>
-    <value>Carregando...</value>
+    <value>carregando...</value>
   </data>
   <data class="argos._PullToRefreshMixin" property="pullRefreshText" type="text">
     <description/>
@@ -573,7 +573,7 @@
   </data>
   <data class="crm.Fields.AddressField" property="lookupLabelText" type="text">
     <description/>
-    <value>Editar</value>
+    <value>editar</value>
   </data>
   <data class="crm.Fields.AddressField" property="emptyText" type="text">
     <description/>
@@ -597,7 +597,7 @@
   </data>
   <data class="crm.FileManager" property="unknownSizeText" type="text">
     <description/>
-    <value>Desconhecido</value>
+    <value>desconhecido</value>
   </data>
   <data class="crm.FileManager" property="unknownErrorText" type="text">
     <description/>
@@ -641,7 +641,7 @@
   </data>
   <data class="crm.Recurrence" property="daysText" type="text">
     <description/>
-    <value>Dias</value>
+    <value>dias</value>
   </data>
   <data class="crm.Recurrence" property="dailyText" type="text">
     <description/>
@@ -733,11 +733,11 @@
   </data>
   <data class="crm.Recurrence" property="ordText[0]" type="text">
     <description/>
-    <value>Dia</value>
+    <value>dia</value>
   </data>
   <data class="crm.Recurrence" property="ordText[1]" type="text">
     <description/>
-    <value>Primeiro</value>
+    <value>primeiro</value>
   </data>
   <data class="crm.Recurrence" property="ordText[2]" type="text">
     <description/>
@@ -753,7 +753,7 @@
   </data>
   <data class="crm.Recurrence" property="ordText[5]" type="text">
     <description/>
-    <value>Último</value>
+    <value>último</value>
   </data>
   <data class="crm.SpeedSearchWidget" property="searchText" type="text">
     <description/>
@@ -765,7 +765,7 @@
   </data>
   <data class="crm.Validator" property="name[message]" type="text">
     <description/>
-    <value>O campo '${2}' deve ter o primeiro e o sobrenome especificados.</value>
+    <value>O campo '${2}' deve ter o primeiro nome e o sobrenome especificados.</value>
   </data>
   <data class="crm.Validator" property="notEmpty[message]" type="text">
     <description/>
@@ -805,7 +805,7 @@
   </data>
   <data class="crm.Views.Account.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Account.Detail" property="acctMgrText" type="text">
     <description/>
@@ -813,43 +813,43 @@
   </data>
   <data class="crm.Views.Account.Detail" property="addressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.Account.Detail" property="businessDescriptionText" type="text">
     <description/>
-    <value>desc negócio</value>
+    <value>descr. do negócio</value>
   </data>
   <data class="crm.Views.Account.Detail" property="createDateText" type="text">
     <description/>
-    <value>Data de Criação</value>
+    <value>data de criação</value>
   </data>
   <data class="crm.Views.Account.Detail" property="createUserText" type="text">
     <description/>
-    <value>Usuário de Criação</value>
+    <value>usuário de criação</value>
   </data>
   <data class="crm.Views.Account.Detail" property="faxText" type="text">
     <description/>
-    <value>Fax</value>
+    <value>fax</value>
   </data>
   <data class="crm.Views.Account.Detail" property="importSourceText" type="text">
     <description/>
-    <value>Origem do Lead</value>
+    <value>origem do lead</value>
   </data>
   <data class="crm.Views.Account.Detail" property="industryText" type="text">
     <description/>
-    <value>Indústria</value>
+    <value>indústria</value>
   </data>
   <data class="crm.Views.Account.Detail" property="notesText" type="text">
     <description/>
-    <value>Notas</value>
+    <value>notas</value>
   </data>
   <data class="crm.Views.Account.Detail" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Account.Detail" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.Account.Detail" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -901,11 +901,11 @@
   </data>
   <data class="crm.Views.Account.Detail" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.Account.Detail" property="subTypeText" type="text">
     <description/>
-    <value>Sub-Tipo</value>
+    <value>subtipo</value>
   </data>
   <data class="crm.Views.Account.Detail" property="titleText" type="text">
     <description/>
@@ -913,19 +913,19 @@
   </data>
   <data class="crm.Views.Account.Detail" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Account.Detail" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.Account.Detail" property="scheduleActivityText" type="text">
     <description/>
-    <value>Agendar Atividade</value>
+    <value>Agendar atividade</value>
   </data>
   <data class="crm.Views.Account.Detail" property="addNoteText" type="text">
     <description/>
-    <value>Adicionar Nota</value>
+    <value>Adicionar nota</value>
   </data>
   <data class="crm.Views.Account.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -945,7 +945,7 @@
   </data>
   <data class="crm.Views.Account.Edit" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Account.Edit" property="accountTypeTitleText" type="text">
     <description/>
@@ -957,7 +957,7 @@
   </data>
   <data class="crm.Views.Account.Edit" property="businessDescriptionText" type="text">
     <description/>
-    <value>desc negócio</value>
+    <value>descr. do negócio</value>
   </data>
   <data class="crm.Views.Account.Edit" property="businessDescriptionTitleText" type="text">
     <description/>
@@ -965,23 +965,23 @@
   </data>
   <data class="crm.Views.Account.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Desc</value>
+    <value>descr.</value>
   </data>
   <data class="crm.Views.Account.Edit" property="faxText" type="text">
     <description/>
-    <value>Fax</value>
+    <value>fax</value>
   </data>
   <data class="crm.Views.Account.Edit" property="fullAddressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.Account.Edit" property="importSourceText" type="text">
     <description/>
-    <value>Origem do Lead</value>
+    <value>origem do lead</value>
   </data>
   <data class="crm.Views.Account.Edit" property="industryText" type="text">
     <description/>
-    <value>Indústria</value>
+    <value>indústria</value>
   </data>
   <data class="crm.Views.Account.Edit" property="industryTitleText" type="text">
     <description/>
@@ -989,19 +989,19 @@
   </data>
   <data class="crm.Views.Account.Edit" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Account.Edit" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.Account.Edit" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.Account.Edit" property="subTypeText" type="text">
     <description/>
-    <value>Sub-Tipo</value>
+    <value>subtipo</value>
   </data>
   <data class="crm.Views.Account.Edit" property="titleText" type="text">
     <description/>
@@ -1009,11 +1009,11 @@
   </data>
   <data class="crm.Views.Account.Edit" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Account.Edit" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.Account.List" property="titleText" type="text">
     <description/>
@@ -1069,35 +1069,35 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>ticket</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="companyText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="leadText" type="text">
     <description/>
-    <value>Lead</value>
+    <value>lead</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="asScheduledText" type="text">
     <description/>
-    <value>Agendamento</value>
+    <value>como agendado</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="categoryText" type="text">
     <description/>
-    <value>Categoria</value>
+    <value>categoria</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="categoryTitleText" type="text">
     <description/>
@@ -1105,7 +1105,7 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="completedText" type="text">
     <description/>
-    <value>Data de Conclusão</value>
+    <value>data de conclusão</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="completionText" type="text">
     <description/>
@@ -1113,7 +1113,7 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="durationText" type="text">
     <description/>
-    <value>Duração</value>
+    <value>duração</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="durationInvalidText" type="text">
     <description/>
@@ -1121,11 +1121,11 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="carryOverNotesText" type="text">
     <description/>
-    <value>Carregar Notas</value>
+    <value>transportar notas</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="followUpText" type="text">
     <description/>
-    <value>Follow-Up</value>
+    <value>acompanhamento</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="followUpTitleText" type="text">
     <description/>
@@ -1133,11 +1133,11 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="leaderText" type="text">
     <description/>
-    <value>Responsável</value>
+    <value>responsável</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="longNotesText" type="text">
     <description/>
-    <value>Notas</value>
+    <value>notas</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="longNotesTitleText" type="text">
     <description/>
@@ -1149,7 +1149,7 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="priorityText" type="text">
     <description/>
-    <value>Prioridade</value>
+    <value>prioridade</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="priorityTitleText" type="text">
     <description/>
@@ -1157,7 +1157,7 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="regardingText" type="text">
     <description/>
-    <value>Referência</value>
+    <value>referência</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="regardingTitleText" type="text">
     <description/>
@@ -1165,7 +1165,7 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="resultText" type="text">
     <description/>
-    <value>Resultado</value>
+    <value>resultado</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="resultTitleText" type="text">
     <description/>
@@ -1173,15 +1173,15 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="startingText" type="text">
     <description/>
-    <value>Data Inicial</value>
+    <value>data de início</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
-    <value>Duração Indeterminada</value>
+    <value>horário indeterminado</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="durationValueText[0]" type="text">
     <description/>
-    <value>Nenhum</value>
+    <value>nenhum</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="durationValueText[15]" type="text">
     <description/>
@@ -1261,39 +1261,39 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="locationText" type="text">
     <description/>
-    <value>Localização</value>
+    <value>localização</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="alarmText" type="text">
     <description/>
-    <value>Alarme</value>
+    <value>alarme</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="alarmTimeText" type="text">
     <description/>
-    <value>Alarme</value>
+    <value>alarme</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="categoryText" type="text">
     <description/>
-    <value>Categoria</value>
+    <value>categoria</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="durationText" type="text">
     <description/>
-    <value>Duração</value>
+    <value>duração</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="leaderText" type="text">
     <description/>
-    <value>Responsável</value>
+    <value>responsável</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="longNotesText" type="text">
     <description/>
-    <value>Notas</value>
+    <value>notas</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="priorityText" type="text">
     <description/>
-    <value>Prioridade</value>
+    <value>prioridade</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="regardingText" type="text">
     <description/>
-    <value>Referência</value>
+    <value>referência</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="rolloverText" type="text">
     <description/>
@@ -1301,7 +1301,7 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="startTimeText" type="text">
     <description/>
-    <value>Hora de Inicio</value>
+    <value>horário de início</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="allDayText" type="text">
     <description/>
@@ -1309,7 +1309,7 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="timelessText" type="text">
     <description/>
-    <value>Duração Indeterminada</value>
+    <value>horário indeterminado</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="titleText" type="text">
     <description/>
@@ -1317,31 +1317,31 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="companyText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="leadText" type="text">
     <description/>
-    <value>Lead</value>
+    <value>lead</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>ticket</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="whenText" type="text">
     <description/>
@@ -1373,7 +1373,7 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -1389,7 +1389,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="locationText" type="text">
     <description/>
-    <value>Localização</value>
+    <value>localização</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="activityTypeTitleText" type="text">
     <description/>
@@ -1397,7 +1397,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="alarmText" type="text">
     <description/>
-    <value>Alarme</value>
+    <value>alarme</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="reminderText" type="text">
     <description/>
@@ -1405,11 +1405,11 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="categoryText" type="text">
     <description/>
-    <value>Categoria</value>
+    <value>categoria</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="durationText" type="text">
     <description/>
-    <value>Duração</value>
+    <value>duração</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="durationTitleText" type="text">
     <description/>
@@ -1429,11 +1429,11 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="leaderText" type="text">
     <description/>
-    <value>Responsável</value>
+    <value>responsável</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="longNotesText" type="text">
     <description/>
-    <value>Notas</value>
+    <value>notas</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="longNotesTitleText" type="text">
     <description/>
@@ -1441,7 +1441,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="priorityText" type="text">
     <description/>
-    <value>Prioridade</value>
+    <value>prioridade</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="priorityTitleText" type="text">
     <description/>
@@ -1449,7 +1449,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="regardingText" type="text">
     <description/>
-    <value>Referência</value>
+    <value>referência</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="rolloverText" type="text">
     <description/>
@@ -1457,7 +1457,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="startingText" type="text">
     <description/>
-    <value>Hora de Inicio</value>
+    <value>horário de início</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="repeatsText" type="text">
     <description/>
@@ -1465,7 +1465,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="recurringText" type="text">
     <description/>
-    <value>Recorrência</value>
+    <value>recorrência</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="recurringTitleText" type="text">
     <description/>
@@ -1473,7 +1473,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="timelessText" type="text">
     <description/>
-    <value>Duração Indeterminada</value>
+    <value>horário indeterminado</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="titleText" type="text">
     <description/>
@@ -1481,31 +1481,31 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>ticket</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="companyText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="leadText" type="text">
     <description/>
-    <value>Lead</value>
+    <value>lead</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="isLeadText" type="text">
     <description/>
@@ -1513,15 +1513,15 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="yesText" type="text">
     <description/>
-    <value>Sim</value>
+    <value>SIM</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="noText" type="text">
     <description/>
-    <value>Não</value>
+    <value>NÃO</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="updateUserActErrorText" type="text">
     <description/>
@@ -1529,7 +1529,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="reminderValueText[0]" type="text">
     <description/>
-    <value>Nenhum</value>
+    <value>nenhum</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="reminderValueText[5]" type="text">
     <description/>
@@ -1553,7 +1553,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="durationValueText[0]" type="text">
     <description/>
-    <value>Nenhum</value>
+    <value>nenhum</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="durationValueText[15]" type="text">
     <description/>
@@ -1597,11 +1597,11 @@
   </data>
   <data class="crm.Views.Activity.List" property="overdueText" type="text">
     <description/>
-    <value>Vencido</value>
+    <value>vencido</value>
   </data>
   <data class="crm.Views.Activity.List" property="alarmText" type="text">
     <description/>
-    <value>Alarme</value>
+    <value>alarme</value>
   </data>
   <data class="crm.Views.Activity.List" property="touchedText" type="text">
     <description/>
@@ -1613,7 +1613,7 @@
   </data>
   <data class="crm.Views.Activity.List" property="recurringText" type="text">
     <description/>
-    <value>Recorrência</value>
+    <value>recorrência</value>
   </data>
   <data class="crm.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1653,19 +1653,19 @@
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[alarm]" type="text">
     <description/>
-    <value>Alarme</value>
+    <value>alarme</value>
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>Recorrência</value>
+    <value>recorrência</value>
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Duração Indeterminada</value>
+    <value>horário indeterminado</value>
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
-    <value>Hoje</value>
+    <value>hoje</value>
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[this-week]" type="text">
     <description/>
@@ -1673,7 +1673,7 @@
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[yesterday]" type="text">
     <description/>
-    <value>Ontem</value>
+    <value>ontem</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="titleText" type="text">
     <description/>
@@ -1717,7 +1717,7 @@
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[alarm]" type="text">
     <description/>
-    <value>Alarme</value>
+    <value>alarme</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[status-unconfirmed]" type="text">
     <description/>
@@ -1733,15 +1733,15 @@
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>Recorrência</value>
+    <value>recorrência</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Duração Indeterminada</value>
+    <value>horário indeterminado</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>
-    <value>Hoje</value>
+    <value>hoje</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[this-week]" type="text">
     <description/>
@@ -1749,15 +1749,15 @@
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[yesterday]" type="text">
     <description/>
-    <value>Ontem</value>
+    <value>ontem</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="startingText" type="text">
     <description/>
-    <value>Data Inicial</value>
+    <value>data de início</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="endingText" type="text">
     <description/>
-    <value>Data Final</value>
+    <value>data de término</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="repeatsText" type="text">
     <description/>
@@ -1765,7 +1765,7 @@
   </data>
   <data class="crm.Views.Activity.Recurring" property="everyText" type="text">
     <description/>
-    <value>Cada</value>
+    <value>cada</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="afterCompletionText" type="text">
     <description/>
@@ -1781,11 +1781,11 @@
   </data>
   <data class="crm.Views.Activity.Recurring" property="dayText" type="text">
     <description/>
-    <value>Dia</value>
+    <value>dia</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="monthText" type="text">
     <description/>
-    <value>Mês</value>
+    <value>mês</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="onText" type="text">
     <description/>
@@ -1797,7 +1797,7 @@
   </data>
   <data class="crm.Views.Activity.Recurring" property="summaryText" type="text">
     <description/>
-    <value>Sumário</value>
+    <value>sumário</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="weekDaysText[0]" type="text">
     <description/>
@@ -1877,7 +1877,7 @@
   </data>
   <data class="crm.Views.Activity.Recurring" property="frequencyOptionsText[0]" type="text">
     <description/>
-    <value>Dias</value>
+    <value>dias</value>
   </data>
   <data class="crm.Views.Activity.Recurring" property="frequencyOptionsText[1]" type="text">
     <description/>
@@ -1905,7 +1905,7 @@
   </data>
   <data class="crm.Views.Activity.Recurring" property="titleText" type="text">
     <description/>
-    <value>recorrência</value>
+    <value>Recorrência</value>
   </data>
   <data class="crm.Views.Activity.TypesList" property="titleText" type="text">
     <description/>
@@ -1937,7 +1937,7 @@
   </data>
   <data class="crm.Views.AddAccountContact" property="accountNameText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="accountStatusTitleText" type="text">
     <description/>
@@ -1961,7 +1961,7 @@
   </data>
   <data class="crm.Views.AddAccountContact" property="addressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="contactTitleText" type="text">
     <description/>
@@ -1969,7 +1969,7 @@
   </data>
   <data class="crm.Views.AddAccountContact" property="descriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="detailsAccountText" type="text">
     <description/>
@@ -1985,43 +1985,43 @@
   </data>
   <data class="crm.Views.AddAccountContact" property="emailText" type="text">
     <description/>
-    <value>E-mail</value>
+    <value>e-mail</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="faxText" type="text">
     <description/>
-    <value>Fax</value>
+    <value>fax</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="homePhoneText" type="text">
     <description/>
-    <value>Telefone Residencial</value>
+    <value>telefone residencial</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="industryText" type="text">
     <description/>
-    <value>Indústria</value>
+    <value>indústria</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Último</value>
+    <value>sobrenome</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
-    <value>Celular</value>
+    <value>celular</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="nameText" type="text">
     <description/>
-    <value>Nome</value>
+    <value>nome</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="subTypeText" type="text">
     <description/>
-    <value>Sub-Tipo</value>
+    <value>subtipo</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="titleText" type="text">
     <description/>
@@ -2029,19 +2029,19 @@
   </data>
   <data class="crm.Views.AddAccountContact" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="workText" type="text">
     <description/>
-    <value>Telefone Comercial</value>
+    <value>telefone comercial</value>
   </data>
   <data class="crm.Views.AddAccountContact" property="industryTitleText" type="text">
     <description/>
@@ -2049,19 +2049,19 @@
   </data>
   <data class="crm.Views.Address.Edit" property="address1Text" type="text">
     <description/>
-    <value>Endereço 1</value>
+    <value>endereço 1</value>
   </data>
   <data class="crm.Views.Address.Edit" property="address2Text" type="text">
     <description/>
-    <value>Endereço 2</value>
+    <value>endereço 2</value>
   </data>
   <data class="crm.Views.Address.Edit" property="address3Text" type="text">
     <description/>
-    <value>Endereço 3</value>
+    <value>endereço 3</value>
   </data>
   <data class="crm.Views.Address.Edit" property="cityText" type="text">
     <description/>
-    <value>Cidade</value>
+    <value>cidade</value>
   </data>
   <data class="crm.Views.Address.Edit" property="cityTitleText" type="text">
     <description/>
@@ -2069,7 +2069,7 @@
   </data>
   <data class="crm.Views.Address.Edit" property="countryText" type="text">
     <description/>
-    <value>País</value>
+    <value>país</value>
   </data>
   <data class="crm.Views.Address.Edit" property="countryTitleText" type="text">
     <description/>
@@ -2077,7 +2077,7 @@
   </data>
   <data class="crm.Views.Address.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="crm.Views.Address.Edit" property="descriptionTitleText" type="text">
     <description/>
@@ -2085,23 +2085,23 @@
   </data>
   <data class="crm.Views.Address.Edit" property="isMailingText" type="text">
     <description/>
-    <value>Enviar</value>
+    <value>envio</value>
   </data>
   <data class="crm.Views.Address.Edit" property="isPrimaryText" type="text">
     <description/>
-    <value>Primário</value>
+    <value>principal</value>
   </data>
   <data class="crm.Views.Address.Edit" property="postalCodeText" type="text">
     <description/>
-    <value>Postal</value>
+    <value>CEP</value>
   </data>
   <data class="crm.Views.Address.Edit" property="salutationText" type="text">
     <description/>
-    <value>Atenção</value>
+    <value>atenção</value>
   </data>
   <data class="crm.Views.Address.Edit" property="stateText" type="text">
     <description/>
-    <value>Estado</value>
+    <value>estado</value>
   </data>
   <data class="crm.Views.Address.Edit" property="stateTitleText" type="text">
     <description/>
@@ -2133,11 +2133,11 @@
   </data>
   <data class="crm.Views.Attachment.List" property="hashTagQueriesText[url]" type="text">
     <description/>
-    <value>Url</value>
+    <value>url</value>
   </data>
   <data class="crm.Views.Attachment.List" property="hashTagQueriesText[binary]" type="text">
     <description/>
-    <value>Binario</value>
+    <value>binário</value>
   </data>
   <data class="crm.Views.Attachment.MyAttachmentList" property="titleText" type="text">
     <description/>
@@ -2149,11 +2149,11 @@
   </data>
   <data class="crm.Views.Attachment.ViewAttachment" property="descriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="crm.Views.Attachment.ViewAttachment" property="fileNameText" type="text">
     <description/>
-    <value>Nome do Arquivo</value>
+    <value>nome do arquivo</value>
   </data>
   <data class="crm.Views.Attachment.ViewAttachment" property="attachDateText" type="text">
     <description/>
@@ -2161,11 +2161,11 @@
   </data>
   <data class="crm.Views.Attachment.ViewAttachment" property="fileSizeText" type="text">
     <description/>
-    <value>Tamanho do Arquivo</value>
+    <value>tamanho do arquivo</value>
   </data>
   <data class="crm.Views.Attachment.ViewAttachment" property="userText" type="text">
     <description/>
-    <value>Usuário</value>
+    <value>usuário</value>
   </data>
   <data class="crm.Views.Attachment.ViewAttachment" property="attachmentNotSupportedText" type="text">
     <description/>
@@ -2217,7 +2217,7 @@
   </data>
   <data class="crm.Views.Calendar.DayView" property="toggleCollapseText" type="text">
     <description/>
-    <value>alternar expansão</value>
+    <value>alternar recolher</value>
   </data>
   <data class="crm.Views.Calendar.MonthView" property="titleText" type="text">
     <description/>
@@ -2261,7 +2261,7 @@
   </data>
   <data class="crm.Views.Calendar.MonthView" property="toggleCollapseText" type="text">
     <description/>
-    <value>alternar expansão</value>
+    <value>alternar recolher</value>
   </data>
   <data class="crm.Views.Calendar.MonthView" property="weekDaysShortText[0]" type="text">
     <description/>
@@ -2313,7 +2313,7 @@
   </data>
   <data class="crm.Views.Calendar.WeekView" property="allDayText" type="text">
     <description/>
-    <value>dia inteiro</value>
+    <value>Dia Inteiro</value>
   </data>
   <data class="crm.Views.Calendar.WeekView" property="eventHeaderText" type="text">
     <description/>
@@ -2325,7 +2325,7 @@
   </data>
   <data class="crm.Views.Calendar.WeekView" property="toggleCollapseText" type="text">
     <description/>
-    <value>alternar expansão</value>
+    <value>alternar recolher</value>
   </data>
   <data class="crm.Views.Charts.GenericBar" property="titleText" type="text">
     <description/>
@@ -2341,7 +2341,7 @@
   </data>
   <data class="crm.Views.Charts._ChartMixin" property="loadingText" type="text">
     <description/>
-    <value>Carregando...</value>
+    <value>carregando...</value>
   </data>
   <data class="crm.Views.Competitor.List" property="titleText" type="text">
     <description/>
@@ -2361,7 +2361,7 @@
   </data>
   <data class="crm.Views.Contact.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="acctMgrText" type="text">
     <description/>
@@ -2369,39 +2369,39 @@
   </data>
   <data class="crm.Views.Contact.Detail" property="addressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="contactTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="createDateText" type="text">
     <description/>
-    <value>Data de Criação</value>
+    <value>data de criação</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="createUserText" type="text">
     <description/>
-    <value>Usuário de Criação</value>
+    <value>usuário de criação</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="emailText" type="text">
     <description/>
-    <value>E-mail</value>
+    <value>e-mail</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="faxText" type="text">
     <description/>
-    <value>Fax</value>
+    <value>fax</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="homeText" type="text">
     <description/>
-    <value>Telefone Residencial</value>
+    <value>telefone residencial</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="nameText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="actionsText" type="text">
     <description/>
@@ -2453,15 +2453,15 @@
   </data>
   <data class="crm.Views.Contact.Detail" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="workText" type="text">
     <description/>
-    <value>Telefone Comercial</value>
+    <value>telefone comercial</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
     <description/>
-    <value>Culinária</value>
+    <value>culinária</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="callMobileNumberText" type="text">
     <description/>
@@ -2477,11 +2477,11 @@
   </data>
   <data class="crm.Views.Contact.Detail" property="scheduleActivityText" type="text">
     <description/>
-    <value>Agendar Atividade</value>
+    <value>Agendar atividade</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="addNoteText" type="text">
     <description/>
-    <value>Adicionar Nota</value>
+    <value>Adicionar nota</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="sendEmailText" type="text">
     <description/>
@@ -2501,11 +2501,11 @@
   </data>
   <data class="crm.Views.Contact.Edit" property="nameText" type="text">
     <description/>
-    <value>Nome</value>
+    <value>nome</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="workText" type="text">
     <description/>
-    <value>Telefone Comercial</value>
+    <value>telefone comercial</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="mobileText" type="text">
     <description/>
@@ -2513,11 +2513,11 @@
   </data>
   <data class="crm.Views.Contact.Edit" property="emailText" type="text">
     <description/>
-    <value>E-mail</value>
+    <value>e-mail</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="acctMgrText" type="text">
     <description/>
@@ -2525,23 +2525,23 @@
   </data>
   <data class="crm.Views.Contact.Edit" property="accountNameText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="homePhoneText" type="text">
     <description/>
-    <value>Telefone Residencial</value>
+    <value>telefone residencial</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="faxText" type="text">
     <description/>
-    <value>Fax</value>
+    <value>fax</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="addressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="titleTitleText" type="text">
     <description/>
@@ -2553,11 +2553,11 @@
   </data>
   <data class="crm.Views.Contact.Edit" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="cuisinePreferenceText" type="text">
     <description/>
-    <value>Culinária</value>
+    <value>culinária</value>
   </data>
   <data class="crm.Views.Contact.Edit" property="cuisinePreferenceTitleText" type="text">
     <description/>
@@ -2593,7 +2593,7 @@
   </data>
   <data class="crm.Views.Contact.List" property="callMobileActionText" type="text">
     <description/>
-    <value>Ligar para o celular</value>
+    <value>Ligar para o Celular</value>
   </data>
   <data class="crm.Views.Contact.List" property="sendEmailActionText" type="text">
     <description/>
@@ -2637,15 +2637,15 @@
   </data>
   <data class="crm.Views.ErrorLog.Detail" property="errorDateText" type="text">
     <description/>
-    <value>Data</value>
+    <value>data</value>
   </data>
   <data class="crm.Views.ErrorLog.Detail" property="statusTextText" type="text">
     <description/>
-    <value>Erro</value>
+    <value>erro</value>
   </data>
   <data class="crm.Views.ErrorLog.Detail" property="urlText" type="text">
     <description/>
-    <value>Url</value>
+    <value>url</value>
   </data>
   <data class="crm.Views.ErrorLog.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -2653,7 +2653,7 @@
   </data>
   <data class="crm.Views.ErrorLog.Detail" property="errorText" type="text">
     <description/>
-    <value>Erro</value>
+    <value>erro</value>
   </data>
   <data class="crm.Views.ErrorLog.Detail" property="emailSubjectText" type="text">
     <description/>
@@ -2693,11 +2693,11 @@
   </data>
   <data class="crm.Views.Event.Detail" property="startTimeText" type="text">
     <description/>
-    <value>Data Inicial</value>
+    <value>data de início</value>
   </data>
   <data class="crm.Views.Event.Detail" property="endTimeText" type="text">
     <description/>
-    <value>Data Final</value>
+    <value>data de término</value>
   </data>
   <data class="crm.Views.Event.Detail" property="titleText" type="text">
     <description/>
@@ -2705,11 +2705,11 @@
   </data>
   <data class="crm.Views.Event.Detail" property="descriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="crm.Views.Event.Detail" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Event.Detail" property="whenText" type="text">
     <description/>
@@ -2721,19 +2721,19 @@
   </data>
   <data class="crm.Views.Event.Edit" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Event.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="crm.Views.Event.Edit" property="startDateText" type="text">
     <description/>
-    <value>Data Inicial</value>
+    <value>data de início</value>
   </data>
   <data class="crm.Views.Event.Edit" property="endDateText" type="text">
     <description/>
-    <value>Data Final</value>
+    <value>data de término</value>
   </data>
   <data class="crm.Views.Event.Edit" property="eventTypesText[Vacation]" type="text">
     <description/>
@@ -2765,7 +2765,7 @@
   </data>
   <data class="crm.Views.FooterToolbar" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. Todos os direitos reservados.</value>
+    <value>&amp;cópia; 2014 SalesLogix, NA, LLC. Todos os direitos reservados.</value>
   </data>
   <data class="crm.Views.Groups.Selector" property="titleText" type="text">
     <description/>
@@ -2785,23 +2785,23 @@
   </data>
   <data class="crm.Views.History.Detail" property="categoryText" type="text">
     <description/>
-    <value>Categoria</value>
+    <value>categoria</value>
   </data>
   <data class="crm.Views.History.Detail" property="completedText" type="text">
     <description/>
-    <value>Concluído</value>
+    <value>concluído</value>
   </data>
   <data class="crm.Views.History.Detail" property="durationText" type="text">
     <description/>
-    <value>Duração</value>
+    <value>duração</value>
   </data>
   <data class="crm.Views.History.Detail" property="leaderText" type="text">
     <description/>
-    <value>Responsável</value>
+    <value>responsável</value>
   </data>
   <data class="crm.Views.History.Detail" property="longNotesText" type="text">
     <description/>
-    <value>Notas</value>
+    <value>notas</value>
   </data>
   <data class="crm.Views.History.Detail" property="notesText" type="text">
     <description/>
@@ -2809,31 +2809,31 @@
   </data>
   <data class="crm.Views.History.Detail" property="priorityText" type="text">
     <description/>
-    <value>Prioridade</value>
+    <value>prioridade</value>
   </data>
   <data class="crm.Views.History.Detail" property="regardingText" type="text">
     <description/>
-    <value>Referência</value>
+    <value>referência</value>
   </data>
   <data class="crm.Views.History.Detail" property="completedByText" type="text">
     <description/>
-    <value>Concluído Por</value>
+    <value>concluído por</value>
   </data>
   <data class="crm.Views.History.Detail" property="scheduledText" type="text">
     <description/>
-    <value>Agendado</value>
+    <value>agendado</value>
   </data>
   <data class="crm.Views.History.Detail" property="timelessText" type="text">
     <description/>
-    <value>Duração Indeterminada</value>
+    <value>horário indeterminado</value>
   </data>
   <data class="crm.Views.History.Detail" property="companyText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.History.Detail" property="leadText" type="text">
     <description/>
-    <value>Lead</value>
+    <value>lead</value>
   </data>
   <data class="crm.Views.History.Detail" property="titleText" type="text">
     <description/>
@@ -2841,19 +2841,19 @@
   </data>
   <data class="crm.Views.History.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.History.Detail" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.History.Detail" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.History.Detail" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>ticket</value>
   </data>
   <data class="crm.Views.History.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -2873,11 +2873,11 @@
   </data>
   <data class="crm.Views.History.Detail" property="modifiedText" type="text">
     <description/>
-    <value>Modificado</value>
+    <value>modificado</value>
   </data>
   <data class="crm.Views.History.Detail" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.History.Detail" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -2909,7 +2909,7 @@
   </data>
   <data class="crm.Views.History.Edit" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.History.Edit" property="noteDescriptionTitleText" type="text">
     <description/>
@@ -2917,11 +2917,11 @@
   </data>
   <data class="crm.Views.History.Edit" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.History.Edit" property="longNotesText" type="text">
     <description/>
-    <value>Notas</value>
+    <value>notas</value>
   </data>
   <data class="crm.Views.History.Edit" property="longNotesTitleText" type="text">
     <description/>
@@ -2929,15 +2929,15 @@
   </data>
   <data class="crm.Views.History.Edit" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.History.Edit" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>ticket</value>
   </data>
   <data class="crm.Views.History.Edit" property="regardingText" type="text">
     <description/>
-    <value>Referência</value>
+    <value>referência</value>
   </data>
   <data class="crm.Views.History.Edit" property="isLeadText" type="text">
     <description/>
@@ -2945,7 +2945,7 @@
   </data>
   <data class="crm.Views.History.Edit" property="startingText" type="text">
     <description/>
-    <value>Hora</value>
+    <value>horário</value>
   </data>
   <data class="crm.Views.History.Edit" property="titleText" type="text">
     <description/>
@@ -2953,11 +2953,11 @@
   </data>
   <data class="crm.Views.History.Edit" property="companyText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.History.Edit" property="leadText" type="text">
     <description/>
-    <value>Lead</value>
+    <value>lead</value>
   </data>
   <data class="crm.Views.History.Edit" property="relatedItemsText" type="text">
     <description/>
@@ -2965,11 +2965,11 @@
   </data>
   <data class="crm.Views.History.Edit" property="yesText" type="text">
     <description/>
-    <value>Sim</value>
+    <value>SIM</value>
   </data>
   <data class="crm.Views.History.Edit" property="noText" type="text">
     <description/>
-    <value>Não</value>
+    <value>NÃO</value>
   </data>
   <data class="crm.Views.History.Edit" property="validationText" type="text">
     <description/>
@@ -3013,7 +3013,7 @@
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[note]" type="text">
     <description/>
-    <value>Nota</value>
+    <value>nota</value>
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[phonecall]" type="text">
     <description/>
@@ -3021,15 +3021,15 @@
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[meeting]" type="text">
     <description/>
-    <value>Reunião</value>
+    <value>reunião</value>
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[personal]" type="text">
     <description/>
-    <value>Pessoal</value>
+    <value>pessoal</value>
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[email]" type="text">
     <description/>
-    <value>E-mail</value>
+    <value>e-mail</value>
   </data>
   <data class="crm.Views.History.List" property="titleText" type="text">
     <description/>
@@ -3097,55 +3097,55 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="accountText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="addressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="businessDescriptionText" type="text">
     <description/>
-    <value>desc negócio</value>
+    <value>descr. do negócio</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="createDateText" type="text">
     <description/>
-    <value>Data de Criação</value>
+    <value>data de criação</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="createUserText" type="text">
     <description/>
-    <value>Usuário de Criação</value>
+    <value>usuário de criação</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="eMailText" type="text">
     <description/>
-    <value>E-mail</value>
+    <value>e-mail</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="leadSourceText" type="text">
     <description/>
-    <value>Origem do Lead</value>
+    <value>origem do lead</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="industryText" type="text">
     <description/>
-    <value>Indústria</value>
+    <value>indústria</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="interestsText" type="text">
     <description/>
-    <value>Interesses</value>
+    <value>interesses</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="leadTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="nameText" type="text">
     <description/>
-    <value>Nome</value>
+    <value>nome</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="notesText" type="text">
     <description/>
-    <value>Comentários</value>
+    <value>comentários</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -3173,7 +3173,7 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="sicCodeText" type="text">
     <description/>
-    <value>Código SIC</value>
+    <value>código sic</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="titleText" type="text">
     <description/>
@@ -3181,7 +3181,7 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="tollFreeText" type="text">
     <description/>
-    <value>Tel. Gratuito</value>
+    <value>telefone gratuito</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="mobileText" type="text">
     <description/>
@@ -3189,11 +3189,11 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="workText" type="text">
     <description/>
-    <value>Telefone Comercial</value>
+    <value>telefone comercial</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="actionsText" type="text">
     <description/>
@@ -3205,11 +3205,11 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="scheduleActivityText" type="text">
     <description/>
-    <value>Agendar Atividade</value>
+    <value>Agendar atividade</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="addNoteText" type="text">
     <description/>
-    <value>Adicionar Nota</value>
+    <value>Adicionar nota</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="sendEmailText" type="text">
     <description/>
@@ -3233,15 +3233,15 @@
   </data>
   <data class="crm.Views.Lead.Edit" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="addressText" type="text">
     <description/>
-    <value>Endereço</value>
+    <value>endereço</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="businessText" type="text">
     <description/>
-    <value>desc negócio</value>
+    <value>descr. do negócio</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="businessTitleText" type="text">
     <description/>
@@ -3249,27 +3249,27 @@
   </data>
   <data class="crm.Views.Lead.Edit" property="companyText" type="text">
     <description/>
-    <value>Empresa</value>
+    <value>empresa</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="emailText" type="text">
     <description/>
-    <value>E-mail</value>
+    <value>e-mail</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="faxText" type="text">
     <description/>
-    <value>Fax</value>
+    <value>fax</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="importSourceText" type="text">
     <description/>
-    <value>Origem do Lead</value>
+    <value>origem do lead</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="industryText" type="text">
     <description/>
-    <value>Indústria</value>
+    <value>indústria</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="industryTitleText" type="text">
     <description/>
@@ -3277,23 +3277,23 @@
   </data>
   <data class="crm.Views.Lead.Edit" property="interestsText" type="text">
     <description/>
-    <value>Interesses</value>
+    <value>interesses</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="leadNameLastFirstText" type="text">
     <description/>
-    <value>Nome</value>
+    <value>nome</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="leadOwnerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="nameText" type="text">
     <description/>
-    <value>Nome</value>
+    <value>nome</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="notesText" type="text">
     <description/>
-    <value>Comentários</value>
+    <value>comentários</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="notesTitleText" type="text">
     <description/>
@@ -3301,7 +3301,7 @@
   </data>
   <data class="crm.Views.Lead.Edit" property="sicCodeText" type="text">
     <description/>
-    <value>Código SIC</value>
+    <value>código sic</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="titleText" type="text">
     <description/>
@@ -3313,15 +3313,15 @@
   </data>
   <data class="crm.Views.Lead.Edit" property="tollFreeText" type="text">
     <description/>
-    <value>Tel. Gratuito</value>
+    <value>telefone gratuito</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="webText" type="text">
     <description/>
-    <value>Web</value>
+    <value>web</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="workText" type="text">
     <description/>
-    <value>Telefone Comercial</value>
+    <value>telefone comercial</value>
   </data>
   <data class="crm.Views.Lead.Edit" property="mobileText" type="text">
     <description/>
@@ -3357,7 +3357,7 @@
   </data>
   <data class="crm.Views.Lead.List" property="callMobileActionText" type="text">
     <description/>
-    <value>Ligar para o celular</value>
+    <value>Ligar para o Celular</value>
   </data>
   <data class="crm.Views.Lead.List" property="callWorkActionText" type="text">
     <description/>
@@ -3449,7 +3449,7 @@
   </data>
   <data class="crm.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>Copyright © 2015 Infor. Todos os direitos reservados. www.infor.com</value>
+    <value>Direitos Autorais &amp;cópia; 2015 Infor. Todos os direitos reservados. www.infor.com</value>
   </data>
   <data class="crm.Views.Login" property="logOnText" type="text">
     <description/>
@@ -3469,7 +3469,7 @@
   </data>
   <data class="crm.Views.Login" property="userText" type="text">
     <description/>
-    <value>Id Usuário</value>
+    <value>ID de Usuário</value>
   </data>
   <data class="crm.Views.Login" property="invalidUserText" type="text">
     <description/>
@@ -3493,15 +3493,15 @@
   </data>
   <data class="crm.Views.MetricConfigure" property="metricTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.MetricConfigure" property="metricFilterText" type="text">
     <description/>
-    <value>Filter</value>
+    <value>filtro</value>
   </data>
   <data class="crm.Views.MetricConfigure" property="metricText" type="text">
     <description/>
-    <value>Métrica</value>
+    <value>métrica</value>
   </data>
   <data class="crm.Views.MetricConfigure" property="chartTypeText" type="text">
     <description/>
@@ -3509,7 +3509,7 @@
   </data>
   <data class="crm.Views.MetricConfigure" property="advancedText" type="text">
     <description/>
-    <value>Opções Avançadas</value>
+    <value>opções avançadas</value>
   </data>
   <data class="crm.Views.MetricConfigure" property="formatterText" type="text">
     <description/>
@@ -3517,7 +3517,7 @@
   </data>
   <data class="crm.Views.MetricConfigure" property="aggregateText" type="text">
     <description/>
-    <value>Agregado</value>
+    <value>agregado</value>
   </data>
   <data class="crm.Views.MetricConfigure" property="reportViewText" type="text">
     <description/>
@@ -3529,7 +3529,7 @@
   </data>
   <data class="crm.Views.MetricWidget" property="loadingText" type="text">
     <description/>
-    <value>Carregando...</value>
+    <value>carregando...</value>
   </data>
   <data class="crm.Views.MetricWidget" property="errorText" type="text">
     <description/>
@@ -3541,19 +3541,19 @@
   </data>
   <data class="crm.Views.NameEdit" property="firstNameText" type="text">
     <description/>
-    <value>Primeiro</value>
+    <value>primeiro nome</value>
   </data>
   <data class="crm.Views.NameEdit" property="middleNameText" type="text">
     <description/>
-    <value>meio</value>
+    <value>segundo nome</value>
   </data>
   <data class="crm.Views.NameEdit" property="lastNameText" type="text">
     <description/>
-    <value>Último</value>
+    <value>sobrenome</value>
   </data>
   <data class="crm.Views.NameEdit" property="prefixText" type="text">
     <description/>
-    <value>Prefixo</value>
+    <value>prefixo</value>
   </data>
   <data class="crm.Views.NameEdit" property="prefixTitleText" type="text">
     <description/>
@@ -3561,7 +3561,7 @@
   </data>
   <data class="crm.Views.NameEdit" property="suffixText" type="text">
     <description/>
-    <value>Sufixo</value>
+    <value>sufixo</value>
   </data>
   <data class="crm.Views.NameEdit" property="suffixTitleText" type="text">
     <description/>
@@ -3585,23 +3585,23 @@
   </data>
   <data class="crm.Views.Opportunity.Detail" property="fbarHomeTitleText" type="text">
     <description/>
-    <value>Início</value>
+    <value>início</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="fbarScheduleTitleText" type="text">
     <description/>
-    <value>Agendar</value>
+    <value>agendar</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="importSourceText" type="text">
     <description/>
-    <value>Origem do Lead</value>
+    <value>origem do lead</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="actionsText" type="text">
     <description/>
@@ -3609,7 +3609,7 @@
   </data>
   <data class="crm.Views.Opportunity.Detail" property="potentialText" type="text">
     <description/>
-    <value>Potencial de Vendas</value>
+    <value>potencial de vendas</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="potentialBaseText" type="text">
     <description/>
@@ -3661,11 +3661,11 @@
   </data>
   <data class="crm.Views.Opportunity.Detail" property="resellerText" type="text">
     <description/>
-    <value>Revendedor</value>
+    <value>revendedor</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="titleText" type="text">
     <description/>
@@ -3673,15 +3673,15 @@
   </data>
   <data class="crm.Views.Opportunity.Detail" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="scheduleActivityText" type="text">
     <description/>
-    <value>Agendar Atividade</value>
+    <value>Agendar atividade</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="addNoteText" type="text">
     <description/>
-    <value>Adicionar Nota</value>
+    <value>Adicionar nota</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -3693,11 +3693,11 @@
   </data>
   <data class="crm.Views.Opportunity.Detail" property="multiCurrencyRateText" type="text">
     <description/>
-    <value>Taxa de Câmbio</value>
+    <value>taxa de câmbio</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="multiCurrencyCodeText" type="text">
     <description/>
-    <value>Código</value>
+    <value>código</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="multiCurrencyDateText" type="text">
     <description/>
@@ -3721,7 +3721,7 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="importSourceText" type="text">
     <description/>
-    <value>Origem do Lead</value>
+    <value>origem do lead</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="detailsText" type="text">
     <description/>
@@ -3733,7 +3733,7 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="opportunityTypeTitleText" type="text">
     <description/>
@@ -3741,11 +3741,11 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="ownerText" type="text">
     <description/>
-    <value>Proprietário</value>
+    <value>proprietário</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="potentialText" type="text">
     <description/>
-    <value>Potencial de Vendas</value>
+    <value>potencial de vendas</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="probabilityText" type="text">
     <description/>
@@ -3757,11 +3757,11 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="resellerText" type="text">
     <description/>
-    <value>Revendedor</value>
+    <value>revendedor</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="titleText" type="text">
     <description/>
@@ -3769,7 +3769,7 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="multiCurrencyText" type="text">
     <description/>
@@ -3777,11 +3777,11 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="multiCurrencyRateText" type="text">
     <description/>
-    <value>Taxa de Câmbio</value>
+    <value>taxa de câmbio</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="multiCurrencyCodeText" type="text">
     <description/>
-    <value>Código</value>
+    <value>código</value>
   </data>
   <data class="crm.Views.Opportunity.Edit" property="multiCurrencyDateText" type="text">
     <description/>
@@ -3793,7 +3793,7 @@
   </data>
   <data class="crm.Views.Opportunity.Edit" property="subTypePickListResellerText" type="text">
     <description/>
-    <value>Revendedor</value>
+    <value>REVENDEDOR</value>
   </data>
   <data class="crm.Views.Opportunity.List" property="titleText" type="text">
     <description/>
@@ -3845,7 +3845,7 @@
   </data>
   <data class="crm.Views.Opportunity.List" property="estimatedCloseText" type="text">
     <description/>
-    <value>Fechamento Estimado </value>
+    <value>Estimativa de fechamento </value>
   </data>
   <data class="crm.Views.Opportunity.List" property="quickEditActionText" type="text">
     <description/>
@@ -3865,11 +3865,11 @@
   </data>
   <data class="crm.Views.Opportunity.QuickEdit" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.Opportunity.QuickEdit" property="stageText" type="text">
     <description/>
-    <value>Estágio</value>
+    <value>estágio</value>
   </data>
   <data class="crm.Views.Opportunity.QuickEdit" property="statusOpenText" type="text">
     <description/>
@@ -3897,7 +3897,7 @@
   </data>
   <data class="crm.Views.Opportunity.QuickEdit" property="potentialText" type="text">
     <description/>
-    <value>Potencial de Vendas</value>
+    <value>potencial de vendas</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>
@@ -3905,15 +3905,15 @@
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="contactTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="nameText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -3921,11 +3921,11 @@
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="salesRoleText" type="text">
     <description/>
-    <value>Função</value>
+    <value>função</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="strategyText" type="text">
     <description/>
-    <value>Estratégia</value>
+    <value>estratégia</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="personalBenefitsText" type="text">
     <description/>
@@ -3933,11 +3933,11 @@
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="standingText" type="text">
     <description/>
-    <value>Posicionamento</value>
+    <value>posicionamento</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="issuesText" type="text">
     <description/>
-    <value>Problemas</value>
+    <value>ocorrências</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="competitorNameText" type="text">
     <description/>
@@ -3961,19 +3961,19 @@
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="nameText" type="text">
     <description/>
-    <value>Nome</value>
+    <value>nome</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="accountNameText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>Cargo</value>
+    <value>cargo</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="salesRoleText" type="text">
     <description/>
-    <value>Função</value>
+    <value>função</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="salesRoleTitleText" type="text">
     <description/>
@@ -3985,15 +3985,15 @@
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="strategyText" type="text">
     <description/>
-    <value>Estratégia</value>
+    <value>estratégia</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="issuesText" type="text">
     <description/>
-    <value>Problemas</value>
+    <value>ocorrências</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="standingText" type="text">
     <description/>
-    <value>Posicionamento</value>
+    <value>posicionamento</value>
   </data>
   <data class="crm.Views.OpportunityContact.Edit" property="standingTitleText" type="text">
     <description/>
@@ -4033,43 +4033,43 @@
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="productText" type="text">
     <description/>
-    <value>Produto</value>
+    <value>produto</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="productFamilyText" type="text">
     <description/>
-    <value>Família do Produto</value>
+    <value>família do produto</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="priceLevelText" type="text">
     <description/>
-    <value>Tipo de Preço</value>
+    <value>nível de preço</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="priceText" type="text">
     <description/>
-    <value>Preço</value>
+    <value>preço</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="basePriceText" type="text">
     <description/>
-    <value>Preço Base</value>
+    <value>preço base</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="discountText" type="text">
     <description/>
-    <value>Desconto</value>
+    <value>desconto</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="quantityText" type="text">
     <description/>
-    <value>Quantidade</value>
+    <value>quantidade</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="baseExtendedPriceText" type="text">
     <description/>
-    <value>Base</value>
+    <value>base</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="extendedPriceText" type="text">
     <description/>
-    <value>Preço Estendido</value>
+    <value>preço estendido</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="extendedPriceSectionText" type="text">
     <description/>
@@ -4081,15 +4081,15 @@
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="baseAdjustedPriceText" type="text">
     <description/>
-    <value>Base</value>
+    <value>base</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="adjustedPriceText" type="text">
     <description/>
-    <value>Preço Ajustado</value>
+    <value>preço ajustado</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="myAdjustedPriceText" type="text">
     <description/>
-    <value>Usuário</value>
+    <value>usuário</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Detail" property="confirmDeleteText" type="text">
     <description/>
@@ -4109,27 +4109,27 @@
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="opportunityText" type="text">
     <description/>
-    <value>Oportunidade</value>
+    <value>oportunidade</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="productText" type="text">
     <description/>
-    <value>Produto</value>
+    <value>produto</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="productFamilyText" type="text">
     <description/>
-    <value>Família do Produto</value>
+    <value>família do produto</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="priceLevelText" type="text">
     <description/>
-    <value>Tipo de Preço</value>
+    <value>nível de preço</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="priceText" type="text">
     <description/>
-    <value>Preço</value>
+    <value>preço</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="basePriceText" type="text">
     <description/>
-    <value>Preço Base</value>
+    <value>preço base</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="discountText" type="text">
     <description/>
@@ -4137,27 +4137,27 @@
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="adjustedPriceText" type="text">
     <description/>
-    <value>Preço Ajustado</value>
+    <value>preço ajustado</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="myAdjustedPriceText" type="text">
     <description/>
-    <value>Usuário</value>
+    <value>usuário</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="baseAdjustedPriceText" type="text">
     <description/>
-    <value>Base</value>
+    <value>base</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="quantityText" type="text">
     <description/>
-    <value>Quantidade</value>
+    <value>quantidade</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="baseExtendedPriceText" type="text">
     <description/>
-    <value>Base</value>
+    <value>base</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="extendedPriceText" type="text">
     <description/>
-    <value>Preço Estendido</value>
+    <value>preço estendido</value>
   </data>
   <data class="crm.Views.OpportunityProduct.Edit" property="extendedPriceSectionText" type="text">
     <description/>
@@ -4201,7 +4201,7 @@
   </data>
   <data class="crm.Views.Settings" property="credentialsClearedText" type="text">
     <description/>
-    <value>Alteração efetuada com sucesso.</value>
+    <value>Credenciais salvas com sucesso.</value>
   </data>
   <data class="crm.Views.Settings" property="titleText" type="text">
     <description/>
@@ -4245,55 +4245,55 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="areaText" type="text">
     <description/>
-    <value>Área</value>
+    <value>área</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="assignedDateText" type="text">
     <description/>
-    <value>Atribuído na Data</value>
+    <value>data de atribuição</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="assignedToText" type="text">
     <description/>
-    <value>Atribuído á</value>
+    <value>atribuído a</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="completedByText" type="text">
     <description/>
-    <value>Concluído Por</value>
+    <value>concluído por</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="categoryText" type="text">
     <description/>
-    <value>Categoria</value>
+    <value>categoria</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="contractText" type="text">
     <description/>
-    <value>Contrato</value>
+    <value>contrato</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="descriptionText" type="text">
     <description/>
-    <value>Desc</value>
+    <value>descr.</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="issueText" type="text">
     <description/>
-    <value>Problema</value>
+    <value>ocorrência</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="needByText" type="text">
     <description/>
-    <value>Data Requerida</value>
+    <value>data requerida</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="notesText" type="text">
     <description/>
-    <value>Comentários</value>
+    <value>comentários</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="actionsText" type="text">
     <description/>
@@ -4317,23 +4317,23 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="resolutionText" type="text">
     <description/>
-    <value>Resolução</value>
+    <value>resolução</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="sourceText" type="text">
     <description/>
-    <value>Origem</value>
+    <value>origem</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="subjectText" type="text">
     <description/>
-    <value>Assunto</value>
+    <value>assunto</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="ticketIdText" type="text">
     <description/>
-    <value>Número Ticket</value>
+    <value>número do ticket</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="titleText" type="text">
     <description/>
@@ -4341,11 +4341,11 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="urgencyText" type="text">
     <description/>
-    <value>Urgência</value>
+    <value>urgência</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="scheduleActivityText" type="text">
     <description/>
-    <value>Agendar Atividade</value>
+    <value>Agendar atividade</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -4357,7 +4357,7 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="loadingText" type="text">
     <description/>
-    <value>Carregando...</value>
+    <value>carregando...</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="accountText" type="text">
     <description/>
@@ -4365,31 +4365,31 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="areaText" type="text">
     <description/>
-    <value>Área</value>
+    <value>área</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="assignedDateText" type="text">
     <description/>
-    <value>Atribuído na Data</value>
+    <value>data de atribuição</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="assignedToText" type="text">
     <description/>
-    <value>Atribuído á</value>
+    <value>atribuído a</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="categoryText" type="text">
     <description/>
-    <value>Categoria</value>
+    <value>categoria</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="contractText" type="text">
     <description/>
-    <value>Contrato</value>
+    <value>contrato</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Desc</value>
+    <value>descr.</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="descriptionTitleText" type="text">
     <description/>
@@ -4397,15 +4397,15 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="issueText" type="text">
     <description/>
-    <value>Problema</value>
+    <value>ocorrência</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="needByText" type="text">
     <description/>
-    <value>Data Requerida</value>
+    <value>data requerida</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="notesText" type="text">
     <description/>
-    <value>Comentários</value>
+    <value>comentários</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="notesTitleText" type="text">
     <description/>
@@ -4413,7 +4413,7 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="phoneText" type="text">
     <description/>
-    <value>Telefone</value>
+    <value>telefone</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="relatedActivitiesText" type="text">
     <description/>
@@ -4425,7 +4425,7 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="resolutionText" type="text">
     <description/>
-    <value>Resolução</value>
+    <value>resolução</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="resolutionTitleText" type="text">
     <description/>
@@ -4433,7 +4433,7 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="sourceText" type="text">
     <description/>
-    <value>Origem</value>
+    <value>origem</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="sourceTitleText" type="text">
     <description/>
@@ -4441,11 +4441,11 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="statusText" type="text">
     <description/>
-    <value>Status</value>
+    <value>status</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="subjectText" type="text">
     <description/>
-    <value>Assunto</value>
+    <value>assunto</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketAreaTitleText" type="text">
     <description/>
@@ -4457,7 +4457,7 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketIdText" type="text">
     <description/>
-    <value>Número Ticket</value>
+    <value>número do ticket</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketIssueTitleText" type="text">
     <description/>
@@ -4477,7 +4477,7 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="urgencyText" type="text">
     <description/>
-    <value>Urgência</value>
+    <value>urgência</value>
   </data>
   <data class="crm.Views.Ticket.List" property="titleText" type="text">
     <description/>
@@ -4549,39 +4549,39 @@
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="accountText" type="text">
     <description/>
-    <value>Conta</value>
+    <value>conta</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="contactText" type="text">
     <description/>
-    <value>Contato</value>
+    <value>contato</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="typeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="publicAccessText" type="text">
     <description/>
-    <value>Acesso Público</value>
+    <value>acesso público</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="assignedDateText" type="text">
     <description/>
-    <value>Data Inicial</value>
+    <value>data de início</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="completedDateText" type="text">
     <description/>
-    <value>Data Final</value>
+    <value>data de término</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="followUpText" type="text">
     <description/>
-    <value>Follow Up</value>
+    <value>acompanhamento</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="unitsText" type="text">
     <description/>
-    <value>Unidades de Tempo</value>
+    <value>unidades de tempo</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="elapsedUnitsText" type="text">
     <description/>
-    <value>Horas Decorridas</value>
+    <value>horas decorridas</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="rateTypeDescriptionText" type="text">
     <description/>
@@ -4589,31 +4589,31 @@
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="rateText" type="text">
     <description/>
-    <value>Taxa</value>
+    <value>câmbio</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="totalLaborText" type="text">
     <description/>
-    <value>Total Trabalho</value>
+    <value>total de mão-de-obra</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="totalPartsText" type="text">
     <description/>
-    <value>Total Partes</value>
+    <value>total de peças</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="totalFeeText" type="text">
     <description/>
-    <value>Total Honorários</value>
+    <value>total de taxas</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="activityDescriptionText" type="text">
     <description/>
-    <value>Comentários</value>
+    <value>comentários</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="ticketNumberText" type="text">
     <description/>
-    <value>Número Ticket</value>
+    <value>número do ticket</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="userText" type="text">
     <description/>
-    <value>Usuário</value>
+    <value>usuário</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="completeTicketText" type="text">
     <description/>
@@ -4637,7 +4637,7 @@
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="activityTypeText" type="text">
     <description/>
-    <value>Tipo</value>
+    <value>tipo</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="activityTypeTitleText" type="text">
     <description/>
@@ -4645,7 +4645,7 @@
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="publicAccessText" type="text">
     <description/>
-    <value>Acesso Público</value>
+    <value>acesso público</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="publicAccessTitleText" type="text">
     <description/>
@@ -4653,19 +4653,19 @@
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="userText" type="text">
     <description/>
-    <value>Usuário</value>
+    <value>usuário</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="startDateText" type="text">
     <description/>
-    <value>Data Inicial</value>
+    <value>data de início</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="endDateText" type="text">
     <description/>
-    <value>Data Final</value>
+    <value>data de término</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="commentsText" type="text">
     <description/>
-    <value>Comentários</value>
+    <value>comentários</value>
   </data>
   <data class="crm.Views.TicketActivity.List" property="titleText" type="text">
     <description/>
@@ -4681,7 +4681,7 @@
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="productNameText" type="text">
     <description/>
-    <value>Produto</value>
+    <value>produto</value>
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="skuText" type="text">
     <description/>
@@ -4689,15 +4689,15 @@
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="serialNumberText" type="text">
     <description/>
-    <value>Serial #</value>
+    <value>nº de série</value>
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="itemAmountText" type="text">
     <description/>
-    <value>Preço</value>
+    <value>preço</value>
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="itemDescriptionText" type="text">
     <description/>
-    <value>Descrição</value>
+    <value>descrição</value>
   </data>
   <data class="crm.Views.TicketActivityItem.List" property="titleText" type="text">
     <description/>
@@ -4789,7 +4789,7 @@
   </data>
   <data class="crm.GroupUtility" property="groupDateFormatText" type="format">
     <description/>
-    <value>D/M/YYYY h:mm:ss A</value>
+    <value>D/M/YYYY h:mm:ss a</value>
   </data>
   <data class="crm.Recurrence" property="dayFormatText" type="format">
     <description/>
