@@ -387,6 +387,8 @@ const __class = declare('crm.Application', [Application], {
     this._clearNavigationState();
 
     const service = this.getService();
+    this.isAuthenticated = false;
+    this.context = {};
 
     if (service) {
       service
