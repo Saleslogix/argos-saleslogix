@@ -275,7 +275,7 @@ const __class = declare('crm.Application', [Application], {
   run: function run() {
     this.inherited(arguments);
 
-    if (App.isOnline() || !App.enableCaching) {
+    if (this.isOnline() || !this.enableCaching) {
       this.handleAuthentication();
     } else {
       // todo: always navigate to home when offline? data may not be available for restored state.
@@ -621,11 +621,11 @@ const __class = declare('crm.Application', [Application], {
    * Builds an object that will get passed into moment.locale()
    */
   buildCustomizedMoment: function buildCustomizedMoment() {
-    if (!App.context.userOptions) {
+    if (!this.context.userOptions) {
       return null;
     }
 
-    const userWeekStartDay = parseInt(App.context.userOptions['Calendar:WeekStart'], 10);
+    const userWeekStartDay = parseInt(this.context.userOptions['Calendar:WeekStart'], 10);
     let results = {}; // 0-6, Sun-Sat
 
     if (!isNaN(userWeekStartDay)) {
@@ -746,7 +746,7 @@ const __class = declare('crm.Application', [Application], {
   },
   getExposedViews: function getExposedViews() {
     return Object.keys(this.views).filter((id) => {
-      const view = App.getView(id);
+      const view = this.getView(id);
       return view && view.id !== 'home' && view.expose;
     });
   },
@@ -760,7 +760,7 @@ const __class = declare('crm.Application', [Application], {
         continue;
       }
 
-      if (App.hasView(restoredHistory[i].page)) {
+      if (this.hasView(restoredHistory[i].page)) {
         result.unshift(restoredHistory[i]);
       }
 
@@ -790,7 +790,7 @@ const __class = declare('crm.Application', [Application], {
         ReUI.context.transitioning = false;
 
         const last = cleanedHistory[cleanedHistory.length - 1];
-        const view = App.getView(last.page);
+        const view = this.getView(last.page);
         const options = last.data && last.data.options;
 
         view.show(options);
@@ -814,7 +814,7 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   onConnectionChange: function onConnectionChange(online) {
-    const view = App.getView('left_drawer');
+    const view = this.getView('left_drawer');
     if (!this.enableOfflineSupport) {
       return;
     }
@@ -889,7 +889,7 @@ const __class = declare('crm.Application', [Application], {
       }
     }
 
-    if (!App.isOnline()) {
+    if (!this.isOnline()) {
       view = this.getView(this.offlineHomeViewId);
     }
 
@@ -937,7 +937,7 @@ const __class = declare('crm.Application', [Application], {
       this.modal.add(indicator);
       indicator.start();
 
-      model.initAuthentication(App.context.user.$key).then((result) => {
+      model.initAuthentication(this.context.user.$key).then((result) => {
         let options = offlineManager.getOptions();
         if (result.hasUserChanged) {
           options = {

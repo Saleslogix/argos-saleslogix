@@ -6,6 +6,7 @@ define('spec/Application.spec', [
   describe('Mobile/SalesLogix/Application', function() {
     describe('bootstrap', function() {
       it('should activate', function() {
+        configuration.ping = function() {};
         var instance = new application(configuration);
 
         spyOn(instance, 'activate')
@@ -19,6 +20,7 @@ define('spec/Application.spec', [
         spyOn(instance, 'initModules');
         spyOn(instance, 'initToolbars');
         spyOn(instance, 'initReUI');
+        spyOn(instance, 'initToasts');
         spyOn(instance, 'run')
           .and.callThrough();
 
