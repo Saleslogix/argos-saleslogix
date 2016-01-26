@@ -29,6 +29,13 @@
                     ],
                 "out": "products/argos-saleslogix/localization/saleslogix/it.js"
             },
+            "pl": {
+                "in": [
+                        "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-format_pl.xml",
+                        "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-text_pl.xml"
+                    ],
+                "out": "products/argos-saleslogix/localization/saleslogix/pl.js"
+            },
             "pt": {
                 "in": [
                         "products/argos-saleslogix/localization/imported/slx-mobile-strings-beta1-format_pt.xml",
