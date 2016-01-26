@@ -1,7 +1,7 @@
 ﻿define('localization/pl', ['dojo/_base/lang'], function(lang) {
 
     return lang.setObject('Mobile.CultureInfo', {
-      "name": "Ang",
+      "name": "pl",
       "englishName": "Angielski (Stany Zjednoczone)",
       "nativeName": "Angielski (Stany Zjednoczone)",
       "numberFormat": {
