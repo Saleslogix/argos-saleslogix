@@ -2,7 +2,7 @@
 
     return lang.setObject('Mobile.CultureInfo', {
       "name": "pt",
-      "englishName": "Inglês (Estados Unidos)",
+      "englishName": "Portuguese",
       "nativeName": "Inglês (Estados Unidos)",
       "numberFormat": {
         "currencyDecimalDigits": 2,
