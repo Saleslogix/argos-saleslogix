@@ -262,7 +262,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ],
   resourceKind: 'activities',
   contractName: 'system',
-  pageSize: 105,
+  pageSize: 500,
   eventQueryWhere: null,
   eventQuerySelect: [
     'StartDate',
