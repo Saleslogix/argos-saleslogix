@@ -95,7 +95,7 @@ localize("crm.Views.Activity.Complete", {
   "accountText": "Conta",
   "contactText": "Contato",
   "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "ticketNumberText": "Tíquete",
   "companyText": "Empresa",
   "leadText": "Lead",
   "asScheduledText": "Agendamento",
@@ -172,7 +172,7 @@ localize("crm.Views.Activity.Detail", {
   "accountText": "Conta",
   "contactText": "Contato",
   "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "ticketNumberText": "Tíquete",
   "whenText": "Quando",
   "whoText": "Quem",
   "recurrenceText": "recorrência",
@@ -216,7 +216,7 @@ localize("crm.Views.Activity.Edit", {
   "accountText": "Conta",
   "contactText": "Contato",
   "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "ticketNumberText": "Tíquete",
   "companyText": "Empresa",
   "leadText": "Lead",
   "isLeadText": "para o lead",
@@ -402,7 +402,7 @@ localize("crm.Views.History.Detail", {
   "accountText": "Conta",
   "contactText": "Contato",
   "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "ticketNumberText": "Tíquete",
   "moreDetailsText": "Mais Detalhes",
   "relatedItemsText": "Itens Relacionados",
   "relatedAttachmentText": "Anexos",
@@ -428,7 +428,7 @@ localize("crm.Views.History.Edit", {
   "longNotesText": "Notas",
   "longNotesTitleText": "Notas",
   "opportunityText": "Oportunidade",
-  "ticketNumberText": "Ticket",
+  "ticketNumberText": "Tíquete",
   "regardingText": "Referência",
   "isLeadText": "para o lead",
   "startingText": "Hora",
@@ -537,7 +537,7 @@ localize("crm.Views.Opportunity.Edit", {
 
 localize("crm.Views.TicketActivity.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
-  "titleText": "Editar Atividade do Ticket",
+  "titleText": "Editar Atividade do Tíquete",
   "activityTypeText": "Tipo",
   "activityTypeTitleText": "Tipo",
   "publicAccessText": "Acesso Público",
@@ -550,7 +550,7 @@ localize("crm.Views.TicketActivity.Edit", {
 
 localize("crm.Views.TicketActivity.List", {
   "startDateFormatText": "DD/MM/YYYY h:mm A",
-  "titleText": "Atividades do Ticket"
+  "titleText": "Atividades do Tíquete"
 });
 
 localize("argos.ErrorManager", {
@@ -756,7 +756,7 @@ localize("crm.DefaultMetrics", {
     "montlyPotential": "Média Mensal do Potencial de Vendas"
   },
   "ticketsText": {
-    "total": "Total de Tickets",
+    "total": "Total de Tíquetes",
     "averageOpen": "Abrir Prazo Médio"
   },
   "contactsText": {
@@ -867,7 +867,7 @@ localize("crm.Views.Account.Detail", {
   "relatedItemsText": "Itens Relacionados",
   "relatedNotesText": "Notas",
   "relatedOpportunitiesText": "Oportunidades",
-  "relatedTicketsText": "Tickets",
+  "relatedTicketsText": "Tíquetes",
   "relatedAddressesText": "Endereços",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos da Conta",
@@ -1149,7 +1149,7 @@ localize("crm.Views.Contact.Detail", {
   "relatedItemsText": "Itens Relacionados",
   "relatedNotesText": "Notas",
   "relatedOpportunitiesText": "Oportunidades",
-  "relatedTicketsText": "Tickets",
+  "relatedTicketsText": "Tíquetes",
   "relatedAddressesText": "Endereços",
   "relatedAttachmentText": "Anexos",
   "relatedAttachmentTitleText": "Anexos do Contato",
@@ -1544,7 +1544,7 @@ localize("crm.Views.SpeedSearchList", {
     "History": "Histórico",
     "Lead": "Lead",
     "Opportunity": "Oportunidade",
-    "Ticket": "Ticket"
+    "Ticket": "Tíquete"
   }
 });
 
@@ -1568,19 +1568,19 @@ localize("crm.Views.Ticket.Detail", {
   "phoneText": "Telefone",
   "actionsText": "Ações Rápidas",
   "relatedAttachmentText": "Anexos",
-  "relatedAttachmentTitleText": "Anexos de Ticket",
+  "relatedAttachmentTitleText": "Anexos de Tíquete",
   "relatedActivitiesText": "Atividades",
   "relatedItemsText": "Itens Relacionados",
   "resolutionText": "Resolução",
   "sourceText": "Origem",
   "statusText": "Status",
   "subjectText": "Assunto",
-  "ticketIdText": "Número Ticket",
-  "titleText": "Ticket",
+  "ticketIdText": "Número Tíquete",
+  "titleText": "Tíquete",
   "urgencyText": "Urgência",
   "scheduleActivityText": "Agendar Atividade",
   "moreDetailsText": "Mais Detalhes",
-  "relatedTicketActivitiesText": "Atividades do Ticket",
+  "relatedTicketActivitiesText": "Atividades do Tíquete",
   "loadingText": "Carregando..."
 });
 
@@ -1607,18 +1607,18 @@ localize("crm.Views.Ticket.Edit", {
   "sourceTitleText": "Origem",
   "statusText": "Status",
   "subjectText": "Assunto",
-  "ticketAreaTitleText": "Área do Ticket",
-  "ticketCategoryTitleText": "Categoria do Ticket",
-  "ticketIdText": "Número Ticket",
-  "ticketIssueTitleText": "Ocorrência do Ticket",
-  "ticketStatusTitleText": "Status do Ticket",
-  "ticketUrgencyTitleText": "Urgência do Ticket",
-  "titleText": "Ticket",
+  "ticketAreaTitleText": "Área do Tíquete",
+  "ticketCategoryTitleText": "Categoria do Tíquete",
+  "ticketIdText": "Número Tíquete",
+  "ticketIssueTitleText": "Ocorrência do Tíquete",
+  "ticketStatusTitleText": "Status do Tíquete",
+  "ticketUrgencyTitleText": "Urgência do Tíquete",
+  "titleText": "Tíquete",
   "urgencyText": "Urgência"
 });
 
 localize("crm.Views.Ticket.List", {
-  "titleText": "Tickets",
+  "titleText": "Tíquetes",
   "activitiesText": "Atividades",
   "scheduleText": "Agendar",
   "notAssignedText": "Não atribuído",
@@ -1636,11 +1636,11 @@ localize("crm.Views.Ticket.List", {
 });
 
 localize("crm.Views.Ticket.UrgencyLookup", {
-  "titleText": "Urgência do Ticket"
+  "titleText": "Urgência do Tíquete"
 });
 
 localize("crm.Views.TicketActivity.Detail", {
-  "titleText": "Atividade do Ticket",
+  "titleText": "Atividade do Tíquete",
   "accountText": "Conta",
   "contactText": "Contato",
   "typeText": "Tipo",
@@ -1656,12 +1656,12 @@ localize("crm.Views.TicketActivity.Detail", {
   "totalPartsText": "Total Partes",
   "totalFeeText": "Total Honorários",
   "activityDescriptionText": "Comentários",
-  "ticketNumberText": "Número Ticket",
+  "ticketNumberText": "Número Tíquete",
   "userText": "Usuário",
-  "completeTicketText": "Completar Atividades do Ticket",
+  "completeTicketText": "Completar Atividades do Tíquete",
   "moreDetailsText": "Mais Detalhes",
   "relatedItemsText": "Itens Relacionados",
-  "relatedTicketActivityItemText": "Peças da Atividade do Ticket"
+  "relatedTicketActivityItemText": "Peças da Atividade do Tíquete"
 });
 
 localize("crm.Views.TicketActivity.RateLookup", {
@@ -1669,7 +1669,7 @@ localize("crm.Views.TicketActivity.RateLookup", {
 });
 
 localize("crm.Views.TicketActivityItem.Detail", {
-  "titleText": "Peça da Atividade do Ticket",
+  "titleText": "Peça da Atividade do Tíquete",
   "productNameText": "Produto",
   "skuText": "SKU",
   "serialNumberText": "Serial #",
@@ -1678,7 +1678,7 @@ localize("crm.Views.TicketActivityItem.Detail", {
 });
 
 localize("crm.Views.TicketActivityItem.List", {
-  "titleText": "Peças da Atividade do Ticket"
+  "titleText": "Peças da Atividade do Tíquete"
 });
 
 localize("crm.Views.UpdateToolbar", {

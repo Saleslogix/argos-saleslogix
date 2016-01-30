@@ -549,7 +549,7 @@
   </data>
   <data class="crm.DefaultMetrics" property="ticketsText[total]" type="text">
     <description/>
-    <value>Total de Tickets</value>
+    <value>Total de Tíquetes</value>
   </data>
   <data class="crm.DefaultMetrics" property="ticketsText[averageOpen]" type="text">
     <description/>
@@ -885,7 +885,7 @@
   </data>
   <data class="crm.Views.Account.Detail" property="relatedTicketsText" type="text">
     <description/>
-    <value>Tickets</value>
+    <value>Tíquetes</value>
   </data>
   <data class="crm.Views.Account.Detail" property="relatedAddressesText" type="text">
     <description/>
@@ -1081,7 +1081,7 @@
   </data>
   <data class="crm.Views.Activity.Complete" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="companyText" type="text">
     <description/>
@@ -1341,7 +1341,7 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="whenText" type="text">
     <description/>
@@ -1497,7 +1497,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="companyText" type="text">
     <description/>
@@ -2433,7 +2433,7 @@
   </data>
   <data class="crm.Views.Contact.Detail" property="relatedTicketsText" type="text">
     <description/>
-    <value>Tickets</value>
+    <value>Tíquetes</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="relatedAddressesText" type="text">
     <description/>
@@ -2853,7 +2853,7 @@
   </data>
   <data class="crm.Views.History.Detail" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.History.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -2933,7 +2933,7 @@
   </data>
   <data class="crm.Views.History.Edit" property="ticketNumberText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.History.Edit" property="regardingText" type="text">
     <description/>
@@ -4237,7 +4237,7 @@
   </data>
   <data class="crm.Views.SpeedSearchList" property="indexesText[Ticket]" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.TextEdit" property="titleText" type="text">
     <description/>
@@ -4305,7 +4305,7 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="relatedAttachmentTitleText" type="text">
     <description/>
-    <value>Anexos de Ticket</value>
+    <value>Anexos de Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -4333,11 +4333,11 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="ticketIdText" type="text">
     <description/>
-    <value>Número Ticket</value>
+    <value>Número Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="titleText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="urgencyText" type="text">
     <description/>
@@ -4353,7 +4353,7 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="relatedTicketActivitiesText" type="text">
     <description/>
-    <value>Atividades do Ticket</value>
+    <value>Atividades do Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="loadingText" type="text">
     <description/>
@@ -4449,31 +4449,31 @@
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketAreaTitleText" type="text">
     <description/>
-    <value>Área do Ticket</value>
+    <value>Área do Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketCategoryTitleText" type="text">
     <description/>
-    <value>Categoria do Ticket</value>
+    <value>Categoria do Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketIdText" type="text">
     <description/>
-    <value>Número Ticket</value>
+    <value>Número Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketIssueTitleText" type="text">
     <description/>
-    <value>Ocorrência do Ticket</value>
+    <value>Ocorrência do Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketStatusTitleText" type="text">
     <description/>
-    <value>Status do Ticket</value>
+    <value>Status do Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="ticketUrgencyTitleText" type="text">
     <description/>
-    <value>Urgência do Ticket</value>
+    <value>Urgência do Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="titleText" type="text">
     <description/>
-    <value>Ticket</value>
+    <value>Tíquete</value>
   </data>
   <data class="crm.Views.Ticket.Edit" property="urgencyText" type="text">
     <description/>
@@ -4481,7 +4481,7 @@
   </data>
   <data class="crm.Views.Ticket.List" property="titleText" type="text">
     <description/>
-    <value>Tickets</value>
+    <value>Tíquetes</value>
   </data>
   <data class="crm.Views.Ticket.List" property="activitiesText" type="text">
     <description/>
@@ -4541,11 +4541,11 @@
   </data>
   <data class="crm.Views.Ticket.UrgencyLookup" property="titleText" type="text">
     <description/>
-    <value>Urgência do Ticket</value>
+    <value>Urgência do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="titleText" type="text">
     <description/>
-    <value>Atividade do Ticket</value>
+    <value>Atividade do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="accountText" type="text">
     <description/>
@@ -4609,7 +4609,7 @@
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="ticketNumberText" type="text">
     <description/>
-    <value>Número Ticket</value>
+    <value>Número Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="userText" type="text">
     <description/>
@@ -4617,7 +4617,7 @@
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="completeTicketText" type="text">
     <description/>
-    <value>Completar Atividades do Ticket</value>
+    <value>Completar Atividades do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -4629,11 +4629,11 @@
   </data>
   <data class="crm.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="text">
     <description/>
-    <value>Peças da Atividade do Ticket</value>
+    <value>Peças da Atividade do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="titleText" type="text">
     <description/>
-    <value>Editar Atividade do Ticket</value>
+    <value>Editar Atividade do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.Edit" property="activityTypeText" type="text">
     <description/>
@@ -4669,7 +4669,7 @@
   </data>
   <data class="crm.Views.TicketActivity.List" property="titleText" type="text">
     <description/>
-    <value>Atividades do Ticket</value>
+    <value>Atividades do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivity.RateLookup" property="titleText" type="text">
     <description/>
@@ -4677,7 +4677,7 @@
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="titleText" type="text">
     <description/>
-    <value>Peça da Atividade do Ticket</value>
+    <value>Peça da Atividade do Tíquete</value>
   </data>
   <data class="crm.Views.TicketActivityItem.Detail" property="productNameText" type="text">
     <description/>
@@ -4701,7 +4701,7 @@
   </data>
   <data class="crm.Views.TicketActivityItem.List" property="titleText" type="text">
     <description/>
-    <value>Peças da Atividade do Ticket</value>
+    <value>Peças da Atividade do Tíquete</value>
   </data>
   <data class="crm.Views.UpdateToolbar" property="updateText" type="text">
     <description/>
