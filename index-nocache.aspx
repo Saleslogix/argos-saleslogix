@@ -125,8 +125,38 @@
         var defaultLocale = 'en';
         var currentLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
 
-        filePaths.forEach(function(path) {
-          ctx.linkResource(path);
+        // The L20n context (ctx) should only call linkResource once per file.
+        // We need to:
+        //    * Strip out the locale from the path string (map)
+        //    * Remove duplicates (reduce)
+        //    * link each resource against a locale (forEach)
+        filePaths.map(function(path) {
+          var trimmed = path;
+          supportedLocales.forEach(function(locale) {
+            trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
+          });
+
+          var index = trimmed.lastIndexOf('/');
+          var basePath = trimmed.substring(0, index);
+          var file = trimmed.substring(index + 1, trimmed.length);
+          return {
+            base: basePath,
+            file: file
+            };
+        })
+        .reduce(function(p, c) {
+          if (p.some(function (pathInfo) {
+            return pathInfo.base === c.base && pathInfo.file === c.file;
+          })) {
+            return p;
+          } else {
+            return p.concat(c);
+          }
+        }, [])
+        .forEach(function(pathInfo) {
+          ctx.linkResource(function(locale) {
+            return [pathInfo.base, locale, pathInfo.file].join('/');
+          });
         });
         ctx.registerLocales(defaultLocale, supportedLocales);
         ctx.requestLocales(currentLocale);
