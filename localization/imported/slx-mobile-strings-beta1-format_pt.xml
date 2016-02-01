@@ -93,7 +93,7 @@
   </data>
   <data class="crm.Views.Calendar.MonthView" property="monthTitleFormatText" type="format">
     <description/>
-    <value>MMMM AAAA</value>
+    <value>MMMM YYYY</value>
   </data>
   <data class="crm.Views.Calendar.MonthView" property="dayTitleFormatText" type="format">
     <description/>

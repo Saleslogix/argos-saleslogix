@@ -282,7 +282,7 @@ localize("crm.Views.Calendar.DayView", {
 });
 
 localize("crm.Views.Calendar.MonthView", {
-  "monthTitleFormatText": "MMMM AAAA",
+  "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd D MMM YYYY",
   "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm A",
