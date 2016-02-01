@@ -1051,6 +1051,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       type: 'date',
       timeless: false,
       showTimePicker: true,
+      showRelativeDateTime: true,
       dateFormatText: this.startingFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
@@ -1061,6 +1062,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       type: 'date',
       name: 'EndDate',
       property: 'EndDate',
+      showRelativeDateTime: true,
       include: true,
     }, {
       dependsOn: 'StartDate',
