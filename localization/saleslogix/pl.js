@@ -455,7 +455,7 @@ localize("crm.Views.History.List", {
     "atEMail": "Mail"
   },
   "hashTagQueriesText": {
-    "my-history": "moja historia",
+    "my-history": "moja-historia",
     "note": "notatka",
     "phonecall": "telefon",
     "meeting": "spotkanie",
@@ -945,9 +945,9 @@ localize("crm.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "alarm",
     "recurring": "cyklicznie",
-    "timeless": "bez ograniczeń czasowych",
+    "timeless": "bez-ograniczeń-czasowych",
     "today": "dziś",
-    "this-week": "ten tydzień",
+    "this-week": "ten-tydzień",
     "yesterday": "wczoraj"
   }
 });
@@ -965,13 +965,13 @@ localize("crm.Views.Activity.MyList", {
   "viewOpportunityActionText": "Szansa",
   "hashTagQueriesText": {
     "alarm": "alarm",
-    "status-unconfirmed": "status - niepotwierdzony",
-    "status-accepted": "status - zaakceptowany",
-    "status-declined": "status - odrzucony",
+    "status-unconfirmed": "status-niepotwierdzony",
+    "status-accepted": "status-zaakceptowany",
+    "status-declined": "status-odrzucony",
     "recurring": "cyklicznie",
-    "timeless": "bez ograniczeń czasowych",
+    "timeless": "bez-ograniczeń-czasowych",
     "today": "dziś",
-    "this-week": "ten tydzień",
+    "this-week": "ten-tydzień",
     "yesterday": "wczoraj"
   }
 });
