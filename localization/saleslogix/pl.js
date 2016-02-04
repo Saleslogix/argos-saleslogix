@@ -148,7 +148,7 @@ localize("crm.Views.Activity.Detail", {
     "atLiterature": "Wniosek o literaturę",
     "atPersonal": "Czynność osobista"
   },
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "completeActivityText": "Zakończ czynność",
   "completeOccurrenceText": "Zakończ wystąpienie",
   "completeSeriesText": "Zakończ serię",
@@ -219,7 +219,7 @@ localize("crm.Views.Activity.Edit", {
   "ticketNumberText": "zgłoszenie",
   "companyText": "firma",
   "leadText": "potencjalny klient",
-  "isLeadText": "dla potencjalnego",
+  "isLeadText": "dla potencjalnego klienta",
   "yesText": "Tak",
   "noText": "Nie",
   "phoneText": "telefon",
@@ -353,7 +353,7 @@ localize("crm.Views.Event.Detail", {
     "atLiterature": "Wniosek o literaturę",
     "atPersonal": "Czynność osobista"
   },
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "startTimeText": "data rozpoczęcia",
   "endTimeText": "data zakończenia",
   "titleText": "Wydarzenie",
@@ -407,7 +407,7 @@ localize("crm.Views.History.Detail", {
   "relatedItemsText": "Pozycje powiązane",
   "relatedAttachmentText": "Załączniki",
   "relatedAttachmentTitleText": "Historia załączników",
-  "modifiedText": "zmieniono",
+  "modifiedText": "data zmiany",
   "typeText": "typ",
   "activityTypeText": {
     "atToDo": "Lista do zrobienia",
@@ -430,7 +430,7 @@ localize("crm.Views.History.Edit", {
   "opportunityText": "szansa",
   "ticketNumberText": "zgłoszenie",
   "regardingText": "dotyczy",
-  "isLeadText": "dla potencjalnego",
+  "isLeadText": "dla potencjalnego klienta",
   "startingText": "czas",
   "titleText": "Notatka",
   "companyText": "firma",
@@ -481,7 +481,7 @@ localize("crm.Views.Opportunity.Detail", {
   "importSourceText": "źródło",
   "opportunityText": "szansa",
   "ownerText": "właściciel",
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "potentialText": "potencjał sprzedaży",
   "potentialBaseText": "potencjał sprzedaży (kurs podstawowy)",
   "potentialOpportunityText": "potencjał sprzedaży (kurs szansy)",
@@ -763,7 +763,7 @@ localize("crm.DefaultMetrics", {
     "total": "Wszystkie kontakty"
   },
   "leadsText": {
-    "total": "Wszyscy potencjalni"
+    "total": "Wszyscy potencjalni klienci"
   },
   "historyText": {
     "total": "Cała historia",
@@ -860,7 +860,7 @@ localize("crm.Views.Account.Detail", {
   "activityTypeText": {
     "atPhoneCall": "Telefon"
   },
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "relatedActivitiesText": "Czynności",
   "relatedContactsText": "Kontakty",
   "relatedHistoriesText": "Notatki/historia",
@@ -1142,7 +1142,7 @@ localize("crm.Views.Contact.Detail", {
   "homeText": "telefon domowy",
   "nameText": "kontakt",
   "ownerText": "właściciel",
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "relatedAccountsText": "Klienci",
   "relatedActivitiesText": "Czynności",
   "relatedHistoriesText": "Notatki/historia",
@@ -1237,7 +1237,7 @@ localize("crm.Views.Home", {
   "configureText": "Konfiguruj",
   "addAccountContactText": "Dodaj klienta/kontakt",
   "titleText": "Domowy",
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "viewsText": "Idź do"
 });
 
@@ -1264,14 +1264,14 @@ localize("crm.Views.Lead.Detail", {
   "relatedItemsText": "Pozycje powiązane",
   "relatedNotesText": "Notatki",
   "relatedAttachmentText": "Załączniki",
-  "relatedAttachmentTitleText": "Załączniki potencjalnego",
+  "relatedAttachmentTitleText": "Załączniki potencjalnego klienta",
   "sicCodeText": "kod SIC",
   "titleText": "Potencjalny klient",
   "tollFreeText": "bezpłatnie",
   "mobileText": "telefon komórkowy",
   "webText": "strona www",
   "workText": "telefon służbowy",
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "callWorkNumberText": "Zadzwoń na numer główny",
   "scheduleActivityText": "Zaplanuj czynność",
   "addNoteText": "Dodaj notatkę",
@@ -1333,12 +1333,12 @@ localize("crm.Views.LeadSource.List", {
 });
 
 localize("crm.Views.LeftDrawer", {
-  "configureText": "Skonfiguruj menu",
+  "configureText": "Konfiguracja menu",
   "addAccountContactText": "Dodaj klienta/kontakt",
   "titleText": "Menu główne",
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "viewsText": "Idź do",
-  "footerText": "Inny",
+  "footerText": "Inne",
   "settingsText": "Ustawienia",
   "helpText": "Pomoc",
   "logOutText": "Wyloguj",
@@ -1566,7 +1566,7 @@ localize("crm.Views.Ticket.Detail", {
   "needByText": "data zapotrzebowania",
   "notesText": "uwagi",
   "phoneText": "telefon",
-  "actionsText": "Szybkie czynności",
+  "actionsText": "Szybki dostęp",
   "relatedAttachmentText": "Załączniki",
   "relatedAttachmentTitleText": "Załączniki zgłoszenia",
   "relatedActivitiesText": "Czynności",
@@ -1630,8 +1630,8 @@ localize("crm.Views.Ticket.List", {
   "addAttachmentActionText": "Dodaj załącznik",
   "assignedToText": "Przydzielono do: ",
   "urgencyText": "Priorytet: ",
-  "createdOnText": "Utworzono  ",
-  "modifiedText": "Zmieniono ",
+  "createdOnText": "Data utworzenia  ",
+  "modifiedText": "Data zmiany ",
   "neededByText": "Zapotrzebowanie  "
 });
 

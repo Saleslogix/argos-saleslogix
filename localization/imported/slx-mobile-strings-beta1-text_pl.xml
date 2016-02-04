@@ -561,7 +561,7 @@
   </data>
   <data class="crm.DefaultMetrics" property="leadsText[total]" type="text">
     <description/>
-    <value>Wszyscy potencjalni</value>
+    <value>Wszyscy potencjalni klienci</value>
   </data>
   <data class="crm.DefaultMetrics" property="historyText[total]" type="text">
     <description/>
@@ -857,7 +857,7 @@
   </data>
   <data class="crm.Views.Account.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Account.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -1245,7 +1245,7 @@
   </data>
   <data class="crm.Views.Activity.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Activity.Detail" property="completeActivityText" type="text">
     <description/>
@@ -1509,7 +1509,7 @@
   </data>
   <data class="crm.Views.Activity.Edit" property="isLeadText" type="text">
     <description/>
-    <value>dla potencjalnego</value>
+    <value>dla potencjalnego klienta</value>
   </data>
   <data class="crm.Views.Activity.Edit" property="yesText" type="text">
     <description/>
@@ -1661,7 +1661,7 @@
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>bez ograniczeń czasowych</value>
+    <value>bez-ograniczeń-czasowych</value>
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1669,7 +1669,7 @@
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[this-week]" type="text">
     <description/>
-    <value>ten tydzień</value>
+    <value>ten-tydzień</value>
   </data>
   <data class="crm.Views.Activity.List" property="hashTagQueriesText[yesterday]" type="text">
     <description/>
@@ -1721,15 +1721,15 @@
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[status-unconfirmed]" type="text">
     <description/>
-    <value>status - niepotwierdzony</value>
+    <value>status-niepotwierdzony</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[status-accepted]" type="text">
     <description/>
-    <value>status - zaakceptowany</value>
+    <value>status-zaakceptowany</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[status-declined]" type="text">
     <description/>
-    <value>status - odrzucony</value>
+    <value>status-odrzucony</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[recurring]" type="text">
     <description/>
@@ -1737,7 +1737,7 @@
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>bez ograniczeń czasowych</value>
+    <value>bez-ograniczeń-czasowych</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1745,7 +1745,7 @@
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[this-week]" type="text">
     <description/>
-    <value>ten tydzień</value>
+    <value>ten-tydzień</value>
   </data>
   <data class="crm.Views.Activity.MyList" property="hashTagQueriesText[yesterday]" type="text">
     <description/>
@@ -2405,7 +2405,7 @@
   </data>
   <data class="crm.Views.Contact.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Contact.Detail" property="relatedAccountsText" type="text">
     <description/>
@@ -2689,7 +2689,7 @@
   </data>
   <data class="crm.Views.Event.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Event.Detail" property="startTimeText" type="text">
     <description/>
@@ -2873,7 +2873,7 @@
   </data>
   <data class="crm.Views.History.Detail" property="modifiedText" type="text">
     <description/>
-    <value>zmieniono</value>
+    <value>data zmiany</value>
   </data>
   <data class="crm.Views.History.Detail" property="typeText" type="text">
     <description/>
@@ -2941,7 +2941,7 @@
   </data>
   <data class="crm.Views.History.Edit" property="isLeadText" type="text">
     <description/>
-    <value>dla potencjalnego</value>
+    <value>dla potencjalnego klienta</value>
   </data>
   <data class="crm.Views.History.Edit" property="startingText" type="text">
     <description/>
@@ -3009,7 +3009,7 @@
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[my-history]" type="text">
     <description/>
-    <value>moja historia</value>
+    <value>moja-historia</value>
   </data>
   <data class="crm.Views.History.List" property="hashTagQueriesText[note]" type="text">
     <description/>
@@ -3081,7 +3081,7 @@
   </data>
   <data class="crm.Views.Home" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Home" property="viewsText" type="text">
     <description/>
@@ -3169,7 +3169,7 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="relatedAttachmentTitleText" type="text">
     <description/>
-    <value>Załączniki potencjalnego</value>
+    <value>Załączniki potencjalnego klienta</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="sicCodeText" type="text">
     <description/>
@@ -3197,7 +3197,7 @@
   </data>
   <data class="crm.Views.Lead.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Lead.Detail" property="callWorkNumberText" type="text">
     <description/>
@@ -3397,7 +3397,7 @@
   </data>
   <data class="crm.Views.LeftDrawer" property="configureText" type="text">
     <description/>
-    <value>Skonfiguruj menu</value>
+    <value>Konfiguracja menu</value>
   </data>
   <data class="crm.Views.LeftDrawer" property="addAccountContactText" type="text">
     <description/>
@@ -3409,7 +3409,7 @@
   </data>
   <data class="crm.Views.LeftDrawer" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.LeftDrawer" property="viewsText" type="text">
     <description/>
@@ -3417,7 +3417,7 @@
   </data>
   <data class="crm.Views.LeftDrawer" property="footerText" type="text">
     <description/>
-    <value>Inny</value>
+    <value>Inne</value>
   </data>
   <data class="crm.Views.LeftDrawer" property="settingsText" type="text">
     <description/>
@@ -3605,7 +3605,7 @@
   </data>
   <data class="crm.Views.Opportunity.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Opportunity.Detail" property="potentialText" type="text">
     <description/>
@@ -4297,7 +4297,7 @@
   </data>
   <data class="crm.Views.Ticket.Detail" property="actionsText" type="text">
     <description/>
-    <value>Szybkie czynności</value>
+    <value>Szybki dostęp</value>
   </data>
   <data class="crm.Views.Ticket.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -4529,11 +4529,11 @@
   </data>
   <data class="crm.Views.Ticket.List" property="createdOnText" type="text">
     <description/>
-    <value>Utworzono  </value>
+    <value>Data utworzenia  </value>
   </data>
   <data class="crm.Views.Ticket.List" property="modifiedText" type="text">
     <description/>
-    <value>Zmieniono </value>
+    <value>Data zmiany </value>
   </data>
   <data class="crm.Views.Ticket.List" property="neededByText" type="text">
     <description/>
