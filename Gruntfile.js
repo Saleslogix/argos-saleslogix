@@ -22,6 +22,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['check', 'connect', 'jasmine:coverage']);
     grunt.registerTask('server', ['connect:server:keepalive']);
     grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
-    grunt.registerTask('lint', ['jshint', 'jscs']);
+    grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('default', ['test']);
 };
