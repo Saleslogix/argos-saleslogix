@@ -6,7 +6,8 @@
     "url": "https://github.com/Saleslogix/argos-saleslogix"
   },
   "scripts": {
-      "test": "grunt check"
+      "test": "grunt check",
+      "start": "node scripts/server.js"
   },
   "devDependencies": {
     "esformatter": "^0.4.3",
@@ -26,6 +27,7 @@
     "grunt-manifest": "^0.4.0",
     "grunt-shell": "^1.1.1",
     "grunt-template-jasmine-istanbul": "^0.3.1",
-    "grunt-weinre": "0.0.2"
+    "grunt-weinre": "0.0.2",
+    "hapi": "^8.8.0"
   }
 }
