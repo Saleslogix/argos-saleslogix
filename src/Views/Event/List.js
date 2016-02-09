@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('eventList');
 
 /**
  * @class crm.Views.Event.List
@@ -12,9 +15,9 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.Event.List', [List], {
   // Localization
-  titleText: 'Events',
-  eventDateFormatText: 'M/D/YYYY',
-  eventText: 'Event',
+  titleText: resource.titleText,
+  eventDateFormatText: resource.eventDateFormatText,
+  eventText: resource.eventText,
 
   // Templates
   itemTemplate: new Simplate([

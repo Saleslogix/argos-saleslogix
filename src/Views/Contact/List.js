@@ -7,6 +7,9 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('contactList');
 
 /**
  * @class crm.Views.Contact.List
@@ -52,21 +55,21 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   ]),
 
   // Localization
-  titleText: 'Contacts',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  callMainActionText: 'Call Main',
-  callWorkActionText: 'Call Work',
-  callMobileActionText: 'Call Mobile',
-  sendEmailActionText: 'Email',
-  viewAccountActionText: 'Account',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  phoneAbbreviationText: 'Work: ',
-  mobileAbbreviationText: 'Mobile: ',
+  titleText: resource.titleText,
+  activitiesText: resource.activitiesText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  editActionText: resource.editActionText,
+  callMainActionText: resource.callMainActionText,
+  callWorkActionText: resource.callWorkActionText,
+  callMobileActionText: resource.callMobileActionText,
+  sendEmailActionText: resource.sendEmailActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  phoneAbbreviationText: resource.phoneAbbreviationText,
+  mobileAbbreviationText: resource.mobileAbbreviationText,
 
   // View Properties
   detailView: 'contact_detail',

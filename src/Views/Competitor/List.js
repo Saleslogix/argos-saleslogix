@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('competitorList');
 
 /**
  * @class crm.Views.Competitor.List
@@ -19,7 +22,7 @@ const __class = declare('crm.Views.Competitor.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Competitors',
+  titleText: resource.titleText,
 
   // View Properties
   detailView: 'competitor_detail',

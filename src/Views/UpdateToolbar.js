@@ -3,6 +3,9 @@ import lang from 'dojo/_base/lang';
 import win from 'dojo/_base/window';
 import domClass from 'dojo/dom-class';
 import MainToolbar from 'argos/MainToolbar';
+import getResource from 'argos/I18n';
+
+const resource = getResource('updateToolbar');
 
 /**
  * @class crm.Views.UpdateToolbar
@@ -18,7 +21,7 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
     '</div>',
   ]),
 
-  updateText: 'An update is available.  Click to reload.',
+  updateText: resource.updateText,
 
   managed: false,
 

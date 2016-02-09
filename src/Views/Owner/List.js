@@ -3,6 +3,9 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import array from 'dojo/_base/array';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('ownerList');
 
 /**
  * @class crm.Views.Owner.List
@@ -16,7 +19,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Owners',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'owner_list',

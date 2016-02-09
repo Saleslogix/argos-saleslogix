@@ -6,8 +6,9 @@ import aspect from 'dojo/aspect';
 import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
+import getResource from 'argos/I18n';
 
-const mixinName = 'crm.Views._RightDrawerListMixin';
+const resource = getResource('rightDrawerListMixin');
 
 /**
  * @class crm.Views._RightDrawerListMixin
@@ -20,14 +21,15 @@ const mixinName = 'crm.Views._RightDrawerListMixin';
  */
 const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
-  hashTagsSectionText: 'Hash Tags',
-  groupsSectionText: 'Groups',
-  kpiSectionText: 'KPI',
-  configureGroupsText: 'Configure',
-  refreshGroupsText: 'Refresh',
-  layoutsText: 'Layouts',
+  hashTagsSectionText: resource.hashTagsSectionText,
+  groupsSectionText: resource.groupsSectionText,
+  kpiSectionText: resource.kpiSectionText,
+  configureGroupsText: resource.configureGroupsText,
+  refreshGroupsText: resource.refreshGroupsText,
+  layoutsText: resource.layoutsText,
 
   _hasChangedKPIPrefs: false, // Dirty flag so we know when to reload the widgets
+  _hashTagClicked: false,
   groupList: null,
   DRAWER_PAGESIZE: 100,
   groupLookupId: 'groups_configure',
@@ -60,9 +62,18 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       App.snapper.on('close', function onCloseofSnapper() {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
-          this.rebuildWidgets();
+
+          // HACK: Don't rebuild widgets if a hashtag was clicked,
+          // because the widget mixin will rebuild on a data refresh anyways.
+          // TODO: Fix multiple calls to rebuildWidets() at the same time.
+          if (!this._hashTagClicked) {
+            this.rebuildWidgets();
+          }
           this._hasChangedKPIPrefs = false;
         }
+
+        // Reset state
+        this._hashTagClicked = false;
       }.bind(this));
     }
   },
@@ -91,6 +102,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         }
 
         if (params.hashtag) {
+          this._hashTagClicked = true;
           this.setSearchTerm('#' + params.hashtag);
           this.search();
           this.toggleRightDrawer();
@@ -137,7 +149,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       layoutSelectedClicked: function layoutSelectedClicked(params) {
         const name = params.name;
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
-        this._groupInitalized = false;
+        this._groupInitialized = false;
         this.refresh();
         this.toggleRightDrawer();
       }.bind(this),
@@ -190,17 +202,22 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
       if (hasDefaultGroup) {
         // We will transition back to the list, pop back open the right drawer so the user is back where they started
-        aspect.after(list, 'processData', function postProcessData() {
+        const processDataHandle = aspect.after(list, 'processData', function postProcessData() {
           this.toggleRightDrawer();
-          this.transitionHandle.remove();
+          processDataHandle.remove();
+          if (this.transitionHandle) {
+            this.transitionHandle.remove();
+          }
         }.bind(list));
       } else {
         // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
-        aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
+        this.transitionHandle = aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
           this.refreshRequired = true;
           this.clear();
           this.refresh();
-          this.transitionHandle.remove();
+          if (this.transitionHandle) {
+            this.transitionHandle.remove();
+          }
         }.bind(list));
       }
     }.bind(field));
@@ -208,33 +225,31 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     field.navigateToListView();
   },
   getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
-    const mixin = lang.getObject(mixinName);
     if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags() && App.enableHashTags) {
       return {
         tag: 'view',
-        title: mixin.prototype.hashTagsSectionText,
+        title: resource.hashTagsSectionText,
       };
     }
 
     if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') && this.groupsEnabled) {
       return {
         tag: 'group',
-        title: mixin.prototype.groupsSectionText,
+        title: resource.groupsSectionText,
       };
     }
     if ((entry.action === 'layoutSelectedClicked') && this.groupsEnabled) {
       return {
         tag: 'layoutTemplates',
-        title: mixin.prototype.layoutsText,
+        title: resource.layoutsText,
       };
     }
     return {
       tag: 'kpi',
-      title: mixin.prototype.kpiSectionText,
+      title: resource.kpiSectionText,
     };
   },
   createRightDrawerLayout: function createRightDrawerLayout() {
-    const mixin = lang.getObject(mixinName);
     const layout = [];
 
     if (this.groupsEnabled) {
@@ -246,7 +261,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       groupsSection.children.push({
         'name': 'configureGroups',
         'action': 'groupConfigureClicked',
-        'title': mixin.prototype.configureGroupsText,
+        'title': resource.configureGroupsText,
         'cls': 'group-configuration',
         'iconCls': 'fa fa-cog fa-fw ',
       });

@@ -9,8 +9,9 @@ import lang from 'dojo/_base/lang';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
+import getResource from 'argos/I18n';
 
-const mixinName = 'crm.Views._GroupListMixin';
+const resource = getResource('groupListMixin');
 
 /**
  * @class crm.Views._GroupListMixin
@@ -22,10 +23,11 @@ const mixinName = 'crm.Views._GroupListMixin';
  *
  */
 const __class = declare('crm.Views._GroupListMixin', null, {
-  noDefaultGroupText: 'No default group set. Click here to configure groups.',
-  currentGroupNotFoundText: 'The current group was not found.',
-  groupTemplateSummaryText: 'Summary',
-  groupTemplateDetailText: 'Detail',
+  noDefaultGroupText: resource.noDefaultGroupText,
+  currentGroupNotFoundText: resource.currentGroupNotFoundText,
+  groupTemplateSummaryText: resource.groupTemplateSummaryText,
+  groupTemplateDetailText: resource.groupTemplateDetailText,
+  groupsModeText: resource.groupsModeText,
   hasDefaultGroup: true,
   noDefaultGroupTemplate: new Simplate([
     '<li class="no-data" data-action="openConfigure">',
@@ -39,30 +41,23 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   ]),
 
   _getNoDefaultGroupMessage: function _getNoDefaultGroupMessage() {
-    const mixin = lang.getObject(mixinName);
-    if (mixin) {
-      return mixin.prototype.noDefaultGroupText;
-    }
+    return resource.noDefaultGroupText;
   },
   _getCurrentGroupNotFoundMessage: function _getCurrentGroupNotFoundMessage() {
-    const mixin = lang.getObject(mixinName);
-    if (mixin) {
-      return mixin.prototype.currentGroupNotFoundText;
-    }
+    return resource.currentGroupNotFoundText;
   },
   openConfigure: function openConfigure() {
     if (this._selectGroups) {
       this._selectGroups();
     }
   },
-  groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
   // View Properties
   entityName: null,
   groupsEnabled: false,
   groupsMode: false,
   currentGroupId: null,
   _currentGroup: null,
-  _groupInitalized: false,
+  _groupInitialized: false,
   _originalProps: null,
   overrideGroupLayoutName: '@MobileLayout',
   _overrideLayoutInitalized: false,
@@ -90,7 +85,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   requestData: function requestData() {
     try {
-      if (!this._groupInitalized && this.groupsMode) {
+      if (!this._groupInitialized && this.groupsMode) {
         domClass.add(this.domNode, 'list-loading');
         this._setLoading();
         this.initGroup();
@@ -114,7 +109,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   setCurrentGroup: function setCurrentGroup(group) {
     if (group) {
       this.hasDefaultGroup = true;
-      this._groupInitalized = false;
+      this._groupInitialized = false;
       this._currentGroup = group;
       this.currentGroupId = group.$key;
       GroupUtility.setDefaultGroupPreference(this.entityName, group.name);
@@ -181,7 +176,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     App.setPrimaryTitle(title);
     this.set('title', title);
 
-    if (this._groupInitalized) {
+    if (this._groupInitialized) {
       return;
     }
 
@@ -204,7 +199,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.store = null;
     this.clear(true);
     this.refreshRequired = true;
-    this._groupInitalized = true;
+    this._groupInitialized = true;
     this.requestData();
   },
   _requestOverrideGroupLayout: function _requestOverrideGroupLayout() {
@@ -319,10 +314,9 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>',
   ]),
   createGroupTemplateLayouts: function createGroupTemplateLayouts() {
-    const mixin = lang.getObject(mixinName);
     this.groupTemplateLayouts = [{
       name: 'Summary',
-      displayName: mixin ? mixin.prototype.groupTemplateSummaryText : this.groupTemplateSummaryText,
+      displayName: resource.groupTemplateSummaryText,
       type: 'Dynamic',
       options: {
         columns: [{
@@ -332,7 +326,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       },
     }, {
       name: 'Detail',
-      displayName: mixin ? mixin.prototype.groupTemplateDetailText : this.groupTemplateDetailText,
+      displayName: resource.groupTemplateDetailText,
       type: 'Dynamic',
       options: {
         columns: [{
@@ -560,7 +554,9 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     original.itemFooterTemplate = this.itemFooterTemplate;
     original.relatedViews = this.relatedViews;
     original.title = this.get('title');
+    original._model = this._model;
 
+    this._model = null;
     this.itemFooterTemplate = new Simplate(['<div></div>']);
 
     this.groupsMode = true;
@@ -584,10 +580,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.itemTemplate = original.itemTemplate;
     this.relatedViews = original.relatedViews;
     this.itemFooterTemplate = original.itemFooterTemplate;
+    this._model = original._model;
 
     this._originalProps = null;
 
-    this._groupInitalized = false;
+    this._groupInitialized = false;
     this._currentGroup = null;
     this.currentGroupId = null;
     App.setPrimaryTitle(original.title);
@@ -827,7 +824,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   getContextSnapShot: function getContextSnapShot(options) {
     let snapShot;
-    if (this._groupInitalized && this.groupsMode) {
+    if (this._groupInitialized && this.groupsMode) {
       const entry = this.entries[options.key];
       const template = this.itemRowContainerTemplate;
       snapShot = template.apply(entry, this);
@@ -836,6 +833,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     snapShot = this.inherited(arguments);
 
     return snapShot;
+  },
+  initModel: function initModel() {
+    if (!this._groupInitialized || !this.groupsMode) {
+      this.inherited(arguments);
+    }
   },
 });
 

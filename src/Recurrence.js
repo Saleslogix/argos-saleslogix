@@ -1,6 +1,8 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import moment from 'moment';
+import getResource from 'argos/I18n';
+
+const resource = getResource('recurrence');
 
 /**
  * @class crm.Recurrence
@@ -12,44 +14,44 @@ import moment from 'moment';
  */
 const __class = lang.setObject('crm.Recurrence', {
   // Localization
-  neverText: 'Never',
-  daysText: 'days',
-  dailyText: 'Daily',
-  weeksText: 'weeks',
-  weeklyText: 'Weekly',
-  weeklyOnText: 'Weekly on ${3}', // eg. {weekly} on {friday}
-  monthsText: 'months',
-  monthlyText: 'Monthly',
-  monthlyOnDayText: 'Monthly on day ${1}', // eg. {monthly} on day {15}
-  monthlyOnText: 'Monthly on ${5} ${3}', // eg. {monthly} on {second} {Monday}
-  yearsText: 'years',
-  yearlyText: 'Yearly',
-  yearlyOnText: 'Yearly on ${2}', // eg. {yearly} on {short_date}
-  yearlyOnWeekdayText: 'Yearly on ${5} ${3} in ${4}', // eg. {yearly} on {first} {Thursday} in {April}
-  everyText: 'every ${0} ${1}', // eg. every {2} {weeks}
-  afterCompletionText: 'after completion',
-  untilEndDateText: '${0} until ${1}', // eg. {daily} until {31/10/2012}
-  dayFormatText: 'DD',
-  monthFormatText: 'MM',
-  monthAndDayFormatText: 'MM/DD',
-  weekdayFormatText: 'dddd',
-  endDateFormatText: 'M/D/YYYY',
+  neverText: resource.neverText,
+  daysText: resource.daysText,
+  dailyText: resource.dailyText,
+  weeksText: resource.weeksText,
+  weeklyText: resource.weeklyText,
+  weeklyOnText: resource.weeklyOnText, // eg. {weekly} on {friday}
+  monthsText: resource.monthsText,
+  monthlyText: resource.monthlyText,
+  monthlyOnDayText: resource.monthlyOnDayText, // eg. {monthly} on day {15}
+  monthlyOnText: resource.monthlyOnText, // eg. {monthly} on {second} {Monday}
+  yearsText: resource.yearsText,
+  yearlyText: resource.yearlyText,
+  yearlyOnText: resource.yearlyOnText, // eg. {yearly} on {short_date}
+  yearlyOnWeekdayText: resource.yearlyOnWeekdayText, // eg. {yearly} on {first} {Thursday} in {April}
+  everyText: resource.everyText, // eg. every {2} {weeks}
+  afterCompletionText: resource.afterCompletionText,
+  untilEndDateText: resource.untilEndDateText, // eg. {daily} until {31/10/2012}
+  dayFormatText: resource.dayFormatText,
+  monthFormatText: resource.monthFormatText,
+  monthAndDayFormatText: resource.monthAndDayFormatText,
+  weekdayFormatText: resource.weekdayFormatText,
+  endDateFormatText: resource.endDateFormatText,
   weekDaysText: [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    resource.sunday,
+    resource.monday,
+    resource.tuesday,
+    resource.wednesday,
+    resource.thursday,
+    resource.friday,
+    resource.saturday,
   ],
   ordText: [
-    'day',
-    'first',
-    'second',
-    'third',
-    'fourth',
-    'last',
+    resource.day,
+    resource.first,
+    resource.second,
+    resource.third,
+    resource.fourth,
+    resource.last,
   ],
 
   interval: 1, // repeat every interval days/weeks/months/years
@@ -147,8 +149,8 @@ const __class = lang.setObject('crm.Recurrence', {
       null, // scale, replaced in loop
       day,
       wrapped.format(this.dayFormatText),
-      wrapped.lang().weekdays(wrapped),
-      wrapped.lang().monthsShort(wrapped),
+      wrapped.localeData().weekdays(wrapped),
+      wrapped.localeData().monthsShort(wrapped),
       ord,
     ];
 

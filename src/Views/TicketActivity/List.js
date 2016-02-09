@@ -6,6 +6,9 @@ import query from 'dojo/query';
 import topic from 'dojo/topic';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('ticketActivityList');
 
 /**
  * @class crm.Views.TicketActivity.List
@@ -28,8 +31,8 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Ticket Activities',
-  startDateFormatText: 'MM/DD/YYYY h:mm A',
+  titleText: resource.titleText,
+  startDateFormatText: resource.startDateFormatText,
 
   // View Properties
   id: 'ticketactivity_list',

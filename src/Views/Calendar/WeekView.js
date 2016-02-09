@@ -8,7 +8,9 @@ import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
-import moment from 'moment';
+import getResource from 'argos/I18n';
+
+const resource = getResource('calendarWeekView');
 
 /**
  * @class crm.Views.Calendar.WeekView
@@ -29,23 +31,23 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
-  titleText: 'Calendar',
-  weekTitleFormatText: 'MMM D, YYYY',
-  dayHeaderLeftFormatText: 'dddd',
-  dayHeaderRightFormatText: 'MMM D, YYYY',
-  eventDateFormatText: 'M/D/YYYY',
-  startTimeFormatText: 'h:mm A',
-  todayText: 'Today',
-  dayText: 'Day',
-  weekText: 'Week',
-  monthText: 'Month',
-  allDayText: 'All Day',
-  eventHeaderText: 'Events',
-  eventMoreText: 'View ${0} More Event(s)',
-  toggleCollapseText: 'toggle collapse',
+  titleText: resource.titleText,
+  weekTitleFormatText: resource.weekTitleFormatText,
+  dayHeaderLeftFormatText: resource.dayHeaderLeftFormatText,
+  dayHeaderRightFormatText: resource.dayHeaderRightFormatText,
+  eventDateFormatText: resource.eventDateFormatText,
+  startTimeFormatText: resource.startTimeFormatText,
+  todayText: resource.todayText,
+  dayText: resource.dayText,
+  weekText: resource.weekText,
+  monthText: resource.monthText,
+  allDayText: resource.allDayText,
+  eventHeaderText: resource.eventHeaderText,
+  eventMoreText: resource.eventMoreText,
+  toggleCollapseText: resource.toggleCollapseText,
+
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
-
   enablePullToRefresh: false,
 
   // Templates

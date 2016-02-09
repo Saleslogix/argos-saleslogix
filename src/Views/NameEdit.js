@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import validator from '../Validator';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
+
+const resource = getResource('nameEdit');
 
 /**
  * @class crm.Views.NameEdit
@@ -12,14 +15,14 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.NameEdit', [Edit], {
   // Localization
-  titleText: 'Edit Name',
-  firstNameText: 'first',
-  middleNameText: 'middle',
-  lastNameText: 'last',
-  prefixText: 'prefix',
-  prefixTitleText: 'Name Prefix',
-  suffixText: 'suffix',
-  suffixTitleText: 'Name Suffix',
+  titleText: resource.titleText,
+  firstNameText: resource.firstNameText,
+  middleNameText: resource.middleNameText,
+  lastNameText: resource.lastNameText,
+  prefixText: resource.prefixText,
+  prefixTitleText: resource.prefixTitleText,
+  suffixText: resource.suffixText,
+  suffixTitleText: resource.suffixTitleText,
 
   // View Properties
   id: 'name_edit',

@@ -19,6 +19,10 @@ mkdir deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk
 mkdir deploy\bundle\model\Portal\SlxMobile\SourceFiles\products
 mkdir deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix
 
+pushd %SDK%
+call grunt clean:css clean:js less babel
+popd
+
 xcopy %SDK%\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk /E /Y /exclude:build\bundleExcludes.txt
 xcopy *.* %SDK%\deploy\temp /E /Y /exclude:build\bundleExcludes.txt
 xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix /E /Y

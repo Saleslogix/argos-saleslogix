@@ -6,6 +6,9 @@ import template from 'crm/Template';
 import validator from 'crm/Validator';
 import Edit from 'argos/Edit';
 import utility from 'argos/Utility';
+import getResource from 'argos/I18n';
+
+const resource = getResource('contactEdit');
 
 /**
  * @class crm.Views.Contact.Edit
@@ -20,23 +23,22 @@ import utility from 'argos/Utility';
  */
 const __class = declare('crm.Views.Contact.Edit', [Edit], {
   // Localization
-  titleText: 'Contact',
-  nameText: 'name',
-  workText: 'work phone',
-  mobileText: 'mobile phone',
-  emailText: 'email',
-  webText: 'web',
-  acctMgrText: 'acct mgr',
-  accountNameText: 'account',
-  homePhoneText: 'home phone',
-  faxText: 'fax',
-  addressText: 'address',
-  contactTitleText: 'title',
-  titleTitleText: 'Title',
-  addressTitleText: 'Address',
-  ownerText: 'owner',
-  cuisinePreferenceText: 'cuisine',
-  cuisinePreferenceTitleText: 'Cuisine',
+  titleText: resource.titleText,
+  nameText: resource.nameText,
+  workText: resource.workText,
+  mobileText: resource.mobileText,
+  emailText: resource.emailText,
+  webText: resource.webText,
+  acctMgrText: resource.acctMgrText,
+  accountNameText: resource.accountNameText,
+  homePhoneText: resource.homePhoneText,
+  faxText: resource.faxText,
+  addressText: resource.addressText,
+  contactTitleText: resource.contactTitleText,
+  titleTitleText: resource.titleTitleText,
+  addressTitleText: resource.addressTitleText,
+  ownerText: resource.ownerText,
+  cuisinePreferenceText: resource.cuisinePreferenceText,
 
   // View Properties
   entityName: 'Contact',

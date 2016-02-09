@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
@@ -19,6 +16,8 @@ import MainToolbar from './Views/MainToolbar';
 import UpdateToolbar from './Views/UpdateToolbar';
 import LeftDrawer from './Views/LeftDrawer';
 import RightDrawer from './Views/RightDrawer';
+import OfflineDetail from './Views/Offline/Detail';
+import OfflineList from './Views/Offline/List';
 import Login from './Views/Login';
 import LogOff from './Views/LogOff';
 import Settings from './Views/Settings';
@@ -35,15 +34,17 @@ import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
 import ActivityList from './Views/Activity/List';
+import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
 import ActivityDetail from './Views/Activity/Detail';
 import ActivityEdit from './Views/Activity/Edit';
 import ActivityComplete from './Views/Activity/Complete';
 import ActivityTypesList from './Views/Activity/TypesList';
 import ActivityRecurring from './Views/Activity/Recurring';
-import CalendarDayView from './Views/Calendar/DayView';
-import CalendarWeekView from './Views/Calendar/WeekView';
-import CalendarMonthView from './Views/Calendar/MonthView';
+import CalendarView from './Views/Calendar/CalendarView';
+import DayView from './Views/Calendar/DayView';
+import MonthView from './Views/Calendar/MonthView';
+import WeekView from './Views/Calendar/WeekView';
 import GenericBar from './Views/Charts/GenericBar';
 import GenericLine from './Views/Charts/GenericLine';
 import GenericPie from './Views/Charts/GenericPie';
@@ -95,6 +96,11 @@ import ViewAttachment from './Views/Attachment/ViewAttachment';
 import AttachmentList from './Views/Attachment/List';
 import AddAttachment from './Views/Attachment/AddAttachment';
 import MyAttachmentList from './Views/Attachment/MyAttachmentList';
+import RecentlyViewedList from './Views/RecentlyViewed/List';
+import BriefcaseList from './Views/Briefcase/List';
+import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
+import getResource from 'argos/I18n';
+import './Views/OfflineOptions/UsageWidget';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -108,7 +114,29 @@ import './Template';
 import './Validator';
 import './Environment';
 import './Utility';
+import './Models/Account/Offline';
+import './Models/Account/SData';
+import './Models/Activity/Offline';
+import './Models/Activity/SData';
+import './Models/Contact/Offline';
+import './Models/Contact/SData';
+import './Models/Lead/Offline';
+import './Models/Lead/SData';
+import './Models/LeadAddress/Offline';
+import './Models/LeadAddress/SData';
+import './Models/Opportunity/Offline';
+import './Models/Opportunity/SData';
+import './Models/UserActivity/Offline';
+import './Models/UserActivity/SData';
+import './Models/Address/Offline';
+import './Models/Address/SData';
+import './Models/History/Offline';
+import './Models/History/SData';
+import './Models/Ticket/Offline';
+import './Models/Ticket/SData';
+import './Models/Authentication/Offline';
 
+const resource = getResource('applicationModule');
 
 /**
  * @class crm.ApplicationModule
@@ -124,7 +152,7 @@ import './Utility';
  *
  */
 const __class = declare('crm.ApplicationModule', [ApplicationModule], {
-  searchText: 'Lookup',
+  searchText: resource.searchText,
   loadViews: function loadViews() {
     this.inherited(arguments);
 
@@ -142,6 +170,16 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
     this.registerView(new RightDrawer(), query('.right-drawer')[0]);
 
+    this.registerView(new OfflineDetail());
+    this.registerView(new OfflineList({
+      expose: false,
+    }));
+    this.registerView(new RecentlyViewedList({
+      expose: true,
+    }));
+    this.registerView(new BriefcaseList({
+      expose: true,
+    }));
     this.registerView(new Help());
     this.registerView(new Settings());
     this.registerView(new Configure());
@@ -176,9 +214,10 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new CalendarMonthView());
-    this.registerView(new CalendarWeekView());
-    this.registerView(new CalendarDayView());
+    this.registerView(new CalendarView());
+    this.registerView(new DayView());
+    this.registerView(new MonthView());
+    this.registerView(new WeekView());
 
     // Charts
     this.registerView(new GenericBar({
@@ -337,6 +376,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
+    this.registerView(new MyDayList());
     this.registerView(new MyActivityList());
     this.registerView(new ActivityRecurring());
 
@@ -440,6 +480,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
         return '';
       },
     }));
+    this.registerView(new OfflineOptionsEdit({
+      expose: false,
+    }));
   },
   loadToolbars: function loadToolbars() {
     this.inherited(arguments);
@@ -475,9 +518,23 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.loadAppStatePromises();
   },
   loadAppStatePromises: function loadAppStatePromises() {
-    this.registerAppStatePromise(() => App.requestUserDetails());
-    this.registerAppStatePromise(() => App.requestUserOptions());
-    this.registerAppStatePromise(() => App.requestSystemOptions());
+    this.registerAppStatePromise({
+      seq: 1,
+      description: resource.userContextAndOptionsText,
+      items: [{
+        name: 'user_detail',
+        description: resource.userInformationText,
+        fn: () => App.requestUserDetails(),
+      }, {
+        name: 'user_options',
+        description: resource.userOptionsText,
+        fn: () => App.requestUserOptions(),
+      }, {
+        name: 'system_options',
+        description: resource.systemOptionsText,
+        fn: () => App.requestSystemOptions(),
+      }],
+    });
   },
 });
 

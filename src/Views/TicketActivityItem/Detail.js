@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
+
+const resource = getResource('ticketActivityItemDetail');
 
 /**
  * @class crm.Views.TicketActivityItem.Detail
@@ -12,12 +15,13 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
   // Localization
-  titleText: 'Ticket Activity Part',
-  productNameText: 'product',
-  skuText: 'SKU',
-  serialNumberText: 'serial #',
-  itemAmountText: 'price',
-  itemDescriptionText: 'description',
+  titleText: resource.titleText,
+  productNameText: resource.productNameText,
+  skuText: resource.skuText,
+  serialNumberText: resource.serialNumberText,
+  itemAmountText: resource.itemAmountText,
+  itemDescriptionText: resource.itemDescriptionText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'ticketactivityitem_detail',

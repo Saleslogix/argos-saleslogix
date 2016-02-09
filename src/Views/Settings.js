@@ -3,6 +3,9 @@ import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('settings');
 
 /**
  * @class crm.Views.Settings
@@ -34,12 +37,13 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   ]),
 
   // Localization
-  clearLocalStorageTitleText: 'Clear Storage',
-  clearAuthenticationTitleText: 'Clear Saved Credentials',
-  errorLogTitleText: 'View Error Logs',
-  localStorageClearedText: 'Local storage cleared successfully.',
-  credentialsClearedText: 'Saved credentials cleared successfully.',
-  titleText: 'Settings',
+  clearLocalStorageTitleText: resource.clearLocalStorageTitleText,
+  clearAuthenticationTitleText: resource.clearAuthenticationTitleText,
+  errorLogTitleText: resource.errorLogTitleText,
+  localStorageClearedText: resource.localStorageClearedText,
+  credentialsClearedText: resource.credentialsClearedText,
+  titleText: resource.titleText,
+  offlineOptionsText: resource.offlineOptionsText,
 
   // View Properties
   id: 'settings',
@@ -53,6 +57,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     'clearAuthentication',
     'clearLocalStorage',
     'viewErrorLogs',
+    'viewOfflineOptions',
   ],
   createActions: function createActions() {
     this.actions = {
@@ -66,6 +71,10 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
       },
       'viewErrorLogs': {
         title: this.errorLogTitleText,
+        cls: 'fa fa-list-alt fa-2x',
+      },
+      'viewOfflineOptions': {
+        title: this.offlineOptionsText,
         cls: 'fa fa-list-alt fa-2x',
       },
     };
@@ -100,6 +109,12 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
 
     alert(this.credentialsClearedText); // eslint-disable-line
   },
+  viewOfflineOptions: function viewOfflineOptions() {
+    const view = App.getView('offline_options_edit');
+    if (view) {
+      view.show();
+    }
+  },
   hasMoreData: function hasMoreData() {
     return false;
   },
@@ -117,6 +132,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
         });
       }
     }
+    this.set('listContent', '');
 
     this.processData(list);
   },

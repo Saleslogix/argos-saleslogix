@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('userCalendarAccessList');
 
 /**
  * @class crm.Views.User.CalendarAccessList
@@ -16,7 +19,7 @@ const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   ]),
 
   // Localization
-  titleText: 'Activity Resources',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'calendar_access_list',

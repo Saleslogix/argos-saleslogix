@@ -1,6 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import MainToolbar from 'argos/MainToolbar';
+import getResource from 'argos/I18n';
+
+const resource = getResource('footerToolbar');
 
 /**
  * @class crm.Views.FooterToolbar
@@ -11,7 +14,7 @@ import MainToolbar from 'argos/MainToolbar';
  */
 const __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
   // Localization
-  copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
+  copyrightText: resource.copyrightText,
 
   widgetTemplate: new Simplate([
     '<div class="footer-toolbar {%= $.cls %}">',

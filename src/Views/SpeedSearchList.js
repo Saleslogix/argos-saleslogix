@@ -11,6 +11,9 @@ import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('speedSearchList');
 
 /**
  * @class crm.Views.SpeedSearchList
@@ -37,7 +40,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   ]),
 
   // Localization
-  titleText: 'SpeedSearch',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'speedsearch_list',
@@ -77,13 +80,13 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   }],
   types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
   indexesText: {
-    'Account': 'Account',
-    'Activity': 'Activity',
-    'Contact': 'Contact',
-    'History': 'History',
-    'Lead': 'Lead',
-    'Opportunity': 'Opportunity',
-    'Ticket': 'Ticket',
+    'Account': resource.accountText,
+    'Activity': resource.activityText,
+    'Contact': resource.contactText,
+    'History': resource.historyText,
+    'Lead': resource.leadText,
+    'Opportunity': resource.opportunityText,
+    'Ticket': resource.ticketText,
   },
   itemIconByType: {
     'Contact': 'fa-user',

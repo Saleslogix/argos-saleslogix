@@ -5,7 +5,9 @@ import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
-import moment from 'moment';
+import getResource from 'argos/I18n';
+
+const resource = getResource('activityRecurring');
 
 /**
  * @class crm.Views.Activity.Recurring
@@ -24,51 +26,51 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   // Localization
-  startingText: 'start date',
-  endingText: 'end date',
-  repeatsText: 'repeats',
-  everyText: 'every',
-  afterCompletionText: 'after completed',
-  singleWeekdayText: 'weekday',
-  weekdaysText: 'weekday(s)',
-  dayText: 'day',
-  monthText: 'month',
-  onText: 'on',
-  occurrencesText: 'occurrences',
-  summaryText: 'summary',
+  startingText: resource.startingText,
+  endingText: resource.endingText,
+  repeatsText: resource.repeatsText,
+  everyText: resource.everyText,
+  afterCompletionText: resource.afterCompletionText,
+  singleWeekdayText: resource.singleWeekdayText,
+  weekdaysText: resource.weekdaysText,
+  dayText: resource.dayText,
+  monthText: resource.monthText,
+  onText: resource.onText,
+  occurrencesText: resource.occurrencesText,
+  summaryText: resource.summaryText,
   weekDaysText: [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    resource.sunday,
+    resource.monday,
+    resource.tuesday,
+    resource.wednesday,
+    resource.thursday,
+    resource.friday,
+    resource.saturday,
   ],
   monthsText: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    resource.january,
+    resource.february,
+    resource.march,
+    resource.april,
+    resource.may,
+    resource.june,
+    resource.july,
+    resource.august,
+    resource.september,
+    resource.october,
+    resource.november,
+    resource.december,
   ],
   frequencyOptionsText: [
-    'days',
-    'weeks',
-    'months',
-    'years',
+    resource.days,
+    resource.weeks,
+    resource.months,
+    resource.years,
   ],
-  recurringFrequencyText: 'Recurring Frequency',
-  yesText: 'Yes',
-  noText: 'No',
-  titleText: 'Recurrence',
+  recurringFrequencyText: resource.recurringFrequencyText,
+  yesText: resource.yesText,
+  noText: resource.noText,
+  titleText: resource.titleText,
 
   // View Properties
   monthNames: moment.monthsShort,

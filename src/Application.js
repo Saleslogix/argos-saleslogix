@@ -10,8 +10,14 @@ import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
 import Application from 'argos/Application';
+import offlineManager from 'argos/Offline/Manager';
+import MODEL_TYPES from 'argos/Models/Types';
+import BusyIndicator from 'argos/Dialogs/BusyIndicator';
+import getResource from 'argos/I18n';
 import 'dojo/sniff';
-import moment from 'moment';
+
+
+const resource = getResource('application');
 
 /**
  * @class crm.Application
@@ -29,6 +35,7 @@ const __class = declare('crm.Application', [Application], {
   multiCurrency: false,
   enableGroups: true,
   enableHashTags: true,
+  enableOfflineSupport: false,
   speedSearch: {
     includeStemming: true,
     includePhonic: true,
@@ -78,10 +85,14 @@ const __class = declare('crm.Application', [Application], {
     'minor': 4,
     'revision': 0,
   },
-  versionInfoText: 'Mobile v${0}.${1}.${2}',
-  loadingText: 'Loading application state',
-  authText: 'Authenticating',
+  versionInfoText: resource.versionInfoText,
+  loadingText: resource.loadingText,
+  authText: resource.authText,
+  connectionToastTitleText: resource.connectionToastTitleText,
+  offlineText: resource.offlineText,
+  onlineText: resource.onlineText,
   homeViewId: 'myactivity_list',
+  offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
   logOffViewId: 'logoff',
 
@@ -266,7 +277,7 @@ const __class = declare('crm.Application', [Application], {
   run: function run() {
     this.inherited(arguments);
 
-    if (App.isOnline() || !App.enableCaching) {
+    if (this.isOnline() || !this.enableCaching) {
       this.handleAuthentication();
     } else {
       // todo: always navigate to home when offline? data may not be available for restored state.
@@ -369,7 +380,7 @@ const __class = declare('crm.Application', [Application], {
     return !!userSecurity[security];
   },
   reload: function reload() {
-    ReUI.disableLocationCheck();
+    this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
   },
@@ -378,6 +389,8 @@ const __class = declare('crm.Application', [Application], {
     this._clearNavigationState();
 
     const service = this.getService();
+    this.isAuthenticated = false;
+    this.context = {};
 
     if (service) {
       service
@@ -410,31 +423,66 @@ const __class = declare('crm.Application', [Application], {
       }
     } catch (e) {} //eslint-disable-line
   },
+  isAuthenticated: false,
+  hasState: false,
   handleAuthentication: function handleAuthentication() {
     const credentials = this.getCredentials();
 
     if (credentials) {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(credentials, {
-        success: function success() {
-          this.setPrimaryTitle(this.loadingText);
-          this.initAppState()
-            .then(() => {
-              this.navigateToInitialView();
-            });
-        },
-        failure: function failure() {
-          this.navigateToLoginView();
-          this.removeCredentials();
-        },
-        aborted: function aborted() {
-          this.navigateToLoginView();
-        },
+        success: this.onHandleAuthenticationSuccess,
+        failure: this.onHandleAuthenticationFailed,
+        aborted: this.onHandleAuthenticationAborted,
         scope: this,
       });
     } else {
       this.navigateToLoginView();
     }
+  },
+  onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
+    this.isAuthenticated = true;
+    this.setPrimaryTitle(this.loadingText);
+    this.initAppState().then(()=> {
+      this.onInitAppStateSuccess();
+    }, (err)=> {
+      this.onInitAppStateFailed(err);
+    });
+  },
+  onHandleAuthenticationFailed: function onHandleAuthenticationFailed() {
+    this.removeCredentials();
+    this.navigateToLoginView();
+  },
+  onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
+    this.navigateToLoginView();
+  },
+  onInitAppStateSuccess: function onInitAppStateSuccess() {
+    if (this.enableOfflineSupport) {
+      this.initOfflineData().then(() => {
+        this.hasState = true;
+        this.navigateToInitialView();
+      }, (error) => {
+        this.hasState = true;
+        this.enableOfflineSupport = false;
+        const message = resource.offlineInitErrorText;
+        ErrorManager.addSimpleError(message, error);
+        ErrorManager.showErrorDialog(null, message, () => {
+          this.navigateToInitialView();
+        });
+      });
+    } else {
+      this.hasState = true;
+      this.navigateToInitialView();
+    }
+  },
+  onInitAppStateFailed: function onInitAppStateFailed(error) {
+    const message = resource.appStateInitErrorText;
+    ErrorManager.addSimpleError(message, error);
+    ErrorManager.showErrorDialog(null, message, () => {
+      this._clearNavigationState();
+      this.removeCredentials();
+      this.navigateToLoginView();
+    });
   },
   _clearNavigationState: function _clearNavigationState() {
     try {
@@ -568,21 +616,20 @@ const __class = declare('crm.Application', [Application], {
    */
   loadCustomizedMoment: function loadCustomizedMoment() {
     const custom = this.buildCustomizedMoment();
-    const currentLang = moment.lang();
+    const currentLang = moment.locale();
 
-    moment.lang(currentLang, custom);
-    this.moment = moment()
-      .lang(currentLang, custom);
+    moment.locale(currentLang, custom);
+    this.moment = moment().locale(currentLang, custom);
   },
   /*
-   * Builds an object that will get passed into moment.lang()
+   * Builds an object that will get passed into moment.locale()
    */
   buildCustomizedMoment: function buildCustomizedMoment() {
-    if (!App.context.userOptions) {
+    if (!this.context.userOptions) {
       return null;
     }
 
-    const userWeekStartDay = parseInt(App.context.userOptions['Calendar:WeekStart'], 10);
+    const userWeekStartDay = parseInt(this.context.userOptions['Calendar:WeekStart'], 10);
     let results = {}; // 0-6, Sun-Sat
 
     if (!isNaN(userWeekStartDay)) {
@@ -607,10 +654,7 @@ const __class = declare('crm.Application', [Application], {
         const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
         array.forEach(feed && feed.$resources, (item) => {
-          const {
-            name, value,
-          } = item;
-
+          const { name, value } = item;
           if (value && name && array.indexOf(this.systemOptionsToRequest, name) > -1) {
             systemOptions[name] = value;
           }
@@ -690,8 +734,8 @@ const __class = declare('crm.Application', [Application], {
     ErrorManager.addError(response, o, {}, 'failure');
   },
   defaultViews: [
-    'myactivity_list',
-    'calendar_daylist',
+    'myday_list',
+    'calendar_view',
     'history_list',
     'account_list',
     'contact_list',
@@ -699,16 +743,17 @@ const __class = declare('crm.Application', [Application], {
     'opportunity_list',
     'ticket_list',
     'myattachment_list',
+    'recently_viewed_list',
+    'briefcase_list',
   ],
   getDefaultViews: function getDefaultViews() {
     return this.defaultViews;
   },
   getExposedViews: function getExposedViews() {
-    return Object.keys(this.views)
-      .filter((id) => {
-        const view = App.getView(id);
-        return view && view.id !== 'home' && view.expose;
-      });
+    return Object.keys(this.views).filter((id) => {
+      const view = this.getView(id);
+      return view && view.id !== 'home' && view.expose;
+    });
   },
   cleanRestoredHistory: function cleanRestoredHistory(restoredHistory) {
     let result = [];
@@ -720,7 +765,7 @@ const __class = declare('crm.Application', [Application], {
         continue;
       }
 
-      if (App.hasView(restoredHistory[i].page)) {
+      if (this.hasView(restoredHistory[i].page)) {
         result.unshift(restoredHistory[i]);
       }
 
@@ -750,7 +795,7 @@ const __class = declare('crm.Application', [Application], {
         ReUI.context.transitioning = false;
 
         const last = cleanedHistory[cleanedHistory.length - 1];
-        const view = App.getView(last.page);
+        const view = this.getView(last.page);
         const options = last.data && last.data.options;
 
         view.show(options);
@@ -772,6 +817,31 @@ const __class = declare('crm.Application', [Application], {
     } else {
       this.redirectHash = '';
     }
+  },
+  onConnectionChange: function onConnectionChange(online) {
+    const view = this.getView('left_drawer');
+    if (!this.enableOfflineSupport) {
+      return;
+    }
+
+    if (view) {
+      view.refresh();
+    }
+
+    this.ReUI.resetHistory();
+    if (online) {
+      this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
+      if (this.context && this.context.user) {
+        this.navigateToInitialView();
+      } else {
+        this.navigateToLoginView();
+      }
+    } else {
+      this.toast.add({ message: this.offlineText, title: this.connectionToastTitleText });
+      this.navigateToInitialView();
+    }
+
+    this.setToolBarMode(online);
   },
   navigateToLoginView: function navigateToLoginView() {
     this.setupRedirectHash();
@@ -824,6 +894,10 @@ const __class = declare('crm.Application', [Application], {
       }
     }
 
+    if (!this.isOnline()) {
+      view = this.getView(this.offlineHomeViewId);
+    }
+
     if (view) {
       view.show();
     }
@@ -854,6 +928,55 @@ const __class = declare('crm.Application', [Application], {
       this.serverVersion.major,
     ]);
     return info;
+  },
+  initOfflineData: function initOfflineData() {
+    const def = new Deferred();
+    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    if (model) {
+      const indicator = new BusyIndicator({
+        id: 'busyIndicator__offlineData',
+        label: resource.offlineInitDataText,
+      });
+      this.modal.disableClose = true;
+      this.modal.showToolbar = false;
+      this.modal.add(indicator);
+      indicator.start();
+
+      model.initAuthentication(this.context.user.$key).then((result) => {
+        let options = offlineManager.getOptions();
+        if (result.hasUserChanged) {
+          options = {
+            clearAll: true,
+          };
+        }
+        if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
+          offlineManager.clearData(options).then(() => {
+            model.updateEntry(result.entry);
+            indicator.complete(true);
+            this.modal.disableClose = false;
+            this.modal.hide();
+            def.resolve();
+          }, (err) => {
+            indicator.complete(true);
+            this.modal.disableClose = false;
+            this.modal.hide();
+            def.reject(err);
+          });
+        } else {
+          result.entry.ModifyDate = moment().toDate();
+          model.updateEntry(result.entry);
+          indicator.complete(true);
+          this.modal.disableClose = false;
+          this.modal.hide();
+          def.resolve(); // Do nothing since this not the first time athuenticating.
+        }
+      }, (err) => {
+        def.reject(err);
+      });
+    } else {
+      def.resolve();
+    }
+    return def.promise;
   },
 });
 

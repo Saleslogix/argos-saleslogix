@@ -7,6 +7,9 @@ import domConstruct from 'dojo/dom-construct';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import SDataStore from 'argos/Store/SData';
+import getResource from 'argos/I18n';
+
+const resource = getResource('metricWidget');
 
 /**
  * @class crm.Views.MetricWidget
@@ -23,7 +26,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    */
   widgetTemplate: new Simplate([
     '<div class="metric-widget">',
-    '<button data-dojo-attach-event="onclick:navToReportView">',
+    '<button data-dojo-attach-event="onclick:navToReportView" {% if (!$.chartType) { %} disabled {% } %}>',
     '<div data-dojo-attach-point="metricDetailNode" class="metric-detail">',
     '{%! $.loadingTemplate %}',
     '</div>',
@@ -53,14 +56,25 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    */
   loadingTemplate: new Simplate([
     '<div class="metric-title list-loading">',
-    '<span class="list-loading-indicator"><span class="fa fa-spinner fa-spin"></span><div>{%= $.loadingText %}</div></span>',
+    '<span class="list-loading-indicator">',
+    '<div aria-live="polite">',
+      '<div class="busyIndicator busyIndicator--small">',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--one"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--two"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--three"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--four"></div>',
+        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--five"></div>',
+      '</div>',
+      '<span class="busyIndicator__label">{%: $.loadingText %}</span>',
+    '</div>',
+    '</span>',
     '</div>',
   ]),
 
   // Localization
   title: '',
-  loadingText: 'loading...',
-  errorText: 'Error loading widget.',
+  loadingText: resource.loadingText,
+  errorText: resource.errorText,
 
   // Store Options
   querySelect: null,
@@ -174,34 +188,39 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     const loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
     const loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
 
-    all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(function success(results) {
-      if (!results[0] || !results[1] || !results[2]) {
-        throw new Error('An error occurred loading the KPI widget data.');
-      }
+    all([loadValueFn, loadFormatter, this.requestDataDeferred])
+      .then(function success(results) {
+        if (!results[0] || !results[1] || !results[2]) {
+          throw new Error('An error occurred loading the KPI widget data.');
+        }
 
-      const valueFn = results[0];
-      const formatterFn = results[1];
-      const data = results[2];
+        const valueFn = results[0];
+        const formatterFn = results[1];
+        const data = results[2];
 
-      if (typeof valueFn === 'function') {
-        this.valueFn = valueFn;
-      }
+        if (typeof valueFn === 'function') {
+          this.valueFn = valueFn;
+        }
 
-      if (typeof formatterFn === 'function') {
-        this.formatter = formatterFn;
-      }
+        if (typeof formatterFn === 'function') {
+          this.formatter = formatterFn;
+        }
 
-      const value = this.value = this.valueFn.call(this, data);
-      domConstruct.place(this.itemTemplate.apply({
-        value: value,
-      }, this), this.metricDetailNode, 'replace');
-    }.bind(this), function error(err) {
-      // Error
-      console.error(err); // eslint-disable-line
-      domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
-    }.bind(this));
+        const value = this.value = this.valueFn.call(this, data);
+        domConstruct.place(this.itemTemplate.apply({
+          value: value,
+        }, this), this.metricDetailNode, 'replace');
+      }.bind(this), function error(err) {
+        // Error
+        console.error(err); // eslint-disable-line
+        domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
+      }.bind(this));
   },
   navToReportView: function navToReportView() {
+    if (!this.chartType) {
+      return;
+    }
+
     const view = App.getView(this.chartTypeMapping[this.chartType]);
 
     if (view) {
@@ -214,34 +233,39 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
       });
     }
   },
-  _getData: function _getData() {
-    const queryOptions = {
+  _buildQueryOptions: function _buildQueryOptions() {
+    return {
       count: this.pageSize,
       start: this.position,
     };
-
+  },
+  _buildQueryExpression: function _buildQueryExpression() {
+    return null;
+  },
+  _getData: function _getData() {
+    const queryOptions = this._buildQueryOptions();
+    const queryExpression = this._buildQueryExpression();
     const store = this.get('store');
-    const queryResults = store.query(null, queryOptions);
-
+    const queryResults = store.query(queryExpression, queryOptions);
     when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
   },
   _onQuerySuccess: function _onQuerySuccess(queryResults) {
-    const total = queryResults.total;
+    when(queryResults.total, (total) => {
+      queryResults.forEach(lang.hitch(this, this._processItem));
 
-    queryResults.forEach(lang.hitch(this, this._processItem));
+      let left = -1;
+      if (total > -1) {
+        left = total - (this.position + this.pageSize);
+      }
 
-    let left = -1;
-    if (total > -1) {
-      left = total - (this.position + this.pageSize);
-    }
-
-    if (left > 0) {
-      this.position = this.position + this.pageSize;
-      this._getData();
-    } else {
-      // Signal complete
-      this.requestDataDeferred.resolve(this._data);
-    }
+      if (left > 0) {
+        this.position = this.position + this.pageSize;
+        this._getData();
+      } else {
+        // Signal complete
+        this.requestDataDeferred.resolve(this._data);
+      }
+    });
   },
   _processItem: function _processItem(item) {
     this._data.push(item);

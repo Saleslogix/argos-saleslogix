@@ -4,6 +4,9 @@ import Memory from 'dojo/store/Memory';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('errorLogList');
 
 /**
  * @class crm.Views.ErrorLog.List
@@ -15,8 +18,8 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
-  titleText: 'Error Logs',
-  errorDateFormatText: 'MM/DD/YYYY hh:mm A',
+  titleText: resource.titleText,
+  errorDateFormatText: resource.errorDateFormatText,
 
   // Templates
   itemTemplate: new Simplate([

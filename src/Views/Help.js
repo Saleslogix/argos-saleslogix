@@ -1,12 +1,13 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
+import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
-import Detail from 'argos/Detail';
-import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
+import getResource from 'argos/I18n';
 import 'dojo/NodeList-manipulate';
+
+const resource = getResource('help');
 
 /**
  * @class crm.Views.Help
@@ -16,10 +17,10 @@ import 'dojo/NodeList-manipulate';
  * @mixins argos._LegacySDataDetailMixin
  *
  */
-const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
+const __class = declare('crm.Views.Help', [_DetailBase], {
   // Templates
   errorTemplate: new Simplate([
-    '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',
+    '<div data-dojo-attach-point="errorNode">',
     '<h2>{%: $.errorText %}</h2>',
     '<ul>',
     '<li>{%: $.errorMessageText %}</li>',
@@ -28,69 +29,113 @@ const __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
   ]),
 
   // Localization
-  titleText: 'Help',
-  errorText: 'Error',
-  errorMessageText: 'Unable to load the help document.',
+  titleText: resource.titleText,
+  errorText: resource.errorText,
+  errorMessageText: resource.errorMessageText,
+  sectionTitleText: resource.sectionTitleText,
 
   // View Properties
   id: 'help',
-  url: 'help/help.html',
   expose: false,
-
+  promises: null,
+  placeDetailHeader: function placeDetailHeader() {
+  },
+  constructor: function constructor() {
+    this.promises = [];
+  },
   createToolLayout: function createToolLayout() {
     return this.tools && (this.tools.tbar = []);
   },
-  onRequestFailure: function onRequestFailure(response, o) {
-    domConstruct.place(this.errorTemplate.apply(this), this.contentNode, 'last');
-    domClass.remove(this.domNode, 'panel-loading');
-
-    ErrorManager.addError(response, o, this.options, 'failure');
-  },
-  onLocalizedRequestFirstFailure: function onLocalizedRequestFirstFailure() {
-    Sage.SData.Client.Ajax.request({
-      url: this.resolveGenericLocalizedUrl(),
-      cache: true,
-      success: this.onRequestSuccess,
-      failure: this.onLocalizedRequestSecondFailure,
-      scope: this,
-    });
-  },
-  onLocalizedRequestSecondFailure: function onLocalizedRequestSecondFailure() {
-    Sage.SData.Client.Ajax.request({
-      url: this.url,
-      cache: true,
-      success: this.onRequestSuccess,
-      failure: this.onRequestFailure,
-      scope: this,
-    });
-  },
-  onRequestSuccess: function onRequestSuccess(response, o) {
-    this.processContent(response, o);
-    domClass.remove(this.domNode, 'panel-loading');
-  },
-  resolveLocalizedUrl: function resolveLocalizedUrl() {
-    const localizedUrl = string.substitute('help/help_${0}.html', [Mobile.CultureInfo.name]);
+  resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
+    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, Mobile.CultureInfo.name, fileName]);
     return localizedUrl;
   },
-  resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl() {
+  resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
     const languageSpec = Mobile.CultureInfo.name;
     const languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec;
-    const localizedUrl = string.substitute('help/help_${0}.html', [languageGen]);
+    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, languageGen, fileName]);
     return localizedUrl;
   },
-  requestData: function requestData() {
-    domClass.add(this.domNode, 'panel-loading');
-
-    Sage.SData.Client.Ajax.request({
-      url: this.resolveLocalizedUrl(),
-      cache: true,
-      success: this.onRequestSuccess,
-      failure: this.onLocalizedRequestFirstFailure,
-      scope: this,
-    });
+  _sanitizeUrl: function _sanitizeUrl(url = '') {
+    // Remove trailing slashes
+    return url.replace(/[\/|\\]*$/, '');
   },
-  processContent: function processContent(xhr) {
-    domConstruct.place(xhr.responseText, this.contentNode, 'last');
+  requestData: function requestData() {
+    this.processEntry({});
+  },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+    // Processing the layout should be done now
+    const self = this;
+    Promise.all(this.promises).then((results) => {
+      results.forEach((result) => {
+        self.processContent(result.response, result.domNode);
+      });
+    }, (e) => {
+      self.processContent({responseText: self.errorTemplate.apply(self)}, e.domNode);
+    });
+    this.promises = [];
+  },
+  processContent: function processContent(xhr, domNode) {
+    domConstruct.place(xhr.responseText, domNode, 'only');
+  },
+  getHelp: function getHelp({baseUrl, fileName, defaultUrl}, domNode) {
+    const req = Sage.SData.Client.Ajax.request;
+    const cleanBaseUrl = this._sanitizeUrl(baseUrl);
+    return new Promise(function helpPromise(resolve, reject) {
+      req({
+        url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
+        cache: true,
+        success: (response) => resolve({response, domNode}),
+        failure: () => {
+          // First failure, try to get the parent locale
+          req({
+            url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
+            cache: true,
+            success: (response) => resolve({response, domNode}),
+            failure: () => {
+              // Second failure, use the default url
+              req({
+                url: defaultUrl,
+                cache: true,
+                success: (response) => resolve({response, domNode}),
+                failure: (response, o) => {
+                  // The default help failed. Log the error, as something is
+                  // probably wrong with the layout.
+                  ErrorManager.addError(response, o, this.options, 'failure');
+                  reject({response, o, domNode});
+                },
+              });
+            },
+          });
+        },
+      });
+    }.bind(this));
+  },
+  onHelpRowCreated: function onHelpRowCreated(layoutRow, domNode) {
+    this.promises.push(this.getHelp(layoutRow, domNode));
+  },
+  createLayout: function createLayout() {
+    if (this.layout) {
+      return this.layout;
+    }
+
+    const layout = [];
+
+    layout.push({
+      title: this.sectionTitleText,
+      name: 'HelpSection',
+      children: [{
+        name: 'CRMHelp',
+        baseUrl: 'help/locales/crm',
+        fileName: 'help.html',
+        defaultUrl: 'help/locales/crm/en/help.html',
+        onCreate: this.onHelpRowCreated,
+      }],
+    });
+
+    this.layout = layout;
+    return layout;
   },
 });
 

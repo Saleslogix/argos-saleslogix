@@ -4,6 +4,9 @@ import sdkFormat from 'argos/Format';
 import FileSelect from 'argos/Views/FileSelect';
 import AttachmentManager from '../../AttachmentManager';
 import Environment from '../../Environment';
+import getResource from 'argos/I18n';
+
+const resource = getResource('attachmentAdd');
 
 /**
  * @class crm.Views.Attachment.AddAttachment
@@ -19,7 +22,7 @@ import Environment from '../../Environment';
  */
 const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   // Localization
-  titleText: 'Add Attachments',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'attachment_Add',

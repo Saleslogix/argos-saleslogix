@@ -3,6 +3,9 @@ import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
+
+const resource = getResource('leadEdit');
 
 /**
  * @class crm.Views.Lead.Edit
@@ -14,30 +17,30 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Lead.Edit', [Edit], {
   // Localization
-  accountText: 'account',
-  addressText: 'address',
-  businessText: 'bus desc',
-  businessTitleText: 'Business Description',
-  companyText: 'company',
-  contactTitleText: 'title',
-  emailText: 'email',
-  faxText: 'fax',
-  importSourceText: 'lead source',
-  industryText: 'industry',
-  industryTitleText: 'Industry',
-  interestsText: 'interests',
-  leadNameLastFirstText: 'name',
-  leadOwnerText: 'owner',
-  nameText: 'name',
-  notesText: 'comments',
-  notesTitleText: 'Comments',
-  sicCodeText: 'sic code',
-  titleText: 'Lead',
-  titleTitleText: 'Title',
-  tollFreeText: 'toll free',
-  webText: 'web',
-  workText: 'work phone',
-  mobileText: 'mobile phone',
+  accountText: resource.accountText,
+  addressText: resource.addressText,
+  businessText: resource.businessTitleText,
+  businessTitleText: resource.businessTitleText,
+  companyText: resource.companyText,
+  contactTitleText: resource.contactTitleText,
+  emailText: resource.emailText,
+  faxText: resource.faxText,
+  importSourceText: resource.importSourceText,
+  industryText: resource.industryText,
+  industryTitleText: resource.industryTitleText,
+  interestsText: resource.interestsText,
+  leadNameLastFirstText: resource.leadNameLastFirstText,
+  leadOwnerText: resource.leadOwnerText,
+  nameText: resource.nameText,
+  notesText: resource.notesText,
+  notesTitleText: resource.notesTitleText,
+  sicCodeText: resource.sicCodeText,
+  titleText: resource.titleText,
+  titleTitleText: resource.titleTitleText,
+  tollFreeText: resource.tollFreeText,
+  webText: resource.webText,
+  workText: resource.workText,
+  mobileText: resource.mobileText,
 
   // View Properties
   entityName: 'Lead',

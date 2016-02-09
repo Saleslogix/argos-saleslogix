@@ -4,6 +4,9 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';
+import getResource from 'argos/I18n';
+
+const resource = getResource('home');
 
 /**
  * @deprecated
@@ -30,11 +33,11 @@ var __class = declare('crm.Views.Home', [GroupedList], {
   ]),
 
   //Localization
-  configureText: 'Configure',
-  addAccountContactText: 'Add Account/Contact',
-  titleText: 'Home',
-  actionsText: 'Quick Actions',
-  viewsText: 'Go To',
+  configureText: resource.configureText,
+  addAccountContactText: resource.addAccountContactText,
+  titleText: resource.titleText,
+  actionsText: resource.actionsText,
+  viewsText: resource.viewsText,
 
   //View Properties
   id: 'home',

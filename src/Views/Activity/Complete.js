@@ -8,7 +8,11 @@ import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
-import moment from 'moment';
+import MODEL_NAMES from '../../Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
+import getResource from 'argos/I18n';
+
+const resource = getResource('activityComplete');
 
 /**
  * @class crm.Views.Activity.Complete
@@ -28,52 +32,53 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.Complete', [Edit], {
   // Localization
-  activityInfoText: 'Activity Info',
-  accountText: 'account',
-  contactText: 'contact',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  companyText: 'company',
-  leadText: 'lead',
-  asScheduledText: 'as scheduled',
-  categoryText: 'category',
-  categoryTitleText: 'Activity Category',
-  completedText: 'completed date',
-  completedFormatText: 'M/D/YYYY h:mm A',
-  completionText: 'Completion',
-  durationText: 'duration',
-  durationInvalidText: "The field '${2}' must have a value.",
-  carryOverNotesText: 'carry over notes',
-  followUpText: 'follow-up',
-  followUpTitleText: 'Follow-up type',
-  leaderText: 'leader',
-  longNotesText: 'notes',
-  longNotesTitleText: 'Notes',
-  otherInfoText: 'Other Info',
-  priorityText: 'priority',
-  priorityTitleText: 'Priority',
-  regardingText: 'regarding',
-  regardingTitleText: 'Activity Regarding',
-  resultText: 'result',
-  resultTitleText: 'Result',
-  startingText: 'start date',
-  startingFormatText: 'M/D/YYYY h:mm A',
-  startingTimelessFormatText: 'M/D/YYYY',
-  timelessText: 'timeless',
+  activityInfoText: resource.activityInfoText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  asScheduledText: resource.asScheduledText,
+  categoryText: resource.categoryText,
+  categoryTitleText: resource.categoryTitleText,
+  completedText: resource.completedText,
+  completedFormatText: resource.completedFormatText,
+  completionText: resource.completionText,
+  durationText: resource.durationText,
+  durationInvalidText: resource.durationInvalidText,
+  carryOverNotesText: resource.carryOverNotesText,
+  followUpText: resource.followUpText,
+  followUpTitleText: resource.followUpTitleText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  longNotesTitleText: resource.longNotesTitleText,
+  otherInfoText: resource.otherInfoText,
+  priorityText: resource.priorityText,
+  priorityTitleText: resource.priorityTitleText,
+  regardingText: resource.regardingText,
+  regardingTitleText: resource.regardingTitleText,
+  resultText: resource.resultText,
+  resultTitleText: resource.resultTitleText,
+  startingText: resource.startingText,
+  startingFormatText: resource.startingFormatText,
+  startingTimelessFormatText: resource.startingTimelessFormatText,
+  timelessText: resource.timelessText,
+  recurringActivityIdSeparator: ';',
   durationValueText: {
-    0: 'none',
-    15: '15 minutes',
-    30: '30 minutes',
-    60: '1 hour',
-    90: '1.5 hours',
-    120: '2 hours',
+    0: resource.noneText,
+    15: resource.quarterHourText,
+    30: resource.halfHourText,
+    60: resource.hourText,
+    90: resource.hourAndHalfText,
+    120: resource.twoHoursText,
   },
   followupValueText: {
-    'none': 'None',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atToDo': 'To-Do',
-    'atPersonal': 'Personal Activity',
+    'none': resource.nonePropText,
+    'atPhoneCall': resource.phoneCallText,
+    'atAppointment': resource.meetingText,
+    'atToDo': resource.toDoText,
+    'atPersonal': resource.personalText,
   },
 
   // View Properties
@@ -163,7 +168,8 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     field.setValue(value.text);
 
     // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
-    this.fields.ResultCode.setValue((/.{0,8}/ig).exec(value.key));
+    this.fields.ResultCode.setValue((/.{0,8}/ig)
+      .exec(value.key));
   },
   isActivityForLead: function isActivityForLead(entry) {
     return entry && /^[\w]{12}$/.test(entry.LeadId);
@@ -209,7 +215,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       startDateField.dateFormatText = this.startingTimelessFormatText;
       startDateField.showTimePicker = false;
       startDateField.timeless = true;
-      if (!this.isDateTimeless(startDate)) {
+      if (!this.isDateTimeless(startDate) && startDate.clone) {
         startDate = startDate.clone().clearTime().add({
           minutes: -1 * startDate.getTimezoneOffset(),
           seconds: 5,
@@ -221,10 +227,11 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       startDateField.showTimePicker = true;
       startDateField.timeless = false;
       if (this.isDateTimeless(startDate)) {
-        startDate = startDate.clone().add({
-          minutes: startDate.getTimezoneOffset() + 1,
-          seconds: -5,
-        });
+        startDate = startDate.clone()
+          .add({
+            minutes: startDate.getTimezoneOffset() + 1,
+            seconds: -5,
+          });
       }
       startDateField.setValue(startDate);
     }
@@ -250,8 +257,9 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       const duration = this.fields.Duration.getValue();
       const startDate = moment(this.fields.StartDate.getValue());
       const completedDate = startDate.add({
-        minutes: duration,
-      }).toDate();
+          minutes: duration,
+        })
+        .toDate();
 
       this.toggleSelectField(this.fields.CompletedDate, true);
       this.fields.CompletedDate.setValue(completedDate);
@@ -326,21 +334,22 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   navigateToFollowUpView: function navigateToFollowUpView(entry) {
     const view = App.getView(this.followupView);
     const followupEntry = {
-        'Type': this.fields.Followup.getValue(),
-        'Description': entry.Description,
-        'AccountId': entry.AccountId,
-        'AccountName': entry.AccountName,
-        'ContactId': entry.ContactId,
-        'ContactName': entry.ContactName,
-        'LeadId': entry.LeadId,
-        'LeadName': entry.LeadName,
-        'LongNotes': (this.fields.CarryOverNotes.getValue() && entry.LongNotes) || '',
-        'OpportunityId': entry.OpportunityId,
-        'OpportunityName': entry.OpportunityName,
-        'StartDate': moment().toDate(),
-        'TicketId': entry.TicketId,
-        'TicketNumber': entry.TicketNumber,
-      };
+      'Type': this.fields.Followup.getValue(),
+      'Description': entry.Description,
+      'AccountId': entry.AccountId,
+      'AccountName': entry.AccountName,
+      'ContactId': entry.ContactId,
+      'ContactName': entry.ContactName,
+      'LeadId': entry.LeadId,
+      'LeadName': entry.LeadName,
+      'LongNotes': (this.fields.CarryOverNotes.getValue() && entry.LongNotes) || '',
+      'OpportunityId': entry.OpportunityId,
+      'OpportunityName': entry.OpportunityName,
+      'StartDate': moment()
+        .toDate(),
+      'TicketId': entry.TicketId,
+      'TicketNumber': entry.TicketNumber,
+    };
 
     // Return to activity list view after follow up.
     view.show({
@@ -352,24 +361,11 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     });
   },
   completeActivity: function completeActivity(entry, callback) {
-    if (!entry.$key) {
-      return;
-    }
-
-    const leader = this.fields.Leader.getValue();
-    const completeActivityEntry = {
-      '$name': 'ActivityComplete',
-      'request': {
-        'entity': {
-          '$key': entry.$key,
-        },
-        'ActivityId': entry.$key,
-        'userId': leader.$key,
-        'result': this.fields.Result.getValue(),
-        'resultCode': this.fields.ResultCode.getValue(),
-        'completeDate': this.fields.CompletedDate.getValue(),
-      },
-    };
+    const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
+    entry.Leader = this.fields.Leader.getValue();
+    entry.Result = this.fields.Result.getValue();
+    entry.ResultCode = this.fields.ResultCode.getValue();
+    entry.CompletedDate = this.fields.CompletedDate.getValue();
 
     const success = (function refreshStale(scope, theCallback, theEntry) {
       return function refreshStaleViews() {
@@ -382,16 +378,16 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       };
     })(this, callback, entry);
 
-    const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-      .setResourceKind('activities')
-      .setContractName('system')
-      .setOperationName('Complete');
-
-    request.execute(completeActivityEntry, {
-      success: success,
-      failure: this.onRequestFailure,
-      scope: this,
-    });
+    if (activityModel) {
+      activityModel.completeActivity(entry).then(success, this.onRequestFailure);
+    }
+  },
+  onPutComplete: function onPutComplete(entry) {
+    this._completedBasedOn = null;
+    if (entry.$key.split(this.recurringActivityIdSeparator).length === 2) {
+      this._completedBasedOn = entry;
+    }
+    this.inherited(arguments);
   },
   onUpdateCompleted: function onUpdateCompleted(entry) {
     if (!entry) {
@@ -399,7 +395,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     }
 
     const followup = this.fields.Followup.getValue() === 'none' ? this.getInherited(arguments) : this.navigateToFollowUpView;
-
+    entry.$completedBasedOn = this._completedBasedOn;
     this.completeActivity(entry, followup);
   },
   formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {

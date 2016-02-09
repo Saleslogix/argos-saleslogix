@@ -3,6 +3,9 @@ import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import _ConfigureBase from 'argos/_ConfigureBase';
+import getResource from 'argos/I18n';
+
+const resource = getResource('configure');
 
 /**
  * @class crm.Views.Configure
@@ -13,7 +16,7 @@ import _ConfigureBase from 'argos/_ConfigureBase';
  */
 const __class = declare('crm.Views.Configure', [_ConfigureBase], {
   // Localization
-  titleText: 'Configure',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'configure',

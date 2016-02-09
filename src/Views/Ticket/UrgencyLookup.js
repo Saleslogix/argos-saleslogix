@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('ticketUrgencyLookup');
 
 /**
  * @class crm.Views.Ticket.UrgencyLookup
@@ -10,7 +13,7 @@ import List from 'argos/List';
  */
 const __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
   // Localization
-  titleText: 'Ticket Urgency',
+  titleText: resource.titleText,
 
   // Templates
   itemTemplate: new Simplate([

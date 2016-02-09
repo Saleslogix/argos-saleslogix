@@ -1,0 +1,379 @@
+{
+  "projectName": "SalesLogix Mobile",
+  "licenseText": "",
+  "deployDir": "deploy/",
+  "pkgs": [
+    {
+      "name": "Core Mobile Localization (en-US)",
+      "file": "localization/en.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (en-US)",
+      "file": "localization/saleslogix/en.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (de-DE)",
+      "file": "localization/de.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "de.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (de-DE)",
+      "file": "localization/saleslogix/de.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "de.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (fr-FR)",
+      "file": "localization/fr.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "fr.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (fr-FR)",
+      "file": "localization/saleslogix/fr.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "fr.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (ru-RU)",
+      "file": "localization/ru.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "ru.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (ru-RU)",
+      "file": "localization/saleslogix/ru.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "ru.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (it-IT)",
+      "file": "localization/it.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "it.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (it-IT)",
+      "file": "localization/saleslogix/it.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "it.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (en-GB)",
+      "file": "localization/en-GB.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en-GB.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (en-GB)",
+      "file": "localization/saleslogix/en-GB.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en-GB.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (zh-CN)",
+      "file": "localization/zh-CN.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-CN.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (zh-CN)",
+      "file": "localization/saleslogix/zh-CN.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-CN.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (zh-TW)",
+      "file": "localization/zh-TW.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-TW.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (zh-TW)",
+      "file": "localization/saleslogix/zh-TW.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "zh-TW.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile",
+      "file": "content/javascript/argos-saleslogix.js",
+      "isDebug": true,
+      "fileIncludes": [<% files.forEach(function(file, i) { %>{
+          "text": "<%- file.fileName %>",
+          "path": "<%- file.folderName %>/"
+        }<% if (i < files.length - 1) {%>, <% } %><%});%>
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Dojo Dependencies",
+      "file": "content/dojo/dojo-dependencies.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "hash.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "RouterBase.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/router/"
+        },
+        {
+          "text": "router.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "i18n.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "regexp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "string.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "cache.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "number.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "touch.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "NodeList-manipulate.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "hccss.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "all.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/promise/"
+        },
+        {
+          "text": "main.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "Destroyable.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "a11yclick.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "registry.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "Stateful.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "_WidgetBase.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "_AttachMixin.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "_TemplatedMixin.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "_OnDijitClickMixin.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "window.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "manager.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/_base/"
+        },
+        {
+          "text": "a11y.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "focus.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "_FocusMixin.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "uacss.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "hccss.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "_Widget.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/"
+        },
+        {
+          "text": "NodeList-traverse.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "url.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/_base/"
+        },
+        {
+          "text": "stamp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/date/"
+        },
+        {
+          "text": "parser.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        },
+        {
+          "text": "QueryResults.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/store/util/"
+        },
+        {
+          "text": "SimpleQueryEngine.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/store/util/"
+        },
+        {
+          "text": "Memory.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/store/"
+        },
+        {
+          "text": "wai.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/_base/"
+        },
+        {
+          "text": "colors.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "src": "../localization/locales/crm",
+      "dest": "localization/locales/crm",
+      "filters": ".*(\\.l20n)",
+    },
+    {
+      "src": "../content",
+      "dest": "content",
+      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"
+    },
+    {
+      "src": "../min",
+      "dest": "content",
+      "filters": ".*(\\.css)"
+    },
+    {
+      "src": "../configuration",
+      "dest": "configuration",
+      "filters": ".*\\.js"
+    },
+    {
+      "src": "../help",
+      "dest": "help",
+      "filters": ".*\\.html"
+    }
+  ]
+}

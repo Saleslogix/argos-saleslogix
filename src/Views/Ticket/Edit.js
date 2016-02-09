@@ -5,6 +5,9 @@ import format from '../../Format';
 import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
+
+const resource = getResource('ticketEdit');
 
 /**
  * @class crm.Views.Ticket.Edit
@@ -18,36 +21,36 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Ticket.Edit', [Edit], {
   // Localization
-  accountText: 'acct',
-  areaText: 'area',
-  assignedDateText: 'assigned date',
-  assignedToText: 'assigned to',
-  categoryText: 'category',
-  contactText: 'contact',
-  contractText: 'contract',
-  descriptionText: 'desc',
-  descriptionTitleText: 'Description',
-  issueText: 'issue',
-  needByText: 'needed date',
-  notesText: 'comments',
-  notesTitleText: 'Comments',
-  phoneText: 'phone',
-  relatedActivitiesText: 'Activities',
-  relatedItemsText: 'Related Items',
-  resolutionText: 'resolution',
-  resolutionTitleText: 'Resolution',
-  sourceText: 'source',
-  sourceTitleText: 'Source',
-  statusText: 'status',
-  subjectText: 'subject',
-  ticketAreaTitleText: 'Ticket Area',
-  ticketCategoryTitleText: 'Ticket Category',
-  ticketIdText: 'ticket number',
-  ticketIssueTitleText: 'Ticket Issue',
-  ticketStatusTitleText: 'Ticket Status',
-  ticketUrgencyTitleText: 'Ticket Urgency',
-  titleText: 'Ticket',
-  urgencyText: 'urgency',
+  accountText: resource.accountText,
+  areaText: resource.areaText,
+  assignedDateText: resource.assignedDateText,
+  assignedToText: resource.assignedToText,
+  categoryText: resource.categoryText,
+  contactText: resource.contactText,
+  contractText: resource.contractText,
+  descriptionText: resource.descriptionText,
+  descriptionTitleText: resource.descriptionTitleText,
+  issueText: resource.issueText,
+  needByText: resource.needByText,
+  notesText: resource.notesText,
+  notesTitleText: resource.notesTitleText,
+  phoneText: resource.phoneText,
+  relatedActivitiesText: resource.relatedActivitiesText,
+  relatedItemsText: resource.relatedItemsText,
+  resolutionText: resource.resolutionText,
+  resolutionTitleText: resource.resolutionTitleText,
+  sourceText: resource.sourceText,
+  sourceTitleText: resource.sourceTitleText,
+  statusText: resource.statusText,
+  subjectText: resource.subjectText,
+  ticketAreaTitleText: resource.ticketAreaTitleText,
+  ticketCategoryTitleText: resource.ticketCategoryTitleText,
+  ticketIdText: resource.ticketIdText,
+  ticketIssueTitleText: resource.ticketIssueTitleText,
+  ticketStatusTitleText: resource.ticketStatusTitleText,
+  ticketUrgencyTitleText: resource.ticketUrgencyTitleText,
+  titleText: resource.titleText,
+  urgencyText: resource.urgencyText,
 
   // View Properties
   entityName: 'Ticket',

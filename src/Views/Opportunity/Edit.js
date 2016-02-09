@@ -5,6 +5,9 @@ import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
+
+const resource = getResource('opportunityEdit');
 
 /**
  * @class crm.Views.Opportunity.Edit
@@ -18,29 +21,29 @@ import Edit from 'argos/Edit';
  */
 const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   // Localization
-  accountText: 'acct',
-  acctMgrText: 'acct mgr',
-  estCloseText: 'est close',
-  importSourceText: 'lead source',
-  detailsText: 'Details',
-  opportunityStatusTitleText: 'Opportunity Status',
-  opportunityText: 'opportunity',
-  opportunityTypeTitleText: 'Opportunity Type',
-  ownerText: 'owner',
-  potentialText: 'sales potential',
-  probabilityText: 'close prob',
-  probabilityTitleText: 'Opportunity Probability',
-  resellerText: 'reseller',
-  statusText: 'status',
-  titleText: 'Opportunity',
-  typeText: 'type',
-  multiCurrencyText: 'Multi Currency',
-  multiCurrencyRateText: 'exchange rate',
-  multiCurrencyCodeText: 'code',
-  multiCurrencyDateText: 'rate date',
-  multiCurrencyLockedText: 'rate locked',
-  exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
-  subTypePickListResellerText: 'RESELLER',
+  accountText: resource.accountText,
+  acctMgrText: resource.acctMgrText,
+  estCloseText: resource.estCloseText,
+  importSourceText: resource.importSourceText,
+  detailsText: resource.detailsText,
+  opportunityStatusTitleText: resource.opportunityStatusTitleText,
+  opportunityText: resource.opportunityText,
+  opportunityTypeTitleText: resource.opportunityTypeTitleText,
+  ownerText: resource.ownerText,
+  potentialText: resource.potentialText,
+  probabilityText: resource.probabilityText,
+  probabilityTitleText: resource.probabilityTitleText,
+  resellerText: resource.resellerText,
+  statusText: resource.statusText,
+  titleText: resource.titleText,
+  typeText: resource.typeText,
+  multiCurrencyText: resource.multiCurrencyText,
+  multiCurrencyRateText: resource.multiCurrencyRateText,
+  multiCurrencyCodeText: resource.multiCurrencyCodeText,
+  multiCurrencyDateText: resource.multiCurrencyDateText,
+  multiCurrencyLockedText: resource.multiCurrencyLockedText,
+  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  subTypePickListResellerText: resource.subTypePickListResellerText,
 
   // View Properties
   entityName: 'Opportunity',

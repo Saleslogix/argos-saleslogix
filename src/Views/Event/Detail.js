@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
+
+const resource = getResource('eventDetail');
 
 /**
  * @class crm.Views.Event.Detail
@@ -12,22 +15,23 @@ import Detail from 'argos/Detail';
  */
 const __class = declare('crm.Views.Event.Detail', [Detail], {
   // Localization
+  actionsText: resource.actionsText,
+  startTimeText: resource.startTimeText,
+  endTimeText: resource.endTimeText,
+  titleText: resource.titleText,
+  descriptionText: resource.descriptionText,
+  typeText: resource.typeText,
+  whenText: resource.whenText,
+  startDateFormatText: resource.startDateFormatText,
+  endDateFormatText: resource.endDateFormatText,
+  entityText: resource.entityText,
   eventTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
+    'atToDo': resource.toDo,
+    'atPhoneCall': resource.phoneCall,
+    'atAppointment': resource.meeting,
+    'atLiterature': resource.literature,
+    'atPersonal': resource.personal,
   },
-  actionsText: 'Quick Actions',
-  startTimeText: 'start date',
-  endTimeText: 'end date',
-  titleText: 'Event',
-  descriptionText: 'description',
-  typeText: 'type',
-  whenText: 'When',
-  startDateFormatText: 'M/D/YYYY h:mm:ss A',
-  endDateFormatText: 'M/D/YYYY h:mm:ss A',
 
   // View Properties
   id: 'event_detail',

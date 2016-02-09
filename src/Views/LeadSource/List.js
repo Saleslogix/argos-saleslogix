@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('leadSourceList');
 
 /**
  * @class crm.Views.LeadSource.List
@@ -16,7 +19,7 @@ const __class = declare('crm.Views.LeadSource.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Lead Sources',
+  titleText: resource.titleText,
 
   // View Properties
   id: 'leadsource_list',

@@ -4,6 +4,9 @@ import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('opportunityContactDetail');
 
 /**
  * @class crm.Views.OpportunityContact.Detail
@@ -13,20 +16,21 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
  */
 const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
   // Localization
-  titleText: 'Opportunity Contact',
-  accountText: 'account',
-  contactTitleText: 'title',
-  nameText: 'contact',
-  moreDetailsText: 'More Details',
-  salesRoleText: 'role',
-  strategyText: 'strategy',
-  personalBenefitsText: 'personal ben',
-  standingText: 'standing',
-  issuesText: 'issues',
-  competitorNameText: 'competitor pref',
-  removeContactTitleText: 'Remove Contact',
-  confirmDeleteText: 'Remove "${0}" from the opportunity?',
-  contactText: 'Contact',
+  titleText: resource.titleText,
+  accountText: resource.accountText,
+  contactTitleText: resource.contactTitleText,
+  nameText: resource.nameText,
+  moreDetailsText: resource.moreDetailsText,
+  salesRoleText: resource.salesRoleText,
+  strategyText: resource.strategyText,
+  personalBenefitsText: resource.personalBenefitsText,
+  standingText: resource.standingText,
+  issuesText: resource.issuesText,
+  competitorNameText: resource.competitorNameText,
+  removeContactTitleText: resource.removeContactTitleText,
+  confirmDeleteText: resource.confirmDeleteText,
+  contactText: resource.contactText,
+  entityText: resource.entityText,
 
   // View Properties
   id: 'opportunitycontact_detail',

@@ -5,6 +5,9 @@ import domAttr from 'dojo/dom-attr';
 import query from 'dojo/query';
 import format from '../../Format';
 import List from 'argos/List';
+import getResource from 'argos/I18n';
+
+const resource = getResource('addressList');
 
 /**
  * @class crm.Views.Address.List
@@ -24,7 +27,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   ]),
 
   // Localization
-  titleText: 'Addresses',
+  titleText: resource.titleText,
 
   // View Properties
   detailView: null,

@@ -9,7 +9,11 @@ import convert from 'argos/Convert';
 import action from '../../Action';
 import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
-import moment from 'moment';
+import MODEL_NAMES from '../../Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
+import getResource from 'argos/I18n';
+
+const resource = getResource('activityList');
 
 /**
  * @class crm.Views.Activity.List
@@ -31,17 +35,35 @@ import moment from 'moment';
  */
 const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
   // Localization
-  allDayText: 'Timeless',
-  completeActivityText: 'Complete',
-  callText: 'Call',
-  calledText: 'Called',
-  addAttachmentActionText: 'Add Attachment',
-  overdueText: 'overdue',
-  alarmText: 'alarm',
-  touchedText: 'touched',
-  importantText: 'important',
-  recurringText: 'recurring',
-
+  allDayText: resource.allDayText,
+  completeActivityText: resource.completeActivityText,
+  callText: resource.callText,
+  calledText: resource.calledText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  overdueText: resource.overdueText,
+  alarmText: resource.alarmText,
+  touchedText: resource.touchedText,
+  importantText: resource.importantText,
+  recurringText: resource.recurringText,
+  activityTypeText: {
+    'atToDo': resource.toDoText,
+    'atPhoneCall': resource.phoneCallText,
+    'atAppointment': resource.meetingText,
+    'atLiterature': resource.literatureText,
+    'atPersonal': resource.personalText,
+    'atQuestion': resource.questionText,
+    'atNote': resource.noteText,
+    'atEMail': resource.emailText,
+  },
+  titleText: resource.titleText,
+  hashTagQueriesText: {
+    'alarm': resource.alarmText,
+    'recurring': resource.recurringText,
+    'timeless': resource.timelessText,
+    'today': resource.todayText,
+    'this-week': resource.thisWeekText,
+    'yesterday': resource.yesterdayText,
+  },
   // Card View
   itemIcon: 'content/images/icons/man_1.png',
 
@@ -87,18 +109,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     'atNote': 'fa fa-file-text-o',
     'atEMail': 'fa fa-envelope',
   },
-  activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Lit Request',
-    'atPersonal': 'Personal',
-    'atQuestion': 'Question',
-    'atNote': 'Note',
-    'atEMail': 'Email',
-  },
-  // Localization
-  titleText: 'Activities',
 
   // View Properties
   id: 'activity_list',
@@ -108,35 +118,9 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   insertView: 'activity_types_list',
   historyEditView: 'history_edit',
   enableActions: true,
-  queryOrderBy: 'StartDate desc',
-  querySelect: [
-    'Description',
-    'StartDate',
-    'Type',
-    'AccountId',
-    'AccountName',
-    'ContactId',
-    'ContactName',
-    'PhoneNumber',
-    'LeadId',
-    'LeadName',
-    'TicketId',
-    'OpportunityId',
-    'Leader',
-    'UserId',
-    'Timeless',
-    'Alarm',
-    'Priority',
-    'ModifyDate',
-    'RecurrenceState',
-    'Recurring',
-  ],
-  queryInclude: [
-    '$descriptors',
-  ],
-  resourceKind: 'activities',
-  contractName: 'system',
   pageSize: 105,
+  resourceKind: 'activities',
+  modelName: MODEL_NAMES.ACTIVITY,
 
   hashTagQueries: {
     'alarm': 'Alarm eq true',
@@ -144,8 +128,11 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     'timeless': 'Timeless eq true',
     'yesterday': function computeYesterday() {
       const now = moment();
-      const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-      const yesterdayEnd = yesterdayStart.clone().endOf('day');
+      const yesterdayStart = now.clone()
+        .subtract(1, 'days')
+        .startOf('day');
+      const yesterdayEnd = yesterdayStart.clone()
+        .endOf('day');
 
       const query = string.substitute(
         '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
@@ -159,8 +146,10 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     },
     'today': function computeToday() {
       const now = moment();
-      const todayStart = now.clone().startOf('day');
-      const todayEnd = todayStart.clone().endOf('day');
+      const todayStart = now.clone()
+        .startOf('day');
+      const todayEnd = todayStart.clone()
+        .endOf('day');
 
       const query = string.substitute(
         '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
@@ -174,8 +163,10 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     },
     'this-week': function computeThisWeek() {
       const now = moment();
-      const weekStartDate = now.clone().startOf('week');
-      const weekEndDate = weekStartDate.clone().endOf('week');
+      const weekStartDate = now.clone()
+        .startOf('week');
+      const weekEndDate = weekStartDate.clone()
+        .endOf('week');
 
       const query = string.substitute(
         '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
@@ -187,14 +178,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       );
       return query;
     },
-  },
-  hashTagQueriesText: {
-    'alarm': 'alarm',
-    'recurring': 'recurring',
-    'timeless': 'timeless',
-    'today': 'today',
-    'this-week': 'this-week',
-    'yesterday': 'yesterday',
   },
   defaultSearchTerm: function defaultSearchTerm() {
     if (App.enableHashTags) {
@@ -256,8 +239,10 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   hasBeenTouched: function hasBeenTouched(entry) {
     if (entry.ModifyDate) {
       const modifiedDate = moment(convert.toDateFromString(entry.ModifyDate));
-      const currentDate = moment().endOf('day');
-      const weekAgo = moment().subtract(1, 'weeks');
+      const currentDate = moment()
+        .endOf('day');
+      const weekAgo = moment()
+        .subtract(1, 'weeks');
 
       return modifiedDate.isAfter(weekAgo) &&
         modifiedDate.isBefore(currentDate);
@@ -294,10 +279,12 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   _isTimelessToday: function _isTimelessToday(start) {
     // Start is UTC, convert it to local time so we can compare it against "now"
-    start.add({
-      minutes: start.zone(),
+    start.subtract({
+      minutes: start.utcOffset(),
     });
-    return start.isAfter(moment().startOf('day')) && start.isBefore(moment().endOf('day'));
+    return start.isAfter(moment()
+      .startOf('day')) && start.isBefore(moment()
+      .endOf('day'));
   },
   isRecurring: function isRecurring(entry) {
     if (entry.RecurrenceState) {
@@ -343,14 +330,15 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
         return entry.Leader.$key === App.context.user.$key && !recur;
       },
       fn: (function fn(theAction, selection) {
-        const entry = selection && selection.data && selection.data;
+          const entry = selection && selection.data && selection.data;
 
-        entry.CompletedDate = new Date();
-        entry.Result = 'Complete';
+          entry.CompletedDate = new Date();
+          entry.Result = 'Complete';
 
-        environment.refreshActivityLists();
-        this.completeActivity(entry);
-      }).bindDelegate(this),
+          environment.refreshActivityLists();
+          this.completeActivity(entry);
+        })
+        .bindDelegate(this),
     }, {
       id: 'call',
       cls: 'fa fa-phone-square fa-2x',
@@ -407,36 +395,19 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     }
   },
   completeActivity: function completeActivity(entry) {
-    const completeActivityEntry = {
-      '$name': 'ActivityComplete',
-      'request': {
-        'entity': {
-          '$key': entry.$key,
-        },
-        'ActivityId': entry.$key,
-        'userId': entry.Leader.$key,
-        'result': entry.Result,
-        'completeDate': entry.CompletedDate,
-      },
-    };
-
-    const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-      .setResourceKind('activities')
-      .setContractName('system')
-      .setOperationName('Complete');
-
-    request.execute(completeActivityEntry, {
-      success: function success() {
+    const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
+    if (activityModel) {
+      activityModel.completeActivity(entry).then(() => {
         connect.publish('/app/refresh', [{
           resourceKind: 'history',
         }]);
 
         this.clear();
         this.refresh();
-      },
-      failure: this.onRequestFailure,
-      scope: this,
-    });
+      }, (err) => {
+        this.onRequestFailure(err, this);
+      });
+    }
   },
   onRequestFailure: function onRequestFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');

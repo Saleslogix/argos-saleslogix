@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
+import getResource from 'argos/I18n';
+
+const resource = getResource('login');
 
 /**
  * @class crm.Views.Login
@@ -16,25 +19,27 @@ const __class = declare('crm.Views.Login', [Edit], {
     '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
     '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
     '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
-    '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
+    '<button data-dojo-attach-point="loginButton" class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
     '<span class="copyright">{%= $.copyrightText %}</span>',
     '<span class="copyright">{%= App.getVersionInfo() %}</span>',
+    '<div style="visibility: hidden;" class="fa fa-bars"></div>',// force font-awesome to be included on login
     '</div>',
   ]),
 
-  // Localization
   id: 'login',
   busy: false,
-  copyrightText: 'Copyright &copy; 2015 Infor. All rights reserved. www.infor.com',
-  logOnText: 'Sign in',
-  passText: 'Password',
-  rememberText: 'Remember me',
-  titleText: 'Sign in',
-  userText: 'User ID',
-  invalidUserText: 'The user name or password is invalid.',
-  missingUserText: 'The user record was not found.',
-  requestAbortedText: 'The request was aborted.',
-  logoText: 'Infor CRM',
+
+  // Localization
+  copyrightText: resource.copyrightText,
+  logOnText: resource.logOnText,
+  passText: resource.passText,
+  rememberText: resource.rememberText,
+  titleText: resource.titleText,
+  userText: resource.userText,
+  invalidUserText: resource.invalidUserText,
+  missingUserText: resource.missingUserText,
+  requestAbortedText: resource.requestAbortedText,
+  logoText: resource.logoText,
 
   ENTER_KEY: 13,
 
@@ -51,16 +56,38 @@ const __class = declare('crm.Views.Login', [Edit], {
       domClass.remove(this.domNode, 'login-active');
     }
   },
+  show: function init() {
+    this.inherited(arguments);
+    if (!this.connectionState) {
+      this._disable();
+    }
+  },
+  _disable: function _disable() {
+    this.fields.username.disable();
+    this.fields.password.disable();
+    this.fields.remember.disable();
+    this.loginButton.disabled = true;
+  },
+  _enable: function _enable() {
+    this.fields.username.enable();
+    this.fields.password.enable();
+    this.fields.remember.enable();
+    this.loginButton.disabled = false;
+  },
+  _updateConnectionState: function _updateConnectionState(online) {
+    this.inherited(arguments);
+    if (online) {
+      this._enable();
+    } else {
+      this._disable();
+    }
+  },
   onShow: function onShow() {
     const credentials = App.getCredentials();
 
     if (credentials) {
       App.authenticateUser(credentials, {
-        success: function authSuccess() {
-          App.initAppState().then(function initAppStateSuccess() {
-            App.navigateToInitialView();
-          });
-        },
+        success: App.onHandleAuthenticationSuccess,
         scope: this,
       });
     }
@@ -140,15 +167,10 @@ const __class = declare('crm.Views.Login', [Edit], {
         if (attr) {
           attr.value = 'false';
         }
-
-        App.setPrimaryTitle(App.loadingText);
-        App.initAppState().then(function initAppStateSuccess() {
-          App.navigateToInitialView();
-        });
+        App.onHandleAuthenticationSuccess();
       },
       failure: function failure(result) {
         this.enable();
-
         const error = new Error();
         error.status = result && result.response && result.response.status;
         error.xhr = result && result.response;
@@ -156,7 +178,6 @@ const __class = declare('crm.Views.Login', [Edit], {
       },
       aborted: function aborted() {
         this.enable();
-
         alert(this.requestAbortedText);// eslint-disable-line
       },
       scope: this,

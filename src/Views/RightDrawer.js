@@ -43,7 +43,9 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   expose: false,
   enableSearch: false,
   customizationSet: 'right_drawer',
+  enablePullToRefresh: false,
   dataProps: null,
+  pageSize: 100,
 
   hasMoreData: function hasMoreData() {
     return false;

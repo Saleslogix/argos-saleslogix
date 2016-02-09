@@ -7,6 +7,9 @@ import format from '../../Format';
 import ErrorManager from 'argos/ErrorManager';
 import template from '../../Template';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
+
+const resource = getResource('historyDetail');
 
 /**
  * @class crm.Views.History.Detail
@@ -23,38 +26,39 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   createUserTemplate: template.nameLF,
 
   // Localization
-  categoryText: 'category',
-  completedText: 'completed',
-  durationText: 'duration',
-  leaderText: 'leader',
-  longNotesText: 'notes',
-  notesText: 'Notes',
-  priorityText: 'priority',
-  regardingText: 'regarding',
-  completedByText: 'completed by',
-  scheduledText: 'scheduled',
-  timelessText: 'timeless',
-  companyText: 'company',
-  leadText: 'lead',
-  titleText: 'History',
-  accountText: 'account',
-  contactText: 'contact',
-  opportunityText: 'opportunity',
-  ticketNumberText: 'ticket',
-  moreDetailsText: 'More Details',
-  relatedItemsText: 'Related Items',
-  relatedAttachmentText: 'Attachments',
-  relatedAttachmentTitleText: 'History Attachments',
-  modifiedText: 'modified',
-  typeText: 'type',
+  categoryText: resource.categoryText,
+  completedText: resource.completedText,
+  durationText: resource.durationText,
+  leaderText: resource.leaderText,
+  longNotesText: resource.longNotesText,
+  notesText: resource.notesText,
+  priorityText: resource.priorityText,
+  regardingText: resource.regardingText,
+  completedByText: resource.completedByText,
+  scheduledText: resource.scheduledText,
+  timelessText: resource.timelessText,
+  companyText: resource.companyText,
+  leadText: resource.leadText,
+  titleText: resource.titleText,
+  accountText: resource.accountText,
+  contactText: resource.contactText,
+  opportunityText: resource.opportunityText,
+  ticketNumberText: resource.ticketNumberText,
+  moreDetailsText: resource.moreDetailsText,
+  relatedItemsText: resource.relatedItemsText,
+  relatedAttachmentText: resource.relatedAttachmentText,
+  relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  modifiedText: resource.modifiedText,
+  typeText: resource.typeText,
+  entityText: resource.entityText,
   activityTypeText: {
-    'atToDo': 'To-Do',
-    'atPhoneCall': 'Phone Call',
-    'atAppointment': 'Meeting',
-    'atLiterature': 'Literature Request',
-    'atPersonal': 'Personal Activity',
-    'atQuestion': 'Question',
-    'atEMail': 'E-mail',
+    'atToDo': resource.toDo,
+    'atPhoneCall': resource.phoneCall,
+    'atAppointment': resource.meeting,
+    'atLiterature': resource.literature,
+    'atPersonal': resource.personal,
+    'atQuestion': resource.question,
+    'atEMail': resource.email,
   },
   // View Properties
   id: 'history_detail',
@@ -205,7 +209,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'AccountName',
         property: 'AccountName',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.accountText,
         view: 'account_detail',
         key: 'AccountId',
@@ -213,7 +217,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'ContactName',
         property: 'ContactName',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.contactText,
         view: 'contact_detail',
         key: 'ContactId',
@@ -221,7 +225,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'OpportunityName',
         property: 'OpportunityName',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.opportunityText,
         view: 'opportunity_detail',
         key: 'OpportunityId',
@@ -229,7 +233,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'TicketNumber',
         property: 'TicketNumber',
-        exclude: this.isHistoryForLead,
+        exclude: this.isHistoryForLead.bind(this),
         label: this.ticketNumberText,
         view: 'ticket_detail',
         key: 'TicketId',
@@ -237,7 +241,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'LeadName',
         property: 'LeadName',
-        include: this.isHistoryForLead,
+        include: this.isHistoryForLead.bind(this),
         label: this.leadText,
         view: 'lead_detail',
         key: 'LeadId',
@@ -245,7 +249,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
       }, {
         name: 'AccountName',
         property: 'AccountName',
-        include: this.isHistoryForLead,
+        include: this.isHistoryForLead.bind(this),
         label: this.companyText,
       }],
     }, {

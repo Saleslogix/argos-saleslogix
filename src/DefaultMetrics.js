@@ -4,32 +4,38 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _CustomizationMixin from 'argos/_CustomizationMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('defaultMetrics');
 
 const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   // Localiztion
   accountsText: {
-    totalRevenue: 'Total Revenue',
-    averageTime: 'Avg Time as Customer',
-    total: 'Total Accounts',
+    totalRevenue: resource.totalRevenue,
+    averageTime: resource.averageTime,
+    total: resource.totalAccounts,
   },
   opportunitiesText: {
-    total: 'Total Opportunities',
-    potential: 'Total Sales Potential',
-    montlyPotential: 'Average Monthly Sales Potential',
+    total: resource.totalOpportunities,
+    potential: resource.potential,
+    montlyPotential: resource.montlyPotential,
   },
   ticketsText: {
-    total: 'Total Tickets',
-    averageOpen: 'Open Age Average',
+    total: resource.totalTickets,
+    averageOpen: resource.averageOpen,
   },
   contactsText: {
-    total: 'Total Contacts',
+    total: resource.totalContacts,
   },
   leadsText: {
-    total: 'Total Leads',
+    total: resource.totalLeads,
   },
   historyText: {
-    total: 'Total History',
-    duration: 'Total Duration',
+    total: resource.totalHistory,
+    duration: resource.duration,
+  },
+  offlineText: {
+    total: 'Total Recently Viewed',
   },
   customizationSet: 'metrics',
   id: 'default_metrics',
@@ -38,6 +44,53 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   },
   createLayout: function createLayout() {
     return [{
+      resourceKind: 'userActivities',
+      children: [{
+        title: resource.meetings,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          activeFilter: "Activity.Type eq 'atAppointment'",
+        },
+        activityType: 'atAppointment',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.calls,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          activeFilter: "Activity.Type eq 'atPhoneCall'",
+        },
+        activityType: 'atPhoneCall',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.todos,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          activeFilter: "Activity.Type eq 'atToDo'",
+        },
+        activityType: 'atToDo',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }, {
+        title: resource.personal,
+        queryName: 'executeMetric',
+        queryArgs: {
+          _filterName: 'ActivityType',
+          activeFilter: "Activity.Type eq 'atPersonal'",
+        },
+        activityType: 'atPersonal',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
+    }, {
       resourceKind: 'accounts',
       children: [{
         title: this.accountsText.totalRevenue,
@@ -182,6 +235,15 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
           _filterName: 'Type',
           _metricName: 'TotalDuration',
         },
+        chartType: 'bar',
+        aggregate: 'sum',
+        formatter: 'bigNumber',
+        enabled: false,
+      }],
+    }, {
+      resourceKind: 'offline',
+      children: [{
+        title: this.offlineText.total,
         chartType: 'bar',
         aggregate: 'sum',
         formatter: 'bigNumber',

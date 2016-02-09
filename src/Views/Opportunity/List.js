@@ -8,6 +8,9 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('opportunityList');
 
 /**
  * @class crm.Views.Opportunity.List
@@ -60,20 +63,20 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   ]),
 
   // Localization
-  titleText: 'Opportunities',
-  activitiesText: 'Activities',
-  notesText: 'Notes',
-  scheduleText: 'Schedule',
-  editActionText: 'Edit',
-  viewAccountActionText: 'Account',
-  viewContactsActionText: 'Contacts',
-  viewProductsActionText: 'Products',
-  addNoteActionText: 'Add Note',
-  addActivityActionText: 'Add Activity',
-  addAttachmentActionText: 'Add Attachment',
-  actualCloseText: 'Closed ',
-  estimatedCloseText: 'Estimated close ',
-  quickEditActionText: 'Quick Edit',
+  titleText: resource.titleText,
+  activitiesText: resource.activitiesText,
+  notesText: resource.notesText,
+  scheduleText: resource.scheduleText,
+  editActionText: resource.editActionText,
+  viewAccountActionText: resource.viewAccountActionText,
+  viewContactsActionText: resource.viewContactsActionText,
+  viewProductsActionText: resource.viewProductsActionText,
+  addNoteActionText: resource.addNoteActionText,
+  addActivityActionText: resource.addActivityActionText,
+  addAttachmentActionText: resource.addAttachmentActionText,
+  actualCloseText: resource.actualCloseText,
+  estimatedCloseText: resource.estimatedCloseText,
+  quickEditActionText: resource.quickEditActionText,
 
   // View Properties
   id: 'opportunity_list',

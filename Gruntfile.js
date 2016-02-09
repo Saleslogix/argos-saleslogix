@@ -18,6 +18,7 @@ module.exports = function(grunt) {
   grunt.loadTasks('grunt-tasks');
 
   // Register alias tasks
+  grunt.registerTask('build', ['clean', 'babel', 'less']);
   grunt.registerTask('test', ['babel', 'connect', 'jasmine:coverage']);
   grunt.registerTask('server', ['connect:server:keepalive']);
   grunt.registerTask('bundle', ['babel', 'less', 'shell:bundle:<%= pkg.version %>']);

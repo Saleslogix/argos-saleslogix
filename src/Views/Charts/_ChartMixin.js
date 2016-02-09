@@ -5,6 +5,9 @@ import domGeo from 'dojo/dom-geometry';
 import domAttr from 'dojo/dom-attr';
 import has from 'dojo/has';
 import _PullToRefreshMixin from 'argos/_PullToRefreshMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('chartMixin');
 
 /**
  * @class crm.Views.Charts._ChartMixin
@@ -146,8 +149,6 @@ lang.setObject('Chart.defaults.global', {
   onAnimationComplete: function onAnimationComplete() {},
 });
 
-const mixinName = 'crm.Views.Charts._ChartMixin';
-
 const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
   _handle: null,
   _feedData: null,
@@ -232,13 +233,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
 
     context.clearRect(0, 0, node.width, node.height);
 
-    const mixin = lang.getObject(mixinName);
-    let text;
-    if (mixin) {
-      text = mixin.prototype.loadingText;
-    } else {
-      text = this.loadingText;
-    }
+    const text = resource.loadingText;
 
     context.fillStyle = this.loadingFont;
     context.font = globalConfig.tooltipFontSize + 'px ' + globalConfig.tooltipFontFamily;

@@ -2,6 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
+import getResource from 'argos/I18n';
+
+const resource = getResource('exchangeRateLookup');
 
 /**
  * @class crm.Views.ExchangeRateLookup
@@ -18,7 +21,7 @@ const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListM
   ]),
 
   // Localization
-  titleText: 'Exchange Rates',
+  titleText: resource.titleText,
 
   // View Properties
   expose: false,

@@ -1,3 +1,3 @@
-define('localization/saleslogix/en', ['localization/en', 'Mobile/SalesLogix/ApplicationModule'], function() {
+define('localization/saleslogix/en', ['localization/en', 'crm/ApplicationModule'], function() {
 
 });

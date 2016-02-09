@@ -2,7 +2,9 @@ import lang from 'dojo/_base/lang';
 import array from 'dojo/_base/array';
 import format from './Format';
 import sdkFormat from 'argos/Format';
-import moment from 'moment';
+import getResource from 'argos/I18n';
+
+const resource = getResource('groupUtility');
 
 function _createGroupRequest(o) {
   const defaultOptions = {
@@ -40,7 +42,7 @@ function _createGroupRequest(o) {
  *
  */
 const __class = lang.setObject('crm.GroupUtility', {
-  groupDateFormatText: 'M/D/YYYY h:mm:ss a',
+  groupDateFormatText: resource.groupDateFormatText,
   /**
    * Returns an SDataNamedQueryRequest setup for groups
    * @param {Object} options Options for creating the request
