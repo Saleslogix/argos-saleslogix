@@ -4,8 +4,7 @@ CACHE MANIFEST
 
 CACHE:
 # css
-content/css/themes/crm/sdk.min.crm.css
-content/css/app.min.css
+@include 'content/css'
 
 # fonts
 content/css/themes/fonts/FontAwesome.otf?v=4.4.0
@@ -34,8 +33,7 @@ content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
 @localize 'localization', '{0}.js'
 
 # help
-@localize 'help', 'help/locales/crm/{0}/help.html'
-help/locales/crm/en/help.html
+@include 'help/locales'
 
 NETWORK:
 ../sdata/
