@@ -370,11 +370,22 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     return store;
   },
   formatQueryActivity: function formatQueryActivity(value) {
-    return string.substitute('UserActivities.UserId eq "${user}" and Type ne "atLiterature" and StartDate between @${start}@ and @${end}@', {
-      user: App.context.user && App.context.user.$key,
-      start: value.clone().startOf('month').format(),
-      end: value.clone().endOf('month').format(),
-    });
+    const startDate = value.clone().startOf('month');
+    const endDate = value.clone().endOf('month');
+    return string.substitute(
+      [
+        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+        '(Timeless eq false and StartDate',
+        ' between @${1}@ and @${2}@) or ',
+        '(Timeless eq true and StartDate',
+        ' between @${3}@ and @${4}@))',
+      ].join(''), [App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(startDate.toDate()),
+        convert.toIsoStringFromDate(endDate.toDate()),
+        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+      ]
+    );
   },
   formatQueryEvent: function formatQueryEvent(value) {
     return string.substitute('UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)', {
