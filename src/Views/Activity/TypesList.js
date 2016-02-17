@@ -107,6 +107,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   createStore: function createStore() {
     const list = [];
     const eventViews = [
+      'calendar_view',
       'calendar_monthlist',
       'calendar_weeklist',
       'calendar_daylist',
@@ -133,6 +134,11 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   },
   init: function init() {
     this.inherited(arguments);
+  },
+  onTransitionAway: function onTransitionAway() {
+    this.inherited(arguments);
+    this.refreshRequired = true;
+    this.store = null;
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
