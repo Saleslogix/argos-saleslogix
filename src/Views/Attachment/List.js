@@ -96,8 +96,8 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     'binary': "(fileName not like '%.URL')",
   },
   hashTagQueriesText: {
-    'url': 'url',
-    'binary': 'binary',
+    'url': resource.hashTagUrlText,
+    'binary': resource.hashTagBinaryText,
   },
   createToolLayout: function createToolLayout() {
     if (!has('html5-file-api')) {

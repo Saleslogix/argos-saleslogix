@@ -270,6 +270,15 @@
   viewContactActionText: "Contact"
   viewAccountActionText: "Account"
   viewOpportunityActionText: "Opportunity"
+  hashTagAlarmText: 'alarm'
+  hashTagUnconfirmedText: "status-unconfirmed"
+  hashTagAcceptedText: "status-accepted"
+  hashTagDeclinedText: "status-declined"
+  hashTagRecurringText: "recurring"
+  hashTagTimelessText: "timeless"
+  hashTagTodayText: "today"
+  hashTagThisWeekText: "this-week"
+  hashTagYesterdayText: "yesterday"
 >
 
 <activityMyDay ""
@@ -359,6 +368,8 @@
   titleText: "Attachments"
   attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
   uploadedOnText: "Uploaded "
+  hashTagUrlText: "url"
+  hashTagBinaryText: "binary"
 >
 
 <attachmentMyList ""
