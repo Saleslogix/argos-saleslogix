@@ -547,13 +547,19 @@ body.transition > .viewContainer > .footer-toolbar {
 /* Excludes iphone <= 3 */
 @media only screen and (min-width: 568px) {
     .calendarContainer,
-    .activity-content {
+    .activity-content,
+    .event-content {
         width: 50%;
         float: left;
-    }
+     }
 
     .calendarContainer {
-      border-right: 1px solid @color-light-slate;
+        box-sizing: border-box; 
+        border-right: 1px solid @color-lighter-slate !important;
+    }
+
+    .calendar-footer {
+        width: 95%;
     }
 
     .activityEntry__content {
