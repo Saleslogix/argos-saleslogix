@@ -327,29 +327,31 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       layout.push(hashTagsSection);
     }
 
-    const metrics = App.getMetricsByResourceKind(this.resourceKind);
+    if (this.createMetricWidgetsLayout) {
+      const metrics = App.getMetricsByResourceKind(this.resourceKind);
 
-    const kpiSection = {
-      id: 'kpi',
-      children: [],
-    };
+      const kpiSection = {
+        id: 'kpi',
+        children: [],
+      };
 
-    if (metrics.length > 0) {
-      array.forEach(metrics, function setMetric(metric, i) {
-        if (metric.title) {
-          kpiSection.children.push({
-            'name': 'KPI' + i,
-            'action': 'kpiClicked',
-            'title': metric.title,
-            'dataProps': {
+      if (metrics.length > 0) {
+        array.forEach(metrics, function setMetric(metric, i) {
+          if (metric.title) {
+            kpiSection.children.push({
+              'name': 'KPI' + i,
+              'action': 'kpiClicked',
               'title': metric.title,
-              'enabled': !!metric.enabled,
-            },
-          });
-        }
-      });
+              'dataProps': {
+                'title': metric.title,
+                'enabled': !!metric.enabled,
+              },
+            });
+          }
+        });
 
-      layout.push(kpiSection);
+        layout.push(kpiSection);
+      }
     }
 
     return layout;
