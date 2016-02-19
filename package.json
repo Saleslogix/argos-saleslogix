@@ -10,7 +10,8 @@
     "start": "node scripts/server.js"
   },
   "devDependencies": {
-    "babel-eslint": "^3.1.26",
+    "babel-eslint": "^3.1.30",
+    "escope": "^3.3.0",
     "eslint": "^0.24.1",
     "grunt": "~0.4.5",
     "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.1",
