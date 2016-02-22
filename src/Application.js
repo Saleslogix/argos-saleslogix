@@ -691,7 +691,7 @@ const __class = declare('crm.Application', [Application], {
         const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
 
         array.forEach(feed && feed.$resources, (item) => {
-          const key = item && item.$key;
+          const key = item && item.$descriptor;
           const value = item && item.Rate;
 
           if (value && key) {
