@@ -1,5 +1,4 @@
 import array from 'dojo/_base/array';
-import aspect from 'dojo/aspect';
 import convert from 'argos/Convert';
 import declare from 'dojo/_base/declare';
 import domAttr from 'dojo/dom-attr';
@@ -538,10 +537,21 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
       domConstruct.place(toggle, this._calendar.footerNode, 'last');
       on(toggle, 'click', this.toggleMultiSelect.bind(this));
-      aspect.after(this._calendar, 'changeDay', this.selectDay.bind(this));
+      this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
-      aspect.after(this._calendar, 'refreshCalendar', this.refreshData.bind(this)); // Must be called after show because this will call requestData since show calls refreshCalendar
+      this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
+    } else {
+      this. refreshingCalendar = true;
+      this._calendar.refresh(false);
     }
+  },
+  onRefreshCalendar: function onRefreshCalendar(refresh) {
+    if (refresh) {
+      this.refreshData();
+    }
+  },
+  onChangeDay: function onChangeDay() {
+    this.selectDay();
   },
   requestData: function requestData() {
     const store = this.get('store');
