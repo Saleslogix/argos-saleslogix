@@ -6,6 +6,7 @@ import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
+  id: 'lead_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',

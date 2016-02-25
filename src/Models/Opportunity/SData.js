@@ -6,6 +6,7 @@ import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Opportunity.SData', [Base, _SDataModelBase], {
+  id: 'opportunity_sdata_model',
   querySelect: [
     'Account/AccountName',
     'Account/WebAddress',

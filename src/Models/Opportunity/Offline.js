@@ -6,6 +6,7 @@ import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Opportunity.Offline', [Base, _OfflineModelBase], {
+  id: 'opportunity_offline_model',
   entityName: 'Opportunity',
   entityDisplayName: 'Opportunity',
   entityDisplayNamePlural: 'Opportunities',
