@@ -117,7 +117,7 @@
             supportedLocales: <%= Serialize(
                   Enumerate(@"localization\locales\crm", (file) => true)
                       .Select(item => item.Directory.Name).Distinct()
-              ) %>;,
+              ) %>,
             defaultLocale: 'en',
             currentLocale: '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>',
             parentLocale: '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>',
