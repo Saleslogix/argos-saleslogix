@@ -6,6 +6,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase], {
+  id: 'history_offline_model',
   createOfflineNote: function createEntity() {
     const entity = {}; //
     entity.$descriptor = 'offline Note';

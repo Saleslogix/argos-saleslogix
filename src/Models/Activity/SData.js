@@ -10,6 +10,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
+  id: 'activity_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',

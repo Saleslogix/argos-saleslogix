@@ -6,7 +6,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.LeadAddress.Offline', [Base, _OfflineModelBase], {
-
+  id: 'leadaddress_offline_model',
 });
 
 Manager.register(MODEL_NAMES.LEADADDRESS, MODEL_TYPES.OFFLINE, __class);
