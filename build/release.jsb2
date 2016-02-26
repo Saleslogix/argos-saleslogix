@@ -334,6 +334,9 @@
           "text": "FileManager.js",
           "path": "../src-out/"
         }, {
+          "text": "Bootstrap.js",
+          "path": "../src-out/"
+        }, {
           "text": "Names.js",
           "path": "../src-out/Models/"
         }, {
