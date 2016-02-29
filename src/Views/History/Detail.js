@@ -1,13 +1,10 @@
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
-import domClass from 'dojo/dom-class';
 import format from '../../Format';
-import ErrorManager from 'argos/ErrorManager';
 import template from '../../Template';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('historyDetail');
 
@@ -16,7 +13,6 @@ const resource = getResource('historyDetail');
  *
  * @extends argos.Detail
  *
- * @requires argos.ErrorManager
  *
  * @requires crm.Format
  * @requires crm.Template
@@ -66,33 +62,8 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   editView: 'history_edit',
   dateFormatText: 'M/D/YYYY h:mm:ss A',
   resourceKind: 'history',
+  modelName: MODEL_NAMES.HISTORY,
   security: null, // 'Entities/History/View',
-  querySelect: [
-    'AccountId',
-    'AccountName',
-    'Category',
-    'ModifyDate',
-    'CompletedDate',
-    'ContactId',
-    'ContactName',
-    'CompletedUser',
-    'Description',
-    'Duration',
-    'Notes',
-    'LongNotes',
-    'OpportunityId',
-    'OpportunityName',
-    'Priority',
-    'StartDate',
-    'TicketId',
-    'TicketNumber',
-    'LeadId',
-    'LeadName',
-    'Timeless',
-    'Type',
-    'UserName',
-    'UserId',
-  ],
 
   formatActivityType: function formatActivityType(val) {
     return this.activityTypeText[val] || val;
@@ -108,59 +79,6 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   },
   provideText: function provideText(entry) {
     return entry && (entry.LongNotes || entry.Notes);
-  },
-  requestCompletedUser: function requestCompletedUser(entry) {
-    const completedUser = entry.CompletedUser;
-
-    if (completedUser) {
-      const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-        .setResourceKind('users')
-        .setResourceSelector(string.substitute("'${0}'", [completedUser]))
-        .setQueryArg('select', [
-          'UserInfo/FirstName',
-          'UserInfo/LastName',
-        ].join(','));
-
-      request.allowCacheUse = true;
-
-      return request;
-    }
-  },
-  requestCodeData: function requestCodeData(row, node, value, entry) {
-    const request = this.requestCompletedUser(entry);
-    if (request) {
-      request.read({
-        success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
-        failure: this.onRequestCodeDataFailure,
-        scope: this,
-      });
-    } else {
-      this.onCodeDataNull();
-    }
-  },
-  onRequestCodeDataSuccess: function onRequestCodeDataSuccess(row, node, value, entry, data) {
-    const codeText = entry[row.property];
-    this.setNodeText(node, this.createUserTemplate.apply(data.UserInfo));
-    this.entry[row.name] = codeText;
-  },
-  onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
-    const rowNode = query('[data-property="CompletedUser"]');
-    if (rowNode) {
-      this.setNodeText(rowNode[0], this.entry.UserName);
-    }
-
-    ErrorManager.addError(response, o, this.options, 'failure');
-  },
-  onCodeDataNull: function onCodeDataNull() {
-    const rowNode = query('[data-property="CompletedUser"]');
-    if (rowNode) {
-      this.setNodeText(rowNode[0], '');
-    }
-  },
-  setNodeText: function setNodeText(node, value) {
-    domClass.remove(node, 'content-loading');
-
-    query('span', node).text(value);
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
@@ -201,11 +119,9 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
         label: this.regardingText,
       }, {
         name: 'CompletedUser',
-        property: 'CompletedUser',
+        property: 'CompletedUser.UserInfo',
         label: this.completedByText,
-        value: this.loadingText,
-        cls: 'content-loading',
-        onCreate: this.requestCodeData.bindDelegate(this),
+        template: template.nameLF,
       }, {
         name: 'AccountName',
         property: 'AccountName',
