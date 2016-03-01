@@ -323,6 +323,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const entryOrder = [];
     const dateCompareString = 'YYYY-MM-DD';
     const o = [];
+    this.set('listContent', '');
 
     // If we fetched a page that has no data due to un-reliable counts,
     // check if we fetched anything in the previous pages before assuming there is no data.
@@ -529,7 +530,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     this.inherited(arguments);
     this.entryGroups = {};
     this.set('eventContent', '');
-    this.set('listContent', '');
+    this.set('listContent', this.loadingTemplate.apply(this));
   },
   selectEntry: function selectEntry(params) {
     const row = query(params.$source).closest('[data-key]')[0];

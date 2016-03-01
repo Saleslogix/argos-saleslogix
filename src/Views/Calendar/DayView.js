@@ -356,6 +356,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     }
 
     if (o.length > 0) {
+      this.set('listContent', '');
       domConstruct.place(o.join(''), this.contentNode, 'last');
     }
 
