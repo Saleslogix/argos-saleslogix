@@ -171,16 +171,16 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '</button>',
     '</div>',
   ]),
-  calendarStartTemplate: '<table class="calendar-table">',
-  calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
-  calendarWeekHeaderTemplate: '<td class="calendar-weekday">${0}</td>',
+  calendarStartTemplate: '<table class="old-calendar-table">',
+  calendarWeekHeaderStartTemplate: '<tr class="old-calendar-week-header">',
+  calendarWeekHeaderTemplate: '<td class="old-calendar-weekday">${0}</td>',
   calendarWeekHeaderEndTemplate: '</tr>',
-  calendarWeekStartTemplate: '<tr class="calendar-week">',
+  calendarWeekStartTemplate: '<tr class="old-calendar-week">',
   calendarEmptyDayTemplate: '<td>&nbsp;</td>',
-  calendarDayTemplate: '<td class="calendar-day ${1}" data-action="selectDay" data-date="${2}">${0}</td>',
+  calendarDayTemplate: '<td class="old-calendar-day ${1}" data-action="selectDay" data-date="${2}">${0}</td>',
   calendarWeekEndTemplate: '</tr>',
   calendarEndTemplate: '</table>',
-  calendarActivityCountTemplate: '<span class="activity-count" title="${0} events">${0}</span>',
+  calendarActivityCountTemplate: '<span class="old-activity-count" title="${0} events">${0}</span>',
 
   attributeMap: {
     calendarContent: {
@@ -529,7 +529,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
 
   highlightActivities: function highlightActivities() {
-    query('.calendar-day')
+    query('.old-calendar-day')
       .forEach(function queryDays(node) {
         const dataDate = domAttr.get(node, 'data-date');
         if (!this.dateCounts[dataDate]) {
@@ -806,7 +806,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
   },
   highlightCurrentDate: function highlightCurrentDate() {
-    const selectedDate = string.substitute('.calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
+    const selectedDate = string.substitute('.old-calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
 
     if (this.selectedDateNode) {
       domClass.remove(this.selectedDateNode, 'selected');
@@ -823,14 +823,14 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   highlightToday: function highlightToday() {
     // Remove the existing "today" highlight class because it might be out of date,
     // like when we tick past midnight.
-    let todayCls = '.calendar-day.today';
+    let todayCls = '.old-calendar-day.today';
     let todayNode = query(todayCls, this.contentNode)[0];
     if (todayNode) {
       domClass.remove(todayNode, 'today');
     }
 
     // Get the updated "today"
-    todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment()
+    todayCls = string.substitute('.old-calendar-day[data-date=${0}]', [moment()
       .format('YYYY-MM-DD'),
     ]);
     todayNode = query(todayCls, this.contentNode)[0];
