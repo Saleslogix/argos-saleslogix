@@ -86,7 +86,7 @@ const __class = declare('crm.Models.History.SData', [Base, _SDataModelBase], {
         },
       });
     } else {
-      def.resolve(false)
+      def.resolve(false);
     }
 
     return def.promise;
