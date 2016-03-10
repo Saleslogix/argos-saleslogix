@@ -5,6 +5,7 @@ import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
+import ErrorManager from 'argos/ErrorManager';
 
 const __class = declare('crm.Models.History.SData', [Base, _SDataModelBase], {
   id: 'history_sdata_model',
@@ -81,7 +82,7 @@ const __class = declare('crm.Models.History.SData', [Base, _SDataModelBase], {
           def.resolve(data);
         },
         failure: (response, o) => {
-          ErrorManager.addError(response, o, options, 'failure');
+          ErrorManager.addError(response, o, {}, 'failure');
           def.reject(response);
         },
       });
