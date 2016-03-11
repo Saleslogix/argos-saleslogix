@@ -7,6 +7,7 @@ import MODEL_NAMES from '../Names';
 import Deferred from 'dojo/Deferred';
 
 const __class = declare('crm.Models.Activity.Offline', [Base, _OfflineModelBase], {
+  id: 'activity_offline_model',
   onActivityCompleted: function onActivityCompleted(entry) {
     const def = new Deferred();
     const key = (entry.$completedBasedOn) ? entry.$completedBasedOn.$key : entry.$key;
