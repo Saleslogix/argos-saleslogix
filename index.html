@@ -107,49 +107,43 @@
 
     <script type="text/javascript">
     (function() {
-        var application = 'Mobile/SalesLogix/Application',
-            configuration = [
-                'configuration/production'
-            ];
-        require([application].concat(configuration), function(application, configuration) {
-            var localization, bootstrap, fallBackLocalization, completed = false;
-
-            localization = [
-                'localization/en',
-                'localization/saleslogix/en'
-            ];
-
-            fallBackLocalization = [
-                'localization/en',
-                'localization/saleslogix/en'
-            ];
-
-            bootstrap = function(requires) {
-                require(requires.concat('dojo/domReady!'), function() {
-                    if (completed) {
-                        return;
-                    }
-
-                    moment.locale('en');
-
-                    var instance = new application(configuration);
-
-                    instance.activate();
-                    instance.init();
-                    instance.run();
-                    completed = true;
-                });
-            };
-
-            require.on('error', function(error) {
-                console.log('Error loading localization, falling back to "en"');
-                bootstrap(fallBackLocalization);
-            });
-
-            bootstrap(localization);
+      require(['crm/Bootstrap'], function(bootstrap) {
+        bootstrap({
+          supportedLocales: [
+            'en',
+            'en-GB',
+            'de',
+            'fr',
+            'it',
+            'ru',
+            'zh-CN',
+            'zh-TW'
+          ],
+          defaultLocale: 'en',
+          currentLocale: 'en',
+          parentLocale: 'en',
+          configuration: [
+            'configuration/production'
+          ],
+          application: 'crm/Application',
+          legacyLocalization: [
+            'localization/en',
+            'localization/saleslogix/en'
+          ],
+          legacyLocalizationFallback: [
+            'localization/en',
+            'localization/saleslogix/en'
+          ],
+          localeFiles: [
+            './localization/locales/crm/en/strings.l20n',
+            './localization/locales/crm/en/regional.l20n',
+            '../../argos-sdk/localization/locales/argos/en/strings.l20n',
+            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+          ]
         });
+      });
     })();
-    </script>
+  </script>
 </head>
 <body>
 </body>
