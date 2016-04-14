@@ -1214,10 +1214,6 @@
   titleText: "Exchange Rates"
 >
 
-<footerToolbar ""
-  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. All rights reserved."
->
-
 <help ""
   titleText: "Help"
   errorText: "Error"
