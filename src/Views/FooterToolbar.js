@@ -6,7 +6,7 @@ import MainToolbar from 'argos/MainToolbar';
 /**
  * @class crm.Views.FooterToolbar
  *
- *
+ * @deprecated
  * @extends argos.MainToolbar
  *
  */
