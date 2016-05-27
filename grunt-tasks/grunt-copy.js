@@ -12,6 +12,11 @@ module.exports = function gruntCopy(grunt) {
       src: './manifest.appcache',
       dest: './deploy/manifest.appcache',
     },
+    model: {
+      expand: true,
+      src: 'bundle/**',
+      dest: 'deploy/'
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-copy');
