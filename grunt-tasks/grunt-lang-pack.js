@@ -1,5 +1,5 @@
 module.exports = function gruntLangPack(grunt) {
-  grunt.registerMultiTask('lang-pack', 'Full language pack build for all languages in the configuration', function(arg1) {
+  grunt.registerMultiTask('lang-pack', 'Full language pack build for all languages in the configuration', function() {
     // Clear the bundle folder instead of the full deploy folder, since if we're running multiple language packs
     // we might clean the completed ones otherwise. Also this may run after a full build, and those bundles would
     // be there as well.
