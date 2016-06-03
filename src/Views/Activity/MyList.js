@@ -221,7 +221,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   },
   defaultSearchTerm: function defaultSearchTerm() {
     if (App.enableHashTags) {
-      return '#' + this.hashTagQueriesText['this-week'];
+      return this.escapeHashTag('#' + this.hashTagQueriesText['this-week']);
     }
 
     return '';
