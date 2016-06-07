@@ -14,6 +14,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityList');
+const hashTagResource = getResource('activityListHashTags');
 
 /**
  * @class crm.Views.Activity.List
@@ -57,12 +58,12 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   titleText: resource.titleText,
   hashTagQueriesText: {
-    'alarm': resource.alarmText,
-    'recurring': resource.recurringText,
-    'timeless': resource.timelessText,
-    'today': resource.todayText,
-    'this-week': resource.thisWeekText,
-    'yesterday': resource.yesterdayText,
+    'alarm': hashTagResource.alarmText,
+    'recurring': hashTagResource.recurringText,
+    'timeless': hashTagResource.timelessText,
+    'today': hashTagResource.todayText,
+    'this-week': hashTagResource.thisWeekText,
+    'yesterday': hashTagResource.yesterdayText,
   },
   // Card View
   itemIcon: 'content/images/icons/man_1.png',

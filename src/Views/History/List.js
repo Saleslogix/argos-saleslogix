@@ -11,6 +11,7 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('historyList');
+const hashTagResource = getResource('historyListHashTags');
 
 /**
  * @class crm.Views.History.List
@@ -81,12 +82,12 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     'atEMail': resource.email,
   },
   hashTagQueriesText: {
-    'my-history': resource.myHistoryHash,
-    'note': resource.noteHash,
-    'phonecall': resource.phoneCallHash,
-    'meeting': resource.meetingHash,
-    'personal': resource.personalHash,
-    'email': resource.emailHash,
+    'my-history': hashTagResource.myHistoryHash,
+    'note': hashTagResource.noteHash,
+    'phonecall': hashTagResource.phoneCallHash,
+    'meeting': hashTagResource.meetingHash,
+    'personal': hashTagResource.personalHash,
+    'email': hashTagResource.emailHash,
   },
 
   // View Properties
