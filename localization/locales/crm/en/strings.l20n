@@ -253,6 +253,11 @@
   questionText: "Question"
   noteText: "Note"
   emailText: "Email"
+>
+
+<activityListHashTags ""
+  alarmText: "alarm"
+  recurringText: "recurring"
   timelessText: "timeless"
   todayText: "today"
   thisWeekText: "this-week"
