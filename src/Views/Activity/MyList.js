@@ -14,6 +14,7 @@ import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityMyList');
+const hashTagResource = getResource('activityMyListHashTags');
 
 /**
  * @class crm.Views.Activity.MyList
@@ -180,15 +181,15 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     },
   },
   hashTagQueriesText: {
-    'alarm': resource.hashTagAlarmText,
-    'status-unconfirmed': resource.hashTagUnconfirmedText,
-    'status-accepted': resource.hashTagAcceptedText,
-    'status-declined': resource.hashTagDeclinedText,
-    'recurring': resource.hashTagRecurringText,
-    'timeless': resource.hashTagTimelessText,
-    'today': resource.hashTagTodayText,
-    'this-week': resource.hashTagThisWeekText,
-    'yesterday': resource.hashTagYesterdayText,
+    'alarm': hashTagResource.hashTagAlarmText,
+    'status-unconfirmed': hashTagResource.hashTagUnconfirmedText,
+    'status-accepted': hashTagResource.hashTagAcceptedText,
+    'status-declined': hashTagResource.hashTagDeclinedText,
+    'recurring': hashTagResource.hashTagRecurringText,
+    'timeless': hashTagResource.hashTagTimelessText,
+    'today': hashTagResource.hashTagTodayText,
+    'this-week': hashTagResource.hashTagThisWeekText,
+    'yesterday': hashTagResource.hashTagYesterdayText,
   },
   createToolLayout: function createToolLayout() {
     this.inherited(arguments);

@@ -270,6 +270,9 @@
   viewContactActionText: "Contact"
   viewAccountActionText: "Account"
   viewOpportunityActionText: "Opportunity"
+>
+
+<activityMyListHashTags ""
   hashTagAlarmText: "alarm"
   hashTagUnconfirmedText: "status-unconfirmed"
   hashTagAcceptedText: "status-accepted"
@@ -368,6 +371,9 @@
   titleText: "Attachments"
   attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
   uploadedOnText: "Uploaded "
+>
+
+<attachmentListHashTags "" 
   hashTagUrlText: "url"
   hashTagBinaryText: "binary"
 >
@@ -685,6 +691,9 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+>
+
+<historyListHashTags ""
   myHistoryHash: "my-history"
   noteHash: "note"
   phoneCallHash: "phonecall"
