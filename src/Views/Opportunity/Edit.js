@@ -8,6 +8,7 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityEdit');
+const dtFormatResource = getResource('opportunityEditDateTimeFormat');
 
 /**
  * @class crm.Views.Opportunity.Edit
@@ -42,7 +43,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   multiCurrencyCodeText: resource.multiCurrencyCodeText,
   multiCurrencyDateText: resource.multiCurrencyDateText,
   multiCurrencyLockedText: resource.multiCurrencyLockedText,
-  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
   subTypePickListResellerText: resource.subTypePickListResellerText,
 
   // View Properties

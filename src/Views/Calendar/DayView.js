@@ -11,6 +11,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('calendarDayView');
+const dtFormatResource = getResource('calendarDayViewDateTimeFormat');
 
 /**
  * @class crm.Views.Calendar.DayView
@@ -30,9 +31,9 @@ const resource = getResource('calendarDayView');
 const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,
-  eventDateFormatText: resource.eventDateFormatText,
-  dateHeaderFormatText: resource.dateHeaderFormatText,
-  startTimeFormatText: resource.startTimeFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  dateHeaderFormatText: dtFormatResource.dateHeaderFormatText,
+  startTimeFormatText: dtFormatResource.startTimeFormatText,
   todayText: resource.todayText,
   dayText: resource.dayText,
   weekText: resource.weekText,

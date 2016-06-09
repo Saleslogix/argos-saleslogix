@@ -12,6 +12,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('historyList');
 const hashTagResource = getResource('historyListHashTags');
+const dtFormatResource = getResource('historyListDateTimeFormat');
 
 /**
  * @class crm.Views.History.List
@@ -64,8 +65,8 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   ]),
 
   // Localization
-  hourMinuteFormatText: resource.hourMinuteFormatText,
-  dateFormatText: resource.dateFormatText,
+  hourMinuteFormatText: dtFormatResource.hourMinuteFormatText,
+  dateFormatText: dtFormatResource.dateFormatText,
   titleText: resource.titleText,
   viewAccountActionText: resource.viewAccountActionText,
   viewOpportunityActionText: resource.viewOpportunityActionText,

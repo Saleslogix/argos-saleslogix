@@ -9,6 +9,7 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
 const resource = getResource('historyEdit');
+const dtFormatResource = getResource('historyEditDateTimeFormat');
 
 /**
  * @class crm.Views.History.Edit
@@ -32,7 +33,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   regardingText: resource.regardingText,
   isLeadText: resource.isLeadText,
   startingText: resource.startingText,
-  startingFormatText: resource.startingFormatText,
+  startingFormatText: dtFormatResource.startingFormatText,
   titleText: resource.titleText,
   companyText: resource.companyText,
   leadText: resource.leadText,

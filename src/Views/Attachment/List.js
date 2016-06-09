@@ -12,6 +12,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('attachmentList');
 const hashTagResource = getResource('attachmentListHashTags');
+const dtFormatResource = getResource('attachmentListDateTimeFormat');
 
 /**
  * @class crm.Views.Attachments.List
@@ -64,7 +65,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
 
   // Localization
   titleText: resource.titleText,
-  attachmentDateFormatText: resource.attachmentDateFormatText,
+  attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
   uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
 
   // View Properties

@@ -14,6 +14,7 @@ import Utility from '../../Utility';
 import getResource from 'argos/I18n';
 
 const resource = getResource('calendarView');
+const dtFormatResource = getResource('calendarViewDateTimeFormat');
 
 /**
  * @class crm.Views.Calendar.CalendarView
@@ -33,10 +34,10 @@ const resource = getResource('calendarView');
 const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // Localization
   titleText: resource.titleText,
-  monthTitleFormatText: resource.monthTitleFormatText,
-  dayTitleFormatText: resource.dayTitleFormatText,
-  eventDateFormatText: resource.eventDateFormatText,
-  startTimeFormatText: resource.startTimeFormatText,
+  monthTitleFormatText: dtFormatResource.monthTitleFormatText,
+  dayTitleFormatText: dtFormatResource.dayTitleFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  startTimeFormatText: dtFormatResource.startTimeFormatText,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,

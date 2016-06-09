@@ -14,6 +14,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('calendarMonthView');
+const dtFormatResource = getResource('calendarMonthViewDateTimeFormat');
 
 /**
  * @class crm.Views.Calendar.MonthView
@@ -39,10 +40,10 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   dayText: resource.dayText,
   weekText: resource.weekText,
   monthText: resource.monthText,
-  monthTitleFormatText: resource.monthTitleFormatText,
-  dayTitleFormatText: resource.dayTitleFormatText,
-  eventDateFormatText: resource.eventDateFormatText,
-  startTimeFormatText: resource.startTimeFormatText,
+  monthTitleFormatText: dtFormatResource.monthTitleFormatText,
+  dayTitleFormatText: dtFormatResource.dayTitleFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  startTimeFormatText: dtFormatResource.startTimeFormatText,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,
