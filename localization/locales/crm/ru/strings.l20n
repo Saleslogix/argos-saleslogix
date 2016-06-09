@@ -200,7 +200,7 @@
   durationText: "длительность"
   durationTitleText: "Длительность"
   durationInvalidText: "Поле \"${2}\" должно иметь значение."
-  reminderInvalidText: "Поле "напоминание" должно иметь значение."
+  reminderInvalidText: "Поле \"напоминание\" должно иметь значение."
   reminderTitleText: "Напоминание"
   leaderText: "исполнитель"
   longNotesText: "заметки"
