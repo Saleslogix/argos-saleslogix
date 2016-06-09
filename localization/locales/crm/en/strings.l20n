@@ -105,7 +105,6 @@
   categoryText: "category"
   categoryTitleText: "Activity Category"
   completedText: "completed date"
-  completedFormatText: "M/D/YYYY h:mm A"
   completionText: "Completion"
   durationText: "duration"
   durationInvalidText: "The field '${2}' must have a value."
@@ -123,8 +122,6 @@
   resultText: "result"
   resultTitleText: "Result"
   startingText: "start date"
-  startingFormatText: "M/D/YYYY h:mm A"
-  startingTimelessFormatText: "M/D/YYYY"
   timelessText: "timeless"
   noneText: "none"
   quarterHourText: "15 minutes"
@@ -137,6 +134,12 @@
   meetingText: "Meeting"
   toDoText: "To-Do"
   personalText: "Personal Activity"
+>
+
+<activityCompleteDateTimeFormat ""
+  completedFormatText: "M/D/YYYY h:mm A"
+  startingFormatText: "M/D/YYYY h:mm A"
+  startingTimelessFormatText: "M/D/YYYY"
 >
 
 <activityDetail ""
@@ -165,9 +168,6 @@
   contactText: "contact"
   opportunityText: "opportunity"
   ticketNumberText: "ticket"
-  startDateFormatText: "M/D/YYYY h:mm:ss A"
-  timelessDateFormatText: "M/D/YYYY"
-  alarmDateFormatText: "M/D/YYYY h:mm:ss A"
   recurrenceText: "recurrence"
   confirmEditRecurrenceText: "Edit all Occurrences? Cancel to edit single Occurrence."
   relatedAttachmentText: "Attachments"
@@ -181,6 +181,12 @@
   personalText: "Personal Activity"
   literatureText: "Literature Request"
   entityText: "Activity"
+>
+
+<activityDetailDateTimeFormat ""
+  startDateFormatText: "M/D/YYYY h:mm:ss A"
+  timelessDateFormatText: "M/D/YYYY"
+  alarmDateFormatText: "M/D/YYYY h:mm:ss A"
 >
 
 <activityEdit ""
@@ -204,8 +210,6 @@
   regardingText: "regarding"
   rolloverText: "auto rollover"
   startingText: "start time"
-  startingFormatText: "M/D/YYYY h:mm A"
-  startingTimelessFormatText: "M/D/YYYY"
   repeatsText: "repeats"
   recurringText: "recurring"
   recurringTitleText: "Recurring"
@@ -231,6 +235,11 @@
   twoHoursText: "2 hours"
   dayText: "1 day"
   updateUserActErrorText: "An error occured updating user activities."
+>
+
+<activityEditDateTimeFormat ""
+  startingFormatText: "M/D/YYYY h:mm A"
+  startingTimelessFormatText: "M/D/YYYY"
 >
 
 <activityList ""
@@ -374,8 +383,11 @@
 
 <attachmentList ""
   titleText: "Attachments"
-  attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
   uploadedOnText: "Uploaded "
+>
+
+<attachmentListDateTimeFormat ""
+  attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
 >
 
 <attachmentListHashTags "" 
@@ -395,17 +407,16 @@
   fileSizeText: "file size"
   userText: "user"
   attachmentNotSupportedText: "The attachment type is not supported for viewing."
-  attachmentDateFormatText: "ddd M/D/YYYY h:mm a"
   downloadingText: "Downloading attachment ..."
   notSupportedText: "Viewing attachments is not supported by your device."
 >
 
+<attachmentViewDateTimeFormat ""
+  attachmentDateFormatText: "ddd M/D/YYYY h:mm a"
+>
+
 <calendarView ""
   titleText: "Calendar"
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D"
-  startTimeFormatText: "h:mm A"
   allDayText: "All-Day"
   eventText: "Event"
   eventHeaderText: "Events"
@@ -419,11 +430,15 @@
   weekText: "Week"
 >
 
+<calendarViewDateTimeFormat ""
+  monthTitleFormatText: "MMMM YYYY"
+  dayTitleFormatText: "ddd MMM D, YYYY"
+  eventDateFormatText: "M/D"
+  startTimeFormatText: "h:mm A"
+>
+
 <calendarDayView ""
   titleText: "Calendar"
-  eventDateFormatText: "M/D/YYYY"
-  dateHeaderFormatText: "dddd, M/D/YYYY"
-  startTimeFormatText: "h:mm A"
   todayText: "Today"
   dayText: "Day"
   weekText: "Week"
@@ -435,16 +450,18 @@
   toggleCollapseText: "toggle collapse"
 >
 
+<calendarDayViewDateTimeFormat ""
+  eventDateFormatText: "M/D/YYYY"
+  dateHeaderFormatText: "dddd, M/D/YYYY"
+  startTimeFormatText: "h:mm A"
+>
+
 <calendarMonthView ""
   titleText: "Calendar"
   todayText: "Today"
   dayText: "Day"
   weekText: "Week"
   monthText: "Month"
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D/YYYY"
-  startTimeFormatText: "h:mm A"
   allDayText: "All-Day"
   eventText: "Event"
   eventHeaderText: "Events"
@@ -460,13 +477,15 @@
   saturdayShortText: "Sat"
 >
 
-<calendarWeekView ""
-  titleText: "Calendar"
-  weekTitleFormatText: "MMM D, YYYY"
-  dayHeaderLeftFormatText: "dddd"
-  dayHeaderRightFormatText: "MMM D, YYYY"
+<calendarMonthViewDateTimeFormat ""
+  monthTitleFormatText: "MMMM YYYY"
+  dayTitleFormatText: "ddd MMM D, YYYY"
   eventDateFormatText: "M/D/YYYY"
   startTimeFormatText: "h:mm A"
+>
+
+<calendarWeekView ""
+  titleText: "Calendar"
   todayText: "Today"
   dayText: "Day"
   weekText: "Week"
@@ -475,6 +494,14 @@
   eventHeaderText: "Events"
   eventMoreText: "View ${0} More Event(s)"
   toggleCollapseText: "toggle collapse"
+>
+
+<calendarWeekViewDateTimeFormat ""
+  weekTitleFormatText: "MMM D, YYYY"
+  dayHeaderLeftFormatText: "dddd"
+  dayHeaderRightFormatText: "MMM D, YYYY"
+  eventDateFormatText: "M/D/YYYY"
+  startTimeFormatText: "h:mm A"
 >
 
 <chartMixin ""
@@ -571,7 +598,6 @@
   titleText: "Error Log"
   detailsText: "Details"
   errorDateText: "date"
-  errorDateFormatText: "MM/DD/YYYY hh:mm A"
   statusTextText: "error"
   urlText: "url"
   entityText: "Error Log"
@@ -581,8 +607,15 @@
   copiedSuccessText: "Copied to clipboard"
 >
 
+<errorLogDetailDateTimeFormat ""
+  errorDateFormatText: "MM/DD/YYYY hh:mm A"
+>
+
 <errorLogList ""
   titleText: "Error Logs"
+>
+
+<errorLogListDateTimeFormat ""
   errorDateFormatText: "MM/DD/YYYY hh:mm A"
 >
 
@@ -594,8 +627,6 @@
   descriptionText: "description"
   typeText: "type"
   whenText: "When"
-  startDateFormatText: "M/D/YYYY h:mm:ss A"
-  endDateFormatText: "M/D/YYYY h:mm:ss A"
   entityText: "Event"
   meeting: "Meeting"
   literature: "Literature Request"
@@ -604,19 +635,30 @@
   toDo: "To-Do"
 >
 
+<eventDetailDateTimeFormat ""
+  startDateFormatText: "M/D/YYYY h:mm:ss A"
+  endDateFormatText: "M/D/YYYY h:mm:ss A"
+>
+
 <eventEdit ""
   titleText: "Event"
   typeText: "type"
   descriptionText: "description"
   startDateText: "start date"
   endDateText: "end date"
+>
+
+<eventEditDateTimeFormat ""
   startingFormatText: "M/D/YYYY h:mm A"
 >
 
 <eventList ""
   titleText: "Events"
-  eventDateFormatText: "M/D/YYYY"
   eventText: "Event"
+>
+
+<eventListDateTimeFormat ""
+  eventDateFormatText: "M/D/YYYY"
 >
 
 <groupsSelector ""
@@ -669,7 +711,6 @@
   regardingText: "regarding"
   isLeadText: "for lead"
   startingText: "time"
-  startingFormatText: "M/D/YYYY h:mm A"
   titleText: "Note"
   companyText: "company"
   leadText: "lead"
@@ -680,9 +721,11 @@
   validationCanEditText: "You are not allowed to edit"
 >
 
+<historyEditDateTimeFormat ""
+  startingFormatText: "M/D/YYYY h:mm A"
+>
+
 <historyList ""
-  hourMinuteFormatText: "h:mm A"
-  dateFormatText: "M/D/YY"
   titleText: "Notes/History"
   viewAccountActionText: "Account"
   viewOpportunityActionText: "Opp."
@@ -696,6 +739,11 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+>
+
+<historyListDateTimeFormat ""
+  hourMinuteFormatText: "h:mm A"
+  dateFormatText: "M/D/YY"
 >
 
 <historyListHashTags ""
@@ -839,8 +887,11 @@
   multiCurrencyCodeText: "code"
   multiCurrencyDateText: "rate date"
   multiCurrencyLockedText: "rate locked"
-  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
   entityText: "Opportunity"
+>
+
+<opportunityDetailDateTimeFormat ""
+  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
 >
 
 <opportunityEdit ""
@@ -865,8 +916,11 @@
   multiCurrencyCodeText: "code"
   multiCurrencyDateText: "rate date"
   multiCurrencyLockedText: "rate locked"
-  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
   subTypePickListResellerText: "RESELLER"
+>
+
+<opportunityEditDateTimeFormat ""
+  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
 >
 
 <opportunityList ""
@@ -1125,11 +1179,17 @@
   startDateText: "start date"
   endDateText: "end date"
   commentsText: "comments"
+>
+
+<ticketActivityEditDateTimeFormat ""
   startingFormatText: "M/D/YYYY h:mm A"
 >
 
 <ticketActivityList ""
   titleText: "Ticket Activities"
+>
+
+<ticketActivityListDateTimeFormat ""
   startDateFormatText: "MM/DD/YYYY h:mm A"
 >
 
@@ -1383,7 +1443,7 @@
   percentCompleteText: "Uploading, please wait..."
 >
 
-<groupUtility ""
+<groupUtilityDateTimeFormat ""
   groupDateFormatText: "M/D/YYYY h:mm:ss a"
 >
 
@@ -1405,11 +1465,6 @@
   everyText: "every ${0} ${1}"
   afterCompletionText: "after completion"
   untilEndDateText: "${0} until ${1}"
-  dayFormatText: "DD"
-  monthFormatText: "MM"
-  monthAndDayFormatText: "MM/DD"
-  weekdayFormatText: "dddd"
-  endDateFormatText: "M/D/YYYY"
   sunday: "Sunday"
   monday: "Monday"
   tuesday: "Tuesday"
@@ -1423,6 +1478,14 @@
   third: "third"
   fourth: "fourth"
   last: "last"
+>
+
+<recurrenceDateTimeFormat ""
+  dayFormatText: "DD"
+  monthFormatText: "MM"
+  monthAndDayFormatText: "MM/DD"
+  weekdayFormatText: "dddd"
+  endDateFormatText: "M/D/YYYY"
 >
 
 <speedSearchWidget ""
