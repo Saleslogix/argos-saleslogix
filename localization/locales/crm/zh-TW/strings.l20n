@@ -390,7 +390,7 @@
   attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
 >
 
-<attachmentListHashTags "" 
+<attachmentListHashTags ""
   hashTagUrlText: "URL"
   hashTagBinaryText: "二進位"
 >
@@ -722,7 +722,7 @@
 >
 
 <historyEditDateTimeFormat ""
-  startingFormatText: "M/D/YYYY h:mm A"
+  startingFormatText: "YYYY/M/D h:mm A"
 >
 
 <historyList ""
