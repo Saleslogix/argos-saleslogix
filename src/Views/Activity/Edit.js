@@ -13,6 +13,7 @@ import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('activityEdit');
+const dtFormatResource = getResource('activityEditDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Edit
@@ -52,8 +53,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   regardingText: resource.regardingText,
   rolloverText: resource.rolloverText,
   startingText: resource.startingText,
-  startingFormatText: resource.startingFormatText,
-  startingTimelessFormatText: resource.startingTimelessFormatText,
+  startingFormatText: dtFormatResource.startingFormatText,
+  startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
   repeatsText: resource.repeatsText,
   recurringText: resource.recurringText,
   recurringTitleText: resource.recurringTitleText,

@@ -13,6 +13,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityComplete');
+const dtFormatResource = getResource('activityCompleteDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Complete
@@ -43,7 +44,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   categoryText: resource.categoryText,
   categoryTitleText: resource.categoryTitleText,
   completedText: resource.completedText,
-  completedFormatText: resource.completedFormatText,
+  completedFormatText: dtFormatResource.completedFormatText,
   completionText: resource.completionText,
   durationText: resource.durationText,
   durationInvalidText: resource.durationInvalidText,
@@ -61,8 +62,8 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   resultText: resource.resultText,
   resultTitleText: resource.resultTitleText,
   startingText: resource.startingText,
-  startingFormatText: resource.startingFormatText,
-  startingTimelessFormatText: resource.startingTimelessFormatText,
+  startingFormatText: dtFormatResource.startingFormatText,
+  startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
   timelessText: resource.timelessText,
   recurringActivityIdSeparator: ';',
   durationValueText: {
