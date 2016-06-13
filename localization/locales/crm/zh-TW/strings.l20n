@@ -137,9 +137,9 @@
 >
 
 <activityCompleteDateTimeFormat ""
-  completedFormatText: "M/D/YYYY h:mm A"
-  startingFormatText: "M/D/YYYY h:mm A"
-  startingTimelessFormatText: "M/D/YYYY"
+  completedFormatText: "YYYY-M-D h:mm A"
+  startingFormatText: "YYYY-M-D h:mm A"
+  startingTimelessFormatText: "YYYY-M-D"
 >
 
 <activityDetail ""
@@ -184,9 +184,9 @@
 >
 
 <activityDetailDateTimeFormat ""
-  startDateFormatText: "M/D/YYYY h:mm:ss A"
-  timelessDateFormatText: "M/D/YYYY"
-  alarmDateFormatText: "M/D/YYYY h:mm:ss A"
+  startDateFormatText: "YYYY-M-D h:mm:ss A"
+  timelessDateFormatText: "YYYY-M-D"
+  alarmDateFormatText: "YYYY-M-D h:mm:ss A"
 >
 
 <activityEdit ""
@@ -238,8 +238,8 @@
 >
 
 <activityEditDateTimeFormat ""
-  startingFormatText: "M/D/YYYY h:mm A"
-  startingTimelessFormatText: "M/D/YYYY"
+  startingFormatText: "YYYY-M-D h:mm A"
+  startingTimelessFormatText: "YYYY-M-D"
 >
 
 <activityList ""
@@ -387,7 +387,7 @@
 >
 
 <attachmentListDateTimeFormat ""
-  attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
+  attachmentDateFormatText: "ddd YYYY-M-D hh:mm:ss"
 >
 
 <attachmentListHashTags ""
@@ -412,7 +412,7 @@
 >
 
 <attachmentViewDateTimeFormat ""
-  attachmentDateFormatText: "ddd M/D/YYYY h:mm a"
+  attachmentDateFormatText: "ddd YYYY-M-D h:mm a"
 >
 
 <calendarView ""
@@ -451,8 +451,8 @@
 >
 
 <calendarDayViewDateTimeFormat ""
-  eventDateFormatText: "M/D/YYYY"
-  dateHeaderFormatText: "dddd, M/D/YYYY"
+  eventDateFormatText: "YYYY-M-D"
+  dateHeaderFormatText: "dddd, YYYY-M-D"
   startTimeFormatText: "h:mm A"
 >
 
@@ -480,7 +480,7 @@
 <calendarMonthViewDateTimeFormat ""
   monthTitleFormatText: "MMMM YYYY"
   dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D/YYYY"
+  eventDateFormatText: "YYYY-M-D"
   startTimeFormatText: "h:mm A"
 >
 
@@ -500,7 +500,7 @@
   weekTitleFormatText: "MMM D, YYYY"
   dayHeaderLeftFormatText: "dddd"
   dayHeaderRightFormatText: "MMM D, YYYY"
-  eventDateFormatText: "M/D/YYYY"
+  eventDateFormatText: "YYYY-M-D"
   startTimeFormatText: "h:mm A"
 >
 
@@ -636,8 +636,8 @@
 >
 
 <eventDetailDateTimeFormat ""
-  startDateFormatText: "M/D/YYYY h:mm:ss A"
-  endDateFormatText: "M/D/YYYY h:mm:ss A"
+  startDateFormatText: "YYYY-M-D h:mm:ss A"
+  endDateFormatText: "YYYY-M-D h:mm:ss A"
 >
 
 <eventEdit ""
@@ -649,7 +649,7 @@
 >
 
 <eventEditDateTimeFormat ""
-  startingFormatText: "M/D/YYYY h:mm A"
+  startingFormatText: "YYYY-M-D h:mm A"
 >
 
 <eventList ""
@@ -658,7 +658,7 @@
 >
 
 <eventListDateTimeFormat ""
-  eventDateFormatText: "M/D/YYYY"
+  eventDateFormatText: "YYYY-M-D"
 >
 
 <groupsSelector ""
@@ -891,7 +891,7 @@
 >
 
 <opportunityDetailDateTimeFormat ""
-  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
+  exchangeRateDateFormatText: "YYYY-M-D h:mm A"
 >
 
 <opportunityEdit ""
@@ -920,7 +920,7 @@
 >
 
 <opportunityEditDateTimeFormat ""
-  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
+  exchangeRateDateFormatText: "YYYY-M-D h:mm A"
 >
 
 <opportunityList ""
@@ -1182,7 +1182,7 @@
 >
 
 <ticketActivityEditDateTimeFormat ""
-  startingFormatText: "M/D/YYYY h:mm A"
+  startingFormatText: "YYYY-M-D h:mm A"
 >
 
 <ticketActivityList ""
@@ -1448,7 +1448,7 @@
 >
 
 <groupUtilityDateTimeFormat ""
-  groupDateFormatText: "M/D/YYYY h:mm:ss A"
+  groupDateFormatText: "YYYY-M-D h:mm:ss A"
 >
 
 <recurrence ""
@@ -1489,7 +1489,7 @@
   monthFormatText: "MM"
   monthAndDayFormatText: "MM/DD"
   weekdayFormatText: "dddd"
-  endDateFormatText: "M/D/YYYY"
+  endDateFormatText: "YYYY-M-D"
 >
 
 <speedSearchWidget ""
