@@ -700,6 +700,10 @@
   email: "Электронная почта"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "D.M.YYYY H:mm"
+>
+
 <historyEdit ""
   accountText: "клиент"
   noteDescriptionTitleText: "Описание заметки"
@@ -749,7 +753,7 @@
 <historyListHashTags ""
   myHistoryHash: "моя-история"
   noteHash: "Заметка"
-  phoneCallHash: "phonecall"
+  phoneCallHash: "Звонок"
   meetingHash: "Встреча"
   personalHash: "личное"
   emailHash: "Электронная-почта"

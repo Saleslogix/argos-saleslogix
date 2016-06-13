@@ -7,6 +7,7 @@ import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('historyDetail');
+const dtFormatResource = getResource('historyDetailDateTimeFormat');
 
 /**
  * @class crm.Views.History.Detail
@@ -60,7 +61,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   id: 'history_detail',
   existsRE: /^[\w]{12}$/,
   editView: 'history_edit',
-  dateFormatText: 'M/D/YYYY h:mm:ss A',
+  dateFormatText: dtFormatResource.dateFormatText,
   resourceKind: 'history',
   modelName: MODEL_NAMES.HISTORY,
   security: null, // 'Entities/History/View',

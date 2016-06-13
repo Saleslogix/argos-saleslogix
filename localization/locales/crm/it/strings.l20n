@@ -700,6 +700,10 @@
   email: "E-mail"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "D/M/YYYY H:mm:ss"
+>
+
 <historyEdit ""
   accountText: "azienda"
   noteDescriptionTitleText: "Descrizione nota"
@@ -749,7 +753,7 @@
 <historyListHashTags ""
   myHistoryHash: "cronologia-personale"
   noteHash: "nota"
-  phoneCallHash: "phonecall"
+  phoneCallHash: "Telefonata"
   meetingHash: "riunione"
   personalHash: "personale"
   emailHash: "E-mail"

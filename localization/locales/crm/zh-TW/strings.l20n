@@ -330,7 +330,7 @@
   february: "二月"
   march: "三月"
   april: "四月"
-  may: "5 月"
+  may: "五月"
   june: "六月"
   july: "七月"
   august: "八月"
@@ -700,6 +700,10 @@
   email: "電子郵件"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "YYYY-M-D h:mm:ss A"
+>
+
 <historyEdit ""
   accountText: "客戶"
   noteDescriptionTitleText: "備註描述"
@@ -749,7 +753,7 @@
 <historyListHashTags ""
   myHistoryHash: "我的歷程記錄"
   noteHash: "備註"
-  phoneCallHash: "phonecall"
+  phoneCallHash: "電話"
   meetingHash: "會議"
   personalHash: "個人"
   emailHash: "電子郵件"
