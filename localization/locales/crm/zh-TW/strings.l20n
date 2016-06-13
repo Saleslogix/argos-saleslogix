@@ -700,6 +700,10 @@
   email: "電子郵件"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "YYYY-M-D h:mm:ss A"
+>
+
 <historyEdit ""
   accountText: "客戶"
   noteDescriptionTitleText: "備註描述"

@@ -390,7 +390,7 @@
   attachmentDateFormatText: "ddd D/M/YYYY HH:mm:ss"
 >
 
-<attachmentListHashTags "" 
+<attachmentListHashTags ""
   hashTagUrlText: "url"
   hashTagBinaryText: "binaire"
 >
@@ -454,7 +454,7 @@
 <calendarDayViewDateTimeFormat ""
   eventDateFormatText: "D/M/YYYY"
   dateHeaderFormatText: "dddd, D/M/YYYY"
->	
+>
 
 <calendarMonthView ""
   titleText: "Agenda"
@@ -698,6 +698,10 @@
   personal: "Activité personnelle"
   question: "Question"
   email: "E-mail"
+>
+
+<historyDetailDateTimeFormat ""
+  dateFormatText: "D/M/YYYY H:mm:ss"
 >
 
 <historyEdit ""

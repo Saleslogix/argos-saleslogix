@@ -700,6 +700,10 @@
   email: "E-Mail"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "D.M.YYYY H:mm:ss"
+>
+
 <historyEdit ""
   accountText: "Firma"
   noteDescriptionTitleText: "Beschreibung der Notiz"

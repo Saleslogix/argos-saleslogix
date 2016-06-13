@@ -701,6 +701,10 @@
   email: "电子邮件"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "YYYY/M/D A h:mm:ss"
+>
+
 <historyEdit ""
   accountText: "客户"
   noteDescriptionTitleText: "备注描述"

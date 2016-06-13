@@ -700,6 +700,10 @@
   email: "Электронная почта"
 >
 
+<historyDetailDateTimeFormat ""
+  dateFormatText: "D.M.YYYY H:mm"
+>
+
 <historyEdit ""
   accountText: "клиент"
   noteDescriptionTitleText: "Описание заметки"

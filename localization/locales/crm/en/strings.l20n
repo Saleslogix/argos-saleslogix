@@ -390,7 +390,7 @@
   attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
 >
 
-<attachmentListHashTags "" 
+<attachmentListHashTags ""
   hashTagUrlText: "url"
   hashTagBinaryText: "binary"
 >
@@ -698,6 +698,10 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+>
+
+<historyDetailDateTimeFormat ""
+  dateFormatText: "M/D/YYYY h:mm:ss A"
 >
 
 <historyEdit ""
