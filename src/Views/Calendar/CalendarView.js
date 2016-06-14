@@ -3,6 +3,7 @@ import convert from 'argos/Convert';
 import declare from 'dojo/_base/declare';
 import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
+import query from 'dojo/query';
 import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
 import on from'dojo/on';
@@ -175,7 +176,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   weekSelectTemplate: new Simplate([
     '<div class="toggle toggle-horizontal calendar__weekToggle">',
         '<span class="thumb horizontal weekToggle__thumb"></span>',
-        '<span class="toggleOn weekToggle__on">{%= $.weekText %}</span>',
+        '<span class="toggleOn weekToggle__on display-none">{%= $.weekText %}</span>',
         '<span class="toggleOff weekToggle__off">{%= $.dayText %}</span>',
     '</div>',
   ]),
@@ -625,6 +626,14 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   toggleMultiSelect: function toggleMultiSelect({currentTarget}) {
     this._showMulti = !this._showMulti;
+    const toggleOnNode = query('.toggleOn', currentTarget).shift();
+    const toggleOffNode = query('.toggleOff', currentTarget).shift();
+
+    if(toggleOnNode && toggleOffNode) {
+      domClass.toggle(toggleOnNode, 'display-none', !this._showMulti);
+      domClass.toggle(toggleOffNode, 'display-none', this._showMulti);
+    }
+
     this._calendar.toggleSelectWeek();
     domClass.toggle(currentTarget, 'toggleStateOn');
     domConstruct.empty(this.activityContentNode);
