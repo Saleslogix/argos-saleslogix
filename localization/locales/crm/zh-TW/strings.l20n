@@ -433,7 +433,7 @@
 <calendarViewDateTimeFormat ""
   monthTitleFormatText: "MMMM YYYY"
   dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D"
+  eventDateFormatText: "M-D"
   startTimeFormatText: "h:mm A"
 >
 
@@ -608,7 +608,7 @@
 >
 
 <errorLogDetailDateTimeFormat ""
-  errorDateFormatText: "MM/DD/YYYY hh:mm A"
+  errorDateFormatText: "YYYY-MM-DD hh:mm A"
 >
 
 <errorLogList ""
@@ -616,7 +616,7 @@
 >
 
 <errorLogListDateTimeFormat ""
-  errorDateFormatText: "MM/DD/YYYY hh:mm A"
+  errorDateFormatText: "YYYY-MM-DD hh:mm A"
 >
 
 <eventDetail ""
@@ -726,7 +726,7 @@
 >
 
 <historyEditDateTimeFormat ""
-  startingFormatText: "YYYY/M/D h:mm A"
+  startingFormatText: "YYYY-M-D h:mm A"
 >
 
 <historyList ""
@@ -747,7 +747,7 @@
 
 <historyListDateTimeFormat ""
   hourMinuteFormatText: "h:mm A"
-  dateFormatText: "M/D/YY"
+  dateFormatText: "YY-M-D"
 >
 
 <historyListHashTags ""
@@ -1194,7 +1194,7 @@
 >
 
 <ticketActivityListDateTimeFormat ""
-  startDateFormatText: "MM/DD/YYYY h:mm A"
+  startDateFormatText: "YYYY-MM-DD h:mm A"
 >
 
 <ticketActivityRateLookup ""
@@ -1491,7 +1491,7 @@
 <recurrenceDateTimeFormat ""
   dayFormatText: "DD"
   monthFormatText: "MM"
-  monthAndDayFormatText: "MM/DD"
+  monthAndDayFormatText: "MM-DD"
   weekdayFormatText: "dddd"
   endDateFormatText: "YYYY-M-D"
 >
