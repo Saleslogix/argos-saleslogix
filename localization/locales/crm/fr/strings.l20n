@@ -137,8 +137,8 @@
 >
 
 <activityCompleteDateTimeFormat ""
-  completedFormatText: "D/M/YYYY h:mm"
-  startingFormatText: "D/M/YYYY h:mm"
+  completedFormatText: "D/M/YYYY H:mm"
+  startingFormatText: "D/M/YYYY H:mm"
   startingTimelessFormatText: "D/M/YYYY"
 >
 
@@ -238,7 +238,7 @@
 >
 
 <activityEditDateTimeFormat ""
-  startingFormatText: "D/M/YYYY h:mm"
+  startingFormatText: "D/M/YYYY H:mm"
   startingTimelessFormatText: "D/M/YYYY"
 >
 
@@ -434,12 +434,12 @@
   monthTitleFormatText: "MMMM YYYY"
   dayTitleFormatText: "ddd D MMM YYYY"
   eventDateFormatText: "M/D"
-  startTimeFormatText: "h:mm"
+  startTimeFormatText: "H:mm"
 >
 
 <calendarDayView ""
   titleText: "Agenda"
-  startTimeFormatText: "h:mm"
+  startTimeFormatText: "H:mm"
   todayText: "Aujourd'hui"
   dayText: "Jour"
   weekText: "Semaine"
@@ -481,7 +481,7 @@
   monthTitleFormatText: "MMMM YYYY"
   dayTitleFormatText: "ddd D MMM YYYY"
   eventDateFormatText: "D/M/YYYY"
-  startTimeFormatText: "h:mm"
+  startTimeFormatText: "H:mm"
 >
 
 <calendarWeekView ""
@@ -501,7 +501,7 @@
   dayHeaderLeftFormatText: "dddd"
   dayHeaderRightFormatText: "D MMM YYYY"
   eventDateFormatText: "D/M/YYYY"
-  startTimeFormatText: "h:mm"
+  startTimeFormatText: "H:mm"
 >
 
 <chartMixin ""
@@ -608,7 +608,7 @@
 >
 
 <errorLogDetailDateTimeFormat ""
-  errorDateFormatText: "DD/MM/YYYY hh:mm"
+  errorDateFormatText: "DD/MM/YYYY HH:mm"
 >
 
 <errorLogList ""
@@ -616,7 +616,7 @@
 >
 
 <errorLogListDateTimeFormat ""
-  errorDateFormatText: "DD/MM/YYYY hh:mm"
+  errorDateFormatText: "DD/MM/YYYY HH:mm"
 >
 
 <eventDetail ""
@@ -649,7 +649,7 @@
 >
 
 <eventEditDateTimeFormat ""
-  startingFormatText: "D/M/YYYY h:mm"
+  startingFormatText: "D/M/YYYY H:mm"
 >
 
 <eventList ""
@@ -726,7 +726,7 @@
 >
 
 <historyEditDateTimeFormat ""
-  startingFormatText: "D/M/YYYY h:mm"
+  startingFormatText: "D/M/YYYY H:mm"
 >
 
 <historyList ""
@@ -746,7 +746,7 @@
 >
 
 <historyListDateTimeFormat ""
-  hourMinuteFormatText: "h:mm"
+  hourMinuteFormatText: "H:mm"
   dateFormatText: "D/M/YY"
 >
 
@@ -895,7 +895,7 @@
 >
 
 <opportunityDetailDateTimeFormat ""
-  exchangeRateDateFormatText: "D/M/YYYY h:mm"
+  exchangeRateDateFormatText: "D/M/YYYY H:mm"
 >
 
 <opportunityEdit ""
@@ -924,7 +924,7 @@
 >
 
 <opportunityEditDateTimeFormat ""
-  exchangeRateDateFormatText: "D/M/YYYY h:mm"
+  exchangeRateDateFormatText: "D/M/YYYY H:mm"
 >
 
 <opportunityList ""
@@ -1186,7 +1186,7 @@
 >
 
 <ticketActivityEditDateTimeFormat ""
-  startingFormatText: "D/M/YYYY h:mm"
+  startingFormatText: "D/M/YYYY H:mm"
 >
 
 <ticketActivityList ""
@@ -1194,7 +1194,7 @@
 >
 
 <ticketActivityListDateTimeFormat ""
-  startDateFormatText: "DD/MM/YYYY h:mm"
+  startDateFormatText: "DD/MM/YYYY H:mm"
 >
 
 <ticketActivityRateLookup ""
@@ -1452,7 +1452,7 @@
 >
 
 <groupUtilityDateTimeFormat ""
-  groupDateFormatText: "D/M/YYYY h:mm:ss"
+  groupDateFormatText: "D/M/YYYY H:mm:ss"
 >
 
 <recurrence ""
