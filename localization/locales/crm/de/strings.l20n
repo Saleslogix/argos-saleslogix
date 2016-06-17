@@ -1353,9 +1353,9 @@
 
 <nameEdit ""
   titleText: "Name bearbeiten"
-  firstNameText: "1."
+  firstNameText: "Vorname"
   middleNameText: "Zweiter Vorname"
-  lastNameText: "letzte(r/s)"
+  lastNameText: "Nachname"
   prefixText: "Präfix"
   prefixTitleText: "Namenspräfix"
   suffixText: "Suffix"
