@@ -11,19 +11,19 @@ module.exports = function(grunt) {
     },
     'lang-pack': {
       'de': {
-        bundleName: "Mobile 3.4 DE",
+        bundleName: "Mobile 3.4.2 DE",
       },
       'fr': {
-        bundleName: "Mobile 3.4 FR",
+        bundleName: "Mobile 3.4.2 FR",
       },
       'it': {
-        bundleName: "Mobile 3.4 IT",
+        bundleName: "Mobile 3.4.2 IT",
       },
       'ru': {
-        bundleName: "Mobile 3.4 RU",
+        bundleName: "Mobile 3.4.2 RU",
       },
       'zh-CN': {
-        bundleName: "Mobile 3.4 ZH-CN",
+        bundleName: "Mobile 3.4.2 ZH-CN",
         includes: [
           {
             src: './index-nocache.aspx',
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         }],
       },
       'zh-TW': {
-        bundleName: "Mobile 3.4 ZH-TW",
+        bundleName: "Mobile 3.4.2 ZH-TW",
         includes: [
           {
             src: './index-nocache.aspx',
