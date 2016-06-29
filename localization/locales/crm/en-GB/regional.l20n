@@ -1,6 +1,3 @@
-<loginTitle "Login">
-<version "Mobile 3.4 / CRM Platform 8.0+">
-
 <activityCompleteDateTimeFormat ""
   completedFormatText: "D/M/YYYY H:mm"
   startingFormatText: "D/M/YYYY H:mm"
