@@ -136,12 +136,6 @@
   personalText: "Личное действие"
 >
 
-<activityCompleteDateTimeFormat ""
-  completedFormatText: "D.M.YYYY H:mm"
-  startingFormatText: "D.M.YYYY H:mm"
-  startingTimelessFormatText: "D.M.YYYY"
->
-
 <activityDetail ""
   actionsText: "Быстрые действия"
   completeActivityText: "Завершить дело"
@@ -181,12 +175,6 @@
   personalText: "Личное действие"
   literatureText: "Запрос на информационные материалы"
   entityText: "Действие"
->
-
-<activityDetailDateTimeFormat ""
-  startDateFormatText: "D.M.YYYY H:mm"
-  timelessDateFormatText: "D.M.YYYY"
-  alarmDateFormatText: "D.M.YYYY H:mm"
 >
 
 <activityEdit ""
@@ -235,11 +223,6 @@
   twoHoursText: "2 часа"
   dayText: "1 день"
   updateUserActErrorText: "Сбой при обновлении пользовательских действий."
->
-
-<activityEditDateTimeFormat ""
-  startingFormatText: "D.M.YYYY H:mm"
-  startingTimelessFormatText: "D.M.YYYY"
 >
 
 <activityList ""
@@ -386,10 +369,6 @@
   uploadedOnText: "Загружено "
 >
 
-<attachmentListDateTimeFormat ""
-  attachmentDateFormatText: "ddd D.M.YYYY HH:mm"
->
-
 <attachmentListHashTags ""
   hashTagUrlText: "URL"
   hashTagBinaryText: "двоичное"
@@ -411,10 +390,6 @@
   notSupportedText: "Ваше устройство не поддерживает просмотр вложений."
 >
 
-<attachmentViewDateTimeFormat ""
-  attachmentDateFormatText: "ddd D.M.YYYY H:mm"
->
-
 <calendarView ""
   titleText: "Календарь"
   allDayText: "Круглосуточн."
@@ -430,13 +405,6 @@
   weekText: "Неделя"
 >
 
-<calendarViewDateTimeFormat ""
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd D.MMMM YYYY"
-  eventDateFormatText: "М/Д"
-  startTimeFormatText: "H:mm"
->
-
 <calendarDayView ""
   titleText: "Календарь"
   todayText: "Сегодня"
@@ -448,12 +416,6 @@
   activityHeaderText: "Действия"
   eventMoreText: "Больше событий"
   toggleCollapseText: "показать/скрыть"
->
-
-<calendarDayViewDateTimeFormat ""
-  eventDateFormatText: "D.M.YYYY"
-  dateHeaderFormatText: "dddd, D.M.YYYY"
-  startTimeFormatText: "H:mm"
 >
 
 <calendarMonthView ""
@@ -477,13 +439,6 @@
   saturdayShortText: "Сб"
 >
 
-<calendarMonthViewDateTimeFormat ""
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd D.MMMM YYYY"
-  eventDateFormatText: "D.M.YYYY"
-  startTimeFormatText: "H:mm"
->
-
 <calendarWeekView ""
   titleText: "Календарь"
   todayText: "Сегодня"
@@ -494,14 +449,6 @@
   eventHeaderText: "События"
   eventMoreText: "Показать больше событий (${0})"
   toggleCollapseText: "показать/скрыть"
->
-
-<calendarWeekViewDateTimeFormat ""
-  weekTitleFormatText: "D.MMM YYYY"
-  dayHeaderLeftFormatText: "dddd"
-  dayHeaderRightFormatText: "D.MMM YYYY"
-  eventDateFormatText: "D.M.YYYY"
-  startTimeFormatText: "H:mm"
 >
 
 <chartMixin ""
@@ -607,16 +554,8 @@
   copiedSuccessText: "Скопировано в буфер обмена"
 >
 
-<errorLogDetailDateTimeFormat ""
-  errorDateFormatText: "DD.MM.YYYY H:mm"
->
-
 <errorLogList ""
   titleText: "Журналы ошибок"
->
-
-<errorLogListDateTimeFormat ""
-  errorDateFormatText: "DD.MM.YYYY H:mm"
 >
 
 <eventDetail ""
@@ -635,11 +574,6 @@
   toDo: "Дело"
 >
 
-<eventDetailDateTimeFormat ""
-  startDateFormatText: "D.M.YYYY H:mm"
-  endDateFormatText: "D.M.YYYY H:mm"
->
-
 <eventEdit ""
   titleText: "Событие"
   typeText: "тип"
@@ -648,17 +582,9 @@
   endDateText: "дата окончания"
 >
 
-<eventEditDateTimeFormat ""
-  startingFormatText: "D.M.YYYY H:mm"
->
-
 <eventList ""
   titleText: "События"
   eventText: "Событие"
->
-
-<eventListDateTimeFormat ""
-  eventDateFormatText: "D.M.YYYY"
 >
 
 <groupsSelector ""
@@ -700,10 +626,6 @@
   email: "Электронная почта"
 >
 
-<historyDetailDateTimeFormat ""
-  dateFormatText: "D.M.YYYY H:mm"
->
-
 <historyEdit ""
   accountText: "клиент"
   noteDescriptionTitleText: "Описание заметки"
@@ -725,10 +647,6 @@
   validationCanEditText: "У вас нет прав для редактирования"
 >
 
-<historyEditDateTimeFormat ""
-  startingFormatText: "D.M.YYYY H:mm"
->
-
 <historyList ""
   titleText: "Заметки/История"
   viewAccountActionText: "Клиент"
@@ -743,11 +661,6 @@
   personal: "Личное действие"
   question: "Вопрос"
   email: "Электронная почта"
->
-
-<historyListDateTimeFormat ""
-  hourMinuteFormatText: "H:mm"
-  dateFormatText: "D.M.YY"
 >
 
 <historyListHashTags ""
@@ -894,10 +807,6 @@
   entityText: "Возможность"
 >
 
-<opportunityDetailDateTimeFormat ""
-  exchangeRateDateFormatText: "D.M.YYYY H:mm"
->
-
 <opportunityEdit ""
   accountText: "клиент"
   acctMgrText: "менеджер по клиентам"
@@ -921,10 +830,6 @@
   multiCurrencyDateText: "дата ставки"
   multiCurrencyLockedText: "ставка заблок."
   subTypePickListResellerText: "ПОСРЕДНИК"
->
-
-<opportunityEditDateTimeFormat ""
-  exchangeRateDateFormatText: "D.M.YYYY H:mm"
 >
 
 <opportunityList ""
@@ -1185,16 +1090,8 @@
   commentsText: "комментарии"
 >
 
-<ticketActivityEditDateTimeFormat ""
-  startingFormatText: "D.M.YYYY H:mm"
->
-
 <ticketActivityList ""
   titleText: "Действия по заявке"
->
-
-<ticketActivityListDateTimeFormat ""
-  startDateFormatText: "DD.MM.YYYY H:mm"
 >
 
 <ticketActivityRateLookup ""
@@ -1451,10 +1348,6 @@
   percentCompleteText: "Загрузка, подождите..."
 >
 
-<groupUtilityDateTimeFormat ""
-  groupDateFormatText: "D.M.YYYY H:mm"
->
-
 <recurrence ""
   neverText: "Никогда"
   daysText: "дни"
@@ -1486,14 +1379,6 @@
   third: "третий"
   fourth: "четвертый"
   last: "последний"
->
-
-<recurrenceDateTimeFormat ""
-  dayFormatText: "D"
-  monthFormatText: "M"
-  monthAndDayFormatText: "D.M"
-  weekdayFormatText: "dddd"
-  endDateFormatText: "D.M.YYYY"
 >
 
 <speedSearchWidget ""

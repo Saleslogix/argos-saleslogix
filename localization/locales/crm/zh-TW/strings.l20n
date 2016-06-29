@@ -136,12 +136,6 @@
   personalText: "個人活動"
 >
 
-<activityCompleteDateTimeFormat ""
-  completedFormatText: "YYYY-M-D h:mm A"
-  startingFormatText: "YYYY-M-D h:mm A"
-  startingTimelessFormatText: "YYYY-M-D"
->
-
 <activityDetail ""
   actionsText: "快速動作"
   completeActivityText: "完成活動"
@@ -181,12 +175,6 @@
   personalText: "個人活動"
   literatureText: "文宣要求"
   entityText: "活動"
->
-
-<activityDetailDateTimeFormat ""
-  startDateFormatText: "YYYY-M-D h:mm:ss A"
-  timelessDateFormatText: "YYYY-M-D"
-  alarmDateFormatText: "YYYY-M-D h:mm:ss A"
 >
 
 <activityEdit ""
@@ -235,11 +223,6 @@
   twoHoursText: "2 小時"
   dayText: "1 天"
   updateUserActErrorText: "更新使用者活動時發生錯誤。"
->
-
-<activityEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D h:mm A"
-  startingTimelessFormatText: "YYYY-M-D"
 >
 
 <activityList ""
@@ -386,10 +369,6 @@
   uploadedOnText: "已上傳 "
 >
 
-<attachmentListDateTimeFormat ""
-  attachmentDateFormatText: "ddd YYYY-M-D hh:mm:ss"
->
-
 <attachmentListHashTags ""
   hashTagUrlText: "URL"
   hashTagBinaryText: "二進位"
@@ -411,10 +390,6 @@
   notSupportedText: "您的裝置不支援檢視附件。"
 >
 
-<attachmentViewDateTimeFormat ""
-  attachmentDateFormatText: "ddd YYYY-M-D h:mm a"
->
-
 <calendarView ""
   titleText: "行事曆"
   allDayText: "全天"
@@ -430,13 +405,6 @@
   weekText: "週"
 >
 
-<calendarViewDateTimeFormat ""
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M-D"
-  startTimeFormatText: "h:mm A"
->
-
 <calendarDayView ""
   titleText: "行事曆"
   todayText: "今天"
@@ -448,12 +416,6 @@
   activityHeaderText: "活動"
   eventMoreText: "檢視更多事件"
   toggleCollapseText: "切換摺疊"
->
-
-<calendarDayViewDateTimeFormat ""
-  eventDateFormatText: "YYYY-M-D"
-  dateHeaderFormatText: "dddd, YYYY-M-D"
-  startTimeFormatText: "h:mm A"
 >
 
 <calendarMonthView ""
@@ -477,13 +439,6 @@
   saturdayShortText: "六"
 >
 
-<calendarMonthViewDateTimeFormat ""
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "YYYY-M-D"
-  startTimeFormatText: "h:mm A"
->
-
 <calendarWeekView ""
   titleText: "行事曆"
   todayText: "今天"
@@ -494,14 +449,6 @@
   eventHeaderText: "事件"
   eventMoreText: "再檢視 ${0} 個事件"
   toggleCollapseText: "切換摺疊"
->
-
-<calendarWeekViewDateTimeFormat ""
-  weekTitleFormatText: "MMM D, YYYY"
-  dayHeaderLeftFormatText: "dddd"
-  dayHeaderRightFormatText: "MMM D, YYYY"
-  eventDateFormatText: "YYYY-M-D"
-  startTimeFormatText: "h:mm A"
 >
 
 <chartMixin ""
@@ -607,16 +554,8 @@
   copiedSuccessText: "已複製到剪貼簿"
 >
 
-<errorLogDetailDateTimeFormat ""
-  errorDateFormatText: "YYYY-MM-DD hh:mm A"
->
-
 <errorLogList ""
   titleText: "錯誤日誌"
->
-
-<errorLogListDateTimeFormat ""
-  errorDateFormatText: "YYYY-MM-DD hh:mm A"
 >
 
 <eventDetail ""
@@ -635,11 +574,6 @@
   toDo: "待辦事項"
 >
 
-<eventDetailDateTimeFormat ""
-  startDateFormatText: "YYYY-M-D h:mm:ss A"
-  endDateFormatText: "YYYY-M-D h:mm:ss A"
->
-
 <eventEdit ""
   titleText: "事件"
   typeText: "類型"
@@ -648,17 +582,9 @@
   endDateText: "結束日期"
 >
 
-<eventEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D h:mm A"
->
-
 <eventList ""
   titleText: "事件"
   eventText: "事件"
->
-
-<eventListDateTimeFormat ""
-  eventDateFormatText: "YYYY-M-D"
 >
 
 <groupsSelector ""
@@ -700,10 +626,6 @@
   email: "電子郵件"
 >
 
-<historyDetailDateTimeFormat ""
-  dateFormatText: "YYYY-M-D h:mm:ss A"
->
-
 <historyEdit ""
   accountText: "客戶"
   noteDescriptionTitleText: "備註描述"
@@ -725,10 +647,6 @@
   validationCanEditText: "您無權編輯"
 >
 
-<historyEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D h:mm A"
->
-
 <historyList ""
   titleText: "備註/歷程記錄"
   viewAccountActionText: "客戶"
@@ -743,11 +661,6 @@
   personal: "個人活動"
   question: "問題"
   email: "電子郵件"
->
-
-<historyListDateTimeFormat ""
-  hourMinuteFormatText: "h:mm A"
-  dateFormatText: "YY-M-D"
 >
 
 <historyListHashTags ""
@@ -894,10 +807,6 @@
   entityText: "商機"
 >
 
-<opportunityDetailDateTimeFormat ""
-  exchangeRateDateFormatText: "YYYY-M-D h:mm A"
->
-
 <opportunityEdit ""
   accountText: "客戶"
   acctMgrText: "客戶管理者"
@@ -921,10 +830,6 @@
   multiCurrencyDateText: "匯率日期"
   multiCurrencyLockedText: "匯率已鎖定"
   subTypePickListResellerText: "經銷商"
->
-
-<opportunityEditDateTimeFormat ""
-  exchangeRateDateFormatText: "YYYY-M-D h:mm A"
 >
 
 <opportunityList ""
@@ -1185,16 +1090,8 @@
   commentsText: "註解"
 >
 
-<ticketActivityEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D h:mm A"
->
-
 <ticketActivityList ""
   titleText: "記錄單活動"
->
-
-<ticketActivityListDateTimeFormat ""
-  startDateFormatText: "YYYY-MM-DD h:mm A"
 >
 
 <ticketActivityRateLookup ""
@@ -1451,10 +1348,6 @@
   percentCompleteText: "上傳中，請稍候..."
 >
 
-<groupUtilityDateTimeFormat ""
-  groupDateFormatText: "YYYY-M-D h:mm:ss A"
->
-
 <recurrence ""
   neverText: "永遠不要"
   daysText: "天"
@@ -1486,14 +1379,6 @@
   third: "第三個"
   fourth: "第四個"
   last: "最後一個"
->
-
-<recurrenceDateTimeFormat ""
-  dayFormatText: "DD"
-  monthFormatText: "MM"
-  monthAndDayFormatText: "MM-DD"
-  weekdayFormatText: "dddd"
-  endDateFormatText: "YYYY-M-D"
 >
 
 <speedSearchWidget ""
