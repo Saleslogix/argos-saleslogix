@@ -136,12 +136,6 @@
   personalText: "个人活动"
 >
 
-<activityCompleteDateTimeFormat ""
-  completedFormatText: "YYYY-M-D A h:mm"
-  startingFormatText: "YYYY-M-D A h:mm"
-  startingTimelessFormatText: "YYYY-M-D"
->
-
 <activityDetail ""
   actionsText: "快速操作"
   completeActivityText: "完成活动"
@@ -181,12 +175,6 @@
   personalText: "个人活动"
   literatureText: "营销材料申请"
   entityText: "活动"
->
-
-<activityDetailDateTimeFormat ""
-  startDateFormatText: "YYYY-M-D A h:mm:ss"
-  timelessDateFormatText: "YYYY-M-D"
-  alarmDateFormatText: "YYYY-M-D A h:mm:ss"
 >
 
 <activityEdit ""
@@ -235,11 +223,6 @@
   twoHoursText: "2 小时"
   dayText: "1 日"
   updateUserActErrorText: "更新用户活动时发生错误。"
->
-
-<activityEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D A h:mm"
-  startingTimelessFormatText: "YYYY-M-D"
 >
 
 <activityList ""
@@ -386,10 +369,6 @@
   uploadedOnText: "已上传 "
 >
 
-<attachmentListDateTimeFormat ""
-  attachmentDateFormatText: "YYYY-M-D ddd hh:mm:ss"
->
-
 <attachmentListHashTags ""
   hashTagUrlText: "URL"
   hashTagBinaryText: "二进制"
@@ -411,10 +390,6 @@
   notSupportedText: "您的设备不支持查看此附件。"
 >
 
-<attachmentViewDateTimeFormat ""
-  attachmentDateFormatText: "YYYY-M-D ddd a h:mm"
->
-
 <calendarView ""
   titleText: "日历"
   allDayText: "全天"
@@ -430,13 +405,6 @@
   weekText: "周"
 >
 
-<calendarViewDateTimeFormat ""
-  monthTitleFormatText: "YYYY MMMM"
-  dayTitleFormatText: "YYYY MMM D ddd"
-  eventDateFormatText: "M-D"
-  startTimeFormatText: "A h:mm"
->
-
 <calendarDayView ""
   titleText: "日历"
   todayText: "今天"
@@ -448,12 +416,6 @@
   activityHeaderText: "活动"
   eventMoreText: "查看更多事件"
   toggleCollapseText: "切换折叠"
->
-
-<calendarDayViewDateTimeFormat ""
-  eventDateFormatText: "YYYY-M-D"
-  dateHeaderFormatText: "YYYY-M-D dddd"
-  startTimeFormatText: "A h:mm"
 >
 
 <calendarMonthView ""
@@ -477,13 +439,6 @@
   saturdayShortText: "周六"
 >
 
-<calendarMonthViewDateTimeFormat ""
-  monthTitleFormatText: "YYYY MMMM"
-  dayTitleFormatText: "YYYY MMM D ddd"
-  eventDateFormatText: "YYYY-M-D"
-  startTimeFormatText: "A h:mm"
->
-
 <calendarWeekView ""
   titleText: "日历"
   todayText: "今天"
@@ -494,14 +449,6 @@
   eventHeaderText: "事件"
   eventMoreText: "查看另外 ${0} 个事件"
   toggleCollapseText: "切换折叠"
->
-
-<calendarWeekViewDateTimeFormat ""
-  weekTitleFormatText: "YYYY MMM D"
-  dayHeaderLeftFormatText: "dddd"
-  dayHeaderRightFormatText: "YYYY MMM D"
-  eventDateFormatText: "YYYY-M-D"
-  startTimeFormatText: "A h:mm"
 >
 
 <chartMixin ""
@@ -607,16 +554,8 @@
   copiedSuccessText: "已复制到剪贴板"
 >
 
-<errorLogDetailDateTimeFormat ""
-  errorDateFormatText: "YYYY-MM-DD A hh:mm"
->
-
 <errorLogList ""
   titleText: "错误日志"
->
-
-<errorLogListDateTimeFormat ""
-  errorDateFormatText: "YYYY-MM-DD A hh:mm"
 >
 
 <eventDetail ""
@@ -635,11 +574,6 @@
   toDo: "待办事项"
 >
 
-<eventDetailDateTimeFormat ""
-  startDateFormatText: "YYYY-M-D A h:mm:ss"
-  endDateFormatText: "YYYY-M-D A h:mm:ss"
->
-
 <eventEdit ""
   titleText: "事件"
   typeText: "类型"
@@ -649,17 +583,9 @@
 
 >
 
-<eventEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D A h:mm"
->
-
 <eventList ""
   titleText: "事件"
   eventText: "事件"
->
-
-<eventListDateTimeFormat ""
-  eventDateFormatText: "YYYY-M-D"
 >
 
 <groupsSelector ""
@@ -701,10 +627,6 @@
   email: "电子邮件"
 >
 
-<historyDetailDateTimeFormat ""
-  dateFormatText: "YYYY-M-D A h:mm:ss"
->
-
 <historyEdit ""
   accountText: "客户"
   noteDescriptionTitleText: "备注描述"
@@ -726,10 +648,6 @@
   validationCanEditText: "不允许进行编辑"
 >
 
-<historyEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D A h:mm"
->
-
 <historyList ""
   titleText: "备注/历史"
   viewAccountActionText: "客户"
@@ -744,11 +662,6 @@
   personal: "个人活动"
   question: "问题"
   email: "电子邮件"
->
-
-<historyListDateTimeFormat ""
-  hourMinuteFormatText: "A h:mm"
-  dateFormatText: "YY-M-D"
 >
 
 <historyListHashTags ""
@@ -895,10 +808,6 @@
   entityText: "销售机会"
 >
 
-<opportunityDetailDateTimeFormat ""
-  exchangeRateDateFormatText: "YYYY-M-D A h:mm"
->
-
 <opportunityEdit ""
   accountText: "客户"
   acctMgrText: "客户经理"
@@ -922,10 +831,6 @@
   multiCurrencyDateText: "汇率日期"
   multiCurrencyLockedText: "锁定汇率"
   subTypePickListResellerText: "经销商"
->
-
-<opportunityEditDateTimeFormat ""
-  exchangeRateDateFormatText: "YYYY-M-D A h:mm"
 >
 
 <opportunityList ""
@@ -1187,16 +1092,8 @@
 
 >
 
-<ticketActivityEditDateTimeFormat ""
-  startingFormatText: "YYYY-M-D A h:mm"
->
-
 <ticketActivityList ""
   titleText: "工单活动"
->
-
-<ticketActivityListDateTimeFormat ""
-  startDateFormatText: "YYYY-MM-DD A h:mm"
 >
 
 <ticketActivityRateLookup ""
@@ -1453,10 +1350,6 @@
   percentCompleteText: "正在上传，请稍候..."
 >
 
-<groupUtilityDateTimeFormat ""
-  groupDateFormatText: "YYYY/M/D A h:mm:ss"
->
-
 <recurrence ""
   neverText: "从不"
   daysText: "天"
@@ -1488,14 +1381,6 @@
   third: "第三个"
   fourth: "第四个"
   last: "最后一个"
->
-
-<recurrenceDateTimeFormat ""
-  dayFormatText: "DD"
-  monthFormatText: "MM"
-  monthAndDayFormatText: "MM-DD"
-  weekdayFormatText: "dddd"
-  endDateFormatText: "YYYY-M-D"
 >
 
 <speedSearchWidget ""
