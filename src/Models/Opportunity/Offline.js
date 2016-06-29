@@ -7,11 +7,6 @@ import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Opportunity.Offline', [Base, _OfflineModelBase], {
   id: 'opportunity_offline_model',
-  entityName: 'Opportunity',
-  entityDisplayName: 'Opportunity',
-  entityDisplayNamePlural: 'Opportunities',
-  resourceKind: 'opportunities',
-  modelName: MODEL_NAMES.OPPORTUNITY,
 });
 
 Manager.register(MODEL_NAMES.OPPORTUNITY, MODEL_TYPE.OFFLINE, __class);
