@@ -8,6 +8,7 @@ import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
 
 const resource = getResource('errorLogDetail');
+const dtFormatResource = getResource('errorLogDetailDateTimeFormat');
 
 /**
  * @class crm.Views.ErrorLog.Detail
@@ -22,7 +23,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   titleText: resource.titleText,
   detailsText: resource.detailsText,
   errorDateText: resource.errorDateText,
-  errorDateFormatText: resource.errorDateFormatText,
+  errorDateFormatText: dtFormatResource.errorDateFormatText,
   statusTextText: resource.statusTextText,
   urlText: resource.urlText,
   entityText: resource.entityText,

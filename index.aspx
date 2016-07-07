@@ -124,7 +124,7 @@
         ) %>;
       var ctx = L20n.getContext();
       var defaultLocale = 'en';
-      var currentLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
+      var currentLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>';
 
       // The L20n context (ctx) should only call linkResource once per file.
       // We need to:

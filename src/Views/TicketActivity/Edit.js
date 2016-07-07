@@ -7,6 +7,7 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
 const resource = getResource('ticketActivityEdit');
+const dtFormatResource = getResource('ticketActivityEditDateTimeFormat');
 
 /**
  * @class crm.Views.TicketActivity.Edit
@@ -29,7 +30,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   startDateText: resource.startDateText,
   endDateText: resource.endDateText,
   commentsText: resource.commentsText,
-  startingFormatText: resource.startingFormatText,
+  startingFormatText: dtFormatResource.startingFormatText,
 
   // View Properties
   entityName: 'TicketActivity',

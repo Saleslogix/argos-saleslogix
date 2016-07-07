@@ -32,6 +32,22 @@ module.exports = function(grunt) {
           cwd: ''
         }
       }
+    },
+    'lang-bundle': {
+      command: function(bundleName, configFileName) {
+        var cmd = 'build\\langBundle';
+        return [cmd, ' ', bundleName, ' ', configFileName].join('');
+
+        return cmd;
+      },
+      options: {
+        stderr: true,
+        stdout: true,
+        stdin: true,
+        execOptions: {
+          cwd: '.'
+        }
+      }
     }
   });
 

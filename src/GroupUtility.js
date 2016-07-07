@@ -4,7 +4,7 @@ import format from './Format';
 import sdkFormat from 'argos/Format';
 import getResource from 'argos/I18n';
 
-const resource = getResource('groupUtility');
+const dtFormatResource = getResource('groupUtilityDateTimeFormat');
 
 function _createGroupRequest(o) {
   const defaultOptions = {
@@ -42,7 +42,7 @@ function _createGroupRequest(o) {
  *
  */
 const __class = lang.setObject('crm.GroupUtility', {
-  groupDateFormatText: resource.groupDateFormatText,
+  groupDateFormatText: dtFormatResource.groupDateFormatText,
   /**
    * Returns an SDataNamedQueryRequest setup for groups
    * @param {Object} options Options for creating the request

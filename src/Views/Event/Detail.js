@@ -5,6 +5,7 @@ import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
 
 const resource = getResource('eventDetail');
+const dtFormatResource = getResource('eventDetailDateTimeFormat');
 
 /**
  * @class crm.Views.Event.Detail
@@ -22,8 +23,8 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
   descriptionText: resource.descriptionText,
   typeText: resource.typeText,
   whenText: resource.whenText,
-  startDateFormatText: resource.startDateFormatText,
-  endDateFormatText: resource.endDateFormatText,
+  startDateFormatText: dtFormatResource.startDateFormatText,
+  endDateFormatText: dtFormatResource.endDateFormatText,
   entityText: resource.entityText,
   eventTypeText: {
     'atToDo': resource.toDo,

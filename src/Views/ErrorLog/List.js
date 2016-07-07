@@ -7,6 +7,7 @@ import List from 'argos/List';
 import getResource from 'argos/I18n';
 
 const resource = getResource('errorLogList');
+const dtFormatResource = getResource('errorLogListDateTimeFormat');
 
 /**
  * @class crm.Views.ErrorLog.List
@@ -19,7 +20,7 @@ const resource = getResource('errorLogList');
 const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
   titleText: resource.titleText,
-  errorDateFormatText: resource.errorDateFormatText,
+  errorDateFormatText: dtFormatResource.errorDateFormatText,
 
   // Templates
   itemTemplate: new Simplate([

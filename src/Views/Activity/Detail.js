@@ -14,6 +14,7 @@ import getResource from 'argos/I18n';
 import Deferred from 'dojo/Deferred';
 
 const resource = getResource('activityDetail');
+const dtFormatResource = getResource('activityDetailDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Detail
@@ -59,9 +60,9 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   contactText: resource.contactText,
   opportunityText: resource.opportunityText,
   ticketNumberText: resource.ticketNumberText,
-  startDateFormatText: resource.startDateFormatText,
-  timelessDateFormatText: resource.timelessDateFormatText,
-  alarmDateFormatText: resource.alarmDateFormatText,
+  startDateFormatText: dtFormatResource.startDateFormatText,
+  timelessDateFormatText: dtFormatResource.timelessDateFormatText,
+  alarmDateFormatText: dtFormatResource.alarmDateFormatText,
   recurrenceText: resource.recurrenceText,
   confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
   relatedAttachmentText: resource.relatedAttachmentText,

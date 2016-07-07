@@ -8,6 +8,12 @@ module.exports = function gruntClean(grunt) {
         force: true
       },
       src: ''
+    },
+    bundle: {
+      src: 'deploy/bundle',
+      options: {
+        force: true
+      }
     }
   });
 

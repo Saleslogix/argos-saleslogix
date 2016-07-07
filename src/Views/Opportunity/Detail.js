@@ -7,6 +7,7 @@ import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityDetail');
+const dtFormatResource = getResource('opportunityDetailDateTimeFormat');
 
 /**
  * @class crm.Views.Opportunity.Detail
@@ -52,7 +53,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   multiCurrencyCodeText: resource.multiCurrencyCodeText,
   multiCurrencyDateText: resource.multiCurrencyDateText,
   multiCurrencyLockedText: resource.multiCurrencyLockedText,
-  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
   entityText: resource.entityText,
 
   // View Properties

@@ -11,6 +11,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('calendarWeekView');
+const dtFormatResource = getResource('calendarWeekViewDateTimeFormat');
 
 /**
  * @class crm.Views.Calendar.WeekView
@@ -32,11 +33,11 @@ const resource = getResource('calendarWeekView');
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,
-  weekTitleFormatText: resource.weekTitleFormatText,
-  dayHeaderLeftFormatText: resource.dayHeaderLeftFormatText,
-  dayHeaderRightFormatText: resource.dayHeaderRightFormatText,
-  eventDateFormatText: resource.eventDateFormatText,
-  startTimeFormatText: resource.startTimeFormatText,
+  weekTitleFormatText: dtFormatResource.weekTitleFormatText,
+  dayHeaderLeftFormatText: dtFormatResource.dayHeaderLeftFormatText,
+  dayHeaderRightFormatText: dtFormatResource.dayHeaderRightFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  startTimeFormatText: dtFormatResource.startTimeFormatText,
   todayText: resource.todayText,
   dayText: resource.dayText,
   weekText: resource.weekText,

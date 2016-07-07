@@ -188,6 +188,11 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
         expect(Format.bigNumber(999))
           .toEqual('999');
       });
+
+      it('should round decimal numbers less than 1k to two places', function () {
+        expect(Format.bigNumber(-295.53582358235))
+          .toEqual('-295.54');
+      });
     });
 
     describe('phone', function() {
