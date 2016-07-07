@@ -629,7 +629,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     const toggleOnNode = query('.toggleOn', currentTarget).shift();
     const toggleOffNode = query('.toggleOff', currentTarget).shift();
 
-    if(toggleOnNode && toggleOffNode) {
+    if (toggleOnNode && toggleOffNode) {
       domClass.toggle(toggleOnNode, 'display-none', !this._showMulti);
       domClass.toggle(toggleOffNode, 'display-none', this._showMulti);
     }
@@ -640,8 +640,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     domConstruct.empty(this.eventContentNode);
     this.changeDayActivities();
   },
-  _buildQueryExpression: function _buildQueryExpression(query = {}) {
-    return lang.mixin(query || {}, this.options && (this.options.query || this.options.where));
+  _buildQueryExpression: function _buildQueryExpression(queryParam = {}) {
+    return lang.mixin(queryParam || {}, this.options && (this.options.query || this.options.where));
   },
 });
 
