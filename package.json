@@ -10,7 +10,7 @@
     "start": "node scripts/server.js"
   },
   "devDependencies": {
-    "babel-eslint": "^5.0.0",
+    "babel-eslint": "^6.0.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.2",
     "grunt": "~0.4.5",
