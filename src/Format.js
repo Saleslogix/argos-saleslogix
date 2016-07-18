@@ -217,6 +217,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
       results = dojoNumber.format(numParse, {
         places: 1,
       }) + text.thousand;
+    } else {
+      results = dojoNumber.round(numParse, 2).toString();
     }
 
     return results;

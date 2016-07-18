@@ -13,6 +13,7 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('attachmentView');
+const dtFormatResource = getResource('attachmentViewDateTimeFormat');
 
 /**
  * @class crm.Views.Attachment.ViewAttachment
@@ -39,7 +40,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   fileSizeText: resource.fileSizeText,
   userText: resource.userText,
   attachmentNotSupportedText: resource.attachmentNotSupportedText,
-  attachmentDateFormatText: resource.attachmentDateFormatText,
+  attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
   downloadingText: resource.downloadingText,
   notSupportedText: resource.notSupportedText,
 

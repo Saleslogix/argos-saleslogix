@@ -8,7 +8,25 @@ try {
 }
 
 var server = new Hapi.Server();
-server.connection({port: config.port});
+server.connection({
+  port: config.port,
+  routes: {
+    "cors": {
+      "headers": [
+         "Accept",
+         "Authorization",
+         "Content-Type",
+         "If-None-Match",
+         "Accept-language",
+         "X-Application-Name",
+         "X-Application-Version",
+         "X-Requested-With",
+         "X-Authorization",
+         "X-Authorization-Mode"
+      ]
+    }
+  }
+});
 
 var proxyConfig = config.proxy || {};
 

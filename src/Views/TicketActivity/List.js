@@ -9,6 +9,7 @@ import List from 'argos/List';
 import getResource from 'argos/I18n';
 
 const resource = getResource('ticketActivityList');
+const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
 
 /**
  * @class crm.Views.TicketActivity.List
@@ -32,7 +33,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
 
   // Localization
   titleText: resource.titleText,
-  startDateFormatText: resource.startDateFormatText,
+  startDateFormatText: dtFormatResource.startDateFormatText,
 
   // View Properties
   id: 'ticketactivity_list',

@@ -1,0 +1,114 @@
+<activityCompleteDateTimeFormat ""
+  completedFormatText: "YYYY-M-D h:mm A"
+  startingFormatText: "YYYY-M-D h:mm A"
+  startingTimelessFormatText: "YYYY-M-D"
+>
+
+<activityDetailDateTimeFormat ""
+  startDateFormatText: "YYYY-M-D h:mm:ss A"
+  timelessDateFormatText: "YYYY-M-D"
+  alarmDateFormatText: "YYYY-M-D h:mm:ss A"
+>
+
+<activityEditDateTimeFormat ""
+  startingFormatText: "YYYY-M-D h:mm A"
+  startingTimelessFormatText: "YYYY-M-D"
+>
+
+<attachmentListDateTimeFormat ""
+  attachmentDateFormatText: "ddd YYYY-M-D hh:mm:ss"
+>
+
+<attachmentViewDateTimeFormat ""
+  attachmentDateFormatText: "ddd YYYY-M-D h:mm a"
+>
+
+<calendarViewDateTimeFormat ""
+  monthTitleFormatText: "MMMM YYYY"
+  dayTitleFormatText: "ddd MMM D, YYYY"
+  eventDateFormatText: "M-D"
+  startTimeFormatText: "h:mm A"
+>
+
+<calendarDayViewDateTimeFormat ""
+  eventDateFormatText: "YYYY-M-D"
+  dateHeaderFormatText: "dddd, YYYY-M-D"
+  startTimeFormatText: "h:mm A"
+>
+
+<calendarMonthViewDateTimeFormat ""
+  monthTitleFormatText: "MMMM YYYY"
+  dayTitleFormatText: "ddd MMM D, YYYY"
+  eventDateFormatText: "YYYY-M-D"
+  startTimeFormatText: "h:mm A"
+>
+
+<calendarWeekViewDateTimeFormat ""
+  weekTitleFormatText: "MMM D, YYYY"
+  dayHeaderLeftFormatText: "dddd"
+  dayHeaderRightFormatText: "MMM D, YYYY"
+  eventDateFormatText: "YYYY-M-D"
+  startTimeFormatText: "h:mm A"
+>
+
+<errorLogDetailDateTimeFormat ""
+  errorDateFormatText: "YYYY-MM-DD hh:mm A"
+>
+
+<errorLogListDateTimeFormat ""
+  errorDateFormatText: "YYYY-MM-DD hh:mm A"
+>
+
+<eventDetailDateTimeFormat ""
+  startDateFormatText: "YYYY-M-D h:mm:ss A"
+  endDateFormatText: "YYYY-M-D h:mm:ss A"
+>
+
+<eventEditDateTimeFormat ""
+  startingFormatText: "YYYY-M-D h:mm A"
+>
+
+<eventListDateTimeFormat ""
+  eventDateFormatText: "YYYY-M-D"
+>
+
+<historyDetailDateTimeFormat ""
+  dateFormatText: "YYYY-M-D h:mm:ss A"
+>
+
+<historyEditDateTimeFormat ""
+  startingFormatText: "YYYY-M-D h:mm A"
+>
+
+<historyListDateTimeFormat ""
+  hourMinuteFormatText: "h:mm A"
+  dateFormatText: "YY-M-D"
+>
+
+<opportunityDetailDateTimeFormat ""
+  exchangeRateDateFormatText: "YYYY-M-D h:mm A"
+>
+
+<opportunityEditDateTimeFormat ""
+  exchangeRateDateFormatText: "YYYY-M-D h:mm A"
+>
+
+<ticketActivityEditDateTimeFormat ""
+  startingFormatText: "YYYY-M-D h:mm A"
+>
+
+<ticketActivityListDateTimeFormat ""
+  startDateFormatText: "YYYY-MM-DD h:mm A"
+>
+
+<groupUtilityDateTimeFormat ""
+  groupDateFormatText: "YYYY-M-D h:mm:ss A"
+>
+
+<recurrenceDateTimeFormat ""
+  dayFormatText: "DD"
+  monthFormatText: "MM"
+  monthAndDayFormatText: "MM-DD"
+  weekdayFormatText: "dddd"
+  endDateFormatText: "YYYY-M-D"
+>

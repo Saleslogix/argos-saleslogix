@@ -6,6 +6,7 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
 const resource = getResource('eventEdit');
+const dtFormatResource = getResource('eventEditDateTimeFormat');
 
 /**
  * @class crm.Views.Event.Edit
@@ -22,7 +23,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
   descriptionText: resource.descriptionText,
   startDateText: resource.startDateText,
   endDateText: resource.endDateText,
-  startingFormatText: resource.startingFormatText,
+  startingFormatText: dtFormatResource.startingFormatText,
 
   // View Properties
   entityName: 'Event',
