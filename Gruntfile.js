@@ -13,6 +13,12 @@ module.exports = function(grunt) {
       'de': {
         bundleName: "Mobile 3.4.2 DE",
       },
+      'es': {
+        bundleName: "Mobile 3.4.2 ES",
+      },
+      'pt': {
+        bundleName: "Mobile 3.4.2 PT",
+      },
       'en-GB': {
         bundleName: "Mobile 3.4.2 EN-GB"
       },
