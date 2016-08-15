@@ -1,4 +1,4 @@
-<activityCompleteDateTimeFormat ""
+﻿<activityCompleteDateTimeFormat ""
   completedFormatText: "D/M/YYYY h:mm A"
   startingFormatText: "D/M/YYYY h:mm A"
   startingTimelessFormatText: "D/M/YYYY"
