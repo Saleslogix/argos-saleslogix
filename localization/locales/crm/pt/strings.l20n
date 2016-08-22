@@ -90,7 +90,7 @@
   addAttachmentActionText: "Adicionar Anexo"
   phoneAbbreviationText: "Telefone: "
   faxAbbreviationText: "Fax: "
-  offlineText: "Desconectado"
+  offlineText: "Offline"
 >
 
 <activityComplete
@@ -855,7 +855,7 @@
   opportunityStageTitleText: "Etapa da Oportunidade"
   opportunityText: "oportunidade"
   stageText: "etapa"
-  statusOpenText: "Abrir"
+  statusOpenText: "Aberto"
   statusClosedLostText: "Fechada - Perdida"
   statusClosedWonText: "Fechada - Ganha"
   salesProcessText: "etapa bloqueada pelo processo de vendas:"
@@ -1216,12 +1216,12 @@
   logOutText: "Sair"
   logOutConfirmText: "Tem certeza que deseja sair?"
   onlineText: "Conectado"
-  offlineText: "Desconectado"
+  offlineText: "Offline"
   connectionText: "Conexão: ${connectionStatus}"
 >
 
 <login ""
-  copyrightText: "Direitos Autorais de &cópia; 2016 Infor. Todos os direitos reservados. www.infor.com"
+  copyrightText: "Direitos Autorais de &copy; 2016 Infor. Todos os direitos reservados. www.infor.com"
   logOnText: "Iniciar Sessão"
   passText: "Senha"
   rememberText: "Lembrar-se de mim"
@@ -1262,7 +1262,7 @@
   localStorageClearedText: "Dados locais excluídos com sucesso."
   credentialsClearedText: "Credenciais salvas com sucesso."
   titleText: "Definições"
-  offlineOptionsText: "Opções do Desconectado"
+  offlineOptionsText: "Opções da Função Offline"
 >
 
 <speedSearchList ""
@@ -1299,16 +1299,16 @@
   offlineText: "Sua conexão à Internet não está mais funcionando."
   onlineText: "Sua conexão está funcionando."
   connectionToastTitleText: "Status da Conexão"
-  offlineOptionsText: "Opções do Desconectado"
-  offlineInitDataText: "Inicializando Dados Desconectados"
-  offlineInitErrorText: "Ocorreu um erro durante a inicialização desconectada. Todas as opções Desconectadas serão desabilitadas."
+  offlineOptionsText: "Opções da Função Offline"
+  offlineInitDataText: "Inicializando Dados Offline"
+  offlineInitErrorText: "Ocorreu um erro durante a inicialização offline. Todas as opções Offline serão desabilitadas."
   appStateInitErrorText: "Ocorreu um erro durante a inicialização da aplicação. Favor tentar novamente."
 >
 
 <applicationModule ""
   searchText: "Pesquisar"
-  offlineDataText: "Dado Desconectado"
-  offlineOptions: "Opções do Desconectado"
+  offlineDataText: "Dado Offline"
+  offlineOptions: "Opções da Função Offline"
   userInformationText: "Informações do Usuário"
   userOptionsText: "Opções do Usuário"
   systemOptionsText: "Opções de Sistema"
@@ -1444,13 +1444,13 @@
 >
 
 <offlineDetail ""
-  titleText: "Detalhe Desconectado"
-  offlineText: "Desconectado"
+  titleText: "Detalhes Offline"
+  offlineText: "Offline"
 >
 
 <offlineList ""
-  titleText: "Lista Desconectada"
-  offlineText: "Desconectado"
+  titleText: "Lista Offline"
+  offlineText: "Offline"
 >
 
 <activityMyDayRightDrawerList ""
@@ -1459,7 +1459,7 @@
 >
 
 <activityMyDayOffline ""
-  titleText: "Meu Agendamento Desconectado"
+  titleText: "Meu Agendamento Offline"
   todayFilterLabel: "hoje"
   thisWeekFilterLabel: "esta semana"
   yesterdayFilterLabel: "ontem"
@@ -1469,7 +1469,7 @@
   removeText: "remover"
   reBriefcaseText: "recolocar na maleta"
   goToOnlineText: "ir para a visualização conectada"
-  goToOfflineText: "ir para a visualização desconectada"
+  goToOfflineText: "ir para a visualização offline"
 >
 
 <recentlyViewedList ""
@@ -1477,7 +1477,7 @@
 >
 
 <offlineOptionsEdit ""
-  titleText: "Opções do Desconectado"
+  titleText: "Opções da Função Offline"
 >
 
 <offlineUsageWidget ""
@@ -1488,7 +1488,7 @@
   oldestText: "Mais Antigo"
   newestText: "Mais Novo"
   clearDataText: "Limpar"
-  olderThanText: "Limpar dado desconectados anteriores a"
+  olderThanText: "Limpar dados offline anteriores a"
   daysText: "dias"
   showUsageText: "Exibir utilização"
   processingText: "processando, favor aguardar."
