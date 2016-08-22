@@ -180,6 +180,28 @@
       ]
     },
     {
+      "name": "Core Mobile Localization (es)",
+      "file": "localization/es.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "es.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+        {
+      "name": "Core Mobile Localization (pt",
+      "file": "localization/pt.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "pt.js",
+          "path": "../localization/"
+        }
+      ]
+    },
+    {
       "name": "SalesLogix Mobile",
       "file": "content/javascript/argos-saleslogix.js",
       "isDebug": true,
