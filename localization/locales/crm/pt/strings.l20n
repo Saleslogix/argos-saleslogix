@@ -1,4 +1,4 @@
-﻿<version["abreviada"] {
+<version["abreviada"] {
   short: "3.4",
   long: "Mobile {{ version.short}} / CRM Plataforma 8.0+"
 }>
@@ -1350,15 +1350,15 @@
   dailyText: "Diariamente"
   weeksText: "semanas"
   weeklyText: "Semanalmente"
-  weeklyOnText: "Semanalmente em ${3}"
+  weeklyOnText: "Semanalmente na(o) ${3}"
   monthsText: "meses"
   monthlyText: "Mensalmente"
   monthlyOnDayText: "Mensalmente no dia ${1}"
-  monthlyOnText: "Mensalmente em ${5} ${3}"
+  monthlyOnText: "Mensalmente na(o) ${5} ${3}"
   yearsText: "anos"
   yearlyText: "Anualmente"
   yearlyOnText: "Anualmente em ${2}"
-  yearlyOnWeekdayText: "Anualmente em ${5} ${3} em ${4}"
+  yearlyOnWeekdayText: "Anualmente na(o) ${5} ${3} em ${4}"
   everyText: "cada ${0} ${1}"
   afterCompletionText: "após a conclusão"
   untilEndDateText: "${0} até ${1}"
@@ -1370,11 +1370,11 @@
   friday: "Sexta-Feira"
   saturday: "Sábado"
   day: "dia"
-  first: "primeiro"
-  second: "segundo"
-  third: "terceiro"
-  fourth: "quarto"
-  last: "último"
+  first: "primeira(o)"
+  second: "segunda(o)"
+  third: "terceira(o)"
+  fourth: "quarta(o)"
+  last: "última(o)"
 >
 
 <speedSearchWidget ""
