@@ -51,6 +51,11 @@ module.exports = function(grunt) {
     // modules.json is the same format as the productions configuration above.
     // Use grunt release:all or grunt release:modules to include them in a release build.
     modules: grunt.file.readJSON('modules.json'),
+    jsb: {
+      file: grunt.file.readJSON('./build/release.jsb2'),
+      options: {
+      },
+    },
   });
 
   // Load per-task config from separate files
