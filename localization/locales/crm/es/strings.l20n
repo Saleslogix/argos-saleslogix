@@ -1,4 +1,4 @@
-﻿<version["corto"] {
+<version["corto"] {
   short: "3.4",
   long: "Mobile {{ version.short}} / Plataforma CRM 8.0+"
 }>
@@ -275,7 +275,7 @@
   hashTagAcceptedText: "estatus-aceptado"
   hashTagDeclinedText: "estatus-declinado"
   hashTagRecurringText: "Periodicidad"
-  hashTagTimelessText: "sin tiempo"
+  hashTagTimelessText: "sin-tiempo"
   hashTagTodayText: "hoy"
   hashTagThisWeekText: "está-semana"
   hashTagYesterdayText: "ayer"

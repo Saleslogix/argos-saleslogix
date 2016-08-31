@@ -8,9 +8,16 @@ node('windows && nodejs') {
       deleteDir()
     }
 
-    bat 'npm install'
-    bat 'build\\release.cmd'
-    stash includes: 'deploy/**/*.*', name: 'sdk'
+    try {
+      bat 'npm install'
+      bat 'build\\release.cmd'
+    } catch (err) {
+      slack.failure('Failed building argos-sdk')
+      throw err
+    }
+    dir('deploy') {
+      stash includes: '**/*.*', name: 'sdk'
+    }
   }
 
   dir('products/argos-saleslogix') {
@@ -26,13 +33,21 @@ node('windows && nodejs') {
       deleteDir()
     }
 
-    bat 'npm install'
-    bat 'build\\release.cmd'
-    stash includes: 'deploy/**/*.*', name: 'slx'
+    try {
+      bat 'npm install'
+      bat 'build\\release.cmd'
+    } catch (err) {
+      slack.failure('Failed building argos-saleslogix')
+      throw err
+    }
+
+    dir('deploy') {
+      stash includes: '**/*.*', name: 'slx'
+    }
   }
 }
 
-stage 'Copy to IIS'
+stage 'Copying to IIS'
 parallel slx81: {
   node('slx81') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
@@ -42,6 +57,11 @@ parallel slx81: {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
 }, failFast: true
+
+stage 'Sending Slack notification'
+node {
+  slack.success('Mobile CI built successfully')
+}
 
 void iiscopy(branch, build) {
   dir("C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build") {

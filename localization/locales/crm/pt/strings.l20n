@@ -275,7 +275,7 @@
   hashTagAcceptedText: "status-aceito"
   hashTagDeclinedText: "status-declinado"
   hashTagRecurringText: "recorrência"
-  hashTagTimelessText: "horário indeterminado"
+  hashTagTimelessText: "horário-indeterminado"
   hashTagTodayText: "hoje"
   hashTagThisWeekText: "esta-semana"
   hashTagYesterdayText: "ontem"
