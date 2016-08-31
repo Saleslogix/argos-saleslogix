@@ -21,7 +21,9 @@ parallel slx: {
 
       bat 'npm install'
       bat 'build\\release.cmd'
-      stash includes: 'deploy/**/*.*', name: 'slx'
+      dir('deploy') {
+        stash includes: '**/*.*', name: 'slx'
+      }
     }
   }
 }, sdk: {
@@ -34,7 +36,9 @@ parallel slx: {
 
     bat 'npm install'
     bat 'build\\release.cmd'
-    stash includes: 'deploy/**/*.*', name: 'sdk'
+    dir('deploy') {
+      stash includes: '**/*.*', name: 'sdk'
+    }
   }
 }, failFast: true
 
