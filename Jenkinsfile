@@ -3,33 +3,30 @@
 stage 'Building argos-sdk & argos-saleslogix'
 parallel slx: {
   node('windows && nodejs') {
-    try {
-      checkout scm
-    } catch (err) {
-      slack.failure('Failed getting argos-saleslogix')
-      throw err
+    dir('argos-sdk') {
+      clonesdk(env.BRANCH_NAME)
     }
 
-    dir('deploy') {
-      deleteDir()
-    }
+    dir('products/argos-saleslogix') {
+      try {
+        checkout scm
+      } catch (err) {
+        slack.failure('Failed getting argos-saleslogix')
+        throw err
+      }
 
-    bat 'npm install'
-    bat 'build\\release.cmd'
-    stash includes: 'deploy/**/*.*', name: 'slx'
+      dir('deploy') {
+        deleteDir()
+      }
+
+      bat 'npm install'
+      bat 'build\\release.cmd'
+      stash includes: 'deploy/**/*.*', name: 'slx'
+    }
   }
 }, sdk: {
   node('windows && nodejs') {
-    try {
-      git branch: "$env.BRANCH_NAME", url: 'http://git.infor.com/scm/inforcrm/argos-sdk.git'
-    } catch(err) {
-      try {
-        git branch: 'develop', url: 'http://git.infor.com/scm/inforcrm/argos-sdk.git'
-      } catch(er) {
-        slack.failure('Failed getting argos-sdk')
-        throw er
-      }
-    }
+    clonesdk(env.BRANCH_NAME)
 
     dir('deploy') {
       deleteDir()
@@ -60,5 +57,18 @@ void iiscopy(branch, build) {
   dir("C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build") {
     unstash 'slx'
     unstash 'sdk'
+  }
+}
+
+void clonesdk(branch, fallback='develop') {
+  try {
+    git branch: "$branch", url: 'http://git.infor.com/scm/inforcrm/argos-sdk.git'
+  } catch(err) {
+    try {
+      git branch: "$fallback", url: 'http://git.infor.com/scm/inforcrm/argos-sdk.git'
+    } catch(er) {
+      slack.failure('Failed getting argos-sdk')
+      throw er
+    }
   }
 }
