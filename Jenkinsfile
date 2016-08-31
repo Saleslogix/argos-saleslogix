@@ -1,31 +1,7 @@
 #!groovy
-
-stage 'Building argos-sdk & argos-saleslogix'
-parallel slx: {
-  node('windows && nodejs') {
-    dir('argos-sdk') {
-      clonesdk(env.BRANCH_NAME)
-    }
-
-    dir('products/argos-saleslogix') {
-      try {
-        checkout scm
-      } catch (err) {
-        slack.failure('Failed getting argos-saleslogix')
-        throw err
-      }
-
-      dir('deploy') {
-        deleteDir()
-      }
-
-      bat 'npm install'
-      bat 'build\\release.cmd'
-      stash includes: 'deploy/**/*.*', name: 'slx'
-    }
-  }
-}, sdk: {
-  node('windows && nodejs') {
+node('windows && nodejs') {
+  dir('argos-sdk') {
+    stage 'Building argos-sdk'
     clonesdk(env.BRANCH_NAME)
 
     dir('deploy') {
@@ -36,16 +12,30 @@ parallel slx: {
     bat 'build\\release.cmd'
     stash includes: 'deploy/**/*.*', name: 'sdk'
   }
-}, failFast: true
+
+  dir('products/argos-saleslogix') {
+    stage 'Building argos-saleslogix'
+    try {
+      checkout scm
+    } catch (err) {
+      slack.failure('Failed getting argos-saleslogix')
+      throw err
+    }
+
+    dir('deploy') {
+      deleteDir()
+    }
+
+    bat 'npm install'
+    bat 'build\\release.cmd'
+    stash includes: 'deploy/**/*.*', name: 'slx'
+  }
+}
 
 stage 'Copy to IIS'
-parallel slx80: {
-  node('slx80') {
-    //iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
-  }
-}, slx81: {
+parallel slx81: {
   node('slx81') {
-    //iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
+    iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
 }, slx82: {
   node('slx82') {
