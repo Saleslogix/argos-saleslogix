@@ -55,11 +55,7 @@ parallel slx: {
 }, failFast: false
 
 stage 'Copy to IIS'
-parallel slx80: {
-  node('slx80') {
-    iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
-  }
-}, slx81: {
+parallel slx81: {
   node('slx81') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
