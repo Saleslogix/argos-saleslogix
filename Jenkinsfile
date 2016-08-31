@@ -44,19 +44,19 @@ parallel slx: {
 stage 'Copy to IIS'
 parallel slx80: {
   node('slx80') {
-    //iis-copy(env.BRANCH_NAME, env.BUILD_NUMBER)
+    //iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
 }, slx81: {
   node('slx81') {
-    //iis-copy(env.BRANCH_NAME, env.BUILD_NUMBER)
+    //iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
 }, slx82: {
   node('slx82') {
-    iis-copy(env.BRANCH_NAME, env.BUILD_NUMBER)
+    iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
 }, failFast: true
 
-void iis-copy(branch, build) {
+void iiscopy(branch, build) {
   dir("C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build") {
     unstash 'slx'
     unstash 'sdk'
