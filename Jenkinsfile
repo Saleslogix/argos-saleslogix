@@ -52,7 +52,7 @@ node('windows && nodejs') {
 
       dir('deploy') {
         stage 'Copying bundles'
-        bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3
+        bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3 /w:5
             IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""
       }
     } catch (err) {
