@@ -179,10 +179,12 @@
                 return;
             }
 
-            var culture, results;
+            var culture, results, isMetric;
 
             culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
+            isMetric = <%= (System.Globalization.RegionInfo.CurrentRegion.IsMetric) ? "true" : "false" %>;
             configuration.currentCulture = culture;
+            configuration.isRegionMetric = isMetric;
             results = moment.locale(culture);
 
             // moment will return the set culture if successful, otherwise it returns the currently set culture.
