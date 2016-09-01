@@ -1,39 +1,7 @@
 #!groovy
-
-stage 'Building argos-sdk & argos-saleslogix'
-parallel slx: {
-  node('windows && nodejs') {
-    dir('argos-sdk') {
-      clonesdk(env.BRANCH_NAME)
-    }
-
-    dir('products/argos-saleslogix') {
-      try {
-        checkout scm
-      } catch (err) {
-        slack.failure('Failed getting argos-saleslogix')
-        throw err
-      }
-
-      dir('deploy') {
-        deleteDir()
-      }
-
-      try {
-        bat 'npm install'
-        bat 'build\\release.cmd'
-      } catch (err) {
-        slack.failure('Failed biulding argos-saleslogix')
-        throw err
-      }
-
-      dir('deploy') {
-        stash includes: '**/*.*', name: 'slx'
-      }
-    }
-  }
-}, sdk: {
-  node('windows && nodejs') {
+node('windows && nodejs') {
+  dir('argos-sdk') {
+    stage 'Building argos-sdk'
     clonesdk(env.BRANCH_NAME)
 
     dir('deploy') {
@@ -47,14 +15,55 @@ parallel slx: {
       slack.failure('Failed building argos-sdk')
       throw err
     }
-
     dir('deploy') {
       stash includes: '**/*.*', name: 'sdk'
     }
   }
-}, failFast: false
 
-stage 'Copy to IIS'
+  dir('products/argos-saleslogix') {
+    stage 'Building argos-saleslogix'
+    try {
+      checkout scm
+    } catch (err) {
+      slack.failure('Failed getting argos-saleslogix')
+      throw err
+    }
+
+    dir('deploy') {
+      deleteDir()
+    }
+
+    try {
+      bat 'npm install'
+      bat 'build\\release.cmd'
+    } catch (err) {
+      slack.failure('Failed building argos-saleslogix')
+      throw err
+    }
+
+    dir('deploy') {
+      stash includes: '**/*.*', name: 'slx'
+    }
+
+    stage 'Creating bundles'
+    try {
+      bat 'grunt bundle'
+      bat 'grunt lang-pack'
+
+      dir('deploy') {
+        stage 'Copying bundles'
+        bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3 /w:5
+            IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""
+      }
+    } catch (err) {
+      slack.failure('Failed building bundles.')
+      throw err
+    }
+
+  }
+}
+
+stage 'Copying to IIS'
 parallel slx81: {
   node('slx81') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
@@ -63,11 +72,11 @@ parallel slx81: {
   node('slx82') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
-}, failFast: true
+}, failFast: false
 
-stage 'Notification'
+stage 'Sending Slack notification'
 node {
-  slack.success('Mobile CI built successfully')
+  slack.success('Mobile built successfully')
 }
 
 void iiscopy(branch, build) {
