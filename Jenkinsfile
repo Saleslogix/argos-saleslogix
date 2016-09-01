@@ -44,6 +44,22 @@ node('windows && nodejs') {
     dir('deploy') {
       stash includes: '**/*.*', name: 'slx'
     }
+
+    stage 'Creating bundles'
+    try {
+      bat 'grunt bundle'
+      bat 'grunt lang-pack'
+
+      dir('deploy') {
+        stage 'Copying bundles'
+        bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3
+            IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""
+      }
+    } catch (err) {
+      slack.failure('Failed building bundles.')
+      throw err
+    }
+
   }
 }
 
@@ -56,11 +72,11 @@ parallel slx81: {
   node('slx82') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
   }
-}, failFast: true
+}, failFast: false
 
 stage 'Sending Slack notification'
 node {
-  slack.success('Mobile CI built successfully')
+  slack.success('Mobile built successfully')
 }
 
 void iiscopy(branch, build) {
