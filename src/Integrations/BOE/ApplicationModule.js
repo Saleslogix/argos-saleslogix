@@ -42,6 +42,16 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
   modules: null,
   init: function init() {
     App.picklistService = PicklistService;
+
+    this.inherited(arguments);
+  },
+  initDynamic: function init() {
+    if (!this.isIntegrationEnabled()) {
+      return;
+    }
+
+    console.log('Loading dynamic modules for BOE');
+    App.picklistService = PicklistService;
     App.enableDashboards = this.enableDashboards;
     this.modules = [
       new AccountAssociationModule(this),
@@ -75,22 +85,28 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       mod.init();
     });
 
-    // inherited should be called last, since the base class will invoke loadViews, loadCustomizations, and loadToolbars
     this.inherited(arguments);
   },
+  isIntegrationEnabled: function isIntegrationEnabled() {
+    const results = this.application.context.integrations.filter((integration) => integration.Name === "Back Office Extension")[0];
+    return results && results.Enabled;
+  },
   loadViewsDynamic: function loadViewsDynamic() {
-    const results = this.application.context.integrations.filter((integration) => integration.Name === "Back Office Extension");
-    if (results && results[0].Enabled) {
-      console.log('loading dynamic views...');
-      this.modules.forEach(function loadModuleViews(module) {
-        module.loadViews();
-      });
+    if (!this.isIntegrationEnabled()) {
+      return;
     }
-  },
-  loadViews: function loadViews() {
 
+    console.log('loading dynamic views for BOE');
+    this.modules.forEach(function loadModuleViews(module) {
+      module.loadViews();
+    });
   },
-  loadCustomizations: function loadCustomizations() {
+  loadCustomizationsDynamic: function loadCustomizations() {
+    if (!this.isIntegrationEnabled()) {
+      return;
+    }
+
+    console.log('loading dynamic customizations for BOE');
     this.modules.forEach(function loadModuleCustomizations(module) {
       module.loadCustomizations();
     });
@@ -172,7 +188,12 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       ]),
     });
   },
-  loadToolbars: function loadToolbars() {
+  loadToolbarsDynamic: function loadToolbars() {
+    if (!this.isIntegrationEnabled()) {
+      return;
+    }
+
+    console.log('Loading dynamic toolbars for BOE');
     this.modules.forEach(function loadModuleToolbars(module) {
       module.loadToolbars();
     });

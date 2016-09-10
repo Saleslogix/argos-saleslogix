@@ -6,7 +6,9 @@ define('configuration/development', ['crm/ApplicationModule', 'crm/Integrations/
   return {
     modules: [
       new ApplicationModule(),
-      new BOEApplicationModule(),
+      new BOEApplicationModule({
+        enableDashboards: true
+      }),
     ],
     connections: {
       'crm': {
