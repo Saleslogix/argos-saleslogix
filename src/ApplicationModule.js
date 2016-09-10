@@ -100,6 +100,8 @@ import RecentlyViewedList from './Views/RecentlyViewed/List';
 import BriefcaseList from './Views/Briefcase/List';
 import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from './Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
 import './Views/OfflineOptions/UsageWidget';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
@@ -120,6 +122,7 @@ import './Models/Activity/Offline';
 import './Models/Activity/SData';
 import './Models/Contact/Offline';
 import './Models/Contact/SData';
+import './Models/Integration/SData';
 import './Models/Lead/Offline';
 import './Models/Lead/SData';
 import './Models/LeadAddress/Offline';
@@ -533,6 +536,16 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
         name: 'system_options',
         description: resource.systemOptionsText,
         fn: () => App.requestSystemOptions(),
+      }, {
+        name: 'integrations',
+        description: resource.integrationsText,
+        fn: () => {
+          const model = this.application.ModelManager.getModel(MODEL_NAMES.INTEGRATION, MODEL_TYPES.SDATA);
+          return model.getEntries().then((results) => {
+            this.application.context.integrations = results;
+            return results;
+          });
+        },
       }],
     });
   },
