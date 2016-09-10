@@ -3,6 +3,7 @@
  */
 
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';

@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import Base from './Base';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';

@@ -4,6 +4,7 @@
 import declare from 'dojo/_base/declare';
 import domConstruct from 'dojo/dom-construct';
 import array from 'dojo/_base/array';
+import lang from 'dojo/_base/lang';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import MetricWidget from '../../Views/MetricWidget';
 import DateRangeWidget from './DateRangeWidget';

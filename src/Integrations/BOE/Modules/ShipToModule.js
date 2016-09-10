@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import AccountList from 'crm/Views/Account/List';
 import BillToList from '../Views/ERPBillTos/List';

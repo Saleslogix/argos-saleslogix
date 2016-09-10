@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';

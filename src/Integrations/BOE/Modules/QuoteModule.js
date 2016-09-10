@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import AttachmentList from '../../../Views/Attachment/List';
 import BackOfficeList from '../Views/BackOffices/List';

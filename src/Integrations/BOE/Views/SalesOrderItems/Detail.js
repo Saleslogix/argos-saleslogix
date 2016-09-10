@@ -8,6 +8,7 @@
  *
  */
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import array from 'dojo/_base/array';
 import format from 'crm/Format';

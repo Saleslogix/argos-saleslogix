@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import Edit from 'argos/Edit';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';

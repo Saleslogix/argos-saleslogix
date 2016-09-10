@@ -14,6 +14,7 @@
  *
  */
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';

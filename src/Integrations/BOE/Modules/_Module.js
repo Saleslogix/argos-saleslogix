@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 
 const __class = declare('icboe.Modules._Module', null, {
   applicationModule: null,

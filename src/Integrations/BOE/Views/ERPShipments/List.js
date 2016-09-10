@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import action from 'crm/Action';
 import string from 'dojo/string';
 import List from 'argos/List';

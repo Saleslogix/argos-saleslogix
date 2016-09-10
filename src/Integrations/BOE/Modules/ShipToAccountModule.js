@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import ShipToAccountList from '../Views/ERPShipToAccounts/List';
 import ShipToAccountDetail from '../Views/ERPShipToAccounts/Detail';

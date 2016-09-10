@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import List from './PricingAvailabilityList';
 import PricingAvailabilityService from '../../PricingAvailabilityService';
 import MODEL_NAMES from '../../Models/Names';

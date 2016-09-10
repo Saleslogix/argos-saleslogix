@@ -2,6 +2,7 @@
  * See copyright file.
  */
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import domConstruct from 'dojo/dom-construct';
 import when from 'dojo/when';

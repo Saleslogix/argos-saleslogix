@@ -1,4 +1,5 @@
 import declare from 'dojo/_base/declare';
+import lang from 'dojo/_base/lang';
 import format from 'crm/Format';
 import Detail from 'argos/Detail';
 import MODEL_NAMES from '../../Models/Names';
