@@ -1,6 +1,6 @@
 import declare from 'dojo/_base/declare';
 import _Module from './_Module';
-import AttachmentList from '../../Views/Attachment/List';
+import AttachmentList from '../../../Views/Attachment/List';
 import BackOfficeList from '../Views/BackOffices/List';
 import BackOfficeAccountingEntityList from '../Views/BackOfficeAccountingEntities/List';
 import BillToList from '../Views/ERPBillTos/List';

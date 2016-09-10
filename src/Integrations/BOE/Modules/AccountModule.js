@@ -15,7 +15,7 @@ import ReturnsList from '../Views/Returns/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
 import SyncResultsList from '../Views/SyncResults/List';
 import Utility from '../Utility';
-import format from '../../Format';
+import format from '../../../Format';
 import '../Models/ErpAccountPerson/SData';
 import '../Views/Account/SalesDashboardWidget';
 import '../Views/Account/NewDashboardWidget';

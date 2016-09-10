@@ -9,7 +9,7 @@ import all from 'dojo/promise/all';
 import Deferred from 'dojo/_base/Deferred';
 import domConstruct from 'dojo/dom-construct';
 import array from 'dojo/_base/array';
-import crmFormat from '../Format';
+import crmFormat from '../../Format';
 import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';

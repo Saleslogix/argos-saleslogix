@@ -1,6 +1,6 @@
 import declare from 'dojo/_base/declare';
 import _Module from './_Module';
-import AccountList from '../../Views/Account/List';
+import AccountList from '../../../Views/Account/List';
 import BillToAccountList from '../Views/ERPBillToAccounts/List';
 import BillToAccountEdit from '../Views/ERPBillToAccounts/Edit';
 import BillToAccountDetail from '../Views/ERPBillToAccounts/Detail';

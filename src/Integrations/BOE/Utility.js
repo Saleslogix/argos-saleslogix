@@ -1,7 +1,7 @@
 import lang from 'dojo/_base/lang';
 import Adapter from 'argos/Models/Adapter';
 import MODEL_NAMES from './Models/Names';
-import format from '../Format';
+import format from '../../Format';
 
 /**
  * @class icboe.Utility
