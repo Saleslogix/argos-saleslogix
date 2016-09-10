@@ -78,10 +78,17 @@ const __class = declare('icboe.ApplicationModule', [ApplicationModule], {
     // inherited should be called last, since the base class will invoke loadViews, loadCustomizations, and loadToolbars
     this.inherited(arguments);
   },
+  loadViewsDynamic: function loadViewsDynamic() {
+    const results = this.application.context.integrations.filter((integration) => integration.Name === "Back Office Extension");
+    if (results && results[0].Enabled) {
+      console.log('loading dynamic views...');
+      this.modules.forEach(function loadModuleViews(module) {
+        module.loadViews();
+      });
+    }
+  },
   loadViews: function loadViews() {
-    this.modules.forEach(function loadModuleViews(module) {
-      module.loadViews();
-    });
+
   },
   loadCustomizations: function loadCustomizations() {
     this.modules.forEach(function loadModuleCustomizations(module) {
