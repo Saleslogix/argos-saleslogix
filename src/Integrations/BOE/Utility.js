@@ -11,7 +11,7 @@ import format from '../../Format';
  * @singleton
  *
  */
-const __class = lang.setObject('icboe.Utility', {
+const __class = lang.setObject('crm.Integrations.BOE.Utility', {
   // Lookup table for the aggregate functions used by DashboardWidget
   aggregateLookup: {
     'calcProfit': function calcProfit(fn, widget, data) {
@@ -102,4 +102,5 @@ const __class = lang.setObject('icboe.Utility', {
     },
 });
 
+lang.setObject('icboe.Utility', __class);
 export default __class;

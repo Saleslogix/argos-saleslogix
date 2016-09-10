@@ -12,7 +12,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('activityDashboardWidget');
 
-const __class = declare('icboe.Views.Account.ActivityDashboardWidget', [DashboardWidget], {
+const __class = declare('crm.Integrations.BOE.Views.Account.ActivityDashboardWidget', [DashboardWidget], {
   // Localization
   recentText: resource.recentText,
   myPendingText: resource.myPendingText,
@@ -88,4 +88,5 @@ const __class = declare('icboe.Views.Account.ActivityDashboardWidget', [Dashboar
 });
 const rvm = new RelatedViewManager();
 rvm.registerType('account_activity_dashboard_widget', __class);
+lang.setObject('icboe.Views.Account.ActivityDashboardWidget', __class);
 export default __class;

@@ -3,7 +3,7 @@ import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import '../Models/QuotePerson/SData';
 
-const __class = declare('icboe.Modules.QuotePersonModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.QuotePersonModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -14,4 +14,5 @@ const __class = declare('icboe.Modules.QuotePersonModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.QuotePersonModule', __class);
 export default __class;

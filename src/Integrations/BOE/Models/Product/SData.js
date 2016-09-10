@@ -6,7 +6,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('icboe.Models.Product.SData', [Base, _SDataModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Product.SData', [Base, _SDataModelBase], {
   id: 'product_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
@@ -31,4 +31,5 @@ const __class = declare('icboe.Models.Product.SData', [Base, _SDataModelBase], {
 });
 
 Manager.register(MODEL_NAMES.PRODUCT, MODEL_TYPES.SDATA, __class);
+lang.setObject('icboe.Models.Product.SData', __class);
 export default __class;

@@ -10,7 +10,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicePersonsList');
 
-const __class = declare('icboe.Views.ERPInvoicePersons.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoicePersons.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.ErpPerson.Name %}</h3>',
@@ -41,4 +41,5 @@ const __class = declare('icboe.Views.ERPInvoicePersons.List', [List, _RightDrawe
   },
 });
 
+lang.setObject('icboe.Views.ERPInvoicePersons.List', __class);
 export default __class;

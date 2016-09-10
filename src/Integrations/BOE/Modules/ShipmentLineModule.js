@@ -4,7 +4,7 @@ import _Module from './_Module';
 import ShipmentItemsDetail from '../Views/ERPShipmentItems/Detail';
 import '../Models/ErpShipmentItem/SData';
 
-const __class = declare('icboe.Modules.ShipmentLineModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.ShipmentLineModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -24,4 +24,5 @@ const __class = declare('icboe.Modules.ShipmentLineModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.ShipmentLineModule', __class);
 export default __class;

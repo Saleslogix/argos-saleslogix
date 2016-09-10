@@ -7,7 +7,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('backOfficeAccountingEntitiesList');
 
-const __class = declare('icboe.Views.BackOfficeAccountingEntities.List', [List], {
+const __class = declare('crm.Integrations.BOE.Views.BackOfficeAccountingEntities.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.Name %}</h3>',
@@ -41,4 +41,5 @@ const __class = declare('icboe.Views.BackOfficeAccountingEntities.List', [List],
   },
 });
 
+lang.setObject('icboe.Views.BackOfficeAccountingEntities.List', __class);
 export default __class;

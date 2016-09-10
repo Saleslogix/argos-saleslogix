@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipToModel');
 
-const __class = declare('icboe.Models.ErpShipTo.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.ErpShipTo.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'erpShipTos',
   entityName: 'ERPShipTo',
@@ -23,4 +23,5 @@ const __class = declare('icboe.Models.ErpShipTo.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.ErpShipTo.Base', __class);
 export default __class;

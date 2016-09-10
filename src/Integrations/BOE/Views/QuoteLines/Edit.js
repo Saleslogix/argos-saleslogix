@@ -20,7 +20,7 @@ const resource = getResource('quoteItemEdit');
  * @requires argos.Edit
  *
  */
-const __class = declare('icboe.Views.QuoteLines.Edit', [Edit], {
+const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
   // View Properties
   id: 'quote_line_edit',
   detailView: 'quote_line_detail',
@@ -380,4 +380,5 @@ const __class = declare('icboe.Views.QuoteLines.Edit', [Edit], {
   },
 });
 
+lang.setObject('icboe.Views.QuoteLines.Edit', __class);
 export default __class;

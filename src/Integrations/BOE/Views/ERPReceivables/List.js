@@ -13,7 +13,7 @@ import utility from '../../Utility';
 
 const resource = getResource('erpReceivablesList');
 
-const __class = declare('icboe.Views.ERPReceivables.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
   itemTemplate: new Simplate([
@@ -74,4 +74,5 @@ const __class = declare('icboe.Views.ERPReceivables.List', [List, _RightDrawerLi
   },
 });
 
+lang.setObject('icboe.Views.ERPReceivables.List', __class);
 export default __class;

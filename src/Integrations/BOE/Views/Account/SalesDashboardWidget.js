@@ -11,7 +11,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('salesDashboardWidget');
 
-const __class = declare('icboe.Views.Account.SalesDashboardWidget', [DashboardWidget], {
+const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [DashboardWidget], {
   // Localization
   recentRevenueText: resource.recentRevenueText,
   recentCostText: resource.recentCostText,
@@ -252,4 +252,5 @@ const __class = declare('icboe.Views.Account.SalesDashboardWidget', [DashboardWi
 });
 const rvm = new RelatedViewManager();
 rvm.registerType('account_sales_dashboard_widget', __class);
+lang.setObject('icboe.Views.Account.SalesDashboardWidget', __class);
 export default __class;

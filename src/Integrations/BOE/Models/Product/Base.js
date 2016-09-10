@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('productModel');
 
-const __class = declare('icboe.Models.Product.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Product.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'products',
   entityName: 'Product',
@@ -23,4 +23,5 @@ const __class = declare('icboe.Models.Product.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.Product.Base', __class);
 export default __class;

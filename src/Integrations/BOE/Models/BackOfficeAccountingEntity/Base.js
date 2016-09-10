@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('backOfficeAccountingEntityModel');
 
-const __class = declare('icboe.Models.BackOfficeAccountingEntities.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.BackOfficeAccountingEntities.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'backOfficeAccountingEntities',
   entityName: 'BackOfficeAcctEntity',
@@ -24,4 +24,5 @@ const __class = declare('icboe.Models.BackOfficeAccountingEntities.Base', [_Mode
     return rel;
   },
 });
+lang.setObject('icboe.Models.BackOfficeAccountingEntities.Base', __class);
 export default __class;

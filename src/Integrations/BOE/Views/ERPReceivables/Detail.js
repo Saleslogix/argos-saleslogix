@@ -8,7 +8,7 @@ import utility from '../../Utility';
 
 const resource = getResource('erpReceivablesDetail');
 
-const __class = declare('icboe.Views.ERPReceivables.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   moreDetailsText: resource.moreDetailsText,
@@ -174,4 +174,5 @@ const __class = declare('icboe.Views.ERPReceivables.Detail', [Detail], {
   },
 });
 
+lang.setObject('icboe.Views.ERPReceivables.Detail', __class);
 export default __class;

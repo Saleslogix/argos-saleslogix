@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('locationModel');
 
-const __class = declare('icboe.Models.Location.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Location.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'slxLocations',
   entityName: 'SlxLocation',
@@ -21,4 +21,5 @@ const __class = declare('icboe.Models.Location.Base', [_ModelBase], {
     return null;
   },
 });
+lang.setObject('icboe.Models.Location.Base', __class);
 export default __class;

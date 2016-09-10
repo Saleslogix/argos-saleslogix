@@ -9,7 +9,7 @@ const accountResource = getResource('accountModel');
 const contactResource = getResource('contactModel');
 const quoteItemsResource = getResource('quoteItemModel');
 
-const __class = declare('icboe.Models.Quote.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Quote.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'quotes',
   entityName: 'Quote',
@@ -45,4 +45,5 @@ const __class = declare('icboe.Models.Quote.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.Quote.Base', __class);
 export default __class;

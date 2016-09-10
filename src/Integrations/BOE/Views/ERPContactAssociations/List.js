@@ -11,7 +11,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpContactAssociationsList');
 
-const __class = declare('icboe.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.Contact.NameLF %}</h3>',
@@ -68,4 +68,5 @@ const __class = declare('icboe.Views.ERPContactAssociations.List', [List, _Right
   },
 });
 
+lang.setObject('icboe.Views.ERPContactAssociations.List', __class);
 export default __class;

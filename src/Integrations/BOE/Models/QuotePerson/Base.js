@@ -7,7 +7,7 @@ import getResource from 'argos/I18n';
 const resource = getResource('quotePersonModel');
 const quoteResource = getResource('quoteModel');
 
-const __class = declare('icboe.Models.QuotePerson.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.QuotePerson.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'quotePersons',
   entityName: 'QuotePerson',
@@ -31,4 +31,5 @@ const __class = declare('icboe.Models.QuotePerson.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.QuotePerson.Base', __class);
 export default __class;

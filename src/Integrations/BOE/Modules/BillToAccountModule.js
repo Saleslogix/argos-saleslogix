@@ -13,7 +13,7 @@ import ReturnsList from '../Views/Returns/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
 import '../Models/ErpBillToAccount/SData';
 
-const __class = declare('icboe.Modules.BillToAccountModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.BillToAccountModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -107,4 +107,5 @@ const __class = declare('icboe.Modules.BillToAccountModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.BillToAccountModule', __class);
 export default __class;

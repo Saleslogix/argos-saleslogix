@@ -27,7 +27,7 @@ const resource = getResource('dashboardWidgetBase');
  * @extends argos._RelatedViewWidgetBase
  *
  */
-const __class = declare('crm.Views._DashboardWidgetBase', [_RelatedViewWidgetBase], {
+const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase], {
   owner: null,
   id: 'dashboard-widget-base',
   titleText: resource.titleText,
@@ -631,4 +631,6 @@ const __class = declare('crm.Views._DashboardWidgetBase', [_RelatedViewWidgetBas
 
 const rvm = new RelatedViewManager();
 rvm.registerType('dashboard_widget_base', __class);
+lang.setObject('crm.Views._DashboardWidgetBase', __class);
+lang.setObject('icboe._DashboardWidgetBase', __class);
 export default __class;

@@ -20,7 +20,7 @@ const resource = getResource('salesOrderItemEdit');
  * @requires argos.Edit
  *
  */
-const __class = declare('icboe.Views.SalesOrderItems.Edit', [Edit], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit], {
   // View Properties
   id: 'salesorder_item_edit',
   detailView: 'salesorder_item_detail',
@@ -381,4 +381,5 @@ const __class = declare('icboe.Views.SalesOrderItems.Edit', [Edit], {
   },
 });
 
+lang.setObject('icboe.Views.SalesOrderItems.Edit', __class);
 export default __class;

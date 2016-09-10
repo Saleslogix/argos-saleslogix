@@ -17,7 +17,7 @@ import ShipToList from '../Views/ERPShipTos/List';
 import SyncResultsList from '../Views/SyncResults/List';
 import '../Models/Quote/SData';
 
-const __class = declare('icboe.Modules.QuoteModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.QuoteModule', [_Module], {
   defaultViews: ['quote_list'],
   init: function init() {
     App.picklistService.registerPicklistToView('SyncStatus', 'quote_detail');
@@ -162,4 +162,5 @@ const __class = declare('icboe.Modules.QuoteModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.QuoteModule', __class);
 export default __class;

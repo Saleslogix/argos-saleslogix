@@ -5,7 +5,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('helpModule');
 
-const __class = declare('icboe.Modules.HelpModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.HelpModule', [_Module], {
   sectionTitleText: resource.sectionTitleText,
   init: function init() {
   },
@@ -38,4 +38,5 @@ const __class = declare('icboe.Modules.HelpModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.HelpModule', __class);
 export default __class;

@@ -15,7 +15,7 @@ import SalesOrderItemAvailabilityList from '../Locations/SalesOrderItemAvailabil
 
 const resource = getResource('salesOrderItemsList');
 
-const __class = declare('icboe.Views.SalesOrderItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   formatter: format,
   util: utility,
   // Localization
@@ -144,4 +144,5 @@ const __class = declare('icboe.Views.SalesOrderItems.List', [List, _RightDrawerL
   },
 });
 
+lang.setObject('icboe.Views.SalesOrderItems.List', __class);
 export default __class;

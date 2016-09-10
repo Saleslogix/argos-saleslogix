@@ -7,7 +7,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpReceivableItemsDetail');
 
-const __class = declare('icboe.Views.ERPReceivableItems.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   lineNumberText: resource.lineNumberText,
@@ -77,4 +77,5 @@ const __class = declare('icboe.Views.ERPReceivableItems.Detail', [Detail], {
   },
 });
 
+lang.setObject('icboe.Views.ERPReceivableItems.Detail', __class);
 export default __class;

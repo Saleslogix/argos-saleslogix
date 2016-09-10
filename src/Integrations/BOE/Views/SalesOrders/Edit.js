@@ -26,7 +26,7 @@ const dtFormatResource = getResource('salesOrderEditDateTimeFormat');
  * @requires crm.Template
  *
  */
-const __class = declare('icboe.Views.SalesOrders.Edit', [Edit], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   // View Properties
   id: 'salesorder_edit',
   detailView: 'salesorder_detail',
@@ -645,4 +645,5 @@ const __class = declare('icboe.Views.SalesOrders.Edit', [Edit], {
   },
 });
 
+lang.setObject('icboe.Views.SalesOrders.Edit', __class);
 export default __class;

@@ -11,7 +11,7 @@
 import lang from 'dojo/_base/lang';
 import crmAggergate from '../Aggregate';
 
-const __class = lang.setObject('icboe.Aggregate', {
+const __class = lang.setObject('crm.Integrations.BOE.Aggregate', {
   /**
    * Calculate Profit
    * @param {Array} data arrays of revenue and cost
@@ -125,5 +125,5 @@ const __class = lang.setObject('icboe.Aggregate', {
     }
   },
 });
-
+lang.setObject('icboe.Aggregate', __class);
 export default __class;

@@ -11,7 +11,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('newDashboardWidget');
 
-const __class = declare('icboe.Views.Account.NewDashboardWidget', [DashboardWidget], {
+const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget', [DashboardWidget], {
   // Localization
   newQuotesText: resource.newQuotesText,
   newOrdersText: resource.newOrdersText,
@@ -264,4 +264,5 @@ const __class = declare('icboe.Views.Account.NewDashboardWidget', [DashboardWidg
 });
 const rvm = new RelatedViewManager();
 rvm.registerType('account_new_dashboard_widget', __class);
+lang.setObject('icboe.Views.Account.NewDashboardWidget', __class);
 export default __class;

@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('salesOrderItemModel');
 
-const __class = declare('icboe.Models.SalesOrderItem.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'salesOrderItems',
   entityName: 'SalesOrderItem',
@@ -23,4 +23,5 @@ const __class = declare('icboe.Models.SalesOrderItem.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.SalesOrderItem.Base', __class);
 export default __class;

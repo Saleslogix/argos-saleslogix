@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpContactAssociationModel');
 
-const __class = declare('icboe.Models.ErpContactAssociation.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.ErpContactAssociation.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'erpContactAccounts',
   entityName: 'ERPContactAccount',
@@ -23,4 +23,5 @@ const __class = declare('icboe.Models.ErpContactAssociation.Base', [_ModelBase],
     return rel;
   },
 });
+lang.setObject('icboe.Models.ErpContactAssociation.Base', __class);
 export default __class;

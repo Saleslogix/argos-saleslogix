@@ -15,7 +15,7 @@ import lang from 'dojo/_base/lang';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 
-const __class = declare('crm.Views.DateRangeWidget', [_Widget, _Templated], {
+const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], {
     /**
      * @property {Simplate}
      * Simple that defines the HTML Markup
@@ -47,4 +47,5 @@ const __class = declare('crm.Views.DateRangeWidget', [_Widget, _Templated], {
 });
 
 lang.setObject('Mobile.SalesLogix.Views.DateRangeWidget', __class);
+lang.setObject('crm.Views.DateRangeWidget', __class);
 export default __class;

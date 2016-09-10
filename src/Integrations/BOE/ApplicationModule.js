@@ -38,7 +38,7 @@ import 'argos/TabWidget';
 
 const resource = getResource('icboeApplicationModule');
 
-const __class = declare('icboe.ApplicationModule', [ApplicationModule], {
+const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationModule], {
   modules: null,
   init: function init() {
     App.picklistService = PicklistService;
@@ -206,4 +206,5 @@ const __class = declare('icboe.ApplicationModule', [ApplicationModule], {
   },
 });
 
+lang.setObject('icboe.ApplicationModule', __class);
 export default __class;

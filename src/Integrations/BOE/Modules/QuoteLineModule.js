@@ -8,7 +8,7 @@ import QuoteList from '../Views/Quotes/List';
 import UnitOfMeasureList from '../Views/UnitsOfMeasure/List';
 import '../Models/QuoteItem/SData';
 
-const __class = declare('icboe.Modules.QuoteLineModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -45,4 +45,5 @@ const __class = declare('icboe.Modules.QuoteLineModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.QuoteLineModule', __class);
 export default __class;

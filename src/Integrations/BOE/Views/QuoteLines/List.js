@@ -14,7 +14,7 @@ import QuoteItemAvailabilityList from '../Locations/QuoteItemAvailabilityList';
 
 const resource = getResource('quoteItemsList');
 
-const __class = declare('icboe.Views.QuoteLines.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   formatter: format,
   util: utility,
   // Localization
@@ -144,4 +144,5 @@ const __class = declare('icboe.Views.QuoteLines.List', [List, _RightDrawerListMi
   },
 });
 
+lang.setObject('icboe.Views.QuoteLines.List', __class);
 export default __class;

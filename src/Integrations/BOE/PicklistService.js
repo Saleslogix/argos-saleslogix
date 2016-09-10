@@ -3,7 +3,7 @@ import ErrorManager from 'argos/ErrorManager';
 import SData from 'argos/Store/SData';
 import string from 'dojo/string';
 
-const __class = lang.setObject('icboe.PicklistService', {
+const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
   _picklists: {},
   _viewMapping: {},
   _store: null,
@@ -144,5 +144,5 @@ const __class = lang.setObject('icboe.PicklistService', {
     return options;
   },
 });
-
+lang.setObject('icboe.PicklistService', __class);
 export default __class;

@@ -9,7 +9,7 @@ import getResource from 'argos/I18n';
 const resource = getResource('syncResultsList');
 const dtFormatResource = getResource('syncResultsListDateTimeFormat');
 
-const __class = declare('icboe.Views.SyncResults.List', [List], {
+const __class = declare('crm.Integrations.BOE.Views.SyncResults.List', [List], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
@@ -63,4 +63,5 @@ const __class = declare('icboe.Views.SyncResults.List', [List], {
   },
 });
 
+lang.setObject('icboe.Views.SyncResults.List', __class);
 export default __class;

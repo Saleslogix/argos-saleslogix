@@ -17,7 +17,7 @@ import BillToList from '../Views/ERPBillToAccounts/List';
 import ShipToList from '../Views/ERPShipTos/List';
 import '../Models/ErpShipToAccount/SData';
 
-const __class = declare('icboe.Modules.ShipToAccountModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -201,4 +201,5 @@ const __class = declare('icboe.Modules.ShipToAccountModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.ShipToAccountModule', __class);
 export default __class;

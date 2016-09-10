@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('operatingCompanyModel');
 
-const __class = declare('icboe.Models.OperatingCompany.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.OperatingCompany.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'operatingCompanies',
   entityName: 'AppIdMapping',
@@ -24,4 +24,5 @@ const __class = declare('icboe.Models.OperatingCompany.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.OperatingCompany.Base', __class);
 export default __class;

@@ -19,7 +19,7 @@ import utility from '../../Utility';
 
 const resource = getResource('salesOrderItemsDetail');
 
-const __class = declare('icboe.Views.SalesOrderItems.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,
@@ -307,4 +307,5 @@ createEntryForDelete: function createEntryForDelete(e) {
   },
 });
 
+lang.setObject('icboe.Views.SalesOrderItems.Detail', __class);
 export default __class;

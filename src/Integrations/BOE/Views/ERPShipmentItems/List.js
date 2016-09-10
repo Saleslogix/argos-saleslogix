@@ -11,7 +11,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipmentItemsList');
 
-const __class = declare('icboe.Views.ERPShipmentItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   formatter: format,
 
   // Templates
@@ -51,4 +51,5 @@ const __class = declare('icboe.Views.ERPShipmentItems.List', [List, _RightDrawer
   },
 });
 
+lang.setObject('icboe.Views.ERPShipmentItems.List', __class);
 export default __class;

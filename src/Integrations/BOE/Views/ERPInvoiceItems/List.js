@@ -25,7 +25,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsList');
 
-const __class = declare('crm.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   itemTemplate: new Simplate([
     '<h3><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h3>',
     '<h4><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</h4>',
@@ -70,4 +70,5 @@ const __class = declare('crm.Views.ERPInvoiceItems.List', [List, _RightDrawerLis
   },
 });
 
+lang.setObject('crm.Views.ERPInvoiceItems.List', __class);
 export default __class;

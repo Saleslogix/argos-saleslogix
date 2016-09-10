@@ -8,7 +8,7 @@ import SalesOrderItemEdit from '../Views/SalesOrderItems/Edit';
 import UnitOfMeasureList from '../Views/UnitsOfMeasure/List';
 import '../Models/SalesOrderItem/SData';
 
-const __class = declare('icboe.Modules.SalesOrderItemModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.SalesOrderItemModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -38,4 +38,5 @@ const __class = declare('icboe.Modules.SalesOrderItemModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.SalesOrderItemModule', __class);
 export default __class;

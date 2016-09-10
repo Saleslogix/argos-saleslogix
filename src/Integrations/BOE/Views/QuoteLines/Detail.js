@@ -19,7 +19,7 @@ import utility from '../../Utility';
 
 const resource = getResource('quoteItemsDetail');
 
-const __class = declare('icboe.Views.QuoteLines.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,
@@ -276,4 +276,5 @@ const __class = declare('icboe.Views.QuoteLines.Detail', [Detail], {
   },
 });
 
+lang.setObject('icboe.Views.QuoteLines.Detail', __class);
 export default __class;

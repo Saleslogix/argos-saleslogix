@@ -25,7 +25,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('accountModule');
 
-const __class = declare('icboe.Modules.AccountModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module], {
   // Localization
   erpStatusText: resource.erpStatusText,
   erpCustomerText: resource.erpCustomerText,
@@ -790,4 +790,5 @@ const __class = declare('icboe.Modules.AccountModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.AccountModule', __class);
 export default __class;

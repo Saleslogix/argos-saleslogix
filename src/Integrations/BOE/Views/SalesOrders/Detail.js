@@ -11,7 +11,7 @@ import utility from '../../Utility';
 
 const resource = getResource('salesOrdersDetail');
 
-const __class = declare('icboe.Views.SalesOrders.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   actionsText: resource.actionsText,
@@ -562,4 +562,5 @@ const __class = declare('icboe.Views.SalesOrders.Detail', [Detail], {
   },
 });
 
+lang.setObject('icboe.Views.SalesOrders.Detail', __class);
 export default __class;

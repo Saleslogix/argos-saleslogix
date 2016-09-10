@@ -15,7 +15,7 @@ import SyncResultsList from '../Views/SyncResults/List';
 import '../Models/ErpShipToAccount/SData';
 import '../Models/ErpShipTo/SData';
 
-const __class = declare('icboe.Modules.ShipToModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.ShipToModule', [_Module], {
   init: function init() {
     App.picklistService.registerPicklistToView('SyncStatus', 'erpshipto_detail');
   },
@@ -122,4 +122,5 @@ const __class = declare('icboe.Modules.ShipToModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.ShipToModule', __class);
 export default __class;

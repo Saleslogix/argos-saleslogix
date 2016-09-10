@@ -3,7 +3,7 @@ import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import '../Models/Return/SData';
 
-const __class = declare('icboe.Modules.ReturnModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.ReturnModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -14,4 +14,5 @@ const __class = declare('icboe.Modules.ReturnModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.ReturnModule', __class);
 export default __class;

@@ -12,7 +12,7 @@ import utility from '../../Utility';
 
 const resource = getResource('quoteDetail');
 
-const __class = declare('icboe.Views.Quotes.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   // View Properties
   id: 'quote_detail',
   editView: 'quote_edit',
@@ -642,4 +642,5 @@ const __class = declare('icboe.Views.Quotes.Detail', [Detail], {
   },
 });
 
+lang.setObject('icboe.Views.Quotes.Detail', __class);
 export default __class;

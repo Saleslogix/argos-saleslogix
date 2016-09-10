@@ -26,7 +26,7 @@ const dtFormatResource = getResource('quoteEditDateTimeFormat');
  * @requires crm.Template
  *
  */
-const __class = declare('icboe.Views.Quotes.Edit', [Edit], {
+const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,
   moreDetailsText: resource.moreDetailsText,
@@ -696,5 +696,6 @@ const __class = declare('icboe.Views.Quotes.Edit', [Edit], {
   },
 });
 
+lang.setObject('icboe.Views.Quotes.Edit', __class);
 lang.setObject('icboe.Views.Quotes.Edit', __class);
 export default __class;

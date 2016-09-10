@@ -7,7 +7,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 import PricingAvailabilityService from '../../PricingAvailabilityService';
 
-const __class = declare('icboe.Models.QuoteItem.SData', [Base, _SDataModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.QuoteItem.SData', [Base, _SDataModelBase], {
   id: 'quoteitem_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
@@ -140,4 +140,5 @@ const __class = declare('icboe.Models.QuoteItem.SData', [Base, _SDataModelBase],
 });
 
 Manager.register(MODEL_NAMES.QUOTEITEM, MODEL_TYPES.SDATA, __class);
+lang.setObject('icboe.Models.QuoteItem.SData', __class);
 export default __class;

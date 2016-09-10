@@ -11,7 +11,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpReceivableItemsList');
 
-const __class = declare('icboe.Views.ERPReceivableItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   formatter: format,
   itemTemplate: new Simplate([
     '<h3><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</h3>',
@@ -57,4 +57,5 @@ const __class = declare('icboe.Views.ERPReceivableItems.List', [List, _RightDraw
   },
 });
 
+lang.setObject('icboe.Views.ERPReceivableItems.List', __class);
 export default __class;

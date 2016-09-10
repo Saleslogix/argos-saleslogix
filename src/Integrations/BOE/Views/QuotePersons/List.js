@@ -12,7 +12,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('quotePersonList');
 
-const __class = declare('icboe.Views.Quotes.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
@@ -50,4 +50,5 @@ const __class = declare('icboe.Views.Quotes.List', [List, _RightDrawerListMixin,
   },
 });
 
+lang.setObject('icboe.Views.Quotes.List', __class);
 export default __class;

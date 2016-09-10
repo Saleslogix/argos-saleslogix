@@ -6,7 +6,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('icboe.Models.ErpShipToAccount.SData', [Base, _SDataModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.ErpShipToAccount.SData', [Base, _SDataModelBase], {
   id: 'erpshiptoaccount_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
@@ -35,4 +35,5 @@ const __class = declare('icboe.Models.ErpShipToAccount.SData', [Base, _SDataMode
 });
 
 Manager.register(MODEL_NAMES.ERPSHIPTOACCOUNT, MODEL_TYPES.SDATA, __class);
+lang.setObject('icboe.Models.ErpShipToAccount.SData', __class);
 export default __class;

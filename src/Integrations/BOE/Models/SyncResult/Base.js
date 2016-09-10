@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('syncResultModel');
 
-const __class = declare('icboe.Models.SyncResult.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.SyncResult.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'syncResults',
   entityName: 'SyncResult',
@@ -24,4 +24,5 @@ const __class = declare('icboe.Models.SyncResult.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.SyncResult.Base', __class);
 export default __class;

@@ -17,7 +17,7 @@ import _DashboardWidgetBase from './_DashboardWidgetBase';
  * @extends argos._RelatedViewWidgetBase
  *
  */
-const __class = declare('crm.Views.DashboardWidget', [_DashboardWidgetBase], {
+const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidgetBase], {
     buildView: function buildView(entry) {
       this.destroyWidgets();
       this.metricWidgets = [];
@@ -90,4 +90,5 @@ const __class = declare('crm.Views.DashboardWidget', [_DashboardWidgetBase], {
 
 const rvm = new RelatedViewManager();
 rvm.registerType('dashboard_widget', __class);
+lang.setObject('crm.Views.DashboardWidget', __class);
 export default __class;

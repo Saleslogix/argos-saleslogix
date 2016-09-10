@@ -10,7 +10,7 @@ import '../Models/ErpInvoice/SData';
 import '../Models/ErpInvoiceItem/SData';
 import '../Models/ErpInvoicePerson/SData';
 
-const __class = declare('icboe.Modules.InvoiceModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.InvoiceModule', [_Module], {
   defaultViews: ['invoice_list'],
   init: function init() {
     App.picklistService.registerPicklistToView('ErpInvoiceStatus');
@@ -69,4 +69,5 @@ const __class = declare('icboe.Modules.InvoiceModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.InvoiceModule', __class);
 export default __class;

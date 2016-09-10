@@ -6,7 +6,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('icboe.Models.ErpReceivable.SData', [Base, _SDataModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.ErpReceivable.SData', [Base, _SDataModelBase], {
   id: 'erpreceivable_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
@@ -55,4 +55,5 @@ const __class = declare('icboe.Models.ErpReceivable.SData', [Base, _SDataModelBa
 });
 
 Manager.register(MODEL_NAMES.ERPRECEIVABLE, MODEL_TYPES.SDATA, __class);
+lang.setObject('icboe.Models.ErpReceivable.SData', __class);
 export default __class;

@@ -9,7 +9,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipTosEdit');
 
-const __class = declare('icboe.Views.ERPShipTos.Edit', [Edit], {
+const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Edit', [Edit], {
   // View Properties
   id: 'erpshipto_edit',
   detailView: 'erpshipto_detail',
@@ -255,4 +255,5 @@ const __class = declare('icboe.Views.ERPShipTos.Edit', [Edit], {
   },
 });
 
+lang.setObject('icboe.Views.ERPShipTos.Edit', __class);
 export default __class;

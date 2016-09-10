@@ -8,7 +8,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('productsList');
 
-const __class = declare('icboe.Views.Products.List', [List], {
+const __class = declare('crm.Integrations.BOE.Views.Products.List', [List], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
@@ -63,4 +63,5 @@ const __class = declare('icboe.Views.Products.List', [List], {
   },
 });
 
+lang.setObject('icboe.Views.Products.List', __class);
 export default __class;

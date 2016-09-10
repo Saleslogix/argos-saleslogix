@@ -8,7 +8,7 @@ import MODEL_NAMES from '../Names';
 import Deferred from 'dojo/Deferred';
 import when from 'dojo/when';
 
-const __class = declare('icboe.Models.UnitOfMeasure.SData', [Base, _SDataModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.UnitOfMeasure.SData', [Base, _SDataModelBase], {
   id: 'unitofmeasure_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
@@ -57,4 +57,5 @@ const __class = declare('icboe.Models.UnitOfMeasure.SData', [Base, _SDataModelBa
 });
 
 Manager.register(MODEL_NAMES.UNITOFMEASURE, MODEL_TYPES.SDATA, __class);
+lang.setObject('icboe.Models.UnitOfMeasure.SData', __class);
 export default __class;

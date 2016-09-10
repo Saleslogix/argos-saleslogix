@@ -17,7 +17,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipTosDetail');
 
-const __class = declare('icboe.Views.ERPShipTos.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   moreDetailsText: resource.moreDetailsText,
@@ -189,4 +189,5 @@ const __class = declare('icboe.Views.ERPShipTos.Detail', [Detail], {
   },
 });
 
+lang.setObject('icboe.Views.ERPShipTos.Detail', __class);
 export default __class;

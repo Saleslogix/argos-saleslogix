@@ -4,7 +4,7 @@ import List from './PricingAvailabilityList';
 import PricingAvailabilityService from '../../PricingAvailabilityService';
 import MODEL_NAMES from '../../Models/Names';
 
-const __class = declare('icboe.Views.Locations.QuoteItemAvailabilityList', [List], {
+const __class = declare('crm.Integrations.BOE.Views.Locations.QuoteItemAvailabilityList', [List], {
   // View Properties
   id: 'locations_quoteItemAvailabilityList',
   modelName: MODEL_NAMES.QUOTEITEM,
@@ -30,4 +30,5 @@ const __class = declare('icboe.Views.Locations.QuoteItemAvailabilityList', [List
   },
 });
 
+lang.setObject('icboe.Views.Locations.QuoteItemAvailabilityList', __class);
 export default __class;

@@ -6,7 +6,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('icboe.Models.Location.SData', [Base, _SDataModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Location.SData', [Base, _SDataModelBase], {
   id: 'slxlocation_sdata_model',
   createQueryModels: function createQueryModels() {
     // Unable to order by Description
@@ -38,4 +38,5 @@ const __class = declare('icboe.Models.Location.SData', [Base, _SDataModelBase], 
 });
 
 Manager.register(MODEL_NAMES.LOCATION, MODEL_TYPES.SDATA, __class);
+lang.setObject('icboe.Models.Location.SData', __class);
 export default __class;

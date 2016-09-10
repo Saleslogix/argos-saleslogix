@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('carrierModel');
 
-const __class = declare('icboe.Models.Carrier.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Carrier.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'carriers',
   entityName: 'Carrier',
@@ -23,4 +23,5 @@ const __class = declare('icboe.Models.Carrier.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.Carrier.Base', __class);
 export default __class;

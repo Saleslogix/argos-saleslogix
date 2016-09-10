@@ -11,7 +11,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipToAccountsList');
 
-const __class = declare('icboe.Views.ERPShipToAccounts.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.ErpShipTo.Name %}</h3>',
@@ -45,4 +45,5 @@ const __class = declare('icboe.Views.ERPShipToAccounts.List', [List, _RightDrawe
   },
 });
 
+lang.setObject('icboe.Views.ERPShipToAccounts.List', __class);
 export default __class;

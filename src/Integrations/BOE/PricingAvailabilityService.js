@@ -4,7 +4,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('pricingAvailabilityService');
 
-const __class = lang.setObject('icboe.PricingAvailabilityService', {
+const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService', {
 
   busyText: resource.busyText,
   checkOrderItemAvailText: resource.checkOrderItemAvailText,
@@ -402,4 +402,5 @@ const __class = lang.setObject('icboe.PricingAvailabilityService', {
   },
 });
 
+lang.setObject('icboe.PricingAvailabilityService', __class);
 export default __class;

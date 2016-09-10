@@ -9,7 +9,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('contactModule');
 
-const __class = declare('icboe.Modules.ContactModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module], {
   // Localization
   erpStatusText: resource.erpStatusText,
   erpContactIdText: resource.erpContactIdText,
@@ -185,4 +185,5 @@ const __class = declare('icboe.Modules.ContactModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.ContactModule', __class);
 export default __class;

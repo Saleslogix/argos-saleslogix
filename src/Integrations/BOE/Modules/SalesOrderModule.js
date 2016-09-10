@@ -19,7 +19,7 @@ import SyncResultsList from '../Views/SyncResults/List';
 import '../Models/SalesOrder/SData';
 import '../Models/ErpSalesOrderPerson/SData';
 
-const __class = declare('icboe.Modules.SalesOrderModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Module], {
   defaultViews: ['salesorder_list'],
   init: function init() {
     App.picklistService.registerPicklistToView('SyncStatus', 'salesorder_detail');
@@ -171,4 +171,5 @@ const __class = declare('icboe.Modules.SalesOrderModule', [_Module], {
   loadToolbars: function loadToolbars() {
   },
 });
+lang.setObject('icboe.Modules.SalesOrderModule', __class);
 export default __class;

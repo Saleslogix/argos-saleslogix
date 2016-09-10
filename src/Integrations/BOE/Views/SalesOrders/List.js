@@ -14,7 +14,7 @@ import utility from '../../Utility';
 
 const resource = getResource('salesOrdersList');
 
-const __class = declare('icboe.Views.SalesOrders.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
   // Templates
@@ -113,4 +113,5 @@ const __class = declare('icboe.Views.SalesOrders.List', [List, _RightDrawerListM
   },
 });
 
+lang.setObject('icboe.Views.SalesOrders.List', __class);
 export default __class;

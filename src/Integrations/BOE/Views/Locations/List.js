@@ -7,7 +7,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('locationsList');
 
-const __class = declare('icboe.Views.Locations.List', [List], {
+const __class = declare('crm.Integrations.BOE.Views.Locations.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<h4>{%: $.Name %}</h4>',
@@ -41,4 +41,5 @@ const __class = declare('icboe.Views.Locations.List', [List], {
   },
 });
 
+lang.setObject('icboe.Views.Locations.List', __class);
 export default __class;

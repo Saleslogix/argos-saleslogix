@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 
-const __class = declare('icboe.Modules.PayFromModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.PayFromModule', [_Module], {
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -13,4 +13,5 @@ const __class = declare('icboe.Modules.PayFromModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.PayFromModule', __class);
 export default __class;

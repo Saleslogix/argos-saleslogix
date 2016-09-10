@@ -8,7 +8,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('locationsPricingAvailabilityList');
 
-const __class = declare('icboe.Views.Locations.PricingAvailabilityList', [List], {
+const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<h4><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</h4>',
@@ -123,4 +123,5 @@ const __class = declare('icboe.Views.Locations.PricingAvailabilityList', [List],
   },
 });
 
+lang.setObject('icboe.Views.Locations.PricingAvailabilityList', __class);
 export default __class;

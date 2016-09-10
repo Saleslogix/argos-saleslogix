@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpBillToAccountsEdit');
 
-const __class = declare('icboe.Views.ERPBillToAccounts.Edit', [Edit], {
+const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.Edit', [Edit], {
   // View Properties
   id: 'erpbilltoaccounts_edit',
   detailView: 'erpbilltoaccounts_detail',
@@ -65,4 +65,5 @@ const __class = declare('icboe.Views.ERPBillToAccounts.Edit', [Edit], {
   },
 });
 
+lang.setObject('icboe.Views.ERPBillToAccounts.Edit', __class);
 export default __class;

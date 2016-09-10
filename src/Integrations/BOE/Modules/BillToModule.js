@@ -15,7 +15,7 @@ import SyncResultsList from '../Views/SyncResults/List';
 
 import '../Models/ErpBillTo/SData';
 
-const __class = declare('icboe.Modules.BillToModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.BillToModule', [_Module], {
   init: function init() {
     App.picklistService.registerPicklistToView('SyncStatus', 'erpbillto_detail');
   },
@@ -122,4 +122,5 @@ const __class = declare('icboe.Modules.BillToModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.BillToModule', __class);
 export default __class;

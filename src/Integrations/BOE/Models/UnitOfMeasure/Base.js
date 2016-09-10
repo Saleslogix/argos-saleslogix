@@ -6,7 +6,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('unitOfMeasureModel');
 
-const __class = declare('icboe.Models.UnitOfMeasure.Base', [_ModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.UnitOfMeasure.Base', [_ModelBase], {
   contractName: 'dynamic',
   resourceKind: 'unitsOfMeasure',
   entityName: 'UnitOfMeasure',
@@ -24,4 +24,5 @@ const __class = declare('icboe.Models.UnitOfMeasure.Base', [_ModelBase], {
     return rel;
   },
 });
+lang.setObject('icboe.Models.UnitOfMeasure.Base', __class);
 export default __class;

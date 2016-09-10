@@ -7,7 +7,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityModule');
 
-const __class = declare('icboe.Modules.OpportunityModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Module], {
   addQuoteText: resource.addQuoteText,
   addOrderText: resource.addOrderText,
   relatedERPItemsText: resource.relatedERPItemsText,
@@ -149,4 +149,5 @@ const __class = declare('icboe.Modules.OpportunityModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.OpportunityModule', __class);
 export default __class;

@@ -29,7 +29,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicesList');
 
-const __class = declare('crm.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   formatter: crmFormat,
   util: utility,
   // Templates
@@ -109,4 +109,5 @@ const __class = declare('crm.Views.ERPInvoices.List', [List, _RightDrawerListMix
   },
 });
 
+lang.setObject('crm.Views.ERPInvoices.List', __class);
 export default __class;

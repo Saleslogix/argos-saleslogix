@@ -6,7 +6,7 @@ import ERPReceivablesList from '../Views/ERPReceivables/List';
 import ERPReceivableItemsList from '../Views/ERPReceivableItems/List';
 import '../Models/ErpReceivable/SData';
 
-const __class = declare('icboe.Modules.ReceivableModule', [_Module], {
+const __class = declare('crm.Integrations.BOE.Modules.ReceivableModule', [_Module], {
   defaultView: ['erpreceivables_list'],
   init: function init() {
   },
@@ -61,4 +61,5 @@ const __class = declare('icboe.Modules.ReceivableModule', [_Module], {
   },
 });
 
+lang.setObject('icboe.Modules.ReceivableModule', __class);
 export default __class;

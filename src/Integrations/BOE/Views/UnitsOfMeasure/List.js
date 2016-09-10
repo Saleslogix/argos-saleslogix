@@ -8,7 +8,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('unitsOfMeasureList');
 
-const __class = declare('icboe.Views.UnitsOfMeasure.List', [List], {
+const __class = declare('crm.Integrations.BOE.Views.UnitsOfMeasure.List', [List], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
@@ -41,4 +41,5 @@ const __class = declare('icboe.Views.UnitsOfMeasure.List', [List], {
   },
 });
 
+lang.setObject('icboe.Views.UnitsOfMeasure.List', __class);
 export default __class;
