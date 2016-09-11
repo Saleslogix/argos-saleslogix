@@ -33,7 +33,7 @@ const __class = lang.setObject('crm.Integrations.BOE.Aggregate', {
     const profitTotal = icboe.Aggregate.calcProfit(revenue, cost);
     const revenueTotal = crmAggergate.sum(revenue);
     let margin;
-    if (revenueTotal !== 0 ) {
+    if (revenueTotal !== 0) {
       margin = profitTotal / revenueTotal;
     } else {
       margin = 0;
