@@ -21,7 +21,8 @@ module.exports = function(grunt) {
         stdout: true,
         stdin: true,
         execOptions: {
-          cwd: '.'
+          cwd: '.',
+          maxBuffer: false
         }
       }
     },
@@ -29,7 +30,8 @@ module.exports = function(grunt) {
       command: os.platform() === 'win32' ? 'build\\release.cmd' : 'build/release.sh',
       options: {
         execOptions: {
-          cwd: ''
+          cwd: '',
+          maxBuffer: false
         }
       }
     },
@@ -45,7 +47,8 @@ module.exports = function(grunt) {
         stdout: true,
         stdin: true,
         execOptions: {
-          cwd: '.'
+          cwd: '.',
+          maxBuffer: false
         }
       }
     }
