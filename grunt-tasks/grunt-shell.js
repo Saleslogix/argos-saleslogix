@@ -1,7 +1,7 @@
 /*eslint-disable*/
 var os = require('os');
 
-var MAX_BUFFER = 2048;
+var MAX_BUFFER = 400 * 1024;
 
 module.exports = function(grunt) {
   grunt.config('shell', {
