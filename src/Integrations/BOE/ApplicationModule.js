@@ -41,8 +41,6 @@ const resource = getResource('icboeApplicationModule');
 const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationModule], {
   modules: null,
   init: function init() {
-    App.picklistService = PicklistService;
-
     this.inherited(arguments);
   },
   initDynamic: function init() {
@@ -207,7 +205,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
         name: 'picklist-requests',
         description: resource.retrievingPicklistsText,
         fn: () => {
-          App.picklistService.requestPicklists();
+          PicklistService.requestPicklists();
         },
       }],
     });

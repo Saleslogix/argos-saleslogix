@@ -9,7 +9,7 @@
  *
  */
 import lang from 'dojo/_base/lang';
-import crmAggergate from '../Aggregate';
+import crmAggergate from '../../Aggregate';
 
 const __class = lang.setObject('crm.Integrations.BOE.Aggregate', {
   /**
