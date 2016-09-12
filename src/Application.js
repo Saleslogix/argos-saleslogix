@@ -104,8 +104,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     this.inherited(arguments);
+    this.preferences = {};
     this._loadNavigationState();
-    this._saveDefaultPreferences();
 
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
@@ -456,6 +456,7 @@ const __class = declare('crm.Application', [Application], {
     this.navigateToLoginView();
   },
   onInitAppStateSuccess: function onInitAppStateSuccess() {
+    this._saveDefaultPreferences();
     if (this.enableOfflineSupport) {
       this.initOfflineData().then(() => {
         this.hasState = true;
@@ -500,7 +501,7 @@ const __class = declare('crm.Application', [Application], {
     } catch (e) {} // eslint-disable-line
   },
   _saveDefaultPreferences: function _saveDefaultPreferences() {
-    if (this.preferences) {
+    if (this.preferences && this.preferences.home) {
       return;
     }
 
