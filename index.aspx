@@ -182,7 +182,7 @@
             var culture, results, isMetric;
 
             culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-            isMetric = <%= (System.Globalization.RegionInfo.CurrentRegion.IsMetric) ? "true" : "false" %>;
+            isMetric = <%= ((new RegionInfo(System.Globalization.CultureInfo.CurrentCulture.LCID)).IsMetric) ? "true" : "false" %>;
             configuration.currentCulture = culture;
             configuration.isRegionMetric = isMetric;
             results = moment.locale(culture);
