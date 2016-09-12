@@ -43,7 +43,7 @@ const __class = declare('crm.Integrations.Contour.ApplicationModule', [Applicati
     // We want to add these views to the default set of home screen views.
     // Save the original getDefaultviews() function.
     var originalDefViews = crm.Application.prototype.getDefaultViews;
-    lang.extend(Mobile.SalesLogix.Application, {
+    lang.extend(crm.Application, {
       getDefaultViews: function() {
         // Get view array from original function, or default to empty array
         var views = originalDefViews.apply(this, arguments) || [];
