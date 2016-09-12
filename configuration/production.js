@@ -4,13 +4,18 @@
  * @requires Mobile.SalesLogix.ApplicationModule
  *
  */
-define('configuration/production', ['crm/ApplicationModule', 'crm/Integrations/BOE/ApplicationModule'], function cb(ApplicationModule, BOEApplicationModule) {
+define('configuration/production', [
+  'crm/ApplicationModule',
+  'crm/Integrations/BOE/ApplicationModule',
+  'crm/Integrations/Contour/ApplicationModule',
+], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
       new BOEApplicationModule({
-        enableDashboards: true
+        enableDashboards: true,
       }),
+      new ContourApplicationModule(),
     ],
     connections: {
       'crm': {

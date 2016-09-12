@@ -361,6 +361,9 @@
           "text": "_CardLayoutListMixin.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "Names.js",
+          "path": "../src-out/Integrations/Contour/Models/"
+        }, {
           "text": "ActivityTypeIcon.js",
           "path": "../src-out/Models/Activity/"
         }, {
@@ -588,6 +591,12 @@
         }, {
           "text": "Settings.js",
           "path": "../src-out/Views/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/Contour/Models/Place/"
+        }, {
+          "text": "LocationPicker.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
@@ -887,6 +896,12 @@
           "path": "../src-out/Integrations/BOE/Models/UnitOfMeasure/"
         }, {
           "text": "Offline.js",
+          "path": "../src-out/Integrations/Contour/Models/Place/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/Contour/Models/Place/"
+        }, {
+          "text": "Offline.js",
           "path": "../src-out/Models/Activity/"
         }, {
           "text": "SData.js",
@@ -1033,6 +1048,9 @@
           "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
         }, {
+          "text": "AccountPxSearch.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
+        }, {
           "text": "List.js",
           "path": "../src-out/Views/Account/"
         }, {
@@ -1089,6 +1107,9 @@
         }, {
           "text": "SalesOrderItemModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ApplicationModule.js",
+          "path": "../src-out/Integrations/Contour/"
         }, {
           "text": "BillToAccountModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
