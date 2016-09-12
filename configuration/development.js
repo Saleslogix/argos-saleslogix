@@ -1,4 +1,4 @@
-define('configuration/development', ['crm/ApplicationModule'], function cb(ApplicationModule) {
+define('configuration/development', ['crm/ApplicationModule', 'crm/Integrations/BOE/ApplicationModule'], function cb(ApplicationModule, BOEApplicationModule) {
   // Toggle console logs for PouchDB
   // PouchDB.debug.enable('*');
   PouchDB.debug.disable();
@@ -6,6 +6,9 @@ define('configuration/development', ['crm/ApplicationModule'], function cb(Appli
   return {
     modules: [
       new ApplicationModule(),
+      new BOEApplicationModule({
+        enableDashboards: true
+      }),
     ],
     connections: {
       'crm': {

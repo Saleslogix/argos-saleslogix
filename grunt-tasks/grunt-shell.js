@@ -1,6 +1,8 @@
 /*eslint-disable*/
 var os = require('os');
 
+var MAX_BUFFER = 400 * 1024;
+
 module.exports = function(grunt) {
   grunt.config('shell', {
     bundle: {
@@ -21,7 +23,8 @@ module.exports = function(grunt) {
         stdout: true,
         stdin: true,
         execOptions: {
-          cwd: '.'
+          cwd: '.',
+          maxBuffer: MAX_BUFFER
         }
       }
     },
@@ -29,7 +32,8 @@ module.exports = function(grunt) {
       command: os.platform() === 'win32' ? 'build\\release.cmd' : 'build/release.sh',
       options: {
         execOptions: {
-          cwd: ''
+          cwd: '',
+          maxBuffer: MAX_BUFFER
         }
       }
     },
@@ -45,7 +49,8 @@ module.exports = function(grunt) {
         stdout: true,
         stdin: true,
         execOptions: {
-          cwd: '.'
+          cwd: '.',
+          maxBuffer: MAX_BUFFER
         }
       }
     }

@@ -1684,3 +1684,185 @@ canvas,
 
     }
 }
+
+/* BOE */
+@metricNumSize: 20px;
+@metricTextSize: 12px;
+@metricCountSize: 10px;
+
+.address {
+    white-space: pre-wrap;
+}
+
+ .related-view-widget-base {
+    line-height: normal;
+ }
+
+ .promote__dropdown {
+   width: 100%;
+ }
+
+ .promote__row {
+  position: relative;
+  display: block;
+  height: 48px;
+  margin-bottom: 10px;
+ }
+
+ .promote__row__label {
+   width: 100%;
+   display: block;
+ }
+
+ .busyField {
+   font-size: 14px;
+   height: 32px;
+   line-height: 32px;
+   box-sizing: border-box;
+   border: 1px solid @color-lighter-graphite;
+   border-radius: 3px;
+   width: auto;
+ }
+ .dashboard-widget {
+    padding: 5px;
+    background-color: #dee1e8;
+ }
+ .dashboard-header{
+   padding: 0px;
+   width: 100%;
+   display: inline-flex;
+   justify-content: space-between;
+      button {
+         background-color: transparent;
+         border: none;
+      }
+      .dashboard-header-content {
+          display: inline-block;
+          .dashboard-header-text {
+              display: inline-block;
+          }
+      }
+      .dashboard-title{
+          font-size: 12px;
+          color:@color-deep-slate;
+          font-weight:bold;
+          padding-left: 4px;
+      }
+      .dashboard-category{
+          font-size: 12px;
+          color:@color-light-slate;
+          padding-left: 4px;
+      }
+      .dashboard-icon{
+       min-width: 26px;
+       min-height: 26px;
+       line-height: 26px;
+       background-color: @black-light;
+       font-size: 12px;
+       color: white;
+       text-align: center;
+       border-radius: 50%;
+       float: left;
+      }
+ }
+ .dashboard-metric-list {
+     margin: auto;
+     background-color: transparent;
+     display: inline-flex;
+     flex-flow: row wrap;
+     width: 100%;
+
+     .dashboard-metric-item {
+         text-align: center;
+         display: flex;
+         width: 33.3%;
+
+         .metric-detail {
+           display: inherit;
+           background-color: #FFF;
+           padding: 0;
+           width: 95%;
+         }
+
+         .metric-value {
+             color: @color-azure;
+         }
+
+         @media (min-width: @mobile-landscape) {
+             width: 25%;
+         }
+
+         @media (min-width: @tablet-portrait) {
+             width: 20%;
+         }
+
+         @media (min-width: @tablet-landscape) {
+             width: 16.66%;
+         }
+
+         @media (min-width: @desktop) {
+             width: 12.5%;
+         }
+
+         div > button {
+             background-color: transparent;
+             height: inherit;
+             h1 {
+                 font-size: @metricNumSize;
+                 overflow: hidden;
+
+             }
+             .metric-title {
+                 font-size: @metricTextSize;
+                 color: black;
+                 overflow: hidden;
+                 overflow-wrap: break-word;
+             }
+             .metric-value {
+                  color: @color-azure;
+                  overflow: hidden;
+                  overflow-wrap: break-word;
+             }
+             .metric-count {
+                 font-size: @metricCountSize;
+                 color: black;
+                 overflow: hidden;
+                 overflow-wrap: break-word;
+             }
+         }
+      }
+ }
+
+  .dashboard-metric-item > .metric-widget {
+     height: inherit;
+     width: 95%;
+     border:1px solid rgba(0,0,0,.1);
+     background-color: #fff;
+     display: block;
+    > button {
+      padding: 2px;
+      color: @color-azure;
+    }
+  }
+  .dashboard-range-list {
+     margin: 4px 0;
+     width: 100%;
+     background-color: transparent;
+     display: inline-flex;
+
+      .dashboard-range-item {
+         width: 100%;
+         color: white;
+         flex-grow: 1;
+         text-align: center;
+         button {
+             background-color: transparent;
+             height: inherit;
+             width: 100%;
+             border: 0 black;
+             span {
+                 font-size: @metricTextSize;
+             }
+         }
+      }
+  }

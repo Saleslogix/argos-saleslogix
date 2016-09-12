@@ -96,7 +96,8 @@
         map: {
             '*': {
                 'Sage/Platform/Mobile': 'argos',
-                'Mobile/SalesLogix': 'crm'
+                'Mobile/SalesLogix': 'crm',
+                'icboe': 'crm/Integrations/BOE'
             }
         }
     });

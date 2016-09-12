@@ -12,6 +12,7 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
+import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import 'dojo/sniff';
@@ -928,7 +929,7 @@ const __class = declare('crm.Application', [Application], {
   },
   initOfflineData: function initOfflineData() {
     const def = new Deferred();
-    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
     if (model) {
       const indicator = new BusyIndicator({
         id: 'busyIndicator__offlineData',

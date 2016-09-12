@@ -4,10 +4,13 @@
  * @requires Mobile.SalesLogix.ApplicationModule
  *
  */
-define('configuration/production', ['crm/ApplicationModule'], function cb(ApplicationModule) {
+define('configuration/production', ['crm/ApplicationModule', 'crm/Integrations/BOE/ApplicationModule'], function cb(ApplicationModule, BOEApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
+      new BOEApplicationModule({
+        enableDashboards: true
+      }),
     ],
     connections: {
       'crm': {

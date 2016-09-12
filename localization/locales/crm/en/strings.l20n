@@ -1313,7 +1313,7 @@
   userOptionsText: "User Options"
   systemOptionsText: "System Options"
   userContextAndOptionsText: "User context and options"
-
+  integrationsText: "Integrations"
 >
 
 <defaultMetrics ""
