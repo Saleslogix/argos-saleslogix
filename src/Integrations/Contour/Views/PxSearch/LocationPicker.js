@@ -87,7 +87,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker'
 	_createPlaceEntry: function(name, address) {
 		const plc = {};
 		plc.Address = address;
-		plc.$descriptor = plc.Name = this.myOfficeText;
+		plc.$descriptor = plc.Name = name;
 		plc.$httpStatus = 200;
 		plc.$key = address.$key;
 		plc.ThisUserOnly = true;
