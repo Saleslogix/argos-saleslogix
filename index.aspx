@@ -123,6 +123,7 @@
           defaultLocale: 'en',
           currentLocale: '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>',
           parentLocale: '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>',
+          isRegionMetric: <%= ((new RegionInfo(System.Globalization.CultureInfo.CurrentCulture.LCID)).IsMetric) ? "true" : "false" %>,
           configuration: <%= Serialize(
                   Enumerate("configuration", (file) => file.Name == "production.js")
                       .Select(item => item.Path.Substring(0, item.Path.Length - 3))
