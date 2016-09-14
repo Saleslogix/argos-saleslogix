@@ -1467,7 +1467,7 @@
 <briefcaseList ""
   titleText: "My Briefcase"
   removeText: "remove"
-  reBriefcaseText: "re briefcase"
+  reBriefcaseText: "return record to briefcase"
   goToOnlineText: "go to online view"
   goToOfflineText: "go to offline view"
 >
