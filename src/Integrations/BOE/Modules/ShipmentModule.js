@@ -45,9 +45,6 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipmentModule', [_Module]
       type: 'remove',
     });
   },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
-  },
   loadToolbars: function loadToolbars() {
   },
 });

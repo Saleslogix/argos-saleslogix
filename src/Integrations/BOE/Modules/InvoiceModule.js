@@ -62,9 +62,6 @@ const __class = declare('crm.Integrations.BOE.Modules.InvoiceModule', [_Module],
       type: 'remove',
     });
   },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
-  },
   loadToolbars: function loadToolbars() {
   },
 });

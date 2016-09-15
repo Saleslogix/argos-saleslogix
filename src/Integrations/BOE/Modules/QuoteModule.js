@@ -155,9 +155,6 @@ const __class = declare('crm.Integrations.BOE.Modules.QuoteModule', [_Module], {
       type: 'remove',
     });
   },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
-  },
   loadToolbars: function loadToolbars() {
   },
 });

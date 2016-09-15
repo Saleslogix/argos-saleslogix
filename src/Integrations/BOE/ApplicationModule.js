@@ -216,7 +216,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     lang.extend(crm.Application, {
       getDefaultViews: function getDefaultViews() {
         const views = originalGetDefaultViews.apply(this, arguments) || [];
-        self.modules.forEach(function registerModuleDefaultViews(module) {
+        self.modules.forEach((module) => {
           module.registerDefaultViews(views);
         });
         return views;
