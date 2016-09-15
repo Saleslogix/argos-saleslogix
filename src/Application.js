@@ -459,6 +459,7 @@ const __class = declare('crm.Application', [Application], {
   },
   onInitAppStateSuccess: function onInitAppStateSuccess() {
     this._saveDefaultPreferences();
+    this.setDefaultMetricPreferences();
     if (this.enableOfflineSupport) {
       this.initOfflineData().then(() => {
         this.hasState = true;
@@ -553,7 +554,6 @@ const __class = declare('crm.Application', [Application], {
       success: function success(entry) {
         this.context.user = entry;
         this.context.defaultOwner = entry && entry.DefaultOwner;
-        this.setDefaultMetricPreferences();
         def.resolve(entry);
       },
       failure: function failure() {
