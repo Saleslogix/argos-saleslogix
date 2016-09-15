@@ -51,6 +51,8 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
   // View Properties
   id: 'add_account_contact',
   resourceKind: 'accounts',
+  insertSecurity: 'Entities/Account/Add',
+  updateSecurity: 'Entities/Account/Edit',
   entityName: 'Account',
   querySelect: [
     'AccountManager/UserInfo/FirstName',

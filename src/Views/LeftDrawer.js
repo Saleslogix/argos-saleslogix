@@ -157,6 +157,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         'name': 'AddAccountContactAction',
         'action': 'addAccountContact',
         'title': this.addAccountContactText,
+        'security': 'Entities/Account/Add',
       }],
     };
 
