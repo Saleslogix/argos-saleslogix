@@ -165,9 +165,6 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
       type: 'remove',
     });
   },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
-  },
   loadToolbars: function loadToolbars() {
   },
 });
