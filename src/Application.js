@@ -52,6 +52,8 @@ const __class = declare('crm.Application', [Application], {
     'DefaultGroup;OPPORTUNITY',
     'DefaultGroup;LEAD',
     'DefaultGroup;TICKET',
+    'DefaultGroup;SALESORDER',
+    'DefaultGroup;QUOTE',
     'General;InsertSecCodeID',
     'General;Currency',
     'Calendar;DayStartTime',
