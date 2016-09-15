@@ -106,7 +106,6 @@ const __class = declare('crm.Application', [Application], {
     }
 
     this.inherited(arguments);
-    this.preferences = {};
     this._loadNavigationState();
 
     this.UID = (new Date()).getTime();
@@ -504,7 +503,7 @@ const __class = declare('crm.Application', [Application], {
     } catch (e) {} // eslint-disable-line
   },
   _saveDefaultPreferences: function _saveDefaultPreferences() {
-    if (this.preferences && this.preferences.home) {
+    if (this.preferences) {
       return;
     }
 
