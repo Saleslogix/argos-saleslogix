@@ -57,9 +57,9 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
 
   createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
-      '$key': e.$key,
-      '$etag': e.$etag,
-      '$name': e.$name,
+      $key: e.$key,
+      $etag: e.$etag,
+      $name: e.$name,
     };
     return entry;
   },
@@ -68,7 +68,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
     App.modal.createSimpleDialog({
       title: 'alert',
       content: this.confirmDeleteText,
-      getContent: () => { return; },
+      getContent: () => { },
     }).then(() => {
       const entry = this.createEntryForDelete(this.entry);
       const request = this.store._createEntryRequest(this.entry.$key, {});
@@ -109,7 +109,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'edit',
         cls: 'fa fa-pencil fa-lg',
         action: 'navigateToEditView',
@@ -128,6 +128,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
     });
   },
   createLayout: function createLayout() {
+    const { code: baseCurrencyCode } = App.getBaseExchangeRate();
+
     return this.layout || (this.layout = [{
       title: this.actionsText,
       list: true,
@@ -164,29 +166,30 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         property: 'Price',
         label: this.priceText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.BaseCurrencyCode);
+          const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'Discount',
         property: 'Discount',
         label: this.discountText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.BaseCurrencyCode);
+          const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'CalculatedPrice',
         property: 'CalculatedPrice',
         label: this.baseAdjustedPriceText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.BaseCurrencyCode);
+          const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'DocCalculatedPrice',
         property: 'DocCalculatedPrice',
         label: this.adjustedPriceText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'Quantity',
         property: 'Quantity',
@@ -209,22 +212,19 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'ExtendedPrice',
         property: 'ExtendedPrice',
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.BaseCurrencyCode);
+          const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'DocExtendedPrice',
         property: 'DocExtendedPrice',
         label: this.extendedAmountText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'DocTotalAmount',
         property: 'DocTotalAmount',
         label: this.totalAmountText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'Status',
         property: 'Status',
@@ -256,9 +256,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'FixedPrice',
         property: 'FixedPrice',
         label: this.fixedPriceText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'RushRequest',
         property: 'RushRequest',
