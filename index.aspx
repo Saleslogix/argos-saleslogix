@@ -158,6 +158,7 @@
         Session.Abandon();
         Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId") {Expires = DateTime.Now.AddDays(-1d)});
         Response.Cookies.Add(new HttpCookie("SlxStickySessionId") {Expires = DateTime.Now.AddDays(-1d)});
+        Response.Cookies.Add(new HttpCookie(".SLXAUTH") { Expires = DateTime.Now.AddDays(-1d) });
     }
 
     protected class FileItem
