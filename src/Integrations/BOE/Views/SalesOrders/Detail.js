@@ -557,7 +557,14 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
               return `EntityType eq "SalesOrder" and EntityId eq "${entry.$key}"`;
             },
             view: 'order_syncresult_related',
-          }],
+        }, {
+          name: 'SalesPersons',
+          label: this.salesPersonsText,
+          where: function where(entry) {
+            return 'SalesOrder.Id eq "' + entry.$key + '"';
+          },
+          view: 'salesorder_salesperson_related',
+        }],
       }]);
   },
 });

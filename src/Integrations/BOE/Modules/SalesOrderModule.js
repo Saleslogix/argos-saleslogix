@@ -13,6 +13,7 @@ import SalesOrderList from '../Views/SalesOrders/List';
 import SalesOrderDetail from '../Views/SalesOrders/Detail';
 import SalesOrderEdit from '../Views/SalesOrders/Edit';
 import SalesOrderItemList from '../Views/SalesOrderItems/List';
+import SalesPersonList from '../Views/ERPSalesOrderPersons/List';
 import ShipToList from '../Views/ERPShipTos/List';
 import ShipmentItemsList from '../Views/ERPShipmentItems/List';
 import SyncResultsList from '../Views/SyncResults/List';
@@ -147,6 +148,16 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
       disableRightDrawer: true,
       expose: false,
       groupsEnabled: false,
+    }));
+
+    am.registerView(new SalesPersonList({
+      id: 'salesorder_salesperson_related',
+      groupsEnabled: false,
+      disableRightDrawer: true,
+      expose: false,
+      defaultSearchTerm: function defaultSearchTerm() {
+        return '';
+      },
     }));
   },
   loadCustomizations: function loadCustomizations() {
