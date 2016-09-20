@@ -28,6 +28,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipTo.SData', [Base, _S
         'Address/*',
         'ErpStatus',
         'SyncStatus',
+        'ErpExtId',
         'ErpLogicalId',
         'ErpAccountingEntityId',
         'Owner/OwnerDescription',
