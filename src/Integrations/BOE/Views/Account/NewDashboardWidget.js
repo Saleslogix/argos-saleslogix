@@ -49,6 +49,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   unapprovedCode: 'Unapproved',
   holdCode: 'Hold',
   disputeCode: 'Dispute',
+  writeOffCode: 'WriteOff',
 
   // Values for the metrics
   values: [{
@@ -227,6 +228,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
              'ErpStatus ne "' + this.proformaCode + '" and ' +
              'ErpStatus ne "' + this.voidCode + '" and ' +
              'ErpStatus ne "' + this.disputeCode + '" and ' +
+             'ErpStatus ne "' + this.writeOffCode + '" and ' +
              this.pastDays('ErpDocumentDate'),
           _filterName: 'ErpStatus',
           _metricName: 'SumGrandTotal',
