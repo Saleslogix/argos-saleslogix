@@ -108,6 +108,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
+      security: 'Entities/Account/Edit',
       action: 'navigateToEditView',
     }, {
       id: 'callMain',
