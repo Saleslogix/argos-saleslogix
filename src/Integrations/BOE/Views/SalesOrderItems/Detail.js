@@ -58,11 +58,11 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
   resourceKind: 'salesorderitems',
   modelName: MODEL_NAMES.SALESORDERITEM,
 
-createEntryForDelete: function createEntryForDelete(e) {
+  createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
-      '$key': e.$key,
-      '$etag': e.$etag,
-      '$name': e.$name,
+      $key: e.$key,
+      $etag: e.$etag,
+      $name: e.$name,
     };
     return entry;
   },
@@ -71,7 +71,7 @@ createEntryForDelete: function createEntryForDelete(e) {
     App.modal.createSimpleDialog({
       title: 'alert',
       content: this.confirmDeleteText,
-      getContent: () => { return; },
+      getContent: () => { },
     }).then(() => {
       const entry = this.createEntryForDelete(this.entry);
       const request = this.store._createEntryRequest(this.entry.$key, {});
@@ -112,7 +112,7 @@ createEntryForDelete: function createEntryForDelete(e) {
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'edit',
         cls: 'fa fa-pencil fa-lg',
         action: 'navigateToEditView',
@@ -131,6 +131,8 @@ createEntryForDelete: function createEntryForDelete(e) {
     });
   },
   createLayout: function createLayout() {
+    const { code: baseCurrencyCode } = App.getBaseExchangeRate();
+
     return this.layout || (this.layout = [{
       title: this.actionsText,
       list: true,
@@ -167,29 +169,30 @@ createEntryForDelete: function createEntryForDelete(e) {
         property: 'Price',
         label: this.priceText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.BaseCurrencyCode);
+          const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'Discount',
         property: 'Discount',
         label: this.discountText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.BaseCurrencyCode);
+          const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'CalculatedPrice',
         property: 'CalculatedPrice',
         label: this.baseAdjustedPriceText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.BaseCurrencyCode);
+          const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'DocCalculatedPrice',
         property: 'DocCalculatedPrice',
         label: this.adjustedPriceText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
       }, {
         name: 'Quantity',
         property: 'Quantity',
@@ -212,22 +215,19 @@ createEntryForDelete: function createEntryForDelete(e) {
         name: 'ExtendedPrice',
         property: 'ExtendedPrice',
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.BaseCurrencyCode);
+          const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          return utility.formatMultiCurrency(value, code);
         },
       }, {
         name: 'DocExtendedPrice',
         property: 'DocExtendedPrice',
         label: this.extendedAmountText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
       }, {
         name: 'DocTotalAmount',
         property: 'DocTotalAmount',
         label: this.totalAmountText,
-        renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode);
-        },
+        renderer: (value) => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
       }, {
         name: 'ErpStatus',
         property: 'ErpStatus',
@@ -299,10 +299,10 @@ createEntryForDelete: function createEntryForDelete(e) {
         },
       }],
     }, {
-        title: this.relatedItemsText,
-        list: true,
-        name: 'RelatedItemsSection',
-        children: [],
+      title: this.relatedItemsText,
+      list: true,
+      name: 'RelatedItemsSection',
+      children: [],
     }]);
   },
 });
