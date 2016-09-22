@@ -33,6 +33,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   insertSecurity: 'Entities/SalesOrder/Add',
   updateSecurity: 'Entities/SalesOrder/Edit',
   resourceKind: 'salesOrders',
+  opportunityOpenCode: 'Open',
   warehouseCode: 'Warehouse',
   officeCode: 'Office',
   siteCode: 'Site',
