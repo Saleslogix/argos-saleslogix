@@ -84,6 +84,10 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
         view: 'account_detail',
         key: 'Account.$key',
       }, {
+        name: 'Description',
+        property: 'Description',
+        label: this.descriptionText,
+      }, {
         label: this.extendedBaseAmountText,
         name: 'ErpExtendedBaseAmount',
         property: 'ErpExtendedBaseAmount',
