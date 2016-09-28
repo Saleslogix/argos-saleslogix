@@ -78,13 +78,6 @@ const __class = declare('crm.Integrations.BOE.Models.Quote.Base', [_ModelBase], 
         relatedProperty: 'Quote',
         relatedPropertyType: 'object',
       }, {
-        name: 'QuotePerson',
-        displayName: quotepersonResource.entityDisplayNamePlural,
-        type: 'OneToMany',
-        relatedEntity: 'QuotePerson',
-        relatedProperty: 'Quote',
-        relatedPropertyType: 'object',
-      }, {
         name: 'SyncHistory',
         displayName: syncresultResource.entityDisplayNamePlural,
         type: 'OneToMany',
