@@ -54,6 +54,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
   resourceKind: 'quoteItems',
   modelName: MODEL_NAMES.QUOTEITEM,
   entityName: 'QuoteItem',
+  enableOffline: true,
 
   createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
@@ -108,24 +109,20 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
     return true;
   },
   createToolLayout: function createToolLayout() {
-    return this.tools || (this.tools = {
-      tbar: [{
-        id: 'edit',
-        cls: 'fa fa-pencil fa-lg',
-        action: 'navigateToEditView',
-        security: App.getViewSecurity(this.editView, 'update'),
-      }, {
-        id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
-        action: '_refreshClicked',
-      }, {
+    if (this.tools) {
+      return this.tools;
+    }
+    const tools = this.inherited(arguments);
+    if (tools && tools.tbar) {
+      tools.tbar.push({
         id: 'removeQuoteLine',
         cls: 'fa fa-times-circle fa-lg',
         action: 'removeQuoteLine',
         title: this.removeQuoteLineText,
         security: 'Entities/Quote/Delete',
-      }],
-    });
+      });
+    }
+    return tools;
   },
   createLayout: function createLayout() {
     const { code: baseCurrencyCode } = App.getBaseExchangeRate();

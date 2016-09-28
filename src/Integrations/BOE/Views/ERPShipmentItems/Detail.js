@@ -29,6 +29,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.Detail', [D
   id: 'erpshipment_items_detail',
   modelName: MODEL_NAMES.ERPSHIPMENTITEM,
   resourceKind: 'erpShipmentItems',
+  enableOffline: true,
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

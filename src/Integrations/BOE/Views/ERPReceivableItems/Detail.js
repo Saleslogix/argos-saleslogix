@@ -24,6 +24,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.Detail', 
   // security: 'Entities/ERPReceivableItems/View',
   modelName: MODEL_NAMES.ERPRECEIVABLEITEM,
   resourceKind: 'erpReceivableItems',
+  enableOffline: true,
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

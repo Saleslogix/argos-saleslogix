@@ -44,7 +44,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
   relatedItemsText: resource.relatedItemsText,
   invoiceItemsText: resource.invoiceItemsText,
   moreDetailsText: resource.moreDetailsText,
-  receivableItemsText: resource.receivableItemsText,
+  receivablesText: resource.receivablesText,
   billToText: resource.billToText,
   shipToText: resource.shipToText,
   salesPersonsText: resource.salesPersonsText,
@@ -56,6 +56,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
   id: 'invoice_detail',
   modelName: MODEL_NAMES.ERPINVOICE,
   resourceKind: 'erpInvoices',
+  enableOffline: true,
 
   callMainPhone: function callMainPhone() {
     this.recordCallToHistory(lang.hitch(this, function initiateCall() {
@@ -199,8 +200,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
         where: this.formatRelatedQuery.bindDelegate(this, 'ErpInvoice.Id eq "${0}"'),
         view: 'invoice_items_related',
       }, {
-        name: 'ERPReceivableItems',
-        label: this.receivableItemsText,
+        name: 'ERPReceivable',
+        label: this.receivablesText,
         where: this.formatRelatedQuery.bindDelegate(this, 'ErpInvoice.Id eq "${0}"'),
         view: 'invoice_receivables_related',
        },

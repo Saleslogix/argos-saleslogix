@@ -28,11 +28,17 @@ import ShipmentLineModule from './Modules/ShipmentLineModule';
 import ShipmentModule from './Modules/ShipmentModule';
 import ShipToAccountModule from './Modules/ShipToAccountModule';
 import ShipToModule from './Modules/ShipToModule';
+import './Models/SyncResult/Offline';
 import './Models/SyncResult/SData';
+import './Models/BackOffice/Offline';
 import './Models/BackOffice/SData';
+import './Models/BackOfficeAccountingEntity/Offline';
 import './Models/BackOfficeAccountingEntity/SData';
+import './Models/Location/Offline';
 import './Models/Location/SData';
+import './Models/OperatingCompany/Offline';
 import './Models/OperatingCompany/SData';
+import './Models/UnitOfMeasure/Offline';
 import './Models/UnitOfMeasure/SData';
 import 'argos/TabWidget';
 

@@ -5,6 +5,7 @@ import MODEL_NAMES from '../Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('erpBillToAccountModel');
+const accountResource = getResource('accountModel');
 
 const __class = declare('crm.Integrations.BOE.Models.ErpBillToAccount.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -19,7 +20,14 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillToAccount.Base', [_M
   editViewId: '',
   createRelationships: function createRelationships() {
     let rel;
-    rel = this.relationships || (this.relationships = []);
+    rel = this.relationships || (this.relationships = [{
+      name: 'Account',
+      displayName: accountResource.entityDisplayName,
+      type: 'ManyToOne',
+      relatedEntity: 'Account',
+      relatedProperty: 'ErpBillToAccounts',
+      relatedPropertyType: 'object',
+    }]);
     return rel;
   },
 });

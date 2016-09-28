@@ -57,6 +57,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
   editView: 'salesorder_item_edit',
   resourceKind: 'salesorderitems',
   modelName: MODEL_NAMES.SALESORDERITEM,
+  enableOffline: true,
 
   createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
@@ -111,24 +112,20 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     return true;
   },
   createToolLayout: function createToolLayout() {
-    return this.tools || (this.tools = {
-      tbar: [{
-        id: 'edit',
-        cls: 'fa fa-pencil fa-lg',
-        action: 'navigateToEditView',
-        security: App.getViewSecurity(this.editView, 'update'),
-      }, {
-        id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
-        action: '_refreshClicked',
-      }, {
+    if (this.tools) {
+      return this.tools;
+    }
+    const tools = this.inherited(arguments);
+    if (tools && tools.tbar) {
+      tools.tbar.push({
         id: 'removeOrderLine',
         cls: 'fa fa-times-circle fa-lg',
         action: 'removeOrderLine',
         title: this.removeOrderLineText,
         security: 'Entities/SalesOrder/Delete',
-      }],
-    });
+      });
+    }
+    return tools;
   },
   createLayout: function createLayout() {
     const { code: baseCurrencyCode } = App.getBaseExchangeRate();

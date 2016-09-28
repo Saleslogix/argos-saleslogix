@@ -17,7 +17,9 @@ import SalesPersonList from '../Views/ERPSalesOrderPersons/List';
 import ShipToList from '../Views/ERPShipTos/List';
 import ShipmentItemsList from '../Views/ERPShipmentItems/List';
 import SyncResultsList from '../Views/SyncResults/List';
+import '../Models/SalesOrder/Offline';
 import '../Models/SalesOrder/SData';
+import '../Models/ErpSalesOrderPerson/Offline';
 import '../Models/ErpSalesOrderPerson/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Module], {

@@ -15,6 +15,7 @@ import QuotesEdit from '../Views/Quotes/Edit';
 import QuotesList from '../Views/Quotes/List';
 import ShipToList from '../Views/ERPShipTos/List';
 import SyncResultsList from '../Views/SyncResults/List';
+import '../Models/Quote/Offline';
 import '../Models/Quote/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.QuoteModule', [_Module], {
