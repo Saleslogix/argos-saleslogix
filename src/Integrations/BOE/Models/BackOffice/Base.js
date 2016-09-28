@@ -5,7 +5,6 @@ import MODEL_NAMES from '../Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('backOfficeModel');
-const backOfficeAccountingResource = getResource('backOfficeAccountingEntityModel');
 
 const __class = declare('crm.Integrations.BOE.Models.BackOffice.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -20,13 +19,7 @@ const __class = declare('crm.Integrations.BOE.Models.BackOffice.Base', [_ModelBa
   editViewId: '',
   createRelationships: function createRelationships() {
     let rel;
-    rel = this.relationships || (this.relationships = [{
-        name: 'BackOfficeAccountingEntity',
-        displayName: backOfficeAccountingResource.entityDisplayNamePlural,
-        type: 'OneToMany',
-        relatedEntity: 'BackOfficeAccountingEntity',
-        relatedProperty: 'EntityId',
-      },
+    rel = this.relationships || (this.relationships = [
     ]);
     return rel;
   },

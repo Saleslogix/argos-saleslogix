@@ -42,6 +42,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [D
   id: 'invoice_item_detail',
   modelName: MODEL_NAMES.ERPINVOICEITEM,
   resourceKind: 'erpInvoiceItems',
+  enableOffline: true,
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

@@ -136,6 +136,11 @@
   entityDisplayNamePlural: "Returns"
 >
 
+<salesOrderModel ""
+  entityDisplayName: "Sales Order"
+  entityDisplayNamePlural: "Sales Orders"
+>
+
 <salesOrderItemModel ""
   entityDisplayName: "Sales Order Item"
   entityDisplayNamePlural: "Sales Order Items"
@@ -149,6 +154,11 @@
 <carrierModel ""
   entityDisplayName: "Carrier"
   entityDisplayNamePlural: "Carriers"
+>
+
+<syncResultModel ""
+  entityDisplayName: "Sync Result"
+  entityDisplayNamePlural: "Sync Results"
 >
 
 <quotePersonList ""
@@ -498,7 +508,7 @@
   relatedItemsText: "Related Items"
   invoiceItemsText: "Invoice Items"
   moreDetailsText: "More Details"
-  receivableItemsText: "Receivable Items"
+  receivablesText: "Receivables"
   billToText: "Bill-To"
   shipToText: "Ship-To"
   salesPersonsText: "Sales Persons"

@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Module from './_Module';
+import '../Models/Product/Offline';
 import '../Models/Product/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.ProductModule', [_Module], {

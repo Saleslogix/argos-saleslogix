@@ -25,6 +25,21 @@ const __class = declare('crm.Integrations.BOE.Models.Product.SData', [Base, _SDa
         'ErpLogicalId',
         'UnitOfMeasure/*',
       ],
+    }, {
+      name: 'detail',
+      querySelect: [
+        'Name',
+        'Description',
+        'Price',
+        'ExtendedPrice',
+        'CalculatedPrice',
+        'Family',
+        'Status',
+        'ActualId',
+        'CommodityType',
+        'ErpLogicalId',
+        'UnitOfMeasure/*',
+      ],
     },
   ];
   },

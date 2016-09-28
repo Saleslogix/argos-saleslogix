@@ -17,6 +17,13 @@ const __class = declare('crm.Integrations.BOE.Models.ErpContactAssociation.SData
         'Account/AccountName',
         'CreateDate',
       ],
+    }, {
+      name: 'detail',
+      querySelect: [
+        'Contact/NameLF',
+        'Account/AccountName',
+        'CreateDate',
+      ],
     },
     ];
   },

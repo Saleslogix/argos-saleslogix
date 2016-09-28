@@ -12,7 +12,9 @@ import ShipToDetail from '../Views/ERPShipTos/Detail';
 import ShipToEdit from '../Views/ERPShipTos/Edit';
 import ShipToList from '../Views/ERPShipTos/List';
 import SyncResultsList from '../Views/SyncResults/List';
+import '../Models/ErpShipToAccount/Offline';
 import '../Models/ErpShipToAccount/SData';
+import '../Models/ErpShipTo/Offline';
 import '../Models/ErpShipTo/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.ShipToModule', [_Module], {

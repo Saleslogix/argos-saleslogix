@@ -15,6 +15,7 @@ import ContactAssociationsList from '../Views/ERPContactAssociations/List';
 import SalesPersonList from '../Views/ERPSalesOrderPersons/List';
 import BillToList from '../Views/ERPBillToAccounts/List';
 import ShipToList from '../Views/ERPShipTos/List';
+import '../Models/ErpShipToAccount/Offline';
 import '../Models/ErpShipToAccount/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Module], {
