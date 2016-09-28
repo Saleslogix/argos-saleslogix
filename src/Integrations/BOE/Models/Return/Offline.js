@@ -5,7 +5,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('icboe.Models.Return.Offline', [Base, _OfflineModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.Return.Offline', [Base, _OfflineModelBase], {
   id: 'return_offline_model',
 });
 

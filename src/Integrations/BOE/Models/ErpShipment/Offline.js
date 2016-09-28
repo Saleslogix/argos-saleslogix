@@ -5,7 +5,7 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-const __class = declare('icboe.Models.ErpShipment.Offline', [Base, _OfflineModelBase], {
+const __class = declare('crm.Integrations.BOE.Models.ErpShipment.Offline', [Base, _OfflineModelBase], {
   id: 'erpshipment_offline_model',
 });
 
