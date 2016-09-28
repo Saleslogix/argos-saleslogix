@@ -128,6 +128,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
       action: 'navigateToEditView',
+      security: 'Entities/Lead/Edit',
     }, {
       id: 'callWork',
       cls: 'fa fa-phone-square fa-2x',
