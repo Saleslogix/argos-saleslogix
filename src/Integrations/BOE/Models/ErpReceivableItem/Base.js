@@ -5,6 +5,8 @@ import MODEL_NAMES from '../Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('erpReceivableItemModel');
+const receivableResource = getResource('erpReceivableModel');
+const invoiceResource = getResource('erpInvoiceModel');
 
 const __class = declare('crm.Integrations.BOE.Models.ErpReceivableItem.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -19,7 +21,21 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivableItem.Base', [_
   editViewId: '',
   createRelationships: function createRelationships() {
     let rel;
-    rel = this.relationships || (this.relationships = []);
+    rel = this.relationships || (this.relationships = [{
+      name: 'Invoice',
+      displayName: invoiceResource.entityDisplayName,
+      type: 'ManyToOne',
+      parentProperty: 'ErpInvoice',
+      parentPropertyType: 'object',
+      relatedEntity: 'ERPInvoice',
+    }, {
+      name: 'Receivable',
+      displayName: receivableResource.entityDisplayName,
+      type: 'ManyToOne',
+      parentProperty: 'ErpReceivable',
+      parentPropertyType: 'object',
+      relatedEntity: 'ERPReceivable',
+    }]);
     return rel;
   },
 });

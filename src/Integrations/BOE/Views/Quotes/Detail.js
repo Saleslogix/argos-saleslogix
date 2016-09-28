@@ -76,6 +76,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   resourceKind: 'quotes',
   modelName: MODEL_NAMES.QUOTE,
   _busyIndicator: null,
+  enableOffline: true,
 
   _canPromote: function _canPromote() {
     const promise = new Promise(

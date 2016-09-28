@@ -23,6 +23,19 @@ const __class = declare('crm.Integrations.BOE.Models.SyncResult.SData', [Base, _
         'ErrorMessage',
         'Stamp',
       ],
+    }, {
+      name: 'detail',
+      querySelect: [
+        'EntityId',
+        'EntityType',
+        'HttpStatus',
+        'RunName',
+        'User/UserName',
+        'SyncedTo/Name',
+        'SyncedFrom/Name',
+        'ErrorMessage',
+        'Stamp',
+      ],
     },
     ];
   },

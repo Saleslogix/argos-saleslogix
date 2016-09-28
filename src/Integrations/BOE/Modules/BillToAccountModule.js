@@ -11,6 +11,7 @@ import QuotesList from '../Views/Quotes/List';
 import ReceivablesList from '../Views/ERPReceivables/List';
 import ReturnsList from '../Views/Returns/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
+import '../Models/ErpBillToAccount/Offline';
 import '../Models/ErpBillToAccount/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.BillToAccountModule', [_Module], {

@@ -5,6 +5,7 @@ export default {
   ERPACCOUNTPERSON: 'ErpAccountPerson',
   ERPBILLTOACCOUNT: 'ErpBillToAccount',
   ERPBILLTO: 'ErpBillTo',
+  ERPCONTACTACCOUNT: 'ErpContactAccount',
   ERPCONTACTASSOCIATION: 'ErpContactAssociation',
   ERPINVOICE: 'ErpInvoice',
   ERPINVOICEITEM: 'ErpInvoiceItem',

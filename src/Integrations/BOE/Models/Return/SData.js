@@ -19,6 +19,15 @@ const __class = declare('crm.Integrations.BOE.Models.Return.SData', [Base, _SDat
         'Priority',
         'CreateDate',
       ],
+    }, {
+      name: 'detail',
+      querySelect: [
+        'ReturnNumber',
+        'Status',
+        'ReturnType',
+        'Priority',
+        'CreateDate',
+      ],
     },
     ];
   },

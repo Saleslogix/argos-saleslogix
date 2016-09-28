@@ -811,86 +811,170 @@
           "text": "ViewAttachment.js",
           "path": "../src-out/Views/Attachment/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/BackOffice/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/BackOfficeAccountingEntity/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/BackOfficeAccountingEntity/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Carrier/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/Carrier/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpAccountPerson/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpAccountPerson/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpBillTo/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpBillTo/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpBillToAccount/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpBillToAccount/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpContactAssociation/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpContactAssociation/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoice/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpInvoice/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoiceItem/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpInvoiceItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoicePerson/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpInvoicePerson/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivable/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpReceivable/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivableItem/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpReceivableItem/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Location/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/Location/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/OperatingCompany/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/OperatingCompany/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Product/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/Product/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Quote/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/Quote/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/QuoteItem/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/QuoteItem/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/QuotePerson/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/QuotePerson/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Return/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/Return/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrder/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/SalesOrder/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrderItem/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/SalesOrderItem/"
         }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/SyncResult/"
+        }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/SyncResult/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/UnitOfMeasure/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/UnitOfMeasure/"
@@ -1323,8 +1407,8 @@
   ],
   "resources": [
     {
-      "src": "../localization/locales",
-      "dest": "localization/locales",
+      "src": "../localization/locales/crm",
+      "dest": "localization/locales/crm",
       "filters": ".*(\\.l20n)"
     },
     {

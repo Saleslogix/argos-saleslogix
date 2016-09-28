@@ -36,6 +36,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.Detail', [Det
   id: 'erpreceivables_detail',
   modelName: MODEL_NAMES.ERPRECEIVABLE,
   resourceKind: 'erpReceivables',
+  enableOffline: true,
   _sdataProps: [
     '$key',
     '$url',

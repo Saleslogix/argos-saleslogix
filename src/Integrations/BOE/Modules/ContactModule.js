@@ -67,11 +67,89 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
     // These are the last item in the section.
     const detailRowMatch = 'AccountManager.UserInfo';
 
+    am.registerCustomization('models/detail/querySelect', 'contact_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpStatus',
+    });
+    am.registerCustomization('models/detail/querySelect', 'contact_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpExtId',
+    });
+
+    am.registerCustomization('models/relationships', 'contact_offline_model', {
+      at: (relationship) => { return relationship.name === 'Tickets'; },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'AccountAssociation',
+        displayName: getResource('erpContactAssociationModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'ERPContactAccount',
+        relatedProperty: 'Contact',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'Quote',
+        displayName: getResource('quoteModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'Quote',
+        relatedProperty: 'Contact',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SalesOrder',
+        displayName: getResource('salesOrderModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SalesOrder',
+        relatedProperty: 'Contact',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SyncHistory',
+        displayName: getResource('syncResultModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SyncResult',
+        relatedProperty: 'EntityId',
+        where: 'EntityType eq "Contact"',
+      }],
+    });
+
+    am.registerCustomization('models/relationships', 'contact_sdata_model', {
+      at: (relationship) => { return relationship.name === 'Tickets'; },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'AccountAssociation',
+        displayName: getResource('erpContactAssociationModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'ERPContactAccount',
+        relatedProperty: 'Contact',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'Quote',
+        displayName: getResource('quoteModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'Quote',
+        relatedProperty: 'RequestedBy',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SalesOrder',
+        displayName: getResource('salesOrderModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SalesOrder',
+        relatedProperty: 'RequestedBy',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SyncHistory',
+        displayName: getResource('syncResultModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SyncResult',
+        relatedProperty: 'EntityId',
+        where: 'EntityType eq "Contact"',
+      }],
+    });
     lang.extend(crm.Views.Contact.Detail, {
-      querySelect: crm.Views.Contact.Detail.prototype.querySelect.concat([
-        'ErpStatus',// ERP Status
-        'ErpExtId', // ERP Contact Id
-      ]),
       _onAddQuoteClick: function _onAddQuoteClick() {
         const view = App.getView('quote_edit');
         view.show({

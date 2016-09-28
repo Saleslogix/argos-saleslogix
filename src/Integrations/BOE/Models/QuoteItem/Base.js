@@ -5,6 +5,7 @@ import MODEL_NAMES from '../Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('quoteItemModel');
+const quoteResource = getResource('quoteModel');
 
 const __class = declare('crm.Integrations.BOE.Models.QuoteItem.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -19,7 +20,14 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.Base', [_ModelBas
   editViewId: '',
   createRelationships: function createRelationships() {
     let rel;
-    rel = this.relationships || (this.relationships = []);
+    rel = this.relationships || (this.relationships = [{
+      name: 'Quote',
+      displayName: quoteResource.entityDisplayName,
+      type: 'ManyToOne',
+      parentProperty: 'Quote',
+      parentPropertyType: 'object',
+      relatedEntity: 'Quote',
+    }]);
     return rel;
   },
 });

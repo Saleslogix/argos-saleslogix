@@ -12,7 +12,7 @@ import ReturnList from '../Views/Returns/List';
 import SalesOrderList from '../Views/SalesOrders/List';
 import ShipToList from '../Views/ERPShipTos/List';
 import SyncResultsList from '../Views/SyncResults/List';
-
+import '../Models/ErpBillTo/Offline';
 import '../Models/ErpBillTo/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.BillToModule', [_Module], {

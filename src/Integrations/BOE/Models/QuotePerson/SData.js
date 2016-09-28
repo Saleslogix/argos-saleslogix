@@ -15,6 +15,12 @@ const __class = declare('crm.Integrations.BOE.Models.QuotePerson.SData', [Base, 
         'Person/Name',
         'Quote/QuoteNumber',
       ],
+    }, {
+      name: 'detail',
+      querySelect: [
+        'Person/Name',
+        'Quote/QuoteNumber',
+      ],
     }];
   },
 });

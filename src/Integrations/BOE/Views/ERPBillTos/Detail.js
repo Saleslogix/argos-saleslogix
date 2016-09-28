@@ -48,6 +48,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail]
   id: 'erpbillto_detail',
   modelName: MODEL_NAMES.ERPBILLTO,
   resourceKind: 'erpBillTos',
+  enableOffline: true,
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
