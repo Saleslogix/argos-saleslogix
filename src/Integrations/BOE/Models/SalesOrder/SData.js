@@ -12,7 +12,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.SData', [Base, _
     return [{
       name: 'list',
       queryWhere: 'IsQuote eq false',
-      queryOrderBy: 'OrderDate desc',
+      queryOrderBy: 'ErpDocumentDate desc',
       querySelect: [
         'SalesOrderNumber',
         'Account/AccountName',
@@ -28,6 +28,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.SData', [Base, _
         'BaseCurrencyCode',
         'ErpSalesOrder/ERPStatus',
         'ErpStatusDate',
+        'ErpDocumentDate',
       ],
     }, {
       name: 'detail',

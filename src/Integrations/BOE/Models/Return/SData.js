@@ -11,13 +11,14 @@ const __class = declare('crm.Integrations.BOE.Models.Return.SData', [Base, _SDat
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
-      queryOrderBy: 'CreateDate desc',
+      queryOrderBy: 'ErpDocumentDate desc',
       querySelect: [
         'ReturnNumber',
         'Status',
         'ReturnType',
         'Priority',
         'CreateDate',
+        'ErpDocumentDate',
       ],
     },
     ];

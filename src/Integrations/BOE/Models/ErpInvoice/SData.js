@@ -11,7 +11,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpInvoice.SData', [Base, _
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
-      queryOrderBy: 'ErpStatusDate desc',
+      queryOrderBy: 'ErpDocumentDate desc',
       querySelect: [
         'InvoiceNumber',
         'Account/AccountName',
