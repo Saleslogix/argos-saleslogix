@@ -115,6 +115,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
       action: 'navigateToEditView',
+      security: 'Entities/Ticket/Edit',
     }, {
       id: 'viewAccount',
       label: this.viewAccountActionText,

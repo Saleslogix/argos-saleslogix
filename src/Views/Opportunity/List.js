@@ -120,6 +120,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
       action: 'navigateToEditView',
+      security: 'Entities/Opportunity/Edit',
     }, {
       id: 'viewAccount',
       label: this.viewAccountActionText,
