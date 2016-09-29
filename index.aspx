@@ -121,9 +121,9 @@
                     .Select(item => item.Directory.Name).Distinct()
             ) %>,
           defaultLocale: 'en',
-          currentLocale: '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>',
-          parentLocale: '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>',
-          isRegionMetric: <%= ((new RegionInfo(System.Globalization.CultureInfo.CurrentCulture.LCID)).IsMetric) ? "true" : "false" %>,
+          currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
+          parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
+          isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
           configuration: <%= Serialize(
                   Enumerate("configuration", (file) => file.Name == "production.js")
                       .Select(item => item.Path.Substring(0, item.Path.Length - 3))
@@ -144,6 +144,23 @@
         });
       });
     })();
+  </script>
+  <script>
+      // Deal with the back/forward cache on iOS.
+      var resetPage = false;
+      var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      var safari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+      var myCustomEvent = (iOS && safari) ? 'popstate' : 'pageshow';
+      require('dojo/on')(window, myCustomEvent, function(e) {
+          var isLogin = window.location.hash === '#_login';
+          if (resetPage && isLogin && iOS && safari) {
+              this.resetPage = false;
+              window.location.reload();
+          }
+          if (!isLogin) {
+              this.resetPage = true;
+          }
+      });
   </script>
 </head>
 <body>
@@ -268,6 +285,28 @@
                         File = targetFile
                     };
             }
+        }
+    }
+
+    private CultureInfo _culture;
+    protected CultureInfo CurrentCulture
+    {
+        get
+        {
+            if (null == _culture)
+                _culture = System.Globalization.CultureInfo.CurrentCulture;
+            return _culture;
+        }
+    }
+
+    private RegionInfo _region;
+    protected RegionInfo CurrentRegion
+    {
+        get
+        {
+            if (null == _region)
+                _region = new RegionInfo(CurrentCulture.LCID);
+            return _region;
         }
     }
 

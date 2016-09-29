@@ -36,6 +36,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List,
      '</h4>',
     '<h4><label class="group-label">{%: $$.erpStatusText %}</label> {%: $.ErpStatus %}</h4>',
     '<h4><label class="group-label">{%: $$.erpStatusDateText %}</label> {%: $$.formatter.date($.ErpStatusDate) %}</h4>',
+    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
   ]),
 
   // Localization
@@ -49,6 +50,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List,
   receivableAmountText: resource.receivableAmountText,
   receivableBaseAmountText: resource.receivableBaseAmountText,
   accountNameText: resource.accountNameText,
+  documentDateText: resource.documentDateText,
 
   // View Properties
   id: 'erpreceivables_list',
