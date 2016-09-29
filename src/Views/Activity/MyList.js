@@ -128,13 +128,13 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   allowSelection: true,
   enableActions: true,
   hashTagQueries: {
-    'alarm': 'Alarm eq true',
+    alarm: 'Alarm eq true',
     'status-unconfirmed': 'Status eq "asUnconfirmed"',
     'status-accepted': 'Status eq "asAccepted"',
     'status-declined': 'Status eq "asDeclned"',
-    'recurring': 'Activity.Recurring eq true',
-    'timeless': 'Activity.Timeless eq true',
-    'yesterday': function yesterday() {
+    recurring: 'Activity.Recurring eq true',
+    timeless: 'Activity.Timeless eq true',
+    yesterday: function yesterday() {
       const now = moment();
       const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
       const yesterdayEnd = yesterdayStart.clone().endOf('day');
@@ -149,7 +149,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       );
       return theQuery;
     },
-    'today': function today() {
+    today: function today() {
       const now = moment();
       const todayStart = now.clone().startOf('day');
       const todayEnd = todayStart.clone().endOf('day');
@@ -181,15 +181,15 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     },
   },
   hashTagQueriesText: {
-    'alarm': hashTagResource.hashTagAlarmText,
+    alarm: hashTagResource.hashTagAlarmText,
     'status-unconfirmed': hashTagResource.hashTagUnconfirmedText,
     'status-accepted': hashTagResource.hashTagAcceptedText,
     'status-declined': hashTagResource.hashTagDeclinedText,
-    'recurring': hashTagResource.hashTagRecurringText,
-    'timeless': hashTagResource.hashTagTimelessText,
-    'today': hashTagResource.hashTagTodayText,
+    recurring: hashTagResource.hashTagRecurringText,
+    timeless: hashTagResource.hashTagTimelessText,
+    today: hashTagResource.hashTagTodayText,
     'this-week': hashTagResource.hashTagThisWeekText,
-    'yesterday': hashTagResource.hashTagYesterdayText,
+    yesterday: hashTagResource.hashTagYesterdayText,
   },
   createToolLayout: function createToolLayout() {
     this.inherited(arguments);
@@ -216,13 +216,13 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   },
   onRefreshClicked: function onRefreshClicked() {},
   _callPhone: function _callPhone(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'call';
     }, params.key);
   },
   defaultSearchTerm: function defaultSearchTerm() {
     if (App.enableHashTags) {
-      return '#' + this.hashTagQueriesText['this-week'];
+      return `#${this.hashTagQueriesText['this-week']}`;
     }
 
     return '';
@@ -429,10 +429,10 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
      * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
      */
     const payload = {
-      '$name': operation,
-      'request': {
-        'entity': notification,
-        'UserNotificationId': notification.$key,
+      $name: operation,
+      request: {
+        entity: notification,
+        UserNotificationId: notification.$key,
       },
     };
 
@@ -579,17 +579,17 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   },
   recordCallToHistory: function recordCallToHistory(complete, entry) {
     const tempEntry = {
-      '$name': 'History',
-      'Type': 'atPhoneCall',
-      'ContactName': entry.Activity.ContactName,
-      'ContactId': entry.Activity.ContactId,
-      'AccountName': entry.Activity.AccountName,
-      'AccountId': entry.Activity.AccountId,
-      'Description': string.substitute('${0} ${1}', [this.calledText, (entry.Activity.ContactName || '')]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.UserName,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      $name: 'History',
+      Type: 'atPhoneCall',
+      ContactName: entry.Activity.ContactName,
+      ContactId: entry.Activity.ContactId,
+      AccountName: entry.Activity.AccountName,
+      AccountId: entry.Activity.AccountId,
+      Description: string.substitute('${0} ${1}', [this.calledText, (entry.Activity.ContactName || '')]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.UserName,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
@@ -602,10 +602,10 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       view.show({
         title: this.activityTypeText[type],
         template: {},
-        entry: entry,
+        entry,
         insert: true,
       }, {
-        complete: complete,
+        complete,
       });
     }
   },

@@ -19,14 +19,13 @@ const __class = declare('crm.Integrations.BOE.Models.QuotePerson.Base', [_ModelB
   listViewId: 'quotePerson_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
-        name: 'Quote',
-        displayName: quoteResource.entityDisplayNamePlural,
-        type: 'OneToMany',
-        relatedEntity: 'Quote',
-        relatedProperty: 'EntityId',
-      },
+    const rel = this.relationships || (this.relationships = [{
+      name: 'Quote',
+      displayName: quoteResource.entityDisplayNamePlural,
+      type: 'OneToMany',
+      relatedEntity: 'Quote',
+      relatedProperty: 'EntityId',
+    },
     ]);
     return rel;
   },

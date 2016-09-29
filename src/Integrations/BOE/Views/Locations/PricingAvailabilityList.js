@@ -46,7 +46,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
 
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'complete',
         cls: 'invisible',
         fn: this.onSelectWarehouse,
@@ -58,7 +58,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
         fn: ReUI.back,
         scope: ReUI,
       },
-      ]});
+      ] });
   },
   show: function show() {
     this.inherited(arguments);

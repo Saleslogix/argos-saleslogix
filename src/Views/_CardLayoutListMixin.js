@@ -128,9 +128,9 @@ const __class = declare('crm.Views._CardLayoutListMixin', null, {
       if (indicator.isEnabled === false) {
         indicator.label = '';
         if (indicator.cls) {
-          indicator.iconCls = indicator.cls + ' disabled';
+          indicator.iconCls = `${indicator.cls} disabled`;
         } else {
-          indicator.indicatorIcon = indicator.icon ? iconPath + 'disabled_' + indicator.icon : '';
+          indicator.indicatorIcon = indicator.icon ? `${iconPath}disabled_${indicator.icon}` : '';
         }
       } else {
         indicator.indicatorIcon = indicator.icon ? iconPath + indicator.icon : '';

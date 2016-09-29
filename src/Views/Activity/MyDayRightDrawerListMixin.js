@@ -42,7 +42,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         }
         return {
           name,
-          enabled: enabled,
+          enabled,
         };
       });
     return filterPrefs;
@@ -101,7 +101,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
       filterClicked: function onFilterClicked(params) {
         const prefs = App.preferences && App.preferences.myDayFilters;
 
-        const filterPref = array.filter(prefs, function getResults(pref) {
+        const filterPref = array.filter(prefs, (pref) => {
           return pref.name === params.filtername;
         });
 
@@ -132,7 +132,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, function setMetricTitle(metric) {
+          results = array.filter(metrics, (metric) => {
             return metric.title === params.title;
           });
         }
@@ -181,12 +181,12 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
             enabled,
             } = filterPref[0];
           return {
-            'name': filterName,
-            'action': 'filterClicked',
-            'title': filters[filterName].label || filterName,
-            'dataProps': {
-              'filtername': filterName,
-              'enabled': !!enabled,
+            name: filterName,
+            action: 'filterClicked',
+            title: filters[filterName].label || filterName,
+            dataProps: {
+              filtername: filterName,
+              enabled: !!enabled,
             },
           };
         }),
@@ -194,14 +194,14 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     layout.push(filterSection);
     const kpiSection = {
       id: 'kpi',
-      children: metrics.filter((m) => m.title).map((metric, i) => {
+      children: metrics.filter(m => m.title).map((metric, i) => {
         return {
-          'name': 'KPI' + i,
-          'action': 'kpiClicked',
-          'title': metric.title,
-          'dataProps': {
-            'title': metric.title,
-            'enabled': !!metric.enabled,
+          name: `KPI${i}`,
+          action: 'kpiClicked',
+          title: metric.title,
+          dataProps: {
+            title: metric.title,
+            enabled: !!metric.enabled,
           },
         };
       }),

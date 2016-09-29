@@ -38,32 +38,32 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.ErpLineNumber) { %}',
-      '<h3><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h3>',
+    '<h3><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h3>',
     '{% } %}',
     '{% if ($.SlxLocation) { %}',
-      '<h4><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</h4>',
+    '<h4><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</h4>',
     '{% } %}',
     '<h4><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h4>',
     '<h4><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</h4>',
     '<h4> <label class="group-label">{%: $$.priceText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.Price, $.SalesOrder.BaseCurrencyCode) %}',
+    '{%: $$.util.formatMultiCurrency($.Price, $.SalesOrder.BaseCurrencyCode) %}',
     '</h4>',
     '<h4> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.DocCalculatedPrice, $.SalesOrder.CurrencyCode) %}',
+    '{%: $$.util.formatMultiCurrency($.DocCalculatedPrice, $.SalesOrder.CurrencyCode) %}',
     '</h4>',
     '<h4> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.SalesOrder.BaseCurrencyCode) %}',
+    '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.SalesOrder.BaseCurrencyCode) %}',
     '</h4>',
     '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
     '<h4> <label class="group-label">{%: $$.baseAmountText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.SalesOrder.BaseCurrencyCode) %}',
-     '</h4>',
-    '<h4> <label class="group-label">{%: $$.amountText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.DocExtendedPrice, $.SalesOrder.CurrencyCode) %}',
+    '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.SalesOrder.BaseCurrencyCode) %}',
     '</h4>',
-     '<h4> <label class="group-label">{%: $$.totalAmountText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.DocTotalAmount, $.SalesOrder.CurrencyCode) %}',
-     '</h4>',
+    '<h4> <label class="group-label">{%: $$.amountText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.DocExtendedPrice, $.SalesOrder.CurrencyCode) %}',
+    '</h4>',
+    '<h4> <label class="group-label">{%: $$.totalAmountText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.DocTotalAmount, $.SalesOrder.CurrencyCode) %}',
+    '</h4>',
   ]),
   // View Properties
   id: 'salessorder_items_list',
@@ -93,7 +93,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'new',
         cls: 'fa fa-plus fa-fw fa-lg',
         action: 'preNavigateToInsert',
@@ -120,8 +120,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
       const view = this.getAvailabilityView();
       if (view) {
         const options = {
-          orderItem: orderItem,
-          order: order,
+          orderItem,
+          order,
         };
         this.refreshRequired = true;
         view.show(options);
@@ -135,7 +135,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
       return view;
     }
 
-    App.registerView(new SalesOrderItemAvailabilityList({id: viewId}));
+    App.registerView(new SalesOrderItemAvailabilityList({ id: viewId }));
     view = App.getView(viewId);
     return view;
   },

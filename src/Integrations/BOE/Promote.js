@@ -119,8 +119,8 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
   _promote: function _promote(options, scope) {
     if (options && scope) {
       const entry = {
-        '$name': 'PromoteToBackOffice',
-        'request': options,
+        $name: 'PromoteToBackOffice',
+        request: options,
       };
       const request = new Sage.SData.Client.SDataServiceOperationRequest(scope.getService())
         .setResourceKind('backOffices')
@@ -151,10 +151,10 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
     const readyToPromote = this.checkEntryFor(entry, ['ErpLogicalId', 'ErpAccountingEntityId']);
     if (readyToPromote) {
       this._promote({
-        'entityName': entityName,
-        'entityId': entry.$key,
-        'logicalId': entry.ErpLogicalId,
-        'accountingEntityId': entry.ErpAccountingEntityId,
+        entityName,
+        entityId: entry.$key,
+        logicalId: entry.ErpLogicalId,
+        accountingEntityId: entry.ErpAccountingEntityId,
       }, scope);
       return;
     }
@@ -175,19 +175,19 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
 
         App.modal.add(this, toolbar).then((data) => {
           this._promote({
-            'entityName': entityName,
-            'entityId': entry.$key,
-            'logicalId': data.ErpLogicalId,
-            'accountingEntityId': data.ErpAccountingEntityId,
+            entityName,
+            entityId: entry.$key,
+            logicalId: data.ErpLogicalId,
+            accountingEntityId: data.ErpAccountingEntityId,
           }, scope);
         });
       } else {
         const data = this.getContent();
         this._promote({
-          'entityName': entityName,
-          'entityId': entry.$key,
-          'logicalId': data.ErpLogicalId,
-          'accountingEntityId': data.ErpAccountingEntityId,
+          entityName,
+          entityId: entry.$key,
+          logicalId: data.ErpLogicalId,
+          accountingEntityId: data.ErpAccountingEntityId,
         }, scope);
       }
     });
@@ -280,8 +280,8 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
   },
   getAccountingSystem: function getAccountingSystem() {
     if (!this._busy) {
-      this._busy = new BusyIndicator({ id: this.id + '__busyIndicator' });
-      this._accountingBusy = new BusyIndicator({ id: this.id + '__busyIndicator__accounting', size: 'small', label: null, containerClass: 'busyField' });
+      this._busy = new BusyIndicator({ id: `${this.id}__busyIndicator` });
+      this._accountingBusy = new BusyIndicator({ id: `${this.id}__busyIndicator__accounting`, size: 'small', label: null, containerClass: 'busyField' });
       this._accountingBusy.start();
     }
     this._firstLoad = true;

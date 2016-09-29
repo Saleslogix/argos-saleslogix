@@ -83,13 +83,13 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     }
   },
   applyContext: function applyContext(templateEntry) {
-    const found = App.queryNavigationContext(function queryNavigationContext(o) {
+    const found = App.queryNavigationContext((o) => {
       return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
     });
 
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext,
+      accounts: this.applyAccountContext,
+      contacts: this.applyContactContext,
     };
 
     if (found && lookup[found.resourceKind]) {
@@ -105,8 +105,8 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     if (App.hasMultiCurrency() && templateEntry) {
       if (templateEntry.ExchangeRateCode) {
         this.fields.ExchangeRateCode.setValue({
-          '$key': templateEntry.ExchangeRateCode,
-          '$descriptor': templateEntry.ExchangeRateCode,
+          $key: templateEntry.ExchangeRateCode,
+          $descriptor: templateEntry.ExchangeRateCode,
         });
       }
 
@@ -124,8 +124,8 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     if (App.hasMultiCurrency()) {
       if (values && values.ExchangeRateCode) {
         this.fields.ExchangeRateCode.setValue({
-          '$key': values.ExchangeRateCode,
-          '$descriptor': values.ExchangeRateCode,
+          $key: values.ExchangeRateCode,
+          $descriptor: values.ExchangeRateCode,
         });
       }
 
@@ -185,14 +185,12 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     if (value === true) {
       this.fields.ExchangeRate.disable();
       this.fields.ExchangeRateCode.disable();
+    } else if (!App.canChangeOpportunityRate()) {
+      this.fields.ExchangeRate.disable();
+      this.fields.ExchangeRateCode.disable();
     } else {
-      if (!App.canChangeOpportunityRate()) {
-        this.fields.ExchangeRate.disable();
-        this.fields.ExchangeRateCode.disable();
-      } else {
-        this.fields.ExchangeRate.enable();
-        this.fields.ExchangeRateCode.enable();
-      }
+      this.fields.ExchangeRate.enable();
+      this.fields.ExchangeRateCode.enable();
     }
 
     this.fields.ExchangeRateDate.setValue(new Date(Date.now()));

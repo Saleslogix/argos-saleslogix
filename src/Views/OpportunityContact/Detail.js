@@ -54,9 +54,9 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
 
   createEntryForDelete: function createEntryForDelete() {
     const entry = {
-      '$key': this.entry.$key,
-      '$etag': this.entry.$etag,
-      '$name': this.entry.$name,
+      $key: this.entry.$key,
+      $etag: this.entry.$etag,
+      $name: this.entry.$name,
     };
     return entry;
   },
@@ -85,7 +85,7 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'edit',
         action: 'navigateToEditView',
         cls: 'fa fa-pencil fa-fw fa-lg',

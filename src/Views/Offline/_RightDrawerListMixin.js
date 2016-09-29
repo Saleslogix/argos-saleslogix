@@ -84,7 +84,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
       entityFilterClicked: function onentityFilterClicked(params) {
         const prefs = App.preferences && App.preferences.offlineEntityFilters;
 
-        const results = array.filter(prefs, function getResults(pref) {
+        const results = array.filter(prefs, (pref) => {
           return pref.name === params.entityname;
         });
 
@@ -102,7 +102,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, function setMetricTitle(metric) {
+          results = array.filter(metrics, (metric) => {
             return metric.title === params.title;
           });
         }
@@ -149,12 +149,12 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
             enabled,
           } = entityPref[0];
           return {
-            'name': entityName,
-            'action': 'entityFilterClicked',
-            'title': this.entityText[entityName] || entityName,
-            'dataProps': {
-              'entityname': entityName,
-              'enabled': !!enabled,
+            name: entityName,
+            action: 'entityFilterClicked',
+            title: this.entityText[entityName] || entityName,
+            dataProps: {
+              entityname: entityName,
+              enabled: !!enabled,
             },
           };
         }),
@@ -166,14 +166,14 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
 
     const kpiSection = {
       id: 'kpi',
-      children: metrics.filter((m) => m.title).map((metric, i) => {
+      children: metrics.filter(m => m.title).map((metric, i) => {
         return {
-          'name': 'KPI' + i,
-          'action': 'kpiClicked',
-          'title': metric.title,
-          'dataProps': {
-            'title': metric.title,
-            'enabled': !!metric.enabled,
+          name: `KPI${i}`,
+          action: 'kpiClicked',
+          title: metric.title,
+          dataProps: {
+            title: metric.title,
+            enabled: !!metric.enabled,
           },
         };
       }),

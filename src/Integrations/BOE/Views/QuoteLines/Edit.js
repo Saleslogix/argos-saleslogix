@@ -125,8 +125,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
         (results) => {
           this.onProductPricingSuccess(results);
         }, (error) => {
-          this.onProductPricingFailed(error);
-        });
+        this.onProductPricingFailed(error);
+      });
     }
   },
   onProductPricingSuccess: function onProductPricingSuccess(result) {
@@ -134,7 +134,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
       this.reCalculate();
       this.isProcessingPricingRequest = false;
       this.enablePricingControls(true);
-    }, ()=> {
+    }, () => {
       this.isProcessingPricingRequest = false;
       this.enablePricingControls(true);
     });
@@ -156,7 +156,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
       }
       if (this._uomModel && product) {
         if ((curremtUom && (curremtUom.Name !== uomCode)) || (!curremtUom)) {
-          this._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then((uom)=> {
+          this._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then((uom) => {
             this.fields.UnitOfMeasure.setValue(uom);
             resolve(true);
           }, (error) => {
@@ -194,7 +194,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
             resolve(true);
           }, (error) => {
             reject(error);
-          } );
+          });
         } else {
           resolve(true);
         }
@@ -271,7 +271,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
       App.getView('quote_lines_list'),
     ];
 
-    array.forEach(views, function setViewRefreshRequired(view) {
+    array.forEach(views, (view) => {
       if (view) {
         view.refreshRequired = true;
       }
@@ -320,7 +320,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
         name: 'Quantity',
         property: 'Quantity',
         type: 'decimal',
-        'default': 1,
+        default: 1,
         notificationTrigger: 'blur',
         validator: validator.exists,
       }, {
@@ -343,39 +343,39 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
         name: 'Price',
         property: 'Price',
         type: 'decimal',
-        'default': 0.00,
+        default: 0.00,
       }, {
         label: this.baseAdjustedPriceText,
         name: 'CalculatedPrice',
         property: 'CalculatedPrice',
         type: 'decimal',
-        'default': 0.00,
+        default: 0.00,
       }, {
         label: this.docAdjustedPriceText,
         name: 'DocCalculatedPrice',
         property: 'DocCalculatedPrice',
         type: 'decimal',
-        'default': 0.00,
+        default: 0.00,
       }, {
         label: this.baseExtendedPriceText,
         name: 'ExtendedPrice',
         property: 'ExtendedPrice',
         type: 'decimal',
-        'default': 0.00,
+        default: 0.00,
       }, {
         label: this.docExtendedPriceText,
         name: 'DocExtendedPrice',
         property: 'DocExtendedPrice',
         type: 'decimal',
-        'default': 0.00,
+        default: 0.00,
       }, {
         label: this.docTotalAmountText,
         name: 'DocTotalAmount',
         property: 'DocTotalAmount',
         type: 'decimal',
-        'default': 0.00,
+        default: 0.00,
       },
-    ]},
+    ] },
   ]);
   },
 });

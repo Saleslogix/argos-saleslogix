@@ -132,21 +132,21 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
          // },
          // view: 'erpshiptoaccount_accounts_related'
      // },
-      {
-        name: 'OpenQuotesList',
-        label: this.openQuotesText,
-        where: function where(entry) {
-          return 'ShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.newCode + '")';
+        {
+          name: 'OpenQuotesList',
+          label: this.openQuotesText,
+          where: function where(entry) {
+            return `ShipTo.ErpShipToAccounts.Id eq "${entry.$key}" and (Status eq "${this.openCode}" or Status eq "${this.newCode}")`;
+          },
+          view: 'erpshiptoaccount_quotes_related',
+        }, {
+          name: 'SalesOrders',
+          label: this.salesOrdersText,
+          where: function where(entry) {
+            return `ErpShipTo.ErpShipToAccounts.Id eq "${entry.$key}" and (Status eq "${this.openCode}" or Status eq "${this.approvedCode}" or Status eq "${this.workingCode}" or Status eq "${this.partialShipCode}")`;
+          },
+          view: 'erpshiptoaccount_salesorders_related',
         },
-        view: 'erpshiptoaccount_quotes_related',
-      }, {
-        name: 'SalesOrders',
-        label: this.salesOrdersText,
-        where: function where(entry) {
-          return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.approvedCode + '" or Status eq "' + this.workingCode + '" or Status eq "' + this.partialShipCode + '")';
-        },
-        view: 'erpshiptoaccount_salesorders_related',
-      },
      // {
          // name: 'OpenInvoices',
          // label: this.invoicesText,
@@ -155,14 +155,14 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
          // },
          // view: 'erpshiptoaccount_invoices_related'
      // },
-      {
-        name: 'Shipments',
-        label: this.shipmentsText,
-        where: function where(entry) {
-          return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialShipCode + '" or ErpStatus eq "' + this.releasedCode + '" or ErpStatus eq "' + this.allocatedCode + '" or ErpStatus eq "' + this.stagedCode + '" or ErpStatus eq "' + this.loadedCode + '")';
+        {
+          name: 'Shipments',
+          label: this.shipmentsText,
+          where: function where(entry) {
+            return `ErpShipTo.ErpShipToAccounts.Id eq "${entry.$key}" and (ErpStatus eq "${this.openCode}" or ErpStatus eq "${this.partialShipCode}" or ErpStatus eq "${this.releasedCode}" or ErpStatus eq "${this.allocatedCode}" or ErpStatus eq "${this.stagedCode}" or ErpStatus eq "${this.loadedCode}")`;
+          },
+          view: 'erpshiptoaccount_shipments_related',
         },
-        view: 'erpshiptoaccount_shipments_related',
-      },
      // {
          // name: 'Receivables',
          // label: this.receivablesText,
@@ -171,21 +171,21 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
          // },
          // view: 'erpshiptoaccount_receivables_related'
      // },
-      {
-        name: 'Returns',
-        label: this.returnsText,
-        where: function where(entry) {
-          return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+        {
+          name: 'Returns',
+          label: this.returnsText,
+          where: function where(entry) {
+            return `ErpShipTo.ErpShipToAccounts.Id eq "${entry.$key}"`;
+          },
+          view: 'erpshiptoaccount_returns_related',
+        }, {
+          name: 'ContactAssociations',
+          label: this.contactAssociationText,
+          where: function where(entry) {
+            return `Account.ErpShipToAccounts.Id eq "${entry.$key}"`;
+          },
+          view: 'erpshiptoaccount_contactassociations_related',
         },
-        view: 'erpshiptoaccount_returns_related',
-      }, {
-        name: 'ContactAssociations',
-        label: this.contactAssociationText,
-        where: function where(entry) {
-          return 'Account.ErpShipToAccounts.Id eq "' + entry.$key + '"';
-        },
-        view: 'erpshiptoaccount_contactassociations_related',
-      },
      // , {
          // name: 'Bill-To',
          // label: this.billToText,

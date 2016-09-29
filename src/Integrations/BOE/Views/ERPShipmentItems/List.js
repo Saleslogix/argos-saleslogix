@@ -18,11 +18,11 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.List', [Lis
   itemTemplate: new Simplate([
     '<h3><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h3>',
     '{% if ($.SalesOrder) { %}',
-      '<h4><label class="group-label">{%: $$.salesOrderText %}</label> {%: $.SalesOrder.SalesOrderNumber %}</h4>',
+    '<h4><label class="group-label">{%: $$.salesOrderText %}</label> {%: $.SalesOrder.SalesOrderNumber %}</h4>',
     '{% } %}',
     '<h4><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</h4>',
     '{% if ($.ErpShipment) { %}',
-      '<h4><label class="group-label">{%: $$.shipmentIDText %}</label> {%: $.ErpShipment.ErpExtId %}</h4>',
+    '<h4><label class="group-label">{%: $$.shipmentIDText %}</label> {%: $.ErpShipment.ErpExtId %}</h4>',
     ' {% } %}',
     '<h4><label class="group-label">{%: $$.shippedQuantityText %}</label> {%: $.ErpShippedQuantity %} {%: $.ErpShippedUOM %}</h4>',
   ]),

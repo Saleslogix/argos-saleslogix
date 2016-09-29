@@ -72,7 +72,7 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
       },
       createToolLayout: function createToolLayout() {
         return this.tools || (this.tools = {
-          'tbar': [{
+          tbar: [{
             id: 'new',
             cls: 'fa fa-plus fa-fw fa-lg',
             action: 'addLineItems',

@@ -141,7 +141,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   },
   onAccountChange: function onAccountChange(value) {
     const fields = this.fields;
-    array.forEach(['Contact', 'Opportunity', 'Ticket'], function iterateFields(f) {
+    array.forEach(['Contact', 'Opportunity', 'Ticket'], (f) => {
       if (value) {
         fields[f].dependsOn = 'Account';
         fields[f].where = string.substitute('Account.Id eq "${0}"', [value.AccountId || value.key]);
@@ -160,8 +160,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
       const accountField = this.fields.Account;
       accountField.setValue({
-        'AccountId': field.currentSelection.Account.$key,
-        'AccountName': field.currentSelection.Account.AccountName,
+        AccountId: field.currentSelection.Account.$key,
+        AccountName: field.currentSelection.Account.AccountName,
       });
       this.onAccountChange(accountField.getValue(), accountField);
     }
@@ -200,11 +200,11 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     const found = this._getNavContext();
 
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext,
-      'opportunities': this.applyOpportunityContext,
-      'leads': this.applyLeadContext,
-      'tickets': this.applyTicketContext,
+      accounts: this.applyAccountContext,
+      contacts: this.applyContactContext,
+      opportunities: this.applyOpportunityContext,
+      leads: this.applyLeadContext,
+      tickets: this.applyTicketContext,
     };
 
     if (found && lookup[found.resourceKind]) {
@@ -220,7 +220,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     this.fields.Text.setValue('');
   },
   _getNavContext: function _getNavContext() {
-    let found = App.queryNavigationContext(function queryNavigationContext(o) {
+    let found = App.queryNavigationContext((o) => {
       const context = (o.options && o.options.source) || o;
       return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
     });
@@ -230,9 +230,9 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   applyAccountContext: function applyAccountContext(context) {
     const accountField = this.fields.Account;
     const accountValue = {
-        'AccountId': context.key,
-        'AccountName': context.descriptor,
-      };
+      AccountId: context.key,
+      AccountName: context.descriptor,
+    };
     accountField.setValue(accountValue);
     this.onAccountChange(accountValue, accountField);
   },
@@ -246,8 +246,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
 
     const leadField = this.fields.Lead;
     const leadValue = {
-      'LeadId': entry.$key,
-      'LeadName': entry.$descriptor,
+      LeadId: entry.$key,
+      LeadName: entry.$descriptor,
     };
 
     leadField.setValue(leadValue);
@@ -264,8 +264,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     let accountEntry;
 
     opportunityField.setValue({
-      'OpportunityId': context.key,
-      'OpportunityName': context.descriptor,
+      OpportunityId: context.key,
+      OpportunityName: context.descriptor,
     });
 
     this.onAccountDependentChange(opportunityField.getValue, opportunityField);
@@ -281,8 +281,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (accountEntry) {
       const accountField = this.fields.Account;
       accountField.setValue({
-        'AccountId': accountEntry.$key,
-        'AccountName': accountEntry.AccountName,
+        AccountId: accountEntry.$key,
+        AccountName: accountEntry.AccountName,
       });
       this.onAccountChange(accountField.getValue(), accountField);
     }
@@ -293,8 +293,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     const contactField = this.fields.Contact;
     let accountEntry;
     contactField.setValue({
-      'ContactId': context.key,
-      'ContactName': context.descriptor,
+      ContactId: context.key,
+      ContactName: context.descriptor,
     });
 
     this.onAccountDependentChange(contactField.getValue(), contactField);
@@ -310,8 +310,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (accountEntry) {
       const accountField = this.fields.Account;
       accountField.setValue({
-        'AccountId': accountEntry.$key,
-        'AccountName': accountEntry.AccountName,
+        AccountId: accountEntry.$key,
+        AccountName: accountEntry.AccountName,
       });
       this.onAccountChange(accountField.getValue(), accountField);
     }
@@ -321,8 +321,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     let accountEntry;
     let contactEntry;
     ticketField.setValue({
-      'TicketId': context.key,
-      'TicketNumber': context.descriptor,
+      TicketId: context.key,
+      TicketNumber: context.descriptor,
     });
     this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
@@ -339,8 +339,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (accountEntry) {
       const accountField = this.fields.Account;
       accountField.setValue({
-        'AccountId': accountEntry.$key,
-        'AccountName': accountEntry.AccountName,
+        AccountId: accountEntry.$key,
+        AccountName: accountEntry.AccountName,
       });
       this.onAccountChange(accountField.getValue(), accountField);
     }
@@ -348,8 +348,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (contactEntry) {
       const contactField = this.fields.Contact;
       contactField.setValue({
-        'ContactId': contactEntry.$key,
-        'ContactName': contactEntry.NameLF,
+        ContactId: contactEntry.$key,
+        ContactName: contactEntry.NameLF,
       });
       this.onAccountDependentChange(contactField.getValue(), contactField);
     }
@@ -381,11 +381,11 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     // entry may have been passed as full entry, reapply context logic to extract properties
     if (insert && this.context && this.context.resourceKind) {
       const lookup = {
-        'accounts': this.applyAccountContext,
-        'contacts': this.applyContactContext,
-        'opportunities': this.applyOpportunityContext,
-        'leads': this.applyLeadContext,
-        'tickets': this.applyTicketContext,
+        accounts: this.applyAccountContext,
+        contacts: this.applyContactContext,
+        opportunities: this.applyOpportunityContext,
+        leads: this.applyLeadContext,
+        tickets: this.applyTicketContext,
       };
       lookup[this.context.resourceKind].call(this, this.context);
     }

@@ -1,10 +1,6 @@
 import lang from 'dojo/_base/lang';
-import win from 'dojo/_base/window';
 import array from 'dojo/_base/array';
-import has from 'dojo/has';
-import on from 'dojo/on';
 import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
 import 'dojo/_base/sniff';
 
 /**

@@ -60,17 +60,17 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
     return utility.joinFields(sep, fields);
   },
   callWork: function callWork(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'callWork';
     }, params.key);
   },
   callMobile: function callMobile(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'callMobile';
     }, params.key);
   },
   sendEmail: function sendEmail(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'sendEmail';
     }, params.key);
   },

@@ -54,7 +54,6 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       return;
     }
 
-    console.log('Loading dynamic modules for BOE');
     App.picklistService = PicklistService;
     App.enableDashboards = this.enableDashboards;
     this.modules = [
@@ -85,14 +84,14 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       new ShipToModule(this),
     ];
 
-    this.modules.forEach(function initModules(mod) {
+    this.modules.forEach((mod) => {
       mod.init();
     });
 
     this.inherited(arguments);
   },
   isIntegrationEnabled: function isIntegrationEnabled() {
-    const results = this.application.context.integrations.filter((integration) => integration.Name === "Back Office Extension")[0];
+    const results = this.application.context.integrations.filter(integration => integration.Name === 'Back Office Extension')[0];
     return results && results.Enabled;
   },
   loadViewsDynamic: function loadViewsDynamic() {
@@ -100,8 +99,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       return;
     }
 
-    console.log('loading dynamic views for BOE');
-    this.modules.forEach(function loadModuleViews(module) {
+    this.modules.forEach((module) => {
       module.loadViews();
     });
   },
@@ -110,8 +108,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       return;
     }
 
-    console.log('loading dynamic customizations for BOE');
-    this.modules.forEach(function loadModuleCustomizations(module) {
+    this.modules.forEach((module) => {
       module.loadCustomizations();
     });
     this.registerDefaultViews();
@@ -170,15 +167,15 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     lang.extend(crm.Views.MetricWidget, {
       itemTemplate: new Simplate([
-       '<h1 class="metric-value" {%: $$.getValueStyle() %} >{%: $$.formatter($.value) %}</h1>',
-       '<span class="metric-title">{%: $$.title %}</span>',
+        '<h1 class="metric-value" {%: $$.getValueStyle() %} >{%: $$.formatter($.value) %}</h1>',
+        '<span class="metric-title">{%: $$.title %}</span>',
       ]),
       setValueColor: function setValueColor(color) {
         this.valueColor = color;
       },
       getValueStyle: function getValueStyle() {
         if (this.valueColor) {
-          return 'style=color:' + this.valueColor;
+          return `style=color:${this.valueColor}`;
         }
         return '';
       },
@@ -186,9 +183,9 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     lang.extend(argos.TabWidget, {
       tabListItemTemplate: new Simplate([
-       '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
-          '{%: ($.title || $.options.title) %}',
-       '</li>',
+        '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
+        '{%: ($.title || $.options.title) %}',
+        '</li>',
       ]),
     });
   },
@@ -197,8 +194,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       return;
     }
 
-    console.log('Loading dynamic toolbars for BOE');
-    this.modules.forEach(function loadModuleToolbars(module) {
+    this.modules.forEach((module) => {
       module.loadToolbars();
     });
   },

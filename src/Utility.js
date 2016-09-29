@@ -48,7 +48,7 @@ const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
       // Set the 4 least significant bits to zero
       b = (chunk & 3) << 4; // 3   = 2^2 - 1
 
-      base64 += encodings[a] + encodings[b] + '==';
+      base64 += `${encodings[a] + encodings[b]}==`;
     } else if (byteRemainder === 2) {
       chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
 
@@ -58,7 +58,7 @@ const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
       // Set the 2 least significant bits to zero
       c = (chunk & 15) << 2; // 15    = 2^4 - 1
 
-      base64 += encodings[a] + encodings[b] + encodings[c] + '=';
+      base64 += `${encodings[a] + encodings[b] + encodings[c]}=`;
     }
 
     return base64;

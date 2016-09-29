@@ -28,11 +28,10 @@ const __class = declare('crm.Integrations.BOE.Models.UnitOfMeasure.SData', [Base
     ];
   },
   getUnitOfMeasureFromCode: function getUnitOfMeasureFromCode(uomCode, productId) {
-    let queryOptions;
     let queryResults;
     const def = new Deferred();
-    queryOptions = {
-       where: 'Product.Id eq "' + productId + '"',
+    const queryOptions = {
+      where: `Product.Id eq "${productId}"`,
     };
     if (uomCode && productId) {
       queryResults = this.getEntries(null, queryOptions);

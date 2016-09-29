@@ -45,7 +45,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   createStore: function createStore() {
     const errorItems = ErrorManager.getAllErrors();
 
-    errorItems.sort(function sortErrorItems(a, b) {
+    errorItems.sort((a, b) => {
       a.errorDateStamp = a.errorDateStamp || a.Date;
       b.errorDateStamp = b.errorDateStamp || b.Date;
       a.Date = a.errorDateStamp;
@@ -62,7 +62,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [],
+      tbar: [],
     });
   },
 });

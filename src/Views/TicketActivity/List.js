@@ -67,7 +67,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   resourceKind: 'ticketActivities',
 
   _onResize: function _onResize() {
-    query('.note-text-item', this.contentNode).forEach(function setNoteTextShown(node) {
+    query('.note-text-item', this.contentNode).forEach((node) => {
       const wrapNode = query('.note-text-wrap', node)[0];
       const moreNode = query('.note-text-more', node)[0];
       if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {

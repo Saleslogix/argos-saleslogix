@@ -100,7 +100,7 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.SData', [Base, _S
         'Product/*',
         'UnitOfMeasure/*',
         'SlxLocation/*',
-        ],
+      ],
     },
   ];
   },
@@ -113,7 +113,7 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.SData', [Base, _S
         };
         PricingAvailabilityService.getQuoteItemPricing(quoteItem).then((pricingData) => {
           const entry = this.createPricingEntryForUpdate(quoteItem, pricingData);
-          this.updateEntry(entry, {overwrite: true}).then((result) => {
+          this.updateEntry(entry, { overwrite: true }).then((result) => {
             resolve(result);
           });
         });

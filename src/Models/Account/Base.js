@@ -22,8 +22,7 @@ const __class = declare('crm.Models.Account.Base', [_ModelBase], {
   listViewId: 'account_list',
   editViewId: 'account_edit',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Addresses',
       displayName: addressResource.entityDisplayNamePlural,
       type: 'OneToMany',

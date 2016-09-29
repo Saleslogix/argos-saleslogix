@@ -104,10 +104,10 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   ],
   queryArgs: null,
   getWhere: function getWhere() {
-    return "Id eq '" + this.parentEntry.$key + "'";
+    return `Id eq '${this.parentEntry.$key}'`;
   },
   getBaseQuery: function getBaseQuery(entry) {
-    const query = '(Account.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialPaidCode + '" or ErpStatus eq "' + this.pendingCode + '" or ErpStatus eq "' + this.paidCode + '"))';
+    const query = `(Account.Id eq "${entry.$key}" and (ErpStatus eq "${this.openCode}" or ErpStatus eq "${this.partialPaidCode}" or ErpStatus eq "${this.pendingCode}" or ErpStatus eq "${this.paidCode}"))`;
     return query;
   },
   createRangeLayout: function createRangeLayout() {
@@ -180,14 +180,14 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
     this.queryArgs.push([
       'erpInvoices',
       {
-        _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.dayValue, null),
+        _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.dayValue, null)}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal',
       },
     ], [
       'erpInvoices',
       {
-        _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.dayValue, null),
+        _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.dayValue, null)}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumExtendedCost',
       },
@@ -197,28 +197,28 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
       this.queryArgs.push([
         'erpInvoices',
         {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.yearDays, null),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.yearDays, null)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumGrandTotal',
         },
       ], [
         'erpInvoices',
         {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumGrandTotal',
         },
       ], [
         'erpInvoices',
         {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.yearDays, null),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.yearDays, null)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumExtendedCost',
         },
       ], [
         'erpInvoices',
         {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumExtendedCost',
         },
@@ -239,12 +239,12 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
     }
 
     const query = string.substitute(
-      '((' + property + ' between @${0}@ and @${1}@) or (' + property + ' between @${2}@ and @${3}@))',
+      `((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`,
       [
-      convert.toIsoStringFromDate(pastWeekStart.toDate()),
-      convert.toIsoStringFromDate(today.toDate()),
-      pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'),
-      today.format('YYYY-MM-DDT23:59:59[Z]'),
+        convert.toIsoStringFromDate(pastWeekStart.toDate()),
+        convert.toIsoStringFromDate(today.toDate()),
+        pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'),
+        today.format('YYYY-MM-DDT23:59:59[Z]'),
       ]
     );
     return query;

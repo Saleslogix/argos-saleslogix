@@ -1,5 +1,4 @@
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import dojoNumber from 'dojo/number';
 import template from './Template';
@@ -18,33 +17,33 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
    * http://msdn.microsoft.com/en-us/library/cc195167.aspx
    */
   addressCultureFormats: {
-    'en': 'a1|a2|a3|m, R p|C',
+    en: 'a1|a2|a3|m, R p|C',
     'en-GB': 'a1|a2|a3|M|P|C',
-    'fr': 'a1|a2|a3|p M|C',
-    'de': 'a1|a2|a3|p m|C',
-    'it': 'a1|a2|a3|p m Z|C',
-    'ru': 'a1|a2|a3|p m|C',
+    fr: 'a1|a2|a3|p M|C',
+    de: 'a1|a2|a3|p m|C',
+    it: 'a1|a2|a3|p m Z|C',
+    ru: 'a1|a2|a3|p m|C',
   },
   /**
    * Country name to culture identification
    * http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
    */
   countryCultures: {
-    'USA': 'en',
+    USA: 'en',
     'United States': 'en',
     'United States of America': 'en',
-    'US': 'en',
+    US: 'en',
     'United Kingdom': 'en-GB',
-    'UK': 'en-GB',
-    'Britain': 'en-GB',
-    'England': 'en-GB',
-    'Russia': 'ru',
-    'Россия': 'ru',
-    'Italy': 'it',
-    'Italia': 'it',
-    'France': 'fr',
-    'Germany': 'de',
-    'Deutschland': 'de',
+    UK: 'en-GB',
+    Britain: 'en-GB',
+    England: 'en-GB',
+    Russia: 'ru',
+    Россия: 'ru',
+    Italy: 'it',
+    Italia: 'it',
+    France: 'fr',
+    Germany: 'de',
+    Deutschland: 'de',
   },
   addressItems: function addressItems(addr, fmt) {
     function isEmpty(line) {
@@ -60,9 +59,9 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     }
 
     const lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
-    return lines.map((line) => self.replaceAddressPart(line, addr))
-      .filter((line) => !isEmpty(line))
-      .map((line) => self.encode(self.collapseSpace(line)));
+    return lines.map(line => self.replaceAddressPart(line, addr))
+      .filter(line => !isEmpty(line))
+      .map(line => self.encode(self.collapseSpace(line)));
   },
   /**
   Converts the given value using the provided format, joining with the separator character
@@ -118,7 +117,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   },
   replaceAddressPart: function replaceAddressPart(fmt, o) {
     return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
-      function replacePart(part) {
+      (part) => {
         switch (part) {// eslint-disable-line
           case 's':
             return o.Salutation || '';
@@ -173,15 +172,15 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     const f = Math.floor(parseFloat((100 * (v - Math.floor(v))).toPrecision(2))); // for fractional part, only need 2 significant digits
 
     return string.substitute(
-      '${0}' + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator + '${1}', [
-        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')), (f.toString().length < 2) ? '0' + f.toString() : f.toString(),
+      `\${0}${Mobile.CultureInfo.numberFormat.currencyDecimalSeparator}\${1}`, [
+        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')}`), (f.toString().length < 2) ? `0${f.toString()}` : f.toString(),
       ]
     ).replace(/ /g, '\u00A0'); // keep numbers from breaking
   },
   bigNumberAbbrText: {
-    'billion': 'B',
-    'million': 'M',
-    'thousand': 'K',
+    billion: 'B',
+    million: 'M',
+    thousand: 'K',
   },
   bigNumber: function bigNumber(val) {
     let numParse = typeof val !== 'number' ? parseFloat(val) : val;
@@ -248,9 +247,9 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     return string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
   },
   userActivityFormatText: {
-    'asUnconfirmed': 'Unconfirmed',
-    'asAccepted': 'Accepted',
-    'asDeclned': 'Declined',
+    asUnconfirmed: 'Unconfirmed',
+    asAccepted: 'Accepted',
+    asDeclned: 'Declined',
   },
   userActivityStatus: function userActivityStatus(val) {
     return crm.Format.userActivityFormatText[val];
@@ -332,11 +331,11 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
       f = 0;
     }
     num = Math.floor(v).toString();
-    num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace('\\.', '.'));
+    num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace('\\.', '.')}`);
     if (d > 0) {
       const frac = (f.toString().length < d) ? '' : f.toString();
       fVal = string.substitute(
-        '${0}' + Mobile.CultureInfo.numberFormat.numberDecimalSeparator + '${1}', [num, frac]);
+        `\${0}${Mobile.CultureInfo.numberFormat.numberDecimalSeparator}\${1}`, [num, frac]);
     } else {
       fVal = num;
     }

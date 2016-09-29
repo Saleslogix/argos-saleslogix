@@ -93,7 +93,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   },
   createToolLayout: function createToolLayout() {
     this.toolsAdded = false;
-    return {tbar: []};
+    return { tbar: [] };
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
@@ -108,7 +108,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     }]);
   },
   getEntityView: function getEntityView() {
-    const newViewId = this.id + '_' + this.offlineContext.viewId;
+    const newViewId = `${this.id}_${this.offlineContext.viewId}`;
     const view = App.getView(this.offlineContext.viewId);
 
     if (this._entityView) {
@@ -118,7 +118,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
 
     if (view) {
       const ViewCtor = view.constructor;
-      this._entityView = new ViewCtor({id: newViewId});
+      this._entityView = new ViewCtor({ id: newViewId });
     }
     return this._entityView;
   },
@@ -138,7 +138,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     let options = {
       descriptor: entry.description || desc, // keep for backwards compat
       title: entry.description || desc,
-      key: key,
+      key,
       fromContext: this,
       offlineContext: {
         entityId: this._model.getEntityId(entry),
@@ -161,14 +161,14 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
     }
   },
   getDetailView: function getDetailView() {
-    const viewId = this.detailView + '_' + this._model.entityName;
+    const viewId = `${this.detailView}_${this._model.entityName}`;
     let view = this.app.getView(viewId);
 
     if (view) {
       return view;
     }
 
-    this.app.registerView(new OfflineDetail({id: viewId}));
+    this.app.registerView(new OfflineDetail({ id: viewId }));
     view = this.app.getView(viewId);
     return view;
   },

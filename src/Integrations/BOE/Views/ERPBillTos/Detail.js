@@ -129,7 +129,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail]
         name: 'Accounts',
         label: this.accountsText,
         where: function where(entry) {
-          return 'ErpBillToAccounts.ErpBillTo.Id eq "' + entry.$key + '"';
+          return `ErpBillToAccounts.ErpBillTo.Id eq "${entry.$key}"`;
         },
         view: 'billto_accounts_related',
       }, {

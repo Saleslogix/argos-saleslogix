@@ -128,7 +128,7 @@ const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     }
 
     field.disable();
-    salesProcessUtility.getSalesProcessByEntityId(opportunityId).then(function postGetSalesProcess(salesProcess) {
+    salesProcessUtility.getSalesProcessByEntityId(opportunityId).then((salesProcess) => {
       if (salesProcess) {
         field.disable();
         label = this.salesProcessText + salesProcess.$descriptor;
@@ -136,7 +136,7 @@ const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
       } else {
         field.enable();
       }
-    }.bind(this));
+    });
     this.setStageLabel(label);
   },
   setStageLabel: function setStageLabel(label) {

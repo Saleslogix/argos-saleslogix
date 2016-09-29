@@ -61,19 +61,19 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   ],
   createActions: function createActions() {
     this.actions = {
-      'clearLocalStorage': {
+      clearLocalStorage: {
         title: this.clearLocalStorageTitleText,
         cls: 'fa fa-database fa-2x',
       },
-      'clearAuthentication': {
+      clearAuthentication: {
         title: this.clearAuthenticationTitleText,
         cls: 'fa fa-unlock fa-2x',
       },
-      'viewErrorLogs': {
+      viewErrorLogs: {
         title: this.errorLogTitleText,
         cls: 'fa fa-list-alt fa-2x',
       },
-      'viewOfflineOptions': {
+      viewOfflineOptions: {
         title: this.offlineOptionsText,
         cls: 'fa fa-list-alt fa-2x',
       },

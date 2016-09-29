@@ -90,7 +90,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
       App.getView('quote_list'),
     ];
 
-    array.forEach(views, function setViewRefresh(view) {
+    array.forEach(views, (view) => {
       if (view) {
         view.refreshRequired = true;
       }
@@ -186,7 +186,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'DocCalculatedPrice',
         property: 'DocCalculatedPrice',
         label: this.adjustedPriceText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'Quantity',
         property: 'Quantity',
@@ -216,12 +216,12 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'DocExtendedPrice',
         property: 'DocExtendedPrice',
         label: this.extendedAmountText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'DocTotalAmount',
         property: 'DocTotalAmount',
         label: this.totalAmountText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'Status',
         property: 'Status',
@@ -253,7 +253,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'FixedPrice',
         property: 'FixedPrice',
         label: this.fixedPriceText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.Quote.CurrencyCode),
       }, {
         name: 'RushRequest',
         property: 'RushRequest',

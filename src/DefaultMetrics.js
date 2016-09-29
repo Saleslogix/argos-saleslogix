@@ -118,8 +118,8 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         title: this.accountsText.total,
         queryName: 'executeMetric',
         queryArgs: {
-          '_filterName': 'AccountManager',
-          '_metricName': 'CountAccounts',
+          _filterName: 'AccountManager',
+          _metricName: 'CountAccounts',
         },
         chartType: 'bar',
         aggregate: 'sum',

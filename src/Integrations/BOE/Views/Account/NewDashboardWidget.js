@@ -100,18 +100,18 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   ],
   queryArgs: null,
   getWhere: function getWhere() {
-    return "Id eq '" + this.parentEntry.$key + "'";
+    return `Id eq '${this.parentEntry.$key}'`;
   },
   // Creates the range widgets, timespan is based on three categories: d - day, m - month, y - year
   createRangeLayout: function createRangeLayout() {
     const rangeLayout = [{
-        value: 7,
+      value: 7,
     }, {
-        value: 14,
+      value: 14,
     }, {
-        value: 30,
+      value: 30,
     }, {
-        value: 90,
+      value: 90,
     }];
     return rangeLayout;
   },
@@ -163,23 +163,23 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
     this.queryArgs.push([
       'quotes',
       {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and' +
+        _activeFilter: `Account.Id eq "${entry.$key}" and` +
            '(' +
              '((ErpExtId ne null) and ' +
-                '(ErpStatus ne "' + this.replacedCode + '") and ' +
-                '(ErpStatus ne "' + this.cancledCode + '") and ' +
-                '(ErpStatus ne "' + this.deletedCode + '") and ' +
-               '(' + this.pastDays('DocumentDate') + ')' +
+                `(ErpStatus ne "${this.replacedCode}") and ` +
+                `(ErpStatus ne "${this.cancledCode}") and ` +
+                `(ErpStatus ne "${this.deletedCode}") and ` +
+               `(${this.pastDays('DocumentDate')})` +
              ')' +
              ' or ' +
              '((ErpExtId eq null) and ' +
                '(' +
-                 '(Status ne "' + this.closedText + '") and ' +
-                 '(Status ne "' + this.cancledText + '") and ' +
-                 '(Status ne "' + this.replacedText + '") and ' +
-                 '(Status ne "' + this.deletedText + '") and ' +
-                 '(Status ne "' + this.unapprovedText + '") and ' +
-                 '(' + this.pastDays('StartDate') + ')' +
+                 `(Status ne "${this.closedText}") and ` +
+                 `(Status ne "${this.cancledText}") and ` +
+                 `(Status ne "${this.replacedText}") and ` +
+                 `(Status ne "${this.deletedText}") and ` +
+                 `(Status ne "${this.unapprovedText}") and ` +
+                 `(${this.pastDays('StartDate')})` +
                 ')' +
              ')' +
            ')',
@@ -189,22 +189,22 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
     ], [
       'salesOrders',
       {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and IsQuote eq false and ' +
+        _activeFilter: `Account.Id eq "${entry.$key}" and IsQuote eq false and ` +
                 '(' +
                   '((ErpExtId ne null) and ' +
-                    '(ERPSalesOrder.ERPStatus ne "' + this.cancledCode + '") and ' +
-                    '(ERPSalesOrder.ERPStatus ne "' + this.deletedCode + '") and ' +
-                    '(ERPSalesOrder.ERPStatus ne "' + this.unapprovedCode + '") and ' +
-                    '(' + this.pastDays('ErpDocumentDate') + ')' +
+                    `(ERPSalesOrder.ERPStatus ne "${this.cancledCode}") and ` +
+                    `(ERPSalesOrder.ERPStatus ne "${this.deletedCode}") and ` +
+                    `(ERPSalesOrder.ERPStatus ne "${this.unapprovedCode}") and ` +
+                    `(${this.pastDays('ErpDocumentDate')})` +
                   ')' +
                   ' or ' +
                   '((ErpExtId eq null) and ' +
-                    '(Status ne "' + this.closedText + '") and ' +
-                    '(Status ne "' + this.cancledText + '") and ' +
-                    '(Status ne "' + this.deletedText + '") and ' +
-                    '(Status ne "' + this.replacedText + '") and ' +
-                    '(Status ne "' + this.unapprovedText + '") and ' +
-                    '(' + this.pastDays('OrderDate') + ')' +
+                    `(Status ne "${this.closedText}") and ` +
+                    `(Status ne "${this.cancledText}") and ` +
+                    `(Status ne "${this.deletedText}") and ` +
+                    `(Status ne "${this.replacedText}") and ` +
+                    `(Status ne "${this.unapprovedText}") and ` +
+                    `(${this.pastDays('OrderDate')})` +
                    ')' +
                  ')',
         _filterName: 'AccountManager',
@@ -213,33 +213,33 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
     ], [
       'erpShipments',
       {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' +
-             'ErpStatus ne "' + this.cancledCode + '" and ' +
-             'ErpStatus ne "' + this.deletedCode + '" and ' +
-             'ErpStatus ne "' + this.holdCode + '" and ' +
-             this.pastDays('ErpDocumentDate'),
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` +
+             `ErpStatus ne "${this.cancledCode}" and ` +
+             `ErpStatus ne "${this.deletedCode}" and ` +
+             `ErpStatus ne "${this.holdCode}" and ${
+             this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ERPStatus',
         _metricName: 'SumTotalAmount',
       },
     ], [
-        'erpInvoices',
-        {
-          _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' +
-             'ErpStatus ne "' + this.proformaCode + '" and ' +
-             'ErpStatus ne "' + this.voidCode + '" and ' +
-             'ErpStatus ne "' + this.disputeCode + '" and ' +
-             'ErpStatus ne "' + this.writeOffCode + '" and ' +
-             this.pastDays('ErpDocumentDate'),
-          _filterName: 'ErpStatus',
-          _metricName: 'SumGrandTotal',
-        },
+      'erpInvoices',
+      {
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` +
+             `ErpStatus ne "${this.proformaCode}" and ` +
+             `ErpStatus ne "${this.voidCode}" and ` +
+             `ErpStatus ne "${this.disputeCode}" and ` +
+             `ErpStatus ne "${this.writeOffCode}" and ${
+             this.pastDays('ErpDocumentDate')}`,
+        _filterName: 'ErpStatus',
+        _metricName: 'SumGrandTotal',
+      },
     ], [
-        'erpReceivables',
-        {
-          _activeFilter: 'Account.Id eq "' + entry.$key + '" and ErpStatus ne "' + this.voidCode + '" and ' + this.pastDays('ErpDocumentDate'),
-          _filterName: 'ErpStatus',
-          _metricName: 'SumGrandTotal',
-        },
+      'erpReceivables',
+      {
+        _activeFilter: `Account.Id eq "${entry.$key}" and ErpStatus ne "${this.voidCode}" and ${this.pastDays('ErpDocumentDate')}`,
+        _filterName: 'ErpStatus',
+        _metricName: 'SumGrandTotal',
+      },
     ]);
 
     this.setCountTitles();
@@ -253,12 +253,12 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
     const today = now.clone().endOf('day');
 
     const query = string.substitute(
-      '((' + property + ' between @${0}@ and @${1}@) or (' + property + ' between @${2}@ and @${3}@))',
+      `((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`,
       [
-      convert.toIsoStringFromDate(pastWeekStart.toDate()),
-      convert.toIsoStringFromDate(today.toDate()),
-      pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'),
-      today.format('YYYY-MM-DDT23:59:59[Z]'),
+        convert.toIsoStringFromDate(pastWeekStart.toDate()),
+        convert.toIsoStringFromDate(today.toDate()),
+        pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'),
+        today.format('YYYY-MM-DDT23:59:59[Z]'),
       ]
     );
     return query;

@@ -26,7 +26,7 @@ const __class = declare('crm.Views.Activity.MyDayMetricListMixin', [_MetricListM
     metrics = App.getMetricsByResourceKind('userActivities');
 
     if (metrics.length > 0) {
-      filtered = array.filter(metrics, function enableFilteredItems(item) {
+      filtered = array.filter(metrics, (item) => {
         return item.enabled;
       });
     }

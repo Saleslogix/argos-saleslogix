@@ -18,8 +18,7 @@ const __class = declare('crm.Integrations.BOE.Models.UnitOfMeasure.Base', [_Mode
   listViewId: 'unitofmeasure_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [
+    const rel = this.relationships || (this.relationships = [
     ]);
     return rel;
   },

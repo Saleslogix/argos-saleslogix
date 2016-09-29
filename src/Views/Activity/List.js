@@ -47,23 +47,23 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   importantText: resource.importantText,
   recurringText: resource.recurringText,
   activityTypeText: {
-    'atToDo': resource.toDoText,
-    'atPhoneCall': resource.phoneCallText,
-    'atAppointment': resource.meetingText,
-    'atLiterature': resource.literatureText,
-    'atPersonal': resource.personalText,
-    'atQuestion': resource.questionText,
-    'atNote': resource.noteText,
-    'atEMail': resource.emailText,
+    atToDo: resource.toDoText,
+    atPhoneCall: resource.phoneCallText,
+    atAppointment: resource.meetingText,
+    atLiterature: resource.literatureText,
+    atPersonal: resource.personalText,
+    atQuestion: resource.questionText,
+    atNote: resource.noteText,
+    atEMail: resource.emailText,
   },
   titleText: resource.titleText,
   hashTagQueriesText: {
-    'alarm': hashTagResource.alarmText,
-    'recurring': hashTagResource.recurringText,
-    'timeless': hashTagResource.timelessText,
-    'today': hashTagResource.todayText,
+    alarm: hashTagResource.alarmText,
+    recurring: hashTagResource.recurringText,
+    timeless: hashTagResource.timelessText,
+    today: hashTagResource.todayText,
     'this-week': hashTagResource.thisWeekText,
-    'yesterday': hashTagResource.yesterdayText,
+    yesterday: hashTagResource.yesterdayText,
   },
   // Card View
   itemIcon: 'content/images/icons/man_1.png',
@@ -101,14 +101,14 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     '{% } %}',
   ]),
   activityIndicatorIconByType: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-book',
-    'atPersonal': 'fa fa-check-square-o',
-    'atQuestion': 'fa fa-question-circle',
-    'atNote': 'fa fa-file-text-o',
-    'atEMail': 'fa fa-envelope',
+    atToDo: 'fa fa-list-ul',
+    atPhoneCall: 'fa fa-phone',
+    atAppointment: 'fa fa-calendar-o',
+    atLiterature: 'fa fa-book',
+    atPersonal: 'fa fa-check-square-o',
+    atQuestion: 'fa fa-question-circle',
+    atNote: 'fa fa-file-text-o',
+    atEMail: 'fa fa-envelope',
   },
 
   // View Properties
@@ -124,10 +124,10 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   modelName: MODEL_NAMES.ACTIVITY,
 
   hashTagQueries: {
-    'alarm': 'Alarm eq true',
-    'recurring': 'Recurring eq true',
-    'timeless': 'Timeless eq true',
-    'yesterday': function computeYesterday() {
+    alarm: 'Alarm eq true',
+    recurring: 'Recurring eq true',
+    timeless: 'Timeless eq true',
+    yesterday: function computeYesterday() {
       const now = moment();
       const yesterdayStart = now.clone()
         .subtract(1, 'days')
@@ -145,7 +145,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       );
       return query;
     },
-    'today': function computeToday() {
+    today: function computeToday() {
       const now = moment();
       const todayStart = now.clone()
         .startOf('day');
@@ -182,7 +182,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   defaultSearchTerm: function defaultSearchTerm() {
     if (App.enableHashTags) {
-      return '#' + this.hashTagQueriesText['this-week'];
+      return `#${this.hashTagQueriesText['this-week']}`;
     }
 
     return '';
@@ -308,7 +308,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   _getItemIconClass: function _getItemIconClass(type) {
     let cls = this.activityIndicatorIconByType[type];
     if (cls) {
-      cls = cls + ' fa-2x';
+      cls = `${cls} fa-2x`;
     }
 
     return cls;
@@ -331,14 +331,14 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
         return entry.Leader.$key === App.context.user.$key && !recur;
       },
       fn: (function fn(theAction, selection) {
-          const entry = selection && selection.data && selection.data;
+        const entry = selection && selection.data && selection.data;
 
-          entry.CompletedDate = new Date();
-          entry.Result = 'Complete';
+        entry.CompletedDate = new Date();
+        entry.Result = 'Complete';
 
-          environment.refreshActivityLists();
-          this.completeActivity(entry);
-        })
+        environment.refreshActivityLists();
+        this.completeActivity(entry);
+      })
         .bindDelegate(this),
     }, {
       id: 'call',
@@ -366,17 +366,17 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   recordCallToHistory: function recordCallToHistory(complete, entry) {
     const tempEntry = {
-      '$name': 'History',
-      'Type': 'atPhoneCall',
-      'ContactName': entry.ContactName,
-      'ContactId': entry.ContactId,
-      'AccountName': entry.AccountName,
-      'AccountId': entry.AccountId,
-      'Description': string.substitute('${0} ${1}', [this.calledText, (entry.ContactName || '')]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.UserName,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      $name: 'History',
+      Type: 'atPhoneCall',
+      ContactName: entry.ContactName,
+      ContactId: entry.ContactId,
+      AccountName: entry.AccountName,
+      AccountId: entry.AccountId,
+      Description: string.substitute('${0} ${1}', [this.calledText, (entry.ContactName || '')]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.UserName,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
@@ -388,10 +388,10 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       view.show({
         title: this.activityTypeText[type],
         template: {},
-        entry: entry,
+        entry,
         insert: true,
       }, {
-        complete: complete,
+        complete,
       });
     }
   },

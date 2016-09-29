@@ -18,8 +18,7 @@ const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
   security: 'Entities/Opportunity/View',
 
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Account',
       displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',

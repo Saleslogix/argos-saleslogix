@@ -118,7 +118,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.SData', [Bas
         };
         PricingAvailabilityService.getOrderItemPricing(orderItem).then((pricingData) => {
           const entry = this.createPricingEntryForUpdate(orderItem, pricingData);
-          this.updateEntry(entry, {overwrite: true}).then((result) => {
+          this.updateEntry(entry, { overwrite: true }).then((result) => {
             resolve(result);
           });
         });

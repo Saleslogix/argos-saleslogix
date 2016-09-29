@@ -44,13 +44,13 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
     this.showSearchExpression();
 
     const labels = [];
-    const seriesData = array.map(rawData, function mapData(item) {
+    const seriesData = array.map(rawData, (item) => {
       labels.push(item.$descriptor);
       return Math.round(item.value);
     });
 
     const data = {
-      labels: labels,
+      labels,
       datasets: [{
         label: 'Default',
         fillColor: this.barColor,

@@ -20,8 +20,8 @@ const resource = getResource('contactDetail');
 const __class = declare('crm.Views.Contact.Detail', [Detail], {
   // Localization
   activityTypeText: {
-    'atPhoneCall': resource.phoneCall,
-    'atEMail': resource.email,
+    atPhoneCall: resource.phoneCall,
+    atEMail: resource.email,
   },
   accountText: resource.accountText,
   acctMgrText: resource.acctMgrText,
@@ -76,43 +76,43 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       view.show({
         title: this.activityTypeText[type],
         template: {},
-        entry: entry,
+        entry,
         insert: true,
       }, {
-        complete: complete,
+        complete,
       });
     }
   },
   recordCallToHistory: function recordCallToHistory(complete) {
     const entry = {
-      '$name': 'History',
-      'Type': 'atPhoneCall',
-      'ContactName': this.entry.NameLF,
-      'ContactId': this.entry.$key,
-      'AccountName': this.entry.AccountName,
-      'AccountId': this.entry.Account.$key,
-      'Description': string.substitute('${0} ${1}', [this.calledText, this.entry.NameLF]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.$descriptor,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      $name: 'History',
+      Type: 'atPhoneCall',
+      ContactName: this.entry.NameLF,
+      ContactId: this.entry.$key,
+      AccountName: this.entry.AccountName,
+      AccountId: this.entry.Account.$key,
+      Description: string.substitute('${0} ${1}', [this.calledText, this.entry.NameLF]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.$descriptor,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atPhoneCall', entry, complete);
   },
   recordEmailToHistory: function recordEmailToHistory(complete) {
     const entry = {
-      '$name': 'History',
-      'Type': 'atEMail',
-      'ContactName': this.entry.NameLF,
-      'ContactId': this.entry.$key,
-      'AccountName': this.entry.AccountName,
-      'AccountId': this.entry.Account.$key,
-      'Description': string.substitute('Emailed ${0}', [this.entry.NameLF]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.$descriptor,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      $name: 'History',
+      Type: 'atEMail',
+      ContactName: this.entry.NameLF,
+      ContactId: this.entry.$key,
+      AccountName: this.entry.AccountName,
+      AccountId: this.entry.Account.$key,
+      Description: string.substitute('Emailed ${0}', [this.entry.NameLF]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.$descriptor,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atEMail', entry, complete);

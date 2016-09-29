@@ -41,9 +41,9 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
         .setOperationName('validateOrderTotal');
 
       const entry = {
-        '$name': 'ValidateOrderTotal',
-        'request': {
-          'QuoteId': quote.$key,
+        $name: 'ValidateOrderTotal',
+        request: {
+          QuoteId: quote.$key,
         },
       };
       request.execute(entry, {
@@ -64,9 +64,9 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
         .setOperationName('validateOrderTotal');
 
       const entry = {
-        '$name': 'ValidateOrderTotal',
-        'request': {
-          'SalesOrderId': order.$key,
+        $name: 'ValidateOrderTotal',
+        request: {
+          SalesOrderId: order.$key,
         },
       };
       request.execute(entry, {
@@ -152,7 +152,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
         entityId: orderItem.$key,
         SlxLocationExtID: SlxLocation,
         SlxLocationID: SlxLoacationId,
-        ATPDate: ATPDate,
+        ATPDate,
         AvailableQuantity: quantity || 1,
       },
     };
@@ -230,7 +230,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
         entityId: quoteItem.$key,
         SlxLocationExtID: SlxLocation,
         SlxLocationID: SlxLoacationId,
-        ATPDate: ATPDate,
+        ATPDate,
         AvailableQuantity: quantity || quoteItem.Quantity || 1,
       },
     };
@@ -283,7 +283,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
             const dataItem = {};
             dataItem.propertyName = propName;
             const toDouble = Number.parseFloat(item.Properties[prop]);
-            const toDecimal = Number.parseInt(item.Properties[prop]);
+            const toDecimal = Number.parseInt(item.Properties[prop], 10);
             if (toDouble) {
               dataItem.type = 'numeric';
               dataItem.value = toDouble;
@@ -295,12 +295,12 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
               if (value.search('#') !== -1) {
                 const values = value.split('#');
                 value = values[1];
-                data[dataItem.propertyName + 'Code'] = {
-                  propertyName: dataItem.propertyName + 'Code',
+                data[`${dataItem.propertyName}Code`] = {
+                  propertyName: `${dataItem.propertyName}Code`,
                   type: 'text',
                   value: values[0],
                 };
-                dataItem.propertyName = dataItem.propertyName + 'Id';
+                dataItem.propertyName = `${dataItem.propertyName}Id`;
               }
               dataItem.type = 'text';
               dataItem.value = value;
@@ -330,7 +330,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
                   const propName = key.split('.');
                   const extId = product.Properties[key].split('#');
                   entity[propName[0]] = extId[0];
-                  entity[propName[0] + 'ID'] = extId[1];
+                  entity[`${propName[0]}ID`] = extId[1];
                 } else {
                   entity[key] = product.Properties[key];
                 }
@@ -341,7 +341,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
           }
         }
         resolve(warehouses);
-      } catch(error) {
+      } catch (error) {
         reject(error);
       }
     });
@@ -351,9 +351,9 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
     const promise = new Promise((resolve, reject) => {
       this.showBusy(options.description);
       let entry = {
-        '$name': options.operationName,
-        'request': {
-          'options': JSON.stringify(options.requestOptions),
+        $name: options.operationName,
+        request: {
+          options: JSON.stringify(options.requestOptions),
         },
       };
       if (executeOptions) {

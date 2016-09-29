@@ -24,19 +24,19 @@ const __class = lang.setObject('crm.Action', {
       view.show({
         title: entry.Title || null,
         template: {},
-        entry: entry,
+        entry,
         insert: true,
       }, {
-        complete: complete,
+        complete,
       });
     }
   },
   recordToHistory: function recordToHistory(complete, o) {
     const entry = {
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.$descriptor,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.$descriptor,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
     lang.mixin(entry, o);
 
@@ -54,8 +54,8 @@ const __class = lang.setObject('crm.Action', {
     });
 
     lang.mixin(selection.data, {
-      'Type': 'atPhoneCall',
-      'Description': string.substitute(crm.Action.calledText, [selection.data.$descriptor]),
+      Type: 'atPhoneCall',
+      Description: string.substitute(crm.Action.calledText, [selection.data.$descriptor]),
     });
 
     const value = utility.getValue(selection.data, phoneProperty, '');
@@ -69,8 +69,8 @@ const __class = lang.setObject('crm.Action', {
     }
 
     lang.mixin(selection.data, {
-      'Type': 'atEmail',
-      'Description': string.substitute(crm.Action.emailedText, [selection.data.$descriptor]),
+      Type: 'atEmail',
+      Description: string.substitute(crm.Action.emailedText, [selection.data.$descriptor]),
     });
 
     const value = utility.getValue(selection.data, emailProperty, '');
@@ -84,9 +84,9 @@ const __class = lang.setObject('crm.Action', {
     const desc = selection.data.$descriptor;
 
     this.setSource({
-      entry: entry,
+      entry,
       descriptor: desc,
-      key: key,
+      key,
     });
 
     const view = App.getView('history_edit');
@@ -107,9 +107,9 @@ const __class = lang.setObject('crm.Action', {
   },
   navigateToEntity: function navigateToEntity(action, selection, o) {
     const options = {
-        key: utility.getValue(selection.data, o.keyProperty),
-        descriptor: utility.getValue(selection.data, o.textProperty),
-      };
+      key: utility.getValue(selection.data, o.keyProperty),
+      descriptor: utility.getValue(selection.data, o.textProperty),
+    };
 
     const view = App.getView(o.view);
 

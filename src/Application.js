@@ -79,14 +79,14 @@ const __class = declare('crm.Application', [Application], {
   ],
   appName: 'argos-saleslogix',
   serverVersion: {
-    'major': 8,
-    'minor': 0,
-    'revision': 0,
+    major: 8,
+    minor: 0,
+    revision: 0,
   },
   mobileVersion: {
-    'major': 3,
-    'minor': 5,
-    'revision': 0,
+    major: 3,
+    minor: 5,
+    revision: 0,
   },
   versionInfoText: resource.versionInfoText,
   loadingText: resource.loadingText,
@@ -267,8 +267,8 @@ const __class = declare('crm.Application', [Application], {
       const rate = found.ExchangeRate;
       const code = found.ExchangeRateCode;
       lang.mixin(results, {
-        code: code,
-        rate: rate,
+        code,
+        rate,
       });
     }
 
@@ -290,9 +290,9 @@ const __class = declare('crm.Application', [Application], {
   },
   onAuthenticateUserSuccess: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
     const user = {
-      '$key': lang.trim(result.response.userId),
-      '$descriptor': result.response.prettyName,
-      'UserName': result.response.userName,
+      $key: lang.trim(result.response.userId),
+      $descriptor: result.response.prettyName,
+      UserName: result.response.userName,
     };
 
     this.context.user = user;
@@ -308,9 +308,9 @@ const __class = declare('crm.Application', [Application], {
       // downgrade server version as only 8.0 has `securedActions` as part of the
       // `getCurrentUser` response.
       this.serverVersion = {
-        'major': 7,
-        'minor': 5,
-        'revision': 4,
+        major: 7,
+        minor: 5,
+        revision: 4,
       };
     }
 
@@ -327,7 +327,7 @@ const __class = declare('crm.Application', [Application], {
 
     if (callback) {
       callback.call(scope || this, {
-        user: user,
+        user,
       });
     }
   },
@@ -341,7 +341,7 @@ const __class = declare('crm.Application', [Application], {
 
     if (callback) {
       callback.call(scope || this, {
-        response: response,
+        response,
       });
     }
   },
@@ -443,9 +443,9 @@ const __class = declare('crm.Application', [Application], {
   onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
-    this.initAppState().then(()=> {
+    this.initAppState().then(() => {
       this.onInitAppStateSuccess();
-    }, (err)=> {
+    }, (err) => {
       this.onInitAppStateFailed(err);
     });
   },
@@ -887,7 +887,7 @@ const __class = declare('crm.Application', [Application], {
           view = redirectView;
           if (key) {
             redirectView.show({
-              key: key,
+              key,
             });
           }
         }

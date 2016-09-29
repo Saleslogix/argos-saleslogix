@@ -35,7 +35,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.ActivityDashboardWid
     'AccountName',
   ],
   getWhere: function getWhere() {
-    return "Id eq '" + this.parentEntry.$key + "'";
+    return `Id eq '${this.parentEntry.$key}'`;
   },
 
   createRangeLayout: function createRangeLayout() {
@@ -56,7 +56,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.ActivityDashboardWid
       formatter: 'bigNumber',
       title: this.recentText,
       queryArgs: {
-        _activeFilter: 'AccountId eq "' + entry.$key + '" and ' + this.pastDays('CreateDate'),
+        _activeFilter: `AccountId eq "${entry.$key}" and ${this.pastDays('CreateDate')}`,
         _filterName: 'ActivityType',
         _metricName: 'CountActivities',
       },
@@ -75,7 +75,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.ActivityDashboardWid
     const today = now.clone().endOf('day');
 
     const queries = string.substitute(
-      '((' + property + ' between @${0}@ and @${1}@) or (' + property + ' between @${2}@ and @${3}@))',
+      `((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`,
       [
         convert.toIsoStringFromDate(pastWeekStart.toDate()),
         convert.toIsoStringFromDate(today.toDate()),

@@ -174,26 +174,26 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
      * Quick Actions
      */
     am.registerCustomization('detail', 'contact_detail', {
-       at: function at(row) {
-         return row.name === 'ViewAddressAction';
-       },
-       type: 'insert',
-       where: 'after',
-       value: [{
-         name: 'AddQuote',
-         property: 'NameLF',
-         label: this.addQuoteText,
-         iconClass: 'fa fa-file-text-o fa-2x',
-         action: '_onAddQuoteClick',
-         security: 'Entities/Quote/Add',
-       }, {
-         name: 'AddOrder',
-         property: 'AccountName',
-         label: this.addOrderText,
-         iconClass: 'fa fa-shopping-cart fa-2x',
-         action: '_onAddOrderClick',
-         security: 'Entities/SalesOrder/Add',
-       }],
+      at: function at(row) {
+        return row.name === 'ViewAddressAction';
+      },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'AddQuote',
+        property: 'NameLF',
+        label: this.addQuoteText,
+        iconClass: 'fa fa-file-text-o fa-2x',
+        action: '_onAddQuoteClick',
+        security: 'Entities/Quote/Add',
+      }, {
+        name: 'AddOrder',
+        property: 'AccountName',
+        label: this.addOrderText,
+        iconClass: 'fa fa-shopping-cart fa-2x',
+        action: '_onAddOrderClick',
+        security: 'Entities/SalesOrder/Add',
+      }],
     });
 
     /*
@@ -231,21 +231,21 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
           name: 'AccountAssociations',
           label: this.erpAccountAssociationsText,
           where: function where(entry) {
-            return 'Contact.Id eq "' + entry.$key + '"';
+            return `Contact.Id eq "${entry.$key}"`;
           },
           view: 'contact_account_related',
         }, {
           name: 'Quotes',
           label: this.quotesText,
           where: function where(entry) {
-            return 'RequestedBy.Id eq "' + entry.$key + '"';
+            return `RequestedBy.Id eq "${entry.$key}"`;
           },
           view: 'contact_quotes_related',
         }, {
           name: 'SalesOrders',
           label: this.ordersText,
           where: function where(entry) {
-            return 'RequestedBy.Id eq "' + entry.$key + '"';
+            return `RequestedBy.Id eq "${entry.$key}"`;
           },
           view: 'contact_salesorders_related',
         }, {

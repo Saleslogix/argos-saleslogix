@@ -11,7 +11,7 @@ const __class = declare('crm.Integrations.Contour.Models.Place.SData', [Base, _S
     return [{
       name: 'list',
       queryOrderBy: 'Name',
-      queryWhere: '(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "' + App.context.user.$key + '"))',
+      queryWhere: `(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "${App.context.user.$key}"))`,
       querySelect: [
         'Name',
         'ModifyDate',

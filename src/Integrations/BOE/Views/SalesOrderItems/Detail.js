@@ -93,7 +93,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
       App.getView('salesorder_list'),
     ];
 
-    array.forEach(views, function setViewRefresh(view) {
+    array.forEach(views, (view) => {
       if (view) {
         view.refreshRequired = true;
       }
@@ -189,7 +189,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
         name: 'DocCalculatedPrice',
         property: 'DocCalculatedPrice',
         label: this.adjustedPriceText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
       }, {
         name: 'Quantity',
         property: 'Quantity',
@@ -219,12 +219,12 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
         name: 'DocExtendedPrice',
         property: 'DocExtendedPrice',
         label: this.extendedAmountText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
       }, {
         name: 'DocTotalAmount',
         property: 'DocTotalAmount',
         label: this.totalAmountText,
-        renderer: (value) => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
+        renderer: value => utility.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode),
       }, {
         name: 'ErpStatus',
         property: 'ErpStatus',

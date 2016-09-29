@@ -19,8 +19,7 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.Base', [_ModelBas
   listViewId: 'quote_lines_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Quote',
       displayName: quoteResource.entityDisplayName,
       type: 'ManyToOne',

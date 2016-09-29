@@ -13,7 +13,6 @@ const salesorderResource = getResource('salesOrderModel');
 const billtoResource = getResource('erpBillToModel');
 const shiptoResource = getResource('erpShipToModel');
 const syncresultResource = getResource('syncResultModel');
-const quotepersonResource = getResource('quotePersonModel');
 
 const __class = declare('crm.Integrations.BOE.Models.Quote.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -27,64 +26,63 @@ const __class = declare('crm.Integrations.BOE.Models.Quote.Base', [_ModelBase], 
   listViewId: 'quote_list',
   editViewId: 'quote_edit',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
-        name: 'Account',
-        displayName: accountResource.entityDisplayNamePlural,
-        type: 'ManyToOne',
-        relatedEntity: 'Account',
-        parentProperty: 'Account',
-        parentPropertyType: 'object',
-      }, {
-        name: 'RequestedBy',
-        displayName: contactResource.entityDisplayNamePlural,
-        type: 'ManyToOne',
-        relatedEntity: 'Contact',
-        parentProperty: 'RequestedBy',
-        parentPropertyType: 'object',
-      }, {
-        name: 'Opportunity',
-        displayName: opportunityResource.entityDisplayNamePlural,
-        type: 'ManyToOne',
-        relatedEntity: 'Opportunity',
-        parentProperty: 'Opportunity',
-        parentPropertyType: 'object',
-      }, {
-        name: 'SalesOrder',
-        displayName: salesorderResource.entityDisplayNamePlural,
-        type: 'ManyToOne',
-        relatedEntity: 'SalesOrder',
-        parentProperty: 'SalesOrder',
-        parentPropertyType: 'object',
-      }, {
-        name: 'BillTo',
-        displayName: billtoResource.entityDisplayNamePlural,
-        type: 'ManyToOne',
-        relatedEntity: 'ERPBillTo',
-        parentProperty: 'BillTo',
-        parentPropertyType: 'object',
-      }, {
-        name: 'ShipTo',
-        displayName: shiptoResource.entityDisplayNamePlural,
-        type: 'ManyToOne',
-        relatedEntity: 'ERPShipTo',
-        parentProperty: 'ShipTo',
-        parentPropertyType: 'object',
-      }, {
-        name: 'QuoteItem',
-        displayName: quoteItemsResource.entityDisplayNamePlural,
-        type: 'OneToMany',
-        relatedEntity: 'QuoteItem',
-        relatedProperty: 'Quote',
-        relatedPropertyType: 'object',
-      }, {
-        name: 'SyncHistory',
-        displayName: syncresultResource.entityDisplayNamePlural,
-        type: 'OneToMany',
-        relatedEntity: 'SyncResult',
-        relatedProperty: 'EntityId',
-        where: 'EntityType eq "Quote"',
-      },
+    const rel = this.relationships || (this.relationships = [{
+      name: 'Account',
+      displayName: accountResource.entityDisplayNamePlural,
+      type: 'ManyToOne',
+      relatedEntity: 'Account',
+      parentProperty: 'Account',
+      parentPropertyType: 'object',
+    }, {
+      name: 'RequestedBy',
+      displayName: contactResource.entityDisplayNamePlural,
+      type: 'ManyToOne',
+      relatedEntity: 'Contact',
+      parentProperty: 'RequestedBy',
+      parentPropertyType: 'object',
+    }, {
+      name: 'Opportunity',
+      displayName: opportunityResource.entityDisplayNamePlural,
+      type: 'ManyToOne',
+      relatedEntity: 'Opportunity',
+      parentProperty: 'Opportunity',
+      parentPropertyType: 'object',
+    }, {
+      name: 'SalesOrder',
+      displayName: salesorderResource.entityDisplayNamePlural,
+      type: 'ManyToOne',
+      relatedEntity: 'SalesOrder',
+      parentProperty: 'SalesOrder',
+      parentPropertyType: 'object',
+    }, {
+      name: 'BillTo',
+      displayName: billtoResource.entityDisplayNamePlural,
+      type: 'ManyToOne',
+      relatedEntity: 'ERPBillTo',
+      parentProperty: 'BillTo',
+      parentPropertyType: 'object',
+    }, {
+      name: 'ShipTo',
+      displayName: shiptoResource.entityDisplayNamePlural,
+      type: 'ManyToOne',
+      relatedEntity: 'ERPShipTo',
+      parentProperty: 'ShipTo',
+      parentPropertyType: 'object',
+    }, {
+      name: 'QuoteItem',
+      displayName: quoteItemsResource.entityDisplayNamePlural,
+      type: 'OneToMany',
+      relatedEntity: 'QuoteItem',
+      relatedProperty: 'Quote',
+      relatedPropertyType: 'object',
+    }, {
+      name: 'SyncHistory',
+      displayName: syncresultResource.entityDisplayNamePlural,
+      type: 'OneToMany',
+      relatedEntity: 'SyncResult',
+      relatedProperty: 'EntityId',
+      where: 'EntityType eq "Quote"',
+    },
     ]);
     return rel;
   },

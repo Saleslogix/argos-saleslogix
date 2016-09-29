@@ -16,7 +16,7 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
   }
 
   const view = new PickList({
-    id: 'pick_list_' + (viewsByNameCount++),
+    id: `pick_list_${viewsByNameCount++}`,
     expose: false,
   });
 

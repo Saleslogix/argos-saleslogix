@@ -72,7 +72,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
 
   createToolLayout: function createToolLayout() {
     const tools = {
-      'tbar': [],
+      tbar: [],
     };
 
     if (this.sendType === 'mailto') {
@@ -86,14 +86,14 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
 
     if (this.sendType === 'copy') {
       const flashVars = this.constructFlashVars({
-        'retrieveFunction': 'App.views.' + this.id + '.constructReport',
-        'callbackFunction': 'App.views.' + this.id + '.onCopySuccess',
-        'labelVisible': '0',
+        retrieveFunction: `App.views.${this.id}.constructReport`,
+        callbackFunction: `App.views.${this.id}.onCopySuccess`,
+        labelVisible: '0',
       });
 
       tools.tbar.push({
         template: this.copyButtonTemplate,
-        flashVars: flashVars,
+        flashVars,
       });
     }
 

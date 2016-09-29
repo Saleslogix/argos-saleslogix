@@ -34,7 +34,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
   createMetricWidgetsLayout: function createMetricWidgetsLayout() {
     const metrics = App.getMetricsByResourceKind(this.resourceKind);
-    return metrics.filter((item) => item.enabled);
+    return metrics.filter(item => item.enabled);
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
@@ -44,7 +44,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     domConstruct.place(metricList, this.scrollerNode, 'first');
   },
   destroyWidgets: function destroyWidgets() {
-    array.forEach(this.metricWidgets, function destroy(widget) {
+    array.forEach(this.metricWidgets, (widget) => {
       widget.destroy();
     }, this);
 
@@ -110,7 +110,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
 
     // Create metrics widgets and place them in the metricNode
     const widgetOptions = this.createMetricWidgetsLayout() || [];
-    const widgets = widgetOptions.filter((options) => this._hasValidOptions(options))
+    const widgets = widgetOptions.filter(options => this._hasValidOptions(options))
       .map((options) => {
         const clonedOptions = Object.assign({}, options);
         return this._instantiateMetricWidget(clonedOptions).then((widget) => {
@@ -131,9 +131,9 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const query = this.query;
     const where = this.options && this.options.where;
     const optionsQuery = options && options.queryArgs && options.queryArgs.activeFilter;
-    return array.filter([query, where, optionsQuery], function checkItem(item) {
-        return !!item;
-      })
+    return array.filter([query, where, optionsQuery], (item) => {
+      return !!item;
+    })
       .join(' and ');
   },
   _hasValidOptions: function _hasValidOptions(options) {

@@ -10,7 +10,7 @@ export default declare('crm.Views.Activity.MyDayMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   activityType: '',
   _buildQueryOptions: function _buildQueryOptions() {
-    return {returnQueryResults: true};
+    return { returnQueryResults: true };
   },
   _buildQueryExpression: function _buildQueryExpression() {
     const self = this;

@@ -44,10 +44,10 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
         request.setResourceKind('Opportunities');
         request.setOperationName('CreateQuoteFromOpportunity');
         const entry = {
-          '$name': 'CreateQuoteFromOpportunity',
-          'request': {
-            'entity': {
-              '$key': this.entry.$key,
+          $name: 'CreateQuoteFromOpportunity',
+          request: {
+            entity: {
+              $key: this.entry.$key,
             },
           },
         };
@@ -68,10 +68,10 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
         request.setOperationName('CreateSalesOrderFromOpportunity');
 
         const entry = {
-          '$name': 'CreateSalesOrderFromOpportunity',
-          'request': {
-            'entity': {
-              '$key': this.entry.$key,
+          $name: 'CreateSalesOrderFromOpportunity',
+          request: {
+            entity: {
+              $key: this.entry.$key,
             },
           },
         };
@@ -92,26 +92,26 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
      * Quick Actions
      */
     am.registerCustomization('detail', 'opportunity_detail', {
-       at: function at(row) {
-         return row.name === 'AddNoteAction';
-       },
-       type: 'insert',
-       where: 'after',
-       value: [{
-         name: 'AddQuote',
-         property: 'Description',
-         label: this.addQuoteText,
-         iconClass: 'fa fa-file-text-o fa-2x',
-         action: '_onAddQuoteClick',
-         security: 'Entities/Quote/Add',
-       }, {
-         name: 'AddOrder',
-         property: 'Description',
-         label: this.addOrderText,
-         iconClass: 'fa fa-shopping-cart fa-2x',
-         action: '_onAddOrderClick',
-         security: 'Entities/SalesOrder/Add',
-       }],
+      at: function at(row) {
+        return row.name === 'AddNoteAction';
+      },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'AddQuote',
+        property: 'Description',
+        label: this.addQuoteText,
+        iconClass: 'fa fa-file-text-o fa-2x',
+        action: '_onAddQuoteClick',
+        security: 'Entities/Quote/Add',
+      }, {
+        name: 'AddOrder',
+        property: 'Description',
+        label: this.addOrderText,
+        iconClass: 'fa fa-shopping-cart fa-2x',
+        action: '_onAddOrderClick',
+        security: 'Entities/SalesOrder/Add',
+      }],
     });
 
     /*
@@ -131,14 +131,14 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           name: 'Quotes',
           label: this.quotesText,
           where: function where(entry) {
-            return 'Opportunity.Id eq "' + entry.$key + '"';
+            return `Opportunity.Id eq "${entry.$key}"`;
           },
           view: 'opportunity_quotes_related',
         }, {
           name: 'SalesOrders',
           label: this.ordersText,
           where: function where(entry) {
-            return 'Opportunity.Id eq "' + entry.$key + '"';
+            return `Opportunity.Id eq "${entry.$key}"`;
           },
           view: 'opportunity_salesorders_related',
         }],
