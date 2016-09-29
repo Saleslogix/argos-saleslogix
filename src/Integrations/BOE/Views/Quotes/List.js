@@ -27,6 +27,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
     '</h4>',
     '{% if ($.ErpExtId) { %}',
     '<h4><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ErpStatus) %}</h4>',
+    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.DocumentDate) %}</h4>',
     '{% } else { %}',
     '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</h4>',
     '{% } %}',
@@ -43,6 +44,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
   addLineItemsText: resource.addLineItemsText,
   statusLabelText: resource.statusLabelText,
   erpStatusLabelText: resource.erpStatusLabelText,
+  documentDateText: resource.documentDateText,
 
   // View Properties
   id: 'quote_list',

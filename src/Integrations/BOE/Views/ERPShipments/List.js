@@ -30,6 +30,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _
     '<h4><label class="group-label"> {%: $$.totalAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalAmount, $.CurrencyCode) %}',
     '</h4>',
+    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
   ]),
 
   // Localization
@@ -41,6 +42,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _
   viewAccountActionText: resource.viewAccountActionText,
   totalBaseAmountText: resource.totalBaseAmountText,
   totalAmountText: resource.totalAmountText,
+  documentDateText: resource.documentDateText,
 
   // View Properties
   id: 'erpshipments_list',

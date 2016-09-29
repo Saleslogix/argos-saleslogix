@@ -32,6 +32,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
     '</h4>',
     '{% if ($.ErpExtId) { %}',
     '<h4><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ERPSalesOrder.ERPStatus) %}</h4>',
+    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
     '{% } else { %}',
     '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</h4>',
     '{% } %}',
@@ -49,6 +50,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
   orderDateText: resource.orderDateText,
   viewAccountActionText: resource.viewAccountActionText,
   addLineItemsText: resource.addLineItemsText,
+  documentDateText: resource.documentDateText,
 
   // View Properties
   id: 'salesorder_list',

@@ -11,7 +11,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivable.SData', [Base
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
-      queryOrderBy: 'CreateDate desc',
+      queryOrderBy: 'ErpDocumentDate desc, CreateDate desc',
       querySelect: [
         'ErpExtId',
         'Account/AccountName',
@@ -25,6 +25,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivable.SData', [Base
         'CreateDate',
         'CurrencyCode',
         'BaseCurrencyCode',
+        'ErpDocumentDate',
       ],
     }, {
       name: 'detail',

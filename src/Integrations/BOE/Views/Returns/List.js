@@ -19,6 +19,7 @@ const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _Right
 
   // Localization
   titleText: resource.titleText,
+  documentDateText: resource.documentDateText,
 
   // View Properties
   id: 'returns_list',
