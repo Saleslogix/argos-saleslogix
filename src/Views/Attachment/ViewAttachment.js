@@ -136,9 +136,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   },
   createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
-      '$key': e.$key,
-      '$etag': e.$etag,
-      '$name': e.$name,
+      $key: e.$key,
+      $etag: e.$etag,
+      $name: e.$name,
     };
     return entry;
   },
@@ -161,16 +161,16 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       isFile = true;
     } else {
       isFile = false;
-      description = entry.description + ' (' + entry.url + ')';
+      description = `${entry.description} (${entry.url})`;
       fileType = 'url';
     }
 
     const data = {
       fileName: entry.fileName,
       fileSize: entry.fileSize,
-      fileType: fileType,
+      fileType,
       url: '',
-      description: description,
+      description,
     };
 
     if (isFile) {
@@ -184,9 +184,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
           const self = this;
           const attachmentid = entry.$key;
           // dataurl
-          am.getAttachmentFile(attachmentid, 'arraybuffer', function imageHandler(responseInfo) {
+          am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
             const rData = Utility.base64ArrayBuffer(responseInfo.response);
-            self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
+            self.dataURL = `data:${responseInfo.contentType};base64,${rData}`;
 
             const image = new Image();
 
@@ -221,9 +221,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
             domClass.add(this.domNode, 'list-loading');
             const attachmentid = entry.$key;
-            am.getAttachmentFile(attachmentid, 'arraybuffer', function iframeResponse(responseInfo) {
+            am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
-              const dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+              const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
               domClass.add(dl, 'display-none');
               const iframe = dom.byId('attachment-Iframe');
               iframe.onload = function iframeOnLoad() {

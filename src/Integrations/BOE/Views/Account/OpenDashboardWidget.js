@@ -90,7 +90,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
     'AccountName',
   ],
   getWhere: function getWhere() {
-    return "Id eq '" + this.parentEntry.$key + "'";
+    return `Id eq '${this.parentEntry.$key}'`;
   },
   // Creates the range widgets, value can have valueUnit to apply next to the number
   createRangeLayout: function createRangeLayout() {
@@ -146,24 +146,24 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
     this.queryArgs.push([
       'quotes',
       {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' +
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` +
                 '(' +
                   '(' +
                     '(ErpExtId ne null) and ' +
-                       '(ErpStatus eq "' + this.openCode + '"' +
-                        ' or ErpStatus eq "' + this.pendingCode + '"' +
-                        ' or ErpStatus eq "' + this.approvedCode + '"' +
-                     ') and (' + this.pastDays('DocumentDate') + ')' +
+                       `(ErpStatus eq "${this.openCode}"` +
+                        ` or ErpStatus eq "${this.pendingCode}"` +
+                        ` or ErpStatus eq "${this.approvedCode}"` +
+                     `) and (${this.pastDays('DocumentDate')})` +
                   ')' +
                   ' or ' +
                   '(' +
                     '(ErpExtId eq null) and ' +
-                      '(Status eq "' + this.newText + '"' +
-                       ' or Status eq "' + this.openText + '"' +
-                       ' or Status eq "' + this.approvedText + '"' +
-                       ' or Status eq "' + this.pendingText + '"' +
-                       ' or Status eq "' + this.awardedText + '"' +
-                      ') and (' + this.pastDays('StartDate') + ')' +
+                      `(Status eq "${this.newText}"` +
+                       ` or Status eq "${this.openText}"` +
+                       ` or Status eq "${this.approvedText}"` +
+                       ` or Status eq "${this.pendingText}"` +
+                       ` or Status eq "${this.awardedText}"` +
+                      `) and (${this.pastDays('StartDate')})` +
                   ')' +
                 ')',
         _filterName: 'AccountManager',
@@ -172,53 +172,53 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
     ], [
       'erpInvoices',
       {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' +
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` +
            '(' +
-            '(ErpStatus eq "' + this.openCode + '"' +
-              ' or ErpStatus eq "' + this.partialPaidCode + '"' +
-              ' or ErpStatus eq "' + this.disputeCode + '"' +
+            `(ErpStatus eq "${this.openCode}"` +
+              ` or ErpStatus eq "${this.partialPaidCode}"` +
+              ` or ErpStatus eq "${this.disputeCode}"` +
              ')' +
-           ') and ' + this.pastDays('DueDate'),
+           `) and ${this.pastDays('DueDate')}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal',
       },
     ], [
       'salesOrders',
       {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' +
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` +
            '(' +
              '(' +
                '(ErpExtId ne null) and ' +
                '(' +
-                 '(ERPSalesOrder.ERPStatus eq "' + this.openCode + '"' +
-                  ' or ERPSalesOrder.ERPStatus eq "' + this.holdCode + '"' +
-                  ' or ERPSalesOrder.ERPStatus eq "' + this.partialShipCode + '"' +
-                  ' or ERPSalesOrder.ERPStatus eq "' + this.approvedCode + '"' +
-                 ') and ' + this.pastDays('ErpDocumentDate') + // ' and ' +
+                 `(ERPSalesOrder.ERPStatus eq "${this.openCode}"` +
+                  ` or ERPSalesOrder.ERPStatus eq "${this.holdCode}"` +
+                  ` or ERPSalesOrder.ERPStatus eq "${this.partialShipCode}"` +
+                  ` or ERPSalesOrder.ERPStatus eq "${this.approvedCode}"` +
+                 `) and ${this.pastDays('ErpDocumentDate')  // ' and ' +
                  // '(SalesOrderItems.ErpStatus eq "' + this.openCode + '"' + // This does not work since it creates a cartesion duplicate result for each line
                  //    ' or SalesOrderItems.ErpStatus eq "' + this.partialShipCode + '"' +
                  //    ' or SalesOrderItems.ErpStatus eq "' + this.holdCode + '"' +
                  //  ') and ' +
                  //  this.pastDays('SalesOrderItems.ErpRequiredDeliveryDate') +
-                ')' +
+                })` +
              ') or ' +
              '((ErpExtId eq null) and ' +
-             '(Status eq "' + this.openOrderText + '"' +
-             ' or Status eq "' + this.salesOrderText + '"' +
-             ' or Status eq "' + this.salesHoldText + '"' +
-             ' or Status eq "' + this.creditHoldText + '"' +
-             ' or Status eq "' + this.adminHoldText + '"' +
-             ' or Status eq "' + this.holdText + '"' +
-             ' or Status eq "' + this.orderedText + '"' +
-             ' or Status eq "' + this.partiallyShippedText + '"' +
-             ' or Status eq "' + this.pendingText + '"' +
-             ') and (' + this.pastDays('OrderDate') + ')' +
+             `(Status eq "${this.openOrderText}"` +
+             ` or Status eq "${this.salesOrderText}"` +
+             ` or Status eq "${this.salesHoldText}"` +
+             ` or Status eq "${this.creditHoldText}"` +
+             ` or Status eq "${this.adminHoldText}"` +
+             ` or Status eq "${this.holdText}"` +
+             ` or Status eq "${this.orderedText}"` +
+             ` or Status eq "${this.partiallyShippedText}"` +
+             ` or Status eq "${this.pendingText}"` +
+             `) and (${this.pastDays('OrderDate')})` +
              ')' +
            ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal',
       },
-    ] );
+    ]);
     this.setCountTitles();
   },
   setCountTitles: function setCountTitles() {
@@ -232,11 +232,11 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
     const pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
     const query = string.substitute(
-            '(' + property + ' lt @${0}@ or (' + property + ' lt @${1}@))',
-            [
-            convert.toIsoStringFromDate(pastDay.toDate()),
-            pastDay.format('YYYY-MM-DDT00:00:00[Z]'),
-            ]
+            `(${property} lt @\${0}@ or (${property} lt @\${1}@))`,
+      [
+        convert.toIsoStringFromDate(pastDay.toDate()),
+        pastDay.format('YYYY-MM-DDT00:00:00[Z]'),
+      ]
     );
     return query;
   },

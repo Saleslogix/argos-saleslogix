@@ -89,14 +89,14 @@ const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySData
     for (const n in segment) {
       if (segment.hasOwnProperty(n)) {
         list.push({
-          '$key': n,
-          '$descriptor': n,
+          $key: n,
+          $descriptor: n,
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   hasMoreData: function hasMoreData() {

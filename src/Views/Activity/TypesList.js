@@ -40,22 +40,22 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Localization
   titleText: resource.titleText,
   activityTypeText: {
-    'atToDo': resource.toDo,
-    'atPhoneCall': resource.phoneCall,
-    'atAppointment': resource.meeting,
-    'atLiterature': resource.literature,
-    'atPersonal': resource.personal,
-    'event': resource.eventText,
+    atToDo: resource.toDo,
+    atPhoneCall: resource.phoneCall,
+    atAppointment: resource.meeting,
+    atLiterature: resource.literature,
+    atPersonal: resource.personal,
+    event: resource.eventText,
   },
 
   // View Properties
   activityTypeIcons: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-calendar-o',
-    'atPersonal': 'fa fa-check-square-o',
-    'event': 'fa fa-calendar-o',
+    atToDo: 'fa fa-list-ul',
+    atPhoneCall: 'fa fa-phone',
+    atAppointment: 'fa fa-calendar-o',
+    atLiterature: 'fa fa-calendar-o',
+    atPersonal: 'fa fa-check-square-o',
+    event: 'fa fa-calendar-o',
   },
   activityTypeOrder: [
     'atAppointment',
@@ -81,7 +81,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
         view.show({
           insert: true,
           entry: (this.options && this.options.entry) || null,
-          source: source,
+          source,
           activityType: params.key,
           title: this.activityTypeText[params.key],
           returnTo: this.options && this.options.returnTo,
@@ -116,10 +116,10 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
 
     for (let i = 0; i < this.activityTypeOrder.length; i++) {
       list.push({
-        '$key': this.activityTypeOrder[i],
-        '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
-        'iconClass': this.activityTypeIcons[this.activityTypeOrder[i]],
-        'type': this.activityTypeOrder[i],
+        $key: this.activityTypeOrder[i],
+        $descriptor: this.activityTypeText[this.activityTypeOrder[i]],
+        iconClass: this.activityTypeIcons[this.activityTypeOrder[i]],
+        type: this.activityTypeOrder[i],
       });
     }
 

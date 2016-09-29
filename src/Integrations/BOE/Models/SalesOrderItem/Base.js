@@ -19,8 +19,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.Base', [_Mod
   listViewId: 'salessorder_items_list',
   editViewId: 'salesorder_item_edit',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'SalesOrder',
       displayName: salesorderResource.entityDisplayName,
       type: 'ManyToOne',

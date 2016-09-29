@@ -6,7 +6,7 @@ import domClass from 'dojo/dom-class';
 import query from 'dojo/query';
 import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
-import on from'dojo/on';
+import on from 'dojo/on';
 import string from 'dojo/string';
 import when from 'dojo/when';
 import Calendar from 'argos/Calendar';
@@ -52,8 +52,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   weekText: resource.weekText,
 
   enablePullToRefresh: true,
-  string: string,
-  Utility: Utility,
+  string,
+  Utility,
   trimTo: 16,
   toggleCollapseClass: 'fa fa-chevron-down',
   toggleExpandClass: 'fa fa-chevron-right',
@@ -61,60 +61,60 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // Templates
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-      '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-        '<div class="panel-content">',
-          '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
-          '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-            '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
-            '{%! $.eventMoreTemplate %}',
-          '</div>',
-          '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
-            '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
-            '{%! $.activityMoreTemplate %}',
-          '</div>',
-          '<div style="clear:both"></div>',
-        '</div>',
-      '</div>',
+    '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
+    '<div class="panel-content">',
+    '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
+    '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+    '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
+    '{%! $.eventMoreTemplate %}',
+    '</div>',
+    '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
+    '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
+    '{%! $.activityMoreTemplate %}',
+    '</div>',
+    '<div style="clear:both"></div>',
+    '</div>',
+    '</div>',
     '</div>',
   ]),
   activityRowTemplate: new Simplate([
     '<li class="activityEntry" data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-      '{%! $$.activityIconTemplate %}',
-      '{%! $$.activityHeaderTemplate %}',
-      '{%! $$.activityContentTemplate %}',
-      '{%! $$.activityFooterTemplate %}',
+    '{%! $$.activityIconTemplate %}',
+    '{%! $$.activityHeaderTemplate %}',
+    '{%! $$.activityContentTemplate %}',
+    '{%! $$.activityFooterTemplate %}',
     '</li>',
   ]),
   activityIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-      '<button class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
-      '</button>',
+    '<button class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
+    '</button>',
     '</div>',
   ]),
   activityHeaderTemplate: new Simplate([
     '<div class="activityEntry__header">',
-      '<div class="header__content">',
-        '<h3 class="header__title">{%: $.Description %}</h3>',
-        '<h4 class="header__subTitle">{%! $$.activityNameTemplate %}</h4>',
-      '</div>',
-      '<div class="header__timeStamp">',
-        '<span class="timeStamp__time">',
-          '{% if ($.Timeless) { %}',
-            '{%= $$.allDayText %}',
-          '{% } else if ($$.activityIconByType[$.Type]) { %}',
-            '{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}',
-          '{% } else { %}',
-            '{%! $$.eventTimeTemplate %}',
-          '{% } %}',
-        '</span>',
-      '</div>',
+    '<div class="header__content">',
+    '<h3 class="header__title">{%: $.Description %}</h3>',
+    '<h4 class="header__subTitle">{%! $$.activityNameTemplate %}</h4>',
+    '</div>',
+    '<div class="header__timeStamp">',
+    '<span class="timeStamp__time">',
+    '{% if ($.Timeless) { %}',
+    '{%= $$.allDayText %}',
+    '{% } else if ($$.activityIconByType[$.Type]) { %}',
+    '{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}',
+    '{% } else { %}',
+    '{%! $$.eventTimeTemplate %}',
+    '{% } %}',
+    '</span>',
+    '</div>',
     '</div>',
   ]),
   activityContentTemplate: new Simplate([
     '<div class="activityEntry__content">',
-      '{% if ($.Notes) { %}',
-        '{%: $$.Utility.trimText($.Notes, $$.trimTo) %}',
-      '{% } %}',
+    '{% if ($.Notes) { %}',
+    '{%: $$.Utility.trimText($.Notes, $$.trimTo) %}',
+    '{% } %}',
     '</div>',
   ]),
   activityFooterTemplate: new Simplate([
@@ -123,29 +123,29 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
-      '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName }) %}',
+    '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName }) %}',
     '{% } else if ($.AccountName) { %}',
-      '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
+    '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
     '{% } else if ($.LeadName) { %}',
-      '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
+    '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
     '{% } else if ($$.activityIconByType[$.Type]) { %}',
-      '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
+    '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
     '{% } else { %}',
-      '{%= $$.string.substitute($$.forText, { reason: $.Type }) %}',
+    '{%= $$.string.substitute($$.forText, { reason: $.Type }) %}',
     '{% } %}',
   ]),
   activityMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
-      '<button class="button" data-action="activateActivityMore">',
-        '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
-      '</button>',
+    '<button class="button" data-action="activateActivityMore">',
+    '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
+    '</button>',
     '</div>',
   ]),
   eventRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
-      '{%! $$.eventIconTemplate %}',
-      '{%! $$.activityHeaderTemplate %}',
-      '{%! $$.activityFooterTemplate %}',
+    '{%! $$.eventIconTemplate %}',
+    '{%! $$.activityHeaderTemplate %}',
+    '{%! $$.activityFooterTemplate %}',
     '</li>',
   ]),
   eventTimeTemplate: new Simplate([
@@ -155,29 +155,29 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   eventIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-      '<button class="list-item-selector button {%= $$.eventIcon %}">',
-      '</button>',
+    '<button class="list-item-selector button {%= $$.eventIcon %}">',
+    '</button>',
     '</div>',
   ]),
   eventMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
-      '<button class="button" data-action="activateEventMore">',
-        '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>',
-      '</button>',
+    '<button class="button" data-action="activateEventMore">',
+    '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>',
+    '</button>',
     '</div>',
   ]),
   headerRowTemplate: new Simplate([
     '<li data-descriptor="{%: $.day %}">',
-      '<div class="dayHeader">',
-        '<h3 class="header__title">{%: $.day %}</h3>',
-      '</div>',
+    '<div class="dayHeader">',
+    '<h3 class="header__title">{%: $.day %}</h3>',
+    '</div>',
     '</li>',
   ]),
   weekSelectTemplate: new Simplate([
     '<div class="toggle toggle-horizontal calendar__weekToggle">',
-        '<span class="thumb horizontal weekToggle__thumb"></span>',
-        '<span class="toggleOn weekToggle__on display-none">{%= $.weekText %}</span>',
-        '<span class="toggleOff weekToggle__off">{%= $.dayText %}</span>',
+    '<span class="thumb horizontal weekToggle__thumb"></span>',
+    '<span class="toggleOn weekToggle__on display-none">{%= $.weekText %}</span>',
+    '<span class="toggleOff weekToggle__off">{%= $.dayText %}</span>',
     '</div>',
   ]),
 
@@ -233,14 +233,14 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _refreshAdded: false,
 
   activityIconByType: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-calendar-o',
-    'atPersonal': 'fa fa-check-square-o',
-    'atQuestion': 'fa fa-question',
-    'atNote': 'fa fa-calendar-o',
-    'atEMail': 'fa fa-envelope',
+    atToDo: 'fa fa-list-ul',
+    atPhoneCall: 'fa fa-phone',
+    atAppointment: 'fa fa-calendar-o',
+    atLiterature: 'fa fa-calendar-o',
+    atPersonal: 'fa fa-check-square-o',
+    atQuestion: 'fa fa-question',
+    atNote: 'fa fa-calendar-o',
+    atEMail: 'fa fa-envelope',
   },
   eventIcon: 'fa fa-calendar-o',
 
@@ -316,7 +316,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       const activityDocfrag = document.createDocumentFragment();
       const eventDocfrag = document.createDocumentFragment();
       if (this._showMulti) {
-        const headerNode = domConstruct.toDom(this.headerRowTemplate.apply({day: day}, this));
+        const headerNode = domConstruct.toDom(this.headerRowTemplate.apply({ day }, this));
         activityDocfrag.appendChild(headerNode);
       }
       for (let i = 0; i < count; i++) {
@@ -374,13 +374,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     const startDate = value.clone().startOf('month');
     const endDate = value.clone().endOf('month');
     return string.substitute(
-      [
-        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-        '(Timeless eq false and StartDate',
-        ' between @${1}@ and @${2}@) or ',
-        '(Timeless eq true and StartDate',
-        ' between @${3}@ and @${4}@))',
-      ].join(''), [App.context.user && App.context.user.$key,
+    [
+      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+      '(Timeless eq false and StartDate',
+      ' between @${1}@ and @${2}@) or ',
+      '(Timeless eq true and StartDate',
+      ' between @${3}@ and @${4}@))',
+    ].join(''), [App.context.user && App.context.user.$key,
         convert.toIsoStringFromDate(startDate.toDate()),
         convert.toIsoStringFromDate(endDate.toDate()),
         startDate.format('YYYY-MM-DDT00:00:00[Z]'),
@@ -390,10 +390,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   formatQueryEvent: function formatQueryEvent(value) {
     return string.substitute('UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)', {
-          user: App.context.user && App.context.user.$key,
-          start: convert.toIsoStringFromDate(value.clone().startOf('month').toDate()),
-          end: convert.toIsoStringFromDate(value.clone().endOf('month').toDate()),
-        });
+      user: App.context.user && App.context.user.$key,
+      start: convert.toIsoStringFromDate(value.clone().startOf('month').toDate()),
+      end: convert.toIsoStringFromDate(value.clone().endOf('month').toDate()),
+    });
   },
   highlightActivities: function highlightActivities() {
     array.forEach(this._calendar.weeksNode.childNodes, (week) => {
@@ -419,7 +419,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (view) {
       view.show({
         title: descriptor,
-        key: key,
+        key,
       });
     }
   },
@@ -460,7 +460,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   process: function process(store, entries, isEvent) {
     if (entries.length > 0) {
-      entries.forEach( (entryPreProcess) => {
+      entries.forEach((entryPreProcess) => {
         const entry = this._processEntry(entryPreProcess);
         // If key comes back with nothing, check that the store is properly
         // setup with an idProperty
@@ -534,7 +534,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
-      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true});
+      this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true });
       domConstruct.place(this._calendar.domNode, this.calendarNode);
       const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
       domConstruct.place(toggle, this._calendar.footerNode, 'last');
@@ -543,7 +543,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       this._calendar.show();
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
     } else {
-      this. refreshingCalendar = true;
+      this.refreshingCalendar = true;
       this._calendar.refresh(false);
     }
   },
@@ -624,7 +624,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   startup: function startup() {
     this.inherited(arguments);
   },
-  toggleMultiSelect: function toggleMultiSelect({currentTarget}) {
+  toggleMultiSelect: function toggleMultiSelect({ currentTarget }) {
     this._showMulti = !this._showMulti;
     const toggleOnNode = query('.toggleOn', currentTarget).shift();
     const toggleOffNode = query('.toggleOff', currentTarget).shift();

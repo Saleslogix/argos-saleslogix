@@ -32,26 +32,26 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
 
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
-   '<div class="offline-usage">',
-   '<span class="label"> {%: $$.olderThanText %} </span>',
-   '<span data-dojo-attach-point="_olderThanNode" ></span>',
-   '<span class="label"> {%: $$.daysText %} </span>',
-   '<div data-dojo-attach-point="_lastClearDateNode"></div>',
-   '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
-   '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
-   '<div data-dojo-attach-point="usageNode" >',
-   '</div>',
+    '<div class="offline-usage">',
+    '<span class="label"> {%: $$.olderThanText %} </span>',
+    '<span data-dojo-attach-point="_olderThanNode" ></span>',
+    '<span class="label"> {%: $$.daysText %} </span>',
+    '<div data-dojo-attach-point="_lastClearDateNode"></div>',
+    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
+    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
+    '<div data-dojo-attach-point="usageNode" >',
+    '</div>',
   ]),
   errorTemplate: new Simplate([
-   '<div class="error">',
-   '<span class="fa fa-waring fa-2x"></span>',
-   '<h2>{%= $.message %}</h2>',
-   '</div>',
+    '<div class="error">',
+    '<span class="fa fa-waring fa-2x"></span>',
+    '<h2>{%= $.message %}</h2>',
+    '</div>',
   ]),
   usageHeaderTemplate: new Simplate([
-   '<div class="offline-usage-header">',
-   '{%! $$.usageItemTemplate %}',
-   '</div>',
+    '<div class="offline-usage-header">',
+    '{%! $$.usageItemTemplate %}',
+    '</div>',
   ]),
   usageItemTemplate: new Simplate([
     '<div class="offline-usage-item">',
@@ -70,12 +70,12 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '</div>',
   ]),
   lastClearDateTemplate: new Simplate([
-   '<span class="label">',
-   '{%: $$.lastClearedText %}',
-   '</span',
-   '<span class="value">',
-   ' {%: $.lastClearedDate %}',
-   '</span',
+    '<span class="label">',
+    '{%: $$.lastClearedText %}',
+    '</span',
+    '<span class="value">',
+    ' {%: $.lastClearedDate %}',
+    '</span',
   ]),
   onInit: function onInit() {
     this.onLoad();
@@ -101,7 +101,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   initUI: function initUI() {
     if (!this._olderThanDropdown) {
       this._olderThanDropdown = new Dropdown({
-        id: 'olderThan-dropdown ' + this.id,
+        id: `olderThan-dropdown ${this.id}`,
         onSelect: this.olderThanSelect,
         onSelectScope: this,
       });
@@ -249,7 +249,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   onSave: function onSave() {
     const options = offlineManager.getOptions();
     options.clearOlderThan = this._options.clearOlderThan;
-    offlineManager.saveOptions(options );
+    offlineManager.saveOptions(options);
   },
 });
 const rvm = new RelatedViewManager();

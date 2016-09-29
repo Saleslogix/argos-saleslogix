@@ -60,7 +60,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
     }
     return '';
   },
-   _hasValidOptions: function _hasValidOptions(options) {
+  _hasValidOptions: function _hasValidOptions(options) {
     return options;
   },
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
@@ -135,14 +135,14 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
     }
   },
   getDetailView: function getDetailView(entityName) {
-    const viewId = this.detailView + '_' + entityName;
+    const viewId = `${this.detailView}_${entityName}`;
     let view = this.app.getView(viewId);
 
     if (view) {
       return view;
     }
 
-    this.app.registerView(new OfflineDetail({id: viewId}));
+    this.app.registerView(new OfflineDetail({ id: viewId }));
 
     view = this.app.getView(viewId);
 
@@ -172,45 +172,45 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
         });
         return entityPref[0];
       })
-      .filter((f) => f && f.enabled);
+      .filter(f => f && f.enabled);
   },
 
   // Localization
   entityText: {
-    'Contact': contactResource.entityDisplayNamePlural,
-    'Account': accountResource.entityDisplayNamePlural,
-    'Opportunity': oppResource.entityDisplayNamePlural,
-    'Ticket': ticketResource.entityDisplayNamePlural,
-    'Lead': leadResource.entityDisplayNamePlural,
-    'Activity': activityResource.entityDisplayNamePlural,
-    'History': historyResource.entityDisplayNamePlural,
+    Contact: contactResource.entityDisplayNamePlural,
+    Account: accountResource.entityDisplayNamePlural,
+    Opportunity: oppResource.entityDisplayNamePlural,
+    Ticket: ticketResource.entityDisplayNamePlural,
+    Lead: leadResource.entityDisplayNamePlural,
+    Activity: activityResource.entityDisplayNamePlural,
+    History: historyResource.entityDisplayNamePlural,
   },
   entityMappings: {
-    'Contact': {
+    Contact: {
       iconClass: 'fa-user',
     },
-    'Account': {
+    Account: {
       iconClass: 'fa-building-o',
     },
-    'Opportunity': {
+    Opportunity: {
       iconClass: 'fa-money',
     },
-    'Ticket': {
+    Ticket: {
       iconClass: 'fa-clipboard',
     },
-    'Lead': {
+    Lead: {
       iconClass: 'fa-filter',
     },
-    'Activity': {
+    Activity: {
       iconClass: 'fa-calendar-o',
     },
-    'History': {
+    History: {
       iconClass: 'fa-history',
     },
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [],
+      tbar: [],
     });
   },
   isDisabled: function isDisabled() {

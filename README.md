@@ -10,13 +10,13 @@ Installation
 
 		npm install -g grunt-cli
 4. 	The package.json file in the root of argos-saleslogix contains nodejs dependencies, to install them run:
-	
+
 		npm install
 
 GruntJS is a task runner. We have defined tasks to run in Gruntfile.js. Here are some commands you can run via the command line (in the argos-saleslogix directory)
 * Unit tests: `grunt test`
 * Missing a web server? Run `npm start` and open your browsser to http://localhost:8000/
-* ESLint: `grunt lint`
+* ESLint: `npm run lint`
 * LESSCSS: `grunt less`
 * Babel: `grunt babel`
 * Watch: `grunt watch` - Watches the src folder for changes and runs grunt babel automatically when a file is changed.

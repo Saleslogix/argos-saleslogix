@@ -96,7 +96,7 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
     const queryModel = this._getQueryModelByName('myday');
     return queryModel && queryModel.queryWhere();
   },
- });
+});
 
 Manager.register(MODEL_NAMES.USERACTIVITY, MODEL_TYPES.SDATA, __class);
 export default __class;

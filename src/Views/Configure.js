@@ -45,7 +45,7 @@ const __class = declare('crm.Views.Configure', [_ConfigureBase], {
 
     // De-dup id's
     const all = order.concat(exposed);
-    let reduced = all.reduce(function setReduced(previous, current) {
+    let reduced = all.reduce((previous, current) => {
       if (previous.indexOf(current) === -1) {
         previous.push(current);
       }
@@ -54,17 +54,17 @@ const __class = declare('crm.Views.Configure', [_ConfigureBase], {
     }, []);
 
     // The order array could have had stale id's, filter out valid views here
-    reduced = array.filter(reduced, function filterReduced(key) {
+    reduced = array.filter(reduced, (key) => {
       const view = App.getView(key);
       return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
     });
 
-    list = array.map(reduced, function setList(key) {
+    list = array.map(reduced, (key) => {
       const view = App.getView(key);
       return {
-        '$key': view.id,
-        '$descriptor': view.titleText,
-        'icon': view.icon,
+        $key: view.id,
+        $descriptor: view.titleText,
+        icon: view.icon,
       };
     });
 

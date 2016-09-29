@@ -34,7 +34,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   getDefaultIndexPrefences: function getDefaultIndexPrefences() {
     const defaults = [];
     const self = this;
-    array.forEach(this.indexes, function setDefaults(index) {
+    array.forEach(this.indexes, (index) => {
       defaults.push({
         indexName: index.indexName,
         enabled: self._isIndexActive(index.indexName),
@@ -79,7 +79,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
       indexClicked: lang.hitch(this, function onIndexClicked(params) {
         const prefs = App.preferences && App.preferences.speedSearchIndexes;
 
-        const results = array.filter(prefs, function getResults(pref) {
+        const results = array.filter(prefs, (pref) => {
           return pref.indexName === params.indexname; // the index name is lower cased.
         });
         this.activateIndex(params.indexname);
@@ -121,12 +121,12 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
           index = this.indexes[i];
           if (index.hasOwnProperty('indexName')) {
             indexSection.children.push({
-              'name': index.indexName,
-              'action': 'indexClicked',
-              'title': this.indexesText[index.indexName] || index.indexName,
-              'dataProps': {
-                'indexname': index.indexName,
-                'enabled': !!indexPref[0].enabled,
+              name: index.indexName,
+              action: 'indexClicked',
+              title: this.indexesText[index.indexName] || index.indexName,
+              dataProps: {
+                indexname: index.indexName,
+                enabled: !!indexPref[0].enabled,
               },
             });
           }

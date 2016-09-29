@@ -11,16 +11,16 @@ const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
   resourceKind: 'picklists',
   include: ['items'],
   select: [
-  'name',
-  'allowMultiples',
-  'valueMustExist',
-  'required',
-  'alphaSorted',
-  'noneEditable',
-  'modifyDate',
-  'items/text',
-  'items/code',
-  'items/number',
+    'name',
+    'allowMultiples',
+    'valueMustExist',
+    'required',
+    'alphaSorted',
+    'noneEditable',
+    'modifyDate',
+    'items/text',
+    'items/code',
+    'items/number',
   ],
   orderBy: 'name',
   where: this.queryWhere,
@@ -124,7 +124,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
     return promise;
   },
   getStore: function getStore() {
-    if (!this._store ) {
+    if (!this._store) {
       const options = this.getStoreOptions();
       this._store = new SData(options);
     }

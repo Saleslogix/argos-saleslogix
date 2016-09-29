@@ -27,11 +27,11 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
   endDateFormatText: dtFormatResource.endDateFormatText,
   entityText: resource.entityText,
   eventTypeText: {
-    'atToDo': resource.toDo,
-    'atPhoneCall': resource.phoneCall,
-    'atAppointment': resource.meeting,
-    'atLiterature': resource.literature,
-    'atPersonal': resource.personal,
+    atToDo: resource.toDo,
+    atPhoneCall: resource.phoneCall,
+    atAppointment: resource.meeting,
+    atLiterature: resource.literature,
+    atPersonal: resource.personal,
   },
 
   // View Properties

@@ -15,7 +15,7 @@ const __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBas
     const self = this;
     this.onLoad();
     if (this.owner) {
-      aspect.after(this.owner, 'show', function after() {
+      aspect.after(this.owner, 'show', () => {
         self.onRefreshView();
       });
     }

@@ -39,9 +39,9 @@ const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListM
     for (const prop in rates) {
       if (rates.hasOwnProperty(prop)) {
         list.push({
-          '$key': prop,
-          '$descriptor': prop,
-          'Rate': rates[prop],
+          $key: prop,
+          $descriptor: prop,
+          Rate: rates[prop],
         });
       }
     }

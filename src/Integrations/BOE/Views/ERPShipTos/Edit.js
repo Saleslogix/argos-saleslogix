@@ -33,7 +33,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Edit', [Edit], {
   ownerText: resource.ownerText,
   modelName: MODEL_NAMES.ERPSHIPTO,
   associationMapping: {
-    'accounts': 'erpshiptoaccount_edit',
+    accounts: 'erpshiptoaccount_edit',
   },
   associationView: null,
   associationContext: null,
@@ -47,9 +47,9 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Edit', [Edit], {
 
     const context = (found && found.options && found.options.source) || found;
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'quotes': this.applyQuoteContext,
-      'salesOrders': this.applyOrderContext,
+      accounts: this.applyAccountContext,
+      quotes: this.applyQuoteContext,
+      salesOrders: this.applyOrderContext,
     };
 
     if (context && lookup[context.resourceKind]) {
@@ -136,7 +136,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Edit', [Edit], {
     this.associationContext = null;
   },
   _getNavContext: function _getNavContext() {
-    const navContext = App.queryNavigationContext(function checkContext(o) {
+    const navContext = App.queryNavigationContext((o) => {
       const context = (o.options && o.options.source) || o;
 
       if (/^(accounts|quotes|salesOrders)$/.test(context.resourceKind) && context.key) {
@@ -250,7 +250,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Edit', [Edit], {
         type: 'lookup',
         view: 'owner_list',
       },
-    ]},
+    ] },
   ]);
   },
 });

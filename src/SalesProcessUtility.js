@@ -1,10 +1,7 @@
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import when from 'dojo/when';
 import Deferred from 'dojo/_base/Deferred';
 import SData from 'argos/Store/SData';
-
-let __class;
 
 /**
  * @class crm.SalesProcessUtility
@@ -14,7 +11,7 @@ let __class;
  * @singleton
  *
  */
-__class = lang.setObject('crm.SalesProcessUtility', {
+const __class = lang.setObject('crm.SalesProcessUtility', {
   store: null,
   service: null,
   contractName: 'dynamic',
@@ -61,16 +58,16 @@ __class = lang.setObject('crm.SalesProcessUtility', {
     const deferred = new Deferred();
     const store = this.getStore();
     const options = {
-      where: string.substitute('EntityId' + ' eq "${0}"', [entityId]),
+      where: `EntityId eq "${entityId}"`,
     };
     const queryResults = store.query(null, options);
-    when(queryResults, function success(feed) {
+    when(queryResults, (feed) => {
       let salesProcess = null;
       if (feed && feed.length > 0) {
         salesProcess = feed[0];
       }
       deferred.resolve(salesProcess);
-    }, function error(err) {
+    }, (err) => {
       deferred.reject(err);
     });
     return deferred.promise;

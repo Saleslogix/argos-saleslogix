@@ -72,11 +72,11 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
   activityTypeText: {
-    'atToDo': resource.toDoText,
-    'atPhoneCall': resource.phoneCallText,
-    'atAppointment': resource.meetingText,
-    'atLiterature': resource.literatureText,
-    'atPersonal': resource.personalText,
+    atToDo: resource.toDoText,
+    atPhoneCall: resource.phoneCallText,
+    atAppointment: resource.meetingText,
+    atLiterature: resource.literatureText,
+    atPersonal: resource.personalText,
   },
 
   // View Properties
@@ -130,7 +130,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')
         .setContractName('system')
-        .setQueryArg('where', "id eq '" + key + "'")
+        .setQueryArg('where', `id eq '${key}'`)
         .setCount(1);
 
       request.read({
@@ -151,7 +151,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     const view = App.getView(this.editView);
     if (view) {
       view.show({
-        entry: entry,
+        entry,
       });
     }
   },
@@ -191,7 +191,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')
         .setContractName('system')
-        .setQueryArg('where', "id eq '" + key + "'")
+        .setQueryArg('where', `id eq '${key}'`)
         .setCount(1);
 
       request.read({

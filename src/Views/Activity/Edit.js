@@ -101,28 +101,28 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   fieldsForLeads: ['AccountName', 'Lead'],
   fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
   picklistsByType: {
-    'atAppointment': {
-      'Category': 'Meeting Category Codes',
-      'Description': 'Meeting Regarding',
+    atAppointment: {
+      Category: 'Meeting Category Codes',
+      Description: 'Meeting Regarding',
     },
-    'atLiterature': {
-      'Description': 'Lit Request Regarding',
+    atLiterature: {
+      Description: 'Lit Request Regarding',
     },
-    'atPersonal': {
-      'Category': 'Meeting Category Codes',
-      'Description': 'Personal Activity Regarding',
+    atPersonal: {
+      Category: 'Meeting Category Codes',
+      Description: 'Personal Activity Regarding',
     },
-    'atPhoneCall': {
-      'Category': 'Phone Call Category Codes',
-      'Description': 'Phone Call Regarding',
+    atPhoneCall: {
+      Category: 'Phone Call Category Codes',
+      Description: 'Phone Call Regarding',
     },
-    'atToDo': {
-      'Category': 'To Do Category Codes',
-      'Description': 'To Do Regarding',
+    atToDo: {
+      Category: 'To Do Category Codes',
+      Description: 'To Do Regarding',
     },
-    'atEMail': {
-      'Category': 'E-mail Category Codes',
-      'Description': 'E-mail Regarding',
+    atEMail: {
+      Category: 'E-mail Category Codes',
+      Description: 'E-mail Regarding',
     },
   },
   groupOptionsByType: {
@@ -389,15 +389,15 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
         // Set back to a single $key so the PUT request payload is not messed up
         this.fields.Leader.setValue({
-          '$key': resourceId,
-          '$descriptor': user.$descriptor,
+          $key: resourceId,
+          $descriptor: user.$descriptor,
         });
       }
     }
   },
   onAccountChange: function onAccountChange(value, field) {
     const fields = this.fields;
-    array.forEach(['Contact', 'Opportunity', 'Ticket'], function checkFields(f) {
+    array.forEach(['Contact', 'Opportunity', 'Ticket'], (f) => {
       if (value) {
         fields[f].dependsOn = 'Account';
         fields[f].where = string.substitute('Account.Id eq "${0}"', [value.AccountId || value.key]);
@@ -458,8 +458,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
       const accountField = this.fields.Account;
       accountField.setValue({
-        'AccountId': field.currentSelection.Account.$key,
-        'AccountName': field.currentSelection.Account.AccountName,
+        AccountId: field.currentSelection.Account.$key,
+        AccountName: field.currentSelection.Account.AccountName,
       });
       this.onAccountChange(accountField.getValue(), accountField);
     }
@@ -572,7 +572,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       .startOf('day')
       .hours(now.hours())
       .add({
-        'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES,
+        minutes: (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES,
       });
 
     return startDate;
@@ -586,9 +586,9 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     let startDate = this._getCalculatedStartTime(moment());
     const activityType = this.options && this.options.activityType;
     const activityGroup = this.groupOptionsByType[activityType] || '';
-    const activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
-    const alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true;
-    const alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
+    const activityDuration = App.context.userOptions && App.context.userOptions[`${activityGroup}:Duration`] || 15;
+    const alarmEnabled = App.context.userOptions && App.context.userOptions[`${activityGroup}:AlarmEnabled`] || true;
+    const alarmDuration = App.context.userOptions && App.context.userOptions[`${activityGroup}:AlarmLead`] || 15;
 
     if (this.options && this.options.currentDate) {
       startDate = this.applyUserActivityContext(moment(this.options.currentDate));
@@ -616,11 +616,11 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     const context = (found && found.options && found.options.source) || found;
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext,
-      'opportunities': this.applyOpportunityContext,
-      'tickets': this.applyTicketContext,
-      'leads': this.applyLeadContext,
+      accounts: this.applyAccountContext,
+      contacts: this.applyContactContext,
+      opportunities: this.applyOpportunityContext,
+      tickets: this.applyTicketContext,
+      leads: this.applyLeadContext,
     };
 
     if (context && lookup[context.resourceKind]) {
@@ -628,7 +628,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     }
   },
   _getNavContext: function _getNavContext() {
-    const navContext = App.queryNavigationContext(function checkContext(o) {
+    const navContext = App.queryNavigationContext((o) => {
       const context = (o.options && o.options.source) || o;
 
       if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
@@ -650,8 +650,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     const accountField = this.fields.Account;
     accountField.setSelection(entry);
     accountField.setValue({
-      'AccountId': entry.$key,
-      'AccountName': entry.$descriptor,
+      AccountId: entry.$key,
+      AccountName: entry.$descriptor,
     });
     this.onAccountChange(accountField.getValue(), accountField);
   },
@@ -667,16 +667,16 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     contactField.setSelection(entry);
     contactField.setValue({
-      'ContactId': entry.$key,
-      'ContactName': entry.$descriptor,
+      ContactId: entry.$key,
+      ContactName: entry.$descriptor,
     });
 
     this.onAccountDependentChange(contactField.getValue(), contactField);
 
     const accountField = this.fields.Account;
     accountField.setValue({
-      'AccountId': utility.getValue(entry, 'Account.$key'),
-      'AccountName': utility.getValue(entry, 'Account.AccountName'),
+      AccountId: utility.getValue(entry, 'Account.$key'),
+      AccountName: utility.getValue(entry, 'Account.AccountName'),
     });
 
     if (entry.WorkPhone) {
@@ -695,22 +695,22 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     const ticketField = this.fields.Ticket;
     ticketField.setSelection(entry);
     ticketField.setValue({
-      'TicketId': entry.$key,
-      'TicketNumber': entry.$descriptor,
+      TicketId: entry.$key,
+      TicketNumber: entry.$descriptor,
     });
     this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
     const contactField = this.fields.Contact;
     contactField.setValue({
-      'ContactId': utility.getValue(entry, 'Contact.$key'),
-      'ContactName': utility.getValue(entry, 'Contact.NameLF'),
+      ContactId: utility.getValue(entry, 'Contact.$key'),
+      ContactName: utility.getValue(entry, 'Contact.NameLF'),
     });
     this.onAccountDependentChange(contactField.getValue(), contactField);
 
     const accountField = this.fields.Account;
     accountField.setValue({
-      'AccountId': utility.getValue(entry, 'Account.$key'),
-      'AccountName': utility.getValue(entry, 'Account.AccountName'),
+      AccountId: utility.getValue(entry, 'Account.$key'),
+      AccountName: utility.getValue(entry, 'Account.AccountName'),
     });
 
     const phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
@@ -730,16 +730,16 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     const opportunityField = this.fields.Opportunity;
     opportunityField.setSelection(entry);
     opportunityField.setValue({
-      'OpportunityId': entry.$key,
-      'OpportunityName': entry.$descriptor,
+      OpportunityId: entry.$key,
+      OpportunityName: entry.$descriptor,
     });
 
     this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
     const accountField = this.fields.Account;
     accountField.setValue({
-      'AccountId': utility.getValue(entry, 'Account.$key'),
-      'AccountName': utility.getValue(entry, 'Account.AccountName'),
+      AccountId: utility.getValue(entry, 'Account.$key'),
+      AccountName: utility.getValue(entry, 'Account.AccountName'),
     });
 
     if (entry.Account && entry.Account.MainPhone) {
@@ -758,8 +758,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     const leadField = this.fields.Lead;
     leadField.setSelection(entry);
     leadField.setValue({
-      'LeadId': entry.$key,
-      'LeadName': entry.$descriptor,
+      LeadId: entry.$key,
+      LeadName: entry.$descriptor,
     });
     this.onLeadChange(leadField.getValue(), leadField);
 
@@ -824,7 +824,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     }
 
     if (allowSetAlarm) {
-      this.enableFields(function alarmReminderTest(f) {
+      this.enableFields((f) => {
         return (/^Alarm|Reminder$/)
           .test(f.name);
       });
@@ -897,14 +897,14 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     for (const duration in this.reminderValueText) {
       if (this.reminderValueText.hasOwnProperty(duration)) {
         list.push({
-          '$key': duration,
-          '$descriptor': this.reminderValueText[duration],
+          $key: duration,
+          $descriptor: this.reminderValueText[duration],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   createDurationData: function createDurationData() {
@@ -913,14 +913,14 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     for (const duration in this.durationValueText) {
       if (this.durationValueText.hasOwnProperty(duration)) {
         list.push({
-          '$key': duration,
-          '$descriptor': this.durationValueText[duration],
+          $key: duration,
+          $descriptor: this.durationValueText[duration],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   createRecurringData: function createRecurringData() {
@@ -978,17 +978,17 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       alarmTime = moment(alarmTime)
         .clone()
         .add({
-          'days': -1,
+          days: -1,
         })
         .add({
-          'minutes': -1 * reminderIn,
+          minutes: -1 * reminderIn,
         })
         .toDate();
     } else {
       alarmTime = moment(startDate)
         .clone()
         .add({
-          'minutes': -1 * reminderIn,
+          minutes: -1 * reminderIn,
         })
         .toDate();
     }

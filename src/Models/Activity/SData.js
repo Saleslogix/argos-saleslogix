@@ -145,8 +145,8 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
     const results$ = this.inherited(arguments);
     return results$.then((entry) => {
       const leader$ = this.createRequestPromise(entry.Leader.$key, [
-          'UserInfo/FirstName',
-          'UserInfo/LastName',
+        'UserInfo/FirstName',
+        'UserInfo/LastName',
       ], 'users', 'dynamic', options);
       const queryModel = this._getQueryModelByName('detail');
       const recurrence$ = this.createRequestPromise(entry.$key.split(this.recurringActivityIdSeparator).shift(),
@@ -165,15 +165,15 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
   },
   completeActivity: function completeActivity(entry) {
     const completeActivityEntry = {
-      '$name': 'ActivityComplete',
-      'request': {
-        'entity': {
-          '$key': entry.$key,
+      $name: 'ActivityComplete',
+      request: {
+        entity: {
+          $key: entry.$key,
         },
-        'ActivityId': entry.$key,
-        'userId': entry.Leader.$key,
-        'result': entry.Result,
-        'completeDate': entry.CompletedDate,
+        ActivityId: entry.$key,
+        userId: entry.Leader.$key,
+        result: entry.Result,
+        completeDate: entry.CompletedDate,
       },
     };
     if (entry.ResultCode) {

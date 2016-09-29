@@ -17,7 +17,7 @@ const __class = declare('crm.Integrations.BOE.Modules._Module', null, {
   },
   registerDefaultViews: function registerDefaultViews(views) {
     if (this.defaultViews && views) {
-      this.defaultViews.forEach(function register(defaultView) {
+      this.defaultViews.forEach((defaultView) => {
         const idx = views.indexOf(defaultView);
         if (idx === -1) {
           views.push(defaultView);

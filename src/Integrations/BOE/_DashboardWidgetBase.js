@@ -101,41 +101,41 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   ]),
   dashboardTemplate: new Simplate([
     '<div class="dashboard-widget">',
-      '{%! $$.dashboardHeaderTemplate %}',
-      '<div class="node-container">',
-        '{%! $$.dashboardRangeTemplate %}',
-        '<div data-dojo-attach-point="metricsNode" class="dashboard-metric-list"></div>',
-      '</div>',
+    '{%! $$.dashboardHeaderTemplate %}',
+    '<div class="node-container">',
+    '{%! $$.dashboardRangeTemplate %}',
+    '<div data-dojo-attach-point="metricsNode" class="dashboard-metric-list"></div>',
+    '</div>',
     '</div>',
   ]),
   dashboardIconTemplate: new Simplate([
     '{% if($.titleText) { %}',
-      '<span class="dashboard-icon" style="background-color:{%= $$.getColor($) %}" >',
-      '{%: $$.getAbrv($) %}',
-      '</span>',
+    '<span class="dashboard-icon" style="background-color:{%= $$.getColor($) %}" >',
+    '{%: $$.getAbrv($) %}',
+    '</span>',
     '{% } %}',
   ]),
   dashboardHeaderTemplate: new Simplate([
     '{% if($.titleText || $.categoryText) { %}',
-      '<div data-dojo-attach-point="dashboardHeaderNode" data-dojo-attach-event="onclick:toggleView" class="dashboard-header {%: $._getCollapsedClass() %} {%: $$.headerClass %}">',
-        '<div class="dashboard-header-content">',
-        '{%! $$.dashboardIconTemplate %}',
-          '<div class="dashboard-header-text">',
-            '{% if($.titleText) { %}',
-              '<div class="dashboard-title">{%: $.titleText %} {%: $$.getFormattedCurrencyCodeForTitle() %}</div>',
-            '{% } %}',
-            '{% if($.categoryText) { %}',
-              '<div class="dashboard-category">{%: $.categoryText %}</div>',
-            '{% } %}',
-          '</div>',
-        '</div>',
-        '<button class="fa fa-chevron-down"></button>',
-      '</div>',
+    '<div data-dojo-attach-point="dashboardHeaderNode" data-dojo-attach-event="onclick:toggleView" class="dashboard-header {%: $._getCollapsedClass() %} {%: $$.headerClass %}">',
+    '<div class="dashboard-header-content">',
+    '{%! $$.dashboardIconTemplate %}',
+    '<div class="dashboard-header-text">',
+    '{% if($.titleText) { %}',
+    '<div class="dashboard-title">{%: $.titleText %} {%: $$.getFormattedCurrencyCodeForTitle() %}</div>',
+    '{% } %}',
+    '{% if($.categoryText) { %}',
+    '<div class="dashboard-category">{%: $.categoryText %}</div>',
+    '{% } %}',
+    '</div>',
+    '</div>',
+    '<button class="fa fa-chevron-down"></button>',
+    '</div>',
     '{% } %}',
   ]),
   dashboardRangeTemplate: new Simplate([
     '{% if($.createRangeLayout) { %}',
-      '<div data-dojo-attach-point="rangeNode" class="dashboard-range-list"></div>',
+    '<div data-dojo-attach-point="rangeNode" class="dashboard-range-list"></div>',
     '{% } %}',
   ]),
   rangeItemTemplate: new Simplate([
@@ -148,7 +148,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   ]),
   nodataTemplate: new Simplate([
     '<div class="dashboard-nodatafound">',
-      '{%: $.message %}',
+    '{%: $.message %}',
     '</div>',
   ]),
   onInit: function onInit() {
@@ -172,16 +172,16 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     }
     if (this.hasParentEntry()) {
       promise = this.getData();
-      promise.then(function handleEntry(data) {
+      promise.then((data) => {
         if (data && data.length > 0) {
           this.entry = data[0];
           this.processEntry(this.entry);
         } else {
           this.buildNoDataView({ message: 'no data found' });
         }
-      }.bind(this), function entryError(data) {
+      }, (data) => {
         this.buildErrorView(data);
-      }.bind(this));
+      });
     } else {
       this.buildErrorView({});
     }
@@ -197,10 +197,10 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     if (store) {
       const queryOptions = {};
       const queryResults = store.query(null, queryOptions);
-      when(queryResults, function resolve(feed) {
+      when(queryResults, (feed) => {
         deferred.resolve(feed);
-      }, function reject(err) {
-        deferred.reject({ message: 'error:' + err });
+      }, (err) => {
+        deferred.reject({ message: `error:${err}` });
       });
       return deferred.promise;
     }
@@ -212,7 +212,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     const baseCurrencyCode = Utility.getBaseCurrencyCode();
 
     if (baseCurrencyCode) {
-      result = '(' + baseCurrencyCode + ')';
+      result = `(${baseCurrencyCode})`;
     }
 
     return result;
@@ -225,18 +225,18 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     const queryResults = [];
     const store = this.getQueryStore();
 
-    array.forEach(store, function addResult(storeInstance) {
+    array.forEach(store, (storeInstance) => {
       queryResults.push(storeInstance.query(null, queryOptions));
     }, this);
 
     // Maintain the query order in the data from the resolve
-    all(queryResults).then(function sendValues(results) {
+    all(queryResults).then((results) => {
       if (results.length > 1) {
         this.sendValues(results);
       } else {
         this.sendValues(results[0]);
       }
-    }.bind(this));
+    });
   },
   registerWidget: function registerWidget(widget) {
     this.metricWidgets.push(widget);
@@ -255,9 +255,9 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
           // Single query, so get the single index value from the results
           valueIndex.push(obj.queryIndex);
           values = results[obj.queryIndex];
-          when(valueFn, function apply(fn) {
+          when(valueFn, (fn) => {
             this.applyValue(widget, fn, values, valueIndex, obj);
-          }.bind(this), function onError(error) {
+          }, function onError(error) {
             this._onQueryError(error, widget);
           });
         } else {
@@ -267,9 +267,9 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
             values.push(results[obj.queryIndex[j]]);
             valueIndex.push(obj.queryIndex[j]);
           }
-          when(valueFn, function apply(fn) {
+          when(valueFn, (fn) => {
             this.applyValue(widget, fn, values, valueIndex, obj);
-          }.bind(this), function onError(error) {
+          }, function onError(error) {
             this._onQueryError(error, widget);
           });
         }
@@ -296,7 +296,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     }
 
     // get the formatter
-    when(formatterFn, function applyFormat(func) {
+    when(formatterFn, (func) => {
       if (typeof func === 'function') {
         widget.formatter = func;
       }
@@ -363,7 +363,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   _loadModuleFunction: function _loadModuleFunction(module, fn) {
     const def = new Deferred();
     try {
-      require([module], lang.hitch(this, function moduleFuncResolve(mod) {
+      require([module], lang.hitch(this, (mod) => {
         if (typeof mod === 'function') {
           const instance = new mod(); // eslint-disable-line
           def.resolve(instance[fn]);
@@ -371,7 +371,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
           def.resolve(mod[fn]);
         }
       }));
-    } catch(err) {
+    } catch (err) {
       def.reject(err);
     }
     return def.promise;
@@ -385,14 +385,14 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
 
     if (view) {
       options.where = widget.activeFilter ? widget.activeFilter : '';
-      view.getListCount(options).then(function placeCount(result) {
+      view.getListCount(options).then((result) => {
         if (result >= 0) {
           obj.count = result;
           domConstruct.empty(widget.metricDetailNode);
-          domConstruct.place(domConstruct.toDom('<span class="metric-count">' + obj.count + ' ' + obj.countTitle + '</span>'), widget.metricDetailNode);
+          domConstruct.place(domConstruct.toDom(`<span class="metric-count">${obj.count} ${obj.countTitle}</span>`), widget.metricDetailNode);
           domConstruct.place(widget.itemTemplate.apply({ value: obj.value }, widget), widget.metricDetailNode);
         }
-      }, function onError(error) {
+      }, (error) => {
         console.warn(error); //eslint-disable-line
         domConstruct.empty(widget.metricDetailNode);
         domConstruct.place(widget.itemTemplate.apply({ value: obj.value }, widget), widget.metricDetailNode);
@@ -434,7 +434,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     domConstruct.empty(widget.metricDetailNode);
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
-        domConstruct.place(domConstruct.toDom('<span class="metric-count">' + data.countValue + ' ' + ((data.countTitle) ? data.countTitle : widget.countTitle) + '</span>'), widget.metricDetailNode);
+        domConstruct.place(domConstruct.toDom(`<span class="metric-count">${data.countValue} ${(data.countTitle) ? data.countTitle : widget.countTitle}</span>`), widget.metricDetailNode);
       }
       domConstruct.place(widget.itemTemplate.apply({ value: data.value }, widget), widget.metricDetailNode);
     } else {
@@ -455,7 +455,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
 
     if (view) {
       view.parent = this;
-      view.show({ returnTo: this.returnToId, titleText: this.titleText, where: this.activeFilter});
+      view.show({ returnTo: this.returnToId, titleText: this.titleText, where: this.activeFilter });
     }
   },
   changeRange: function changeRange() {
@@ -569,7 +569,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     }
 
     const query = string.substitute(
-      '((' + property + ' between @${0}@ and @${1}@) or (' + property + ' between @${2}@ and @${3}@))',
+      `((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`,
       [
         convert.toIsoStringFromDate(pastWeekStart.toDate()),
         convert.toIsoStringFromDate(today.toDate()),
@@ -588,7 +588,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     const pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
     const query = string.substitute(
-      '(' + property + ' lt @${0}@ or (' + property + ' lt @${1}@))',
+      `(${property} lt @\${0}@ or (${property} lt @\${1}@))`,
       [
         convert.toIsoStringFromDate(pastDay.toDate()),
         pastDay.format('YYYY-MM-DDT00:00:00[Z]'),
@@ -605,7 +605,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
         && options.value;
   },
   destroyWidgets: function destroyWidgets() {
-    array.forEach(this.metricWidgets, function destroyWidget(widget) {
+    array.forEach(this.metricWidgets, (widget) => {
       widget.destroy();
     }, this);
   },

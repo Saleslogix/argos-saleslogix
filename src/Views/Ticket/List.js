@@ -55,7 +55,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
 
   _areaCategoryIssueText: function _areaCategoryIssueText(feedItem) {
     const results = [feedItem.Area, feedItem.Category, feedItem.Issue];
-    return array.filter(results, function filterItems(item) {
+    return array.filter(results, (item) => {
       return item !== '' && typeof item !== 'undefined' && item !== null;
     }).join(' > ');
   },

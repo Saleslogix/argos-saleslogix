@@ -21,8 +21,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipment.Base', [_ModelB
   listViewId: 'erpshipments_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Account',
       displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',

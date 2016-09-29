@@ -21,7 +21,7 @@ export default function bootstrap({
   localeFiles.map((path) => {
     let trimmed = path;
     supportedLocales.forEach((locale) => {
-      trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
+      trimmed = trimmed.replace(new RegExp(`/${locale}/`), '/');
     });
 
     const index = trimmed.lastIndexOf('/');
@@ -29,7 +29,7 @@ export default function bootstrap({
     const file = trimmed.substring(index + 1, trimmed.length);
     return {
       base: basePath,
-      file: file,
+      file,
     };
   })
   .reduce((p, c) => {

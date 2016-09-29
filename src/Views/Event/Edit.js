@@ -40,10 +40,10 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
   resourceKind: 'events',
 
   eventTypesText: {
-    'Vacation': 'Vacation',
+    Vacation: 'Vacation',
     'Business Trip': 'Business Trip',
-    'Conference': 'Conference',
-    'Holiday': 'Holiday',
+    Conference: 'Conference',
+    Holiday: 'Holiday',
   },
   startup: function startup() {
     this.inherited(arguments);
@@ -66,14 +66,14 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
     for (const type in this.eventTypesText) {
       if (this.eventTypesText.hasOwnProperty(type)) {
         list.push({
-          '$key': type,
-          '$descriptor': this.eventTypesText[type],
+          $key: type,
+          $descriptor: this.eventTypesText[type],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   applyUserActivityContext: function applyUserActivityContext(context) {
@@ -92,7 +92,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
         startTime = moment();
         startDate.hours(startTime.hours());
         startDate.add({
-          'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15,
+          minutes: (Math.floor(startTime.minutes() / 15) * 15) + 15,
         });
       }
 
@@ -107,7 +107,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
   applyContext: function applyContext() {
     this.inherited(arguments);
 
-    const found = App.queryNavigationContext(function queryNavigationContext(o) {
+    const found = App.queryNavigationContext((o) => {
       const context = (o.options && o.options.source) || o;
 
       return (/^(useractivities||activities||events)$/.test(context.resourceKind));
@@ -115,8 +115,8 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
 
     const context = (found && found.options && found.options.source) || found;
     const lookup = {
-      'useractivities': this.applyUserActivityContext,
-      'activities': this.applyUserActivityContext,
+      useractivities: this.applyUserActivityContext,
+      activities: this.applyUserActivityContext,
     };
 
     if (context && lookup[context.resourceKind]) {

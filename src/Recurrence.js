@@ -162,16 +162,16 @@ const __class = lang.setObject('crm.Recurrence', {
 
         if (this[this.simplifiedOptions[recurOption].label]) {
           list.push({
-            '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
-            '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
-            'recurrence': this.simplifiedOptions[recurOption],
+            $key: recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
+            $descriptor: string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
+            recurrence: this.simplifiedOptions[recurOption],
           });
         }
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   getPanel: function getPanel(recurPeriod, plural) {
@@ -238,7 +238,7 @@ const __class = lang.setObject('crm.Recurrence', {
 
     return {
       week: nthWeek,
-      weekday: weekday,
+      weekday,
       month: monthNum,
     };
   },
@@ -337,7 +337,7 @@ const __class = lang.setObject('crm.Recurrence', {
     switch (rp) {
       case 0:
         // daily
-      case 1:
+      case 1: // eslint-disable-line
         break;
       case 2:
         // weekly

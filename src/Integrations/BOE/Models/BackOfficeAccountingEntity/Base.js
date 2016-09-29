@@ -18,8 +18,7 @@ const __class = declare('crm.Integrations.BOE.Models.BackOfficeAccountingEntitie
   listViewId: 'backofficeaccountingentities_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [
+    const rel = this.relationships || (this.relationships = [
     ]);
     return rel;
   },

@@ -137,11 +137,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     return null;
   },
   initOverrideGroupLayout: function initOverrideGroupLayout() {
-    this._requestOverrideGroupLayout().then(function groupLayoutOverride(result) {
+    this._requestOverrideGroupLayout().then((result) => {
       this._overrideLayoutInitalized = true;
       this._overrideGroupLayout = (result && (result.length > 0)) ? result[0].layout : null;
       this.initGroup();
-    }.bind(this));
+    });
   },
   initGroup: function initGroup() {
     if (this.enableOverrideLayout && !this._overrideLayoutInitalized && !this._overrideGroupLayout) {
@@ -191,10 +191,10 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     });
 
     // Try to select the entity id as well
-    this.selectColumns.push(group.family + 'ID');
+    this.selectColumns.push(`${group.family}ID`);
     this.querySelect = this.selectColumns;
     this.queryOrderBy = '';
-    this.idProperty = group.family.toUpperCase() + 'ID';
+    this.idProperty = `${group.family.toUpperCase()}ID`;
     this.labelProperty = group.family.toUpperCase();
     this.store = null;
     this.clear(true);
@@ -209,7 +209,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       service: App.services.crm,
       resourceKind: 'groups',
       contractName: 'system',
-      where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "'))",
+      where: `((upper(family) eq '${this.entityName.toUpperCase()}') and (upper(Name) eq '${groupName.toUpperCase()}'))`,
       include: ['layout', 'tableAliases'],
       idProperty: '$key',
       applicationName: 'slx',
@@ -218,9 +218,9 @@ const __class = declare('crm.Views._GroupListMixin', null, {
 
     if (store) {
       const queryResults = store.query();
-      when(queryResults, function setDeferredResolve(relatedFeed) {
+      when(queryResults, (relatedFeed) => {
         def.resolve(relatedFeed);
-      }, function setDeferredResolveError() {
+      }, () => {
         def.resolve(null);
       });
     }
@@ -233,7 +233,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
         service: App.services.crm,
         resourceKind: 'groups',
         contractName: 'system',
-        where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "') or PluginId eq '" + groupId + "')",
+        where: `((upper(family) eq '${this.entityName.toUpperCase()}') and (upper(Name) eq '${groupName.toUpperCase()}') or PluginId eq '${groupId}')`,
         include: ['layout', 'tableAliases'],
         idProperty: '$key',
         applicationName: 'slx',
@@ -304,7 +304,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   getItemLayoutTemplate: function getItemLayoutTemplate(item) {
     const jsonString = json.stringify(item);
-    const template = ['<h4><span class="group-label">', item.caption, '</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(' + jsonString + ')],' + jsonString + ',$$.getFormatterByLayout(' + jsonString + ')) %}</span>', '</h4>'].join('');
+    const template = ['<h4><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</h4>'].join('');
 
     return template;
   },
@@ -348,7 +348,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     let name = GroupUtility.getSelectedGroupLayoutTemplate(this.entityName);
     name = (name) ? name : '';
     let layoutTemplate = null;
-    this.groupTemplateLayouts.forEach(function setLayoutTemplate(item) {
+    this.groupTemplateLayouts.forEach((item) => {
       if (item.name === name) {
         layoutTemplate = item;
       }
@@ -368,7 +368,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     let column = 1;
     let row = 1;
     columns = layoutOptions.columns.length;
-    layoutOptions.columns.forEach(function incrementRows(item) {
+    layoutOptions.columns.forEach((item) => {
       rows = rows + item.rows;
     });
     const columnWidth = utility.roundNumberTo((100 / columns), 0);
@@ -376,33 +376,33 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const template = [];
     template.push('<div class="group-item">');
     template.push('<div class="group-item-header">');
-    template.push('<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"' + layout[0].propertyPath + '", true) %}</span></h2>');
+    template.push(`<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}</span></h2>`);
     template.push('</div">');
     for (let i = 0; i < layout.length; i++) {
       const columnItem = layoutOptions.columns[column - 1];
       if ((columnItem) && (column <= columns) && (i !== 0)) {
         if (row === 1) {
-          const columnStyle = columnItem.style || 'width:' + columnWidth + '%;';
+          const columnStyle = columnItem.style || `width:${columnWidth}%;`;
           const columnClass = columnItem.clss || '';
-          template.push('<div class="group-column ' + columnClass + '"  style="' + columnStyle + '">');
+          template.push(`<div class="group-column ${columnClass}"  style="${columnStyle}">`);
         }
         const item = layout[i];
         if (item && (columnItem.rows > 0)) {
           if (i !== 0) {
             template.push('<h3>');
             if (!columnItem.hideLabels) {
-              template.push('<span class="group-label">' + this.getGroupFieldLabelByName(item.propertyPath) + ' </span>');
+              template.push(`<span class="group-label">${this.getGroupFieldLabelByName(item.propertyPath)} </span>`);
             }
 
             const formatOptions = this.getGroupFieldFormatOptions(item);
             const formatClss = formatOptions.clss || '';
             const jsonString = json.stringify(formatOptions);
             if (item.format === 'Phone') {
-              template.push('<span class="href" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+              template.push(`<span class="href" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             } else if (item.propertyPath === 'Email') {
-              template.push('<span class="href" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+              template.push(`<span class="href" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             } else {
-              template.push('<span class="group-entry ' + formatClss + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+              template.push(`<span class="group-entry ${formatClss}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             }
             template.push('</h3>');
           }
@@ -447,7 +447,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   getGroupFieldLabelByName: function getGroupFieldLabelByName(name) {
     const layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
     let layoutItem = null;
-    layout.forEach(function setLayoutItem(item) {
+    layout.forEach((item) => {
       if (item.propertyPath === name) {
         layoutItem = item;
       }
@@ -460,7 +460,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   getGroupFieldValueByName: function getGroupFieldValueByName(entry, name, applyFormat, formatOptions) {
     const layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
     let layoutItem = null;
-    layout.forEach(function setLayoutItem(item) {
+    layout.forEach((item) => {
       if (item.propertyPath === name) {
         layoutItem = item;
       }
@@ -506,7 +506,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (!this._fieldFormatters) {
       this._fieldFormatters = {};
     }
-    const path = layoutItem.propertyPath + '_' + layoutItem.index;
+    const path = `${layoutItem.propertyPath}_${layoutItem.index}`;
     let formatter = this._fieldFormatters[path];
     if (!formatter) {
       formatter = this.getGroupFieldFormatter(layoutItem);
@@ -625,7 +625,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (params.key) {
       const resolvedEntry = this._getResolvedEntry(params.key);
       if (!resolvedEntry) {
-        this._fetchResolvedEntry(params.key).then(function postFetchResolvedEntry(resolvedEnt) {
+        this._fetchResolvedEntry(params.key).then((resolvedEnt) => {
           params.descriptor = resolvedEnt.$descriptor;
           params.resolved = true;
           self.activateEntry(params);
@@ -648,7 +648,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const self = this;
     const resolvedEntry = this._getResolvedEntry(selection.data.$key);
     if (!resolvedEntry) {
-      this._fetchResolvedEntry(selection.data.$key).then(function postFetchResolvedEntry(resolvedEnt) {
+      this._fetchResolvedEntry(selection.data.$key).then((resolvedEnt) => {
         self._invokeAction(theAction, {
           data: resolvedEnt,
           resolved: true,
@@ -673,7 +673,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const self = this;
     const resolvedEntry = this._getResolvedEntry(selection.data.$key);
     if (!resolvedEntry) {
-      this._fetchResolvedEntry(selection.data.$key).then(function postFetchResolvedEntry(resolvedEnt) {
+      this._fetchResolvedEntry(selection.data.$key).then((resolvedEnt) => {
         self._groupCheckActionState(resolvedEnt);
         self._groupApplyActionPanel(rowNode);
       });
@@ -721,18 +721,18 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     }
 
     const queryOptions = {
-      select: select,
-      where: "Id eq '" + entryKey + "'",
+      select,
+      where: `Id eq '${entryKey}'`,
     };
 
     const queryResults = store.query(null, queryOptions);
 
-    when(queryResults, function postWhen(feed) {
+    when(queryResults, (feed) => {
       const entry = feed[0];
       entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
       self._addResolvedEntry(entry);
       def.resolve(entry);
-    }, function postWhenError(err) {
+    }, (err) => {
       def.reject(err);
     });
 
@@ -798,21 +798,21 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const actionName = params.name;
     const resolvedEntry = this._getResolvedEntry(key);
     if (!resolvedEntry) {
-      this._fetchResolvedEntry(key).then(function setOptionsforGroupAction(resolvedEnt) {
+      this._fetchResolvedEntry(key).then((resolvedEnt) => {
         const options = {
           selection: {
             data: resolvedEnt,
           },
-          propertyName: propertyName,
+          propertyName,
         };
         this.groupInvokeActionByName(actionName, options);
-      }.bind(this));
+      });
     } else {
       const options = {
         selection: {
           data: resolvedEntry,
         },
-        propertyName: propertyName,
+        propertyName,
       };
       this.groupInvokeActionByName(actionName, options);
     }

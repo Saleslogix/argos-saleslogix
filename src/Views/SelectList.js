@@ -38,7 +38,7 @@ const __class = declare('crm.Views.SelectList', [List], {
     // caller is responsible for passing in a well-structured feed object.
     const data = this.expandExpression(this.options && this.options.data && this.options.data.$resources);
     const store = new Memory({
-      data: data,
+      data,
     });
     store.idProperty = '$key';
     return store;

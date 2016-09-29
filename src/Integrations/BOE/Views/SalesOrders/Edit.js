@@ -119,12 +119,12 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   convertValues: function convertValues(values) {
     if (values.ErpBillTo) {
       values.ErpBillTo = {
-        '$key': values.ErpBillTo.$key,
+        $key: values.ErpBillTo.$key,
       };
     }
     if (values.ErpShipTo) {
       values.ErpShipTo = {
-        '$key': values.ErpShipTo.$key,
+        $key: values.ErpShipTo.$key,
       };
     }
     return values;
@@ -215,7 +215,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
       relatedEntity: 'Contact',
       relatedProperty: 'Account',
       relatedPropertyType: 'object',
-      where: `IsPrimary eq true`,
+      where: 'IsPrimary eq true',
     };
     accountModel.getRelatedRequest(entry, relationship).then((result) => {
       if (result && result.entities && result.entities.length) {
@@ -331,9 +331,9 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
 
     const context = (found && found.options && found.options.source) || found;
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext,
-      'opportunities': this.applyOpportunityContext,
+      accounts: this.applyAccountContext,
+      contacts: this.applyContactContext,
+      opportunities: this.applyOpportunityContext,
     };
 
     if (context && lookup[context.resourceKind]) {
@@ -350,7 +350,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
     }
   },
   _getNavContext: function _getNavContext() {
-    const navContext = App.queryNavigationContext(function checkContext(o) {
+    const navContext = App.queryNavigationContext((o) => {
       const context = (o.options && o.options.source) || o;
 
       if (/^(accounts|contacts|opportunities)$/.test(context.resourceKind) && context.key) {
@@ -406,7 +406,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   },
   showBusy: function showBusy() {
     if (!this._busyIndicator || this._busyIndicator._destroyed) {
-      this._busyIndicator = new BusyIndicator({ id: this.id + '-busyIndicator' });
+      this._busyIndicator = new BusyIndicator({ id: `${this.id}-busyIndicator` });
     }
     this._busyIndicator.start();
     App.modal.disableClose = true;
@@ -445,7 +445,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         emptyText: '',
         valueTextProperty: 'BackOfficeName',
         view: 'salesorder_backoffice_related',
-        where: `IsActive eq true`,
+        where: 'IsActive eq true',
         include: false,
       }, {
         name: 'ErpLogicalId',
@@ -528,7 +528,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         view: 'order_warehouse_list',
         title: this.warehouseLocationText,
       },
-    ]}, {
+    ] }, {
       title: this.moreDetailsText,
       name: 'MoreDetailsSection',
       collapsed: true,
@@ -641,7 +641,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         emptyText: '',
         valueTextProperty: 'Name',
       },
-    ]},
+    ] },
   ]);
   },
 });

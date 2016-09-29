@@ -60,7 +60,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Edit', [Ed
         valueTextProperty: 'AccountName',
         view: 'erpshiptoaccount_accounts',
       },
-    ]},
+    ] },
   ]);
   },
 });

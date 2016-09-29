@@ -196,14 +196,14 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     'Type',
   ],
   activityIconByType: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-book',
-    'atPersonal': 'fa fa-check-square-o',
-    'atQuestion': 'fa fa-question-circle',
-    'atNote': 'fa fa-file-text-o',
-    'atEMail': 'fa fa-envelope',
+    atToDo: 'fa fa-list-ul',
+    atPhoneCall: 'fa fa-phone',
+    atAppointment: 'fa fa-calendar-o',
+    atLiterature: 'fa fa-book',
+    atPersonal: 'fa fa-check-square-o',
+    atQuestion: 'fa fa-question-circle',
+    atNote: 'fa fa-file-text-o',
+    atEMail: 'fa fa-envelope',
   },
   eventIcon: 'fa fa-calendar-o',
   resourceKind: 'activities',
@@ -280,16 +280,16 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   },
   getEventQuery: function getEventQuery() {
     return string.substitute(
-      [
-        'UserId eq "${0}" and (',
-        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-        'StartDate lt @${2}@',
-        ')',
-      ].join(''), [
-        App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
-      ]
+    [
+      'UserId eq "${0}" and (',
+      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+      'StartDate lt @${2}@',
+      ')',
+    ].join(''), [
+      App.context.user && App.context.user.$key,
+      convert.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()),
+      convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
+    ]
     );
   },
   activateEventMore: function activateEventMore() {
@@ -297,7 +297,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     if (view) {
       const where = this.getEventQuery();
       view.show({
-        'where': where,
+        where,
       });
     }
   },
@@ -450,24 +450,24 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   },
   selectDate: function selectDate() {
     const options = {
-        date: this.currentDate,
-        showTimePicker: false,
-        timeless: false,
-        tools: {
-          tbar: [{
-            id: 'complete',
-            cls: 'fa fa-check fa-fw fa-lg',
-            fn: this.selectDateSuccess,
-            scope: this,
-          }, {
-            id: 'cancel',
-            side: 'left',
-            cls: 'fa fa-ban fa-fw fa-lg',
-            fn: ReUI.back,
-            scope: ReUI,
-          }],
-        },
-      };
+      date: this.currentDate,
+      showTimePicker: false,
+      timeless: false,
+      tools: {
+        tbar: [{
+          id: 'complete',
+          cls: 'fa fa-check fa-fw fa-lg',
+          fn: this.selectDateSuccess,
+          scope: this,
+        }, {
+          id: 'cancel',
+          side: 'left',
+          cls: 'fa fa-ban fa-fw fa-lg',
+          fn: ReUI.back,
+          scope: ReUI,
+        }],
+      },
+    };
     const view = App.getView(this.datePickerView);
     if (view) {
       view.show(options);
@@ -483,16 +483,16 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     const view = App.getView(this.weekView);
     const navDate = this.currentDate ? this.currentDate : moment().startOf('day');
     const options = {
-        currentDate: navDate.valueOf(),
-      };
+      currentDate: navDate.valueOf(),
+    };
     view.show(options);
   },
   navigateToMonthView: function navigateToMonthView() {
     const view = App.getView(this.monthView);
     const navDate = this.currentDate ? this.currentDate : moment().startOf('day');
     const options = {
-        currentDate: navDate.valueOf(),
-      };
+      currentDate: navDate.valueOf(),
+    };
     view.show(options);
   },
   navigateToInsertView: function navigateToInsertView() {
@@ -517,7 +517,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     if (view) {
       view.show({
         title: theDescriptor,
-        key: key,
+        key,
       });
     }
   },

@@ -37,32 +37,32 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.ErpLineNumber) { %}',
-      '<h3><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h3>',
+    '<h3><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h3>',
     '{% } %}',
     '{% if ($.SlxLocation) { %}',
-      '<h4><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</h4>',
+    '<h4><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</h4>',
     '{% } %}',
     '<h4><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h4>',
     '<h4><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</h4>',
-      '<h4> <label class="group-label">{%: $$.priceText %} </label>',
-        '{%: $$.util.formatMultiCurrency($.Price, $.Quote.BaseCurrencyCode) %}',
-      '</h4>',
-      '<h4> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.DocCalculatedPrice, $.Quote.CurrencyCode) %}',
-      '</h4>',
-      '<h4> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.Quote.BaseCurrencyCode) %}',
-      '</h4>',
-      '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
-      '<h4> <label class="group-label">{%: $$.baseAmountText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.Quote.BaseCurrencyCode) %}',
-      '</h4>',
-      '<h4> <label class="group-label">{%: $$.amountText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.DocExtendedPrice, $.Quote.CurrencyCode) %}',
-      '</h4>',
-       '<h4> <label class="group-label">{%: $$.totalAmountText %}</label> ',
-        '{%: $$.util.formatMultiCurrency($.DocTotalAmount, $.Quote.CurrencyCode) %}',
-      '</h4>',
+    '<h4> <label class="group-label">{%: $$.priceText %} </label>',
+    '{%: $$.util.formatMultiCurrency($.Price, $.Quote.BaseCurrencyCode) %}',
+    '</h4>',
+    '<h4> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.DocCalculatedPrice, $.Quote.CurrencyCode) %}',
+    '</h4>',
+    '<h4> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.Quote.BaseCurrencyCode) %}',
+    '</h4>',
+    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
+    '<h4> <label class="group-label">{%: $$.baseAmountText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.Quote.BaseCurrencyCode) %}',
+    '</h4>',
+    '<h4> <label class="group-label">{%: $$.amountText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.DocExtendedPrice, $.Quote.CurrencyCode) %}',
+    '</h4>',
+    '<h4> <label class="group-label">{%: $$.totalAmountText %}</label> ',
+    '{%: $$.util.formatMultiCurrency($.DocTotalAmount, $.Quote.CurrencyCode) %}',
+    '</h4>',
 
   ]),
   // View Properties
@@ -93,7 +93,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'new',
         cls: 'fa fa-plus fa-fw fa-lg',
         action: 'preNavigateToInsert',
@@ -123,8 +123,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
       const view = this.getAvailabilityView();
       if (view) {
         const options = {
-          quoteItem: quoteItem,
-          quote: quote,
+          quoteItem,
+          quote,
         };
         this.refreshRequired = true;
         view.show(options);
@@ -138,7 +138,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
       return view;
     }
 
-    App.registerView(new QuoteItemAvailabilityList({id: viewId}));
+    App.registerView(new QuoteItemAvailabilityList({ id: viewId }));
     view = App.getView(viewId);
     return view;
   },

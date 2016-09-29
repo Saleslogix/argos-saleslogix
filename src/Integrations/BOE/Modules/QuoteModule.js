@@ -92,7 +92,7 @@ const __class = declare('crm.Integrations.BOE.Modules.QuoteModule', [_Module], {
       },
       createToolLayout: function createToolLayout() {
         return this.tools || (this.tools = {
-          'tbar': [{
+          tbar: [{
             id: 'new',
             cls: 'fa fa-plus fa-fw fa-lg',
             action: 'addLineItems',

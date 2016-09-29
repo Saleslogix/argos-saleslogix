@@ -101,9 +101,9 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.Detail', [D
       name: 'MoreDetailsSection',
       collapsed: true,
       children: [{
-          name: 'ErpUPCId',
-          property: 'ErpUPCId',
-          label: this.erpUpcIdText,
+        name: 'ErpUPCId',
+        property: 'ErpUPCId',
+        label: this.erpUpcIdText,
       }],
     }]);
   },

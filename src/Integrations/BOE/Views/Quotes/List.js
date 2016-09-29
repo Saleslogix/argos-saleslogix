@@ -24,12 +24,12 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
     '<h4><label class="group-label">{%: $$.createDateText %}</label> {%: $$.formatter.date($.CreateDate) %}</h4>',
     '<h4><label class="group-label">{%: $$.grandTotalLabelText %} </label>',
     '{%: $$.util.formatMultiCurrency($.DocGrandTotal, $.CurrencyCode) %}',
-   '</h4>',
+    '</h4>',
     '{% if ($.ErpExtId) { %}',
     '<h4><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ErpStatus) %}</h4>',
     '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.DocumentDate) %}</h4>',
     '{% } else { %}',
-     '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</h4>',
+    '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</h4>',
     '{% } %}',
   ]),
 
@@ -79,23 +79,23 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
         textProperty: 'Account.AccountName',
       }),
     }, {
-        id: 'addQuoteItem',
-        cls: 'fa fa-list-ul fa-2x',
-        label: this.addLineItemsText,
-        fn: (evt, selection) => {
-          const view = App.getView('quote_line_edit');
-          if (view) {
-            const options = {
-              insert: true,
-              context: {
-                Quote: selection.data,
-              },
-            };
-            view.show(options);
-          }
-        },
-        security: 'Entities/Quote/Add',
-      }]);
+      id: 'addQuoteItem',
+      cls: 'fa fa-list-ul fa-2x',
+      label: this.addLineItemsText,
+      fn: (evt, selection) => {
+        const view = App.getView('quote_line_edit');
+        if (view) {
+          const options = {
+            insert: true,
+            context: {
+              Quote: selection.data,
+            },
+          };
+          view.show(options);
+        }
+      },
+      security: 'Entities/Quote/Add',
+    }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(QuoteNumber) like "${0}%" or Account.AccountName like "${0}%" or ErpExtId like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

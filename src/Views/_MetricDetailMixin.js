@@ -32,7 +32,7 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
     this.inherited(arguments);
   },
   destroyWidgets: function destroyWidgets() {
-    array.forEach(this.metricWidgets, function destroy(widget) {
+    array.forEach(this.metricWidgets, (widget) => {
       widget.destroy();
     }, this);
   },

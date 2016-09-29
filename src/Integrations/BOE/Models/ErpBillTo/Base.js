@@ -25,8 +25,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillTo.Base', [_ModelBas
   listViewId: 'erpbillto_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [
+    const rel = this.relationships || (this.relationships = [
     // TODO: Update with ManyToMany relationship when available in core.
     // {
     //   name: 'Account',
@@ -43,42 +42,42 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillTo.Base', [_ModelBas
     //   relatedProperty: 'ErpBillToShipTos.ErpBillTo',
     //   relatedPropertyType: 'object',
     // },
-    {
-      name: 'Quote',
-      displayName: quoteResource.entityDisplayName,
-      type: 'OneToMany',
-      relatedEntity: 'Quote',
-      relatedProperty: 'BillTo',
-      relatedPropertyType: 'object',
-    }, {
-      name: 'SalesOrder',
-      displayName: salesorderResource.entityDisplayName,
-      type: 'OneToMany',
-      relatedEntity: 'SalesOrder',
-      relatedProperty: 'ErpBillTo',
-      relatedPropertyType: 'object',
-    }, {
-      name: 'Invoice',
-      displayName: invoiceResource.entityDisplayName,
-      type: 'ManyToOne',
-      relatedEntity: 'ERPInvoice',
-      relatedProperty: 'ErpBillTo',
-      relatedPropertyType: 'object',
-    }, {
-      name: 'Return',
-      displayName: returnResource.entityDisplayName,
-      type: 'ManyToOne',
-      relatedEntity: 'Return',
-      relatedProperty: 'ErpBillTo',
-      relatedPropertyType: 'object',
-    }, {
-      name: 'SyncHistory',
-      displayName: syncresultResource.entityDisplayName,
-      type: 'OneToMany',
-      relatedEntity: 'SyncResult',
-      relatedProperty: 'EntityId',
-      where: 'EntityType eq "ERPBillTo"',
-    }]);
+      {
+        name: 'Quote',
+        displayName: quoteResource.entityDisplayName,
+        type: 'OneToMany',
+        relatedEntity: 'Quote',
+        relatedProperty: 'BillTo',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SalesOrder',
+        displayName: salesorderResource.entityDisplayName,
+        type: 'OneToMany',
+        relatedEntity: 'SalesOrder',
+        relatedProperty: 'ErpBillTo',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'Invoice',
+        displayName: invoiceResource.entityDisplayName,
+        type: 'ManyToOne',
+        relatedEntity: 'ERPInvoice',
+        relatedProperty: 'ErpBillTo',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'Return',
+        displayName: returnResource.entityDisplayName,
+        type: 'ManyToOne',
+        relatedEntity: 'Return',
+        relatedProperty: 'ErpBillTo',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SyncHistory',
+        displayName: syncresultResource.entityDisplayName,
+        type: 'OneToMany',
+        relatedEntity: 'SyncResult',
+        relatedProperty: 'EntityId',
+        where: 'EntityType eq "ERPBillTo"',
+      }]);
     return rel;
   },
 });

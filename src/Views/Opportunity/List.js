@@ -166,10 +166,10 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
     return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   groupFieldFormatter: {
-    'CloseProbability': {
+    CloseProbability: {
       name: 'CloseProbability',
       formatter: function formatter(value) {
-        return format.fixedLocale(value, 0) + '%';
+        return `${format.fixedLocale(value, 0)}%`;
       },
     },
   },

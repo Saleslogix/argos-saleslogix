@@ -129,7 +129,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail]
         name: 'Accounts',
         label: this.accountsText,
         where: function where(entry) {
-          return 'ErpShipToAccounts.ErpShipTo.Id eq "' + entry.$key + '"';
+          return `ErpShipToAccounts.ErpShipTo.Id eq "${entry.$key}"`;
         },
         view: 'shipto_accounts_related',
       }, {

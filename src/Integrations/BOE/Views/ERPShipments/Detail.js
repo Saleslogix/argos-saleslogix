@@ -181,12 +181,12 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.Detail', [Detai
       list: true,
       name: 'RelatedItemsSection',
       children: [{
-          name: 'ShipmentLines',
-          label: this.shipmentLinesText,
-          where: function where(entry) {
-            return 'ErpShipment.Id eq "' + entry.$key + '"';
-          },
-          view: 'shipment_lines_related',
+        name: 'ShipmentLines',
+        label: this.shipmentLinesText,
+        where: function where(entry) {
+          return `ErpShipment.Id eq "${entry.$key}"`;
+        },
+        view: 'shipment_lines_related',
       }],
     }]);
   },

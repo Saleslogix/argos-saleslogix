@@ -83,9 +83,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
       (resolve) => {
         this.showBusy();
         const entry = {
-          '$name': 'CanPromoteQuote',
-          'request': {
-            'quoteId': this.entry.$key,
+          $name: 'CanPromoteQuote',
+          request: {
+            quoteId: this.entry.$key,
           },
         };
         const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
@@ -118,9 +118,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   _convertToSalesOrder: function _convertToSalesOrder() {
     this.showBusy();
     const convertQuoteEntry = {
-      '$name': 'ConvertQuoteToOrder',
-      'request': {
-        'QuoteId': this.entry.$key,
+      $name: 'ConvertQuoteToOrder',
+      request: {
+        QuoteId: this.entry.$key,
       },
     };
 
@@ -157,9 +157,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   },
   _isClosed: function _isClosed() {
     const quoteEntry = {
-      '$name': 'IsClosed',
-      'request': {
-        'QuoteId': this.entry.$key,
+      $name: 'IsClosed',
+      request: {
+        QuoteId: this.entry.$key,
       },
     };
 
@@ -242,7 +242,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
     if (this.entry) {
       if (!this.options.context) {
         this.options.context = {
-          'Quote': this.entry,
+          Quote: this.entry,
         };
       } else {
         this.options.context.Quote = this.entry;
@@ -256,7 +256,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
     if (this.entry) {
       if (!this.options.context) {
         this.options.context = {
-          'Quote': this.entry,
+          Quote: this.entry,
         };
       } else {
         this.options.context.Quote = this.entry;
@@ -284,7 +284,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   },
   showBusy: function showBusy() {
     if (!this._busyIndicator || this._busyIndicator._destroyed) {
-      this._busyIndicator = new BusyIndicator({ id: this.id + '-busyIndicator' });
+      this._busyIndicator = new BusyIndicator({ id: `${this.id}-busyIndicator` });
     }
     this._busyIndicator.start();
     App.modal.disableClose = true;
@@ -413,12 +413,12 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
           return format.date(data);
         },
       }, {
-          name: 'ExpectedDeliveryDate',
-          property: 'ExpectedDeliveryDate',
-          label: this.expectedDeliveryDateText,
-          renderer: function renderer(data) {
-            return format.date(data);
-          },
+        name: 'ExpectedDeliveryDate',
+        property: 'ExpectedDeliveryDate',
+        label: this.expectedDeliveryDateText,
+        renderer: function renderer(data) {
+          return format.date(data);
+        },
       }, {
         name: 'DocumentDate',
         property: 'DocumentDate',
@@ -427,219 +427,219 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
           return format.date(data);
         },
       }, {
-          name: 'Status',
-          property: 'Status',
-          label: this.statusText,
-          renderer: function renderer(val) {
-            if (val) {
-              return val;
-            }
-            return '';
-          },
-        }, {
-          name: 'SyncStatus',
-          property: 'SyncStatus',
-          label: this.syncStatusText,
-          renderer: (value) => {
-            const text = App.picklistService.getPicklistItemTextByCode('SyncStatus', value);
-            if (text) {
-              return text;
-            }
-            return value;
-          },
-        }, {
-          name: 'ErpStatus',
-          property: 'ErpStatus',
-          label: this.erpStatusText,
-          renderer: (value) => {
-            const text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);
-            if (text) {
-              return text;
-            }
-            return value;
-          },
-        }, {
-          name: 'StatusDate',
-          property: 'StatusDate',
-          label: this.erpStatusDateText,
-          renderer: function renderer(data) {
-            return format.date(data);
-          },
-        }, {
-          name: 'SubTotal',
-          property: 'Total',
-          label: this.baseSubTotalText,
-          renderer: (value) => {
-            return utility.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
-          },
-        }, {
-          name: 'GrandTotal',
-          property: 'GrandTotal',
-          label: this.baseGrandTotalText,
-          renderer: (value) => {
-            return utility.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
-          },
-        }, {
-          name: 'DocSubTotal',
-          property: 'DocTotal',
-          label: this.subTotalText,
-          renderer: (value) => {
-            return utility.formatMultiCurrency(value, this.entry.CurrencyCode);
-          },
-        }, {
-          name: 'DocGrandTotal',
-          property: 'DocGrandTotal',
-          label: this.grandTotalText,
-          renderer: (value) => {
-            return utility.formatMultiCurrency(value, this.entry.CurrencyCode);
-          },
-        }, {
-          name: 'Comments',
-          property: 'Comments',
-          label: this.commentsText,
-        }],
+        name: 'Status',
+        property: 'Status',
+        label: this.statusText,
+        renderer: function renderer(val) {
+          if (val) {
+            return val;
+          }
+          return '';
+        },
       }, {
-        title: this.moreDetailsText,
-        name: 'MoreDetailsSection',
-        collapsed: true,
-        children: [{
-          name: 'BillTo',
-          property: 'BillTo.Name',
-          label: this.billToText,
-          view: 'erpbillto_detail',
-          key: 'BillTo.$key',
-        }, {
-          name: 'BillToAddress',
-          property: 'BillTo.Address',
-          label: this.billToAddressText,
-          renderer: function renderer(data) {
-            if (data) {
-              return format.address(data);
-            }
-          },
-        }, {
-          name: 'BillingContactAddress',
-          property: 'BillingContact.Address',
-          label: this.billingAddressText,
-          renderer: function renderer(data) {
-            if (data) {
-              return format.address(data);
-            }
-          },
-        }, {
-          name: 'ShipTo',
-          property: 'ShipTo.Name',
-          label: this.shipToText,
-          view: 'erpshipto_detail',
-          key: 'ShipTo.$key',
-        }, {
-          name: 'ShipToAddress',
-          property: 'ShipTo.Address',
-          label: this.shipToAddressText,
-          renderer: function renderer(data) {
-            if (data) {
-              return format.address(data);
-            }
-          },
-        }, {
-          name: 'Location',
-          property: 'Location',
-          label: this.locationText,
-          renderer: function renderer(data) {
-            if (data) {
-              if (data.Address && data.Address.FullAddress) {
-                return format.address(data.Address);
-              }
-              return data.Description;
-            }
-          },
-        }, {
-          name: 'Warehouse',
-          property: 'Warehouse',
-          label: this.warehouseText,
-          renderer: function renderer(data) {
-            if (data) {
-              if (data.Address && data.Address.FullAddress) {
-                return format.address(data.Address);
-              }
-              return data.Description;
-            }
-          },
-        }, {
-          name: 'ShippingContactAddress',
-          property: 'ShippingContact.Address',
-          label: this.shippingAddressText,
-          renderer: function renderer(data) {
-            if (data) {
-              return format.address(data);
-            }
-          },
-        }, {
-          name: 'Carrier',
-          property: 'Carrier.CarrierName',
-          label: this.carrierText,
-          renderer: function renderer(data) {
-            if (data) {
-              return data;
-            }
-            return '';
-          },
-        }, {
-          name: 'DropShip',
-          property: 'DropShip',
-          label: this.dropShipAllowedText,
-          renderer: function renderer(data) {
-            return format.yesNo(data);
-          },
-        }, {
-          name: 'ShipEarly',
-          property: 'ShipEarly',
-          label: this.shipEarlyAllowedText,
-          renderer: function renderer(data) {
-            return format.yesNo(data);
-          },
-        }, {
-          name: 'PartialShip',
-          property: 'PartialShip',
-          label: this.partialShipAllowedText,
-          renderer: function renderer(data) {
-            return format.yesNo(data);
-          },
-        }],
+        name: 'SyncStatus',
+        property: 'SyncStatus',
+        label: this.syncStatusText,
+        renderer: (value) => {
+          const text = App.picklistService.getPicklistItemTextByCode('SyncStatus', value);
+          if (text) {
+            return text;
+          }
+          return value;
+        },
       }, {
-        title: this.relatedItemsText,
-        list: true,
-        name: 'RelatedItemsSection',
-        children: [{
-          name: 'QuoteLines',
-          label: this.quoteLinesText,
-          where: function where(entry) {
-            return 'Quote.$key eq "' + entry.$key + '"';
-          },
-          view: 'quote_lines_related',
-        }, {
-            name: 'Attachments',
-            label: this.attachmentsText,
-            where: function where(entry) {
-              return 'quoteId eq "' + entry.$key + '"';
-            },
-            view: 'quote_attachments_related',
-          }, {
-            name: 'QuotePersons',
-            label: this.salesPersonsText,
-            where: function where(entry) {
-              return 'Quote.Id eq "' + entry.$key + '"';
-            },
-            view: 'quotepersons_related',
-          }, {
-            name: 'SyncHistory',
-            label: this.syncHistoryText,
-            where: (entry) => {
-              return `EntityType eq "Quote" and EntityId eq "${entry.$key}"`;
-            },
-            view: 'quote_syncresult_related',
-          }],
-      }]);
+        name: 'ErpStatus',
+        property: 'ErpStatus',
+        label: this.erpStatusText,
+        renderer: (value) => {
+          const text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);
+          if (text) {
+            return text;
+          }
+          return value;
+        },
+      }, {
+        name: 'StatusDate',
+        property: 'StatusDate',
+        label: this.erpStatusDateText,
+        renderer: function renderer(data) {
+          return format.date(data);
+        },
+      }, {
+        name: 'SubTotal',
+        property: 'Total',
+        label: this.baseSubTotalText,
+        renderer: (value) => {
+          return utility.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+        },
+      }, {
+        name: 'GrandTotal',
+        property: 'GrandTotal',
+        label: this.baseGrandTotalText,
+        renderer: (value) => {
+          return utility.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+        },
+      }, {
+        name: 'DocSubTotal',
+        property: 'DocTotal',
+        label: this.subTotalText,
+        renderer: (value) => {
+          return utility.formatMultiCurrency(value, this.entry.CurrencyCode);
+        },
+      }, {
+        name: 'DocGrandTotal',
+        property: 'DocGrandTotal',
+        label: this.grandTotalText,
+        renderer: (value) => {
+          return utility.formatMultiCurrency(value, this.entry.CurrencyCode);
+        },
+      }, {
+        name: 'Comments',
+        property: 'Comments',
+        label: this.commentsText,
+      }],
+    }, {
+      title: this.moreDetailsText,
+      name: 'MoreDetailsSection',
+      collapsed: true,
+      children: [{
+        name: 'BillTo',
+        property: 'BillTo.Name',
+        label: this.billToText,
+        view: 'erpbillto_detail',
+        key: 'BillTo.$key',
+      }, {
+        name: 'BillToAddress',
+        property: 'BillTo.Address',
+        label: this.billToAddressText,
+        renderer: function renderer(data) {
+          if (data) {
+            return format.address(data);
+          }
+        },
+      }, {
+        name: 'BillingContactAddress',
+        property: 'BillingContact.Address',
+        label: this.billingAddressText,
+        renderer: function renderer(data) {
+          if (data) {
+            return format.address(data);
+          }
+        },
+      }, {
+        name: 'ShipTo',
+        property: 'ShipTo.Name',
+        label: this.shipToText,
+        view: 'erpshipto_detail',
+        key: 'ShipTo.$key',
+      }, {
+        name: 'ShipToAddress',
+        property: 'ShipTo.Address',
+        label: this.shipToAddressText,
+        renderer: function renderer(data) {
+          if (data) {
+            return format.address(data);
+          }
+        },
+      }, {
+        name: 'Location',
+        property: 'Location',
+        label: this.locationText,
+        renderer: function renderer(data) {
+          if (data) {
+            if (data.Address && data.Address.FullAddress) {
+              return format.address(data.Address);
+            }
+            return data.Description;
+          }
+        },
+      }, {
+        name: 'Warehouse',
+        property: 'Warehouse',
+        label: this.warehouseText,
+        renderer: function renderer(data) {
+          if (data) {
+            if (data.Address && data.Address.FullAddress) {
+              return format.address(data.Address);
+            }
+            return data.Description;
+          }
+        },
+      }, {
+        name: 'ShippingContactAddress',
+        property: 'ShippingContact.Address',
+        label: this.shippingAddressText,
+        renderer: function renderer(data) {
+          if (data) {
+            return format.address(data);
+          }
+        },
+      }, {
+        name: 'Carrier',
+        property: 'Carrier.CarrierName',
+        label: this.carrierText,
+        renderer: function renderer(data) {
+          if (data) {
+            return data;
+          }
+          return '';
+        },
+      }, {
+        name: 'DropShip',
+        property: 'DropShip',
+        label: this.dropShipAllowedText,
+        renderer: function renderer(data) {
+          return format.yesNo(data);
+        },
+      }, {
+        name: 'ShipEarly',
+        property: 'ShipEarly',
+        label: this.shipEarlyAllowedText,
+        renderer: function renderer(data) {
+          return format.yesNo(data);
+        },
+      }, {
+        name: 'PartialShip',
+        property: 'PartialShip',
+        label: this.partialShipAllowedText,
+        renderer: function renderer(data) {
+          return format.yesNo(data);
+        },
+      }],
+    }, {
+      title: this.relatedItemsText,
+      list: true,
+      name: 'RelatedItemsSection',
+      children: [{
+        name: 'QuoteLines',
+        label: this.quoteLinesText,
+        where: function where(entry) {
+          return `Quote.$key eq "${entry.$key}"`;
+        },
+        view: 'quote_lines_related',
+      }, {
+        name: 'Attachments',
+        label: this.attachmentsText,
+        where: function where(entry) {
+          return `quoteId eq "${entry.$key}"`;
+        },
+        view: 'quote_attachments_related',
+      }, {
+        name: 'QuotePersons',
+        label: this.salesPersonsText,
+        where: function where(entry) {
+          return `Quote.Id eq "${entry.$key}"`;
+        },
+        view: 'quotepersons_related',
+      }, {
+        name: 'SyncHistory',
+        label: this.syncHistoryText,
+        where: (entry) => {
+          return `EntityType eq "Quote" and EntityId eq "${entry.$key}"`;
+        },
+        view: 'quote_syncresult_related',
+      }],
+    }]);
   },
 });
 

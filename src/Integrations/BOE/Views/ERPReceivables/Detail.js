@@ -46,9 +46,9 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.Detail', [Det
   _hasNonEmptyAddress: function _hasNonEmptyAddress(address) {
     let keys;
     if (address) {
-      keys = Object.keys(address).filter(function getIndexFromKey(key) {
+      keys = Object.keys(address).filter((key) => {
         return this._sdataProps.indexOf(key) === -1;
-      }.bind(this));
+      });
     }
 
     return keys && keys.length > 0;
@@ -167,7 +167,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.Detail', [Det
         name: 'ERPReceivableItems',
         label: this.receivableItemsText,
         where: function where(entry) {
-          return 'ErpReceivable.Id eq "' + entry.$key + '"';
+          return `ErpReceivable.Id eq "${entry.$key}"`;
         },
         view: 'erpreceivable_items_related',
       }],

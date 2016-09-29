@@ -14,8 +14,7 @@ const __class = declare('crm.Models.UserActivity.Base', [ActivityBase], {
   resourceKind: 'userActivities',
   contractName: 'system',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = []);
+    const rel = this.relationships || (this.relationships = []);
     return rel;
   },
 });

@@ -20,8 +20,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivableItem.Base', [_
   listViewId: 'erpreceivable_items_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Invoice',
       displayName: invoiceResource.entityDisplayName,
       type: 'ManyToOne',

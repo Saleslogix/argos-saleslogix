@@ -72,6 +72,5 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['babel', 'connect', 'jasmine:coverage']);
   grunt.registerTask('server', ['connect:server:keepalive']);
   grunt.registerTask('bundle', ['babel', 'less', 'shell:bundle:<%= pkg.version %>']);
-  grunt.registerTask('lint', ['babel', 'eslint']);
   grunt.registerTask('default', ['test']);
 };

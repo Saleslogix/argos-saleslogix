@@ -14,31 +14,31 @@ import format from '../../Format';
 const __class = lang.setObject('crm.Integrations.BOE.Utility', {
   // Lookup table for the aggregate functions used by DashboardWidget
   aggregateLookup: {
-    'calcProfit': function calcProfit(fn, widget, data) {
+    calcProfit: function calcProfit(fn, widget, data) {
       const revenue = data[0];
       const cost = data[1];
 
       return fn.call(widget, revenue, cost);
     },
-    'calcMargin': function calcMargin(fn, widget, data) {
+    calcMargin: function calcMargin(fn, widget, data) {
       const revenue = data[0];
       const cost = data[1];
 
       return fn.call(widget, revenue, cost);
     },
-    'calcYoYRevenue': function calcYoYRevenue(fn, widget, data) {
+    calcYoYRevenue: function calcYoYRevenue(fn, widget, data) {
       const pastYear = data[0];
       const between = data[1];
 
       return fn.call(widget, pastYear, between);
     },
-    'calcYoYProfit': function calcYoYProfit(fn, widget, data) {
+    calcYoYProfit: function calcYoYProfit(fn, widget, data) {
       return fn.call(widget, data[0], data[2], data[1], data[3]);
     },
-    'calcYoYMargin': function calcYoYMargin(fn, widget, data) {
+    calcYoYMargin: function calcYoYMargin(fn, widget, data) {
       return fn.call(widget, data[0], data[2], data[1], data[3]);
     },
-    'sum': function sum(fn, widget, data) {
+    sum: function sum(fn, widget, data) {
       return fn.call(widget, data);
     },
   },
@@ -82,24 +82,24 @@ const __class = lang.setObject('crm.Integrations.BOE.Utility', {
     });
     return Promise.all(promises);
   },
-    formatMultiCurrency: function formatMultiCurrency(val, currencyCode) {
-      let result = null;
-      const tempVal = val || 0;
-      if (App.hasMultiCurrency() && currencyCode) {
-        result = format.multiCurrency.call(null, tempVal, currencyCode);
-      } else {
-        result = format.currency.call(null, tempVal);
-      }
-      return result || '';
-    },
-    getBaseCurrencyCode: function getBaseCurrencyCode() {
-      if (App.context && App.context.systemOptions && App.context.systemOptions.BaseCurrency) {
-        const results = App.context.systemOptions.BaseCurrency;
-        return results;
-      }
+  formatMultiCurrency: function formatMultiCurrency(val, currencyCode) {
+    let result = null;
+    const tempVal = val || 0;
+    if (App.hasMultiCurrency() && currencyCode) {
+      result = format.multiCurrency.call(null, tempVal, currencyCode);
+    } else {
+      result = format.currency.call(null, tempVal);
+    }
+    return result || '';
+  },
+  getBaseCurrencyCode: function getBaseCurrencyCode() {
+    if (App.context && App.context.systemOptions && App.context.systemOptions.BaseCurrency) {
+      const results = App.context.systemOptions.BaseCurrency;
+      return results;
+    }
 
-      return '';
-    },
+    return '';
+  },
 });
 
 lang.setObject('icboe.Utility', __class);

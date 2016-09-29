@@ -37,7 +37,7 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
   getFilters: function getFilters() {
     if (!this.filters) {
       this.filters = {
-        'today': {
+        today: {
           label: resource.todayFilterLabel,
           fn: this.isToday,
         },
@@ -45,7 +45,7 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
           label: resource.thisWeekFilterLabel,
           fn: this.isThisWeek,
         },
-        'yesterday': {
+        yesterday: {
           label: resource.yesterdayFilterLabel,
           fn: this.isYesterday,
         },

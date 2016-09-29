@@ -18,8 +18,7 @@ const __class = declare('crm.Integrations.BOE.Models.SyncResult.Base', [_ModelBa
   listViewId: 'syncresult_list',
   editViewId: '',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [
+    const rel = this.relationships || (this.relationships = [
     ]);
     return rel;
   },

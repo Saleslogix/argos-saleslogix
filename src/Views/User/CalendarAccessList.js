@@ -26,7 +26,7 @@ const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   queryOrderBy: 'Name',
 
   queryWhere: function queryWhere() {
-    return "AllowAdd AND (AccessId eq 'EVERYONE' or AccessId eq '" + App.context.user.$key + "') AND Type eq 'User'";
+    return `AllowAdd AND (AccessId eq 'EVERYONE' or AccessId eq '${App.context.user.$key}') AND Type eq 'User'`;
   },
   querySelect: [
     'Name',

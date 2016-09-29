@@ -132,16 +132,16 @@ const __class = declare('crm.FileManager', null, {
       }
 
       const binary = evt.target.result;
-      const boundary = '---------------------------' + (new Date()).getTime();
+      const boundary = `---------------------------${(new Date()).getTime()}`;
       const dashdash = '--';
       const crlf = '\r\n';
 
       this._append(bb, dashdash + boundary + crlf);
       this._append(bb, 'Content-Disposition: attachment; ');
       this._append(bb, 'name="file_"; ');
-      this._append(bb, 'filename*="' + encodeURI(file.name) + '" ');
+      this._append(bb, `filename*="${encodeURI(file.name)}" `);
       this._append(bb, crlf);
-      this._append(bb, 'Content-Type: ' + file.type);
+      this._append(bb, `Content-Type: ${file.type}`);
       this._append(bb, crlf + crlf);
       this._append(bb, binary);
       this._append(bb, crlf);
@@ -168,7 +168,7 @@ const __class = declare('crm.FileManager', null, {
         });
       }
 
-      request.setRequestHeader('Content-Type', 'multipart/attachment; boundary=' + boundary);
+      request.setRequestHeader('Content-Type', `multipart/attachment; boundary=${boundary}`);
 
       if (usingBlobBuilder) {
         blobData = bb.getBlob(file.type);
@@ -222,7 +222,7 @@ const __class = declare('crm.FileManager', null, {
     if (size < 1024) {
       return '1 KB';
     }
-    return dNumber.format(Math.round(size / 1024)) + ' KB';
+    return `${dNumber.format(Math.round(size / 1024))} KB`;
   },
   /**
    * Loads a remote file.
@@ -253,10 +253,10 @@ const __class = declare('crm.FileManager', null, {
       const fileName = contentInfo.split('=')[1];
       const responseInfo = {
         request: this,
-        responseType: responseType,
+        responseType,
         response: this.response,
-        contentType: contentType,
-        fileName: fileName,
+        contentType,
+        fileName,
       };
       if (onSuccess) {
         onSuccess(responseInfo);
