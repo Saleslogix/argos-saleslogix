@@ -145,6 +145,23 @@
       });
     })();
   </script>
+  <script>
+      // Deal with the back/forward cache on iOS.
+      var resetPage = false;
+      var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      var safari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+      var myCustomEvent = (iOS && safari) ? 'popstate' : 'pageshow';
+      require('dojo/on')(window, myCustomEvent, function(e) {
+          var isLogin = window.location.hash === '#_login';
+          if (resetPage && isLogin && iOS && safari) {
+              this.resetPage = false;
+              window.location.reload();
+          }
+          if (!isLogin) {
+              this.resetPage = true;
+          }
+      });
+  </script>
 </head>
 <body>
 </body>
