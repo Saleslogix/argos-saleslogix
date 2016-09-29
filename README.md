@@ -19,7 +19,7 @@ GruntJS is a task runner. We have defined tasks to run in Gruntfile.js. Here are
 * ESLint: `npm run lint`
 * LESSCSS: `grunt less`
 * Babel: `grunt babel`
-* Watch: `grunt watch` - Watches the src folder for changes and runs grunt babel automatically when a file is changed.
+* Watch: `npm run watch` - Watches the src folder for changes and runs grunt babel automatically when a file is changed.
 * Plus many more: http://gruntjs.com/plugins
 
 ### NOTICED TO CUSTOMIZERS
