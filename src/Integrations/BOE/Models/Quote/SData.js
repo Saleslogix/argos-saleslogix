@@ -11,7 +11,7 @@ const __class = declare('crm.Integrations.BOE.Models.Quotes.SData', [Base, _SDat
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
-      queryOrderBy: 'DocumentDate desc',
+      queryOrderBy: 'DocumentDate desc, CreateDate desc',
       querySelect: [
         'QuoteNumber',
         'ErpExtId',

@@ -52,6 +52,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
    '<h4><label class="group-label">{%: $$.totalAmountText %}</label> ',
         '{%: $$.util.formatMultiCurrency($.GrandTotal, $.CurrencyCode) %}',
    '</h4>',
+   '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
   ]),
 
   // Localization
@@ -69,6 +70,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
   extendedBaseAmountText: resource.extendedBaseAmountText,
   unknownText: resource.unknownText,
   viewAccountActionText: resource.viewAccountActionText,
+  documentDateText: resource.documentDateText,
 
   // View Properties
   id: 'invoice_list',

@@ -532,6 +532,7 @@
   totalBaseAmountText: "Total Base Amount"
   extendedAmountText: "Extended Amount"
   extendedBaseAmountText: "Extended Base Amount"
+  documentDateText: "Document Date"
 >
 
 <erpReceivableItemsDetail ""
@@ -590,6 +591,7 @@
   receivableAmountText: "Receivable Amount"
   receivableBaseAmountText: "Receivable Base Amount"
   accountNameText: "Account"
+  documentDateText: "Document Date"
 >
 
 <erpSalesOrderPersonsList ""
@@ -660,6 +662,7 @@
   viewAccountActionText: "View Account"
   totalBaseAmountText: "Total Base Amount"
   totalAmountText: "Total Amount"
+  documentDateText: "Document Date"
 >
 
 <erpShipToAccountsDetail ""
@@ -774,10 +777,12 @@
   viewAccountActionText: "View Account"
   statusLabelText: "Status"
   erpStatusLabelText: "ERP Status"
+  documentDateText: "Document Date"
 >
 
 <returnsList ""
   titleText: "Returns"
+  documentDateText: "Document Date"
 >
 
 <salesOrderItemsDetail ""
@@ -903,6 +908,7 @@
   orderDateText: "Order Date"
   viewAccountActionText: "View Account"
   addLineItemsText: "Add Item"
+  documentDateText: "Document Date"
 >
 
 <dashboardWidgetBase ""
