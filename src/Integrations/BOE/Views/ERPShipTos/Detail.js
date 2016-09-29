@@ -23,6 +23,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail]
   moreDetailsText: resource.moreDetailsText,
   relatedItemsText: resource.relatedItemsText,
   entityText: resource.entityText,
+  backOfficeIdText: resource.backOfficeIdText,
   nameText: resource.nameText,
   faxText: resource.faxText,
   phoneText: resource.phoneText,
@@ -47,6 +48,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail]
   id: 'erpshipto_detail',
   modelName: MODEL_NAMES.ERPSHIPTO,
   resourceKind: 'erpShipTos',
+  enableOffline: true,
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
@@ -59,6 +61,10 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail]
       title: this.detailsText,
       name: 'DetailsSection',
       children: [{
+        name: 'ErpExtId',
+        property: 'ErpExtId',
+        label: this.backOfficeIdText,
+      }, {
         name: 'Name',
         property: 'Name',
         label: this.nameText,

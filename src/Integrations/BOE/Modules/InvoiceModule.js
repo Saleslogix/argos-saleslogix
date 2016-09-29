@@ -6,8 +6,11 @@ import ERPInvoiceList from '../Views/ERPInvoices/List';
 import ERPInvoiceItemDetail from '../Views/ERPInvoiceItems/Detail';
 import ERPInvoiceItemList from '../Views/ERPInvoiceItems/List';
 import ERPReceivablesList from '../Views/ERPReceivables/List';
+import '../Models/ErpInvoice/Offline';
 import '../Models/ErpInvoice/SData';
+import '../Models/ErpInvoiceItem/Offline';
 import '../Models/ErpInvoiceItem/SData';
+import '../Models/ErpInvoicePerson/Offline';
 import '../Models/ErpInvoicePerson/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.InvoiceModule', [_Module], {
@@ -61,9 +64,6 @@ const __class = declare('crm.Integrations.BOE.Modules.InvoiceModule', [_Module],
       },
       type: 'remove',
     });
-  },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
   },
   loadToolbars: function loadToolbars() {
   },

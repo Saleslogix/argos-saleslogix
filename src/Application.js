@@ -52,6 +52,8 @@ const __class = declare('crm.Application', [Application], {
     'DefaultGroup;OPPORTUNITY',
     'DefaultGroup;LEAD',
     'DefaultGroup;TICKET',
+    'DefaultGroup;SALESORDER',
+    'DefaultGroup;QUOTE',
     'General;InsertSecCodeID',
     'General;Currency',
     'Calendar;DayStartTime',
@@ -104,7 +106,6 @@ const __class = declare('crm.Application', [Application], {
     }
 
     this.inherited(arguments);
-    this.preferences = {};
     this._loadNavigationState();
 
     this.UID = (new Date()).getTime();
@@ -457,6 +458,7 @@ const __class = declare('crm.Application', [Application], {
   },
   onInitAppStateSuccess: function onInitAppStateSuccess() {
     this._saveDefaultPreferences();
+    this.setDefaultMetricPreferences();
     if (this.enableOfflineSupport) {
       this.initOfflineData().then(() => {
         this.hasState = true;
@@ -501,7 +503,7 @@ const __class = declare('crm.Application', [Application], {
     } catch (e) {} // eslint-disable-line
   },
   _saveDefaultPreferences: function _saveDefaultPreferences() {
-    if (this.preferences && this.preferences.home) {
+    if (this.preferences) {
       return;
     }
 
@@ -551,7 +553,6 @@ const __class = declare('crm.Application', [Application], {
       success: function success(entry) {
         this.context.user = entry;
         this.context.defaultOwner = entry && entry.DefaultOwner;
-        this.setDefaultMetricPreferences();
         def.resolve(entry);
       },
       failure: function failure() {

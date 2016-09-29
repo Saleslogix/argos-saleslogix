@@ -4,6 +4,7 @@ import _Module from './_Module';
 import ShipmentsDetail from '../Views/ERPShipments/Detail';
 import ShipmentsList from '../Views/ERPShipments/List';
 import ShipmentItemsList from '../Views/ERPShipmentItems/List';
+import '../Models/ErpShipment/Offline';
 import '../Models/ErpShipment/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.ShipmentModule', [_Module], {
@@ -44,9 +45,6 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipmentModule', [_Module]
       },
       type: 'remove',
     });
-  },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
   },
   loadToolbars: function loadToolbars() {
   },

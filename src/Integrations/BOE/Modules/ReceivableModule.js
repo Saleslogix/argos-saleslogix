@@ -4,10 +4,11 @@ import _Module from './_Module';
 import ERPReceivablesDetail from '../Views/ERPReceivables/Detail';
 import ERPReceivablesList from '../Views/ERPReceivables/List';
 import ERPReceivableItemsList from '../Views/ERPReceivableItems/List';
+import '../Models/ErpReceivable/Offline';
 import '../Models/ErpReceivable/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.ReceivableModule', [_Module], {
-  defaultView: ['erpreceivables_list'],
+  defaultViews: ['erpreceivables_list'],
   init: function init() {
   },
   loadViews: function loadViews() {
@@ -53,9 +54,6 @@ const __class = declare('crm.Integrations.BOE.Modules.ReceivableModule', [_Modul
       },
       type: 'remove',
     });
-  },
-  getDefaultViews: function getDefaultViews() {
-    return this.defaultViews;
   },
   loadToolbars: function loadToolbars() {
   },

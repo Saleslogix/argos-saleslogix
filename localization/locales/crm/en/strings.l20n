@@ -222,7 +222,7 @@
   hourAndHalfText: "1.5 hours"
   twoHoursText: "2 hours"
   dayText: "1 day"
-  updateUserActErrorText: "An error occured updating user activities."
+  updateUserActErrorText: "An error occurred updating user activities."
 >
 
 <activityList ""
@@ -550,7 +550,7 @@
   entityText: "Error Log"
   moreDetailsText: "More Details"
   errorText: "error"
-  emailSubjectText: "Error received in Saleslogix Mobile Client"
+  emailSubjectText: "Error received in Infor CRM Mobile Client"
   copiedSuccessText: "Copied to clipboard"
 >
 
@@ -1301,8 +1301,8 @@
   connectionToastTitleText: "Connection Status"
   offlineOptionsText: "Offline Options"
   offlineInitDataText: "Initializing Offline Data"
-  offlineInitErrorText: "An error occured during offline intitalization. All Offline options will be disabled."
-  appStateInitErrorText: "An error occured during application intitalization. Please try again."
+  offlineInitErrorText: "An error occurred during offline initialization. All Offline options will be disabled."
+  appStateInitErrorText: "An error occurred during application initialization. Please try again."
 >
 
 <applicationModule ""
@@ -1338,7 +1338,7 @@
 <fileManager ""
   unableToUploadText: "This browser does not support HTML5 File API."
   unknownSizeText: "unknown"
-  unknownErrorText: "Warning: An error occured and the file failed to upload."
+  unknownErrorText: "Warning: An error occurred and the file failed to upload."
   largeFileWarningText: "Warning: This request exceeds the size limit set by your administrator and failed to upload."
   largeFileWarningTitle: "Warning"
   percentCompleteText: "Uploading, please wait..."
@@ -1467,7 +1467,7 @@
 <briefcaseList ""
   titleText: "My Briefcase"
   removeText: "remove"
-  reBriefcaseText: "re briefcase"
+  reBriefcaseText: "return record to briefcase"
   goToOnlineText: "go to online view"
   goToOfflineText: "go to offline view"
 >
@@ -1495,7 +1495,7 @@
   calculatingUsageText: "calculating usage please wait."
   clearingDataText: "clearing data please wait."
   lastClearedText: "Last cleared"
-  errorCalculatingText: "Error caclulating usage"
+  errorCalculatingText: "Error calculating usage"
   errorClearingDataText: "Error clearing data"
 >
 

@@ -47,11 +47,12 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
     return this.tools && (this.tools.tbar = []);
   },
   resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
-    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, Mobile.CultureInfo.name, fileName]);
+    const cultureName = Mobile.CultureInfo.name || 'en';
+    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, cultureName, fileName]);
     return localizedUrl;
   },
   resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
-    const languageSpec = Mobile.CultureInfo.name;
+    const languageSpec = Mobile.CultureInfo.name || 'en';
     const languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec;
     const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, languageGen, fileName]);
     return localizedUrl;

@@ -7,7 +7,7 @@
   accountingEntity: "System Accounting Entity:"
   cancelText: "Cancel"
   promoteText: "Promote"
-  noBackOfficesText: "No backoffices found on the system. Cannot promote account unless a backoffice is provided."
+  noBackOfficesText: "No back offices found on the system. Cannot promote account unless a back office is provided."
   promotionRequested: "Promotion Requested"
   promotionText: "The entry was successfully submitted for promotion."
   errorMessage: "Error promoting account for reason: ${reason}"
@@ -436,7 +436,7 @@
 >
 
 <erpContactAssociationsList ""
-  titleText: "Contact Assocations"
+  titleText: "Contact Associations"
 >
 
 <erpInvoiceItemsDetail ""
@@ -452,8 +452,8 @@
   requestedDeliveryDateText: "requested delivery date"
   unitPriceText: "unit price"
   salesOrderNumberText: "sales order number"
-  unitPricePerQuanityText: "unit price per quanity"
-  unitPricePerQuanityUOMText: "unit price per quanity UOM"
+  unitPricePerQuanityText: "unit price per quantity"
+  unitPricePerQuanityUOMText: "unit price per quantity UOM"
   salesOrderLineNumberText: "sales order line number"
   extendedCostText: "extended cost"
   moreDetailsText: "More Details"
@@ -689,10 +689,10 @@
 
 <pricingAvailabilityService ""
   busyText: "Checking pricing and availability please wait ..."
-  checkOrderItemAvailText: "Checking order item availablity"
+  checkOrderItemAvailText: "Checking order item availability"
   checkOrderItemPriceText: "Checking order item pricing"
   checkQuoteItemPriceText: "Checking quote item pricing"
-  checkQuoteItemAvailText: "Checking order item availablity"
+  checkQuoteItemAvailText: "Checking order item availability"
 >
 
 <productsList ""
@@ -784,8 +784,8 @@
   baseAdjustedPriceText: "base adjusted price"
   statusText: "status"
   shippedQuantityText: "shipped quantity"
-  openQuantityText: "open quanttity"
-  dropShipText: "drop shiped"
+  openQuantityText: "open quantity"
+  dropShipText: "drop shipped"
   backOrderedText: "back ordered"
   partialShipAllowedText: "partial shipment allowed"
   fixedPriceItemText: "fixed price item"

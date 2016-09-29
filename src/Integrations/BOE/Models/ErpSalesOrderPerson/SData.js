@@ -17,6 +17,13 @@ const __class = declare('crm.Integrations.BOE.Models.ErpSalesOrderPerson.SData',
         'ErpPerson/Address/FullAddress',
         'CreateDate',
       ],
+    }, {
+      name: 'detail',
+      querySelect: [
+        'ErpPerson/Name',
+        'ErpPerson/Address/FullAddress',
+        'CreateDate',
+      ],
     },
     ];
   },

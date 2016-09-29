@@ -46,6 +46,24 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     'Germany': 'de',
     'Deutschland': 'de',
   },
+  addressItems: function addressItems(addr, fmt) {
+    function isEmpty(line) {
+      const filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
+      return filterSymbols === '';
+    }
+
+    const self = crm.Format;
+
+    if (!fmt) {
+      const culture = self.resolveAddressCulture(addr);
+      fmt = self.addressCultureFormats[culture] || self.addressCultureFormats.en;
+    }
+
+    const lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
+    return lines.map((line) => self.replaceAddressPart(line, addr))
+      .filter((line) => !isEmpty(line))
+      .map((line) => self.encode(self.collapseSpace(line)));
+  },
   /**
   Converts the given value using the provided format, joining with the separator character
   If no format given, will use predefined format for the addresses Country (or en-US as final fallback)
@@ -70,7 +88,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
 
    |        separator                                    as defined by separator variable
    </pre>
-   @param {object} o Address Entity containing all the SData properties
+   @param {object} addr Address Entity containing all the SData properties
    @param {boolean} asText If set to true returns text only, if false returns anchor link to google maps
    @param {string|boolean} separator If false - separates with html <br>,
                         if true - separates with line return,
@@ -78,45 +96,18 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
    @param {string} fmt Address format to use, may also pass a culture string to use predefined format
    @return {string} Formatted address
   */
-  address: function addressFormatter(o, asText, s, f) {
-    function isEmpty(line) {
-      const filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
-      return filterSymbols === '';
-    }
-
+  address: function address(addr, asText, separator, fmt) {
     const self = crm.Format;
-    let fmt = f;
-    let separator = s;
-
-    if (!fmt) {
-      const culture = self.resolveAddressCulture(o);
-      fmt = self.addressCultureFormats[culture] || self.addressCultureFormats.en;
-    }
-
-    let lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
-    lines = array.map(lines, (line) => {
-      return self.replaceAddressPart(line, o);
-    });
-
-    let addressItems = [];
-
-    const filtered = array.filter(lines, (line) => {
-      return !isEmpty(line);
-    });
-
-    addressItems = array.map(filtered, (line) => {
-      return self.encode(self.collapseSpace(line));
-    });
-
+    const parts = self.addressItems(addr, fmt);
     if (asText) {
       if (separator === true) {
         separator = '\n';
       }
-      return addressItems.join(separator || '<br />');
+      return parts.join(separator || '<br />');
     }
 
     return string.substitute(
-      '<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>', [addressItems.join('<br />'), encodeURIComponent(self.decode(addressItems.join(' ')))]
+      '<a target="_blank" href="javascript:App.showMapForAddress(\'${1}\');">${0}</a>', [parts.join('<br />'), encodeURIComponent(self.decode(parts.join(' ')))]
     );
   },
   collapseSpace: function collapseSpace(text) {

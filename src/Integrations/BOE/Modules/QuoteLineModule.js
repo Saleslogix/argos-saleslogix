@@ -6,6 +6,7 @@ import LocationPricingAvailabilityList from '../Views/Locations/PricingAvailabil
 import QuoteLineEdit from '../Views/QuoteLines/Edit';
 import QuoteList from '../Views/Quotes/List';
 import UnitOfMeasureList from '../Views/UnitsOfMeasure/List';
+import '../Models/QuoteItem/Offline';
 import '../Models/QuoteItem/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module], {

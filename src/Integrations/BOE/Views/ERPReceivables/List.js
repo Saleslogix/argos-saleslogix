@@ -57,7 +57,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List,
   resourceKind: 'erpReceivables',
   allowSelection: true,
   enableActions: true,
-  expose: false,
+  expose: true,
   security: 'Entities/ErpReceivable/View',
   insertSecurity: 'Entities/ErpReceivable/Add',
 

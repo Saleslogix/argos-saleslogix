@@ -113,6 +113,7 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
+      security: 'Entities/Contact/Edit',
       action: 'navigateToEditView',
     }, {
       id: 'callWork',

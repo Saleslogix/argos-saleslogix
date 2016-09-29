@@ -10,6 +10,8 @@ export default function bootstrap({
   localeFiles,
 }) {
   const ctx = window.L20n.getContext();
+  const defaultCtx = window.L20n.getContext();
+
   // The L20n context (ctx) should only call linkResource once per file.
   // We need to:
   //    * Strip out the locale from the path string (map)
@@ -39,15 +41,26 @@ export default function bootstrap({
     return p.concat(c);
   }, [])
   .forEach((pathInfo) => {
-    ctx.linkResource((locale) => {
-      return [pathInfo.base, locale, pathInfo.file].join('/');
+    [ctx, defaultCtx].forEach((context) => {
+      context.linkResource((locale) => {
+        return [pathInfo.base, locale, pathInfo.file].join('/');
+      });
     });
   });
+
   ctx.registerLocales(defaultLocale, supportedLocales);
   ctx.requestLocales(currentLocale);
-  window.localeContext = ctx;
+  defaultCtx.registerLocales(defaultLocale);
+  defaultCtx.requestLocales(defaultLocale);
 
-  ctx.ready(() => {
+  window.localeContext = ctx;
+  window.defaultLocaleContext = defaultCtx;
+
+  Promise.all([new Promise((resolve) => {
+    ctx.ready(() => resolve(true));
+  }), new Promise((resolve) => {
+    defaultCtx.ready(() => resolve(true));
+  })]).then(() => {
     window.require([application].concat(configuration), (Application, appConfig) => {
       let completed = false;
 

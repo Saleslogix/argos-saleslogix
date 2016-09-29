@@ -5,6 +5,9 @@ import MODEL_NAMES from '../Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipmentModel');
+const accountResource = getResource('accountModel');
+const shipToResource = getResource('erpShipToModel');
+const shipmentItemResource = getResource('erpShipmentItemModel');
 
 const __class = declare('crm.Integrations.BOE.Models.ErpShipment.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -19,7 +22,28 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipment.Base', [_ModelB
   editViewId: '',
   createRelationships: function createRelationships() {
     let rel;
-    rel = this.relationships || (this.relationships = []);
+    rel = this.relationships || (this.relationships = [{
+      name: 'Account',
+      displayName: accountResource.entityDisplayName,
+      type: 'ManyToOne',
+      parentProperty: 'Account',
+      parentPropertyType: 'object',
+      relatedEntity: 'Account',
+    }, {
+      name: 'ShipTo',
+      displayName: shipToResource.entityDisplayName,
+      type: 'ManyToOne',
+      parentProperty: 'ErpShipTo',
+      parentPropertyType: 'object',
+      relatedEntity: 'ERPShipTo',
+    }, {
+      name: 'ShipmentItem',
+      displayName: shipmentItemResource.entityDisplayName,
+      type: 'OneToMany',
+      relatedEntity: 'ERPShipmentItem',
+      relatedProperty: 'ErpShipment',
+      relatedPropertyType: 'object',
+    }]);
     return rel;
   },
 });

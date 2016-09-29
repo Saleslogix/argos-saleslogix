@@ -16,6 +16,7 @@ import SalesOrdersList from '../Views/SalesOrders/List';
 import SyncResultsList from '../Views/SyncResults/List';
 import Utility from '../Utility';
 import format from '../../../Format';
+import '../Models/ErpAccountPerson/Offline';
 import '../Models/ErpAccountPerson/SData';
 import '../Views/Account/SalesDashboardWidget';
 import '../Views/Account/NewDashboardWidget';
@@ -298,35 +299,154 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     const detailRowMatch = 'AccountManager.UserInfo';
     const moreDetailRowMatch = 'Owner.OwnerDescription';
 
+    am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpExtId',
+    });
+    am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpAccountingEntityId',
+    });
+    am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpLogicalId',
+    });
+
     lang.extend(crm.Views.Account.List, {
-      querySelect: crm.Views.Account.List.prototype.querySelect.concat([
-        'ErpExtId',
-        'ErpAccountingEntityId',
-        'ErpLogicalId',
-        'CurrencyCode',
-      ]),
       formatSearchQuery: function formatSearchQuery(searchQuery) {
         return string.substitute('AccountNameUpper like "${0}%" or upper(ErpExtId) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
       },
     });
 
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpExtId',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpStatus',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpPaymentTerm',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'SyncStatus',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpAccountingEntityId',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpLogicalId',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'PromotedToAccounting',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'ErpBillToAccounts/*',
+    });
+
+    am.registerCustomization('models/relationships', 'account_offline_model', {
+      at: (relationship) => { return relationship.name === 'Tickets'; },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'ContactAssociation',
+        displayName: getResource('erpContactAssociationModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'ERPContactAccount',
+        relatedProperty: 'Account',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'Quote',
+        displayName: getResource('quoteModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'Quote',
+        relatedProperty: 'Account',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SalesOrder',
+        displayName: getResource('salesOrderModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SalesOrder',
+        relatedProperty: 'Account',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SyncHistory',
+        displayName: getResource('syncResultModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SyncResult',
+        relatedProperty: 'EntityId',
+        where: 'EntityType eq "Account"',
+      }],
+    });
+    am.registerCustomization('models/relationships', 'account_sdata_model', {
+      at: (relationship) => { return relationship.name === 'Tickets'; },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'ContactAssociation',
+        displayName: getResource('erpContactAssociationModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'ERPContactAccount',
+        relatedProperty: 'Account',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'Quote',
+        displayName: getResource('quoteModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'Quote',
+        relatedProperty: 'Account',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SalesOrder',
+        displayName: getResource('salesOrderModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SalesOrder',
+        relatedProperty: 'Account',
+        relatedPropertyType: 'object',
+      }, {
+        name: 'SyncHistory',
+        displayName: getResource('syncResultModel').entityDisplayNamePlural,
+        type: 'OneToMany',
+        relatedEntity: 'SyncResult',
+        relatedProperty: 'EntityId',
+        where: 'EntityType eq "Account"',
+      }],
+    });
     // Add promoteAccount function to detail
     lang.extend(crm.Views.Account.Detail, {
       promoteIcon: 'fa fa-level-up',
       successfulLinkText: 'Linked Successfully',
       linkingText: 'Linking ${account} to ${backOffice}',
       errorMessage: 'Error promoting account for reason: ${reason}',
-      querySelect: crm.Views.Account.Detail.prototype.querySelect.concat([
-        'ErpExtId', // ERP Customer ID
-        'ErpStatus',// ERP Status
-        'ErpPaymentTerm', // ERP Payment Terms
-        'SyncStatus',
-        'ErpAccountingEntityId',
-        'ErpLogicalId',
-        'PromotedToAccounting',
-        'ErpStatusDate',
-        'CurrencyCode',
-      ]),
       tabListItemTemplate: new Simplate([
        '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
           '{%: ($.title || $.options.title) %}',

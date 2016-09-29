@@ -5,6 +5,7 @@ import MODEL_NAMES from '../Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('salesOrderItemModel');
+const salesorderResource = getResource('salesOrderModel');
 
 const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.Base', [_ModelBase], {
   contractName: 'dynamic',
@@ -19,7 +20,14 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.Base', [_Mod
   editViewId: 'salesorder_item_edit',
   createRelationships: function createRelationships() {
     let rel;
-    rel = this.relationships || (this.relationships = []);
+    rel = this.relationships || (this.relationships = [{
+      name: 'SalesOrder',
+      displayName: salesorderResource.entityDisplayName,
+      type: 'ManyToOne',
+      parentProperty: 'SalesOrder',
+      parentPropertyType: 'object',
+      relatedEntity: 'SalesOrder',
+    }]);
     return rel;
   },
 });

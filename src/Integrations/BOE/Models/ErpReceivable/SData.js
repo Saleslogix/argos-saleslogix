@@ -44,6 +44,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivable.SData', [Base
         'ErpShipTo/Name',
         'ErpShipTo/Address/*',
         'ErpPayFrom/Address/*',
+        'ErpInvoice/*',
         'CreateDate',
         'CurrencyCode',
         'ErpDocumentDate',

@@ -7,7 +7,7 @@
   accountingEntity: "System Accounting Entity:"
   cancelText: "Cancel"
   promoteText: "Promote"
-  noBackOfficesText: "No backoffices found on the system. Cannot promote account unless a backoffice is provided."
+  noBackOfficesText: "No back offices found on the system. Cannot promote account unless a back office is provided."
   promotionRequested: "Promotion Requested"
   promotionText: "The entry was successfully submitted for promotion."
   errorMessage: "Error promoting account for reason: ${reason}"
@@ -136,6 +136,11 @@
   entityDisplayNamePlural: "Returns"
 >
 
+<salesOrderModel ""
+  entityDisplayName: "Sales Order"
+  entityDisplayNamePlural: "Sales Orders"
+>
+
 <salesOrderItemModel ""
   entityDisplayName: "Sales Order Item"
   entityDisplayNamePlural: "Sales Order Items"
@@ -149,6 +154,11 @@
 <carrierModel ""
   entityDisplayName: "Carrier"
   entityDisplayNamePlural: "Carriers"
+>
+
+<syncResultModel ""
+  entityDisplayName: "Sync Result"
+  entityDisplayNamePlural: "Sync Results"
 >
 
 <quotePersonList ""
@@ -437,7 +447,7 @@
 >
 
 <erpContactAssociationsList ""
-  titleText: "Contact Assocations"
+  titleText: "Contact Associations"
 >
 
 <erpInvoiceItemsDetail ""
@@ -453,8 +463,8 @@
   requestedDeliveryDateText: "requested delivery date"
   unitPriceText: "unit price"
   salesOrderNumberText: "sales order number"
-  unitPricePerQuanityText: "unit price per quanity"
-  unitPricePerQuanityUOMText: "unit price per quanity UOM"
+  unitPricePerQuanityText: "unit price per quantity"
+  unitPricePerQuanityUOMText: "unit price per quantity UOM"
   salesOrderLineNumberText: "sales order line number"
   extendedCostText: "extended cost"
   moreDetailsText: "More Details"
@@ -498,7 +508,7 @@
   relatedItemsText: "Related Items"
   invoiceItemsText: "Invoice Items"
   moreDetailsText: "More Details"
-  receivableItemsText: "Receivable Items"
+  receivablesText: "Receivables"
   billToText: "Bill-To"
   shipToText: "Ship-To"
   salesPersonsText: "Sales Persons"
@@ -691,10 +701,10 @@
 
 <pricingAvailabilityService ""
   busyText: "Checking pricing and availability please wait ..."
-  checkOrderItemAvailText: "Checking order item availablity"
+  checkOrderItemAvailText: "Checking order item availability"
   checkOrderItemPriceText: "Checking order item pricing"
   checkQuoteItemPriceText: "Checking quote item pricing"
-  checkQuoteItemAvailText: "Checking order item availablity"
+  checkQuoteItemAvailText: "Checking order item availability"
 >
 
 <productsList ""
@@ -786,8 +796,8 @@
   baseAdjustedPriceText: "base adjusted price"
   statusText: "status"
   shippedQuantityText: "shipped quantity"
-  openQuantityText: "open quanttity"
-  dropShipText: "drop shiped"
+  openQuantityText: "open quantity"
+  dropShipText: "drop shipped"
   backOrderedText: "back ordered"
   partialShipAllowedText: "partial shipment allowed"
   fixedPriceItemText: "fixed price item"
@@ -912,6 +922,7 @@
   moreDetailsText: "More Details"
   relatedItemsText: "Related Items"
   entityText: "Bill To"
+  backOfficeIdText: "bill to id"
   nameText: "name"
   faxText: "fax"
   phoneText: "phone"
@@ -964,6 +975,7 @@
   moreDetailsText: "More Details"
   relatedItemsText: "Related Items"
   entityText: "Ship To"
+  backOfficeIdText: "ship to id"
   nameText: "name"
   faxText: "fax"
   phoneText: "phone"

@@ -2,6 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import ShipmentItemsDetail from '../Views/ERPShipmentItems/Detail';
+import '../Models/ErpShipmentItem/Offline';
 import '../Models/ErpShipmentItem/SData';
 
 const __class = declare('crm.Integrations.BOE.Modules.ShipmentLineModule', [_Module], {

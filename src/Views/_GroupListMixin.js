@@ -709,8 +709,19 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       scope: this,
     });
 
+    let select = this._originalProps.querySelect;
+
+    // Use querySelect from the model if available
+    // TODO: Expose _getQueryModelByName better somehow
+    if (this._originalProps._model) {
+      const queryModel = this._originalProps._model._getQueryModelByName('list');
+      if (queryModel && queryModel.querySelect) {
+        select = queryModel.querySelect;
+      }
+    }
+
     const queryOptions = {
-      select: this._originalProps.querySelect,
+      select: select,
       where: "Id eq '" + entryKey + "'",
     };
 

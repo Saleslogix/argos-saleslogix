@@ -73,6 +73,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   editView: 'salesorder_edit',
   resourceKind: 'salesOrders',
   modelName: MODEL_NAMES.SALESORDER,
+  enableOffline: true,
   _busyIndicator: null,
 
   _canPromote: function _canPromote() {
@@ -537,7 +538,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
           },
           view: 'salesorder_invoice_items_related',
         }, {
-          name: 'ERPShipmentsRelated',
+          name: 'ERPShipmentItemsRelated',
           label: this.shipmentItemsText,
           where: function where(entry) {
             return 'SalesOrder.Id eq "' + entry.$key + '"';
@@ -557,7 +558,14 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
               return `EntityType eq "SalesOrder" and EntityId eq "${entry.$key}"`;
             },
             view: 'order_syncresult_related',
-          }],
+        }, {
+          name: 'SalesPersons',
+          label: this.salesPersonsText,
+          where: function where(entry) {
+            return 'SalesOrder.Id eq "' + entry.$key + '"';
+          },
+          view: 'salesorder_salesperson_related',
+        }],
       }]);
   },
 });

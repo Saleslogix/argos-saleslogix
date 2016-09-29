@@ -22,11 +22,11 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
     this._busyIndicator.complete(true);
     App.modal.hide();
   },
-  showBusy: function showBusy() {
+  showBusy: function showBusy(desc) {
     if (!this._busyIndicator || this._busyIndicator._destroyed) {
       this._busyIndicator = new BusyIndicator({
         id: 'pricingavialability-busyIndicator',
-        label: this.busyText,
+        label: desc || this.busyText,
       });
     }
     this._busyIndicator.start();
