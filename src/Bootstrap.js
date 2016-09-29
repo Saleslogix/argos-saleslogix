@@ -8,6 +8,7 @@ export default function bootstrap({
   legacyLocalization,
   legacyLocalizationFallback,
   localeFiles,
+  isRegionMetric,
 }) {
   const ctx = window.L20n.getContext();
   const defaultCtx = window.L20n.getContext();
@@ -82,6 +83,7 @@ export default function bootstrap({
           }
           const instance = new Application(appConfig);
           instance.localeContext = ctx;
+          instance.isRegionMetric = isRegionMetric;
           instance.activate();
           instance.init();
           instance.run();
