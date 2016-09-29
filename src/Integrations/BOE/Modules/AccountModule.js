@@ -14,6 +14,7 @@ import QuotesList from '../Views/Quotes/List';
 import ReturnsList from '../Views/Returns/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
 import SyncResultsList from '../Views/SyncResults/List';
+import AccountPersonList from '../Views/ERPAccountPersons/List';
 import Utility from '../Utility';
 import format from '../../../Format';
 import '../Models/ErpAccountPerson/Offline';
@@ -289,6 +290,16 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         return this.tools;
       },
     }));
+
+    am.registerView(new AccountPersonList({
+      id: 'account_salesperson_related',
+      groupsEnabled: false,
+      disableRightDrawer: true,
+      expose: false,
+      createToolLayout: function createToolLayout() {
+        return this.tools;
+      },
+    }));
   },
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
@@ -448,9 +459,9 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       linkingText: 'Linking ${account} to ${backOffice}',
       errorMessage: 'Error promoting account for reason: ${reason}',
       tabListItemTemplate: new Simplate([
-        '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
-        '{%: ($.title || $.options.title) %}',
-        '</li>',
+       '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
+          '{%: ($.title || $.options.title) %}',
+       '</li>',
       ]),
       orginalProcessEntry: crm.Views.Account.Detail.prototype.processEntry,
       processEntry: function processEntry(entry) {
@@ -500,9 +511,9 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
           (resolve) => {
             this.showBusy();
             const entry = {
-              $name: 'CanPromoteAccount',
-              request: {
-                accountId: this.entry.$key,
+              '$name': 'CanPromoteAccount',
+              'request': {
+                'accountId': this.entry.$key,
               },
             };
             const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
@@ -574,7 +585,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       },
       showBusy: function showBusy() {
         if (!this._busyIndicator || this._busyIndicator._destroyed) {
-          this._busyIndicator = new Busy({ id: `${this.id}-busyIndicator` });
+          this._busyIndicator = new Busy({ id: this.id + '-busyIndicator' });
         }
         this._busyIndicator.start();
         App.modal.disableClose = true;
@@ -662,7 +673,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       },
       showBusy: function showBusy() {
         if (!this._busyIndicator || this._busyIndicator._destroyed) {
-          this._busyIndicator = new Busy({ id: `${this.id}-busyIndicator` });
+          this._busyIndicator = new Busy({ id: this.id + '-busyIndicator' });
         }
         this._busyIndicator.start();
         App.modal.disableClose = true;
@@ -687,7 +698,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         emptyText: '',
         valueTextProperty: 'BackOfficeName',
         view: 'salesorder_backoffice_related',
-        where: 'IsActive eq true',
+        where: `IsActive eq true`,
         include: false,
       }, {
         name: 'ErpLogicalId',
@@ -727,20 +738,20 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         action: '_onPromoteAccountClick',
         security: 'Entities/Account/PromoteAccount',
       }, {
-        name: 'AddQuote',
-        property: 'AccountName',
-        label: this.addQuoteText,
-        iconClass: 'fa fa-file-text-o fa-2x',
-        action: '_onAddQuoteClick',
-        security: 'Entities/Quote/Add',
-      }, {
-        name: 'AddOrder',
-        property: 'AccountName',
-        label: this.addOrderText,
-        iconClass: 'fa fa-shopping-cart fa-2x',
-        action: '_onAddOrderClick',
-        security: 'Entities/SalesOrder/Add',
-      }],
+          name: 'AddQuote',
+          property: 'AccountName',
+          label: this.addQuoteText,
+          iconClass: 'fa fa-file-text-o fa-2x',
+          action: '_onAddQuoteClick',
+          security: 'Entities/Quote/Add',
+        }, {
+          name: 'AddOrder',
+          property: 'AccountName',
+          label: this.addOrderText,
+          iconClass: 'fa fa-shopping-cart fa-2x',
+          action: '_onAddOrderClick',
+          security: 'Entities/SalesOrder/Add',
+        }],
     });
 
     /*
@@ -752,7 +763,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       },
       type: 'insert',
       where: 'after',
-      value: [{
+      value: [ {
         name: 'ErpStatus',
         property: 'ErpStatus',
         label: this.erpStatusText,
@@ -821,55 +832,83 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         list: true,
         name: 'RelatedERPItemsSection',
         children: [{
-          name: 'BillTo',
-          label: this.erpBillToText,
-          where: function where(entry) {
-            return `ErpBillToAccounts.Account.Id eq "${entry.$key}"`;
-          },
-          view: 'account_billto_related',
-        }, {
-          name: 'ShipTo',
-          label: this.erpShipToText,
-          where: function where(entry) {
-            return `ErpShipToAccounts.Account.Id eq "${entry.$key}"`;
-          },
-          view: 'account_shipto_related',
-        }, {
-          name: 'ContactAssociations',
-          label: this.erpContactAssociationText,
-          where: function where(entry) {
-            return `Account.Id eq "${entry.$key}"`;
-          },
-          view: 'account_contactassociations_related',
-        }, {
           name: 'Quotes',
           label: this.quotesText,
           where: function where(entry) {
-            return `Account.Id eq "${entry.$key}"`;
+            return 'Account.Id eq "' + entry.$key + '"';
           },
           view: 'account_quotes_related',
         }, {
           name: 'SalesOrders',
           label: this.ordersText,
           where: function where(entry) {
-            return `Account.Id eq "${entry.$key}"`;
+            return 'Account.Id eq "' + entry.$key + '"';
           },
           view: 'account_salesorders_related',
         }, {
           name: 'Shipments',
-          label: 'Shipments',
+          label: this.erpShipmentsText,
           where: function where(entry) {
-            return `Account.Id eq "${entry.$key}"`;
+            return 'Account.Id eq "' + entry.$key + '"';
           },
-          view: 'erpshipments_list',
+          view: 'account_erpshipments_related',
         }, {
-          name: 'SyncHistory',
-          label: this.syncHistoryText,
-          where: (entry) => {
-            return `EntityType eq "Account" and EntityId eq "${entry.$key}"`;
+          name: 'ERPInvoicesRelated',
+          label: this.erpInvoicesText,
+          where: function where(entry) {
+            return 'Account.Id eq "' + entry.$key + '"';
           },
-          view: 'account_syncresults_related',
-        }],
+          view: 'account_erpinvoice_related',
+        }, {
+          name: 'ERPReceivablesRelated',
+          label: this.erpReceivablesText,
+          where: function where(entry) {
+            return 'Account.Id eq "' + entry.$key + '"';
+          },
+          view: 'account_erpreceivables_related',
+        }, {
+          name: 'ERPReturnsRelated',
+          label: this.erpReturnsText,
+          where: function where(entry) {
+            return 'Account.Id eq "' + entry.$key + '"';
+          },
+          view: 'account_returns_related',
+        }, {
+          name: 'BillTo',
+          label: this.erpBillToText,
+          where: function where(entry) {
+            return 'ErpBillToAccounts.Account.Id eq "' + entry.$key + '"';
+          },
+          view: 'account_billto_related',
+        }, {
+          name: 'ShipTo',
+          label: this.erpShipToText,
+          where: function where(entry) {
+            return 'ErpShipToAccounts.Account.Id eq "' + entry.$key + '"';
+          },
+          view: 'account_shipto_related',
+        }, {
+            name: 'ContactAssociations',
+            label: this.erpContactAssociationText,
+            where: function where(entry) {
+              return 'Account.Id eq "' + entry.$key + '"';
+            },
+            view: 'account_contactassociations_related',
+          }, {
+            name: 'SalesPersons',
+            label: this.erpSalesPersonText,
+            where: function where(entry) {
+              return 'Account.Id eq "' + entry.$key + '"';
+            },
+            view: 'account_salesperson_related',
+          }, {
+            name: 'SyncHistory',
+            label: this.syncHistoryText,
+            where: (entry) => {
+              return `EntityType eq "Account" and EntityId eq "${entry.$key}"`;
+            },
+            view: 'account_syncresults_related',
+          }],
       },
     });
     if (App.enableDashboards) {
