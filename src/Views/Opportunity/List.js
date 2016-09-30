@@ -159,6 +159,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
       label: this.quickEditActionText,
       editView: 'opportunity_quick_edit',
       action: 'navigateToQuickEdit',
+      security: 'Entities/Opportunity/Edit',
     }]);
   },
 
