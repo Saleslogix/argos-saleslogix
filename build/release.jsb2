@@ -199,6 +199,9 @@
           "text": "Names.js",
           "path": "../src-out/Models/"
         }, {
+          "text": "MingleUtility.js",
+          "path": "../src-out/"
+        }, {
           "text": "AreaCategoryIssueLookup.js",
           "path": "../src-out/Views/"
         }, {
