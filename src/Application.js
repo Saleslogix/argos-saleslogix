@@ -16,7 +16,7 @@ import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import 'dojo/sniff';
-
+import MingleUtility from './MingleUtility';
 
 const resource = getResource('application');
 
@@ -112,6 +112,11 @@ const __class = declare('crm.Application', [Application], {
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
     const self = this;
     Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
+      if (App.mingleEnabled) {
+        const accessToken = MingleUtility.accessToken;
+        request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+        request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+      }
       request.setRequestHeader('X-Application-Name', self.appName);
       request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', {
         version: self.mobileVersion,
@@ -278,7 +283,11 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      this.handleAuthentication();
+      if (App.mingleEnabled) {
+        this.handleMingleAuthentication();
+      } else {
+        this.handleAuthentication();
+      }
     } else {
       // todo: always navigate to home when offline? data may not be available for restored state.
       this.navigateToHomeView();
@@ -314,7 +323,7 @@ const __class = declare('crm.Application', [Application], {
       };
     }
 
-    if (credentials.remember) {
+    if (!App.mingleEnabled && credentials.remember) {
       try {
         if (window.localStorage) {
           window.localStorage.setItem('credentials', Base64.encode(json.stringify({
@@ -346,9 +355,11 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   authenticateUser: function authenticateUser(credentials, options) {
-    const service = this.getService()
-      .setUserName(credentials.username)
-      .setPassword(credentials.password || '');
+    const service = this.getService();
+    if (credentials) {
+      service.setUserName(credentials.username)
+                 .setPassword(credentials.password || '');
+    }
 
     const request = new Sage.SData.Client.SDataServiceOperationRequest(service)
       .setContractName('system')
@@ -439,6 +450,15 @@ const __class = declare('crm.Application', [Application], {
     } else {
       this.navigateToLoginView();
     }
+  },
+  handleMingleAuthentication: function handleMingleAuthentication() {
+    this.setPrimaryTitle(this.authText);
+    this.authenticateUser(null, {
+      success: this.onHandleAuthenticationSuccess,
+      failure: this.onHandleAuthenticationFailed,
+      aborted: this.onHandleAuthenticationAborted,
+      scope: this,
+    });
   },
   onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
@@ -809,7 +829,17 @@ const __class = declare('crm.Application', [Application], {
   },
   setupRedirectHash: function setupRedirectHash() {
     if (this._hasValidRedirect()) {
-      // Split by "/redirectTo/"
+      if (App.mingleEnabled) {
+        const vars = this.redirectHash.split('&');
+        for (let i = 0; i < vars.length; i++) {
+          const pair = vars[i].split('=');
+          if (pair[0] === 'state') {
+            this.redirectHash = decodeURIComponent(pair[1]);
+            break;
+          }
+        }
+      }
+          // Split by "/redirectTo/"
       const split = this.redirectHash.split(/\/redirectTo\//gi);
       if (split.length === 2) {
         this.redirectHash = split[1];
@@ -852,7 +882,8 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   _hasValidRedirect: function _hasValidRedirect() {
-    return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
+    const hashValue = decodeURIComponent(this.redirectHash);
+    return hashValue !== '' && hashValue.indexOf('/redirectTo/') > 0;
   },
   showLeftDrawer: function showLeftDrawer() {
     const view = this.getView('left_drawer');
