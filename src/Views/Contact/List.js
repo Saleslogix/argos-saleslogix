@@ -160,7 +160,7 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%") or (Account.AccountNameUpper like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
 });
 
