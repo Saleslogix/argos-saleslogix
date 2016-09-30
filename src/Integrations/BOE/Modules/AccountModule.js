@@ -14,6 +14,7 @@ import QuotesList from '../Views/Quotes/List';
 import ReturnsList from '../Views/Returns/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
 import SyncResultsList from '../Views/SyncResults/List';
+import AccountPersonList from '../Views/ERPAccountPersons/List';
 import Utility from '../Utility';
 import format from '../../../Format';
 import '../Models/ErpAccountPerson/Offline';
@@ -282,6 +283,16 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
 
     am.registerView(new SyncResultsList({
       id: 'account_syncresults_related',
+      groupsEnabled: false,
+      disableRightDrawer: true,
+      expose: false,
+      createToolLayout: function createToolLayout() {
+        return this.tools;
+      },
+    }));
+
+    am.registerView(new AccountPersonList({
+      id: 'account_salesperson_related',
       groupsEnabled: false,
       disableRightDrawer: true,
       expose: false,
@@ -821,6 +832,48 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         list: true,
         name: 'RelatedERPItemsSection',
         children: [{
+          name: 'Quotes',
+          label: this.quotesText,
+          where: function where(entry) {
+            return `Account.Id eq "${entry.$key}"`;
+          },
+          view: 'account_quotes_related',
+        }, {
+          name: 'SalesOrders',
+          label: this.ordersText,
+          where: function where(entry) {
+            return `Account.Id eq "${entry.$key}"`;
+          },
+          view: 'account_salesorders_related',
+        }, {
+          name: 'Shipments',
+          label: this.erpShipmentsText,
+          where: function where(entry) {
+            return `Account.Id eq "${entry.$key}"`;
+          },
+          view: 'account_erpshipments_related',
+        }, {
+          name: 'ERPInvoicesRelated',
+          label: this.erpInvoicesText,
+          where: function where(entry) {
+            return `Account.Id eq "${entry.$key}"`;
+          },
+          view: 'account_erpinvoice_related',
+        }, {
+          name: 'ERPReceivablesRelated',
+          label: this.erpReceivablesText,
+          where: function where(entry) {
+            return `Account.Id eq "${entry.$key}"`;
+          },
+          view: 'account_erpreceivables_related',
+        }, {
+          name: 'ERPReturnsRelated',
+          label: this.erpReturnsText,
+          where: function where(entry) {
+            return `Account.Id eq "${entry.$key}"`;
+          },
+          view: 'account_returns_related',
+        }, {
           name: 'BillTo',
           label: this.erpBillToText,
           where: function where(entry) {
@@ -842,26 +895,12 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
           },
           view: 'account_contactassociations_related',
         }, {
-          name: 'Quotes',
-          label: this.quotesText,
+          name: 'SalesPersons',
+          label: this.erpSalesPersonText,
           where: function where(entry) {
             return `Account.Id eq "${entry.$key}"`;
           },
-          view: 'account_quotes_related',
-        }, {
-          name: 'SalesOrders',
-          label: this.ordersText,
-          where: function where(entry) {
-            return `Account.Id eq "${entry.$key}"`;
-          },
-          view: 'account_salesorders_related',
-        }, {
-          name: 'Shipments',
-          label: 'Shipments',
-          where: function where(entry) {
-            return `Account.Id eq "${entry.$key}"`;
-          },
-          view: 'erpshipments_list',
+          view: 'account_salesperson_related',
         }, {
           name: 'SyncHistory',
           label: this.syncHistoryText,
