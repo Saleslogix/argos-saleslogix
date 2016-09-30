@@ -1,3 +1,5 @@
+import MingleUtility from './MingleUtility';
+
 export default function bootstrap({
   supportedLocales,
   defaultLocale,
@@ -65,6 +67,12 @@ export default function bootstrap({
     window.require([application].concat(configuration), (Application, appConfig) => {
       let completed = false;
 
+      if (appConfig.mingleEnabled) {
+        const result = MingleUtility.populateAccessToken(appConfig);
+        if (!result.access_token) {
+          return;
+        }
+      }
       const req = (requires) => {
         require(requires.concat('dojo/domReady!'), () => {
           if (completed) {
