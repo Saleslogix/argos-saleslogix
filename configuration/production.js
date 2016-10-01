@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @class configuration.production
  *
@@ -77,7 +78,14 @@ define('configuration/production', [
      * Enables offline support for briefcasing data offline, that can be viewed when the connection is lost.
      */
     enableOfflineSupport: false,
-    
+
+    /**
+     * @property {String} googleMapsEmbedAPIKey
+     * Free API key required to use google maps embedded in an iframe. For a free key go to:
+     * https://developers.google.com/maps/documentation/embed/guide
+     */
+    googleMapsEmbedAPIKey: '',
+
     /**
      * @property {Boolean} mingleEnabled
      * Enables mingle SSO support

@@ -1,3 +1,4 @@
+/* eslint-disable */
 define('configuration/development', [
   'crm/ApplicationModule',
   'crm/Integrations/BOE/ApplicationModule',
@@ -32,6 +33,7 @@ define('configuration/development', [
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    googleMapsEmbedAPIKey: '',
     mingleEnabled: false,
     mingleSettings: {
         "ti": "ICRMMIG2_TST",

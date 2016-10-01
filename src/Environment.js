@@ -23,7 +23,15 @@ const __class = lang.setObject('crm.Environment', {
     }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
   },
   showMapForAddress: function showMapForAddress(address) {
-    const href = `https://maps.google.com/maps?output=embed&q=${address}`;
+    let href = `https://maps.google.com/maps?&q=${address}`;
+
+    if (!App.googleMapsEmbedAPIKey) {
+      // No embed API key, open google maps in a new window instead.
+      window.open(href, 'map');
+      return;
+    }
+
+    href = `https://www.google.com/maps/embed/v1/place?key=${App.googleMapsEmbedAPIKey}&q=${address}`;
     const view = App.getView('link_view');
     if (view) {
       view.show({

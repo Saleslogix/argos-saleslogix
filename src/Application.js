@@ -15,8 +15,8 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
-import 'dojo/sniff';
 import MingleUtility from './MingleUtility';
+import 'dojo/sniff';
 
 const resource = getResource('application');
 
@@ -37,6 +37,7 @@ const __class = declare('crm.Application', [Application], {
   enableGroups: true,
   enableHashTags: true,
   enableOfflineSupport: false,
+  googleMapsEmbedAPIKey: '',
   speedSearch: {
     includeStemming: true,
     includePhonic: true,

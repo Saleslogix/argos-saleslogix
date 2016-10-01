@@ -98,6 +98,12 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   address: function address(addr, asText, separator, fmt) {
     const self = crm.Format;
     const parts = self.addressItems(addr, fmt);
+
+    if (window.navigator.standalone && !App.googleMapsEmbedAPIKey) {
+      // We are saved to homescreen, and have no API key, disable the link
+      asText = true;
+    }
+
     if (asText) {
       if (separator === true) {
         separator = '\n';
