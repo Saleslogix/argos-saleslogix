@@ -252,6 +252,13 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         property: 'ErpExtId',
         label: this.orderIdText,
       }, {
+        name: 'ErpDocumentDate',
+        property: 'ErpDocumentDate',
+        label: this.documentDateText,
+        renderer: function renderer(data) {
+          return format.date(data);
+        },
+      }, {
         name: 'CustomerPurchaseOrderNumber',
         property: 'CustomerPurchaseOrderNumber',
         label: this.customerPOText,
@@ -394,13 +401,6 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         name: 'OrderDate',
         property: 'OrderDate',
         label: this.orderDateText,
-        renderer: function renderer(data) {
-          return format.date(data);
-        },
-      }, {
-        name: 'ErpDocumentDate',
-        property: 'ErpDocumentDate',
-        label: this.documentDateText,
         renderer: function renderer(data) {
           return format.date(data);
         },
