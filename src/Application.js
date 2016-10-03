@@ -606,7 +606,7 @@ const __class = declare('crm.Application', [Application], {
 
         array.forEach(feed && feed.$resources, (item) => {
           const key = item && item.$descriptor;
-          let value = item && item.value;
+          let { value } = item;
           const { defaultValue } = item;
 
           if (typeof value === 'undefined' || value === null) {
