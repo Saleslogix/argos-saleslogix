@@ -106,7 +106,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     }
 
     return string.substitute(
-      '<a target="_blank" href="javascript:App.showMapForAddress(\'${1}\');">${0}</a>', [parts.join('<br />'), encodeURIComponent(self.decode(parts.join(' ')))]
+      '<a href="javascript:App.showMapForAddress(\'${1}\');">${0}</a>', [parts.join('<br />'), encodeURIComponent(self.decode(parts.join(' ')))]
     );
   },
   collapseSpace: function collapseSpace(text) {
