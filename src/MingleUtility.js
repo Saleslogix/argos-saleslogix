@@ -1,4 +1,7 @@
 import lang from 'dojo/_base/lang';
+import 'dojo/sniff';
+import getResource from 'argos/I18n';
+
 
 /**
  * @class crm.MingleUtility
@@ -31,11 +34,18 @@ const __class = lang.setObject('crm.MingleUtility', {
       if (result.access_token) {
         this.accessToken = result.access_token;
         if (result.expires_in) {
-          result.expires_in = '63'; // Todo remove this line - just to test refresh *******************************************
+          result.expires_in = '420'; // Todo: remove this line - just to test refresh *******************************************
           const self = this;
+
           setTimeout(
-              () => { self.refreshAccessToken(appConfig); }, // Get new access_token before 60 secs of expiry
-              (result.expires_in - 60) * 1000 * 60
+              () => {
+                const resource = getResource('mingle');
+                App.toast.add({ message: resource.refreshText, title: resource.refreshTitle, toastTime: 300 * 1000, showProgressBar: true });
+                setTimeout(
+                    () => { self.refreshAccessToken(appConfig); }, 300 * 1000
+                );
+              },
+              (result.expires_in - 300) * 1000 // Show message to user before 5 minutes of refresh (300 seconds)
           );
         }
         return result;

@@ -1503,3 +1503,8 @@
   entityDisplayName: "Authentication"
   entityDisplayNamePlural : "Authentication"
 >
+
+<mingle ""
+  refreshTitle: "Refresh"
+  refreshText: "Access to Ming.le is about to refresh. If you are inserting or editing data, save your changes immediately to avoid data loss."
+>
