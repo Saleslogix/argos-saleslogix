@@ -587,7 +587,7 @@ const __class = declare('crm.Application', [Application], {
     const batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
       .setContractName('system')
       .setResourceKind('useroptions')
-      .setQueryArg('select', 'name,value')
+      .setQueryArg('select', 'name,value,defaultValue')
       .using(function using() {
         const service = this.getService();
         array.forEach(this.userOptionsToRequest, function forEach(item) {
@@ -606,9 +606,14 @@ const __class = declare('crm.Application', [Application], {
 
         array.forEach(feed && feed.$resources, (item) => {
           const key = item && item.$descriptor;
-          const value = item && item.value;
+          let { value } = item;
+          const { defaultValue } = item;
 
-          if (value && key) {
+          if (typeof value === 'undefined' || value === null) {
+            value = defaultValue;
+          }
+
+          if (key) {
             userOptions[key] = value;
           }
         });
