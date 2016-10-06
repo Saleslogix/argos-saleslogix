@@ -28,6 +28,8 @@ import ShipmentLineModule from './Modules/ShipmentLineModule';
 import ShipmentModule from './Modules/ShipmentModule';
 import ShipToAccountModule from './Modules/ShipToAccountModule';
 import ShipToModule from './Modules/ShipToModule';
+import RecentlyViewedList from '../../Views/RecentlyViewed/List';
+
 import './Models/SyncResult/Offline';
 import './Models/SyncResult/SData';
 import './Models/BackOffice/Offline';
@@ -187,6 +189,36 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
         '{%: ($.title || $.options.title) %}',
         '</li>',
       ]),
+    });
+
+    // Recently viewed support
+    const originalMappings = RecentlyViewedList.prototype.entityMappings;
+    const originalText = RecentlyViewedList.prototype.entityText;
+
+    RecentlyViewedList.prototype.entityText = Object.assign({}, originalText, {
+      ERPShipment: getResource('erpShipmentModel').entityDisplayNamePlural,
+      SalesOrder: getResource('salesOrderModel').entityDisplayNamePlural,
+      ERPReceivable: getResource('erpReceivableModel').entityDisplayNamePlural,
+      Quote: getResource('quoteModel').entityDisplayNamePlural,
+      ERPInvoice: getResource('erpInvoiceModel').entityDisplayNamePlural,
+    });
+
+    RecentlyViewedList.prototype.entityMappings = Object.assign({}, originalMappings, {
+      ERPShipment: {
+        iconClass: 'fa-truck',
+      },
+      SalesOrder: {
+        iconClass: 'fa-shopping-cart',
+      },
+      ERPReceivable: {
+        iconClass: 'fa-check-circle-o',
+      },
+      Quote: {
+        iconClass: 'fa-file-text-o',
+      },
+      ERPInvoice: {
+        iconClass: 'fa-file-text',
+      },
     });
   },
   loadToolbarsDynamic: function loadToolbars() {
