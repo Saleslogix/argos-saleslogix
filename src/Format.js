@@ -112,8 +112,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   collapseSpace: function collapseSpace(text) {
     return lang.trim(text.replace(/\s+/g, ' '));
   },
-  resolveAddressCulture: function resolveAddressCulture(o) {
-    return crm.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
+  resolveAddressCulture: function resolveAddressCulture({ Country }) {
+    return crm.Format.countryCultures[Country] || Mobile.CultureInfo.name;
   },
   replaceAddressPart: function replaceAddressPart(fmt, o) {
     return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
