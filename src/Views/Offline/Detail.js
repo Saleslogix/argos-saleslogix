@@ -106,10 +106,11 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
   createLayout: function createLayout() {
     const view = this._entityView;
+    const original = App.getView(this.offlineContext.viewId);
     let layout = [];
-    if (view) {
+    if (view && original) {
       view.entry = this.entry;
-      layout = view.createLayout.apply(view);
+      layout = original._createCustomizedLayout.apply(original, [original.createLayout.apply(original)]);
     }
 
     this.disableSections(layout);
@@ -170,8 +171,9 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
     const labelNode = query('.related-item-label', rowNode)[0];
-    if (labelNode) {
-      this._model.getRelatedCount(data.relationship, this.entry).then((count) => {
+    const { relationship } = data;
+    if (labelNode && relationship) {
+      this._model.getRelatedCount(relationship, this.entry).then((count) => {
         const html = `<span class="related-item-count">${count}</span>`;
         domConstruct.place(html, labelNode, 'before');
       }, (err) => {

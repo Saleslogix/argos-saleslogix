@@ -351,6 +351,12 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       at: () => { return true; },
       type: 'insert',
       where: 'after',
+      value: 'ErpStatusDate',
+    });
+    am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
       value: 'ErpPaymentTerm',
     });
     am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
