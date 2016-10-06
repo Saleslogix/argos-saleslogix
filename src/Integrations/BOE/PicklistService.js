@@ -23,7 +23,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
     'items/number',
   ],
   orderBy: 'name',
-  where: this.queryWhere,
+  where: '',
   getPicklistByKey: function getPicklistByKey(key) {
     return this._picklists[key];
   },
@@ -138,7 +138,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
       include: this.include,
       select: this.select,
       orderBy: this.orderBy,
-      where: this.Where,
+      where: this.where,
       scope: this,
     };
     return options;

@@ -5,10 +5,10 @@
     }]
   ],
   "plugins": [
+    "add-module-exports",
     ["transform-es2015-modules-amd", {
       "strict": false
-    }],
-    "add-module-exports"
+    }]
   ],
   "sourceRoot": "src",
   "moduleRoot": "crm",
