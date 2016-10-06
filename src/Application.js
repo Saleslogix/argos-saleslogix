@@ -849,8 +849,6 @@ const __class = declare('crm.Application', [Application], {
       if (split.length === 2) {
         this.redirectHash = split[1];
       }
-    } else {
-      this.redirectHash = '';
     }
   },
   onConnectionChange: function onConnectionChange(online) {
@@ -928,6 +926,7 @@ const __class = declare('crm.Application', [Application], {
           }
         }
       }
+      this.redirectHash = '';
     }
 
     if (!this.isOnline()) {
