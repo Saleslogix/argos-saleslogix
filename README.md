@@ -14,11 +14,11 @@ Installation
 		npm install
 
 GruntJS is a task runner. We have defined tasks to run in Gruntfile.js. Here are some commands you can run via the command line (in the argos-saleslogix directory)
-* Unit tests: `grunt test`
-* Missing a web server? Run `npm start` and open your browsser to http://localhost:8000/
+* Unit tests: `npm test`
+* Missing a web server? Run `npm start` and open your web browser to http://localhost:8000/
 * ESLint: `npm run lint`
-* LESSCSS: `grunt less`
-* Babel: `grunt babel`
+* LESSCSS: `npm run less`
+* Babel: `npm run build`
 * Watch: `npm run watch` - Watches the src folder for changes and runs grunt babel automatically when a file is changed.
 * Plus many more: http://gruntjs.com/plugins
 
