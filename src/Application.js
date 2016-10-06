@@ -913,7 +913,10 @@ const __class = declare('crm.Application', [Application], {
     let view = this.getView(this.homeViewId);
 
     if (this.redirectHash) {
-      const split = this.redirectHash.split(';');
+      let split = this.redirectHash.split(';');
+      if (split.length === 1) {
+        split = this.redirectHash.split(':');
+      }
       if (split.length > 0) {
         const [viewId, key] = split;
         const redirectView = this.getView(viewId);
