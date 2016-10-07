@@ -487,8 +487,12 @@ localization/zh-TW-debug.js
 localization/zh-TW.js
 unsupported.html
 
+SETTINGS:
+prefer-online
+
 NETWORK:
 ../sdata/
+*
 
 FALLBACK:
 content/css/themes/fonts/FontAwesome.otf?v=4.4.0
