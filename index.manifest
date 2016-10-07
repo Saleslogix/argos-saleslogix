@@ -60,6 +60,10 @@ index.aspx
 # help
 help/help.html
 
+SETTINGS:
+prefer-online
+
 NETWORK:
 ../sdata/
 ping.gif
+*
