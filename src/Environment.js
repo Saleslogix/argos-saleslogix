@@ -23,7 +23,7 @@ const __class = lang.setObject('crm.Environment', {
     }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
   },
   showMapForAddress: function showMapForAddress(address) {
-    const href = `http://maps.google.com/maps?output=embed&q=${address}`;
+    const href = `${window.location.protocol}//maps.google.com/maps?output=embed&q=${address}`;
     const view = App.getView('link_view');
     if (view) {
       view.show({
