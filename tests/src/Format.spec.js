@@ -27,7 +27,7 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
 
       it('should format as html', function() {
         expect(Format.address(addressFeed, false, ';', ''))
-          .toEqual('<a target="_blank" href="http://maps.google.com/maps?q=5555%20N%20Gainey%20Center%20Dr%20Suite%20200%20Scottsdale%2C%20AZ%2085032%20USA">5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA</a>');
+          .toEqual('<a href="javascript:App.showMapForAddress(\'5555%20N%20Gainey%20Center%20Dr%20Suite%20200%20Scottsdale%2C%20AZ%2085032%20USA\');">5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA</a>');
       });
 
       it('should default to locale "en"', function() {
