@@ -80,8 +80,6 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   // Add a search template for account type dropdown
   searchWidget: new SearchWidget({
     class: 'list-search',
-    owner: this,
-    onSearchExpression: lang.hitch(this, this._onSearchExpression),
     widgetTemplate: new Simplate([
       '<div class="search-widget" style="display: none;">', // hide the stock search stuff
       '<div class="table-layout">',

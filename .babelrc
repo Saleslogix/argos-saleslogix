@@ -1,0 +1,16 @@
+{
+  "presets": [
+    ["es2015", {
+      "modules": false
+    }]
+  ],
+  "plugins": [
+    "add-module-exports",
+    ["transform-es2015-modules-amd", {
+      "strict": false
+    }]
+  ],
+  "sourceRoot": "src",
+  "moduleRoot": "crm",
+  "moduleIds": true
+}

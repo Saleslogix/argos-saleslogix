@@ -340,9 +340,6 @@
           "text": "FileManager.js",
           "path": "../src-out/"
         }, {
-          "text": "Bootstrap.js",
-          "path": "../src-out/"
-        }, {
           "text": "PicklistService.js",
           "path": "../src-out/Integrations/BOE/"
         }, {
@@ -394,9 +391,6 @@
           "text": "Aggregate.js",
           "path": "../src-out/Integrations/BOE/"
         }, {
-          "text": "Application.js",
-          "path": "../src-out/"
-        }, {
           "text": "Base.js",
           "path": "../src-out/Models/Account/"
         }, {
@@ -423,6 +417,12 @@
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Ticket/"
+        }, {
+          "text": "Application.js",
+          "path": "../src-out/"
+        }, {
+          "text": "Bootstrap.js",
+          "path": "../src-out/"
         }, {
           "text": "PicklistField.js",
           "path": "../src-out/Fields/"
@@ -591,6 +591,9 @@
         }, {
           "text": "ReturnLineModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "AccountPxSearch.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
         }, {
           "text": "Settings.js",
           "path": "../src-out/Views/"
@@ -1069,6 +1072,9 @@
           "text": "ReturnModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
+          "text": "ApplicationModule.js",
+          "path": "../src-out/Integrations/Contour/"
+        }, {
           "text": "Offline.js",
           "path": "../src-out/Models/UserActivity/"
         }, {
@@ -1135,9 +1141,6 @@
           "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
         }, {
-          "text": "AccountPxSearch.js",
-          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
-        }, {
           "text": "List.js",
           "path": "../src-out/Views/Account/"
         }, {
@@ -1194,9 +1197,6 @@
         }, {
           "text": "SalesOrderItemModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
-        }, {
-          "text": "ApplicationModule.js",
-          "path": "../src-out/Integrations/Contour/"
         }, {
           "text": "BillToAccountModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"

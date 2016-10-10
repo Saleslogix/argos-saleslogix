@@ -20,10 +20,10 @@ The package.json file in the root of argos-saleslogix contains a list of depende
 - run `npm install`
 
 Once dependencies are installed, here are a list of commands available:
-* `grunt test` - Runs the unit tests using Jasmine.
+* `npm run test` - Runs the unit tests using Jasmine. Requires grunt cli.
 * `npm start` - Local development web server. Open your browser to http://localhost:8000/. Copy scripts/default.config.json to scripts/config.json to override the port and/or the SData host.
 * `npm run lint` - Lints the src folder. We use the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript/blob/master/README.md).
-* `grunt less` - Compiles .less stylesheets into CSS.
+* `npm run less` - Compiles .less stylesheets into CSS. Requires grunt cli.
 * `npm run build` - "Transpiles" the src folder and outputs to src-out. The src folder contains ECMAScript2015 code. The src-out folder will contain ECMAScript 5 code that older browsers will execute.
 * `npm run watch` - Watches the src folder for changes and runs `npm run build` and `npm run lint` automatically when files are changed.
 
