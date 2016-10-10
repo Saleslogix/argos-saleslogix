@@ -1,14 +1,19 @@
 # Infor CRM Mobile
 argos-saleslogix utilized the [argos-sdk](https://github.com/Saleslogix/argos-sdk) to form the Infor CRM Mobile application. It includes list, detail, and edit views for most of the core CRM entities, such as Accounts, Contacts, Tickets, Leads, Opportunities, and Activities. Additional entities are available if the back office extensions (BOE) integration is enabled.
 
-## Installation from AA bundle
+## API
+The Infor CRM Mobile team maintains an "argos" documentation site available [here](http://developer.saleslogix.com/argos/). Additional guides are also available on the [argo-sdk](https://github.com/Saleslogix/argos-sdk/wiki) wiki. A sample customization is available [here](https://github.com/Saleslogix/argos-sample).
+
+## Installation From AA Bundle
 - Download the latest mobile release from the Infor Extreme Portal
 - Extract the zip
 - There should be yet another zip file that ends with "VFS.zip". Example: "Infor Mobile v3.4 for 8.0 and later VFS.zip". Extract this zip as well.
 - Once extracted, go into the Portal/SlxMobile/SourceFiles directory
 - Copy the argos-sdk and products folders to your development location, such as C:\code\mobile
 
-## Installation from source
+The AA bundle does not include index-dev-\*.html files. You can copy your product's index-dev-\*.html file into products/argos-saleslogix or use the out of the box one located [here](https://raw.githubusercontent.com/Saleslogix/argos-saleslogix/develop/index-dev.html).
+
+## Installation From Source
 
 ### Prerequisites
 * [NodeJS](https://nodejs.org/)
@@ -27,8 +32,8 @@ Once dependencies are installed, here are a list of commands available:
 * `npm run build` - "Transpiles" the src folder and outputs to src-out. The src folder contains ECMAScript2015 code. The src-out folder will contain ECMAScript 5 code that older browsers will execute.
 * `npm run watch` - Watches the src folder for changes and runs `npm run build` and `npm run lint` automatically when files are changed.
 
-### NOTICED TO CUSTOMIZERS
-Starting in mobile 3.4, the index-dev*.html files no longer point to src, instead they point to src-out. The src folder now contains ECMAScript2015 (ES6) source code. A build step is required to populate the src-out. You will need to run `npm run build` from the argos-saleslogix directory if working from git.
+### Notice To Customizers
+Starting in mobile 3.4, the index-dev-\*.html files no longer point to src, instead they point to src-out. The src folder now contains ECMAScript2015 (ES6) source code. A build step is required to populate the src-out. You will need to run `npm run build` from the argos-saleslogix directory if working from git.
 
 ### Clone repository
 1.	Open a command prompt.
@@ -62,7 +67,7 @@ Starting in mobile 3.4, the index-dev*.html files no longer point to src, instea
 If building on windows, the argos-sdk tools folder contains a binary called JsBit that will read the release.jsb2 file and combine/minify the required resources. If building from Linux or OSX, Mono is required to execute JsBit.
 
 ### Build scripts
-- Change to the argo-sdk directory, and execute the build script there: `cd ..\argos-sdk` and then `build\release.cmd`
+- Change to the argo-sdk directory, and execute the build script there: `cd ..\argos-sdk` and then `build\release.cmd` (`./build/release.sh` for non Windows)
 - Copy the contents of `argos-sdk\deploy` to a common shared directory, such as `C:\code\mobile\deploy`
 - Change back to the argos-saleslogix directory and run `build\release.cmd`
 - Copy the contents of `argos-saleslogix\deploy` to the same shared deploy directory used in the sdk step (`C:\code\mobile\deploy`)
@@ -90,9 +95,9 @@ If building on windows, the argos-sdk tools folder contains a binary called JsBi
 5.	On the mobile server, ensure that the MIME type corresponding to the `.manifest` extension is `text/cache-manifest`.  This is a requirement for application caching/offline access.
 6.	If SData is being hosted on a different server than the mobile host, CORS (Cross Origin Resource Sharing), must be enabled on the SData server.  You can find documentation for setting it up on IIS at: [Setting-Up-CORS](https://github.com/Saleslogix/argos-sdk/wiki/Setting-Up-CORS).
 
-### Customization
-*       You can customize the product without modifying the core views.
-*       See the [Argos Sample][argos-sample] customization module for a set of customization scenario examples.
+## Customization
+* You can customize the product without modifying the core views.
+* See the [argos-sample][argos-sample] customization module for a set of customization scenario examples.
 
 [argos-sdk]: https://github.com/Saleslogix/argos-sdk "Argos SDK Source"
 [argos-sample]: https://github.com/Saleslogix/argos-sample "Customization module for argos-saleslogix"
