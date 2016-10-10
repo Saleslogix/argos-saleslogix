@@ -18,7 +18,6 @@
     "watch": "npm-watch"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.0",
     "eslint": "^3.6.1",
     "grunt": "~0.4.5",
     "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.1",
