@@ -395,6 +395,12 @@ const __class = declare('crm.Application', [Application], {
     this.hash('');
     window.location.reload();
   },
+  resetModuleAppStatePromises: function resetModuleAppStatePromises() {
+    this.clearAppStatePromises();
+    for (let i = 0; i < this.modules.length; i++) {
+      this.modules[i].loadAppStatePromises(this);
+    }
+  },
   logOut: function logOut() {
     this.removeCredentials();
     this._clearNavigationState();
@@ -402,6 +408,8 @@ const __class = declare('crm.Application', [Application], {
     const service = this.getService();
     this.isAuthenticated = false;
     this.context = {};
+
+    this.resetModuleAppStatePromises();
 
     if (service) {
       service
