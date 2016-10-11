@@ -16,6 +16,7 @@ const resource = getResource('proxAppModule');
 const __class = declare('crm.Integrations.Contour.ApplicationModule', [ApplicationModule], {
   // Localization strings
   viewAccountsNearbyText: resource.viewAccountsNearbyText,
+  helpTitleText: resource.helpTitleText,
 
   isIntegrationEnabled: function isIntegrationEnabled() {
     const results = this.application.context.integrations.filter(integration => integration.Name === 'Contour')[0];
@@ -46,6 +47,28 @@ const __class = declare('crm.Integrations.Contour.ApplicationModule', [Applicati
         views.push('pxSearch_Accounts');
         views.push('pxSearch_locations');
         return views;
+      },
+    });
+
+    // Add the new help
+    const onHelpRowCreated = Mobile.SalesLogix.Views.Help.prototype.onHelpRowCreated;
+    this.registerCustomization('detail', 'help', {
+      at: (row) => {
+        return row.name === 'HelpSection';
+      },
+      type: 'insert',
+      where: 'after',
+      value: {
+        title: this.helpTitleText,
+        name: 'ContourHelpSection',
+        children: [{
+          name: 'ContourHelp',
+          devRoot: 'argos-contour',
+          baseUrl: 'help/locales/contour',
+          fileName: 'help.html',
+          defaultUrl: 'help/locales/contour/en/help.html',
+          onCreate: onHelpRowCreated,
+        }],
       },
     });
 
