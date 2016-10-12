@@ -28,8 +28,12 @@ const __class = declare('crm.Integrations.Contour.ApplicationModule', [Applicati
     }
 
     // Register new proximity search views
-    this.registerView(new AccountPxSearch());
-    this.registerView(new LocationPicker());
+    this.registerView(new AccountPxSearch({
+      canRedirectTo: true,
+    }));
+    this.registerView(new LocationPicker({
+      canRedirectTo: true,
+    }));
   },
   loadCustomizationsDynamic: function loadCustomizations() {
     if (!this.isIntegrationEnabled()) {

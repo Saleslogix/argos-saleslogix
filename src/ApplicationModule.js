@@ -173,18 +173,27 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
     this.registerView(new RightDrawer(), query('.right-drawer')[0]);
 
-    this.registerView(new OfflineDetail());
+    this.registerView(new OfflineDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new OfflineList({
       expose: false,
+      canRedirectTo: true,
     }));
     this.registerView(new RecentlyViewedList({
       expose: true,
+      canRedirectTo: true,
     }));
     this.registerView(new BriefcaseList({
       expose: true,
+      canRedirectTo: true,
     }));
-    this.registerView(new Help());
-    this.registerView(new Settings());
+    this.registerView(new Help({
+      canRedirectTo: true,
+    }));
+    this.registerView(new Settings({
+      canRedirectTo: true,
+    }));
     this.registerView(new Configure());
     this.registerView(new PickList());
     this.registerView(new SelectList());
@@ -205,8 +214,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
     this.registerView(new AddressEdit());
 
-    this.registerView(new AccountList());
-    this.registerView(new AccountDetail());
+    this.registerView(new AccountList({
+      canRedirectTo: true,
+    }));
+    this.registerView(new AccountDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new AccountEdit());
     this.registerView(new AccountList({
       id: 'account_related',
@@ -241,8 +254,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new ContactList());
-    this.registerView(new ContactDetail());
+    this.registerView(new ContactList({
+      canRedirectTo: true,
+    }));
+    this.registerView(new ContactDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new ContactEdit());
     this.registerView(new ContactList({
       id: 'contact_related',
@@ -261,8 +278,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new ErrorLogList());
-    this.registerView(new ErrorLogDetail());
+    this.registerView(new ErrorLogList({
+      canRedirectTo: true,
+    }));
+    this.registerView(new ErrorLogDetail({
+      canRedirectTo: true,
+    }));
 
     this.registerView(new EventEdit());
     this.registerView(new EventList({
@@ -281,8 +302,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new OpportunityEdit());
     this.registerView(new OpportunityQuickEdit());
-    this.registerView(new OpportunityList());
-    this.registerView(new OpportunityDetail());
+    this.registerView(new OpportunityList({
+      canRedirectTo: true,
+    }));
+    this.registerView(new OpportunityDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new OpportunityList({
       id: 'opportunity_related',
       expose: false,
@@ -322,8 +347,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
 
     this.registerView(new LeadEdit());
-    this.registerView(new LeadList());
-    this.registerView(new LeadDetail());
+    this.registerView(new LeadList({
+      canRedirectTo: true,
+    }));
+    this.registerView(new LeadDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new LeadList({
       id: 'lead_related',
       expose: false,
@@ -333,8 +362,12 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new TicketList());
-    this.registerView(new TicketDetail());
+    this.registerView(new TicketList({
+      canRedirectTo: true,
+    }));
+    this.registerView(new TicketDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new TicketEdit());
     this.registerView(new TicketList({
       id: 'ticket_related',
@@ -367,7 +400,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
 
-    this.registerView(new ActivityDetail());
+    this.registerView(new ActivityDetail({
+      canRedirectTo: true,
+    }));
     this.registerView(new ActivityEdit());
     this.registerView(new ActivityComplete());
     this.registerView(new ActivityTypesList());
