@@ -127,6 +127,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
         title: this.relatedERPItemsText,
         list: true,
         name: 'RelatedERPItemsSection',
+        enableOffline: false,
         children: [{
           name: 'Quotes',
           label: this.quotesText,

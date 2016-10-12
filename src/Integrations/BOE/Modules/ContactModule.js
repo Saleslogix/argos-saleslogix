@@ -227,6 +227,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
         title: this.relatedERPItemsText,
         list: true,
         name: 'RelatedERPItemsSection',
+        enableOffline: false,
         children: [{
           name: 'AccountAssociations',
           label: this.erpAccountAssociationsText,
