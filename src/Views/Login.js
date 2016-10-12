@@ -161,6 +161,10 @@ const __class = declare('crm.Views.Login', [Edit], {
 
     App.authenticateUser(credentials, {
       success: function success() {
+        if (this.fields.remember.getValue() !== true) {
+          this.fields.username.setValue('');
+          this.fields.password.setValue('');
+        }
         this.enable();
 
         const attr = this.domNode.attributes.getNamedItem('selected');
