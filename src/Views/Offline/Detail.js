@@ -113,6 +113,14 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
       layout = original._createCustomizedLayout.apply(original, [original.createLayout.apply(original)]);
     }
 
+    layout = layout.filter(({ enableOffline }) => {
+      if (typeof enableOffline === 'undefined' || enableOffline === null) {
+        return true;
+      }
+
+      return enableOffline;
+    });
+
     this.disableSections(layout);
     this.applyRelatedSections(layout);
     return layout;

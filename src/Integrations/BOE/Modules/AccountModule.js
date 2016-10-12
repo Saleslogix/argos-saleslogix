@@ -837,6 +837,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         title: this.relatedERPItemsText,
         list: true,
         name: 'RelatedERPItemsSection',
+        enableOffline: false,
         children: [{
           name: 'Quotes',
           label: this.quotesText,
@@ -928,6 +929,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
           title: this.dashboardText,
           list: true,
           name: 'DashboardSection',
+          enableOffline: false,
           children: [{
             name: 'AccountSalesDashboardWidget',
             relatedView: {
