@@ -852,7 +852,7 @@ const __class = declare('crm.Application', [Application], {
           }
         }
       }
-          // Split by "/redirectTo/"
+      // Split by "/redirectTo/"
       const split = this.redirectHash.split(/\/redirectTo\//gi);
       if (split.length === 2) {
         this.redirectHash = split[1];
@@ -929,11 +929,16 @@ const __class = declare('crm.Application', [Application], {
         const [viewId, key] = split;
         const redirectView = this.getView(viewId);
         if (redirectView) {
-          view = redirectView;
-          if (key) {
-            redirectView.show({
-              key,
-            });
+          if (!redirectView.canRedirectTo) {
+            // The user will go to the default view instead
+            view = this.getView(this.homeViewId);
+          } else {
+            view = redirectView;
+            if (key) {
+              redirectView.show({
+                key,
+              });
+            }
           }
         }
       }
