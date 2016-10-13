@@ -68,8 +68,8 @@ export default function bootstrap({
       let completed = false;
 
       if (appConfig.mingleEnabled) {
-        const result = MingleUtility.populateAccessToken(appConfig);
-        if (!result.access_token) {
+        const accessToken = MingleUtility.populateAccessToken(appConfig);
+        if (!accessToken) {
           return;
         }
       }

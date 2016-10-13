@@ -48,7 +48,7 @@ const __class = lang.setObject('crm.MingleUtility', {
               (result.expires_in - 300) * 1000 // Show message to user before 5 minutes of refresh (300 seconds)
           );
         }
-        return result;
+        return result.access_token;
       }
     }
     this.redirectToMingle(appConfig, hash);
