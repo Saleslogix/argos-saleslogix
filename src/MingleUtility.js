@@ -15,7 +15,7 @@ const __class = lang.setObject('crm.MingleUtility', {
   accessToken: '',
 
   refreshAccessToken(appConfig) {
-    const hash = location.hash.substring(2);
+    const hash = 'mingleRefresh'; // location.hash.substring(2);
     let state = '';
     if (hash) {
       state = `/redirectTo/${hash}`;
