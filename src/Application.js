@@ -841,21 +841,33 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   setupRedirectHash: function setupRedirectHash() {
+    let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
       if (App.mingleEnabled) {
         const vars = this.redirectHash.split('&');
         for (let i = 0; i < vars.length; i++) {
           const pair = vars[i].split('=');
           if (pair[0] === 'state') {
-            this.redirectHash = decodeURIComponent(pair[1]);
+            if (pair[1] === 'mingleRefresh') { // show default view
+              isMingleRefresh = true;
+            } else {
+              this.redirectHash = decodeURIComponent(pair[1]);
+            }
             break;
           }
         }
       }
-      // Split by "/redirectTo/"
-      const split = this.redirectHash.split(/\/redirectTo\//gi);
-      if (split.length === 2) {
-        this.redirectHash = split[1];
+      if (isMingleRefresh) {
+        const view = this.getView(App.getDefaultViews()[0]);
+        if (view) {
+          view.show();
+        }
+      } else {
+        // Split by "/redirectTo/"
+        const split = this.redirectHash.split(/\/redirectTo\//gi);
+        if (split.length === 2) {
+          this.redirectHash = split[1];
+        }
       }
     }
   },
