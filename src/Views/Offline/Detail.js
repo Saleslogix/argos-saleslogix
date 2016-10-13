@@ -110,6 +110,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     let layout = [];
     if (view && original) {
       view.entry = this.entry;
+      original.entry = this.entry;
       layout = original._createCustomizedLayout.apply(original, [original.createLayout.apply(original)]);
     }
 
