@@ -877,6 +877,11 @@ const __class = declare('crm.Application', [Application], {
       return;
     }
 
+    if (this.mingleEnabled && online && this.requiresMingleRefresh) {
+      MingleUtility.refreshAccessToken(this);
+      return;
+    }
+
     if (view) {
       view.refresh();
     }

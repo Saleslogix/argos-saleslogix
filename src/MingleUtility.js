@@ -15,6 +15,11 @@ const __class = lang.setObject('crm.MingleUtility', {
   accessToken: '',
 
   refreshAccessToken(appConfig) {
+    if (!App.isOnline()) {
+      App.requiresMingleRefresh = true;
+      return;
+    }
+
     const hash = 'mingleRefresh'; // location.hash.substring(2);
     let state = '';
     if (hash) {
