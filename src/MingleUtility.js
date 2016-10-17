@@ -29,8 +29,9 @@ const __class = lang.setObject('crm.MingleUtility', {
   },
   populateAccessToken(appConfig) {
     const hash = location.hash.substring(1);
+    let result;
     if (hash) {
-      const result = hash.split('&').reduce((values, item) => {
+      result = hash.split('&').reduce((values, item) => {
         const parts = item.split('=');
         values[parts[0]] = parts[1];
         return values;
@@ -53,9 +54,15 @@ const __class = lang.setObject('crm.MingleUtility', {
               (result.expires_in - 300) * 1000 // Show message to user before 5 minutes of refresh (300 seconds)
           );
         }
-        return result.access_token;
       }
     }
+
+    if (result) {
+      if (result.access_token || result.error) {
+        return result;
+      }
+    }
+
     this.redirectToMingle(appConfig, hash);
   },
   redirectToMingle(appConfig, state) {
