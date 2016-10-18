@@ -73,7 +73,7 @@ const __class = declare('crm.AttachmentManager', null, {
     );
   },
   getAttachmentUrl: function getAttachmentUrl(attachmentId) {
-    const fileUrl = `${this._baseUrl}/attachments(\'${attachmentId}\')/file`;
+    const fileUrl = `${this._baseUrl}/attachments('${attachmentId}')/file`;
     return fileUrl;
   },
   getAttachmenturlByEntity: function getAttachmenturlByEntity(attachment) {
@@ -82,7 +82,7 @@ const __class = declare('crm.AttachmentManager', null, {
       href = attachment.url || '';
       href = (href.indexOf('http') < 0) ? `http://${href}` : href;
     } else {
-      href = `${this._baseUrl}/attachments(\'${attachment.$key}\')/file`;
+      href = `${this._baseUrl}/attachments('${attachment.$key}')/file`;
     }
     return href;
   },
