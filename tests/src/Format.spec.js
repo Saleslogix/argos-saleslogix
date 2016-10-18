@@ -122,6 +122,10 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
         expect(Format.address(addressFeed, true, ';', 'a'))
           .toEqual('a');
 
+        // handle nulls
+        expect(Format.address(null))
+          .toEqual('');
+
         // restore the original function
         Format.resolveAddressCulture = original;
       });

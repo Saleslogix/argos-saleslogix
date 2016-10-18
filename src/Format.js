@@ -96,6 +96,10 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
    @return {string} Formatted address
   */
   address: function address(addr, asText, separator, fmt) {
+    if (!addr) {
+      return '';
+    }
+
     const self = crm.Format;
     const parts = self.addressItems(addr, fmt);
     if (asText) {
