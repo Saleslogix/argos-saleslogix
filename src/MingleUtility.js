@@ -39,7 +39,7 @@ const __class = lang.setObject('crm.MingleUtility', {
       if (result.access_token) {
         this.accessToken = result.access_token;
         if (result.expires_in) {
-          result.expires_in = '420'; // Todo: remove this line - just to test refresh *******************************************
+          // result.expires_in = '420'; // Refresh Test
           const self = this;
 
           setTimeout(
