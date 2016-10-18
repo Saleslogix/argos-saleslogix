@@ -94,6 +94,7 @@ const __class = declare('crm.Application', [Application], {
   connectionToastTitleText: resource.connectionToastTitleText,
   offlineText: resource.offlineText,
   onlineText: resource.onlineText,
+  mingleAuthErrorText: resource.mingleAuthErrorText,
   homeViewId: 'myactivity_list',
   offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
@@ -108,15 +109,20 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
     this._loadNavigationState();
 
+    let accessToken = null;
+    if (this.mingleEnabled) {
+      accessToken = this.mingleAuthResults.access_token;
+    }
+
     this.UID = (new Date()).getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
     const self = this;
     Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
-      if (App.mingleEnabled) {
-        const accessToken = MingleUtility.accessToken;
+      if (accessToken) {
         request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
         request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
       }
+
       request.setRequestHeader('X-Application-Name', self.appName);
       request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', {
         version: self.mobileVersion,
@@ -460,13 +466,17 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   handleMingleAuthentication: function handleMingleAuthentication() {
-    this.setPrimaryTitle(this.authText);
-    this.authenticateUser(null, {
-      success: this.onHandleAuthenticationSuccess,
-      failure: this.onHandleAuthenticationFailed,
-      aborted: this.onHandleAuthenticationAborted,
-      scope: this,
-    });
+    if (this.mingleAuthResults && this.mingleAuthResults.error === 'access_denied') {
+      this.setPrimaryTitle(this.mingleAuthErrorText);
+    } else {
+      this.setPrimaryTitle(this.authText);
+      this.authenticateUser(null, {
+        success: this.onHandleAuthenticationSuccess,
+        failure: this.onHandleAuthenticationFailed,
+        aborted: this.onHandleAuthenticationAborted,
+        scope: this,
+      });
+    }
   },
   onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;

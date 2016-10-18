@@ -66,10 +66,11 @@ export default function bootstrap({
   })]).then(() => {
     window.require([application].concat(configuration), (Application, appConfig) => {
       let completed = false;
+      let mingleAuthResults;
 
       if (appConfig.mingleEnabled) {
-        const accessToken = MingleUtility.populateAccessToken(appConfig);
-        if (!accessToken) {
+        mingleAuthResults = MingleUtility.populateAccessToken(appConfig);
+        if (!mingleAuthResults) {
           return;
         }
       }
@@ -92,6 +93,7 @@ export default function bootstrap({
           const instance = new Application(appConfig);
           instance.localeContext = ctx;
           instance.isRegionMetric = isRegionMetric;
+          instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
           instance.init();
           instance.run();

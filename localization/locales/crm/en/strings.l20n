@@ -1303,6 +1303,7 @@
   offlineInitDataText: "Initializing Offline Data"
   offlineInitErrorText: "An error occurred during offline initialization. All Offline options will be disabled."
   appStateInitErrorText: "An error occurred during application initialization. Please try again."
+  mingleAuthErrorText: "Mingle single sign on failed. Access Denied."
 >
 
 <applicationModule ""
