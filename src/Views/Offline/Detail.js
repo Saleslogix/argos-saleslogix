@@ -112,6 +112,8 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
       view.entry = this.entry;
       original.entry = this.entry;
       layout = original._createCustomizedLayout.apply(original, [original.createLayout.apply(original)]);
+      original.layout = null;
+      original.refreshRequired = true;
     }
 
     layout = layout.filter(({ enableOffline }) => {
