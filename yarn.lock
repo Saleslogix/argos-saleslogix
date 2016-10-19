@@ -43,8 +43,8 @@ ajv-keywords@^1.0.0:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-1.1.1.tgz#02550bc605a3e576041565628af972e06c549d50"
 
 ajv@^4.7.0:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.8.1.tgz#708213577289a84a8148e66daa980c32da6a562e"
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.8.2.tgz#65486936ca36fea39a1504332a78bebd5d447bdc"
   dependencies:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
@@ -1705,9 +1705,9 @@ graceful-fs@~1.2.0:
     inherits "^2.0.1"
     sliced "0.0.5"
 
-"grunt-argos-deps@git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.1":
-  version "0.1.0"
-  resolved "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#74f1e14198605cbd76504814c73241ea042f3cc6"
+"grunt-argos-deps@git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.3":
+  version "0.1.3"
+  resolved "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#9fd2ea6ca4a8a31f11448542ded338fb6e57a51d"
   dependencies:
     esprima "^2.6.0"
     graphs "git+https://git@github.com/Saleslogix/graphs.git#2.0.1"
@@ -1722,7 +1722,7 @@ grunt-cli@~1.2.0:
     nopt "~3.0.6"
     resolve "~1.1.0"
 
-grunt-contrib-clean:
+grunt-contrib-clean@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/grunt-contrib-clean/-/grunt-contrib-clean-1.0.0.tgz#6b2ed94117e2c7ffe32ee04578c96fe4625a9b6d"
   dependencies:
@@ -1743,7 +1743,7 @@ grunt-contrib-connect@^1.0.2:
     serve-index "^1.7.1"
     serve-static "^1.10.0"
 
-grunt-contrib-copy:
+grunt-contrib-copy@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/grunt-contrib-copy/-/grunt-contrib-copy-1.0.0.tgz#7060c6581e904b8ab0d00f076e0a8f6e3e7c3573"
   dependencies:
@@ -1848,7 +1848,7 @@ grunt-manifest@^0.4.0:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/grunt-manifest/-/grunt-manifest-0.4.4.tgz#35fab08feba096466542fafedc7ed38e1a913a64"
 
-grunt-shell:
+grunt-shell@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/grunt-shell/-/grunt-shell-2.0.0.tgz#19bfcd7b2b033861731244ff994a6bb8bc6ab263"
   dependencies:
@@ -1914,7 +1914,7 @@ guardfn@^1.0.0:
   dependencies:
     sliced "0.0.5"
 
-h2o2:
+h2o2@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/h2o2/-/h2o2-5.4.0.tgz#d6857ca05355200c890b34a66606caba0229ed58"
   dependencies:
@@ -2011,7 +2011,7 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hoek@4.x.x, hoek@4.X.X:
+hoek@4.X.X, hoek@4.x.x:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.1.0.tgz#4a4557460f69842ed463aa00628cc26d2683afa7"
 
@@ -2080,7 +2080,7 @@ indent-string@^2.1.0:
   dependencies:
     repeating "^2.0.0"
 
-inert:
+inert@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/inert/-/inert-4.0.2.tgz#f26094988e653f81c84a690664781546f8d75928"
   dependencies:
