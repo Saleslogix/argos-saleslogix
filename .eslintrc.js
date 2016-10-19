@@ -26,7 +26,8 @@ module.exports = {
     "require": false,
     "Rx": false,
     "moment": false,
-    "PouchDB": false
+    "PouchDB": false,
+    "Redux": false,
   },
   rules: {
     /**
