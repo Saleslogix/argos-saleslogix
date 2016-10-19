@@ -113,6 +113,7 @@
       ctx.registerLocales(defaultLocale, supportedLocales);
       ctx.requestLocales(currentLocale);
       window.localeContext = ctx;
+      window.defaultLocaleContext = ctx;
       return ctx;
     }
     var ctx = buildContext();

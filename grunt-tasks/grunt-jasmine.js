@@ -9,7 +9,7 @@ module.exports = function gruntJasmine(grunt) {
         templateOptions: {
           coverage: 'coverage/coverage.json',
           report: [{
-            type: 'text',
+            type: 'text-summary',
           }, {
             type: 'html',
             options: {
@@ -18,6 +18,15 @@ module.exports = function gruntJasmine(grunt) {
           }],
           template: 'GruntRunner.tmpl',
         },
+      },
+    },
+    basic: {
+      src: ['src-out/**/*.js', 'configuration/**/*.js', 'localization/**/*.js'],
+      options: {
+        specs: 'tests/**/*.spec.js',
+        host: 'http://127.0.0.1:8001/products/argos-saleslogix/',
+        template: 'GruntRunnerBasic.tmpl',
+        summary: true,
       },
     },
   });

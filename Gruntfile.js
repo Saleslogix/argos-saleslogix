@@ -70,6 +70,7 @@ module.exports = function(grunt) {
   // Register alias tasks
   grunt.registerTask('build', ['clean', 'less']);
   grunt.registerTask('test', ['connect', 'jasmine:coverage']);
+  grunt.registerTask('test:basic', ['connect', 'jasmine:basic']);
   grunt.registerTask('server', ['connect:server:keepalive']);
   grunt.registerTask('bundle', ['less', 'shell:bundle:<%= pkg.version %>']);
 };
