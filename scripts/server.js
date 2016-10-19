@@ -1,4 +1,7 @@
+/* eslint-disable */
 var Hapi = require('hapi');
+var Inert = require('inert');
+
 var config;
 try {
     config = require('./config.json');
@@ -8,24 +11,40 @@ try {
 }
 
 var server = new Hapi.Server();
-server.connection({
-  port: config.port,
-  routes: {
-    "cors": {
-      "headers": [
-         "Accept",
-         "Authorization",
-         "Content-Type",
-         "If-None-Match",
-         "Accept-language",
-         "X-Application-Name",
-         "X-Application-Version",
-         "X-Requested-With",
-         "X-Authorization",
-         "X-Authorization-Mode"
-      ]
+server.register(Inert, function() {});
+server.register({
+    register: require('h2o2')
+}, function(err) {
+    if (err) {
+        console.log('Failed to load h2o2');
     }
-  }
+
+    server.start(function(err) {
+        if (err) {
+            throw err;
+        }
+        console.log('info', 'Started server at: ', server.info.uri);
+    });
+});
+
+server.connection({
+    port: config.port,
+    routes: {
+        "cors": {
+            "headers": [
+                "Accept",
+                "Authorization",
+                "Content-Type",
+                "If-None-Match",
+                "Accept-language",
+                "X-Application-Name",
+                "X-Application-Version",
+                "X-Requested-With",
+                "X-Authorization",
+                "X-Authorization-Mode"
+            ]
+        }
+    }
 });
 
 var proxyConfig = config.proxy || {};
@@ -35,7 +54,7 @@ server.route({
     path: '/sdata/{param*}',
     handler: {
         proxy: {
-            host:proxyConfig.host || 'localhost',
+            host: proxyConfig.host || 'localhost',
             port: proxyConfig.port || 80,
             protocol: proxyConfig.protocol || 'http',
             passThrough: true,
@@ -57,8 +76,4 @@ server.route({
             redirectToSlash: true
         }
     }
-});
-
-server.start(function() {
-    console.log('info', 'Started server at: ', server.info.uri);
 });
