@@ -472,7 +472,7 @@ const __class = declare('crm.Application', [Application], {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(null, {
         success: this.onHandleAuthenticationSuccess,
-        failure: this.onHandleAuthenticationFailed,
+        failure: this.onMingleHandleAuthenticationFailed,
         aborted: this.onHandleAuthenticationAborted,
         scope: this,
       });
@@ -490,6 +490,10 @@ const __class = declare('crm.Application', [Application], {
   onHandleAuthenticationFailed: function onHandleAuthenticationFailed() {
     this.removeCredentials();
     this.navigateToLoginView();
+  },
+  onMingleHandleAuthenticationFailed: function onMingleHandleAuthenticationFailed() {
+    this.removeCredentials();
+    this.setPrimaryTitle(this.mingleAuthErrorText);
   },
   onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
     this.navigateToLoginView();
