@@ -12,7 +12,7 @@ module.exports = function gruntManifest(grunt) {
       options: {
         basePath: '<%= products["argos-saleslogix"].basePath + "/deploy" %>',
         exclude: ['web.config', 'manifest.appcache'],
-        network: ['../sdata/'],
+        network: ['*', '../sdata/'],
         timestamp: true,
         hash: true,
         master: ['index.aspx', 'index.html', 'index-nocache.aspx', 'index-nocache.html'],
