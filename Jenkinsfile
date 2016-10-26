@@ -11,6 +11,7 @@ node('windows && nodejs') {
     try {
       bat 'yarn'
       bat 'yarn run lint'
+      bat 'yarn run testbasic'
       bat 'build\\release.cmd'
     } catch (err) {
       slack.failure('Failed building argos-sdk')
