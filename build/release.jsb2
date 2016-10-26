@@ -454,6 +454,9 @@
           "text": "AttachmentManager.js",
           "path": "../src-out/"
         }, {
+          "text": "_MetricDetailMixin.js",
+          "path": "../src-out/Views/"
+        }, {
           "text": "MyDayMetricWidget.js",
           "path": "../src-out/Views/Activity/"
         }, {
@@ -462,9 +465,6 @@
         }, {
           "text": "TotalMetricWidget.js",
           "path": "../src-out/Views/RecentlyViewed/"
-        }, {
-          "text": "_MetricDetailMixin.js",
-          "path": "../src-out/Views/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"
@@ -506,16 +506,16 @@
           "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
         }, {
           "text": "Base.js",
-          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
-        }, {
-          "text": "Base.js",
-          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
-        }, {
-          "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/Location/"
@@ -619,6 +619,9 @@
           "text": "LeftDrawer.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "_SpeedSearchRightDrawerListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
           "text": "MyDayRightDrawerListMixin.js",
           "path": "../src-out/Views/Activity/"
         }, {
@@ -627,9 +630,6 @@
         }, {
           "text": "_RightDrawerListMixin.js",
           "path": "../src-out/Views/RecentlyViewed/"
-        }, {
-          "text": "_SpeedSearchRightDrawerListMixin.js",
-          "path": "../src-out/Views/"
         }, {
           "text": "GenericBar.js",
           "path": "../src-out/Views/Charts/"
@@ -713,6 +713,9 @@
           "path": "../src-out/Integrations/BOE/Views/ERPReceivableItems/"
         }, {
           "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipmentItems/"
+        }, {
+          "text": "Detail.js",
           "path": "../src-out/Integrations/BOE/Views/ERPShipToAccounts/"
         }, {
           "text": "Detail.js",
@@ -720,9 +723,6 @@
         }, {
           "text": "Edit.js",
           "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
-        }, {
-          "text": "Detail.js",
-          "path": "../src-out/Integrations/BOE/Views/ERPShipmentItems/"
         }, {
           "text": "PricingAvailabilityList.js",
           "path": "../src-out/Integrations/BOE/Views/Locations/"
@@ -896,18 +896,6 @@
           "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
-        }, {
-          "text": "SData.js",
-          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
-        }, {
-          "text": "Offline.js",
-          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
-        }, {
-          "text": "SData.js",
-          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
-        }, {
-          "text": "Offline.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
         }, {
           "text": "SData.js",
@@ -918,6 +906,18 @@
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Integrations/BOE/Models/Location/"
@@ -1012,6 +1012,9 @@
           "text": "_RightDrawerListMixin.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "_DashboardWidgetBase.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
           "text": "Detail.js",
           "path": "../src-out/Integrations/BOE/Views/ERPInvoices/"
         }, {
@@ -1038,9 +1041,6 @@
         }, {
           "text": "Edit.js",
           "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
-        }, {
-          "text": "_DashboardWidgetBase.js",
-          "path": "../src-out/Integrations/BOE/"
         }, {
           "text": "QuoteItemAvailabilityList.js",
           "path": "../src-out/Integrations/BOE/Views/Locations/"
@@ -1118,16 +1118,16 @@
           "path": "../src-out/Integrations/BOE/Views/ERPSalesOrderPersons/"
         }, {
           "text": "List.js",
-          "path": "../src-out/Integrations/BOE/Views/ERPShipToAccounts/"
-        }, {
-          "text": "List.js",
-          "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
-        }, {
-          "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/ERPShipmentItems/"
         }, {
           "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/ERPShipments/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipToAccounts/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
         }, {
           "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/QuotePersons/"
