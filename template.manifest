@@ -36,5 +36,6 @@ content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
 @include 'help/locales'
 
 NETWORK:
+*
 ../sdata/
 ping.gif

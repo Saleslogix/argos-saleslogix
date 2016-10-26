@@ -50,29 +50,29 @@ const __class = declare('crm.Application', [Application], {
   enableCaching: true,
   userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
   userOptionsToRequest: [
-    'DefaultGroup;ACCOUNT',
-    'DefaultGroup;CONTACT',
-    'DefaultGroup;OPPORTUNITY',
-    'DefaultGroup;LEAD',
-    'DefaultGroup;TICKET',
-    'DefaultGroup;SALESORDER',
-    'DefaultGroup;QUOTE',
-    'General;InsertSecCodeID',
-    'General;Currency',
-    'Calendar;DayStartTime',
-    'Calendar;WeekStart',
-    'ActivityMeetingOptions;AlarmEnabled',
-    'ActivityMeetingOptions;AlarmLead',
-    'ActivityMeetingOptions;Duration',
-    'ActivityPhoneOptions;AlarmEnabled',
-    'ActivityPhoneOptions;AlarmLead',
-    'ActivityPhoneOptions;Duration',
-    'ActivityToDoOptions;AlarmEnabled',
-    'ActivityToDoOptions;AlarmLead',
-    'ActivityToDoOptions;Duration',
-    'ActivityPersonalOptions;AlarmEnabled',
-    'ActivityPersonalOptions;AlarmLead',
-    'ActivityPersonalOptions;Duration',
+    'category=DefaultGroup;name=ACCOUNT',
+    'category=DefaultGroup;name=CONTACT',
+    'category=DefaultGroup;name=OPPORTUNITY',
+    'category=DefaultGroup;name=LEAD',
+    'category=DefaultGroup;name=TICKET',
+    'category=DefaultGroup;name=SALESORDER',
+    'category=DefaultGroup;name=QUOTE',
+    'category=General;name=InsertSecCodeID',
+    'category=General;name=Currency',
+    'category=Calendar;name=DayStartTime',
+    'category=Calendar;name=WeekStart',
+    'category=ActivityMeetingOptions;name=AlarmEnabled',
+    'category=ActivityMeetingOptions;name=AlarmLead',
+    'category=ActivityMeetingOptions;name=Duration',
+    'category=ActivityPhoneOptions;name=AlarmEnabled',
+    'category=ActivityPhoneOptions;name=AlarmLead',
+    'category=ActivityPhoneOptions;name=Duration',
+    'category=ActivityToDoOptions;name=AlarmEnabled',
+    'category=ActivityToDoOptions;name=AlarmLead',
+    'category=ActivityToDoOptions;name=Duration',
+    'category=ActivityPersonalOptions;name=AlarmEnabled',
+    'category=ActivityPersonalOptions;name=AlarmLead',
+    'category=ActivityPersonalOptions;name=Duration',
   ],
   systemOptionsToRequest: [
     'BaseCurrency',
@@ -476,7 +476,7 @@ const __class = declare('crm.Application', [Application], {
       this.setPrimaryTitle(this.authText);
       this.authenticateUser(null, {
         success: this.onHandleAuthenticationSuccess,
-        failure: this.onHandleAuthenticationFailed,
+        failure: this.onMingleHandleAuthenticationFailed,
         aborted: this.onHandleAuthenticationAborted,
         scope: this,
       });
@@ -494,6 +494,10 @@ const __class = declare('crm.Application', [Application], {
   onHandleAuthenticationFailed: function onHandleAuthenticationFailed() {
     this.removeCredentials();
     this.navigateToLoginView();
+  },
+  onMingleHandleAuthenticationFailed: function onMingleHandleAuthenticationFailed() {
+    this.removeCredentials();
+    this.setPrimaryTitle(this.mingleAuthErrorText);
   },
   onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
     this.navigateToLoginView();
@@ -617,7 +621,7 @@ const __class = declare('crm.Application', [Application], {
           new Sage.SData.Client.SDataSingleResourceRequest(this)
             .setContractName('system')
             .setResourceKind('useroptions')
-            .setResourceSelector(string.substitute('"${0}"', [item]))
+            .setResourceKey(item)
             .read();
         }, service);
       }, this);

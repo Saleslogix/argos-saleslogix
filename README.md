@@ -4,14 +4,16 @@ argos-saleslogix utilized the [argos-sdk](https://github.com/Saleslogix/argos-sd
 ## API
 The Infor CRM Mobile team maintains an "argos" documentation site available [here](http://developer.saleslogix.com/argos/). Additional guides are also available on the [argo-sdk](https://github.com/Saleslogix/argos-sdk/wiki) wiki. A sample customization is available [here](https://github.com/Saleslogix/argos-sample).
 
-## Installation From AA Bundle
+## Installation From AA (Application Architect) Bundle
 - Download the latest mobile release from the Infor Extreme Portal
 - Extract the zip
 - There should be yet another zip file that ends with "VFS.zip". Example: "Infor Mobile v3.4 for 8.0 and later VFS.zip". Extract this zip as well.
 - Once extracted, go into the Portal/SlxMobile/SourceFiles directory
 - Copy the argos-sdk and products folders to your development location, such as C:\code\mobile
+- In IIS (or your favorite web server), set the root directory to C:\code\mobile
+- Open your browser to the URL your web server is listening on: (http://localhost:8000/products/argos-saleslogix/index-dev.html)
 
-The AA bundle does not include index-dev-\*.html files. You can copy your product's index-dev-\*.html file into products/argos-saleslogix or use the out of the box one located [here](https://raw.githubusercontent.com/Saleslogix/argos-saleslogix/develop/index-dev.html).
+The AA bundle does not include index-dev-\*.html files. You can copy your product's index-dev-\*.html file (if doing a customization) into products/argos-saleslogix or use the out of the box one located [here](https://raw.githubusercontent.com/Saleslogix/argos-saleslogix/develop/index-dev.html).
 
 ## Installation From Source
 
@@ -39,16 +41,17 @@ Starting in mobile 3.4, the index-dev-\*.html files no longer point to src, inst
 1.	Open a command prompt.
 2.	change to the base directory where you cloned [Argos SDK][argos-sdk], eg:
 
-		`cd C:\code\mobile`
+		cd C:\code\mobile
 3.	Execute the following commands (clone command shown with READ-ONLY URL; if you are a commiter, use the appropriate Read+Write URL).
 
-		- `cd products`
-		- `git clone  git://github.com/SageSalesLogix/argos-saleslogix.git`
+		cd products
+
+		git clone  git://github.com/SageSalesLogix/argos-saleslogix.git
 
 ### Setup and run the application in "debug" mode
 1.	On your web server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the base directory where you cloned [Argos SDK][argos-sdk], eg:
 
-		`cd C:\code\mobile`
+		cd C:\code\mobile
 3. 	Ensure you have a MIME type setup for .less files. Example using web.config in IIS7:
 	```    
 	<system.webServer>
