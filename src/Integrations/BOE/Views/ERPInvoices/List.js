@@ -34,8 +34,12 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
   util: utility,
   // Templates
   itemTemplate: new Simplate([
+    '{% if ($.Account && $.Account.AccountName) { %}',
     '<h3><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</h3>',
     '<h4><label class="group-label">{%: $$.invoiceNumberText %}</label> {%: $.InvoiceNumber %}</h4>',
+    '{% } else { %}',
+    '<h3><label class="group-label">{%: $$.invoiceNumberText %}</label> {%: $.InvoiceNumber %}</h3>',
+    '{% } %}',
     '<h4><label class="group-label">{%: $$.statusText %}</label> {%: $.ErpStatus %}</h4>',
     '<h4><label class="group-label">{%: $$.statusDateText %}</label> {%: $$.formatStatusDate($) %}</h4>',
     '<h4><label class="group-label">{%: $$.termsText %}</label> {%: $.ErpPaymentTermId %}</h4>',

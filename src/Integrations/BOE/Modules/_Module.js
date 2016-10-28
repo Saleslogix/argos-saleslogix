@@ -9,6 +9,8 @@ const __class = declare('crm.Integrations.BOE.Modules._Module', null, {
   },
   init: function init() {
   },
+  initDynamic: function initDynamic() {
+  },
   loadViews: function loadViews() {
   },
   loadCustomizations: function loadCustomizations() {
