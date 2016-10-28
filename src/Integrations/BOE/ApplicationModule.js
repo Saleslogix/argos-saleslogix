@@ -50,11 +50,6 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
   modules: null,
   init: function init() {
     this.inherited(arguments);
-  },
-  initDynamic: function init() {
-    if (!this.isIntegrationEnabled()) {
-      return;
-    }
 
     App.picklistService = PicklistService;
     App.enableDashboards = this.enableDashboards;
@@ -88,6 +83,15 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     this.modules.forEach((mod) => {
       mod.init();
+    });
+  },
+  initDynamic: function init() {
+    if (!this.isIntegrationEnabled()) {
+      return;
+    }
+
+    this.modules.forEach((mod) => {
+      mod.initDynamic();
     });
 
     this.inherited(arguments);

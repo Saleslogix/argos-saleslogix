@@ -20,7 +20,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
   // Templates
   itemTemplate: new Simplate([
     '<h4><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.QuoteNumber %}</h4>',
+    '{% if ($.Account && $.Account.AccountName) { %}',
     '<h4><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</h4>',
+    '{% } %}',
     '<h4><label class="group-label">{%: $$.createDateText %}</label> {%: $$.formatter.date($.CreateDate) %}</h4>',
     '<h4><label class="group-label">{%: $$.grandTotalLabelText %} </label>',
     '{%: $$.util.formatMultiCurrency($.DocGrandTotal, $.CurrencyCode) %}',
