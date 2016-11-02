@@ -1,8 +1,3 @@
-<version["short"] {
-  short: "3.4",
-  long: "Mobile {{ version.short}} / CRM Platform 8.0+"
-}>
-
 <addressField ""
   lookupLabelText: "edit"
   emptyText: ""

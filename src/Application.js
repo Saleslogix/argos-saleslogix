@@ -85,7 +85,7 @@ const __class = declare('crm.Application', [Application], {
   },
   mobileVersion: {
     major: 3,
-    minor: 5,
+    minor: 6,
     revision: 0,
   },
   versionInfoText: resource.versionInfoText,
