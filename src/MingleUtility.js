@@ -41,18 +41,12 @@ const __class = lang.setObject('crm.MingleUtility', {
         this.accessToken = result.access_token;
         if (result.expires_in) {
           // result.expires_in = '420'; // Refresh Test
-          const self = this;
-
-          setTimeout(
-              () => {
-                const resource = getResource('mingle');
-                App.toast.add({ message: resource.refreshText, title: resource.refreshTitle, toastTime: 300 * 1000, showProgressBar: true });
-                setTimeout(
-                    () => { self.refreshAccessToken(appConfig); }, 300 * 1000
-                );
-              },
-              (result.expires_in - 300) * 1000 // Show message to user before 5 minutes of refresh (300 seconds)
-          );
+          setTimeout(() => {
+            const resource = getResource('mingle');
+            App.toast.add({ message: resource.refreshText, title: resource.refreshTitle, toastTime: 300 * 1000, showProgressBar: true });
+            setTimeout(() => { this.refreshAccessToken(appConfig); }, 300 * 1000);
+            // Show message to user before 5 minutes of refresh (300 seconds)
+          }, (result.expires_in - 300) * 1000);
         }
       }
     }
