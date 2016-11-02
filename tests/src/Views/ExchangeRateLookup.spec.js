@@ -25,7 +25,11 @@ define('spec/Views/ExchangeRateLookup.spec', [
     });
 
     it('should be true', function() {
-      var widget = new ExchangeRateLookup();
+      var createLookup = function() {
+        var widget = new ExchangeRateLookup();
+      }
+
+      expect(createLookup).not.toThrow();
     });
   });
 });
