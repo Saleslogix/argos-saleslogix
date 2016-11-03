@@ -222,7 +222,7 @@
   hourAndHalfText: "1.5 小時"
   twoHoursText: "2 小時"
   dayText: "1 天"
-  updateUserActErrorText: "更新使用者活動時發生錯誤。"
+  updateUserActErrorText: "更新使用者活動期間發生錯誤。"
 >
 
 <activityList ""
@@ -313,7 +313,7 @@
   february: "二月"
   march: "三月"
   april: "四月"
-  may: "五月"
+  may: "5 月"
   june: "六月"
   july: "七月"
   august: "八月"
@@ -550,7 +550,7 @@
   entityText: "錯誤日誌"
   moreDetailsText: "更多詳細資料"
   errorText: "錯誤"
-  emailSubjectText: "Saleslogix Mobile Client 發生錯誤"
+  emailSubjectText: "Infor CRM Mobile Client 收到錯誤"
   copiedSuccessText: "已複製到剪貼簿"
 >
 
@@ -666,7 +666,7 @@
 <historyListHashTags ""
   myHistoryHash: "我的歷程記錄"
   noteHash: "備註"
-  phoneCallHash: "電話"
+  phoneCallHash: "phonecall"
   meetingHash: "會議"
   personalHash: "個人"
   emailHash: "電子郵件"
@@ -916,11 +916,11 @@
   basePriceText: "基價"
   discountText: "折扣"
   quantityText: "數量"
-  baseExtendedPriceText: "基本"
+  baseExtendedPriceText: "基準"
   extendedPriceText: "總價"
   extendedPriceSectionText: "總價"
   adjustedPriceSectionText: "調整後價格"
-  baseAdjustedPriceText: "基本"
+  baseAdjustedPriceText: "基準"
   adjustedPriceText: "調整後價格"
   myAdjustedPriceText: "使用者"
   confirmDeleteText: "將 ${0} 從商機產品移除？"
@@ -940,9 +940,9 @@
   discountText: "折扣 %"
   adjustedPriceText: "調整後價格"
   myAdjustedPriceText: "使用者"
-  baseAdjustedPriceText: "基本"
+  baseAdjustedPriceText: "基準"
   quantityText: "數量"
-  baseExtendedPriceText: "基本"
+  baseExtendedPriceText: "基準"
   extendedPriceText: "總價"
   extendedPriceSectionText: "總價"
   adjustedPriceSectionText: "調整後價格"
@@ -1189,10 +1189,6 @@
   titleText: "匯率"
 >
 
-<footerToolbar ""
-  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. 著作權所有，並保留一切權利。"
->
-
 <help ""
   titleText: "說明"
   errorText: "錯誤"
@@ -1317,7 +1313,7 @@
   userOptionsText: "使用者選項"
   systemOptionsText: "系統選項"
   userContextAndOptionsText: "使用者內容與選項"
-
+  integrationsText: "整合"
 >
 
 <defaultMetrics ""
@@ -1342,7 +1338,7 @@
 <fileManager ""
   unableToUploadText: "此瀏覽器不支援 HTML5 File API。"
   unknownSizeText: "不明"
-  unknownErrorText: "警告:發生錯誤而且檔案無法上傳。"
+  unknownErrorText: "警告: 發生錯誤而且檔案無法上傳。"
   largeFileWarningText: "警告:此要求超過管理員設定的大小限制，因此無法上傳。"
   largeFileWarningTitle: "警告"
   percentCompleteText: "上傳中，請稍候..."
@@ -1374,11 +1370,11 @@
   friday: "週五"
   saturday: "週六"
   day: "天"
-  first: "第一個"
-  second: "第二個"
-  third: "第三個"
-  fourth: "第四個"
-  last: "最後一個"
+  first: "第一"
+  second: "第二"
+  third: "第三"
+  fourth: "第四"
+  last: "最後一"
 >
 
 <speedSearchWidget ""
@@ -1471,7 +1467,7 @@
 <briefcaseList ""
   titleText: "我的公事包"
   removeText: "移除"
-  reBriefcaseText: "取消簡述"
+  reBriefcaseText: "公事包的退貨記錄"
   goToOnlineText: "移至線上檢視"
   goToOfflineText: "移至離線檢視"
 >
@@ -1506,4 +1502,9 @@
 <authenticationModel ""
   entityDisplayName: "驗證"
   entityDisplayNamePlural : "驗證"
+>
+
+<mingle ""
+  refreshTitle: "重新整理"
+  refreshText: "存取 Ming.le 即將重新整理。如果您正在插入或編輯資料，請立即儲存您的變更以避免資料遺失。"
 >

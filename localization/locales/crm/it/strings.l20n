@@ -109,8 +109,8 @@
   durationText: "durata"
   durationInvalidText: "Il campo '${2}' deve contenere un valore."
   carryOverNotesText: "riporta note"
-  followUpText: "completamento"
-  followUpTitleText: "Tipo di ulteriori azioni"
+  followUpText: "follow-up"
+  followUpTitleText: "Tipo di follow-up"
   leaderText: "coordinatore"
   longNotesText: "note"
   longNotesTitleText: "Note"
@@ -250,7 +250,7 @@
 <activityListHashTags ""
   alarmText: "allarme"
   recurringText: "ricorrente"
-  timelessText: "senza-limiti-di-tempo"
+  timelessText: "senza limiti di tempo"
   todayText: "oggi"
   thisWeekText: "questa-settimana"
   yesterdayText: "ieri"
@@ -271,11 +271,11 @@
 
 <activityMyListHashTags ""
   hashTagAlarmText: "allarme"
-  hashTagUnconfirmedText: "stato-non-confermato"
-  hashTagAcceptedText: "stato-accettato"
-  hashTagDeclinedText: "stato-rifiutato"
+  hashTagUnconfirmedText: "stato: non confermato"
+  hashTagAcceptedText: "stato: accettato"
+  hashTagDeclinedText: "stato: rifiutato"
   hashTagRecurringText: "ricorrente"
-  hashTagTimelessText: "senza-limiti-di-tempo"
+  hashTagTimelessText: "senza limiti di tempo"
   hashTagTodayText: "oggi"
   hashTagThisWeekText: "questa-settimana"
   hashTagYesterdayText: "ieri"
@@ -350,7 +350,7 @@
   isMailingText: "spedizione"
   isPrimaryText: "primario"
   postalCodeText: "codice postale"
-  salutationText: "attenzione"
+  salutationText: "all’attenzione di"
   stateText: "provincia"
   stateTitleText: "Provincia"
   titleText: "Indirizzo"
@@ -550,7 +550,7 @@
   entityText: "Log errori"
   moreDetailsText: "Altri dettagli"
   errorText: "errore"
-  emailSubjectText: "Errore ricevuto in Saleslogix Mobile Client"
+  emailSubjectText: "Errore ricevuto nel client mobile di Infor CRM"
   copiedSuccessText: "Copiato negli Appunti"
 >
 
@@ -664,9 +664,9 @@
 >
 
 <historyListHashTags ""
-  myHistoryHash: "cronologia-personale"
+  myHistoryHash: "cronologia personale"
   noteHash: "nota"
-  phoneCallHash: "Telefonata"
+  phoneCallHash: "phonecall"
   meetingHash: "riunione"
   personalHash: "personale"
   emailHash: "E-mail"
@@ -769,7 +769,7 @@
 >
 
 <opportunityDetail ""
-  accountText: "azien."
+  accountText: "azienda"
   acctMgrText: "resp. azienda"
   estCloseText: "chius. stimata"
   detailsText: "Dettagli"
@@ -808,7 +808,7 @@
 >
 
 <opportunityEdit ""
-  accountText: "azien."
+  accountText: "azienda"
   acctMgrText: "resp. azienda"
   estCloseText: "chius. stimata"
   importSourceText: "origine lead"
@@ -855,7 +855,7 @@
   opportunityStageTitleText: "Fase opportunità"
   opportunityText: "opportunità"
   stageText: "fase"
-  statusOpenText: "Apri"
+  statusOpenText: "Aperta"
   statusClosedLostText: "Chiusa - Persa"
   statusClosedWonText: "Chiusa - Vinta"
   salesProcessText: "fase bloccata dal processo di vendita:"
@@ -872,8 +872,8 @@
   moreDetailsText: "Altri dettagli"
   salesRoleText: "ruolo"
   strategyText: "strategia"
-  personalBenefitsText: "int. personale"
-  standingText: "posizione:"
+  personalBenefitsText: "vantaggi pers."
+  standingText: "posizione"
   issuesText: "problemi"
   competitorNameText: "pref. concorrente:"
   removeContactTitleText: "Rimuovi contatto"
@@ -889,10 +889,10 @@
   contactTitleText: "titolo"
   salesRoleText: "ruolo"
   salesRoleTitleText: "Ruolo"
-  personalBenefitsText: "int. personale"
+  personalBenefitsText: "vantaggi pers."
   strategyText: "strategia"
   issuesText: "problemi"
-  standingText: "posizione:"
+  standingText: "posizione"
   standingTitleText: "Posizione"
   contactText: "Contatto"
   competitorPrefText: "pref. concorrente:"
@@ -919,9 +919,9 @@
   baseExtendedPriceText: "base"
   extendedPriceText: "prezzo intero"
   extendedPriceSectionText: "Prezzo intero"
-  adjustedPriceSectionText: "Prezzo adeguato"
+  adjustedPriceSectionText: "Prezzo rettificato"
   baseAdjustedPriceText: "base"
-  adjustedPriceText: "prezzo adeguato"
+  adjustedPriceText: "prezzo rettificato"
   myAdjustedPriceText: "utente"
   confirmDeleteText: "Rimuovere ${0} dai prodotti dell'opportunità?"
   removeOppProductTitleText: "rimuovi prodotto opportunità"
@@ -938,14 +938,14 @@
   priceText: "prezzo"
   basePriceText: "prezzo di base"
   discountText: "% sconto"
-  adjustedPriceText: "prezzo adeguato"
+  adjustedPriceText: "prezzo rettificato"
   myAdjustedPriceText: "utente"
   baseAdjustedPriceText: "base"
   quantityText: "quantità"
   baseExtendedPriceText: "base"
   extendedPriceText: "prezzo intero"
   extendedPriceSectionText: "Prezzo intero"
-  adjustedPriceSectionText: "Prezzo adeguato"
+  adjustedPriceSectionText: "Prezzo rettificato"
 >
 
 <opportunityProductList ""
@@ -998,7 +998,7 @@
 >
 
 <ticketEdit ""
-  accountText: "azien."
+  accountText: "azienda"
   areaText: "area"
   assignedDateText: "data assegnazione"
   assignedToText: "assegnato a"
@@ -1060,7 +1060,7 @@
   publicAccessText: "accesso pubblico"
   assignedDateText: "data di inizio"
   completedDateText: "data di fine"
-  followUpText: "completamento"
+  followUpText: "follow-up"
   unitsText: "unità di tempo"
   elapsedUnitsText: "ore trascorse"
   rateTypeDescriptionText: "tipo addebito"
@@ -1189,10 +1189,6 @@
   titleText: "Tassi di cambio"
 >
 
-<footerToolbar ""
-  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. Tutti i diritti riservati."
->
-
 <help ""
   titleText: "Guida"
   errorText: "Errore"
@@ -1203,7 +1199,7 @@
 <home ""
   configureText: "Configura"
   addAccountContactText: "Aggiungi azienda/contatto"
-  titleText: "Pagina iniziale"
+  titleText: "Abitazione"
   actionsText: "Azioni rapide"
   viewsText: "Vai a"
 >
@@ -1305,7 +1301,7 @@
   connectionToastTitleText: "Stato connessione"
   offlineOptionsText: "Opzioni offline"
   offlineInitDataText: "Inizializzazione dati offline"
-  offlineInitErrorText: "Errore durante l'inizializzazione offline. Tutte le opzioni offline saranno disabilitate."
+  offlineInitErrorText: "Errore durante l'inizializzazione offline. Tutte le opzioni della modalità offline saranno disabilitate."
   appStateInitErrorText: "Errore durante l'inizializzazione dell'applicazione. Riprovare."
 >
 
@@ -1317,7 +1313,7 @@
   userOptionsText: "Opzioni utente"
   systemOptionsText: "Opzioni di sistema"
   userContextAndOptionsText: "Contesto e opzioni utente"
-
+  integrationsText: "Integrazioni"
 >
 
 <defaultMetrics ""
@@ -1342,7 +1338,7 @@
 <fileManager ""
   unableToUploadText: "Questo browser non supporta le API file HTML5."
   unknownSizeText: "sconosciuto"
-  unknownErrorText: "Attenzione: si è verificato un errore. Impossibile caricare il file."
+  unknownErrorText: "Avviso: impossibile caricare il file a causa di un errore."
   largeFileWarningText: "Attenzione: questa richiesta supera il limite di dimensioni impostato dall'amministratore. Impossibile caricare."
   largeFileWarningTitle: "Attenzione"
   percentCompleteText: "Caricamento in corso. Attendere..."
@@ -1471,7 +1467,7 @@
 <briefcaseList ""
   titleText: "Sincronia file"
   removeText: "rimuovi"
-  reBriefcaseText: "re sincronia file"
+  reBriefcaseText: "Restituisci record a Sincronia file"
   goToOnlineText: "vai a visualizzazione online"
   goToOfflineText: "vai a visualizzazione offline"
 >
@@ -1506,4 +1502,9 @@
 <authenticationModel ""
   entityDisplayName: "Autenticazione"
   entityDisplayNamePlural : "Autenticazione"
+>
+
+<mingle ""
+  refreshTitle: "Aggiorna"
+  refreshText: "L’accesso a Ming.le verrà aggiornato. Se si stanno inserendo o modificando dati, salvare immediatamente le modifiche per evitare perdite di dati."
 >

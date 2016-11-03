@@ -30,7 +30,7 @@
   notesText: "notes"
   ownerText: "propriétaire"
   phoneCallHistoryTitle: "Appel"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   actionsText: "Actions rapides"
   relatedActivitiesText: "Activités"
   relatedContactsText: "Contacts"
@@ -69,7 +69,7 @@
   industryText: "secteur"
   industryTitleText: "Secteur"
   ownerText: "propriétaire"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   statusText: "Etat"
   subTypeText: "Sous-type"
   titleText: "Compte"
@@ -167,7 +167,7 @@
   relatedAttachmentText: "Pièces jointes"
   relatedAttachmentTitleText: "Pièces jointes de l'activité"
   relatedItemsText: "Eléments associés"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   moreDetailsText: "Plus de détails"
   phoneCallText: "Appel"
   meetingText: "Rendez-vous"
@@ -213,7 +213,7 @@
   isLeadText: "pour le lead"
   yesText: "OUI"
   noText: "Non"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   noneText: "aucun"
   fiveMinText: "5 minutes"
   quarterHourText: "15 minutes"
@@ -222,7 +222,7 @@
   hourAndHalfText: "1,5 heure"
   twoHoursText: "2 heures"
   dayText: "1 jour"
-  updateUserActErrorText: "Une erreur s'est produite pendant la mise à jour des activités des utilisateurs."
+  updateUserActErrorText: "Une erreur s'est produite lors de la mise à jour des activités utilisateur."
 >
 
 <activityList ""
@@ -250,7 +250,7 @@
 <activityListHashTags ""
   alarmText: "alarme"
   recurringText: "Récurrent"
-  timelessText: "heure-indéfinie"
+  timelessText: "heure indéfinie"
   todayText: "aujourd'hui"
   thisWeekText: "cette-semaine"
   yesterdayText: "hier"
@@ -275,7 +275,7 @@
   hashTagAcceptedText: "état-accepté"
   hashTagDeclinedText: "état-refusé"
   hashTagRecurringText: "Récurrent"
-  hashTagTimelessText: "heure-indéfinie"
+  hashTagTimelessText: "heure indéfinie"
   hashTagTodayText: "aujourd'hui"
   hashTagThisWeekText: "cette-semaine"
   hashTagYesterdayText: "hier"
@@ -387,7 +387,7 @@
   userText: "utilisateur"
   attachmentNotSupportedText: "Il n'est pas possible de visualiser ce type de pièce jointe."
   downloadingText: "Téléchargement de la pièce jointe..."
-  notSupportedText: "L'affichage des pièces jointes n'est pas possible avec votre appareil."
+  notSupportedText: "L'affichage des pièces jointes n'est pas possible avec votre périphérique."
 >
 
 <calendarView ""
@@ -407,7 +407,6 @@
 
 <calendarDayView ""
   titleText: "Agenda"
-  startTimeFormatText: "H:mm"
   todayText: "Aujourd'hui"
   dayText: "Jour"
   weekText: "Semaine"
@@ -551,7 +550,7 @@
   entityText: "Journal d'erreur"
   moreDetailsText: "Plus de détails"
   errorText: "erreur"
-  emailSubjectText: "Erreur dans Saleslogix Mobile Client"
+  emailSubjectText: "Erreur reçue sur le client mobile Infor CRM"
   copiedSuccessText: "Copié dans le presse-papier"
 >
 
@@ -667,7 +666,7 @@
 <historyListHashTags ""
   myHistoryHash: "mon-historique"
   noteHash: "note"
-  phoneCallHash: "Appel"
+  phoneCallHash: "phonecall"
   meetingHash: "Rendez-vous"
   personalHash: "personnel"
   emailHash: "e-mail"
@@ -978,7 +977,7 @@
   issueText: "problème"
   needByText: "Date d'échéance"
   notesText: "commentaires"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   actionsText: "Actions rapides"
   relatedAttachmentText: "Pièces jointes"
   relatedAttachmentTitleText: "Pièces jointes du ticket"
@@ -1012,7 +1011,7 @@
   needByText: "Date d'échéance"
   notesText: "commentaires"
   notesTitleText: "Commentaires"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   relatedActivitiesText: "Activités"
   relatedItemsText: "Eléments associés"
   resolutionText: "résolution"
@@ -1165,7 +1164,7 @@
   homePhoneText: "Téléphone personnel"
   industryText: "secteur"
   ownerText: "propriétaire"
-  lastNameText: "dernier"
+  lastNameText: "nom"
   mobileText: "mobile"
   nameText: "nom"
   statusText: "Etat"
@@ -1173,7 +1172,7 @@
   titleText: "Ajouter un compte/contact"
   typeText: "type"
   webText: "Web"
-  phoneText: "Téléphone"
+  phoneText: "téléphone"
   workText: "téléphone professionnel"
   industryTitleText: "Secteur"
 >
@@ -1188,10 +1187,6 @@
 
 <exchangeRateLookup ""
   titleText: "Taux de change"
->
-
-<footerToolbar ""
-  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. Tous droits réservés."
 >
 
 <help ""
@@ -1252,8 +1247,8 @@
 <nameEdit ""
   titleText: "Modifier le nom"
   firstNameText: "prénom"
-  middleNameText: "milieu"
-  lastNameText: "dernier"
+  middleNameText: "deuxième prénom"
+  lastNameText: "nom"
   prefixText: "préfixe"
   prefixTitleText: "Préfixe de nom"
   suffixText: "suffixe"
@@ -1306,7 +1301,7 @@
   connectionToastTitleText: "Etat de la connexion"
   offlineOptionsText: "Options hors ligne"
   offlineInitDataText: "Initialisation des données hors ligne"
-  offlineInitErrorText: "Une erreur s'est produite lors de l'initialisation hors ligne. Toutes les options hors ligne seront désactivées."
+  offlineInitErrorText: "Une erreur s'est produite lors de l'initialisation hors ligne. Toutes les options hors ligne sont désactivées."
   appStateInitErrorText: "Une erreur s'est produite lors de l'initialisation de l'application. Veuillez réessayer."
 >
 
@@ -1318,7 +1313,7 @@
   userOptionsText: "Options utilisateur"
   systemOptionsText: "Options du système"
   userContextAndOptionsText: "Contexte et options utilisateur"
-
+  integrationsText: "Intégrations"
 >
 
 <defaultMetrics ""
@@ -1375,7 +1370,7 @@
   friday: "Vendredi"
   saturday: "Samedi"
   day: "jour"
-  first: "prénom"
+  first: "premier"
   second: "deuxième"
   third: "troisième"
   fourth: "quatrième"
@@ -1418,8 +1413,8 @@
 >
 
 <userActivityModel ""
-  entityDisplayName: "Activité de l'utilisateur"
-  entityDisplayNamePlural : "Activités d'utilisateurs"
+  entityDisplayName: "Activité utilisateur"
+  entityDisplayNamePlural : "Activités utilisateur"
 >
 
 <opportunityModel ""
@@ -1472,7 +1467,7 @@
 <briefcaseList ""
   titleText: "Mon porte-documents"
   removeText: "Supprimer"
-  reBriefcaseText: "Porte-documents"
+  reBriefcaseText: "renvoyer l'enregistrement dans le porte-documents"
   goToOnlineText: "accéder à l'affichage en ligne"
   goToOfflineText: "accéder à l'affichage hors ligne"
 >
@@ -1500,11 +1495,16 @@
   calculatingUsageText: "veuillez patienter, calcul de l'utilisation en cours."
   clearingDataText: "veuillez patienter, effacement des données en cours."
   lastClearedText: "Dernier effacé"
-  errorCalculatingText: "Erreur, calcul d'utilisation en cours"
-  errorClearingDataText: "Erreur, effacement des données"
+  errorCalculatingText: "Erreur lors du calcul d'utilisation"
+  errorClearingDataText: "Erreur lors de l'effacement des données"
 >
 
 <authenticationModel ""
   entityDisplayName: "Authentification"
   entityDisplayNamePlural : "Authentification"
+>
+
+<mingle ""
+  refreshTitle: "Actualiser"
+  refreshText: "Mise à jour Ming.le en préparation. Si vous modifiez ou insérez des données, enregistrez vos changements immédiatement pour éviter toute perte de données."
 >

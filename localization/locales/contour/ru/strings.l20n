@@ -1,0 +1,28 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Показать клиентов вблизи"
+  addressNotGeocodedErrorText: "Геокодирование адреса не выполнено. Невозможен поиск клиентов вблизи."
+  accountsNearText: "Клиенты рядом с ${0}"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Клиенты рядом со мной"
+  addActivityActionText: "Добавить действие"
+  addAttachmentActionText: "Добавить вложение"
+  addNoteActionText: "Добавить заметку"
+	callMainActionText: "Вызов по основному номеру"
+	currentLocationErrorText: "Невозможно получить Ваше текущее местоположение. Невозможно выполнить поиск."
+	editActionText: "Изменить"
+  faxAbbreviationText: "Факс: "
+	kilometerAbbrevText: "км"
+	mileAbbrevText: "мили"
+  phoneAbbreviationText: "Телефон: "
+	titleText: "Клиенты рядом со мной"
+	viewContactsActionText: "Контакты"
+>
+
+<locPicker ""
+  accountsNearText: "Клиенты рядом с ${0}"
+	myHouseText: "Мой дом"
+	myOfficeText: "Мой офис"
+	titleText: "Поиск расстояния по контуру"
+>

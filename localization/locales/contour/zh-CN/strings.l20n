@@ -1,0 +1,28 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "查看附近的客户"
+  addressNotGeocodedErrorText: "地址尚未创建地理编码。不能搜索附近的客户。"
+  accountsNearText: "${0} 附近的客户"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "我附近的客户"
+  addActivityActionText: "添加活动"
+  addAttachmentActionText: "添加附件"
+  addNoteActionText: "添加备注"
+	callMainActionText: "呼叫主要号码"
+	currentLocationErrorText: "无法拉出您当前位置。不能搜索。"
+	editActionText: "编辑"
+  faxAbbreviationText: "传真: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "电话: "
+	titleText: "我附近的客户"
+	viewContactsActionText: "联系人"
+>
+
+<locPicker ""
+  accountsNearText: "${0} 附近的客户"
+	myHouseText: "我的住宅"
+	myOfficeText: "我的办公室"
+	titleText: "周边搜索"
+>

@@ -23,7 +23,7 @@
   addressText: "Adresse"
   businessDescriptionText: "Unternehmensbeschreibung"
   createDateText: "Erstellungsdatum"
-  createUserText: "Benutzer erstellen"
+  createUserText: "Angelegt von"
   faxText: "Fax"
   importSourceText: "Interessentenquelle"
   industryText: "Branche"
@@ -133,7 +133,7 @@
   phoneCallText: "Anruf"
   meetingText: "Meeting"
   toDoText: "Aufgabe"
-  personalText: "Persönliche Aktivität"
+  personalText: "Private Aktivität"
 >
 
 <activityDetail ""
@@ -172,7 +172,7 @@
   phoneCallText: "Anruf"
   meetingText: "Meeting"
   toDoText: "Aufgabe"
-  personalText: "Persönliche Aktivität"
+  personalText: "Private Aktivität"
   literatureText: "Literaturanfrage"
   entityText: "Aktivität"
 >
@@ -240,7 +240,7 @@
   phoneCallText: "Anruf"
   meetingText: "Meeting"
   toDoText: "Aufgabe"
-  personalText: "Persönliche Aktivität"
+  personalText: "Private Aktivität"
   literatureText: "Literaturanfrage"
   questionText: "Frage"
   noteText: "Notiz"
@@ -250,9 +250,9 @@
 <activityListHashTags ""
   alarmText: "Alarm"
   recurringText: "wiederkehrend"
-  timelessText: "ohne-Zeitangabe"
+  timelessText: "ohne Zeitangabe"
   todayText: "heute"
-  thisWeekText: "diese-Woche"
+  thisWeekText: "diese Woche"
   yesterdayText: "gestern"
 >
 
@@ -271,13 +271,13 @@
 
 <activityMyListHashTags ""
   hashTagAlarmText: "Alarm"
-  hashTagUnconfirmedText: "Status-unbestätigt"
-  hashTagAcceptedText: "Status-akzeptiert"
-  hashTagDeclinedText: "Status-abgelehnt"
+  hashTagUnconfirmedText: "Status unbestätigt"
+  hashTagAcceptedText: "Status akzeptiert"
+  hashTagDeclinedText: "Status abgelehnt"
   hashTagRecurringText: "wiederkehrend"
-  hashTagTimelessText: "ohne-Zeitangabe"
+  hashTagTimelessText: "ohne Zeitangabe"
   hashTagTodayText: "heute"
-  hashTagThisWeekText: "diese-Woche"
+  hashTagThisWeekText: "diese Woche"
   hashTagYesterdayText: "gestern"
 >
 
@@ -333,7 +333,7 @@
   phoneCall: "Anruf"
   meeting: "Meeting"
   literature: "Literaturanfrage"
-  personal: "Persönliche Aktivität"
+  personal: "Private Aktivität"
   eventText: "Ereignis"
 >
 
@@ -348,7 +348,7 @@
   descriptionText: "Beschreibung"
   descriptionTitleText: "Beschreibung"
   isMailingText: "Lieferung"
-  isPrimaryText: "Haupt"
+  isPrimaryText: "primär"
   postalCodeText: "PLZ"
   salutationText: "Zu Händen von"
   stateText: "Bundesland"
@@ -465,7 +465,7 @@
   addressText: "Adresse"
   contactTitleText: "Titel"
   createDateText: "Erstellungsdatum"
-  createUserText: "Benutzer erstellen"
+  createUserText: "Angelegt von"
   emailText: "E-Mail"
   faxText: "Fax"
   homeText: "Private Telefonnummer"
@@ -550,7 +550,7 @@
   entityText: "Fehlerprotokoll"
   moreDetailsText: "Weitere Details"
   errorText: "Fehler"
-  emailSubjectText: "Fehler in Saleslogix Mobile Client"
+  emailSubjectText: "Fehler im Infor CRM Mobile Client"
   copiedSuccessText: "In die Zwischenablage kopiert"
 >
 
@@ -569,7 +569,7 @@
   entityText: "Ereignis"
   meeting: "Meeting"
   literature: "Literaturanfrage"
-  personal: "Persönliche Aktivität"
+  personal: "Private Aktivität"
   phoneCall: "Anruf"
   toDo: "Aufgabe"
 >
@@ -621,7 +621,7 @@
   phoneCall: "Anruf"
   meeting: "Meeting"
   literature: "Literaturanfrage"
-  personal: "Persönliche Aktivität"
+  personal: "Private Aktivität"
   question: "Frage"
   email: "E-Mail"
 >
@@ -658,17 +658,17 @@
   phoneCall: "Anruf"
   meeting: "Meeting"
   literature: "Literaturanfrage"
-  personal: "Persönliche Aktivität"
+  personal: "Private Aktivität"
   question: "Frage"
   email: "E-Mail"
 >
 
 <historyListHashTags ""
-  myHistoryHash: "Eigene-Historie"
+  myHistoryHash: "Eigene Historie"
   noteHash: "Notiz"
-  phoneCallHash: "Anruf"
+  phoneCallHash: "phonecall"
   meetingHash: "Meeting"
-  personalHash: "persönlich"
+  personalHash: "privat"
   emailHash: "E-Mail"
 >
 
@@ -683,7 +683,7 @@
   addressText: "Adresse"
   businessDescriptionText: "Unternehmensbeschreibung"
   createDateText: "Erstellungsdatum"
-  createUserText: "Benutzer erstellen"
+  createUserText: "Angelegt von"
   eMailText: "E-Mail"
   leadSourceText: "Interessentenquelle"
   industryText: "Branche"
@@ -780,9 +780,9 @@
   ownerText: "Zugriffsberechtigter"
   actionsText: "Schnellaktionen"
   potentialText: "Umsatzpotenzial"
-  potentialBaseText: "Verkaufspotenzial (Basissatz)"
-  potentialOpportunityText: "Verkaufspotenzial (VKC-Satz)"
-  potentialMyRateText: "Verkaufspotenzial (eigener Satz)"
+  potentialBaseText: "Umsatzpotenzial (Basiskurs)"
+  potentialOpportunityText: "Umsatzpotenzial (Verkaufschancenkurs)"
+  potentialMyRateText: "Umsatzpotenzial (eigener Kurs)"
   probabilityText: "Wahrscheinlichkeit"
   relatedActivitiesText: "Aktivitäten"
   relatedContactsText: "Kontakte für Verkaufschance"
@@ -802,8 +802,8 @@
   multiCurrencyText: "Mehrfachwährung"
   multiCurrencyRateText: "Wechselkurs"
   multiCurrencyCodeText: "Code"
-  multiCurrencyDateText: "Stichtag Satz"
-  multiCurrencyLockedText: "Satz gesperrt"
+  multiCurrencyDateText: "Kursdatum"
+  multiCurrencyLockedText: "Kurs gesperrt"
   entityText: "Verkaufschance"
 >
 
@@ -827,8 +827,8 @@
   multiCurrencyText: "Mehrfachwährung"
   multiCurrencyRateText: "Wechselkurs"
   multiCurrencyCodeText: "Code"
-  multiCurrencyDateText: "Stichtag Satz"
-  multiCurrencyLockedText: "Satz gesperrt"
+  multiCurrencyDateText: "Kursdatum"
+  multiCurrencyLockedText: "Kurs gesperrt"
   subTypePickListResellerText: "WIEDERVERKÄUFER"
 >
 
@@ -872,10 +872,10 @@
   moreDetailsText: "Weitere Details"
   salesRoleText: "Rolle"
   strategyText: "Strategie"
-  personalBenefitsText: "persönliche Vort."
+  personalBenefitsText: "Indiv. Vorteile"
   standingText: "Bewertung"
   issuesText: "Probleme"
-  competitorNameText: "Wettbewerbereinst."
+  competitorNameText: "Bevorzugter Mitbewerber"
   removeContactTitleText: "Kontakt entfernen"
   confirmDeleteText: ""${0}" von der Verkaufschance entfernen?"
   contactText: "Kontakt"
@@ -889,13 +889,13 @@
   contactTitleText: "Titel"
   salesRoleText: "Rolle"
   salesRoleTitleText: "Rolle"
-  personalBenefitsText: "persönliche Vort."
+  personalBenefitsText: "Indiv. Vorteile"
   strategyText: "Strategie"
   issuesText: "Probleme"
   standingText: "Bewertung"
   standingTitleText: "Bewertung"
   contactText: "Kontakt"
-  competitorPrefText: "Wettbewerbereinst."
+  competitorPrefText: "Bevorzugter Mitbewerber"
 >
 
 <opportunityContactList ""
@@ -917,8 +917,8 @@
   discountText: "Rabatt"
   quantityText: "Menge"
   baseExtendedPriceText: "Basis"
-  extendedPriceText: "erweiterter Preis"
-  extendedPriceSectionText: "Erweiterter Preis"
+  extendedPriceText: "Gesamtpreis"
+  extendedPriceSectionText: "Gesamtpreis"
   adjustedPriceSectionText: "Angepasster Preis"
   baseAdjustedPriceText: "Basis"
   adjustedPriceText: "angepasster Preis"
@@ -943,8 +943,8 @@
   baseAdjustedPriceText: "Basis"
   quantityText: "Menge"
   baseExtendedPriceText: "Basis"
-  extendedPriceText: "erweiterter Preis"
-  extendedPriceSectionText: "Erweiterter Preis"
+  extendedPriceText: "Gesamtpreis"
+  extendedPriceSectionText: "Gesamtpreis"
   adjustedPriceSectionText: "Angepasster Preis"
 >
 
@@ -1164,7 +1164,7 @@
   homePhoneText: "Private Telefonnummer"
   industryText: "Branche"
   ownerText: "Zugriffsberechtigter"
-  lastNameText: "letzte(r/s)"
+  lastNameText: "Nachname"
   mobileText: "Mobil"
   nameText: "Name"
   statusText: "Status"
@@ -1187,10 +1187,6 @@
 
 <exchangeRateLookup ""
   titleText: "Wechselkurse"
->
-
-<footerToolbar ""
-  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. Alle Rechte vorbehalten."
 >
 
 <help ""
@@ -1261,10 +1257,10 @@
 
 <settings ""
   clearLocalStorageTitleText: "Speicher löschen"
-  clearAuthenticationTitleText: "Gespeicherte Anmeldedaten löschen"
+  clearAuthenticationTitleText: "Gespeicherte Anmeldeinformationen löschen"
   errorLogTitleText: "Fehlerprotokolle anzeigen"
   localStorageClearedText: "Lokaler Speicher erfolgreich gelöscht."
-  credentialsClearedText: "Gespeicherte Anmeldedaten erfolgreich gelöscht."
+  credentialsClearedText: "Gespeicherte Anmeldeinformationen erfolgreich gelöscht."
   titleText: "Einstellungen"
   offlineOptionsText: "Offline-Optionen"
 >
@@ -1317,7 +1313,7 @@
   userOptionsText: "Benutzeroptionen"
   systemOptionsText: "Systemoptionen"
   userContextAndOptionsText: "Benutzerkontext und -optionen"
-
+  integrationsText: "Integrationen"
 >
 
 <defaultMetrics ""
@@ -1328,7 +1324,7 @@
   potential: "Verkaufspotenzial gesamt"
   montlyPotential: "Durchschnittliches Verkaufspotenzial pro Monat"
   totalTickets: "Tickets gesamt"
-  averageOpen: "Durchschnittsalter - offen"
+  averageOpen: "Status "Offen" - Durchschnittsdauer"
   totalContacts: "Kontakte gesamt"
   totalLeads: "Interessenten gesamt"
   totalHistory: "Historie gesamt"
@@ -1336,7 +1332,7 @@
   meetings: "Meetings"
   calls: "Anrufe"
   todos: "Aufgaben"
-  personal: "Persönlich"
+  personal: "Privat"
 >
 
 <fileManager ""
@@ -1390,7 +1386,7 @@
   atPhoneCallText: "Anruf"
   atAppointmentText: "Meeting"
   atLiteratureText: "Literaturanfrage"
-  atPersonalText: "Persönlich"
+  atPersonalText: "Privat"
   atQuestionText: "Frage"
   atNoteText: "Notiz"
   atEMailText: "E-Mail"
@@ -1439,7 +1435,7 @@
 
 <leadAddressModel ""
   entityDisplayName: "Adresse des Interessenten"
-  entityDisplayNamePlural : "Leadadressen"
+  entityDisplayNamePlural : "Adressen des Interessenten"
 >
 
 <historyModel ""
@@ -1471,7 +1467,7 @@
 <briefcaseList ""
   titleText: "Eigene Aktentasche"
   removeText: "entfernen"
-  reBriefcaseText: "AW: Aktentasche"
+  reBriefcaseText: "Datensatz an Aktentasche zurückgeben"
   goToOnlineText: "zur Online-Ansicht wechseln"
   goToOfflineText: "zur Offline-Ansicht wechseln"
 >
@@ -1494,16 +1490,21 @@
   clearDataText: "Löschen"
   olderThanText: "Offline-Daten löschen älter als"
   daysText: "Tage"
-  showUsageText: "Auslastung anzeigen"
+  showUsageText: "Verwendung anzeigen"
   processingText: "Verarbeitung läuft, bitte warten."
-  calculatingUsageText: "Auslastung wird berechnet, bitte warten."
+  calculatingUsageText: "Verwendung wird berechnet, bitte warten."
   clearingDataText: "Daten werden bereinigt, bitte warten."
   lastClearedText: "Zuletzt bereinigt"
-  errorCalculatingText: "Fehler bei Auslastungsberechnung"
+  errorCalculatingText: "Fehler bei Berechnung der Verwendung"
   errorClearingDataText: "Fehler bei Datenbereinigung"
 >
 
 <authenticationModel ""
   entityDisplayName: "Authentifizierung"
   entityDisplayNamePlural : "Authentifizierung"
+>
+
+<mingle ""
+  refreshTitle: "Aktualisieren"
+  refreshText: "Der Ming.le-Zugriff wird in Kürze aktualisiert. Wenn Sie gerade Daten eingeben oder bearbeiten, speichern Sie jetzt Ihre Änderungen, damit diese nicht verloren gehen."
 >

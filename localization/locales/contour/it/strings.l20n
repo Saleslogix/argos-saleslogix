@@ -1,0 +1,28 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Visualizza aziende nelle vicinanze"
+  addressNotGeocodedErrorText: "La geocodifica dell’indirizzo non è stata eseguita. Impossibile cercare aziende nelle vicinanze."
+  accountsNearText: "Aziende nelle vicinanze di ${0}"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Aziende nelle mie vicinanze"
+  addActivityActionText: "Aggiungi attività"
+  addAttachmentActionText: "Aggiungi allegato"
+  addNoteActionText: "Aggiungi nota"
+	callMainActionText: "Chiama numero principale"
+	currentLocationErrorText: "Impossibile stabilire l’ubicazione corrente. Ricerca non eseguita."
+	editActionText: "Modifica"
+  faxAbbreviationText: "Fax: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Telefono: "
+	titleText: "Aziende nelle mie vicinanze"
+	viewContactsActionText: "Contatti"
+>
+
+<locPicker ""
+  accountsNearText: "Aziende nelle vicinanze di ${0}"
+	myHouseText: "La mia abitazione"
+	myOfficeText: "Il mio ufficio"
+	titleText: "Ricerca per distanza in prossimità"
+>
