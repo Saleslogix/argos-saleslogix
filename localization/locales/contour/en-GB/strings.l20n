@@ -1,0 +1,29 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "View Accounts Nearby"
+  addressNotGeocodedErrorText: "Address has not been geocoded. Cannot search for nearby accounts."
+  accountsNearText: "Accounts Near ${0}"
+  helpTitleText: "Contour Help"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Accounts Near Me"
+  addActivityActionText: "Add Activity"
+  addAttachmentActionText: "Add Attachment"
+  addNoteActionText: "Add Note"
+	callMainActionText: "Call Main"
+	currentLocationErrorText: "Unable to pull your current location. Cannot search."
+	editActionText: "Edit"
+  faxAbbreviationText: "Fax: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Phone: "
+	titleText: "Accounts Near Me"
+	viewContactsActionText: "Contacts"
+>
+
+<locPicker ""
+  accountsNearText: "Accounts Near ${0}"
+	myHouseText: "My House"
+	myOfficeText: "My Office"
+	titleText: "Contour Distance Search"
+>

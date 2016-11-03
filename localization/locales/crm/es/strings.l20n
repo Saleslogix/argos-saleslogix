@@ -1,5 +1,5 @@
 <version["corto"] {
-  short: "3.4",
+  short: "3.5",
   long: "Mobile {{ version.short}} / Plataforma CRM 8.0+"
 }>
 
