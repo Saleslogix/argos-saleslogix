@@ -107,7 +107,7 @@
   completedText: "дата завершения"
   completionText: "Завершение"
   durationText: "длительность"
-  durationInvalidText: "Поле "${2}" должно иметь значение."
+  durationInvalidText: "Поле \"${2}\" должно иметь значение."
   carryOverNotesText: "Перенести заметки"
   followUpText: "последующее действие"
   followUpTitleText: "Тип последующего действия"
@@ -187,8 +187,8 @@
   categoryText: "категория"
   durationText: "длительность"
   durationTitleText: "Длительность"
-  durationInvalidText: "Поле "${2}" должно иметь значение."
-  reminderInvalidText: "Поле "напоминание" должно иметь значение."
+  durationInvalidText: "Поле \"${2}\" должно иметь значение."
+  reminderInvalidText: "Поле \"напоминание\" должно иметь значение."
   reminderTitleText: "Напоминание"
   leaderText: "организатор"
   longNotesText: "заметки"
@@ -643,7 +643,7 @@
   relatedItemsText: "Связанные элементы"
   yesText: "ДА"
   noText: "НЕТ"
-  validationText: "Поле "${2}" должно иметь значение."
+  validationText: "Поле \"${2}\" должно иметь значение."
   validationCanEditText: "У вас нет прав для редактирования"
 >
 
@@ -877,7 +877,7 @@
   issuesText: "Проблемы"
   competitorNameText: "Конкурент"
   removeContactTitleText: "Удалить контакт"
-  confirmDeleteText: "Удалить "${0}" из возможности?"
+  confirmDeleteText: "Удалить \"${0}\" из возможности?"
   contactText: "Контакт"
   entityText: "Контакт возможности"
 >
