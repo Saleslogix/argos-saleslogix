@@ -18,17 +18,17 @@ module.exports = function gruntLangPack(grunt) {
     // Copy the localization files.
     var copyFilesConfig = grunt.config.get('copy.deploy');
     copyFilesConfig.files = [{
-       src: '{help,localization}/locales/crm/' + this.target + '/*',
+       src: '{help,localization}/locales/*/' + this.target + '/*',
        dest: 'deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix/',
      }, {
        expand: true,
        cwd: '../../',
-       src: 'argos-sdk/localization/locales/argos/' + this.target + '/*',
+       src: 'argos-sdk/localization/locales/*/' + this.target + '/*',
        dest: 'deploy/bundle/model/Portal/SlxMobile/SourceFiles/',
     }];
 
-    grunt.config.set('copy.localization', copyFilesConfig)
-    grunt.task.run('copy:localization')
+    grunt.config.set('copy.localization', copyFilesConfig);
+    grunt.task.run('copy:localization');
 
     // Copy any extra includes needed (for bug-fixes, etc.)
     if(this.data.includes) {
