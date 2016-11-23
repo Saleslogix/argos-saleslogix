@@ -250,9 +250,9 @@
 <activityListHashTags ""
   alarmText: "оповещение"
   recurringText: "повторение"
-  timelessText: "без указания времени"
+  timelessText: "без-указания-времени"
   todayText: "сегодня"
-  thisWeekText: "эта неделя"
+  thisWeekText: "эта-неделя"
   yesterdayText: "вчера"
 >
 
@@ -275,9 +275,9 @@
   hashTagAcceptedText: "Подтвержденные"
   hashTagDeclinedText: "Отмененные"
   hashTagRecurringText: "повторение"
-  hashTagTimelessText: "без указания времени"
+  hashTagTimelessText: "без-указания-времени"
   hashTagTodayText: "сегодня"
-  hashTagThisWeekText: "эта неделя"
+  hashTagThisWeekText: "эта-неделя"
   hashTagYesterdayText: "вчера"
 >
 
@@ -666,10 +666,10 @@
 <historyListHashTags ""
   myHistoryHash: "моя-история"
   noteHash: "заметка"
-  phoneCallHash: "phonecall"
+  phoneCallHash: "Звонок"
   meetingHash: "встреча"
   personalHash: "личное"
-  emailHash: "электронная почта"
+  emailHash: "электронная-почта"
 >
 
 <historyRelated ""
