@@ -250,9 +250,9 @@
 <activityListHashTags ""
   alarmText: "Alarm"
   recurringText: "wiederkehrend"
-  timelessText: "ohne Zeitangabe"
+  timelessText: "ohne-Zeitangabe"
   todayText: "heute"
-  thisWeekText: "diese Woche"
+  thisWeekText: "diese-Woche"
   yesterdayText: "gestern"
 >
 
@@ -271,13 +271,13 @@
 
 <activityMyListHashTags ""
   hashTagAlarmText: "Alarm"
-  hashTagUnconfirmedText: "Status unbestätigt"
-  hashTagAcceptedText: "Status akzeptiert"
-  hashTagDeclinedText: "Status abgelehnt"
+  hashTagUnconfirmedText: "Status-unbestätigt"
+  hashTagAcceptedText: "Status-akzeptiert"
+  hashTagDeclinedText: "Status-abgelehnt"
   hashTagRecurringText: "wiederkehrend"
-  hashTagTimelessText: "ohne Zeitangabe"
+  hashTagTimelessText: "ohne-Zeitangabe"
   hashTagTodayText: "heute"
-  hashTagThisWeekText: "diese Woche"
+  hashTagThisWeekText: "diese-Woche"
   hashTagYesterdayText: "gestern"
 >
 
@@ -664,7 +664,7 @@
 >
 
 <historyListHashTags ""
-  myHistoryHash: "Eigene Historie"
+  myHistoryHash: "Eigene-Historie"
   noteHash: "Notiz"
   phoneCallHash: "phonecall"
   meetingHash: "Meeting"
