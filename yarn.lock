@@ -680,7 +680,7 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-boom@3.X.X, boom@3.x.x:
+boom@3.x.x, boom@3.X.X:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/boom/-/boom-3.2.2.tgz#0f0cc5d04adc5003b8c7d71f42cca7271fef0e78"
   dependencies:
@@ -2286,7 +2286,7 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-joi@9.X.X, joi@9.x.x:
+joi@9.x.x, joi@9.X.X:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/joi/-/joi-9.2.0.tgz#3385ac790192130cbe230e802ec02c9215bbfeda"
   dependencies:
