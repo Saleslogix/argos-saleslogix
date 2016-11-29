@@ -446,11 +446,11 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       '(Timeless eq true and StartDate',
       ' between @${3}@ and @${4}@))',
     ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   getEventQuery: function getEventQuery() {
@@ -463,9 +463,9 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       'StartDate lt @${2}@',
       ')',
     ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-      ]
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+    ]
     );
   },
   processFeed: function processFeed(feed) {

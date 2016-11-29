@@ -452,9 +452,9 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
       'StartDate lt @${2}@',
       ')',
     ].join(''), [App.context.user && App.context.user.$key,
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   hideEventList: function hideEventList() {

@@ -381,11 +381,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       '(Timeless eq true and StartDate',
       ' between @${3}@ and @${4}@))',
     ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   formatQueryEvent: function formatQueryEvent(value) {

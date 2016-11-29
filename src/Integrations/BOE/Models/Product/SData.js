@@ -41,7 +41,7 @@ const __class = declare('crm.Integrations.BOE.Models.Product.SData', [Base, _SDa
         'UnitOfMeasure/*',
       ],
     },
-  ];
+    ];
   },
 });
 

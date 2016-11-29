@@ -59,7 +59,7 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
   },
   _sanitizeUrl: function _sanitizeUrl(url = '') {
     // Remove trailing slashes
-    return url.replace(/[\/|\\]*$/, '');
+    return url.replace(/[\/|\\]*$/, ''); // eslint-disable-line
   },
   requestData: function requestData() {
     this.processEntry({});
