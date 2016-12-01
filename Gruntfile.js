@@ -18,6 +18,11 @@ module.exports = function(grunt) {
       },
       'pl': {
         bundleName: "Mobile 3.4.2 PL",
+        includes: [
+          {
+            src: '../../argos-sdk/libraries/dojo/dojo/cldr/nls/pl/number.js',
+            dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/argos-sdk/libraries/dojo/dojo/cldr/nls/pl/number.js'
+          }],
       },
       'pt': {
         bundleName: "Mobile 3.4.2 PT",
