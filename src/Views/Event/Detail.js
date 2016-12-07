@@ -24,7 +24,9 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
   typeText: resource.typeText,
   whenText: resource.whenText,
   startDateFormatText: dtFormatResource.startDateFormatText,
+  startDateFormatText24: dtFormatResource.startDateFormatText24,
   endDateFormatText: dtFormatResource.endDateFormatText,
+  endDateFormatText24: dtFormatResource.endDateFormatText24,
   entityText: resource.entityText,
   eventTypeText: {
     atToDo: resource.toDo,
@@ -75,13 +77,13 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
         property: 'StartDate',
         label: this.startTimeText,
         renderer: format.date.bindDelegate(
-          this, this.startDateFormatText),
+          this, (App.is24HourClock()) ? this.startDateFormatText24 : this.startDateFormatText),
       }, {
         name: 'EndDate',
         property: 'EndDate',
         label: this.endTimeText,
         renderer: format.date.bindDelegate(
-          this, this.endDateFormatText),
+          this, (App.is24HourClock()) ? this.endDateFormatText24 : this.endDateFormatText),
       }],
     }]);
   },

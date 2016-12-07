@@ -43,6 +43,7 @@ function _createGroupRequest(o) {
  */
 const __class = lang.setObject('crm.GroupUtility', {
   groupDateFormatText: dtFormatResource.groupDateFormatText,
+  groupDateFormatText24: dtFormatResource.groupDateFormatText24,
   /**
    * Returns an SDataNamedQueryRequest setup for groups
    * @param {Object} options Options for creating the request
@@ -266,7 +267,7 @@ const __class = lang.setObject('crm.GroupUtility', {
     };
 
     if (fieldFormatter.name === 'DateTime') {
-      fieldFormatter.formatString = this.transformDateFormatString(layoutItem.formatString, this.groupDateFormatText);
+      fieldFormatter.formatString = this.transformDateFormatString(layoutItem.formatString, (App.is24HourClock()) ? this.groupDateFormatText24 : this.groupDateFormatText);
     } else {
       fieldFormatter.formatString = layoutItem.formatString;
     }

@@ -1258,6 +1258,10 @@
   credentialsClearedText: "Saved credentials cleared successfully."
   titleText: "Settings"
   offlineOptionsText: "Offline Options"
+  use24HourClockText: "Using 24-hour Clock"
+  use12HourClockText: "Using 12-hour Clock"
+  confirmClockMessage: "Changing the clock display setting will require the application to restart. Are you sure?"
+  confirmClearLocalStorageMessage: "Clearing local storage will require the application to restart. Are you sure?"
 >
 
 <speedSearchList ""

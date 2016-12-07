@@ -31,6 +31,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   endDateText: resource.endDateText,
   commentsText: resource.commentsText,
   startingFormatText: dtFormatResource.startingFormatText,
+  startingFormatText24: dtFormatResource.startingFormatText24,
 
   // View Properties
   entityName: 'TicketActivity',
@@ -154,7 +155,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       property: 'AssignedDate',
       type: 'date',
       showTimePicker: true,
-      dateFormatText: this.startingFormatText,
+      dateFormatText: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
@@ -166,7 +167,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
       property: 'CompletedDate',
       type: 'date',
       showTimePicker: true,
-      dateFormatText: this.startingFormatText,
+      dateFormatText: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,

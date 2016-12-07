@@ -22,7 +22,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<h3>{%: $.Ticket.TicketNumber %}</h3>',
-    '<h4>{%: crm.Format.date($.AssignedDate, $$.startDateFormatText) %}</h4>',
+    '<h4>{%: crm.Format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</h4>',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',
     '{%: $.ActivityDescription %}',
@@ -34,6 +34,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   // Localization
   titleText: resource.titleText,
   startDateFormatText: dtFormatResource.startDateFormatText,
+  startDateFormatText24: dtFormatResource.startDateFormatText24,
 
   // View Properties
   id: 'ticketactivity_list',

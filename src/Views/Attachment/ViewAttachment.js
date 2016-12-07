@@ -41,6 +41,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   userText: resource.userText,
   attachmentNotSupportedText: resource.attachmentNotSupportedText,
   attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
+  attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
   downloadingText: resource.downloadingText,
   notSupportedText: resource.notSupportedText,
 
@@ -98,7 +99,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '</div>',
     '<div class="attachment-viewer-not-supported">',
     '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-    '<h4><span>({%: crm.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+    '<h4><span>({%: crm.Format.date($.attachDate, (App.is24HourClock()) ? $$.attachmentDateFormatText24 : $$.attachmentDateFormatText) %})&nbsp;</span>',
     '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
     '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
     '{% if($.user) { %}',

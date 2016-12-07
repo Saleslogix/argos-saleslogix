@@ -2,25 +2,32 @@
   completedFormatText: "M/D/YYYY h:mm A"
   startingFormatText: "M/D/YYYY h:mm A"
   startingTimelessFormatText: "M/D/YYYY"
+  completedFormatText24: "M/D/YYYY H:mm"
+  startingFormatText24: "M/D/YYYY H:mm"
 >
 
 <activityDetailDateTimeFormat ""
   startDateFormatText: "M/D/YYYY h:mm:ss A"
   timelessDateFormatText: "M/D/YYYY"
   alarmDateFormatText: "M/D/YYYY h:mm:ss A"
+  startDateFormatText24: "M/D/YYYY H:mm:ss"
+  alarmDateFormatText24: "M/D/YYYY H:mm:ss"
 >
 
 <activityEditDateTimeFormat ""
   startingFormatText: "M/D/YYYY h:mm A"
   startingTimelessFormatText: "M/D/YYYY"
+  startingFormatText24: "M/D/YYYY H:mm"
 >
 
 <attachmentListDateTimeFormat ""
   attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
+  attachmentDateFormatText24: "ddd M/D/YYYY HH:mm:ss"
 >
 
 <attachmentViewDateTimeFormat ""
   attachmentDateFormatText: "ddd M/D/YYYY h:mm a"
+  attachmentDateFormatText24: "ddd M/D/YYYY H:mm"
 >
 
 <calendarViewDateTimeFormat ""
@@ -28,12 +35,14 @@
   dayTitleFormatText: "ddd MMM D, YYYY"
   eventDateFormatText: "M/D"
   startTimeFormatText: "h:mm A"
+  startTimeFormatText24: "H:mm"
 >
 
 <calendarDayViewDateTimeFormat ""
   eventDateFormatText: "M/D/YYYY"
   dateHeaderFormatText: "dddd, M/D/YYYY"
   startTimeFormatText: "h:mm A"
+  startTimeFormatText24: "H:mm"
 >
 
 <calendarMonthViewDateTimeFormat ""
@@ -41,6 +50,7 @@
   dayTitleFormatText: "ddd MMM D, YYYY"
   eventDateFormatText: "M/D/YYYY"
   startTimeFormatText: "h:mm A"
+  startTimeFormatText24: "H:mm"
 >
 
 <calendarWeekViewDateTimeFormat ""
@@ -49,23 +59,29 @@
   dayHeaderRightFormatText: "MMM D, YYYY"
   eventDateFormatText: "M/D/YYYY"
   startTimeFormatText: "h:mm A"
+  startTimeFormatText24: "H:mm"
 >
 
 <errorLogDetailDateTimeFormat ""
   errorDateFormatText: "MM/DD/YYYY hh:mm A"
+  errorDateFormatText24: "MM/DD/YYYY HH:mm"
 >
 
 <errorLogListDateTimeFormat ""
   errorDateFormatText: "MM/DD/YYYY hh:mm A"
+  errorDateFormatText24: "MM/DD/YYYY HH:mm"
 >
 
 <eventDetailDateTimeFormat ""
   startDateFormatText: "M/D/YYYY h:mm:ss A"
   endDateFormatText: "M/D/YYYY h:mm:ss A"
+  startDateFormatText24: "M/D/YYYY H:mm:ss"
+  endDateFormatText24: "M/D/YYYY H:mm:ss"
 >
 
 <eventEditDateTimeFormat ""
   startingFormatText: "M/D/YYYY h:mm A"
+  startingFormatText24: "M/D/YYYY H:mm"
 >
 
 <eventListDateTimeFormat ""
@@ -74,35 +90,43 @@
 
 <historyDetailDateTimeFormat ""
   dateFormatText: "M/D/YYYY h:mm:ss A"
+  dateFormatText24: "M/D/YYYY H:mm:ss"
 >
 
 <historyEditDateTimeFormat ""
   startingFormatText: "M/D/YYYY h:mm A"
+  startingFormatText24: "M/D/YYYY H:mm"
 >
 
 <historyListDateTimeFormat ""
   hourMinuteFormatText: "h:mm A"
   dateFormatText: "M/D/YY"
+  hourMinuteFormatText24: "H:mm"
 >
 
 <opportunityDetailDateTimeFormat ""
   exchangeRateDateFormatText: "M/D/YYYY h:mm A"
+  exchangeRateDateFormatText24: "M/D/YYYY H:mm"
 >
 
 <opportunityEditDateTimeFormat ""
   exchangeRateDateFormatText: "M/D/YYYY h:mm A"
+  exchangeRateDateFormatText24: "M/D/YYYY H:mm"
 >
 
 <ticketActivityEditDateTimeFormat ""
   startingFormatText: "M/D/YYYY h:mm A"
+  startingFormatText24: "M/D/YYYY H:mm"
 >
 
 <ticketActivityListDateTimeFormat ""
   startDateFormatText: "MM/DD/YYYY h:mm A"
+  startDateFormatText24: "MM/DD/YYYY H:mm"
 >
 
 <groupUtilityDateTimeFormat ""
   groupDateFormatText: "M/D/YYYY h:mm:ss a"
+  groupDateFormatText24: "M/D/YYYY H:mm:ss"
 >
 
 <recurrenceDateTimeFormat ""
