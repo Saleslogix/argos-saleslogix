@@ -1329,6 +1329,7 @@
   calls: "Calls"
   todos: "Todos"
   personal: "Personal"
+  totalRecentlyViewed: "Total Recently Viewed"
 >
 
 <fileManager ""
