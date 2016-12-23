@@ -75,7 +75,7 @@ export default function bootstrap({
         }
       }
       const req = (requires) => {
-        require(requires.concat('dojo/domReady!'), () => {
+        window.require(requires.concat('dojo/domReady!'), () => {
           if (completed) {
             return;
           }
