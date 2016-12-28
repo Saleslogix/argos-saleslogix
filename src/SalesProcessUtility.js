@@ -16,7 +16,9 @@ const __class = lang.setObject('crm.SalesProcessUtility', {
   service: null,
   contractName: 'dynamic',
   resourceKind: 'salesProcesses',
-  queryInclude: null,
+  queryInclude: [
+    '$permissions',
+  ],
   querySelect: ['Name', 'EntityId'],
   queryOrderBy: '',
   queryWhere: '',

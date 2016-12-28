@@ -50,6 +50,9 @@ const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
         'WebAddress',
         'WorkPhone',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

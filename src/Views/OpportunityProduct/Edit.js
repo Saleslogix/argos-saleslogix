@@ -57,6 +57,9 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     'Quantity',
     'ExtendedPrice',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   init: function init() {
     this.inherited(arguments);
     this.connect(this.fields.Product, 'onChange', this.onProductChange);

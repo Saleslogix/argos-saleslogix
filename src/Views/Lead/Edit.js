@@ -69,6 +69,9 @@ const __class = declare('crm.Views.Lead.Edit', [Edit], {
     'WebAddress',
     'WorkPhone',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'leads',
 
   createLayout: function createLayout() {

@@ -76,6 +76,9 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     'UserName',
     'UserId',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   existsRE: /^[\w]{12}$/,
   init: function init() {
     this.inherited(arguments);

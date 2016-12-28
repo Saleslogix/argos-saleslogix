@@ -75,6 +75,9 @@ const __class = declare('crm.Models.Opportunity.SData', [Base, _SDataModelBase],
         'Type',
         'Weighted',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });
