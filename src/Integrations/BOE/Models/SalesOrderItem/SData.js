@@ -107,7 +107,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.SData', [Bas
         'UnitOfMeasure/*',
       ],
     },
-  ];
+    ];
   },
   updateItemWithWarehouse: function updateItemWithWarehouse(orderItem, warehouse) {
     const promise = new Promise((resolve) => {

@@ -250,8 +250,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Edit', [Edit], {
         type: 'lookup',
         view: 'owner_list',
       },
-    ] },
-  ]);
+      ] },
+    ]);
   },
 });
 

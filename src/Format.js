@@ -47,7 +47,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   },
   addressItems: function addressItems(addr, fmt) {
     function isEmpty(line) {
-      const filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
+      const filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, '')); // eslint-disable-line
       return filterSymbols === '';
     }
 

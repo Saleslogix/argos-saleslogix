@@ -102,7 +102,7 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.SData', [Base, _S
         'SlxLocation/*',
       ],
     },
-  ];
+    ];
   },
   updateItemWithWarehouse: function updateItemWithWarehouse(quoteItem, warehouse) {
     const promise = new Promise((resolve) => {

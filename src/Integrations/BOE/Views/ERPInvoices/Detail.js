@@ -205,7 +205,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
         where: this.formatRelatedQuery.bindDelegate(this, 'ErpInvoice.Id eq "${0}"'),
         view: 'invoice_receivables_related',
       },
-    ],
+      ],
     }]);
   },
 });

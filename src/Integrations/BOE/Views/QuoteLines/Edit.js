@@ -375,8 +375,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
         type: 'decimal',
         default: 0.00,
       },
-    ] },
-  ]);
+      ] },
+    ]);
   },
 });
 
