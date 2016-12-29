@@ -32,6 +32,9 @@ const __class = declare('crm.Integration.BOE.Models.BackOffice.SData', [Base, _S
         'CountryCodeFormat',
         'Version',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }, {
       name: 'list-active',
       queryOrderBy: 'BackOfficeName',

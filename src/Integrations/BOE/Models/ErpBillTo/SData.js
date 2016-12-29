@@ -36,6 +36,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillTo.SData', [Base, _S
         'PaymentTermId',
         'ErpPaymentMethod',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }, {
       name: 'edit',
       querySelect: [
@@ -52,6 +55,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillTo.SData', [Base, _S
         'CustomerType',
         'PaymentTermId',
         'ErpPaymentMethod',
+      ],
+      queryInclude: [
+        '$permissions',
       ],
     },
     ];

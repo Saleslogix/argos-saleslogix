@@ -23,6 +23,9 @@ const __class = declare('crm.Integrations.BOE.Models.BackOfficeAccountingEntity.
         'AcctEntityExtId',
         'BackOffice/*',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

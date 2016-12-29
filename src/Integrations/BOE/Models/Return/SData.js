@@ -29,6 +29,9 @@ const __class = declare('crm.Integrations.BOE.Models.Return.SData', [Base, _SDat
         'Priority',
         'CreateDate',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },
