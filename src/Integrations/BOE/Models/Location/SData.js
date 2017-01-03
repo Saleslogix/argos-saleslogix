@@ -33,6 +33,9 @@ const __class = declare('crm.Integrations.BOE.Models.Location.SData', [Base, _SD
         'ErpExtId',
         'LocationType',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

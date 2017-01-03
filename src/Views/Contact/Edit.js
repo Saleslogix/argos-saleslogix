@@ -70,6 +70,9 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
     'WebAddress',
     'WorkPhone',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'contacts',
 
   startup: function startup() {

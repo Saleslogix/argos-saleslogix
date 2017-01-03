@@ -70,6 +70,9 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.SData', [Bas
         'SlxLocation/*',
         'UnitOfMeasure/*',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }, {
       name: 'edit',
       querySelect: [
@@ -105,6 +108,9 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.SData', [Bas
         'Product/*',
         'SlxLocation/*',
         'UnitOfMeasure/*',
+      ],
+      queryInclude: [
+        '$permissions',
       ],
     },
     ];

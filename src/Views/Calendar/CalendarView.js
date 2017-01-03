@@ -260,6 +260,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ],
   queryInclude: [
     '$descriptors',
+    '$permissions',
   ],
   resourceKind: 'activities',
   contractName: 'system',
@@ -271,7 +272,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     'Description',
     'Type',
   ],
-  eventInclude: null,
+  eventInclude: [
+    '$permissions',
+  ],
   eventResourceKind: 'events',
   eventContractName: 'dynamic',
 
