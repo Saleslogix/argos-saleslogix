@@ -44,6 +44,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   dayTitleFormatText: dtFormatResource.dayTitleFormatText,
   eventDateFormatText: dtFormatResource.eventDateFormatText,
   startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,
@@ -133,7 +134,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+    '<span class="p-time">{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   activityItemTemplate: new Simplate([

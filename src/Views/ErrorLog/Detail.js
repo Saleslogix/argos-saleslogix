@@ -24,6 +24,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   detailsText: resource.detailsText,
   errorDateText: resource.errorDateText,
   errorDateFormatText: dtFormatResource.errorDateFormatText,
+  errorDateFormatText24: dtFormatResource.errorDateFormatText24,
   statusTextText: resource.statusTextText,
   urlText: resource.urlText,
   entityText: resource.entityText,
@@ -160,7 +161,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         label: this.errorDateText,
         name: 'Date',
         property: 'Date',
-        renderer: format.date.bindDelegate(this, this.errorDateFormatText),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.errorDateFormatText24 : this.errorDateFormatText),
       }, {
         label: this.statusTextText,
         name: 'Description',
