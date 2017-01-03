@@ -35,7 +35,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
     duration: resource.duration,
   },
   offlineText: {
-    total: 'Total Recently Viewed',
+    total: resource.totalRecentlyViewed,
   },
   customizationSet: 'metrics',
   id: 'default_metrics',

@@ -114,7 +114,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
         if (metrics.length > 0) {
           results = array.filter(metrics, (metric) => {
-            return metric.title === params.title;
+            return metric.title === unescape(params.title);
           });
         }
 
@@ -343,7 +343,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
               action: 'kpiClicked',
               title: metric.title,
               dataProps: {
-                title: metric.title,
+                title: escape(metric.title),
                 enabled: !!metric.enabled,
               },
             });

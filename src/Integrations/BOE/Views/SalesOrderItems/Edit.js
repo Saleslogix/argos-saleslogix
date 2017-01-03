@@ -375,9 +375,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
         type: 'decimal',
         default: 0.00,
       },
-
-    ] },
-  ]);
+      ] },
+    ]);
   },
 });
 
