@@ -92,7 +92,10 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   ],
   resourceKind: 'attachments',
   contractName: 'system',
-  queryInclude: ['$descriptors'],
+  queryInclude: [
+    '$descriptors',
+    '$permissions',
+  ],
 
   hashTagQueries: {
     url: "(fileName like '%.URL')",

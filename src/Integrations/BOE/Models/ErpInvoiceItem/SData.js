@@ -43,6 +43,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpInvoiceItem.SData', [Bas
         'ErpUnitPricePerQuanityUOM',
         'ErpInvoice/CurrencyCode',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

@@ -28,6 +28,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillToAccount.SData', [B
         'ErpBillTo/Email',
         'ErpBillTo/PaymentTermId',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

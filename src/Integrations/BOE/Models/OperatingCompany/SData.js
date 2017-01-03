@@ -22,6 +22,9 @@ const __class = declare('crm.Integrations.BOE.Models.OperatingCompany.SData', [B
         'EndPointURL',
         'Name',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

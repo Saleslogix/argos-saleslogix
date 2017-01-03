@@ -74,6 +74,9 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     'Type',
     'Weighted',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   init: function init() {
     this.inherited(arguments);
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);

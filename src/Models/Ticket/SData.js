@@ -59,6 +59,9 @@ const __class = declare('crm.Models.Ticket.SData', [Base, _SDataModelBase], {
         'Urgency/UrgencyCode',
         'CompletedBy/OwnerDescription',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
   createPicklistPromise: function createPicklistPromise(predicate, options) {

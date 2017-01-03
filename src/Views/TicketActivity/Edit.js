@@ -46,6 +46,9 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
     'User/UserInfo/FirstName',
     'User/UserInfo/LastName',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'ticketActivities',
 
   processTemplateEntry: function processTemplateEntry(entry) {

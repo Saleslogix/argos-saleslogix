@@ -38,6 +38,9 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
     'UserId',
     'Type',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'events',
 
   eventTypesText: {

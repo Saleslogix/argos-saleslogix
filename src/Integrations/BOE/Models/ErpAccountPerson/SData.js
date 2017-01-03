@@ -24,6 +24,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpAccountPerson.SData', [B
         'ErpPerson/Address/FullAddress',
         'CreateDate',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

@@ -40,6 +40,7 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
       ],
       queryInclude: [
         '$descriptors',
+        '$permissions',
       ],
     }, {
       name: 'myday',
@@ -88,6 +89,7 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
       ],
       queryInclude: [
         '$descriptors',
+        '$permissions',
       ],
     },
     ];
