@@ -1509,3 +1509,15 @@
   refreshTitle: "Refresh"
   refreshText: "Access to Ming.le is about to refresh. If you are inserting or editing data, save your changes immediately to avoid data loss."
 >
+
+<validators ""
+  existsText: "The field '${2}' must have a value."
+  nameText: "The field '${2}' must have a first and last name specified."
+  notEmptyText: "The field '${2}' cannot be empty."
+  hasText: "The field '${2}' must contain some text."
+  isNumberText: "The value '${0}' is not a valid number."
+  isCurrencyText: "The value '${0}' is not a valid currency number."
+  int32Text: "The field '${2}' value exceeds the allowed numeric range."
+  maxLengthText: "The field '${2}' value exceeds the allowed limit in length."
+  dateRangeText: "The field '${2}' value is out of allowed date range."
+>
