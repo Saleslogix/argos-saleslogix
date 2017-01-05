@@ -67,6 +67,9 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
     'User/UserInfo/UserName',
     'WebAddress',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'accounts',
 
   formatDependentPicklist: function formatDependentPicklist(dependentValue, nformat) {

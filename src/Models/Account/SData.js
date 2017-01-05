@@ -51,6 +51,9 @@ const __class = declare('crm.Models.Account.SData', [Base, _SDataModelBase], {
         'Type',
         'WebAddress',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

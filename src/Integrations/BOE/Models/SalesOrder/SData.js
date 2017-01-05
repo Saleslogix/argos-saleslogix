@@ -81,6 +81,9 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.SData', [Base, _
         'ErpSalesOrder/ERPStatus',
         'ErpStatusDate',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }, {
       name: 'edit',
       querySelect: [
@@ -122,6 +125,9 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.SData', [Base, _
         'Location/*',
         'RequestedBy/NameLF',
         'Carrier/*',
+      ],
+      queryInclude: [
+        '$permissions',
       ],
     }];
   },

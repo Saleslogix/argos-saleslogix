@@ -29,6 +29,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipToAccount.SData', [B
         'ErpShipTo/PaymentTermId',
         'ErpShipTo/CarrierName',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

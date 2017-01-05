@@ -45,6 +45,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   categoryTitleText: resource.categoryTitleText,
   completedText: resource.completedText,
   completedFormatText: dtFormatResource.completedFormatText,
+  completedFormatText24: dtFormatResource.completedFormatText24,
   completionText: resource.completionText,
   durationText: resource.durationText,
   durationInvalidText: resource.durationInvalidText,
@@ -63,6 +64,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   resultTitleText: resource.resultTitleText,
   startingText: resource.startingText,
   startingFormatText: dtFormatResource.startingFormatText,
+  startingFormatText24: dtFormatResource.startingFormatText24,
   startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
   timelessText: resource.timelessText,
   recurringActivityIdSeparator: ';',
@@ -224,7 +226,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       }
       startDateField.setValue(startDate);
     } else {
-      startDateField.dateFormatText = this.startingFormatText;
+      startDateField.dateFormatText = (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText;
       startDateField.showTimePicker = true;
       startDateField.timeless = false;
       if (this.isDateTimeless(startDate)) {
@@ -438,7 +440,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
         property: 'StartDate',
         type: 'date',
         showTimePicker: true,
-        formatString: this.startingFormatText,
+        formatString: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
         minValue: (new Date(1900, 0, 1)),
         validator: [
           validator.exists,

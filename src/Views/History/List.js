@@ -66,6 +66,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
 
   // Localization
   hourMinuteFormatText: dtFormatResource.hourMinuteFormatText,
+  hourMinuteFormatText24: dtFormatResource.hourMinuteFormatText24,
   dateFormatText: dtFormatResource.dateFormatText,
   titleText: resource.titleText,
   viewAccountActionText: resource.viewAccountActionText,
@@ -227,7 +228,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     let fmt = this.dateFormatText;
 
     if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
-      fmt = this.hourMinuteFormatText;
+      fmt = (App.is24HourClock()) ? this.hourMinuteFormatText24 : this.hourMinuteFormatText;
     }
 
     return format.date(startDate.toDate(), fmt);

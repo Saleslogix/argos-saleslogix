@@ -44,6 +44,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   multiCurrencyDateText: resource.multiCurrencyDateText,
   multiCurrencyLockedText: resource.multiCurrencyLockedText,
   exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText24: dtFormatResource.exchangeRateDateFormatText24,
   subTypePickListResellerText: resource.subTypePickListResellerText,
 
   // View Properties
@@ -72,6 +73,9 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     'Status',
     'Type',
     'Weighted',
+  ],
+  queryInclude: [
+    '$permissions',
   ],
   init: function init() {
     this.inherited(arguments);
@@ -346,7 +350,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         property: 'ExchangeRateDate',
         type: 'date',
         timeless: false,
-        dateFormatText: this.exchangeRateDateFormatText,
+        dateFormatText: (App.is24HourClock()) ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText,
         disabled: true, // TODO: Create an SDK issue for this (NOT WORKING!!!)
       }],
     };

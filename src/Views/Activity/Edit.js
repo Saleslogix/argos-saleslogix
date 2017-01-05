@@ -54,6 +54,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   rolloverText: resource.rolloverText,
   startingText: resource.startingText,
   startingFormatText: dtFormatResource.startingFormatText,
+  startingFormatText24: dtFormatResource.startingFormatText24,
   startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
   repeatsText: resource.repeatsText,
   recurringText: resource.recurringText,
@@ -341,7 +342,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     } else { // StartDate with out time (Timeless)
       this.fields.Rollover.setValue(false);
       this.fields.Rollover.disable();
-      startDateField.dateFormatText = this.startingFormatText;
+      startDateField.dateFormatText = (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText;
       startDateField.showTimePicker = true;
       startDateField.timeless = false;
       const startDate = this._getNewStartDate(startDateField.getValue(), false);
@@ -1053,7 +1054,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       timeless: false,
       showTimePicker: true,
       showRelativeDateTime: true,
-      dateFormatText: this.startingFormatText,
+      dateFormatText: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,

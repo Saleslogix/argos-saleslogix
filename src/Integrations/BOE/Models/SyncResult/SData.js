@@ -36,6 +36,9 @@ const __class = declare('crm.Integrations.BOE.Models.SyncResult.SData', [Base, _
         'ErrorMessage',
         'Stamp',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

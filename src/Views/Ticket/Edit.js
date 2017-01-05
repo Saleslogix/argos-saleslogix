@@ -81,6 +81,9 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     'Urgency/UrgencyCode',
     'CompletedBy/OwnerDescription',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'tickets',
 
   init: function init() {

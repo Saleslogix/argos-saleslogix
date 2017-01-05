@@ -39,6 +39,9 @@ const __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
     'Contact/NameLF',
     'Contact/Title',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'opportunityContacts',
 
   createLayout: function createLayout() {
