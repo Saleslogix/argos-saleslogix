@@ -1,6 +1,8 @@
 /* eslint-disable */
 var Hapi = require('hapi');
 var Inert = require('inert');
+var spdy = require('spdy');
+var fs = require('fs');
 
 var config;
 try {
@@ -29,6 +31,16 @@ server.register({
 
 server.connection({
     port: config.port,
+    listener: spdy.createServer({
+        key: fs.readFileSync('./scripts/server.key'),
+        cert: fs.readFileSync('./scripts/server.crt'),
+        spdy: {
+            protocols: [ 'h2', 'spdy/3.1', 'http/1.1' ],
+            plain: config.http2 === true ? false : true, // To enable https on localhost, set this to false
+            'x-forwarded-for': true
+        }
+    }),
+    tls: true,
     routes: {
         "cors": {
             "headers": [
@@ -68,6 +80,12 @@ server.route({
 server.route({
     method: '*',
     path: '/{param*}',
+    config: {
+      cache: {
+        expiresIn: 30 * 1000,
+        privacy: 'private'
+      },
+    },
     handler: {
         directory: {
             path: '../../',
