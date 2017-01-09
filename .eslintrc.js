@@ -27,7 +27,8 @@ module.exports = {
     "Rx": false,
     "moment": false,
     "PouchDB": false,
-    "ICRMCommonSDK": false
+    "ICRMCommonSDK": false,
+    "ICRMCustomizationSDK": false
   },
   rules: {
     /**
