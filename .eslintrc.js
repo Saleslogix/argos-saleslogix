@@ -3,6 +3,9 @@ module.exports = {
     es6: true,
     browser: true
   },
+  plugins: [
+    "react"
+  ],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
@@ -27,6 +30,8 @@ module.exports = {
     "Rx": false,
     "moment": false,
     "PouchDB": false,
+    "React": false,
+    "ReactDOM": false,
     "ICRMCommonSDK": false,
     "ICRMCustomizationSDK": false
   },
