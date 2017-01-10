@@ -66,10 +66,10 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
     for (const selectionKey in selections) {
       if (selections.hasOwnProperty(selectionKey)) {
         entry = {
-          'Opportunity': {
-            '$key': context.key,
+          Opportunity: {
+            $key: context.key,
           },
-          'Contact': view.entries[selectionKey],
+          Contact: view.entries[selectionKey],
         };
       }
     }
@@ -112,9 +112,9 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   navigateToInsertView: function navigateToInsertView(entry) {
     const view = App.getView(this.insertView);
     const options = {
-        entry: entry,
-        insert: true,
-      };
+      entry,
+      insert: true,
+    };
     if (view && options) {
       view.show(options, {
         returnTo: -1,
@@ -130,7 +130,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'associate',
         cls: 'fa fa-plus fa-fw fa-lg',
         action: 'navigateToSelectView',

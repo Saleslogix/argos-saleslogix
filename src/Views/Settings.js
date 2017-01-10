@@ -44,6 +44,10 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   credentialsClearedText: resource.credentialsClearedText,
   titleText: resource.titleText,
   offlineOptionsText: resource.offlineOptionsText,
+  use24HourClockText: resource.use24HourClockText,
+  use12HourClockText: resource.use12HourClockText,
+  confirmClockMessage: resource.confirmClockMessage,
+  confirmClearLocalStorageMessage: resource.confirmClearLocalStorageMessage,
 
   // View Properties
   id: 'settings',
@@ -58,24 +62,29 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     'clearLocalStorage',
     'viewErrorLogs',
     'viewOfflineOptions',
+    'use24HourClock',
   ],
   createActions: function createActions() {
     this.actions = {
-      'clearLocalStorage': {
+      clearLocalStorage: {
         title: this.clearLocalStorageTitleText,
         cls: 'fa fa-database fa-2x',
       },
-      'clearAuthentication': {
+      clearAuthentication: {
         title: this.clearAuthenticationTitleText,
         cls: 'fa fa-unlock fa-2x',
       },
-      'viewErrorLogs': {
+      viewErrorLogs: {
         title: this.errorLogTitleText,
         cls: 'fa fa-list-alt fa-2x',
       },
-      'viewOfflineOptions': {
+      viewOfflineOptions: {
         title: this.offlineOptionsText,
         cls: 'fa fa-list-alt fa-2x',
+      },
+      use24HourClock: {
+        title: (App.is24HourClock()) ? this.use24HourClockText : this.use12HourClockText,
+        cls: 'fa fa-user fa-2x',
       },
     };
   },
@@ -92,15 +101,18 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     }
   },
   clearLocalStorage: function clearLocalStorage() {
-    if (window.localStorage) {
-      window.localStorage.clear();
+    if (confirm(this.confirmClearLocalStorageMessage)) { // eslint-disable-line
+      if (window.localStorage) {
+        window.localStorage.clear();
+      }
+
+      connect.publish('/app/refresh', [{
+        resourceKind: 'localStorage',
+      }]);
+
+      alert(this.localStorageClearedText); // eslint-disable-line
+      window.location.reload(); // reloaded because of the clock setting
     }
-
-    connect.publish('/app/refresh', [{
-      resourceKind: 'localStorage',
-    }]);
-
-    alert(this.localStorageClearedText); // eslint-disable-line
   },
   clearAuthentication: function clearAuthentication() {
     if (window.localStorage) {
@@ -113,6 +125,16 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     const view = App.getView('offline_options_edit');
     if (view) {
       view.show();
+    }
+  },
+  use24HourClock: function use24HourClock() {
+    if (confirm(this.confirmClockMessage)) { // eslint-disable-line
+      if (App.is24HourClock()) {
+        window.localStorage.setItem('use24HourClock', JSON.stringify(false));
+      } else {
+        window.localStorage.setItem('use24HourClock', JSON.stringify(true));
+      }
+      window.location.reload();
     }
   },
   hasMoreData: function hasMoreData() {

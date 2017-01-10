@@ -61,7 +61,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this._model = App.ModelManager.getModel(this.offlineContext.entityName, MODEL_TYPES.OFFLINE);
 
     if (!this.offlineContext.viewId) {
-      this.offlineContext.viewId = (this._model.detailViewId) ? this._model.detailViewId : this._model.entityName.toLowerCase() + '_detail';
+      this.offlineContext.viewId = (this._model.detailViewId) ? this._model.detailViewId : `${this._model.entityName.toLowerCase()}_detail`;
     }
 
     this._entityView = this.getEntityView();
@@ -71,7 +71,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     App.setToolBarMode(false);
   },
   getEntityView: function getEntityView() {
-    const newViewId = this.id + '_' + this.offlineContext.viewId;
+    const newViewId = `${this.id}_${this.offlineContext.viewId}`;
     const view = App.getView(this.offlineContext.viewId);
 
     if (this._entityView) {
@@ -81,7 +81,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
 
     if (view) {
       const ViewCtor = view.constructor;
-      this._entityView = new ViewCtor({id: newViewId});
+      this._entityView = new ViewCtor({ id: newViewId });
     }
     return this._entityView;
   },
@@ -94,23 +94,35 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     let value;
     let offlineDate = '';
     if (this._model && this._model.entityDisplayName) {
-      value = this._model.entityDisplayName + ' ' + this.informationText;
+      value = `${this._model.entityDisplayName} ${this.informationText}`;
     } else {
-      value = this.entityText + ' ' + this.informationText;
+      value = `${this.entityText} ${this.informationText}`;
     }
-    value = value + ' - ' + this.offlineText;
+    value = `${value} - ${this.offlineText}`;
     if (this.entry.$offlineDate) {
       offlineDate = format.relativeDate(this.entry.$offlineDate);
     }
-    domConstruct.place(this.detailHeaderTemplate.apply({ value: value, offlineDate: offlineDate }, this), this.tabList, 'before');
+    domConstruct.place(this.detailHeaderTemplate.apply({ value, offlineDate }, this), this.tabList, 'before');
   },
   createLayout: function createLayout() {
     const view = this._entityView;
+    const original = App.getView(this.offlineContext.viewId);
     let layout = [];
-    if (view) {
+    if (view && original) {
       view.entry = this.entry;
-      layout = view.createLayout.apply(view);
+      original.entry = this.entry;
+      layout = original._createCustomizedLayout.apply(original, [original.createLayout.apply(original)]);
+      original.layout = null;
+      original.refreshRequired = true;
     }
+
+    layout = layout.filter(({ enableOffline }) => {
+      if (typeof enableOffline === 'undefined' || enableOffline === null) {
+        return true;
+      }
+
+      return enableOffline;
+    });
 
     this.disableSections(layout);
     this.applyRelatedSections(layout);
@@ -152,7 +164,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
         } else if (relatedModel && relatedModel.listViewId) {
           viewId = relatedModel.listViewId;
         } else {
-          viewId = rel.relatedEntity.toLowerCase() + '_related';
+          viewId = `${rel.relatedEntity.toLowerCase()}_related`;
         }
 
         const item = {
@@ -170,9 +182,10 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   },
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
     const labelNode = query('.related-item-label', rowNode)[0];
-    if (labelNode) {
-      this._model.getRelatedCount(data.relationship, this.entry).then((count) => {
-        const html = '<span class="related-item-count">' + count + '</span>';
+    const { relationship } = data;
+    if (labelNode && relationship) {
+      this._model.getRelatedCount(relationship, this.entry).then((count) => {
+        const html = `<span class="related-item-count">${count}</span>`;
         domConstruct.place(html, labelNode, 'before');
       }, (err) => {
         console.warn('Error getting related item count: ' + err); //eslint-disable-line
@@ -205,8 +218,8 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
         viewId: rel.view,
         related: rel,
         source: this,
-        queryExpression: queryExpression,
-      }};
+        queryExpression,
+      } };
     options.fromContext = this;
     options.selectedEntry = this.entry;
     if (view && options) {
@@ -242,14 +255,14 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     }
   },
   getRelatedDetailView: function getRelatedDetailView(entityName) {
-    const viewId = 'offline_detail' + '_' + entityName;
+    const viewId = `offline_detail_${entityName}`;
     let view = this.app.getView(viewId);
 
     if (view) {
       return view;
     }
 
-    this.app.registerView(new this.constructor({id: viewId}));
+    this.app.registerView(new this.constructor({ id: viewId }));
     view = this.app.getView(viewId);
     return view;
   },

@@ -8,6 +8,7 @@ import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
 
 const resource = getResource('errorLogDetail');
+const dtFormatResource = getResource('errorLogDetailDateTimeFormat');
 
 /**
  * @class crm.Views.ErrorLog.Detail
@@ -22,7 +23,8 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   titleText: resource.titleText,
   detailsText: resource.detailsText,
   errorDateText: resource.errorDateText,
-  errorDateFormatText: resource.errorDateFormatText,
+  errorDateFormatText: dtFormatResource.errorDateFormatText,
+  errorDateFormatText24: dtFormatResource.errorDateFormatText24,
   statusTextText: resource.statusTextText,
   urlText: resource.urlText,
   entityText: resource.entityText,
@@ -71,7 +73,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
 
   createToolLayout: function createToolLayout() {
     const tools = {
-      'tbar': [],
+      tbar: [],
     };
 
     if (this.sendType === 'mailto') {
@@ -85,14 +87,14 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
 
     if (this.sendType === 'copy') {
       const flashVars = this.constructFlashVars({
-        'retrieveFunction': 'App.views.' + this.id + '.constructReport',
-        'callbackFunction': 'App.views.' + this.id + '.onCopySuccess',
-        'labelVisible': '0',
+        retrieveFunction: `App.views.${this.id}.constructReport`,
+        callbackFunction: `App.views.${this.id}.onCopySuccess`,
+        labelVisible: '0',
       });
 
       tools.tbar.push({
         template: this.copyButtonTemplate,
-        flashVars: flashVars,
+        flashVars,
       });
     }
 
@@ -159,7 +161,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         label: this.errorDateText,
         name: 'Date',
         property: 'Date',
-        renderer: format.date.bindDelegate(this, this.errorDateFormatText),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.errorDateFormatText24 : this.errorDateFormatText),
       }, {
         label: this.statusTextText,
         name: 'Description',

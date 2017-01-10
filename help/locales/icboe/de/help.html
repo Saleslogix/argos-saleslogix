@@ -1,0 +1,273 @@
+<h1>Einführung in Infor CRM Back Office Extension</h1> Infor CRM Back Office Extension (ICBOE) erweitert den Mobile Client durch folgende Entitäten: <ul>
+ <li>
+      Rechnungen</li>
+ <li>
+     Angebote</li>
+ <li>
+      Verkaufsaufträge</li>
+ <li>
+      Lieferungen</li>
+ <li>
+      Forderungen</li>
+</ul> Zum Anzeigen dieser Entitäten müssen die jeweiligen Ansichten aktiviert werden: <ul>
+ <li>
+      Klicken Sie auf das Menü "Global" &gt; <strong>Sonstige</strong> &gt;<strong> Menü konfigurieren</strong>. Tippen Sie auf <strong>Rechnungen</strong>, <strong>Forderungen</strong> und/oder <strong>Lieferungen</strong>. Klicken Sie in der oberen Menüleiste auf das Häkchen, um die Auswahl zu akzeptieren und die Menükonfiguration zu verlassen.</li>
+</ul>
+<ul>
+<li>
+      Legen Sie ggf. eine Standardgruppe für eine Entität fest. Klicken Sie in der Listenansicht für Entitäten auf <strong>Keine Standardgruppe eingerichtet.</strong> <strong>Klicken Sie hier, um Gruppen zu konfigurieren,</strong> und geben Sie an, ob alle verfügbaren Datensätze für diese Entität oder nur Ihre Datensätze für diese Entität angezeigt werden sollen.</p>
+
+</li>
+<li><p>In der Ansicht mit Entitätsdetails haben Sie über die Registerkarten mit zugehörigen Elementen Zugriff auf weitere Informationen. Öffnen Sie eine Detailansicht für die folgenden Entitätstypen, um die Elemente auf der Registerkarte "Zugehörige Elemente" anzuzeigen:</p>
+<ul>
+<li>Rechnungen: Rechnungs- und Forderungspositionen</li>
+<li>Angebote: Angebotspositionen, Anlagen, Verkäufer und Synchronisierungshistorie</li>
+<li>Forderungen: Forderungspositionen</li>
+<li>Verkaufsaufträge: Auftragspositionen, Rechnungspositionen, Lieferungspositionen, Anlagen und Synchronisierungshistorie</li>
+<li>Lieferungen: Lieferungspositionen</li>
+</ul>
+</li>
+</ul>
+
+<h1>Direkthilfe</h1>
+<ul>
+  <li>
+    Gruppen sind verfügbar für Angebote und Verkaufsaufträge.
+  </li>
+    <li>
+      <span class="fa fa-times-circle"></span>
+      <div>
+        Die Schaltfläche "Löschen" ist verfügbar für Angebots- und Auftragspositionen. Tippen Sie darauf, um den aktuellen Datensatz aus CRM zu löschen. Diese Option ist nur in der Detailansicht der Position verfügbar.
+      </div>
+    </li>
+	<li>
+    Die Offline-Arbeitsfunktionen <b>Zuletzt angezeigt</b> und <b>Eigene Aktentasche</b> sind beide für ICBOE-Datensätze verfügbar.
+  </li>
+</ul>
+<h1>Cockpits</h1>
+<p>
+Verwenden Sie Cockpits, um firmenbezogene, anpassbare, vordefinierte Analysen in Form von Listen-Widgets anzuzeigen.
+</p>
+<p>
+Klicken Sie im Layout "Firmendetail" auf die Registerkarte <strong>Cockpits</strong>. </p>
+<ul>
+<li><strong>Momentaufnahme Finanzen:</strong> Zeigt Informationen über einen konfigurierbaren Zeitraum von 30, 60, 90, 180 und 365 Tagen an. <ul>
+<li><strong>Fakturierter Umsatz:</strong> Summierter Gesamtbetrag aus Rechnungen an die Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Fakturierter Gewinn:</strong> (Summierter Gesamtbetrag) abzüglich der (Gesamtkosten) aus Rechnungen an die Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Fakturierte Marge:</strong> (Fakturierter Gewinn) geteilt durch den (Gesamtbetrag) aus Rechnungen an die Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Umsatz pro Jahr:</strong> (Umsatz für das vergangene Jahr abzüglich des Umsatzes zwischen 2 Jahren und 1 Jahr davor) geteilt durch den (Umsatz zwischen 2 Jahren und 1 Jahr davor).</li>
+<li><strong>Gewinn pro Jahr:</strong> (Summierter Gesamtbetrag) abzüglich der (Gesamtkosten) für Rechnungen der Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Marge pro Jahr:</strong> (Marge für das vergangene Jahr abzüglich der Marge zwischen 2 Jahren und 1 Jahr davor) geteilt durch die (Marge zwischen 2 Jahren und 1 Jahr davor) für Rechnungen der Firma, die in den letzten x Tagen erstellt wurden.  </li>
+</ul>
+</li>
+<li><strong>Neue Transaktionen:</strong> Zeigt einen konfigurierbaren Zeitraum von 7, 14, 30 und 90 Tagen an, der das aktuelle Datum enthält. Sowohl Rechnungsnummer als auch der jeweilige Gesamtwert werden angezeigt. <ul>
+<li><strong>Neue Angebote:</strong> Die Anzahl der Angebote der Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Neue Aufträge:</strong> Die Anzahl der Aufträge der Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Neue Lieferungen:</strong> Die Anzahl der Lieferungen dieser Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Neue Rechnungen:</strong> Die Anzahl der Rechnungen der Firma, die in den letzten x Tagen erstellt wurden.</li>
+<!--<li><strong>New Receivables:</strong> The number of receivables related to the account created in the last x days.  </li>-->
+</ul>
+</li>
+<li><strong>Offene Transaktionen:</strong> Zeigt offene fällige Angebote, fällige Rechnungen und fällige Verkaufsaufträge über einen konfigurierbaren Zeitraum von 0+, 30+, 60+, 90+ und 180+ Tagen vor dem aktuellen Datum an. Sowohl die Anzahl der Transaktionsdatensätze als auch der jeweilige Gesamtwert werden angezeigt. <ul>
+<li><strong>Fällige Angebote:</strong> Die Anzahl der insgesamt offenen Angebote der Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Fällige Rechnungen:</strong> Die Anzahl der insgesamt offenen Rechnungen der Firma, die in den letzten x Tagen erstellt wurden.</li>
+<li><strong>Fällige Verkaufsaufträge:</strong> Die Anzahl der insgesamt offenen Verkaufsaufträge der Firma, die in den letzten x Tagen erstellt wurden.</li>
+</ul>
+</li>
+</ul>
+
+<h1>ICBOE-Suchfelder</h1>
+<p>
+ Folgende Suchfelder sind verfügbar, wenn Ihre Infor CRM-Installation eine Infor CRM Back Office Extension-Integration einschließt. Klicken Sie in Infor CRM auf die Registerkarte "Hilfe", um eine Liste mit weiteren Suchfeldern anzuzeigen.
+</p>
+<p>Bei Entitäten lassen sich die Ergebnisse in der Listenansicht über die Suchleiste unter Verwendung der unten angegeben Felder filtern.</p>
+<ul id="help_search_icboe">
+
+  <li>
+    <h2>Firmen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>ERP-Kunden-ID: beginnt mit </li>
+    </ul>
+  </li>
+
+<!--<li>
+    <h2>Account Persons</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name : starts with </li>
+    </ul>
+  </li>-->
+  <!--<li>
+    <h2>Back Offices</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name : starts with </li>
+      <li>Logical ID : starts with </li>
+    </ul>
+  </li>-->
+  <li>
+    <!--<h2>Back Office Acounting Entities</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name : starts with </li>
+    </ul>
+  </li>
+  <li>-->
+    <h2>Rechnungsempfänger - Firmen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Name Rechnungsempfänger: beginnt mit </li>
+    </ul>
+  </li>
+<li><h2>Kontakt</h2>
+<h3>Suchfelder</h3>
+<ul>
+<li>Name des Kontakts: beginnt mit </li>
+</ul></li>
+<li>
+    <h2>Kontakt/Firma</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Name des Kontakts: beginnt mit </li>
+    </ul>
+  </li>
+  <li>
+    <h2>Rechnungen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Firmenname: beginnt mit</li>
+      <li>Rechnungs-ID: beginnt mit</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Rechnungspositionen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+	<li>Produktname: beginnt mit</li>
+	<li>Rechnungs-ID: beginnt mit</li>
+	<li>Produktbeschreibung: beginnt mit</li>
+	<li>Positionsnummer: beginnt mit</li>
+        </ul>
+  </li>
+  <li>
+    <!--<h2>Invoice Persons</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name: starts with</li>
+    </ul>
+  </li>-->
+   <!--<li>
+    <h2>Products</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Actual ID: starts with</li>
+      <li>Family: starts with</li>
+      <li>Name: starts with</li>
+    </ul>
+  </li>
+  <li>-->
+    <h2>Angebote</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Angebotsnummer: beginnt mit</li>
+      <li>Firmenname: beginnt mit</li>
+      <li>ERP-Auftrags-ID: beginnt mit</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Angebotspositionen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Positionsnummer: beginnt mit</li>
+      <li>Produktname: beginnt mit</li>
+      <li>Produktbeschreibung: beginnt mit</li>
+      <li>Angebotsnummer: beginnt mit</li>
+    </ul>
+  </li>
+<li>
+    <h2>Verantwortliche für das Angebot</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Name: beginnt mit</li>
+      <li>Angebots-ID: beginnt mit</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Forderungen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Forderungs-ID: enthält</li>
+      <li>Firmenname: enthält</li>
+      <li>Rechnungs-ID: enthält</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Forderungspositionen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Rechnungs-ID: enthält</li>
+      <li>Forderungs-ID: enthält</li>
+      <li>Firmenname: enthält</li>
+    </ul>
+  </li>
+  <!--<li>
+    <h2>Returns</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Return Number: contains</li>
+    </ul>
+  </li>-->
+  <li>
+    <h2>Verkaufsaufträge</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Verkaufsauftragsnummer: beginnt mit</li>
+      <li>Firmenname: beginnt mit</li>
+      <li>ERP-Auftrags-ID: beginnt mit</li>
+      <li>Kaufauftrag des Kunden: beginnt mit</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Verkaufsauftragspositionen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Positionsnummer: beginnt mit</li>
+      <li>Produktname: beginnt mit</li>
+      <li>Produktbeschreibung: beginnt mit </li>
+     <li>Verkaufsauftragsnummer: beginnt mit </li>
+    </ul>
+  </li>
+  <!--<li>
+     <h2>Sales Order Persons</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name: starts with</li>
+    </ul>
+  </li>-->
+  <li>
+    <h2>Lieferungen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Firmenname: beginnt mit</li>
+      <li>Lieferungs-ID: beginnt mit</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Lieferungspositionen</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Positionsnummer: beginnt mit</li>
+      <li>Produktname: beginnt mit</li>
+      <li>Verkaufsauftrags-ID: beginnt mit</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Firmen Lieferungsempfänger</h2>
+    <h3>Suchfelder</h3>
+    <ul>
+      <li>Name Lieferungsempfänger: beginnt mit</li>
+    </ul>
+  </li>
+
+</ul>

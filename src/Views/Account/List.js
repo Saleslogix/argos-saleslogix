@@ -99,7 +99,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   modelName: MODEL_NAMES.ACCOUNT,
 
   callMain: function callMain(params) {
-    this.invokeActionItemBy(function invoke(a) {
+    this.invokeActionItemBy((a) => {
       return a.id === 'callMain';
     }, params.key);
   },
@@ -108,6 +108,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
+      security: 'Entities/Account/Edit',
       action: 'navigateToEditView',
     }, {
       id: 'callMain',

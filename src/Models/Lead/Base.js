@@ -18,8 +18,7 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
   security: 'Entities/Lead/View',
   modelName: MODEL_NAMES.OPPORTUNITY,
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Addresses',
       displayName: addressResource.entityDisplayNamePlural,
       propertyName: 'Addresses',

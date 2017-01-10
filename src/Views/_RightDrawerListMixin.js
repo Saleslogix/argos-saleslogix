@@ -59,7 +59,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     }.bind(this);
 
     if (this.rebuildWidgets) {
-      App.snapper.on('close', function onCloseofSnapper() {
+      App.snapper.on('close', () => {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
 
@@ -74,7 +74,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
         // Reset state
         this._hashTagClicked = false;
-      }.bind(this));
+      });
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
@@ -103,7 +103,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
         if (params.hashtag) {
           this._hashTagClicked = true;
-          this.setSearchTerm('#' + params.hashtag);
+          this.setSearchTerm(`#${params.hashtag}`);
           this.search();
           this.toggleRightDrawer();
         }
@@ -113,8 +113,8 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, function setMetricTitle(metric) {
-            return metric.title === params.title;
+          results = array.filter(metrics, (metric) => {
+            return metric.title === unescape(params.title);
           });
         }
 
@@ -135,7 +135,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         this._startGroupMode();
         const groupId = params.$key;
 
-        const group = array.filter(this.groupList, function setItemKey(item) {
+        const group = array.filter(this.groupList, (item) => {
           return item.$key === groupId;
         })[0];
 
@@ -167,9 +167,9 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
     const field = new LookupField({
       owner: this,
-      view: view,
+      view,
       singleSelect: false,
-      previousSelections: array.map(this.groupList, function getGroupKey(group) {
+      previousSelections: array.map(this.groupList, (group) => {
         return group.$key;
       }),
     });
@@ -259,22 +259,22 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       };
 
       groupsSection.children.push({
-        'name': 'configureGroups',
-        'action': 'groupConfigureClicked',
-        'title': resource.configureGroupsText,
-        'cls': 'group-configuration',
-        'iconCls': 'fa fa-cog fa-fw ',
+        name: 'configureGroups',
+        action: 'groupConfigureClicked',
+        title: resource.configureGroupsText,
+        cls: 'group-configuration',
+        iconCls: 'fa fa-cog fa-fw ',
       });
 
       if (this.groupList && this.groupList.length > 0) {
-        array.forEach(this.groupList, function setGroupSection(group) {
+        array.forEach(this.groupList, (group) => {
           groupsSection.children.push({
-            'name': group.name,
-            'action': 'groupClicked',
-            'title': group.displayName,
-            'dataProps': {
+            name: group.name,
+            action: 'groupClicked',
+            title: group.displayName,
+            dataProps: {
               $key: group.$key,
-              'title': group.displayName,
+              title: group.displayName,
             },
           });
         });
@@ -284,14 +284,14 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         children: [],
       };
       if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
-        array.forEach(this.groupTemplateLayouts, function setGroupLayout(theLayout) {
+        array.forEach(this.groupTemplateLayouts, (theLayout) => {
           layoutSection.children.push({
-            'name': theLayout.name,
-            'action': 'layoutSelectedClicked',
-            'title': theLayout.displayName,
-            'dataProps': {
-              'name': theLayout.name,
-              'title': theLayout.displayName,
+            name: theLayout.name,
+            action: 'layoutSelectedClicked',
+            title: theLayout.displayName,
+            dataProps: {
+              name: theLayout.name,
+              title: theLayout.displayName,
             },
           });
         });
@@ -314,11 +314,11 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         for (let i = 0; i < len; i++) {
           const hashTag = this.searchWidget.hashTagQueries[i];
           hashTagsSection.children.push({
-            'name': hashTag.key,
-            'action': 'hashTagClicked',
-            'title': hashTag.tag,
-            'dataProps': {
-              'hashtag': hashTag.tag,
+            name: hashTag.key,
+            action: 'hashTagClicked',
+            title: hashTag.tag,
+            dataProps: {
+              hashtag: hashTag.tag,
             },
           });
         }
@@ -327,29 +327,31 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       layout.push(hashTagsSection);
     }
 
-    const metrics = App.getMetricsByResourceKind(this.resourceKind);
+    if (this.createMetricWidgetsLayout) {
+      const metrics = App.getMetricsByResourceKind(this.resourceKind);
 
-    const kpiSection = {
-      id: 'kpi',
-      children: [],
-    };
+      const kpiSection = {
+        id: 'kpi',
+        children: [],
+      };
 
-    if (metrics.length > 0) {
-      array.forEach(metrics, function setMetric(metric, i) {
-        if (metric.title) {
-          kpiSection.children.push({
-            'name': 'KPI' + i,
-            'action': 'kpiClicked',
-            'title': metric.title,
-            'dataProps': {
-              'title': metric.title,
-              'enabled': !!metric.enabled,
-            },
-          });
-        }
-      });
+      if (metrics.length > 0) {
+        array.forEach(metrics, (metric, i) => {
+          if (metric.title) {
+            kpiSection.children.push({
+              name: `KPI${i}`,
+              action: 'kpiClicked',
+              title: metric.title,
+              dataProps: {
+                title: escape(metric.title),
+                enabled: !!metric.enabled,
+              },
+            });
+          }
+        });
 
-      layout.push(kpiSection);
+        layout.push(kpiSection);
+      }
     }
 
     return layout;

@@ -8,6 +8,7 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityEdit');
+const dtFormatResource = getResource('opportunityEditDateTimeFormat');
 
 /**
  * @class crm.Views.Opportunity.Edit
@@ -42,7 +43,8 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   multiCurrencyCodeText: resource.multiCurrencyCodeText,
   multiCurrencyDateText: resource.multiCurrencyDateText,
   multiCurrencyLockedText: resource.multiCurrencyLockedText,
-  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText24: dtFormatResource.exchangeRateDateFormatText24,
   subTypePickListResellerText: resource.subTypePickListResellerText,
 
   // View Properties
@@ -72,6 +74,9 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     'Type',
     'Weighted',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   init: function init() {
     this.inherited(arguments);
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
@@ -82,13 +87,13 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     }
   },
   applyContext: function applyContext(templateEntry) {
-    const found = App.queryNavigationContext(function queryNavigationContext(o) {
+    const found = App.queryNavigationContext((o) => {
       return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
     });
 
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext,
+      accounts: this.applyAccountContext,
+      contacts: this.applyContactContext,
     };
 
     if (found && lookup[found.resourceKind]) {
@@ -104,8 +109,8 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     if (App.hasMultiCurrency() && templateEntry) {
       if (templateEntry.ExchangeRateCode) {
         this.fields.ExchangeRateCode.setValue({
-          '$key': templateEntry.ExchangeRateCode,
-          '$descriptor': templateEntry.ExchangeRateCode,
+          $key: templateEntry.ExchangeRateCode,
+          $descriptor: templateEntry.ExchangeRateCode,
         });
       }
 
@@ -123,8 +128,8 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     if (App.hasMultiCurrency()) {
       if (values && values.ExchangeRateCode) {
         this.fields.ExchangeRateCode.setValue({
-          '$key': values.ExchangeRateCode,
-          '$descriptor': values.ExchangeRateCode,
+          $key: values.ExchangeRateCode,
+          $descriptor: values.ExchangeRateCode,
         });
       }
 
@@ -184,14 +189,12 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     if (value === true) {
       this.fields.ExchangeRate.disable();
       this.fields.ExchangeRateCode.disable();
+    } else if (!App.canChangeOpportunityRate()) {
+      this.fields.ExchangeRate.disable();
+      this.fields.ExchangeRateCode.disable();
     } else {
-      if (!App.canChangeOpportunityRate()) {
-        this.fields.ExchangeRate.disable();
-        this.fields.ExchangeRateCode.disable();
-      } else {
-        this.fields.ExchangeRate.enable();
-        this.fields.ExchangeRateCode.enable();
-      }
+      this.fields.ExchangeRate.enable();
+      this.fields.ExchangeRateCode.enable();
     }
 
     this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
@@ -347,7 +350,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         property: 'ExchangeRateDate',
         type: 'date',
         timeless: false,
-        dateFormatText: this.exchangeRateDateFormatText,
+        dateFormatText: (App.is24HourClock()) ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText,
         disabled: true, // TODO: Create an SDK issue for this (NOT WORKING!!!)
       }],
     };

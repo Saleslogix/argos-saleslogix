@@ -120,6 +120,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
       action: 'navigateToEditView',
+      security: 'Entities/Opportunity/Edit',
     }, {
       id: 'viewAccount',
       label: this.viewAccountActionText,
@@ -158,6 +159,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
       label: this.quickEditActionText,
       editView: 'opportunity_quick_edit',
       action: 'navigateToQuickEdit',
+      security: 'Entities/Opportunity/Edit',
     }]);
   },
 
@@ -165,10 +167,10 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
     return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   groupFieldFormatter: {
-    'CloseProbability': {
+    CloseProbability: {
       name: 'CloseProbability',
       formatter: function formatter(value) {
-        return format.fixedLocale(value, 0) + '%';
+        return `${format.fixedLocale(value, 0)}%`;
       },
     },
   },

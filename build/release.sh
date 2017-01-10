@@ -13,7 +13,7 @@ mkdir -p deploy/content/css
 grunt clean:css
 grunt clean:js
 grunt less
-grunt babel
+npm run build
 
 # Java Build Tool
 #java -Dfile.encoding=UTF-8 -jar "../../argos-sdk/tools/JSBuilder/JSBuilder2.jar" -v -p "build/release.jsb2" -d "."

@@ -94,17 +94,17 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   groupsEnabled: true,
   enableActions: true,
   callWork: function callWork(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'callWork';
     }, params.key);
   },
   callMobile: function callMobile(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'callMobile';
     }, params.key);
   },
   sendEmail: function sendEmail(params) {
-    this.invokeActionItemBy(function setActionId(theAction) {
+    this.invokeActionItemBy((theAction) => {
       return theAction.id === 'sendEmail';
     }, params.key);
   },
@@ -113,6 +113,7 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
       id: 'edit',
       cls: 'fa fa-pencil fa-2x',
       label: this.editActionText,
+      security: 'Entities/Contact/Edit',
       action: 'navigateToEditView',
     }, {
       id: 'callWork',
@@ -159,7 +160,7 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%") or (Account.AccountNameUpper like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
 });
 

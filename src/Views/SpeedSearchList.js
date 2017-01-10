@@ -80,22 +80,22 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   }],
   types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
   indexesText: {
-    'Account': resource.accountText,
-    'Activity': resource.activityText,
-    'Contact': resource.contactText,
-    'History': resource.historyText,
-    'Lead': resource.leadText,
-    'Opportunity': resource.opportunityText,
-    'Ticket': resource.ticketText,
+    Account: resource.accountText,
+    Activity: resource.activityText,
+    Contact: resource.contactText,
+    History: resource.historyText,
+    Lead: resource.leadText,
+    Opportunity: resource.opportunityText,
+    Ticket: resource.ticketText,
   },
   itemIconByType: {
-    'Contact': 'fa-user',
-    'Account': 'fa-building-o',
-    'Opportunity': 'fa-money',
-    'Ticket': 'fa-clipboard',
-    'Lead': 'fa-filter',
-    'Activity': 'fa-calendar-o',
-    'History': 'fa-history',
+    Contact: 'fa-user',
+    Account: 'fa-building-o',
+    Opportunity: 'fa-money',
+    Ticket: 'fa-clipboard',
+    Lead: 'fa-filter',
+    Activity: 'fa-calendar-o',
+    History: 'fa-history',
   },
   currentPage: null,
 
@@ -113,7 +113,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     }
 
     if (cls) {
-      cls = 'fa ' + cls + ' fa-2x';
+      cls = `fa ${cls} fa-2x`;
     }
 
     return cls;
@@ -231,8 +231,8 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   getActiveIndexes: function getActiveIndexes() {
     const results = [];
     const self = this;
-    array.forEach(this.activeIndexes, function forEachActiveIndex(indexName) {
-      array.forEach(self.indexes, function forEachIndex(index) {
+    array.forEach(this.activeIndexes, (indexName) => {
+      array.forEach(self.indexes, (index) => {
         if (index.indexName === indexName) {
           results.push(index);
         }
@@ -253,17 +253,17 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     });
   },
   navigateToDetailView: function navigateToDetailView(key, type) {
-    const view = App.getView(type.toLowerCase() + '_detail');
+    const view = App.getView(`${type.toLowerCase()}_detail`);
 
     if (view) {
       view.show({
-        key: key,
+        key,
       });
     }
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [],
+      tbar: [],
     });
   },
   getItemIconAlt: function getItemIconAlt(entry) {
@@ -289,7 +289,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     indicator.valueText = this.indexesText[entry.type];
   },
   _intSearchExpressionNode: function _intSearchExpressionNode() {
-    const listNode = query('#' + this.id);
+    const listNode = query(`#${this.id}`);
     if (listNode[0]) {
       const html = this.searchExpressionTemplate.apply(this);
       domConstruct.place(html, listNode[0], 'first');
@@ -321,7 +321,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
       indexFound = true;
     }
     if (indexFound) {
-      array.forEach(this.activeIndexes, function forEach(aIndexName) {
+      array.forEach(this.activeIndexes, (aIndexName) => {
         if (aIndexName !== indexName) {
           tempActiveIndex.push(aIndexName);
         }

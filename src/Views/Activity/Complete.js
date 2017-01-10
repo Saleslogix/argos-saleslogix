@@ -13,6 +13,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityComplete');
+const dtFormatResource = getResource('activityCompleteDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Complete
@@ -43,7 +44,8 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   categoryText: resource.categoryText,
   categoryTitleText: resource.categoryTitleText,
   completedText: resource.completedText,
-  completedFormatText: resource.completedFormatText,
+  completedFormatText: dtFormatResource.completedFormatText,
+  completedFormatText24: dtFormatResource.completedFormatText24,
   completionText: resource.completionText,
   durationText: resource.durationText,
   durationInvalidText: resource.durationInvalidText,
@@ -61,8 +63,9 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   resultText: resource.resultText,
   resultTitleText: resource.resultTitleText,
   startingText: resource.startingText,
-  startingFormatText: resource.startingFormatText,
-  startingTimelessFormatText: resource.startingTimelessFormatText,
+  startingFormatText: dtFormatResource.startingFormatText,
+  startingFormatText24: dtFormatResource.startingFormatText24,
+  startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
   timelessText: resource.timelessText,
   recurringActivityIdSeparator: ';',
   durationValueText: {
@@ -74,11 +77,11 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     120: resource.twoHoursText,
   },
   followupValueText: {
-    'none': resource.nonePropText,
-    'atPhoneCall': resource.phoneCallText,
-    'atAppointment': resource.meetingText,
-    'atToDo': resource.toDoText,
-    'atPersonal': resource.personalText,
+    none: resource.nonePropText,
+    atPhoneCall: resource.phoneCallText,
+    atAppointment: resource.meetingText,
+    atToDo: resource.toDoText,
+    atPersonal: resource.personalText,
   },
 
   // View Properties
@@ -87,32 +90,32 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   fieldsForLeads: ['AccountName', 'Lead'],
   fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
   picklistsByType: {
-    'atAppointment': {
-      'Category': 'Meeting Category Codes',
-      'Description': 'Meeting Regarding',
-      'Result': 'Meeting Result Codes',
+    atAppointment: {
+      Category: 'Meeting Category Codes',
+      Description: 'Meeting Regarding',
+      Result: 'Meeting Result Codes',
     },
-    'atLiterature': {
-      'Description': 'Lit Request Regarding',
+    atLiterature: {
+      Description: 'Lit Request Regarding',
     },
-    'atPersonal': {
-      'Category': 'Meeting Category Codes',
-      'Description': 'Personal Activity Regarding',
-      'Result': 'Personal Activity Result Codes',
+    atPersonal: {
+      Category: 'Meeting Category Codes',
+      Description: 'Personal Activity Regarding',
+      Result: 'Personal Activity Result Codes',
     },
-    'atPhoneCall': {
-      'Category': 'Phone Call Category Codes',
-      'Description': 'Phone Call Regarding',
-      'Result': 'Phone Call Result Codes',
+    atPhoneCall: {
+      Category: 'Phone Call Category Codes',
+      Description: 'Phone Call Regarding',
+      Result: 'Phone Call Result Codes',
     },
-    'atToDo': {
-      'Category': 'To Do Category Codes',
-      'Description': 'To Do Regarding',
-      'Result': 'To Do Result Codes',
+    atToDo: {
+      Category: 'To Do Category Codes',
+      Description: 'To Do Regarding',
+      Result: 'To Do Result Codes',
     },
-    'atEMail': {
-      'Category': 'E-mail Category Codes',
-      'Description': 'E-mail Regarding',
+    atEMail: {
+      Category: 'E-mail Category Codes',
+      Description: 'E-mail Regarding',
     },
   },
 
@@ -223,7 +226,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       }
       startDateField.setValue(startDate);
     } else {
-      startDateField.dateFormatText = this.startingFormatText;
+      startDateField.dateFormatText = (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText;
       startDateField.showTimePicker = true;
       startDateField.timeless = false;
       if (this.isDateTimeless(startDate)) {
@@ -257,8 +260,8 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       const duration = this.fields.Duration.getValue();
       const startDate = moment(this.fields.StartDate.getValue());
       const completedDate = startDate.add({
-          minutes: duration,
-        })
+        minutes: duration,
+      })
         .toDate();
 
       this.toggleSelectField(this.fields.CompletedDate, true);
@@ -305,14 +308,14 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     for (const duration in this.durationValueText) {
       if (this.durationValueText.hasOwnProperty(duration)) {
         list.push({
-          '$key': duration,
-          '$descriptor': this.durationValueText[duration],
+          $key: duration,
+          $descriptor: this.durationValueText[duration],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   createFollowupData: function createFollowupData() {
@@ -321,34 +324,34 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     for (const followup in this.followupValueText) {
       if (this.followupValueText.hasOwnProperty(followup)) {
         list.push({
-          '$key': followup,
-          '$descriptor': this.followupValueText[followup],
+          $key: followup,
+          $descriptor: this.followupValueText[followup],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   navigateToFollowUpView: function navigateToFollowUpView(entry) {
     const view = App.getView(this.followupView);
     const followupEntry = {
-      'Type': this.fields.Followup.getValue(),
-      'Description': entry.Description,
-      'AccountId': entry.AccountId,
-      'AccountName': entry.AccountName,
-      'ContactId': entry.ContactId,
-      'ContactName': entry.ContactName,
-      'LeadId': entry.LeadId,
-      'LeadName': entry.LeadName,
-      'LongNotes': (this.fields.CarryOverNotes.getValue() && entry.LongNotes) || '',
-      'OpportunityId': entry.OpportunityId,
-      'OpportunityName': entry.OpportunityName,
-      'StartDate': moment()
+      Type: this.fields.Followup.getValue(),
+      Description: entry.Description,
+      AccountId: entry.AccountId,
+      AccountName: entry.AccountName,
+      ContactId: entry.ContactId,
+      ContactName: entry.ContactName,
+      LeadId: entry.LeadId,
+      LeadName: entry.LeadName,
+      LongNotes: (this.fields.CarryOverNotes.getValue() && entry.LongNotes) || '',
+      OpportunityId: entry.OpportunityId,
+      OpportunityName: entry.OpportunityName,
+      StartDate: moment()
         .toDate(),
-      'TicketId': entry.TicketId,
-      'TicketNumber': entry.TicketNumber,
+      TicketId: entry.TicketId,
+      TicketNumber: entry.TicketNumber,
     };
 
     // Return to activity list view after follow up.
@@ -437,7 +440,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
         property: 'StartDate',
         type: 'date',
         showTimePicker: true,
-        formatString: this.startingFormatText,
+        formatString: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
         minValue: (new Date(1900, 0, 1)),
         validator: [
           validator.exists,

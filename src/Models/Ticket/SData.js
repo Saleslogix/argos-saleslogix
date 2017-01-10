@@ -9,6 +9,7 @@ import MODEL_TYPE from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Ticket.SData', [Base, _SDataModelBase], {
+  id: 'ticket_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
@@ -58,6 +59,9 @@ const __class = declare('crm.Models.Ticket.SData', [Base, _SDataModelBase], {
         'Urgency/UrgencyCode',
         'CompletedBy/OwnerDescription',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
   createPicklistPromise: function createPicklistPromise(predicate, options) {
@@ -93,11 +97,11 @@ const __class = declare('crm.Models.Ticket.SData', [Base, _SDataModelBase], {
         // Transform the entry with our fetched picklist values instead of the key/code
         entry.ViaCode = source.filter((item) => {
           return item.$key === entry.ViaCode;
-        }).map((item) => item.text)[0] || '';
+        }).map(item => item.text)[0] || '';
 
         entry.StatusCode = status.filter((item) => {
           return item.$key === entry.StatusCode;
-        }).map((item) => item.text)[0] || '';
+        }).map(item => item.text)[0] || '';
         return entry;
       });
   },

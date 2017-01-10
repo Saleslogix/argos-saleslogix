@@ -19,8 +19,7 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
   iconClass: 'fa fa-user fa-lg',
   security: 'Entities/Contact/View',
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Account',
       displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',

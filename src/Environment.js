@@ -1,10 +1,6 @@
 import lang from 'dojo/_base/lang';
-import win from 'dojo/_base/window';
 import array from 'dojo/_base/array';
-import has from 'dojo/has';
-import on from 'dojo/on';
 import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
 import 'dojo/_base/sniff';
 
 /**
@@ -27,23 +23,13 @@ const __class = lang.setObject('crm.Environment', {
     }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
   },
   showMapForAddress: function showMapForAddress(address) {
-    const windowName = '_blank';
-    const href = string.substitute('http://maps.google.com/maps?q=${0}', [address]);
-
-    if (has('ie') || has('ff')) {
-      window.open(href, windowName);
-    } else {
-      const hiddenLink = domConstruct.create('a', {
-        href: href,
-        target: windowName,
-      }, win.body(), 'last');
-
-      on.emit(hiddenLink, 'click', {
-        bubbles: true,
-        cancelable: true,
+    const href = `${window.location.protocol}//maps.google.com/maps?output=embed&q=${address}`;
+    const view = App.getView('link_view');
+    if (view) {
+      view.show({
+        link: href,
+        title: address,
       });
-
-      domConstruct.destroy(hiddenLink);
     }
   },
   attachmentViewsToRefresh: [

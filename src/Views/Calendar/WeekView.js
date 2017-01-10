@@ -11,6 +11,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('calendarWeekView');
+const dtFormatResource = getResource('calendarWeekViewDateTimeFormat');
 
 /**
  * @class crm.Views.Calendar.WeekView
@@ -32,11 +33,12 @@ const resource = getResource('calendarWeekView');
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,
-  weekTitleFormatText: resource.weekTitleFormatText,
-  dayHeaderLeftFormatText: resource.dayHeaderLeftFormatText,
-  dayHeaderRightFormatText: resource.dayHeaderRightFormatText,
-  eventDateFormatText: resource.eventDateFormatText,
-  startTimeFormatText: resource.startTimeFormatText,
+  weekTitleFormatText: dtFormatResource.weekTitleFormatText,
+  dayHeaderLeftFormatText: dtFormatResource.dayHeaderLeftFormatText,
+  dayHeaderRightFormatText: dtFormatResource.dayHeaderRightFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   todayText: resource.todayText,
   dayText: resource.dayText,
   weekText: resource.weekText,
@@ -117,7 +119,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+    '<span class="p-time">{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
@@ -215,14 +217,14 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     'Type',
   ],
   activityIconByType: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-calendar-o',
-    'atPersonal': 'fa fa-check-square-o',
-    'atQuestion': 'fa fa-question',
-    'atNote': 'fa fa-calendar-o',
-    'atEMail': 'fa fa-envelope',
+    atToDo: 'fa fa-list-ul',
+    atPhoneCall: 'fa fa-phone',
+    atAppointment: 'fa fa-calendar-o',
+    atLiterature: 'fa fa-calendar-o',
+    atPersonal: 'fa fa-check-square-o',
+    atQuestion: 'fa fa-question',
+    atNote: 'fa fa-calendar-o',
+    atEMail: 'fa fa-envelope',
   },
   eventIcon: 'fa fa-calendar-o',
 
@@ -289,17 +291,17 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     this.weekStartDate = this.getStartDay(setDate);
     this.weekEndDate = this.getEndDay(setDate);
     this.queryWhere = string.substitute(
-      [
-        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-        '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
-        '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
-      ].join(''), [
-        App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(this.weekStartDate.toDate()),
-        convert.toIsoStringFromDate(this.weekEndDate.toDate()),
-        this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+    [
+      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+      '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
+      '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
+    ].join(''), [
+      App.context.user && App.context.user.$key,
+      convert.toIsoStringFromDate(this.weekStartDate.toDate()),
+      convert.toIsoStringFromDate(this.weekEndDate.toDate()),
+      this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   setWeekTitle: function setWeekTitle() {
@@ -323,6 +325,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const entryOrder = [];
     const dateCompareString = 'YYYY-MM-DD';
     const o = [];
+    this.set('listContent', '');
 
     // If we fetched a page that has no data due to un-reliable counts,
     // check if we fetched anything in the previous pages before assuming there is no data.
@@ -364,7 +367,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
         }
       }
 
-      entryOrder.sort(function sortEntryOrder(a, b) {
+      entryOrder.sort((a, b) => {
         if (a.valueOf() < b.valueOf()) {
           return 1;
         } else if (a.valueOf() > b.valueOf()) {
@@ -444,15 +447,15 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const startDate = this.weekStartDate;
     const endDate = this.weekEndDate;
     return string.substitute(
-      [
-        'UserId eq "${0}" and (',
-        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-        'StartDate lt @${2}@',
-        ')',
-      ].join(''), [App.context.user && App.context.user.$key,
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+    [
+      'UserId eq "${0}" and (',
+      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+      'StartDate lt @${2}@',
+      ')',
+    ].join(''), [App.context.user && App.context.user.$key,
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   hideEventList: function hideEventList() {
@@ -521,7 +524,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const where = this.getEventQuery();
     if (view) {
       view.show({
-        'where': where,
+        where,
       });
     }
   },
@@ -529,7 +532,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     this.inherited(arguments);
     this.entryGroups = {};
     this.set('eventContent', '');
-    this.set('listContent', '');
+    this.set('listContent', this.loadingTemplate.apply(this));
   },
   selectEntry: function selectEntry(params) {
     const row = query(params.$source).closest('[data-key]')[0];
@@ -539,23 +542,23 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   },
   selectDate: function selectDate() {
     const options = {
-        date: this.currentDate.toDate(),
-        showTimePicker: false,
-        timeless: false,
-        tools: {
-          tbar: [{
-            id: 'complete',
-            cls: 'fa fa-check fa-fw fa-lg',
-            fn: this.selectDateSuccess,
-            scope: this,
-          }, {
-            id: 'cancel',
-            cls: 'fa fa-ban fa-fw fa-lg',
-            side: 'left',
-            fn: ReUI.back,
-            scope: ReUI,
-          }],
-        },
+      date: this.currentDate.toDate(),
+      showTimePicker: false,
+      timeless: false,
+      tools: {
+        tbar: [{
+          id: 'complete',
+          cls: 'fa fa-check fa-fw fa-lg',
+          fn: this.selectDateSuccess,
+          scope: this,
+        }, {
+          id: 'cancel',
+          cls: 'fa fa-ban fa-fw fa-lg',
+          side: 'left',
+          fn: ReUI.back,
+          scope: ReUI,
+        }],
+      },
     };
     const view = App.getView(this.datePickerView);
     if (view) {
@@ -571,15 +574,15 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   navigateToDayView: function navigateToDayView() {
     const view = App.getView(this.activityListView);
     const options = {
-        currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf(),
-      };
+      currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf(),
+    };
     view.show(options);
   },
   navigateToMonthView: function navigateToMonthView() {
     const view = App.getView(this.monthView);
     const options = {
-        currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf(),
-      };
+      currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf(),
+    };
     view.show(options);
   },
   navigateToInsertView: function navigateToInsertView() {
@@ -605,7 +608,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     if (view) {
       view.show({
         title: theDescriptor,
-        key: key,
+        key,
       });
     }
   },

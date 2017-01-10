@@ -19,7 +19,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('briefcaseList');
 
-export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, _ListOfflineMixin ], {
+export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, _ListOfflineMixin], {
   id: 'briefcase_list',
   idProperty: 'id',
   detailView: 'offline_detail',
@@ -122,14 +122,14 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, 
     }
   },
   getDetailView: function getDetailView(entityName) {
-    const viewId = this.detailView + '_' + entityName;
+    const viewId = `${this.detailView}_${entityName}`;
     let view = this.app.getView(viewId);
 
     if (view) {
       return view;
     }
 
-    this.app.registerView(new OfflineDetail({id: viewId}));
+    this.app.registerView(new OfflineDetail({ id: viewId }));
     view = this.app.getView(viewId);
     return view;
   },

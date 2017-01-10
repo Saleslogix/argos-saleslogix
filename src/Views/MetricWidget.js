@@ -58,14 +58,14 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     '<div class="metric-title list-loading">',
     '<span class="list-loading-indicator">',
     '<div aria-live="polite">',
-      '<div class="busyIndicator busyIndicator--small">',
-        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--one"></div>',
-        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--two"></div>',
-        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--three"></div>',
-        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--four"></div>',
-        '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--five"></div>',
-      '</div>',
-      '<span class="busyIndicator__label">{%: $.loadingText %}</span>',
+    '<div class="busyIndicator busyIndicator--small">',
+    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--one"></div>',
+    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--two"></div>',
+    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--three"></div>',
+    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--four"></div>',
+    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--five"></div>',
+    '</div>',
+    '<span class="busyIndicator__label">{%: $.loadingText %}</span>',
     '</div>',
     '</span>',
     '</div>',
@@ -100,9 +100,9 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
   // Chart Properties
   chartType: null,
   chartTypeMapping: {
-    'pie': 'chart_generic_pie',
-    'bar': 'chart_generic_bar',
-    'line': 'chart_generic_line',
+    pie: 'chart_generic_pie',
+    bar: 'chart_generic_bar',
+    line: 'chart_generic_line',
   },
 
   // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
@@ -155,7 +155,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     // Attempt to load the function fn from the AMD module
     const def = new Deferred();
     try {
-      require([module], lang.hitch(this, function requireFn(Mod) {
+      require([module], lang.hitch(this, (Mod) => {
         // Handle if required module is a ctor else object
         if (typeof Mod === 'function') {
           const instance = new Mod();
@@ -189,7 +189,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     const loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
 
     all([loadValueFn, loadFormatter, this.requestDataDeferred])
-      .then(function success(results) {
+      .then((results) => {
         if (!results[0] || !results[1] || !results[2]) {
           throw new Error('An error occurred loading the KPI widget data.');
         }
@@ -208,13 +208,13 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
 
         const value = this.value = this.valueFn.call(this, data);
         domConstruct.place(this.itemTemplate.apply({
-          value: value,
+          value,
         }, this), this.metricDetailNode, 'replace');
-      }.bind(this), function error(err) {
+      }, (err) => {
         // Error
         console.error(err); // eslint-disable-line
         domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
-      }.bind(this));
+      });
   },
   navToReportView: function navToReportView() {
     if (!this.chartType) {

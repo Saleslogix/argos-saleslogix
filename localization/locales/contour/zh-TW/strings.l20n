@@ -1,0 +1,28 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "檢視鄰近的客戶"
+  addressNotGeocodedErrorText: "尚未對地址進行地理編碼。無法搜尋鄰近的客戶。"
+  accountsNearText: "鄰近 ${0} 的客戶"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "鄰近我的客戶"
+  addActivityActionText: "新增活動"
+  addAttachmentActionText: "新增附件"
+  addNoteActionText: "新增備註"
+	callMainActionText: "撥打主要電話"
+	currentLocationErrorText: "無法取得您目前的位置。無法搜尋。"
+	editActionText: "編輯"
+  faxAbbreviationText: "傳真: "
+	kilometerAbbrevText: "公里"
+	mileAbbrevText: "英里"
+  phoneAbbreviationText: "電話: "
+	titleText: "鄰近我的客戶"
+	viewContactsActionText: "聯絡人"
+>
+
+<locPicker ""
+  accountsNearText: "鄰近 ${0} 的客戶"
+	myHouseText: "我的住家"
+	myOfficeText: "我的辦公室"
+	titleText: "輪廓距離搜尋"
+>

@@ -39,7 +39,7 @@ const __class = declare('crm.AttachmentManager', null, {
     const oldContractName = service.getContractName();
     service.setContractName(this.contractName);
     this._baseUrl = utility.stripQueryArgs(service.getUri().toString());
-    this._uploadUrl = this._baseUrl + '/attachments/file';
+    this._uploadUrl = `${this._baseUrl}/attachments/file`;
     service.setContractName(oldContractName);
   },
   /**
@@ -66,23 +66,23 @@ const __class = declare('crm.AttachmentManager', null, {
    */
   getAttachmentTemplate: function getAttachmentTemplate() {
     this.requestTemplate(function success(template) {
-        this._attachmentTemplate = template;
-        this.uploadFiles();
-      },
+      this._attachmentTemplate = template;
+      this.uploadFiles();
+    },
       this.onRequestTemplateFailure
     );
   },
   getAttachmentUrl: function getAttachmentUrl(attachmentId) {
-    const fileUrl = this._baseUrl + '/attachments(\'' + attachmentId + '\')/file';
+    const fileUrl = `${this._baseUrl}/attachments('${attachmentId}')/file`;
     return fileUrl;
   },
   getAttachmenturlByEntity: function getAttachmenturlByEntity(attachment) {
     let href;
     if (attachment.url) {
       href = attachment.url || '';
-      href = (href.indexOf('http') < 0) ? 'http://' + href : href;
+      href = (href.indexOf('http') < 0) ? `http://${href}` : href;
     } else {
-      href = this._baseUrl + '/attachments(\'' + attachment.$key + '\')/file';
+      href = `${this._baseUrl}/attachments('${attachment.$key}')/file`;
     }
     return href;
   },
@@ -274,29 +274,29 @@ const __class = declare('crm.AttachmentManager', null, {
   onSuccessUpload: function onSuccessUpload(request) {
     // the id of the new attachment is buried in the Location response header...
     const url = request.getResponseHeader('Location');
-    const re = /\'\w+\'/g;
+    const re = /'\w+'/g;
     const matches = url.match(re);
 
     if (matches) {
-      const id = matches[0].replace(/\'/g, '');
+      const id = matches[0].replace(/'/g, '');
       // now that we have the id, we can fetch it using the SingleEntrySDataStore
       this.requestData(id, function success(attachment) {
-          const mixin = this._getAttachmentContextMixin(attachment.fileName);
-          if (mixin) {
-            attachment.attachDate = convert.toIsoStringFromDate(new Date());
-            attachment.dataType = 'R';
-            attachment.description = this._getFileDescription(attachment.fileName);
-            const a = lang.mixin(attachment, mixin);
-            const req = this.createDataRequest(id);
-            if (req) {
-              req.update(a, {
-                success: this.onSuccessUpdate,
-                failure: this.onFailedUpdate,
-                scope: this,
-              });
-            }
+        const mixin = this._getAttachmentContextMixin(attachment.fileName);
+        if (mixin) {
+          attachment.attachDate = convert.toIsoStringFromDate(new Date());
+          attachment.dataType = 'R';
+          attachment.description = this._getFileDescription(attachment.fileName);
+          const a = lang.mixin(attachment, mixin);
+          const req = this.createDataRequest(id);
+          if (req) {
+            req.update(a, {
+              success: this.onSuccessUpdate,
+              failure: this.onFailedUpdate,
+              scope: this,
+            });
           }
-        },
+        }
+      },
         this.onRequestDataFailure
       );
     }

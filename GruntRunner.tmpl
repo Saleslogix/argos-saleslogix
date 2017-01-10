@@ -20,14 +20,11 @@
   <!-- Simplate -->
   <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
-  <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
-
   <!-- Deep Diff -->
   <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
    <!-- PouchDB -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.3.min.js"></script>
 
   <!-- Rx.js -->
   <script src="../../argos-sdk/libraries/rx/rx.all.js"></script>
@@ -41,8 +38,12 @@
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
+  <!-- ICRM Common, depends on moment -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
+
   <!-- Dojo -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true"></script>
   <script type="text/javascript">
   require({
       baseUrl: "./",
@@ -75,7 +76,8 @@
     var filePaths = {
       '../localization/locales/crm': [
         'strings.l20n',
-        'regional.l20n'
+        'regional.l20n',
+        'hashtags.l20n'
       ],
       '../../../argos-sdk/localization/locales/argos': [
         'strings.l20n',
@@ -100,6 +102,7 @@
     ctx.registerLocales(defaultLocale, supportedLocales);
     ctx.requestLocales(currentLocale);
     window.localeContext = ctx;
+    window.defaultLocaleContext = ctx;
     return ctx;
   }
   <% with (scripts) { %>

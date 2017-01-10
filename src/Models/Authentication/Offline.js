@@ -9,6 +9,7 @@ import getResource from 'argos/I18n';
 const resource = getResource('autenticationModel');
 
 const __class = declare('crm.Models.Autentication.Offline', [_OfflineModelBase], {
+  id: 'auth_offline_model',
   entityName: 'Authentication',
   modelName: 'Authentication',
   entityDisplayName: resource.entityDisplayName,

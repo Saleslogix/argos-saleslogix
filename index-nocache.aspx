@@ -95,7 +95,8 @@
         map: {
             '*': {
                 'Sage/Platform/Mobile': 'argos',
-                'Mobile/SalesLogix': 'crm'
+                'Mobile/SalesLogix': 'crm',
+                'icboe': 'crm/Integrations/BOE'
             }
         }
     });
@@ -112,120 +113,36 @@
 
     <script type="text/javascript">
       (function() {
-        function buildContext() {
-        var filePaths = <%= Serialize(
-              Enumerate(@"localization", (file) => file.Extension == ".l20n")
-                  .Select(item => item.Path)
-        ) %>;
-        var supportedLocales = <%= Serialize(
-              Enumerate(@"localization\locales\crm", (file) => true)
-                  .Select(item => item.Directory.Name).Distinct()
-          ) %>;
-        var ctx = L20n.getContext();
-        var defaultLocale = 'en';
-        var currentLocale = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-
-        // The L20n context (ctx) should only call linkResource once per file.
-        // We need to:
-        //    * Strip out the locale from the path string (map)
-        //    * Remove duplicates (reduce)
-        //    * link each resource against a locale (forEach)
-        filePaths.map(function(path) {
-          var trimmed = path;
-          supportedLocales.forEach(function(locale) {
-            trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
-          });
-
-          var index = trimmed.lastIndexOf('/');
-          var basePath = trimmed.substring(0, index);
-          var file = trimmed.substring(index + 1, trimmed.length);
-          return {
-            base: basePath,
-            file: file
-            };
-        })
-        .reduce(function(p, c) {
-          if (p.some(function (pathInfo) {
-            return pathInfo.base === c.base && pathInfo.file === c.file;
-          })) {
-            return p;
-          } else {
-            return p.concat(c);
-          }
-        }, [])
-        .forEach(function(pathInfo) {
-          ctx.linkResource(function(locale) {
-            return [pathInfo.base, locale, pathInfo.file].join('/');
+        require(['crm/Bootstrap'], function(bootstrap) {
+          bootstrap({
+            supportedLocales: <%= Serialize(
+                  Enumerate(@"localization\locales\crm", (file) => true)
+                      .Select(item => item.Directory.Name).Distinct()
+              ) %>,
+            defaultLocale: 'en',
+            currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
+            parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
+            isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
+            configuration: <%= Serialize(
+                    Enumerate("configuration", (file) => file.Name == "production.js")
+                        .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+                ) %>,
+            application: 'crm/Application',
+            legacyLocalization: <%= Serialize(
+                EnumerateLocalizations("localization")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>,
+            legacyLocalizationFallback: <%= Serialize(
+                EnumerateLocalizations(string.Empty, "localization", "en")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>,
+            localeFiles: <%= Serialize(
+                  Enumerate(@"localization", (file) => file.Extension == ".l20n")
+                      .Select(item => item.Path)
+            ) %>
           });
         });
-        ctx.registerLocales(defaultLocale, supportedLocales);
-        ctx.requestLocales(currentLocale);
-        window.localeContext = ctx;
-        return ctx;
-      }
-      var application = 'crm/Application';
-      var configuration = <%= Serialize(
-              Enumerate("configuration", (file) => file.Name == "production.js")
-                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-          ) %>;
-      var ctx = buildContext();
-      ctx.ready(function() {
-        require([application].concat(configuration), function(application, configuration) {
-          var localization, bootstrap, fallBackLocalization, completed = false;
-          bootstrap = function(requires) {
-            require(requires.concat('dojo/domReady!'), function() {
-              if (completed) {
-                  return;
-              }
-
-              var culture, results;
-
-              culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
-              configuration.currentCulture = culture;
-              results = moment.locale(culture);
-
-              // moment will return the set culture if successful, otherwise it returns the currently set culture.
-              // Check to see if the culture set failed, and attept to use the specific culture instead
-              if (results !== culture) {
-                  culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() %>';
-                  results = moment.locale(culture);
-                  if (results !== culture) {
-                      console.error("Failed to set the culture for moment.js, culture set to " + results);
-                  }
-              }
-
-              var instance = new application(configuration);
-
-              instance.activate();
-              instance.init();
-              instance.run();
-              completed = true;
-            });
-          };
-
-          localization = <%= Serialize(
-              EnumerateLocalizations("localization")
-                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-          ) %>;
-
-          fallBackLocalization = <%= Serialize(
-              EnumerateLocalizations(string.Empty, "localization", "en")
-                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-          ) %>;
-
-          require.on('error', function(error) {
-            console.log('Error loading localization, falling back to "en"');
-            bootstrap(fallBackLocalization);
-          });
-
-          if (localization.length === 0) {
-            bootstrap(fallBackLocalization);
-          } else {
-            bootstrap(localization);
-          }
-        });
-      });
-    })();
+      })();
     </script>
 </head>
 <body>
@@ -240,6 +157,7 @@
         Session.Abandon();
         Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId") {Expires = DateTime.Now.AddDays(-1d)});
         Response.Cookies.Add(new HttpCookie("SlxStickySessionId") {Expires = DateTime.Now.AddDays(-1d)});
+        Response.Cookies.Add(new HttpCookie(".SLXAUTH") { Expires = DateTime.Now.AddDays(-1d) });
     }
 
     protected class FileItem
@@ -349,6 +267,28 @@
                         File = targetFile
                     };
             }
+        }
+    }
+
+    private CultureInfo _culture;
+    protected CultureInfo CurrentCulture
+    {
+        get
+        {
+            if (null == _culture)
+                _culture = System.Globalization.CultureInfo.CurrentCulture;
+            return _culture;
+        }
+    }
+
+    private RegionInfo _region;
+    protected RegionInfo CurrentRegion
+    {
+        get
+        {
+            if (null == _region)
+                _region = new RegionInfo(CurrentCulture.LCID);
+            return _region;
         }
     }
 

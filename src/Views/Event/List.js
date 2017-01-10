@@ -5,6 +5,7 @@ import List from 'argos/List';
 import getResource from 'argos/I18n';
 
 const resource = getResource('eventList');
+const dtFormatResource = getResource('eventListDateTimeFormat');
 
 /**
  * @class crm.Views.Event.List
@@ -16,16 +17,17 @@ const resource = getResource('eventList');
 const __class = declare('crm.Views.Event.List', [List], {
   // Localization
   titleText: resource.titleText,
-  eventDateFormatText: resource.eventDateFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  eventDateFormatText24: dtFormatResource.eventDateFormatText24,
   eventText: resource.eventText,
 
   // Templates
   itemTemplate: new Simplate([
     '<h3>{%= $.Description %}</h3>',
     '<h4>',
-    '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
+    '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.eventDateFormatText24 : $$.eventDateFormatText) %}',
     '&nbsp;-&nbsp;',
-    '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}',
+    '{%: crm.Format.date($.EndDate, (App.is24HourClock()) ? $$.eventDateFormatText24 : $$.eventDateFormatText) %}',
     '</h4>',
   ]),
 

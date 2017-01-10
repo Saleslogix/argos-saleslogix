@@ -19,8 +19,7 @@ const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
   modelName: MODEL_NAMES.TICKET,
 
   createRelationships: function createRelationships() {
-    let rel;
-    rel = this.relationships || (this.relationships = [{
+    const rel = this.relationships || (this.relationships = [{
       name: 'Account',
       displayName: accountResource.entityDisplayName,
       type: 'ManyToOne',

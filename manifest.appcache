@@ -459,6 +459,7 @@ localization/fr-debug.js
 localization/fr.js
 localization/it-debug.js
 localization/it.js
+localization/locales/argos/en/hashtags.l20n
 localization/locales/argos/en/regional.l20n
 localization/locales/argos/en/strings.l20n
 localization/locales/crm/en/regional.l20n
@@ -487,8 +488,12 @@ localization/zh-TW-debug.js
 localization/zh-TW.js
 unsupported.html
 
+SETTINGS:
+prefer-online
+
 NETWORK:
 ../sdata/
+*
 
 FALLBACK:
 content/css/themes/fonts/FontAwesome.otf?v=4.4.0

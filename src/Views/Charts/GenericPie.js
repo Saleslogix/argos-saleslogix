@@ -54,14 +54,14 @@ const __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
 
     this.showSearchExpression();
 
-    const data = array.map(rawData, function mapData(item, idx) {
+    const data = array.map(rawData, (item, idx) => {
       return {
         value: Math.round(item.value),
         color: this._getItemColor(idx),
         highlight: '',
         label: item.name,
       };
-    }.bind(this));
+    });
 
     if (this.chart) {
       this.chart.destroy();

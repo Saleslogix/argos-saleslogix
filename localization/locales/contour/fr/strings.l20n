@@ -1,0 +1,28 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Voir comptes à proximité"
+  addressNotGeocodedErrorText: "Adresse non géocodée. Impossible de rechercher des comptes à proximité."
+  accountsNearText: "Comptes à proximité de ${0}"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Comptes à proximité de ma position"
+  addActivityActionText: "Ajouter une activité"
+  addAttachmentActionText: "Ajouter une pièce jointe"
+  addNoteActionText: "Ajouter une note"
+	callMainActionText: "Appeler principal"
+	currentLocationErrorText: "Impossible d'obtenir votre position actuelle. Recherche impossible."
+	editActionText: "Modifier"
+  faxAbbreviationText: "Fax : "
+	kilometerAbbrevText: "Km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Téléphone : "
+	titleText: "Comptes à proximité de ma position"
+	viewContactsActionText: "Contacts"
+>
+
+<locPicker ""
+  accountsNearText: "Comptes à proximité de ${0}"
+	myHouseText: "Domicile"
+	myOfficeText: "Bureau"
+	titleText: "Recherche de proximité"
+>

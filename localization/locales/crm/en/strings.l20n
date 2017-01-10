@@ -1,8 +1,3 @@
-<version["short"] {
-  short: "3.4",
-  long: "Mobile {{ version.short}} / CRM Platform 8.0+"
-}>
-
 <addressField ""
   lookupLabelText: "edit"
   emptyText: ""
@@ -105,7 +100,6 @@
   categoryText: "category"
   categoryTitleText: "Activity Category"
   completedText: "completed date"
-  completedFormatText: "M/D/YYYY h:mm A"
   completionText: "Completion"
   durationText: "duration"
   durationInvalidText: "The field '${2}' must have a value."
@@ -123,8 +117,6 @@
   resultText: "result"
   resultTitleText: "Result"
   startingText: "start date"
-  startingFormatText: "M/D/YYYY h:mm A"
-  startingTimelessFormatText: "M/D/YYYY"
   timelessText: "timeless"
   noneText: "none"
   quarterHourText: "15 minutes"
@@ -165,9 +157,6 @@
   contactText: "contact"
   opportunityText: "opportunity"
   ticketNumberText: "ticket"
-  startDateFormatText: "M/D/YYYY h:mm:ss A"
-  timelessDateFormatText: "M/D/YYYY"
-  alarmDateFormatText: "M/D/YYYY h:mm:ss A"
   recurrenceText: "recurrence"
   confirmEditRecurrenceText: "Edit all Occurrences? Cancel to edit single Occurrence."
   relatedAttachmentText: "Attachments"
@@ -204,8 +193,6 @@
   regardingText: "regarding"
   rolloverText: "auto rollover"
   startingText: "start time"
-  startingFormatText: "M/D/YYYY h:mm A"
-  startingTimelessFormatText: "M/D/YYYY"
   repeatsText: "repeats"
   recurringText: "recurring"
   recurringTitleText: "Recurring"
@@ -230,7 +217,7 @@
   hourAndHalfText: "1.5 hours"
   twoHoursText: "2 hours"
   dayText: "1 day"
-  updateUserActErrorText: "An error occured updating user activities."
+  updateUserActErrorText: "An error occurred updating user activities."
 >
 
 <activityList ""
@@ -253,10 +240,6 @@
   questionText: "Question"
   noteText: "Note"
   emailText: "Email"
-  timelessText: "timeless"
-  todayText: "today"
-  thisWeekText: "this-week"
-  yesterdayText: "yesterday"
 >
 
 <activityMyList ""
@@ -357,7 +340,6 @@
 
 <attachmentList ""
   titleText: "Attachments"
-  attachmentDateFormatText: "ddd M/D/YYYY hh:mm:ss"
   uploadedOnText: "Uploaded "
 >
 
@@ -373,17 +355,12 @@
   fileSizeText: "file size"
   userText: "user"
   attachmentNotSupportedText: "The attachment type is not supported for viewing."
-  attachmentDateFormatText: "ddd M/D/YYYY h:mm a"
   downloadingText: "Downloading attachment ..."
   notSupportedText: "Viewing attachments is not supported by your device."
 >
 
 <calendarView ""
   titleText: "Calendar"
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D"
-  startTimeFormatText: "h:mm A"
   allDayText: "All-Day"
   eventText: "Event"
   eventHeaderText: "Events"
@@ -399,9 +376,6 @@
 
 <calendarDayView ""
   titleText: "Calendar"
-  eventDateFormatText: "M/D/YYYY"
-  dateHeaderFormatText: "dddd, M/D/YYYY"
-  startTimeFormatText: "h:mm A"
   todayText: "Today"
   dayText: "Day"
   weekText: "Week"
@@ -419,10 +393,6 @@
   dayText: "Day"
   weekText: "Week"
   monthText: "Month"
-  monthTitleFormatText: "MMMM YYYY"
-  dayTitleFormatText: "ddd MMM D, YYYY"
-  eventDateFormatText: "M/D/YYYY"
-  startTimeFormatText: "h:mm A"
   allDayText: "All-Day"
   eventText: "Event"
   eventHeaderText: "Events"
@@ -440,11 +410,6 @@
 
 <calendarWeekView ""
   titleText: "Calendar"
-  weekTitleFormatText: "MMM D, YYYY"
-  dayHeaderLeftFormatText: "dddd"
-  dayHeaderRightFormatText: "MMM D, YYYY"
-  eventDateFormatText: "M/D/YYYY"
-  startTimeFormatText: "h:mm A"
   todayText: "Today"
   dayText: "Day"
   weekText: "Week"
@@ -549,19 +514,17 @@
   titleText: "Error Log"
   detailsText: "Details"
   errorDateText: "date"
-  errorDateFormatText: "MM/DD/YYYY hh:mm A"
   statusTextText: "error"
   urlText: "url"
   entityText: "Error Log"
   moreDetailsText: "More Details"
   errorText: "error"
-  emailSubjectText: "Error received in Saleslogix Mobile Client"
+  emailSubjectText: "Error received in Infor CRM Mobile Client"
   copiedSuccessText: "Copied to clipboard"
 >
 
 <errorLogList ""
   titleText: "Error Logs"
-  errorDateFormatText: "MM/DD/YYYY hh:mm A"
 >
 
 <eventDetail ""
@@ -572,8 +535,6 @@
   descriptionText: "description"
   typeText: "type"
   whenText: "When"
-  startDateFormatText: "M/D/YYYY h:mm:ss A"
-  endDateFormatText: "M/D/YYYY h:mm:ss A"
   entityText: "Event"
   meeting: "Meeting"
   literature: "Literature Request"
@@ -588,12 +549,10 @@
   descriptionText: "description"
   startDateText: "start date"
   endDateText: "end date"
-  startingFormatText: "M/D/YYYY h:mm A"
 >
 
 <eventList ""
   titleText: "Events"
-  eventDateFormatText: "M/D/YYYY"
   eventText: "Event"
 >
 
@@ -647,7 +606,6 @@
   regardingText: "regarding"
   isLeadText: "for lead"
   startingText: "time"
-  startingFormatText: "M/D/YYYY h:mm A"
   titleText: "Note"
   companyText: "company"
   leadText: "lead"
@@ -659,8 +617,6 @@
 >
 
 <historyList ""
-  hourMinuteFormatText: "h:mm A"
-  dateFormatText: "M/D/YY"
   titleText: "Notes/History"
   viewAccountActionText: "Account"
   viewOpportunityActionText: "Opp."
@@ -674,12 +630,6 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
-  myHistoryHash: "my-history"
-  noteHash: "note"
-  phoneCallHash: "phonecall"
-  meetingHash: "meeting"
-  personalHash: "personal"
-  emailHash: "email"
 >
 
 <historyRelated ""
@@ -814,7 +764,6 @@
   multiCurrencyCodeText: "code"
   multiCurrencyDateText: "rate date"
   multiCurrencyLockedText: "rate locked"
-  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
   entityText: "Opportunity"
 >
 
@@ -840,7 +789,6 @@
   multiCurrencyCodeText: "code"
   multiCurrencyDateText: "rate date"
   multiCurrencyLockedText: "rate locked"
-  exchangeRateDateFormatText: "M/D/YYYY h:mm A"
   subTypePickListResellerText: "RESELLER"
 >
 
@@ -1100,12 +1048,10 @@
   startDateText: "start date"
   endDateText: "end date"
   commentsText: "comments"
-  startingFormatText: "M/D/YYYY h:mm A"
 >
 
 <ticketActivityList ""
   titleText: "Ticket Activities"
-  startDateFormatText: "MM/DD/YYYY h:mm A"
 >
 
 <ticketActivityRateLookup ""
@@ -1178,7 +1124,7 @@
   homePhoneText: "home phone"
   industryText: "industry"
   ownerText: "owner"
-  lastNameText: "last"
+  lastNameText: "last name"
   mobileText: "mobile"
   nameText: "name"
   statusText: "status"
@@ -1201,10 +1147,6 @@
 
 <exchangeRateLookup ""
   titleText: "Exchange Rates"
->
-
-<footerToolbar ""
-  copyrightText: "&copy; 2014 SalesLogix, NA, LLC. All rights reserved."
 >
 
 <help ""
@@ -1264,9 +1206,9 @@
 
 <nameEdit ""
   titleText: "Edit Name"
-  firstNameText: "first"
-  middleNameText: "middle"
-  lastNameText: "last"
+  firstNameText: "first name"
+  middleNameText: "middle name"
+  lastNameText: "last name"
   prefixText: "prefix"
   prefixTitleText: "Name Prefix"
   suffixText: "suffix"
@@ -1281,6 +1223,10 @@
   credentialsClearedText: "Saved credentials cleared successfully."
   titleText: "Settings"
   offlineOptionsText: "Offline Options"
+  use24HourClockText: "Using 24-hour Clock"
+  use12HourClockText: "Using 12-hour Clock"
+  confirmClockMessage: "Changing the clock display setting will require the application to restart. Are you sure?"
+  confirmClearLocalStorageMessage: "Clearing local storage will require the application to restart. Are you sure?"
 >
 
 <speedSearchList ""
@@ -1319,8 +1265,9 @@
   connectionToastTitleText: "Connection Status"
   offlineOptionsText: "Offline Options"
   offlineInitDataText: "Initializing Offline Data"
-  offlineInitErrorText: "An error occured during offline intitalization. All Offline options will be disabled."
-  appStateInitErrorText: "An error occured during application intitalization. Please try again."
+  offlineInitErrorText: "An error occurred during offline initialization. All Offline options will be disabled."
+  appStateInitErrorText: "An error occurred during application initialization. Please try again."
+  mingleAuthErrorText: "Mingle single sign on failed. Access Denied."
 >
 
 <applicationModule ""
@@ -1331,7 +1278,7 @@
   userOptionsText: "User Options"
   systemOptionsText: "System Options"
   userContextAndOptionsText: "User context and options"
-
+  integrationsText: "Integrations"
 >
 
 <defaultMetrics ""
@@ -1351,19 +1298,16 @@
   calls: "Calls"
   todos: "Todos"
   personal: "Personal"
+  totalRecentlyViewed: "Total Recently Viewed"
 >
 
 <fileManager ""
   unableToUploadText: "This browser does not support HTML5 File API."
   unknownSizeText: "unknown"
-  unknownErrorText: "Warning: An error occured and the file failed to upload."
+  unknownErrorText: "Warning: An error occurred and the file failed to upload."
   largeFileWarningText: "Warning: This request exceeds the size limit set by your administrator and failed to upload."
   largeFileWarningTitle: "Warning"
   percentCompleteText: "Uploading, please wait..."
->
-
-<groupUtility ""
-  groupDateFormatText: "M/D/YYYY h:mm:ss a"
 >
 
 <recurrence ""
@@ -1384,11 +1328,6 @@
   everyText: "every ${0} ${1}"
   afterCompletionText: "after completion"
   untilEndDateText: "${0} until ${1}"
-  dayFormatText: "DD"
-  monthFormatText: "MM"
-  monthAndDayFormatText: "MM/DD"
-  weekdayFormatText: "dddd"
-  endDateFormatText: "M/D/YYYY"
   sunday: "Sunday"
   monday: "Monday"
   tuesday: "Tuesday"
@@ -1494,7 +1433,7 @@
 <briefcaseList ""
   titleText: "My Briefcase"
   removeText: "remove"
-  reBriefcaseText: "re briefcase"
+  reBriefcaseText: "return record to briefcase"
   goToOnlineText: "go to online view"
   goToOfflineText: "go to offline view"
 >
@@ -1522,11 +1461,28 @@
   calculatingUsageText: "calculating usage please wait."
   clearingDataText: "clearing data please wait."
   lastClearedText: "Last cleared"
-  errorCalculatingText: "Error caclulating usage"
+  errorCalculatingText: "Error calculating usage"
   errorClearingDataText: "Error clearing data"
 >
 
 <authenticationModel ""
   entityDisplayName: "Authentication"
   entityDisplayNamePlural : "Authentication"
+>
+
+<mingle ""
+  refreshTitle: "Refresh"
+  refreshText: "Access to Ming.le is about to refresh. If you are inserting or editing data, save your changes immediately to avoid data loss."
+>
+
+<validators ""
+  existsText: "The field '${2}' must have a value."
+  nameText: "The field '${2}' must have a first and last name specified."
+  notEmptyText: "The field '${2}' cannot be empty."
+  hasText: "The field '${2}' must contain some text."
+  isNumberText: "The value '${0}' is not a valid number."
+  isCurrencyText: "The value '${0}' is not a valid currency number."
+  int32Text: "The field '${2}' value exceeds the allowed numeric range."
+  maxLengthText: "The field '${2}' value exceeds the allowed limit in length."
+  dateRangeText: "The field '${2}' value is out of allowed date range."
 >

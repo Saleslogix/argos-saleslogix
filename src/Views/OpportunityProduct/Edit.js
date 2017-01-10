@@ -57,6 +57,9 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     'Quantity',
     'ExtendedPrice',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   init: function init() {
     this.inherited(arguments);
     this.connect(this.fields.Product, 'onChange', this.onProductChange);
@@ -69,8 +72,8 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
   setValues: function setValues(values) {
     this.inherited(arguments);
     this.fields.Program.setValue({
-      '$key': '',
-      'Program': values.Program,
+      $key: '',
+      Program: values.Program,
     });
 
     if (values.Discount > 0) {
@@ -263,7 +266,7 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
       App.getView('opportunity_list'),
     ];
 
-    array.forEach(views, function setViewRefreshRequired(view) {
+    array.forEach(views, (view) => {
       if (view) {
         view.refreshRequired = true;
       }

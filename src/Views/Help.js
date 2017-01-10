@@ -47,18 +47,19 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
     return this.tools && (this.tools.tbar = []);
   },
   resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
-    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, Mobile.CultureInfo.name, fileName]);
+    const cultureName = Mobile.CultureInfo.name || 'en';
+    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, cultureName, fileName]);
     return localizedUrl;
   },
   resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
-    const languageSpec = Mobile.CultureInfo.name;
+    const languageSpec = Mobile.CultureInfo.name || 'en';
     const languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec;
     const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, languageGen, fileName]);
     return localizedUrl;
   },
   _sanitizeUrl: function _sanitizeUrl(url = '') {
     // Remove trailing slashes
-    return url.replace(/[\/|\\]*$/, '');
+    return url.replace(/[\/|\\]*$/, ''); // eslint-disable-line
   },
   requestData: function requestData() {
     this.processEntry({});
@@ -72,45 +73,45 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
         self.processContent(result.response, result.domNode);
       });
     }, (e) => {
-      self.processContent({responseText: self.errorTemplate.apply(self)}, e.domNode);
+      self.processContent({ responseText: self.errorTemplate.apply(self) }, e.domNode);
     });
     this.promises = [];
   },
   processContent: function processContent(xhr, domNode) {
     domConstruct.place(xhr.responseText, domNode, 'only');
   },
-  getHelp: function getHelp({baseUrl, fileName, defaultUrl}, domNode) {
+  getHelp: function getHelp({ baseUrl, fileName, defaultUrl }, domNode) {
     const req = Sage.SData.Client.Ajax.request;
     const cleanBaseUrl = this._sanitizeUrl(baseUrl);
-    return new Promise(function helpPromise(resolve, reject) {
+    return new Promise((resolve, reject) => {
       req({
         url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
         cache: true,
-        success: (response) => resolve({response, domNode}),
+        success: response => resolve({ response, domNode }),
         failure: () => {
           // First failure, try to get the parent locale
           req({
             url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
             cache: true,
-            success: (response) => resolve({response, domNode}),
+            success: response => resolve({ response, domNode }),
             failure: () => {
               // Second failure, use the default url
               req({
                 url: defaultUrl,
                 cache: true,
-                success: (response) => resolve({response, domNode}),
+                success: response => resolve({ response, domNode }),
                 failure: (response, o) => {
                   // The default help failed. Log the error, as something is
                   // probably wrong with the layout.
                   ErrorManager.addError(response, o, this.options, 'failure');
-                  reject({response, o, domNode});
+                  reject({ response, o, domNode });
                 },
               });
             },
           });
         },
       });
-    }.bind(this));
+    });
   },
   onHelpRowCreated: function onHelpRowCreated(layoutRow, domNode) {
     this.promises.push(this.getHelp(layoutRow, domNode));

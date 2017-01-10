@@ -34,7 +34,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   ownerText: resource.ownerText,
   phoneText: resource.phoneText,
   activityTypeText: {
-    'atPhoneCall': resource.phoneCallHistoryTitle,
+    atPhoneCall: resource.phoneCallHistoryTitle,
   },
   actionsText: resource.actionsText,
   relatedActivitiesText: resource.relatedActivitiesText,
@@ -74,23 +74,23 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
       view.show({
         title: this.activityTypeText[type],
         template: {},
-        entry: entry,
+        entry,
         insert: true,
       }, {
-        complete: complete,
+        complete,
       });
     }
   },
   recordCallToHistory: function recordCallToHistory(complete) {
     const entry = {
-      'Type': 'atPhoneCall',
-      'AccountId': this.entry.$key,
-      'AccountName': this.entry.AccountName,
-      'Description': string.substitute(this.calledText, [this.entry.AccountName]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.UserName,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      Type: 'atPhoneCall',
+      AccountId: this.entry.$key,
+      AccountName: this.entry.AccountName,
+      Description: string.substitute(this.calledText, [this.entry.AccountName]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.UserName,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atPhoneCall', entry, complete);

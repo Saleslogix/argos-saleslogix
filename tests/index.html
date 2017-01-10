@@ -29,10 +29,14 @@
   <script type="text/javascript" src="../../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
 
   <!-- PouchDB -->
-  <script type="text/javascript" src="../../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/PouchDB/pouchdb-4.0.3.min.js"></script>
 
   <!-- L20N.js -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/l20n/l20n.js"></script>
+
+  <!-- ICRM Common, depends on moment -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/icrm/common.bundle.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
 
   <!-- Dojo -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true"></script>
@@ -88,7 +92,8 @@
       var filePaths = {
         '../localization/locales/crm': [
           'strings.l20n',
-          'regional.l20n'
+          'regional.l20n',
+          'hashtags.l20n'
         ],
         '../../../argos-sdk/localization/locales/argos': [
           'strings.l20n',
@@ -113,6 +118,7 @@
       ctx.registerLocales(defaultLocale, supportedLocales);
       ctx.requestLocales(currentLocale);
       window.localeContext = ctx;
+      window.defaultLocaleContext = ctx;
       return ctx;
     }
     var ctx = buildContext();

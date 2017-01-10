@@ -53,8 +53,8 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   emailedText: resource.emailedText,
   entityText: resource.entityText,
   activityTypeText: {
-    'atPhoneCall': resource.phoneCall,
-    'atEMail': resource.email,
+    atPhoneCall: resource.phoneCall,
+    atEMail: resource.email,
   },
 
   // View Properties
@@ -74,41 +74,41 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
       view.show({
         title: this.activityTypeText[type],
         template: {},
-        entry: entry,
+        entry,
         insert: true,
       }, {
-        complete: complete,
+        complete,
       });
     }
   },
   recordCallToHistory: function recordCallToHistory(complete) {
     const entry = {
-      '$name': 'History',
-      'Type': 'atPhoneCall',
-      'AccountName': this.entry.Company,
-      'LeadId': this.entry.$key,
-      'LeadName': this.entry.LeadNameLastFirst,
-      'Description': string.substitute(this.calledText, [this.entry.LeadNameLastFirst]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.UserName,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      $name: 'History',
+      Type: 'atPhoneCall',
+      AccountName: this.entry.Company,
+      LeadId: this.entry.$key,
+      LeadName: this.entry.LeadNameLastFirst,
+      Description: string.substitute(this.calledText, [this.entry.LeadNameLastFirst]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.UserName,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atPhoneCall', entry, complete);
   },
   recordEmailToHistory: function recordEmailToHistory(complete) {
     const entry = {
-      '$name': 'History',
-      'Type': 'atEMail',
-      'AccountName': this.entry.Company,
-      'LeadId': this.entry.$key,
-      'LeadName': this.entry.LeadNameLastFirst,
-      'Description': string.substitute(this.emailedText, [this.entry.LeadNameLastFirst]),
-      'UserId': App.context && App.context.user.$key,
-      'UserName': App.context && App.context.user.UserName,
-      'Duration': 15,
-      'CompletedDate': (new Date()),
+      $name: 'History',
+      Type: 'atEMail',
+      AccountName: this.entry.Company,
+      LeadId: this.entry.$key,
+      LeadName: this.entry.LeadNameLastFirst,
+      Description: string.substitute(this.emailedText, [this.entry.LeadNameLastFirst]),
+      UserId: App.context && App.context.user.$key,
+      UserName: App.context && App.context.user.UserName,
+      Duration: 15,
+      CompletedDate: (new Date()),
     };
 
     this.navigateToHistoryInsert('atEMail', entry, complete);

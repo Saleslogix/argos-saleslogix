@@ -22,7 +22,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     '<button data-dojo-attach-point="loginButton" class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
     '<span class="copyright">{%= $.copyrightText %}</span>',
     '<span class="copyright">{%= App.getVersionInfo() %}</span>',
-    '<div style="visibility: hidden;" class="fa fa-bars"></div>',// force font-awesome to be included on login
+    '<div style="visibility: hidden;" class="fa fa-bars"></div>', // force font-awesome to be included on login
     '</div>',
   ]),
 
@@ -161,6 +161,10 @@ const __class = declare('crm.Views.Login', [Edit], {
 
     App.authenticateUser(credentials, {
       success: function success() {
+        if (this.fields.remember.getValue() !== true) {
+          this.fields.username.setValue('');
+          this.fields.password.setValue('');
+        }
         this.enable();
 
         const attr = this.domNode.attributes.getNamedItem('selected');

@@ -70,6 +70,9 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
     'WebAddress',
     'WorkPhone',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'contacts',
 
   startup: function startup() {
@@ -91,14 +94,14 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
     this.requestAccount(value.key);
   },
   applyContext: function applyContext() {
-    const found = App.queryNavigationContext(function testNavigation(o) {
+    const found = App.queryNavigationContext((o) => {
       const ob = (o.options && o.options.source) || o;
       return (/^(accounts|opportunities)$/).test(ob.resourceKind) && ob.key;
     });
 
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'opportunities': this.applyOpportunityContext,
+      accounts: this.applyAccountContext,
+      opportunities: this.applyOpportunityContext,
     };
 
     this.fields.AccountManager.setValue(App.context.user);
@@ -202,15 +205,15 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
     if (address) {
       const clean = {};
       const skip = {
-          '$key': true,
-          '$lookup': true,
-          '$url': true,
-          'EntityId': true,
-          'ModifyDate': true,
-          'ModifyUser': true,
-          'CreateDate': true,
-          'CreateUser': true,
-        };
+        $key: true,
+        $lookup: true,
+        $url: true,
+        EntityId: true,
+        ModifyDate: true,
+        ModifyUser: true,
+        CreateDate: true,
+        CreateUser: true,
+      };
 
       for (const name in address) {
         if (address.hasOwnProperty(name)) {

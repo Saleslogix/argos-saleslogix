@@ -7,6 +7,7 @@ import List from 'argos/List';
 import getResource from 'argos/I18n';
 
 const resource = getResource('errorLogList');
+const dtFormatResource = getResource('errorLogListDateTimeFormat');
 
 /**
  * @class crm.Views.ErrorLog.List
@@ -19,11 +20,12 @@ const resource = getResource('errorLogList');
 const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
   titleText: resource.titleText,
-  errorDateFormatText: resource.errorDateFormatText,
+  errorDateFormatText: dtFormatResource.errorDateFormatText,
+  errorDateFormatText24: dtFormatResource.errorDateFormatText24,
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
+    '<h3>{%: crm.Format.date($.Date, (App.is24HourClock()) ? $$.errorDateFormatText24 : $$.errorDateFormatText) %}</h3>',
     '<h4>{%: $.Description %}</h4>',
   ]),
 
@@ -44,7 +46,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   createStore: function createStore() {
     const errorItems = ErrorManager.getAllErrors();
 
-    errorItems.sort(function sortErrorItems(a, b) {
+    errorItems.sort((a, b) => {
       a.errorDateStamp = a.errorDateStamp || a.Date;
       b.errorDateStamp = b.errorDateStamp || b.Date;
       a.Date = a.errorDateStamp;
@@ -61,7 +63,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [],
+      tbar: [],
     });
   },
 });

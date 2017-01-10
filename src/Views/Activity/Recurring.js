@@ -108,7 +108,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     switch (rp) {
       case 0:
         // daily
-      case 1:
+      case 1: // eslint-disable-line
         break;
       case 2:
         // weekly
@@ -408,40 +408,40 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     for (const opt in this.frequencyOptionsText) {
       if (this.frequencyOptionsText.hasOwnProperty(opt)) {
         list.push({
-          '$key': opt,
-          '$descriptor': this.frequencyOptionsText[opt],
+          $key: opt,
+          $descriptor: this.frequencyOptionsText[opt],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   createWeekdaysData: function createWeekdaysData() {
     const list = [];
 
-    array.forEach(this.weekDaysText, function makeWeekdayList(name, idx) {
+    array.forEach(this.weekDaysText, (name, idx) => {
       list.push({
-        '$key': idx,
-        '$descriptor': name,
+        $key: idx,
+        $descriptor: name,
       });
     });
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   createMonthsData: function createMonthsData() {
     const list = [];
-    array.forEach(this.monthsText, function makeMonthList(name, idx) {
+    array.forEach(this.monthsText, (name, idx) => {
       list.push({
-        '$key': idx,
-        '$descriptor': name,
+        $key: idx,
+        $descriptor: name,
       });
     });
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   createOrdData: function createOrdData() {
@@ -450,14 +450,14 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     for (const ord in recur.ordText) {
       if (recur.ordText.hasOwnProperty(ord)) {
         list.push({
-          '$key': ord,
-          '$descriptor': recur.ordText[ord],
+          $key: ord,
+          $descriptor: recur.ordText[ord],
         });
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   setValues: function setValues(values) {
@@ -500,11 +500,11 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   getRecurrence: function getRecurrence() {
     return {
-      'StartDate': this.fields.StartDate.getValue(),
-      'RecurPeriod': parseInt(this.fields.RecurPeriod.getValue(), 10),
-      'RecurPeriodSpec': parseInt(this.fields.RecurPeriodSpec.getValue(), 10),
-      'RecurIterations': parseInt(this.fields.RecurIterations.getValue(), 10),
-      'RecurrenceState': this.fields.RecurrenceState.getValue(),
+      StartDate: this.fields.StartDate.getValue(),
+      RecurPeriod: parseInt(this.fields.RecurPeriod.getValue(), 10),
+      RecurPeriodSpec: parseInt(this.fields.RecurPeriodSpec.getValue(), 10),
+      RecurIterations: parseInt(this.fields.RecurIterations.getValue(), 10),
+      RecurrenceState: this.fields.RecurrenceState.getValue(),
     };
   },
   createLayout: function createLayout() {

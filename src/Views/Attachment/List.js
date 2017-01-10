@@ -11,6 +11,8 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('attachmentList');
+const hashTagResource = getResource('attachmentListHashTags');
+const dtFormatResource = getResource('attachmentListDateTimeFormat');
 
 /**
  * @class crm.Views.Attachments.List
@@ -63,7 +65,8 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
 
   // Localization
   titleText: resource.titleText,
-  attachmentDateFormatText: resource.attachmentDateFormatText,
+  attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
+  attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
   uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
 
   // View Properties
@@ -89,15 +92,18 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   ],
   resourceKind: 'attachments',
   contractName: 'system',
-  queryInclude: ['$descriptors'],
+  queryInclude: [
+    '$descriptors',
+    '$permissions',
+  ],
 
   hashTagQueries: {
-    'url': "(fileName like '%.URL')",
-    'binary': "(fileName not like '%.URL')",
+    url: "(fileName like '%.URL')",
+    binary: "(fileName not like '%.URL')",
   },
   hashTagQueriesText: {
-    'url': 'url',
-    'binary': 'binary',
+    url: hashTagResource.hashTagUrlText,
+    binary: hashTagResource.hashTagBinaryText,
   },
   createToolLayout: function createToolLayout() {
     if (!has('html5-file-api')) {
@@ -118,7 +124,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     let toReturn;
     if (attachment.url) {
       let href = attachment.url || '';
-      href = (href.indexOf('http') < 0) ? 'http://' + href : href;
+      href = (href.indexOf('http') < 0) ? `http://${href}` : href;
       toReturn = string.substitute('<a href="${0}" target="_blank" title="${1}">${2}</a>', [href, attachment.url, attachment.$descriptor]);
     } else {
       if (attachment.fileExists) {
@@ -131,21 +137,21 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   },
   itemIconClass: 'fa-file-o',
   fileIconByType: {
-    'xls': 'fa-file-excel-o',
-    'xlsx': 'fa-file-excel-o',
-    'doc': 'fa-file-word-o',
-    'docx': 'fa-file-word-o',
-    'ppt': 'fa-file-powerpoint-o',
-    'pptx': 'fa-file-powerpoint-o',
-    'txt': 'fa-file-text-o',
-    'rtf': 'fa-file-text-o',
-    'csv': 'fa-file-text-o',
-    'pdf': 'fa-file-pdf-o',
-    'zip': 'fa-file-zip-o',
-    'png': 'fa-file-image-o',
-    'jpg': 'fa-file-image-o',
-    'gif': 'fa-file-image-o',
-    'bmp': 'fa-file-image-o',
+    xls: 'fa-file-excel-o',
+    xlsx: 'fa-file-excel-o',
+    doc: 'fa-file-word-o',
+    docx: 'fa-file-word-o',
+    ppt: 'fa-file-powerpoint-o',
+    pptx: 'fa-file-powerpoint-o',
+    txt: 'fa-file-text-o',
+    rtf: 'fa-file-text-o',
+    csv: 'fa-file-text-o',
+    pdf: 'fa-file-pdf-o',
+    zip: 'fa-file-zip-o',
+    png: 'fa-file-image-o',
+    jpg: 'fa-file-image-o',
+    gif: 'fa-file-image-o',
+    bmp: 'fa-file-image-o',
   },
   getItemIconClass: function getItemIconClass(entry) {
     const fileName = entry && entry.fileName;
@@ -159,7 +165,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
       }
     }
     if (cls) {
-      cls = 'fa ' + cls + ' fa-2x';
+      cls = `fa ${cls} fa-2x`;
     }
     return cls;
   },

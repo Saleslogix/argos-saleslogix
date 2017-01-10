@@ -3,6 +3,7 @@ import string from 'dojo/string';
 import getResource from 'argos/I18n';
 
 const resource = getResource('recurrence');
+const dtFormatResource = getResource('recurrenceDateTimeFormat');
 
 /**
  * @class crm.Recurrence
@@ -31,11 +32,11 @@ const __class = lang.setObject('crm.Recurrence', {
   everyText: resource.everyText, // eg. every {2} {weeks}
   afterCompletionText: resource.afterCompletionText,
   untilEndDateText: resource.untilEndDateText, // eg. {daily} until {31/10/2012}
-  dayFormatText: resource.dayFormatText,
-  monthFormatText: resource.monthFormatText,
-  monthAndDayFormatText: resource.monthAndDayFormatText,
-  weekdayFormatText: resource.weekdayFormatText,
-  endDateFormatText: resource.endDateFormatText,
+  dayFormatText: dtFormatResource.dayFormatText,
+  monthFormatText: dtFormatResource.monthFormatText,
+  monthAndDayFormatText: dtFormatResource.monthAndDayFormatText,
+  weekdayFormatText: dtFormatResource.weekdayFormatText,
+  endDateFormatText: dtFormatResource.endDateFormatText,
   weekDaysText: [
     resource.sunday,
     resource.monday,
@@ -161,16 +162,16 @@ const __class = lang.setObject('crm.Recurrence', {
 
         if (this[this.simplifiedOptions[recurOption].label]) {
           list.push({
-            '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
-            '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
-            'recurrence': this.simplifiedOptions[recurOption],
+            $key: recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
+            $descriptor: string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
+            recurrence: this.simplifiedOptions[recurOption],
           });
         }
       }
     }
 
     return {
-      '$resources': list,
+      $resources: list,
     };
   },
   getPanel: function getPanel(recurPeriod, plural) {
@@ -237,7 +238,7 @@ const __class = lang.setObject('crm.Recurrence', {
 
     return {
       week: nthWeek,
-      weekday: weekday,
+      weekday,
       month: monthNum,
     };
   },
@@ -336,7 +337,7 @@ const __class = lang.setObject('crm.Recurrence', {
     switch (rp) {
       case 0:
         // daily
-      case 1:
+      case 1: // eslint-disable-line
         break;
       case 2:
         // weekly

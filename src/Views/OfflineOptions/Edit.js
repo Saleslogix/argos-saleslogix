@@ -34,7 +34,7 @@ const __class = declare('crm.Views.OfflineOptions.Edit', [_EditBase, _RelatedWid
   },
   getOfflineOptions: function getOfflineOptions() {
     const def = new Deferred();
-    def.resolve({maxdays: 5});
+    def.resolve({ maxdays: 5 });
     return def.promise;
   },
   onRefreshUpdate: function onRefreshUpdate() {

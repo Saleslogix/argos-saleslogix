@@ -14,6 +14,7 @@ import getResource from 'argos/I18n';
 import Deferred from 'dojo/Deferred';
 
 const resource = getResource('activityDetail');
+const dtFormatResource = getResource('activityDetailDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Detail
@@ -59,9 +60,11 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   contactText: resource.contactText,
   opportunityText: resource.opportunityText,
   ticketNumberText: resource.ticketNumberText,
-  startDateFormatText: resource.startDateFormatText,
-  timelessDateFormatText: resource.timelessDateFormatText,
-  alarmDateFormatText: resource.alarmDateFormatText,
+  startDateFormatText: dtFormatResource.startDateFormatText,
+  startDateFormatText24: dtFormatResource.startDateFormatText24,
+  timelessDateFormatText: dtFormatResource.timelessDateFormatText,
+  alarmDateFormatText: dtFormatResource.alarmDateFormatText,
+  alarmDateFormatText24: dtFormatResource.alarmDateFormatText24,
   recurrenceText: resource.recurrenceText,
   confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
   relatedAttachmentText: resource.relatedAttachmentText,
@@ -71,11 +74,11 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
   activityTypeText: {
-    'atToDo': resource.toDoText,
-    'atPhoneCall': resource.phoneCallText,
-    'atAppointment': resource.meetingText,
-    'atLiterature': resource.literatureText,
-    'atPersonal': resource.personalText,
+    atToDo: resource.toDoText,
+    atPhoneCall: resource.phoneCallText,
+    atAppointment: resource.meetingText,
+    atLiterature: resource.literatureText,
+    atPersonal: resource.personalText,
   },
 
   // View Properties
@@ -129,7 +132,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')
         .setContractName('system')
-        .setQueryArg('where', "id eq '" + key + "'")
+        .setQueryArg('where', `id eq '${key}'`)
         .setCount(1);
 
       request.read({
@@ -150,7 +153,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
     const view = App.getView(this.editView);
     if (view) {
       view.show({
-        entry: entry,
+        entry,
       });
     }
   },
@@ -190,7 +193,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
         .setResourceKind('activities')
         .setContractName('system')
-        .setQueryArg('where', "id eq '" + key + "'")
+        .setQueryArg('where', `id eq '${key}'`)
         .setCount(1);
 
       request.read({
@@ -262,7 +265,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         iconClass: 'fa fa-check-square fa-lg',
         action: 'completeOccurrence',
         disabled: this.checkCanComplete.bind(this),
-        renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.startDateFormatText24 : this.startDateFormatText, false),
         include: this.isActivityRecurringSeries.bind(this),
       }, {
         name: 'completeSeriesAction',
@@ -365,7 +368,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         name: 'StartDate',
         property: 'StartDate',
         label: this.startTimeText,
-        renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.startDateFormatText24 : this.startDateFormatText, false),
         exclude: this.isActivityTimeless.bind(this),
       }, {
         name: 'StartDateTimeless',
@@ -395,7 +398,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         name: 'AlarmTime',
         property: 'AlarmTime',
         label: this.alarmTimeText,
-        renderer: format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.alarmDateFormatText24 : this.alarmDateFormatText, null, true),
         include: this.doesActivityHaveReminder.bind(this),
       }, {
         name: 'Rollover',

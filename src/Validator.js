@@ -1,5 +1,8 @@
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
+import getResource from 'argos/I18n';
+
+const resource = getResource('validators');
 
 /**
  * @class crm.Validator
@@ -34,7 +37,7 @@ const __class = lang.setObject('crm.Validator', {
     fn: function exists(value) {
       return !value;
     },
-    message: "The field '${2}' must have a value.",
+    message: resource.existsText,
   },
 
   /**
@@ -48,7 +51,7 @@ const __class = lang.setObject('crm.Validator', {
       }
       return true;
     },
-    message: "The field '${2}' must have a first and last name specified.",
+    message: resource.nameText,
   },
   /**
    * @property {Object}
@@ -56,7 +59,7 @@ const __class = lang.setObject('crm.Validator', {
    */
   notEmpty: {
     test: /.+/,
-    message: "The field '${2}' cannot be empty.",
+    message: resource.notEmptyText,
   },
   /**
    * @deprecated
@@ -65,7 +68,7 @@ const __class = lang.setObject('crm.Validator', {
    */
   hasText: {
     test: /\w+/,
-    message: "The field '${2}' must contain some text.",
+    message: resource.hasText,
   },
   /**
    * @property {Object}
@@ -73,7 +76,7 @@ const __class = lang.setObject('crm.Validator', {
    */
   isInteger: {
     test: /^\d+$/,
-    message: "The value '${0}' is not a valid number.",
+    message: resource.isNumberText,
   },
 
   /**
@@ -82,7 +85,7 @@ const __class = lang.setObject('crm.Validator', {
    */
   isDecimal: {
     test: /^[\d.]+$/,
-    message: "The value '${0}' is not a valid number.",
+    message: resource.isNumberText,
   },
 
   /**
@@ -95,7 +98,7 @@ const __class = lang.setObject('crm.Validator', {
         Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2',
       ])).test(value));
     },
-    message: "The value '${0}' is not a valid currency number.",
+    message: resource.isCurrencyText,
   },
 
   /**
@@ -109,7 +112,7 @@ const __class = lang.setObject('crm.Validator', {
       }
       return false;
     },
-    message: "The field '${2}' value exceeds the allowed numeric range.",
+    message: resource.int32Text,
   },
 
   /**
@@ -124,7 +127,7 @@ const __class = lang.setObject('crm.Validator', {
       }
       return false;
     },
-    message: "The field '${2}' value exceeds the allowed limit in length.",
+    message: resource.maxLengthText,
   },
 
   /**
@@ -156,7 +159,7 @@ const __class = lang.setObject('crm.Validator', {
 
       return true;
     },
-    message: "The field '${2}' value is out of allowed date range.",
+    message: resource.dateRangeText,
   },
 
   /**

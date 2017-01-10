@@ -61,7 +61,7 @@ const __class = declare('crm.Views.Groups.Selector', [List], {
         service: App.services.crm,
         resourceKind: 'groups',
         contractName: 'system',
-        where: "upper(family) eq '" + entityName.toUpperCase() + "'",
+        where: `upper(family) eq '${entityName.toUpperCase()}'`,
         orderBy: 'name asc',
         include: ['layout', 'tableAliases'],
         idProperty: '$key',

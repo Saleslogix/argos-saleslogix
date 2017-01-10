@@ -14,6 +14,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('calendarMonthView');
+const dtFormatResource = getResource('calendarMonthViewDateTimeFormat');
 
 /**
  * @class crm.Views.Calendar.MonthView
@@ -39,10 +40,11 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   dayText: resource.dayText,
   weekText: resource.weekText,
   monthText: resource.monthText,
-  monthTitleFormatText: resource.monthTitleFormatText,
-  dayTitleFormatText: resource.dayTitleFormatText,
-  eventDateFormatText: resource.eventDateFormatText,
-  startTimeFormatText: resource.startTimeFormatText,
+  monthTitleFormatText: dtFormatResource.monthTitleFormatText,
+  dayTitleFormatText: dtFormatResource.dayTitleFormatText,
+  eventDateFormatText: dtFormatResource.eventDateFormatText,
+  startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,
@@ -132,7 +134,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+    '<span class="p-time">{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   activityItemTemplate: new Simplate([
@@ -171,16 +173,16 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '</button>',
     '</div>',
   ]),
-  calendarStartTemplate: '<table class="calendar-table">',
-  calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
-  calendarWeekHeaderTemplate: '<td class="calendar-weekday">${0}</td>',
+  calendarStartTemplate: '<table class="old-calendar-table">',
+  calendarWeekHeaderStartTemplate: '<tr class="old-calendar-week-header">',
+  calendarWeekHeaderTemplate: '<td class="old-calendar-weekday">${0}</td>',
   calendarWeekHeaderEndTemplate: '</tr>',
-  calendarWeekStartTemplate: '<tr class="calendar-week">',
+  calendarWeekStartTemplate: '<tr class="old-calendar-week">',
   calendarEmptyDayTemplate: '<td>&nbsp;</td>',
-  calendarDayTemplate: '<td class="calendar-day ${1}" data-action="selectDay" data-date="${2}">${0}</td>',
+  calendarDayTemplate: '<td class="old-calendar-day ${1}" data-action="selectDay" data-date="${2}">${0}</td>',
   calendarWeekEndTemplate: '</tr>',
   calendarEndTemplate: '</table>',
-  calendarActivityCountTemplate: '<span class="activity-count" title="${0} events">${0}</span>',
+  calendarActivityCountTemplate: '<span class="old-activity-count" title="${0} events">${0}</span>',
 
   attributeMap: {
     calendarContent: {
@@ -269,14 +271,14 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     'Recurring',
   ],
   activityIconByType: {
-    'atToDo': 'fa fa-list-ul',
-    'atPhoneCall': 'fa fa-phone',
-    'atAppointment': 'fa fa-calendar-o',
-    'atLiterature': 'fa fa-calendar-o',
-    'atPersonal': 'fa fa-check-square-o',
-    'atQuestion': 'fa fa-question',
-    'atNote': 'fa fa-calendar-o',
-    'atEMail': 'fa fa-envelope',
+    atToDo: 'fa fa-list-ul',
+    atPhoneCall: 'fa fa-phone',
+    atAppointment: 'fa fa-calendar-o',
+    atLiterature: 'fa fa-calendar-o',
+    atPersonal: 'fa fa-check-square-o',
+    atQuestion: 'fa fa-question',
+    atNote: 'fa fa-calendar-o',
+    atEMail: 'fa fa-envelope',
   },
   eventIcon: 'fa fa-calendar-o',
 
@@ -312,7 +314,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     const where = this.getSelectedDateEventQuery();
     if (view) {
       view.show({
-        'where': where,
+        where,
       });
     }
   },
@@ -438,33 +440,33 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     const startDate = this.getFirstDayOfCurrentMonth();
     const endDate = this.getLastDayOfCurrentMonth();
     return string.substitute(
-      [
-        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-        '(Timeless eq false and StartDate',
-        ' between @${1}@ and @${2}@) or ',
-        '(Timeless eq true and StartDate',
-        ' between @${3}@ and @${4}@))',
-      ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+    [
+      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+      '(Timeless eq false and StartDate',
+      ' between @${1}@ and @${2}@) or ',
+      '(Timeless eq true and StartDate',
+      ' between @${3}@ and @${4}@))',
+    ].join(''), [App.context.user && App.context.user.$key,
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   getEventQuery: function getEventQuery() {
     const startDate = this.getFirstDayOfCurrentMonth();
     const endDate = this.getLastDayOfCurrentMonth();
     return string.substitute(
-      [
-        'UserId eq "${0}" and (',
-        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-        'StartDate lt @${2}@',
-        ')',
-      ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-      ]
+    [
+      'UserId eq "${0}" and (',
+      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+      'StartDate lt @${2}@',
+      ')',
+    ].join(''), [App.context.user && App.context.user.$key,
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+    ]
     );
   },
   processFeed: function processFeed(feed) {
@@ -529,7 +531,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
 
   highlightActivities: function highlightActivities() {
-    query('.calendar-day')
+    query('.old-calendar-day')
       .forEach(function queryDays(node) {
         const dataDate = domAttr.get(node, 'data-date');
         if (!this.dateCounts[dataDate]) {
@@ -545,7 +547,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
         if (existingCount.length > 0) {
           domConstruct.place(countMarkup, existingCount[0], 'only');
         } else {
-          domConstruct.place('<div>' + countMarkup + '</div>', node, 'first');
+          domConstruct.place(`<div>${countMarkup}</div>`, node, 'first');
         }
       }, this);
   },
@@ -574,7 +576,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       return;
     }
 
-    array.forEach(requests, function forEach(xhr) {
+    array.forEach(requests, (xhr) => {
       if (xhr) { // if request was fulfilled by offline storage, xhr will be undefined
         xhr.abort();
       }
@@ -654,18 +656,18 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
   getSelectedDateEventQuery: function getSelectedDateEventQuery() {
     return string.substitute(
-      [
-        'UserId eq "${0}" and (',
-        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-        'StartDate lt @${2}@',
-        ')',
-      ].join(''), [
-        App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(this.currentDate.toDate()),
-        convert.toIsoStringFromDate(this.currentDate.clone()
+    [
+      'UserId eq "${0}" and (',
+      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+      'StartDate lt @${2}@',
+      ')',
+    ].join(''), [
+      App.context.user && App.context.user.$key,
+      convert.toIsoStringFromDate(this.currentDate.toDate()),
+      convert.toIsoStringFromDate(this.currentDate.clone()
           .endOf('day')
           .toDate()),
-      ]
+    ]
     );
   },
   onRequestSelectedDateActivityDataSuccess: function onRequestSelectedDateActivityDataSuccess(feed) {
@@ -806,7 +808,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
   },
   highlightCurrentDate: function highlightCurrentDate() {
-    const selectedDate = string.substitute('.calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
+    const selectedDate = string.substitute('.old-calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
 
     if (this.selectedDateNode) {
       domClass.remove(this.selectedDateNode, 'selected');
@@ -823,14 +825,14 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   highlightToday: function highlightToday() {
     // Remove the existing "today" highlight class because it might be out of date,
     // like when we tick past midnight.
-    let todayCls = '.calendar-day.today';
+    let todayCls = '.old-calendar-day.today';
     let todayNode = query(todayCls, this.contentNode)[0];
     if (todayNode) {
       domClass.remove(todayNode, 'today');
     }
 
     // Get the updated "today"
-    todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment()
+    todayCls = string.substitute('.old-calendar-day[data-date=${0}]', [moment()
       .format('YYYY-MM-DD'),
     ]);
     todayNode = query(todayCls, this.contentNode)[0];
@@ -920,7 +922,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     if (view) {
       view.show({
         title: descriptor,
-        key: key,
+        key,
       });
     }
   },

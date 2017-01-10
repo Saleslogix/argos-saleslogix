@@ -81,6 +81,9 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     'Urgency/UrgencyCode',
     'CompletedBy/OwnerDescription',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   resourceKind: 'tickets',
 
   init: function init() {
@@ -179,8 +182,8 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
 
     if (selection && selection.Account && !accountField.getValue()) {
       accountField.setValue({
-        '$key': selection.Account.$key,
-        'AccountName': selection.Account.AccountName,
+        $key: selection.Account.$key,
+        AccountName: selection.Account.AccountName,
       });
     }
   },
@@ -221,13 +224,13 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     return key ? string.substitute('Account.id eq "${0}"', [key]) : false;
   },
   applyContext: function applyContext() {
-    const found = App.queryNavigationContext(function queryNavigationContext(o) {
+    const found = App.queryNavigationContext((o) => {
       return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
     });
 
     const lookup = {
-      'accounts': this.applyAccountContext,
-      'contacts': this.applyContactContext,
+      accounts: this.applyAccountContext,
+      contacts: this.applyContactContext,
     };
 
     if (found && lookup[found.resourceKind]) {
@@ -254,13 +257,13 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
   },
   formatCategoryQuery: function formatCategoryQuery(value) {
     return {
-      'Area': value, // dependent value
+      Area: value, // dependent value
     };
   },
   formatIssueQuery: function formatIssueQuery(value) {
     return {
-      'Area': this.fields.Area.getValue(),
-      'Category': value, // dependent value
+      Area: this.fields.Area.getValue(),
+      Category: value, // dependent value
     };
   },
   includeIfValueExists: function includeIfValueExists(value) {

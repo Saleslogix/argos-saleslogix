@@ -6,6 +6,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
+  id: 'contact_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
@@ -47,6 +48,9 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         'Title',
         'WebAddress',
         'WorkPhone',
+      ],
+      queryInclude: [
+        '$permissions',
       ],
     }];
   },

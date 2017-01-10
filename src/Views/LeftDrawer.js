@@ -154,9 +154,10 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     const quickActions = {
       id: 'actions',
       children: [{
-        'name': 'AddAccountContactAction',
-        'action': 'addAccountContact',
-        'title': this.addAccountContactText,
+        name: 'AddAccountContactAction',
+        action: 'addAccountContact',
+        title: this.addAccountContactText,
+        security: 'Entities/Account/Add',
       }],
     };
 
@@ -172,12 +173,12 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       const view = App.getView(configured[i]);
       if (view) {
         goTo.children.push({
-          'action': 'loadAndNavigateToView',
-          'view': view.id,
-          'title': view.titleText,
-          'security': view.getSecurity(),
-          'enableOfflineSupport': view.enableOfflineSupport,
-          'disabled': view.isDisabled(),
+          action: 'loadAndNavigateToView',
+          view: view.id,
+          title: view.titleText,
+          security: view.getSecurity(),
+          enableOfflineSupport: view.enableOfflineSupport,
+          disabled: view.isDisabled(),
         });
       }
     }
@@ -187,29 +188,29 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     const footer = {
       id: 'footer',
       children: [{
-        'name': 'ConfigureMenu',
-        'action': 'navigateToConfigurationView',
-        'title': this.configureText,
-        'enableOfflineSupport': false,
+        name: 'ConfigureMenu',
+        action: 'navigateToConfigurationView',
+        title: this.configureText,
+        enableOfflineSupport: false,
       }, {
-        'name': 'SettingsAction',
-        'action': 'navigateToSettingsView',
-        'title': this.settingsText,
-        'enableOfflineSupport': true,
+        name: 'SettingsAction',
+        action: 'navigateToSettingsView',
+        title: this.settingsText,
+        enableOfflineSupport: true,
       }, {
-        'name': 'HelpAction',
-        'action': 'navigateToHelpView',
-        'title': this.helpText,
-        'enableOfflineSupport': true,
+        name: 'HelpAction',
+        action: 'navigateToHelpView',
+        title: this.helpText,
+        enableOfflineSupport: true,
       }, {
-        'name': 'Logout',
-        'action': 'logOut',
-        'title': this.logOutText,
-        'enableOfflineSupport': false,
+        name: 'Logout',
+        action: 'logOut',
+        title: this.logOutText,
+        enableOfflineSupport: false,
       }, {
-        'name': 'ConnectionIndicator',
-        'title': string.substitute(this.connectionText, {connectionStatus: App.onLine ? this.onlineText : this.offlineText}),
-        'enableOfflineSupport': true,
+        name: 'ConnectionIndicator',
+        title: string.substitute(this.connectionText, { connectionStatus: App.onLine ? this.onlineText : this.offlineText }),
+        enableOfflineSupport: true,
       }],
     };
 

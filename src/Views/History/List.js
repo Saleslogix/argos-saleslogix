@@ -11,6 +11,8 @@ import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('historyList');
+const hashTagResource = getResource('historyListHashTags');
+const dtFormatResource = getResource('historyListDateTimeFormat');
 
 /**
  * @class crm.Views.History.List
@@ -63,8 +65,9 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   ]),
 
   // Localization
-  hourMinuteFormatText: resource.hourMinuteFormatText,
-  dateFormatText: resource.dateFormatText,
+  hourMinuteFormatText: dtFormatResource.hourMinuteFormatText,
+  hourMinuteFormatText24: dtFormatResource.hourMinuteFormatText24,
+  dateFormatText: dtFormatResource.dateFormatText,
   titleText: resource.titleText,
   viewAccountActionText: resource.viewAccountActionText,
   viewOpportunityActionText: resource.viewOpportunityActionText,
@@ -72,21 +75,21 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   addAttachmentActionText: resource.addAttachmentActionText,
   regardingText: resource.regardingText,
   activityTypeText: {
-    'atToDo': resource.toDo,
-    'atPhoneCall': resource.phoneCall,
-    'atAppointment': resource.meeting,
-    'atLiterature': resource.literature,
-    'atPersonal': resource.personal,
-    'atQuestion': resource.question,
-    'atEMail': resource.email,
+    atToDo: resource.toDo,
+    atPhoneCall: resource.phoneCall,
+    atAppointment: resource.meeting,
+    atLiterature: resource.literature,
+    atPersonal: resource.personal,
+    atQuestion: resource.question,
+    atEMail: resource.email,
   },
   hashTagQueriesText: {
-    'my-history': resource.myHistoryHash,
-    'note': resource.noteHash,
-    'phonecall': resource.phoneCallHash,
-    'meeting': resource.meetingHash,
-    'personal': resource.personalHash,
-    'email': resource.emailHash,
+    'my-history': hashTagResource.myHistoryHash,
+    note: hashTagResource.noteHash,
+    phonecall: hashTagResource.phoneCallHash,
+    meeting: hashTagResource.meetingHash,
+    personal: hashTagResource.personalHash,
+    email: hashTagResource.emailHash,
   },
 
   // View Properties
@@ -121,23 +124,23 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   entityName: 'History',
   hashTagQueries: {
     'my-history': function myHistory() {
-      return 'UserId eq "' + App.context.user.$key + '"';
+      return `UserId eq "${App.context.user.$key}"`;
     },
-    'note': 'Type eq "atNote"',
-    'phonecall': 'Type eq "atPhoneCall"',
-    'meeting': 'Type eq "atAppointment"',
-    'personal': 'Type eq "atPersonal"',
-    'email': 'Type eq "atEMail"',
+    note: 'Type eq "atNote"',
+    phonecall: 'Type eq "atPhoneCall"',
+    meeting: 'Type eq "atAppointment"',
+    personal: 'Type eq "atPersonal"',
+    email: 'Type eq "atEMail"',
   },
   activityIndicatorIconByType: {
-    'atToDo': 'fa fa-list-ul fa-2x',
-    'atPhoneCall': 'fa fa-phone fa-2x',
-    'atAppointment': 'fa fa-calendar-o fa-2x',
-    'atLiterature': 'fa fa-book fa-2x',
-    'atPersonal': 'fa fa-check-square-o fa-2x',
-    'atQuestion': 'fa fa-question-circle fa-2x',
-    'atNote': 'fa fa-file-text-o fa-2x',
-    'atEMail': 'fa fa-envelope fa-2x',
+    atToDo: 'fa fa-list-ul fa-2x',
+    atPhoneCall: 'fa fa-phone fa-2x',
+    atAppointment: 'fa fa-calendar-o fa-2x',
+    atLiterature: 'fa fa-book fa-2x',
+    atPersonal: 'fa fa-check-square-o fa-2x',
+    atQuestion: 'fa fa-question-circle fa-2x',
+    atNote: 'fa fa-file-text-o fa-2x',
+    atEMail: 'fa fa-envelope fa-2x',
   },
   allowSelection: true,
   enableActions: true,
@@ -220,12 +223,12 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   formatDate: function formatDate(date) {
     const startDate = moment(convert.toDateFromString(date));
     const nextDate = startDate.clone().add({
-        hours: 24,
-      });
+      hours: 24,
+    });
     let fmt = this.dateFormatText;
 
     if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
-      fmt = this.hourMinuteFormatText;
+      fmt = (App.is24HourClock()) ? this.hourMinuteFormatText24 : this.hourMinuteFormatText;
     }
 
     return format.date(startDate.toDate(), fmt);

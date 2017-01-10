@@ -1,0 +1,28 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Firmen in der Nähe anzeigen"
+  addressNotGeocodedErrorText: "Die Adresse ist nicht geocodiert. Suchen nach Firmen in der Nähe nicht möglich."
+  accountsNearText: "Firmen in der Nähe von ${0}"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Firmen in meiner Nähe"
+  addActivityActionText: "Aktivität hinzufügen"
+  addAttachmentActionText: "Anlage hinzufügen"
+  addNoteActionText: "Notiz hinzufügen"
+	callMainActionText: "Hauptnr. anrufen"
+	currentLocationErrorText: "Ihr aktueller Standort kann nicht übertragen werden. Suchen nicht möglich."
+	editActionText: "Bearbeiten"
+  faxAbbreviationText: "Fax: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Telefon: "
+	titleText: "Firmen in meiner Nähe"
+	viewContactsActionText: "Kontakte"
+>
+
+<locPicker ""
+  accountsNearText: "Firmen in der Nähe von ${0}"
+	myHouseText: "Mein Zuhause"
+	myOfficeText: "Mein Büro"
+	titleText: "Umkreissuche nach Entfernung"
+>

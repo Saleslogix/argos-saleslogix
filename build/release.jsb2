@@ -196,6 +196,12 @@
           "text": "Environment.js",
           "path": "../src-out/"
         }, {
+          "text": "Names.js",
+          "path": "../src-out/Models/"
+        }, {
+          "text": "MingleUtility.js",
+          "path": "../src-out/"
+        }, {
           "text": "AreaCategoryIssueLookup.js",
           "path": "../src-out/Views/"
         }, {
@@ -319,6 +325,9 @@
           "text": "RelatedEditWidget.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "Format.js",
+          "path": "../src-out/"
+        }, {
           "text": "Template.js",
           "path": "../src-out/"
         }, {
@@ -334,8 +343,29 @@
           "text": "FileManager.js",
           "path": "../src-out/"
         }, {
+          "text": "PicklistService.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
+          "text": "MetricWidget.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "DateRangeWidget.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
           "text": "Names.js",
-          "path": "../src-out/Models/"
+          "path": "../src-out/Integrations/BOE/Models/"
+        }, {
+          "text": "PricingAvailabilityService.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
+          "text": "_Module.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "_CardLayoutListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "Names.js",
+          "path": "../src-out/Integrations/Contour/Models/"
         }, {
           "text": "ActivityTypeIcon.js",
           "path": "../src-out/Models/Activity/"
@@ -352,12 +382,6 @@
           "text": "SpeedSearchWidget.js",
           "path": "../src-out/"
         }, {
-          "text": "_CardLayoutListMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "MetricWidget.js",
-          "path": "../src-out/Views/"
-        }, {
           "text": "_RightDrawerBaseMixin.js",
           "path": "../src-out/Views/"
         }, {
@@ -367,35 +391,8 @@
           "text": "FooterToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "Application.js",
-          "path": "../src-out/"
-        }, {
-          "text": "PicklistField.js",
-          "path": "../src-out/Fields/"
-        }, {
-          "text": "Format.js",
-          "path": "../src-out/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/History/"
-        }, {
-          "text": "NameEdit.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Opportunity/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/OpportunityProduct/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/TicketActivity/"
-        }, {
-          "text": "CalendarView.js",
-          "path": "../src-out/Views/Calendar/"
-        }, {
-          "text": "AttachmentManager.js",
-          "path": "../src-out/"
+          "text": "Aggregate.js",
+          "path": "../src-out/Integrations/BOE/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Account/"
@@ -410,6 +407,9 @@
           "path": "../src-out/Models/History/"
         }, {
           "text": "Base.js",
+          "path": "../src-out/Models/Integration/"
+        }, {
+          "text": "Base.js",
           "path": "../src-out/Models/Lead/"
         }, {
           "text": "Base.js",
@@ -421,80 +421,20 @@
           "text": "Base.js",
           "path": "../src-out/Models/Ticket/"
         }, {
-          "text": "Complete.js",
-          "path": "../src-out/Views/Activity/"
+          "text": "Application.js",
+          "path": "../src-out/"
         }, {
-          "text": "Base.js",
-          "path": "../src-out/Models/Activity/"
+          "text": "Bootstrap.js",
+          "path": "../src-out/"
         }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "QuickEdit.js",
-          "path": "../src-out/Views/Opportunity/"
-        }, {
-          "text": "Home.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "LeftDrawer.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "Settings.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "MyDayMetricWidget.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "TotalMetricWidget.js",
-          "path": "../src-out/Views/Offline/"
-        }, {
-          "text": "TotalMetricWidget.js",
-          "path": "../src-out/Views/RecentlyViewed/"
-        }, {
-          "text": "_MetricDetailMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "MyDayRightDrawerListMixin.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "_RightDrawerListMixin.js",
-          "path": "../src-out/Views/Offline/"
-        }, {
-          "text": "_RightDrawerListMixin.js",
-          "path": "../src-out/Views/RecentlyViewed/"
-        }, {
-          "text": "_SpeedSearchRightDrawerListMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "GenericBar.js",
-          "path": "../src-out/Views/Charts/"
-        }, {
-          "text": "GenericLine.js",
-          "path": "../src-out/Views/Charts/"
-        }, {
-          "text": "GenericPie.js",
-          "path": "../src-out/Views/Charts/"
+          "text": "PicklistField.js",
+          "path": "../src-out/Fields/"
         }, {
           "text": "GroupUtility.js",
           "path": "../src-out/"
         }, {
-          "text": "Detail.js",
-          "path": "../src-out/Views/Account/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Account/"
-        }, {
-          "text": "Detail.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "Recurring.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "AddAccountContact.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Address/"
+          "text": "PricingAvailabilityList.js",
+          "path": "../src-out/Integrations/BOE/Views/Locations/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Address/"
@@ -503,27 +443,12 @@
           "path": "../src-out/Views/Calendar/"
         }, {
           "text": "Detail.js",
-          "path": "../src-out/Views/Contact/"
-        }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Contact/"
-        }, {
-          "text": "Detail.js",
           "path": "../src-out/Views/ErrorLog/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Event/"
         }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Event/"
-        }, {
           "text": "Detail.js",
-          "path": "../src-out/Views/History/"
-        }, {
-          "text": "Detail.js",
-          "path": "../src-out/Views/Lead/"
-        }, {
-          "text": "Edit.js",
           "path": "../src-out/Views/Lead/"
         }, {
           "text": "Detail.js",
@@ -544,14 +469,368 @@
           "text": "Detail.js",
           "path": "../src-out/Views/Ticket/"
         }, {
-          "text": "Edit.js",
-          "path": "../src-out/Views/Ticket/"
+          "text": "Detail.js",
+          "path": "../src-out/Views/TicketActivityItem/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/Account/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/Contact/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/History/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/TicketActivity/"
         }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Account/"
+        }, {
+          "text": "Complete.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "AddAccountContact.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Address/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Contact/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Event/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/History/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Lead/"
+        }, {
+          "text": "NameEdit.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Opportunity/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/OpportunityProduct/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Ticket/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/TicketActivity/"
+        }, {
+          "text": "CalendarView.js",
+          "path": "../src-out/Views/Calendar/"
+        }, {
+          "text": "AttachmentManager.js",
+          "path": "../src-out/"
+        }, {
+          "text": "_MetricDetailMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "MyDayMetricWidget.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/Offline/"
+        }, {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/RecentlyViewed/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/BackOffice/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/BackOfficeAccountingEntity/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/Carrier/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpAccountPerson/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpBillTo/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpBillToAccount/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpContactAssociation/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoice/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoiceItem/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoicePerson/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivable/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivableItem/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/Location/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/OperatingCompany/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/Product/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/Quote/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/QuoteItem/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/QuotePerson/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/Return/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrder/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrderItem/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/SyncResult/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/BOE/Models/UnitOfMeasure/"
+        }, {
+          "text": "Promote.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
+          "text": "Utility.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/BackOfficeAccountingEntities/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/BackOffices/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/Carriers/"
+        }, {
           "text": "Detail.js",
-          "path": "../src-out/Views/TicketActivityItem/"
+          "path": "../src-out/Integrations/BOE/Views/ERPBillToAccounts/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPBillToAccounts/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPBillTos/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPBillTos/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPInvoiceItems/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPReceivableItems/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipmentItems/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipToAccounts/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipToAccounts/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/Locations/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/Products/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/SyncResults/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/UnitsOfMeasure/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/QuoteLines/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrderItems/"
+        }, {
+          "text": "AccountAssociationModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "HelpModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "InvoiceLineModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "PayFromModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ReturnLineModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "AccountPxSearch.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
+        }, {
+          "text": "Settings.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/Contour/Models/Place/"
+        }, {
+          "text": "LocationPicker.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "Recurring.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "QuickEdit.js",
+          "path": "../src-out/Views/Opportunity/"
+        }, {
+          "text": "Home.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "LeftDrawer.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "_SpeedSearchRightDrawerListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "MyDayRightDrawerListMixin.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "_RightDrawerListMixin.js",
+          "path": "../src-out/Views/Offline/"
+        }, {
+          "text": "_RightDrawerListMixin.js",
+          "path": "../src-out/Views/RecentlyViewed/"
+        }, {
+          "text": "GenericBar.js",
+          "path": "../src-out/Views/Charts/"
+        }, {
+          "text": "GenericLine.js",
+          "path": "../src-out/Views/Charts/"
+        }, {
+          "text": "GenericPie.js",
+          "path": "../src-out/Views/Charts/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Account/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Account/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Address/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Address/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Contact/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Contact/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/History/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/History/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Integration/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Lead/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Lead/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/LeadAddress/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/LeadAddress/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Opportunity/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Opportunity/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/Ticket/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/Ticket/"
+        }, {
+          "text": "_GroupListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "_MetricListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "_RightDrawerListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "QuoteItemAvailabilityList.js",
+          "path": "../src-out/Integrations/BOE/Views/Locations/"
+        }, {
+          "text": "SalesOrderItemAvailabilityList.js",
+          "path": "../src-out/Integrations/BOE/Views/Locations/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Views/Briefcase/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Views/Offline/"
         }, {
           "text": "AddAttachment.js",
           "path": "../src-out/Views/Attachment/"
@@ -560,52 +839,208 @@
           "path": "../src-out/Views/Attachment/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/Account/"
+          "path": "../src-out/Integrations/BOE/Models/BackOffice/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/Account/"
+          "path": "../src-out/Integrations/BOE/Models/BackOffice/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/Address/"
+          "path": "../src-out/Integrations/BOE/Models/BackOfficeAccountingEntity/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/Address/"
+          "path": "../src-out/Integrations/BOE/Models/BackOfficeAccountingEntity/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/Contact/"
+          "path": "../src-out/Integrations/BOE/Models/Carrier/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/Contact/"
+          "path": "../src-out/Integrations/BOE/Models/Carrier/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/History/"
+          "path": "../src-out/Integrations/BOE/Models/ErpAccountPerson/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/History/"
+          "path": "../src-out/Integrations/BOE/Models/ErpAccountPerson/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/Lead/"
+          "path": "../src-out/Integrations/BOE/Models/ErpBillTo/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/Lead/"
+          "path": "../src-out/Integrations/BOE/Models/ErpBillTo/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/LeadAddress/"
+          "path": "../src-out/Integrations/BOE/Models/ErpBillToAccount/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/LeadAddress/"
+          "path": "../src-out/Integrations/BOE/Models/ErpBillToAccount/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/Opportunity/"
+          "path": "../src-out/Integrations/BOE/Models/ErpContactAssociation/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/Opportunity/"
+          "path": "../src-out/Integrations/BOE/Models/ErpContactAssociation/"
         }, {
           "text": "Offline.js",
-          "path": "../src-out/Models/Ticket/"
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoice/"
         }, {
           "text": "SData.js",
-          "path": "../src-out/Models/Ticket/"
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoice/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoiceItem/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoiceItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoicePerson/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpInvoicePerson/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivable/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivable/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivableItem/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpReceivableItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpSalesOrderPerson/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipment/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipmentItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipTo/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/ErpShipToAccount/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Location/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/Location/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/OperatingCompany/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/OperatingCompany/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Product/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/Product/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Quote/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/Quote/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/QuoteItem/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/QuoteItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/QuotePerson/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/QuotePerson/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/Return/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/Return/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrder/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrder/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrderItem/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/SalesOrderItem/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/SyncResult/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/SyncResult/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/BOE/Models/UnitOfMeasure/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/BOE/Models/UnitOfMeasure/"
+        }, {
+          "text": "_DashboardWidgetBase.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPInvoices/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPReceivables/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipments/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/QuoteLines/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/Quotes/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/Quotes/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrderItems/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/Contour/Models/Place/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/Contour/Models/Place/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Models/Activity/"
@@ -619,32 +1054,65 @@
           "text": "SpeedSearchList.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "_GroupListMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "_MetricListMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "_RightDrawerListMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "List.js",
-          "path": "../src-out/Views/Briefcase/"
-        }, {
-          "text": "List.js",
-          "path": "../src-out/Views/Offline/"
-        }, {
-          "text": "Offline.js",
-          "path": "../src-out/Models/UserActivity/"
-        }, {
-          "text": "SData.js",
-          "path": "../src-out/Models/UserActivity/"
-        }, {
           "text": "MyDayMetricListMixin.js",
           "path": "../src-out/Views/Activity/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/RecentlyViewed/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPAccountPersons/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPBillToAccounts/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPBillTos/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPContactAssociations/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPInvoiceItems/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPInvoicePersons/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPInvoices/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPReceivableItems/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPReceivables/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPSalesOrderPersons/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipmentItems/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipments/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipToAccounts/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/QuotePersons/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/Quotes/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/Returns/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Account/"
@@ -670,8 +1138,77 @@
           "text": "List.js",
           "path": "../src-out/Views/Ticket/"
         }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/QuoteLines/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrderItems/"
+        }, {
+          "text": "ContactAssociationModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ReceivableLineModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ShipmentLineModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ProductModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "QuotePersonModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ReturnModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "DashboardWidget.js",
+          "path": "../src-out/Integrations/BOE/"
+        }, {
+          "text": "ApplicationModule.js",
+          "path": "../src-out/Integrations/Contour/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/UserActivity/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/UserActivity/"
+        }, {
           "text": "MyDayOffline.js",
           "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "InvoiceModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ReceivableModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ShipmentModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "QuoteLineModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ContactModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "OpportunityModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "SalesOrderItemModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "BillToAccountModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "BillToModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ShipToAccountModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ShipToModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
         }, {
           "text": "MyList.js",
           "path": "../src-out/Views/Activity/"
@@ -679,11 +1216,35 @@
           "text": "MyAttachmentList.js",
           "path": "../src-out/Views/Attachment/"
         }, {
+          "text": "QuoteModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "SalesOrderModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ActivityDashboardWidget.js",
+          "path": "../src-out/Integrations/BOE/Views/Account/"
+        }, {
+          "text": "NewDashboardWidget.js",
+          "path": "../src-out/Integrations/BOE/Views/Account/"
+        }, {
+          "text": "OpenDashboardWidget.js",
+          "path": "../src-out/Integrations/BOE/Views/Account/"
+        }, {
+          "text": "SalesDashboardWidget.js",
+          "path": "../src-out/Integrations/BOE/Views/Account/"
+        }, {
           "text": "MyDay.js",
           "path": "../src-out/Views/Activity/"
         }, {
+          "text": "AccountModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
           "text": "ApplicationModule.js",
           "path": "../src-out/"
+        }, {
+          "text": "ApplicationModule.js",
+          "path": "../src-out/Integrations/BOE/"
         }
       ]
     },
@@ -849,9 +1410,9 @@
   ],
   "resources": [
     {
-      "src": "../localization/locales/crm",
-      "dest": "localization/locales/crm",
-      "filters": ".*(\\.l20n)",
+      "src": "../localization/locales",
+      "dest": "localization/locales",
+      "filters": ".*(\\.l20n)"
     },
     {
       "src": "../content",

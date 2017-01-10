@@ -8,6 +8,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase], {
+  id: 'useractivity_sdata_model',
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
@@ -39,6 +40,7 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
       ],
       queryInclude: [
         '$descriptors',
+        '$permissions',
       ],
     }, {
       name: 'myday',
@@ -87,6 +89,7 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
       ],
       queryInclude: [
         '$descriptors',
+        '$permissions',
       ],
     },
     ];
@@ -95,7 +98,7 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
     const queryModel = this._getQueryModelByName('myday');
     return queryModel && queryModel.queryWhere();
   },
- });
+});
 
 Manager.register(MODEL_NAMES.USERACTIVITY, MODEL_TYPES.SDATA, __class);
 export default __class;

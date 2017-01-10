@@ -12,10 +12,11 @@ import environment from './Environment';
 import Application from 'argos/Application';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
+import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import 'dojo/sniff';
-
+import MingleUtility from './MingleUtility';
 
 const resource = getResource('application');
 
@@ -46,27 +47,29 @@ const __class = declare('crm.Application', [Application], {
   enableCaching: true,
   userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
   userOptionsToRequest: [
-    'DefaultGroup;ACCOUNT',
-    'DefaultGroup;CONTACT',
-    'DefaultGroup;OPPORTUNITY',
-    'DefaultGroup;LEAD',
-    'DefaultGroup;TICKET',
-    'General;InsertSecCodeID',
-    'General;Currency',
-    'Calendar;DayStartTime',
-    'Calendar;WeekStart',
-    'ActivityMeetingOptions;AlarmEnabled',
-    'ActivityMeetingOptions;AlarmLead',
-    'ActivityMeetingOptions;Duration',
-    'ActivityPhoneOptions;AlarmEnabled',
-    'ActivityPhoneOptions;AlarmLead',
-    'ActivityPhoneOptions;Duration',
-    'ActivityToDoOptions;AlarmEnabled',
-    'ActivityToDoOptions;AlarmLead',
-    'ActivityToDoOptions;Duration',
-    'ActivityPersonalOptions;AlarmEnabled',
-    'ActivityPersonalOptions;AlarmLead',
-    'ActivityPersonalOptions;Duration',
+    'category=DefaultGroup;name=ACCOUNT',
+    'category=DefaultGroup;name=CONTACT',
+    'category=DefaultGroup;name=OPPORTUNITY',
+    'category=DefaultGroup;name=LEAD',
+    'category=DefaultGroup;name=TICKET',
+    'category=DefaultGroup;name=SALESORDER',
+    'category=DefaultGroup;name=QUOTE',
+    'category=General;name=InsertSecCodeID',
+    'category=General;name=Currency',
+    'category=Calendar;name=DayStartTime',
+    'category=Calendar;name=WeekStart',
+    'category=ActivityMeetingOptions;name=AlarmEnabled',
+    'category=ActivityMeetingOptions;name=AlarmLead',
+    'category=ActivityMeetingOptions;name=Duration',
+    'category=ActivityPhoneOptions;name=AlarmEnabled',
+    'category=ActivityPhoneOptions;name=AlarmLead',
+    'category=ActivityPhoneOptions;name=Duration',
+    'category=ActivityToDoOptions;name=AlarmEnabled',
+    'category=ActivityToDoOptions;name=AlarmLead',
+    'category=ActivityToDoOptions;name=Duration',
+    'category=ActivityPersonalOptions;name=AlarmEnabled',
+    'category=ActivityPersonalOptions;name=AlarmLead',
+    'category=ActivityPersonalOptions;name=Duration',
   ],
   systemOptionsToRequest: [
     'BaseCurrency',
@@ -76,14 +79,14 @@ const __class = declare('crm.Application', [Application], {
   ],
   appName: 'argos-saleslogix',
   serverVersion: {
-    'major': 8,
-    'minor': 0,
-    'revision': 0,
+    major: 8,
+    minor: 0,
+    revision: 0,
   },
   mobileVersion: {
-    'major': 3,
-    'minor': 4,
-    'revision': 0,
+    major: 3,
+    minor: 6,
+    revision: 0,
   },
   versionInfoText: resource.versionInfoText,
   loadingText: resource.loadingText,
@@ -91,6 +94,7 @@ const __class = declare('crm.Application', [Application], {
   connectionToastTitleText: resource.connectionToastTitleText,
   offlineText: resource.offlineText,
   onlineText: resource.onlineText,
+  mingleAuthErrorText: resource.mingleAuthErrorText,
   homeViewId: 'myactivity_list',
   offlineHomeViewId: 'recently_viewed_list',
   loginViewId: 'login',
@@ -104,13 +108,22 @@ const __class = declare('crm.Application', [Application], {
 
     this.inherited(arguments);
     this._loadNavigationState();
-    this._saveDefaultPreferences();
+
+    let accessToken = null;
+    if (this.mingleEnabled) {
+      accessToken = this.mingleAuthResults.access_token;
+    }
 
     this.UID = (new Date())
       .getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
     const self = this;
     Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
+      if (accessToken) {
+        request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+        request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+      }
+
       request.setRequestHeader('X-Application-Name', self.appName);
       request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', {
         version: self.mobileVersion,
@@ -267,8 +280,8 @@ const __class = declare('crm.Application', [Application], {
       const rate = found.ExchangeRate;
       const code = found.ExchangeRateCode;
       lang.mixin(results, {
-        code: code,
-        rate: rate,
+        code,
+        rate,
       });
     }
 
@@ -278,7 +291,11 @@ const __class = declare('crm.Application', [Application], {
     this.inherited(arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      this.handleAuthentication();
+      if (App.mingleEnabled) {
+        this.handleMingleAuthentication();
+      } else {
+        this.handleAuthentication();
+      }
     } else {
       // todo: always navigate to home when offline? data may not be available for restored state.
       this.navigateToHomeView();
@@ -290,9 +307,9 @@ const __class = declare('crm.Application', [Application], {
   },
   onAuthenticateUserSuccess: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
     const user = {
-      '$key': lang.trim(result.response.userId),
-      '$descriptor': result.response.prettyName,
-      'UserName': result.response.userName,
+      $key: lang.trim(result.response.userId),
+      $descriptor: result.response.prettyName,
+      UserName: result.response.userName,
     };
 
     this.context.user = user;
@@ -308,13 +325,13 @@ const __class = declare('crm.Application', [Application], {
       // downgrade server version as only 8.0 has `securedActions` as part of the
       // `getCurrentUser` response.
       this.serverVersion = {
-        'major': 7,
-        'minor': 5,
-        'revision': 4,
+        major: 7,
+        minor: 5,
+        revision: 4,
       };
     }
 
-    if (credentials.remember) {
+    if (!App.mingleEnabled && credentials.remember) {
       try {
         if (window.localStorage) {
           window.localStorage.setItem('credentials', Base64.encode(json.stringify({
@@ -327,7 +344,7 @@ const __class = declare('crm.Application', [Application], {
 
     if (callback) {
       callback.call(scope || this, {
-        user: user,
+        user,
       });
     }
   },
@@ -341,14 +358,16 @@ const __class = declare('crm.Application', [Application], {
 
     if (callback) {
       callback.call(scope || this, {
-        response: response,
+        response,
       });
     }
   },
   authenticateUser: function authenticateUser(credentials, options) {
-    const service = this.getService()
-      .setUserName(credentials.username)
-      .setPassword(credentials.password || '');
+    const service = this.getService();
+    if (credentials) {
+      service.setUserName(credentials.username)
+                 .setPassword(credentials.password || '');
+    }
 
     const request = new Sage.SData.Client.SDataServiceOperationRequest(service)
       .setContractName('system')
@@ -384,6 +403,12 @@ const __class = declare('crm.Application', [Application], {
     this.hash('');
     window.location.reload();
   },
+  resetModuleAppStatePromises: function resetModuleAppStatePromises() {
+    this.clearAppStatePromises();
+    for (let i = 0; i < this.modules.length; i++) {
+      this.modules[i].loadAppStatePromises(this);
+    }
+  },
   logOut: function logOut() {
     this.removeCredentials();
     this._clearNavigationState();
@@ -391,6 +416,8 @@ const __class = declare('crm.Application', [Application], {
     const service = this.getService();
     this.isAuthenticated = false;
     this.context = {};
+
+    this.resetModuleAppStatePromises();
 
     if (service) {
       service
@@ -440,12 +467,25 @@ const __class = declare('crm.Application', [Application], {
       this.navigateToLoginView();
     }
   },
+  handleMingleAuthentication: function handleMingleAuthentication() {
+    if (this.mingleAuthResults && this.mingleAuthResults.error === 'access_denied') {
+      this.setPrimaryTitle(this.mingleAuthErrorText);
+    } else {
+      this.setPrimaryTitle(this.authText);
+      this.authenticateUser(null, {
+        success: this.onHandleAuthenticationSuccess,
+        failure: this.onMingleHandleAuthenticationFailed,
+        aborted: this.onHandleAuthenticationAborted,
+        scope: this,
+      });
+    }
+  },
   onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
-    this.initAppState().then(()=> {
+    this.initAppState().then(() => {
       this.onInitAppStateSuccess();
-    }, (err)=> {
+    }, (err) => {
       this.onInitAppStateFailed(err);
     });
   },
@@ -453,10 +493,16 @@ const __class = declare('crm.Application', [Application], {
     this.removeCredentials();
     this.navigateToLoginView();
   },
+  onMingleHandleAuthenticationFailed: function onMingleHandleAuthenticationFailed() {
+    this.removeCredentials();
+    this.setPrimaryTitle(this.mingleAuthErrorText);
+  },
   onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
     this.navigateToLoginView();
   },
   onInitAppStateSuccess: function onInitAppStateSuccess() {
+    this._saveDefaultPreferences();
+    this.setDefaultMetricPreferences();
     if (this.enableOfflineSupport) {
       this.initOfflineData().then(() => {
         this.hasState = true;
@@ -551,7 +597,6 @@ const __class = declare('crm.Application', [Application], {
       success: function success(entry) {
         this.context.user = entry;
         this.context.defaultOwner = entry && entry.DefaultOwner;
-        this.setDefaultMetricPreferences();
         def.resolve(entry);
       },
       failure: function failure() {
@@ -566,14 +611,14 @@ const __class = declare('crm.Application', [Application], {
     const batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
       .setContractName('system')
       .setResourceKind('useroptions')
-      .setQueryArg('select', 'name,value')
+      .setQueryArg('select', 'name,value,defaultValue')
       .using(function using() {
         const service = this.getService();
         array.forEach(this.userOptionsToRequest, function forEach(item) {
           new Sage.SData.Client.SDataSingleResourceRequest(this)
             .setContractName('system')
             .setResourceKind('useroptions')
-            .setResourceSelector(string.substitute('"${0}"', [item]))
+            .setResourceKey(item)
             .read();
         }, service);
       }, this);
@@ -585,9 +630,14 @@ const __class = declare('crm.Application', [Application], {
 
         array.forEach(feed && feed.$resources, (item) => {
           const key = item && item.$descriptor;
-          const value = item && item.value;
+          let { value } = item;
+          const { defaultValue } = item;
 
-          if (value && key) {
+          if (typeof value === 'undefined' || value === null) {
+            value = defaultValue;
+          }
+
+          if (key) {
             userOptions[key] = value;
           }
         });
@@ -694,7 +744,7 @@ const __class = declare('crm.Application', [Application], {
         const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
 
         array.forEach(feed && feed.$resources, (item) => {
-          const key = item && item.$key;
+          const key = item && item.$descriptor;
           const value = item && item.Rate;
 
           if (value && key) {
@@ -808,19 +858,44 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   setupRedirectHash: function setupRedirectHash() {
+    let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
-      // Split by "/redirectTo/"
-      const split = this.redirectHash.split(/\/redirectTo\//gi);
-      if (split.length === 2) {
-        this.redirectHash = split[1];
+      if (App.mingleEnabled) {
+        const vars = this.redirectHash.split('&');
+        for (let i = 0; i < vars.length; i++) {
+          const pair = vars[i].split('=');
+          if (pair[0] === 'state') {
+            if (pair[1] === 'mingleRefresh') { // show default view
+              isMingleRefresh = true;
+            } else {
+              this.redirectHash = decodeURIComponent(pair[1]);
+            }
+            break;
+          }
+        }
       }
-    } else {
-      this.redirectHash = '';
+      if (isMingleRefresh) {
+        const view = this.getView(App.getDefaultViews()[0]);
+        if (view) {
+          view.show();
+        }
+      } else {
+        // Split by "/redirectTo/"
+        const split = this.redirectHash.split(/\/redirectTo\//gi);
+        if (split.length === 2) {
+          this.redirectHash = split[1];
+        }
+      }
     }
   },
   onConnectionChange: function onConnectionChange(online) {
     const view = this.getView('left_drawer');
     if (!this.enableOfflineSupport) {
+      return;
+    }
+
+    if (this.mingleEnabled && online && this.requiresMingleRefresh) {
+      MingleUtility.refreshAccessToken(this);
       return;
     }
 
@@ -852,7 +927,8 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   _hasValidRedirect: function _hasValidRedirect() {
-    return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
+    const hashValue = decodeURIComponent(this.redirectHash);
+    return hashValue !== '' && hashValue.indexOf('/redirectTo/') > 0;
   },
   showLeftDrawer: function showLeftDrawer() {
     const view = this.getView('left_drawer');
@@ -879,19 +955,28 @@ const __class = declare('crm.Application', [Application], {
     let view = this.getView(this.homeViewId);
 
     if (this.redirectHash) {
-      const split = this.redirectHash.split(';');
+      let split = this.redirectHash.split(';');
+      if (split.length === 1) {
+        split = this.redirectHash.split(':');
+      }
       if (split.length > 0) {
         const [viewId, key] = split;
         const redirectView = this.getView(viewId);
         if (redirectView) {
-          view = redirectView;
-          if (key) {
-            redirectView.show({
-              key: key,
-            });
+          if (!redirectView.canRedirectTo) {
+            // The user will go to the default view instead
+            view = this.getView(this.homeViewId);
+          } else {
+            view = redirectView;
+            if (key) {
+              redirectView.show({
+                key,
+              });
+            }
           }
         }
       }
+      this.redirectHash = '';
     }
 
     if (!this.isOnline()) {
@@ -931,7 +1016,7 @@ const __class = declare('crm.Application', [Application], {
   },
   initOfflineData: function initOfflineData() {
     const def = new Deferred();
-    const model = this.ModelManager.getModel('Authentication', MODEL_TYPES.OFFLINE);
+    const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
     if (model) {
       const indicator = new BusyIndicator({
         id: 'busyIndicator__offlineData',

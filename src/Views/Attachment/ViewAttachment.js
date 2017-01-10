@@ -13,6 +13,7 @@ import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('attachmentView');
+const dtFormatResource = getResource('attachmentViewDateTimeFormat');
 
 /**
  * @class crm.Views.Attachment.ViewAttachment
@@ -39,7 +40,8 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   fileSizeText: resource.fileSizeText,
   userText: resource.userText,
   attachmentNotSupportedText: resource.attachmentNotSupportedText,
-  attachmentDateFormatText: resource.attachmentDateFormatText,
+  attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
+  attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
   downloadingText: resource.downloadingText,
   notSupportedText: resource.notSupportedText,
 
@@ -97,7 +99,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '</div>',
     '<div class="attachment-viewer-not-supported">',
     '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-    '<h4><span>({%: crm.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+    '<h4><span>({%: crm.Format.date($.attachDate, (App.is24HourClock()) ? $$.attachmentDateFormatText24 : $$.attachmentDateFormatText) %})&nbsp;</span>',
     '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
     '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
     '{% if($.user) { %}',
@@ -135,9 +137,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   },
   createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
-      '$key': e.$key,
-      '$etag': e.$etag,
-      '$name': e.$name,
+      $key: e.$key,
+      $etag: e.$etag,
+      $name: e.$name,
     };
     return entry;
   },
@@ -160,16 +162,16 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       isFile = true;
     } else {
       isFile = false;
-      description = entry.description + ' (' + entry.url + ')';
+      description = `${entry.description} (${entry.url})`;
       fileType = 'url';
     }
 
     const data = {
       fileName: entry.fileName,
       fileSize: entry.fileSize,
-      fileType: fileType,
+      fileType,
       url: '',
-      description: description,
+      description,
     };
 
     if (isFile) {
@@ -183,9 +185,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
           const self = this;
           const attachmentid = entry.$key;
           // dataurl
-          am.getAttachmentFile(attachmentid, 'arraybuffer', function imageHandler(responseInfo) {
+          am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
             const rData = Utility.base64ArrayBuffer(responseInfo.response);
-            self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
+            self.dataURL = `data:${responseInfo.contentType};base64,${rData}`;
 
             const image = new Image();
 
@@ -220,9 +222,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
             domClass.add(this.domNode, 'list-loading');
             const attachmentid = entry.$key;
-            am.getAttachmentFile(attachmentid, 'arraybuffer', function iframeResponse(responseInfo) {
+            am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
-              const dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+              const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
               domClass.add(dl, 'display-none');
               const iframe = dom.byId('attachment-Iframe');
               iframe.onload = function iframeOnLoad() {

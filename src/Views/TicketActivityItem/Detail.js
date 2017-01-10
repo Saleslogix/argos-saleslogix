@@ -38,7 +38,7 @@ const __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
 
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [],
+      tbar: [],
     });
   },
   createLayout: function createLayout() {

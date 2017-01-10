@@ -65,9 +65,9 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
 
   createEntryForDelete: function createEntryForDelete(e) {
     const entry = {
-      '$key': e.$key,
-      '$etag': e.$etag,
-      '$name': e.$name,
+      $key: e.$key,
+      $etag: e.$etag,
+      $name: e.$name,
     };
     return entry;
   },
@@ -96,7 +96,7 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
       App.getView('opportunity_list'),
     ];
 
-    array.forEach(views, function setViewRefresh(view) {
+    array.forEach(views, (view) => {
       if (view) {
         view.refreshRequired = true;
       }
@@ -109,7 +109,7 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
-      'tbar': [{
+      tbar: [{
         id: 'edit',
         cls: 'fa fa-pencil fa-lg',
         action: 'navigateToEditView',

@@ -9,7 +9,7 @@ import QueryResults from 'dojo/store/util/QueryResults';
 export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
-    return {returnQueryResults: true};
+    return { returnQueryResults: true };
   },
   _buildQueryExpression: function _buildQueryExpression() {
     const filters = (App.preferences && App.preferences.recentlyViewedEntityFilters) ? App.preferences.recentlyViewedEntityFilters : [];

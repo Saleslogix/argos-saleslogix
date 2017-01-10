@@ -7,6 +7,7 @@ import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityDetail');
+const dtFormatResource = getResource('opportunityDetailDateTimeFormat');
 
 /**
  * @class crm.Views.Opportunity.Detail
@@ -52,7 +53,8 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   multiCurrencyCodeText: resource.multiCurrencyCodeText,
   multiCurrencyDateText: resource.multiCurrencyDateText,
   multiCurrencyLockedText: resource.multiCurrencyLockedText,
-  exchangeRateDateFormatText: resource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText24: dtFormatResource.exchangeRateDateFormatText24,
   entityText: resource.entityText,
 
   // View Properties
@@ -174,7 +176,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         label: this.multiCurrencyDateText,
         name: 'ExchangeRateDate',
         property: 'ExchangeRateDate',
-        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText, false),
       }, {
         label: this.multiCurrencyLockedText,
         name: 'ExchangeRateLocked',

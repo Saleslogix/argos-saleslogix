@@ -5,6 +5,7 @@ import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
 
 const resource = getResource('eventDetail');
+const dtFormatResource = getResource('eventDetailDateTimeFormat');
 
 /**
  * @class crm.Views.Event.Detail
@@ -22,15 +23,17 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
   descriptionText: resource.descriptionText,
   typeText: resource.typeText,
   whenText: resource.whenText,
-  startDateFormatText: resource.startDateFormatText,
-  endDateFormatText: resource.endDateFormatText,
+  startDateFormatText: dtFormatResource.startDateFormatText,
+  startDateFormatText24: dtFormatResource.startDateFormatText24,
+  endDateFormatText: dtFormatResource.endDateFormatText,
+  endDateFormatText24: dtFormatResource.endDateFormatText24,
   entityText: resource.entityText,
   eventTypeText: {
-    'atToDo': resource.toDo,
-    'atPhoneCall': resource.phoneCall,
-    'atAppointment': resource.meeting,
-    'atLiterature': resource.literature,
-    'atPersonal': resource.personal,
+    atToDo: resource.toDo,
+    atPhoneCall: resource.phoneCall,
+    atAppointment: resource.meeting,
+    atLiterature: resource.literature,
+    atPersonal: resource.personal,
   },
 
   // View Properties
@@ -74,13 +77,13 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
         property: 'StartDate',
         label: this.startTimeText,
         renderer: format.date.bindDelegate(
-          this, this.startDateFormatText),
+          this, (App.is24HourClock()) ? this.startDateFormatText24 : this.startDateFormatText),
       }, {
         name: 'EndDate',
         property: 'EndDate',
         label: this.endTimeText,
         renderer: format.date.bindDelegate(
-          this, this.endDateFormatText),
+          this, (App.is24HourClock()) ? this.endDateFormatText24 : this.endDateFormatText),
       }],
     }]);
   },

@@ -24,7 +24,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
   processEntry: function processEntry(entry) {
     const Ctor = (this.editView) ? this.editView : Edit;
     const editView = new Ctor({
-      id: this.id + '_edit',
+      id: `${this.id}_edit`,
     });
     if (editView && !editView._started) {
       editView.sectionBeginTemplate = new Simplate([
@@ -58,7 +58,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
   getEditLayout: function getEditLayout() {
     const editLayout = [];
     if (this.layout) {
-      this.layout.forEach(function forEach(item) {
+      this.layout.forEach((item) => {
         if (!item.readonly) {
           editLayout.push(item);
         }
@@ -80,7 +80,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
     this.inherited(arguments);
   },
   destroy: function destroy() {
-    array.forEach(this._subscribes, function forEach(handle) {
+    array.forEach(this._subscribes, (handle) => {
       connect.unsubscribe(handle);
     });
 

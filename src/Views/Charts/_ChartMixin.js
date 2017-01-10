@@ -200,11 +200,11 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
   },
   onTransitionTo: function onTransitionTo() {
     this._handle = connect.subscribe('/app/setOrientation', this, function orientationChange() {
-      setTimeout(function onTimeOut() {
+      setTimeout(() => {
         if (this._feedData) {
           this.createChart(this._feedData);
         }
-      }.bind(this), this.RENDER_DELAY);
+      }, this.RENDER_DELAY);
     });
   },
   onTransitionAway: function onTransitionAway() {
@@ -236,7 +236,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
     const text = resource.loadingText;
 
     context.fillStyle = this.loadingFont;
-    context.font = globalConfig.tooltipFontSize + 'px ' + globalConfig.tooltipFontFamily;
+    context.font = `${globalConfig.tooltipFontSize}px ${globalConfig.tooltipFontFamily}`;
 
     // Center the text
     const offset = Math.floor(context.measureText(text).width / 2);
@@ -282,7 +282,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
     const src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
     const segment = parseInt(src.dataset.segment, 10);
     if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
-      this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */ );
+      this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */);
     }
   },
 
@@ -345,9 +345,9 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
       store.query(null, {
         start: 0,
         count: this.PAGE_SIZE,
-      }).then(function createChartWithData(data) {
+      }).then((data) => {
         this.createChart(data);
-      }.bind(this), function queryError(e) {
+      }, (e) => {
         console.error(e); // eslint-disable-line
       });
     }

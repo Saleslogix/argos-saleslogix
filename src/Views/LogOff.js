@@ -22,7 +22,7 @@ const __class = declare('crm.Views.LogOff', [View], {
   id: 'logoff',
 
   login: function login() {
-    window.open('#_login', '_blank', 'menubar,status,scrollbars,toolbar,location,personalbar');
+    window.location.reload();
   },
 
   createToolLayout: function createToolLayout() {

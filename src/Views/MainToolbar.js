@@ -39,7 +39,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       if (!hasLeftDrawer) {
         tools.unshift({
           id: 'toggleLeftDrawer',
-          'cls': 'fa fa-bars fa-fw fa-lg',
+          cls: 'fa fa-bars fa-fw fa-lg',
           side: 'left',
           fn: this.toggleLeftDrawer,
           scope: this,

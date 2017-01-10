@@ -110,10 +110,14 @@
   <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
 
   <!-- PouchDB -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.1.min.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.3.min.js"></script>
 
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
+
+  <!-- ICRM Common, depends on moment -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
 
   <!-- Dojo -->
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -146,7 +150,8 @@
       map: {
         '*': {
           'Sage/Platform/Mobile': 'argos',
-          'Mobile/SalesLogix': 'crm'
+          'Mobile/SalesLogix': 'crm',
+          'icboe': 'crm/Integrations/BOE'
         }
       }
     });
@@ -154,84 +159,44 @@
 
   <script type="text/javascript">
     (function() {
-      function buildContext() {
-        var filePaths = {
-          './localization/locales/crm': [
-            'strings.l20n',
-            'regional.l20n'
+      require(['crm/Bootstrap'], function(bootstrap) {
+        bootstrap({
+          supportedLocales: [
+            'en',
+            'en-GB',
+            'de',
+            'fr',
+            'it',
+            'ru',
+            'zh-CN',
+            'zh-TW',
+            'es',
+            'pt',
           ],
-          '../../argos-sdk/localization/locales/argos': [
-            'strings.l20n',
-            'regional.l20n'
+          defaultLocale: 'en',
+          currentLocale: 'en',
+          parentLocale: 'en',
+          isRegionMetric: false,
+          configuration: [
+            'configuration/development'
+          ],
+          application: 'crm/Application',
+          legacyLocalization: [
+            'localization/saleslogix/en'
+          ],
+          legacyLocalizationFallback: [
+            'localization/saleslogix/en'
+          ],
+          localeFiles: [
+            './localization/locales/crm/en/strings.l20n',
+            './localization/locales/crm/en/regional.l20n',
+            './localization/locales/crm/en/hashtags.l20n',
+            './localization/locales/icboe/en/strings.l20n',
+            './localization/locales/icboe/en/regional.l20n',
+            './localization/locales/contour/en/strings.l20n',
+            '../../argos-sdk/localization/locales/argos/en/strings.l20n',
+            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
           ]
-        };
-        var supportedLocales = [
-          'en',
-          'en-GB',
-          'de',
-          'fr',
-          'it',
-          'ru',
-          'zh-CN',
-          'zh-TW'
-        ]
-        var ctx = L20n.getContext();
-        var defaultLocale = 'en';
-        var currentLocale = 'en';
-
-        Object.keys(filePaths).forEach(function(path) {
-          var files = filePaths[path];
-          files.forEach(function(file) {
-            ctx.linkResource(function(locale) {
-              return [path, locale, file].join('/');
-            });
-          });
-        });
-        ctx.registerLocales(defaultLocale, supportedLocales);
-        ctx.requestLocales(currentLocale);
-        window.localeContext = ctx;
-        return ctx;
-      }
-      var application = 'crm/Application';
-      var configuration = [
-        'configuration/development'
-      ];
-      var ctx = buildContext();
-      ctx.ready(function() {
-        require([application].concat(configuration), function(application, configuration) {
-          var completed = false;
-
-          // Legacy Localization scripts
-          var localization = [
-            'localization/saleslogix/en'
-          ];
-
-          var fallBackLocalization = [
-            'localization/saleslogix/en'
-          ];
-
-          var bootstrap = function(requires) {
-            require(requires.concat('dojo/domReady!'), function() {
-              if (completed) {
-                return;
-              }
-
-              moment.locale('en');
-              var instance = new application(configuration);
-              instance.localeContext = ctx;
-              instance.activate();
-              instance.init();
-              instance.run();
-              completed = true;
-            });
-          };
-
-          require.on('error', function(error) {
-            console.log('Error loading localization, falling back to "en"');
-            bootstrap(fallBackLocalization);
-          });
-
-          bootstrap(localization);
         });
       });
     })();
@@ -239,8 +204,6 @@
 </head>
 
 <body>
-  <!-- Run "grunt watch" to enable this script
-    <script src="http://localhost:35729/livereload.js"></script>-->
 </body>
 
 </html>
