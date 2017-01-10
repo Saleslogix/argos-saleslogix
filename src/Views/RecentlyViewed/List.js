@@ -35,7 +35,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   enableActions: true,
   enableOfflineSupport: true,
   resourceKind: 'offline',
-  entityName: 'RecentlyViewd',
+  entityName: 'RecentlyViewed',
   titleText: resource.titleText,
   metricWidgetCtor: TotalMetricWidget,
   pageSize: 1000,
