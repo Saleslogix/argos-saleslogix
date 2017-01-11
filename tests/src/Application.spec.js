@@ -19,7 +19,7 @@ define('spec/Application.spec', [
           .and.callThrough();
         spyOn(instance, 'initModules');
         spyOn(instance, 'initToolbars');
-        spyOn(instance, 'initReUI');
+        spyOn(instance, 'initHash');
         spyOn(instance, 'initToasts');
         spyOn(instance, 'run')
           .and.callThrough();
@@ -37,7 +37,7 @@ define('spec/Application.spec', [
           .toHaveBeenCalled();
         expect(instance.initToolbars)
           .toHaveBeenCalled();
-        expect(instance.initReUI)
+        expect(instance.initHash)
           .toHaveBeenCalled();
 
         instance.run();
