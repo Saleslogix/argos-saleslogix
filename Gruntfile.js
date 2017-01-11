@@ -11,28 +11,28 @@ module.exports = function(grunt) {
     },
     'lang-pack': {
       'de': {
-        bundleName: "Mobile 3.6 DE",
+        bundleName: "Mobile 4.0 DE",
       },
       'es': {
-        bundleName: "Mobile 3.6 ES",
+        bundleName: "Mobile 4.0 ES",
       },
       'pt': {
-        bundleName: "Mobile 3.6 PT",
+        bundleName: "Mobile 4.0 PT",
       },
       'en-GB': {
-        bundleName: "Mobile 3.6 EN-GB"
+        bundleName: "Mobile 4.0 EN-GB"
       },
       'fr': {
-        bundleName: "Mobile 3.6 FR",
+        bundleName: "Mobile 4.0 FR",
       },
       'it': {
-        bundleName: "Mobile 3.6 IT",
+        bundleName: "Mobile 4.0 IT",
       },
       'ru': {
-        bundleName: "Mobile 3.6 RU",
+        bundleName: "Mobile 4.0 RU",
       },
       'zh-CN': {
-        bundleName: "Mobile 3.6 ZH-CN",
+        bundleName: "Mobile 4.0 ZH-CN",
         includes: [
           {
             src: './index-nocache.aspx',
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         }],
       },
       'zh-TW': {
-        bundleName: "Mobile 3.6 ZH-TW",
+        bundleName: "Mobile 4.0 ZH-TW",
         includes: [
           {
             src: './index-nocache.aspx',
