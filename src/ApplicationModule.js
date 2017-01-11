@@ -19,6 +19,7 @@ import RightDrawer from './Views/RightDrawer';
 import OfflineDetail from './Views/Offline/Detail';
 import OfflineList from './Views/Offline/List';
 import Login from './Views/Login';
+import LoginView from './Components/Login';
 import LogOff from './Views/LogOff';
 import Settings from './Views/Settings';
 import Configure from './Views/Configure';
@@ -168,6 +169,8 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
 
     this.registerView(new Login());
+    this.registerView(React.createElement(LoginView, { id: 'login_view' }));
+
     this.registerView(new LogOff());
 
     this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
