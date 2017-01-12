@@ -60,6 +60,9 @@ const __class = declare('crm.Models.History.SData', [Base, _SDataModelBase], {
         'UserName',
         'UserId',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
   requestCompletedUser: function requestCompletedUser(entry) {

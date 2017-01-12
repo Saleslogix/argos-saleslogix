@@ -66,6 +66,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   // Localization
   titleText: resource.titleText,
   attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
+  attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
   uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
 
   // View Properties
@@ -91,7 +92,10 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   ],
   resourceKind: 'attachments',
   contractName: 'system',
-  queryInclude: ['$descriptors'],
+  queryInclude: [
+    '$descriptors',
+    '$permissions',
+  ],
 
   hashTagQueries: {
     url: "(fileName like '%.URL')",

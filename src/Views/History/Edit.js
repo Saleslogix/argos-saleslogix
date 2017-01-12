@@ -34,6 +34,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   isLeadText: resource.isLeadText,
   startingText: resource.startingText,
   startingFormatText: dtFormatResource.startingFormatText,
+  startingFormatText24: dtFormatResource.startingFormatText24,
   titleText: resource.titleText,
   companyText: resource.companyText,
   leadText: resource.leadText,
@@ -75,6 +76,9 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     'Type',
     'UserName',
     'UserId',
+  ],
+  queryInclude: [
+    '$permissions',
   ],
   existsRE: /^[\w]{12}$/,
   init: function init() {
@@ -480,7 +484,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
         property: 'StartDate',
         type: 'date',
         showTimePicker: true,
-        dateFormatText: this.startingFormatText,
+        dateFormatText: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
         minValue: (new Date(1900, 0, 1)),
         validator: [
           validator.exists,

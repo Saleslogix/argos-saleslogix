@@ -39,6 +39,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   dayTitleFormatText: dtFormatResource.dayTitleFormatText,
   eventDateFormatText: dtFormatResource.eventDateFormatText,
   startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,
@@ -102,7 +103,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '{% if ($.Timeless) { %}',
     '{%= $$.allDayText %}',
     '{% } else if ($$.activityIconByType[$.Type]) { %}',
-    '{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}',
+    '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}',
     '{% } else { %}',
     '{%! $$.eventTimeTemplate %}',
     '{% } %}',
@@ -260,6 +261,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ],
   queryInclude: [
     '$descriptors',
+    '$permissions',
   ],
   resourceKind: 'activities',
   contractName: 'system',
@@ -271,7 +273,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     'Description',
     'Type',
   ],
-  eventInclude: null,
+  eventInclude: [
+    '$permissions',
+  ],
   eventResourceKind: 'events',
   eventContractName: 'dynamic',
 
@@ -381,11 +385,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       '(Timeless eq true and StartDate',
       ' between @${3}@ and @${4}@))',
     ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   formatQueryEvent: function formatQueryEvent(value) {

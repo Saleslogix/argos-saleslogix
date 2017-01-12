@@ -59,6 +59,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpInvoice.SData', [Base, _
         'ErpShipTo/MainPhone',
         'ErpShipTo/Address/*',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

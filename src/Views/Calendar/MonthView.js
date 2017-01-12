@@ -44,6 +44,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   dayTitleFormatText: dtFormatResource.dayTitleFormatText,
   eventDateFormatText: dtFormatResource.eventDateFormatText,
   startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,
@@ -133,7 +134,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+    '<span class="p-time">{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   activityItemTemplate: new Simplate([
@@ -446,11 +447,11 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       '(Timeless eq true and StartDate',
       ' between @${3}@ and @${4}@))',
     ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   getEventQuery: function getEventQuery() {
@@ -463,9 +464,9 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       'StartDate lt @${2}@',
       ')',
     ].join(''), [App.context.user && App.context.user.$key,
-        convert.toIsoStringFromDate(startDate.toDate()),
-        convert.toIsoStringFromDate(endDate.toDate()),
-      ]
+      convert.toIsoStringFromDate(startDate.toDate()),
+      convert.toIsoStringFromDate(endDate.toDate()),
+    ]
     );
   },
   processFeed: function processFeed(feed) {

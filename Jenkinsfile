@@ -1,69 +1,71 @@
 #!groovy
 node('windows && nodejs') {
   dir('argos-sdk') {
-    stage 'Building argos-sdk'
-    clonesdk(env.BRANCH_NAME)
+    stage('Building argos-sdk') {
+      clonesdk(env.BRANCH_NAME)
 
-    dir('deploy') {
-      deleteDir()
+      dir('deploy') {
+        deleteDir()
+      }
+
+      try {
+        bat 'yarn'
+        bat 'yarn run lint'
+        bat 'build\\release.cmd'
+        bat 'yarn run testbasic'
+      } catch (err) {
+        slack.failure('Failed building argos-sdk')
+        throw err
+      }
+      dir('deploy') {
+        stash includes: '**/*.*', name: 'sdk'
+      }
     }
 
-    try {
-      bat 'yarn'
-      bat 'yarn run lint'
-      bat 'build\\release.cmd'
-      bat 'yarn run testbasic'
-    } catch (err) {
-      slack.failure('Failed building argos-sdk')
-      throw err
-    }
-    dir('deploy') {
-      stash includes: '**/*.*', name: 'sdk'
-    }
   }
 
   dir('products/argos-saleslogix') {
-    stage 'Building argos-saleslogix'
-    try {
-      checkout scm
-    } catch (err) {
-      slack.failure('Failed getting argos-saleslogix')
-      throw err
-    }
-
-    dir('deploy') {
-      deleteDir()
-    }
-
-    try {
-      bat 'yarn'
-      bat 'yarn run lint'
-      bat 'build\\release.cmd'
-      bat 'yarn run testbasic'
-    } catch (err) {
-      slack.failure('Failed building argos-saleslogix')
-      throw err
-    }
-
-    dir('deploy') {
-      stash includes: '**/*.*', name: 'slx'
-    }
-
-    stage 'Creating bundles'
-    try {
-      bat 'grunt bundle'
-      bat 'grunt lang-pack'
+    stage ('Building argos-saleslogix') {
+      try {
+        checkout scm
+      } catch (err) {
+        slack.failure('Failed getting argos-saleslogix')
+        throw err
+      }
 
       dir('deploy') {
-        stage 'Copying bundles'
-        bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3 /w:5
-            IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""
+        deleteDir()
       }
-    } catch (err) {
-      slack.failure('Failed building bundles.')
-      throw err
-    }
 
+      try {
+        bat 'yarn'
+        bat 'yarn run lint'
+        bat 'build\\release.cmd'
+        bat 'yarn run testbasic'
+      } catch (err) {
+        slack.failure('Failed building argos-saleslogix')
+        throw err
+      }
+
+      dir('deploy') {
+        stash includes: '**/*.*', name: 'slx'
+      }
+
+      stage 'Creating bundles'
+      try {
+        bat 'grunt bundle'
+        bat 'grunt lang-pack'
+
+        dir('deploy') {
+          stage 'Copying bundles'
+          bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3 /w:5
+              IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""
+        }
+      } catch (err) {
+        slack.failure('Failed building bundles.')
+        throw err
+      }
+    }
   }
 }
 
@@ -78,9 +80,10 @@ parallel slx81: {
   }
 }, failFast: false
 
-stage 'Sending Slack notification'
-node {
-  slack.success('Mobile built successfully')
+stage('Sending Slack notification') {
+  node {
+    slack.success('Mobile built successfully')
+  }
 }
 
 void iiscopy(branch, build) {

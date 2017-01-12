@@ -22,6 +22,9 @@ const __class = declare('crm.Integrations.BOE.Models.Carrier.SData', [Base, _SDa
         'CarrierName',
         'ErpLogicalId',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

@@ -34,6 +34,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   eventDateFormatText: dtFormatResource.eventDateFormatText,
   dateHeaderFormatText: dtFormatResource.dateHeaderFormatText,
   startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   todayText: resource.todayText,
   dayText: resource.dayText,
   weekText: resource.weekText,
@@ -91,7 +92,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+    '<span class="p-time">{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   itemTemplate: new Simplate([

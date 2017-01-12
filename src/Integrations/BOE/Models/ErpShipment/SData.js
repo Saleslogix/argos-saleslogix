@@ -55,6 +55,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipment.SData', [Base, 
         'BaseCurrencyCode',
         'ShipmentTotalBaseAmount',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

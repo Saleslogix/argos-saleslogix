@@ -242,15 +242,6 @@
   emailText: "Email"
 >
 
-<activityListHashTags ""
-  alarmText: "alarm"
-  recurringText: "recurring"
-  timelessText: "timeless"
-  todayText: "today"
-  thisWeekText: "this-week"
-  yesterdayText: "yesterday"
->
-
 <activityMyList ""
   titleText: "My Activities"
   completeActivityText: "Complete"
@@ -262,18 +253,6 @@
   viewContactActionText: "Contact"
   viewAccountActionText: "Account"
   viewOpportunityActionText: "Opportunity"
->
-
-<activityMyListHashTags ""
-  hashTagAlarmText: "alarm"
-  hashTagUnconfirmedText: "status-unconfirmed"
-  hashTagAcceptedText: "status-accepted"
-  hashTagDeclinedText: "status-declined"
-  hashTagRecurringText: "recurring"
-  hashTagTimelessText: "timeless"
-  hashTagTodayText: "today"
-  hashTagThisWeekText: "this-week"
-  hashTagYesterdayText: "yesterday"
 >
 
 <activityMyDay ""
@@ -362,11 +341,6 @@
 <attachmentList ""
   titleText: "Attachments"
   uploadedOnText: "Uploaded "
->
-
-<attachmentListHashTags ""
-  hashTagUrlText: "url"
-  hashTagBinaryText: "binary"
 >
 
 <attachmentMyList ""
@@ -656,15 +630,6 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
->
-
-<historyListHashTags ""
-  myHistoryHash: "my-history"
-  noteHash: "note"
-  phoneCallHash: "phonecall"
-  meetingHash: "meeting"
-  personalHash: "personal"
-  emailHash: "email"
 >
 
 <historyRelated ""
@@ -1258,6 +1223,10 @@
   credentialsClearedText: "Saved credentials cleared successfully."
   titleText: "Settings"
   offlineOptionsText: "Offline Options"
+  use24HourClockText: "Using 24-hour Clock"
+  use12HourClockText: "Using 12-hour Clock"
+  confirmClockMessage: "Changing the clock display setting will require the application to restart. Are you sure?"
+  confirmClearLocalStorageMessage: "Clearing local storage will require the application to restart. Are you sure?"
 >
 
 <speedSearchList ""
@@ -1329,6 +1298,7 @@
   calls: "Calls"
   todos: "Todos"
   personal: "Personal"
+  totalRecentlyViewed: "Total Recently Viewed"
 >
 
 <fileManager ""
@@ -1483,7 +1453,9 @@
   sizeAVGText: "Avg."
   oldestText: "Oldest"
   newestText: "Newest"
-  clearDataText: "Clear"
+  clearDataText: "Clear All"
+  clearRecentText: "Clear Recently Viewed"
+  clearBriefcasedText: "Clear Briefcase"
   olderThanText: "Clear offline data older than"
   daysText: "days"
   showUsageText: "Show usage"
@@ -1503,4 +1475,16 @@
 <mingle ""
   refreshTitle: "Refresh"
   refreshText: "Access to Ming.le is about to refresh. If you are inserting or editing data, save your changes immediately to avoid data loss."
+>
+
+<validators ""
+  existsText: "The field '${2}' must have a value."
+  nameText: "The field '${2}' must have a first and last name specified."
+  notEmptyText: "The field '${2}' cannot be empty."
+  hasText: "The field '${2}' must contain some text."
+  isNumberText: "The value '${0}' is not a valid number."
+  isCurrencyText: "The value '${0}' is not a valid currency number."
+  int32Text: "The field '${2}' value exceeds the allowed numeric range."
+  maxLengthText: "The field '${2}' value exceeds the allowed limit in length."
+  dateRangeText: "The field '${2}' value is out of allowed date range."
 >

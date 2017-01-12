@@ -24,6 +24,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
   startDateText: resource.startDateText,
   endDateText: resource.endDateText,
   startingFormatText: dtFormatResource.startingFormatText,
+  startingFormatText24: dtFormatResource.startingFormatText24,
 
   // View Properties
   entityName: 'Event',
@@ -36,6 +37,9 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
     'StartDate',
     'UserId',
     'Type',
+  ],
+  queryInclude: [
+    '$permissions',
   ],
   resourceKind: 'events',
 
@@ -156,7 +160,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
       renderer: format.date,
       type: 'date',
       showTimePicker: true,
-      formatString: this.startingFormatText,
+      formatString: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
@@ -169,7 +173,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
       renderer: format.date,
       type: 'date',
       showTimePicker: true,
-      formatString: this.startingFormatText,
+      formatString: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,

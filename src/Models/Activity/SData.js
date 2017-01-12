@@ -39,6 +39,7 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
       ],
       queryInclude: [
         '$descriptors',
+        '$permissions',
       ],
       resourceKind: 'activities',
       contractName: 'system',

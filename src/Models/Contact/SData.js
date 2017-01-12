@@ -49,6 +49,9 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         'WebAddress',
         'WorkPhone',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
 });

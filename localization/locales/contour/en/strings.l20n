@@ -27,3 +27,8 @@
 	myOfficeText: "My Office"
 	titleText: "Contour Distance Search"
 >
+
+<placeModel ""
+  entityDisplayName: "Place"
+  entityDisplayNamePlural : "Places"
+>

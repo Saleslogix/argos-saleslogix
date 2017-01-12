@@ -36,6 +36,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipmentItem.SData', [Ba
         'ErpUPCId',
         'ErpOrderUOM',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

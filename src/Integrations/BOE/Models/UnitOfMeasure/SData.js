@@ -24,6 +24,9 @@ const __class = declare('crm.Integrations.BOE.Models.UnitOfMeasure.SData', [Base
         'Name',
         'Product/*',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

@@ -54,6 +54,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   multiCurrencyDateText: resource.multiCurrencyDateText,
   multiCurrencyLockedText: resource.multiCurrencyLockedText,
   exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
+  exchangeRateDateFormatText24: dtFormatResource.exchangeRateDateFormatText24,
   entityText: resource.entityText,
 
   // View Properties
@@ -175,7 +176,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         label: this.multiCurrencyDateText,
         name: 'ExchangeRateDate',
         property: 'ExchangeRateDate',
-        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false),
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText, false),
       }, {
         label: this.multiCurrencyLockedText,
         name: 'ExchangeRateLocked',

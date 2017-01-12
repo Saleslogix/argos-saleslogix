@@ -51,6 +51,9 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivable.SData', [Base
         'ErpDocumentDate',
         'BaseCurrencyCode',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
     ];
   },

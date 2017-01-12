@@ -22,6 +22,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   oldestText: resource.oldestText,
   newestText: resource.newestText,
   clearDataText: resource.clearDataText,
+  clearRecentText: resource.clearRecentText,
+  clearBriefcasedText: resource.clearBriefcasedText,
   olderThanText: resource.olderThanText,
   daysText: resource.daysText,
   showUsageText: resource.showUsageText,
@@ -37,8 +39,10 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '<span data-dojo-attach-point="_olderThanNode" ></span>',
     '<span class="label"> {%: $$.daysText %} </span>',
     '<div data-dojo-attach-point="_lastClearDateNode"></div>',
-    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
-    '<div> <button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
+    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
+    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearBriefcasedData">{%: $$.clearBriefcasedText %}</button></div>',
+    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearRecentData">{%: $$.clearRecentText %}</button></div>',
+    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
     '<div data-dojo-attach-point="usageNode" >',
     '</div>',
   ]),
@@ -171,10 +175,42 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   },
   onClearAllData: function onClearAllData() {
     this.showProcessing(true, this.clearingDataText);
-    offlineManager.clearData(this._options).then(() => {
+    const options = Object.assign({}, this._options, {
+      all: true,
+    });
+    offlineManager.clearData(options).then(() => {
       this.showProcessing(false);
       this.setLastClearedDate(moment().toDate());
-      this.onShowUsage();
+    }, (err) => {
+      this.showError(resource.errorClearingDataText, err);
+    });
+  },
+  onClearRecentData: function onClearRecentData() {
+    this.showProcessing(true, this.clearingDataText);
+    const options = Object.assign({}, this._options, {
+      skipModels: [
+        'Briefcase',
+      ],
+      recent: true,
+    });
+    offlineManager.clearData(options).then(() => {
+      this.showProcessing(false);
+      this.setLastClearedDate(moment().toDate());
+    }, (err) => {
+      this.showError(resource.errorClearingDataText, err);
+    });
+  },
+  onClearBriefcasedData: function onClearBriefcasedData() {
+    this.showProcessing(true, this.clearingDataText);
+    const options = Object.assign({}, this._options, {
+      skipModels: [
+        'RecentlyViewed',
+      ],
+      briefcased: true,
+    });
+    offlineManager.clearData(options).then(() => {
+      this.showProcessing(false);
+      this.setLastClearedDate(moment().toDate());
     }, (err) => {
       this.showError(resource.errorClearingDataText, err);
     });

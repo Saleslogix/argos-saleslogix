@@ -71,6 +71,9 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.SData', [Base, _S
         'SlxLocation/*',
         'Product/Name',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     }, {
       name: 'edit',
       querySelect: [
@@ -101,8 +104,11 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.SData', [Base, _S
         'UnitOfMeasure/*',
         'SlxLocation/*',
       ],
+      queryInclude: [
+        '$permissions',
+      ],
     },
-  ];
+    ];
   },
   updateItemWithWarehouse: function updateItemWithWarehouse(quoteItem, warehouse) {
     const promise = new Promise((resolve) => {

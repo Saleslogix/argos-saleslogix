@@ -21,10 +21,11 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
   titleText: resource.titleText,
   errorDateFormatText: dtFormatResource.errorDateFormatText,
+  errorDateFormatText24: dtFormatResource.errorDateFormatText24,
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
+    '<h3>{%: crm.Format.date($.Date, (App.is24HourClock()) ? $$.errorDateFormatText24 : $$.errorDateFormatText) %}</h3>',
     '<h4>{%: $.Description %}</h4>',
   ]),
 

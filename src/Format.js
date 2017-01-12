@@ -1,8 +1,8 @@
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import dojoNumber from 'dojo/number';
-import template from './Template';
 import format from 'argos/Format';
+
+const f = ICRMCommonSDK.format;
 
 /**
  * @class crm.Format
@@ -16,53 +16,13 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
    * Address Culture Formats as defined by crm.Format.address
    * http://msdn.microsoft.com/en-us/library/cc195167.aspx
    */
-  addressCultureFormats: {
-    en: 'a1|a2|a3|m, R p|C',
-    'en-GB': 'a1|a2|a3|M|P|C',
-    fr: 'a1|a2|a3|p M|C',
-    de: 'a1|a2|a3|p m|C',
-    it: 'a1|a2|a3|p m Z|C',
-    ru: 'a1|a2|a3|p m|C',
-  },
+  addressCultureFormats: f.addressCultureFormats,
   /**
    * Country name to culture identification
    * http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
    */
-  countryCultures: {
-    USA: 'en',
-    'United States': 'en',
-    'United States of America': 'en',
-    US: 'en',
-    'United Kingdom': 'en-GB',
-    UK: 'en-GB',
-    Britain: 'en-GB',
-    England: 'en-GB',
-    Russia: 'ru',
-    Россия: 'ru',
-    Italy: 'it',
-    Italia: 'it',
-    France: 'fr',
-    Germany: 'de',
-    Deutschland: 'de',
-  },
-  addressItems: function addressItems(addr, fmt) {
-    function isEmpty(line) {
-      const filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
-      return filterSymbols === '';
-    }
-
-    const self = crm.Format;
-
-    if (!fmt) {
-      const culture = self.resolveAddressCulture(addr);
-      fmt = self.addressCultureFormats[culture] || self.addressCultureFormats.en;
-    }
-
-    const lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
-    return lines.map(line => self.replaceAddressPart(line, addr))
-      .filter(line => !isEmpty(line))
-      .map(line => self.encode(self.collapseSpace(line)));
-  },
+  countryCultures: f.countryCultures,
+  addressItems: f.addressItems,
   /**
   Converts the given value using the provided format, joining with the separator character
   If no format given, will use predefined format for the addresses Country (or en-US as final fallback)
@@ -95,91 +55,16 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
    @param {string} fmt Address format to use, may also pass a culture string to use predefined format
    @return {string} Formatted address
   */
-  address: function address(addr, asText, separator, fmt) {
-    if (!addr) {
-      return '';
-    }
-
-    const self = crm.Format;
-    const parts = self.addressItems(addr, fmt);
-    if (asText) {
-      if (separator === true) {
-        separator = '\n';
-      }
-      return parts.join(separator || '<br />');
-    }
-
-    return string.substitute(
-      '<a href="javascript:App.showMapForAddress(\'${1}\');">${0}</a>', [parts.join('<br />'), encodeURIComponent(self.decode(parts.join(' ')))]
-    );
-  },
-  collapseSpace: function collapseSpace(text) {
-    return lang.trim(text.replace(/\s+/g, ' '));
-  },
-  resolveAddressCulture: function resolveAddressCulture({ Country }) {
-    return crm.Format.countryCultures[Country] || Mobile.CultureInfo.name;
-  },
-  replaceAddressPart: function replaceAddressPart(fmt, o) {
-    return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
-      (part) => {
-        switch (part) {// eslint-disable-line
-          case 's':
-            return o.Salutation || '';
-          case 'S':
-            return (o.Salutation && o.Salutation.toUpperCase()) || '';
-          case 'a1':
-            return o.Address1 || '';
-          case 'a2':
-            return o.Address2 || '';
-          case 'a3':
-            return o.Address3 || '';
-          case 'a4':
-            return o.Address4 || '';
-          case 'm':
-            return o.City || '';
-          case 'M':
-            return (o.City && o.City.toUpperCase()) || '';
-          case 'z':
-            return o.County || '';
-          case 'Z':
-            return (o.County && o.County.toUpperCase()) || '';
-          case 'r':
-            return o.State || '';
-          case 'R':
-            return (o.State && o.State.toUpperCase()) || '';
-          case 'p':
-            return o.PostalCode || '';
-          case 'P':
-            return (o.PostalCode && o.PostalCode.toUpperCase()) || '';
-          case 'c':
-            return o.Country || '';
-          case 'C':
-            return (o.Country && o.Country.toUpperCase()) || '';
-        }
-      }
-    );
-  },
+  address: f.address,
+  collapseSpace: f.collapseSpace,
+  resolveAddressCulture: f.resolveAddressCulture,
+  replaceAddressPart: f.replaceAddressPart,
   // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
-  phoneFormat: format.phoneFormat,
-  phone: format.phone,
+  phoneFormat: f.phoneFormat,
+  phone: f.phone,
   currency: function currency(_val) {
-    let val = _val;
-    if (isNaN(val) || val === null) {
-      return val;
-    }
-
-    if (typeof val === 'string') {
-      val = parseFloat(val);
-    }
-
-    const v = val.toFixed(2); // only 2 decimal places
-    const f = Math.floor(parseFloat((100 * (v - Math.floor(v))).toPrecision(2))); // for fractional part, only need 2 significant digits
-
-    return string.substitute(
-      `\${0}${Mobile.CultureInfo.numberFormat.currencyDecimalSeparator}\${1}`, [
-        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')}`), (f.toString().length < 2) ? `0${f.toString()}` : f.toString(),
-      ]
-    ).replace(/ /g, '\u00A0'); // keep numbers from breaking
+    return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
+      Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
   },
   bigNumberAbbrText: {
     billion: 'B',
@@ -217,44 +102,17 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
 
     return results;
   },
-  relativeDate: function relativeDate(_date, timeless) {
-    let date = moment(_date);
-    if (!date || !date.isValid()) {
-      throw new Error('Invalid date passed into crm.Format.relativeDate');
-    }
-
-    if (timeless) {
-      // utc
-      date = date.subtract({
-        minutes: date.utcOffset(),
-      });
-    }
-
-    return date.fromNow();
-  },
-  multiCurrency: function multiCurrency(val, code) {
-    return string.substitute('${0} ${1}', [crm.Format.currency(val), code]);
-  },
-  nameLF: function nameLF(val) {
-    if (!val) {
-      return '';
-    }
-
-    const name = template.nameLF.apply(val);
-    return name;
-  },
-  mail: function mail(val) {
-    if (typeof val !== 'string') {
-      return val;
-    }
-
-    return string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
-  },
+  relativeDate: f.relativeDate,
+  multiCurrency: f.multiCurrency,
+  nameLF: f.nameLF,
+  mail: f.mail,
+  // TODO: L20n
   userActivityFormatText: {
     asUnconfirmed: 'Unconfirmed',
     asAccepted: 'Accepted',
     asDeclned: 'Declined',
   },
+  // TODO: Move
   userActivityStatus: function userActivityStatus(val) {
     return crm.Format.userActivityFormatText[val];
   },
@@ -264,86 +122,24 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
    * @param val
    * @returns {String}
    */
-  formatUserInitial: function formatUserInitial(user) {
-    const firstLast = this.resolveFirstLast(user);
-    const initials = [firstLast[0].substr(0, 1)];
-
-    if (firstLast[1]) {
-      initials.push(firstLast[1].substr(0, 1));
-    }
-
-    return initials.join('').toUpperCase();
-  },
+  formatUserInitial: f.formatUserInitial,
   /**
    * Takes a string input and the user name to First amd Last name
    * `Hogan, Lee` -> `Lee Hogan`
    * @param val
    * @returns {String}
    */
-  formatByUser: function formatByUser(user) {
-    const name = this.resolveFirstLast(user);
-    return name.join(' ');
-  },
+  formatByUser: f.formatByUser,
   /**
    * Takes a string input and the user name to First amd Last name
    * `Hogan, Lee` -> `Lee Hogan`
    * @param val
    * @returns {String}
    */
-  resolveFirstLast: function resolveFirstLast(name) {
-    let firstLast = [];
-    if (name.indexOf(' ') !== -1) {
-      const names = name.split(' ');
-      if (names[0].indexOf(',') !== -1) {
-        firstLast = [names[1], names[0].slice(0, -1)];
-      } else {
-        firstLast = [names[0], names[1]];
-      }
-    } else {
-      firstLast = [name];
-    }
-    return firstLast;
-  },
-  fixedLocale: function fixedLocale(_val, _d) {
-    let val = _val;
-    let d = _d;
-    let p;
-    let v;
-    let f;
-    let fVal;
-    let num;
-
-    if (isNaN(val) || val === null) {
-      return val;
-    }
-    if (typeof val === 'string') {
-      val = parseFloat(val);
-    }
-    if (typeof d !== 'number') {
-      d = 2;
-    }
-    if (d > 0) {
-      p = Math.pow(10, d);
-      v = val.toFixed(d); // only d decimal places
-      f = Math.floor(parseFloat((p * (v - Math.floor(v))).toPrecision(d))); // for fractional part, only need d significant digits
-      if (f === 0) {
-        f = (String(p)).slice(1);
-      }
-    } else { // zero decimal palces
-      p = Math.pow(10, 0);
-      v = (Math.round(val * p) / p);
-      f = 0;
-    }
-    num = Math.floor(v).toString();
-    num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace('\\.', '.')}`);
-    if (d > 0) {
-      const frac = (f.toString().length < d) ? '' : f.toString();
-      fVal = string.substitute(
-        `\${0}${Mobile.CultureInfo.numberFormat.numberDecimalSeparator}\${1}`, [num, frac]);
-    } else {
-      fVal = num;
-    }
-    return fVal.replace(/ /g, '\u00A0'); // keep numbers from breaking
+  resolveFirstLast: f.resolveFirstLast,
+  fixedLocale: function fixedLocale(val, d) {
+    return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator,
+    Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
   },
 }));
 

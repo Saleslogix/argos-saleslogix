@@ -38,6 +38,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   dayHeaderRightFormatText: dtFormatResource.dayHeaderRightFormatText,
   eventDateFormatText: dtFormatResource.eventDateFormatText,
   startTimeFormatText: dtFormatResource.startTimeFormatText,
+  startTimeFormatText24: dtFormatResource.startTimeFormatText24,
   todayText: resource.todayText,
   dayText: resource.dayText,
   weekText: resource.weekText,
@@ -118,7 +119,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '{% if ($.Timeless) { %}',
     '<span class="p-time">{%= $$.allDayText %}</span>',
     '{% } else { %}',
-    '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+    '<span class="p-time">{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}</span>',
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
@@ -452,9 +453,9 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
       'StartDate lt @${2}@',
       ')',
     ].join(''), [App.context.user && App.context.user.$key,
-        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
+      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+    ]
     );
   },
   hideEventList: function hideEventList() {
