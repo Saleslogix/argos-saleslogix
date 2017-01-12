@@ -13,7 +13,8 @@
     "test": "npm run build && grunt test",
     "testbasic": "grunt test:basic",
     "less": "grunt less",
-    "start": "node scripts/server.js",
+    "start": "webpack-dev-server --config webpack.config.js",
+    "server": "node scripts/server.js",
     "build": "babel src --out-dir src-out --source-maps inline",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
@@ -44,6 +45,7 @@
     "inert": "^4.0.2",
     "npm-watch": "^0.1.6",
     "spdy": "^3.4.4",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }

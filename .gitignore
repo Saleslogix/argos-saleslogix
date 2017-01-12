@@ -44,6 +44,7 @@ Thumbs.db
 
 # build output
 deploy/
+dist/
 
 # module development shells
 index-dev-*.html

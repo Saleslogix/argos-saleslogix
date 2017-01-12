@@ -2,6 +2,22 @@
 var path = require('path');
 
 module.exports = {
+  devServer: {
+    inline: true,
+  //   proxy: {
+  //     'http://localhost:8000/sdata': {
+  //       target: {
+  //         host: '172.16.247.47',
+  //         protocol: 'http:',
+  //         port: 80
+  //       },
+  //     }
+  //   },
+  //   contentBase: path.resolve(__dirname, '../../'),
+  //   staticOptions: {
+  //     index: 'index-dev.html'
+  //   },
+  },
   entry: ['./src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
   output: {
     path: './dist',
