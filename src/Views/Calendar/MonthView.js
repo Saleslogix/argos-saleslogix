@@ -13,6 +13,8 @@ import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('calendarMonthView');
 const dtFormatResource = getResource('calendarMonthViewDateTimeFormat');
 

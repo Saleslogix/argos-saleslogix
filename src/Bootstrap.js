@@ -1,6 +1,8 @@
 import MingleUtility from './MingleUtility';
 import ready from 'dojo/ready';
 
+import moment from 'moment';
+
 export default function bootstrap({
   supportedLocales,
   defaultLocale,

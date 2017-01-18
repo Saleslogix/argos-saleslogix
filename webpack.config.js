@@ -4,19 +4,19 @@ var path = require('path');
 module.exports = {
   devServer: {
     inline: true,
-  //   proxy: {
-  //     'http://localhost:8000/sdata': {
-  //       target: {
-  //         host: '172.16.247.47',
-  //         protocol: 'http:',
-  //         port: 80
-  //       },
-  //     }
-  //   },
-  //   contentBase: path.resolve(__dirname, '../../'),
-  //   staticOptions: {
-  //     index: 'index-dev.html'
-  //   },
+    proxy: {
+      'http://localhost:8000/sdata': {
+        target: {
+          host: '172.16.247.47',
+          protocol: 'http:',
+          port: 80
+        },
+      }
+    },
+    contentBase: path.resolve(__dirname, '../../'),
+    staticOptions: {
+      index: 'index-dev.html'
+    },
   },
   entry: ['../../argos-sdk/libraries/Simplate.js', './src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
   output: {
@@ -39,6 +39,9 @@ module.exports = {
       amd: '@infor/icrm-js-customization',
       root: 'ICRMCustomizationSDK',
     },
+    rxjs: 'rxjs',
+    moment: 'moment',
+    pouchdb: 'PouchDB',
   },
   module: {
     loaders: [{

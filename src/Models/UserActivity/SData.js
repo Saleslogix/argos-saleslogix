@@ -7,6 +7,8 @@ import convert from 'argos/Convert';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
+import moment from 'moment';
+
 const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase], {
   id: 'useractivity_sdata_model',
   createQueryModels: function createQueryModels() {

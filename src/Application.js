@@ -18,6 +18,8 @@ import getResource from 'argos/I18n';
 import 'dojo/sniff';
 import MingleUtility from './MingleUtility';
 
+import moment from 'moment';
+
 const resource = getResource('application');
 
 /**

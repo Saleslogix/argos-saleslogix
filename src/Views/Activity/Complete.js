@@ -12,6 +12,8 @@ import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('activityComplete');
 const dtFormatResource = getResource('activityCompleteDateTimeFormat');
 
