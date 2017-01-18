@@ -746,6 +746,8 @@
   removeQuoteLineText: "Remove Line Item"
   locationText: "location"
   totalAmountText: "total amount"
+  availableQuantityText: "Available quantity: "
+  checkWarehouseAvailabilityText: "Check warehouse availability"
 >
 
 <quoteItemsList ""

@@ -237,12 +237,20 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
     if (enable) {  // To-do make this more dynamic.
       this.fields.Product.enable();
       this.fields.Quantity.enable();
-      this.fields.SlxLocation.enable();
+
+      if (App.warehouseDiscovery === 'auto') {
+        this.fields.SlxLocation.enable();
+      }
+
       this.fields.UnitOfMeasure.enable();
     } else {
       this.fields.Product.disable();
       this.fields.Quantity.disable();
-      this.fields.SlxLocation.disable();
+
+      if (App.warehouseDiscovery === 'auto') {
+        this.fields.SlxLocation.disable();
+      }
+
       this.fields.UnitOfMeasure.disable();
     }
   },
@@ -337,7 +345,9 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
         property: 'SlxLocation',
         label: this.warehouseText,
         type: 'lookup',
-        valueTextProperty: 'Description',
+        view: 'locations_list',
+        textProperty: 'Description',
+        valueTextProperty: 'Name',
       }, {
         label: this.priceText,
         name: 'Price',
