@@ -18,7 +18,7 @@ module.exports = {
   //     index: 'index-dev.html'
   //   },
   },
-  entry: ['./src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
+  entry: ['../../argos-sdk/libraries/Simplate.js', './src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
   output: {
     path: './dist',
     libraryTarget: 'umd',
@@ -27,8 +27,18 @@ module.exports = {
     filename: 'crm.bundle.js',
   },
   externals: {
-    ICRMCommonSDK: 'ICRMCommonSDK',
-    ICRMCustomizationSDK: 'ICRMCustomizationSDK',
+    '@infor/icrm-js-common': {
+      commonjs: '@infor/icrm-js-common',
+      commonjs2: '@infor/icrm-js-common',
+      amd: '@infor/icrm-js-common',
+      root: 'ICRMCommonSDK',
+    },
+    '@infor/icrm-js-customization': {
+      commonjs: '@infor/icrm-js-customization',
+      commonjs2: '@infor/icrm-js-customization',
+      amd: '@infor/icrm-js-customization',
+      root: 'ICRMCustomizationSDK',
+    },
   },
   module: {
     loaders: [{
