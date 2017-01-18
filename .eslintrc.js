@@ -20,6 +20,7 @@ module.exports = {
     "Simplate": false,
     "Chart": false,
     "ReUI": false,
+    "page": false,
     "module": false,
     "Base64": false,
     "define": false,
