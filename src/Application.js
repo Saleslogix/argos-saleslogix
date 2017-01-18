@@ -84,8 +84,8 @@ const __class = declare('crm.Application', [Application], {
     revision: 0,
   },
   mobileVersion: {
-    major: 3,
-    minor: 6,
+    major: 4,
+    minor: 0,
     revision: 0,
   },
   versionInfoText: resource.versionInfoText,
@@ -114,7 +114,8 @@ const __class = declare('crm.Application', [Application], {
       accessToken = this.mingleAuthResults.access_token;
     }
 
-    this.UID = (new Date()).getTime();
+    this.UID = (new Date())
+      .getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
     const self = this;
     Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
@@ -139,7 +140,7 @@ const __class = declare('crm.Application', [Application], {
     }
   },
   isOnFirstView: function isOnFirstView() {
-    const history = ReUI.context.history;
+    const history = this.context.history;
     const length = history.length;
     const current = history[length - 1];
     const previous = history[length - 2];
@@ -269,7 +270,8 @@ const __class = declare('crm.Application', [Application], {
     };
 
     let found = this.queryNavigationContext((o) => {
-      return (/^(opportunities)$/).test(o.resourceKind) && o.key;
+      return (/^(opportunities)$/)
+        .test(o.resourceKind) && o.key;
     });
 
     found = found && found.options;
@@ -711,11 +713,12 @@ const __class = declare('crm.Application', [Application], {
         const multiCurrency = systemOptions.MultiCurrency;
 
         if (multiCurrency && multiCurrency === 'True') {
-          this.requestExchangeRates().then(() => {
-            def.resolve(feed);
-          }, () => {
-            def.reject();
-          });
+          this.requestExchangeRates()
+            .then(() => {
+              def.resolve(feed);
+            }, () => {
+              def.reject();
+            });
         } else {
           def.resolve(feed);
         }
