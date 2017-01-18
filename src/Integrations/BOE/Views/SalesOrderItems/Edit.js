@@ -46,7 +46,10 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
   init: function init() {
     this.inherited(arguments);
     this.fields.ErpLineNumber.disable();
-    this.fields.SlxLocation.disable();
+    if (App.warehouseDiscovery === 'auto') {
+      this.fields.SlxLocation.disable();
+    }
+
     this.fields.SalesOrder.disable();
     this.fields.Price.disable();
     this.fields.ExtendedPrice.disable();
@@ -337,7 +340,9 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
         property: 'SlxLocation',
         label: this.warehouseText,
         type: 'lookup',
-        valueTextProperty: 'Description',
+        view: 'locations_list',
+        textProperty: 'Description',
+        valueTextProperty: 'Name',
       }, {
         label: this.priceText,
         name: 'Price',
