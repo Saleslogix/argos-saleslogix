@@ -46,7 +46,8 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   offlineOptionsText: resource.offlineOptionsText,
   use24HourClockText: resource.use24HourClockText,
   use12HourClockText: resource.use12HourClockText,
-  confirmClockMessage: resource.confirmClockMessage,
+  confirm24HourClockMessage: resource.confirm24HourClockMessage,
+  confirm12HourClockMessage: resource.confirm12HourClockMessage,
   confirmClearLocalStorageMessage: resource.confirmClearLocalStorageMessage,
 
   // View Properties
@@ -128,7 +129,8 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
     }
   },
   use24HourClock: function use24HourClock() {
-    if (confirm(this.confirmClockMessage)) { // eslint-disable-line
+    const message = App.is24HourClock() ? this.confirm12HourClockMessage : this.confirm24HourClockMessage;
+    if (confirm(message)) { // eslint-disable-line
       if (App.is24HourClock()) {
         window.localStorage.setItem('use24HourClock', JSON.stringify(false));
       } else {
