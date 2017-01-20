@@ -106,7 +106,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
     });
     return promise;
   },
-  getOrderItemAvailability: function getQuoteItemAvailability(orderItem, order, product, quantity) {
+  getOrderItemAvailability: function getOrderItemAvailability(orderItem, order, product, quantity) {
     const options = {
       resourceKind: 'salesOrders',
       operationName: 'requestPricingAvailability',

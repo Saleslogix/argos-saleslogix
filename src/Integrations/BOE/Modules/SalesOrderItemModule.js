@@ -6,6 +6,7 @@ import SalesOrderList from '../Views/SalesOrders/List';
 import SalesOrderItemDetail from '../Views/SalesOrderItems/Detail';
 import SalesOrderItemEdit from '../Views/SalesOrderItems/Edit';
 import UnitOfMeasureList from '../Views/UnitsOfMeasure/List';
+import SlxLocationList from '../Views/Locations/List';
 import '../Models/SalesOrderItem/Offline';
 import '../Models/SalesOrderItem/SData';
 
@@ -32,6 +33,8 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderItemModule', [_M
       parentEntity: 'SalesOrder',
       singleSelectAction: 'complete',
     }));
+
+    am.registerView(new SlxLocationList());
   },
   loadCustomizations: function loadCustomizations() {
   },

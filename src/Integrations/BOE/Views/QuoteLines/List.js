@@ -87,7 +87,10 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
       id: 'assignWarehouse',
       cls: 'fa fa-truck fa-2x',
       label: this.assignWarehouseText,
-      enabled: action.hasProperty.bindDelegate(this, 'Quote.ErpLogicalId'),
+      enabled: (layoutAction, selection) => {
+        return App.warehouseDiscovery === 'auto' &&
+          action.hasProperty(layoutAction, selection, 'Quote.ErpLogicalId');
+      },
       action: 'assignWarehouseAction',
     }]);
   },
