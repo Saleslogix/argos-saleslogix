@@ -247,6 +247,15 @@
   emailText: "电子邮件"
 >
 
+<activityListHashTags ""
+  alarmText: "提醒"
+  recurringText: "定期"
+  timelessText: "无时间限制"
+  todayText: "今天"
+  thisWeekText: "本周"
+  yesterdayText: "昨天"
+>
+
 <activityMyList ""
   titleText: "我的活动"
   completeActivityText: "完成"
@@ -258,6 +267,18 @@
   viewContactActionText: "联系人"
   viewAccountActionText: "客户"
   viewOpportunityActionText: "销售机会"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "提醒"
+  hashTagUnconfirmedText: "未确认状态"
+  hashTagAcceptedText: "已接受状态"
+  hashTagDeclinedText: "已拒绝状态"
+  hashTagRecurringText: "定期"
+  hashTagTimelessText: "无时间限制"
+  hashTagTodayText: "今天"
+  hashTagThisWeekText: "本周"
+  hashTagYesterdayText: "昨天"
 >
 
 <activityMyDay ""
@@ -346,6 +367,11 @@
 <attachmentList ""
   titleText: "附件"
   uploadedOnText: "已上传 "
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "URL"
+  hashTagBinaryText: "二进制"
 >
 
 <attachmentMyList ""
@@ -635,6 +661,15 @@
   personal: "个人活动"
   question: "问题"
   email: "电子邮件"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "我的历史记录"
+  noteHash: "备注"
+  phoneCallHash: "电话呼叫"
+  meetingHash: "会议"
+  personalHash: "个人"
+  emailHash: "电子邮件"
 >
 
 <historyRelated ""
