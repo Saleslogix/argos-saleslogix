@@ -401,7 +401,7 @@ const __class = declare('crm.Application', [Application], {
     return !!userSecurity[security];
   },
   reload: function reload() {
-    this.ReUI.disableLocationCheck();
+    // this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
   },

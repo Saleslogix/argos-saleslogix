@@ -85,9 +85,6 @@
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-  <!-- Simplate -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
-
   <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
   <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
 
@@ -100,107 +97,47 @@
   <!-- page.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
 
-  <!-- Rx.js -->
-  <!-- <script src="../../argos-sdk/libraries/rx/rx.all.js"></script> -->
-
-  <!-- Babel -->
-  <!-- <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script> -->
-
-  <!-- moment -->
-  <!-- <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script> -->
-
-  <!-- PouchDB -->
-  <!-- <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.3.min.js"></script> -->
-
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
-  <!-- ICRM Common, depends on moment -->
-  <!-- <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
-  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/customization.bundle.js"></script> -->
+  <script type="text/javascript" src="../../dev/icrm.localization.js"></script>
+  <script type="text/javascript" src="../../dev/vendor.bundle.js"></script>
+  <script>
+    var l20nLoadFunc = function(localeFiles) {
+      return new Promise((resolve) => {
+        const https = [];
+        const makeRequest = url => new Promise((resolve, reject) => {
+          const http = new XMLHttpRequest();
 
-  <!-- Dojo -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
-  <script type="text/javascript">
-    require({
-      baseUrl: "./",
-      packages: [{
-        name: 'dojo',
-        location: '../../argos-sdk/libraries/dojo/dojo'
-      }, {
-        name: 'dijit',
-        location: '../../argos-sdk/libraries/dojo/dijit'
-      }, {
-        name: 'snap',
-        location: '../../argos-sdk/libraries/snap',
-        main: 'snap'
-      }, {
-        name: 'argos',
-        location: '../../argos-sdk/src-out'
-      }, {
-        name: 'crm',
-        location: 'src-out'
-      }, {
-        name: 'configuration',
-        location: 'configuration'
-      }, {
-        name: 'localization',
-        location: 'localization'
-      }],
-      map: {
-        '*': {
-          'Sage/Platform/Mobile': 'argos',
-          'Mobile/SalesLogix': 'crm',
-          'icboe': 'crm/Integrations/BOE'
+          http.open('GET', url, false);
+          // http.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
+          http.addEventListener('load', (response) => {
+            resolve(response.target.response);
+          });
+          http.addEventListener('error', err => reject(err));
+          http.addEventListener('abort', err => reject(err));
+          http.send();
+        });
+        for (let i = 0; i < localeFiles.length; i += 1) {
+          https.push(makeRequest(localeFiles[i]));
         }
-      }
-    });
-  </script>
-
-  <script type="text/javascript" src="./dist/crm.bundle.js"></script>
-  <script type="text/javascript">
-    (function() {
-      require(['crm'], function(bootstrap) {
-        bootstrap({
-          supportedLocales: [
-            'en',
-            'en-GB',
-            'de',
-            'fr',
-            'it',
-            'ru',
-            'zh-CN',
-            'zh-TW',
-            'es',
-            'pt',
-          ],
-          defaultLocale: 'en',
+        Promise.all(https).then((files) => {
+          resolve(files);
+        });
+      })
+    };
+    icrm.localization.default(l20nLoadFunc).then(() => {
+      var script = document.createElement('script');
+      script.src = '../../dev/icrm.core.js';
+      script.onload = () => {
+        icrm.core.default({
           currentLocale: 'en',
           parentLocale: 'en',
           isRegionMetric: false,
-          configuration: [
-            'configuration/development'
-          ],
-          application: 'crm/Application',
-          legacyLocalization: [
-            'localization/saleslogix/en'
-          ],
-          legacyLocalizationFallback: [
-            'localization/saleslogix/en'
-          ],
-          localeFiles: [
-            './localization/locales/crm/en/strings.l20n',
-            './localization/locales/crm/en/regional.l20n',
-            './localization/locales/crm/en/hashtags.l20n',
-            './localization/locales/icboe/en/strings.l20n',
-            './localization/locales/icboe/en/regional.l20n',
-            './localization/locales/contour/en/strings.l20n',
-            '../../argos-sdk/localization/locales/argos/en/strings.l20n',
-            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-          ]
         });
-      });
-    })();
+      }
+      document.head.appendChild(script);
+    });
   </script>
 </head>
 
