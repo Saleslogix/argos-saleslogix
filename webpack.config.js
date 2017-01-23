@@ -2,18 +2,29 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var config;
+try {
+    config = require('./scripts/config.json');
+} catch (e) {
+    console.warn('WARNING:: Failed loading config.json, falling back to default.config.json. Copy the default.config.json to config.json for your environment.');
+    config = require('./scripts/default.config.json');
+}
+
+var proxyConfig = config.proxy || {};
+
 module.exports = {
   devServer: {
     inline: true,
-    // proxy: {
-    //   '/sdata': {
-    //     target: {
-    //       host: '172.16.247.47',
-    //       protocol: 'http:',
-    //       port: 80
-    //     },
-    //   }
-    // },
+    port: config.port || 8080,
+    proxy: {
+      '/sdata': {
+        target: {
+          host: proxyConfig.host || 'localhost',
+          protocol: proxyConfig.protocol || 'http',
+          port: proxyConfig.port || 80
+        },
+      }
+    },
     contentBase: path.resolve(__dirname, '../../'),
     staticOptions: {
       index: 'index-dev.html'
