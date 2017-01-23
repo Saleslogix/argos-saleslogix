@@ -58,13 +58,6 @@ module.exports = {
         presets: [
           'es2015-without-strict'
         ],
-        // plugins: [
-        //   'add-module-exports',
-        //   ['transform-es2015-modules-amd', {
-        //     strict: false
-        //   }],
-        //   'transform-remove-strict-mode'
-        // ],
       },
     }, {
       test: /(\.js)$/,
@@ -83,7 +76,6 @@ module.exports = {
       "snap": path.resolve(__dirname, '../../argos-sdk/libraries/snap/snap.js'),
     },
     modules: [
-      // './node_modules'
       path.resolve(__dirname, './node_modules/'),
       path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, '../../argos-sdk/node_modules/')
