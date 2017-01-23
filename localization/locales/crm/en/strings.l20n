@@ -1225,7 +1225,8 @@
   offlineOptionsText: "Offline Options"
   use24HourClockText: "Using 24-hour Clock"
   use12HourClockText: "Using 12-hour Clock"
-  confirmClockMessage: "Changing the clock display setting will require the application to restart. Are you sure?"
+  confirm24HourClockMessage: "Changing the clock to 24-hour format will require an application restart. Continue?"
+  confirm12HourClockMessage: "Changing the clock to 12-hour format will require an application restart. Continue?"
   confirmClearLocalStorageMessage: "Clearing local storage will require the application to restart. Are you sure?"
 >
 
