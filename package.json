@@ -15,14 +15,12 @@
     "less": "grunt less",
     "start": "webpack-dev-server --env=dev --config webpack.config.js",
     "server": "node scripts/server.js",
-    "build": "babel src --out-dir src-out --source-maps inline",
+    "build": "build:dev",
     "build:dev": "webpack --env=dev --progress --profile --colors",
     "build:dist": "webpack --env=prod --progress --profile --colors",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
-    "watch": "npm-watch",
-    "webpack": "webpack --config webpack.config.js",
-    "webpack-prod": "webpack -p --config webpack.config.js"
+    "watch": "npm-watch"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
