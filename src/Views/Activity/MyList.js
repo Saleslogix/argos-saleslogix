@@ -13,6 +13,8 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('activityMyList');
 const hashTagResource = getResource('activityMyListHashTags');
 
@@ -222,7 +224,12 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   },
   defaultSearchTerm: function defaultSearchTerm() {
     if (App.enableHashTags) {
-      return `#${this.hashTagQueriesText['this-week']}`;
+      const hashtag = this.hashTagQueriesText['this-week'];
+      if (typeof hashtag === 'string' && hashtag.startsWith('#')) {
+        return hashtag;
+      }
+
+      return `#${hashtag}`;
     }
 
     return '';

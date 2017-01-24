@@ -1,7 +1,7 @@
 import lang from 'dojo/_base/lang';
 import Utility from 'argos/Utility';
+import { utility as commonutil } from '@infor/icrm-js-common';
 
-const commonutil = ICRMCommonSDK.utility;
 /**
  * @class crm.Utility
  *

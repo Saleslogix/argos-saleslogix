@@ -10,6 +10,8 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('attachmentList');
 const hashTagResource = getResource('attachmentListHashTags');
 const dtFormatResource = getResource('attachmentListDateTimeFormat');

@@ -1225,7 +1225,8 @@
   offlineOptionsText: "Offline Options"
   use24HourClockText: "Using 24-hour Clock"
   use12HourClockText: "Using 12-hour Clock"
-  confirmClockMessage: "Changing the clock display setting will require the application to restart. Are you sure?"
+  confirm24HourClockMessage: "Changing the clock to 24-hour format will require an application restart. Continue?"
+  confirm12HourClockMessage: "Changing the clock to 12-hour format will require an application restart. Continue?"
   confirmClearLocalStorageMessage: "Clearing local storage will require the application to restart. Are you sure?"
 >
 
@@ -1487,4 +1488,39 @@
   int32Text: "The field '${2}' value exceeds the allowed numeric range."
   maxLengthText: "The field '${2}' value exceeds the allowed limit in length."
   dateRangeText: "The field '${2}' value is out of allowed date range."
+>
+
+<activityListHashTags ""
+  alarmText: "#alarm"
+  recurringText: "#recurring"
+  timelessText: "#timeless"
+  todayText: "#today"
+  thisWeekText: "#this-week"
+  yesterdayText: "#yesterday"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "#alarm"
+  hashTagUnconfirmedText: "#status-unconfirmed"
+  hashTagAcceptedText: "#status-accepted"
+  hashTagDeclinedText: "#status-declined"
+  hashTagRecurringText: "#recurring"
+  hashTagTimelessText: "#timeless"
+  hashTagTodayText: "#today"
+  hashTagThisWeekText: "#this-week"
+  hashTagYesterdayText: "#yesterday"
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "#url"
+  hashTagBinaryText: "#binary"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "#my-history"
+  noteHash: "#note"
+  phoneCallHash: "#phonecall"
+  meetingHash: "#meeting"
+  personalHash: "#personal"
+  emailHash: "#email"
 >

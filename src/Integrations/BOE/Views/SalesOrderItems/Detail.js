@@ -16,6 +16,7 @@ import Detail from 'argos/Detail';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 import utility from '../../Utility';
+import PricingAvailabilityService from '../../PricingAvailabilityService';
 
 const resource = getResource('salesOrderItemsDetail');
 
@@ -52,6 +53,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
   removeOrderLineText: resource.removeOrderLineText,
   unitOfMeasureText: resource.unitOfMeasureText,
   totalAmountText: resource.totalAmountText,
+  availableQuantityText: resource.availableQuantityText,
+  checkWarehouseAvailabilityText: resource.checkWarehouseAvailabilityText,
   // View Properties
   id: 'salesorder_item_detail',
   editView: 'salesorder_item_edit',
@@ -127,6 +130,18 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     }
     return tools;
   },
+  onAvailability: function onAvailability() {
+    PricingAvailabilityService.getOrderItemAvailability(this.entry)
+      .then((result) => {
+        const [warehouse] = result;
+        const { ErrorCode, AvailableQuantity } = warehouse;
+        if (ErrorCode) {
+          App.modal.createSimpleAlert({ title: ErrorCode });
+        } else if (AvailableQuantity) {
+          App.modal.createSimpleAlert({ title: this.availableQuantityText + AvailableQuantity });
+        }
+      });
+  },
   createLayout: function createLayout() {
     const { code: baseCurrencyCode } = App.getBaseExchangeRate();
 
@@ -135,7 +150,17 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
       list: true,
       cls: 'action-list',
       name: 'QuickActionsSection',
-      children: [],
+      children: [{
+        name: 'CheckAvailability',
+        property: 'SlxLocation.Name',
+        label: this.checkWarehouseAvailabilityText,
+        iconClass: 'fa fa-exchange fa-2x',
+        action: 'onAvailability',
+        disabled: () => {
+          return App.warehouseDiscovery === 'auto';
+        },
+        security: 'Entities/SalesOrder/Add',
+      }],
     }, {
       title: this.detailsText,
       name: 'DetailsSection',

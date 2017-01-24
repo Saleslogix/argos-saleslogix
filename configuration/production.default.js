@@ -86,6 +86,11 @@ define('configuration/production.default', [
     mingleEnabled: false,
 
     /**
+     * @property {String} warehouseDiscovery
+     * Defaults to "auto", set to "manual" for ERP systems that cannot query warehouses for availability.
+     */
+    warehouseDiscovery: 'auto',
+    /**
      * @property mingleSettings
      * Settings downloaded from the mingle site after adding the crm mobile app
      */

@@ -11,6 +11,8 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('offlineUsageWidget');
 
 const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
@@ -100,9 +102,9 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       lastClearedDate: options.lastClearedDate,
     };
     this._olderThanValues = offlineManager.getClearOlderThanValues();
-    this.initUI();
+    this.initUI(options.clearOlderThan);
   },
-  initUI: function initUI() {
+  initUI: function initUI(clearOlderThan) {
     if (!this._olderThanDropdown) {
       this._olderThanDropdown = new Dropdown({
         id: `olderThan-dropdown ${this.id}`,
@@ -115,6 +117,13 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       });
       domConstruct.place(this._olderThanDropdown.domNode, this._olderThanNode);
       this.setLastClearedDate(this._options.lastClearedDate);
+    } else {
+      try {
+        this._olderThanDropdown.setValue(clearOlderThan);
+      } catch (err) {
+        // There is a wierd lifecycle error going on here, with initUI being called twice
+        // TODO: Refactor
+      }
     }
   },
   setLastClearedDate: function setLastClearedDate(lastClearedDate) {

@@ -18,6 +18,8 @@ import getResource from 'argos/I18n';
 import 'dojo/sniff';
 import MingleUtility from './MingleUtility';
 
+import moment from 'moment';
+
 const resource = getResource('application');
 
 /**
@@ -399,7 +401,7 @@ const __class = declare('crm.Application', [Application], {
     return !!userSecurity[security];
   },
   reload: function reload() {
-    this.ReUI.disableLocationCheck();
+    // this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
   },

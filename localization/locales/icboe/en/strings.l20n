@@ -746,6 +746,8 @@
   removeQuoteLineText: "Remove Line Item"
   locationText: "location"
   totalAmountText: "total amount"
+  availableQuantityText: "Available quantity: "
+  checkWarehouseAvailabilityText: "Check warehouse availability"
 >
 
 <quoteItemsList ""
@@ -817,6 +819,8 @@
   confirmDeleteText: "Are you sure you would like to delete the current line item?"
   removeOrderLineText: "Remove Line Item"
   totalAmountText: "total amount"
+  availableQuantityText: "Available quantity: "
+  checkWarehouseAvailabilityText: "Check warehouse availability"
 >
 
 <salesOrderItemsList ""
