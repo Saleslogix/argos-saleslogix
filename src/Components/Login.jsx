@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class LoginView extends React.Component {
-  render() {
+  render() {// eslint-disable-line
     return (
       <div>
         <p className="logo">
