@@ -1,4 +1,4 @@
-function l20nLoadFunc(localeFiles) {
+export function l20nLoadFunc(localeFiles) {
   return new Promise((complete) => {
     const makeRequest = url => new Promise((resolve, reject) => {
       const http = new XMLHttpRequest();
@@ -30,6 +30,7 @@ export function bootstrapLocalization({
   defaultLocale,
   currentLocale,
   localeFiles,
+  fetchFunc = l20nLoadFunc,
   asGlobal = false,
 }) {
   const promise = new Promise((resolve) => {
@@ -60,7 +61,7 @@ export function bootstrapLocalization({
       return p.concat(c);
     }, []);
 
-    l20nLoadFunc(localeFiles).then((files) => {
+    fetchFunc(localeFiles).then((files) => {
       const ctx = window.L20n.getContext();
       const defaultCtx = window.L20n.getContext();
 

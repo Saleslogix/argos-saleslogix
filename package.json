@@ -13,13 +13,16 @@
     "test": "npm run build && grunt test",
     "testbasic": "grunt test:basic",
     "less": "grunt less",
-    "start": "webpack-dev-server --config webpack.config.js",
+    "start": "webpack-dev-server --env=dev --config webpack.config.js",
     "server": "node scripts/server.js",
     "build": "babel src --out-dir src-out --source-maps inline",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:dist": "webpack --env=prod --progress --profile --colors",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
     "watch": "npm-watch",
-    "webpack": "webpack --config webpack.config.js"
+    "webpack": "webpack --config webpack.config.js",
+    "webpack-prod": "webpack -p --config webpack.config.js"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -44,7 +47,8 @@
     "npm-watch": "^0.1.6",
     "spdy": "^3.4.4",
     "webpack": "beta",
-    "webpack-dev-server": "beta"
+    "webpack-dev-server": "beta",
+    "webpack-merge": "^2.4.0"
   },
   "dependencies": {
     "moment": "^2.17.1",

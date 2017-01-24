@@ -3004,7 +3004,7 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-joi@9.x.x, joi@9.X.X:
+joi@9.X.X, joi@9.x.x:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/joi/-/joi-9.2.0.tgz#3385ac790192130cbe230e802ec02c9215bbfeda"
   dependencies:
@@ -3350,7 +3350,7 @@ lodash@^4.0.0, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.8.2:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
 
-lodash@^4.17.2:
+lodash@^4.17.2, lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5336,6 +5336,12 @@ webpack-dev-server@beta:
     supports-color "^3.1.1"
     webpack-dev-middleware "^1.9.0"
     yargs "^6.0.0"
+
+webpack-merge:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-2.4.0.tgz#4c518d471632c29ae22e83687c2f42a9cd5f35ea"
+  dependencies:
+    lodash "^4.17.4"
 
 webpack-sources@^0.1.4:
   version "0.1.4"
