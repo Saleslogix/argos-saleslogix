@@ -5,6 +5,8 @@ import query from 'dojo/query';
 import convert from 'argos/Convert';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('cardLayoutListMixin');
 
 /**

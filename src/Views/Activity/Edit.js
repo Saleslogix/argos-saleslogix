@@ -12,6 +12,8 @@ import format from 'argos/Format';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
 
+import moment from 'moment';
+
 const resource = getResource('activityEdit');
 const dtFormatResource = getResource('activityEditDateTimeFormat');
 

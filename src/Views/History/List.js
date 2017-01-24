@@ -10,6 +10,8 @@ import _MetricListMixin from '../_MetricListMixin';
 import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('historyList');
 const hashTagResource = getResource('historyListHashTags');
 const dtFormatResource = getResource('historyListDateTimeFormat');

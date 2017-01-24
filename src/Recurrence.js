@@ -2,6 +2,8 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('recurrence');
 const dtFormatResource = getResource('recurrenceDateTimeFormat');
 

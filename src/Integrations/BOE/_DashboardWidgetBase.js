@@ -18,6 +18,8 @@ import Utility from './Utility';
 import domClass from 'dojo/dom-class';
 import getResource from 'argos/I18n';
 
+import moment from 'moment';
+
 const resource = getResource('dashboardWidgetBase');
 
 /**
