@@ -184,7 +184,12 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
   },
   defaultSearchTerm: function defaultSearchTerm() {
     if (App.enableHashTags) {
-      return `#${this.hashTagQueriesText['this-week']}`;
+      const hashtag = this.hashTagQueriesText['this-week'];
+      if (typeof hashtag === 'string' && hashtag.startsWith('#')) {
+        return hashtag;
+      }
+
+      return `#${hashtag}`;
     }
 
     return '';

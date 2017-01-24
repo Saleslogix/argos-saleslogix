@@ -247,6 +247,15 @@
   emailText: "Электронная почта"
 >
 
+<activityListHashTags ""
+  alarmText: "оповещение"
+  recurringText: "повторение"
+  timelessText: "без-указания-времени"
+  todayText: "сегодня"
+  thisWeekText: "эта-неделя"
+  yesterdayText: "вчера"
+>
+
 <activityMyList ""
   titleText: "Мои действия"
   completeActivityText: "Завершить"
@@ -258,6 +267,18 @@
   viewContactActionText: "Контакт"
   viewAccountActionText: "Клиент"
   viewOpportunityActionText: "Возможность"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "оповещение"
+  hashTagUnconfirmedText: "Неподтвержденные"
+  hashTagAcceptedText: "Подтвержденные"
+  hashTagDeclinedText: "Отмененные"
+  hashTagRecurringText: "повторение"
+  hashTagTimelessText: "без-указания-времени"
+  hashTagTodayText: "сегодня"
+  hashTagThisWeekText: "эта-неделя"
+  hashTagYesterdayText: "вчера"
 >
 
 <activityMyDay ""
@@ -346,6 +367,11 @@
 <attachmentList ""
   titleText: "Вложения"
   uploadedOnText: "Загружено "
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "URL"
+  hashTagBinaryText: "двоичный"
 >
 
 <attachmentMyList ""
@@ -635,6 +661,15 @@
   personal: "Личное действие"
   question: "Вопрос"
   email: "Электронная почта"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "моя-история"
+  noteHash: "заметка"
+  phoneCallHash: "Звонок"
+  meetingHash: "встреча"
+  personalHash: "личное"
+  emailHash: "электронная-почта"
 >
 
 <historyRelated ""

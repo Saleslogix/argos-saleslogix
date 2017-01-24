@@ -87,7 +87,10 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
       id: 'assignWarehouse',
       cls: 'fa fa-truck fa-2x',
       label: this.assignWarehouseText,
-      enabled: action.hasProperty.bindDelegate(this, 'SalesOrder.ErpLogicalId'),
+      enabled: (layoutAction, selection) => {
+        return App.warehouseDiscovery === 'auto' &&
+          action.hasProperty(layoutAction, selection, 'SalesOrder.ErpLogicalId');
+      },
       action: 'assignWarehouseAction',
     }]);
   },

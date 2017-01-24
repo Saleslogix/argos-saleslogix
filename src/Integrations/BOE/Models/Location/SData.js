@@ -13,6 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.Location.SData', [Base, _SD
     return [{
       name: 'list',
       queryOrderBy: 'Name',
+      queryWhere: 'LocationType eq "Warehouse"',
       querySelect: [
         'Name',
         'Description',

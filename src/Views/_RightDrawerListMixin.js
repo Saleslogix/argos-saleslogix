@@ -97,13 +97,20 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     // These actions will get mixed into the right drawer view.
     const actions = {
       hashTagClicked: function hashTagClicked(params) {
+        const { hashtag } = params;
+
         if (this.groupsMode) {
           this._clearGroupMode();
         }
 
-        if (params.hashtag) {
+        if (hashtag && typeof hashtag === 'string') {
           this._hashTagClicked = true;
-          this.setSearchTerm(`#${params.hashtag}`);
+          if (hashtag.startsWith('#')) {
+            this.setSearchTerm(hashtag);
+          } else {
+            this.setSearchTerm(`#${hashtag}`);
+          }
+
           this.search();
           this.toggleRightDrawer();
         }

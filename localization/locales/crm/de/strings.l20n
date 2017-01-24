@@ -247,6 +247,15 @@
   emailText: "E-Mail"
 >
 
+<activityListHashTags ""
+  alarmText: "Alarm"
+  recurringText: "wiederkehrend"
+  timelessText: "ohne-Zeitangabe"
+  todayText: "heute"
+  thisWeekText: "diese-Woche"
+  yesterdayText: "gestern"
+>
+
 <activityMyList ""
   titleText: "Eigene Aktivitäten"
   completeActivityText: "Abschließen"
@@ -258,6 +267,18 @@
   viewContactActionText: "Kontakt"
   viewAccountActionText: "Firma"
   viewOpportunityActionText: "Verkaufschance"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "Alarm"
+  hashTagUnconfirmedText: "Status-unbestätigt"
+  hashTagAcceptedText: "Status-akzeptiert"
+  hashTagDeclinedText: "Status-abgelehnt"
+  hashTagRecurringText: "wiederkehrend"
+  hashTagTimelessText: "ohne-Zeitangabe"
+  hashTagTodayText: "heute"
+  hashTagThisWeekText: "diese-Woche"
+  hashTagYesterdayText: "gestern"
 >
 
 <activityMyDay ""
@@ -346,6 +367,11 @@
 <attachmentList ""
   titleText: "Anlagen"
   uploadedOnText: "Hochgeladen "
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "URL"
+  hashTagBinaryText: "Binär"
 >
 
 <attachmentMyList ""
@@ -635,6 +661,15 @@
   personal: "Private Aktivität"
   question: "Frage"
   email: "E-Mail"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "Eigene-Historie"
+  noteHash: "Notiz"
+  phoneCallHash: "Anruf"
+  meetingHash: "Meeting"
+  personalHash: "privat"
+  emailHash: "E-Mail"
 >
 
 <historyRelated ""

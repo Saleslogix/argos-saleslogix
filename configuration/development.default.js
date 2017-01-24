@@ -34,6 +34,7 @@ define('configuration/development.default', [
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
     mingleEnabled: false,
+    warehouseDiscovery: 'auto',
     mingleSettings: {
         "ti": "ICRMMIG2_TST",
         "cn": "CRM Mobile",
