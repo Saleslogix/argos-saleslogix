@@ -1,6 +1,5 @@
 function l20nLoadFunc(localeFiles) {
   return new Promise((complete) => {
-    const https = [];
     const makeRequest = url => new Promise((resolve, reject) => {
       const http = new XMLHttpRequest();
 
@@ -13,9 +12,8 @@ function l20nLoadFunc(localeFiles) {
       http.addEventListener('abort', err => reject(err));
       http.send();
     });
-    for (let i = 0; i < localeFiles.length; i += 1) {
-      https.push(makeRequest(localeFiles[i]));
-    }
+
+    const https = localeFiles.map(file => makeRequest(file));
     Promise.all(https).then((files) => {
       complete(files);
     });
