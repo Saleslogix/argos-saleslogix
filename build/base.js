@@ -7,7 +7,7 @@ module.exports = function() {
     entry: {
       localization: './src/Bootstrap.localization.js',
       core: ['../../argos-sdk/libraries/Simplate.js', './src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
-      vendor: ['rxjs', 'moment', 'pouchdb', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['rxjs', 'moment', 'pouchdb-browser', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
       path: path.resolve(__dirname, '../dist'),
