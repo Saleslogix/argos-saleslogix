@@ -35,15 +35,18 @@ const appConfig = {
   enableOfflineSupport: false,
   mingleEnabled: false,
   mingleSettings: {
-      "ti": "ICRMMIG2_TST",
-      "cn": "CRM Mobile",
-      "ci": "ICRMMIG2_TST~XOVG6ovrohVO4nu-LX7RcevsF6XDjhPw587iDkEKDHE",
-      "cs": "NSX_U8atSS_ShcUDNCVCL91Uu6vU4ZR5oEjA81y6oy-35B4LqO31yV3y7beRpm9xQnRh49CJouspYUMFkh4C-A",
-      "iu": "https://mingleinteg01-ionapi.mingledev.infor.com",
-      "pu": "https://mingleinteg01-sso.mingledev.infor.com/ICRMMIG2_TST/as/",
-      "oa": "authorization.oauth2", "ot": "token.oauth2", "or": "revoke_token.oauth2", "ev": "M1448056811"
+    ti: 'ICRMMIG2_TST',
+    cn: 'CRM Mobile',
+    ci: 'ICRMMIG2_TST~XOVG6ovrohVO4nu-LX7RcevsF6XDjhPw587iDkEKDHE',
+    cs: 'NSX_U8atSS_ShcUDNCVCL91Uu6vU4ZR5oEjA81y6oy-35B4LqO31yV3y7beRpm9xQnRh49CJouspYUMFkh4C-A',
+    iu: 'https://mingleinteg01-ionapi.mingledev.infor.com',
+    pu: 'https://mingleinteg01-sso.mingledev.infor.com/ICRMMIG2_TST/as/',
+    oa: 'authorization.oauth2',
+    ot: 'token.oauth2',
+    or: 'revoke_token.oauth2',
+    ev: 'M1448056811',
   },
-  mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html'
+  mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html',
 };
 
 export function bootstrap({
