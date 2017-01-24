@@ -46,15 +46,12 @@ const appConfig = {
   mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html'
 };
 
-export default function bootstrap({
+export function bootstrap({
   currentLocale,
   parentLocale,
   isRegionMetric,
 }) {
-  let promise = new Promise(resolve => resolve([]));
-  if (window.deferredLocaleContext) {
-    promise = window.deferredLocaleContext;
-  }
+  const promise = new Promise(resolve => resolve([]));
 
   promise.then(() => {
     let completed = false;

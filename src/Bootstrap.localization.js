@@ -1,37 +1,39 @@
+function l20nLoadFunc(localeFiles) {
+  return new Promise((complete) => {
+    const https = [];
+    const makeRequest = url => new Promise((resolve, reject) => {
+      const http = new XMLHttpRequest();
+
+      http.open('GET', url, false);
+      // http.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
+      http.addEventListener('load', (response) => {
+        resolve(response.target.response);
+      });
+      http.addEventListener('error', err => reject(err));
+      http.addEventListener('abort', err => reject(err));
+      http.send();
+    });
+    for (let i = 0; i < localeFiles.length; i += 1) {
+      https.push(makeRequest(localeFiles[i]));
+    }
+    Promise.all(https).then((files) => {
+      complete(files);
+    });
+  });
+}
 
 /**
  * Bootstrap localization
  * This function handles the bootstrapping of localization for
  * the application.
  */
-export default function bootstrapLocalization(
-  fetchFunc = new Promise(resolve => resolve([])),
-  supportedLocales = [
-    'en',
-    'en-GB',
-    'de',
-    'fr',
-    'it',
-    'ru',
-    'zh-CN',
-    'zh-TW',
-    'es',
-    'pt',
-  ],
-  defaultLocale = 'en',
-  currentLocale = 'en',
-  localeFiles = [
-    './localization/locales/crm/en/strings.l20n',
-    './localization/locales/crm/en/regional.l20n',
-    './localization/locales/crm/en/hashtags.l20n',
-    './localization/locales/icboe/en/strings.l20n',
-    './localization/locales/icboe/en/regional.l20n',
-    './localization/locales/contour/en/strings.l20n',
-    '../../argos-sdk/localization/locales/argos/en/strings.l20n',
-    '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-  ],
-  asGlobal = false
-) {
+export function bootstrapLocalization({
+  supportedLocales,
+  defaultLocale,
+  currentLocale,
+  localeFiles,
+  asGlobal = false,
+}) {
   const promise = new Promise((resolve) => {
     // The L20n context (ctx) should only call linkResource once per file.
     // We need to:
@@ -60,7 +62,7 @@ export default function bootstrapLocalization(
       return p.concat(c);
     }, []);
 
-    fetchFunc(localeFiles).then((files) => {
+    l20nLoadFunc(localeFiles).then((files) => {
       const ctx = window.L20n.getContext();
       const defaultCtx = window.L20n.getContext();
 
