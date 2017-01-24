@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class LoginView extends React.Component {
   render() {
     return (
@@ -11,7 +13,7 @@ export default class LoginView extends React.Component {
           <fieldset>
             <a name="username"></a>
             <div className="row row-edit" data-field-type="text">
-              
+
             </div>
           </fieldset>
         </div>

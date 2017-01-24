@@ -103,6 +103,7 @@ import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from './Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
+import { createElement } from 'react';
 import './Views/OfflineOptions/UsageWidget';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
@@ -169,7 +170,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
 
     this.registerView(new Login());
-    this.registerView(React.createElement(LoginView, { id: 'login_view' }));
+    this.registerView(createElement(LoginView, { id: 'login_view' }));
 
     this.registerView(new LogOff());
 
