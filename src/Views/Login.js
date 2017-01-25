@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
-import getResource from 'argos/I18n';
+import { getResource, getLocalizationForComponent } from 'argos/I18n';
 
 const resource = getResource('login');
 
@@ -43,6 +43,10 @@ const __class = declare('crm.Views.Login', [Edit], {
 
   ENTER_KEY: 13,
 
+  constructor: function constructor() {
+    this.inherited(arguments);
+    lang.mixin(this, getLocalizationForComponent('login'));
+  },
   _onKeyPress: function _onKeyPress(evt) {
     if (evt.charOrCode === this.ENTER_KEY) {
       this.authenticate();
