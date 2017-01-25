@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SET_USER, SET_MAX_VIEWPORTS } from './actions';
+import { SET_USER, SET_MAX_VIEWPORTS } from '../actions';
 
 const initialAppState = {
   user: null,
