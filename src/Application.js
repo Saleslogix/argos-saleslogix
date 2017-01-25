@@ -16,8 +16,9 @@ import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
-import crmApp from './reducers';
+import { app } from './reducers';
 import { setUser } from './actions';
+import { combineReducers } from 'redux';
 import 'dojo/sniff';
 
 
@@ -138,7 +139,11 @@ const __class = declare('crm.Application', [Application], {
     };
   },
   getReducer: function getReducer() {
-    return crmApp;
+    const sdk = this.inherited(arguments);
+    return combineReducers({
+      sdk,
+      app,
+    });
   },
   getInitialState: function getInitialState() {
     return {};
