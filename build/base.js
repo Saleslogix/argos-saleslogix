@@ -29,17 +29,17 @@ module.exports = function() {
         loader: 'babel-loader',
         options: {
           presets: [
-            'es2015-without-strict'
+            'es2015-without-strict',
           ],
           plugins: [
-            'transform-react-jsx'
+            'transform-react-jsx',
           ]
         },
       }, {
         test: /(\.js)$/,
         include: path.resolve(__dirname, '../../../argos-sdk/libraries/dojo'),
         loader: 'dojo-webpack-loader',
-      }],
+      }]
     },
     resolve: {
       alias: {
@@ -59,7 +59,7 @@ module.exports = function() {
       extensions: [
         '.js',
         '.jsx',
-      ]
+      ],
     },
     plugins: [
       // Necessary for dojo-webpack-loader to function (is a webpack 1 loader)
