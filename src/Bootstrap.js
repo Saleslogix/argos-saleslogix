@@ -53,6 +53,7 @@ export function bootstrap({
   currentLocale,
   parentLocale,
   isRegionMetric,
+  rootElement,
 }) {
   let completed = false;
   let mingleAuthResults;
@@ -86,7 +87,7 @@ export function bootstrap({
     instance.isRegionMetric = isRegionMetric;
     instance.mingleAuthResults = mingleAuthResults;
     instance.activate();
-    instance.init();
+    instance.init(rootElement);
     instance.run();
     completed = true;
   });
