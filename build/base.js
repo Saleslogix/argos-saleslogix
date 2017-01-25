@@ -7,7 +7,7 @@ module.exports = function() {
     entry: {
       localization: './src/Bootstrap.localization.js',
       core: ['../../argos-sdk/libraries/Simplate.js', './src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
-      vendor: ['snap', 'rxjs', 'moment', 'pouchdb-browser', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['react', 'react-dom', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
       path: path.resolve(__dirname, '../dist'),
@@ -19,7 +19,7 @@ module.exports = function() {
     },
     module: {
       rules: [{
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         include: [
           path.resolve(__dirname, '../src'),
           path.resolve(__dirname, '../../../argos-sdk/src'),
@@ -31,6 +31,9 @@ module.exports = function() {
           presets: [
             'es2015-without-strict'
           ],
+          plugins: [
+            'transform-react-jsx'
+          ]
         },
       }, {
         test: /(\.js)$/,
@@ -52,6 +55,10 @@ module.exports = function() {
         path.resolve(__dirname, '../node_modules/'),
         path.resolve(__dirname, '../node_modules'),
         path.resolve(__dirname, '../../../argos-sdk/node_modules/')
+      ],
+      extensions: [
+        '.js',
+        '.jsx',
       ]
     },
     plugins: [
