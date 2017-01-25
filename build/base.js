@@ -19,7 +19,7 @@ module.exports = function() {
     },
     module: {
       rules: [{
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         include: [
           path.resolve(__dirname, '../src'),
           path.resolve(__dirname, '../../../argos-sdk/src'),
@@ -29,14 +29,17 @@ module.exports = function() {
         loader: 'babel-loader',
         options: {
           presets: [
-            'es2015-without-strict'
+            'es2015-without-strict',
           ],
+          plugins: [
+            "transform-react-jsx",
+          ]
         },
       }, {
         test: /(\.js)$/,
         include: path.resolve(__dirname, '../../../argos-sdk/libraries/dojo'),
         loader: 'dojo-webpack-loader',
-      }],
+      }]
     },
     resolve: {
       alias: {
@@ -52,7 +55,11 @@ module.exports = function() {
         path.resolve(__dirname, '../node_modules/'),
         path.resolve(__dirname, '../node_modules'),
         path.resolve(__dirname, '../../../argos-sdk/node_modules/')
-      ]
+      ],
+      extensions: [
+        '.js',
+        '.jsx',
+      ],
     },
     plugins: [
       // Necessary for dojo-webpack-loader to function (is a webpack 1 loader)
