@@ -5,10 +5,11 @@ const initialAppState = {
 };
 
 export function app(state = initialAppState, action) {
-  switch (action.type) {
+  const { type, payload, error, meta } = action; // eslint-disable-line
+  switch (type) {
     case SET_USER:
       return Object.assign({}, state, {
-        user: action.entry,
+        user: payload.entry,
       });
     default:
       return state;
