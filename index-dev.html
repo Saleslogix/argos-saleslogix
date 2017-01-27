@@ -134,10 +134,12 @@
       // var script = document.createElement('script');
       // script.src = '../../dev/icrm.core.js';
       // script.onload = () => {
+        var rootElement = document.getElementById('rootNode');
         icrm.core.bootstrap({
           currentLocale: currentLocale,
           parentLocale: 'en',
           isRegionMetric: false,
+          rootElement: rootElement
         });
       // }
       // document.head.appendChild(script);
@@ -146,6 +148,7 @@
 </head>
 
 <body>
+  <div id="rootNode"></div>
 </body>
 
 </html>
