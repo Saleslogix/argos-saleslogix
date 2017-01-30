@@ -15,8 +15,12 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
-import 'dojo/sniff';
 import MingleUtility from './MingleUtility';
+import { app } from './reducers';
+import { setUser } from './actions';
+import { combineReducers } from 'redux';
+import 'dojo/sniff';
+
 
 import moment from 'moment';
 
@@ -133,6 +137,16 @@ const __class = declare('crm.Application', [Application], {
       }));
       return original.apply(this, arguments);
     };
+  },
+  getReducer: function getReducer() {
+    const sdk = this.inherited(arguments);
+    return combineReducers({
+      sdk,
+      app,
+    });
+  },
+  getInitialState: function getInitialState() {
+    return {};
   },
   initConnects: function initConnects() {
     this.inherited(arguments);
@@ -597,6 +611,7 @@ const __class = declare('crm.Application', [Application], {
 
     request.read({
       success: function success(entry) {
+        this.store.dispatch(setUser(entry));
         this.context.user = entry;
         this.context.defaultOwner = entry && entry.DefaultOwner;
         def.resolve(entry);

@@ -6,8 +6,24 @@
     "url": "https://github.com/Saleslogix/argos-saleslogix"
   },
   "watch": {
-    "lint": "src/**/*.js",
-    "build": "src/**/*.js"
+    "lint": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": [
+        "js",
+        "jsx"
+      ]
+    },
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": [
+        "js",
+        "jsx"
+      ]
+    }
   },
   "scripts": {
     "test": "npm run build && grunt test",
@@ -26,9 +42,11 @@
     "babel-cli": "^6.16.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-preset-es2015-without-strict": "^0.0.4",
     "dojo-webpack-loader": "^0.9.2",
     "eslint": "^3.6.1",
+    "eslint-plugin-react": "^6.9.0",
     "grunt": "^1.0.1",
     "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.4",
     "grunt-contrib-clean": "^1.0.0",
@@ -51,6 +69,12 @@
   "dependencies": {
     "moment": "^2.17.1",
     "pouchdb-browser": "^6.1.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.4",
+    "redux-thunk": "^2.2.0",
     "rxjs": "^5.0.3"
   }
 }
