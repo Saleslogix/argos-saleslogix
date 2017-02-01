@@ -174,8 +174,8 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new LogOff());
 
-    this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
-    this.registerView(new RightDrawer(), query('.right-drawer')[0]);
+    this.registerView(new LeftDrawer(), query('.left-drawer', this.application.getContainerNode())[0]);
+    this.registerView(new RightDrawer(), query('.right-drawer', this.application.getContainerNode())[0]);
 
     this.registerView(new OfflineDetail({
       canRedirectTo: true,
