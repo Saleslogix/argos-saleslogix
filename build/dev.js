@@ -18,10 +18,12 @@ const proxyConfig = config.proxy || {};
 module.exports = function(env) {
   return webpackMerge(_base(), {
     devServer: {
+      compress: true, // gzip compression
       inline: true,
       port: config.port || 8080,
       proxy: {
         '/sdata': {
+          secure: false,
           target: {
             host: proxyConfig.host || 'localhost',
             protocol: proxyConfig.protocol || 'http',
@@ -29,11 +31,12 @@ module.exports = function(env) {
           },
         },
       },
+      https: true,
       contentBase: path.resolve(__dirname, '../../../'),
       staticOptions: {
         index: 'index-dev.html',
       },
     },
-    devtool: 'inline-source-map',
+    devtool: false,//'inline-source-map',
   });
 };

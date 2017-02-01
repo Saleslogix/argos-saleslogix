@@ -20,7 +20,7 @@ define('configuration/development.default', [
       'crm': {
         isDefault: true,
         offline: true,
-        url: 'http://localhost:8000/sdata/slx/dynamic/-/',
+        url: 'https://localhost:8000/sdata/slx/dynamic/-/',
         timeout: 30000,
         compact: true,
         json: true,

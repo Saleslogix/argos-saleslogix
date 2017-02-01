@@ -39,6 +39,16 @@ module.exports = function() {
         test: /(\.js)$/,
         include: path.resolve(__dirname, '../../../argos-sdk/libraries/dojo'),
         loader: 'dojo-webpack-loader',
+      }, {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          { loader: 'less-loader', options: { paths: ['content/css'] } }
+        ]
+      }, {
+        test: /\.png$|\.gif$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$/,
+        loader: 'file-loader',
       }]
     },
     resolve: {

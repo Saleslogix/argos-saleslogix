@@ -6,6 +6,8 @@ import Application from './Application';
 import ApplicationModule from './ApplicationModule';
 import BOEApplicationModule from './Integrations/BOE/ApplicationModule';
 import ContourApplicationModule from './Integrations/Contour/ApplicationModule';
+import '../../../argos-sdk/content/css/themes/crm.less';
+import '../content/css/app.less';
 // import appConfig from './configuration/development';
 
 const appConfig = {
@@ -20,7 +22,7 @@ const appConfig = {
     crm: {
       isDefault: true,
       offline: true,
-      url: 'http://localhost:8000/sdata/slx/dynamic/-/',
+      url: 'https://localhost:8000/sdata/slx/dynamic/-/',
       timeout: 30000,
       compact: true,
       json: true,
