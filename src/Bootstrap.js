@@ -54,6 +54,7 @@ export function bootstrap({
   parentLocale,
   isRegionMetric,
   rootElement,
+  modules,
 }) {
   let completed = false;
   let mingleAuthResults;
@@ -81,6 +82,9 @@ export function bootstrap({
       if (results !== currentLocale) {
         console.error(`Failed to set the culture for moment.js, culture set to ${results}`); // eslint-disable-line
       }
+    }
+    if (modules && modules.length) {
+      appConfig.modules = appConfig.modules.concat(modules);
     }
     const instance = new Application(appConfig);
     instance.localeContext = ctx;
