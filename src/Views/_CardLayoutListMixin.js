@@ -4,6 +4,7 @@ import domConstruct from 'dojo/dom-construct';
 import query from 'dojo/query';
 import convert from 'argos/Convert';
 import getResource from 'argos/I18n';
+import itemIcon from '../../content/images/icons/man_1.png';
 
 import moment from 'moment';
 
@@ -20,7 +21,7 @@ const resource = getResource('cardLayoutListMixin');
  *
  */
 const __class = declare('crm.Views._CardLayoutListMixin', null, {
-  itemIcon: 'content/images/icons/man_1.png',
+  itemIcon,
   itemIconAltText: resource.itemIconAltText,
   itemIconClass: '',
   allRecordsText: resource.allRecordsText,

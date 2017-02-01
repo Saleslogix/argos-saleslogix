@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
+import logo from '../../content/images/logo-64.png';
 
 const resource = getResource('login');
 
@@ -17,7 +18,7 @@ const __class = declare('crm.Views.Login', [Edit], {
   // Templates
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-    '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
+    '<p class="logo"><img src="{%: $.logo %}" /><span>{%: $.logoText %}<span></p>',
     '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
     '<button data-dojo-attach-point="loginButton" class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
     '<span class="copyright">{%= $.copyrightText %}</span>',
@@ -28,6 +29,7 @@ const __class = declare('crm.Views.Login', [Edit], {
 
   id: 'login',
   busy: false,
+  logo,
 
   // Localization
   copyrightText: resource.copyrightText,

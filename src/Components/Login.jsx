@@ -1,11 +1,12 @@
 import React from 'react';
+import logo from '../../content/images/logo-64.png';
 
 export default class LoginView extends React.Component {
   render() {// eslint-disable-line
     return (
       <div>
         <p className="logo">
-          <img src="content/images/logo-64.png"></img>
+          <img src={logo}></img>
           <span>Infor CRM</span>
         </p>
         <div className="panel-content">
