@@ -12,6 +12,7 @@ import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
+import itemIcon from '../../../content/images/icons/man_1.png';
 
 import moment from 'moment';
 
@@ -68,7 +69,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     yesterday: hashTagResource.yesterdayText,
   },
   // Card View
-  itemIcon: 'content/images/icons/man_1.png',
+  itemIcon,
 
   // Templates
   // Card View
