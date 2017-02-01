@@ -6,6 +6,7 @@ module.exports = function() {
   return {
     entry: {
       localization: './src/Bootstrap.localization.js',
+      main: './src/main.js',
       core: ['../../argos-sdk/libraries/Simplate.js', './src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
       vendor: ['react', 'react-dom', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
