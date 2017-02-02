@@ -10,8 +10,8 @@
     "testbasic": "grunt test:basic",
     "start": "webpack-dev-server --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --config webpack.config.js",
     "build": "yarn run build:dev",
-    "build:dev": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --profile --colors",
-    "build:dist": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=prod --progress --profile --colors",
+    "build:dev": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --colors",
+    "build:dist": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=prod --colors",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src"
   },
