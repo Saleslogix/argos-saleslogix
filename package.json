@@ -42,6 +42,8 @@
     "webpack-merge": "^2.4.0"
   },
   "dependencies": {
+    "@infor/icrm-js-common": "^0.1.0",
+    "@infor/icrm-js-customization": "^0.1.0",
     "moment": "^2.17.1",
     "pouchdb-browser": "^6.1.1",
     "react": "^15.4.2",

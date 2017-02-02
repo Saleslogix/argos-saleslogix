@@ -24,8 +24,6 @@ module.exports = function() {
         include: [
           path.resolve(__dirname, '../src'),
           path.resolve(__dirname, '../../../argos-sdk/src'),
-          path.resolve(__dirname, '../node_modules/@infor/icrm-js-common'),
-          path.resolve(__dirname, '../node_modules/@infor/icrm-js-customization'),
         ],
         loader: 'babel-loader',
         options: {

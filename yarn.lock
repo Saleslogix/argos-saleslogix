@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@infor/icrm-js-common@^0.1.0":
+  version "0.1.0"
+  resolved "http://npm.infor.com:4873/@infor%2ficrm-js-common/-/icrm-js-common-0.1.0.tgz#6b68e2bcb0a20db29e1cbd0ef46f78632ad153af"
+  dependencies:
+    moment "^2.17.1"
+
+"@infor/icrm-js-customization@^0.1.0":
+  version "0.1.0"
+  resolved "http://npm.infor.com:4873/@infor%2ficrm-js-customization/-/icrm-js-customization-0.1.0.tgz#2d7d8c473c31f36f5b9d2378d38e3cbce6bae9b9"
+
 abbrev@1, abbrev@1.0.x:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
