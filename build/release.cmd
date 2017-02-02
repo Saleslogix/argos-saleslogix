@@ -1,16 +1,12 @@
 @echo off
 
-if exist deploy (
-	rmdir deploy /S /Q
+if exist dist (
+	rmdir dist /S /Q
 )
 
-mkdir deploy\localization
-mkdir deploy\help
-mkdir deploy\content\javascript
-mkdir deploy\content\images
-mkdir deploy\content\css
+mkdir dist\localization
+mkdir dist\help
 
-call grunt clean:css clean:js less
 call npm run build:dist
 
 REM .NET Build Tool
@@ -18,11 +14,11 @@ REM .NET Build Tool
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-xcopy index.html .\deploy /Y /Q
-xcopy index.aspx .\deploy /Y /Q
-xcopy index-nocache.html .\deploy /Y /Q
-xcopy index-nocache.aspx .\deploy /Y /Q
-xcopy unsupported.html .\deploy /Y /Q
-xcopy manifest.appcache .\deploy /Y /Q
-xcopy web.config .\deploy /Y /Q
-xcopy ping.gif .\deploy /Y /Q
+xcopy index.html .\dist /Y /Q
+xcopy index.aspx .\dist /Y /Q
+xcopy index-nocache.html .\dist /Y /Q
+xcopy index-nocache.aspx .\dist /Y /Q
+xcopy unsupported.html .\dist /Y /Q
+xcopy manifest.appcache .\dist /Y /Q
+xcopy web.config .\dist /Y /Q
+xcopy ping.gif .\dist /Y /Q

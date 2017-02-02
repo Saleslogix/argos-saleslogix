@@ -4,21 +4,12 @@ node('windows && nodejs') {
     stage('Building argos-sdk') {
       clonesdk(env.BRANCH_NAME)
 
-      dir('deploy') {
-        deleteDir()
-      }
-
       try {
         bat 'yarn'
         bat 'yarn run lint'
-        bat 'build\\release.cmd'
-        bat 'yarn run testbasic'
       } catch (err) {
         slack.failure('Failed building argos-sdk')
         throw err
-      }
-      dir('deploy') {
-        stash includes: '**/*.*', name: 'sdk'
       }
     }
 
@@ -41,7 +32,7 @@ node('windows && nodejs') {
         bat 'yarn'
         bat 'yarn run lint'
         bat 'build\\release.cmd'
-        bat 'yarn run testbasic'
+        //bat 'yarn run testbasic'
       } catch (err) {
         slack.failure('Failed building argos-saleslogix')
         throw err
