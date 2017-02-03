@@ -4,12 +4,21 @@ node('windows && nodejs') {
     stage('Building argos-sdk') {
       clonesdk(env.BRANCH_NAME)
 
+      dir('dist') {
+        deleteDir()
+      }
+
       try {
         bat 'yarn'
         bat 'yarn run lint'
+        bat 'build\\release.cmd'
       } catch (err) {
         slack.failure('Failed building argos-sdk')
         throw err
+      }
+
+      dir('dist') {
+        stash includes: '**/*.*', name: 'sdk'
       }
     }
 
@@ -80,6 +89,7 @@ stage('Sending Slack notification') {
 void iiscopy(branch, build) {
   dir("C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build") {
     unstash 'slx'
+    unstash 'sdk'
   }
 }
 
