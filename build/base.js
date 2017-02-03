@@ -24,20 +24,27 @@ module.exports = function() {
         include: [
           path.resolve(__dirname, '../src'),
           path.resolve(__dirname, '../../../argos-sdk/src'),
+          /@infor/,
         ],
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            'es2015-without-strict',
-          ],
-          plugins: [
-            'transform-react-jsx',
-          ]
-        },
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                'es2015-without-strict',
+              ],
+              plugins: [
+                'transform-react-jsx',
+              ]
+            },
+          }
+        ]
       }, {
         test: /(\.js)$/,
         include: path.resolve(__dirname, '../../../argos-sdk/libraries/dojo'),
-        loader: 'dojo-webpack-loader',
+        use: [
+          { loader: 'dojo-webpack-loader' },
+        ]
       }, {
         test: /\.less$/,
         use: [
@@ -68,9 +75,7 @@ module.exports = function() {
         'sdata-client-dependencies': path.resolve(__dirname, '../../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js'),
       },
       modules: [
-        path.resolve(__dirname, '../node_modules/'),
-        path.resolve(__dirname, '../node_modules'),
-        path.resolve(__dirname, '../../../argos-sdk/node_modules/')
+        'node_modules',
       ],
       extensions: [
         '.js',

@@ -11,13 +11,13 @@
     "start": "webpack-dev-server --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --config webpack.config.js",
     "build": "yarn run build:dev",
     "build:dev": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --colors",
-    "build:dist": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=prod --colors",
+    "build:dist": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=prod",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-core": "^6.21.0",
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-polyfill": "^6.22.0",
@@ -37,9 +37,9 @@
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
-    "webpack": "beta",
-    "webpack-dev-server": "beta",
-    "webpack-merge": "^2.4.0"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^1.16.3",
+    "webpack-merge": "^2.6.1"
   },
   "dependencies": {
     "@infor/icrm-js-common": "^0.1.0",

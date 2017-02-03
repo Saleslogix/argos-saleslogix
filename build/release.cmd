@@ -7,7 +7,7 @@ if exist dist (
 mkdir dist\localization
 mkdir dist\help
 
-call npm run build:dist
+call yarn run build:dist
 
 REM .NET Build Tool
 ..\..\argos-sdk\tools\JsBit\jsbit.exe -p "build\release.jsb2" -d "."
