@@ -1,10 +1,7 @@
 /* eslint-disable */
-define('configuration/production', [
-  'dojo/_base/lang',
-  'configuration/production.default'
-], function cb(lang, defaultConfig) {
-  return lang.mixin(defaultConfig, {
-    // Override default properties here, example:
-    // enableOfflineSupport: true,
-  });
+import { defaultConfig } from './production.default';
+
+export const appConfig = Object.assign({}, defaultConfig, {
+  // Override default properties here, example:
+  // enableOfflineSupport: true,
 });

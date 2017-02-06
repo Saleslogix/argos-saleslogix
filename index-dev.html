@@ -59,12 +59,41 @@
 
   <script type="text/javascript" src="../../dev/vendor.bundle.js"></script>
   <script type="text/javascript" src="../../dev/icrm.localization.js"></script>
-  <!--<script type="text/javascript" src="../../dev/icrm.core.js"></script>-->
   <script type="text/javascript" src="../../dev/icrm.main.js"></script>
 </head>
 
 <body>
   <div id="rootNode"></div>
+  <script type="text/javascript" src="../../dev/icrm.dev.js"></script>
+  <script type="text/javascript">
+    icrm.main.main({
+      supportedLocales: [
+        'en',
+        'en-GB',
+        'de',
+        'fr',
+        'it',
+        'ru',
+        'zh-CN',
+        'zh-TW',
+        'es',
+        'pt',
+      ],
+      defaultLocale: 'en',
+      currentLocale: 'en',
+      parentLocale: 'en',
+      isRegionMetric: false,
+      localeFiles: [
+        './localization/locales/crm/en/strings.l20n',
+        './localization/locales/crm/en/regional.l20n',
+        './localization/locales/icboe/en/strings.l20n',
+        './localization/locales/icboe/en/regional.l20n',
+        './localization/locales/contour/en/strings.l20n',
+        '../../argos-sdk/localization/locales/argos/en/strings.l20n',
+        '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+      ],
+    }, icrm.dev.appConfig);
+  </script>
 </body>
 
 </html>
