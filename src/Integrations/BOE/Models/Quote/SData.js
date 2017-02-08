@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import all from 'dojo/promise/all';
 import Base from './Base';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
@@ -157,7 +156,7 @@ const __class = declare('crm.Integrations.BOE.Models.Quotes.SData', [Base, _SDat
   getEntry: function getEntry(key, options) {
     const results$ = this.inherited(arguments);
     const closed$ = this.isClosed(key, options);
-    return all([results$, closed$])
+    return Promise.all([results$, closed$])
       .then(([entry, closed]) => {
         entry.IsClosed = closed;
         return entry;
