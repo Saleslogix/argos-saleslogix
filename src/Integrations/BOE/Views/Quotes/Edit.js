@@ -103,6 +103,11 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.showBusy();
     this.inherited(arguments);
     this.getEntriesFromIds();
+    if (this.entry.IsClosed) {
+      App.bars.tbar.disableTool('save');
+    } else {
+      App.bars.tbar.enableTool('save');
+    }
   },
   beforeTransitionTo: function beforeTransitionTo() {
     this.inherited(arguments);

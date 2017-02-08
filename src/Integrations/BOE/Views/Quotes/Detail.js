@@ -78,6 +78,10 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   _busyIndicator: null,
   enableOffline: true,
 
+  onTransitionTo: function onTransitionTo() {
+    this.inherited(arguments);
+    App.bars.tbar.disableTool('edit');
+  },
   _canPromote: function _canPromote() {
     const promise = new Promise(
       (resolve) => {
@@ -156,31 +160,15 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
     });
   },
   _isClosed: function _isClosed() {
-    const quoteEntry = {
-      $name: 'IsClosed',
-      request: {
-        QuoteId: this.entry.$key,
-      },
-    };
-
-    const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-      .setResourceKind('quotes')
-      .setContractName('dynamic')
-      .setOperationName('IsClosed');
-
-    let closed = false;
-
-    request.execute(quoteEntry, {
-      async: false,
-      success: (result) => {
-        closed = result.response.Result;
-      },
-      failure: (err) => {
-        console.error(err); // eslint-disable-line
-      },
-      scope: this,
-    });
-    return closed;
+    return this.entry.IsClosed;
+  },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+    if (this.entry.IsClosed) {
+      App.bars.tbar.disableTool('edit');
+    } else {
+      App.bars.tbar.enableTool('edit');
+    }
   },
   addLineItems: function addLineItems() {
     if (!this.entry.ErpLogicalId) {
@@ -303,8 +291,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         label: this.convertQuoteText,
         iconClass: 'fa fa-shopping-cart fa-2x',
         action: 'convertQuote',
-        disabled: (entry) => {
-          return (entry && this._isClosed());
+        disabled: () => {
+          return this._isClosed();
         },
         security: 'Entities/Quote/ConvertToSalesOrder',
       }, {
