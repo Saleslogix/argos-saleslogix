@@ -159,12 +159,12 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
       scope: this,
     });
   },
-  _isClosed: function _isClosed() {
+  isQuoteClosed: function isQuoteClosed() {
     return this.entry.IsClosed;
   },
   processEntry: function processEntry() {
     this.inherited(arguments);
-    if (this.entry.IsClosed) {
+    if (this.isQuoteClosed()) {
       App.bars.tbar.disableTool('edit');
     } else {
       App.bars.tbar.enableTool('edit');
@@ -292,7 +292,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         iconClass: 'fa fa-shopping-cart fa-2x',
         action: 'convertQuote',
         disabled: () => {
-          return this._isClosed();
+          return this.isQuoteClosed();
         },
         security: 'Entities/Quote/ConvertToSalesOrder',
       }, {
