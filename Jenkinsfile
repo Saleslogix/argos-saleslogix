@@ -4,7 +4,7 @@ node('windows && nodejs') {
     stage('Building argos-sdk') {
       clonesdk(env.BRANCH_NAME)
 
-      dir('deploy') {
+      dir('dist') {
         deleteDir()
       }
 
@@ -12,12 +12,12 @@ node('windows && nodejs') {
         bat 'yarn'
         bat 'yarn run lint'
         bat 'build\\release.cmd'
-        bat 'yarn run testbasic'
       } catch (err) {
         slack.failure('Failed building argos-sdk')
         throw err
       }
-      dir('deploy') {
+
+      dir('dist') {
         stash includes: '**/*.*', name: 'sdk'
       }
     }
@@ -33,7 +33,7 @@ node('windows && nodejs') {
         throw err
       }
 
-      dir('deploy') {
+      dir('dist') {
         deleteDir()
       }
 
@@ -41,13 +41,13 @@ node('windows && nodejs') {
         bat 'yarn'
         bat 'yarn run lint'
         bat 'build\\release.cmd'
-        bat 'yarn run testbasic'
+        //bat 'yarn run testbasic'
       } catch (err) {
         slack.failure('Failed building argos-saleslogix')
         throw err
       }
 
-      dir('deploy') {
+      dir('dist') {
         stash includes: '**/*.*', name: 'slx'
       }
 
@@ -56,7 +56,7 @@ node('windows && nodejs') {
         bat 'grunt bundle'
         bat 'grunt lang-pack'
 
-        dir('deploy') {
+        dir('dist') {
           stage 'Copying bundles'
           bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3 /w:5
               IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""

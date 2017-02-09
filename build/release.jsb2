@@ -1,7 +1,7 @@
 {
   "projectName": "SalesLogix Mobile",
   "licenseText": "",
-  "deployDir": "deploy/",
+  "deployDir": "dist/",
   "pkgs": [
   ],
   "resources": [
@@ -11,23 +11,8 @@
       "filters": ".*(\\.l20n)"
     },
     {
-      "src": "../content",
-      "dest": "content",
-      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"
-    },
-    {
-      "src": "../min",
-      "dest": "content",
-      "filters": ".*(\\.css)"
-    },
-    {
       "src": "../configuration",
       "dest": "configuration",
-      "filters": ".*\\.js"
-    },
-    {
-      "src": "../dist",
-      "dest": "content/javascript",
       "filters": ".*\\.js"
     },
     {

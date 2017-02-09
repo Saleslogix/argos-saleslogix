@@ -5,44 +5,22 @@
     "type": "git",
     "url": "https://github.com/Saleslogix/argos-saleslogix"
   },
-  "watch": {
-    "lint": {
-      "patterns": [
-        "src"
-      ],
-      "extensions": [
-        "js",
-        "jsx"
-      ]
-    },
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "extensions": [
-        "js",
-        "jsx"
-      ]
-    }
-  },
   "scripts": {
-    "test": "npm run build && grunt test",
+    "test": "yarn run build && grunt test",
     "testbasic": "grunt test:basic",
-    "less": "grunt less",
-    "start": "webpack-dev-server --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --config webpack.config.js",
-    "server": "node scripts/server.js",
-    "build": "build:dev",
-    "build:dev": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --profile --colors",
-    "build:dist": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=prod --progress --profile --colors",
+    "start": "webpack-dev-server --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --config webpack.config.js",
+    "build": "yarn run build:dev",
+    "build:dev": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=dev --progress --colors",
+    "build:dist": "webpack --module-bind 'less=style-loader!css-loader!less-loader' --env=prod",
     "lint": "eslint ./src",
-    "lint-fix": "eslint --fix ./src",
-    "watch": "npm-watch"
+    "lint-fix": "eslint --fix ./src"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-core": "^6.21.0",
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-polyfill": "^6.22.0",
     "babel-preset-es2015-without-strict": "^0.0.4",
     "css-loader": "^0.26.1",
     "dojo-webpack-loader": "^0.9.2",
@@ -50,28 +28,22 @@
     "eslint-plugin-react": "^6.9.0",
     "file-loader": "^0.10.0",
     "grunt": "^1.0.1",
-    "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.4",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jasmine": "^1.0.3",
-    "grunt-contrib-less": "^1.0.1",
-    "grunt-manifest": "^0.4.0",
     "grunt-shell": "^2.0.0",
     "grunt-template-jasmine-istanbul": "^0.5.0",
-    "h2o2": "^5.4.0",
-    "hapi": "^15.1.1",
-    "inert": "^4.0.2",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
-    "npm-watch": "^0.1.6",
-    "spdy": "^3.4.4",
     "style-loader": "^0.13.1",
-    "webpack": "beta",
-    "webpack-dev-server": "beta",
-    "webpack-merge": "^2.4.0"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^1.16.3",
+    "webpack-merge": "^2.6.1"
   },
   "dependencies": {
+    "@infor/icrm-js-common": "^0.1.0",
+    "@infor/icrm-js-customization": "^0.1.0",
     "moment": "^2.17.1",
     "pouchdb-browser": "^6.1.1",
     "react": "^15.4.2",
