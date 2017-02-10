@@ -75,9 +75,9 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
-    <script type="text/javascript" src="vendor.bundle.js"></script>
-    <script type="text/javascript" src="icrm.localization.js"></script>
-    <script type="text/javascript" src="icrm.main.js"></script>
+    <script type="text/javascript" src="dist/vendor.bundle.js"></script>
+    <script type="text/javascript" src="dist/icrm.localization.js"></script>
+    <script type="text/javascript" src="dist/icrm.main.js"></script>
     <!-- Modules -->
     <!--{{modules}}-->
 </head>
