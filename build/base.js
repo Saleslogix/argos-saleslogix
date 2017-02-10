@@ -11,7 +11,7 @@ module.exports = function() {
     },
     output: {
       path: path.resolve(__dirname, '../deploy/dist'),
-      publicPath: '/dist/',
+      publicPath: 'dist/',
       libraryTarget: 'umd',
       library: ['icrm', '[name]'],
       umdNamedDefine: true,

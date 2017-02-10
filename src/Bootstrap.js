@@ -17,7 +17,6 @@ export function bootstrap({
   modules,
   userConfig,
 }) {
-  let completed = false;
   let mingleAuthResults;
   const ctx = window.ctx;
   const appConfig = Object.assign({}, userConfig, {
@@ -33,10 +32,6 @@ export function bootstrap({
     if (!mingleAuthResults) {
       return;
     }
-  }
-
-  if (completed) {
-    return;
   }
 
   let results = moment.locale(parentLocale);
@@ -60,5 +55,4 @@ export function bootstrap({
   instance.activate();
   instance.init(rootElement);
   instance.run();
-  completed = true;
 }
