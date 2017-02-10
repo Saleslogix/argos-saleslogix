@@ -6,8 +6,7 @@ module.exports = function() {
   return {
     entry: {
       localization: './src/Bootstrap.localization.js',
-      dev: ['./configuration/development.js', './src/main.dev.js'],
-      prod: ['./configuration/production.js', './src/main.prod.js'],
+      main: ['./src/main.js'],
       vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'react', 'react-dom', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
@@ -20,7 +19,7 @@ module.exports = function() {
     },
     module: {
       noParse: [
-        /sdata-client/,
+        /sdata-client|canvas2image|deepdiff|chart|page|L20n/,
       ],
       rules: [{
         test: /\.jsx?$/,
@@ -57,7 +56,7 @@ module.exports = function() {
           { loader: 'less-loader', options: { paths: ['content/css'] } }
         ]
       }, {
-        test: /\.png$|\.gif$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$/,
+        test: /\.png$|\.gif$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$|\.json$/,
         loader: 'file-loader',
       }]
     },
@@ -84,6 +83,7 @@ module.exports = function() {
       extensions: [
         '.js',
         '.jsx',
+        '.json',
       ],
     },
     plugins: [

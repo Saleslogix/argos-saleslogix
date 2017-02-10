@@ -1,21 +1,22 @@
-export function l20nLoadFunc(localeFiles) {
-  return new Promise((complete) => {
-    const makeRequest = url => new Promise((resolve, reject) => {
-      const http = new XMLHttpRequest();
+export function makeRequest(url) {
+  return new Promise((resolve, reject) => {
+    const http = new XMLHttpRequest();
 
-      http.open('GET', url, false);
-      // http.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
-      http.addEventListener('load', (response) => {
-        resolve(response.target.response);
-      });
-      http.addEventListener('error', err => reject(err));
-      http.addEventListener('abort', err => reject(err));
-      http.send();
+    http.open('GET', url, false);
+    http.addEventListener('load', (response) => {
+      resolve(response.target.response);
     });
+    http.addEventListener('error', err => reject(err));
+    http.addEventListener('abort', err => reject(err));
+    http.send();
+  });
+}
 
+export function l20nLoadFunc(localeFiles) {
+  return new Promise((resolve) => {
     const https = localeFiles.map(file => makeRequest(file));
     Promise.all(https).then((files) => {
-      complete(files);
+      resolve(files);
     });
   });
 }
