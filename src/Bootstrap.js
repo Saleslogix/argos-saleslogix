@@ -53,18 +53,12 @@ export function bootstrap({
     appConfig.modules = appConfig.modules.concat(modules);
   }
 
-  console.log('Creating app instance');
   const instance = new Application(appConfig);
   instance.localeContext = ctx;
   instance.isRegionMetric = isRegionMetric;
   instance.mingleAuthResults = mingleAuthResults;
-  console.log('activating..');
   instance.activate();
-
-  console.log('initing...');
   instance.init(rootElement);
-
-  console.log('running');
   instance.run();
   completed = true;
 }
