@@ -80,42 +80,25 @@
     <script type="text/javascript" src="icrm.main.js"></script>
     <!-- Modules -->
     <!--{{modules}}-->
-
-    <script type="text/javascript">
-      (function() {
-        require(['crm/Bootstrap'], function(bootstrap) {
-          bootstrap({
-            supportedLocales: <%= Serialize(
-                  Enumerate(@"localization\locales\crm", (file) => true)
-                      .Select(item => item.Directory.Name).Distinct()
-              ) %>,
-            defaultLocale: 'en',
-            currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
-            parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
-            isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
-            configuration: <%= Serialize(
-                    Enumerate("configuration", (file) => file.Name == "production.js")
-                        .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-                ) %>,
-            application: 'crm/Application',
-            legacyLocalization: <%= Serialize(
-                EnumerateLocalizations("localization")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>,
-            legacyLocalizationFallback: <%= Serialize(
-                EnumerateLocalizations(string.Empty, "localization", "en")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>,
-            localeFiles: <%= Serialize(
-                  Enumerate(@"localization", (file) => file.Extension == ".l20n")
-                      .Select(item => item.Path)
-            ) %>
-          });
-        });
-      })();
-    </script>
 </head>
 <body>
+  <div id="rootNode"></div>
+  <script type="text/javascript">
+    icrm.main.production({
+      supportedLocales: <%= Serialize(
+            Enumerate(@"localization\locales\crm", (file) => true)
+                .Select(item => item.Directory.Name).Distinct()
+        ) %>,
+      defaultLocale: 'en',
+      currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
+      parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
+      isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
+      localeFiles: <%= Serialize(
+            Enumerate(@"localization", (file) => file.Extension == ".l20n")
+                .Select(item => item.Path)
+      ) %>
+    });
+  </script>
 </body>
 </html>
 
