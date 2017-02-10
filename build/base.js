@@ -6,10 +6,8 @@ module.exports = function() {
   return {
     entry: {
       localization: './src/Bootstrap.localization.js',
-      dev: './configuration/development',
-      prod: './configuration/production',
-      main: ['./src/main.js'],
-      core: ['./src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
+      dev: ['./configuration/development.js', './src/main.dev.js'],
+      prod: ['./configuration/production.js', './src/main.prod.js'],
       vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'react', 'react-dom', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {

@@ -1,7 +1,9 @@
 /* eslint-disable */
-import { defaultConfig } from './production.default';
+import { getDefaultConfig } from './production.default';
 
-export const appConfig = Object.assign({}, defaultConfig, {
-  // Override default properties here, example:
-  // enableOfflineSupport: true,
-});
+export function getConfig() {
+  return Object.assign({}, getDefaultConfig(), {
+    // Override default properties here, example:
+    // enableOfflineSupport: true,
+  });
+}

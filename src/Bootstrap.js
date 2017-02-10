@@ -13,21 +13,21 @@ export function bootstrap({
   isRegionMetric,
   rootElement,
   modules,
-  appConfig,
+  configFn,
 }) {
   let completed = false;
   let mingleAuthResults;
   const ctx = window.ctx;
 
-  if (appConfig.mingleEnabled) {
-    mingleAuthResults = MingleUtility.populateAccessToken(appConfig);
-    if (!mingleAuthResults) {
-      return;
-    }
-  }
-  // const req = (requires) => {
-  //   window.require(requires, () => {
   ready(() => {
+    const appConfig = configFn();
+    if (appConfig.mingleEnabled) {
+      mingleAuthResults = MingleUtility.populateAccessToken(appConfig);
+      if (!mingleAuthResults) {
+        return;
+      }
+    }
+
     if (completed) {
       return;
     }
@@ -45,22 +45,20 @@ export function bootstrap({
     if (modules && modules.length) {
       appConfig.modules = appConfig.modules.concat(modules);
     }
+
+    console.log('Creating app instance');
     const instance = new Application(appConfig);
     instance.localeContext = ctx;
     instance.isRegionMetric = isRegionMetric;
     instance.mingleAuthResults = mingleAuthResults;
+    console.log('activating..');
     instance.activate();
+
+    console.log('initing...');
     instance.init(rootElement);
+
+    console.log('running');
     instance.run();
     completed = true;
   });
-    // });
-  // };
-
-  // window.require.on('error', () => {
-  //   console.log('Error loading localization, falling back to "en"'); // eslint-disable-line
-  //   req(legacyLocalizationFallback);
-  // });
-
-  // req(legacyLocalization);
 }

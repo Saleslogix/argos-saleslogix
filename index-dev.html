@@ -59,14 +59,13 @@
 
   <script type="text/javascript" src="../../dev/vendor.bundle.js"></script>
   <script type="text/javascript" src="../../dev/icrm.localization.js"></script>
-  <script type="text/javascript" src="../../dev/icrm.main.js"></script>
+  <script type="text/javascript" src="../../dev/icrm.dev.js"></script>
 </head>
 
 <body>
   <div id="rootNode"></div>
-  <script type="text/javascript" src="../../dev/icrm.dev.js"></script>
   <script type="text/javascript">
-    icrm.main.main({
+    icrm.dev.main({
       supportedLocales: [
         'en',
         'en-GB',
@@ -92,7 +91,7 @@
         '../../argos-sdk/localization/locales/argos/en/strings.l20n',
         '../../argos-sdk/localization/locales/argos/en/regional.l20n',
       ],
-    }, icrm.dev.appConfig);
+    });
   </script>
 </body>
 
