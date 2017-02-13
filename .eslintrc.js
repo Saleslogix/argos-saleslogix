@@ -3,9 +3,6 @@ module.exports = {
     es6: true,
     browser: true
   },
-  plugins: [
-    "react"
-  ],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
