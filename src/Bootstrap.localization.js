@@ -2,7 +2,7 @@ export function makeRequest(url) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
 
-    http.open('GET', url, false);
+    http.open('GET', url);
     http.addEventListener('load', (response) => {
       resolve(response.target.response);
     });

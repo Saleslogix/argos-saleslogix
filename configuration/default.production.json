@@ -12,7 +12,7 @@
       "protocol": "https",
       "timeout": 30000,
       "compact": true,
-      "json": true,
+      "json": true
     }
   },
   "enableUpdateNotification": true,
