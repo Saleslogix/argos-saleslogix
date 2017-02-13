@@ -3,9 +3,6 @@ import moment from 'moment';
 
 import MingleUtility from './MingleUtility';
 import Application from './Application';
-import ApplicationModule from './ApplicationModule';
-import BOEApplicationModule from './Integrations/BOE/ApplicationModule';
-import ContourApplicationModule from './Integrations/Contour/ApplicationModule';
 import '../../../argos-sdk/content/css/themes/crm.less';
 import '../content/css/app.less';
 
@@ -20,11 +17,7 @@ export function bootstrap({
   let mingleAuthResults;
   const ctx = window.ctx;
   const appConfig = Object.assign({}, userConfig, {
-    modules: [
-      new ApplicationModule(),
-      new BOEApplicationModule(),
-      new ContourApplicationModule(),
-    ],
+    modules: [],
   });
 
   if (appConfig.mingleEnabled) {

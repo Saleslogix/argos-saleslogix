@@ -21,17 +21,44 @@ export function l20nLoadFunc(localeFiles) {
   });
 }
 
+export function l20nNoFetchFunc(localeFiles) {
+  return new Promise((resolve) => {
+    resolve(localeFiles);
+  });
+}
+
+export function l20nLinkFunc(files, context, defaultContext) {
+  files.forEach((file) => {
+    [context, defaultContext].forEach((ctx) => {
+      ctx.linkResource((locale) => {
+        return [file.base, locale, file.file].join('/');
+      });
+    });
+  });
+}
+
+export function l20nAddResourceFunc(files, context, defaultContext) {
+  files.forEach((file) => {
+    [context, defaultContext].forEach((ctx) => {
+      ctx.addResource(file);
+    });
+  });
+}
+
 /**
  * Bootstrap localization
  * This function handles the bootstrapping of localization for
  * the application.
+ * fetchFunc - Takes an array of processed locale files, returns a promise
+ * processFunc - Takes the results from fetchFunc along with the current context and defaultContext
  */
 export function bootstrapLocalization({
   supportedLocales,
   defaultLocale,
   currentLocale,
   localeFiles,
-  fetchFunc = l20nLoadFunc,
+  fetchFunc = l20nNoFetchFunc,
+  processFunc = l20nLinkFunc,
   asGlobal = false,
 }) {
   const promise = new Promise((resolve) => {
@@ -40,7 +67,7 @@ export function bootstrapLocalization({
     //    * Strip out the locale from the path string (map)
     //    * Remove duplicates (reduce)
     //    * link each resource against a locale (forEach)
-    localeFiles.map((path) => {
+    const processedLocaleFiles = localeFiles.map((path) => {
       let trimmed = path;
       supportedLocales.forEach((locale) => {
         trimmed = trimmed.replace(new RegExp(`/${locale}/`), '/');
@@ -62,15 +89,11 @@ export function bootstrapLocalization({
       return p.concat(c);
     }, []);
 
-    fetchFunc(localeFiles).then((files) => {
+    fetchFunc(processedLocaleFiles).then((files) => {
       const ctx = window.L20n.getContext();
       const defaultCtx = window.L20n.getContext();
 
-      files.forEach((file) => {
-        [ctx, defaultCtx].forEach((context) => {
-          context.addResource(file);
-        });
-      });
+      processFunc(files, ctx, defaultCtx);
 
       ctx.registerLocales(defaultLocale, supportedLocales);
       ctx.requestLocales(currentLocale);
