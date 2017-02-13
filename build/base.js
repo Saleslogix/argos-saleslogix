@@ -5,7 +5,6 @@ var webpack = require('webpack');
 module.exports = function() {
   return {
     entry: {
-      localization: './src/Bootstrap.localization.js',
       main: './src/main.js',
       vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },

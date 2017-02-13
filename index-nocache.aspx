@@ -76,7 +76,6 @@
           rel="apple-touch-startup-image">
 
     <script type="text/javascript" src="dist/vendor.bundle.js"></script>
-    <script type="text/javascript" src="dist/icrm.localization.js"></script>
     <script type="text/javascript" src="dist/icrm.main.js"></script>
     <!-- Modules -->
     <!--{{modules}}-->
