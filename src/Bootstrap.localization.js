@@ -1,21 +1,46 @@
-export function l20nLoadFunc(localeFiles) {
-  return new Promise((complete) => {
-    const makeRequest = url => new Promise((resolve, reject) => {
-      const http = new XMLHttpRequest();
+export function makeRequest(url) {
+  return new Promise((resolve, reject) => {
+    const http = new XMLHttpRequest();
 
-      http.open('GET', url, false);
-      // http.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
-      http.addEventListener('load', (response) => {
-        resolve(response.target.response);
-      });
-      http.addEventListener('error', err => reject(err));
-      http.addEventListener('abort', err => reject(err));
-      http.send();
+    http.open('GET', url);
+    http.addEventListener('load', (response) => {
+      resolve(response.target.response);
     });
+    http.addEventListener('error', err => reject(err));
+    http.addEventListener('abort', err => reject(err));
+    http.send();
+  });
+}
 
+export function l20nLoadFunc(localeFiles) {
+  return new Promise((resolve) => {
     const https = localeFiles.map(file => makeRequest(file));
     Promise.all(https).then((files) => {
-      complete(files);
+      resolve(files);
+    });
+  });
+}
+
+export function l20nNoFetchFunc(localeFiles) {
+  return new Promise((resolve) => {
+    resolve(localeFiles);
+  });
+}
+
+export function l20nLinkFunc(files, context, defaultContext) {
+  files.forEach((file) => {
+    [context, defaultContext].forEach((ctx) => {
+      ctx.linkResource((locale) => {
+        return [file.base, locale, file.file].join('/');
+      });
+    });
+  });
+}
+
+export function l20nAddResourceFunc(files, context, defaultContext) {
+  files.forEach((file) => {
+    [context, defaultContext].forEach((ctx) => {
+      ctx.addResource(file);
     });
   });
 }
@@ -24,13 +49,16 @@ export function l20nLoadFunc(localeFiles) {
  * Bootstrap localization
  * This function handles the bootstrapping of localization for
  * the application.
+ * fetchFunc - Takes an array of processed locale files, returns a promise
+ * processFunc - Takes the results from fetchFunc along with the current context and defaultContext
  */
 export function bootstrapLocalization({
   supportedLocales,
   defaultLocale,
   currentLocale,
   localeFiles,
-  fetchFunc = l20nLoadFunc,
+  fetchFunc = l20nNoFetchFunc,
+  processFunc = l20nLinkFunc,
   asGlobal = false,
 }) {
   const promise = new Promise((resolve) => {
@@ -39,7 +67,7 @@ export function bootstrapLocalization({
     //    * Strip out the locale from the path string (map)
     //    * Remove duplicates (reduce)
     //    * link each resource against a locale (forEach)
-    localeFiles.map((path) => {
+    const processedLocaleFiles = localeFiles.map((path) => {
       let trimmed = path;
       supportedLocales.forEach((locale) => {
         trimmed = trimmed.replace(new RegExp(`/${locale}/`), '/');
@@ -61,15 +89,11 @@ export function bootstrapLocalization({
       return p.concat(c);
     }, []);
 
-    fetchFunc(localeFiles).then((files) => {
+    fetchFunc(processedLocaleFiles).then((files) => {
       const ctx = window.L20n.getContext();
       const defaultCtx = window.L20n.getContext();
 
-      files.forEach((file) => {
-        [ctx, defaultCtx].forEach((context) => {
-          context.addResource(file);
-        });
-      });
+      processFunc(files, ctx, defaultCtx);
 
       ctx.registerLocales(defaultLocale, supportedLocales);
       ctx.requestLocales(currentLocale);

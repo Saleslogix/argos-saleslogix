@@ -17,6 +17,10 @@ const proxyConfig = config.proxy || {};
 
 module.exports = function(env) {
   return webpackMerge(_base(), {
+    output: {
+      path: path.resolve(__dirname, '../deploy/dist'),
+      publicPath: '/dist/',
+    },
     devServer: {
       compress: true, // gzip compression
       inline: true,

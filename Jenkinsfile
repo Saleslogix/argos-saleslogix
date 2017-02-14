@@ -4,7 +4,7 @@ node('windows && nodejs') {
     stage('Building argos-sdk') {
       clonesdk(env.BRANCH_NAME)
 
-      dir('dist') {
+      dir('deploy') {
         deleteDir()
       }
 
@@ -17,7 +17,7 @@ node('windows && nodejs') {
         throw err
       }
 
-      dir('dist') {
+      dir('deploy') {
         stash includes: '**/*.*', name: 'sdk'
       }
     }
@@ -33,7 +33,7 @@ node('windows && nodejs') {
         throw err
       }
 
-      dir('dist') {
+      dir('deploy') {
         deleteDir()
       }
 
@@ -47,7 +47,7 @@ node('windows && nodejs') {
         throw err
       }
 
-      dir('dist') {
+      dir('deploy') {
         stash includes: '**/*.*', name: 'slx'
       }
 
@@ -56,7 +56,7 @@ node('windows && nodejs') {
         bat 'grunt bundle'
         bat 'grunt lang-pack'
 
-        dir('dist') {
+        dir('deploy') {
           stage 'Copying bundles'
           bat """robocopy . \\\\usdavwtldata.testlogix.com\\devbuilds\\builds\\mobile\\bundles\\%BRANCH_NAME%\\%BUILD_NUMBER%\\ *.zip /r:3 /w:5
               IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""

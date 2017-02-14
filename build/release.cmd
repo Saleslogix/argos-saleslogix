@@ -1,11 +1,11 @@
 @echo off
 
-if exist dist (
-	rmdir dist /S /Q
+if exist deploy (
+	rmdir deploy /S /Q
 )
 
-mkdir dist\localization
-mkdir dist\help
+mkdir deploy\localization
+mkdir deploy\help
 
 call yarn run build:dist
 
@@ -14,11 +14,11 @@ REM .NET Build Tool
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-xcopy index.html .\dist /Y /Q
-xcopy index.aspx .\dist /Y /Q
-xcopy index-nocache.html .\dist /Y /Q
-xcopy index-nocache.aspx .\dist /Y /Q
-xcopy unsupported.html .\dist /Y /Q
-xcopy manifest.appcache .\dist /Y /Q
-xcopy web.config .\dist /Y /Q
-xcopy ping.gif .\dist /Y /Q
+xcopy index.html .\deploy /Y /Q
+xcopy index.aspx .\deploy /Y /Q
+xcopy index-nocache.html .\deploy /Y /Q
+xcopy index-nocache.aspx .\deploy /Y /Q
+xcopy unsupported.html .\deploy /Y /Q
+xcopy manifest.appcache .\deploy /Y /Q
+xcopy web.config .\deploy /Y /Q
+xcopy ping.gif .\deploy /Y /Q
