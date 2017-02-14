@@ -10,6 +10,7 @@ import Deferred from 'dojo/_base/Deferred';
 import domConstruct from 'dojo/dom-construct';
 import array from 'dojo/_base/array';
 import crmFormat from '../../Format';
+import crmAggregate from '../../Aggregate';
 import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
@@ -43,7 +44,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   service: null,
   selectedRange: null,
   values: null,
-  formatter: 'bigNumber',
+  formatter: crmFormat.bigNumber,
   contractName: 'dynamic',
   collapsedClass: 'collapsed',
   autoLoad: false,
@@ -250,8 +251,8 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       let values;
       const valueIndex = [];
       if (!obj.value) {
-        if (obj.aggregateModule && obj.aggregate) {
-          valueFn = this._loadModuleFunction(obj.aggregateModule, obj.aggregate);
+        if (obj.aggregate) {
+          valueFn = crmAggregate[obj.aggregate];
         }
         if (!(obj.queryIndex instanceof Array)) {
           // Single query, so get the single index value from the results
@@ -286,7 +287,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     // Sales dashboard widget is using formatModule, but all of the others are using formatterModule. Accept both so overrides happen correctly.
     if ((widget.formatterModule && widget.formatter) || (widget.formatModule && widget.formatter)) {
       const module = widget.formatterModule || widget.formatModule;
-      formatterFn = this._loadModuleFunction(module, widget.formatter);
+      formatterFn = module[widget.formatter];
     }
 
     if (valueFn) {
@@ -361,22 +362,6 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   },
   checkForValue: function checkForValue(value) {
     return value.name === this.valueNeeded;
-  },
-  _loadModuleFunction: function _loadModuleFunction(module, fn) {
-    const def = new Deferred();
-    try {
-      require([module], lang.hitch(this, (mod) => {
-        if (typeof mod === 'function') {
-          const instance = new mod(); // eslint-disable-line
-          def.resolve(instance[fn]);
-        } else {
-          def.resolve(mod[fn]);
-        }
-      }));
-    } catch (err) {
-      def.reject(err);
-    }
-    return def.promise;
   },
   _onQueryError: function _onQueryError(error, widget) {
     domConstruct.place(widget.itemTemplate.apply({ value: error }, widget), widget.metricDetailNode, 'replace');
