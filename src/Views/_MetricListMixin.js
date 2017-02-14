@@ -85,16 +85,9 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
   _instantiateMetricWidget: function _instantiateMetricWidget(options) {
     return new Promise((resolve) => {
-      if (options.widgetModule) {
-        require([options.widgetModule], (Ctor) => {
-          const instance = new Ctor(this._applyStateToWidgetOptions(options));
-          resolve(instance);
-        });
-      } else {
-        const Ctor = this.metricWidgetCtor || MetricWidget;
-        const instance = new Ctor(this._applyStateToWidgetOptions(options));
-        resolve(instance);
-      }
+      const Ctor = this.metricWidgetCtor || MetricWidget;
+      const instance = new Ctor(this._applyStateToWidgetOptions(options));
+      resolve(instance);
     });
   },
   rebuildWidgets: function rebuildWidgets() {
@@ -137,8 +130,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
       .join(' and ');
   },
   _hasValidOptions: function _hasValidOptions(options) {
-    return (options && options.queryArgs && options.queryArgs._filterName) ||
-      (options && options.widgetModule);
+    return (options && options.queryArgs && options.queryArgs._filterName);
   },
 });
 
