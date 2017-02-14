@@ -5,14 +5,12 @@ var webpack = require('webpack');
 module.exports = function() {
   return {
     entry: {
-      localization: './src/Bootstrap.localization.js',
       main: './src/main.js',
-      core: ['../../argos-sdk/libraries/Simplate.js', './src/ApplicationModule.js', './src/Application.js', './src/Bootstrap'],
-      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'react', 'react-dom', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
-      path: path.resolve(__dirname, '../dist'),
-      publicPath: '/dev/',
+      path: path.resolve(__dirname, '../deploy/dist'),
+      publicPath: 'dist/',
       libraryTarget: 'umd',
       library: ['icrm', '[name]'],
       umdNamedDefine: true,
@@ -20,11 +18,12 @@ module.exports = function() {
     },
     module: {
       noParse: [
-        /sdata-client/,
+        /sdata-client|canvas2image|deepdiff|chart|page|L20n/,
       ],
       rules: [{
         test: /\.jsx?$/,
         include: [
+          path.resolve(__dirname, '../configuration'),
           path.resolve(__dirname, '../src'),
           path.resolve(__dirname, '../../../argos-sdk/src'),
           /@infor/,
@@ -36,9 +35,6 @@ module.exports = function() {
               presets: [
                 'es2015-without-strict',
               ],
-              plugins: [
-                'transform-react-jsx',
-              ]
             },
           }
         ]
@@ -56,7 +52,7 @@ module.exports = function() {
           { loader: 'less-loader', options: { paths: ['content/css'] } }
         ]
       }, {
-        test: /\.png$|\.gif$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$/,
+        test: /\.png$|\.gif$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$|\.json$/,
         loader: 'file-loader',
       }]
     },
@@ -83,6 +79,7 @@ module.exports = function() {
       extensions: [
         '.js',
         '.jsx',
+        '.json',
       ],
     },
     plugins: [

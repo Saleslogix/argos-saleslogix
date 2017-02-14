@@ -1,7 +1,7 @@
 {
   "projectName": "SalesLogix Mobile",
   "licenseText": "",
-  "deployDir": "dist/",
+  "deployDir": "deploy/",
   "pkgs": [
   ],
   "resources": [

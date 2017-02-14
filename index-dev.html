@@ -57,14 +57,41 @@
   <link href="content/images/apple-touch-startup-image-320x480.png" media="(device-width: 320px) and (device-height: 480px)
              and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
-  <script type="text/javascript" src="../../dev/vendor.bundle.js"></script>
-  <script type="text/javascript" src="../../dev/icrm.localization.js"></script>
-  <!--<script type="text/javascript" src="../../dev/icrm.core.js"></script>-->
-  <script type="text/javascript" src="../../dev/icrm.main.js"></script>
+  <script type="text/javascript" src="/dist/vendor.bundle.js"></script>
+  <script type="text/javascript" src="/dist/icrm.main.js"></script>
 </head>
 
 <body>
   <div id="rootNode"></div>
+  <script type="text/javascript">
+    icrm.main.development({
+      supportedLocales: [
+        'en',
+        'en-GB',
+        'de',
+        'fr',
+        'it',
+        'ru',
+        'zh-CN',
+        'zh-TW',
+        'es',
+        'pt',
+      ],
+      defaultLocale: 'en',
+      currentLocale: 'en',
+      parentLocale: 'en',
+      isRegionMetric: false,
+      localeFiles: [
+        './localization/locales/crm/en/strings.l20n',
+        './localization/locales/crm/en/regional.l20n',
+        './localization/locales/icboe/en/strings.l20n',
+        './localization/locales/icboe/en/regional.l20n',
+        './localization/locales/contour/en/strings.l20n',
+        '../../argos-sdk/localization/locales/argos/en/strings.l20n',
+        '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+      ],
+    });
+  </script>
 </body>
 
 </html>

@@ -1,50 +1,75 @@
-import { bootstrapLocalization } from './Bootstrap.localization';
+import { bootstrapLocalization, makeRequest } from './Bootstrap.localization';
+import { getDefaultModules } from './modules';
 
-const currentLocale = 'en';
+// Import all of our potential configurations
+import defaultDev from '../configuration/default.development.json';
+import defaultProd from '../configuration/default.production.json';
+import userDev from '../configuration/development.json';
+import userProd from '../configuration/production.json';
 
-bootstrapLocalization({
-  supportedLocales: [
-    'en',
-    'en-GB',
-    'de',
-    'fr',
-    'it',
-    'ru',
-    'zh-CN',
-    'zh-TW',
-    'es',
-    'pt',
-  ],
-  defaultLocale: 'en',
-  currentLocale,
-  localeFiles: [
-    './localization/locales/crm/en/strings.l20n',
-    './localization/locales/crm/en/regional.l20n',
-    './localization/locales/icboe/en/strings.l20n',
-    './localization/locales/icboe/en/regional.l20n',
-    './localization/locales/contour/en/strings.l20n',
-    '../../argos-sdk/localization/locales/argos/en/strings.l20n',
-    '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-  ],
-}).then(() => {
-  require.ensure([], (require) => {
-    require('../../../argos-sdk/libraries/Simplate');
-    const mobile = require('./Bootstrap');
-    const rootElement = document.getElementById('rootNode');
-    mobile.bootstrap({
-      currentLocale,
-      parentLocale: 'en',
-      isRegionMetric: false,
-      rootElement,
+import ready from 'dojo/ready';
+
+/**
+ * Main entry point into the application. Once the DOM is ready, main will
+ * bootstrap the localization and then the rest of the application.
+ * @param  {Object} langConfig    Language configuration object.
+ * @param  {Object} userConfig    App configuration object, falls back to a default (development/production json)
+ * @param  {Function} moduleFactory Returns a promise with an array of application modules.
+ * @return {void}
+ */
+function main(langConfig, userConfig, moduleFactory) {
+  ready(() => {
+    // TODO: Determine if we want to load production or development, and merge
+    // the default config with the user.
+    bootstrapLocalization(langConfig).then(() => {
+      require.ensure([], (require) => {
+        const mobile = require('./Bootstrap');
+        const rootElement = document.getElementById('rootNode');
+        moduleFactory().then((results) => {
+          mobile.bootstrap({
+            currentLocale: langConfig.currentLocale,
+            parentLocale: langConfig.parentLocale,
+            isRegionMetric: langConfig.isRegionMetric,
+            rootElement,
+            userConfig,
+            modules: results,
+          });
+        });
+      });
     });
   });
-    // var rootElement = document.getElementById('rootNode');
-    // icrm.core.bootstrap({
-    //   currentLocale: currentLocale,
-    //   parentLocale: 'en',
-    //   isRegionMetric: false,
-    //   rootElement: rootElement
-    // });
-  // }
-  // document.head.appendChild(script);
-});
+}
+
+function loadConfig(defaultConfig, userConfig) {
+  const defaultRequest = makeRequest(defaultConfig);
+  const userRequest = makeRequest(userConfig);
+  // Don't use promise.all here, assume one of the configs will fail
+  return defaultRequest.then((results) => {
+    const loadedDefaultConfig = JSON.parse(results);
+    return userRequest.then((userResults) => {
+      const loadedUserConfig = JSON.parse(userResults);
+      return Object.assign({}, loadedDefaultConfig, loadedUserConfig);
+    }, () => {
+      // Rejected
+      return Object.assign({}, loadedDefaultConfig);
+    });
+  });
+}
+
+export function development(langConfig) {
+  loadConfig(defaultDev, userDev)
+    .then((config) => {
+      main(langConfig, config, getDefaultModules);
+    }, (defaultConfig) => {
+      main(langConfig, defaultConfig, getDefaultModules);
+    });
+}
+
+export function production(langConfig) {
+  loadConfig(defaultProd, userProd)
+    .then((config) => {
+      main(langConfig, config, getDefaultModules);
+    }, (defaultConfig) => {
+      main(langConfig, defaultConfig, getDefaultModules);
+    });
+}
