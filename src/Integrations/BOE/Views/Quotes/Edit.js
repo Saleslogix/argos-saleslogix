@@ -99,10 +99,18 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.showUnpromotedFields();
     this.inherited(arguments);
   },
+  isQuoteClosed: function isQuoteClosed() {
+    return this.entry && this.entry.IsClosed;
+  },
   processData: function processData() {
     this.showBusy();
     this.inherited(arguments);
     this.getEntriesFromIds();
+    if (this.isQuoteClosed()) {
+      App.bars.tbar.disableTool('save');
+    } else {
+      App.bars.tbar.enableTool('save');
+    }
   },
   beforeTransitionTo: function beforeTransitionTo() {
     this.inherited(arguments);
