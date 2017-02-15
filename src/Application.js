@@ -431,7 +431,9 @@ const __class = declare('crm.Application', [Application], {
 
     const service = this.getService();
     this.isAuthenticated = false;
-    this.context = {};
+    this.context = {
+      history: [],
+    };
 
     this.resetModuleAppStatePromises();
 
