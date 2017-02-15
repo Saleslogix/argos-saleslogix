@@ -19,6 +19,7 @@ import MingleUtility from './MingleUtility';
 import { app } from './reducers';
 import { setUser } from './actions';
 import { combineReducers } from 'redux';
+import $ from 'jquery';
 import 'dojo/sniff';
 
 
@@ -173,16 +174,12 @@ const __class = declare('crm.Application', [Application], {
     return isFirstView;
   },
   onSetOrientation: function onSetOrientation() {
-    if (this.snapper) {
-      this.snapper.close();
-    }
+    // TODO: Close main nav like we did with left drawer?
   },
   _viewTransitionTo: function _viewTransitionTo() {
     this.inherited(arguments);
     this._checkSaveNavigationState();
-    if (this.snapper) {
-      this.snapper.close();
-    }
+    // TODO: Close main nav like we did with left drawer?
   },
   _checkSaveNavigationState: function _checkSaveNavigationState() {
     if (this.rememberNavigationState !== false) {
@@ -844,8 +841,7 @@ const __class = declare('crm.Application', [Application], {
     return hasRoot && result;
   },
   navigateToInitialView: function navigateToInitialView() {
-    this.loadSnapper();
-
+    this.showLeftDrawer();
     try {
       const restoredState = this.navigationState;
       const restoredHistory = restoredState && json.parse(restoredState);
@@ -875,6 +871,8 @@ const __class = declare('crm.Application', [Application], {
       this._clearNavigationState();
       this.navigateToHomeView();
     }
+
+    $('body').initialize();
   },
   setupRedirectHash: function setupRedirectHash() {
     let isMingleRefresh = false;
@@ -963,7 +961,7 @@ const __class = declare('crm.Application', [Application], {
   },
   navigateToHomeView: function navigateToHomeView() {
     this.setupRedirectHash();
-    this.loadSnapper();
+    this.showLeftDrawer();
 
     const visible = this.preferences && this.preferences.home && this.preferences.home.visible;
     if (visible && visible.length > 0) {

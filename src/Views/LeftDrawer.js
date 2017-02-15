@@ -21,26 +21,15 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   cls: ' contextualContent',
   enablePullToRefresh: false,
   rowTemplate: new Simplate([
-    '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-    '{% if ($$._hasIcon($)) { %}',
-    '<div class="list-item-static-selector">',
-    '{% if ($.iconTemplate) { %}',
-    '{%! $.iconTemplate %}',
-    '{% } else if ($.cls) { %}',
-    '<div class="{%: $.cls %}"></div>',
-    '{% } else if ($.icon) { %}',
-    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-    '{% } %}',
-    '</div>',
-    '{% } %}',
+    '<div class="accordion-header" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-    '</li>',
+    '</div>',
   ]),
   _hasIcon: function _hasIcon(entry) {
     return entry.iconTemplate || entry.cls || entry.icon;
   },
   itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>',
+    '<span>{%: $.title %}</span>',
   ]),
 
   // Localization
@@ -83,13 +72,11 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     this.navigateToView(view);
   },
   navigateToView: function navigateToView(view) {
-    App.snapper.close();
     if (view) {
       view.show();
     }
   },
   addAccountContact: function addAccountContact() {
-    App.snapper.close();
     const view = App.getView('add_account_contact');
     if (view) {
       view.show({
@@ -321,8 +308,6 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         }
       }, 10);
     }
-
-    App.snapper.close();
   },
 });
 

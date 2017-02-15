@@ -6,7 +6,7 @@ module.exports = function() {
   return {
     entry: {
       main: './src/main.js',
-      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['jquery', 'sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
       path: path.resolve(__dirname, '../deploy/dist'),
@@ -52,6 +52,13 @@ module.exports = function() {
           { loader: 'less-loader', options: { paths: ['content/css'] } }
         ]
       }, {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          { loader: 'sass-loader' }
+        ]
+      }, {
         test: /\.png$|\.gif$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$|\.json$/,
         loader: 'file-loader',
       }]
@@ -64,7 +71,6 @@ module.exports = function() {
         'Sage/Platform/Mobile': path.resolve(__dirname, '../../../argos-sdk/src'),
         crm: path.resolve(__dirname, '../src'),
         'Mobile/SalesLogix': path.resolve(__dirname, '../src'),
-        snap: path.resolve(__dirname, '../../../argos-sdk/libraries/snap/snap.js'),
         L20n: path.resolve(__dirname, '../../../argos-sdk/libraries/l20n/l20n.js'),
         page: path.resolve(__dirname, '../../../argos-sdk/libraries/pagejs-1.6.1/page.js'),
         chart: path.resolve(__dirname, '../../../argos-sdk/libraries/Chart.min.js'),
@@ -83,6 +89,12 @@ module.exports = function() {
       ],
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+        'window.$': 'jquery',
+      }),
       // Necessary for dojo-webpack-loader to function (is a webpack 1 loader)
       new webpack.LoaderOptionsPlugin({
         options: {

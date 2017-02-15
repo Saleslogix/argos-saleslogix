@@ -34,6 +34,8 @@
     "grunt-template-jasmine-istanbul": "^0.5.0",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^6.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^1.16.3",
@@ -42,6 +44,7 @@
   "dependencies": {
     "@infor/icrm-js-common": "^0.1.0",
     "@infor/icrm-js-customization": "^0.1.0",
+    "@infor/sohoxi": "latest",
     "moment": "^2.17.1",
     "pouchdb-browser": "^6.1.1",
     "redux": "^3.6.0",

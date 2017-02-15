@@ -37,11 +37,6 @@
 
 /* login view */
 #login, #component-wrapper-login_view {
-    /* hide the toolbar on the login page */
-    &[selected="true"] + .toolbar {
-        display: none;
-    }
-
     &.login-active > .button {
         background-color: @color-azure;
         color: #fff;
@@ -410,58 +405,6 @@ li[data-ticket-status] .list-item-selector,
         color: @color-light-azure;
     }
     color: @icon-color;
-}
-
-.toolbar button.disabled {
-}
-
-.toolbar button.disabled > span {
-    opacity: .1;
-    cursor: help;
-}
-
-body.transition > .viewContainer > .footer-toolbar {
-    display: none !important;
-}
-
-.footer-toolbar {
-    display: block;
-    height: 40px;
-    position: relative;
-}
-
-.footer-toolbar > hr {
-    position: relative;
-    top: -4px;
-    height: 4px;
-    margin: 0 0 4px 0;
-    border: none;
-    .box-shadow(rgba(0, 0, 0, 0.5) 0px 2px 3px);
-}
-
-.footer-toolbar > div > .toolButton {
-    background: transparent;
-    width: auto;
-    height: auto;
-    border: none;
-    font-weight: normal;
-}
-
-.footer-toolbar > div > .toolButton-left {
-    margin: 0 0 0 10px;
-}
-
-.footer-toolbar > div > .toolButton-right {
-    margin: 0 10px 0 0;
-}
-
-.footer-toolbar > div > .toolButton > span {
-    width: auto;
-    height: 36px;
-    line-height: 36px;
-    background-position: left center;
-    padding: 0 0 0 30px;
-    margin: 0;
 }
 
 .copyright {
@@ -1014,63 +957,6 @@ td.entry-table-description {
 .split-buttons > .button[data-tool="selectdate"] > span {
     width: 24px;
     height: 24px;
-}
-
-.update-toolbar {
-    @height: 44px;
-
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    cursor: pointer;
-
-    .box-sizing(border-box);
-
-    width: 100%;
-    padding: 0px 0px 10px 0px;
-
-    z-index: 10;
-
-    background-color: @color-emerald;
-
-    height: @height;
-
-    > h1 {
-        width: 100%;
-        line-height: @height;
-        margin: 0;
-        padding: 0;
-        font-weight: normal;
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: normal;
-        color: #fff;
-
-        position: absolute;
-        z-index: 0;
-    }
-
-    > .toolButton {
-        background: transparent;
-        border: none 0 black;
-
-        .box-shadow(none);
-    }
-}
-
-.update-available /* body */
- {
-    padding: 90px 0 0 0;
-}
-
-.update-available > .update-toolbar {
-    display: block;
-}
-
-.update-available > .toolbar {
-    top: 45px;
 }
 
 .primary {

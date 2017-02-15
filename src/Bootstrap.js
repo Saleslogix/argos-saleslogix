@@ -3,8 +3,14 @@ import moment from 'moment';
 
 import MingleUtility from './MingleUtility';
 import Application from './Application';
+import $ from 'jquery';
+import '@infor/sohoxi';
+import '@infor/sohoxi/js/cultures/en-US';
+
 import '../../../argos-sdk/content/css/themes/crm.less';
 import '../content/css/app.less';
+import '@infor/sohoxi/sass/light-theme.scss';
+import '@infor/sohoxi/sass/site.scss';
 
 export function bootstrap({
   currentLocale,
@@ -45,4 +51,7 @@ export function bootstrap({
   instance.activate();
   instance.init(rootElement);
   instance.run();
+  $(() => {
+    $('body').initialize();
+  });
 }

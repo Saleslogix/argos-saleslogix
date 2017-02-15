@@ -13,7 +13,6 @@ import AddAccountContact from './Views/AddAccountContact';
 import AreaCategoryIssueLookup from './Views/AreaCategoryIssueLookup';
 import ExchangeRateLookup from './Views/ExchangeRateLookup';
 import MainToolbar from './Views/MainToolbar';
-import UpdateToolbar from './Views/UpdateToolbar';
 import LeftDrawer from './Views/LeftDrawer';
 import RightDrawer from './Views/RightDrawer';
 import OfflineDetail from './Views/Offline/Detail';
@@ -171,7 +170,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new LogOff());
 
-    this.registerView(new LeftDrawer(), query('.left-drawer', this.application.getContainerNode())[0]);
+    this.registerView(new LeftDrawer(), query('#application-menu', this.application.getContainerNode())[0]);
     this.registerView(new RightDrawer(), query('.right-drawer', this.application.getContainerNode())[0]);
 
     this.registerView(new OfflineDetail({
@@ -528,10 +527,6 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerToolbar(new MainToolbar({
       name: 'tbar',
-    }));
-
-    this.registerToolbar(new UpdateToolbar({
-      name: 'updatebar',
     }));
   },
   loadCustomizations: function loadCustomizations() {

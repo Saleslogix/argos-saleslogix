@@ -63,11 +63,12 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     }
     this.inherited(arguments);
   },
-  _addTools: function _addTools(tools) {
+  _addTools: function _addTools(tools) { // eslint-disable-line
     if (this.disableRightDrawer) {
       return;
     }
 
+/*
     if (tools) {
       tools.tbar.unshift({
         id: 'toggleRightDrawer',
@@ -77,24 +78,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
         scope: this,
       });
     }
-  },
-  toggleRightDrawer: function toggleRightDrawer() {
-    this._toggleDrawer('right');
-  },
-  _toggleDrawer: function _toggleDrawer(state) {
-    const snapperState = App.snapper.state();
-    if (snapperState.state === state) {
-      App.snapper.close();
-    } else {
-      App.snapper.open(state);
-    }
-  },
-  unloadRightDrawer: function unloadRightDrawer() {},
-  onTransitionTo: function onTransitionTo() {
-    if (this.disableRightDrawer) {
-      return;
-    }
-    this.loadRightDrawer();
+*/
   },
   onTransitionAway: function onTransitionAway() {
     if (this.disableRightDrawer) {
@@ -103,7 +87,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
 
     const drawer = App.getView('right_drawer');
     if (drawer) {
-      this.unloadRightDrawer();
+      // this.unloadRightDrawer();
       drawer.clear();
       this.drawerLoaded = false;
     }
