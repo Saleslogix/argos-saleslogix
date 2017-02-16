@@ -16,15 +16,27 @@ const resource = getResource('login');
  */
 const __class = declare('crm.Views.Login', [Edit], {
   // Templates
-  widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%: $.titleText %}" class="single-column" hideBackButton="true">',
-    '<p class="logo"><img src="{%: $.logo %}" /><span>{%: $.logoText %}<span></p>',
-    '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
-    '<button data-dojo-attach-point="loginButton" class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
-    '<span class="copyright">{%= $.copyrightText %}</span>',
-    '<span class="copyright">{%= App.getVersionInfo() %}</span>',
-    '<div style="visibility: hidden;" class="fa fa-bars"></div>', // force font-awesome to be included on login
-    '</div>',
+  widgetTemplate: new Simplate([`
+      <div id="{%= $.id %}" title="{%: $.titleText %}" class="view single-column">
+        <p class="logo">
+          <img src="{%: $.logo %}" />
+          <span>{%: $.logoText %}<span>
+        </p>
+        <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
+        </div>
+        <div class="row">
+          <div class="five columns"></div>
+          <div class="two columns">
+            <button data-dojo-attach-point="loginButton" class="btn-primary" data-action="authenticate">{%: $.logOnText %}</button>
+          </div>
+          <div class="five columns"></div>
+        </div>
+        <div class="row">
+          <span class="copyright">{%= $.copyrightText %}</span>
+          <span class="copyright">{%= App.getVersionInfo() %}</span>
+        </div>
+      </div>
+    `,
   ]),
 
   id: 'login',

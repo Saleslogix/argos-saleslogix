@@ -21,8 +21,8 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   cls: ' contextualContent',
   enablePullToRefresh: false,
   rowTemplate: new Simplate([
-    '<div class="accordion-header" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-    '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+    '<div class="accordion-header">',
+    '<div class="list-item-content" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>{%! $$.itemTemplate %}</div>',
     '</div>',
   ]),
   _hasIcon: function _hasIcon(entry) {

@@ -15,28 +15,12 @@
     }
 }
 
-.row > div > label,
-.row > label {
-    float: none;
-}
-
-.row > div > label,
-.row > label,
-.row > div > span,
-.row > div > a,
-.row > span,
-.row > a {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
-
 .list-item-selected {
     background-color: #D5EFFA;
 }
 
 /* login view */
-#login, #component-wrapper-login_view {
+#login {
     &.login-active > .button {
         background-color: @color-azure;
         color: #fff;
@@ -57,9 +41,6 @@
         }
     }
 
-    padding: 0px 2px;
-    top: 0px;
-
     input[name="username"],
     input[name="password"] {
         background: #fff no-repeat 10px center;
@@ -72,22 +53,6 @@
 
     input[name="password"] {
         background-image: url('../images/icons/password.png');
-    }
-
-    .panel-content {
-        width: 200px;
-        margin: auto;
-        background-color: transparent;
-        border-bottom: none 0px black;
-    }
-
-    .button {
-        width: 192px;
-        margin: 0 auto 10px;
-        display: block;
-        cursor: pointer;
-        border: none;
-        .box-sizing(border-box);
     }
 
     h2 {
@@ -105,20 +70,6 @@
     overflow: hidden;
     padding: 0 34px 0 0;
     border: @form-border;
-}
-
-.note-text-row > label,
-.note-text-row > div > label {
-    display: none;
-}
-
-.note-text-row > pre {
-    font-family: inherit;
-    margin: 0;
-    padding: 0;
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap !important;
-    word-wrap: break-word;
 }
 
 .note-text-item {
@@ -208,23 +159,8 @@
     font-size: inherit;
 }
 
-#help .row > ul > li {
-    padding: 8px;
-    line-height: inherit;
-}
-
-#help .detailContent .row {
-  display: block;
-}
-
 #help .detailContent li {
   border: none;
-}
-
-#help .row > ul > li > div {
-    line-height: 24px;
-    vertical-align: middle;
-    display: inline;
 }
 
 #help_search > li > h3 {
@@ -334,70 +270,6 @@ li[data-ticket-status] .list-item-selector,
 #address_list .list-item-selector,
 #address_related .list-item-selector {
     visibility: visible;
-}
-
-.row-edit[data-field-type="multiCurrency"] div > span {
-    position: absolute;
-    right: 19px;
-    line-height: 44px;
-    width: 44px;
-    height: 44px;
-    display: block;
-}
-
-.row-edit[data-field-type="lookup"] > div > .button span,
-.row-edit[data-field-type="picklist"] > div > .button span,
-.row-edit[data-field-type="select"] > div > .button span {
-    visibility: hidden;
-    display: none;
-}
-
-.row-edit[data-field-type="date"] > div > .button span {
-    visibility: hidden;
-    display: none;
-}
-
-.row-edit[data-field-type="address"] > div > div {
-    padding: 8px 44px 8px 8px;
-    border: @form-border;
-    min-height: 44px;
-    .box-sizing(border-box);
-}
-
-.row-edit[data-field-type="name"] > div > .button span,
-.row-edit[data-field-type="address"] > div > .button span,
-.row-edit[data-field-type="recurrences"] > div > .button span,
-.row-edit[data-field-type="duration"] > div > .button span,
-.row-edit[data-field-type="note"] > div > .button span {
-    visibility: hidden;
-    display: none;
-}
-
-.row-edit[data-field-type="recurrences"] > div > input {
-    padding: 8px 34px 8px 0px !important;
-}
-
-#activity_edit div.row-edit[data-field="Reminder"],
-#recurrence_edit div.row-edit[data-field="Scale"] {
-    border-top: none;
-}
-
-.row-edit-text > div > textarea {
-    padding-left: 10px !important;
-}
-
-.row-edit-text > div > label {
-    display: none;
-}
-
-.panel-content > fieldset > .row-error > div > input,
-.panel-content > fieldset > .row-error > div > textarea {
-    color: red;
-}
-
-.panel-content > fieldset > .row-error > div > input:focus,
-.panel-content > fieldset > .row-error > div > textarea:focus {
-    .box-shadow(0 0 5px red) !important;
 }
 
 .toolButton {

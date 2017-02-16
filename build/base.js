@@ -6,7 +6,7 @@ module.exports = function() {
   return {
     entry: {
       main: './src/main.js',
-      vendor: ['jquery', 'sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
       path: path.resolve(__dirname, '../deploy/dist'),
@@ -15,6 +15,9 @@ module.exports = function() {
       library: ['icrm', '[name]'],
       umdNamedDefine: true,
       filename: 'icrm.[name].js',
+    },
+    externals: {
+      jquery: 'jQuery',
     },
     module: {
       noParse: [
@@ -89,12 +92,6 @@ module.exports = function() {
       ],
     },
     plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        'window.$': 'jquery',
-      }),
       // Necessary for dojo-webpack-loader to function (is a webpack 1 loader)
       new webpack.LoaderOptionsPlugin({
         options: {

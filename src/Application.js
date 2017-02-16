@@ -19,7 +19,6 @@ import MingleUtility from './MingleUtility';
 import { app } from './reducers';
 import { setUser } from './actions';
 import { combineReducers } from 'redux';
-import $ from 'jquery';
 import 'dojo/sniff';
 
 
@@ -871,8 +870,6 @@ const __class = declare('crm.Application', [Application], {
       this._clearNavigationState();
       this.navigateToHomeView();
     }
-
-    $('body').initialize();
   },
   setupRedirectHash: function setupRedirectHash() {
     let isMingleRefresh = false;
