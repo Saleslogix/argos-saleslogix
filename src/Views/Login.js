@@ -1,6 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domClass from 'dojo/dom-class';
+import $ from 'jquery';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 import logo from '../../content/images/logo-64.png';
@@ -61,12 +61,16 @@ const __class = declare('crm.Views.Login', [Edit], {
   _onKeyUp: function _onKeyUp() {
     const username = this.fields['username-display'].getValue();
     if (username && username.length > 0) {
-      domClass.add(this.domNode, 'login-active');
+      $(this.domNode).addClass('login-active');
     } else {
-      domClass.remove(this.domNode, 'login-active');
+      $(this.domNode).removeClass('login-active');
     }
   },
-  show: function init() {
+  initSoho: function initSoho() {
+    const header = $('.header', App.getContainerNode());
+    header.hide();
+  },
+  show: function show() {
     this.inherited(arguments);
     if (!this.connectionState) {
       this._disable();

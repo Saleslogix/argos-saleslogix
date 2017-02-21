@@ -6,6 +6,7 @@ import lang from 'dojo/_base/lang';
 import has from 'dojo/has';
 import string from 'dojo/string';
 import Deferred from 'dojo/Deferred';
+import $ from 'jquery';
 import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
@@ -497,6 +498,8 @@ const __class = declare('crm.Application', [Application], {
   onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
+    const header = $('.header', this.getContainerNode());
+    header.show();
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
