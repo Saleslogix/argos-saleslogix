@@ -18,22 +18,18 @@ const __class = declare('crm.Views.Login', [Edit], {
   // Templates
   widgetTemplate: new Simplate([`
       <div id="{%= $.id %}" title="{%: $.titleText %}" class="view single-column">
-        <p class="logo">
-          <img src="{%: $.logo %}" />
-          <span>{%: $.logoText %}<span>
-        </p>
-        <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
-        </div>
-        <div class="row">
-          <div class="five columns"></div>
-          <div class="two columns">
-            <button data-dojo-attach-point="loginButton" class="btn-primary" data-action="authenticate">{%: $.logOnText %}</button>
-          </div>
-          <div class="five columns"></div>
-        </div>
-        <div class="row">
-          <span class="copyright">{%= $.copyrightText %}</span>
-          <span class="copyright">{%= App.getVersionInfo() %}</span>
+        <div class="wrapper">
+          <section class="signin" role="main">
+            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
+            </svg>
+            <h1>Infor CRM</h1>
+            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
+            </div>
+            <div class="row">
+              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>
+            </div>
+          </section>
         </div>
       </div>
     `,
@@ -63,7 +59,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     }
   },
   _onKeyUp: function _onKeyUp() {
-    const username = this.fields.username.getValue();
+    const username = this.fields['username-display'].getValue();
     if (username && username.length > 0) {
       domClass.add(this.domNode, 'login-active');
     } else {
@@ -77,14 +73,14 @@ const __class = declare('crm.Views.Login', [Edit], {
     }
   },
   _disable: function _disable() {
-    this.fields.username.disable();
-    this.fields.password.disable();
+    this.fields['username-display'].disable();
+    this.fields['password-display'].disable();
     this.fields.remember.disable();
     this.loginButton.disabled = true;
   },
   _enable: function _enable() {
-    this.fields.username.enable();
-    this.fields.password.enable();
+    this.fields['username-display'].enable();
+    this.fields['password-display'].enable();
     this.fields.remember.enable();
     this.loginButton.disabled = false;
   },
@@ -119,14 +115,16 @@ const __class = declare('crm.Views.Login', [Edit], {
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
-      name: 'username',
-      placeHolderText: this.userText,
+      name: 'username-display',
+      label: this.userText,
       type: 'text',
+      required: true,
     }, {
-      name: 'password',
-      placeHolderText: this.passText,
+      name: 'password-display',
+      label: this.passText,
       type: 'text',
       inputType: 'password',
+      required: true,
     }, {
       name: 'remember',
       label: this.rememberText,
@@ -138,10 +136,13 @@ const __class = declare('crm.Views.Login', [Edit], {
       return;
     }
 
-    const credentials = this.getValues();
-    const username = credentials && credentials.username;
+    const values = this.getValues();
+    const credentials = {
+      username: values['username-display'],
+      password: values['password-display'],
+    };
 
-    if (username) {
+    if (credentials.username) {
       this.validateCredentials(credentials);
     }
   },
@@ -176,8 +177,8 @@ const __class = declare('crm.Views.Login', [Edit], {
     App.authenticateUser(credentials, {
       success: function success() {
         if (this.fields.remember.getValue() !== true) {
-          this.fields.username.setValue('');
-          this.fields.password.setValue('');
+          this.fields['username-display'].setValue('');
+          this.fields['password-display'].setValue('');
         }
         this.enable();
 
