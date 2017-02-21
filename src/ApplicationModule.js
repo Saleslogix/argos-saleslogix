@@ -14,7 +14,6 @@ import AreaCategoryIssueLookup from './Views/AreaCategoryIssueLookup';
 import ExchangeRateLookup from './Views/ExchangeRateLookup';
 import MainToolbar from './Views/MainToolbar';
 import LeftDrawer from './Views/LeftDrawer';
-import RightDrawer from './Views/RightDrawer';
 import OfflineDetail from './Views/Offline/Detail';
 import OfflineList from './Views/Offline/List';
 import Login from './Views/Login';
@@ -171,7 +170,6 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     this.registerView(new LogOff());
 
     this.registerView(new LeftDrawer(), query('#application-menu', this.application.getContainerNode())[0]);
-    this.registerView(new RightDrawer(), query('.right-drawer', this.application.getContainerNode())[0]);
 
     this.registerView(new OfflineDetail({
       canRedirectTo: true,

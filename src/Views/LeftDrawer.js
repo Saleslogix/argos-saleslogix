@@ -6,6 +6,7 @@ import SpeedSearchWidget from '../SpeedSearchWidget';
 import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('leftDrawer');
 
@@ -21,16 +22,13 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   cls: ' contextualContent',
   enablePullToRefresh: false,
   rowTemplate: new Simplate([
-    '<div class="accordion-header">',
-    '<div class="list-item-content" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>{%! $$.itemTemplate %}</div>',
+    '<div class="accordion-header list-item" role="presentation">',
+    '<a data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}><span>{%: $.title %}</span></a>',
     '</div>',
   ]),
   _hasIcon: function _hasIcon(entry) {
     return entry.iconTemplate || entry.cls || entry.icon;
   },
-  itemTemplate: new Simplate([
-    '<span>{%: $.title %}</span>',
-  ]),
 
   // Localization
   configureText: resource.configureText,
@@ -61,6 +59,14 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   addAccountContactView: 'add_account_contact',
   searchView: 'speedsearch_list',
 
+  initSoho: function initSoho() {
+    const accordion = $('.accordion.panel', this.domNode);
+    accordion.on('selected', (evt, header) => {
+      // Fix up the event target to the element with our data-action attribute.
+      evt.target = $('a', header).get(0);
+      this._initiateActionFromEvent(evt);
+    });
+  },
   logOut: function logOut() {
     const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
     if (sure) {
