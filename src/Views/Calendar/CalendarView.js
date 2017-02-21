@@ -450,7 +450,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
       const refreshTool = {
         id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
+        svg: 'refresh',
         action: 'refresh',
 
       };

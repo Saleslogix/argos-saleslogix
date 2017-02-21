@@ -3,11 +3,12 @@ import moment from 'moment';
 
 import MingleUtility from './MingleUtility';
 import Application from './Application';
+
+import '../content/css/app.less';
+import '../../../argos-sdk/content/css/themes/crm.less';
+
 import '@infor/sohoxi';
 import '@infor/sohoxi/js/cultures/en-US';
-
-import '../../../argos-sdk/content/css/themes/crm.less';
-import '../content/css/app.less';
 import '@infor/sohoxi/sass/light-theme.scss';
 
 export function bootstrap({

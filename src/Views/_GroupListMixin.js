@@ -760,7 +760,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
       const refreshTool = {
         id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
+        svg: 'refresh',
         action: '_refreshList',
 
       };

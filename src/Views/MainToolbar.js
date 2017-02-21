@@ -30,7 +30,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       if (!isOnEdit && !isOnFirstView) {
         tools = tools.concat([{ //eslint-disable-line
           id: 'back',
-          cls: 'fa fa-angle-left fa-fw fa-lg',
+          svg: 'previous-page',
           side: 'left',
           fn: this.navigateBack,
           scope: this,
