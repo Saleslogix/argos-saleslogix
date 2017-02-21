@@ -135,12 +135,12 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.tools = {
         tbar: [{
           id: 'complete',
-          cls: 'fa fa-check fa-fw fa-lg',
+          svg: 'check',
           fn: this.complete,
           scope: this,
         }, {
           id: 'cancel',
-          cls: 'fa fa-ban fa-fw fa-lg',
+          svg: 'cancel',
           side: 'left',
           fn: ReUI.back,
           scope: ReUI,

@@ -54,7 +54,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
       }, {
         id: 'cancel',
         side: 'left',
-        cls: 'fa fa-ban fa-fw fa-lg',
+        svg: 'cancel',
         fn: ReUI.back,
         scope: ReUI,
       },
