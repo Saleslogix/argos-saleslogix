@@ -5,6 +5,8 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 import logo from '../../content/images/logo-64.png';
 
+import page from 'page';
+
 const resource = getResource('login');
 
 /**
@@ -181,6 +183,8 @@ const __class = declare('crm.Views.Login', [Edit], {
 
     App.authenticateUser(credentials, {
       success: function success() {
+        // Need to remove Login view from pagejs stack
+        page.len--;
         if (this.fields.remember.getValue() !== true) {
           this.fields['username-display'].setValue('');
           this.fields['password-display'].setValue('');
