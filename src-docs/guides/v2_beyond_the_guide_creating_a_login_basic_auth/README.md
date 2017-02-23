@@ -19,7 +19,7 @@ This exercise will setup a login page and send the credentials using Basic Authe
 3\. Add a button element to the `widgetTemplate`, while normally we would add a toolbar item for actions like this a Login page doesn't look quite right without a big ol' Login button.
 
             widgetTemplate: new Simplate([
-                '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
+                '<div id="{%= $.id %}" class="panel {%= $.cls %}" hideBackButton="true">',
                 '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',
                 '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
                 '</div>'

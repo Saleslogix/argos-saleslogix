@@ -56,7 +56,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
 
   // Templates
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+    '<div id="{%= $.id %}" class="overthrow {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
     '<div data-dojo-attach-point="searchNode"></div>',
     '{%! $.navigationTemplate %}',
     '<div style="clear:both"></div>',
