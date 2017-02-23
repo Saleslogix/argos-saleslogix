@@ -22,6 +22,8 @@ const __class = declare('crm.Views.PickList', [List], {
   resourceKind: 'picklists',
   resourceProperty: 'items',
   contractName: 'system',
+  pageSize: 100,
+  autoClearSelection: false,
 
   activateEntry: function activateEntry(params) {
     if (this.options.keyProperty === 'text' && !this.options.singleSelect) {
