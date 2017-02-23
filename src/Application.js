@@ -102,7 +102,7 @@ const __class = declare('crm.Application', [Application], {
   onlineText: resource.onlineText,
   mingleAuthErrorText: resource.mingleAuthErrorText,
   homeViewId: 'myactivity_list',
-  offlineHomeViewId: 'recently_viewed_list',
+  offlineHomeViewId: 'recently_viewed_list_offline',
   loginViewId: 'login',
   logOffViewId: 'logoff',
 
