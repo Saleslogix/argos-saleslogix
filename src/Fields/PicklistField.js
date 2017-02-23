@@ -32,7 +32,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   requireSelection: false,
   valueKeyProperty: false,
   valueTextProperty: false,
-  iconClass: 'fa fa-ellipsis-h fa-lg',
+  iconClass: 'more',
 
   constructor: function constructor(options) {
     switch (this.storageMode) {
