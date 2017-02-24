@@ -50,6 +50,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
         return this.getGroupForRightDrawerEntry(entry);
       });
 
+      /*
       App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
         if (this._hasChangedEntityPrefs) {
           this.clear();
@@ -63,15 +64,15 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
           this.rebuildWidgets();
           this._hasChangedKPIPrefs = false;
         }
-      }));
+      }));*/
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
     const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.setLayout([]);
-      drawer.getGroupForEntry = function snapperOff() {};
-      App.snapper.off('close');
+      drawer.getGroupForEntry = function noop() {};
+      // App.snapper.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {

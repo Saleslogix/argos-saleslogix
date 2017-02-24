@@ -952,16 +952,16 @@ const __class = declare('crm.Application', [Application], {
     if (view) {
       view.show();
     }
+
+    return this;
   },
   showRightDrawer: function showRightDrawer() {
-    const view = this.getView('right_drawer');
-    if (view) {
-      view.show();
-    }
+    return this;
   },
   navigateToHomeView: function navigateToHomeView() {
     this.setupRedirectHash();
     this.showLeftDrawer();
+
 
     const visible = this.preferences && this.preferences.home && this.preferences.home.visible;
     if (visible && visible.length > 0) {

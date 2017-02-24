@@ -22,7 +22,6 @@ import lang from 'dojo/_base/lang';
  */
 const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
   drawerLoaded: false,
-
   /**
    * @property {Boolean}
    * Add a flag so the view can opt-out of the right drawer if the mixin is used (_related views)
@@ -80,6 +79,13 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     }
 */
   },
+  onTransitionTo: function onTransitionTo() {
+    if (this.disableRightDrawer) {
+      return;
+    }
+
+    this.loadRightDrawer();
+  },
   onTransitionAway: function onTransitionAway() {
     if (this.disableRightDrawer) {
       return;
@@ -87,7 +93,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
 
     const drawer = App.getView('right_drawer');
     if (drawer) {
-      // this.unloadRightDrawer();
+      this.unloadRightDrawer();
       drawer.clear();
       this.drawerLoaded = false;
     }

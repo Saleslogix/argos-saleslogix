@@ -56,7 +56,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      App.snapper.on('close', lang.hitch(this, this.onSnapperClose));
+      // App.snapper.on('close', lang.hitch(this, this.onSnapperClose));
     }
   },
   refreshRightDrawer: function refreshRightDrawer() {

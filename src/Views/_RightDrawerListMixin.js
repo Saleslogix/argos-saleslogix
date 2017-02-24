@@ -59,7 +59,8 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     }.bind(this);
 
     if (this.rebuildWidgets) {
-      App.snapper.on('close', () => {
+      /*
+      App.snapper.on('close',() => {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
 
@@ -74,7 +75,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
         // Reset state
         this._hashTagClicked = false;
-      });
+      });*/
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
@@ -82,7 +83,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function getGroupForEntry() {};
-      App.snapper.off('close');
+      // App.snapper.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {
