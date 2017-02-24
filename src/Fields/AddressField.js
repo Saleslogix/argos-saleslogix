@@ -10,10 +10,6 @@ const control = declare('crm.Fields.AddressField', [EditorField], {
   widgetTemplate: new Simplate([
     `<label for="{%= $.name %}">{%: $.label %}</label>
     <div class="field-control-wrapper">
-      <textarea data-dojo-attach-point="inputNode"
-          type="text"
-          readonly="readonly">
-      </textarea>
       <button 
         class="button simpleSubHeaderButton field-control-trigger"
         aria-label="{%: $.lookupLabelText %}">
@@ -21,6 +17,7 @@ const control = declare('crm.Fields.AddressField', [EditorField], {
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
         </svg>
       </button>
+      <label data-dojo-attach-point="inputNode"></label>
     </div>`,
   ]),
   iconClass: 'edit',
