@@ -8,12 +8,22 @@ const resource = getResource('addressField');
 
 const control = declare('crm.Fields.AddressField', [EditorField], {
   widgetTemplate: new Simplate([
-    '<label for="{%= $.name %}">{%: $.label %}</label>',
-    '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
-    '<div data-dojo-attach-point="inputNode"></div>',
+    `<label for="{%= $.name %}">{%: $.label %}</label>
+    <div class="field-control-wrapper">
+      <textarea data-dojo-attach-point="inputNode"
+          type="text"
+          readonly="readonly">
+      </textarea>
+      <button 
+        class="button simpleSubHeaderButton field-control-trigger"
+        aria-label="{%: $.lookupLabelText %}">
+        <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
+        </svg>
+      </button>
+    </div>`,
   ]),
-
-  iconClass: 'fa fa-pencil fa-lg',
+  iconClass: 'edit',
 
   attributeMap: {
     addressContent: {
