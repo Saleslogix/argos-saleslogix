@@ -14,7 +14,7 @@ const control = declare('crm.Fields.AddressField', [EditorField], {
         class="button simpleSubHeaderButton field-control-trigger"
         aria-label="{%: $.lookupLabelText %}">
         <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
         </svg>
       </button>
       <label data-dojo-attach-point="inputNode"></label>
