@@ -19,7 +19,7 @@ const resource = getResource('login');
 const __class = declare('crm.Views.Login', [Edit], {
   // Templates
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" class="panel {%= $.cls %}" hideBackButton="true">',
+    '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
     '<p class="logo"><img src="{%: $.logo %}" /><span>{%: $.logoText %}<span></p>',
     '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
     '<button data-dojo-attach-point="loginButton" class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',

@@ -53,7 +53,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
 
   // Templates
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+    '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
     '<div data-dojo-attach-point="searchNode"></div>',
     '{%! $.navigationTemplate %}',
     '<div style="clear:both"></div>',

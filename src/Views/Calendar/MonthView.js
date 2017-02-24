@@ -69,7 +69,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
 
   // Templates
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+    '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
     '<div data-dojo-attach-point="searchNode"></div>',
     '{%! $.navigationTemplate %}',
     '<div style="clear:both"></div>',
@@ -184,7 +184,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   calendarDayTemplate: '<td class="old-calendar-day ${1}" data-action="selectDay" data-date="${2}">${0}</td>',
   calendarWeekEndTemplate: '</tr>',
   calendarEndTemplate: '</table>',
-  calendarActivityCountTemplate: '<span class="old-activity-count" events">${0}</span>',
+  calendarActivityCountTemplate: '<span class="old-activity-count" title="${0} events">${0}</span>',
 
   attributeMap: {
     calendarContent: {
