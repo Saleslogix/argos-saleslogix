@@ -9,7 +9,7 @@
   promoteText: "Hochstufen"
   noBackOfficesText: "Keine Back Offices im System gefunden. Firma kann nicht hochgestuft werden, wenn kein Back Office angegeben ist."
   promotionRequested: "Hochstufung angefordert"
-  promotionText: "Der Eintrag wurde erfolgreich zur Hochstufung gesendet."
+  promotionText: "Der Eintrag wurde erfolgreich zur Hochstufung übermittelt."
   errorMessage: "Fehler beim Hochstufen von Firma, Grund: ${reason}"
 >
 
@@ -87,8 +87,8 @@
 >
 
 <erpShipmentItemModel ""
-  entityDisplayName: "Lieferungselement"
-  entityDisplayNamePlural: "Lieferungselemente"
+  entityDisplayName: "Lieferartikel"
+  entityDisplayNamePlural: "Lieferartikel"
 >
 
 <erpShipToModel ""
@@ -102,8 +102,8 @@
 >
 
 <operatingCompanyModel ""
-  entityDisplayName: "Aktives Unternehmen"
-  entityDisplayNamePlural: "Aktive Unternehmen"
+  entityDisplayName: "Operatives Unternehmen"
+  entityDisplayNamePlural: "Operative Unternehmen"
 >
 
 <locationModel ""
@@ -228,17 +228,17 @@
   salesPersonsText: "Verkäufer"
   syncHistoryText: "Synchronisierungshistorie"
   addLineItemsText: "Position(en) hinzufügen"
-  hasWonErrorText: "Angebote können nicht konvertiert werden, wenn einer Angebotsversion der Status \"Gewonnen\" zugewiesen ist."
-  wonStatusCode: "Gewonnen"
-  convertQuoteText: "In Verkaufsauftrag konvertieren"
+  hasWonErrorText: "Angebote können nicht umgewandelt werden, wenn einer Angebotsversion der Status "Erfolg" zugewiesen ist."
+  wonStatusCode: "Erfolg"
+  convertQuoteText: "In Verkaufsauftrag umwandeln"
   promoteQuoteText: "Angebot hochstufen"
   getQuoteTotalText: "Gesamtsumme für Angebot abrufen"
-  convertQuoteMessage: "Der aktuelle Auftrag ist nicht aktiv. Möchten Sie ihn aktivieren und in einen Verkaufsauftrag konvertieren?"
-  needToPromoteAccount: "Sie müssen die Firma zuerst hochstufen, bevor ein Angebot in einen Verkaufsauftrag konvertiert werden kann. Möchten Sie zur Firma navigieren, um sie hochzustufen?"
+  convertQuoteMessage: "Das aktuelle Angebot ist nicht aktiv. Möchten Sie es aktivieren und in einen Verkaufsauftrag umwandeln?"
+  needToPromoteAccount: "Sie müssen die Firma zuerst hochstufen, bevor ein Angebot in einen Verkaufsauftrag umgewandelt werden kann. Möchten Sie zur Firma navigieren, um sie hochzustufen?"
   billingAddressText: "Rechnungsadresse"
   shippingAddressText: "Lieferadresse"
   entityText: "Angebot"
-  syncStatusText: "Synchronisierungsstatus"
+  syncStatusText: "Synchron.-Status"
   backOfficeText: "Back Office-ID"
   accountingEntityText: "Buchhaltungsentitäts-ID"
   startDateText: "Startdatum"
@@ -330,7 +330,7 @@
   statusTitle: "Status"
   typeText: "Typ"
   typeTitle: "Typ"
-  customerPOText: "Kaufauftrag des Kunden"
+  customerPOText: "Bestellnummer des Kunden"
   currencyText: "Währung"
   backOfficeText: "Back Office"
   accountingEntityText: "Buchhaltungsentität"
@@ -345,7 +345,7 @@
   recentText: "Letzte"
   myPendingText: "Eigene ausstehende"
   pendingText: "Ausstehend"
-  lateText: "Verzögerte"
+  lateText: "Verzögert"
   titleText: "Aktivitäten"
   categoryText: "Anzahl an Tagen auswählen"
 >
@@ -396,7 +396,7 @@
   newText: "Neu"
   openText: "Offen"
   approvedText: "Genehmigt"
-  awardedText: "Zuerkannt"
+  awardedText: "Erteilt"
 >
 
 <salesDashboardWidget ""
@@ -599,7 +599,7 @@
 >
 
 <erpShipmentItemsDetail ""
-  titleText: "Lieferungselement"
+  titleText: "Lieferartikel"
   actionsText: "Schnellaktionen"
   relatedItemsText: "Zugehörige Elemente"
   moreDetailsText: "Weitere Details"
@@ -613,11 +613,11 @@
   backOrderedQuantityText: "Menge im Lieferrückstand"
   unitOfMeasureText: "Maßeinheit"
   erpUpcIdText: "ERP UPC-ID"
-  entityText: "Lieferungselement"
+  entityText: "Lieferartikel"
 >
 
 <erpShipmentItemsList ""
-  titleText: "Lieferungselemente"
+  titleText: "Lieferartikel"
   productNameText: "Produktname"
   lineNumberText: "Positionsnummer"
   shipmentIDText: "Lieferungs-ID"
@@ -746,6 +746,8 @@
   removeQuoteLineText: "Position entfernen"
   locationText: "Standort"
   totalAmountText: "Summenbetrag"
+  availableQuantityText: "Verfügbare Menge: "
+  checkWarehouseAvailabilityText: "Verfügbarkeit im Lager prüfen"
 >
 
 <quoteItemsList ""
@@ -817,6 +819,8 @@
   confirmDeleteText: "Möchten Sie die aktuelle Position wirklich löschen?"
   removeOrderLineText: "Position entfernen"
   totalAmountText: "Summenbetrag"
+  availableQuantityText: "Verfügbare Menge: "
+  checkWarehouseAvailabilityText: "Verfügbarkeit im Lager prüfen"
 >
 
 <salesOrderItemsList ""
@@ -845,7 +849,7 @@
   moreDetailsText: "Weitere Details"
   orderNumberText: "Verkaufsauftragsnummer"
   orderIdText: "ERP-Auftrags-ID"
-  customerPOText: "Kaufauftrag des Kunden"
+  customerPOText: "Bestellung des Kunden"
   accountText: "Firma"
   opportunityText: "Verkaufschance"
   dateCreatedText: "Erstellungsdatum"
@@ -882,7 +886,7 @@
   promoteOrderText: "Verkaufsauftrag hochstufen"
   getOrderTotalText: "Auftragssumme abrufen"
   addLineItemsText: "Position(en) hinzufügen"
-  syncStatusText: "Synchronisierungsstatus"
+  syncStatusText: "Synchron.-Status"
   backOfficeText: "Back Office-ID"
   accountingEntityText: "Buchhaltungsentitäts-ID"
   warehouseText: "Lager"
@@ -904,7 +908,7 @@
   baseGrandTotalText: "Basis-Gesamtsumme"
   statusLabelText: "Status"
   erpStatusLabelText: "ERP-Status"
-  customerPONumberText: "Kaufauftrag des Kunden"
+  customerPONumberText: "Bestellnummer des Kunden"
   orderDateText: "Auftragsdatum"
   viewAccountActionText: "Firma anzeigen"
   addLineItemsText: "Element hinzufügen"
@@ -935,7 +939,7 @@
   emailText: "E-Mail"
   addressText: "Adresse"
   statusText: "Status"
-  syncStatusText: "Synchronisierungsstatus"
+  syncStatusText: "Synchron.-Status"
   logicalIdText: "logische ID"
   accountingEntityIdText: "Buchhaltungsentitäts-ID"
   ownerText: "Zugriffsberechtigter"
@@ -988,7 +992,7 @@
   emailText: "E-Mail"
   addressText: "Adresse"
   statusText: "Status"
-  syncStatusText: "Synchronisierungsstatus"
+  syncStatusText: "Synchron.-Status"
   logicalIdText: "logische ID"
   accountingEntityIdText: "Buchhaltungsentitäts-ID"
   ownerText: "Zugriffsberechtigter"
@@ -1026,8 +1030,8 @@
   erpStatusDateText: "ERP-Statusdatum"
   erpCustomerText: "ERP-Kunde"
   erpPaymentTermText: "ERP-Zahlungsbedingungen"
-  erpFinanceLimitText: "Finanzlimit"
-  syncStatusText: "Synchronisierungsstatus"
+  erpFinanceLimitText: "Kreditlimit"
+  syncStatusText: "Synchron.-Status"
   backOfficeText: "Back Office"
   accountingEntityText: "Buchhaltungsentität"
   backOfficeIdText: "Back Office-ID"

@@ -1,8 +1,3 @@
-<version["short"] {
-  short: "3.4",
-  long: "Mobile {{ version.short}} / CRM Plattform 8.0+"
-}>
-
 <addressField ""
   lookupLabelText: "bearbeiten"
   emptyText: ""
@@ -19,7 +14,7 @@
 
 <accountDetail ""
   accountText: "Firma"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   addressText: "Adresse"
   businessDescriptionText: "Unternehmensbeschreibung"
   createDateText: "Erstellungsdatum"
@@ -59,7 +54,7 @@
   accountSubTypeTitleText: "Firmen-Untertyp"
   accountText: "Firma"
   accountTypeTitleText: "Firmentyp"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   businessDescriptionText: "Unternehmensbeschreibung"
   businessDescriptionTitleText: "Unternehmensbeschreibung"
   descriptionText: "Beschreibung"
@@ -247,15 +242,6 @@
   emailText: "E-Mail"
 >
 
-<activityListHashTags ""
-  alarmText: "Alarm"
-  recurringText: "wiederkehrend"
-  timelessText: "ohne-Zeitangabe"
-  todayText: "heute"
-  thisWeekText: "diese-Woche"
-  yesterdayText: "gestern"
->
-
 <activityMyList ""
   titleText: "Eigene Aktivitäten"
   completeActivityText: "Abschließen"
@@ -267,18 +253,6 @@
   viewContactActionText: "Kontakt"
   viewAccountActionText: "Firma"
   viewOpportunityActionText: "Verkaufschance"
->
-
-<activityMyListHashTags ""
-  hashTagAlarmText: "Alarm"
-  hashTagUnconfirmedText: "Status-unbestätigt"
-  hashTagAcceptedText: "Status-akzeptiert"
-  hashTagDeclinedText: "Status-abgelehnt"
-  hashTagRecurringText: "wiederkehrend"
-  hashTagTimelessText: "ohne-Zeitangabe"
-  hashTagTodayText: "heute"
-  hashTagThisWeekText: "diese-Woche"
-  hashTagYesterdayText: "gestern"
 >
 
 <activityMyDay ""
@@ -295,7 +269,7 @@
   weekdaysText: "Wochentag(e)"
   dayText: "Tag"
   monthText: "Monat"
-  onText: "an"
+  onText: "am"
   occurrencesText: "Vorkommen"
   summaryText: "Zusammenfassung"
   recurringFrequencyText: "Wiederholungshäufigkeit"
@@ -338,9 +312,9 @@
 >
 
 <addressEdit ""
-  address1Text: "Adresse 1"
-  address2Text: "Adresse 2"
-  address3Text: "Adresse 3"
+  address1Text: "Adresszeile 1"
+  address2Text: "Adresszeile 2"
+  address3Text: "Adresszeile 3"
   cityText: "Stadt"
   cityTitleText: "Stadt"
   countryText: "Land"
@@ -367,11 +341,6 @@
 <attachmentList ""
   titleText: "Anlagen"
   uploadedOnText: "Hochgeladen "
->
-
-<attachmentListHashTags ""
-  hashTagUrlText: "URL"
-  hashTagBinaryText: "Binär"
 >
 
 <attachmentMyList ""
@@ -461,7 +430,7 @@
 
 <contactDetail ""
   accountText: "Firma"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   addressText: "Adresse"
   contactTitleText: "Titel"
   createDateText: "Erstellungsdatum"
@@ -506,7 +475,7 @@
   mobileText: "Mobiltelefon"
   emailText: "E-Mail"
   webText: "Web"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   accountNameText: "Firma"
   homePhoneText: "Private Telefonnummer"
   faxText: "Fax"
@@ -550,7 +519,7 @@
   entityText: "Fehlerprotokoll"
   moreDetailsText: "Weitere Details"
   errorText: "Fehler"
-  emailSubjectText: "Fehler im Infor CRM Mobile Client"
+  emailSubjectText: "Fehler in Infor CRM Mobile Client"
   copiedSuccessText: "In die Zwischenablage kopiert"
 >
 
@@ -663,15 +632,6 @@
   email: "E-Mail"
 >
 
-<historyListHashTags ""
-  myHistoryHash: "Eigene-Historie"
-  noteHash: "Notiz"
-  phoneCallHash: "Anruf"
-  meetingHash: "Meeting"
-  personalHash: "privat"
-  emailHash: "E-Mail"
->
-
 <historyRelated ""
   regardingText: "Betreff"
   byText: "geschrieben "
@@ -698,7 +658,7 @@
   relatedNotesText: "Notizen"
   relatedAttachmentText: "Anlagen"
   relatedAttachmentTitleText: "Anlagen mit Interessenten"
-  sicCodeText: "Branchencode"
+  sicCodeText: "SIC-Branchencode"
   titleText: "Interessent"
   tollFreeText: "gebührenfrei"
   mobileText: "Mobiltelefon"
@@ -736,7 +696,7 @@
   nameText: "Name"
   notesText: "Kommentare"
   notesTitleText: "Kommentare"
-  sicCodeText: "Branchencode"
+  sicCodeText: "SIC-Branchencode"
   titleText: "Interessent"
   titleTitleText: "Titel"
   tollFreeText: "gebührenfrei"
@@ -770,7 +730,7 @@
 
 <opportunityDetail ""
   accountText: "Firma"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   estCloseText: "voraussichtlicher Abschluss"
   detailsText: "Details"
   fbarHomeTitleText: "Privat"
@@ -783,7 +743,7 @@
   potentialBaseText: "Umsatzpotenzial (Basiskurs)"
   potentialOpportunityText: "Umsatzpotenzial (Verkaufschancenkurs)"
   potentialMyRateText: "Umsatzpotenzial (eigener Kurs)"
-  probabilityText: "Wahrscheinlichkeit"
+  probabilityText: "Abschlusswahrsch."
   relatedActivitiesText: "Aktivitäten"
   relatedContactsText: "Kontakte für Verkaufschance"
   relatedHistoriesText: "Notizen/Historie"
@@ -809,7 +769,7 @@
 
 <opportunityEdit ""
   accountText: "Firma"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   estCloseText: "voraussichtlicher Abschluss"
   importSourceText: "Interessentenquelle"
   detailsText: "Details"
@@ -818,7 +778,7 @@
   opportunityTypeTitleText: "Verkaufschancentyp"
   ownerText: "Zugriffsberechtigter"
   potentialText: "Umsatzpotenzial"
-  probabilityText: "Wahrscheinlichkeit"
+  probabilityText: "Abschlusswahrsch."
   probabilityTitleText: "Wahrscheinlichkeit der Verkaufschance"
   resellerText: "Wiederverkäufer"
   statusText: "Status"
@@ -856,10 +816,10 @@
   opportunityText: "Verkaufschance"
   stageText: "Phase"
   statusOpenText: "Offen"
-  statusClosedLostText: "Abgeschlossen - Verloren"
+  statusClosedLostText: "Abgeschlossen - Misserfolg"
   statusClosedWonText: "Abgeschlossen - Erfolg"
   salesProcessText: "Phase durch Verkaufsprozess gesperrt:"
-  probabilityText: "Wahrscheinlichkeit"
+  probabilityText: "Abschlusswahrsch."
   probabilityTitleText: "Wahrscheinlichkeit der Verkaufschance"
   potentialText: "Umsatzpotenzial"
 >
@@ -877,7 +837,7 @@
   issuesText: "Probleme"
   competitorNameText: "Bevorzugter Mitbewerber"
   removeContactTitleText: "Kontakt entfernen"
-  confirmDeleteText: "\"${0}\" von der Verkaufschance entfernen?"
+  confirmDeleteText: ""${0}" von der Verkaufschance entfernen?"
   contactText: "Kontakt"
   entityText: "Kontakt für Verkaufschance"
 >
@@ -967,7 +927,7 @@
 <ticketDetail ""
   accountText: "Firma"
   areaText: "Bereich"
-  assignedDateText: "zugewiesenes Datum"
+  assignedDateText: "Zuweisungsdatum"
   assignedToText: "zugewiesen zu"
   completedByText: "abgeschlossen von"
   categoryText: "Kategorie"
@@ -987,12 +947,12 @@
   sourceText: "Quelle"
   statusText: "Status"
   subjectText: "Betreff"
-  ticketIdText: "Ticket-Nummer"
+  ticketIdText: "Ticketnummer"
   titleText: "Ticket"
   urgencyText: "Dringlichkeit"
   scheduleActivityText: "Aktivität planen"
   moreDetailsText: "Weitere Details"
-  relatedTicketActivitiesText: "Ticket-Aktivitäten"
+  relatedTicketActivitiesText: "Ticketaktivitäten"
   loadingText: "Ladevorgang läuft"
   entityText: "Ticket"
 >
@@ -1000,7 +960,7 @@
 <ticketEdit ""
   accountText: "Firma"
   areaText: "Bereich"
-  assignedDateText: "zugewiesenes Datum"
+  assignedDateText: "Zuweisungsdatum"
   assignedToText: "zugewiesen zu"
   categoryText: "Kategorie"
   contactText: "Kontakt"
@@ -1020,11 +980,11 @@
   sourceTitleText: "Quelle"
   statusText: "Status"
   subjectText: "Betreff"
-  ticketAreaTitleText: "Ticket-Bereich"
-  ticketCategoryTitleText: "Ticket-Kategorie"
-  ticketIdText: "Ticket-Nummer"
-  ticketIssueTitleText: "Ticket-Ausstellung"
-  ticketStatusTitleText: "Ticket-Status"
+  ticketAreaTitleText: "Ticketbereich"
+  ticketCategoryTitleText: "Ticketkategorie"
+  ticketIdText: "Ticketnummer"
+  ticketIssueTitleText: "Ticketausstellung"
+  ticketStatusTitleText: "Ticketstatus"
   ticketUrgencyTitleText: "Dringlichkeit des Tickets"
   titleText: "Ticket"
   urgencyText: "Dringlichkeit"
@@ -1053,7 +1013,7 @@
 >
 
 <ticketActivityDetail ""
-  titleText: "Ticket-Aktivität"
+  titleText: "Ticketaktivität"
   accountText: "Firma"
   contactText: "Kontakt"
   typeText: "Typ"
@@ -1069,17 +1029,17 @@
   totalPartsText: "Teile gesamt"
   totalFeeText: "Gebühr gesamt"
   activityDescriptionText: "Kommentare"
-  ticketNumberText: "Ticket-Nummer"
+  ticketNumberText: "Ticketnummer"
   userText: "Benutzer"
-  entityText: "Ticket-Aktivität"
-  completeTicketText: "Ticket-Aktivität abschließen"
+  entityText: "Ticketaktivität"
+  completeTicketText: "Ticketaktivität abschließen"
   moreDetailsText: "Weitere Details"
   relatedItemsText: "Zugehörige Elemente"
-  relatedTicketActivityItemText: "Ticket-Aktivität (Teile)"
+  relatedTicketActivityItemText: "Ticketaktivitätsteile"
 >
 
 <ticketActivityEdit ""
-  titleText: "Ticket-Aktivität bearbeiten"
+  titleText: "Ticketaktivität bearbeiten"
   activityTypeText: "Typ"
   activityTypeTitleText: "Typ"
   publicAccessText: "Öffentlicher Zugriff"
@@ -1091,7 +1051,7 @@
 >
 
 <ticketActivityList ""
-  titleText: "Ticket-Aktivitäten"
+  titleText: "Ticketaktivitäten"
 >
 
 <ticketActivityRateLookup ""
@@ -1099,17 +1059,17 @@
 >
 
 <ticketActivityItemDetail ""
-  titleText: "Ticket-Aktivität (Teil)"
+  titleText: "Ticketaktivitätsteil"
   productNameText: "Produkt"
   skuText: "SKU"
   serialNumberText: "Seriennummer"
   itemAmountText: "Preis"
   itemDescriptionText: "Beschreibung"
-  entityText: "Ticket-Aktivitätselement"
+  entityText: "Ticketaktivitätsartikel"
 >
 
 <ticketActivityItemList ""
-  titleText: "Ticket-Aktivität (Teile)"
+  titleText: "Ticketaktivitätsteile"
 >
 
 <userCalendarAccessList ""
@@ -1152,7 +1112,7 @@
   accountSubTypeTitleText: "Firmen-Untertyp"
   accountText: "Firma"
   accountTypeTitleText: "Firmentyp"
-  acctMgrText: "Acct. Mgr."
+  acctMgrText: "Account-Manager"
   addressText: "Adresse"
   contactTitleText: "Titel"
   descriptionText: "Beschreibung"
@@ -1249,20 +1209,25 @@
   firstNameText: "Vorname"
   middleNameText: "Zweiter Vorname"
   lastNameText: "Nachname"
-  prefixText: "Präfix"
-  prefixTitleText: "Namenspräfix"
-  suffixText: "Suffix"
-  suffixTitleText: "Namenssuffix"
+  prefixText: "Anrede/Titel"
+  prefixTitleText: "Anrede/Titel zum Namen"
+  suffixText: "Namenszusatz"
+  suffixTitleText: "Namenszusatz zum Namen"
 >
 
 <settings ""
-  clearLocalStorageTitleText: "Speicher löschen"
+  clearLocalStorageTitleText: "Speicher leeren"
   clearAuthenticationTitleText: "Gespeicherte Anmeldeinformationen löschen"
   errorLogTitleText: "Fehlerprotokolle anzeigen"
-  localStorageClearedText: "Lokaler Speicher erfolgreich gelöscht."
+  localStorageClearedText: "Lokaler Speicher erfolgreich geleert."
   credentialsClearedText: "Gespeicherte Anmeldeinformationen erfolgreich gelöscht."
   titleText: "Einstellungen"
   offlineOptionsText: "Offline-Optionen"
+  use24HourClockText: "24-Stunden-Uhrzeitformat"
+  use12HourClockText: "12-Stunden-Uhrzeitformat"
+  confirm24HourClockMessage: "Wenn Sie die Uhrzeit auf das 24-Stunden-Format umstellen, muss die Anwendung neu gestartet werden. Möchten Sie fortfahren?"
+  confirm12HourClockMessage: "Wenn Sie die Uhrzeit auf das 12-Stunden-Format umstellen, muss die Anwendung neu gestartet werden. Möchten Sie fortfahren?"
+  confirmClearLocalStorageMessage: "Wenn Sie den Speicher leeren, muss die Anwendung neu gestartet werden. Fortfahren?"
 >
 
 <speedSearchList ""
@@ -1303,6 +1268,7 @@
   offlineInitDataText: "Offline-Daten werden initialisiert"
   offlineInitErrorText: "Bei der Offline-Initialisierung ist ein Fehler aufgetreten. Alle Offline-Optionen werden deaktiviert."
   appStateInitErrorText: "Bei der Anwendungsinitialisierung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+  mingleAuthErrorText: "SSO-Anmeldung bei Mingle fehlgeschlagen. Der Zugriff wurde verweigert."
 >
 
 <applicationModule ""
@@ -1321,10 +1287,10 @@
   averageTime: "Durchschn. Zeit als Kunde"
   totalAccounts: "Firmen gesamt"
   totalOpportunities: "Verkaufschancen gesamt"
-  potential: "Verkaufspotenzial gesamt"
-  montlyPotential: "Durchschnittliches Verkaufspotenzial pro Monat"
+  potential: "Umsatzpotenzial gesamt"
+  montlyPotential: "Durchschnittliches Umsatzpotenzial pro Monat"
   totalTickets: "Tickets gesamt"
-  averageOpen: "Status \"Offen\" - Durchschnittsdauer"
+  averageOpen: "Status "Offen" - Durchschnittsdauer"
   totalContacts: "Kontakte gesamt"
   totalLeads: "Interessenten gesamt"
   totalHistory: "Historie gesamt"
@@ -1333,6 +1299,7 @@
   calls: "Anrufe"
   todos: "Aufgaben"
   personal: "Privat"
+  totalRecentlyViewed: "Zuletzt angezeigt (alles)"
 >
 
 <fileManager ""
@@ -1374,7 +1341,7 @@
   second: "2."
   third: "3."
   fourth: "4."
-  last: "letzte(r/s)"
+  last: "letzten"
 >
 
 <speedSearchWidget ""
@@ -1487,8 +1454,10 @@
   sizeAVGText: "Durchschn."
   oldestText: "Älteste"
   newestText: "Neueste"
-  clearDataText: "Löschen"
-  olderThanText: "Offline-Daten löschen älter als"
+  clearDataText: "Alle löschen"
+  clearRecentText: "Zuletzt angezeigte löschen"
+  clearBriefcasedText: "Aktentasche leeren"
+  olderThanText: "Offline-Daten löschen, die älter sind als"
   daysText: "Tage"
   showUsageText: "Verwendung anzeigen"
   processingText: "Verarbeitung läuft, bitte warten."
@@ -1507,4 +1476,51 @@
 <mingle ""
   refreshTitle: "Aktualisieren"
   refreshText: "Der Ming.le-Zugriff wird in Kürze aktualisiert. Wenn Sie gerade Daten eingeben oder bearbeiten, speichern Sie jetzt Ihre Änderungen, damit diese nicht verloren gehen."
+>
+
+<validators ""
+  existsText: "Das Feld '${2}' muss einen Wert enthalten."
+  nameText: "In Feld '${2}' muss ein Vor- und ein Nachname angegeben werden."
+  notEmptyText: "Das Feld '${2}' darf nicht leer sein."
+  hasText: "Das Feld '${2}' muss Text enthalten."
+  isNumberText: "Der Wert '${0}' ist keine gültige Zahl."
+  isCurrencyText: "Der Wert '${0}' ist keine gültige Zahl für eine Währung."
+  int32Text: "Der Wert im Feld '${2}' überschreitet den zulässigen numerischen Bereich."
+  maxLengthText: "Der Wert im Feld '${2}' überschreitet die zulässige Länge."
+  dateRangeText: "Der Wert im Feld '${2}' liegt nicht im zulässigen Datumsbereich."
+>
+
+<activityListHashTags ""
+  alarmText: "#Alarm"
+  recurringText: "#wiederkehrend"
+  timelessText: "#ohneZeitangabe"
+  todayText: "#heute"
+  thisWeekText: "#dieseWoche"
+  yesterdayText: "#gestern"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "#Alarm"
+  hashTagUnconfirmedText: "#StatusUnbestätigt"
+  hashTagAcceptedText: "#StatusAkzeptiert"
+  hashTagDeclinedText: "#StatusAbgelehnt"
+  hashTagRecurringText: "#wiederkehrend"
+  hashTagTimelessText: "#ohneZeitangabe"
+  hashTagTodayText: "#heute"
+  hashTagThisWeekText: "#dieseWoche"
+  hashTagYesterdayText: "#gestern"
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "#URL"
+  hashTagBinaryText: "#binär"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "#EigeneHistorie"
+  noteHash: "#Notiz"
+  phoneCallHash: "#Telefonanruf"
+  meetingHash: "#Meeting"
+  personalHash: "#privat"
+  emailHash: "#E-Mail"
 >
