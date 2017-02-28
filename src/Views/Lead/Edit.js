@@ -90,7 +90,7 @@ const __class = declare('crm.Views.Lead.Edit', [Edit], {
       property: 'Company',
       type: 'text',
       maxTextLength: 128,
-      validator: validator.exceedsMaxTextLength,
+      validator: [validator.exceedsMaxTextLength, validator.exists],
     }, {
       label: this.webText,
       name: 'WebAddress',
