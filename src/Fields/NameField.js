@@ -25,7 +25,7 @@ const control = declare('crm.Fields.NameField', [EditorField], {
     </div>`,
   ]),
 
-  iconClass: 'edit',
+  iconClass: 'quick-edit',
 
   createNavigationOptions: function createNavigationOptions() {
     const options = this.inherited(arguments);
