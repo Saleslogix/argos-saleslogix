@@ -90,9 +90,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   activityIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-    '<button class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
-    '</button>',
-    '</div>',
+    `<button type="button" class="btn-icon hide-focus">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityIconByType[$.Type] %}"></use>
+      </svg>
+    </button></div>`,
   ]),
   activityHeaderTemplate: new Simplate([
     '<div class="activityEntry__header">',
@@ -158,8 +160,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   eventIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-    '<button class="list-item-selector button {%= $$.eventIcon %}">',
-    '</button>',
+    `<button type="button" class="btn-icon hide-focus">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.eventIcon %}"></use>
+      </svg>
+    </button>`,
     '</div>',
   ]),
   eventMoreTemplate: new Simplate([
@@ -238,16 +243,16 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _refreshAdded: false,
 
   activityIconByType: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-calendar-o',
-    atPersonal: 'fa fa-check-square-o',
-    atQuestion: 'fa fa-question',
-    atNote: 'fa fa-calendar-o',
-    atEMail: 'fa fa-envelope',
+    atToDo: 'bullet-list',
+    atPhoneCall: 'phone',
+    atAppointment: 'calendar',
+    atLiterature: 'calendar',
+    atPersonal: 'checkbox',
+    atQuestion: 'help',
+    atNote: 'calendar',
+    atEMail: 'mail',
   },
-  eventIcon: 'fa fa-calendar-o',
+  eventIcon: 'calendar',
 
   queryOrderBy: 'StartDate asc',
   querySelect: [
@@ -319,7 +324,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   createActivityRows: function createActivityRows(entries = [], day) {
     const count = entries.length;
-
     if (count > 0) {
       const activityDocfrag = document.createDocumentFragment();
       const eventDocfrag = document.createDocumentFragment();
