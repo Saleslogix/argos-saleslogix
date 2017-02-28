@@ -3,7 +3,6 @@ import convert from 'argos/Convert';
 import declare from 'dojo/_base/declare';
 import domAttr from 'dojo/dom-attr';
 import domClass from 'dojo/dom-class';
-import query from 'dojo/query';
 import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
 import on from 'dojo/on';
@@ -15,6 +14,7 @@ import Utility from '../../Utility';
 import getResource from 'argos/I18n';
 
 import moment from 'moment';
+import $ from 'jquery';
 
 const resource = getResource('calendarView');
 const dtFormatResource = getResource('calendarViewDateTimeFormat');
@@ -177,13 +177,15 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '</li>',
   ]),
   weekSelectTemplate: new Simplate([
-    '<div class="toggle toggle-horizontal calendar__weekToggle">',
-    '<span class="thumb horizontal weekToggle__thumb"></span>',
-    '<span class="toggleOn weekToggle__on display-none">{%= $.weekText %}</span>',
-    '<span class="toggleOff weekToggle__off">{%= $.dayText %}</span>',
-    '</div>',
+    `<div class="switch">
+        <input
+          type="checkbox"
+          name="weekToggleNode"
+          id="weekToggleNode"
+          class="switch" />
+        <label class="toggleWeekOrDay" for="weekToggleNode">{%= $.dayText %}</label>
+      </div>`,
   ]),
-
   attributeMap: {
     calendarContent: {
       node: 'contentNode',
@@ -544,7 +546,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       domConstruct.place(this._calendar.domNode, this.calendarNode);
       const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
       domConstruct.place(toggle, this._calendar.footerNode, 'last');
-      on(toggle, 'click', this.toggleMultiSelect.bind(this));
+      on(toggle.children[0], 'click', this.toggleMultiSelect.bind(this));
       this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
@@ -632,16 +634,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   toggleMultiSelect: function toggleMultiSelect({ currentTarget }) {
     this._showMulti = !this._showMulti;
-    const toggleOnNode = query('.toggleOn', currentTarget).shift();
-    const toggleOffNode = query('.toggleOff', currentTarget).shift();
-
-    if (toggleOnNode && toggleOffNode) {
-      domClass.toggle(toggleOnNode, 'display-none', !this._showMulti);
-      domClass.toggle(toggleOffNode, 'display-none', this._showMulti);
+    if (this._showMulti) {
+      $(currentTarget).next().html(this.weekText);
+    } else {
+      $(currentTarget).next().html(this.dayText);
     }
 
     this._calendar.toggleSelectWeek();
-    domClass.toggle(currentTarget, 'toggleStateOn');
     domConstruct.empty(this.activityContentNode);
     domConstruct.empty(this.eventContentNode);
     this.changeDayActivities();
