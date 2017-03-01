@@ -182,6 +182,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       expose: true,
       canRedirectTo: true,
     }));
+    this.registerView(new RecentlyViewedList({
+      id: 'recently_viewed_list_offline',
+      expose: false,
+      canRedirectTo: true,
+    }));
     this.registerView(new BriefcaseList({
       expose: true,
       canRedirectTo: true,

@@ -51,6 +51,9 @@ const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     'Stage',
     'status',
   ],
+  queryInclude: [
+    '$permissions',
+  ],
   init: function init() {
     this.inherited(arguments);
   },
