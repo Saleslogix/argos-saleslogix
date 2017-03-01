@@ -60,8 +60,8 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   searchView: 'speedsearch_list',
 
   initSoho: function initSoho() {
-    const accordion = $('.accordion.panel', this.domNode);
-    accordion.on('selected', (evt, header) => {
+    this.inherited(arguments);
+    this.accordion.element.on('selected', (evt, header) => {
       // Fix up the event target to the element with our data-action attribute.
       evt.target = $('a', header).get(0);
       this._initiateActionFromEvent(evt);

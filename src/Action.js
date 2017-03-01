@@ -17,12 +17,16 @@ const resource = getResource('action');
 const __class = lang.setObject('crm.Action', {
   calledText: resource.calledText,
   emailedText: resource.emailedText,
+  activityTypeText: {
+    atPhoneCall: resource.phoneCall,
+    atEMail: resource.email,
+  },
 
   navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete) {
     const view = App.getView('history_edit');
     if (view) {
       view.show({
-        title: entry.Title || null,
+        title: this.activityTypeText[entry.Type] || null,
         template: {},
         entry,
         insert: true,
