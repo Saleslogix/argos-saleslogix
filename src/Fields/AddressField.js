@@ -20,7 +20,7 @@ const control = declare('crm.Fields.AddressField', [EditorField], {
       <label data-dojo-attach-point="inputNode"></label>
     </div>`,
   ]),
-  iconClass: 'edit',
+  iconClass: 'quick-edit',
 
   attributeMap: {
     addressContent: {
