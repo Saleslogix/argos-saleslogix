@@ -17,6 +17,7 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import 'dojo/sniff';
 import MingleUtility from './MingleUtility';
+import PicklistService from './PicklistService';
 
 const resource = getResource('application');
 
@@ -105,6 +106,7 @@ const __class = declare('crm.Application', [Application], {
     if (has('ie') && has('ie') < 9) {
       window.location.href = 'unsupported.html';
     }
+    this.picklistService = PicklistService;
 
     this.inherited(arguments);
     this._loadNavigationState();
