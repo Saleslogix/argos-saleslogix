@@ -39,7 +39,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', null, {
    */
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
-    '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
+    '<div class="chart-container" data-dojo-attach-point="contentNode"></div>',
     '</div>',
   ]),
   onTransitionTo: function onTransitionTo() {
