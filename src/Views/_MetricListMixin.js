@@ -41,7 +41,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const metricList = domConstruct.toDom(this.metricTemplate.apply(this));
     this.metricNode = domConstruct.toDom(this.metricWrapper.apply(this));
     domConstruct.place(this.metricNode, metricList, 'only');
-    domConstruct.place(metricList, this.scrollerNode, 'first');
+    domConstruct.place(metricList, this.domNode, 'first');
   },
   destroyWidgets: function destroyWidgets() {
     array.forEach(this.metricWidgets, (widget) => {
