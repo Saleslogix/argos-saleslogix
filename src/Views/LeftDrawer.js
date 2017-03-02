@@ -23,7 +23,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   enablePullToRefresh: false,
   rowTemplate: new Simplate([
     '<div class="accordion-header" role="presentation">',
-    '<a data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}><span>{%: $.title %}</span></a>',
+    '<a href="#" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}><span>{%: $.title %}</span></a>',
     '</div>',
   ]),
 
