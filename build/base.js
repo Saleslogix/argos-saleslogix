@@ -6,7 +6,7 @@ module.exports = function() {
   return {
     entry: {
       main: './src/main.js',
-      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'page', 'L20n', 'redux', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
     },
     output: {
       path: path.resolve(__dirname, '../deploy/dist'),
@@ -18,10 +18,11 @@ module.exports = function() {
     },
     externals: {
       jquery: 'jQuery',
+      d3: 'd3',
     },
     module: {
       noParse: [
-        /sdata-client|canvas2image|deepdiff|chart|page|L20n/,
+        /sdata-client|canvas2image|deepdiff|page|L20n/,
       ],
       rules: [{
         test: /\.jsx?$/,
@@ -76,7 +77,6 @@ module.exports = function() {
         'Mobile/SalesLogix': path.resolve(__dirname, '../src'),
         L20n: path.resolve(__dirname, '../../../argos-sdk/libraries/l20n/l20n.js'),
         page: path.resolve(__dirname, '../../../argos-sdk/libraries/pagejs-1.6.1/page.js'),
-        chart: path.resolve(__dirname, '../../../argos-sdk/libraries/Chart.min.js'),
         deepdiff: path.resolve(__dirname, '../../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js'),
         canvas2image: path.resolve(__dirname, '../../../argos-sdk/libraries/canvas2image.js'),
         'sdata-client': path.resolve(__dirname, '../../../argos-sdk/libraries/sdata/sdata-client-debug.js'),

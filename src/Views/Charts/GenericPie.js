@@ -73,10 +73,10 @@ const __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
 
     const ctx = this.contentNode.getContext('2d');
 
-    const chart = new window.Chart(ctx);
+    const chart = new Chart(ctx);
 
     // Ensure the chart has the ability to render this type
-    this.renderAs = window.Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
+    this.renderAs = Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
 
     this.chart = chart[this.renderAs](data, this.chartOptions);
     this.showLegend();

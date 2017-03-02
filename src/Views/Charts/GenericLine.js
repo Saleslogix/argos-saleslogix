@@ -72,7 +72,7 @@ const __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
 
     const ctx = this.contentNode.getContext('2d');
 
-    this.chart = new window.Chart(ctx).Line(data, this.chartOptions); // eslint-disable-line
+    this.chart = new Chart(ctx).Line(data, this.chartOptions); // eslint-disable-line
   },
 });
 

@@ -19,7 +19,6 @@ module.exports = {
     "icboe": false,
     "Mobile": false,
     "Simplate": false,
-    "Chart": false,
     "ReUI": false,
     "module": false,
     "Base64": false,
