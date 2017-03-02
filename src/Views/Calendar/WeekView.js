@@ -80,7 +80,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '<div class="nav-bar">',
     '<button data-tool="next" data-action="getNextWeekActivities" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
     '<button data-tool="prev" data-action="getPrevWeekActivities" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
-    '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
+    '<h4 class="date-text" data-dojo-attach-point="dateNode"></h4>',
     '</div>',
   ]),
   groupTemplate: new Simplate([
@@ -125,12 +125,12 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %}</h3>',
-    '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %}</p>',
+    '<p class="listview-subheading">{%= $$.nameTemplate.apply($) %}</p>',
   ]),
   eventItemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
-    '<h4>{%! $$.eventNameTemplate %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>',
+    '<p class="listview-subheading">{%! $$.eventNameTemplate %}</p>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
@@ -154,7 +154,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '</div>',
   ]),
   noDataTemplate: new Simplate([
-    '<div class="no-data"><h3>{%= $.noDataText %}</h3></div>',
+    '<div class="no-data"><p>{%= $.noDataText %}</p></div>',
   ]),
   eventRemainingContentNode: null,
   eventContentNode: null,

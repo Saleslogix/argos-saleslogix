@@ -14,7 +14,7 @@ const resource = getResource('locPicker');
 const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
   ]),
   // overriding the stock rowTemplate with our custom key and descriptor
   rowTemplate: new Simplate([

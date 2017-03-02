@@ -6,8 +6,8 @@ Since we need a base list view in order to create a related one make a new List 
 
         //Template
         itemTemplate: new Simplate([
-            '<h3>{%: $.NameLF %}</h3>',
-            '<h4>{%: $.AccountName %}</h4>'
+            '<p class="listview-heading">{%: $.NameLF %}</p>',
+            '<p class="listview-subheading">{%: $.AccountName %}</p>'
         ]),
 
         //Localization

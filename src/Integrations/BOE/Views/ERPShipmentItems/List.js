@@ -16,15 +16,15 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.List', [Lis
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h3>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
     '{% if ($.SalesOrder) { %}',
-    '<h4><label class="group-label">{%: $$.salesOrderText %}</label> {%: $.SalesOrder.SalesOrderNumber %}</h4>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.salesOrderText %}</label> {%: $.SalesOrder.SalesOrderNumber %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</h4>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</p>',
     '{% if ($.ErpShipment) { %}',
-    '<h4><label class="group-label">{%: $$.shipmentIDText %}</label> {%: $.ErpShipment.ErpExtId %}</h4>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.shipmentIDText %}</label> {%: $.ErpShipment.ErpExtId %}</p>',
     ' {% } %}',
-    '<h4><label class="group-label">{%: $$.shippedQuantityText %}</label> {%: $.ErpShippedQuantity %} {%: $.ErpShippedUOM %}</h4>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.shippedQuantityText %}</label> {%: $.ErpShippedQuantity %} {%: $.ErpShippedUOM %}</p>',
   ]),
 
   // Localization

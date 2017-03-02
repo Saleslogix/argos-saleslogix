@@ -16,8 +16,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuotePersons.List', [List, _
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
-    '<h4><label class="group-label">{%: $$.personNameText %}</label> {%: $.Person.Name %}</h4>',
-    '<h4><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.Quote.QuoteNumber %}</h4>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.personNameText %}</label> {%: $.Person.Name %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.Quote.QuoteNumber %}</p>',
   ]),
 
   // Localization

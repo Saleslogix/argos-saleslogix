@@ -16,9 +16,9 @@ const resource = getResource('ticketActivityItemList');
 const __class = declare('crm.Views.TicketActivityItem.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Product.Name %}</h3>',
-    '<h4>{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</h4>',
-    '<h4>{%: $.ItemDescription %}</h4>',
+    '<p class="listview-heading">{%: $.Product.Name %}</p>',
+    '<p class="listview-subheading">{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</p>',
+    '<p class="listview-subheading">{%: $.ItemDescription %}</p>',
   ]),
 
   // Localization

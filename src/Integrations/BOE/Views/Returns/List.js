@@ -14,7 +14,7 @@ const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _Right
   // Templates
   // TODO: Need template from PM
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
+    '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
 
   // Localization

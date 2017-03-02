@@ -16,12 +16,12 @@ const resource = getResource('opportunityProductList');
 const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Product.Name %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.Product.Name %}</p>',
+    '<p class="listview-subheading">',
     '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
     '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',
-    '</h4>',
-    '<h4>',
+    '</p>',
+    '<p class="listview-subheading">',
     '{%: $.Quantity %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
     '({%: crm.Format.percent($.Discount) %}) = ',
     '<strong>',
@@ -31,7 +31,7 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
     '{%: crm.Format.currency($.ExtendedPrice) %}',
     '{% } %}',
     '</strong>',
-    '</h4>',
+    '</p>',
   ]),
 
   // Localization

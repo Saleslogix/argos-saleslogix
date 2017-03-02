@@ -39,12 +39,12 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
     '<div class="user-icon">{%: crm.Format.formatUserInitial($.UserName) %}</div>',
   ]),
   relatedItemHeaderTemplate: new Simplate([
-    '<h4 ><strong>{%: $$.getDescription($) %} </strong></h4>',
-    '<h4>{%: crm.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: crm.Format.relativeDate($.ModifyDate, false) %}</h4>',
+    '<p class="listview-subheading"><strong>{%: $$.getDescription($) %} </strong></p>',
+    '<p class="listview-subheading">{%: crm.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: crm.Format.relativeDate($.ModifyDate, false) %}</p>',
   ]),
   relatedItemDetailTemplate: new Simplate([
     '<div class="note-text-wrap">',
-    '<h4>{%: $.Notes %} ... </h4>',
+    '<p class="listview-subheading">{%: $.Notes %} ... </p>',
     '</div>',
   ]),
   relatedViewHeaderTemplate: new Simplate([

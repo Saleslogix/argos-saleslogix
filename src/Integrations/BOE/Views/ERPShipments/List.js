@@ -20,17 +20,17 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.shipmentIDLabelText %}</label> {%: $.ErpExtId %}</h3>',
-    '<h4> {% if ($.Account) { %}<label class="group-label"> {%: $$.accountLabelText %}</label> {%: $.Account.AccountName %} {% } %}</h4>',
-    '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.ErpStatus %}</h4>',
-    '<h4> {% if ($.DatePromised) { %}<label class="group-label">{%: $$.datePromisedLabelText %}</label> {%: $$.formatter.date($.DatePromised) %} {% } %}</h4>',
-    '<h4><label class="group-label"> {%: $$.totalBaseAmountText %} </label>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.shipmentIDLabelText %}</label> {%: $.ErpExtId %}</p>',
+    '<p class="listview-subheading"> {% if ($.Account) { %}<label class="group-label"> {%: $$.accountLabelText %}</label> {%: $.Account.AccountName %} {% } %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.ErpStatus %}</p>',
+    '<p class="listview-subheading"> {% if ($.DatePromised) { %}<label class="group-label">{%: $$.datePromisedLabelText %}</label> {%: $$.formatter.date($.DatePromised) %} {% } %}</p>',
+    '<p class="listview-subheading"><label class="group-label"> {%: $$.totalBaseAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalBaseAmount, $.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label"> {%: $$.totalAmountText %} </label>',
+    '</p>',
+    '<p class="listview-subheading"><label class="group-label"> {%: $$.totalAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalAmount, $.CurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
+    '</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>',
   ]),
 
   // Localization

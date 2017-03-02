@@ -21,8 +21,8 @@ const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
 const __class = declare('crm.Views.TicketActivity.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Ticket.TicketNumber %}</h3>',
-    '<h4>{%: crm.Format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</h4>',
+    '<p class="listview-heading">{%: $.Ticket.TicketNumber %}</p>',
+    '<p class="listview-subheading">{%: crm.Format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</p>',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',
     '{%: $.ActivityDescription %}',

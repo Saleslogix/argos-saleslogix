@@ -177,7 +177,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   headerRowTemplate: new Simplate([
     '<li data-descriptor="{%: $.day %}">',
     '<div class="dayHeader">',
-    '<h3 class="header__title">{%: $.day %}</h3>',
+    '<h4 class="header__title">{%: $.day %}</h4>',
     '</div>',
     '</li>',
   ]),

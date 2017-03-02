@@ -14,8 +14,8 @@ const resource = getResource('userList');
 const __class = declare('crm.Views.User.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
-    '<h4>{%: $.UserInfo.Title %}</h4>',
+    '<p class="listview-heading">{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</p>',
+    '<p class="listview-subheading">{%: $.UserInfo.Title %}</p>',
   ]),
 
   // Localization

@@ -98,12 +98,12 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %}</h3>',
-    '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %}</p>',
+    '<p class="listview-subheading">{%= $$.nameTemplate.apply($) %}</p>',
   ]),
   eventItemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
-    '<h4>{%! $$.eventNameTemplate %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>',
+    '<p class="listview-subheading">{%! $$.eventNameTemplate %}</p>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
@@ -130,7 +130,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     '<div class="nav-bar">',
     '<button data-tool="next" data-action="getNextDay" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
     '<button data-tool="prev" data-action="getPrevDay" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
-    '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
+    '<h4 class="date-text" data-dojo-attach-point="dateNode"></h4>',
     '</div>',
   ]),
   eventMoreTemplate: new Simplate([

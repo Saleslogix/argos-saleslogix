@@ -14,8 +14,8 @@ const resource = getResource('ticketActivityRateLookup');
 const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',
-    '<h4>{%: $.TypeDescription %}</h4>',
+    '<p class="listview-heading">{%: $.RateTypeCode %} - {%: $.Amount %}</p>',
+    '<p class="listview-subheading">{%: $.TypeDescription %}</p>',
   ]),
 
   // Localization

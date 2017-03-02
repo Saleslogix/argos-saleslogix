@@ -27,20 +27,20 @@ const resource = getResource('erpInvoiceItemsList');
 
 const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h3>',
-    '<h4><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</h4>',
-    '<h4><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</h4>',
-    '<h4><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h4>',
-    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
-    '<h4><label class="group-label">{%: $$.priceText %}</label> {%: $.Price %}</h4>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</p>',
+    '<p class="listview-subheading"><label class="group-label">{%: $$.priceText %}</label> {%: $.Price %}</p>',
     '{% if ($.ErpLineTotalAmount) { %}',
-    '<h4> <label class="group-label">{%: $$.amountText %}</label> <strong>',
+    '<p class="listview-subheading"> <label class="group-label">{%: $$.amountText %}</label> <strong>',
     '{% if (App.hasMultiCurrency() && $.ErpInvoice.CurrencyCode) { %}',
     '{%: crm.Format.multiCurrency($.ErpLineTotalAmount, $.ErpInvoice.CurrencyCode) %}',
     '{% } else { %}',
     '{%: crm.Format.currency($.ErpLineTotalAmount) %}',
     '{% } %}',
-    '</strong></h4>',
+    '</strong></p>',
     '{% } %}',
   ]),
 

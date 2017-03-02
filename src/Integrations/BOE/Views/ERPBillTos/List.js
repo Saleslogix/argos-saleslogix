@@ -14,8 +14,8 @@ const resource = getResource('erpBillTosList');
 const __class = declare('crm.Integrations.BOE.Views.ErpBillTos.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
-    '<div class="h4 address">{%: $.Address.FullAddress %}</div>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
+    '<p class="listview-heading address">{%: $.Address.FullAddress %}</p>',
   ]),
 
   // Localization

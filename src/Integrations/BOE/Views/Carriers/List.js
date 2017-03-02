@@ -10,8 +10,8 @@ const resource = getResource('carriersList');
 const __class = declare('crm.Integrations.BOE.Views.Carriers.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.CarrierName %}</h3>',
-    '<h4>{%: $.LogicalId %}</h4>',
+    '<p class="listview-heading">{%: $.CarrierName %}</p>',
+    '<p class="listview-subheading">{%: $.LogicalId %}</p>',
   ]),
 
   // Localization

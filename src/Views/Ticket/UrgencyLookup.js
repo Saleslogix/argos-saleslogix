@@ -17,7 +17,7 @@ const __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Description %}</h3>',
+    '<p class="listview-heading">{%: $.Description %}</p>',
   ]),
 
   // View Properties

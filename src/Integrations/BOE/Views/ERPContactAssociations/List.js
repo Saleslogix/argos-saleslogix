@@ -14,8 +14,8 @@ const resource = getResource('erpContactAssociationsList');
 const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Contact.NameLF %}</h3>',
-    '<h4>{%: $.Account.AccountName %}</h4>',
+    '<p class="listview-heading">{%: $.Contact.NameLF %}</p>',
+    '<p class="listview-subheading">{%: $.Account.AccountName %}</p>',
   ]),
 
   // Localization

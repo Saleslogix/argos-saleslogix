@@ -16,10 +16,10 @@ const resource = getResource('productProgramList');
 const __class = declare('crm.Views.ProductProgram.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Program %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.Program %}</p>',
+    '<p class="listview-subheading">',
     '{%: $.Price %}',
-    '</h4>',
+    '</p>',
   ]),
 
   // Localization

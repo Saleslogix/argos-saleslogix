@@ -34,16 +34,16 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.AccountName %}</h3>',
-    '<h4>{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</h4>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.AccountName %}</p>',
+    '<p class="listview-subheading">{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</p>',
+    '<p class="listview-subheading">',
     '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}',
-    '</h4>',
-    '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</h4>',
+    '</p>',
+    '<p class="listview-subheading">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>',
     '{% if ($.MainPhone) { %}',
-    '<h4>',
+    '<p class="listview-subheading">',
     '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
-    '</h4>',
+    '</p>',
     '{% } %}',
   ]),
   itemRowContainerTemplate: new Simplate([

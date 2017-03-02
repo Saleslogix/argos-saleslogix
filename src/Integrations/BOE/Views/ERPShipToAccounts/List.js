@@ -14,8 +14,8 @@ const resource = getResource('erpShipToAccountsList');
 const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.ErpShipTo.Name %}</h3>',
-    '<div class="h4 address">{%: $.ErpShipTo.Address.FullAddress %}</div>',
+    '<p class="listview-heading">{%: $.ErpShipTo.Name %}</p>',
+    '<p class="listview-subheading address">{%: $.ErpShipTo.Address.FullAddress %}</p>',
   ]),
 
   // Localization

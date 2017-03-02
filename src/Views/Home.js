@@ -29,7 +29,7 @@ var __class = declare('crm.Views.Home', [GroupedList], {
     '</li>'
   ]),
   itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>'
+    '<p class="listview-heading">{%: $.title %}</p>'
   ]),
 
   //Localization

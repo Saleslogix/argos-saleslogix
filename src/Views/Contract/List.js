@@ -14,8 +14,8 @@ const resource = getResource('contractList');
 const __class = declare('crm.Views.Contract.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
-    '<h4>{%= $.ReferenceNumber %}</h4>',
+    '<p class="listview-heading">{%= $.Account ? $.Account.AccountName : "" %}</p>',
+    '<p class="listview-subheading">{%= $.ReferenceNumber %}</p>',
   ]),
 
   // Localization

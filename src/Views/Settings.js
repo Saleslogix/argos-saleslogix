@@ -27,7 +27,7 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   ]),
 
   itemTemplate: new Simplate([
-    '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>',
+    '<p class="listview-heading" data-action="{%= $.action %}">{%: $.title %}</p>',
   ]),
 
   itemRowContainerTemplate: new Simplate([

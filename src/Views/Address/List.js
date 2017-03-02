@@ -22,8 +22,8 @@ const resource = getResource('addressList');
 const __class = declare('crm.Views.Address.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
-    '<h4>{%= crm.Format.address($, true) %}</h4>',
+    '<p class="listview-heading">{%: $.$descriptor %}</p>',
+    '<p class="listview-subheading">{%= crm.Format.address($, true) %}</p>',
   ]),
 
   // Localization
