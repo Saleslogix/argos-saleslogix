@@ -99,8 +99,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   activityHeaderTemplate: new Simplate([
     '<div class="activityEntry__header">',
     '<div class="header__content">',
-    '<h3 class="header__title">{%: $.Description %}</h3>',
-    '<h4 class="header__subTitle">{%! $$.activityNameTemplate %}</h4>',
+    '<p>{%: $.Description %}</p>',
+    '<p class="header__subTitle">{%! $$.activityNameTemplate %}</p>',
     '</div>',
     '<div class="header__timeStamp">',
     '<span class="timeStamp__time">',
