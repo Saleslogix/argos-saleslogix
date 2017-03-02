@@ -309,7 +309,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     return template;
   },
   defaultGroupLayoutItemTemplate: new Simplate([
-    '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</span></h2></div>',
+    '<div><h4>{%= $$.getGroupFieldValueByIndex($, 0, true) %}</h4></div>',
     '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></h4>',
     '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>',
   ]),
@@ -376,7 +376,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const template = [];
     template.push('<div class="group-item">');
     template.push('<div class="group-item-header">');
-    template.push(`<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}</span></h2>`);
+    template.push(`<p><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}</span></p>`);
     template.push('</div">');
     for (let i = 0; i < layout.length; i++) {
       const columnItem = layoutOptions.columns[column - 1];
@@ -389,7 +389,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
         const item = layout[i];
         if (item && (columnItem.rows > 0)) {
           if (i !== 0) {
-            template.push('<h3>');
+            template.push('<p>');
             if (!columnItem.hideLabels) {
               template.push(`<span class="group-label">${this.getGroupFieldLabelByName(item.propertyPath)} </span>`);
             }
@@ -404,7 +404,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
             } else {
               template.push(`<span class="group-entry ${formatClss}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             }
-            template.push('</h3>');
+            template.push('</p>');
           }
         }
         row++;
