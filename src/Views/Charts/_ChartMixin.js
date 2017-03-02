@@ -1,25 +1,18 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import domGeo from 'dojo/dom-geometry';
-import domAttr from 'dojo/dom-attr';
+import $ from 'jquery';
 import has from 'dojo/has';
-import _PullToRefreshMixin from 'argos/_PullToRefreshMixin';
-import getResource from 'argos/I18n';
-
-const resource = getResource('chartMixin');
 
 /**
  * @class crm.Views.Charts._ChartMixin
  *
- * @mixins argos._PullToRefreshMixin
- * @requires argos._PullToRefreshMixin
  *
  * Base mixin for creating chart views.
  *
  */
 
-const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
+const __class = declare('crm.Views.Charts._ChartMixin', null, {
   _handle: null,
   _feedData: null,
 
@@ -42,31 +35,13 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
   PAGE_SIZE: 100,
 
   /**
-   * @property {String}
-   * The loading text font style
-   */
-  loadingFont: '#000',
-
-  /**
-   * @property {String}
-   * Loading message
-   */
-  loadingText: 'loading...',
-
-  /**
    * Overrides View widgetTemplate
    */
   widgetTemplate: new Simplate([
     '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
-    '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
     '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
     '</div>',
-    '</div>',
   ]),
-
-  postCreate: function postCreate() {
-    this.initPullToRefresh(this.scrollerNode);
-  },
   onTransitionTo: function onTransitionTo() {
     this._handle = connect.subscribe('/app/setOrientation', this, function orientationChange() {
       setTimeout(() => {
@@ -80,19 +55,26 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
     connect.unsubscribe(this._handle);
     this._feedData = null;
     this.parent = null;
-
-    if (this.chart && this.chart.destroy) {
-      this.chart.destroy();
-    }
-  },
-  _setCanvasWidth: function _setCanvasWidth() {
-    const box = domGeo.getMarginBox(this.domNode);
-    if (this.contentNode) {
-      this.contentNode.width = box.w;
-    }
+    this.destroyChart();
   },
   createChart: function createChart(feedData) {
     this._feedData = feedData;
+    this.destroyChart();
+    const container = $(App.getViewContainerNode());
+    const width = container.width();
+    const height = container.height();
+    $(this.domNode)
+      .width(width)
+      .height(height);
+    $(this.contentNode)
+      .width(width)
+      .height(height);
+  },
+  destroyChart: function destroyChart() {
+    if (this.chart) {
+      $(this.contentNode).empty();
+      this.chart = null;
+    }
   },
   getTag: function getTag() {
     return this.options && this.options.returnTo;
@@ -107,18 +89,6 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
     app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
   },
 
-  /**
-   * @deprecated 3.3
-   * Charts in 3.3 no longer use the search expression node.
-   */
-  getSearchExpressionHeight: function getSearchExpressionHeight() {
-    const box = domGeo.getMarginBox(this.searchExpressionNode);
-    return box.h;
-  },
-
-  onPullToRefreshComplete: function onPullToRefreshComplete() {
-    this.requestData();
-  },
   refresh: function refresh() {
     this.requestData();
   },
@@ -143,8 +113,6 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
     if (this.chart && this.chart.destroy) {
       this.chart.destroy();
     }
-
-    this._setCanvasWidth();
 
     if (store) {
       store.query(null, {

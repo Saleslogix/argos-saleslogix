@@ -42,10 +42,6 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
       };
     });
 
-    if (this.chart) {
-      this.chart.destroy();
-    }
-
     const chart = $(this.contentNode).chart({
       type: 'bar',
       dataset: [{

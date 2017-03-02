@@ -420,10 +420,6 @@
   toggleCollapseText: "toggle collapse"
 >
 
-<chartMixin ""
-  loadingText: "Loading"
->
-
 <competitorList ""
   titleText: "Competitors"
 >
