@@ -26,9 +26,6 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     '<a data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}><span>{%: $.title %}</span></a>',
     '</div>',
   ]),
-  _hasIcon: function _hasIcon(entry) {
-    return entry.iconTemplate || entry.cls || entry.icon;
-  },
 
   // Localization
   configureText: resource.configureText,
