@@ -123,7 +123,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
             .toString());
 
           this.onSnapperClose();
-          this.toggleRightDrawer();
+          App.viewSettingsModal.close();
           this.refreshRightDrawer();
         }
       }.bind(this),

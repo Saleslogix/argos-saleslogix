@@ -94,6 +94,9 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
     this.inherited(arguments);
   },
+  openSettings: function openSettings() {
+    App.viewSettingsModal.open();
+  },
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.
     const actions = {
@@ -113,7 +116,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
           }
 
           this.search();
-          this.toggleRightDrawer();
+          App.viewSettingsModal.close();
         }
       }.bind(this),
       kpiClicked: function kpiClicked(params) {
@@ -137,7 +140,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       }.bind(this),
       groupConfigureClicked: function groupConfigureClicked() {
         this._selectGroups();
-        this.toggleRightDrawer();
+        App.viewSettingsModal.close();
       }.bind(this),
       groupClicked: function groupClicked(params) {
         this._startGroupMode();
@@ -152,14 +155,14 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         }
         this.setCurrentGroup(group);
         this.refresh();
-        this.toggleRightDrawer();
+        App.viewSettingsModal.close();
       }.bind(this),
       layoutSelectedClicked: function layoutSelectedClicked(params) {
         const name = params.name;
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
         this._groupInitialized = false;
         this.refresh();
-        this.toggleRightDrawer();
+        App.viewSettingsModal.close();
       }.bind(this),
 
     };
@@ -211,7 +214,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       if (hasDefaultGroup) {
         // We will transition back to the list, pop back open the right drawer so the user is back where they started
         const processDataHandle = aspect.after(list, 'processData', function postProcessData() {
-          this.toggleRightDrawer();
+          App.viewSettingsModal.close();
           processDataHandle.remove();
           if (this.transitionHandle) {
             this.transitionHandle.remove();
