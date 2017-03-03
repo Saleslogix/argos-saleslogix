@@ -14,12 +14,12 @@ const resource = getResource('opportunityContactList');
 const __class = declare('crm.Views.OpportunityContact.List', [List], {
   // Template
   itemTemplate: new Simplate([
-    '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
+    '<p class="listview-heading {% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</p>',
     '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
     '{% if ($.SalesRole) { %}',
     '{%: $.SalesRole %} | ',
     '{% } %}',
-    '{%: $.Contact.Title %}</h4>',
+    '{%: $.Contact.Title %}</p>',
   ]),
 
   // Localization

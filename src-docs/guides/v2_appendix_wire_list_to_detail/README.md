@@ -8,8 +8,8 @@ First let's inspect how the List View shows the Detail View which will leads us 
     <li data-action="activateEntry" data-key="AA2EK0013056" data-descriptor="Allied Corp.">
        <button data-action="selectEntry" class="list-item-selector button"><img src="content/images/icons/Company_24.png" class="icon"></button>
        <div class="list-item-content">
-          <h3>Allied Corp.</h3>
-          <h4>Lee Hogan</h4>
+          <p class="listview-heading">Allied Corp.</p>
+          <p class="listview-subheading">Lee Hogan</p>
        </div>
     </li>
 

@@ -14,8 +14,8 @@ const resource = getResource('leadSourceList');
 const __class = declare('crm.Views.LeadSource.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Description %}</h3>',
-    '<h4>{%: $.Status %}</h4>',
+    '<p class="listview-heading">{%: $.Description %}</p>',
+    '<p class="listview-subheading">{%: $.Status %}</p>',
   ]),
 
   // Localization

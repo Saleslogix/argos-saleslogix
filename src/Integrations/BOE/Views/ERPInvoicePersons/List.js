@@ -13,8 +13,8 @@ const resource = getResource('erpInvoicePersonsList');
 const __class = declare('crm.Integrations.BOE.Views.ERPInvoicePersons.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.ErpPerson.Name %}</h3>',
-    '<div class="h4 address">{%: $.ErpPerson.Address.FullAddress %}</div>',
+    '<p class="listview-heading">{%: $.ErpPerson.Name %}</p>',
+    '<p class="listview-subheading address">{%: $.ErpPerson.Address.FullAddress %}</p>',
   ]),
 
   // Localization

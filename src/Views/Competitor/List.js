@@ -17,8 +17,8 @@ const resource = getResource('competitorList');
 const __class = declare('crm.Views.Competitor.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%= $.CompetitorName %}</h3>',
-    '{% if ($.WebAddress) { %}<h4>{%= $.WebAddress %}</h4>{% } %}',
+    '<p class="listview-heading">{%= $.CompetitorName %}</p>',
+    '{% if ($.WebAddress) { %}<p class="listview-subheading">{%= $.WebAddress %}</p>{% } %}',
   ]),
 
   // Localization

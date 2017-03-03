@@ -14,8 +14,8 @@ const resource = getResource('userCalendarAccessList');
 const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
-    '<h4>{%: $.SubType %}</h4>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
+    '<p class="listview-subheading">{%: $.SubType %}</p>',
   ]),
 
   // Localization

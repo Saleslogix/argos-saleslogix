@@ -15,8 +15,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.List', [Li
   // Templates
   // TODO: Need template from PM
   itemTemplate: new Simplate([
-    '<h3>{%: $.ErpBillTo.Name %}</h3>',
-    '<div class="h4 address">{%: $.ErpBillTo.Address.FullAddress %}</div>',
+    '<p class="listview-heading">{%: $.ErpBillTo.Name %}</p>',
+    '<p class="listview-subheading address">{%: $.ErpBillTo.Address.FullAddress %}</p>',
   ]),
 
   // Localization

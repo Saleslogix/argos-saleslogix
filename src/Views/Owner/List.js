@@ -15,7 +15,7 @@ const resource = getResource('ownerList');
 const __class = declare('crm.Views.Owner.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.OwnerDescription %}</h3>',
+    '<p class="listview-heading">{%: $.OwnerDescription %}</p>',
   ]),
 
   // Localization

@@ -62,7 +62,7 @@ Meaning if you have this:
 
             //Templates
             itemTemplate: new Simplate([
-                '<h3>{%= $.AccountName %}</h3>'
+                '<p class="listview-heading">{%= $.AccountName %}</p>'
             ]),
 
             //View Properties

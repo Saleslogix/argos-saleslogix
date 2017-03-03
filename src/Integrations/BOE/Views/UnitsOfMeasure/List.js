@@ -12,7 +12,7 @@ const __class = declare('crm.Integrations.BOE.Views.UnitsOfMeasure.List', [List]
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
   ]),
 
   // Localization

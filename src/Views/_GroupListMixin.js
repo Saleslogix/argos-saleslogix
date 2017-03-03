@@ -31,12 +31,12 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   hasDefaultGroup: true,
   noDefaultGroupTemplate: new Simplate([
     '<li class="no-data" data-action="openConfigure">',
-    '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
+    '<p class="listview-heading">{%= $$._getNoDefaultGroupMessage() %}</p>',
     '</li>',
   ]),
   currentGoupNotFoundTemplate: new Simplate([
     '<li class="no-data">',
-    '<h3>{%= $$._getCurrentGroupNotFoundMessage() %}</h3>',
+    '<p class="listview-heading">{%= $$._getCurrentGroupNotFoundMessage() %}</p>',
     '</li>',
   ]),
 
@@ -304,14 +304,14 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   getItemLayoutTemplate: function getItemLayoutTemplate(item) {
     const jsonString = json.stringify(item);
-    const template = ['<h4><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</h4>'].join('');
+    const template = ['<p class="listview-subheading"><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</p>'].join('');
 
     return template;
   },
   defaultGroupLayoutItemTemplate: new Simplate([
-    '<div><h4>{%= $$.getGroupFieldValueByIndex($, 0, true) %}</h4></div>',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></h4>',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>',
+    '<div><p class="listview-subheading">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</p></div>',
+    '<p class="listview-subheading"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></p>',
+    '<p class="listview-subheading"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></p>',
   ]),
   createGroupTemplateLayouts: function createGroupTemplateLayouts() {
     this.groupTemplateLayouts = [{
@@ -375,8 +375,8 @@ const __class = declare('crm.Views._GroupListMixin', null, {
 
     const template = [];
     template.push('<div class="group-item">');
-    template.push('<div class="group-item-header">');
-    template.push(`<p><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}</span></p>`);
+    template.push('<div class="listview-heading">');
+    template.push(`{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}`);
     template.push('</div">');
     for (let i = 0; i < layout.length; i++) {
       const columnItem = layoutOptions.columns[column - 1];
@@ -384,12 +384,12 @@ const __class = declare('crm.Views._GroupListMixin', null, {
         if (row === 1) {
           const columnStyle = columnItem.style || `width:${columnWidth}%;`;
           const columnClass = columnItem.clss || '';
-          template.push(`<div class="group-column ${columnClass}"  style="${columnStyle}">`);
+          template.push(`<div class="listview-subheading group-column ${columnClass}"  style="${columnStyle}">`);
         }
         const item = layout[i];
         if (item && (columnItem.rows > 0)) {
           if (i !== 0) {
-            template.push('<p>');
+            template.push('<div>');
             if (!columnItem.hideLabels) {
               template.push(`<span class="group-label">${this.getGroupFieldLabelByName(item.propertyPath)} </span>`);
             }
@@ -404,7 +404,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
             } else {
               template.push(`<span class="group-entry ${formatClss}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             }
-            template.push('</p>');
+            template.push('</div>');
           }
         }
         row++;

@@ -27,7 +27,7 @@ const __class = declare('crm.Views.Groups.Selector', [List], {
   titleText: resource.titleText,
 
   itemTemplate: new Simplate([
-    '<h3>{%: $[$$.labelProperty] %}</h3>',
+    '<p class="listview-heading">{%: $[$$.labelProperty] %}</p>',
   ]),
 
   constructor: function constructor() {

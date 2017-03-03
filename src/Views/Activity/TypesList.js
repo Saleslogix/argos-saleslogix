@@ -34,7 +34,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     '</li>',
   ]),
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
+    '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
 
   // Localization

@@ -71,7 +71,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
     '{%! $.eventMoreTemplate %}',
     '</div>',
-    '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
+    '<div class="activity-content listview" data-dojo-attach-point="activityContainerNode">',
     '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
     '{%! $.activityMoreTemplate %}',
     '</div>',
@@ -99,8 +99,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   activityHeaderTemplate: new Simplate([
     '<div class="activityEntry__header">',
     '<div class="header__content">',
-    '<p>{%: $.Description %}</p>',
-    '<p class="header__subTitle">{%! $$.activityNameTemplate %}</p>',
+    '<p class="listview-heading">{%: $.Description %}</p>',
+    '<p class="listview-subheading">{%! $$.activityNameTemplate %}</p>',
     '</div>',
     '<div class="header__timeStamp">',
     '<span class="timeStamp__time">',
@@ -177,7 +177,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   headerRowTemplate: new Simplate([
     '<li data-descriptor="{%: $.day %}">',
     '<div class="dayHeader">',
-    '<h3 class="header__title">{%: $.day %}</h3>',
+    '<h4 class="header__title">{%: $.day %}</h4>',
     '</div>',
     '</li>',
   ]),

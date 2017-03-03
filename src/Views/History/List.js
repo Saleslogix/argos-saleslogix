@@ -35,16 +35,16 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
 const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>',
+    '<p class="listview-heading">',
     '{% if ($.Type === "atNote") { %}',
     '{%: $$.formatDate($.ModifyDate) %}',
     '{% } else { %}',
     '{%: $$.formatDate($.CompletedDate) %}',
     '{% } %}',
-    '</h3>',
-    '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+    '</p>',
+    '<p class="listview-subheading">{%= $$.nameTemplate.apply($) %}</p>',
     '{% if($.Description) { %}',
-    '<h4>{%: $$.regardingText + $.Description %}</h4>',
+    '<p class="listview-subheading">{%: $$.regardingText + $.Description %}</p>',
     '{% } %}',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',

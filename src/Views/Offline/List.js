@@ -38,8 +38,8 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   ]),
 
   itemTemplate: new Simplate([
-    '<h3>{%: $$.getDescription($) %}</h3>',
-    '<h4>{%: $$.getOfflineDate($) %}</h4>',
+    '<p class="listview-heading">{%: $$.getDescription($) %}</p>',
+    '<p class="listview-subheading">{%: $$.getOfflineDate($) %}</p>',
   ]),
   getDescription: function getDescription(entry) {
     return this._model.getEntityDescription(entry);

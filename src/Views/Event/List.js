@@ -23,12 +23,12 @@ const __class = declare('crm.Views.Event.List', [List], {
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%= $.Description %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%= $.Description %}</p>',
+    '<p class="listview-subheading">',
     '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.eventDateFormatText24 : $$.eventDateFormatText) %}',
     '&nbsp;-&nbsp;',
     '{%: crm.Format.date($.EndDate, (App.is24HourClock()) ? $$.eventDateFormatText24 : $$.eventDateFormatText) %}',
-    '</h4>',
+    '</p>',
   ]),
 
   // View Properties

@@ -41,8 +41,8 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   pageSize: 1000,
 
   itemTemplate: new Simplate([
-    '<h3>{%: $$.getTitle($) %}</h3>',
-    '<h4>{%: $$.getOfflineDate($) %}</h4>',
+    '<p class="listview-heading">{%: $$.getTitle($) %}</p>',
+    '<p class="listview-subheading">{%: $$.getOfflineDate($) %}</p>',
   ]),
   refreshRequiredFor: function refreshRequiredFor() {
     return true;

@@ -10,7 +10,7 @@ const resource = getResource('backOfficeAccountingEntitiesList');
 const __class = declare('crm.Integrations.BOE.Views.BackOfficeAccountingEntities.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
   ]),
 
   // Localization

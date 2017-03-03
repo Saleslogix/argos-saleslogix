@@ -10,8 +10,8 @@ const resource = getResource('backOfficesList');
 const __class = declare('crm.Integrations.BOE.Views.BackOffices.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.BackOfficeName %}</h3>',
-    '<h4>{%: $.LogicalId %}</h4>',
+    '<p class="listview-heading">{%: $.BackOfficeName %}</p>',
+    '<p class="listview-subheading">{%: $.LogicalId %}</p>',
   ]),
 
   // Localization

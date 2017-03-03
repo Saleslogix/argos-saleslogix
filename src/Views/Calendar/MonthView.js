@@ -106,7 +106,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '<div class="nav-bar">',
     '<button data-tool="next" data-action="goToNextMonth" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
     '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
-    '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
+    '<h4 class="date-text" data-dojo-attach-point="dateNode"></h4>',
     '</div>',
   ]),
   activityRowTemplate: new Simplate([
@@ -140,12 +140,12 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     '{% } %}',
   ]),
   activityItemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %}</h3>',
-    '<h4>{%= $$.activityNameTemplate.apply($) %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %}</p>',
+    '<p class="listview-subheading">{%= $$.activityNameTemplate.apply($) %}</p>',
   ]),
   eventItemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
-    '<h4>{%! $$.eventNameTemplate %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>',
+    '<p class="listview-subheading">{%! $$.eventNameTemplate %}</p>',
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
