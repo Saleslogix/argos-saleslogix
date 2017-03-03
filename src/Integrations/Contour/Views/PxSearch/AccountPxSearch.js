@@ -42,7 +42,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     '<p class="listview-subheading">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>',
     '{% if ($.MainPhone) { %}',
     '<p class="listview-subheading">',
-    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
     '</p>',
     '{% } %}',
   ]),

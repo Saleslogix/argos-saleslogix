@@ -64,7 +64,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     '<p class="listview-subheading">{%! $$.nameTemplate %}</p>',
     '<p class="listview-subheading">',
     '{% if ($.Activity.PhoneNumber) { %}',
-    '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>',
+    '<span class="hyperlink" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>',
     '{% } %}',
     '</p>',
   ]),
