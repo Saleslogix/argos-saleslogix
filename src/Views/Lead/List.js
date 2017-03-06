@@ -134,19 +134,28 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       cls: 'fa fa-phone-square fa-2x',
       label: this.callWorkActionText,
       enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
-      fn: action.callPhone.bindDelegate(this, 'WorkPhone'),
+      fn: (act, selectionIn) => {
+        selectionOut = this.linkLeadProperties(selectionIn);
+        action.sendEmail(act, selectionOut, 'WorkPhone');
+      }
     }, {
       id: 'callMobile',
       cls: 'fa fa-mobile fa-2x',
       label: this.callMobileActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
-      fn: action.callPhone.bindDelegate(this, 'Mobile'),
+      fn: (act, selectionIn) => {
+        selectionOut = this.linkLeadProperties(selectionIn);
+        action.sendEmail(act, selectionOut, 'Mobile');
+      }
     }, {
       id: 'sendEmail',
       cls: 'fa fa-envelope fa-2x',
       label: this.sendEmailActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Email'),
-      fn: action.sendEmail.bindDelegate(this, 'Email'),
+      fn: (act, selectionIn) => {
+        selectionOut = this.linkLeadProperties(selectionIn);
+        action.sendEmail(act, selectionOut, 'Email');
+      }
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
@@ -163,6 +172,13 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }]);
+  },
+
+  linkLeadProperties: function linkLeadProperties(selection) {
+    selection.data.LeadId = selection.data.$key;
+    selection.data.AccountName = selection.data.Company;
+    selection.data.LeadName = selection.data.LeadNameLastFirst;
+    return selection;
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
