@@ -137,7 +137,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
         action.sendEmail(act, selectionOut, 'WorkPhone');
-      }
+      },
     }, {
       id: 'callMobile',
       cls: 'fa fa-mobile fa-2x',
@@ -146,7 +146,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
         action.sendEmail(act, selectionOut, 'Mobile');
-      }
+      },
     }, {
       id: 'sendEmail',
       cls: 'fa fa-envelope fa-2x',
@@ -155,7 +155,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
         action.sendEmail(act, selectionOut, 'Email');
-      }
+      },
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
