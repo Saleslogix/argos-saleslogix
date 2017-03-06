@@ -1,16 +1,14 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import domConstruct from 'dojo/dom-construct';
-import domAttr from 'dojo/dom-attr';
-import domClass from 'dojo/dom-class';
 import has from 'dojo/has';
-import dom from 'dojo/dom';
 import domGeom from 'dojo/dom-geometry';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
@@ -150,7 +148,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     return this.tools || (this.tools = []);
   },
   setSrc: function setSrc(iframe, url) {
-    domAttr.set(iframe, 'src', url);
+    $(iframe).attr('src', url);
   },
   _loadAttachmentView: function _loadAttachmentView(entry) {
     const am = new AttachmentManager();
@@ -184,7 +182,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
           domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
           const tpl = this.downloadingTemplate.apply(this);
           const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-          domClass.add(this.domNode, 'list-loading');
+          $(this.domNode).addClass('list-loading');
           const self = this;
           const attachmentid = entry.$key;
           // dataurl
@@ -216,24 +214,24 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             }
 
             // Set download text to hidden
-            domClass.add(dl, 'display-none');
+            $(dl).addClass('display-none');
           });
         } else { // View file type in Iframe
           if (this._viewImageOnly() === false) {
             domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
             const tpl = this.downloadingTemplate.apply(this);
             const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-            domClass.add(this.domNode, 'list-loading');
+            $(this.domNode).addClass('list-loading');
             const attachmentid = entry.$key;
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
-              domClass.add(dl, 'display-none');
-              const iframe = dom.byId('attachment-Iframe');
+              $(dl).addClass('display-none');
+              const iframe = document.getElementById('attachment-Iframe');
               iframe.onload = function iframeOnLoad() {
-                domClass.add(dl, 'display-none');
+                $(dl).addClass('display-none');
               };
-              domClass.add(dl, 'display-none');
+              $(dl).addClass('display-none');
               this.setSrc(iframe, dataUrl);
             });
           } else { // Only view images
@@ -246,15 +244,15 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     } else { // url Attachment
       domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
       const url = am.getAttachmenturlByEntity(entry);
-      domClass.add(this.domNode, 'list-loading');
+      $(this.domNode).addClass('list-loading');
       const tpl = this.downloadingTemplate.apply(this);
       const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-      const iframe = dom.byId('attachment-Iframe');
+      const iframe = document.getElementById('attachment-Iframe');
       iframe.onload = function iframeOnLoad() {
-        domClass.add(dl, 'display-none');
+        $(dl).addClass('display-none');
       };
       this.setSrc(iframe, url);
-      domClass.add(dl, 'display-none');
+      $(dl).addClass('display-none');
     }
   },
   _isfileTypeImage: function _isfileTypeImage(fileType) {

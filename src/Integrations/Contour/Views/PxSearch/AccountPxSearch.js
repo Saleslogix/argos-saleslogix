@@ -4,7 +4,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
@@ -13,6 +12,7 @@ import _ListBase from 'argos/_ListBase';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
 import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('acctPxSearch');
 
@@ -130,7 +130,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   },
   requestData() {
     this.loadAccountTypes();
-    domClass.add(this.domNode, 'list-loading');
+    $(this.domNode).addClass('list-loading');
 
     if (this.lat && this.lon) {
       const request = this.createRequest();
@@ -161,7 +161,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       });
     }
     this.processFeed(feed);
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
   },
   processFeed: function processFeed(_feed) {
     const feed = _feed;
@@ -194,7 +194,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   },
   geoLocationError() {
     alert(this.currentLocationErrorText); // eslint-disable-line
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
   },
   geoLocationReceived(position) {
     this.lat = position.coords.latitude;

@@ -1,12 +1,12 @@
 import declare from 'dojo/_base/declare';
 import string from 'dojo/string';
-import domStyle from 'dojo/dom-style';
 import domGeom from 'dojo/dom-geometry';
 import query from 'dojo/query';
 import topic from 'dojo/topic';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('ticketActivityList');
 const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
@@ -72,9 +72,9 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
       const wrapNode = query('.note-text-wrap', node)[0];
       const moreNode = query('.note-text-more', node)[0];
       if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
-        domStyle.set(moreNode, 'visibility', 'visible');
+        $(moreNode).show();
       } else {
-        domStyle.set(moreNode, 'visibility', 'hidden');
+        $(moreNode).hide();
       }
     });
   },

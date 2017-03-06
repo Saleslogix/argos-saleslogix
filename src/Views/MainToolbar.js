@@ -1,8 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domStyle from 'dojo/dom-style';
 import has from 'dojo/has';
 import MainToolbar from 'argos/MainToolbar';
+import $ from 'jquery';
 
 /**
  * @class crm.Views.MainToolbar
@@ -53,9 +53,9 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       const scrollerNode = view.get('scroller');
       if (has('android')) {
         // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
-        domStyle.set(scrollerNode, 'overflow', 'hidden');
+        $(scrollerNode).css('overflow', 'hidden');
         scrollerNode.scrollTop = 0;
-        domStyle.set(scrollerNode, 'overflow', 'auto');
+        $(scrollerNode).css('overflow', 'auto');
       } else {
         scrollerNode.scrollTop = 0;
       }

@@ -16,10 +16,9 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import SData from 'argos/Store/SData';
 import Utility from './Utility';
-import domClass from 'dojo/dom-class';
 import getResource from 'argos/I18n';
-
 import moment from 'moment';
+import $ from 'jquery';
 
 const resource = getResource('dashboardWidgetBase');
 
@@ -602,9 +601,9 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   },
   onToggleView: function onToggleView(forceOpen) {
     if (forceOpen) {
-      domClass.remove(this.dashboardHeaderNode, this.collapsedClass);
+      $(this.dashboardHeaderNode).removeClass(this.collapsedClass);
     } else {
-      domClass.toggle(this.dashboardHeaderNode, this.collapsedClass);
+      $(this.dashboardHeaderNode).toggleClass(this.collapsedClass);
     }
 
     if (!this.isLoaded) {

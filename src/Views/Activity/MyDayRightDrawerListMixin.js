@@ -1,9 +1,9 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('activityMyDayRightDrawerList');
 
@@ -119,7 +119,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
           }
           App.persistPreferences();
           this._hasChangedFilterPrefs = true;
-          domAttr.set(params.$source, 'data-enabled', (!enabled)
+          $(params.$source).attr('data-enabled', (!enabled)
             .toString());
 
           this.onSnapperClose();
@@ -143,7 +143,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
           App.persistPreferences();
           this._hasChangedKPIPrefs = true;
 
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }.bind(this),
     };

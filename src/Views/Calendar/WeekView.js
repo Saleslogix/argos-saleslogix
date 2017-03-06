@@ -3,14 +3,13 @@ import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
 import string from 'dojo/string';
 import domConstruct from 'dojo/dom-construct';
-import domClass from 'dojo/dom-class';
 import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
-
 import moment from 'moment';
+import $ from 'jquery';
 
 const resource = getResource('calendarWeekView');
 const dtFormatResource = getResource('calendarWeekViewDateTimeFormat');
@@ -249,14 +248,14 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   toggleGroup: function toggleGroup(params) {
     const node = params.$source;
     if (node && node.parentNode) {
-      domClass.toggle(node, 'collapsed');
-      domClass.toggle(node.parentNode, 'collapsed-event');
+      $(node).toggleClass('collapsed');
+      $(node.parentNode).toggleClass('collapsed-event');
 
       const button = this.collapseButton;
 
       if (button) {
-        domClass.toggle(button, this.toggleCollapseClass);
-        domClass.toggle(button, this.toggleExpandClass);
+        $(button).toggleClass(this.toggleCollapseClass);
+        $(button).toggleClass(this.toggleExpandClass);
       }
     }
   },
@@ -391,7 +390,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
 
     this.set('remainingContent', ''); // Feed does not return reliable data, don't show remaining
 
-    domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+    $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
     this._loadPreviousSelections();
   },
   addTodayDom: function addTodayDom() {
@@ -461,10 +460,10 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     );
   },
   hideEventList: function hideEventList() {
-    domClass.add(this.eventContainerNode, 'event-hidden');
+    $(this.eventContainerNode).addClass('event-hidden');
   },
   showEventList: function showEventList() {
-    domClass.remove(this.eventContainerNode, 'event-hidden');
+    $(this.eventContainerNode).removeClass('event-hidden');
   },
   processEventFeed: function processEventFeed(feed) {
     const o = [];
@@ -487,10 +486,10 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     }
 
     if (feed.$totalResults > feedLength) {
-      domClass.add(this.eventContainerNode, 'list-has-more');
+      $(this.eventContainerNode).addClass('list-has-more');
       this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed.$totalResults - feedLength]));
     } else {
-      domClass.remove(this.eventContainerNode, 'list-has-more');
+      $(this.eventContainerNode).removeClass('list-has-more');
       domConstruct.empty(this.eventRemainingContentNode);
     }
 

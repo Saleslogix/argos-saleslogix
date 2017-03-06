@@ -1,11 +1,11 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import domAttr from 'dojo/dom-attr';
 import query from 'dojo/query';
 import format from '../../Format';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('addressList');
 
@@ -50,7 +50,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   },
   selectEntry: function selectEntry(params) {
     const row = query(params.$source).closest('[data-key]')[0];
-    const key = row ? domAttr.get(row, 'data-key') : false;
+    const key = row ? $(row).attr('data-key') : false;
 
     if (this._selectionModel && key) {
       App.showMapForAddress(format.address(this.entries[key], true, ' '));

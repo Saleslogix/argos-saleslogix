@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import json from 'dojo/json';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import utility from 'argos/Utility';
 import GroupUtility from '../GroupUtility';
@@ -10,6 +9,7 @@ import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('groupListMixin');
 
@@ -86,7 +86,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   requestData: function requestData() {
     try {
       if (!this._groupInitialized && this.groupsMode) {
-        domClass.add(this.domNode, 'list-loading');
+        $(this.domNode).addClass('list-loading');
         this._setLoading();
         this.initGroup();
       } else {
@@ -276,7 +276,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.onTransitionAway();
     this.loadRightDrawer();
 
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
     this.listLoading = false;
   },
   _onGroupRequestFaild: function _onGroupRequestFaild() {
@@ -609,7 +609,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   _onGroupNotFound: function _onGroupNotFound() {
     GroupUtility.removeGroupPreferences(this.currentGroupId, this.entityName);
     this.refreshRightDrawer();
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
     this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
   },
   activateEntry: function activateEntry(params) {
@@ -683,7 +683,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     }
   },
   _groupApplyActionPanel: function _groupApplyActionPanel(rowNode) {
-    domClass.add(rowNode, 'list-action-selected');
+    $(rowNode).addClass('list-action-selected');
     this.onApplyRowActionPanel(this.actionsNode, rowNode);
     domConstruct.place(this.actionsNode, rowNode, 'after');
   },

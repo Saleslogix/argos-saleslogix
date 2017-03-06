@@ -1,17 +1,16 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import array from 'dojo/_base/array';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import string from 'dojo/string';
 import query from 'dojo/query';
-import domAttr from 'dojo/dom-attr';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
 import _CardLayoutListMixin from './_CardLayoutListMixin';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('speedSearchList');
 
@@ -199,7 +198,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
       this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
     }
 
-    domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+    $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
   },
   createRequest: function createRequest() {
     const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
@@ -242,7 +241,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     return results;
   },
   requestData: function requestData() {
-    domClass.add(this.domNode, 'list-loading');
+    $(this.domNode).addClass('list-loading');
 
     const request = this.createRequest();
     const entry = this.createSearchEntry();
@@ -304,12 +303,12 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   },
   selectIndex: function selectIndex(e) {
     const button = e.$source;
-    const indexName = domAttr.get(button, 'data-index');
+    const indexName = $(button).attr('data-index');
     const activated = this.activateIndex(indexName);
     if (activated) {
-      domClass.add(button, 'card-layout-speed-search-index-selected');
+      $(button).addClass('card-layout-speed-search-index-selected');
     } else {
-      domClass.remove(button, 'card-layout-speed-search-index-selected');
+      $(button).removeClass('card-layout-speed-search-index-selected');
     }
   },
   activateIndex: function activateIndex(indexName) {

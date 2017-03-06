@@ -3,8 +3,6 @@ import lang from 'dojo/_base/lang';
 import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import query from 'dojo/query';
-import domAttr from 'dojo/dom-attr';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
@@ -12,8 +10,8 @@ import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
-
 import moment from 'moment';
+import $ from 'jquery';
 
 const resource = getResource('calendarMonthView');
 const dtFormatResource = getResource('calendarMonthViewDateTimeFormat');
@@ -323,24 +321,24 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   toggleGroup: function toggleGroup(params) {
     const node = params.$source;
     if (node && node.parentNode) {
-      domClass.toggle(node, 'collapsed');
-      domClass.toggle(node.parentNode, 'collapsed-event');
+      $(node).toggleClass('collapsed');
+      $(node.parentNode).toggleClass('collapsed-event');
 
       const button = this.collapseButton;
 
       if (button) {
-        domClass.toggle(button, this.toggleCollapseClass);
-        domClass.toggle(button, this.toggleExpandClass);
+        $(button).toggleClass(this.toggleCollapseClass);
+        $(button).toggleClass(this.toggleExpandClass);
       }
     }
   },
   selectDay: function selectDay(params, evt, el) {
     if (this.selectedDateNode) {
-      domClass.remove(this.selectedDateNode, 'selected');
+      $(this.selectedDateNode).removeClass('selected');
     }
 
     this.selectedDateNode = el;
-    domClass.add(el, 'selected');
+    $(el).addClass('selected');
 
     this.currentDate = moment(params.date, 'YYYY-MM-DD');
     this.getSelectedDate();
@@ -535,12 +533,12 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   highlightActivities: function highlightActivities() {
     query('.old-calendar-day')
       .forEach(function queryDays(node) {
-        const dataDate = domAttr.get(node, 'data-date');
+        const dataDate = $(node).attr('data-date');
         if (!this.dateCounts[dataDate]) {
           return;
         }
 
-        domClass.add(node, 'activeDay');
+        $(node).addClass('activeDay');
 
         const countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
         const existingCount = query(node)
@@ -557,10 +555,10 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.set('dayTitleContent', this.currentDate.format(this.dayTitleFormatText));
   },
   hideEventList: function hideEventList() {
-    domClass.add(this.eventContainerNode, 'event-hidden');
+    $(this.eventContainerNode).addClass('event-hidden');
   },
   showEventList: function showEventList() {
-    domClass.remove(this.eventContainerNode, 'event-hidden');
+    $(this.eventContainerNode).removeClass('event-hidden');
   },
   getSelectedDate: function getSelectedDate() {
     this.clearSelectedDate();
@@ -569,7 +567,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.requestSelectedDateEvents();
   },
   clearSelectedDate: function clearSelectedDate() {
-    domClass.add(this.activityContainerNode, 'list-loading');
+    $(this.activityContainerNode).addClass('list-loading');
     this.set('activityContent', this.loadingTemplate.apply(this));
     this.hideEventList();
   },
@@ -677,7 +675,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       return false;
     }
 
-    domClass.remove(this.activityContainerNode, 'list-loading');
+    $(this.activityContainerNode).removeClass('list-loading');
 
     const r = feed.$resources;
     const feedLength = r.length;
@@ -696,10 +694,10 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
 
     if (feed.$totalResults > feedLength) {
-      domClass.add(this.activityContainerNode, 'list-has-more');
+      $(this.activityContainerNode).addClass('list-has-more');
       this.set('activityRemainingContent', this.countMoreText);
     } else {
-      domClass.remove(this.activityContainerNode, 'list-has-more');
+      $(this.activityContainerNode).removeClass('list-has-more');
       this.set('activityRemainingContent', '');
     }
 
@@ -730,10 +728,10 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
 
     if (feed.$totalResults > feedLength) {
-      domClass.add(this.eventContainerNode, 'list-has-more');
+      $(this.eventContainerNode).addClass('list-has-more');
       this.set('eventRemainingContent', this.countMoreText);
     } else {
-      domClass.remove(this.eventContainerNode, 'list-has-more');
+      $(this.eventContainerNode).removeClass('list-has-more');
       this.set('eventRemainingContent', '');
     }
 
@@ -813,12 +811,12 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     const selectedDate = string.substitute('.old-calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
 
     if (this.selectedDateNode) {
-      domClass.remove(this.selectedDateNode, 'selected');
+      $(this.selectedDateNode).removeClass('selected');
     }
 
     this.selectedDateNode = query(selectedDate, this.contentNode)[0];
     if (this.selectedDateNode) {
-      domClass.add(this.selectedDateNode, 'selected');
+      $(this.selectedDateNode).addClass('selected');
     }
 
     this.getSelectedDate();
@@ -830,7 +828,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     let todayCls = '.old-calendar-day.today';
     let todayNode = query(todayCls, this.contentNode)[0];
     if (todayNode) {
-      domClass.remove(todayNode, 'today');
+      $(todayNode).removeClass('today');
     }
 
     // Get the updated "today"
@@ -839,7 +837,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     ]);
     todayNode = query(todayCls, this.contentNode)[0];
     if (todayNode) {
-      domClass.add(todayNode, 'today');
+      $(todayNode).addClass('today');
     }
   },
   selectEntry: function selectEntry(params) {

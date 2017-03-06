@@ -1241,10 +1241,6 @@
   titleText: "Edit Text"
 >
 
-<updateToolbar ""
-  updateText: "An update is available.  Click to reload."
->
-
 <action ""
   calledText: "Called ${0}"
   emailedText: "E-mailed ${0}"

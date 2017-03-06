@@ -1,9 +1,9 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('speedSearchRightDrawerListMixin');
 
@@ -89,7 +89,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
           results[0].enabled = !enabled;
           App.persistPreferences();
           this._hasChangedIndexPrefs = true;
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }),
     };

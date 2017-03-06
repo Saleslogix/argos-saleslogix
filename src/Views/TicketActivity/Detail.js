@@ -1,12 +1,12 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import query from 'dojo/query';
-import domClass from 'dojo/dom-class';
 import format from '../../Format';
 import template from '../../Template';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 import 'dojo/NodeList-manipulate';
 
 const resource = getResource('ticketActivityDetail');
@@ -124,7 +124,7 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
     return currentValue;
   },
   setNodeText: function setNodeText(node, value) {
-    domClass.remove(node, 'content-loading');
+    $(node).removeClass('content-loading');
 
     query('span', node).text(value);
   },

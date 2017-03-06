@@ -1,8 +1,6 @@
 import array from 'dojo/_base/array';
 import convert from 'argos/Convert';
 import declare from 'dojo/_base/declare';
-import domAttr from 'dojo/dom-attr';
-import domClass from 'dojo/dom-class';
 import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
 import on from 'dojo/on';
@@ -12,7 +10,6 @@ import Calendar from 'argos/Calendar';
 import List from 'argos/List';
 import Utility from '../../Utility';
 import getResource from 'argos/I18n';
-
 import moment from 'moment';
 import $ from 'jquery';
 
@@ -295,7 +292,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
   },
   changeDayActivities: function changeDayActivities() {
-    domClass.remove(this.activityContainerNode, 'list-loading');
+    $(this.activityContainerNode).removeClass('list-loading');
     let multiDays = [];
     let entries;
 
@@ -360,10 +357,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         domConstruct.place(activityDocfrag, this.activityContentNode, 'last');
       }
       if (eventDocfrag.childNodes.length > 0) {
-        domClass.remove(this.eventContainerNode, 'event-hidden');
+        $(this.eventContainerNode).removeClass('event-hidden');
         domConstruct.place(eventDocfrag, this.eventContentNode, 'last');
       } else {
-        domClass.add(this.eventContainerNode, 'event-hidden');
+        $(this.eventContainerNode).addClass('event-hidden');
       }
     }
   },
@@ -410,12 +407,12 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   highlightActivities: function highlightActivities() {
     array.forEach(this._calendar.weeksNode.childNodes, (week) => {
       array.forEach(week.childNodes, (day) => {
-        if (!this.monthActivities[domAttr.get(day, 'data-date')]) {
+        if (!this.monthActivities[$(day).attr('data-date')]) {
           this._calendar.removeActive(day);
           return;
         }
         if (!this._calendar.isActive(day)) {
-          day.subValue = this.monthActivities[domAttr.get(day, 'data-date')];
+          day.subValue = this.monthActivities[$(day).attr('data-date')];
           this._calendar.setActiveDay(day);
         }
       }, this);
@@ -524,7 +521,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   refreshData: function refreshData() {
     this._dataLoaded = false;
     this._eventStore = null;
-    domClass.add(this.activityContainerNode, 'list-loading');
+    $(this.activityContainerNode).addClass('list-loading');
     this.set('activityContent', this.loadingTemplate.apply(this));
     domConstruct.empty(this.eventContentNode);
     this.currentDate = this._calendar.getSelectedDateMoment();

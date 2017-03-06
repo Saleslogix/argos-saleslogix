@@ -1,12 +1,12 @@
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import aspect from 'dojo/aspect';
 import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('rightDrawerListMixin');
 
@@ -135,7 +135,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
           App.persistPreferences();
           this._hasChangedKPIPrefs = true;
 
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }.bind(this),
       groupConfigureClicked: function groupConfigureClicked() {

@@ -1,10 +1,10 @@
 import declare from 'dojo/_base/declare';
 import query from 'dojo/query';
-import domAttr from 'dojo/dom-attr';
 import validator from '../../Validator';
 import salesProcessUtility from '../../SalesProcessUtility';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
+import $ from 'jquery';
 
 const resource = getResource('opportunityQuickEdit');
 
@@ -147,7 +147,7 @@ const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     if (field && field.domNode) {
       const node = query('[for="Stage"]', field.domNode);
       if (node && node.length > 0) {
-        domAttr.set(node[0], 'innerHTML', label); // TODO: SDK's _Field should provide a label setter
+        $(node[0]).attr('innerHTML', label); // TODO: SDK's _Field should provide a label setter
       }
     }
   },
