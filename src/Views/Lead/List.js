@@ -175,7 +175,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   },
 
   linkLeadProperties: function linkLeadProperties(selection) {
-    if (selection.data) {
+    if (selection && selection.data) {
       selection.data.LeadId = selection.data.$key;
       selection.data.AccountName = selection.data.Company;
       selection.data.LeadName = selection.data.LeadNameLastFirst;
