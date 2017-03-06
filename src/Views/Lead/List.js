@@ -174,11 +174,13 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
     }]);
   },
 
-  linkLeadProperties: function linkLeadProperties(selection) {
-    if (selection && selection.data) {
-      selection.data.LeadId = selection.data.$key;
-      selection.data.AccountName = selection.data.Company;
-      selection.data.LeadName = selection.data.LeadNameLastFirst;
+  linkLeadProperties: function linkLeadProperties(selection = {}) {
+    const { data } = selection;
+
+    if (data) {
+      selection.data.LeadId = data.$key;
+      selection.data.AccountName = data.Company;
+      selection.data.LeadName = data.LeadNameLastFirst;
     }
     return selection;
   },
