@@ -64,10 +64,22 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       this._initiateActionFromEvent(evt);
     });
   },
+  shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
+    const menu = App.applicationmenu;
+    return !menu.isLargerThanBreakpoint();
+  },
+  closeAppMenu: function closeAppMenu() {
+    const menu = App.applicationmenu;
+
+    if (menu && this.shouldCloseAppMenuOnAction()) {
+      menu.closeMenu();
+    }
+  },
   logOut: function logOut() {
     const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
     if (sure) {
       App.logOut();
+      this.closeAppMenu();
     }
   },
   loadAndNavigateToView: function loadAndNavigateToView(params) {
@@ -77,6 +89,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   navigateToView: function navigateToView(view) {
     if (view) {
       view.show();
+      this.closeAppMenu();
     }
   },
   addAccountContact: function addAccountContact() {
@@ -85,6 +98,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       view.show({
         insert: true,
       });
+      this.closeAppMenu();
     }
   },
   navigateToConfigurationView: function navigateToConfigurationView() {
