@@ -12,9 +12,9 @@
   version "0.1.0"
   resolved "http://npm.infor.com:4873/@infor%2ficrm-js-customization/-/icrm-js-customization-0.1.0.tgz#2d7d8c473c31f36f5b9d2378d38e3cbce6bae9b9"
 
-"@infor/sohoxi@latest":
-  version "4.2.4"
-  resolved "http://npm.infor.com:4873/@infor%2fsohoxi/-/sohoxi-4.2.4.tgz#c43c9cdacb281e4cb6b7c5e8d7605a56851d55ef"
+"@infor/sohoxi@4.2.6-develop":
+  version "4.2.6-develop"
+  resolved "http://npm.infor.com:4873/@infor%2fsohoxi/-/sohoxi-4.2.6-develop.tgz#ea92aa4e77aa9a908fb7c66d185cd13154201d46"
   dependencies:
     d3 "^3.4.6"
     jquery "^3.1.1"
