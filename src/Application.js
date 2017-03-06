@@ -498,6 +498,7 @@ const __class = declare('crm.Application', [Application], {
   onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
+
     const header = $('.header', this.getContainerNode());
     header.show();
     this.initAppState().then(() => {
@@ -520,6 +521,7 @@ const __class = declare('crm.Application', [Application], {
   onInitAppStateSuccess: function onInitAppStateSuccess() {
     this._saveDefaultPreferences();
     this.setDefaultMetricPreferences();
+    this.showApplicationMenuOnLarge();
     if (this.enableOfflineSupport) {
       this.initOfflineData().then(() => {
         this.hasState = true;
