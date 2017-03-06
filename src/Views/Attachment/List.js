@@ -127,10 +127,10 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     if (attachment.url) {
       let href = attachment.url || '';
       href = (href.indexOf('http') < 0) ? `http://${href}` : href;
-      toReturn = string.substitute('<a href="${0}" target="_blank" title="${1}">${2}</a>', [href, attachment.url, attachment.$descriptor]);
+      toReturn = string.substitute('<a class="hyperlink" href="${0}" target="_blank" title="${1}">${2}</a>', [href, attachment.url, attachment.$descriptor]);
     } else {
       if (attachment.fileExists) {
-        toReturn = string.substitute('<a href="javascript: Sage.Utility.File.Attachment.getAttachment(\'${0}\');" title="${1}">${1}</a>', [attachment.$key, attachment.$descriptor]);
+        toReturn = string.substitute('<a class="hyperlink" href="javascript: Sage.Utility.File.Attachment.getAttachment(\'${0}\');" title="${1}">${1}</a>', [attachment.$key, attachment.$descriptor]);
       } else {
         toReturn = attachment.$descriptor;
       }
