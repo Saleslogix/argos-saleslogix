@@ -135,7 +135,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       label: this.callWorkActionText,
       enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
       fn: (act, selectionIn) => {
-        selectionOut = this.linkLeadProperties(selectionIn);
+        const selectionOut = this.linkLeadProperties(selectionIn);
         action.sendEmail(act, selectionOut, 'WorkPhone');
       }
     }, {
@@ -144,7 +144,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       label: this.callMobileActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
       fn: (act, selectionIn) => {
-        selectionOut = this.linkLeadProperties(selectionIn);
+        const selectionOut = this.linkLeadProperties(selectionIn);
         action.sendEmail(act, selectionOut, 'Mobile');
       }
     }, {
@@ -153,7 +153,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       label: this.sendEmailActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Email'),
       fn: (act, selectionIn) => {
-        selectionOut = this.linkLeadProperties(selectionIn);
+        const selectionOut = this.linkLeadProperties(selectionIn);
         action.sendEmail(act, selectionOut, 'Email');
       }
     }, {
@@ -175,9 +175,11 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   },
 
   linkLeadProperties: function linkLeadProperties(selection) {
-    selection.data.LeadId = selection.data.$key;
-    selection.data.AccountName = selection.data.Company;
-    selection.data.LeadName = selection.data.LeadNameLastFirst;
+    if (selection.data) {
+      selection.data.LeadId = selection.data.$key;
+      selection.data.AccountName = selection.data.Company;
+      selection.data.LeadName = selection.data.LeadNameLastFirst;
+    }
     return selection;
   },
 
