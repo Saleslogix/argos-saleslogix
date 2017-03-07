@@ -103,7 +103,7 @@ export default class Application extends SDKApplication {
     this.onlineText = resource.onlineText;
     this.mingleAuthErrorText = resource.mingleAuthErrorText;
     this.homeViewId = 'myactivity_list';
-    this.offlineHomeViewId = 'recently_viewed_list';
+    this.offlineHomeViewId = 'recently_viewed_list_offline';
     this.loginViewId = 'login';
     this.logOffViewId = 'logoff';
     this.UID = null;
@@ -455,7 +455,9 @@ export default class Application extends SDKApplication {
 
     const service = this.getService();
     this.isAuthenticated = false;
-    this.context = {};
+    this.context = {
+      history: [],
+    };
 
     this.resetModuleAppStatePromises();
 

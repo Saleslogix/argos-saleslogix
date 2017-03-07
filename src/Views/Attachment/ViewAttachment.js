@@ -149,6 +149,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   createLayout: function createLayout() {
     return this.tools || (this.tools = []);
   },
+  setSrc: function setSrc(iframe, url) {
+    domAttr.set(iframe, 'src', url);
+  },
   _loadAttachmentView: function _loadAttachmentView(entry) {
     const am = new AttachmentManager();
     let description;
@@ -231,7 +234,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
                 domClass.add(dl, 'display-none');
               };
               domClass.add(dl, 'display-none');
-              domAttr.set(iframe, 'src', dataUrl);
+              this.setSrc(iframe, dataUrl);
             });
           } else { // Only view images
             domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
@@ -250,7 +253,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       iframe.onload = function iframeOnLoad() {
         domClass.add(dl, 'display-none');
       };
-      domAttr.set(iframe, 'src', url);
+      this.setSrc(iframe, url);
       domClass.add(dl, 'display-none');
     }
   },

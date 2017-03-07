@@ -1252,6 +1252,8 @@
 <action ""
   calledText: "Called ${0}"
   emailedText: "E-mailed ${0}"
+  phoneCall: "Phone Call"
+  email: "E-mail"
 >
 
 <application ""

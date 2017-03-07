@@ -171,8 +171,8 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new LogOff());
 
-    this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
-    this.registerView(new RightDrawer(), query('.right-drawer')[0]);
+    this.registerView(new LeftDrawer(), query('.left-drawer', this.application.getContainerNode())[0]);
+    this.registerView(new RightDrawer(), query('.right-drawer', this.application.getContainerNode())[0]);
 
     this.registerView(new OfflineDetail({
       canRedirectTo: true,
@@ -183,6 +183,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
     this.registerView(new RecentlyViewedList({
       expose: true,
+      canRedirectTo: true,
+    }));
+    this.registerView(new RecentlyViewedList({
+      id: 'recently_viewed_list_offline',
+      expose: false,
       canRedirectTo: true,
     }));
     this.registerView(new BriefcaseList({
