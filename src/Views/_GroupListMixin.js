@@ -756,21 +756,6 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     };
     this._applyStateToActions(resolvedSelection);
   },
-  onToolLayoutCreated: function onToolLayoutCreated(tools) {
-    if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
-      const refreshTool = {
-        id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
-        action: '_refreshList',
-
-      };
-      if (tools.tbar) {
-        tools.tbar.push(refreshTool);
-        this._refreshAdded = true;
-      }
-    }
-    this.inherited(arguments);
-  },
   _refreshList: function _refreshList() {
     const self = this;
     if (this.groupsEnabled && this.groupList && this._currentGroup) {
@@ -781,15 +766,12 @@ const __class = declare('crm.Views._GroupListMixin', null, {
           self.setCurrentGroup(group);
           this.refreshRightDrawer();
         }
-
-        self.clear();
-        self.refreshRequired = true;
-        self.refresh();
+        // Note this is what this.inherited(arguments) calls, but that may change
+        // Can't call this.inherited asynchronously...
+        self.forceRefresh();
       });
     } else {
-      this.clear();
-      this.refreshRequired = true;
-      this.refresh();
+      this.inherited(arguments);
     }
   },
   groupInvokeListAction: function groupInvokeListAction(params) {
