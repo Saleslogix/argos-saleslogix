@@ -185,6 +185,13 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
     return selection;
   },
 
+  groupInvokeActionByName: function groupInvokeActionByName(actionName, options) {
+    if (options) {
+      options.selection = this.linkLeadProperties(options.selection);
+    }
+    this.inherited(arguments);
+  },
+
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%" or upper(LeadNameLastFirst) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
