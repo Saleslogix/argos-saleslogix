@@ -52,10 +52,6 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   calledText: resource.calledText,
   emailedText: resource.emailedText,
   entityText: resource.entityText,
-  activityTypeText: {
-    atPhoneCall: resource.phoneCall,
-    atEMail: resource.email,
-  },
 
   // View Properties
   id: 'lead_detail',
@@ -72,7 +68,6 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
       this.refreshRequired = true;
 
       view.show({
-        title: this.activityTypeText[type],
         template: {},
         entry,
         insert: true,

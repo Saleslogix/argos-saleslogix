@@ -464,8 +464,6 @@
   viewAddressText: "View address"
   moreDetailsText: "More Details"
   entityText: "Contact"
-  phoneCall: "Phone Call"
-  email: "E-mail"
 >
 
 <contactEdit ""
@@ -674,8 +672,6 @@
   calledText: "Called ${0}"
   emailedText: "Emailed ${0}"
   entityText: "Lead"
-  phoneCall: "Phone Call"
-  email: "E-mail"
 >
 
 <leadEdit ""
