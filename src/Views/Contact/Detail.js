@@ -70,7 +70,6 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       this.refreshRequired = true;
 
       view.show({
-        // title: this.activityTypeText[type],
         template: {},
         entry,
         insert: true,
