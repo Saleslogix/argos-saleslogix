@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import json from 'dojo/json';
-import domConstruct from 'dojo/dom-construct';
 import utility from 'argos/Utility';
 import _ListBase from 'argos/_ListBase';
 import GroupUtility from '../GroupUtility';
