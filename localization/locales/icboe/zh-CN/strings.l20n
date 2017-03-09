@@ -404,9 +404,9 @@
   recentCostText: "已开发票成本"
   recentProfitText: "已开发票利润"
   recentMarginText: "已开发票利润率"
-  yoyRevenueText: "逐年收入增长率"
-  yoyProfitText: "逐年利润增长率"
-  yoyMarginText: "逐年利润率增长率"
+  yoyRevenueText: "收入同比增长率"
+  yoyProfitText: "利润同比增长率"
+  yoyMarginText: "利润率同比增长率"
   titleText: "财务快照"
   categoryText: "选择几天前，从今天算起"
 >
@@ -746,6 +746,8 @@
   removeQuoteLineText: "移除行项目"
   locationText: "位置"
   totalAmountText: "合计金额"
+  availableQuantityText: "可用数量： "
+  checkWarehouseAvailabilityText: "检查仓库可用性"
 >
 
 <quoteItemsList ""
@@ -817,6 +819,8 @@
   confirmDeleteText: "确定要删除当前行项目吗?"
   removeOrderLineText: "移除行项目"
   totalAmountText: "合计金额"
+  availableQuantityText: "可用数量： "
+  checkWarehouseAvailabilityText: "检查仓库可用性"
 >
 
 <salesOrderItemsList ""
