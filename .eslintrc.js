@@ -47,7 +47,7 @@ module.exports = {
 
     // enforce that class methods use "this"
     // http://eslint.org/docs/rules/class-methods-use-this
-    'class-methods-use-this': ['error', {
+    'class-methods-use-this': ['off', {
       exceptMethods: [],
     }],
 
