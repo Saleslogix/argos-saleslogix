@@ -1,7 +1,7 @@
 import declare from 'dojo/_base/declare';
 import json from 'dojo/json';
-import domConstruct from 'dojo/dom-construct';
 import utility from 'argos/Utility';
+import _ListBase from 'argos/_ListBase';
 import GroupUtility from '../GroupUtility';
 import when from 'dojo/when';
 import lang from 'dojo/_base/lang';
@@ -683,9 +683,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     }
   },
   _groupApplyActionPanel: function _groupApplyActionPanel(rowNode) {
-    $(rowNode).addClass('list-action-selected');
-    this.onApplyRowActionPanel(this.actionsNode, rowNode);
-    domConstruct.place(this.actionsNode, rowNode, 'after');
+    _ListBase.prototype.showActionPanel.call(this, rowNode);
   },
   _getCurrentSelection: function _getCurrentSelection() {
     const selectedItems = this.get('selectionModel').getSelections();
