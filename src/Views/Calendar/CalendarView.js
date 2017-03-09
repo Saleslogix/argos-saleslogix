@@ -100,7 +100,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<p class="listview-subheading">{%! $$.activityNameTemplate %}</p>',
     '</div>',
     '<div class="header__timeStamp">',
-    '<span class="timeStamp__time">',
+    '<span class="timeStamp__time listview-subheading">',
     '{% if ($.Timeless) { %}',
     '{%= $$.allDayText %}',
     '{% } else if ($$.activityIconByType[$.Type]) { %}',
