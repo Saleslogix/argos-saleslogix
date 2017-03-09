@@ -19,10 +19,6 @@ const resource = getResource('contactDetail');
  */
 const __class = declare('crm.Views.Contact.Detail', [Detail], {
   // Localization
-  activityTypeText: {
-    atPhoneCall: resource.phoneCall,
-    atEMail: resource.email,
-  },
   accountText: resource.accountText,
   acctMgrText: resource.acctMgrText,
   addressText: resource.addressText,
@@ -74,7 +70,6 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       this.refreshRequired = true;
 
       view.show({
-        title: this.activityTypeText[type],
         template: {},
         entry,
         insert: true,

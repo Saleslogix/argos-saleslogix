@@ -1,4 +1,3 @@
-import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import connect from 'dojo/_base/connect';
 import json from 'dojo/json';
@@ -10,7 +9,7 @@ import $ from 'jquery';
 import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
-import Application from 'argos/Application';
+import SDKApplication from 'argos/Application';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from './Models/Names';
@@ -36,84 +35,102 @@ const resource = getResource('application');
  * @requires moment
  *
  */
-const __class = declare('crm.Application', [Application], {
-  navigationState: null,
-  rememberNavigationState: true,
-  enableUpdateNotification: false,
-  multiCurrency: false,
-  enableGroups: true,
-  enableHashTags: true,
-  enableOfflineSupport: false,
-  speedSearch: {
-    includeStemming: true,
-    includePhonic: true,
-    includeThesaurus: false,
-    useFrequentFilter: false,
-    searchType: 1,
-  },
-  enableCaching: true,
-  userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
-  userOptionsToRequest: [
-    'category=DefaultGroup;name=ACCOUNT',
-    'category=DefaultGroup;name=CONTACT',
-    'category=DefaultGroup;name=OPPORTUNITY',
-    'category=DefaultGroup;name=LEAD',
-    'category=DefaultGroup;name=TICKET',
-    'category=DefaultGroup;name=SALESORDER',
-    'category=DefaultGroup;name=QUOTE',
-    'category=General;name=InsertSecCodeID',
-    'category=General;name=Currency',
-    'category=Calendar;name=DayStartTime',
-    'category=Calendar;name=WeekStart',
-    'category=ActivityMeetingOptions;name=AlarmEnabled',
-    'category=ActivityMeetingOptions;name=AlarmLead',
-    'category=ActivityMeetingOptions;name=Duration',
-    'category=ActivityPhoneOptions;name=AlarmEnabled',
-    'category=ActivityPhoneOptions;name=AlarmLead',
-    'category=ActivityPhoneOptions;name=Duration',
-    'category=ActivityToDoOptions;name=AlarmEnabled',
-    'category=ActivityToDoOptions;name=AlarmLead',
-    'category=ActivityToDoOptions;name=Duration',
-    'category=ActivityPersonalOptions;name=AlarmEnabled',
-    'category=ActivityPersonalOptions;name=AlarmLead',
-    'category=ActivityPersonalOptions;name=Duration',
-  ],
-  systemOptionsToRequest: [
-    'BaseCurrency',
-    'MultiCurrency',
-    'ChangeOpportunityRate',
-    'LockOpportunityRate',
-  ],
-  appName: 'argos-saleslogix',
-  serverVersion: {
-    major: 8,
-    minor: 0,
-    revision: 0,
-  },
-  mobileVersion: {
-    major: 4,
-    minor: 0,
-    revision: 0,
-  },
-  versionInfoText: resource.versionInfoText,
-  loadingText: resource.loadingText,
-  authText: resource.authText,
-  connectionToastTitleText: resource.connectionToastTitleText,
-  offlineText: resource.offlineText,
-  onlineText: resource.onlineText,
-  mingleAuthErrorText: resource.mingleAuthErrorText,
-  homeViewId: 'myactivity_list',
-  offlineHomeViewId: 'recently_viewed_list_offline',
-  loginViewId: 'login',
-  logOffViewId: 'logoff',
+export default class Application extends SDKApplication {
+  constructor() {
+    super(...arguments);
+    this.navigationState = null;
+    this.rememberNavigationState = true;
+    this.enableUpdateNotification = false;
+    this.multiCurrency = false;
+    this.enableGroups = true;
+    this.enableHashTags = true;
+    this.enableOfflineSupport = false;
+    this.speedSearch = {
+      includeStemming: true,
+      includePhonic: true,
+      includeThesaurus: false,
+      useFrequentFilter: false,
+      searchType: 1,
+    };
+    this.enableCaching = true;
+    this.userDetailsQuerySelect = ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'];
+    this.userOptionsToRequest = [
+      'category=DefaultGroup;name=ACCOUNT',
+      'category=DefaultGroup;name=CONTACT',
+      'category=DefaultGroup;name=OPPORTUNITY',
+      'category=DefaultGroup;name=LEAD',
+      'category=DefaultGroup;name=TICKET',
+      'category=DefaultGroup;name=SALESORDER',
+      'category=DefaultGroup;name=QUOTE',
+      'category=General;name=InsertSecCodeID',
+      'category=General;name=Currency',
+      'category=Calendar;name=DayStartTime',
+      'category=Calendar;name=WeekStart',
+      'category=ActivityMeetingOptions;name=AlarmEnabled',
+      'category=ActivityMeetingOptions;name=AlarmLead',
+      'category=ActivityMeetingOptions;name=Duration',
+      'category=ActivityPhoneOptions;name=AlarmEnabled',
+      'category=ActivityPhoneOptions;name=AlarmLead',
+      'category=ActivityPhoneOptions;name=Duration',
+      'category=ActivityToDoOptions;name=AlarmEnabled',
+      'category=ActivityToDoOptions;name=AlarmLead',
+      'category=ActivityToDoOptions;name=Duration',
+      'category=ActivityPersonalOptions;name=AlarmEnabled',
+      'category=ActivityPersonalOptions;name=AlarmLead',
+      'category=ActivityPersonalOptions;name=Duration',
+    ];
+    this.systemOptionsToRequest = [
+      'BaseCurrency',
+      'MultiCurrency',
+      'ChangeOpportunityRate',
+      'LockOpportunityRate',
+    ];
+    this.appName = 'argos-saleslogix';
+    this.serverVersion = {
+      major: 8,
+      minor: 0,
+      revision: 0,
+    };
+    this.mobileVersion = {
+      major: 4,
+      minor: 0,
+      revision: 0,
+    };
+    this.versionInfoText = resource.versionInfoText;
+    this.loadingText = resource.loadingText;
+    this.authText = resource.authText;
+    this.connectionToastTitleText = resource.connectionToastTitleText;
+    this.offlineText = resource.offlineText;
+    this.onlineText = resource.onlineText;
+    this.mingleAuthErrorText = resource.mingleAuthErrorText;
+    this.homeViewId = 'myactivity_list';
+    this.offlineHomeViewId = 'recently_viewed_list_offline';
+    this.loginViewId = 'login';
+    this.logOffViewId = 'logoff';
+    this.UID = null;
+    this.isAuthenticated = false;
+    this.hasState = false;
+    this.defaultViews = [
+      'myday_list',
+      'calendar_view',
+      'history_list',
+      'account_list',
+      'contact_list',
+      'lead_list',
+      'opportunity_list',
+      'ticket_list',
+      'myattachment_list',
+      'recently_viewed_list',
+      'briefcase_list',
+    ];
+  }
 
-  UID: null,
-  init: function init() {
+  init() {
     if (has('ie') && has('ie') < 9) {
       window.location.href = 'unsupported.html';
     }
 
-    this.inherited(arguments);
+    super.init(...arguments);
     this._loadNavigationState();
 
     let accessToken = null;
@@ -138,25 +155,29 @@ const __class = declare('crm.Application', [Application], {
       }));
       return original.apply(this, arguments);
     };
-  },
-  getReducer: function getReducer() {
-    const sdk = this.inherited(arguments);
+  }
+
+  getReducer() {
+    const sdk = super.getReducer(...arguments);
     return combineReducers({
       sdk,
       app,
     });
-  },
-  getInitialState: function getInitialState() {
+  }
+
+  getInitialState() {
     return {};
-  },
-  initConnects: function initConnects() {
-    this.inherited(arguments);
+  }
+
+  initConnects() {
+    super.initConnects(...arguments);
 
     if (window.applicationCache) {
       this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
     }
-  },
-  isOnFirstView: function isOnFirstView() {
+  }
+
+  isOnFirstView() {
     const history = this.context.history;
     const length = history.length;
     const current = history[length - 1];
@@ -172,41 +193,47 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return isFirstView;
-  },
-  onSetOrientation: function onSetOrientation() {
+  }
+
+  onSetOrientation() {
     // TODO: Close main nav like we did with left drawer?
-  },
-  _viewTransitionTo: function _viewTransitionTo() {
-    this.inherited(arguments);
+  }
+
+  _viewTransitionTo() {
+    super._viewTransitionTo(...arguments);
     this._checkSaveNavigationState();
     // TODO: Close main nav like we did with left drawer?
-  },
-  _checkSaveNavigationState: function _checkSaveNavigationState() {
+  }
+
+  _checkSaveNavigationState() {
     if (this.rememberNavigationState !== false) {
       this._saveNavigationState();
     }
-  },
-  _checkForUpdate: function _checkForUpdate() {
+  }
+
+  _checkForUpdate() {
     const applicationCache = window.applicationCache;
     if (applicationCache && this.enableUpdateNotification) {
       if (applicationCache.status === applicationCache.UPDATEREADY) {
         this._notifyUpdateAvailable();
       }
     }
-  },
-  _notifyUpdateAvailable: function _notifyUpdateAvailable() {
+  }
+
+  _notifyUpdateAvailable() {
     if (this.bars.updatebar) {
       this.bars.updatebar.show();
     }
-  },
-  _saveNavigationState: function _saveNavigationState() {
+  }
+
+  _saveNavigationState() {
     try {
       if (window.localStorage) {
         window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
       }
     } catch (e) {} // eslint-disable-line
-  },
-  hasMultiCurrency: function hasMultiCurrency() {
+  }
+  hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
     // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
     // instead of on startup. We cannot check App.context data that was loaded after login when the startup method is used.
@@ -215,8 +242,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return false;
-  },
-  canLockOpportunityRate: function canLockOpportunityRate() {
+  }
+  canLockOpportunityRate() {
     if (this.context &&
       this.context.systemOptions &&
       this.context.systemOptions.LockOpportunityRate === 'True') {
@@ -224,8 +251,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return false;
-  },
-  canChangeOpportunityRate: function canChangeOpportunityRate() {
+  }
+  canChangeOpportunityRate() {
     if (this.context &&
       this.context.systemOptions &&
       this.context.systemOptions.ChangeOpportunityRate === 'True') {
@@ -233,8 +260,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return false;
-  },
-  getMyExchangeRate: function getMyExchangeRate() {
+  }
+  getMyExchangeRate() {
     const results = {
       code: '',
       rate: 1,
@@ -254,8 +281,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  getBaseExchangeRate: function getBaseExchangeRate() {
+  }
+  getBaseExchangeRate() {
     const results = {
       code: '',
       rate: 1,
@@ -275,8 +302,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  getCurrentOpportunityExchangeRate: function getCurrentOpportunityExchangeRate() {
+  }
+  getCurrentOpportunityExchangeRate() {
     const results = {
       code: '',
       rate: 1,
@@ -299,9 +326,9 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  run: function run() {
-    this.inherited(arguments);
+  }
+  run() {
+    super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
       if (App.mingleEnabled) {
@@ -317,8 +344,8 @@ const __class = declare('crm.Application', [Application], {
     if (this.enableUpdateNotification) {
       this._checkForUpdate();
     }
-  },
-  onAuthenticateUserSuccess: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
+  }
+  onAuthenticateUserSuccess(credentials, callback, scope, result) {
     const user = {
       $key: lang.trim(result.response.userId),
       $descriptor: result.response.prettyName,
@@ -360,8 +387,8 @@ const __class = declare('crm.Application', [Application], {
         user,
       });
     }
-  },
-  onAuthenticateUserFailure: function onAuthenticateUserFailure(callback, scope, response) {
+  }
+  onAuthenticateUserFailure(callback, scope, response) {
     const service = this.getService();
     if (service) {
       service
@@ -374,8 +401,8 @@ const __class = declare('crm.Application', [Application], {
         response,
       });
     }
-  },
-  authenticateUser: function authenticateUser(credentials, options) {
+  }
+  authenticateUser(credentials, options) {
     const service = this.getService();
     if (credentials) {
       service.setUserName(credentials.username)
@@ -391,8 +418,8 @@ const __class = declare('crm.Application', [Application], {
       failure: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
       aborted: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
     });
-  },
-  hasAccessTo: function hasAccessTo(security) {
+  }
+  hasAccessTo(security) {
     if (!security) {
       return true;
     }
@@ -410,19 +437,19 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return !!userSecurity[security];
-  },
-  reload: function reload() {
+  }
+  reload() {
     // this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
-  },
-  resetModuleAppStatePromises: function resetModuleAppStatePromises() {
+  }
+  resetModuleAppStatePromises() {
     this.clearAppStatePromises();
     for (let i = 0; i < this.modules.length; i++) {
       this.modules[i].loadAppStatePromises(this);
     }
-  },
-  logOut: function logOut() {
+  }
+  logOut() {
     this.removeCredentials();
     this._clearNavigationState();
 
@@ -445,8 +472,8 @@ const __class = declare('crm.Application', [Application], {
     if (view) {
       view.show();
     }
-  },
-  getCredentials: function getCredentials() {
+  }
+  getCredentials() {
     let credentials = null;
     try {
       if (window.localStorage) {
@@ -457,17 +484,15 @@ const __class = declare('crm.Application', [Application], {
     } catch (e) {} //eslint-disable-line
 
     return credentials;
-  },
-  removeCredentials: function removeCredentials() {
+  }
+  removeCredentials() {
     try {
       if (window.localStorage) {
         window.localStorage.removeItem('credentials');
       }
     } catch (e) {} //eslint-disable-line
-  },
-  isAuthenticated: false,
-  hasState: false,
-  handleAuthentication: function handleAuthentication() {
+  }
+  handleAuthentication() {
     const credentials = this.getCredentials();
 
     if (credentials) {
@@ -481,8 +506,8 @@ const __class = declare('crm.Application', [Application], {
     } else {
       this.navigateToLoginView();
     }
-  },
-  handleMingleAuthentication: function handleMingleAuthentication() {
+  }
+  handleMingleAuthentication() {
     if (this.mingleAuthResults && this.mingleAuthResults.error === 'access_denied') {
       this.setPrimaryTitle(this.mingleAuthErrorText);
     } else {
@@ -494,8 +519,8 @@ const __class = declare('crm.Application', [Application], {
         scope: this,
       });
     }
-  },
-  onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
+  }
+  onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
 
@@ -506,19 +531,19 @@ const __class = declare('crm.Application', [Application], {
     }, (err) => {
       this.onInitAppStateFailed(err);
     });
-  },
-  onHandleAuthenticationFailed: function onHandleAuthenticationFailed() {
+  }
+  onHandleAuthenticationFailed() {
     this.removeCredentials();
     this.navigateToLoginView();
-  },
-  onMingleHandleAuthenticationFailed: function onMingleHandleAuthenticationFailed() {
+  }
+  onMingleHandleAuthenticationFailed() {
     this.removeCredentials();
     this.setPrimaryTitle(this.mingleAuthErrorText);
-  },
-  onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
+  }
+  onHandleAuthenticationAborted() {
     this.navigateToLoginView();
-  },
-  onInitAppStateSuccess: function onInitAppStateSuccess() {
+  }
+  onInitAppStateSuccess() {
     this._saveDefaultPreferences();
     this.setDefaultMetricPreferences();
     this.showApplicationMenuOnLarge();
@@ -539,8 +564,8 @@ const __class = declare('crm.Application', [Application], {
       this.hasState = true;
       this.navigateToInitialView();
     }
-  },
-  onInitAppStateFailed: function onInitAppStateFailed(error) {
+  }
+  onInitAppStateFailed(error) {
     const message = resource.appStateInitErrorText;
     ErrorManager.addSimpleError(message, error);
     ErrorManager.showErrorDialog(null, message, () => {
@@ -548,8 +573,8 @@ const __class = declare('crm.Application', [Application], {
       this.removeCredentials();
       this.navigateToLoginView();
     });
-  },
-  _clearNavigationState: function _clearNavigationState() {
+  }
+  _clearNavigationState() {
     try {
       this.initialNavigationState = null;
 
@@ -557,15 +582,15 @@ const __class = declare('crm.Application', [Application], {
         window.localStorage.removeItem('navigationState');
       }
     } catch (e) {} //eslint-disable-line
-  },
-  _loadNavigationState: function _loadNavigationState() {
+  }
+  _loadNavigationState() {
     try {
       if (window.localStorage) {
         this.navigationState = window.localStorage.getItem('navigationState');
       }
     } catch (e) {} // eslint-disable-line
-  },
-  _saveDefaultPreferences: function _saveDefaultPreferences() {
+  }
+  _saveDefaultPreferences() {
     if (this.preferences) {
       return;
     }
@@ -580,8 +605,8 @@ const __class = declare('crm.Application', [Application], {
         order: views.slice(0),
       },
     };
-  },
-  getMetricsByResourceKind: function getMetricsByResourceKind(resourceKind) {
+  }
+  getMetricsByResourceKind(resourceKind) {
     let results = [];
     let prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
 
@@ -596,15 +621,15 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  setDefaultMetricPreferences: function setDefaultMetricPreferences() {
+  }
+  setDefaultMetricPreferences() {
     if (!this.preferences.metrics) {
       const defaults = new DefaultMetrics();
       this.preferences.metrics = defaults.getDefinitions();
       this.persistPreferences();
     }
-  },
-  requestUserDetails: function requestUserDetails() {
+  }
+  requestUserDetails() {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('users')
       .setResourceSelector(string.substitute('"${0}"', [this.context.user.$key]))
@@ -626,8 +651,8 @@ const __class = declare('crm.Application', [Application], {
     });
 
     return def.promise;
-  },
-  requestUserOptions: function requestUserOptions() {
+  }
+  requestUserOptions() {
     const batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
       .setContractName('system')
       .setResourceKind('useroptions')
@@ -680,21 +705,21 @@ const __class = declare('crm.Application', [Application], {
     });
 
     return def.promise;
-  },
+  }
   /*
    * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
    */
-  loadCustomizedMoment: function loadCustomizedMoment() {
+  loadCustomizedMoment() {
     const custom = this.buildCustomizedMoment();
     const currentLang = moment.locale();
 
     moment.locale(currentLang, custom);
     this.moment = moment().locale(currentLang, custom);
-  },
+  }
   /*
    * Builds an object that will get passed into moment.locale()
    */
-  buildCustomizedMoment: function buildCustomizedMoment() {
+  buildCustomizedMoment() {
     if (!this.context.userOptions) {
       return null;
     }
@@ -711,8 +736,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  requestSystemOptions: function requestSystemOptions() {
+  }
+  requestSystemOptions() {
     const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
       .setContractName('system')
       .setResourceKind('systemoptions')
@@ -751,8 +776,8 @@ const __class = declare('crm.Application', [Application], {
     });
 
     return def.promise;
-  },
-  requestExchangeRates: function requestExchangeRates() {
+  }
+  requestExchangeRates() {
     const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
       .setContractName('dynamic')
       .setResourceKind('exchangeRates')
@@ -782,8 +807,8 @@ const __class = declare('crm.Application', [Application], {
     });
 
     return def.promise;
-  },
-  requestOwnerDescription: function requestOwnerDescription(key) {
+  }
+  requestOwnerDescription(key) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('owners')
       .setResourceSelector(string.substitute('"${0}"', [key]))
@@ -794,38 +819,25 @@ const __class = declare('crm.Application', [Application], {
       failure: this.onRequestOwnerDescriptionFailure,
       scope: this,
     });
-  },
-  onRequestOwnerDescriptionSuccess: function onRequestOwnerDescriptionSuccess(entry) {
+  }
+  onRequestOwnerDescriptionSuccess(entry) {
     if (entry) {
       this.context.defaultOwner = entry;
     }
-  },
-  onRequestOwnerDescriptionFailure: function onRequestOwnerDescriptionFailure(response, o) {
+  }
+  onRequestOwnerDescriptionFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');
-  },
-  defaultViews: [
-    'myday_list',
-    'calendar_view',
-    'history_list',
-    'account_list',
-    'contact_list',
-    'lead_list',
-    'opportunity_list',
-    'ticket_list',
-    'myattachment_list',
-    'recently_viewed_list',
-    'briefcase_list',
-  ],
-  getDefaultViews: function getDefaultViews() {
+  }
+  getDefaultViews() {
     return this.defaultViews;
-  },
-  getExposedViews: function getExposedViews() {
+  }
+  getExposedViews() {
     return Object.keys(this.views).filter((id) => {
       const view = this.getView(id);
       return view && view.id !== 'home' && view.expose;
     });
-  },
-  cleanRestoredHistory: function cleanRestoredHistory(restoredHistory) {
+  }
+  cleanRestoredHistory(restoredHistory) {
     let result = [];
     let hasRoot = false;
 
@@ -843,8 +855,9 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return hasRoot && result;
-  },
-  navigateToInitialView: function navigateToInitialView() {
+  }
+
+  navigateToInitialView() {
     this.showLeftDrawer();
     try {
       const restoredState = this.navigationState;
@@ -875,8 +888,8 @@ const __class = declare('crm.Application', [Application], {
       this._clearNavigationState();
       this.navigateToHomeView();
     }
-  },
-  setupRedirectHash: function setupRedirectHash() {
+  }
+  setupRedirectHash() {
     let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
       if (App.mingleEnabled) {
@@ -906,8 +919,8 @@ const __class = declare('crm.Application', [Application], {
         }
       }
     }
-  },
-  onConnectionChange: function onConnectionChange(online) {
+  }
+  onConnectionChange(online) {
     const view = this.getView('left_drawer');
     if (!this.enableOfflineSupport) {
       return;
@@ -936,31 +949,33 @@ const __class = declare('crm.Application', [Application], {
     }
 
     this.setToolBarMode(online);
-  },
-  navigateToLoginView: function navigateToLoginView() {
+  }
+  navigateToLoginView() {
     this.setupRedirectHash();
 
     const view = this.getView(this.loginViewId);
     if (view) {
       view.show();
     }
-  },
-  _hasValidRedirect: function _hasValidRedirect() {
+  }
+  _hasValidRedirect() {
     const hashValue = decodeURIComponent(this.redirectHash);
     return hashValue !== '' && hashValue.indexOf('/redirectTo/') > 0;
-  },
-  showLeftDrawer: function showLeftDrawer() {
+  }
+  showLeftDrawer() {
     const view = this.getView('left_drawer');
     if (view) {
       view.show();
     }
 
     return this;
-  },
-  showRightDrawer: function showRightDrawer() {
+  }
+
+  showRightDrawer() {
     return this;
-  },
-  navigateToHomeView: function navigateToHomeView() {
+  }
+
+  navigateToHomeView() {
     this.setupRedirectHash();
     this.showLeftDrawer();
 
@@ -1005,26 +1020,26 @@ const __class = declare('crm.Application', [Application], {
     if (view) {
       view.show();
     }
-  },
-  navigateToActivityInsertView: function navigateToActivityInsertView() {
+  }
+  navigateToActivityInsertView() {
     const view = this.getView('activity_types_list');
     if (view) {
       view.show();
     }
-  },
-  initiateCall: function initiateCall() {
+  }
+  initiateCall() {
     // shortcut for environment call
     environment.initiateCall.apply(this, arguments);
-  },
-  initiateEmail: function initiateEmail() {
+  }
+  initiateEmail() {
     // shortcut for environment call
     environment.initiateEmail.apply(this, arguments);
-  },
-  showMapForAddress: function showMapForAddress() {
+  }
+  showMapForAddress() {
     // shortcut for environment call
     environment.showMapForAddress.apply(this, arguments);
-  },
-  getVersionInfo: function getVersionInfo() {
+  }
+  getVersionInfo() {
     const info = string.substitute(this.versionInfoText, [
       this.mobileVersion.major,
       this.mobileVersion.minor,
@@ -1032,8 +1047,8 @@ const __class = declare('crm.Application', [Application], {
       this.serverVersion.major,
     ]);
     return info;
-  },
-  initOfflineData: function initOfflineData() {
+  }
+  initOfflineData() {
     const def = new Deferred();
     const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
     if (model) {
@@ -1081,8 +1096,5 @@ const __class = declare('crm.Application', [Application], {
       def.resolve();
     }
     return def.promise;
-  },
-});
-
-lang.setObject('Mobile.SalesLogix.Application', __class);
-export default __class;
+  }
+}
