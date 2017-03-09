@@ -14,17 +14,17 @@ const __class = declare('crm.Integrations.BOE.Views.SyncResults.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading"><label class="group-label">{%: $$.directionText %}: </label>{%: $.RunName %}</p>',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.statusText %}: </label>{%: $.HttpStatus %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusText %}: </label>{%: $.HttpStatus %}</p>',
     '{% if ($.ErrorMessage) { %}',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.errorMessageText %}: </label>{%: $.ErrorMessage %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.errorMessageText %}: </label>{%: $.ErrorMessage %}</p>',
     '{% } %}',
     '{% if ($.SyncedFrom) { %}',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.sentFromText %}: </label>{%: $.SyncedFrom.Name %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.sentFromText %}: </label>{%: $.SyncedFrom.Name %}</p>',
     '{% } %}',
     '{% if ($.SyncedTo) { %}',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.processedByText %}: </label>{%: $.SyncedTo.Name %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.processedByText %}: </label>{%: $.SyncedTo.Name %}</p>',
     '{% } %}',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.loggedText %}: </label>{%: $$.formatter.date($.Stamp, $$.dateFormatText) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.loggedText %}: </label>{%: $$.formatter.date($.Stamp, $$.dateFormatText) %}</p>',
   ]),
 
   // Localization

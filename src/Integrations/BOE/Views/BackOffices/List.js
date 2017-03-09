@@ -11,7 +11,7 @@ const __class = declare('crm.Integrations.BOE.Views.BackOffices.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.BackOfficeName %}</p>',
-    '<p class="listview-subheading">{%: $.LogicalId %}</p>',
+    '<p class="micro-text">{%: $.LogicalId %}</p>',
   ]),
 
   // Localization

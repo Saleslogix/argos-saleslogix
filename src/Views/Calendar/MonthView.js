@@ -139,11 +139,11 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   ]),
   activityItemTemplate: new Simplate([
     '<p class="listview-heading p-description">{%: $.Description %}</p>',
-    '<p class="listview-subheading">{%= $$.activityNameTemplate.apply($) %}</p>',
+    '<p class="micro-text">{%= $$.activityNameTemplate.apply($) %}</p>',
   ]),
   eventItemTemplate: new Simplate([
     '<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>',
-    '<p class="listview-subheading">{%! $$.eventNameTemplate %}</p>',
+    '<p class="micro-text">{%! $$.eventNameTemplate %}</p>',
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',

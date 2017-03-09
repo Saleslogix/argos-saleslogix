@@ -304,14 +304,14 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   getItemLayoutTemplate: function getItemLayoutTemplate(item) {
     const jsonString = json.stringify(item);
-    const template = ['<p class="listview-subheading"><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</p>'].join('');
+    const template = ['<p class="micro-text"><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</p>'].join('');
 
     return template;
   },
   defaultGroupLayoutItemTemplate: new Simplate([
-    '<div><p class="listview-subheading">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</p></div>',
-    '<p class="listview-subheading"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></p>',
-    '<p class="listview-subheading"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></p>',
+    '<p class="micro-text">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</p>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></p>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></p>',
   ]),
   createGroupTemplateLayouts: function createGroupTemplateLayouts() {
     this.groupTemplateLayouts = [{
@@ -375,16 +375,16 @@ const __class = declare('crm.Views._GroupListMixin', null, {
 
     const template = [];
     template.push('<div class="group-item">');
-    template.push('<div class="listview-heading">');
+    template.push('<p>');
     template.push(`{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}`);
-    template.push('</div">');
+    template.push('</p">');
     for (let i = 0; i < layout.length; i++) {
       const columnItem = layoutOptions.columns[column - 1];
       if ((columnItem) && (column <= columns) && (i !== 0)) {
         if (row === 1) {
           const columnStyle = columnItem.style || `width:${columnWidth}%;`;
           const columnClass = columnItem.clss || '';
-          template.push(`<div class="listview-subheading group-column ${columnClass}"  style="${columnStyle}">`);
+          template.push(`<div class="micro-text group-column ${columnClass}"  style="${columnStyle}">`);
         }
         const item = layout[i];
         if (item && (columnItem.rows > 0)) {

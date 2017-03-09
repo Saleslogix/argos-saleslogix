@@ -26,7 +26,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: crm.Format.date($.Date, (App.is24HourClock()) ? $$.errorDateFormatText24 : $$.errorDateFormatText) %}</p>',
-    '<p class="listview-subheading">{%: $.Description %}</p>',
+    '<p class="micro-text">{%: $.Description %}</p>',
   ]),
 
   // View Properties

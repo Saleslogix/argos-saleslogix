@@ -15,7 +15,7 @@ const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.RateTypeCode %} - {%: $.Amount %}</p>',
-    '<p class="listview-subheading">{%: $.TypeDescription %}</p>',
+    '<p class="micro-text">{%: $.TypeDescription %}</p>',
   ]),
 
   // Localization

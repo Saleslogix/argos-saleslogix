@@ -15,7 +15,7 @@ const __class = declare('crm.Views.User.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</p>',
-    '<p class="listview-subheading">{%: $.UserInfo.Title %}</p>',
+    '<p class="micro-text">{%: $.UserInfo.Title %}</p>',
   ]),
 
   // Localization

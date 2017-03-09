@@ -34,7 +34,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, 
 
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $$.getTitle($) %}</p>',
-    '<p class="listview-subheading">{%: $$.getOfflineDate($) %}</p>',
+    '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   refreshRequiredFor: function refreshRequiredFor() {
     return true;

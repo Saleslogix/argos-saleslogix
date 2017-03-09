@@ -26,14 +26,14 @@ const resource = getResource('speedSearchList');
 const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-subheading"><strong>{%: $.$heading %}</strong></p>',
+    '<p class="micro-text"><strong>{%: $.$heading %}</strong></p>',
     '{%! $$.fieldTemplate %}',
   ]),
 
   fieldTemplate: new Simplate([
     '<ul class="speedsearch-fields">',
     '{% for(var i = 0; i < $.fields.length; i++) { %}',
-    '<li><p class="listview-subheading"><span>{%= $.fields[i].fieldName %}</span> {%= $.fields[i].fieldValue %}</p></li>',
+    '<li><p class="micro-text"><span>{%= $.fields[i].fieldName %}</span> {%= $.fields[i].fieldValue %}</p></li>',
     '{% } %}',
     '</ul>',
   ]),

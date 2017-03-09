@@ -10,9 +10,9 @@ const resource = getResource('locationsList');
 const __class = declare('crm.Integrations.BOE.Views.Locations.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-subheading">{%: $.Name %}</p>',
+    '<p class="micro-text">{%: $.Name %}</p>',
     '<p class="listview-heading">{%: $.Description %}</p>',
-    '<p class="listview-subheading">{%: $.ErpStatus %}</p>',
+    '<p class="micro-text">{%: $.ErpStatus %}</p>',
   ]),
 
   // Localization

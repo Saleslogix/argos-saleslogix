@@ -17,11 +17,11 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Product.Name %}</p>',
-    '<p class="listview-subheading">',
+    '<p class="micro-text">',
     '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
     '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',
     '</p>',
-    '<p class="listview-subheading">',
+    '<p class="micro-text">',
     '{%: $.Quantity %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
     '({%: crm.Format.percent($.Discount) %}) = ',
     '<strong>',

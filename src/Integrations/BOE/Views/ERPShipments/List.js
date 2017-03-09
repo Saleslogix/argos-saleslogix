@@ -21,16 +21,16 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading"><label class="group-label">{%: $$.shipmentIDLabelText %}</label> {%: $.ErpExtId %}</p>',
-    '<p class="listview-subheading"> {% if ($.Account) { %}<label class="group-label"> {%: $$.accountLabelText %}</label> {%: $.Account.AccountName %} {% } %}</p>',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.ErpStatus %}</p>',
-    '<p class="listview-subheading"> {% if ($.DatePromised) { %}<label class="group-label">{%: $$.datePromisedLabelText %}</label> {%: $$.formatter.date($.DatePromised) %} {% } %}</p>',
-    '<p class="listview-subheading"><label class="group-label"> {%: $$.totalBaseAmountText %} </label>',
+    '<p class="micro-text"> {% if ($.Account) { %}<label class="group-label"> {%: $$.accountLabelText %}</label> {%: $.Account.AccountName %} {% } %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.ErpStatus %}</p>',
+    '<p class="micro-text"> {% if ($.DatePromised) { %}<label class="group-label">{%: $$.datePromisedLabelText %}</label> {%: $$.formatter.date($.DatePromised) %} {% } %}</p>',
+    '<p class="micro-text"><label class="group-label"> {%: $$.totalBaseAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalBaseAmount, $.BaseCurrencyCode) %}',
     '</p>',
-    '<p class="listview-subheading"><label class="group-label"> {%: $$.totalAmountText %} </label>',
+    '<p class="micro-text"><label class="group-label"> {%: $$.totalAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalAmount, $.CurrencyCode) %}',
     '</p>',
-    '<p class="listview-subheading"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>',
   ]),
 
   // Localization

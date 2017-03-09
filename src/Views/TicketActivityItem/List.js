@@ -17,8 +17,8 @@ const __class = declare('crm.Views.TicketActivityItem.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Product.Name %}</p>',
-    '<p class="listview-subheading">{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</p>',
-    '<p class="listview-subheading">{%: $.ItemDescription %}</p>',
+    '<p class="micro-text">{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</p>',
+    '<p class="micro-text">{%: $.ItemDescription %}</p>',
   ]),
 
   // Localization
