@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import domConstruct from 'dojo/dom-construct';
-import has from 'dojo/has';
 import domGeom from 'dojo/dom-geometry';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
@@ -112,7 +111,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   show: function show(options) {
     this.inherited(arguments);
     this.attachmentViewerNode.innerHTML = '';
-    if (!has('html5-file-api')) {
+    if (!App.supportsFileAPI()) {
       domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
       return;
     }

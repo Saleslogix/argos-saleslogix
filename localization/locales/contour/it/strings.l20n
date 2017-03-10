@@ -2,6 +2,7 @@
   viewAccountsNearbyText: "Visualizza aziende nelle vicinanze"
   addressNotGeocodedErrorText: "La geocodifica dell’indirizzo non è stata eseguita. Impossibile cercare aziende nelle vicinanze."
   accountsNearText: "Aziende nelle vicinanze di ${0}"
+  helpTitleText: "Guida di Contour"
 >
 
 <acctPxSearch ""
@@ -24,5 +25,10 @@
   accountsNearText: "Aziende nelle vicinanze di ${0}"
 	myHouseText: "La mia abitazione"
 	myOfficeText: "Il mio ufficio"
-	titleText: "Ricerca per distanza in prossimità"
+	titleText: "Ricerca per distanza Contour"
+>
+
+<placeModel ""
+  entityDisplayName: "Luogo"
+  entityDisplayNamePlural : "Luoghi"
 >

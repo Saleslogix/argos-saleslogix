@@ -134,19 +134,28 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       cls: 'fa fa-phone-square fa-2x',
       label: this.callWorkActionText,
       enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
-      fn: action.callPhone.bindDelegate(this, 'WorkPhone'),
+      fn: (act, selectionIn) => {
+        const selectionOut = this.linkLeadProperties(selectionIn);
+        action.callPhone.call(this, act, selectionOut, 'WorkPhone');
+      },
     }, {
       id: 'callMobile',
       cls: 'fa fa-mobile fa-2x',
       label: this.callMobileActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
-      fn: action.callPhone.bindDelegate(this, 'Mobile'),
+      fn: (act, selectionIn) => {
+        const selectionOut = this.linkLeadProperties(selectionIn);
+        action.callPhone.call(this, act, selectionOut, 'Mobile');
+      },
     }, {
       id: 'sendEmail',
       cls: 'fa fa-envelope fa-2x',
       label: this.sendEmailActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Email'),
-      fn: action.sendEmail.bindDelegate(this, 'Email'),
+      fn: (act, selectionIn) => {
+        const selectionOut = this.linkLeadProperties(selectionIn);
+        action.sendEmail.call(this, act, selectionOut, 'Email');
+      },
     }, {
       id: 'addNote',
       cls: 'fa fa-edit fa-2x',
@@ -163,6 +172,24 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }]);
+  },
+
+  linkLeadProperties: function linkLeadProperties(selection = {}) {
+    const { data } = selection;
+
+    if (data) {
+      selection.data.LeadId = data.$key;
+      selection.data.AccountName = data.Company;
+      selection.data.LeadName = data.LeadNameLastFirst;
+    }
+    return selection;
+  },
+
+  groupInvokeActionByName: function groupInvokeActionByName(actionName, options) {
+    if (options) {
+      options.selection = this.linkLeadProperties(options.selection);
+    }
+    this.inherited(arguments);
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {

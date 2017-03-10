@@ -1,11 +1,4 @@
-import array from 'dojo/_base/array';
-import connect from 'dojo/_base/connect';
-import json from 'dojo/json';
-import lang from 'dojo/_base/lang';
-import has from 'dojo/has';
 import string from 'dojo/string';
-import Deferred from 'dojo/Deferred';
-import $ from 'jquery';
 import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
@@ -19,9 +12,7 @@ import MingleUtility from './MingleUtility';
 import { app } from './reducers';
 import { setUser } from './actions';
 import { combineReducers } from 'redux';
-import 'dojo/sniff';
-
-
+import $ from 'jquery';
 import moment from 'moment';
 
 const resource = getResource('application');
@@ -126,10 +117,6 @@ export default class Application extends SDKApplication {
   }
 
   init() {
-    if (has('ie') && has('ie') < 9) {
-      window.location.href = 'unsupported.html';
-    }
-
     super.init(...arguments);
     this._loadNavigationState();
 
@@ -149,10 +136,9 @@ export default class Application extends SDKApplication {
       }
 
       request.setRequestHeader('X-Application-Name', self.appName);
-      request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', {
-        version: self.mobileVersion,
-        id: self.UID,
-      }));
+      const version = self.mobileVersion;
+      const id = self.UID;
+      request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
       return original.apply(this, arguments);
     };
   }
@@ -173,8 +159,13 @@ export default class Application extends SDKApplication {
     super.initConnects(...arguments);
 
     if (window.applicationCache) {
-      this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
+      $(window.applicationCache).on('updateready', this._checkForUpdate.bind(this));
     }
+  }
+
+  destroy() {
+    super.destroy();
+    $(window.applicationCache).off('updateready', this._checkForUpdate.bind(this));
   }
 
   isOnFirstView() {
@@ -229,7 +220,7 @@ export default class Application extends SDKApplication {
   _saveNavigationState() {
     try {
       if (window.localStorage) {
-        window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
+        window.localStorage.setItem('navigationState', JSON.stringify(ReUI.context.history));
       }
     } catch (e) {} // eslint-disable-line
   }
@@ -274,7 +265,7 @@ export default class Application extends SDKApplication {
       this.context.userOptions['General:Currency']) {
       const myCode = this.context.userOptions['General:Currency'];
       const myRate = this.context.exchangeRates[myCode];
-      lang.mixin(results, {
+      Object.assign(results, {
         code: myCode,
         rate: myRate,
       });
@@ -295,7 +286,7 @@ export default class Application extends SDKApplication {
       this.context.systemOptions.BaseCurrency) {
       const baseCode = this.context.systemOptions.BaseCurrency;
       const baseRate = this.context.exchangeRates[baseCode];
-      lang.mixin(results, {
+      Object.assign(results, {
         code: baseCode,
         rate: baseRate,
       });
@@ -319,7 +310,7 @@ export default class Application extends SDKApplication {
     if (found) {
       const rate = found.ExchangeRate;
       const code = found.ExchangeRateCode;
-      lang.mixin(results, {
+      Object.assign(results, {
         code,
         rate,
       });
@@ -347,7 +338,7 @@ export default class Application extends SDKApplication {
   }
   onAuthenticateUserSuccess(credentials, callback, scope, result) {
     const user = {
-      $key: lang.trim(result.response.userId),
+      $key: result.response.userId.trim(),
       $descriptor: result.response.prettyName,
       UserName: result.response.userName,
     };
@@ -358,7 +349,7 @@ export default class Application extends SDKApplication {
 
     if (this.context.securedActions) {
       this.context.userSecurity = {};
-      array.forEach(this.context.securedActions, (item) => {
+      this.context.securedActions.forEach((item) => {
         this.context.userSecurity[item] = true;
       });
     } else {
@@ -374,7 +365,7 @@ export default class Application extends SDKApplication {
     if (!App.mingleEnabled && credentials.remember) {
       try {
         if (window.localStorage) {
-          window.localStorage.setItem('credentials', Base64.encode(json.stringify({
+          window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
             username: credentials.username,
             password: credentials.password || '',
           })));
@@ -414,9 +405,9 @@ export default class Application extends SDKApplication {
       .setOperationName('getCurrentUser');
 
     request.execute({}, {
-      success: lang.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
-      failure: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
-      aborted: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
+      success: this.onAuthenticateUserSuccess.bind(this, credentials, options.success, options.scope),
+      failure: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
+      aborted: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
     });
   }
   hasAccessTo(security) {
@@ -479,7 +470,7 @@ export default class Application extends SDKApplication {
       if (window.localStorage) {
         const stored = window.localStorage.getItem('credentials');
         const encoded = stored && Base64.decode(stored);
-        credentials = encoded && json.parse(encoded);
+        credentials = encoded && JSON.parse(encoded);
       }
     } catch (e) {} //eslint-disable-line
 
@@ -611,7 +602,7 @@ export default class Application extends SDKApplication {
     let prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
 
     if (prefs) {
-      prefs = array.filter(prefs, (item) => {
+      prefs = prefs.filter((item) => {
         return item.resourceKind === resourceKind;
       });
 
@@ -630,27 +621,26 @@ export default class Application extends SDKApplication {
     }
   }
   requestUserDetails() {
+    const key = this.context.user.$key;
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('users')
-      .setResourceSelector(string.substitute('"${0}"', [this.context.user.$key]))
+      .setResourceSelector(`"${key}"`)
       .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
-    const def = new Deferred();
-
-    request.read({
-      success: function success(entry) {
-        this.store.dispatch(setUser(entry));
-        this.context.user = entry;
-        this.context.defaultOwner = entry && entry.DefaultOwner;
-        def.resolve(entry);
-      },
-      failure: function failure() {
-        def.reject();
-      },
-      scope: this,
+    return new Promise((resolve, reject) => {
+      request.read({
+        success: function success(entry) {
+          this.store.dispatch(setUser(entry));
+          this.context.user = entry;
+          this.context.defaultOwner = entry && entry.DefaultOwner;
+          resolve(entry);
+        },
+        failure: function failure(e) {
+          reject(e);
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
   }
   requestUserOptions() {
     const batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
@@ -659,52 +649,51 @@ export default class Application extends SDKApplication {
       .setQueryArg('select', 'name,value,defaultValue')
       .using(function using() {
         const service = this.getService();
-        array.forEach(this.userOptionsToRequest, function forEach(item) {
-          new Sage.SData.Client.SDataSingleResourceRequest(this)
+        this.userOptionsToRequest.forEach((item) => {
+          new Sage.SData.Client.SDataSingleResourceRequest(service)
             .setContractName('system')
             .setResourceKind('useroptions')
             .setResourceKey(item)
             .read();
-        }, service);
+        });
       }, this);
 
-    const def = new Deferred();
-    batch.commit({
-      success: function success(feed) {
-        const userOptions = this.context.userOptions = this.context.userOptions || {};
+    return new Promise((resolve, reject) => {
+      batch.commit({
+        success: function success(feed) {
+          const userOptions = this.context.userOptions = this.context.userOptions || {};
 
-        array.forEach(feed && feed.$resources, (item) => {
-          const key = item && item.$descriptor;
-          let { value } = item;
-          const { defaultValue } = item;
+          feed.$resources.forEach((item) => {
+            const key = item && item.$descriptor;
+            let { value } = item;
+            const { defaultValue } = item;
 
-          if (typeof value === 'undefined' || value === null) {
-            value = defaultValue;
+            if (typeof value === 'undefined' || value === null) {
+              value = defaultValue;
+            }
+
+            if (key) {
+              userOptions[key] = value;
+            }
+          });
+
+          const insertSecCode = userOptions['General:InsertSecCodeID'];
+          const currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
+
+          if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
+            this.requestOwnerDescription(insertSecCode);
           }
 
-          if (key) {
-            userOptions[key] = value;
-          }
-        });
-
-        const insertSecCode = userOptions['General:InsertSecCodeID'];
-        const currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
-
-        if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
-          this.requestOwnerDescription(insertSecCode);
-        }
-
-        this.loadCustomizedMoment();
-        def.resolve(feed);
-      },
-      failure: function failure(response, o) {
-        def.reject();
-        ErrorManager.addError(response, o, {}, 'failure');
-      },
-      scope: this,
+          this.loadCustomizedMoment();
+          resolve(feed);
+        },
+        failure: function failure(response, o) {
+          reject();
+          ErrorManager.addError(response, o, {}, 'failure');
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
   }
   /*
    * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
@@ -743,39 +732,38 @@ export default class Application extends SDKApplication {
       .setResourceKind('systemoptions')
       .setQueryArg('select', 'name,value');
 
-    const def = new Deferred();
-    request.read({
-      success: function succes(feed) {
-        const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
+    return new Promise((resolve, reject) => {
+      request.read({
+        success: function succes(feed) {
+          const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
-        array.forEach(feed && feed.$resources, (item) => {
-          const { name, value } = item;
-          if (value && name && array.indexOf(this.systemOptionsToRequest, name) > -1) {
-            systemOptions[name] = value;
+          feed.$resources.forEach((item) => {
+            const { name, value } = item;
+            if (value && name && this.systemOptionsToRequest.indexOf(name) > -1) {
+              systemOptions[name] = value;
+            }
+          }, this);
+
+          const multiCurrency = systemOptions.MultiCurrency;
+
+          if (multiCurrency && multiCurrency === 'True') {
+            this.requestExchangeRates()
+              .then(() => {
+                resolve(feed);
+              }, () => {
+                reject();
+              });
+          } else {
+            resolve(feed);
           }
-        }, this);
-
-        const multiCurrency = systemOptions.MultiCurrency;
-
-        if (multiCurrency && multiCurrency === 'True') {
-          this.requestExchangeRates()
-            .then(() => {
-              def.resolve(feed);
-            }, () => {
-              def.reject();
-            });
-        } else {
-          def.resolve(feed);
-        }
-      },
-      failure: function failure(response, o) {
-        ErrorManager.addError(response, o, {}, 'failure');
-        def.reject();
-      },
-      scope: this,
+        },
+        failure: function failure(response, o) {
+          ErrorManager.addError(response, o, {}, 'failure');
+          reject();
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
   }
   requestExchangeRates() {
     const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
@@ -783,35 +771,34 @@ export default class Application extends SDKApplication {
       .setResourceKind('exchangeRates')
       .setQueryArg('select', 'Rate');
 
-    const def = new Deferred();
-    request.read({
-      success: function success(feed) {
-        const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
+    return new Promise((resolve, reject) => {
+      request.read({
+        success: function success(feed) {
+          const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
 
-        array.forEach(feed && feed.$resources, (item) => {
-          const key = item && item.$descriptor;
-          const value = item && item.Rate;
+          feed.$resources.forEach((item) => {
+            const key = item && item.$descriptor;
+            const value = item && item.Rate;
 
-          if (value && key) {
-            exchangeRates[key] = value;
-          }
-        });
+            if (value && key) {
+              exchangeRates[key] = value;
+            }
+          });
 
-        def.resolve(feed);
-      },
-      failure: function failure(response, o) {
-        def.reject();
-        ErrorManager.addError(response, o, {}, 'failure');
-      },
-      scope: this,
+          resolve(feed);
+        },
+        failure: function failure(response, o) {
+          reject();
+          ErrorManager.addError(response, o, {}, 'failure');
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
   }
   requestOwnerDescription(key) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('owners')
-      .setResourceSelector(string.substitute('"${0}"', [key]))
+      .setResourceSelector(`"${key}"`)
       .setQueryArg('select', 'OwnerDescription');
 
     request.read({
@@ -861,7 +848,7 @@ export default class Application extends SDKApplication {
     this.showLeftDrawer();
     try {
       const restoredState = this.navigationState;
-      const restoredHistory = restoredState && json.parse(restoredState);
+      const restoredHistory = restoredState && JSON.parse(restoredState);
       const cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
       this._clearNavigationState();
@@ -1049,52 +1036,52 @@ export default class Application extends SDKApplication {
     return info;
   }
   initOfflineData() {
-    const def = new Deferred();
-    const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
-    if (model) {
-      const indicator = new BusyIndicator({
-        id: 'busyIndicator__offlineData',
-        label: resource.offlineInitDataText,
-      });
-      this.modal.disableClose = true;
-      this.modal.showToolbar = false;
-      this.modal.add(indicator);
-      indicator.start();
+    return new Promise((resolve, reject) => {
+      const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
+      if (model) {
+        const indicator = new BusyIndicator({
+          id: 'busyIndicator__offlineData',
+          label: resource.offlineInitDataText,
+        });
+        this.modal.disableClose = true;
+        this.modal.showToolbar = false;
+        this.modal.add(indicator);
+        indicator.start();
 
-      model.initAuthentication(this.context.user.$key).then((result) => {
-        let options = offlineManager.getOptions();
-        if (result.hasUserChanged) {
-          options = {
-            clearAll: true,
-          };
-        }
-        if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
-          offlineManager.clearData(options).then(() => {
+        model.initAuthentication(this.context.user.$key).then((result) => {
+          let options = offlineManager.getOptions();
+          if (result.hasUserChanged) {
+            options = {
+              clearAll: true,
+            };
+          }
+          if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
+            offlineManager.clearData(options).then(() => {
+              model.updateEntry(result.entry);
+              indicator.complete(true);
+              this.modal.disableClose = false;
+              this.modal.hide();
+              resolve();
+            }, (err) => {
+              indicator.complete(true);
+              this.modal.disableClose = false;
+              this.modal.hide();
+              reject(err);
+            });
+          } else {
+            result.entry.ModifyDate = moment().toDate();
             model.updateEntry(result.entry);
             indicator.complete(true);
             this.modal.disableClose = false;
             this.modal.hide();
-            def.resolve();
-          }, (err) => {
-            indicator.complete(true);
-            this.modal.disableClose = false;
-            this.modal.hide();
-            def.reject(err);
-          });
-        } else {
-          result.entry.ModifyDate = moment().toDate();
-          model.updateEntry(result.entry);
-          indicator.complete(true);
-          this.modal.disableClose = false;
-          this.modal.hide();
-          def.resolve(); // Do nothing since this not the first time athuenticating.
-        }
-      }, (err) => {
-        def.reject(err);
-      });
-    } else {
-      def.resolve();
-    }
-    return def.promise;
+            resolve(); // Do nothing since this not the first time athuenticating.
+          }
+        }, (err) => {
+          reject(err);
+        });
+      } else {
+        resolve();
+      }
+    });
   }
 }

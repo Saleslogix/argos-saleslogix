@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import has from 'dojo/has';
 import utility from '../../Utility';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
@@ -108,7 +107,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     binary: hashTagResource.hashTagBinaryText,
   },
   createToolLayout: function createToolLayout() {
-    if (!has('html5-file-api')) {
+    if (!App.supportsFileAPI()) {
       this.insertView = null;
     } else {
       return this.inherited(arguments);

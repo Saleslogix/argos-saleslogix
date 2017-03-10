@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import string from 'dojo/string';
 import domGeom from 'dojo/dom-geometry';
 import query from 'dojo/query';
-import topic from 'dojo/topic';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
@@ -84,7 +83,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
-    this.own(topic.subscribe('/app/resize', lang.hitch(this, this._onResize)));
+    $(window).on('resize', this._onResize.bind(this));
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute(
