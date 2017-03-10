@@ -5,13 +5,13 @@ First let's inspect how the List View shows the Detail View which will leads us 
 
 1\. Fire up your app, and go to your List view. Inspect the rendered HTML of a row, it should look something like:
 
-    <li data-action="activateEntry" data-key="AA2EK0013056" data-descriptor="Allied Corp.">
+    <div data-action="activateEntry" data-key="AA2EK0013056" data-descriptor="Allied Corp.">
        <button data-action="selectEntry" class="list-item-selector button"><img src="content/images/icons/Company_24.png" class="icon"></button>
        <div class="list-item-content">
           <p class="listview-heading">Allied Corp.</p>
           <p class="micro-text">Lee Hogan</p>
        </div>
-    </li>
+    </div>
 
 2\. The important part here to note the `data-key` is the `$key` of the entry and if you look in `mobile/argos-sdk/src/List.js` and down to `navigateToDetailView`:
 

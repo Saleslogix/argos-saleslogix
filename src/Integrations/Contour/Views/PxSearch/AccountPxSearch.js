@@ -47,9 +47,9 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     '{% } %}',
   ]),
   itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
+    '<div data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
     '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+    '</div>',
   ]),
   itemRowContentTemplate: new Simplate([
     '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
