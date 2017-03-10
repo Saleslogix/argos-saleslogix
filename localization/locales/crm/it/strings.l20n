@@ -1,8 +1,3 @@
-<version["short"] {
-  short: "3.4",
-  long: "Mobile {{ version.short}} / CRM Platform 8.0+"
-}>
-
 <addressField ""
   lookupLabelText: "modifica"
   emptyText: ""
@@ -61,7 +56,7 @@
   accountTypeTitleText: "Tipo di azienda"
   acctMgrText: "resp. azienda"
   businessDescriptionText: "descr. attività"
-  businessDescriptionTitleText: "Descrizione business"
+  businessDescriptionTitleText: "Descrizione attività"
   descriptionText: "descr."
   faxText: "fax"
   fullAddressText: "indirizzo"
@@ -132,7 +127,7 @@
   nonePropText: "Nessuno"
   phoneCallText: "Telefonata"
   meetingText: "Riunione"
-  toDoText: "Impegno"
+  toDoText: "Attività da svolgere"
   personalText: "Attività personale"
 >
 
@@ -171,7 +166,7 @@
   moreDetailsText: "Altri dettagli"
   phoneCallText: "Telefonata"
   meetingText: "Riunione"
-  toDoText: "Impegno"
+  toDoText: "Attività da svolgere"
   personalText: "Attività personale"
   literatureText: "Richiesta documentazione"
   entityText: "Attività"
@@ -234,26 +229,17 @@
   addAttachmentActionText: "Aggiungi allegato"
   overdueText: "scaduto"
   alarmText: "allarme"
-  touchedText: "ultima modifica"
+  touchedText: "ultima attività"
   importantText: "importante"
   recurringText: "ricorrente"
   phoneCallText: "Telefonata"
   meetingText: "Riunione"
-  toDoText: "Impegno"
+  toDoText: "Attività da svolgere"
   personalText: "Attività personale"
   literatureText: "Richiesta documentazione"
   questionText: "Domanda"
   noteText: "Nota"
   emailText: "E-mail"
->
-
-<activityListHashTags ""
-  alarmText: "allarme"
-  recurringText: "ricorrente"
-  timelessText: "senza-limiti-di-tempo"
-  todayText: "oggi"
-  thisWeekText: "questa-settimana"
-  yesterdayText: "ieri"
 >
 
 <activityMyList ""
@@ -267,18 +253,6 @@
   viewContactActionText: "Contatto"
   viewAccountActionText: "Azienda"
   viewOpportunityActionText: "Opportunità"
->
-
-<activityMyListHashTags ""
-  hashTagAlarmText: "allarme"
-  hashTagUnconfirmedText: "stato-non-confermato"
-  hashTagAcceptedText: "stato-accettato"
-  hashTagDeclinedText: "stato-rifiutato"
-  hashTagRecurringText: "ricorrente"
-  hashTagTimelessText: "senza-limiti-di-tempo"
-  hashTagTodayText: "oggi"
-  hashTagThisWeekText: "questa-settimana"
-  hashTagYesterdayText: "ieri"
 >
 
 <activityMyDay ""
@@ -329,7 +303,7 @@
 
 <activityTypesList ""
   titleText: "Pianifica..."
-  toDo: "Impegno"
+  toDo: "Attività da svolgere"
   phoneCall: "Telefonata"
   meeting: "Riunione"
   literature: "Richiesta documentazione"
@@ -348,7 +322,7 @@
   descriptionText: "descrizione"
   descriptionTitleText: "Descrizione"
   isMailingText: "spedizione"
-  isPrimaryText: "primario"
+  isPrimaryText: "principale"
   postalCodeText: "codice postale"
   salutationText: "all’attenzione di"
   stateText: "provincia"
@@ -369,11 +343,6 @@
   uploadedOnText: "Caricato "
 >
 
-<attachmentListHashTags ""
-  hashTagUrlText: "url"
-  hashTagBinaryText: "binario"
->
-
 <attachmentMyList ""
   titleText: "Allegati personali"
 >
@@ -383,7 +352,7 @@
   descriptionText: "descrizione"
   fileNameText: "nome file"
   attachDateText: "data allegato"
-  fileSizeText: "dimensioni file"
+  fileSizeText: "dimensione file"
   userText: "utente"
   attachmentNotSupportedText: "Visualizzazione del tipo di allegato non supportata."
   downloadingText: "Download allegato in corso..."
@@ -466,7 +435,7 @@
   contactTitleText: "titolo"
   createDateText: "data di creazione"
   createUserText: "creato da"
-  emailText: "E-mail"
+  emailText: "e-mail"
   faxText: "fax"
   homeText: "telefono abitazione"
   nameText: "contatto"
@@ -504,7 +473,7 @@
   nameText: "nome"
   workText: "telefono ufficio"
   mobileText: "cellulare"
-  emailText: "E-mail"
+  emailText: "e-mail"
   webText: "web"
   acctMgrText: "resp. azienda"
   accountNameText: "azienda"
@@ -550,7 +519,7 @@
   entityText: "Log errori"
   moreDetailsText: "Altri dettagli"
   errorText: "errore"
-  emailSubjectText: "Errore ricevuto nel client mobile di Infor CRM"
+  emailSubjectText: "Errore ricevuto in Infor CRM Mobile Client"
   copiedSuccessText: "Copiato negli Appunti"
 >
 
@@ -571,7 +540,7 @@
   literature: "Richiesta documentazione"
   personal: "Attività personale"
   phoneCall: "Telefonata"
-  toDo: "Impegno"
+  toDo: "Attività da svolgere"
 >
 
 <eventEdit ""
@@ -617,7 +586,7 @@
   modifiedText: "modificato"
   typeText: "tipo"
   entityText: "Cronologia"
-  toDo: "Impegno"
+  toDo: "Attività da svolgere"
   phoneCall: "Telefonata"
   meeting: "Riunione"
   literature: "Richiesta documentazione"
@@ -654,22 +623,13 @@
   viewContactActionText: "Contatto"
   addAttachmentActionText: "Aggiungi allegato"
   regardingText: "In relazione a: "
-  toDo: "Impegno"
+  toDo: "Attività da svolgere"
   phoneCall: "Telefonata"
   meeting: "Riunione"
   literature: "Richiesta documentazione"
   personal: "Attività personale"
   question: "Domanda"
   email: "E-mail"
->
-
-<historyListHashTags ""
-  myHistoryHash: "cronologia-personale"
-  noteHash: "nota"
-  phoneCallHash: "Telefonata"
-  meetingHash: "riunione"
-  personalHash: "personale"
-  emailHash: "E-mail"
 >
 
 <historyRelated ""
@@ -684,7 +644,7 @@
   businessDescriptionText: "descr. attività"
   createDateText: "data di creazione"
   createUserText: "creato da"
-  eMailText: "E-mail"
+  eMailText: "e-mail"
   leadSourceText: "origine lead"
   industryText: "settore"
   interestsText: "interessi"
@@ -722,10 +682,10 @@
   accountText: "azienda"
   addressText: "indirizzo"
   businessText: "descr. attività"
-  businessTitleText: "Descrizione business"
+  businessTitleText: "Descrizione attività"
   companyText: "società"
   contactTitleText: "titolo"
-  emailText: "E-mail"
+  emailText: "e-mail"
   faxText: "fax"
   importSourceText: "origine lead"
   industryText: "settore"
@@ -779,10 +739,10 @@
   opportunityText: "opportunità"
   ownerText: "proprietario"
   actionsText: "Azioni rapide"
-  potentialText: "potenziale vendite"
-  potentialBaseText: "potenziale vendite (percentuale base)"
-  potentialOpportunityText: "potenziale vendite (percentuale opp.)"
-  potentialMyRateText: "potenziale vendite (percentuale personale)"
+  potentialText: "potenziale di vendita"
+  potentialBaseText: "potenziale di vendita (tasso base)"
+  potentialOpportunityText: "potenziale di vendita (tasso opp.)"
+  potentialMyRateText: "potenziale di vendita (tasso personale)"
   probabilityText: "prob. chiusura"
   relatedActivitiesText: "Attività"
   relatedContactsText: "Contatti opportunità"
@@ -817,7 +777,7 @@
   opportunityText: "opportunità"
   opportunityTypeTitleText: "Tipo opportunità"
   ownerText: "proprietario"
-  potentialText: "potenziale vendite"
+  potentialText: "potenziale di vendita"
   probabilityText: "prob. chiusura"
   probabilityTitleText: "Probabilità opportunità"
   resellerText: "rivenditore"
@@ -857,11 +817,11 @@
   stageText: "fase"
   statusOpenText: "Aperta"
   statusClosedLostText: "Chiusa - Persa"
-  statusClosedWonText: "Chiusa - Vinta"
+  statusClosedWonText: "Chiusa - Acquisita"
   salesProcessText: "fase bloccata dal processo di vendita:"
   probabilityText: "prob. chiusura"
   probabilityTitleText: "Probabilità opportunità"
-  potentialText: "potenziale vendite"
+  potentialText: "potenziale di vendita"
 >
 
 <opportunityContactDetail ""
@@ -917,13 +877,13 @@
   discountText: "sconto"
   quantityText: "quantità"
   baseExtendedPriceText: "base"
-  extendedPriceText: "prezzo intero"
-  extendedPriceSectionText: "Prezzo intero"
+  extendedPriceText: "prezzo complessivo"
+  extendedPriceSectionText: "Prezzo complessivo"
   adjustedPriceSectionText: "Prezzo rettificato"
   baseAdjustedPriceText: "base"
   adjustedPriceText: "prezzo rettificato"
   myAdjustedPriceText: "utente"
-  confirmDeleteText: "Rimuovere ${0} dai prodotti dell'opportunità?"
+  confirmDeleteText: "Rimuovere ${0} dai prodotti associati all'opportunità?"
   removeOppProductTitleText: "rimuovi prodotto opportunità"
   entityText: "Prodotto opportunità"
 >
@@ -943,8 +903,8 @@
   baseAdjustedPriceText: "base"
   quantityText: "quantità"
   baseExtendedPriceText: "base"
-  extendedPriceText: "prezzo intero"
-  extendedPriceSectionText: "Prezzo intero"
+  extendedPriceText: "prezzo complessivo"
+  extendedPriceSectionText: "Prezzo complessivo"
   adjustedPriceSectionText: "Prezzo rettificato"
 >
 
@@ -975,7 +935,7 @@
   contractText: "contratto"
   descriptionText: "descr."
   issueText: "problema"
-  needByText: "data limite"
+  needByText: "termine previsto"
   notesText: "commenti"
   phoneText: "telefono"
   actionsText: "Azioni rapide"
@@ -1008,7 +968,7 @@
   descriptionText: "descr."
   descriptionTitleText: "Descrizione"
   issueText: "problema"
-  needByText: "data limite"
+  needByText: "termine previsto"
   notesText: "commenti"
   notesTitleText: "Commenti"
   phoneText: "telefono"
@@ -1045,7 +1005,7 @@
   urgencyText: "Urgenza: "
   createdOnText: "Creato  "
   modifiedText: "Modificato "
-  neededByText: "Data limite  "
+  neededByText: "Termine previsto  "
 >
 
 <ticketUrgencyLookup ""
@@ -1065,9 +1025,9 @@
   elapsedUnitsText: "ore trascorse"
   rateTypeDescriptionText: "tipo addebito"
   rateText: "tariffa"
-  totalLaborText: "manodopera totale:"
-  totalPartsText: "ricambi totali:"
-  totalFeeText: "corrispettivo totale:"
+  totalLaborText: "totale manodopera"
+  totalPartsText: "totale parti"
+  totalFeeText: "totale attività"
   activityDescriptionText: "commenti"
   ticketNumberText: "numero ticket"
   userText: "utente"
@@ -1075,7 +1035,7 @@
   completeTicketText: "Completa attività ticket"
   moreDetailsText: "Altri dettagli"
   relatedItemsText: "Elementi correlati"
-  relatedTicketActivityItemText: "Ricambi attività ticket"
+  relatedTicketActivityItemText: "Parti attività ticket"
 >
 
 <ticketActivityEdit ""
@@ -1105,11 +1065,11 @@
   serialNumberText: "n. di serie"
   itemAmountText: "prezzo"
   itemDescriptionText: "descrizione"
-  entityText: "Voce attività ticket"
+  entityText: "Articolo attività ticket"
 >
 
 <ticketActivityItemList ""
-  titleText: "Ricambi attività ticket"
+  titleText: "Parti attività ticket"
 >
 
 <userCalendarAccessList ""
@@ -1136,7 +1096,7 @@
   hashTagsSectionText: "Hashtag"
   groupsSectionText: "Gruppi"
   entitySectionText: "Entità"
-  kpiSectionText: "Indicatore KPI"
+  kpiSectionText: "KPI"
   configureGroupsText: "Configura"
   refreshGroupsText: "Aggiorna"
   layoutsText: "Layout"
@@ -1159,7 +1119,7 @@
   detailsAccountText: "Info azienda"
   detailsContactText: "Info contatto"
   detailsText: "Info contatto/azienda"
-  emailText: "E-mail"
+  emailText: "e-mail"
   faxText: "fax"
   homePhoneText: "telefono abitazione"
   industryText: "settore"
@@ -1221,7 +1181,7 @@
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. Tutti i diritti sono riservati. www.infor.com"
+  copyrightText: "Copyright &copy; 2016 Infor. Tutti i diritti riservati. www.infor.com"
   logOnText: "Accedi"
   passText: "Password"
   rememberText: "Ricorda"
@@ -1249,20 +1209,25 @@
   firstNameText: "nome"
   middleNameText: "secondo nome"
   lastNameText: "cognome"
-  prefixText: "titolo"
-  prefixTitleText: "Prefisso nome"
-  suffixText: "suffisso"
-  suffixTitleText: "Suffisso nome"
+  prefixText: "titolo pre-nominale"
+  prefixTitleText: "Titolo pre-nominale nome"
+  suffixText: "titolo post-nominale"
+  suffixTitleText: "Titolo post-nominale nome"
 >
 
 <settings ""
-  clearLocalStorageTitleText: "Cancella archiviazione"
+  clearLocalStorageTitleText: "Cancella configurazione archiviata"
   clearAuthenticationTitleText: "Cancella credenziali salvate"
   errorLogTitleText: "Visualizza log errori"
   localStorageClearedText: "Archiviazione locale cancellata."
   credentialsClearedText: "Credenziali salvate cancellate."
   titleText: "Impostazioni"
   offlineOptionsText: "Opzioni offline"
+  use24HourClockText: "Impostazione del formato a 24 ore"
+  use12HourClockText: "Impostazione del formato a 12 ore"
+  confirm24HourClockMessage: "L’impostazione del formato a 24 ore richiede un riavvio dell’applicazione. Continuare?"
+  confirm12HourClockMessage: "L’impostazione del formato a 12 ore richiede un riavvio dell’applicazione. Continuare?"
+  confirmClearLocalStorageMessage: "La cancellazione dell’archiviazione locale richiede un riavvio dell’applicazione. Continuare?"
 >
 
 <speedSearchList ""
@@ -1290,7 +1255,7 @@
 >
 
 <application ""
-  versionInfoText: "Cellulare v${0}.${1}.${2}"
+  versionInfoText: "Mobile v${0}.${1}.${2}"
   loadingText: "Stato caricamento applicazione"
   authText: "Autenticazione"
   initializingText: "Inizializzazione in corso:"
@@ -1303,6 +1268,7 @@
   offlineInitDataText: "Inizializzazione dati offline"
   offlineInitErrorText: "Errore durante l'inizializzazione offline. Tutte le opzioni della modalità offline saranno disabilitate."
   appStateInitErrorText: "Errore durante l'inizializzazione dell'applicazione. Riprovare."
+  mingleAuthErrorText: "Single Sign-On a Mingle non riuscito. Accesso negato."
 >
 
 <applicationModule ""
@@ -1321,8 +1287,8 @@
   averageTime: "Tempo medio come cliente"
   totalAccounts: "Totale aziende"
   totalOpportunities: "Totale opportunità"
-  potential: "Totale potenziale vendite"
-  montlyPotential: "Media potenziale vendite mensili"
+  potential: "Totale potenziale di vendita"
+  montlyPotential: "Media potenziale di vendita mensile"
   totalTickets: "Totale ticket"
   averageOpen: "Media durata apertura"
   totalContacts: "Totale contatti"
@@ -1331,8 +1297,9 @@
   duration: "Durata totale"
   meetings: "Riunioni"
   calls: "Chiamate"
-  todos: "Impegni"
+  todos: "Attività da svolgere"
   personal: "Personale"
+  totalRecentlyViewed: "Totale visualizzati di recente"
 >
 
 <fileManager ""
@@ -1340,7 +1307,7 @@
   unknownSizeText: "sconosciuto"
   unknownErrorText: "Avviso: impossibile caricare il file a causa di un errore."
   largeFileWarningText: "Attenzione: questa richiesta supera il limite di dimensioni impostato dall'amministratore. Impossibile caricare."
-  largeFileWarningTitle: "Attenzione"
+  largeFileWarningTitle: "Avviso"
   percentCompleteText: "Caricamento in corso. Attendere..."
 >
 
@@ -1382,7 +1349,7 @@
 >
 
 <activityTypeText ""
-  atToDoText: "Impegno"
+  atToDoText: "Attività da svolgere"
   atPhoneCallText: "Telefonata"
   atAppointmentText: "Riunione"
   atLiteratureText: "Richiesta materiale info"
@@ -1454,7 +1421,7 @@
 >
 
 <activityMyDayRightDrawerList ""
-  kpiSectionText: "Indicatore KPI"
+  kpiSectionText: "KPI"
   filterSectionText: "Filtro"
 >
 
@@ -1467,7 +1434,7 @@
 <briefcaseList ""
   titleText: "Sincronia file"
   removeText: "rimuovi"
-  reBriefcaseText: "Restituisci record a Sincronia file"
+  reBriefcaseText: "restituisci record a Sincronia file"
   goToOnlineText: "vai a visualizzazione online"
   goToOfflineText: "vai a visualizzazione offline"
 >
@@ -1487,7 +1454,9 @@
   sizeAVGText: "Media"
   oldestText: "Meno recente"
   newestText: "Più recente"
-  clearDataText: "Cancella"
+  clearDataText: "Cancella tutto"
+  clearRecentText: "Cancella visualizzati di recente"
+  clearBriefcasedText: "Cancella Sincronia file"
   olderThanText: "Cancella dati offline più vecchi di"
   daysText: "giorni"
   showUsageText: "Mostra utilizzo"
@@ -1507,4 +1476,51 @@
 <mingle ""
   refreshTitle: "Aggiorna"
   refreshText: "L’accesso a Ming.le verrà aggiornato. Se si stanno inserendo o modificando dati, salvare immediatamente le modifiche per evitare perdite di dati."
+>
+
+<validators ""
+  existsText: "Il campo '${2}' deve contenere un valore."
+  nameText: "Il campo '${2}' deve contenere un nome e un cognome."
+  notEmptyText: "Il campo '${2}' non può essere vuoto."
+  hasText: "Il campo '${2}' deve contenere un testo."
+  isNumberText: "Il valore '${0}' non è un numero valido."
+  isCurrencyText: "Il valore '${0}' non è un numero in formato valutario valido."
+  int32Text: "Il valore del campo '${2}' supera l’intervallo numerico consentito."
+  maxLengthText: "Il valore del campo '${2}' supera il limite di lunghezza consentito."
+  dateRangeText: "Il valore del campo '${2}' non rientra nell’intervallo di date consentito."
+>
+
+<activityListHashTags ""
+  alarmText: "#allarme"
+  recurringText: "#ricorrente"
+  timelessText: "#senza-limiti-di-tempo"
+  todayText: "#oggi"
+  thisWeekText: "#questa-settimana"
+  yesterdayText: "#ieri"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "#allarme"
+  hashTagUnconfirmedText: "#stato-non-confermato"
+  hashTagAcceptedText: "#stato-accettato"
+  hashTagDeclinedText: "#stato-rifiutato"
+  hashTagRecurringText: "#ricorrente"
+  hashTagTimelessText: "#senza-limiti-di-tempo"
+  hashTagTodayText: "#oggi"
+  hashTagThisWeekText: "#questa-settimana"
+  hashTagYesterdayText: "#ieri"
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "#url"
+  hashTagBinaryText: "#binario"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "#cronologia-personale"
+  noteHash: "#nota"
+  phoneCallHash: "#telefonata"
+  meetingHash: "#riunione"
+  personalHash: "#personale"
+  emailHash: "#e-mail"
 >

@@ -1,8 +1,3 @@
-<version["short"] {
-  short: "3.4",
-  long: "Mobile {{ version.short}} / CRM 平台 8.0+"
-}>
-
 <addressField ""
   lookupLabelText: "编辑"
   emptyText: ""
@@ -107,7 +102,7 @@
   completedText: "完成日期"
   completionText: "完成"
   durationText: "持续时间"
-  durationInvalidText: "字段“${2}”必须具有值。"
+  durationInvalidText: "字段“${2}”为必填项。"
   carryOverNotesText: "沿用备注"
   followUpText: "跟进"
   followUpTitleText: "跟进类型"
@@ -150,7 +145,7 @@
   longNotesText: "备注"
   priorityText: "优先级"
   regardingText: "相关事项"
-  rolloverText: "自动续期"
+  rolloverText: "自动滚动"
   startTimeText: "开始时间"
   allDayText: "全天"
   timelessText: "无时间限制"
@@ -187,8 +182,8 @@
   categoryText: "类别"
   durationText: "持续时间"
   durationTitleText: "持续时间"
-  durationInvalidText: "字段“${2}”必须具有值。"
-  reminderInvalidText: "字段“提醒”必须具有值。"
+  durationInvalidText: "字段“${2}”为必填项。"
+  reminderInvalidText: "字段“提醒”为必填项。"
   reminderTitleText: "提醒"
   leaderText: "负责人"
   longNotesText: "备注"
@@ -196,7 +191,7 @@
   priorityText: "优先级"
   priorityTitleText: "优先级"
   regardingText: "相关事项"
-  rolloverText: "自动续期"
+  rolloverText: "自动滚动"
   startingText: "开始时间"
   repeatsText: "重复"
   recurringText: "定期"
@@ -221,7 +216,7 @@
   hourText: "1 小时"
   hourAndHalfText: "1.5 小时"
   twoHoursText: "2 小时"
-  dayText: "1 日"
+  dayText: "1 天"
   updateUserActErrorText: "更新用户活动时出现错误。"
 >
 
@@ -247,15 +242,6 @@
   emailText: "电子邮件"
 >
 
-<activityListHashTags ""
-  alarmText: "提醒"
-  recurringText: "定期"
-  timelessText: "无时间限制"
-  todayText: "今天"
-  thisWeekText: "本周"
-  yesterdayText: "昨天"
->
-
 <activityMyList ""
   titleText: "我的活动"
   completeActivityText: "完成"
@@ -269,18 +255,6 @@
   viewOpportunityActionText: "销售机会"
 >
 
-<activityMyListHashTags ""
-  hashTagAlarmText: "提醒"
-  hashTagUnconfirmedText: "未确认状态"
-  hashTagAcceptedText: "已接受状态"
-  hashTagDeclinedText: "已拒绝状态"
-  hashTagRecurringText: "定期"
-  hashTagTimelessText: "无时间限制"
-  hashTagTodayText: "今天"
-  hashTagThisWeekText: "本周"
-  hashTagYesterdayText: "昨天"
->
-
 <activityMyDay ""
   titleText: "我的日程安排"
 >
@@ -291,8 +265,8 @@
   repeatsText: "重复"
   everyText: "每"
   afterCompletionText: "完成后"
-  singleWeekdayText: "星期几"
-  weekdaysText: "星期几"
+  singleWeekdayText: "工作日"
+  weekdaysText: "工作日"
   dayText: "日"
   monthText: "月"
   onText: "于"
@@ -367,11 +341,6 @@
 <attachmentList ""
   titleText: "附件"
   uploadedOnText: "已上传 "
->
-
-<attachmentListHashTags ""
-  hashTagUrlText: "URL"
-  hashTagBinaryText: "二进制"
 >
 
 <attachmentMyList ""
@@ -550,7 +519,7 @@
   entityText: "错误日志"
   moreDetailsText: "更多明细"
   errorText: "错误"
-  emailSubjectText: "在 Infor CRM 移动设备客户端中收到错误"
+  emailSubjectText: "在 Infor CRM Mobile Client 中收到错误"
   copiedSuccessText: "已复制到剪贴板"
 >
 
@@ -643,7 +612,7 @@
   relatedItemsText: "相关项"
   yesText: "是"
   noText: "否"
-  validationText: "字段“${2}”必须具有值"
+  validationText: "字段“${2}”为必填项"
   validationCanEditText: "不允许进行编辑"
 >
 
@@ -661,15 +630,6 @@
   personal: "个人活动"
   question: "问题"
   email: "电子邮件"
->
-
-<historyListHashTags ""
-  myHistoryHash: "我的历史记录"
-  noteHash: "备注"
-  phoneCallHash: "电话呼叫"
-  meetingHash: "会议"
-  personalHash: "个人"
-  emailHash: "电子邮件"
 >
 
 <historyRelated ""
@@ -780,9 +740,9 @@
   ownerText: "所有者"
   actionsText: "快速操作"
   potentialText: "销售潜力"
-  potentialBaseText: "销售潜力（基本费率）"
-  potentialOpportunityText: "销售潜力（销售机会费率）"
-  potentialMyRateText: "销售潜力（我的费率）"
+  potentialBaseText: "销售潜力(基本费率)"
+  potentialOpportunityText: "销售潜力(销售机会费率)"
+  potentialMyRateText: "销售潜力(我的费率)"
   probabilityText: "结束概率"
   relatedActivitiesText: "活动"
   relatedContactsText: "销售机会联系人"
@@ -873,7 +833,7 @@
   salesRoleText: "角色"
   strategyText: "策略"
   personalBenefitsText: "个人权益"
-  standingText: "职位"
+  standingText: "声望"
   issuesText: "问题"
   competitorNameText: "竞争对手前缀"
   removeContactTitleText: "移除联系人"
@@ -892,8 +852,8 @@
   personalBenefitsText: "个人权益"
   strategyText: "策略"
   issuesText: "问题"
-  standingText: "职位"
-  standingTitleText: "职位"
+  standingText: "声望"
+  standingTitleText: "声望"
   contactText: "联系人"
   competitorPrefText: "竞争对手前缀"
 >
@@ -983,7 +943,7 @@
   relatedAttachmentTitleText: "工单附件"
   relatedActivitiesText: "活动"
   relatedItemsText: "相关项"
-  resolutionText: "解决方案"
+  resolutionText: "结案"
   sourceText: "来源"
   statusText: "状态"
   subjectText: "主题"
@@ -1014,8 +974,8 @@
   phoneText: "电话"
   relatedActivitiesText: "活动"
   relatedItemsText: "相关项"
-  resolutionText: "解决方案"
-  resolutionTitleText: "解决方案"
+  resolutionText: "结案"
+  resolutionTitleText: "结案"
   sourceText: "来源"
   sourceTitleText: "来源"
   statusText: "状态"
@@ -1105,7 +1065,7 @@
   serialNumberText: "序列号"
   itemAmountText: "价格"
   itemDescriptionText: "描述"
-  entityText: "工单活动项目"
+  entityText: "工单活动项"
 >
 
 <ticketActivityItemList ""
@@ -1201,7 +1161,7 @@
   addAccountContactText: "添加客户/联系人"
   titleText: "住宅"
   actionsText: "快速操作"
-  viewsText: "转至"
+  viewsText: "转到"
 >
 
 <leftDrawer ""
@@ -1209,7 +1169,7 @@
   addAccountContactText: "添加客户/联系人"
   titleText: "主菜单"
   actionsText: "快速操作"
-  viewsText: "转至"
+  viewsText: "转到"
   footerText: "其他"
   settingsText: "设置"
   helpText: "帮助"
@@ -1263,6 +1223,11 @@
   credentialsClearedText: "已成功清空保存的凭据。"
   titleText: "设置"
   offlineOptionsText: "离线选项"
+  use24HourClockText: "正在使用 24 小时制"
+  use12HourClockText: "正在使用 12 小时制"
+  confirm24HourClockMessage: "将时钟改成 24 小时制需要重启应用程序。是否继续?"
+  confirm12HourClockMessage: "将时钟改成 12 小时制需要重启应用程序。是否继续?"
+  confirmClearLocalStorageMessage: "清除本地存储需要重启应用程序。是否确定?"
 >
 
 <speedSearchList ""
@@ -1303,6 +1268,7 @@
   offlineInitDataText: "正在初始化离线数据"
   offlineInitErrorText: "离线初始化过程中出现错误。将禁用所有离线选项。"
   appStateInitErrorText: "应用程序初始化过程中出现错误。请重试。"
+  mingleAuthErrorText: "Mingle 单一登录失败，拒绝访问。"
 >
 
 <applicationModule ""
@@ -1312,7 +1278,7 @@
   userInformationText: "用户信息"
   userOptionsText: "用户选项"
   systemOptionsText: "系统选项"
-  userContextAndOptionsText: "用户背景和选项"
+  userContextAndOptionsText: "用户上下文和选项"
   integrationsText: "集成"
 >
 
@@ -1333,6 +1299,7 @@
   calls: "电话"
   todos: "待办事项"
   personal: "个人"
+  totalRecentlyViewed: "最近查看总数"
 >
 
 <fileManager ""
@@ -1361,7 +1328,7 @@
   yearlyOnWeekdayText: "每年${4}中的${5} ${3}"
   everyText: "每 ${0} ${1}"
   afterCompletionText: "完成后"
-  untilEndDateText: "${0} 直至 ${1}"
+  untilEndDateText: "${0} 直到 ${1}"
   sunday: "星期日"
   monday: "星期一"
   tuesday: "星期二"
@@ -1468,8 +1435,8 @@
   titleText: "我的公文包"
   removeText: "移除"
   reBriefcaseText: "将记录退回到公文包"
-  goToOnlineText: "转至离线视图"
-  goToOfflineText: "转至离线视图"
+  goToOnlineText: "转到离线视图"
+  goToOfflineText: "转到离线视图"
 >
 
 <recentlyViewedList ""
@@ -1487,8 +1454,10 @@
   sizeAVGText: "平均"
   oldestText: "最早"
   newestText: "最新"
-  clearDataText: "清除"
-  olderThanText: "清除早于以下时间的离线数据"
+  clearDataText: "全部清除"
+  clearRecentText: "清除最近查看的内容"
+  clearBriefcasedText: "清除公文包"
+  olderThanText: "清除以下时间之前的离线数据"
   daysText: "天"
   showUsageText: "显示使用情况"
   processingText: "正在处理，请稍候。"
@@ -1507,4 +1476,51 @@
 <mingle ""
   refreshTitle: "刷新"
   refreshText: "对 Ming.le 的访问即将刷新。如果您正在插入或编辑数据，请立刻保存您的更改，以避免数据丢失。"
+>
+
+<validators ""
+  existsText: "字段“${2}”为必填项。"
+  nameText: "字段“${2}”必须指定名字和姓氏。"
+  notEmptyText: "字段“${2}”不能为空。"
+  hasText: "字段“${2}”必须包含一些文字。"
+  isNumberText: "值“${0}”不是有效的数字。"
+  isCurrencyText: "值“${0}”不是有效的货币数额。"
+  int32Text: "字段“${2}”值超出允许的数字范围。"
+  maxLengthText: "字段“${2}”值超出允许的长度最大值。"
+  dateRangeText: "字段“${2}”值超出允许的日期范围。"
+>
+
+<activityListHashTags ""
+  alarmText: "#提醒"
+  recurringText: "#定期"
+  timelessText: "#无时间限制"
+  todayText: "#今天"
+  thisWeekText: "#本周"
+  yesterdayText: "#昨天"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "#提醒"
+  hashTagUnconfirmedText: "#未确认状态"
+  hashTagAcceptedText: "#已接受状态"
+  hashTagDeclinedText: "#已拒绝状态"
+  hashTagRecurringText: "#定期"
+  hashTagTimelessText: "#无时间限制"
+  hashTagTodayText: "#今天"
+  hashTagThisWeekText: "#本周"
+  hashTagYesterdayText: "#昨天"
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "#URL"
+  hashTagBinaryText: "#二进制"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "#我的历史记录"
+  noteHash: "#备注"
+  phoneCallHash: "#电话"
+  meetingHash: "#会议"
+  personalHash: "#个人"
+  emailHash: "#电子邮件"
 >

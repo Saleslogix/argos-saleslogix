@@ -2,6 +2,7 @@
   viewAccountsNearbyText: "Voir comptes à proximité"
   addressNotGeocodedErrorText: "Adresse non géocodée. Impossible de rechercher des comptes à proximité."
   accountsNearText: "Comptes à proximité de ${0}"
+  helpTitleText: "Aide Contour"
 >
 
 <acctPxSearch ""
@@ -13,7 +14,7 @@
 	currentLocationErrorText: "Impossible d'obtenir votre position actuelle. Recherche impossible."
 	editActionText: "Modifier"
   faxAbbreviationText: "Fax : "
-	kilometerAbbrevText: "Km"
+	kilometerAbbrevText: "km"
 	mileAbbrevText: "mi"
   phoneAbbreviationText: "Téléphone : "
 	titleText: "Comptes à proximité de ma position"
@@ -22,7 +23,12 @@
 
 <locPicker ""
   accountsNearText: "Comptes à proximité de ${0}"
-	myHouseText: "Domicile"
-	myOfficeText: "Bureau"
-	titleText: "Recherche de proximité"
+	myHouseText: "Mon domicile"
+	myOfficeText: "Mon bureau"
+	titleText: "Recherche de proximité Contour"
+>
+
+<placeModel ""
+  entityDisplayName: "Emplacement"
+  entityDisplayNamePlural : "Emplacements"
 >
