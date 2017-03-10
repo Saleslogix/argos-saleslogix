@@ -2,6 +2,7 @@
   viewAccountsNearbyText: "檢視鄰近的客戶"
   addressNotGeocodedErrorText: "尚未對地址進行地理編碼。無法搜尋鄰近的客戶。"
   accountsNearText: "鄰近 ${0} 的客戶"
+  helpTitleText: "Contour 說明"
 >
 
 <acctPxSearch ""
@@ -24,5 +25,10 @@
   accountsNearText: "鄰近 ${0} 的客戶"
 	myHouseText: "我的住家"
 	myOfficeText: "我的辦公室"
-	titleText: "輪廓距離搜尋"
+	titleText: "Contour 距離搜尋"
+>
+
+<placeModel ""
+  entityDisplayName: "位置"
+  entityDisplayNamePlural : "位置"
 >

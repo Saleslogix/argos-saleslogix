@@ -61,12 +61,12 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   formatResourcePredicate: function formatResourcePredicate(name) {
     return string.substitute('name eq "${0}"', [name]);
   },
-  _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value) {
+  _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value, unloadedValues) {
     if (typeof value === 'string') {
       return value;
     }
 
-    const values = [];
+    let values = [];
     for (const key in value) {
       if (value.hasOwnProperty(key)) {
         const data = value[key].data;
@@ -78,9 +78,13 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       }
     }
 
+    if (Array.isArray(unloadedValues)) {
+      values = values.concat(unloadedValues);
+    }
+
     return values.join(', ');
   },
-  textRenderer: function textRenderer(value) {
+  textRenderer: function textRenderer(value, unloadedValues) {
     let results;
 
     if (this.singleSelect) {
@@ -90,7 +94,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         results = value[this.textProperty];
       }
     } else {
-      results = this._handleSaleslogixMultiSelectPicklist(value);
+      results = this._handleSaleslogixMultiSelectPicklist(value, unloadedValues);
     }
 
     return results;
@@ -159,6 +163,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     const view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
     if (view && options) {
+      view.refreshRequired = true;
       view.show(options);
     }
   },
