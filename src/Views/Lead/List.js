@@ -136,7 +136,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
-        action.sendEmail(act, selectionOut, 'WorkPhone');
+        action.callPhone.call(this, act, selectionOut, 'WorkPhone');
       },
     }, {
       id: 'callMobile',
@@ -145,7 +145,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
-        action.sendEmail(act, selectionOut, 'Mobile');
+        action.callPhone.call(this, act, selectionOut, 'Mobile');
       },
     }, {
       id: 'sendEmail',
@@ -154,7 +154,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       enabled: action.hasProperty.bindDelegate(this, 'Email'),
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
-        action.sendEmail(act, selectionOut, 'Email');
+        action.sendEmail.call(this, act, selectionOut, 'Email');
       },
     }, {
       id: 'addNote',
