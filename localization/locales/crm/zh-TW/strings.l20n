@@ -1,8 +1,3 @@
-<version["short"] {
-  short: "3.4",
-  long: "Mobile {{ version.short}} / CRM Platform 8.0+"
-}>
-
 <addressField ""
   lookupLabelText: "編輯"
   emptyText: ""
@@ -19,7 +14,7 @@
 
 <accountDetail ""
   accountText: "客戶"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   addressText: "地址"
   businessDescriptionText: "業務描述"
   createDateText: "建立日期"
@@ -59,7 +54,7 @@
   accountSubTypeTitleText: "客戶子類型"
   accountText: "客戶"
   accountTypeTitleText: "客戶類型"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   businessDescriptionText: "業務描述"
   businessDescriptionTitleText: "業務描述"
   descriptionText: "描述"
@@ -107,7 +102,7 @@
   completedText: "完成日期"
   completionText: "完成"
   durationText: "持續時間"
-  durationInvalidText: "欄位 '${2}' 必須要有一個值。"
+  durationInvalidText: "欄位「${2}」必須要有一個值。"
   carryOverNotesText: "沿用備註"
   followUpText: "後續"
   followUpTitleText: "後續類型"
@@ -163,7 +158,7 @@
   opportunityText: "商機"
   ticketNumberText: "記錄單"
   recurrenceText: "週期性"
-  confirmEditRecurrenceText: "編輯所有出現次數？按一下 [取消] 以編輯單一次數。"
+  confirmEditRecurrenceText: "編輯所有出現次數？按一下「取消」以編輯單一次數。"
   relatedAttachmentText: "附件"
   relatedAttachmentTitleText: "活動附件"
   relatedItemsText: "相關項目"
@@ -187,8 +182,8 @@
   categoryText: "類別"
   durationText: "持續時間"
   durationTitleText: "持續時間"
-  durationInvalidText: "欄位 '${2}' 必須要有一個值。"
-  reminderInvalidText: "“提醒”欄位必須要有一個值。"
+  durationInvalidText: "欄位「${2}」必須要有一個值。"
+  reminderInvalidText: "「提醒」欄位必須要有一個值。"
   reminderTitleText: "提醒"
   leaderText: "負責人"
   longNotesText: "備註"
@@ -229,7 +224,7 @@
   titleText: "活動"
   allDayText: "無指定時間"
   completeActivityText: "完成"
-  callText: "撥打"
+  callText: "通話"
   calledText: "已撥打"
   addAttachmentActionText: "新增附件"
   overdueText: "逾期"
@@ -247,38 +242,17 @@
   emailText: "電子郵件"
 >
 
-<activityListHashTags ""
-  alarmText: "鬧鐘"
-  recurringText: "週期性"
-  timelessText: "無指定時間"
-  todayText: "今天"
-  thisWeekText: "本週"
-  yesterdayText: "昨天"
->
-
 <activityMyList ""
   titleText: "我的活動"
   completeActivityText: "完成"
   acceptActivityText: "接受"
   declineActivityText: "拒絕"
-  callText: "撥打"
+  callText: "通話"
   calledText: "已撥打"
   addAttachmentActionText: "新增附件"
   viewContactActionText: "聯絡人"
   viewAccountActionText: "客戶"
   viewOpportunityActionText: "商機"
->
-
-<activityMyListHashTags ""
-  hashTagAlarmText: "鬧鐘"
-  hashTagUnconfirmedText: "狀態-未確認"
-  hashTagAcceptedText: "狀態-已接受"
-  hashTagDeclinedText: "狀態-已拒絕"
-  hashTagRecurringText: "週期性"
-  hashTagTimelessText: "無指定時間"
-  hashTagTodayText: "今天"
-  hashTagThisWeekText: "本週"
-  hashTagYesterdayText: "昨天"
 >
 
 <activityMyDay ""
@@ -313,7 +287,7 @@
   february: "二月"
   march: "三月"
   april: "四月"
-  may: "5 月"
+  may: "五月"
   june: "六月"
   july: "七月"
   august: "八月"
@@ -350,7 +324,7 @@
   isMailingText: "出貨"
   isPrimaryText: "主要"
   postalCodeText: "郵遞區號"
-  salutationText: "注意事項"
+  salutationText: "經辦人"
   stateText: "省/州"
   stateTitleText: "省/州"
   titleText: "地址"
@@ -367,11 +341,6 @@
 <attachmentList ""
   titleText: "附件"
   uploadedOnText: "已上傳 "
->
-
-<attachmentListHashTags ""
-  hashTagUrlText: "URL"
-  hashTagBinaryText: "二進位"
 >
 
 <attachmentMyList ""
@@ -461,7 +430,7 @@
 
 <contactDetail ""
   accountText: "客戶"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   addressText: "地址"
   contactTitleText: "標題"
   createDateText: "建立日期"
@@ -506,7 +475,7 @@
   mobileText: "行動電話"
   emailText: "電子郵件"
   webText: "網頁"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   accountNameText: "客戶"
   homePhoneText: "住家電話"
   faxText: "傳真"
@@ -550,7 +519,7 @@
   entityText: "錯誤日誌"
   moreDetailsText: "更多詳細資料"
   errorText: "錯誤"
-  emailSubjectText: "Infor CRM Mobile Client 收到錯誤"
+  emailSubjectText: "Infor CRM Mobile Client 中收到錯誤"
   copiedSuccessText: "已複製到剪貼簿"
 >
 
@@ -614,7 +583,7 @@
   relatedItemsText: "相關項目"
   relatedAttachmentText: "附件"
   relatedAttachmentTitleText: "歷史附件"
-  modifiedText: "已修改"
+  modifiedText: "修改時間"
   typeText: "類型"
   entityText: "歷程記錄"
   toDo: "待辦事項"
@@ -643,7 +612,7 @@
   relatedItemsText: "相關項目"
   yesText: "是"
   noText: "否"
-  validationText: "欄位 '${2}' 必須要有一個值"
+  validationText: "欄位「${2}」必須有一個值"
   validationCanEditText: "您無權編輯"
 >
 
@@ -661,15 +630,6 @@
   personal: "個人活動"
   question: "問題"
   email: "電子郵件"
->
-
-<historyListHashTags ""
-  myHistoryHash: "我的歷程記錄"
-  noteHash: "備註"
-  phoneCallHash: "電話"
-  meetingHash: "會議"
-  personalHash: "個人"
-  emailHash: "電子郵件"
 >
 
 <historyRelated ""
@@ -770,7 +730,7 @@
 
 <opportunityDetail ""
   accountText: "客戶"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   estCloseText: "預計關閉"
   detailsText: "詳細資料"
   fbarHomeTitleText: "住家電話"
@@ -809,7 +769,7 @@
 
 <opportunityEdit ""
   accountText: "客戶"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   estCloseText: "預計關閉"
   importSourceText: "銷售線索來源"
   detailsText: "詳細資料"
@@ -845,7 +805,7 @@
   addActivityActionText: "新增活動"
   addAttachmentActionText: "新增附件"
   actualCloseText: "已關閉 "
-  estimatedCloseText: "預計關閉 "
+  estimatedCloseText: "預計關閉日期 "
   quickEditActionText: "快速編輯"
 >
 
@@ -873,11 +833,11 @@
   salesRoleText: "角色"
   strategyText: "策略"
   personalBenefitsText: "個人利益"
-  standingText: "職位"
+  standingText: "聲譽"
   issuesText: "問題"
-  competitorNameText: "競爭者偏好"
+  competitorNameText: "偏好競爭者"
   removeContactTitleText: "移除聯絡人"
-  confirmDeleteText: "將 '${0}' 從商機移除？"
+  confirmDeleteText: "將「${0}」從商機移除？"
   contactText: "聯絡人"
   entityText: "商機聯絡人"
 >
@@ -892,10 +852,10 @@
   personalBenefitsText: "個人利益"
   strategyText: "策略"
   issuesText: "問題"
-  standingText: "職位"
-  standingTitleText: "職位"
+  standingText: "聲譽"
+  standingTitleText: "聲譽"
   contactText: "聯絡人"
-  competitorPrefText: "競爭者偏好"
+  competitorPrefText: "偏好競爭者"
 >
 
 <opportunityContactList ""
@@ -1152,13 +1112,13 @@
   accountSubTypeTitleText: "客戶子類型"
   accountText: "客戶"
   accountTypeTitleText: "客戶類型"
-  acctMgrText: "客戶管理者"
+  acctMgrText: "客戶經理"
   addressText: "地址"
   contactTitleText: "標題"
   descriptionText: "描述"
   detailsAccountText: "客戶資訊"
   detailsContactText: "聯絡人資訊"
-  detailsText: "聯絡人/帳戶資訊"
+  detailsText: "聯絡人/客戶資訊"
   emailText: "電子郵件"
   faxText: "傳真"
   homePhoneText: "住家電話"
@@ -1263,6 +1223,11 @@
   credentialsClearedText: "儲存的認證已清除成功。"
   titleText: "設定"
   offlineOptionsText: "離線選項"
+  use24HourClockText: "使用 24 小時時鐘"
+  use12HourClockText: "使用 12 小時時鐘"
+  confirm24HourClockMessage: "將時鐘變更為 24 小時格式需要重新啟動應用程式。是否繼續?"
+  confirm12HourClockMessage: "將時鐘變更為 12 小時格式需要重新啟動應用程式。是否繼續?"
+  confirmClearLocalStorageMessage: "清除本機儲存空間需要重新啟動應用程式。確定嗎？"
 >
 
 <speedSearchList ""
@@ -1303,6 +1268,7 @@
   offlineInitDataText: "初始化離線資料"
   offlineInitErrorText: "離線時初始化時發生錯誤。將會停用所有離線選項。"
   appStateInitErrorText: "應用程式初始化時發生錯誤。請重試。"
+  mingleAuthErrorText: "Mingle 單一登入失敗。拒絕存取。"
 >
 
 <applicationModule ""
@@ -1319,12 +1285,12 @@
 <defaultMetrics ""
   totalRevenue: "總收益"
   averageTime: "消費者平均時間"
-  totalAccounts: "帳戶總數"
+  totalAccounts: "客戶總數"
   totalOpportunities: "商機總數"
   potential: "銷售潛力總計"
   montlyPotential: "平均每月銷售潛力"
   totalTickets: "記錄單總數"
-  averageOpen: "開放平均存留時間"
+  averageOpen: "平均未結時間"
   totalContacts: "聯絡人總數"
   totalLeads: "銷售線索總數"
   totalHistory: "歷程記錄總數"
@@ -1333,6 +1299,7 @@
   calls: "通話"
   todos: "待辦事項"
   personal: "個人"
+  totalRecentlyViewed: "最近檢視項目總計"
 >
 
 <fileManager ""
@@ -1370,11 +1337,11 @@
   friday: "週五"
   saturday: "週六"
   day: "天"
-  first: "第一"
-  second: "第二"
-  third: "第三"
-  fourth: "第四"
-  last: "最後一"
+  first: "第一天"
+  second: "第二天"
+  third: "第三天"
+  fourth: "第四天"
+  last: "最後一天"
 >
 
 <speedSearchWidget ""
@@ -1459,7 +1426,7 @@
 >
 
 <activityMyDayOffline ""
-  titleText: "我的排程離線"
+  titleText: "我的離線排程"
   todayFilterLabel: "今天"
   thisWeekFilterLabel: "本週"
   yesterdayFilterLabel: "昨天"
@@ -1467,7 +1434,7 @@
 <briefcaseList ""
   titleText: "我的公事包"
   removeText: "移除"
-  reBriefcaseText: "公事包的退貨記錄"
+  reBriefcaseText: "將記錄退回公事包"
   goToOnlineText: "移至線上檢視"
   goToOfflineText: "移至離線檢視"
 >
@@ -1487,7 +1454,9 @@
   sizeAVGText: "平均"
   oldestText: "最舊"
   newestText: "最新"
-  clearDataText: "清除"
+  clearDataText: "全部清除"
+  clearRecentText: "清除最近檢視項目"
+  clearBriefcasedText: "清除公事包"
   olderThanText: "清除舊於以下時間的離線資料"
   daysText: "天"
   showUsageText: "顯示使用狀況"
@@ -1506,5 +1475,52 @@
 
 <mingle ""
   refreshTitle: "重新整理"
-  refreshText: "存取 Ming.le 即將重新整理。如果您正在插入或編輯資料，請立即儲存您的變更以避免資料遺失。"
+  refreshText: "對 Ming.le 的存取即將重新整理。如果您正在插入或編輯資料，請立即儲存您的變更以避免資料遺失。"
+>
+
+<validators ""
+  existsText: "欄位「${2}」必須要有一個值。"
+  nameText: "欄位「${2}」必須指定名字及姓氏。"
+  notEmptyText: "欄位「${2}」不得為空。"
+  hasText: "欄位「${2}」必須包含文字。"
+  isNumberText: "「${0}」值不是有效的數字。"
+  isCurrencyText: "「${0}」值不是有效的貨幣數字。"
+  int32Text: "欄位「${2}」值超出允許的數字範圍。"
+  maxLengthText: "欄位「${2}」值超出允許的長度限制。"
+  dateRangeText: "欄位「${2}」值超出允許的日期範圍。"
+>
+
+<activityListHashTags ""
+  alarmText: "#鬧鐘"
+  recurringText: "#週期性"
+  timelessText: "#無指定時間"
+  todayText: "#今天"
+  thisWeekText: "#本週"
+  yesterdayText: "#昨天"
+>
+
+<activityMyListHashTags ""
+  hashTagAlarmText: "#鬧鐘"
+  hashTagUnconfirmedText: "#狀態-未確認"
+  hashTagAcceptedText: "#狀態-已接受"
+  hashTagDeclinedText: "#狀態-已拒絕"
+  hashTagRecurringText: "#週期性"
+  hashTagTimelessText: "#無指定時間"
+  hashTagTodayText: "#今天"
+  hashTagThisWeekText: "#本週"
+  hashTagYesterdayText: "#昨天"
+>
+
+<attachmentListHashTags ""
+  hashTagUrlText: "#url"
+  hashTagBinaryText: "#二進位"
+>
+
+<historyListHashTags ""
+  myHistoryHash: "#我的歷程記錄"
+  noteHash: "#備註"
+  phoneCallHash: "#電話"
+  meetingHash: "#會議"
+  personalHash: "#個人"
+  emailHash: "#電子郵件"
 >

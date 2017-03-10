@@ -366,7 +366,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       this.onIsLeadChange(true, isLeadField);
       const field = this.fields.Lead;
       const value = utility.getValue(values, field.applyTo, {});
-      field.setValue(value, true);
+      field.setValue(value, !this.inserting);
       const leadCompany = utility.getValue(values, 'AccountName');
       if (leadCompany) {
         this.fields.AccountName.setValue(leadCompany);
