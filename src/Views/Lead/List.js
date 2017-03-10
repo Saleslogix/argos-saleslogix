@@ -134,13 +134,19 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       cls: 'fa fa-phone-square fa-2x',
       label: this.callWorkActionText,
       enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
-      fn: action.callPhone.bindDelegate(this, 'WorkPhone'),
+      fn: (act, selectionIn) => {
+        const selectionOut = this.linkLeadProperties(selectionIn);
+        action.callPhone.call(this, act, selectionOut, 'WorkPhone');
+      },
     }, {
       id: 'callMobile',
       cls: 'fa fa-mobile fa-2x',
       label: this.callMobileActionText,
       enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
-      fn: action.callPhone.bindDelegate(this, 'Mobile'),
+      fn: (act, selectionIn) => {
+        const selectionOut = this.linkLeadProperties(selectionIn);
+        action.callPhone.call(this, act, selectionOut, 'Mobile');
+      },
     }, {
       id: 'sendEmail',
       cls: 'fa fa-envelope fa-2x',
@@ -148,7 +154,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       enabled: action.hasProperty.bindDelegate(this, 'Email'),
       fn: (act, selectionIn) => {
         const selectionOut = this.linkLeadProperties(selectionIn);
-        action.sendEmail(act, selectionOut, 'Email');
+        action.sendEmail.call(this, act, selectionOut, 'Email');
       },
     }, {
       id: 'addNote',
