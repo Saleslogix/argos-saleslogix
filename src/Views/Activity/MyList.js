@@ -43,9 +43,9 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   // Templates
   // Card View
   itemRowContainerTemplate: new Simplate([
-    '<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">',
+    '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">',
     '{%! $$.itemRowContentTemplate %}',
-    '</div>',
+    '</li>',
   ]),
   activityTimeTemplate: new Simplate([
     '{% if ($$.isTimelessToday($)) { %}',

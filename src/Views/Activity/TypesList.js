@@ -22,7 +22,7 @@ const resource = getResource('activityTypesList');
 const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
   rowTemplate: new Simplate([
-    '<div data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+    '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
     '<div class="activityEntry__icon">',
     '{% if ($.icon) { %}',
     `<button type="button" class="btn-icon hide-focus">
@@ -35,12 +35,12 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     '{% } %}',
     '</div>',
     '<div class="activityEntry__header">{%! $$.itemTemplate %}</div>',
-    '</div>',
+    '</li>',
   ]),
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
-
+  isCardView: false,
   // Localization
   titleText: resource.titleText,
   activityTypeText: {
