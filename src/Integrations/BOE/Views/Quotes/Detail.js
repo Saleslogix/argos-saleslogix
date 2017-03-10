@@ -289,7 +289,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         name: 'ConvertQuote',
         property: 'QuoteNumber',
         label: this.convertQuoteText,
-        iconClass: 'fa fa-shopping-cart fa-2x',
+        iconClass: 'cart',
         action: 'convertQuote',
         disabled: () => {
           return this.isQuoteClosed();

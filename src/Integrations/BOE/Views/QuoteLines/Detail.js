@@ -151,7 +151,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'CheckAvailability',
         property: 'SlxLocation.Name',
         label: this.checkWarehouseAvailabilityText,
-        iconClass: 'fa fa-exchange fa-2x',
+        iconClass: 'redo', // check for a better icon
         action: 'onAvailability',
         disabled: () => {
           return App.warehouseDiscovery === 'auto';

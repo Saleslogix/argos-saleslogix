@@ -122,13 +122,13 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         name: 'ScheduleActivityAction',
         property: 'AccountName',
         label: this.scheduleActivityText,
-        iconClass: 'fa fa-calendar fa-lg',
+        iconClass: 'calendar',
         action: 'scheduleActivity',
       }, {
         name: 'AddNoteAction',
         property: 'AccountName',
         label: this.addNoteText,
-        iconClass: 'fa fa-edit fa-lg',
+        iconClass: 'edit',
         action: 'addNote',
       }],
     }, {
