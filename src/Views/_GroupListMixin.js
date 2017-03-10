@@ -674,11 +674,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const resolvedEntry = this._getResolvedEntry(selection.data.$key);
     if (!resolvedEntry) {
       this._fetchResolvedEntry(selection.data.$key).then((resolvedEnt) => {
-        self._groupCheckActionState(resolvedEnt);
+        self._groupCheckActionState(resolvedEnt, rowNode);
         self._groupApplyActionPanel(rowNode);
       });
     } else {
-      this._groupCheckActionState(resolvedEntry);
+      this._groupCheckActionState(resolvedEntry, rowNode);
       this._groupApplyActionPanel(rowNode);
     }
   },
@@ -748,11 +748,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   _addResolvedEntry: function _addResolvedEntry(entry) {
     this._resolvedEntryCache[entry.$key] = entry;
   },
-  _groupCheckActionState: function _groupCheckActionState(resolvedEntry) {
+  _groupCheckActionState: function _groupCheckActionState(resolvedEntry, rowNode) {
     const resolvedSelection = {
       data: resolvedEntry,
     };
-    this._applyStateToActions(resolvedSelection);
+    this._applyStateToActions(resolvedSelection, rowNode);
   },
   _refreshList: function _refreshList() {
     const self = this;
