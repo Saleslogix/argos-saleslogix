@@ -12,7 +12,7 @@ const __class = declare('crm.Views.LogOff', [View], {
     '<div class="wrapper">',
     '<div id="{%= $.id %}" title="{%: $.titleText %}" class="signin {%= $.cls %}" hideBackButton="true">',
     '<p>{%= $.messageText %}</p>',
-    '<a href="#" class="hyperlink" data-action="login">{%: $.loginText %}</a>',
+    '<p><a href="#" class="hyperlink" data-action="login">{%: $.loginText %}</a></p>',
     '</div>',
     '</div>',
     '</div>',
