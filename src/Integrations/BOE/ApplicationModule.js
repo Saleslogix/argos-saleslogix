@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import getResource from 'argos/I18n';
+import Application from 'argos/Application';
 import ApplicationModule from 'argos/ApplicationModule';
 import AccountAssociationModule from './Modules/AccountAssociationModule';
 import AccountModule from './Modules/AccountModule';
@@ -250,8 +251,8 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
   },
   registerDefaultViews: function registerDefaultViews() {
     const self = this;
-    const originalGetDefaultViews = crm.Application.prototype.getDefaultViews;
-    lang.extend(crm.Application, {
+    const originalGetDefaultViews = Application.prototype.getDefaultViews;
+    lang.extend(Application, {
       getDefaultViews: function getDefaultViews() {
         const views = originalGetDefaultViews.apply(this, arguments) || [];
         self.modules.forEach((module) => {
