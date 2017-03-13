@@ -11,12 +11,9 @@ const resource = getResource('activityTypesList');
  *
  * @extends argos.List
  * @mixins argos._LegacySDataListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.List
  * @requires argos._LegacySDataListMixin
- *
- * @requires crm.Views._CardLayoutListMixin
  *
  */
 const __class = declare('crm.Views.Activity.TypesList', [List], {
