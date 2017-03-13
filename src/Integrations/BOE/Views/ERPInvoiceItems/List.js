@@ -9,7 +9,6 @@
  *
  * @requires crm.Action
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
@@ -18,14 +17,13 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   itemTemplate: new Simplate([
     '<p class="listview-heading"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
     '<p class="micro-text"><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</p>',

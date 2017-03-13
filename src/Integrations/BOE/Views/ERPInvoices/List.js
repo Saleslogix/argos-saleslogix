@@ -9,7 +9,6 @@
  *
  * @requires crm.Action
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
@@ -21,7 +20,6 @@ import crmFormat from 'crm/Format';
 import List from 'argos/List';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import utility from '../../Utility';
@@ -29,7 +27,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicesList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: crmFormat,
   util: utility,
   // Templates

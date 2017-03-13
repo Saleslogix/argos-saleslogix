@@ -817,7 +817,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     let snapShot;
     if (this._groupInitialized && this.groupsMode) {
       const entry = this.entries[options.key];
-      const template = this.itemRowContainerTemplate;
+      const template = this.rowTemplate;
       snapShot = template.apply(entry, this);
       return snapShot;
     }

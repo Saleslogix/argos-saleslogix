@@ -5,7 +5,6 @@ import action from 'crm/Action';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
 
@@ -17,7 +16,6 @@ const resource = getResource('contactList');
  * @extends argos.List
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.List
  * @requires argos.Format
@@ -25,11 +23,10 @@ const resource = getResource('contactList');
  * @requires crm.Views._RightDrawerListMixin
  * @requires crm.Views._GroupListMixin
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Action
  *
  */
-const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Template
   // Card Layout
   itemIconClass: 'fa fa-user fa-2x',

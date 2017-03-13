@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
@@ -10,7 +9,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicePersonsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoicePersons.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoicePersons.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.ErpPerson.Name %}</p>',

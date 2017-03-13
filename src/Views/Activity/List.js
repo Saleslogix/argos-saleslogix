@@ -4,7 +4,6 @@ import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import List from 'argos/List';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import convert from 'argos/Convert';
 import action from '../../Action';
 import environment from '../../Environment';
@@ -24,7 +23,6 @@ const hashTagResource = getResource('activityListHashTags');
  *
  * @extends argos.List
  * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.List
  * @requires argos.Utility
@@ -33,11 +31,10 @@ const hashTagResource = getResource('activityListHashTags');
  * @requires crm.Action
  * @requires crm.Environment
  * @requires crm.Format
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
-const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin], {
   // Localization
   allDayText: resource.allDayText,
   completeActivityText: resource.completeActivityText,
@@ -73,10 +70,23 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
 
   // Templates
   // Card View
-  itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">',
-    '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+  rowTemplate: new Simplate([
+    `<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">
+      <div class="widget">
+        <div class="widget-header">
+          <h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+            <span class="audible">Actions</span>
+            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+              <use xlink:href="#icon-more"></use>
+            </svg>
+          </button>
+        </div>
+        <div class="card-content">
+          {%! $$.itemRowContentTemplate %}
+        </div>
+      </div>
+    </div>`,
   ]),
   activityTimeTemplate: new Simplate([
     '{% if ($$.isTimelessToday($)) { %}',

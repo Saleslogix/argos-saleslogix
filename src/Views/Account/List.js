@@ -6,7 +6,6 @@ import utility from 'argos/Utility';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
@@ -26,11 +25,10 @@ const resource = getResource('accountList');
  * @requires crm.Action
  * @requires crm.Views._GroupListMixin
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
-const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.AccountName %}</p>',

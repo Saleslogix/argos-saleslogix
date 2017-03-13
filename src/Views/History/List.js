@@ -7,7 +7,6 @@ import action from '../../Action';
 import List from 'argos/List';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 import moment from 'moment';
@@ -23,7 +22,6 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.Convert
  *
@@ -32,7 +30,7 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
  *
  * @requires moment
  */
-const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">',
