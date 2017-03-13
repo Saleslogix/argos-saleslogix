@@ -11,10 +11,10 @@ const resource = getResource('locationsPricingAvailabilityList');
 const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-subheading"><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</p>',
     '<p class="listview-heading"><label class="group-label">{%: $$.availableToPromiseDateText %}: </label>{%: $$.formatATPDate($.ATPDate) %}</p>',
     '<p class="listview-heading"><label class="group-label">{%: $$.availableText %}: </label>{%: $.AvailableQuantity %}</p>',
-    '<p class="listview-subheading">{%: $.UnitOfMeasure %}</p>',
+    '<p class="micro-text">{%: $.UnitOfMeasure %}</p>',
   ]),
 
   // Localization

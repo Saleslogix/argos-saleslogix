@@ -39,7 +39,7 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
 
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $$.getDescription($) %}</p>',
-    '<p class="listview-subheading">{%: $$.getOfflineDate($) %}</p>',
+    '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   getDescription: function getDescription(entry) {
     return this._model.getEntityDescription(entry);

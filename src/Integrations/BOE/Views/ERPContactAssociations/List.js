@@ -15,7 +15,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List'
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Contact.NameLF %}</p>',
-    '<p class="listview-subheading">{%: $.Account.AccountName %}</p>',
+    '<p class="micro-text">{%: $.Account.AccountName %}</p>',
   ]),
 
   // Localization

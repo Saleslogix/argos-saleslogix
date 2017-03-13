@@ -23,20 +23,24 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
   rowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-    '<div class="list-item-static-selector">',
+    '<div class="activityEntry__icon">',
     '{% if ($.icon) { %}',
-    '<img src="{%: $.icon || "" %}" alt="icon" class="icon" />',
+    `<button type="button" class="btn-icon hide-focus">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>
+      </svg>
+    </button>`,
     '{% } else if ($.iconClass) { %}',
     '<div class="{%= $.iconClass %}"></div>',
     '{% } %}',
     '</div>',
-    '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+    '<div class="activityEntry__header">{%! $$.itemTemplate %}</div>',
     '</li>',
   ]),
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
-
+  isCardView: false,
   // Localization
   titleText: resource.titleText,
   activityTypeText: {
@@ -50,12 +54,12 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
 
   // View Properties
   activityTypeIcons: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-calendar-o',
-    atPersonal: 'fa fa-check-square-o',
-    event: 'fa fa-calendar-o',
+    atToDo: 'bullet-list',
+    atPhoneCall: 'phone',
+    atAppointment: 'calendar',
+    atLiterature: 'calendar',
+    atPersonal: 'checkbox',
+    event: 'calendar',
   },
   activityTypeOrder: [
     'atAppointment',
@@ -118,7 +122,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
       list.push({
         $key: this.activityTypeOrder[i],
         $descriptor: this.activityTypeText[this.activityTypeOrder[i]],
-        iconClass: this.activityTypeIcons[this.activityTypeOrder[i]],
+        icon: this.activityTypeIcons[this.activityTypeOrder[i]],
         type: this.activityTypeOrder[i],
       });
     }

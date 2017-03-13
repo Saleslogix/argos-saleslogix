@@ -35,21 +35,21 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.AccountName %}</p>',
-    '<p class="listview-subheading">{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</p>',
-    '<p class="listview-subheading">',
+    '<p class="micro-text">{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</p>',
+    '<p class="micro-text">',
     '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}',
     '</p>',
-    '<p class="listview-subheading">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>',
+    '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>',
     '{% if ($.MainPhone) { %}',
-    '<p class="listview-subheading">',
+    '<p class="micro-text">',
     '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
     '</p>',
     '{% } %}',
   ]),
   itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
+    '<div data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
     '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+    '</div>',
   ]),
   itemRowContentTemplate: new Simplate([
     '<div id="top_item_indicators" class="list-item-indicator-content"></div>',

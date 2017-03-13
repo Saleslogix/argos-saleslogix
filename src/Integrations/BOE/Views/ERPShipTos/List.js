@@ -15,7 +15,7 @@ const __class = declare('crm.Integrations.BOE.Views.ErpShipTos.List', [List, _Ri
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Name %}</p>',
-    '<p class="listview-subheading address">{%: $.Address.FullAddress %}</p>',
+    '<p class="micro-text address">{%: $.Address.FullAddress %}</p>',
   ]),
 
   // Localization

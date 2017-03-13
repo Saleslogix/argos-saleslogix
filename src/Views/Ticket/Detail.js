@@ -70,7 +70,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
         name: 'ScheduleActivityAction',
         property: 'TicketNumber',
         label: this.scheduleActivityText,
-        iconClass: 'fa fa-calendar fa-lg',
+        iconClass: 'calendar',
         action: 'scheduleActivity',
       }],
     }, {

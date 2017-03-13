@@ -215,28 +215,28 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         name: 'PromoteSalesOrder',
         property: 'SalesOrderNumber',
         label: this.promoteOrderText,
-        iconClass: 'fa fa-level-up fa-2x',
+        iconClass: 'up-arrow',
         action: 'onPromoteOrder',
         security: 'Entities/SalesOrder/Promote',
       }, {
         name: 'GetOrderTotal',
         property: 'SalesOrderNumber',
         label: this.getOrderTotalText,
-        iconClass: 'fa fa-money fa-2x',
+        iconClass: 'fa fa-money fa-2x', // TODO: look for an icon
         action: 'onGetOrderTotal',
         security: 'Entities/SalesOrder/GetOrderTotal',
       }, {
         name: 'AddLineItems',
         property: 'SalesOrderNumber',
         label: this.addLineItemsText,
-        iconClass: 'fa fa-list-ul fa-2x',
+        iconClass: 'bullet-list',
         action: 'addLineItems',
         security: 'Entities/SalesOrder/Add',
       }, {
         name: 'RePrice',
         property: 'SalesOrderNumber',
         label: this.refreshPricingText,
-        iconClass: 'fa fa-money fa-2x',
+        iconClass: 'fa fa-money fa-2x', // TODO: look for an icon
         action: 'onRePrice',
         security: 'Entities/SalesOrder/Add',
       }],

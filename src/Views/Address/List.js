@@ -23,7 +23,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.$descriptor %}</p>',
-    '<p class="listview-subheading">{%= crm.Format.address($, true) %}</p>',
+    '<p class="micro-text">{%= crm.Format.address($, true) %}</p>',
   ]),
 
   // Localization

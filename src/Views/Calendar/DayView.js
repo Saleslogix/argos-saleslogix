@@ -98,11 +98,11 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   ]),
   itemTemplate: new Simplate([
     '<p class="listview-heading p-description">{%: $.Description %}</p>',
-    '<p class="listview-subheading">{%= $$.nameTemplate.apply($) %}</p>',
+    '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>',
   ]),
   eventItemTemplate: new Simplate([
     '<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>',
-    '<p class="listview-subheading">{%! $$.eventNameTemplate %}</p>',
+    '<p class="micro-text">{%! $$.eventNameTemplate %}</p>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',

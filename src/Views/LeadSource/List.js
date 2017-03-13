@@ -15,7 +15,7 @@ const __class = declare('crm.Views.LeadSource.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Description %}</p>',
-    '<p class="listview-subheading">{%: $.Status %}</p>',
+    '<p class="micro-text">{%: $.Status %}</p>',
   ]),
 
   // Localization

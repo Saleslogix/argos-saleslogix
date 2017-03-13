@@ -17,7 +17,7 @@ const __class = declare('crm.Views.Product.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Name %} | {%: $.Description %}</p>',
-    '<p class="listview-subheading">',
+    '<p class="micro-text">',
     '{%: $.Family %}',
     '</p>',
   ]),
