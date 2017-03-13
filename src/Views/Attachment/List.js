@@ -6,7 +6,6 @@ import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 import moment from 'moment';
@@ -21,7 +20,6 @@ const dtFormatResource = getResource('attachmentListDateTimeFormat');
  * @extends argos.List
  * @mixins argos.List
  * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._CardLayoutListMixin
  * @mixins argos._LegacySDataListMixin
  *
  * @requires argos.List
@@ -30,12 +28,11 @@ const dtFormatResource = getResource('attachmentListDateTimeFormat');
  *
  * @requires crm.Format
  * @requires crm.Views._RightDrawerListMixin
- * @requires crm.Views._CardLayoutListMixin
  *
  * @requires moment
  *
  */
-const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
+const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.dataType === "R") { %}',

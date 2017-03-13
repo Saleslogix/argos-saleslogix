@@ -3,7 +3,6 @@ import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -13,7 +12,7 @@ import utility from '../../Utility';
 
 const resource = getResource('erpReceivablesList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
   itemTemplate: new Simplate([

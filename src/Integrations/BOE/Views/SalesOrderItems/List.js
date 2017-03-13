@@ -4,7 +4,6 @@ import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
@@ -15,7 +14,7 @@ import SalesOrderItemAvailabilityList from '../Locations/SalesOrderItemAvailabil
 
 const resource = getResource('salesOrderItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   formatter: format,
   util: utility,
   // Localization

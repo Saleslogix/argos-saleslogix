@@ -10,13 +10,12 @@ import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
 import _ListBase from 'argos/_ListBase';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 import $ from 'jquery';
 
 const resource = getResource('acctPxSearch');
 
-const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_ListBase, _LegacyListBase, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_ListBase, _LegacyListBase], {
   // Localization strings
   accountsNearMeText: resource.accountsNearMeText,
   addActivityActionText: resource.addActivityActionText,
@@ -46,7 +45,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     '</p>',
     '{% } %}',
   ]),
-  itemRowContainerTemplate: new Simplate([
+  rowTemplate: new Simplate([
     '<div data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
     '{%! $$.itemRowContentTemplate %}',
     '</div>',

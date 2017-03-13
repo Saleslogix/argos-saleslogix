@@ -4,7 +4,6 @@ import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -14,7 +13,7 @@ import utility from '../../Utility';
 
 const resource = getResource('quotesList');
 
-const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
   // Templates

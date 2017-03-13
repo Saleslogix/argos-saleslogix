@@ -42,10 +42,23 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
 
   // Templates
   // Card View
-  itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">',
-    '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+  rowTemplate: new Simplate([
+    `<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
+      <div class="widget">
+        <div class="widget-header">
+          <h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+            <span class="audible">Actions</span>
+            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+              <use xlink:href="#icon-more"></use>
+            </svg>
+          </button>
+        </div>
+        <div class="card-content">
+          {%! $$.itemRowContentTemplate %}
+        </div>
+      </div>
+    </div>`,
   ]),
   activityTimeTemplate: new Simplate([
     '{% if ($$.isTimelessToday($)) { %}',

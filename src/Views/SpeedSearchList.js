@@ -8,7 +8,6 @@ import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
-import _CardLayoutListMixin from './_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 import $ from 'jquery';
 
@@ -20,10 +19,9 @@ const resource = getResource('speedSearchList');
  *
  * @extends argos.List
  * @mixins crm.Views._SpeedSearchRightDrawerListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  */
-const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="micro-text"><strong>{%: $.$heading %}</strong></p>',

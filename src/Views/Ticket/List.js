@@ -7,7 +7,6 @@ import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('ticketList');
@@ -19,12 +18,11 @@ const resource = getResource('ticketList');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires crm.Action
  * @requires crm.Format
  */
-const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.TicketNumber %}</p>',

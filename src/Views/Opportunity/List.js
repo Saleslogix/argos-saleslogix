@@ -7,7 +7,6 @@ import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityList');
@@ -19,14 +18,13 @@ const resource = getResource('opportunityList');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.Format
  *
  * @requires crm.Action
  * @requires crm.Format
  */
-const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   // TODO: Support ExchangeRateCode with proper symbol
   itemTemplate: new Simplate([
