@@ -27,15 +27,23 @@ const resource = getResource('application');
  *
  */
 export default class Application extends SDKApplication {
-  constructor() {
-    super(...arguments);
+  constructor(options = {
+    connections: null,
+    enableUpdateNotification: false,
+    multiCurrency: false,
+    enableGroups: true,
+    enableHashTags: true,
+    maxUploadFileSize: 40000000,
+    enableConcurrencyCheck: false,
+    enableOfflineSupport: false,
+    warehouseDiscovery: 'auto',
+    mingleEnabled: false,
+    mingleSettings: null,
+    mingleRedirectUrl: '',
+  }) {
+    super(options);
     this.navigationState = null;
     this.rememberNavigationState = true;
-    this.enableUpdateNotification = false;
-    this.multiCurrency = false;
-    this.enableGroups = true;
-    this.enableHashTags = true;
-    this.enableOfflineSupport = false;
     this.speedSearch = {
       includeStemming: true,
       includePhonic: true,
@@ -114,6 +122,9 @@ export default class Application extends SDKApplication {
       'recently_viewed_list',
       'briefcase_list',
     ];
+
+    // Settings
+    Object.assign(this, options);
   }
 
   init() {
@@ -322,7 +333,7 @@ export default class Application extends SDKApplication {
     super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      if (App.mingleEnabled) {
+      if (this.mingleEnabled) {
         this.handleMingleAuthentication();
       } else {
         this.handleAuthentication();
@@ -362,7 +373,7 @@ export default class Application extends SDKApplication {
       };
     }
 
-    if (!App.mingleEnabled && credentials.remember) {
+    if (!this.mingleEnabled && credentials.remember) {
       try {
         if (window.localStorage) {
           window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
@@ -879,7 +890,7 @@ export default class Application extends SDKApplication {
   setupRedirectHash() {
     let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
-      if (App.mingleEnabled) {
+      if (this.mingleEnabled) {
         const vars = this.redirectHash.split('&');
         for (let i = 0; i < vars.length; i++) {
           const pair = vars[i].split('=');
