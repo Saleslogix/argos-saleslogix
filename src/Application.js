@@ -106,9 +106,14 @@ const __class = declare('crm.Application', [Application], {
     if (has('ie') && has('ie') < 9) {
       window.location.href = 'unsupported.html';
     }
+    // Must exist here for backwards compatibility for BOE Module
     this.picklistService = PicklistService;
 
     this.inherited(arguments);
+
+    this._cachingService = new ICRMServicesSDK.CachingService(localStorage);
+    this.picklistService.init(this.getService(), this._cachingService);
+
     this._loadNavigationState();
 
     let accessToken = null;

@@ -3,7 +3,7 @@ import ErrorManager from 'argos/ErrorManager';
 import SData from 'argos/Store/SData';
 
 const PickListService = ICRMServicesSDK.PickListService;
-const PickListFormatter = ICRMServicesSDK.PickListFormatter;
+const picklistFormat = ICRMCommonSDK.format.picklist;
 
 const __class = lang.setObject('crm.PicklistService', {
   _picklists: {},
@@ -31,19 +31,19 @@ const __class = lang.setObject('crm.PicklistService', {
 
   init(service, storage) {
     this.service = new PickListService(storage, service);
-    this.formatter = new PickListFormatter();
   },
   getPicklistByKey(key) {
     return this._picklists[key];
   },
   getPicklistByName(name) {
-    const iterableKeys = Object.keys(this._picklists);
-    for (let i = 0; i < iterableKeys.length; i++) {
-      if (this._picklists[iterableKeys[i]].name === name) {
-        return this._picklists[iterableKeys[i]];
-      }
-    }
-    return false;
+    return this._picklists[name] || false;
+    // const iterableKeys = Object.keys(this._picklists);
+    // for (let i = 0; i < iterableKeys.length; i++) {
+    //   if (this._picklists[iterableKeys[i]].name === name) {
+    //     return this._picklists[iterableKeys[i]];
+    //   }
+    // }
+    // return false;
   },
   getPicklistItemByCode(picklistName, itemCode) {
     const picklist = this.getPicklistByName(picklistName);
@@ -64,20 +64,74 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return null;
   },
-  format(picklist /* , storageMode */) {
-    return this.formatter.format(picklist);
+  format(picklistCode /* , storageMode */) {
+    const picklist = this.getPicklistByName(picklistCode);
+    return picklistFormat(picklist);
   },
-  registerPicklist(key, picklist) {
-    if (!this._picklists[key]) {
-      this._picklists[key] = picklist;
+  registerPicklist(code, picklist) {
+    if (!this._picklists[code]) {
+      this._picklists[code] = picklist;
     }
   },
   requestPicklists() {
+    // const promise = new Promise((resolve, reject) => {
+    //   const iterableKeys = Object.keys(this._picklists);
+    //   const promises = [];
+    //   for (let i = 0; i < iterableKeys.length; i++) {
+    //     promises.push(this.requestPicklist(iterableKeys[i]));
+    //   }
+    //   Promise.all(promises).then(() => {
+    //     resolve(true);
+    //   }, (response) => {
+    //     reject(response);
+    //   });
+    // });
+    // return promise;
+    return this.requestPicklistsFromArray(Object.keys(this._picklists));
+  },
+  requestPicklistsFromArray(picklists) {
     const promise = new Promise((resolve, reject) => {
-      const iterableKeys = Object.keys(this._picklists);
       const promises = [];
-      for (let i = 0; i < iterableKeys.length; i++) {
-        promises.push(this.requestPicklist(iterableKeys[i]));
+      // const pickListServiceOptions = {
+      //   storageMode: 'code',
+      // };
+      for (let i = 0; i < picklists.length; i++) {
+        // const temp = new Promise((res, rej) => {
+        //   const {
+        //     options,
+        //     handlers,
+        //   } = this.service.getFirstByKey(
+        //     picklists[i],
+        //     false,
+        //     true,
+        //     this.onPicklistSuccess(res),
+        //     this.onPicklistError(rej),
+        //     { pickListServiceOptions }
+        //   );
+        //   if (options) {
+        //     const request = this.service.setUpRequest(
+        //       new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
+        //         .setContractName(this.contractName),
+        //       options
+        //     );
+        //     request.read(handlers);
+            // const store = this.getStore();
+            // store.query(null, options).then((data) => {
+            //   let picklist = null;
+            //   if (data && data[0] && data[0].items) {
+            //     picklist = data[0];
+            //     picklist.items = picklist.items.$resources;
+            //     this._picklists[picklist.name] = picklist;
+            //   }
+            //   res(picklist);
+            // }, (response, o) => {
+            //   ErrorManager.addError(response, o, options, 'failure');
+            //   rej(response);
+            // });
+        //   }
+        // });
+        // promises.push(this.requestPicklist(picklists[i]));
+        promises.push(this.requestPicklist(picklists[i]));
       }
       Promise.all(promises).then(() => {
         resolve(true);
@@ -87,14 +141,49 @@ const __class = lang.setObject('crm.PicklistService', {
     });
     return promise;
   },
-  // requestPicklist(name, options) {
-  //   return new Promise((resolve, reject) => {
-  //     this.service.getFirstByName(name, resolve, (response, o) => {
-  //       ErrorManager.addError(response, o, options, 'failure');
-  //       reject(response);
-  //     });
-  //   });
-  // },
+  onPicklistSuccess(resolve) {
+    return (result) => {
+      let picklist = null;
+      if (result && result.items) {
+        picklist = result;
+        picklist.items = picklist.items.$resources;
+        this._picklists[picklist.name] = picklist;
+      }
+      resolve(picklist);
+    };
+  },
+  onPicklistError(reject) {
+    return (response, o) => {
+      ErrorManager.addError(response, o, null, 'failure');
+      reject(response);
+    };
+  },
+  requestPicklist(name, queryOptions) {
+    const pickListServiceOptions = Object.assign({}, {
+      storageMode: 'code',
+    }, queryOptions);
+    return new Promise((res, rej) => {
+      const {
+        options,
+        handlers,
+      } = this.service.getFirstByKey(
+        name,
+        false,
+        true,
+        this.onPicklistSuccess(res),
+        this.onPicklistError(rej),
+        { pickListServiceOptions }
+      );
+      if (options) {
+        const request = this.service.setUpRequest(
+          new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
+            .setContractName(this.contractName),
+          options
+        );
+        request.read(handlers);
+      }
+    });
+  },
 
   // Previous functions
   getViewPicklists: function getViewPicklists(viewId) {
@@ -112,38 +201,38 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return null;
   },
-  registerPicklistToView: function registerPicklistToView(key, viewId) {
+  registerPicklistToView: function registerPicklistToView(code, viewId) {
     if (!this._viewMapping[viewId]) {
       this._viewMapping[viewId] = [];
     }
-    if (!this._viewMapping[viewId][key]) {
-      this._viewMapping[viewId].push(key);
+    if (!this._viewMapping[viewId][code]) {
+      this._viewMapping[viewId].push(code);
     } else {
       console.log('Picklist already exists for view "' + viewId + '"'); // eslint-disable-line
     }
-    this.registerPicklist(key, true);
+    this.registerPicklist(code, true);
   },
-  requestPicklist: function requestPicklist(name, options) {
-    const promise = new Promise((resolve, reject) => {
-      const store = this.getStore();
-      const queryOptions = {
-        where: `name eq '${name}'`,
-      };
-      store.query(null, queryOptions).then((data) => {
-        let picklist = null;
-        if (data && data[0] && data[0].items) {
-          picklist = data[0];
-          picklist.items = picklist.items.$resources;
-          this._picklists[picklist.name] = picklist;
-        }
-        resolve(picklist);
-      }, (response, o) => {
-        ErrorManager.addError(response, o, options, 'failure');
-        reject(response);
-      });
-    });
-    return promise;
-  },
+  // requestPicklist: function requestPicklist(name, options) {
+  //   const promise = new Promise((resolve, reject) => {
+  //     const store = this.getStore();
+  //     const queryOptions = {
+  //       where: `name eq '${name}'`,
+  //     };
+  //     store.query(null, queryOptions).then((data) => {
+  //       let picklist = null;
+  //       if (data && data[0] && data[0].items) {
+  //         picklist = data[0];
+  //         picklist.items = picklist.items.$resources;
+  //         this._picklists[picklist.name] = picklist;
+  //       }
+  //       resolve(picklist);
+  //     }, (response, o) => {
+  //       ErrorManager.addError(response, o, options, 'failure');
+  //       reject(response);
+  //     });
+  //   });
+  //   return promise;
+  // },
   getStore: function getStore() {
     if (!this._store) {
       const options = this.getStoreOptions();
