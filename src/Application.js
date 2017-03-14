@@ -10,7 +10,8 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
 import { app } from './reducers';
-import { setUser } from './actions';
+import { setConfig } from './actions/config';
+import { setUser } from './actions/user';
 import { combineReducers } from 'redux';
 import $ from 'jquery';
 import moment from 'moment';
@@ -30,18 +31,18 @@ export default class Application extends SDKApplication {
   constructor(options = {
     connections: null,
     enableUpdateNotification: false,
-    multiCurrency: false,
+    enableMultiCurrency: false,
     enableGroups: true,
     enableHashTags: true,
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
     warehouseDiscovery: 'auto',
-    mingleEnabled: false,
+    enableMingle: false,
     mingleSettings: null,
     mingleRedirectUrl: '',
   }) {
-    super(options);
+    super();
     this.navigationState = null;
     this.rememberNavigationState = true;
     this.speedSearch = {
@@ -124,15 +125,24 @@ export default class Application extends SDKApplication {
     ];
 
     // Settings
-    Object.assign(this, options);
+    Object.assign(this, options); // TODO: Remove
+
+    // Save this config temporarily until we have a working store (init).
+    this._config = options;
   }
 
   init() {
     super.init(...arguments);
+
+    // Dispatch the temp config we saved in the constructor
+    this.store.dispatch(setConfig(this._config));
+    this._config = null;
+
     this._loadNavigationState();
+    this._saveDefaultPreferences();
 
     let accessToken = null;
-    if (this.mingleEnabled) {
+    if (this.enableMingle) {
       accessToken = this.mingleAuthResults.access_token;
     }
 
@@ -239,7 +249,7 @@ export default class Application extends SDKApplication {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
     // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
     // instead of on startup. We cannot check App.context data that was loaded after login when the startup method is used.
-    if (this.multiCurrency) {
+    if (this.enableMultiCurrency) {
       return true;
     }
 
@@ -333,7 +343,7 @@ export default class Application extends SDKApplication {
     super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      if (this.mingleEnabled) {
+      if (this.enableMingle) {
         this.handleMingleAuthentication();
       } else {
         this.handleAuthentication();
@@ -373,7 +383,7 @@ export default class Application extends SDKApplication {
       };
     }
 
-    if (!this.mingleEnabled && credentials.remember) {
+    if (!this.enableMingle && credentials.remember) {
       try {
         if (window.localStorage) {
           window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
@@ -546,7 +556,6 @@ export default class Application extends SDKApplication {
     this.navigateToLoginView();
   }
   onInitAppStateSuccess() {
-    this._saveDefaultPreferences();
     this.setDefaultMetricPreferences();
     this.showApplicationMenuOnLarge();
     if (this.enableOfflineSupport) {
@@ -890,7 +899,7 @@ export default class Application extends SDKApplication {
   setupRedirectHash() {
     let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
-      if (this.mingleEnabled) {
+      if (this.enableMingle) {
         const vars = this.redirectHash.split('&');
         for (let i = 0; i < vars.length; i++) {
           const pair = vars[i].split('=');
@@ -924,7 +933,7 @@ export default class Application extends SDKApplication {
       return;
     }
 
-    if (this.mingleEnabled && online && this.requiresMingleRefresh) {
+    if (this.enableMingle && online && this.requiresMingleRefresh) {
       MingleUtility.refreshAccessToken(this);
       return;
     }

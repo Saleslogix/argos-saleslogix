@@ -1,17 +1,8 @@
-import { SET_USER } from '../actions';
+import { config } from './config';
+import { user } from './user';
+import { combineReducers } from 'redux';
 
-const initialAppState = {
-  user: null,
-};
-
-export function app(state = initialAppState, action) {
-  const { type, payload, error, meta } = action; // eslint-disable-line
-  switch (type) {
-    case SET_USER:
-      return Object.assign({}, state, {
-        user: payload.entry,
-      });
-    default:
-      return state;
-  }
-}
+export const app = combineReducers({
+  user,
+  config,
+});

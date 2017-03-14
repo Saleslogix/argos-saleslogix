@@ -25,7 +25,7 @@ export function bootstrap({
     modules,
   });
 
-  if (appConfig.mingleEnabled) {
+  if (appConfig.enableMingle) {
     mingleAuthResults = MingleUtility.populateAccessToken(appConfig);
     if (!mingleAuthResults) {
       return;
