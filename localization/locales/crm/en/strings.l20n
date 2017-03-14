@@ -1173,9 +1173,9 @@
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. All rights reserved. www.infor.com"
   logOnText: "Sign in"
   passText: "Password"
+  urlText: "SData Endpoint"
   rememberText: "Remember me"
   titleText: "Sign in"
   userText: "User ID"

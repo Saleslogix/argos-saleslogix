@@ -45,6 +45,7 @@ const __class = declare('crm.Views.Login', [Edit], {
   copyrightText: resource.copyrightText,
   logOnText: resource.logOnText,
   passText: resource.passText,
+  urlText: resource.urlText,
   rememberText: resource.rememberText,
   titleText: resource.titleText,
   userText: resource.userText,
@@ -81,12 +82,14 @@ const __class = declare('crm.Views.Login', [Edit], {
   _disable: function _disable() {
     this.fields['username-display'].disable();
     this.fields['password-display'].disable();
+    this.fields['url-display'].disable();
     this.fields.remember.disable();
     this.loginButton.disabled = true;
   },
   _enable: function _enable() {
     this.fields['username-display'].enable();
     this.fields['password-display'].enable();
+    this.fields['url-display'].enable();
     this.fields.remember.enable();
     this.loginButton.disabled = false;
   },
@@ -130,6 +133,11 @@ const __class = declare('crm.Views.Login', [Edit], {
       label: this.passText,
       type: 'text',
       inputType: 'password',
+      required: true,
+    }, {
+      name: 'url-display',
+      label: this.urlText,
+      type: 'text',
       required: true,
     }, {
       name: 'remember',
