@@ -389,6 +389,7 @@ export default class Application extends SDKApplication {
           window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
             username: credentials.username,
             password: credentials.password || '',
+            endpoint: credentials.endpoint,
           })));
         }
       } catch (e) {} //eslint-disable-line

@@ -154,6 +154,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     const credentials = {
       username: values['username-display'],
       password: values['password-display'],
+      endpoint: values['url-display'],
       remember: values.remember,
     };
 
