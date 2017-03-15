@@ -162,7 +162,7 @@ const __class = lang.setObject('crm.PicklistService', {
     const pickListServiceOptions = Object.assign({}, {
       storageMode: 'code',
     }, queryOptions);
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
       const {
         options,
         handlers,
@@ -170,8 +170,8 @@ const __class = lang.setObject('crm.PicklistService', {
         name,
         false,
         true,
-        this.onPicklistSuccess(res),
-        this.onPicklistError(rej),
+        this.onPicklistSuccess(resolve),
+        this.onPicklistError(reject),
         { pickListServiceOptions }
       );
       if (options) {
