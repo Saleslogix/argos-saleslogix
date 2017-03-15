@@ -1026,6 +1026,8 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       property: 'Location',
       label: this.locationText,
       type: 'text',
+      maxTextLength: 255,
+      validator: validator.exceedsMaxTextLength,
     }, {
       label: this.priorityText,
       name: 'Priority',
