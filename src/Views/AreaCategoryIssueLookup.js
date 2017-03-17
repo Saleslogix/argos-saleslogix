@@ -50,7 +50,6 @@ const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySData
     } else {
       this.inherited(arguments);
     }
-    this.isRefreshing = false;
   },
   processFeed: function processFeed(feed) {
     let theFeed = feed;
