@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import string from 'dojo/string';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -11,7 +10,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpContactAssociationsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Contact.NameLF %}</p>',

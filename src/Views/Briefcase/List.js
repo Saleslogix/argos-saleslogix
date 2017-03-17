@@ -8,7 +8,6 @@
  */
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_TYPES from 'argos/Models/Types';
@@ -19,7 +18,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('briefcaseList');
 
-export default declare('crm.Views.Briefcase', [_ListBase, _CardLayoutListMixin, _ListOfflineMixin], {
+export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
   id: 'briefcase_list',
   idProperty: 'id',
   detailView: 'offline_detail',

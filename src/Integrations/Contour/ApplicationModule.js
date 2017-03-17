@@ -4,6 +4,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
+import Application from 'argos/Application';
 import ApplicationModule from 'argos/ApplicationModule';
 import AccountPxSearch from './Views/PxSearch/AccountPxSearch';
 import LocationPicker from './Views/PxSearch/LocationPicker';
@@ -42,8 +43,8 @@ const __class = declare('crm.Integrations.Contour.ApplicationModule', [Applicati
 
     // We want to add these views to the default set of home screen views.
     // Save the original getDefaultviews() function.
-    const originalDefViews = crm.Application.prototype.getDefaultViews;
-    lang.extend(crm.Application, {
+    const originalDefViews = Application.prototype.getDefaultViews;
+    lang.extend(Application, {
       getDefaultViews() {
         // Get view array from original function, or default to empty array
         const views = originalDefViews.apply(this, arguments) || [];
