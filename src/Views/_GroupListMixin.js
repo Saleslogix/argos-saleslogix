@@ -637,8 +637,8 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       }
     }
   },
-  _invokeAction: function _invokeAction(theAction, selection) {
-    if (this.groupsEnabled && this.groupsMode && selection && !selection.resolved) {
+  _invokeAction: function _invokeAction(theAction, selection = {}) {
+    if (this.groupsEnabled && this.groupsMode && !selection.resolved) {
       this._groupInvokeAction(theAction, selection);
     } else {
       this.inherited(arguments);
