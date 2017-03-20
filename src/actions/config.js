@@ -1,5 +1,6 @@
 // action Types
 export const SET_CONFIG = 'SET_CONFIG';
+export const SET_ENDPOINT = 'SET_ENDPOINT';
 
 /*
 
@@ -24,6 +25,15 @@ export function setConfig(config) {
     type: SET_CONFIG,
     payload: {
       config,
+    },
+  };
+}
+
+export function setEndPoint(url) {
+  return {
+    type: SET_ENDPOINT,
+    payload: {
+      url,
     },
   };
 }

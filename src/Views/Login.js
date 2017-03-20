@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 import logo from '../../content/images/logo-64.png';
+import { setEndPoint } from '../actions/config';
 
 import page from 'page';
 
@@ -78,6 +79,11 @@ const __class = declare('crm.Views.Login', [Edit], {
     if (!this.connectionState) {
       this._disable();
     }
+
+    const state = this.appStore.getState();
+    if (state && state.app && state.app.config.endpoint) {
+      this.fields['url-display'].setValue(state.app.config.endpoint);
+    }
   },
   _disable: function _disable() {
     this.fields['username-display'].disable();
@@ -151,6 +157,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     }
 
     const values = this.getValues();
+
     const credentials = {
       username: values['username-display'],
       password: values['password-display'],
@@ -190,6 +197,8 @@ const __class = declare('crm.Views.Login', [Edit], {
   validateCredentials: function validateCredentials(credentials) {
     this.disable();
 
+    const endpoint = credentials.endpoint;
+    this.appStore.dispatch(setEndPoint(endpoint));
     App.authenticateUser(credentials, {
       success: function success() {
         // Need to remove Login view from pagejs stack

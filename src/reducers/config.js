@@ -1,8 +1,9 @@
-import { SET_CONFIG } from '../actions/config';
+import { SET_CONFIG, SET_ENDPOINT } from '../actions/config';
 
 // TODO: Refactor the settings passed into the app to use these instead.
 const initialConfigState = {
   connections: null,
+  endpoint: '',
   maxUploadFileSize: 40000000,
   enableUpdateNotification: false,
   enableMultiCurrency: false,
@@ -21,6 +22,10 @@ export function config(state = initialConfigState, action) {
   switch (type) {
     case SET_CONFIG:
       return Object.assign({}, state, payload.config);
+    case SET_ENDPOINT:
+      return Object.assign({}, state, {
+        endpoint: payload.url,
+      });
     default:
       return state;
   }

@@ -10,7 +10,7 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
 import { app } from './reducers';
-import { setConfig } from './actions/config';
+import { setConfig, setEndPoint } from './actions/config';
 import { setUser } from './actions/user';
 import { combineReducers } from 'redux';
 import $ from 'jquery';
@@ -343,6 +343,7 @@ export default class Application extends SDKApplication {
     super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
+      this.loadEndpoint();
       if (this.enableMingle) {
         this.handleMingleAuthentication();
       } else {
@@ -498,6 +499,27 @@ export default class Application extends SDKApplication {
 
     return credentials;
   }
+  loadEndpoint() {
+    try {
+      if (window.localStorage) {
+        const results = window.localStorage.getItem('endpoint');
+        if (results) {
+          this.store.dispatch(setEndPoint(results));
+        }
+      }
+    } catch (e) {} // eslint-disable-line
+  }
+  saveEndpoint(url = '') {
+    if (!url) {
+      return;
+    }
+
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem('endpoint', url);
+      }
+    } catch (e) {} // eslint-disable-line
+  }
   removeCredentials() {
     try {
       if (window.localStorage) {
@@ -585,6 +607,25 @@ export default class Application extends SDKApplication {
       this.removeCredentials();
       this.navigateToLoginView();
     });
+  }
+  onStateChange(state) {
+    super.onStateChange(state);
+    if (!state || state === this.previousState) {
+      return;
+    }
+
+    const currentEndpoint = state.app.config.endpoint;
+    const previousEndpoint = this.previousState.app.config.endpoint;
+    if (currentEndpoint !== previousEndpoint) {
+      this.updateServiceUrl(state);
+      this.saveEndpoint(currentEndpoint);
+    }
+  }
+  updateServiceUrl(state) {
+    const service = this.getService();
+    service.setUri(Object.assign({}, state.app.config.connections, {
+      url: state.app.config.endpoint,
+    }));
   }
   _clearNavigationState() {
     try {
