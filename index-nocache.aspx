@@ -75,6 +75,7 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
+    <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
     <script type="text/javascript" src="dist/vendor.bundle.js"></script>
     <script type="text/javascript" src="dist/icrm.main.js"></script>
     <!-- Modules -->
