@@ -505,6 +505,9 @@ export default class Application extends SDKApplication {
         const results = window.localStorage.getItem('endpoint');
         if (results) {
           this.store.dispatch(setEndPoint(results));
+        } else {
+          const service = this.getService();
+          this.store.dispatch(setEndPoint(service.uri.build()));
         }
       }
     } catch (e) {} // eslint-disable-line
