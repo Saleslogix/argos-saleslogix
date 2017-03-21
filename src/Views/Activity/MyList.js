@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import query from 'dojo/query';
 import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
 import ActivityList from './List';
@@ -13,6 +12,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
+import $ from 'jquery';
 import moment from 'moment';
 
 const resource = getResource('activityMyList');
@@ -43,7 +43,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   // Templates
   // Card View
   rowTemplate: new Simplate([
-    `<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
+    `<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
       <div class="widget">
         <div class="widget-header">
           <h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
@@ -389,7 +389,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
      * Grabbing a different key here, since we use entry.Activity.$key as the main data-key.
      * TODO: Make [data-key] overrideable in the base class.
      */
-    const row = query(node).closest('[data-my-activity-key]')[0];
+    const row = $(node).closest('.widget').parent()[0];
     const key = row ? row.getAttribute('data-my-activity-key') : false;
 
     if (this._selectionModel && key) {
