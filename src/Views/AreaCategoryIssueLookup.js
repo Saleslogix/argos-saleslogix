@@ -47,6 +47,7 @@ const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySData
   requestData: function requestData() {
     if (this.cache) {
       this.processFeed();
+      this.isRefreshing = false;
     } else {
       this.inherited(arguments);
     }
