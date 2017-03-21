@@ -1173,15 +1173,15 @@
   footerText: "Other"
   settingsText: "Settings"
   helpText: "Help"
-  logOutText: "Log Out"
-  logOutConfirmText: "Are you sure you want to log out?"
+  logOutText: "Sign Off"
+  logOutConfirmText: "Are you sure you want to sign off?"
   onlineText: "Online"
   offlineText: "Offline"
   connectionText: "Connection: ${connectionStatus}"
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. All rights reserved. www.infor.com"
+  copyrightText: "Copyright &copy; 2017 Infor. All rights reserved. www.infor.com"
   logOnText: "Sign in"
   passText: "Password"
   rememberText: "Remember me"
