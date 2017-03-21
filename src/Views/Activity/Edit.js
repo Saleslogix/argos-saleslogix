@@ -826,13 +826,12 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (allowSetAlarm) {
       this.enableFields((f) => {
-        if(values.Alarm) {
+        if (values.Alarm) {
           return (/^Alarm|Reminder$/)
             .test(f.name);
-        } else {
-          return (/^Alarm$/)
-            .test(f.name);
         }
+        return (/^Alarm$/)
+          .test(f.name);
       });
     }
 
