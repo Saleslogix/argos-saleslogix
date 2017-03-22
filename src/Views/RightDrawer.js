@@ -15,7 +15,7 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([
-    '<div class="accordion-header" role="presentation">',
+    '<div class="accordion-header list-content" role="presentation">',
     '<a data-action="{%= $.action %}"',
     '{% if($.dataProps) { %}',
     '{% for(var prop in $.dataProps) { %}',
