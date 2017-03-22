@@ -62,6 +62,23 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
   phoneFormat: f.phoneFormat,
   phone: f.phone,
+  picklist: (service, model, property, picklistName) => {
+    let name = picklistName;
+    if (!name) {
+      if (!service || !model || !property) {
+        return;
+      }
+      name = model.getPicklistNameByProperty(property);
+    }
+    const picklist = service.getPicklistByName(name);
+    // TODO: Update to picklist service enums
+    picklist.storage = 0;
+    picklist.display = 2;
+
+    return (val) => {
+      return f.picklist(val, picklist);
+    };
+  },
   currency: function currency(_val) {
     return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);

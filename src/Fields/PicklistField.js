@@ -18,6 +18,8 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
   const view = new PickList({
     id: `pick_list_${viewsByNameCount++}`,
     expose: false,
+    // picklist: App.picklistService.getPicklistByName(name) || null,
+    picklistName: name,
   });
 
   App.registerView(view);
@@ -28,6 +30,7 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
 
 const control = declare('crm.Fields.PicklistField', [LookupField], {
   picklist: false,
+  picklistName: false,
   storageMode: 'text',
   requireSelection: false,
   valueKeyProperty: false,
@@ -57,6 +60,11 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   },
   isReadOnly: function isReadOnly() {
     return !this.picklist;
+  },
+  isCodePicklist: function isCodePicklist() {
+    // TODO: Ensure this functions as expected
+    const picklist = App.picklistService.getPicklistByName(this.picklistName);
+    return picklist.defaultLanguage;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
     return string.substitute('name eq "${0}"', [name]);
@@ -109,6 +117,26 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
 
     return results || value;
   },
+  setValue: function setValue(val) { // eslint-disable-line
+    if (val && !this.picklistName) {
+      this.picklistName = this.picklist;
+      if (typeof this.picklistName === 'function') {
+        let dependent = this.getDependentValue();
+        if (typeof dependent === 'object') {
+          dependent = dependent.code;
+        }
+        this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
+          ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
+      }
+    }
+    const picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
+    if (picklistItem) {
+      val = picklistItem;
+      this.keyProperty = 'code';
+      this.textProperty = 'text';
+    }
+    this.inherited(arguments);
+  },
   createSelections: function createSelections() {
     const value = this.getText();
     let selections = [];
@@ -125,10 +153,12 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     const options = this.inherited(arguments);
 
     if (this.picklist) {
-      options.resourcePredicate = this.formatResourcePredicate(
-        this.dependsOn // only pass dependentValue if there is a dependency
-        ? this.expandExpression(this.picklist, options.dependentValue) : this.expandExpression(this.picklist)
-      );
+      this.picklistName = this.picklist;
+      if (typeof this.picklistName === 'function') {
+        this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
+          ? this.expandExpression(this.picklist, options.dependentValue.code || options.dependentValue) : this.expandExpression(this.picklist);
+      }
+      options.resourcePredicate = this.formatResourcePredicate(this.picklistName);
       options.singleSelect = this.singleSelect;
       options.previousSelections = !this.singleSelect ? this.createSelections() : null;
       options.keyProperty = this.keyProperty;
@@ -154,13 +184,21 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
 
     return options;
   },
+  updateSelectionProperties: function updateSelectionProperties() {
+    if (App.picklistService.getPicklistByName(this.picklistName)) {
+      this.keyProperty = 'code';
+    }
+  },
   navigateToListView: function navigateToListView() {
     if (this.isDisabled()) {
       return;
     }
 
     const options = this.createNavigationOptions();
-    const view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
+    if (this.isCodePicklist()) {
+      this.keyProperty = 'code';
+    }
+    const view = App.getView(this.view) || getOrCreateViewFor(this.picklistName);
 
     if (view && options) {
       view.refreshRequired = true;

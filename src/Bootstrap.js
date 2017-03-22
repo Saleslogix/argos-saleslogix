@@ -91,6 +91,13 @@ export default function bootstrap({
             }
           }
           const instance = new Application(appConfig);
+          instance.context.localization = {
+            localeContext: ctx,
+            defaultLocaleContext: defaultCtx,
+            locale: currentLocale,
+            region: currentLocale,
+            supportedLocales,
+          };
           instance.localeContext = ctx;
           instance.isRegionMetric = isRegionMetric;
           instance.mingleAuthResults = mingleAuthResults;
