@@ -66,8 +66,6 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     let name = picklistName;
     if (!name) {
       if (!service || !model || !property) {
-        // TODO: Update to be individual
-        console.error('Missing model or property or service for picklist formatter');
         return;
       }
       name = model.getPicklistNameByProperty(property);
