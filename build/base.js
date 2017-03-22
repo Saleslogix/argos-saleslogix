@@ -6,7 +6,22 @@ module.exports = function() {
   return {
     entry: {
       main: './src/main.js',
-      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'page', 'L20n', 'redux', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: [
+        'sdata-client-dependencies',
+        'sdata-client',
+        'canvas2image',
+        'deepdiff',
+        'page',
+        'L20n',
+        'redux',
+        'rxjs',
+        'moment',
+        'pouchdb-browser',
+        '../../argos-sdk/libraries/Simplate.js',
+        '@infor/icrm-js-common',
+        '@infor/icrm-js-customization',
+        //'@infor/sohoxi' // TODO: Fetching the locales fails when this is in the vendor bundle.
+      ],
     },
     output: {
       path: path.resolve(__dirname, '../deploy/dist'),
@@ -107,8 +122,8 @@ module.exports = function() {
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
-        chunks: ['vendor', 'core'],
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        minChunks: Infinity,
       }),
     ],
   }
