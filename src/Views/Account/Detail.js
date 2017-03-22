@@ -115,10 +115,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   formatPicklist: function formatPicklist(property) {
     return format.picklist(this.app.picklistService, this._model, property);
   },
-  preProcessEntryAsync: function preProcessEntryAsync(entry) {
-    return new Promise(resolve =>
-      this.app.picklistService.requestPicklist(`Account ${entry.Type}`).then(() => resolve(entry)));
-  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.actionsText,

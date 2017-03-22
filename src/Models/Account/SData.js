@@ -56,6 +56,16 @@ const __class = declare('crm.Models.Account.SData', [Base, _SDataModelBase], {
       ],
     }];
   },
+  getEntry: function getEntry(/* options */) {
+    const results$ = this.inherited(arguments);
+    return results$.then((entry) => {
+      return new Promise((resolve) => {
+        App.picklistService.requestPicklist(`Account ${entry.Type}`).then(() => {
+          resolve(entry);
+        });
+      });
+    });
+  },
 });
 
 Manager.register(MODEL_NAMES.ACCOUNT, MODEL_TYPES.SDATA, __class);
