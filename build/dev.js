@@ -21,6 +21,11 @@ module.exports = function(env) {
       path: path.resolve(__dirname, '../deploy/dist'),
       publicPath: '/dist/',
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        LITE: true,
+      }),
+    ],
     devServer: {
       compress: true, // gzip compression
       inline: true,

@@ -23,7 +23,8 @@ module.exports = {
     "module": false,
     "Base64": false,
     "define": false,
-    "require": false
+    "require": false,
+    "LITE": false,
   },
   rules: {
     /**
