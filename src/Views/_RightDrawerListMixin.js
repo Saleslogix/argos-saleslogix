@@ -33,6 +33,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   groupList: null,
   DRAWER_PAGESIZE: 100,
   groupLookupId: 'groups_configure',
+  hasSettings: true,
 
   setupRightDrawer: function setupRightDrawer() {
     const drawer = App.getView('right_drawer');
