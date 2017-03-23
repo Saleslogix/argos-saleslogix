@@ -59,8 +59,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     }.bind(this);
 
     if (this.rebuildWidgets) {
-      /*
-      App.snapper.on('close',() => {
+      App.viewSettingsModal.element.on('close', () => {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
 
@@ -75,7 +74,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
 
         // Reset state
         this._hashTagClicked = false;
-      });*/
+      });
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
