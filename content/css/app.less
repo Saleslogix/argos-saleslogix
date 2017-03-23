@@ -1,8 +1,10 @@
 @import "../../../../argos-sdk/content/css/themes/crm/variables.less";
 @import "../../../../argos-sdk/content/css/themes/crm/mixins.less";
 
-.list-content > [data-enabled="false"] {
-    opacity: 0.5;
+.list-content > [data-enabled="true"]:before {
+    content: "\2713";
+    position: absolute;
+    left: 30px;
 }
 
 /* login view */
@@ -860,8 +862,6 @@ td.entry-table-description {
 
 }
 
-
-
 .footer-item-selector > img {
     border: 0 none black;
     height: 24px;
@@ -1242,36 +1242,47 @@ canvas,
       }
  }
 
-  .dashboard-metric-item > .metric-widget {
-     height: inherit;
-     width: 95%;
-     border:1px solid rgba(0,0,0,.1);
-     background-color: #fff;
-     display: block;
-    > button {
-      padding: 2px;
-      color: @color-azure;
-    }
-  }
-  .dashboard-range-list {
-     margin: 4px 0;
-     width: 100%;
-     background-color: transparent;
-     display: inline-flex;
+.dashboard-metric-item > .metric-widget {
+    height: inherit;
+    width: 95%;
+    border:1px solid rgba(0,0,0,.1);
+    background-color: #fff;
+    display: block;
+> button {
+    padding: 2px;
+    color: @color-azure;
+}
+}
+.dashboard-range-list {
+    margin: 4px 0;
+    width: 100%;
+    background-color: transparent;
+    display: inline-flex;
 
-      .dashboard-range-item {
-         width: 100%;
-         color: white;
-         flex-grow: 1;
-         text-align: center;
-         button {
-             background-color: transparent;
-             height: inherit;
-             width: 100%;
-             border: 0 black;
-             span {
-                 font-size: @metricTextSize;
-             }
-         }
-      }
-  }
+    .dashboard-range-item {
+        width: 100%;
+        color: white;
+        flex-grow: 1;
+        text-align: center;
+        button {
+            background-color: transparent;
+            height: inherit;
+            width: 100%;
+            border: 0 black;
+            span {
+                font-size: @metricTextSize;
+            }
+        }
+    }
+}
+.card-content {
+    .group-label {
+        color: @form-label-color;
+    }
+    .group-entry {
+        color: @form-value-color;
+    }
+}
+.micro-text.group-column {
+    margin-bottom: 0;
+} 
