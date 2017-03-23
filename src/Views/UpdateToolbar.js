@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import win from 'dojo/_base/window';
 import domClass from 'dojo/dom-class';
 import MainToolbar from 'argos/MainToolbar';
 import getResource from 'argos/I18n';
