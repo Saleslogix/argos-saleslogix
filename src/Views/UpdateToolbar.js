@@ -26,7 +26,7 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
   managed: false,
 
   show: function show() {
-    domClass.add(win.body(), 'update-available');
+    domClass.add(App._rootDomNode, 'update-available');
 
     this.showTools([{
       id: 'cancel',
@@ -43,7 +43,7 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
   },
 
   hide: function hide() {
-    domClass.remove(win.body(), 'update-available');
+    domClass.remove(App._rootDomNode, 'update-available');
   },
   reload: function reload() {
     App.reload();
