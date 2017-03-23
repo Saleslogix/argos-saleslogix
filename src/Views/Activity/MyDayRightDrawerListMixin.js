@@ -56,7 +56,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      // App.snapper.on('close', lang.hitch(this, this.onSnapperClose));
+      App.viewSettingsModal.element.on('close', this.onSnapperClose.bind(this));
     }
   },
   refreshRightDrawer: function refreshRightDrawer() {
@@ -88,7 +88,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function snapperOff() {};
-      App.snapper.off('close');
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {

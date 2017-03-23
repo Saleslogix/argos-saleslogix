@@ -82,7 +82,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function getGroupForEntry() {};
-      // App.snapper.off('close');
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {

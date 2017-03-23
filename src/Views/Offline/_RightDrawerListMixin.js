@@ -50,8 +50,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      /*
-      App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
+      App.viewSettingsModal.element.on('close', () => {
         if (this._hasChangedEntityPrefs) {
           this.clear();
           this.refreshRequired = true;
@@ -64,7 +63,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
           this.rebuildWidgets();
           this._hasChangedKPIPrefs = false;
         }
-      }));*/
+      });
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
@@ -72,7 +71,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function noop() {};
-      // App.snapper.off('close');
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {
