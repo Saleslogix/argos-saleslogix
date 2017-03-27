@@ -76,7 +76,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   insertSecurity: 'Entities/SalesOrder/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-list-ul fa-2x',
+  itemIconClass: 'bullet-list',
 
   // Metrics
   entityName: 'SalesOrderItem',

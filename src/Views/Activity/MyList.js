@@ -46,7 +46,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     `<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
       <div class="widget">
         <div class="widget-header">
-          <h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
           <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
             <span class="audible">Actions</span>
             <svg class="icon" focusable="false" aria-hidden="true" role="presentation">

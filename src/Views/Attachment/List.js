@@ -133,23 +133,23 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     }
     return toReturn;
   },
-  itemIconClass: 'fa-file-o',
+  itemIconClass: 'document',
   fileIconByType: {
-    xls: 'fa-file-excel-o',
-    xlsx: 'fa-file-excel-o',
-    doc: 'fa-file-word-o',
-    docx: 'fa-file-word-o',
-    ppt: 'fa-file-powerpoint-o',
-    pptx: 'fa-file-powerpoint-o',
-    txt: 'fa-file-text-o',
-    rtf: 'fa-file-text-o',
-    csv: 'fa-file-text-o',
-    pdf: 'fa-file-pdf-o',
-    zip: 'fa-file-zip-o',
-    png: 'fa-file-image-o',
-    jpg: 'fa-file-image-o',
-    gif: 'fa-file-image-o',
-    bmp: 'fa-file-image-o',
+    xls: 'spreadsheet',
+    xlsx: 'spreadsheet',
+    doc: 'special-item',
+    docx: 'special-item',
+    ppt: 'display',
+    pptx: 'display',
+    txt: 'document2',
+    rtf: 'document2',
+    csv: 'document2',
+    pdf: 'pdf-file',
+    zip: 'document', // TODO: convert to soho icon
+    png: 'overlay-line',
+    jpg: 'overlay-line',
+    gif: 'overlay-line',
+    bmp: 'overlay-line',
   },
   getItemIconClass: function getItemIconClass(entry) {
     const fileName = entry && entry.fileName;
@@ -161,9 +161,6 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
       if (typeCls) {
         cls = typeCls;
       }
-    }
-    if (cls) {
-      cls = `fa ${cls} fa-2x`;
     }
     return cls;
   },

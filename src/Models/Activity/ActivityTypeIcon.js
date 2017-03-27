@@ -2,7 +2,7 @@
 export default {
   atToDo: 'fa fa-list-ul',
   atPhoneCall: 'fa fa-phone',
-  atAppointment: 'fa fa-calendar-o',
+  atAppointment: 'fa fa-calendar-o c',
   atLiterature: 'fa fa-book',
   atPersonal: 'fa fa-check-square-o',
   atQuestion: 'fa fa-question-circle',

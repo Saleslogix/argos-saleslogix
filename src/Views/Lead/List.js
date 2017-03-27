@@ -93,7 +93,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
 
   // View Properties
   detailView: 'lead_detail',
-  itemIconClass: 'fa fa-filter fa-2x',
+  itemIconClass: 'agent',
   iconTemplate: new Simplate([
     '<span class="fa-stack">',
     '<i class="fa fa-square-o fa-stack-2x"></i>',

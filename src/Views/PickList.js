@@ -24,7 +24,7 @@ const __class = declare('crm.Views.PickList', [List], {
   contractName: 'system',
   pageSize: 100,
   autoClearSelection: false,
-
+  isCardView: false,
   activateEntry: function activateEntry(params) {
     if (this.options.keyProperty === 'text' && !this.options.singleSelect) {
       params.key = params.descriptor;

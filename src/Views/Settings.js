@@ -29,7 +29,7 @@ const __class = declare('crm.Views.Settings', [List], {
     '<p class="listview-heading" data-action="{%= $.action %}">{%: $.title %}</p>',
   ]),
 
-  rowTemplate: new Simplate([
+  liRowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{%! $$.itemRowContentTemplate %}',
     '</li>',

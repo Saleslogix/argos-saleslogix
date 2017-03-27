@@ -18,11 +18,10 @@ const resource = getResource('activityTypesList');
  */
 const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
-  rowTemplate: new Simplate([
+  liRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-    '<div class="activityEntry__icon">',
     '{% if ($.icon) { %}',
-    `<button type="button" class="btn-icon hide-focus">
+    `<button type="button" class="btn-icon hide-focus list-item-selector visible">
       <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>
       </svg>
@@ -30,12 +29,15 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     '{% } else if ($.iconClass) { %}',
     '<div class="{%= $.iconClass %}"></div>',
     '{% } %}',
-    '</div>',
-    '<div class="activityEntry__header">{%! $$.itemTemplate %}</div>',
+    '{%! $$.itemTemplate %}',
     '</li>',
   ]),
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.$descriptor %}</p>',
+    '<h4 class="',
+    '{% if ($.icon) { %}',
+    'list-item-content',
+    '{% } %} ">',
+    '{%: $.$descriptor %}</h4>',
   ]),
   isCardView: false,
   // Localization

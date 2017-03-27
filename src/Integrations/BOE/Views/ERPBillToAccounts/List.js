@@ -34,7 +34,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.List', [Li
   insertSecurity: 'Entities/ErpBillTo/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-building-o fa-2x',
+  itemIconClass: 'spreadsheet',
 
   // Groups
   enableDynamicGroupLayout: true,

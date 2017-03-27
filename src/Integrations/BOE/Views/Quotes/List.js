@@ -60,7 +60,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
   insertSecurity: 'Entities/Quote/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-file-text-o fa-2x',
+  itemIconClass: 'document2',
 
   // Groups
   enableDynamicGroupLayout: true,

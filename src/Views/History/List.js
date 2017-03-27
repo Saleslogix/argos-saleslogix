@@ -133,14 +133,14 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     email: 'Type eq "atEMail"',
   },
   activityIndicatorIconByType: {
-    atToDo: 'fa fa-list-ul fa-2x',
-    atPhoneCall: 'fa fa-phone fa-2x',
-    atAppointment: 'fa fa-calendar-o fa-2x',
-    atLiterature: 'fa fa-book fa-2x',
-    atPersonal: 'fa fa-check-square-o fa-2x',
-    atQuestion: 'fa fa-question-circle fa-2x',
-    atNote: 'fa fa-file-text-o fa-2x',
-    atEMail: 'fa fa-envelope fa-2x',
+    atToDo: 'bullet-list',
+    atPhoneCall: 'phone',
+    atAppointment: 'calendar',
+    atLiterature: 'quick-reference',
+    atPersonal: 'checkbox',
+    atQuestion: 'help',
+    atNote: 'document2',
+    atEMail: 'mail',
   },
   allowSelection: true,
   enableActions: true,
@@ -251,12 +251,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    let cls = this.activityIndicatorIconByType[type];
-    if (!cls) {
-      cls = this.itemIconClass;
-    }
-
-    return cls;
+    return this.activityIndicatorIconByType[type];
   },
   init: function init() {
     this.inherited(arguments);

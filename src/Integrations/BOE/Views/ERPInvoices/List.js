@@ -89,7 +89,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
   insertSecurity: 'Entities/ErpInvoice/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-file-text fa-2x',
+  itemIconClass: 'document2',
 
   // Groups
   groupsEnabled: true,

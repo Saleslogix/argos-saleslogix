@@ -63,7 +63,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
   insertSecurity: 'Entities/SalesOrder/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-shopping-cart fa-2x',
+  itemIconClass: 'cart',
 
   // Groups
   enableDynamicGroupLayout: true,

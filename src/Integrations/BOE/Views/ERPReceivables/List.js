@@ -65,7 +65,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.List', [List,
   insertSecurity: 'Entities/ErpReceivable/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-check-circle-o fa-2x',
+  itemIconClass: 'confirm',
 
   // Groups
   enableDynamicGroupLayout: true,
