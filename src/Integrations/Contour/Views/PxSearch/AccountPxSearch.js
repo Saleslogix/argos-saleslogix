@@ -41,7 +41,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>',
     '{% if ($.MainPhone) { %}',
     '<p class="micro-text">',
-    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
     '</p>',
     '{% } %}',
   ]),

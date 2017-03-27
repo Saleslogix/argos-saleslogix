@@ -496,7 +496,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   onRecurrenceChange: function onRecurrenceChange(value) {
     // did the StartDate change on the recurrence_edit screen?
-    const startDate = argos.Convert.toDateFromString(value.StartDate);
+    const startDate = argos.Convert.toDateFromString(value.StartDate); // TODO: Avoid global
     const currentDate = this.fields.StartDate.getValue();
 
     if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
@@ -833,7 +833,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       });
     }
 
-    this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate);
+    this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
     this.resetRecurrence(values);
     this.onStartDateChange(this.fields.StartDate.getValue(), this.fields.StartDate);
     if (this.isActivityRecurring) {

@@ -120,7 +120,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     });
     this.registerDefaultViews();
 
-    lang.extend(argos._ListBase, {
+    lang.extend(argos._ListBase, { // TODO: Avoid global
       navigateToInsertView: function navigateToInsertView(el, additionalOptions) {
         const view = this.app.getView(this.insertView || this.editView);
         let options = {
@@ -144,7 +144,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       },
     });
 
-    lang.extend(argos._EditBase, {
+    lang.extend(argos._EditBase, {// TODO: Avoid global
       onInsertCompleted: function onInsertCompleted(entry) {
         if (this.options && this.options.detailView) {
           const view = App.getView(this.options.detailView);
@@ -188,7 +188,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       },
     });
 
-    lang.extend(argos.TabWidget, {
+    lang.extend(argos.TabWidget, {// TODO: Avoid global
       tabListItemTemplate: new Simplate([
         '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
         '{%: ($.title || $.options.title) %}',

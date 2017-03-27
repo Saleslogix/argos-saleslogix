@@ -324,7 +324,7 @@ const __class = lang.setObject('crm.Recurrence', {
     const recurPeriodSpec = parseInt(entry.RecurPeriodSpec, 10);
     const interval = recurPeriodSpec % 65536;
     let text = (1 < interval) ? string.substitute(this.everyText, [interval, this.getPanel(rp, true)]) : ((true === dependsOnPanel) ? '' : this.getPanel(rp));// eslint-disable-line
-    const currentDate = argos.Convert.toDateFromString(entry.StartDate);
+    const currentDate = argos.Convert.toDateFromString(entry.StartDate);// TODO: Avoid global
     const day = currentDate.getDate();
     const weekday = moment(currentDate).format(this.weekdayFormatText);
     const textOptions = [

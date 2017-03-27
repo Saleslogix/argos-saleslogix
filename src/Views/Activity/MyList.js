@@ -64,7 +64,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     '{% if ($$.isTimelessToday($)) { %}',
     '{%: $$.allDayText %}',
     '{% } else { %}',
-    '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}',
+    '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', // TODO: Avoid global
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
@@ -77,7 +77,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     '<p class="micro-text">{%! $$.nameTemplate %}</p>',
     '<p class="micro-text">',
     '{% if ($.Activity.PhoneNumber) { %}',
-    '<span class="hyperlink" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>',
+    '<span class="hyperlink" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>', // TODO: Avoid global
     '{% } %}',
     '</p>',
   ]),
