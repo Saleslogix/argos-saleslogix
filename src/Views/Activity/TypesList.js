@@ -74,6 +74,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   id: 'activity_types_list',
   editView: 'activity_edit',
   eventEditView: 'event_edit',
+  allowSelection: true, // adds list-show-selectors class to listview for displaying icons
 
   activateEntry: function activateEntry(params) {
     if (params.key) {
