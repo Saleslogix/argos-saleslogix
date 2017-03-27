@@ -467,7 +467,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
 
     // calculate some values from the ones provided
     this.entry = values;
-    this.entry.StartDate = argos.Convert.toDateFromString(values.StartDate);
+    this.entry.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
     this.entry.EndDate = recur.calcEndDate(values.StartDate, values).toDate();
     this.entry.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
     const ord = recur.getOrd(this.entry);

@@ -92,7 +92,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     '{% if ($$.isTimelessToday($)) { %}',
     '{%: $$.allDayText %}',
     '{% } else { %}',
-    '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}',
+    '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}', // TODO: Avoid global
     '{% } %}',
   ]),
   itemTemplate: new Simplate([

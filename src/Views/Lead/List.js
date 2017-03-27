@@ -33,17 +33,17 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
     '</p>',
     '{% if ($.WorkPhone) { %}',
     '<p class="micro-text">',
-    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', // TODO: Avoid global
     '</p>',
     '{% } %}',
     '{% if ($.Mobile) { %}',
     '<p class="micro-text">',
-    '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>',
+    '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', // TODO: Avoid global
     '</p>',
     '{% } %}',
     '{% if ($.TollFree) { %}',
     '<p class="micro-text">',
-    '{%: $$.tollFreeAbbreviationText %} {%: argos.Format.phone($.TollFree) %}',
+    '{%: $$.tollFreeAbbreviationText %} {%: argos.Format.phone($.TollFree) %}', // TODO: Avoid global
     '</p>',
     '{% } %}',
     '<p class="micro-text">{%: $.WebAddress %}</p>',
