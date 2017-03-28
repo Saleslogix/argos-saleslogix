@@ -675,7 +675,6 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (!resolvedEntry) {
       this._fetchResolvedEntry(selection.data.$key).then((resolvedEnt) => {
         self._groupCheckActionState(resolvedEnt, rowNode);
-        self._groupApplyActionPanel(rowNode);
       });
     } else {
       this._groupCheckActionState(resolvedEntry, rowNode);
