@@ -10,6 +10,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 import moment from 'moment';
 import $ from 'jquery';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('calendarDayView');
 const dtFormatResource = getResource('calendarDayViewDateTimeFormat');
@@ -70,7 +71,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">',
     '<table class="calendar-entry-table"><tr>',
     '<td class="entry-table-icon">',
-    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
+    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityTypeIcon[$.Type] %}">',
     '</button>',
     '</td>',
     '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
@@ -82,7 +83,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
     '<table class="calendar-entry-table"><tr>',
     '<td class="entry-table-icon">',
-    '<button data-action="selectEntry" class="list-item-selector button {%= $$.eventIcon %}">',
+    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityTypeIcon.event %}">',
     '</button>',
     '</td>',
     '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
@@ -197,17 +198,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     'Description',
     'Type',
   ],
-  activityIconByType: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-book',
-    atPersonal: 'fa fa-check-square-o',
-    atQuestion: 'fa fa-question-circle',
-    atNote: 'fa fa-file-text-o',
-    atEMail: 'fa fa-envelope',
-  },
-  eventIcon: 'fa fa-calendar-o',
+  activityTypeIcon: activityTypeIcons.default,
   resourceKind: 'activities',
   pageSize: 1000,
   expose: false,

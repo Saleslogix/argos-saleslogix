@@ -12,6 +12,7 @@ import Utility from '../../Utility';
 import getResource from 'argos/I18n';
 import moment from 'moment';
 import $ from 'jquery';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('calendarView');
 const dtFormatResource = getResource('calendarViewDateTimeFormat');
@@ -55,8 +56,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   string,
   Utility,
   trimTo: 16,
-  toggleCollapseClass: 'fa fa-chevron-down',
-  toggleExpandClass: 'fa fa-chevron-right',
+  activityTypeIcon: activityTypeIcons.default,
 
   // Templates
   widgetTemplate: new Simplate([
@@ -89,7 +89,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<div class="activityEntry__icon">',
     `<button type="button" class="btn-icon hide-focus">
       <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityIconByType[$.Type] %}"></use>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon[$.Type] %}"></use>
       </svg>
     </button></div>`,
   ]),
@@ -103,7 +103,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<span class="timeStamp__time listview-subheading">',
     '{% if ($.Timeless) { %}',
     '{%= $$.allDayText %}',
-    '{% } else if ($$.activityIconByType[$.Type]) { %}',
+    '{% } else if ($$.activityTypeIcon[$.Type]) { %}',
     '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}',
     '{% } else { %}',
     '{%! $$.eventTimeTemplate %}',
@@ -130,7 +130,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
     '{% } else if ($.LeadName) { %}',
     '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
-    '{% } else if ($$.activityIconByType[$.Type]) { %}',
+    '{% } else if ($$.activityTypeIcon[$.Type]) { %}',
     '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
     '{% } else { %}',
     '{%= $$.string.substitute($$.forText, { reason: $.Type }) %}',
@@ -159,7 +159,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<div class="activityEntry__icon">',
     `<button type="button" class="btn-icon hide-focus">
       <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.eventIcon %}"></use>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon.event %}"></use>
       </svg>
     </button>`,
     '</div>',
@@ -239,17 +239,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _showMulti: false,
   _refreshAdded: false,
 
-  activityIconByType: {
-    atToDo: 'bullet-list',
-    atPhoneCall: 'phone',
-    atAppointment: 'calendar',
-    atLiterature: 'calendar',
-    atPersonal: 'checkbox',
-    atQuestion: 'help',
-    atNote: 'calendar',
-    atEMail: 'mail',
-  },
-  eventIcon: 'calendar',
 
   queryOrderBy: 'StartDate asc',
   querySelect: [
@@ -331,7 +320,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       for (let i = 0; i < count; i++) {
         const entry = this.entries[entries[i]];
         let rowNode;
-        if (this.activityIconByType[entry.Type]) {
+        if (this.activityTypeIcon[entry.Type]) {
           try {
             rowNode = domConstruct.toDom(this.activityRowTemplate.apply(entry, this));
           } catch (err) {

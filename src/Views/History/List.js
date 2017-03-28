@@ -8,7 +8,7 @@ import List from 'argos/List';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import getResource from 'argos/I18n';
-
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 import moment from 'moment';
 
 const resource = getResource('historyList');
@@ -132,16 +132,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     personal: 'Type eq "atPersonal"',
     email: 'Type eq "atEMail"',
   },
-  activityIndicatorIconByType: {
-    atToDo: 'bullet-list',
-    atPhoneCall: 'phone',
-    atAppointment: 'calendar',
-    atLiterature: 'quick-reference',
-    atPersonal: 'checkbox',
-    atQuestion: 'help',
-    atNote: 'document2',
-    atEMail: 'mail',
-  },
+  activityTypeIcon: activityTypeIcons.default,
   allowSelection: true,
   enableActions: true,
 
@@ -251,7 +242,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    return this.activityIndicatorIconByType[type];
+    return this.activityTypeIcon[type];
   },
   init: function init() {
     this.inherited(arguments);

@@ -11,7 +11,7 @@ import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
-import itemIcon from '../../../content/images/icons/man_1.png';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 import moment from 'moment';
 
@@ -66,7 +66,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     yesterday: hashTagResource.yesterdayText,
   },
   // Card View
-  itemIcon,
+  itemIcon: activityTypeIcons.default.atAppointment,
 
   // Templates
   // Card View
@@ -113,16 +113,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     '{%: $.LeadName %}',
     '{% } %}',
   ]),
-  activityIndicatorIconByType: {
-    atToDo: 'bullet-list',
-    atPhoneCall: 'phone',
-    atAppointment: 'calendar',
-    atLiterature: 'quick-reference',
-    atPersonal: 'checkbox',
-    atQuestion: 'help',
-    atNote: 'document2',
-    atEMail: 'mail',
-  },
 
   // View Properties
   id: 'activity_list',
@@ -324,7 +314,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    return this.activityIndicatorIconByType[type];
+    return activityTypeIcons.default[type];
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
