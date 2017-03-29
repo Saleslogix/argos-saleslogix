@@ -29,7 +29,7 @@ const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _Right
   enableActions: true,
 
   // Card layout
-  itemIconClass: 'fa fa-recycle-o fa-2x',
+  itemIconClass: 'load', // TODO: ensure soho has this icon
 
   // Groups
   enableDynamicGroupLayout: true,

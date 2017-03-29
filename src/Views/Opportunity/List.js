@@ -79,7 +79,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   // View Properties
   id: 'opportunity_list',
   security: 'Entities/Opportunity/View',
-  itemIconClass: 'fa fa-money fa-2x',
+  itemIconClass: 'finance',
   detailView: 'opportunity_detail',
   insertView: 'opportunity_edit',
   queryOrderBy: 'EstimatedClose desc',

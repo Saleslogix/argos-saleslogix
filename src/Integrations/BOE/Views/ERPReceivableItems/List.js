@@ -38,7 +38,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [L
   invoiceIDText: resource.invoiceIDText,
 
   // Card layout
-  itemIconClass: 'fa fa-check-circle-o fa-2x',
+  itemIconClass: 'confirm',
 
   // View Properties
   id: 'erpreceivable_items_list',

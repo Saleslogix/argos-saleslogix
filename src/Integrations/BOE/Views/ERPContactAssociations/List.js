@@ -31,7 +31,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List'
   insertSecurity: 'Entities/Contact/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-building-o fa-2x',
+  itemIconClass: 'spreadsheet',
 
   // Groups
   enableDynamicGroupLayout: true,

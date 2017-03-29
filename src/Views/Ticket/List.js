@@ -77,7 +77,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
 
   // View Properties
   detailView: 'ticket_detail',
-  itemIconClass: 'fa fa-clipboard fa-2x',
+  itemIconClass: 'expense-report',
   id: 'ticket_list',
   security: 'Entities/Ticket/View',
   insertView: 'ticket_edit',

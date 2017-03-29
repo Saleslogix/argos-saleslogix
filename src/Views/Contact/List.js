@@ -29,7 +29,7 @@ const resource = getResource('contactList');
 const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Template
   // Card Layout
-  itemIconClass: 'fa fa-user fa-2x',
+  itemIconClass: 'user',
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.NameLF %}</p>',
     '<p class="micro-text">{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</p>',

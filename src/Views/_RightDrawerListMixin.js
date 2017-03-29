@@ -159,6 +159,10 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       }.bind(this),
       layoutSelectedClicked: function layoutSelectedClicked(params) {
         const name = params.name;
+        $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
+          $(a).attr('data-enabled', (($(a).attr('data-name') === name)).toString());
+        });
+        
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
         this._groupInitialized = false;
         this.refresh();
@@ -303,6 +307,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
             dataProps: {
               name: theLayout.name,
               title: theLayout.displayName,
+              enabled: theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`],
             },
           });
         });

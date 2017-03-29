@@ -11,7 +11,7 @@ import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
-import itemIcon from '../../../content/images/icons/man_1.png';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 import moment from 'moment';
 
@@ -66,7 +66,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     yesterday: hashTagResource.yesterdayText,
   },
   // Card View
-  itemIcon,
+  itemIcon: activityTypeIcons.default.atAppointment,
 
   // Templates
   // Card View
@@ -74,7 +74,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     `<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">
       <div class="widget">
         <div class="widget-header">
-          <h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
           <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
             <span class="audible">Actions</span>
             <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
@@ -113,16 +113,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     '{%: $.LeadName %}',
     '{% } %}',
   ]),
-  activityIndicatorIconByType: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-book',
-    atPersonal: 'fa fa-check-square-o',
-    atQuestion: 'fa fa-question-circle',
-    atNote: 'fa fa-file-text-o',
-    atEMail: 'fa fa-envelope',
-  },
 
   // View Properties
   id: 'activity_list',
@@ -324,12 +314,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    let cls = this.activityIndicatorIconByType[type];
-    if (cls) {
-      cls = `${cls} fa-2x`;
-    }
-
-    return cls;
+    return activityTypeIcons.default[type];
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{

@@ -29,7 +29,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoicePersons.List', [Li
   insertSecurity: 'Entities/ErpPerson/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-user fa-2x',
+  itemIconClass: 'user',
 
   // Groups
   enableDynamicGroupLayout: true,

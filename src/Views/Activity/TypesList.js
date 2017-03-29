@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
 import getResource from 'argos/I18n';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('activityTypesList');
 
@@ -18,11 +19,10 @@ const resource = getResource('activityTypesList');
  */
 const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
-  rowTemplate: new Simplate([
+  liRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-    '<div class="activityEntry__icon">',
     '{% if ($.icon) { %}',
-    `<button type="button" class="btn-icon hide-focus">
+    `<button type="button" class="btn-icon hide-focus list-item-selector visible">
       <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>
       </svg>
@@ -30,12 +30,15 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     '{% } else if ($.iconClass) { %}',
     '<div class="{%= $.iconClass %}"></div>',
     '{% } %}',
-    '</div>',
-    '<div class="activityEntry__header">{%! $$.itemTemplate %}</div>',
+    '{%! $$.itemTemplate %}',
     '</li>',
   ]),
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.$descriptor %}</p>',
+    '<h4 class="',
+    '{% if ($.icon) { %}',
+    'list-item-content',
+    '{% } %} ">',
+    '{%: $.$descriptor %}</h4>',
   ]),
   isCardView: false,
   // Localization
@@ -49,15 +52,6 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     event: resource.eventText,
   },
 
-  // View Properties
-  activityTypeIcons: {
-    atToDo: 'bullet-list',
-    atPhoneCall: 'phone',
-    atAppointment: 'calendar',
-    atLiterature: 'calendar',
-    atPersonal: 'checkbox',
-    event: 'calendar',
-  },
   activityTypeOrder: [
     'atAppointment',
     // 'atLiterature', // For [#7206791], We will enable this later.
@@ -72,7 +66,8 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   id: 'activity_types_list',
   editView: 'activity_edit',
   eventEditView: 'event_edit',
-
+  allowSelection: true, // adds list-show-selectors class to listview for displaying icons
+  activityTypeIcon: activityTypeIcons.default,
   activateEntry: function activateEntry(params) {
     if (params.key) {
       const view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
@@ -119,7 +114,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
       list.push({
         $key: this.activityTypeOrder[i],
         $descriptor: this.activityTypeText[this.activityTypeOrder[i]],
-        icon: this.activityTypeIcons[this.activityTypeOrder[i]],
+        icon: this.activityTypeIcon[this.activityTypeOrder[i]],
         type: this.activityTypeOrder[i],
       });
     }

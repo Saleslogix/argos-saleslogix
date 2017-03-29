@@ -84,7 +84,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
 
   // View Properties
   detailView: 'account_detail',
-  itemIconClass: 'fa fa-building-o fa-2x',
+  itemIconClass: 'spreadsheet', // todo: replace with appropriate icon
   id: 'account_list',
   security: 'Entities/Account/View',
   insertView: 'account_edit',

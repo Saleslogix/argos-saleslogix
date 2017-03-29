@@ -30,7 +30,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPSalesOrderPersons.List', 
   insertSecurity: 'Entities/ErpPerson/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-user fa-2x',
+  itemIconClass: 'user',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(ErpPerson.Name) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
