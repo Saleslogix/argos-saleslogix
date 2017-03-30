@@ -81,6 +81,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
               <use xlink:href="#icon-more"></use>
             </svg>
           </button>
+          {%! $$.listActionTemplate %}
         </div>
         <div class="card-content">
           {%! $$.itemRowContentTemplate %}
