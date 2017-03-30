@@ -162,7 +162,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
           $(a).attr('data-enabled', (($(a).attr('data-name') === name)).toString());
         });
-        
+
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
         this._groupInitialized = false;
         this.refresh();
