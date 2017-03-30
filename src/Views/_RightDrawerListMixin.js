@@ -299,7 +299,11 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         children: [],
       };
       if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
+        let layoutSelected = false;
         array.forEach(this.groupTemplateLayouts, (theLayout) => {
+          if (!layoutSelected) {
+            layoutSelected = theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`];
+          }
           layoutSection.children.push({
             name: theLayout.name,
             action: 'layoutSelectedClicked',
@@ -311,6 +315,9 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
             },
           });
         });
+        if (!layoutSelected && layoutSection.children.length) {
+          layoutSection.children[0].dataProps.enabled = true;
+        }
       }
 
       if (this.entityName) {
