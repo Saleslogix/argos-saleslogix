@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import json from 'dojo/_base/json';
-import string from 'dojo/string';
 import format from 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
@@ -120,7 +119,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
     const flashVars = [];
     for (const key in options) {
       if (options.hasOwnProperty(key)) {
-        flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
+        flashVars.push(`${key}=${options[key]}`);
       }
     }
 
@@ -132,7 +131,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   },
 
   constructReport: function constructReport() {
-    const body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}', [json.toJson(this.entry, true)]);
+    const body = `\r\n\r\n\r\n-----------------\r\n${json.toJson(this.entry, true)}`;
 
     if (this.sendType === 'mailto') {
       this.sendEmailReport(body);

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import SDataStore from 'argos/Store/SData';
 import getResource from 'argos/I18n';
@@ -73,7 +72,8 @@ const __class = declare('crm.Views.Groups.Selector', [List], {
     return store;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('name like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `name like "${q}%"`;
   },
 });
 

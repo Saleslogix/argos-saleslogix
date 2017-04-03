@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import format from '../../Format';
 import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
@@ -193,7 +192,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     if (selection && selection.$key) {
       const request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
         .setResourceKind('accounts')
-        .setResourceSelector(string.substitute("'${0}'", [selection.$key]))
+        .setResourceSelector(`'${selection.$key}'`)
         .setResourceProperty('Contacts')
         .setQueryArg('count', 1)
         .setQueryArg('select', 'NameLF')
@@ -221,7 +220,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     const value = this.fields.Account.getValue();
     const key = value && value.$key;
 
-    return key ? string.substitute('Account.id eq "${0}"', [key]) : false;
+    return key ? `Account.id eq "${key}"` : false;
   },
   applyContext: function applyContext() {
     const found = App.queryNavigationContext((o) => {

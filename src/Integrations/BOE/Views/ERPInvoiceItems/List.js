@@ -14,7 +14,6 @@
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
@@ -64,7 +63,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List
   itemIconClass: 'fa fa-list-ul fa-2x',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('ProductName like "${0}%" or ErpLineNumber like "${0}%" or Description like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `ProductName like "${q}%" or ErpLineNumber like "${q}%" or Description like "${q}%"`;
   },
 });
 

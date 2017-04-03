@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
@@ -46,7 +45,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.List', [Lis
   itemIconClass: 'fa fa-truck fa-2x',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('ErpLineNumber like "${0}%" or SalesOrder.SalesOrderNumber like "${0}%" or ProductName like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `ErpLineNumber like "${q}%" or SalesOrder.SalesOrderNumber like "${q}%" or ProductName like "${q}%"`;
   },
 });
 

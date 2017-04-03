@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import format from '../../Format';
 import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
@@ -86,7 +85,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: string.substitute('${0} ${1}', [this.calledText, this.entry.NameLF]),
+      Description: `${this.calledText} ${this.entry.NameLF}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
@@ -103,7 +102,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: string.substitute('Emailed ${0}', [this.entry.NameLF]),
+      Description: `Emailed ${this.entry.NameLF}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,

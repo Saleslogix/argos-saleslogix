@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import Base from './Base';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
-import string from 'dojo/string';
 import all from 'dojo/promise/all';
 import Deferred from 'dojo/Deferred';
 import ErrorManager from 'argos/ErrorManager';
@@ -126,7 +125,7 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
   createRequestPromise: function createRequestPromise(key, querySelect, resourceKind, contractName, options) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService())
       .setResourceKind(resourceKind)
-      .setResourceSelector(string.substitute("'${0}'", [key]))
+      .setResourceSelector(`'${key}'`)
       .setContractName(contractName)
       .setQueryArg('select', querySelect.join(','));
     const def = new Deferred();

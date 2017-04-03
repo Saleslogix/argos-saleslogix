@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import action from 'crm/Action';
@@ -103,7 +102,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(SalesOrderNumber) like "${0}%" ) or (upper(ErpExtId) like "${0}%" ) or (upper(CustomerPurchaseOrderNumber) like "${0}%" ) or (upper(Account.AccountName) like "${0}%" ) ', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(SalesOrderNumber) like "${q}%" ) or (upper(ErpExtId) like "${0}%" ) or (upper(CustomerPurchaseOrderNumber) like "${q}%" ) or (upper(Account.AccountName) like "${q}%" ) `;
   },
   formatErpStatus: function formatErpStatus(value) {
     const text = App.picklistService.getPicklistItemTextByCode('ErpSalesOrderStatus', value);

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
@@ -33,7 +32,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPSalesOrderPersons.List', 
   itemIconClass: 'user',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(ErpPerson.Name) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(ErpPerson.Name) like "%${q}%"`;
   },
 });
 

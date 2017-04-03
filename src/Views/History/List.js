@@ -1,6 +1,5 @@
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import format from '../../Format';
 import convert from 'argos/Convert';
 import action from '../../Action';
@@ -225,7 +224,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return format.date(startDate.toDate(), fmt);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{

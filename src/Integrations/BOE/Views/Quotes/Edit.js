@@ -149,7 +149,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     if (entry && entry.Account) {
       ['RequestedBy', 'Opportunity'].forEach((f) => {
         this.fields[f].dependsOn = 'Account';
-        this.fields[f].where = string.substitute('Account.Id eq "${0}"', [entry.Account.AccountId || entry.Account.$key || entry.Account.key]);
+        this.fields[f].where = `Account.Id eq "${entry.Account.AccountId || entry.Account.$key || entry.Account.key}"`;
         if (f === 'Opportunity') {
           this.fields[f].where = `${this.fields[f].where} and Status eq "${this.opportunityOpenCode}"`;
         }
@@ -161,12 +161,12 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
       warehouseField.enable();
       warehouseField.dependsOn = 'ErpLogicalId';
       warehouseField.where = (logicalId) => {
-        return string.substitute('ErpLogicalId eq "${0}" and LocationType eq "${1}"', [logicalId, this.warehouseCode]);
+        return `ErpLogicalId eq "${logicalId}" and LocationType eq "${this.warehouseCode}"`;
       };
       locationField.enable();
       locationField.dependsOn = 'ErpLogicalId';
       locationField.where = (logicalId) => {
-        return string.substitute('ErpLogicalId eq "${0}" and (LocationType eq "${1}" or LocationType eq "${2}")', [logicalId, this.officeCode, this.siteCode]);
+        return `ErpLogicalId eq "${logicalId}" and (LocationType eq "${this.officeCode}" or LocationType eq "${this.siteCode}")`;
       };
     } else {
       warehouseField.disable();
@@ -262,7 +262,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     ['RequestedBy', 'Opportunity'].forEach((f) => {
       if (value) {
         this.fields[f].dependsOn = 'Account';
-        this.fields[f].where = string.substitute('Account.Id eq "${0}"', [value.AccountId || value.$key || value.key]);
+        this.fields[f].where = `Account.Id eq "${value.AccountId || value.$key || value.key}"`;
         if (f === 'Opportunity') {
           this.fields[f].where = `${this.fields[f].where} and Status eq "${this.opportunityOpenCode}"`;
         }
@@ -324,7 +324,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
       warehouseField.enable();
       warehouseField.dependsOn = 'ErpLogicalId';
       warehouseField.where = (logicalId) => {
-        return string.substitute('ErpLogicalId eq "${0}" and LocationType eq "${1}"', [logicalId, this.warehouseCode]);
+        return `ErpLogicalId eq "${logicalId}" and LocationType eq "${this.warehouseCode}"`;
       };
     }
     const locationField = this.fields.Location;
@@ -332,7 +332,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
       locationField.enable();
       locationField.dependsOn = 'ErpLogicalId';
       locationField.where = (logicalId) => {
-        return string.substitute('ErpLogicalId eq "${0}" and (LocationType eq "${1}" or LocationType eq "${2}")', [logicalId, this.officeCode, this.siteCode]);
+        return `ErpLogicalId eq "${logicalId}" and (LocationType eq "${this.officeCode}" or LocationType eq "${this.siteCode}")`;
       };
     }
   },
