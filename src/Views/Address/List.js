@@ -40,7 +40,7 @@ const __class = declare('crm.Views.Address.List', [List], {
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-    return `(Description like "${q}%" or City like "${q}%")`;
+    return `(upper(Description) like "${q}%" or upper(City) like "${q}%")`;
   },
   // Disable Add/Insert on toolbar
   createToolLayout: function createToolLayout() {

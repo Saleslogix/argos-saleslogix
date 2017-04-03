@@ -109,7 +109,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-    return `Account.AccountName like "${q}%" or InvoiceNumber like "${q}%"`;
+    return `upper(Account.AccountName) like "${q}%" or upper(InvoiceNumber) like "${q}%"`;
   },
   formatStatusDate: function formatStatusDate(entry) {
     return (entry && entry.ErpStatusDate) ? this.formatter.relativeDate(entry.ErpStatusDate) : this.unknownText;

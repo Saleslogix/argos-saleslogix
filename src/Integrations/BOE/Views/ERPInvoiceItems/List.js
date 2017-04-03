@@ -64,7 +64,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-    return `ProductName like "${q}%" or ErpLineNumber like "${q}%" or Description like "${q}%"`;
+    return `upper(ProductName) like "${q}%" or upper(ErpLineNumber) like "${q}%" or upper(Description) like "${q}%"`;
   },
 });
 
