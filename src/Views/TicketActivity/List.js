@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import domGeom from 'dojo/dom-geometry';
 import query from 'dojo/query';
 import lang from 'dojo/_base/lang';
@@ -86,9 +85,8 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
     $(window).on('resize', this._onResize.bind(this));
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute(
-      'ActivityDescription like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]
-    );
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `ActivityDescription like "${q}%"`;
   },
 });
 

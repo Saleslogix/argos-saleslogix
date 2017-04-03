@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -139,7 +138,8 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Contact.NameLF) like "${q}%")`;
   },
 });
 

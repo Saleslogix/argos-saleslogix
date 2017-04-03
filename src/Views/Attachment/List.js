@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import utility from '../../Utility';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
@@ -116,17 +115,17 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     return request;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   getLink: function getLink(attachment) {
     let toReturn;
     if (attachment.url) {
       let href = attachment.url || '';
       href = (href.indexOf('http') < 0) ? `http://${href}` : href;
-      toReturn = string.substitute('<a class="hyperlink" href="${0}" target="_blank" title="${1}">${2}</a>', [href, attachment.url, attachment.$descriptor]);
+      toReturn = `<a class="hyperlink" href="${href}" target="_blank" title="${attachment.url}">${attachment.$descriptor}</a>`;
     } else {
       if (attachment.fileExists) {
-        toReturn = string.substitute('<a class="hyperlink" href="javascript: Sage.Utility.File.Attachment.getAttachment(\'${0}\');" title="${1}">${1}</a>', [attachment.$key, attachment.$descriptor]);
+        toReturn = `<a class="hyperlink" href="javascript: Sage.Utility.File.Attachment.getAttachment('${attachment.$key}');" title="${attachment.$descriptor}">${attachment.$descriptor}</a>`;
       } else {
         toReturn = attachment.$descriptor;
       }

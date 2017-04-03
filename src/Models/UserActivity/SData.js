@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import Base from './Base';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
-import string from 'dojo/string';
 import convert from 'argos/Convert';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
@@ -51,15 +50,9 @@ const __class = declare('crm.Models.UserActivity.SData', [Base, _SDataModelBase]
         const todayStart = now.clone().startOf('day');
         const todayEnd = todayStart.clone().endOf('day');
 
-        const theQuery = string.substitute(
-          '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-            convert.toIsoStringFromDate(todayStart.toDate()),
-            convert.toIsoStringFromDate(todayEnd.toDate()),
-            todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-            todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-          ]
-        );
-        const userQuery = string.substitute('(User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature")', [App.context.user.$key]);
+        const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(todayStart.toDate())}@ and @${convert.toIsoStringFromDate(todayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`
+        ;
+        const userQuery = `(User.Id eq "${App.context.user.$key}" and Status ne "asDeclned" and Activity.Type ne "atLiterature")`;
 
         return [userQuery, theQuery].join(' and ');
       },

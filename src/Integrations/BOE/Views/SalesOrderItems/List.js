@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
@@ -142,7 +141,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
     return view;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Description) like "${0}%") or (upper(ProductName) like "${0}%") or (upper(SalesOrder.SalesOrderNumber) like "${0}%") or (upper(ErpLineNumber) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Description) like "${q}%") or (upper(ProductName) like "${q}%") or (upper(SalesOrder.SalesOrderNumber) like "${q}%") or (upper(ErpLineNumber) like "${q}%")`;
   },
 });
 

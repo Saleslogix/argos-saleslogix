@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from 'crm/Action';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
@@ -157,7 +156,8 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%") or (Account.AccountNameUpper like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or upper(NameLF) like "%${q}%") or (Account.AccountNameUpper like "%${q}%")`;
   },
 });
 

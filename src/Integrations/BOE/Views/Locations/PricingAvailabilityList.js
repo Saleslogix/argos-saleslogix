@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import convert from 'argos/Convert';
@@ -119,7 +118,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
     return value;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Description) like "${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
 });
 

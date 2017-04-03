@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import array from 'dojo/_base/array';
 import action from '../../Action';
 import List from 'argos/List';
@@ -151,9 +150,8 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute(
-      'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]
-    );
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `TicketNumber like "${q}%" or AlternateKeySuffix like "${q}%" or upper(Subject) like "${q}%" or Account.AccountNameUpper like "${q}%"`;
   },
 });
 

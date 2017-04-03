@@ -208,7 +208,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   requestLeader: function requestLeader(userId) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
       .setResourceKind('users')
-      .setResourceSelector(string.substitute("'${0}'", [userId]))
+      .setResourceSelector(`'${userId}'`)
       .setQueryArg('select', [
         'UserInfo/FirstName',
         'UserInfo/LastName',
@@ -403,7 +403,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     array.forEach(['Contact', 'Opportunity', 'Ticket'], (f) => {
       if (value) {
         fields[f].dependsOn = 'Account';
-        fields[f].where = string.substitute('Account.Id eq "${0}"', [value.AccountId || value.key]);
+        fields[f].where = `Account.Id eq "${value.AccountId || value.key}"`;
 
         if (fields[f].currentSelection &&
           fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import domConstruct from 'dojo/dom-construct';
 import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
@@ -48,13 +47,13 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
   },
   resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
     const cultureName = Mobile.CultureInfo.name || 'en';
-    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, cultureName, fileName]);
+    const localizedUrl = `${baseUrl}/${cultureName}/${fileName}`;
     return localizedUrl;
   },
   resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
     const languageSpec = Mobile.CultureInfo.name || 'en';
     const languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec;
-    const localizedUrl = string.substitute('${0}/${1}/${2}', [baseUrl, languageGen, fileName]);
+    const localizedUrl = `${baseUrl}/${languageGen}/${fileName}`;
     return localizedUrl;
   },
   _sanitizeUrl: function _sanitizeUrl(url = '') {

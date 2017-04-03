@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from '../../Action';
 import utility from 'argos/Utility';
 import List from 'argos/List';
@@ -191,7 +190,8 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%" or upper(LeadNameLastFirst) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or CompanyUpper like "${q}%" or upper(LeadNameLastFirst) like "%${q}%")`;
   },
 });
 

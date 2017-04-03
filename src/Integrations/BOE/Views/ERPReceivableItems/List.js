@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
@@ -52,7 +51,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [L
   insertSecurity: 'Entities/Receivable/Add',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(ErpReceivable.ErpExtId) like "%${0}%" or upper(ErpInvoice.ErpExtId) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(ErpReceivable.ErpExtId) like "%${q}%" or upper(ErpInvoice.ErpExtId) like "%${q}%"`;
   },
 });
 

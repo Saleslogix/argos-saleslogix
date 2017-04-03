@@ -1,5 +1,4 @@
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import getResource from 'argos/I18n';
 
 const resource = getResource('validators');
@@ -94,9 +93,7 @@ const __class = lang.setObject('crm.Validator', {
    */
   isCurrency: {
     fn: function isCurrency(value) {
-      return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$', [
-        Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2',
-      ])).test(value));
+      return !(new RegExp(`^[\\d]+(\\.\\d{1,${Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'}})?$`).test(value));
     },
     message: resource.isCurrencyText,
   },

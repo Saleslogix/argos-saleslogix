@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import array from 'dojo/_base/array';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
@@ -35,7 +34,8 @@ const __class = declare('crm.Views.Owner.List', [List], {
   resourceKind: 'owners',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(OwnerDescription) like "%${q}%"`;
   },
   processData: function processData(items) {
     if (items) {
