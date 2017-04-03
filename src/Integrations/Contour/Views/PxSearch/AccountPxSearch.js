@@ -3,8 +3,6 @@
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
 import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
@@ -178,7 +176,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
         const entry = feed.$resources[i];
         entry.$descriptor = entry.$descriptor || feed.$descriptor;
         this.entries[entry.$key] = entry;
-        const rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
+        const rowNode = $(this.rowTemplate.apply(entry, this));
         docfrag.appendChild(rowNode);
         this.onApplyRowTemplate(entry, rowNode);
         if (this.relatedViews.length > 0) {
@@ -187,7 +185,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       }
 
       if (docfrag.childNodes.length > 0) {
-        domConstruct.place(docfrag, this.contentNode, 'last');
+        $(this.contentNode).append(docfrag);
       }
     }
   },
@@ -260,7 +258,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     }
   },
   formatSearchQuery(qry) {
-    return string.substitute('AccountName like "${0}%"', [this.escapeSearchQuery(qry)]);
+    return `AccountName like "${this.escapeSearchQuery(qry)}%"`;
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{

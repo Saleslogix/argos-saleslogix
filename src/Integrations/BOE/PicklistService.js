@@ -1,7 +1,6 @@
 import lang from 'dojo/_base/lang';
 import ErrorManager from 'argos/ErrorManager';
 import SData from 'argos/Store/SData';
-import string from 'dojo/string';
 
 const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
   _picklists: {},
@@ -106,7 +105,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
     const promise = new Promise((resolve, reject) => {
       const store = this.getStore();
       const queryOptions = {
-        where: string.substitute("name eq '${0}'", [name]),
+        where: `name eq '${name}'`,
       };
       store.query(null, queryOptions).then((data) => {
         let picklist = null;

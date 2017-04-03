@@ -1,9 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import string from 'dojo/string';
-import query from 'dojo/query';
-import domConstruct from 'dojo/dom-construct';
 import 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
@@ -522,8 +519,8 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
 
   highlightActivities: function highlightActivities() {
-    query('.old-calendar-day')
-      .forEach(function queryDays(node) {
+    $('.old-calendar-day')
+      .each((i, node) => {
         const dataDate = $(node).attr('data-date');
         if (!this.dateCounts[dataDate]) {
           return;
@@ -532,13 +529,12 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
         $(node).addClass('activeDay');
 
         const countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
-        const existingCount = query(node)
-          .children('div');
+        const existingCount = $(node).children('div');
 
         if (existingCount.length > 0) {
-          domConstruct.place(countMarkup, existingCount[0], 'only');
+          $(existingCount[0]).empty().append(countMarkup);
         } else {
-          domConstruct.place(`<div>${countMarkup}</div>`, node, 'first');
+          $(node).prepend(`<div>${countMarkup}</div>`);
         }
       }, this);
   },
@@ -567,7 +563,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
       return;
     }
 
-    array.forEach(requests, (xhr) => {
+    requests.forEach((xhr) => {
       if (xhr) { // if request was fulfilled by offline storage, xhr will be undefined
         xhr.abort();
       }
@@ -799,13 +795,13 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
   },
   highlightCurrentDate: function highlightCurrentDate() {
-    const selectedDate = string.substitute('.old-calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
+    const selectedDate = `.old-calendar-day[data-date=${this.currentDate.format('YYYY-MM-DD')}]`;
 
     if (this.selectedDateNode) {
       $(this.selectedDateNode).removeClass('selected');
     }
 
-    this.selectedDateNode = query(selectedDate, this.contentNode)[0];
+    this.selectedDateNode = $(selectedDate, this.contentNode)[0];
     if (this.selectedDateNode) {
       $(this.selectedDateNode).addClass('selected');
     }
@@ -817,22 +813,20 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     // Remove the existing "today" highlight class because it might be out of date,
     // like when we tick past midnight.
     let todayCls = '.old-calendar-day.today';
-    let todayNode = query(todayCls, this.contentNode)[0];
+    let todayNode = $(todayCls, this.contentNode)[0];
     if (todayNode) {
       $(todayNode).removeClass('today');
     }
 
     // Get the updated "today"
-    todayCls = string.substitute('.old-calendar-day[data-date=${0}]', [moment()
-      .format('YYYY-MM-DD'),
-    ]);
-    todayNode = query(todayCls, this.contentNode)[0];
+    todayCls = `.old-calendar-day[data-date=${moment().format('YYYY-MM-DD')}]`;
+    todayNode = $(todayCls, this.contentNode)[0];
     if (todayNode) {
       $(todayNode).addClass('today');
     }
   },
   selectEntry: function selectEntry(params) {
-    const row = query(params.$source)
+    const row = $(params.$source)
       .closest('[data-key]')[0];
     const key = row ? row.getAttribute('data-key') : false;
 

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import LookupField from 'argos/Fields/LookupField';
 import PickList from '../Views/PickList';
 import FieldManager from 'argos/FieldManager';
@@ -59,7 +58,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return !this.picklist;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
-    return string.substitute('name eq "${0}"', [name]);
+    return `name eq "${name}"`;
   },
   _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value, unloadedValues) {
     if (typeof value === 'string') {

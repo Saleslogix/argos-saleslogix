@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
@@ -63,7 +62,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List'
     }
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Contact.NameLF) like "%${0}%" or upper(Account.AccountName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Contact.NameLF) like "%${q}%" or upper(Account.AccountName) like "%${q}%"`;
   },
 });
 

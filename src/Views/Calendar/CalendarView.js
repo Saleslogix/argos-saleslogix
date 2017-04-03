@@ -387,11 +387,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     );
   },
   formatQueryEvent: function formatQueryEvent(value) {
-    return string.substitute('UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)', {
-      user: App.context.user && App.context.user.$key,
-      start: convert.toIsoStringFromDate(value.clone().startOf('month').toDate()),
-      end: convert.toIsoStringFromDate(value.clone().endOf('month').toDate()),
-    });
+    const user = App.context.user && App.context.user.$key;
+    const start = convert.toIsoStringFromDate(value.clone().startOf('month').toDate());
+    const end = convert.toIsoStringFromDate(value.clone().endOf('month').toDate());
+    return `UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)`;
   },
   highlightActivities: function highlightActivities() {
     array.forEach(this._calendar.weeksNode.childNodes, (week) => {

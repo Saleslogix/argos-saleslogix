@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
@@ -45,7 +44,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuotePersons.List', [List, _
   entityName: 'Quote Person',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Quote.QuoteNumber) like "${0}%" or upper(Person.Name) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Quote.QuoteNumber) like "${q}%" or upper(Person.Name) like "${q}%"`;
   },
 });
 

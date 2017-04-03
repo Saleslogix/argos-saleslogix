@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import AttachmentList from './List';
 import getResource from 'argos/I18n';
 
@@ -19,7 +18,8 @@ const __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList
   id: 'myattachment_list',
   titleText: resource.titleText,
   queryWhere: function queryWhere() {
-    return string.substitute('createUser eq "${0}"', [this._formatUserKey(App.context.user.$key)]);
+    const q = this._formatUserKey(App.context.user.$key);
+    return `createUser eq "${q}"`;
   },
   _formatUserKey: function _formatUserKey(userKey) {
     let key = userKey;

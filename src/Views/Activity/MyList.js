@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
 import ActivityList from './List';
@@ -112,7 +111,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
   queryWhere: function queryWhere() {
-    return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context.user.$key]);
+    return `User.Id eq "${App.context.user.$key}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"`;
   },
   queryOrderBy: 'Activity.StartDate desc',
   querySelect: [
@@ -155,14 +154,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
       const yesterdayEnd = yesterdayStart.clone().endOf('day');
 
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(yesterdayStart.toDate()),
-          convert.toIsoStringFromDate(yesterdayEnd.toDate()),
-          yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(yesterdayStart.toDate())}@ and @${convert.toIsoStringFromDate(yesterdayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return theQuery;
     },
     today: function today() {
@@ -170,14 +162,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       const todayStart = now.clone().startOf('day');
       const todayEnd = todayStart.clone().endOf('day');
 
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(todayStart.toDate()),
-          convert.toIsoStringFromDate(todayEnd.toDate()),
-          todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(todayStart.toDate())}@ and @${convert.toIsoStringFromDate(todayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return theQuery;
     },
     'this-week': function thisWeek() {
@@ -185,14 +170,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       const weekStartDate = now.clone().startOf('week');
       const weekEndDate = weekStartDate.clone().endOf('week');
 
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(weekStartDate.toDate()),
-          convert.toIsoStringFromDate(weekEndDate.toDate()),
-          weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-          weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(weekStartDate.toDate())}@ and @${convert.toIsoStringFromDate(weekEndDate.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${weekStartDate.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return theQuery;
     },
   },
@@ -402,7 +380,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     }
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Activity.Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   declineActivityFor: function declineActivityFor(activityId, userId) {
     this._getUserNotifications(activityId, userId, false);
@@ -419,7 +397,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     const req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
     req.setResourceKind('userNotifications');
     req.setContractName('dynamic');
-    req.setQueryArg('where', string.substitute('ActivityId eq \'${0}\' and ToUser.Id eq \'${1}\'', [id, userId]));
+    req.setQueryArg('where', `ActivityId eq '${id}' and ToUser.Id eq '${userId}'`);
     req.setQueryArg('precedence', '0');
     req.read({
       success: function success(userNotifications) {
@@ -606,7 +584,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       ContactId: entry.Activity.ContactId,
       AccountName: entry.Activity.AccountName,
       AccountId: entry.Activity.AccountId,
-      Description: string.substitute('${0} ${1}', [this.calledText, (entry.Activity.ContactName || '')]),
+      Description: `${this.calledText} ${entry.Activity.ContactName || ''}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,

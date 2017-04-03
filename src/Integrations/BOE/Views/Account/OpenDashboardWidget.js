@@ -3,7 +3,6 @@
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
@@ -233,13 +232,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
     }
     const pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
-    const query = string.substitute(
-            `(${property} lt @\${0}@ or (${property} lt @\${1}@))`,
-      [
-        convert.toIsoStringFromDate(pastDay.toDate()),
-        pastDay.format('YYYY-MM-DDT00:00:00[Z]'),
-      ]
-    );
+    const query = `(${property} lt @${convert.toIsoStringFromDate(pastDay.toDate())}@ or (${property} lt @${pastDay.format('YYYY-MM-DDT00:00:00[Z]')}@))`;
     return query;
   },
 });

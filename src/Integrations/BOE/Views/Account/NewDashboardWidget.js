@@ -3,7 +3,6 @@
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
@@ -254,15 +253,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
     const pastWeekStart = now.clone().subtract(this.dayValue, 'days').startOf('day');
     const today = now.clone().endOf('day');
 
-    const query = string.substitute(
-      `((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`,
-      [
-        convert.toIsoStringFromDate(pastWeekStart.toDate()),
-        convert.toIsoStringFromDate(today.toDate()),
-        pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'),
-        today.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
-    );
+    const query = `((${property} between @${convert.toIsoStringFromDate(pastWeekStart.toDate())}@ and @${convert.toIsoStringFromDate(today.toDate())}@) or (${property} between @${pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${today.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
     return query;
   },
 });

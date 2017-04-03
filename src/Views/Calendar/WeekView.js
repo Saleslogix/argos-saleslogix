@@ -300,10 +300,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const start = this.getStartDay(this.currentDate);
     const end = this.getEndDay(this.currentDate);
 
-    this.set('dateContent', string.substitute('${0}-${1}', [
-      start.format(this.weekTitleFormatText),
-      end.format(this.weekTitleFormatText),
-    ]));
+    this.set('dateContent', `${start.format(this.weekTitleFormatText)}-${end.format(this.weekTitleFormatText)}`);
   },
   isInCurrentWeek: function isInCurrentWeek(date) {
     return (date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf());

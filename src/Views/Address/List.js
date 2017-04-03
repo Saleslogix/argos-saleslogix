@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import query from 'dojo/query';
 import format from '../../Format';
 import List from 'argos/List';
@@ -40,7 +39,8 @@ const __class = declare('crm.Views.Address.List', [List], {
   enableActions: true,
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(Description like "${0}%" or City like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Description) like "${q}%" or upper(City) like "${q}%")`;
   },
   // Disable Add/Insert on toolbar
   createToolLayout: function createToolLayout() {

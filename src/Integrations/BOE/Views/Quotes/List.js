@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
@@ -99,7 +98,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(QuoteNumber) like "${0}%" or Account.AccountName like "${0}%" or ErpExtId like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(QuoteNumber) like "${q}%" or Account.AccountName like "${q}%" or ErpExtId like "${q}%"`;
   },
   formatErpStatus: function formatErpStatus(value) {
     const text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);

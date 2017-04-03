@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
@@ -40,7 +39,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [Li
   itemIconClass: 'fa fa-truck fa-2x',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(ErpShipTo.Name) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(ErpShipTo.Name) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
 });
 
