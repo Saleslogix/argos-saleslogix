@@ -15,6 +15,7 @@ module.exports = function(env) { // eslint-disable-line
         'process.env': {
           NODE_ENV: JSON.stringify('prod'),
         },
+        FLAGS: {},
       }),
       new webpack.optimize.UglifyJsPlugin({
         beautify: false,

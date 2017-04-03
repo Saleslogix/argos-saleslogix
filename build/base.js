@@ -14,7 +14,6 @@ module.exports = function() {
         'page',
         'L20n',
         'redux',
-        'rxjs',
         'moment',
         'pouchdb-browser',
         '../../argos-sdk/libraries/Simplate.js',
@@ -54,6 +53,9 @@ module.exports = function() {
               presets: [
                 'es2015-without-strict',
               ],
+              plugins: [
+                "syntax-dynamic-import"
+              ]
             },
           }
         ]

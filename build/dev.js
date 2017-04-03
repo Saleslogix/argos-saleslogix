@@ -23,7 +23,9 @@ module.exports = function(env) {
     },
     plugins: [
       new webpack.DefinePlugin({
-        LITE: true,
+        FLAGS: {
+          LITE: true,
+        }
       }),
     ],
     devServer: {
