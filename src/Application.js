@@ -511,6 +511,8 @@ export default class Application extends SDKApplication {
           this.store.dispatch(setEndPoint(results));
         } else {
           const service = this.getService();
+          service.uri.setHost(window.location.hostname)
+            .setPort(window.location.port);
           this.store.dispatch(setEndPoint(service.uri.build()));
         }
       }
