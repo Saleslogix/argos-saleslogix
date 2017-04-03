@@ -6,6 +6,7 @@
       "url": "https://localhost/sdata/slx/dynamic/-/",
       "timeout": 30000,
       "compact": true,
+      "cache": true,
       "json": true
     }
   },
