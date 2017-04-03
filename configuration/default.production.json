@@ -3,13 +3,7 @@
     "crm": {
       "isDefault": true,
       "offline": true,
-      "serverName": "localhost",
-      "virtualDirectory": "sdata",
-      "applicationName": "slx",
-      "contractName": "dynamic",
-      "dataSet": "-",
-      "port": 443,
-      "protocol": "https",
+      "url": "https://localhost/sdata/slx/dynamic/-/",
       "timeout": 30000,
       "compact": true,
       "json": true
