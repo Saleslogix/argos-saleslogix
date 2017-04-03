@@ -1,7 +1,6 @@
 import lang from 'dojo/_base/lang';
 import ErrorManager from 'argos/ErrorManager';
 import SData from 'argos/Store/SData';
-import string from 'dojo/string';
 
 const __class = lang.setObject('crm.Integrations.BOE.PicklistService', {
   _picklists: {},
