@@ -132,6 +132,7 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
         fileName: 'help.html',
         defaultUrl: 'help/locales/crm/en/help.html',
         onCreate: this.onHelpRowCreated,
+        cls: 'crmhelp',
       }],
     });
 

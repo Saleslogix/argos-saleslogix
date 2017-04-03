@@ -885,7 +885,7 @@ export default class Application extends SDKApplication {
   }
   getExposedViews() {
     return Object.keys(this.views).filter((id) => {
-      const view = this.getView(id);
+      const view = this.getViewDetailOnly(id);
       return view && view.id !== 'home' && view.expose;
     });
   }
