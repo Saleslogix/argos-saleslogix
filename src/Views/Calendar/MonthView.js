@@ -795,7 +795,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     }
   },
   highlightCurrentDate: function highlightCurrentDate() {
-    const selectedDate = string.substitute('.old-calendar-day[data-date=${0}]', [this.currentDate.format('YYYY-MM-DD')]);
+    const selectedDate = `.old-calendar-day[data-date=${this.currentDate.format('YYYY-MM-DD')}]`;
 
     if (this.selectedDateNode) {
       $(this.selectedDateNode).removeClass('selected');

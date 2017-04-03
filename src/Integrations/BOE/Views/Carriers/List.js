@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
@@ -38,7 +37,8 @@ const __class = declare('crm.Integrations.BOE.Views.Carriers.List', [List], {
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(CarrierName) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(CarrierName) like "${q}%"`;
   },
 });
 
