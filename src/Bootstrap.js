@@ -48,6 +48,7 @@ export function bootstrap({
   instance.isRegionMetric = isRegionMetric;
   instance.mingleAuthResults = mingleAuthResults;
   instance.activate();
-  instance.init(rootElement);
-  instance.run();
+  instance.init(rootElement).then(() => {
+    instance.run();
+  });
 }

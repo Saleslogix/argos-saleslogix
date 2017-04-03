@@ -22,8 +22,7 @@ function main(langConfig, userConfig, moduleFactory) {
     // TODO: Determine if we want to load production or development, and merge
     // the default config with the user.
     bootstrapLocalization(langConfig).then(() => {
-      require.ensure([], (require) => {
-        const mobile = require('./Bootstrap');
+      import('./Bootstrap').then((mobile) => {
         const rootElement = document.getElementById('rootNode');
         moduleFactory().then((results) => {
           mobile.bootstrap({

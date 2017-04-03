@@ -1,14 +1,20 @@
 export function getDefaultModules() {
   return new Promise((resolve) => {
-    require.ensure([], (require) => {
-      const ApplicationModule = require('./ApplicationModule').default;
-      const BOEApplicationModule = require('./Integrations/BOE/ApplicationModule').default;
-      const ContourApplicationModule = require('./Integrations/Contour/ApplicationModule').default;
-      resolve([
-        new ApplicationModule(),
-        new BOEApplicationModule(),
-        new ContourApplicationModule(),
-      ]);
+    import('./ApplicationModule').then((appModule) => {
+      const ApplicationModule = appModule.default;
+      Promise.all([
+        import('./Integrations/BOE/ApplicationModule'),
+        import('./Integrations/Contour/ApplicationModule'),
+      ]).then((rest) => {
+        const [boeAppModule, contourAppModule] = rest;
+        const BOEApplicationModule = boeAppModule.default;
+        const ContourApplicationModule = contourAppModule.default;
+        resolve([
+          new ApplicationModule(),
+          new BOEApplicationModule(),
+          new ContourApplicationModule(),
+        ]);
+      });
     });
   });
 }

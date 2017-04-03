@@ -3,6 +3,7 @@ module.exports = {
     es6: true,
     browser: true
   },
+  parser: "babel-eslint",
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
@@ -24,7 +25,7 @@ module.exports = {
     "Base64": false,
     "define": false,
     "require": false,
-    "LITE": false,
+    "FLAGS": false,
   },
   rules: {
     /**
