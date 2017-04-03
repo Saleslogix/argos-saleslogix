@@ -41,7 +41,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.List', [Li
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-    return `upper(ErpBillTo.Name) like "%${q}%"`
+    return `upper(ErpBillTo.Name) like "%${q}%"`;
   },
 });
 
