@@ -92,11 +92,6 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
       'ActivityDescription like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]
     );
   },
-  navigateToDetailView: function navigateToDetailView(key, descriptor) { // eslint-disable-line
-    const entry = this.entries && this.entries[key];
-    descriptor = entry.Ticket && entry.Ticket.TicketNumber || descriptor;
-    this.inherited(arguments);
-  },
 });
 
 lang.setObject('Mobile.SalesLogix.Views.TicketActivity.List', __class);
