@@ -111,12 +111,12 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
     return this.tools || (this.tools = {
       tbar: [{
         id: 'edit',
-        cls: 'fa fa-pencil fa-lg',
+        svg: 'edit',
         action: 'navigateToEditView',
         security: App.getViewSecurity(this.editView, 'update'),
       }, {
         id: 'removeOpportunityProduct',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeOpportunityProduct',
         title: this.removeOppProductTitleText,
       }],

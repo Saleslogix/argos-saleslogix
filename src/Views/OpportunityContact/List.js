@@ -14,7 +14,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   // Template
   itemTemplate: new Simplate([
     '<p class="listview-heading {% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</p>',
-    '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
+    '<p class="micro-text {% if ($.IsPrimary) { %} primary {% } %}">',
     '{% if ($.SalesRole) { %}',
     '{%: $.SalesRole %} | ',
     '{% } %}',
@@ -131,7 +131,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
     return this.tools || (this.tools = {
       tbar: [{
         id: 'associate',
-        cls: 'fa fa-plus fa-fw fa-lg',
+        svg: 'add',
         action: 'navigateToSelectView',
         security: App.getViewSecurity(this.insertView, 'insert'),
       }],

@@ -122,7 +122,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'removeOrderLine',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeOrderLine',
         title: this.removeOrderLineText,
         security: 'Entities/SalesOrder/Delete',
