@@ -94,8 +94,8 @@ export default function bootstrap({
           instance.context.localization = {
             localeContext: ctx,
             defaultLocaleContext: defaultCtx,
-            locale: currentLocale,
-            region: currentLocale,
+            locale: currentLocale || defaultLocale || 'en',
+            region: currentLocale || defaultLocale || 'en',
             supportedLocales,
           };
           instance.localeContext = ctx;
