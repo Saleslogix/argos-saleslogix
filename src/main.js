@@ -9,6 +9,8 @@ import userProd from '../configuration/production.json';
 
 import ready from 'dojo/ready';
 
+export { getDefaultModules } from './modules';
+
 /**
  * Main entry point into the application. Once the DOM is ready, main will
  * bootstrap the localization and then the rest of the application.
@@ -24,14 +26,14 @@ function main(langConfig, userConfig, moduleFactory) {
     bootstrapLocalization(langConfig).then(() => {
       import('./Bootstrap').then((mobile) => {
         const rootElement = document.getElementById('rootNode');
-        moduleFactory().then((results) => {
+        moduleFactory().then((modules) => {
           mobile.bootstrap({
             currentLocale: langConfig.currentLocale,
             parentLocale: langConfig.parentLocale,
             isRegionMetric: langConfig.isRegionMetric,
             rootElement,
             userConfig,
-            modules: results,
+            modules,
           });
         });
       });
@@ -55,20 +57,20 @@ function loadConfig(defaultConfig, userConfig) {
   });
 }
 
-export function development(langConfig) {
+export function development(langConfig, moduleFactory = getDefaultModules) {
   loadConfig(defaultDev, userDev)
     .then((config) => {
       main(langConfig, config, getDefaultModules);
     }, (defaultConfig) => {
-      main(langConfig, defaultConfig, getDefaultModules);
+      main(langConfig, defaultConfig, moduleFactory);
     });
 }
 
-export function production(langConfig) {
+export function production(langConfig, moduleFactory = getDefaultModules) {
   loadConfig(defaultProd, userProd)
     .then((config) => {
       main(langConfig, config, getDefaultModules);
     }, (defaultConfig) => {
-      main(langConfig, defaultConfig, getDefaultModules);
+      main(langConfig, defaultConfig, moduleFactory);
     });
 }
