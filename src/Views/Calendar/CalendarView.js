@@ -312,27 +312,27 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       const activityDocfrag = document.createDocumentFragment();
       const eventDocfrag = document.createDocumentFragment();
       if (this._showMulti) {
-        const headerNode = $(this.headerRowTemplate.apply({ day }, this));
-        activityDocfrag.appendChild(headerNode.get(0));
+        const headerNode = $(this.headerRowTemplate.apply({ day }, this)).get(0);
+        activityDocfrag.appendChild(headerNode);
       }
       for (let i = 0; i < count; i++) {
         const entry = this.entries[entries[i]];
         let rowNode;
         if (this.activityTypeIcon[entry.Type]) {
           try {
-            rowNode = $(this.activityRowTemplate.apply(entry, this));
+            rowNode = $(this.activityRowTemplate.apply(entry, this)).get(0);
           } catch (err) {
             console.error(err); // eslint-disable-line
-            rowNode = $(this.rowTemplateError.apply(entry, this));
+            rowNode = $(this.rowTemplateError.apply(entry, this)).get(0);
           }
 
-          activityDocfrag.appendChild(rowNode.get(0));
+          activityDocfrag.appendChild(rowNode);
         } else {
           try {
-            rowNode = $(this.eventRowTemplate.apply(entry, this));
+            rowNode = $(this.eventRowTemplate.apply(entry, this)).get(0);
           } catch (err) {
             console.error(err); // eslint-disable-line
-            rowNode = $(this.rowTemplateError.apply(entry, this));
+            rowNode = $(this.rowTemplateError.apply(entry, this)).get(0);
           }
 
           eventDocfrag.appendChild(rowNode);
@@ -531,9 +531,9 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (!this._calendar) {
       this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true });
       $(this.calendarNode).append(this._calendar.domNode);
-      const toggle = $(this.weekSelectTemplate.apply(this));
+      const toggle = $(this.weekSelectTemplate.apply(this)).get(0);
       $(this._calendar.footerNode).append(toggle);
-      on($(toggle).get(0).children[0], 'click', this.toggleMultiSelect.bind(this));
+      on($(toggle).children[0], 'click', this.toggleMultiSelect.bind(this));
       this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar

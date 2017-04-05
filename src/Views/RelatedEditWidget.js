@@ -34,7 +34,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
       editView.onUpdateCompleted = this.onUpdateCompleted.bind(this);
     }
     // Add the toolbar for save
-    const toolBarNode = $(this.toolBarTemplate.apply(entry, this));
+    const toolBarNode = $(this.toolBarTemplate.apply(entry, this)).get(0);
     on(toolBarNode, 'click', this.onInvokeToolBarAction.bind(this));
     $(this.containerNode).append(toolBarNode);
 

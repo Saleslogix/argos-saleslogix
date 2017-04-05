@@ -99,11 +99,12 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     const actions = {
       filterClicked: function onFilterClicked(params) {
         const prefs = App.preferences && App.preferences.myDayFilters;
-
-        const filterPref = prefs.filter((pref) => {
-          return pref.name === params.filtername;
-        });
-
+        let filterPref = [];
+        if (prefs.length > 0) {
+          filterPref = prefs.filter((pref) => {
+            return pref.name === params.filtername;
+          });
+        }
         if (filterPref.length > 0) {
           const enabled = !!filterPref[0].enabled;
           filterPref[0].enabled = !enabled;

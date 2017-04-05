@@ -32,13 +32,14 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   },
   getDefaultIndexPrefences: function getDefaultIndexPrefences() {
     const defaults = [];
-    const self = this;
-    this.indexes.forEach((index) => {
-      defaults.push({
-        indexName: index.indexName,
-        enabled: self._isIndexActive(index.indexName),
+    if (this.indexes) {
+      this.indexes.forEach((index) => {
+        defaults.push({
+          indexName: index.indexName,
+          enabled: this._isIndexActive(index.indexName),
+        });
       });
-    });
+    }
     return defaults;
   },
   setupRightDrawer: function setupRightDrawer() {

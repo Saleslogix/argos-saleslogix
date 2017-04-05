@@ -126,12 +126,12 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this.applyRelatedSections(layout);
     return layout;
   },
-  disableSections: function disableSections(sections) {
+  disableSections: function disableSections(sections = []) {
     sections.forEach((section) => {
       this.disableSection(section);
     });
   },
-  disableSection: function disableSection(section) {
+  disableSection: function disableSection(section = []) {
     section.children.forEach((property) => {
       this.disableProperty(section, property);
     });
@@ -142,7 +142,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     }
     property.disabled = true;
   },
-  applyRelatedSections: function applyRelatedSections(sections) {
+  applyRelatedSections: function applyRelatedSections(sections = []) {
     this._relatedItems = {};
     sections.forEach((section) => {
       if (section.name === 'RelatedItemsSection') {
@@ -152,7 +152,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     });
   },
   addRelatedLayout: function addRelatedLayout(section) {
-    const rels = this._model.relationships;
+    const rels = this._model.relationships || [];
     rels.forEach((rel) => {
       if (rel && rel.relatedEntity) {
         const relatedModel = App.ModelManager.getModel(rel.relatedEntity, MODEL_TYPES.OFFLINE);

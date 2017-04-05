@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
 import $ from 'jquery';
@@ -38,9 +37,9 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
-    const metricList = $(this.metricTemplate.apply(this));
-    this.metricNode = $(this.metricWrapper.apply(this));
-    $(metricList).empty().append(this.metricNode);
+    const metricList = $(this.metricTemplate.apply(this)).get(0);
+    this.metricNode = $(this.metricWrapper.apply(this)).get(0);
+    $(metricList).append(this.metricNode);
     $(this.domNode).prepend(metricList);
   },
   destroyWidgets: function destroyWidgets() {

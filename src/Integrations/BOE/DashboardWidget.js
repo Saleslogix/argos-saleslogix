@@ -61,11 +61,11 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
         options.changeRange = this.changeRange;
         options.parent = this;
         const widget = new DateRangeWidget(options);
-        const itemNode = $(this.rangeItemTemplate.apply(options, this));
+        const itemNode = $(this.rangeItemTemplate.apply(options, this)).get(0);
         if (options.value === this.dayValue) {
           this.selectedRange = itemNode;
         }
-        rangeFrag.appendChild(itemNode.get(0));
+        rangeFrag.appendChild(itemNode);
         widget.placeAt(itemNode, 'last');
       });
     }

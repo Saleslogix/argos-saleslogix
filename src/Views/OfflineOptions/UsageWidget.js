@@ -131,7 +131,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       lastClearedDate: (lastClearedDate) ? format.relativeDate(lastClearedDate) : '',
     };
     this._options.lastClearedDate = lastClearedDate;
-    const clearDateNode = $(this.lastClearDateTemplate.apply(values, this));
+    const clearDateNode = $(this.lastClearDateTemplate.apply(values, this)).get(0);
     $(this._lastClearDateNode).empty().append(clearDateNode);
   },
   olderThanSelect: function olderThanSelect() {
@@ -245,7 +245,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     newestDate = utility.getValue(usage, 'newestDate');
     totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
     totalItem.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
-    const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this));
+    const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this)).get(0);
     docfrag.appendChild(headerNode);
     this._selectFields = {};
     const entities = usage.entities;
@@ -265,8 +265,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         newestDate = utility.getValue(entity, 'newestDate');
         item.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
         item.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
-        const itemNode = $(this.usageItemTemplate.apply(item, this));
-        docfrag.appendChild(itemNode.get(0));
+        const itemNode = $(this.usageItemTemplate.apply(item, this)).get(0);
+        docfrag.appendChild(itemNode);
       } catch (err) {
         console.log(err); // eslint-disable-line
       }
