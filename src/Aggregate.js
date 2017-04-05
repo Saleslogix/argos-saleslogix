@@ -1,5 +1,4 @@
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 
 /**
  * @class crm.Aggregate
@@ -50,7 +49,7 @@ const __class = lang.setObject('crm.Aggregate', {
    * @return {Number}
    */
   max: function max(data) {
-    const flatten = array.map(data, (item) => {
+    const flatten = data.map((item) => {
       return item.value;
     });
 
@@ -62,7 +61,7 @@ const __class = lang.setObject('crm.Aggregate', {
    * @return {Number}
    */
   min: function min(data) {
-    const flatten = array.map(data, (item) => {
+    const flatten = data.map((item) => {
       return item.value;
     });
 

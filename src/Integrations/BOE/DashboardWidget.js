@@ -2,13 +2,12 @@
 * See copyright file.
 */
 import declare from 'dojo/_base/declare';
-import domConstruct from 'dojo/dom-construct';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import MetricWidget from '../../Views/MetricWidget';
 import DateRangeWidget from './DateRangeWidget';
 import _DashboardWidgetBase from './_DashboardWidgetBase';
+import $ from 'jquery';
 
 /**
  * @class crm.Views._DashboardWidgetBase
@@ -30,7 +29,7 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
       // Create metrics widgets and place them in the metricsNode
     const frag = document.createDocumentFragment();
     const widgetOptions = this.createMetricLayout(entry) || [];
-    array.forEach(widgetOptions, function handleOptions(options) {
+    widgetOptions.forEach((options) => {
       if (this.hasValidOptions(options)) {
           // Check if widget has a navigate to view option
         if (options.navTo) {
@@ -43,14 +42,14 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
           }
         }
         const widget = new MetricWidget(options);
-        const itemNode = domConstruct.toDom(this.metricItemTemplate.apply(options, this));
-        frag.appendChild(itemNode);
+        const itemNode = $(this.metricItemTemplate.apply(options, this));
+        frag.appendChild(itemNode.get(0));
         widget.placeAt(itemNode, 'last');
         this.registerWidget(widget);
       }
-    }, this);
+    });
     if (frag.childNodes.length > 0) {
-      domConstruct.place(frag, this.metricsNode, 'last');
+      $(this.metricsNode).append(frag);
     }
   },
   createRangeWidgets: function createRangeWidgets() {
@@ -58,29 +57,29 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
       // Check if range widgets are desired, if so create and place in rangeNode
     if (this.createRangeLayout) {
       const rangeOptions = this.createRangeLayout() || [];
-      array.forEach(rangeOptions, function handleRangeOptions(options) {
+      rangeOptions.forEach((options) => {
         options.changeRange = this.changeRange;
         options.parent = this;
         const widget = new DateRangeWidget(options);
-        const itemNode = domConstruct.toDom(this.rangeItemTemplate.apply(options, this));
+        const itemNode = $(this.rangeItemTemplate.apply(options, this)).get(0);
         if (options.value === this.dayValue) {
           this.selectedRange = itemNode;
         }
         rangeFrag.appendChild(itemNode);
         widget.placeAt(itemNode, 'last');
-      }, this);
+      });
     }
     if (rangeFrag.childNodes.length > 0) {
       if (!this.selectedRange) {
         this.selectedRange = rangeFrag.childNodes[0];
       }
       this.selectedRange.style['background-color'] = this.getSelectedColor();
-      domConstruct.place(rangeFrag, this.rangeNode, 'last');
+      $(this.rangeNode).append(rangeFrag);
     }
   },
   rebuildWidgets: function rebuildWidgets(entry) {
       // this.destroyWidgets();
-    domConstruct.empty(this.metricsNode);
+    $(this.metricsNode).empty();
     this.metricWidgets = [];
     this.rebuildValues();
     this.createMetricWidgets(entry);

@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import _ConfigureBase from 'argos/_ConfigureBase';
@@ -54,12 +53,12 @@ const __class = declare('crm.Views.Configure', [_ConfigureBase], {
     }, []);
 
     // The order array could have had stale id's, filter out valid views here
-    reduced = array.filter(reduced, (key) => {
+    reduced = reduced.filter((key) => {
       const view = App.getView(key);
       return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
     });
 
-    list = array.map(reduced, (key) => {
+    list = reduced.map((key) => {
       const view = App.getView(key);
       return {
         $key: view.id,

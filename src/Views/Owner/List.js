@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -39,7 +38,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
   },
   processData: function processData(items) {
     if (items) {
-      items = array.filter(items, function filterItems(item) { // eslint-disable-line
+      items = items.filter((item) => { // eslint-disable-line
         return this._userEnabled(item) && this._isCorrectType(item);
       }, this);
     }

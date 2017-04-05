@@ -275,7 +275,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       } else {
         this.applyValue(widget, null, null, valueIndex, obj);
       }
-    }, this);
+    });
   },
   applyValue: function applyValue(widget, valueFn, values, valueIndex, obj) {
     let formatterFn;
@@ -574,9 +574,11 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
         && options.value;
   },
   destroyWidgets: function destroyWidgets() {
-    this.metricWidgets.forEach((widget) => {
-      widget.destroy();
-    }, this);
+    if (this.metricWidgets) {
+      this.metricWidgets.forEach((widget) => {
+        widget.destroy();
+      });
+    }
   },
   toggleView: function toggleView(evt) {
     this.onToggleView();

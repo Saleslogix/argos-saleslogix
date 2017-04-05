@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import aspect from 'dojo/aspect';
 import GroupUtility from '../GroupUtility';
@@ -124,7 +123,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === unescape(params.title);
           });
         }
@@ -146,7 +145,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         this._startGroupMode();
         const groupId = params.$key;
 
-        const group = array.filter(this.groupList, (item) => {
+        const group = this.groupList.filter((item) => {
           return item.$key === groupId;
         })[0];
 
@@ -184,7 +183,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       owner: this,
       view,
       singleSelect: false,
-      previousSelections: array.map(this.groupList, (group) => {
+      previousSelections: this.groupList.map((group) => {
         return group.$key;
       }),
     });
@@ -282,7 +281,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       });
 
       if (this.groupList && this.groupList.length > 0) {
-        array.forEach(this.groupList, (group) => {
+        this.groupList.forEach((group) => {
           groupsSection.children.push({
             name: group.name,
             action: 'groupClicked',
@@ -300,7 +299,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       };
       if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
         let layoutSelected = false;
-        array.forEach(this.groupTemplateLayouts, (theLayout) => {
+        this.groupTemplateLayouts.forEach((theLayout) => {
           if (!layoutSelected) {
             layoutSelected = theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`];
           }
@@ -359,7 +358,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       };
 
       if (metrics.length > 0) {
-        array.forEach(metrics, (metric, i) => {
+        metrics.forEach((metric, i) => {
           if (metric.title) {
             kpiSection.children.push({
               name: `KPI${i}`,

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
 import format from '../../Format';
 import template from '../../Template';
 import ErrorManager from 'argos/ErrorManager';
@@ -126,7 +125,7 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   setNodeText: function setNodeText(node, value) {
     $(node).removeClass('content-loading');
 
-    query('span', node).text(value);
+    $('span', node).text(value);
   },
 
   createLayout: function createLayout() {

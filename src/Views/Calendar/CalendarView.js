@@ -1,7 +1,5 @@
-import array from 'dojo/_base/array';
 import convert from 'argos/Convert';
 import declare from 'dojo/_base/declare';
-import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
 import on from 'dojo/on';
 import string from 'dojo/string';
@@ -314,7 +312,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       const activityDocfrag = document.createDocumentFragment();
       const eventDocfrag = document.createDocumentFragment();
       if (this._showMulti) {
-        const headerNode = domConstruct.toDom(this.headerRowTemplate.apply({ day }, this));
+        const headerNode = $(this.headerRowTemplate.apply({ day }, this)).get(0);
         activityDocfrag.appendChild(headerNode);
       }
       for (let i = 0; i < count; i++) {
@@ -322,19 +320,19 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         let rowNode;
         if (this.activityTypeIcon[entry.Type]) {
           try {
-            rowNode = domConstruct.toDom(this.activityRowTemplate.apply(entry, this));
+            rowNode = $(this.activityRowTemplate.apply(entry, this)).get(0);
           } catch (err) {
             console.error(err); // eslint-disable-line
-            rowNode = domConstruct.toDom(this.rowTemplateError.apply(entry, this));
+            rowNode = $(this.rowTemplateError.apply(entry, this)).get(0);
           }
 
           activityDocfrag.appendChild(rowNode);
         } else {
           try {
-            rowNode = domConstruct.toDom(this.eventRowTemplate.apply(entry, this));
+            rowNode = $(this.eventRowTemplate.apply(entry, this)).get(0);
           } catch (err) {
             console.error(err); // eslint-disable-line
-            rowNode = domConstruct.toDom(this.rowTemplateError.apply(entry, this));
+            rowNode = $(this.rowTemplateError.apply(entry, this)).get(0);
           }
 
           eventDocfrag.appendChild(rowNode);
@@ -343,11 +341,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       }
 
       if (activityDocfrag.childNodes.length > 0) {
-        domConstruct.place(activityDocfrag, this.activityContentNode, 'last');
+        $(this.activityContentNode).append(activityDocfrag);
       }
       if (eventDocfrag.childNodes.length > 0) {
         $(this.eventContainerNode).removeClass('event-hidden');
-        domConstruct.place(eventDocfrag, this.eventContentNode, 'last');
+        $(this.eventContentNode).append(eventDocfrag);
       } else {
         $(this.eventContainerNode).addClass('event-hidden');
       }
@@ -393,8 +391,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     return `UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)`;
   },
   highlightActivities: function highlightActivities() {
-    array.forEach(this._calendar.weeksNode.childNodes, (week) => {
-      array.forEach(week.childNodes, (day) => {
+    this._calendar.weeksNode.childNodes.forEach((week) => {
+      week.childNodes.forEach((day) => {
         if (!this.monthActivities[$(day).attr('data-date')]) {
           this._calendar.removeActive(day);
           return;
@@ -403,8 +401,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
           day.subValue = this.monthActivities[$(day).attr('data-date')];
           this._calendar.setActiveDay(day);
         }
-      }, this);
-    }, this);
+      });
+    });
     return this;
   },
   navigateToDetailView: function navigateToDetailView(key, _descriptor) {
@@ -511,15 +509,15 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     this._eventStore = null;
     $(this.activityContainerNode).addClass('list-loading');
     this.set('activityContent', this.loadingTemplate.apply(this));
-    domConstruct.empty(this.eventContentNode);
+    $(this.eventContentNode).empty();
     this.currentDate = this._calendar.getSelectedDateMoment();
     this.queryText = '';
     this.monthActivities = [];
     this.activityQuery = this.formatQueryActivity(this.currentDate);
     this.eventQuery = this.formatQueryEvent(this.currentDate);
     Promise.all([this.requestData(), this.requestEventData()]).then(() => {
-      domConstruct.empty(this.activityContentNode);
-      domConstruct.empty(this.eventContentNode);
+      $(this.activityContentNode).empty();
+      $(this.eventContentNode).empty();
       this.highlightActivities();
       this.changeDayActivities();
       this._dataLoaded = true;
@@ -532,10 +530,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
       this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true });
-      domConstruct.place(this._calendar.domNode, this.calendarNode);
-      const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
-      domConstruct.place(toggle, this._calendar.footerNode, 'last');
-      on(toggle.children[0], 'click', this.toggleMultiSelect.bind(this));
+      $(this.calendarNode).append(this._calendar.domNode);
+      const toggle = $(this.weekSelectTemplate.apply(this)).get(0);
+      $(this._calendar.footerNode).append(toggle);
+      on($(toggle).children()[0], 'click', this.toggleMultiSelect.bind(this));
       this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
@@ -601,8 +599,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   selectDay: function selectDay() {
     const selected = this._calendar.getSelectedDateMoment();
     if (this.currentDate && this._dataLoaded) {
-      domConstruct.empty(this.activityContentNode);
-      domConstruct.empty(this.eventContentNode);
+      $(this.activityContentNode).empty();
+      $(this.eventContentNode).empty();
       this.currentDate = selected;
       this.changeDayActivities();
     } else {
@@ -630,8 +628,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
 
     this._calendar.toggleSelectWeek();
-    domConstruct.empty(this.activityContentNode);
-    domConstruct.empty(this.eventContentNode);
+    $(this.activityContentNode).empty();
+    $(this.eventContentNode).empty();
     this.changeDayActivities();
   },
   _buildQueryExpression: function _buildQueryExpression(queryParam = {}) {

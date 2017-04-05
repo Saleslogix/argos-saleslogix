@@ -10,7 +10,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
 import format from 'crm/Format';
 import Detail from 'argos/Detail';
 import MODEL_NAMES from '../../Models/Names';
@@ -96,7 +95,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
       App.getView('salesorder_list'),
     ];
 
-    array.forEach(views, (view) => {
+    views.forEach((view) => {
       if (view) {
         view.refreshRequired = true;
       }

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import environment from '../../Environment';
 import validator from '../../Validator';
@@ -145,7 +144,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   },
   onAccountChange: function onAccountChange(value) {
     const fields = this.fields;
-    array.forEach(['Contact', 'Opportunity', 'Ticket'], (f) => {
+    ['Contact', 'Opportunity', 'Ticket'].forEach((f) => {
       if (value) {
         fields[f].dependsOn = 'Account';
         fields[f].where = `Account.Id eq "${value.AccountId || value.key}"`;
@@ -171,26 +170,26 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     }
   },
   showFieldsForLead: function showFieldsForLead() {
-    array.forEach(this.fieldsForStandard.concat(this.fieldsForStandard), function hideFieldsStandard(item) {
+    this.fieldsForStandard.concat(this.fieldsForStandard).forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].hide();
       }
     }, this);
 
-    array.forEach(this.fieldsForLeads, function showFieldsLead(item) {
+    this.fieldsForLeads.forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].show();
       }
     }, this);
   },
   showFieldsForStandard: function showFieldsForStandard() {
-    array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideFieldsLead(item) {
+    this.fieldsForStandard.concat(this.fieldsForLeads).forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].hide();
       }
     }, this);
 
-    array.forEach(this.fieldsForStandard, function showFieldsStandard(item) {
+    this.fieldsForStandard.forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].show();
       }

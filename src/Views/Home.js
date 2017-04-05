@@ -1,6 +1,5 @@
 /*eslint-disable*/
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';

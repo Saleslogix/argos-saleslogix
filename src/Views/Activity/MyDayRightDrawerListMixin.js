@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
@@ -100,11 +99,12 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     const actions = {
       filterClicked: function onFilterClicked(params) {
         const prefs = App.preferences && App.preferences.myDayFilters;
-
-        const filterPref = array.filter(prefs, (pref) => {
-          return pref.name === params.filtername;
-        });
-
+        let filterPref = [];
+        if (prefs.length > 0) {
+          filterPref = prefs.filter((pref) => {
+            return pref.name === params.filtername;
+          });
+        }
         if (filterPref.length > 0) {
           const enabled = !!filterPref[0].enabled;
           filterPref[0].enabled = !enabled;
@@ -132,7 +132,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === params.title;
           });
         }
@@ -174,7 +174,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
       children: Object.keys(filters)
         .map((filterName) => {
           const prefs = App.preferences && App.preferences.myDayFilters;
-          const filterPref = array.filter(prefs, (pref) => {
+          const filterPref = prefs.filter((pref) => {
             return pref.name === filterName;
           });
           const {

@@ -1,9 +1,8 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domConstruct from 'dojo/dom-construct';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
+import $ from 'jquery';
 
 /**
  * @class crm.Views._MetricListMixin
@@ -38,15 +37,17 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
   postCreate: function postCreate() {
     this.inherited(arguments);
-    const metricList = domConstruct.toDom(this.metricTemplate.apply(this));
-    this.metricNode = domConstruct.toDom(this.metricWrapper.apply(this));
-    domConstruct.place(this.metricNode, metricList, 'only');
-    domConstruct.place(metricList, this.domNode, 'first');
+    const metricList = $(this.metricTemplate.apply(this)).get(0);
+    this.metricNode = $(this.metricWrapper.apply(this)).get(0);
+    $(metricList).append(this.metricNode);
+    $(this.domNode).prepend(metricList);
   },
   destroyWidgets: function destroyWidgets() {
-    array.forEach(this.metricWidgets, (widget) => {
-      widget.destroy();
-    }, this);
+    if (this.metricWidgets) {
+      this.metricWidgets.forEach((widget) => {
+        widget.destroy();
+      });
+    }
 
     this.metricWidgetsBuilt = false;
   },
@@ -124,7 +125,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const query = this.query;
     const where = this.options && this.options.where;
     const optionsQuery = options && options.queryArgs && options.queryArgs.activeFilter;
-    return array.filter([query, where, optionsQuery], (item) => {
+    return [query, where, optionsQuery].filter((item) => {
       return !!item;
     })
       .join(' and ');

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import action from '../../Action';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
@@ -52,7 +51,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
 
   _areaCategoryIssueText: function _areaCategoryIssueText(feedItem) {
     const results = [feedItem.Area, feedItem.Category, feedItem.Issue];
-    return array.filter(results, (item) => {
+    return results.filter((item) => {
       return item !== '' && typeof item !== 'undefined' && item !== null;
     }).join(' > ');
   },

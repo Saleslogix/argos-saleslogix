@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import environment from '../../Environment';
@@ -182,7 +181,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   beforeTransitionTo: function beforeTransitionTo() {
     this.inherited(arguments);
 
-    array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideFields(item) {
+    this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function hideFields(item) {
       if (this.fields[item]) {
         this.fields[item].hide();
       }
@@ -190,13 +189,13 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
 
     const entry = this.options && this.options.entry;
     if (this.isActivityForLead(entry)) {
-      array.forEach(this.fieldsForLeads, function showFieldsLeads(item) {
+      this.fieldsForLeads.forEach((item) => {
         if (this.fields[item]) {
           this.fields[item].show();
         }
       }, this);
     } else {
-      array.forEach(this.fieldsForStandard, function showFieldsStandard(item) {
+      this.fieldsForStandard.forEach((item) => {
         if (this.fields[item]) {
           this.fields[item].show();
         }
