@@ -79,7 +79,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
       tools.tbar.push({
         id: 'generateEmail',
         action: 'constructReport',
-        cls: 'fa fa-envelope fa-lg',
+        svg: 'mail',
         title: 'Generate Email Report',
       });
     }

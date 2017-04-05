@@ -131,7 +131,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'removeQuoteLine',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeQuoteLine',
         title: this.removeQuoteLineText,
         security: 'Entities/Quote/Delete',

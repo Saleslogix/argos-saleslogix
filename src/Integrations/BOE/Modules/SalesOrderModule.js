@@ -74,7 +74,7 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
         return this.tools || (this.tools = {
           tbar: [{
             id: 'new',
-            cls: 'fa fa-plus fa-fw fa-lg',
+            svg: 'add',
             action: 'addLineItems',
             security: this.app.getViewSecurity(this.insertView, 'insert'),
           }],

@@ -96,7 +96,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
     return this.tools || (this.tools = {
       tbar: [{
         id: 'new',
-        cls: 'fa fa-plus fa-fw fa-lg',
+        svg: 'add',
         action: 'preNavigateToInsert',
         security: this.app.getViewSecurity(this.insertView, 'insert'),
       }],
