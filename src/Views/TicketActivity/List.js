@@ -40,6 +40,7 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   id: 'ticketactivity_list',
   security: 'Entities/TicketActivity/View',
   expose: false,
+  labelProperty: 'Ticket.TicketNumber',
   detailView: 'ticketactivity_detail',
   insertView: 'ticketactivity_edit',
   queryOrderBy: 'AssignedDate asc',
