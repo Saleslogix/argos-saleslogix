@@ -533,7 +533,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       $(this.calendarNode).append(this._calendar.domNode);
       const toggle = $(this.weekSelectTemplate.apply(this)).get(0);
       $(this._calendar.footerNode).append(toggle);
-      on($(toggle).children[0], 'click', this.toggleMultiSelect.bind(this));
+      on($(toggle).children()[0], 'click', this.toggleMultiSelect.bind(this));
       this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
