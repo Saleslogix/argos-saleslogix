@@ -39,9 +39,10 @@
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.0",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^1.16.3",
-    "webpack-merge": "^2.6.1"
+    "webpack": "^2.3.3",
+    "webpack-bundle-analyzer": "^2.3.1",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.1.0"
   },
   "dependencies": {
     "@infor/icrm-js-common": "^0.1.0",

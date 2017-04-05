@@ -1,6 +1,7 @@
 /* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function() {
   return {
@@ -127,6 +128,7 @@ module.exports = function() {
         filename: '[name].bundle.js',
         minChunks: Infinity,
       }),
+      new BundleAnalyzerPlugin()
     ],
   }
 };
