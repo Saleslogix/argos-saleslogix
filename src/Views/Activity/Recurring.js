@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
@@ -423,7 +422,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   createWeekdaysData: function createWeekdaysData() {
     const list = [];
 
-    array.forEach(this.weekDaysText, (name, idx) => {
+    this.weekDaysText.forEach((name, idx) => {
       list.push({
         $key: idx,
         $descriptor: name,
@@ -436,7 +435,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   createMonthsData: function createMonthsData() {
     const list = [];
-    array.forEach(this.monthsText, (name, idx) => {
+    this.monthsText.forEach((name, idx) => {
       list.push({
         $key: idx,
         $descriptor: name,

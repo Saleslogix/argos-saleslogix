@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
@@ -82,7 +81,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
       entityFilterClicked: function onentityFilterClicked(params) {
         const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
 
-        const results = array.filter(prefs, (pref) => {
+        const results = prefs.filter((pref) => {
           return pref.name === params.entityname;
         });
 
@@ -100,7 +99,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === params.title;
           });
         }
@@ -138,7 +137,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
       children: Object.keys(this.entityMappings)
         .map((entityName) => {
           const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
-          const entityPref = array.filter(prefs, (pref) => {
+          const entityPref = prefs.filter((pref) => {
             return pref.name === entityName;
           });
           const {

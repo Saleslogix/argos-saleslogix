@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
@@ -132,7 +131,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       };
     }
 
-    if (array.indexOf(footerItems, entry.name) >= 0) {
+    if (footerItems.indexOf(entry.name) >= 0) {
       return {
         tag: 'footer',
         title: this.footerText,

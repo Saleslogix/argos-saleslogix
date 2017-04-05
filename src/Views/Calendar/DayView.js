@@ -1,8 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import query from 'dojo/query';
-import domConstruct from 'dojo/dom-construct';
 import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
@@ -351,7 +349,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
 
     if (o.length > 0) {
       this.set('listContent', '');
-      domConstruct.place(o.join(''), this.contentNode, 'last');
+      $(this.contentNode).append(o.join(''));
     }
 
     this.set('remainingContent', ''); // Feed does not return reliable data, don't show remaining
@@ -436,7 +434,7 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
     );
   },
   selectEntry: function selectEntry(params) {
-    const row = query(params.$source).closest('[data-key]')[0];
+    const row = $(params.$source).closest('[data-key]')[0];
     const key = row ? row.getAttribute('data-key') : false;
 
     this.navigateToDetailView(key);

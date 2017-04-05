@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import $ from 'jquery';
@@ -84,7 +83,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
       entityFilterClicked: function onentityFilterClicked(params) {
         const prefs = App.preferences && App.preferences.offlineEntityFilters;
 
-        const results = array.filter(prefs, (pref) => {
+        const results = prefs.filter((pref) => {
           return pref.name === params.entityname;
         });
 
@@ -102,7 +101,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === params.title;
           });
         }
@@ -142,7 +141,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
       children: Object.keys(this.entityMappings)
         .map((entityName) => {
           const prefs = App.preferences && App.preferences.offlineEntityFilters;
-          const entityPref = array.filter(prefs, (pref) => {
+          const entityPref = prefs.filter((pref) => {
             return pref.name === entityName;
           });
           const {

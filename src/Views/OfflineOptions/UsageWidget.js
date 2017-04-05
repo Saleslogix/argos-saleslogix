@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import aspect from 'dojo/aspect';
-import domConstruct from 'dojo/dom-construct';
 import format from '../../Format';
 import utility from 'argos/Utility';
 import offlineManager from 'argos/Offline/Manager';
@@ -12,6 +11,7 @@ import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
 
 import moment from 'moment';
+import $ from 'jquery';
 
 const resource = getResource('offlineUsageWidget');
 
@@ -115,7 +115,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         items: this._olderThanValues,
         defaultValue: this._options.clearOlderThan,
       });
-      domConstruct.place(this._olderThanDropdown.domNode, this._olderThanNode);
+      $(this._olderThanNode).append(this._olderThanDropdown.domNode);
       this.setLastClearedDate(this._options.lastClearedDate);
     } else {
       try {
@@ -131,8 +131,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
       lastClearedDate: (lastClearedDate) ? format.relativeDate(lastClearedDate) : '',
     };
     this._options.lastClearedDate = lastClearedDate;
-    const clearDateNode = domConstruct.toDom(this.lastClearDateTemplate.apply(values, this));
-    domConstruct.place(clearDateNode, this._lastClearDateNode, 'only');
+    const clearDateNode = $(this.lastClearDateTemplate.apply(values, this));
+    $(this._lastClearDateNode).empty().append(clearDateNode);
   },
   olderThanSelect: function olderThanSelect() {
     this._options.clearOlderThan = this._olderThanDropdown.getValue();
@@ -245,7 +245,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     newestDate = utility.getValue(usage, 'newestDate');
     totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
     totalItem.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
-    const headerNode = domConstruct.toDom(this.usageHeaderTemplate.apply(totalItem, this));
+    const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this));
     docfrag.appendChild(headerNode);
     this._selectFields = {};
     const entities = usage.entities;
@@ -265,19 +265,19 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         newestDate = utility.getValue(entity, 'newestDate');
         item.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
         item.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
-        const itemNode = domConstruct.toDom(this.usageItemTemplate.apply(item, this));
-        docfrag.appendChild(itemNode);
+        const itemNode = $(this.usageItemTemplate.apply(item, this));
+        docfrag.appendChild(itemNode.get(0));
       } catch (err) {
         console.log(err); // eslint-disable-line
       }
     }
-    domConstruct.place(docfrag, this.usageNode, 'last');
+    $(this.usageNode).append(docfrag);
     this._showingUsage = true;
   },
   destroyUsage: function destroyUsage() {
     if (this.usageNode) {
-      const node = domConstruct.toDom('<div></div>');
-      domConstruct.place(node, this.usageNode, 'only');
+      const node = $('<div></div>');
+      $(this.usageNode).empty().append(node);
       this._showingUsage = false;
     }
   },

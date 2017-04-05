@@ -1,9 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
-import domConstruct from 'dojo/dom-construct';
 import string from 'dojo/string';
-import query from 'dojo/query';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
@@ -178,16 +175,16 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
         entry.$key = this.extractKeyFromItem(entry);
         entry.$heading = this.extractDescriptorFromItem(entry);
         entry.synopsis = window.unescape(entry.synopsis);
-        entry.fields = array.filter(entry.fields, filter);
+        entry.fields = entry.fields.filter(filter);
 
         this.entries[entry.$key] = entry;
-        const rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
-        docfrag.appendChild(rowNode);
+        const rowNode = $(this.rowTemplate.apply(entry, this));
+        docfrag.appendChild(rowNode.get(0));
         this.onApplyRowTemplate(entry, rowNode);
       }
 
       if (docfrag.childNodes.length > 0) {
-        domConstruct.place(docfrag, this.contentNode, 'last');
+        $(this.contentNode).append(docfrag);
       }
     }
 
@@ -228,8 +225,8 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   getActiveIndexes: function getActiveIndexes() {
     const results = [];
     const self = this;
-    array.forEach(this.activeIndexes, (indexName) => {
-      array.forEach(self.indexes, (index) => {
+    this.activeIndexes.forEach((indexName) => {
+      self.indexes.forEach((index) => {
         if (index.indexName === indexName) {
           results.push(index);
         }
@@ -286,10 +283,10 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     indicator.valueText = this.indexesText[entry.type];
   },
   _intSearchExpressionNode: function _intSearchExpressionNode() {
-    const listNode = query(`#${this.id}`);
+    const listNode = $(`#${this.id}`);
     if (listNode[0]) {
       const html = this.searchExpressionTemplate.apply(this);
-      domConstruct.place(html, listNode[0], 'first');
+      $(listNode[0]).prepend(html);
     }
   },
   _isIndexActive: function _isIndexActive(indexName) {
@@ -318,7 +315,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
       indexFound = true;
     }
     if (indexFound) {
-      array.forEach(this.activeIndexes, (aIndexName) => {
+      this.activeIndexes.forEach((aIndexName) => {
         if (aIndexName !== indexName) {
           tempActiveIndex.push(aIndexName);
         }

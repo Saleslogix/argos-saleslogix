@@ -1,6 +1,4 @@
 import declare from 'dojo/_base/declare';
-import domGeom from 'dojo/dom-geometry';
-import query from 'dojo/query';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
@@ -66,10 +64,10 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   resourceKind: 'ticketActivities',
 
   _onResize: function _onResize() {
-    query('.note-text-item', this.contentNode).forEach((node) => {
-      const wrapNode = query('.note-text-wrap', node)[0];
-      const moreNode = query('.note-text-more', node)[0];
-      if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
+    $('.note-text-item', this.contentNode).each((i, node) => {
+      const wrapNode = $('.note-text-wrap', node)[0];
+      const moreNode = $('.note-text-more', node)[0];
+      if ($(node).height() < $(wrapNode).height()) {
         $(moreNode).show();
       } else {
         $(moreNode).hide();

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import Utility from 'argos/Utility';
@@ -265,11 +264,11 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
       App.getView('opportunity_list'),
     ];
 
-    array.forEach(views, (view) => {
+    views.forEach((view) => {
       if (view) {
         view.refreshRequired = true;
       }
-    }, this);
+    });
   },
   createLayout: function createLayout() {
     const details = {

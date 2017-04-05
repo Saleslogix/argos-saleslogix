@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
 import format from '../../Format';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
@@ -49,7 +48,7 @@ const __class = declare('crm.Views.Address.List', [List], {
     });
   },
   selectEntry: function selectEntry(params) {
-    const row = query(params.$source).closest('[data-key]')[0];
+    const row = $(params.$source).closest('[data-key]')[0];
     const key = row ? $(row).attr('data-key') : false;
 
     if (this._selectionModel && key) {

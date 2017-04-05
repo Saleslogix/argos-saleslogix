@@ -1,10 +1,10 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domConstruct from 'dojo/dom-construct';
 import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
 import 'dojo/NodeList-manipulate';
+import $ from 'jquery';
 
 const resource = getResource('help');
 
@@ -77,7 +77,7 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
     this.promises = [];
   },
   processContent: function processContent(xhr, domNode) {
-    domConstruct.place(xhr.responseText, domNode, 'only');
+    $(domNode).empty().append(xhr.responseText);
   },
   getHelp: function getHelp({ baseUrl, fileName, defaultUrl }, domNode) {
     const req = Sage.SData.Client.Ajax.request;

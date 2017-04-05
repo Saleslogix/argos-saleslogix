@@ -2,13 +2,13 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Deferred from 'dojo/Deferred';
 import when from 'dojo/when';
-import domConstruct from 'dojo/dom-construct';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import SDataStore from 'argos/Store/SData';
 import getResource from 'argos/I18n';
 import format from 'crm/Format';
 import aggregate from 'crm/Aggregate';
+import $ from 'jquery';
 
 const resource = getResource('metricWidget');
 
@@ -147,13 +147,13 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
         this.formatter = this.formatModule[this.formatter];
 
         const value = this.value = this.valueFn.call(this, data);
-        domConstruct.place(this.itemTemplate.apply({
+        $(this.metricDetailNode).replaceWith(this.itemTemplate.apply({
           value,
-        }, this), this.metricDetailNode, 'replace');
+        }, this));
       }, (err) => {
         // Error
         console.error(err); // eslint-disable-line
-        domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
+        $(this.metricDetailNode).replaceWith(this.errorTemplate.apply({}, this));
       });
   },
   navToReportView: function navToReportView() {

@@ -1,7 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domConstruct from 'dojo/dom-construct';
-import domGeom from 'dojo/dom-geometry';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
@@ -112,7 +110,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     this.inherited(arguments);
     this.attachmentViewerNode.innerHTML = '';
     if (!App.supportsFileAPI()) {
-      domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
+      $(this.domNode).empty().append(this.notSupportedTemplate.apply({}, this));
       return;
     }
 
@@ -178,9 +176,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       fileType = Utility.getFileExtension(entry.fileName);
       if (this._isfileTypeAllowed(fileType)) {
         if (this._isfileTypeImage(fileType)) {
-          domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+          $(this.attachmentViewerNode).append(this.attachmentViewImageTemplate.apply(data, this));
           const tpl = this.downloadingTemplate.apply(this);
-          const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+          const dl = $(this.attachmentViewerNode).prepend(tpl);
           $(this.domNode).addClass('list-loading');
           const self = this;
           const attachmentid = entry.$key;
@@ -201,7 +199,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
                 height: image.height,
               };
               self._sizeImage(self.domNode, image);
-              domConstruct.place(image, 'imagePlaceholder', 'only');
+              $('#imagePlaceholder').empty().append(image);
               loaded = true;
             };
 
@@ -217,9 +215,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
           });
         } else { // View file type in Iframe
           if (this._viewImageOnly() === false) {
-            domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
             const tpl = this.downloadingTemplate.apply(this);
-            const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+            const dl = $(this.attachmentViewerNode).prepend(tpl);
             $(this.domNode).addClass('list-loading');
             const attachmentid = entry.$key;
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
@@ -234,18 +232,18 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
               this.setSrc(iframe, dataUrl);
             });
           } else { // Only view images
-            domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+            $(this.attachmentViewerNode).append(this.attachmentViewNotSupportedTemplate.apply(entry, this));
           }
         }
       } else { // File type not allowed
-        domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+        $(this.attachmentViewerNode).append(this.attachmentViewNotSupportedTemplate.apply(entry, this));
       }
     } else { // url Attachment
-      domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+      $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
       const url = am.getAttachmenturlByEntity(entry);
       $(this.domNode).addClass('list-loading');
       const tpl = this.downloadingTemplate.apply(this);
-      const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+      const dl = $(this.attachmentViewerNode).prepend(tpl);
       const iframe = document.getElementById('attachment-Iframe');
       iframe.onload = function iframeOnLoad() {
         $(dl).addClass('display-none');
@@ -298,11 +296,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     return false;
   },
   _sizeImage: function _sizeImage(containerNode, image) {
-    const contentBox = domGeom.getContentBox(containerNode);
+    const contentBox = $(containerNode);
     const iH = image.height;
     const iW = image.width;
-    let wH = contentBox.h;
-    let wW = contentBox.w;
+    let wH = contentBox.height();
+    let wW = contentBox.width();
     let scale = 1;
 
     if (wH > 200) {

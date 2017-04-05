@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
@@ -34,7 +33,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   getDefaultIndexPrefences: function getDefaultIndexPrefences() {
     const defaults = [];
     const self = this;
-    array.forEach(this.indexes, (index) => {
+    this.indexes.forEach((index) => {
       defaults.push({
         indexName: index.indexName,
         enabled: self._isIndexActive(index.indexName),
@@ -79,7 +78,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
       indexClicked: lang.hitch(this, function onIndexClicked(params) {
         const prefs = App.preferences && App.preferences.speedSearchIndexes;
 
-        const results = array.filter(prefs, (pref) => {
+        const results = prefs.filter((pref) => {
           return pref.indexName === params.indexname; // the index name is lower cased.
         });
         this.activateIndex(params.indexname);
@@ -115,7 +114,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
       for (const i in this.indexes) {
         if (this.indexes.hasOwnProperty(i)) {
           let index = this.indexes[i];
-          const indexPref = array.filter(prefs, function getIndexPref(pref) { // eslint-disable-line
+          const indexPref = prefs.filter((pref) => { // eslint-disable-line
             return pref.indexName === index.indexName;
           });
           index = this.indexes[i];

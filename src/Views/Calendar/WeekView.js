@@ -1,8 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
 import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
 import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
@@ -319,7 +317,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     // If we fetched a page that has no data due to un-reliable counts,
     // check if we fetched anything in the previous pages before assuming there is no data.
     if (feedLength === 0 && Object.keys(this.entries).length === 0) {
-      query(this.contentNode).append(this.noDataTemplate.apply(this));
+      $(this.contentNode).append(this.noDataTemplate.apply(this));
     } else if (feed.$resources) {
       if (todayNode && !entryGroups[this.todayDate.format(dateCompareString)]) {
         entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];
@@ -478,7 +476,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
       this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed.$totalResults - feedLength]));
     } else {
       $(this.eventContainerNode).removeClass('list-has-more');
-      domConstruct.empty(this.eventRemainingContentNode);
+      $(this.eventRemainingContentNode).empty();
     }
 
     this.set('eventListContent', o.join(''));
@@ -524,7 +522,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     this.set('listContent', this.loadingTemplate.apply(this));
   },
   selectEntry: function selectEntry(params) {
-    const row = query(params.$source).closest('[data-key]')[0];
+    const row = $(params.$source).closest('[data-key]')[0];
     const key = row ? row.getAttribute('data-key') : false;
 
     this.navigateToDetailView(key);
