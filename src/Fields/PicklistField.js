@@ -129,6 +129,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
           ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
       }
     }
+    // Can get a location code using this.owner.entry
     const picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
     if (picklistItem) {
       val = picklistItem;

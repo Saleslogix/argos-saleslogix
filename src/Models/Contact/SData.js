@@ -38,6 +38,7 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         'FirstName',
         'HomePhone',
         'LastName',
+        'LocationCode',
         'MiddleName',
         'Mobile',
         'Name',
@@ -53,6 +54,21 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         '$permissions',
       ],
     }];
+  },
+  getEntry: function getEntry(/* options */) {
+    const results$ = this.inherited(arguments);
+    return results$.then((entry) => {
+      return new Promise((resolve) => {
+        // TODO: Add picklist language option
+        Promise.all(App.picklistService.requestPicklist('Name Prefix', {
+          filterByLanguage: entry.LocationCode || App.context.localization.locale,
+        }), App.picklistService.requestPicklist('Name Suffix', {
+          filterByLanguage: entry.Locationcode || App.context.localization.locale,
+        })).then(() => {
+          resolve(entry);
+        });
+      });
+    });
   },
 });
 
