@@ -80,6 +80,7 @@ const __class = lang.setObject('crm.Environment', {
         const view = App.getView(viewId);
         if (view) {
           view.refreshRequired = true;
+          view.isRefreshing = false;
         }
       });
     }
