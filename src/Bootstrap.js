@@ -11,6 +11,7 @@ export default function bootstrap({
   legacyLocalizationFallback,
   localeFiles,
   isRegionMetric,
+  rootElement,
 }) {
   const ctx = window.L20n.getContext();
   const defaultCtx = window.L20n.getContext();
@@ -102,7 +103,7 @@ export default function bootstrap({
           instance.isRegionMetric = isRegionMetric;
           instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
-          instance.init();
+          instance.init(rootElement);
           instance.run();
           completed = true;
         });
