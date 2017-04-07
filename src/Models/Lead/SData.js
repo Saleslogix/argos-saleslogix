@@ -61,11 +61,11 @@ const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
   //   return results$.then((entry) => {
   //     return new Promise((resolve) => {
   //       // TODO: Add picklist language option
-  //       Promise.all(App.picklistService.requestPicklist('Name Prefix', {
+  //       Promise.all([App.picklistService.requestPicklist('Name Prefix', {
   //         filterByLanguage: entry.LocationCode || App.context.localization.locale,
   //       }), App.picklistService.requestPicklist('Name Suffix', {
   //         filterByLanguage: entry.Locationcode || App.context.localization.locale,
-  //       })).then(() => {
+  //       })]).then(() => {
   //         resolve(entry);
   //       });
   //     });
