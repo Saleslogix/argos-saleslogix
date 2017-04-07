@@ -1057,7 +1057,6 @@
 <ticketActivityItemDetail ""
   titleText: "工单活动部分"
   productNameText: "产品"
-
   skuText: "SKU"
   serialNumberText: "系列号"
   itemAmountText: "价格"

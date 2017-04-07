@@ -1057,7 +1057,6 @@
 <ticketActivityItemDetail ""
   titleText: "Partie de l'activité du ticket"
   productNameText: "produit"
-
   skuText: "Code Article"
   serialNumberText: "N° de série"
   itemAmountText: "Prix"
