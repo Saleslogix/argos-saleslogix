@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('speedSearchRightDrawerListMixin');
 

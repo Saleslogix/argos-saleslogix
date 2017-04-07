@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('ticketActivityList');
 const dtFormatResource = getResource('ticketActivityListDateTimeFormat');

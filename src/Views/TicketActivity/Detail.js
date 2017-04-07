@@ -5,7 +5,6 @@ import template from '../../Template';
 import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
 import 'dojo/NodeList-manipulate';
 
 const resource = getResource('ticketActivityDetail');

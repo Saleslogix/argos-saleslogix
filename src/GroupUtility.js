@@ -3,7 +3,6 @@ import format from './Format';
 import sdkFormat from 'argos/Format';
 import getResource from 'argos/I18n';
 
-import moment from 'moment';
 
 const dtFormatResource = getResource('groupUtilityDateTimeFormat');
 

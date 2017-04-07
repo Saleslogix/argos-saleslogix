@@ -11,8 +11,6 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
-import $ from 'jquery';
-import moment from 'moment';
 
 const resource = getResource('activityMyList');
 const hashTagResource = getResource('activityMyListHashTags');

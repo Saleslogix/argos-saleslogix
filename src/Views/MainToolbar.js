@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import has from 'dojo/has';
 import MainToolbar from 'argos/MainToolbar';
-import $ from 'jquery';
+
 
 /**
  * @class crm.Views.MainToolbar

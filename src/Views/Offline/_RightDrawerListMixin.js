@@ -1,7 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
-import $ from 'jquery';
+
 
 const mixinName = 'crm.Views.Offline._RightDrawerListMixin';
 

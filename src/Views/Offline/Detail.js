@@ -13,7 +13,7 @@ import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import lang from 'dojo/_base/lang';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('offlineDetail');
 export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {

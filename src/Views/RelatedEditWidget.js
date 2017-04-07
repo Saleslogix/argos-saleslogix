@@ -5,7 +5,7 @@ import connect from 'dojo/_base/connect';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Edit from 'argos/Edit';
-import $ from 'jquery';
+
 
 const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase], {
   cls: 'related-edit-widget',

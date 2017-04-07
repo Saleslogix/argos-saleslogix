@@ -6,7 +6,7 @@ import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('speedSearchList');
 

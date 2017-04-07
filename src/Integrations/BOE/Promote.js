@@ -13,7 +13,7 @@ import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import MODEL_NAMES from './Models/Names';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('promote');
 

@@ -1,12 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import $ from 'jquery';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
-import logo from '../../content/images/logo-64.png';
 import { setEndPoint } from '../actions/config';
-
-import page from 'page';
 
 const resource = getResource('login');
 
@@ -40,7 +36,6 @@ const __class = declare('crm.Views.Login', [Edit], {
 
   id: 'login',
   busy: false,
-  logo,
 
   // Localization
   copyrightText: resource.copyrightText,

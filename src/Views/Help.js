@@ -4,7 +4,7 @@ import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
 import 'dojo/NodeList-manipulate';
-import $ from 'jquery';
+
 
 const resource = getResource('help');
 

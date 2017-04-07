@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import $ from 'jquery';
 import ApplicationModule from 'argos/ApplicationModule';
 import Calendar from 'argos/Calendar';
 import 'argos/RelatedViewManager';

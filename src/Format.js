@@ -1,7 +1,8 @@
 import lang from 'dojo/_base/lang';
 import dojoNumber from 'dojo/number';
 import format from 'argos/Format';
-import { format as f } from '@infor/icrm-js-common';
+
+const f = ICRMCommonSDK.format;
 
 /**
  * @class crm.Format

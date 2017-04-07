@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import $ from 'jquery';
 import View from 'argos/View';
 import _ChartMixin from './_ChartMixin';
 

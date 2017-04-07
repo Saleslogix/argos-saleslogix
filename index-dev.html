@@ -52,42 +52,158 @@
   <link href="content/images/apple-touch-startup-image-320x480.png" media="(device-width: 320px) and (device-height: 480px)
              and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
+  <link rel="stylesheet" href="./node_modules/@infor/sohoxi/dist/css/light-theme.css">
+
+  <!-- less files -->
+  <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/crm.less" />
+  <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
+
+  <!-- less -->
+  <script type="text/javascript">
+    less = {
+      env: "development", // or "production"
+      async: false, // load imports async
+      fileAsync: false, // load imports async when in a page under
+      // a file protocol
+      poll: 1000, // when in watch mode, time in ms between polls
+      functions: {}, // user functions, keyed by name
+      dumpLineNumbers: "all", // or "mediaQuery" or "all"
+      relativeUrls: true, // whether to adjust url's to be relative
+      // if false, url's are already relative to the
+      // entry less file
+      rootpath: "" // a path to add on to the start of every url
+        //resource
+    };
+  </script>
+
+  <script type="text/javascript" src="./node_modules/less/dist/less.js"></script>
+
+  <!-- SData Client Library -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+
+  <!-- Simplate -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
+
+  <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
+
+  <!-- Deep Diff -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
+
+  <!-- Rx.js -->
+  <script src="./node_modules/rx-lite/rx.lite.js"></script>
+
+  <!-- Page.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
+
+  <!-- Babel -->
+  <script type="text/javascript" src="./node_modules/babel-polyfill/dist/polyfill.js"></script>
+
+  <!-- moment -->
+  <script type="text/javascript" src="./node_modules/moment/min/moment-with-locales.js"></script>
+
+  <!-- PouchDB -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/pouchdb/pouchdb-6.1.2.js"></script>
+
+  <!-- L20N.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
+
   <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="./node_modules/d3/d3.js"></script>
-  <script type="text/javascript" src="/dist/vendor.bundle.js"></script>
-  <script type="text/javascript" src="/dist/icrm.main.js"></script>
+  <script type="text/javascript" src="./node_modules/@infor/sohoxi/dist/js/sohoxi.js"></script>
+
+  <script type="text/javascript" src="./node_modules/redux/dist/redux.js"></script>
+
+  <!-- ICRM Common, depends on moment -->
+  <script type="text/javascript" src="./node_modules/@infor/icrm-js-common/dist/bundles/common.bundle.js"></script>
+  <script type="text/javascript" src="./node_modules/@infor/icrm-js-customization/dist/bundles/customization.bundle.js"></script>
+  <script type="text/javascript" src="./node_modules/@infor/icrm-js-services/dist/bundles/services.bundle.js"></script>
+
+  <!-- Dojo -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
 </head>
 
 <body>
   <div id="rootNode"></div>
   <script type="text/javascript">
-    icrm.main.development({
-      supportedLocales: [
-        'en',
-        'en-GB',
-        'de',
-        'fr',
-        'it',
-        'ru',
-        'zh-CN',
-        'zh-TW',
-        'es',
-        'pt',
-      ],
-      defaultLocale: 'en',
-      currentLocale: 'en',
-      parentLocale: 'en',
-      isRegionMetric: false,
-      localeFiles: [
-        './localization/locales/crm/en/strings.l20n',
-        './localization/locales/crm/en/regional.l20n',
-        './localization/locales/icboe/en/strings.l20n',
-        './localization/locales/icboe/en/regional.l20n',
-        './localization/locales/contour/en/strings.l20n',
-        '../../argos-sdk/localization/locales/argos/en/strings.l20n',
-        '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-      ],
+    require({
+      baseUrl: "./",
+      packages: [{
+        name: 'dojo',
+        location: '../../argos-sdk/libraries/dojo/dojo'
+      }, {
+        name: 'dijit',
+        location: '../../argos-sdk/libraries/dojo/dijit'
+      }, {
+        name: 'snap',
+        location: '../../argos-sdk/libraries/snap',
+        main: 'snap'
+      }, {
+        name: 'argos',
+        location: '../../argos-sdk/src-out'
+      }, {
+        name: 'crm',
+        location: 'src-out'
+      }, {
+        name: 'configuration',
+        location: 'configuration'
+      }, {
+        name: 'localization',
+        location: 'localization'
+      }],
+      map: {
+        '*': {
+          'Sage/Platform/Mobile': 'argos',
+          'Mobile/SalesLogix': 'crm',
+          'icboe': 'crm/Integrations/BOE'
+        }
+      }
     });
+  </script>
+
+  <script type="text/javascript">
+    (function() {
+      require(['crm/Bootstrap'], function(bootstrap) {
+        bootstrap({
+          supportedLocales: [
+            'en',
+            'en-GB',
+            'de',
+            'fr',
+            'it',
+            'ru',
+            'zh-CN',
+            'zh-TW',
+            'es',
+            'pt',
+          ],
+          defaultLocale: 'en',
+          currentLocale: 'en',
+          parentLocale: 'en',
+          isRegionMetric: false,
+          configuration: [
+            'configuration/development'
+          ],
+          application: 'crm/Application',
+          legacyLocalization: [
+            'localization/saleslogix/en'
+          ],
+          legacyLocalizationFallback: [
+            'localization/saleslogix/en'
+          ],
+          localeFiles: [
+            './localization/locales/crm/en/strings.l20n',
+            './localization/locales/crm/en/regional.l20n',
+            './localization/locales/icboe/en/strings.l20n',
+            './localization/locales/icboe/en/regional.l20n',
+            './localization/locales/contour/en/strings.l20n',
+            '../../argos-sdk/localization/locales/argos/en/strings.l20n',
+            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+          ]
+        });
+      });
+    })();
   </script>
 </body>
 

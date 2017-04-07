@@ -9,7 +9,7 @@ import utility from 'argos/Utility';
 import _ListBase from 'argos/_ListBase';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('acctPxSearch');
 

@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import $ from 'jquery';
 import has from 'dojo/has';
 
 /**

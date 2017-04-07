@@ -5,7 +5,7 @@ import SpeedSearchWidget from '../SpeedSearchWidget';
 import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('leftDrawer');
 
