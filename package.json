@@ -5,19 +5,16 @@
     "type": "git",
     "url": "https://github.com/Saleslogix/argos-saleslogix"
   },
-  "watch": {
-    "lint": "src/**/*.js",
-    "build": "src/**/*.js"
-  },
   "scripts": {
     "test": "yarn run build && grunt test",
     "testbasic": "grunt test:basic",
     "less": "grunt less",
     "start": "node scripts/server.js",
     "build": "babel src --out-dir src-out --source-maps inline",
+    "build:watch": "babel src --out-dir src-out --source-maps inline --watch",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
-    "watch": "npm-watch"
+    "watch": "yarn run build:watch"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -43,7 +40,6 @@
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "node-sass": "^4.5.0",
-    "npm-watch": "^0.1.8",
     "spdy": "^3.4.4"
   },
   "dependencies": {
