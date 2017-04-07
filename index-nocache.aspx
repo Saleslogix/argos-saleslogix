@@ -72,6 +72,7 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
+    <link type="text/css" rel="stylesheet" href="content/css/light-theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
