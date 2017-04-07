@@ -14,8 +14,7 @@ import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import SData from 'argos/Store/SData';
 import Utility from './Utility';
 import getResource from 'argos/I18n';
-import moment from 'moment';
-import $ from 'jquery';
+
 
 const resource = getResource('dashboardWidgetBase');
 

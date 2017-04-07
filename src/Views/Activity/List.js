@@ -12,7 +12,6 @@ import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
-import moment from 'moment';
 
 const resource = getResource('activityList');
 const hashTagResource = getResource('activityListHashTags');

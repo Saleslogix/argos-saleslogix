@@ -7,7 +7,7 @@ import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
-import $ from 'jquery';
+
 
 const resource = getResource('locPicker');
 

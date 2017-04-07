@@ -6,7 +6,6 @@ import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import getResource from 'argos/I18n';
 
-import moment from 'moment';
 
 const resource = getResource('activityRecurring');
 

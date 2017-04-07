@@ -7,7 +7,7 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import MetricWidget from '../../Views/MetricWidget';
 import DateRangeWidget from './DateRangeWidget';
 import _DashboardWidgetBase from './_DashboardWidgetBase';
-import $ from 'jquery';
+
 
 /**
  * @class crm.Views._DashboardWidgetBase

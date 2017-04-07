@@ -9,7 +9,7 @@ import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('groupListMixin');
 

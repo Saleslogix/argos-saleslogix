@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
-import $ from 'jquery';
+
 
 /**
  * @class crm.Views._MetricListMixin

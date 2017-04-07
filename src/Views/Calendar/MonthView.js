@@ -7,8 +7,6 @@ import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
-import moment from 'moment';
-import $ from 'jquery';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('calendarMonthView');

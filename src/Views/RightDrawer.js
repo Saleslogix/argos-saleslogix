@@ -1,7 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
-import $ from 'jquery';
+
 import GroupedList from 'argos/GroupedList';
 
 /**

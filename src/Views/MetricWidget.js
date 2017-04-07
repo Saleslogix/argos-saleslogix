@@ -8,7 +8,7 @@ import SDataStore from 'argos/Store/SData';
 import getResource from 'argos/I18n';
 import format from 'crm/Format';
 import aggregate from 'crm/Aggregate';
-import $ from 'jquery';
+
 
 const resource = getResource('metricWidget');
 

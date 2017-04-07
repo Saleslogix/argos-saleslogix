@@ -3,7 +3,7 @@ import validator from '../../Validator';
 import salesProcessUtility from '../../SalesProcessUtility';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('opportunityQuickEdit');
 

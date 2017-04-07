@@ -8,7 +8,7 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
-import moment from 'moment';
+
 
 const resource = getResource('historyList');
 const hashTagResource = getResource('historyListHashTags');

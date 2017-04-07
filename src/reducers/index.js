@@ -1,8 +1,7 @@
 import { config } from './config';
 import { user } from './user';
-import { combineReducers } from 'redux';
 
-export const app = combineReducers({
+export const app = Redux.combineReducers({
   user,
   config,
 });

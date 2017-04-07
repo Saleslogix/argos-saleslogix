@@ -5,7 +5,6 @@ import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
-import moment from 'moment';
 
 const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase], {
   id: 'history_offline_model',

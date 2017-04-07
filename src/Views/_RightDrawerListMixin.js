@@ -5,7 +5,7 @@ import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('rightDrawerListMixin');
 

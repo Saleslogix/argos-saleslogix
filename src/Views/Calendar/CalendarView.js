@@ -8,8 +8,6 @@ import Calendar from 'argos/Calendar';
 import List from 'argos/List';
 import Utility from '../../Utility';
 import getResource from 'argos/I18n';
-import moment from 'moment';
-import $ from 'jquery';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('calendarView');

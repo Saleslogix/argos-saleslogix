@@ -5,7 +5,7 @@ import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
-import $ from 'jquery';
+
 
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');

@@ -9,12 +9,10 @@ import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
-import { app } from './reducers';
+import { app } from './reducers/index';
 import { setConfig, setEndPoint } from './actions/config';
 import { setUser } from './actions/user';
-import { combineReducers } from 'redux';
-import $ from 'jquery';
-import moment from 'moment';
+
 
 const resource = getResource('application');
 
@@ -132,45 +130,40 @@ export default class Application extends SDKApplication {
   }
 
   init() {
-    return new Promise((resolve) => {
-      super.init(...arguments).then(() => {
-        // Dispatch the temp config we saved in the constructor
-        this.store.dispatch(setConfig(this._config));
-        this._config = null;
+    super.init(...arguments);
+    // Dispatch the temp config we saved in the constructor
+    this.store.dispatch(setConfig(this._config));
+    this._config = null;
 
-        this._loadNavigationState();
-        this._saveDefaultPreferences();
+    this._loadNavigationState();
+    this._saveDefaultPreferences();
 
-        let accessToken = null;
-        if (this.enableMingle) {
-          accessToken = this.mingleAuthResults.access_token;
-        }
+    let accessToken = null;
+    if (this.enableMingle) {
+      accessToken = this.mingleAuthResults.access_token;
+    }
 
-        this.UID = (new Date())
-          .getTime();
-        const original = Sage.SData.Client.SDataService.prototype.executeRequest;
-        const self = this;
-        Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
-          if (accessToken) {
-            request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
-            request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
-          }
+    this.UID = (new Date())
+      .getTime();
+    const original = Sage.SData.Client.SDataService.prototype.executeRequest;
+    const self = this;
+    Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
+      if (accessToken) {
+        request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+        request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+      }
 
-          request.setRequestHeader('X-Application-Name', self.appName);
-          const version = self.mobileVersion;
-          const id = self.UID;
-          request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
-          return original.apply(this, arguments);
-        };
-
-        resolve(true);
-      });
-    });
+      request.setRequestHeader('X-Application-Name', self.appName);
+      const version = self.mobileVersion;
+      const id = self.UID;
+      request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
+      return original.apply(this, arguments);
+    };
   }
 
   getReducer() {
     const sdk = super.getReducer(...arguments);
-    return combineReducers({
+    return Redux.combineReducers({
       sdk,
       app,
     });

@@ -9,7 +9,6 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
 import getResource from 'argos/I18n';
 
-import moment from 'moment';
 
 const resource = getResource('salesDashboardWidget');
 

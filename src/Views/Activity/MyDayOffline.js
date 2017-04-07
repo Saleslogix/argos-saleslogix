@@ -15,7 +15,6 @@ import MODEL_TYPES from 'argos/Models/Types';
 import convert from 'argos/Convert';
 import getResource from 'argos/I18n';
 
-import moment from 'moment';
 
 const resource = getResource('activityMyDayOffline');
 

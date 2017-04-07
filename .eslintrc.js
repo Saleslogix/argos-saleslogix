@@ -25,7 +25,14 @@ module.exports = {
     "Base64": false,
     "define": false,
     "require": false,
-    "FLAGS": false,
+    "moment": false,
+    "Rx": false,
+    "$": false,
+    "d3": false,
+    "Redux": false,
+    "page": false,
+    "ICRMCustomizationSDK": false,
+    "ICRMCommonSDK": false,
   },
   rules: {
     /**

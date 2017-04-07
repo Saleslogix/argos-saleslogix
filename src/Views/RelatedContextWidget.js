@@ -2,7 +2,7 @@ import declare from 'dojo/_base/declare';
 import aspect from 'dojo/aspect';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
-import $ from 'jquery';
+
 
 const __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase], {
 
