@@ -13,6 +13,9 @@ export function bootstrap({
   rootElement,
   modules,
   userConfig,
+  defaultCtx,
+  supportedLocales,
+  defaultLocale,
 }) {
   let mingleAuthResults;
   const ctx = window.ctx;
@@ -39,6 +42,13 @@ export function bootstrap({
   }
 
   const instance = new Application(appConfig);
+  instance.context.localization = {
+    localeContext: ctx,
+    defaultLocaleContext: defaultCtx,
+    locale: currentLocale || defaultLocale || 'en',
+    region: currentLocale || defaultLocale || 'en',
+    supportedLocales,
+  };
   instance.localeContext = ctx;
   instance.isRegionMetric = isRegionMetric;
   instance.mingleAuthResults = mingleAuthResults;

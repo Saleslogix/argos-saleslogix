@@ -190,7 +190,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
         if (pricingData.SlxLocationId) {
           this.fields.SlxLocation.setValue({
             $key: pricingData.SlxLocationId.value,
-            Description: pricingData.SlxLocationCode.value,
+            Name: pricingData.SlxLocationCode.value,
           });
         }
         if (pricingData.UnitOfMeasure) {

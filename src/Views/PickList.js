@@ -46,6 +46,15 @@ const __class = declare('crm.Views.PickList', [List], {
 
     this.inherited(arguments);
   },
+  requestData: function requestData() {
+    const picklist = this.app.picklistService.getPicklistByName(this.picklistName);
+    if (picklist) {
+      return this._onQueryComplete({ total: picklist.items.length }, picklist.items);
+    }
+    return this.app.picklistService.requestPicklist(this.picklistName)
+      .then(result => this._onQueryComplete({ total: result && result.items.length }, result && result.items),
+        err => this._onQueryError(null, err));
+  },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },

@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import string from 'dojo/string';
 import lang from 'dojo/_base/lang';
+import action from '../../Action';
 import format from '../../Format';
 import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
@@ -33,9 +34,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   notesText: resource.notesText,
   ownerText: resource.ownerText,
   phoneText: resource.phoneText,
-  activityTypeText: {
-    atPhoneCall: resource.phoneCallHistoryTitle,
-  },
   actionsText: resource.actionsText,
   relatedActivitiesText: resource.relatedActivitiesText,
   relatedContactsText: resource.relatedContactsText,
@@ -68,18 +66,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   modelName: MODEL_NAMES.ACCOUNT,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-    const view = App.getView(this.historyEditView);
-    if (view) {
-      this.refreshRequired = true;
-      view.show({
-        title: this.activityTypeText[type],
-        template: {},
-        entry,
-        insert: true,
-      }, {
-        complete,
-      });
-    }
+    action.navigateToHistoryInsert(entry, complete);
   },
   recordCallToHistory: function recordCallToHistory(complete) {
     const entry = {
@@ -111,6 +98,9 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         insert: true,
       });
     }
+  },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
@@ -148,6 +138,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         name: 'Status',
         property: 'Status',
         label: this.statusText,
+        renderer: this.formatPicklist('Status'),
       }, {
         name: 'AccountManager.UserInfo',
         property: 'AccountManager.UserInfo',
@@ -177,15 +168,18 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         name: 'Type',
         property: 'Type',
         label: this.typeText,
+        renderer: this.formatPicklist('Type'),
       }, {
         name: 'SubType',
         property: 'SubType',
         label: this.subTypeText,
+        renderer: format.picklist(this.app.picklistService, null, null, `Account ${this.entry.Type}`),
       }, {
         name: 'Industry',
         property: 'Industry',
         label: this.industryText,
         type: 'text',
+        renderer: this.formatPicklist('Industry'),
       }, {
         name: 'BusinessDescription',
         property: 'BusinessDescription',

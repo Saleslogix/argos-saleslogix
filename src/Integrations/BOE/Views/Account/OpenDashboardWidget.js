@@ -180,7 +180,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
               ` or ErpStatus eq "${this.partialPaidCode}"` +
               ` or ErpStatus eq "${this.disputeCode}"` +
              ')' +
-           `) and ${this.pastDays('DueDate')}`,
+           `) and ${this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal',
       },

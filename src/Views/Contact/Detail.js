@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
+import action from '../../Action';
 import format from '../../Format';
 import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
@@ -58,25 +59,14 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   // View Properties
   id: 'contact_detail',
   editView: 'contact_edit',
-  historyEditView: 'history_edit',
   noteEditView: 'history_edit',
   enableOffline: true,
   resourceKind: 'contacts',
   modelName: MODEL_NAMES.CONTACT,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-    const view = App.getView(this.historyEditView);
-    if (view) {
-      this.refreshRequired = true;
-
-      view.show({
-        template: {},
-        entry,
-        insert: true,
-      }, {
-        complete,
-      });
-    }
+    this.refreshRequired = true;
+    action.navigateToHistoryInsert(entry, complete);
   },
   recordCallToHistory: function recordCallToHistory(complete) {
     const entry = {

@@ -1,3 +1,4 @@
+import { CachingService } from '@infor/icrm-js-services';
 import array from 'dojo/_base/array';
 import connect from 'dojo/_base/connect';
 import json from 'dojo/json';
@@ -15,6 +16,7 @@ import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
+import PicklistService from './PicklistService';
 import { app } from './reducers';
 import { setUser } from './actions';
 import { combineReducers } from 'redux';
@@ -122,6 +124,9 @@ export default class Application extends SDKApplication {
       'recently_viewed_list',
       'briefcase_list',
     ];
+
+    this.picklistService = PicklistService;
+    this._cachingService = new CachingService(localStorage);
   }
 
   init() {
@@ -131,6 +136,8 @@ export default class Application extends SDKApplication {
 
     super.init(...arguments);
     this._loadNavigationState();
+
+    this.picklistService.init(this.getService(), this._cachingService);
 
     let accessToken = null;
     if (this.mingleEnabled) {

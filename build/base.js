@@ -6,7 +6,7 @@ module.exports = function() {
   return {
     entry: {
       main: './src/main.js',
-      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization'],
+      vendor: ['sdata-client-dependencies', 'sdata-client', 'canvas2image', 'deepdiff', 'chart', 'page', 'L20n', 'redux', 'snap', 'rxjs', 'moment', 'pouchdb-browser', '../../argos-sdk/libraries/Simplate.js', '@infor/icrm-js-common', '@infor/icrm-js-customization', '@infor/icrm-js-services'],
     },
     output: {
       path: path.resolve(__dirname, '../deploy/dist'),
