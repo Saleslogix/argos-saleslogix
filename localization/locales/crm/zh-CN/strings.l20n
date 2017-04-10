@@ -464,8 +464,6 @@
   viewAddressText: "查看地址"
   moreDetailsText: "更多明细"
   entityText: "联系人"
-  phoneCall: "电话呼叫"
-  email: "电子邮件"
 >
 
 <contactEdit ""
@@ -674,8 +672,6 @@
   calledText: "已致电 ${0}"
   emailedText: "已通过电子邮件联系 ${0}"
   entityText: "销售线索"
-  phoneCall: "电话呼叫"
-  email: "电子邮件"
 >
 
 <leadEdit ""
@@ -1062,7 +1058,7 @@
   titleText: "工单活动部分"
   productNameText: "产品"
   skuText: "SKU"
-  serialNumberText: "序列号"
+  serialNumberText: "系列号"
   itemAmountText: "价格"
   itemDescriptionText: "描述"
   entityText: "工单活动项"
@@ -1252,6 +1248,8 @@
 <action ""
   calledText: "已致电 ${0}"
   emailedText: "已通过电子邮件联系 ${0}"
+  phoneCall: "电话呼叫"
+  email: "电子邮件"
 >
 
 <application ""

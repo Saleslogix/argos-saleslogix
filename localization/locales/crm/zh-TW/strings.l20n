@@ -104,8 +104,8 @@
   durationText: "持續時間"
   durationInvalidText: "欄位「${2}」必須要有一個值。"
   carryOverNotesText: "沿用備註"
-  followUpText: "後續"
-  followUpTitleText: "後續類型"
+  followUpText: "後續追蹤"
+  followUpTitleText: "後續追蹤類型"
   leaderText: "負責人"
   longNotesText: "備註"
   longNotesTitleText: "備註"
@@ -464,8 +464,6 @@
   viewAddressText: "檢視地址"
   moreDetailsText: "更多詳細資料"
   entityText: "聯絡人"
-  phoneCall: "電話"
-  email: "電子郵件"
 >
 
 <contactEdit ""
@@ -557,7 +555,7 @@
 >
 
 <groupsSelector ""
-  titleText: "群組查閱"
+  titleText: "群組查找"
 >
 
 <historyDetail ""
@@ -674,8 +672,6 @@
   calledText: "已撥打 ${0}"
   emailedText: "已傳送電子郵件給 ${0}"
   entityText: "銷售線索"
-  phoneCall: "電話"
-  email: "電子郵件"
 >
 
 <leadEdit ""
@@ -805,7 +801,7 @@
   addActivityActionText: "新增活動"
   addAttachmentActionText: "新增附件"
   actualCloseText: "已關閉 "
-  estimatedCloseText: "預計關閉日期 "
+  estimatedCloseText: "預計關閉 "
   quickEditActionText: "快速編輯"
 >
 
@@ -833,7 +829,7 @@
   salesRoleText: "角色"
   strategyText: "策略"
   personalBenefitsText: "個人利益"
-  standingText: "聲譽"
+  standingText: "職位"
   issuesText: "問題"
   competitorNameText: "偏好競爭者"
   removeContactTitleText: "移除聯絡人"
@@ -852,8 +848,8 @@
   personalBenefitsText: "個人利益"
   strategyText: "策略"
   issuesText: "問題"
-  standingText: "聲譽"
-  standingTitleText: "聲譽"
+  standingText: "職位"
+  standingTitleText: "職位"
   contactText: "聯絡人"
   competitorPrefText: "偏好競爭者"
 >
@@ -1020,7 +1016,7 @@
   publicAccessText: "公開存取"
   assignedDateText: "開始日期"
   completedDateText: "結束日期"
-  followUpText: "後續"
+  followUpText: "後續追蹤"
   unitsText: "時間單位"
   elapsedUnitsText: "經歷時數"
   rateTypeDescriptionText: "費用類型"
@@ -1174,14 +1170,14 @@
   settingsText: "設定"
   helpText: "說明"
   logOutText: "登出"
-  logOutConfirmText: "您確定要登出？"
+  logOutConfirmText: "您確定要登出?"
   onlineText: "線上"
   offlineText: "離線"
   connectionText: "連線：${connectionStatus}"
 >
 
 <login ""
-  copyrightText: "版權所有&copy; 2017 Infor。著作權所有，並保留一切權利。www.infor.com"
+  copyrightText: "版權所有 &copy; 2017 Infor。著作權所有，並保留一切權利。www.infor.com"
   logOnText: "登入"
   passText: "密碼"
   rememberText: "記住我的帳戶"
@@ -1210,9 +1206,9 @@
   middleNameText: "中間名"
   lastNameText: "姓氏"
   prefixText: "首碼"
-  prefixTitleText: "名稱首碼"
+  prefixTitleText: "名字前尊稱"
   suffixText: "尾碼"
-  suffixTitleText: "名稱尾碼"
+  suffixTitleText: "名字後尊稱"
 >
 
 <settings ""
@@ -1252,6 +1248,8 @@
 <action ""
   calledText: "已撥打 ${0}"
   emailedText: "已傳送電子郵件給 ${0}"
+  phoneCall: "電話"
+  email: "電子郵件"
 >
 
 <application ""
@@ -1272,7 +1270,7 @@
 >
 
 <applicationModule ""
-  searchText: "查閱"
+  searchText: "查找"
   offlineDataText: "離線資料"
   offlineOptions: "離線選項"
   userInformationText: "使用者資訊"
