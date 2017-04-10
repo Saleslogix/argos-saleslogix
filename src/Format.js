@@ -1,6 +1,7 @@
 import lang from 'dojo/_base/lang';
 import format from 'argos/Format';
 import { format as f } from '@infor/icrm-js-common';
+import moment from 'moment';
 
 /**
  * @class crm.Format
