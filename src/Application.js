@@ -131,17 +131,16 @@ export default class Application extends SDKApplication {
   }
 
   init() {
-    super.init(...arguments);
-    // Dispatch the temp config we saved in the constructor
-    this.store.dispatch(setConfig(this._config));
-    this._config = null;
-
     // Must exist here for backwards compatibility for BOE Module
     this.picklistService = PicklistService;
 
     this._cachingService = new ICRMServicesSDK.CachingService(localStorage);
     this.picklistService.init(this.getService(), this._cachingService);
 
+    super.init(...arguments);
+    // Dispatch the temp config we saved in the constructor
+    this.store.dispatch(setConfig(this._config));
+    this._config = null;
     this._loadNavigationState();
     this._saveDefaultPreferences();
 
