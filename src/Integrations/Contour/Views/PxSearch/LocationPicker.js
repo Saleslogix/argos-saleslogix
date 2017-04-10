@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Infor (US), Inc. All rights reserved.
+ * Copyright (c) 2017, Infor (US), Inc. All rights reserved.
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';

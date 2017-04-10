@@ -55,6 +55,9 @@ const __class = lang.setObject('crm.GroupUtility', {
   createGroupRequest: function createGroupRequest(options) {
     const defaults = {
       queryName: 'execute',
+      queryArgs: {
+        language: App.context && App.context.localization && App.context.localization.locale,
+      },
     };
 
     return _createGroupRequest(lang.mixin(defaults, options));
@@ -71,6 +74,9 @@ const __class = lang.setObject('crm.GroupUtility', {
   createGroupMetricRequest: function createGroupMetricRequest(options) {
     const defaults = {
       queryName: 'executeMetric',
+      queryArgs: {
+        language: App.context && App.context.localization && App.context.localization.locale,
+      },
     };
 
     return _createGroupRequest(lang.mixin(defaults, options));

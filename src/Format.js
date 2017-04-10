@@ -1,5 +1,4 @@
 import lang from 'dojo/_base/lang';
-import dojoNumber from 'dojo/number';
 import format from 'argos/Format';
 
 const f = ICRMCommonSDK.format;
@@ -62,47 +61,36 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
   phoneFormat: f.phoneFormat,
   phone: f.phone,
+  picklist: (service, model, property, picklistName) => {
+    let name = picklistName;
+    if (!name) {
+      if (!service || !model || !property) {
+        return;
+      }
+      name = model.getPicklistNameByProperty(property);
+    }
+    const picklist = service.getPicklistByName(name);
+    // TODO: Update to picklist service enums
+    picklist.storage = 0;
+    picklist.display = 2;
+
+    return (val) => {
+      return f.picklist(val, picklist);
+    };
+  },
   currency: function currency(_val) {
     return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
   },
-  bigNumberAbbrText: {
-    billion: 'B',
-    million: 'M',
-    thousand: 'K',
-  },
+  bigNumberAbbrText: f.bigNumberAbbrText,
   bigNumber: function bigNumber(val) {
-    let numParse = typeof val !== 'number' ? parseFloat(val) : val;
-    const absVal = Math.abs(numParse);
-    const text = crm.Format.bigNumberAbbrText;
-
-    if (isNaN(numParse)) {
-      return val;
-    }
-
-    let results = numParse.toString();
-    if (absVal >= 1000000000) {
-      numParse = numParse / 1000000000;
-      results = dojoNumber.format(numParse, {
-        places: 1,
-      }) + text.billion;
-    } else if (absVal >= 1000000) {
-      numParse = numParse / 1000000;
-      results = dojoNumber.format(numParse, {
-        places: 1,
-      }) + text.million;
-    } else if (absVal >= 1000) {
-      numParse = numParse / 1000;
-      results = dojoNumber.format(numParse, {
-        places: 1,
-      }) + text.thousand;
-    } else {
-      results = dojoNumber.round(numParse, 2).toString();
-    }
-
-    return results;
+    const locale = App.context.localization.locale;
+    return f.bigNumber(val, locale);
   },
-  relativeDate: f.relativeDate,
+  relativeDate: function relativeDate(date, timeless) {
+    const val = f.date(date, timeless);
+    return moment(val).fromNow();
+  },
   multiCurrency: f.multiCurrency,
   nameLF: f.nameLF,
   mail: f.mail,

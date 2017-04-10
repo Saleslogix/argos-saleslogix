@@ -14,7 +14,7 @@ import InvoiceLineModule from './Modules/InvoiceLineModule';
 import InvoiceModule from './Modules/InvoiceModule';
 import OpportunityModule from './Modules/OpportunityModule';
 import PayFromModule from './Modules/PayFromModule';
-import PicklistService from './PicklistService';
+// import PicklistService from './PicklistService';
 import ProductModule from './Modules/ProductModule';
 import QuoteModule from './Modules/QuoteModule';
 import QuotePersonModule from './Modules/QuotePersonModule';
@@ -45,14 +45,14 @@ import './Models/UnitOfMeasure/Offline';
 import './Models/UnitOfMeasure/SData';
 import 'argos/TabWidget';
 
-const resource = getResource('icboeApplicationModule');
+// const resource = getResource('icboeApplicationModule');
 
 const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationModule], {
   modules: null,
   init: function init() {
     this.inherited(arguments);
 
-    App.picklistService = PicklistService;
+    // App.picklistService = PicklistService;
     App.enableDashboards = this.enableDashboards;
     this.modules = [
       new AccountAssociationModule(this),
@@ -237,17 +237,17 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
   },
   loadAppStatePromises: function loadAppStatePromises() {
     this.inherited(arguments);
-    this.registerAppStatePromise({
-      seq: 2,
-      description: resource.picklistsText,
-      items: [{
-        name: 'picklist-requests',
-        description: resource.retrievingPicklistsText,
-        fn: () => {
-          PicklistService.requestPicklists();
-        },
-      }],
-    });
+    // this.registerAppStatePromise({
+    //   seq: 2,
+    //   description: resource.picklistsText,
+    //   items: [{
+    //     name: 'picklist-requests',
+    //     description: resource.retrievingPicklistsText,
+    //     fn: () => {
+    //       PicklistService.requestPicklists();
+    //     },
+    //   }],
+    // });
   },
   registerDefaultViews: function registerDefaultViews() {
     const self = this;

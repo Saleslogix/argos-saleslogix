@@ -33,6 +33,7 @@ module.exports = {
     "page": false,
     "ICRMCustomizationSDK": false,
     "ICRMCommonSDK": false,
+    "ICRMServicesSDK": false
   },
   rules: {
     /**

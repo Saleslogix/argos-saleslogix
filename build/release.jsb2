@@ -208,6 +208,9 @@
           "text": "MingleUtility.js",
           "path": "../src-out/"
         }, {
+          "text": "PicklistService.js",
+          "path": "../src-out/"
+        }, {
           "text": "AreaCategoryIssueLookup.js",
           "path": "../src-out/Views/"
         }, {
@@ -340,9 +343,6 @@
           "text": "Bootstrap.localization.js",
           "path": "../src-out/"
         }, {
-          "text": "PicklistService.js",
-          "path": "../src-out/Integrations/BOE/"
-        }, {
           "text": "DateRangeWidget.js",
           "path": "../src-out/Integrations/BOE/"
         }, {
@@ -354,6 +354,9 @@
         }, {
           "text": "_Module.js",
           "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "PicklistService.js",
+          "path": "../src-out/Integrations/BOE/"
         }, {
           "text": "AccountPxSearch.js",
           "path": "../src-out/Integrations/Contour/Views/PxSearch/"
