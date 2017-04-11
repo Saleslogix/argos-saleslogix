@@ -43,7 +43,7 @@
     "spdy": "^3.4.4"
   },
   "dependencies": {
-    "@infor/icrm-js-common": "^0.1.0",
+    "@infor/icrm-js-common": "^0.1.1",
     "@infor/icrm-js-customization": "^0.1.0",
     "@infor/icrm-js-services": "^0.1.1",
     "@infor/sohoxi": "4.2.6-develop",
