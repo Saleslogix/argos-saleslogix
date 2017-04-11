@@ -1,0 +1,34 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Ver cuentas cercanas"
+  addressNotGeocodedErrorText: "No se han aplicado coordenadas geográficas a la dirección. No se pueden buscar cuentas cercanas."
+  accountsNearText: "Cuentas cerca de ${0}"
+  helpTitleText: "Ayuda de Contour"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Cuentas cerca de mí"
+  addActivityActionText: "Añadir actividad"
+  addAttachmentActionText: "Añadir archivo adjunto"
+  addNoteActionText: "Añadir nota"
+	callMainActionText: "Llamada principal"
+	currentLocationErrorText: "No se puede obtener su ubicación actual. No se puede buscar."
+	editActionText: "Editar"
+  faxAbbreviationText: "Fax: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Teléfono: "
+	titleText: "Cuentas cerca de mí"
+	viewContactsActionText: "Contactos"
+>
+
+<locPicker ""
+  accountsNearText: "Cuentas cerca de ${0}"
+	myHouseText: "Mi casa"
+	myOfficeText: "Mi oficina"
+	titleText: "Búsqueda de distancia de Contour"
+>
+
+<placeModel ""
+  entityDisplayName: "Ubicación"
+  entityDisplayNamePlural : "Lugares"
+>
