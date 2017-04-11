@@ -102,7 +102,7 @@
   completedText: "дата завершения"
   completionText: "Завершение"
   durationText: "длительность"
-  durationInvalidText: "Поле "${2}" должно иметь значение."
+  durationInvalidText: "Поле \"${2}\" должно иметь значение."
   carryOverNotesText: "Перенести заметки"
   followUpText: "последующее действие"
   followUpTitleText: "Тип последующего действия"
@@ -182,8 +182,8 @@
   categoryText: "категория"
   durationText: "длительность"
   durationTitleText: "Длительность"
-  durationInvalidText: "Поле "${2}" должно иметь значение."
-  reminderInvalidText: "Поле "напоминание" должно иметь значение."
+  durationInvalidText: "Поле \"${2}\" должно иметь значение."
+  reminderInvalidText: "Поле \"напоминание\" должно иметь значение."
   reminderTitleText: "Напоминание"
   leaderText: "организатор"
   longNotesText: "заметки"
@@ -612,7 +612,7 @@
   relatedItemsText: "Связанные элементы"
   yesText: "ДА"
   noText: "НЕТ"
-  validationText: "Поле "${2}" должно иметь значение."
+  validationText: "Поле \"${2}\" должно иметь значение."
   validationCanEditText: "У вас нет прав для редактирования"
 >
 
@@ -837,7 +837,7 @@
   issuesText: "Проблемы"
   competitorNameText: "Конкурент"
   removeContactTitleText: "Удалить контакт"
-  confirmDeleteText: "Удалить "${0}" из потенциальной сделки?"
+  confirmDeleteText: "Удалить \"${0}\" из потенциальной сделки?"
   contactText: "Контакт"
   entityText: "Контакт по потенциальной сделке"
 >
@@ -883,7 +883,7 @@
   baseAdjustedPriceText: "базовый"
   adjustedPriceText: "скорректированная цена"
   myAdjustedPriceText: "пользователь"
-  confirmDeleteText: "Удалить "${0}" из перспективных товаров?"
+  confirmDeleteText: "Удалить \"${0}\" из перспективных товаров?"
   removeOppProductTitleText: "удалить перспективный товар"
   entityText: "Перспективный товар"
 >
@@ -1479,15 +1479,15 @@
 >
 
 <validators ""
-  existsText: "Поле "${2}" должно иметь значение."
-  nameText: "В поле "${2}" необходимо указать имя и фамилию."
-  notEmptyText: "Поле "${2}" не может быть пустым."
-  hasText: "Поле "${2}" должно содержать текст."
-  isNumberText: "Значение "${0}" не является допустимым числом."
-  isCurrencyText: "Значение "${0}" является недопустимым числом для валюты."
-  int32Text: "Значение поля "${2}" превышает допустимый диапазон чисел."
-  maxLengthText: "Значение поля "${2}" превышает допустимый предел для длины."
-  dateRangeText: "Значение поля "${2}" находится вне допустимого диапазона дат."
+  existsText: "Поле \"${2}\" должно иметь значение."
+  nameText: "В поле \"${2}\" необходимо указать имя и фамилию."
+  notEmptyText: "Поле \"${2}\" не может быть пустым."
+  hasText: "Поле \"${2}\" должно содержать текст."
+  isNumberText: "Значение \"${0}\" не является допустимым числом."
+  isCurrencyText: "Значение \"${0}\" является недопустимым числом для валюты."
+  int32Text: "Значение поля \"${2}\" превышает допустимый диапазон чисел."
+  maxLengthText: "Значение поля \"${2}\" превышает допустимый предел для длины."
+  dateRangeText: "Значение поля \"${2}\" находится вне допустимого диапазона дат."
 >
 
 <activityListHashTags ""
