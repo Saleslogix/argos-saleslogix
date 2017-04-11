@@ -12,11 +12,11 @@ node('windows && nodejs') {
         bat 'yarn'
         bat 'yarn run lint'
         bat 'build\\release.cmd'
+        //bat 'yarn run testbasic'
       } catch (err) {
         slack.failure('Failed building argos-sdk')
         throw err
       }
-
       dir('deploy') {
         stash includes: '**/*.*', name: 'sdk'
       }

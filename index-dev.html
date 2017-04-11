@@ -128,10 +128,6 @@
 
   <!-- Dojo -->
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
-</head>
-
-<body>
-  <div id="rootNode"></div>
   <script type="text/javascript">
     require({
       baseUrl: "./",
@@ -141,10 +137,6 @@
       }, {
         name: 'dijit',
         location: '../../argos-sdk/libraries/dojo/dijit'
-      }, {
-        name: 'snap',
-        location: '../../argos-sdk/libraries/snap',
-        main: 'snap'
       }, {
         name: 'argos',
         location: '../../argos-sdk/src-out'
@@ -167,9 +159,18 @@
       }
     });
   </script>
+</head>
 
+<body>
+  <div id="rootNode"></div>
   <script type="text/javascript">
     (function() {
+
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function() {
+        return window.$;
+      });
+
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
           supportedLocales: [
@@ -206,7 +207,8 @@
             './localization/locales/contour/en/strings.l20n',
             '../../argos-sdk/localization/locales/argos/en/strings.l20n',
             '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-          ]
+          ],
+          rootElement: document.getElementById('rootNode')
         });
       });
     })();

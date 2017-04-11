@@ -21,6 +21,18 @@ const __class = declare('crm.Models.Account.Base', [_ModelBase], {
   detailViewId: 'account_detail',
   listViewId: 'account_list',
   editViewId: 'account_edit',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Account Type',
+      property: 'Type',
+    }, {
+      name: 'Account Status',
+      property: 'Status',
+    }, {
+      name: 'Industry',
+      property: 'Industry',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Addresses',

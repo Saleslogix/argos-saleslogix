@@ -112,6 +112,9 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
       });
     }
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.actionsText,
@@ -148,6 +151,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         name: 'Status',
         property: 'Status',
         label: this.statusText,
+        renderer: this.formatPicklist('Status'),
       }, {
         name: 'AccountManager.UserInfo',
         property: 'AccountManager.UserInfo',
@@ -177,15 +181,18 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         name: 'Type',
         property: 'Type',
         label: this.typeText,
+        renderer: this.formatPicklist('Type'),
       }, {
         name: 'SubType',
         property: 'SubType',
         label: this.subTypeText,
+        renderer: format.picklist(this.app.picklistService, null, null, `Account ${this.entry.Type}`),
       }, {
         name: 'Industry',
         property: 'Industry',
         label: this.industryText,
         type: 'text',
+        renderer: this.formatPicklist('Industry'),
       }, {
         name: 'BusinessDescription',
         property: 'BusinessDescription',

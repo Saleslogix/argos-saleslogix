@@ -12,6 +12,7 @@ import MingleUtility from './MingleUtility';
 import { app } from './reducers/index';
 import { setConfig, setEndPoint } from './actions/config';
 import { setUser } from './actions/user';
+import PicklistService from './PicklistService';
 
 
 const resource = getResource('application');
@@ -130,11 +131,16 @@ export default class Application extends SDKApplication {
   }
 
   init() {
+    // Must exist here for backwards compatibility for BOE Module
+    this.picklistService = PicklistService;
+
+    this._cachingService = new ICRMServicesSDK.CachingService(localStorage);
+    this.picklistService.init(this.getService(), this._cachingService);
+
     super.init(...arguments);
     // Dispatch the temp config we saved in the constructor
     this.store.dispatch(setConfig(this._config));
     this._config = null;
-
     this._loadNavigationState();
     this._saveDefaultPreferences();
 

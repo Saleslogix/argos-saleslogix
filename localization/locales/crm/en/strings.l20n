@@ -1165,8 +1165,8 @@
   footerText: "Other"
   settingsText: "Settings"
   helpText: "Help"
-  logOutText: "Log Out"
-  logOutConfirmText: "Are you sure you want to log out?"
+  logOutText: "Sign Off"
+  logOutConfirmText: "Are you sure you want to sign off?"
   onlineText: "Online"
   offlineText: "Offline"
   connectionText: "Connection: ${connectionStatus}"
@@ -1270,6 +1270,8 @@
   systemOptionsText: "System Options"
   userContextAndOptionsText: "User context and options"
   integrationsText: "Integrations"
+  picklistsText: "Picklists"
+  retrievingPicklistsText: "Retrieving Picklists"
 >
 
 <defaultMetrics ""

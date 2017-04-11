@@ -6,8 +6,12 @@ if exist deploy (
 
 mkdir deploy\localization
 mkdir deploy\help
+mkdir deploy\content\javascript
+mkdir deploy\content\images
+mkdir deploy\content\css
 
-call yarn run build:dist
+call grunt clean:css clean:js less
+call yarn run build
 
 REM .NET Build Tool
 ..\..\argos-sdk\tools\JsBit\jsbit.exe -p "build\release.jsb2" -d "."

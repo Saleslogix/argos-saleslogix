@@ -1,4 +1,4 @@
-﻿<%@ Page AutoEventWireup="true" Language="c#" Culture="auto" UICulture="auto" %>
+<%@ Page AutoEventWireup="true" Language="c#" Culture="auto" UICulture="auto" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="System.Globalization" %>
@@ -6,10 +6,7 @@
 <%@ Import Namespace="System.Text.RegularExpressions" %>
 <%@ Import Namespace="System.Web.Script.Serialization" %>
 <!DOCTYPE html>
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="gtie9 modern">
-<!--<![endif]-->
+<html lang="en-US" class="gtie9 modern">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -75,29 +72,88 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
+    <link type="text/css" rel="stylesheet" href="content/css/light-theme.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
+
+    <!-- Global (window) dependencies. Load these before the AMD loader -->
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
-    <script type="text/javascript" src="dist/vendor.bundle.js"></script>
-    <script type="text/javascript" src="dist/icrm.main.js"></script>
+
+    <!-- Dojo -->
+    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+
+    <script type="text/javascript">
+    require({
+        baseUrl: "./",
+        packages: [
+            { name: 'dojo', location: 'content/dojo/dojo' },
+            { name: 'dijit', location: 'content/dojo/dijit' },
+            { name: 'configuration', location: 'configuration' },
+            { name: 'localization', location: 'localization' }
+        ],
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm',
+                'icboe': 'crm/Integrations/BOE'
+            }
+        }
+    });
+    </script>
+    <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
+    <script type="text/javascript" src="content/javascript/argos-amd-dependencies.js"></script>
+    <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
+
+    <!-- Application -->
+    <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
+
     <!-- Modules -->
     <!--{{modules}}-->
 </head>
 <body>
   <div id="rootNode"></div>
+
   <script type="text/javascript">
-    icrm.main.production({
-      supportedLocales: <%= Serialize(
-            Enumerate(@"localization\locales\crm", (file) => true)
-                .Select(item => item.Directory.Name).Distinct()
-        ) %>,
-      defaultLocale: 'en',
-      currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
-      parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
-      isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
-      localeFiles: <%= Serialize(
-            Enumerate(@"localization", (file) => file.Extension == ".l20n")
-                .Select(item => item.Path)
-      ) %>
-    });
+    (function() {
+      // Set Soho culture path
+      window.Locale.culturePath = 'content/javascript/cultures';
+
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function() {
+        return window.$;
+      });
+
+      require(['crm/Bootstrap'], function(bootstrap) {
+        bootstrap({
+          supportedLocales: <%= Serialize(
+                Enumerate(@"localization\locales\crm", (file) => true)
+                    .Select(item => item.Directory.Name).Distinct()
+            ) %>,
+          defaultLocale: 'en',
+          currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
+          parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
+          isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
+          configuration: <%= Serialize(
+                  Enumerate("configuration", (file) => file.Name == "production.js")
+                      .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+              ) %>,
+          application: 'crm/Application',
+          legacyLocalization: <%= Serialize(
+              EnumerateLocalizations("localization")
+                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+          ) %>,
+          legacyLocalizationFallback: <%= Serialize(
+              EnumerateLocalizations(string.Empty, "localization", "en")
+                  .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+          ) %>,
+          localeFiles: <%= Serialize(
+                Enumerate(@"localization", (file) => file.Extension == ".l20n")
+                    .Select(item => item.Path)
+          ) %>,
+          rootElement: document.getElementById('rootNode')
+        });
+      });
+    })();
   </script>
 </body>
 </html>

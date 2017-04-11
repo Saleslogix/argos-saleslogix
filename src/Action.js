@@ -67,6 +67,12 @@ const __class = lang.setObject('crm.Action', {
       return;
     }
 
+    this.setSource({
+      entry: selection.data,
+      descriptor: selection.data.$descriptor,
+      key: selection.data.$key,
+    });
+
     lang.mixin(selection.data, {
       Type: 'atEmail',
       Description: string.substitute(crm.Action.emailedText, [selection.data.$descriptor]),

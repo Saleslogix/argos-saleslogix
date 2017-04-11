@@ -498,6 +498,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
         orderBy: 'text asc',
         title: this.noteDescriptionTitleText,
         type: 'picklist',
+        maxTextLength: 64,
+        validator: validator.exceedsMaxTextLength,
       }],
     }, {
       title: this.relatedItemsText,
