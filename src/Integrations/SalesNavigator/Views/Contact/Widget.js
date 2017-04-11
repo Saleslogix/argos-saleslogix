@@ -18,7 +18,7 @@ import SalesNavigatorUri from '../../SalesNavigatorUri';
  */
 const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_WidgetBase], {
   id: 'sales_navigator_base',
-  initSalesNavigator: function initSalesNavigator(entry, iframe, applyScript) {
+  initSalesNavigator: function initSalesNavigator(entry, container, applyScript) {
     const script = this.createEmptyScript().asJavascript();
     script.src = new SalesNavigatorUri().toString();
     applyScript(script);

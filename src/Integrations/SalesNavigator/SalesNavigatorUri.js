@@ -1,3 +1,5 @@
+import Format from 'argos/Format';
+
 const LEAD = 'lead';
 const ACCOUNT = 'account';
 
@@ -43,6 +45,8 @@ export default class SalesNavigatorUri {
     this.profile = 'lead';
     this.width = '320px';
     this.height = '360px';
+    this.crmRecordId = 'ABC123';
+    this.crmOrgId = 'DEF456';
   }
   asLead() {
     this.profile = LEAD;
@@ -68,14 +72,36 @@ export default class SalesNavigatorUri {
     this.lastName = name;
     return this;
   }
+  setEmail(email) {
+    if (this.profile !== LEAD) {
+      console.warn(`Unnecessary call to setLastName as profile is ${this.profile}... Expected ${LEAD}`); // eslint-disable-line
+      return this;
+    }
+    this.email = email;
+    return this;
+  }
+  setCompanyName(name) {
+    this.companyName = name;
+    return this;
+  }
+  setCompanyWebsite(url) {
+    this.companyWebsite = url;
+    return this;
+  }
+  setModules(modules) {
+    this.modules = modules;
+    return this;
+  }
   build() {
     const builder = {
       str: '',
       ifExistsAdd(prop, val) {
-        if (val && this.str) {
-          this.str = `${this.str}&${prop}=${val}`;
-        } else {
-          this.str = `${prop}=${val}`;
+        if (val) {
+          if (this.str) {
+            this.str = `${this.str}&${prop}=${val}`;
+          } else {
+            this.str = `${prop}=${val}`;
+          }
         }
       },
     };
@@ -88,6 +114,6 @@ export default class SalesNavigatorUri {
     return builder.str;
   }
   toString() {
-    return `https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`;
+    return Format.encode(`https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`);
   }
 }

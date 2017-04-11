@@ -20,22 +20,22 @@ const __class = declare('crm.Integrations.SalesNavigator._WidgetBase', [_Related
   titleText: resource.titleText,
 
   relatedContentTemplate: new Simplate([
-    '<iframe data-dojo-attach-point="iframeNode"></iframe>',
+    '<div data-dojo-attach-point="scriptContainerNode"></div>',
   ]),
 
   onLoad: function onLoad() {
     const entry = this.parentEntry;
-    const iframe = this.iframeNode;
+    const container = this.scriptContainerNode;
     const applyScript = (script) => {
-      iframe.contentWindow.document.body.appendChild(script);
+      container.appendChild(script);
     };
-    iframe.onload = () => {
-      this.initSalesNavigator(entry, iframe, applyScript);
-    };
+    // iframe.onload = () => {
+    this.initSalesNavigator(entry, container, applyScript);
+    // };
   },
   initSalesNavigator: function initSalesNavigator() {},
   createEmptyScript: function createEmptyScript() {
-    const script = this.iframeNode.contentWindow.document.createElement('script');
+    const script = document.createElement('script');
     script.asJavascript = function asJavascript() {
       this.type = 'text/javascript';
       return this;
