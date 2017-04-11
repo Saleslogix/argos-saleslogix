@@ -26,12 +26,16 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
    * @property {Boolean}
    * Add a flag so the view can opt-out of the right drawer if the mixin is used (_related views)
    */
-  disableRightDrawer: false,
+  // disableRightDrawer: false,
   toolsAdded: false,
 
   setupRightDrawer: function setupRightDrawer() {},
   loadRightDrawer: function loadRightDrawer() {
-    if (this.drawerLoaded || this.disableRightDrawer) {
+    // TODO: onTransitionAway is not called for "my schedule" nor is it called once local storage has group settings after first load
+    // This avoid drawer refresh to happen which causes list from prev view to load
+    // Aftter commenting out this code Drawer refresh is being called twice on each view change - find a way to call it once
+    // if (this.drawerLoaded || this.disableRightDrawer) {
+    if (this.disableRightDrawer) {
       return;
     }
 
@@ -39,7 +43,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.refresh();
-      this.drawerLoaded = true;
+      // this.drawerLoaded = true;
     }
   },
   show: function show(options) {
@@ -66,18 +70,6 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     if (this.disableRightDrawer) {
       return;
     }
-
-/*
-    if (tools) {
-      tools.tbar.unshift({
-        id: 'toggleRightDrawer',
-        cls: 'fa fa-ellipsis-v fa-fw fa-lg',
-        side: 'right',
-        fn: this.toggleRightDrawer,
-        scope: this,
-      });
-    }
-*/
   },
   onTransitionTo: function onTransitionTo() {
     if (this.disableRightDrawer) {
@@ -95,7 +87,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     if (drawer) {
       this.unloadRightDrawer();
       drawer.clear();
-      this.drawerLoaded = false;
+      // this.drawerLoaded = false;
     }
   },
 });
