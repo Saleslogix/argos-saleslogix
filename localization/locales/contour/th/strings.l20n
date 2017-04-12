@@ -1,0 +1,34 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "ดูบัญชีที่ใกล้เคียง"
+  addressNotGeocodedErrorText: "ที่อยู่ยังไม่ได้ทำรหัสทางภูมิศาสตร์ ไม่สามารถค้นหาบัญชีที่อยู่ใกล้เคียงได้"
+  accountsNearText: "บัญชีใกล้กับ ${0}"
+  helpTitleText: "วิธีใช้ Contour"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "บัญชีใกล้กับฉัน"
+  addActivityActionText: "เพิ่มกิจกรรม"
+  addAttachmentActionText: "เพิ่มสิ่งที่แนบ"
+  addNoteActionText: "เพิ่มหมายเหตุ"
+	callMainActionText: "การติดต่อหลัก"
+	currentLocationErrorText: "ไม่สามารถดึงที่ตั้งปัจจุบันของคุณได้ ไม่สามารถค้นหา"
+	editActionText: "แก้ไข"
+  faxAbbreviationText: "แฟกซ์: "
+	kilometerAbbrevText: "กม."
+	mileAbbrevText: "ไมล์"
+  phoneAbbreviationText: "โทรศัพท์: "
+	titleText: "บัญชีใกล้กับฉัน"
+	viewContactsActionText: "ที่ติดต่อ"
+>
+
+<locPicker ""
+  accountsNearText: "บัญชีใกล้กับ ${0}"
+	myHouseText: "บ้านของฉัน"
+	myOfficeText: "สำนักงานของฉัน"
+	titleText: "การค้นหาระยะห่าง Contour"
+>
+
+<placeModel ""
+  entityDisplayName: "สถานที่"
+  entityDisplayNamePlural : "สถานที่"
+>
