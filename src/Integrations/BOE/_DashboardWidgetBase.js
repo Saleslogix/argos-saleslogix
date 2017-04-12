@@ -414,8 +414,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     domConstruct.empty(widget.metricDetailNode);
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
-        // TODO: Security issue, use the new escape function in icrm-js-sdk common util
-        domConstruct.place(domConstruct.toDom(`<span class="metric-count">${data.countValue} ${(data.countTitle) ? data.countTitle : widget.countTitle}</span>`), widget.metricDetailNode);
+        domConstruct.place(domConstruct.toDom(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`), widget.metricDetailNode);
       }
       domConstruct.place(widget.itemTemplate.apply({ value: data.value }, widget), widget.metricDetailNode);
     } else {
