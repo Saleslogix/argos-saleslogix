@@ -379,26 +379,6 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   _onQueryError: function _onQueryError(error, widget) {
     domConstruct.place(widget.itemTemplate.apply({ value: error }, widget), widget.metricDetailNode, 'replace');
   },
-  _getCountfromView: function _getCountfromView(widget, obj) {
-    const view = App.getView(widget.navTo);
-    const options = {};
-
-    if (view) {
-      options.where = widget.activeFilter ? widget.activeFilter : '';
-      view.getListCount(options).then((result) => {
-        if (result >= 0) {
-          obj.count = result;
-          domConstruct.empty(widget.metricDetailNode);
-          domConstruct.place(domConstruct.toDom(`<span class="metric-count">${obj.count} ${obj.countTitle}</span>`), widget.metricDetailNode);
-          domConstruct.place(widget.itemTemplate.apply({ value: obj.value }, widget), widget.metricDetailNode);
-        }
-      }, (error) => {
-        console.warn(error); //eslint-disable-line
-        domConstruct.empty(widget.metricDetailNode);
-        domConstruct.place(widget.itemTemplate.apply({ value: obj.value }, widget), widget.metricDetailNode);
-      });
-    }
-  },
   _getCountValue: function _getCountValue(widget, obj) {
     const def = new Deferred();
     const queryArg = (this.queryArgs && this.queryArgs[obj.queryIndex]) ? this.queryArgs[obj.queryIndex] : null;
@@ -434,6 +414,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     domConstruct.empty(widget.metricDetailNode);
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
+        // TODO: Security issue, use the new escape function in icrm-js-sdk common util
         domConstruct.place(domConstruct.toDom(`<span class="metric-count">${data.countValue} ${(data.countTitle) ? data.countTitle : widget.countTitle}</span>`), widget.metricDetailNode);
       }
       domConstruct.place(widget.itemTemplate.apply({ value: data.value }, widget), widget.metricDetailNode);
