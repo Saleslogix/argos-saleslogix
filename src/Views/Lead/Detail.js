@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
+import action from '../../Action';
 import format from '../../Format';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
@@ -52,10 +53,6 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   calledText: resource.calledText,
   emailedText: resource.emailedText,
   entityText: resource.entityText,
-  activityTypeText: {
-    atPhoneCall: resource.phoneCall,
-    atEMail: resource.email,
-  },
 
   // View Properties
   id: 'lead_detail',
@@ -67,19 +64,8 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   modelName: MODEL_NAMES.LEAD,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-    const view = App.getView(this.historyEditView);
-    if (view) {
-      this.refreshRequired = true;
-
-      view.show({
-        title: this.activityTypeText[type],
-        template: {},
-        entry,
-        insert: true,
-      }, {
-        complete,
-      });
-    }
+    this.refreshRequired = true;
+    action.navigateToHistoryInsert(entry, complete);
   },
   recordCallToHistory: function recordCallToHistory(complete) {
     const entry = {

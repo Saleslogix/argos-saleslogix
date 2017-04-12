@@ -1,0 +1,34 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Accounts in de buurt weergeven"
+  addressNotGeocodedErrorText: "Het adres heeft geen geocode. Er kan niet worden gezocht naar accounts in de buurt."
+  accountsNearText: "Accounts in de buurt van ${0}"
+  helpTitleText: "Contour Help"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Accounts bij mij in de buurt"
+  addActivityActionText: "Activiteit toevoegen"
+  addAttachmentActionText: "Bijlage toevoegen"
+  addNoteActionText: "Notitie toevoegen"
+	callMainActionText: "Hooftelefoonnummer bellen"
+	currentLocationErrorText: "Uw huidige locatie kan niet worden geïdentificeerd. Er kan geen zoekopdracht worden uitgevoerd."
+	editActionText: "Bewerken"
+  faxAbbreviationText: "Fax: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Telefoon: "
+	titleText: "Accounts bij mij in de buurt"
+	viewContactsActionText: "Contactpersonen"
+>
+
+<locPicker ""
+  accountsNearText: "Accounts in de buurt van ${0}"
+	myHouseText: "Mijn huis"
+	myOfficeText: "Mijn kantoor"
+	titleText: "Contour-zoekopdracht nabije omgeving"
+>
+
+<placeModel ""
+  entityDisplayName: "Plaats"
+  entityDisplayNamePlural : "Plaatsen"
+>

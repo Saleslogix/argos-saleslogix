@@ -1062,7 +1062,7 @@
   titleText: "工单活动部分"
   productNameText: "产品"
   skuText: "SKU"
-  serialNumberText: "序列号"
+  serialNumberText: "系列号"
   itemAmountText: "价格"
   itemDescriptionText: "描述"
   entityText: "工单活动项"
@@ -1181,7 +1181,7 @@
 >
 
 <login ""
-  copyrightText: "版权所有 &copy; 2017 Infor。保留所有权利。www.infor.com"
+  copyrightText: "版权所有 &copy; 2016 Infor。保留所有权利。www.infor.com"
   logOnText: "登录"
   passText: "密码"
   rememberText: "记住我"
