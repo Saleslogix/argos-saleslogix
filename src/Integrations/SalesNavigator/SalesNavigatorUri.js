@@ -92,6 +92,14 @@ export default class SalesNavigatorUri {
     this.modules = modules;
     return this;
   }
+  setWidth(width) {
+    this.width = typeof width === 'number' ? `${width}px` : width;
+    return this;
+  }
+  setHeight(height) {
+    this.height = typeof height === 'number' ? `${height}px` : height;
+    return this;
+  }
   /**
    * Sets the URI as a responsive value with a subscribe function to listen to dimension changes
    * @param {*} observable - an object with a function called subscribe that the
@@ -104,10 +112,11 @@ export default class SalesNavigatorUri {
         if (!width || !height) {
           return;
         }
-        this.width = typeof width === 'number' ? `${width}px` : width;
-        this.height = typeof height === 'number' ? `${height}px` : height;
+        this.setWidth(width);
+        this.setHeight(height);
       });
     }
+    return this;
   }
   build() {
     const builder = {

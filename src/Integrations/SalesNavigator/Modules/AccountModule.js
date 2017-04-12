@@ -1,7 +1,7 @@
 import declare from 'dojo/_base/declare';
 import getResource from 'argos/I18n';
 import _Module from './_Module';
-import '../Views/Account/Widget';
+import AccountWidget from '../Views/Account/Widget';
 
 const resource = getResource('salesNavigator');
 
@@ -25,8 +25,8 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.AccountModule',
         children: [{
           name: 'AccountSalesNavigator',
           relatedView: {
-            widgetType: 'sales_navigator_account',
-            id: 'sales_navigator_account',
+            widgetType: AccountWidget.prototype.id,
+            id: AccountWidget.prototype.id,
           },
         }],
       },

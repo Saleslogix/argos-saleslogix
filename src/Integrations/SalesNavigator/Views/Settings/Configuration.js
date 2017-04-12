@@ -75,11 +75,11 @@ const __class = declare('crm.Integrations.SalesNavigator.Settings.Configuration'
     const leadWidgetType = WidgetTypes[entry.leads.smallWidgetType];
 
     entry.AccountResponsive = entry.accounts.isResponsive;
-    entry.AccountSmallWidgetType = accountWidgetType.text;
+    entry.AccountSmallWidgetType = resource[accountWidgetType.value] || accountWidgetType.text;
     entry.ContactResponsive = entry.contacts.isResponsive;
-    entry.ContactSmallWidgetType = contactWidgetType.text;
+    entry.ContactSmallWidgetType = resource[contactWidgetType.value] || contactWidgetType.text;
     entry.LeadResponsive = entry.leads.isResponsive;
-    entry.LeadSmallWidgetType = leadWidgetType.text;
+    entry.LeadSmallWidgetType = resource[leadWidgetType.value] || leadWidgetType.text;
 
     return entry;
   },
@@ -90,8 +90,8 @@ const __class = declare('crm.Integrations.SalesNavigator.Settings.Configuration'
     smallWidgetTypes.forEach((type) => {
       list.push({
         $key: WidgetTypes[type].value,
-        $descriptor: WidgetTypes[type].text,
-        description: WidgetTypes[type].description,
+        $descriptor: resource[type] || WidgetTypes[type].text,
+        description: resource[`${type}Description`] || WidgetTypes[type].description,
       });
     });
 

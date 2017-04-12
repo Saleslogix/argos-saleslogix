@@ -1,3 +1,5 @@
+import WidgetTypes from './WidgetTypes';
+
 export const SalesNavigatorStorageKey = 'crm_sales_navigator_settings';
 
 /**
@@ -33,6 +35,9 @@ export function setSettings(settings) {
   localStorage.setItem(SalesNavigatorStorageKey, JSON.stringify(settings));
 }
 
+/**
+ * Returns the defaults for Sales Navigator Settings
+ */
 export function defaultSettings() {
   return {
     accounts: {
@@ -48,4 +53,35 @@ export function defaultSettings() {
       smallWidgetType: 'simple',
     },
   };
+}
+
+/**
+ * Computes the size object based on the passed inputs
+ * @param {number} width represents the container width
+ * @param {string} preference code value of the widget type
+ * @return {Object} a size object representing width and height
+ */
+export function getSizeFromWidthAndPreference(width, preference) {
+  const smallWidgetTypePreference = WidgetTypes[preference];
+  const getSize = type => ({
+    width: WidgetTypes[type].width.minimum,
+    height: WidgetTypes[type].height.minimum,
+  });
+
+  // Breakpoint functions
+  const isTooSmall = value => value < WidgetTypes.simple.width.minimum;
+  const isSmallWidgetType = value => value < WidgetTypes.square.width.minimum;
+  const isMediumWidgetType = value => value < WidgetTypes.wide.width.minimum;
+
+  if (isTooSmall(width)) {
+    console.warn(`Container width is too small for the Sales Navigator Widget... needs ${WidgetTypes.simple.width.minimum}`);
+    return;
+  }
+  if (isSmallWidgetType(width)) {
+    return getSize(smallWidgetTypePreference);
+  }
+  if (isMediumWidgetType(width)) {
+    return getSize('square');
+  }
+  return getSize('wide');
 }
