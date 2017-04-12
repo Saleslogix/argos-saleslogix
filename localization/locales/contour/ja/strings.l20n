@@ -1,0 +1,34 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "近隣の取引先の表示"
+  addressNotGeocodedErrorText: "住所がジオコードされていません。近隣の取引先を検索できません。"
+  accountsNearText: "${0} 近くの取引先"
+  helpTitleText: "Contour ヘルプ"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "自分の近くの取引先"
+  addActivityActionText: "アクティビティの追加"
+  addAttachmentActionText: "添付の追加"
+  addNoteActionText: "メモの追加"
+	callMainActionText: "代表番号に発信"
+	currentLocationErrorText: "現在の場所を取得できません。検索できません。"
+	editActionText: "編集"
+  faxAbbreviationText: "FAX: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "電話番号: "
+	titleText: "自分の近くの取引先"
+	viewContactsActionText: "連絡先"
+>
+
+<locPicker ""
+  accountsNearText: "${0} 近くの取引先"
+	myHouseText: "自宅"
+	myOfficeText: "自分の勤務先"
+	titleText: "Contour 距離検索"
+>
+
+<placeModel ""
+  entityDisplayName: "場所"
+  entityDisplayNamePlural : "場所"
+>

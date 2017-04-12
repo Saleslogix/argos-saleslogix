@@ -6,11 +6,11 @@
   backOffice: "BackOffice:"
   accountingEntity: "系統會計實體："
   cancelText: "取消"
-  promoteText: "升級"
-  noBackOfficesText: "系統中沒有發現後端辦公室。必須等到提供後端辦公室才能升級客戶。"
-  promotionRequested: "已要求升級"
-  promotionText: "已成功提交項目進行升級。"
-  errorMessage: "升級客戶原因時發生錯誤：${reason}"
+  promoteText: "升階"
+  noBackOfficesText: "系統中沒有發現後端辦公室。必須等到提供後端辦公室才能升階客戶。"
+  promotionRequested: "已要求升階"
+  promotionText: "已成功提交項目進行升階。"
+  errorMessage: "升階客戶時發生錯誤，原因：${reason}"
 >
 
 <backOfficesList ""
@@ -92,13 +92,13 @@
 >
 
 <erpShipToModel ""
-  entityDisplayName: "出貨地址"
+  entityDisplayName: "收貨方"
   entityDisplayNamePlural: "收貨方"
 >
 
 <erpShipToAccountModel ""
-  entityDisplayName: "出貨地址客戶"
-  entityDisplayNamePlural: "出貨地址客戶"
+  entityDisplayName: "收貨方客戶"
+  entityDisplayNamePlural: "收貨方客戶"
 >
 
 <operatingCompanyModel ""
@@ -231,10 +231,10 @@
   hasWonErrorText: "如果有任何報價的版本狀態為「贏得」，則您無法轉換報價。"
   wonStatusCode: "贏得"
   convertQuoteText: "轉換為銷售訂單"
-  promoteQuoteText: "升級報價"
+  promoteQuoteText: "升階報價"
   getQuoteTotalText: "取得總計報價"
   convertQuoteMessage: "目前報價未在作用中。是否要啟動並轉換為銷售訂單？"
-  needToPromoteAccount: "在將報價轉換為銷售訂單時，您必須先升級客戶。您是否要瀏覽至客戶以升級？"
+  needToPromoteAccount: "在將報價轉換為銷售訂單時，您必須先升階客戶。您是否要瀏覽至客戶以升階？"
   billingAddressText: "帳單地址"
   shippingAddressText: "收貨地址"
   entityText: "報價"
@@ -290,7 +290,7 @@
   customerRFQText: "客戶 RFQ 號碼"
   currencyText: "貨幣"
   billingContactText: "帳單聯絡人"
-  shippingContactText: "出貨聯絡人"
+  shippingContactText: "收貨聯絡人"
   backOfficeText: "後端辦公室"
   accountingEntityText: "會計實體"
   warehouseText: "倉庫"
@@ -530,8 +530,8 @@
   viewAccountActionText: "檢視客戶"
   totalAmountText: "總計金額"
   totalBaseAmountText: "總計基準金額"
-  extendedAmountText: "擴充金額"
-  extendedBaseAmountText: "擴充基準金額"
+  extendedAmountText: "總金額"
+  extendedBaseAmountText: "基準貨幣總金額"
   documentDateText: "文件日期"
 >
 
@@ -640,7 +640,7 @@
   erpStatusText: "狀態"
   erpStatusDateText: "狀態日期"
   warehouseLocationText: "倉庫位置"
-  partialShipAllowedText: "允許的部分出貨"
+  partialShipAllowedText: "允許部分出貨"
   grossWeightText: "總重"
   declaredValueText: "宣告值"
   shipmentTotalAmountText: "總計金額"
@@ -689,7 +689,7 @@
   shipToText: "收貨方"
   billToText: "帳單收件者"
   salesPersonText: "銷售員"
-  entityText: "出貨地址客戶"
+  entityText: "收貨方客戶"
 >
 
 <erpShipToAccountsList ""
@@ -883,7 +883,7 @@
   shipmentItemsText: "貨運行"
   syncHistoryText: "同步歷程記錄"
   entityText: "銷售訂單"
-  promoteOrderText: "升級銷售訂單"
+  promoteOrderText: "升階銷售訂單"
   getOrderTotalText: "取得訂單總計"
   addLineItemsText: "新增行項目"
   syncStatusText: "同步狀態"
@@ -943,7 +943,7 @@
   logicalIdText: "邏輯 ID"
   accountingEntityIdText: "會計實體 ID"
   ownerText: "擁有者"
-  shipToText: "出貨地址"
+  shipToText: "收貨方"
   accountsText: "客戶"
   salesOrdersText: "銷售訂單"
   contactAssociationsText: "聯絡人關聯"
@@ -973,7 +973,7 @@
 >
 
 <erpShipTosList ""
-  titleText: "出貨地址"
+  titleText: "收貨方"
 >
 <icboeApplicationModule ""
   picklistsText: "揀貨清單"
@@ -981,10 +981,10 @@
 >
 
 <erpShipTosDetail ""
-  titleText: "出貨地址"
+  titleText: "收貨方"
   moreDetailsText: "更多詳細資料"
   relatedItemsText: "相關項目"
-  entityText: "出貨地址"
+  entityText: "收貨方"
   backOfficeIdText: "收貨方 ID"
   nameText: "名稱"
   faxText: "傳真"
@@ -1008,7 +1008,7 @@
 >
 
 <erpShipTosEdit ""
-  titleText: "出貨地址"
+  titleText: "收貨方"
   nameText: "名稱"
   phoneText: "電話"
   emailText: "電子郵件"
@@ -1057,7 +1057,7 @@
   newTransactionsText: "新增交易"
   openTransactionsText: "未結交易"
   financialSnapshotText: "財務快照"
-  promoteText: "升級"
+  promoteText: "升階"
   addQuoteText: "新增報價"
   addOrderText: "新增訂單"
   syncHistoryText: "同步歷程記錄"
