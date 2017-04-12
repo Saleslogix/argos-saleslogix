@@ -145,6 +145,10 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         this._startGroupMode();
         const groupId = params.$key;
 
+        $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
+          $(a).attr('data-enabled', (($(a).attr('data-$key') === groupId)).toString());
+        });
+
         const group = this.groupList.filter((item) => {
           return item.$key === groupId;
         })[0];
@@ -280,6 +284,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         iconCls: 'fa fa-cog fa-fw ',
       });
 
+      const defaultGroup = GroupUtility.getDefaultGroup(this.entityName);
       if (this.groupList && this.groupList.length > 0) {
         this.groupList.forEach((group) => {
           groupsSection.children.push({
@@ -289,6 +294,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
             dataProps: {
               $key: group.$key,
               title: group.displayName,
+              enabled: defaultGroup.$key === group.$key,
             },
           });
         });
