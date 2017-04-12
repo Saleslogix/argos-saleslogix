@@ -7,7 +7,7 @@ import _WidgetBase from '../../_WidgetBase';
 import SalesNavigatorUri from '../../SalesNavigatorUri';
 
 const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBase], {
-  id: 'sales_navigator_base',
+  id: 'sales_navigator_lead',
   initSalesNavigator: function initSalesNavigator(entry, container, applyScript) {
     const script = this.createEmptyScript().asJavascript();
     script.src = new SalesNavigatorUri()
@@ -23,5 +23,5 @@ const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBa
 });
 
 const rvm = new RelatedViewManager();
-rvm.registerType('sales_navigator_lead', __class);
+rvm.registerType(__class.prototype.id, __class);
 export default __class;

@@ -1,13 +1,13 @@
 import declare from 'dojo/_base/declare';
+import getResource from 'argos/I18n';
 import _Module from './_Module';
-import '../Views/Lead/Widget';
+import LeadWidget from '../Views/Lead/Widget';
+
+const resource = getResource('salesNavigator');
 
 const __class = declare('crm.Integrations.SalesNavigator.Modules.LeadModule', [_Module], {
-  init: function init() {
-  },
-  loadViews: function loadViews() {
-    // const am = this.applicationModule;
-  },
+  init: function init() {},
+  loadViews: function loadViews() {},
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
 
@@ -18,22 +18,21 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.LeadModule', [_
       type: 'insert',
       where: 'before',
       value: {
-        title: 'Sales Navigator',
+        title: resource.salesNavigator,
         list: true,
         name: 'SalesNavigatorSection',
         enableOffline: false,
         children: [{
           name: 'LeadSalesNavigator',
           relatedView: {
-            widgetType: 'sales_navigator_lead',
-            id: 'sales_navigator_lead',
+            widgetType: LeadWidget.prototype.id,
+            id: LeadWidget.prototype.id,
           },
         }],
       },
     });
   },
-  loadToolbars: function loadToolbars() {
-  },
+  loadToolbars: function loadToolbars() {},
 });
 
 export default __class;

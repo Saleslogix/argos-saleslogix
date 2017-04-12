@@ -4,9 +4,7 @@
 import declare from 'dojo/_base/declare';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
-import getResource from 'argos/I18n';
-
-const resource = getResource('salesNavigatorWidgetBase');
+import { createEmptyScript as serviceScriptCreate } from './SalesNavigatorService';
 
 /**
  * @class crm.Views._DashboardWidgetBase
@@ -17,7 +15,6 @@ const resource = getResource('salesNavigatorWidgetBase');
  */
 const __class = declare('crm.Integrations.SalesNavigator._WidgetBase', [_RelatedViewWidgetBase], {
   id: 'sales_navigator_base',
-  titleText: resource.titleText,
 
   relatedContentTemplate: new Simplate([
     '<div data-dojo-attach-point="scriptContainerNode"></div>',
@@ -35,12 +32,7 @@ const __class = declare('crm.Integrations.SalesNavigator._WidgetBase', [_Related
   },
   initSalesNavigator: function initSalesNavigator() {},
   createEmptyScript: function createEmptyScript() {
-    const script = document.createElement('script');
-    script.asJavascript = function asJavascript() {
-      this.type = 'text/javascript';
-      return this;
-    };
-    return script;
+    return serviceScriptCreate();
   },
 });
 

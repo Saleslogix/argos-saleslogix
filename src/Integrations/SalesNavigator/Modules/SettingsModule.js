@@ -1,10 +1,19 @@
 import declare from 'dojo/_base/declare';
+import getResource from 'argos/I18n';
+import SelectList from 'crm/Views/SelectList';
 import _Module from './_Module';
 import SalesNavigatorConfigurationView from '../Views/Settings/Configuration';
+import { defaultSettings, getSettings, setSettings } from '../SalesNavigatorService';
+
+const resource = getResource('salesNavigator');
 
 const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule', [_Module], {
   init: function init() {
     const application = this.applicationModule.application;
+    application.initNavigatorSettings = this.loadNavigatorSettingsOrDefault;
+    application.saveNavigatorSettings = (settings) => {
+      setSettings(settings);
+    };
     application.salesNavigatorSettings = this.loadNavigatorSettingsOrDefault();
   },
   loadViews: function loadViews() {
@@ -14,9 +23,14 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
       groupsEnabled: false,
       disableRightDrawer: true,
       expose: false,
-      createToolLayout: function createToolLayout() {
-        return this.tools;
-      },
+    }));
+
+    am.registerView(new SelectList({
+      id: 'sales_navigator_select_list',
+      itemTemplate: new Simplate([
+        '<h3>{%: $.$descriptor %}</h3>',
+        '<h5>{%: $.description %}</h5>',
+      ]),
     }));
   },
   loadCustomizations: function loadCustomizations() {
@@ -25,7 +39,7 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
       init,
     } = crm.Views.Settings.prototype;
     crm.Views.Settings.prototype.salesNavigatorConfiguration = function salesNavigatorConfiguration() {
-      const view = this.app.getView('sales_navigator_configuration_edit');
+      const view = this.app.getView(SalesNavigatorConfigurationView.prototype.id);
       if (view) {
         view.show();
       }
@@ -34,33 +48,19 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
       init.apply(this, args);
       // createActions.apply(this, args);
       this.actions.salesNavigatorConfiguration = {
-        title: 'Sales Navigator Configuration',
+        title: resource.salesNavigatorConfiguration,
         cls: 'fa fa-linkedin-square fa-2x',
       };
       this.actionOrder.push('salesNavigatorConfiguration');
     };
   },
-  loadToolbars: function loadToolbars() {
-  },
+  loadToolbars: function loadToolbars() {},
   loadNavigatorSettingsOrDefault: function loadNavigatorSettingsOrDefault() {
-    const settings = localStorage.getItem('salesNavigatorSettings');
+    const settings = getSettings();
     if (settings) {
       return settings;
     }
-    return {
-      accounts: {
-        isResponsive: true,
-        smallScreenView: 'simple',
-      },
-      contacts: {
-        isResponsive: true,
-        smallScreenView: 'simple',
-      },
-      leads: {
-        isResponsive: true,
-        smallScreenView: 'simple',
-      },
-    };
+    return defaultSettings();
   },
 });
 

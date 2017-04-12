@@ -47,103 +47,6 @@ export default class SalesNavigatorUri {
     this.height = '360px';
     this.crmRecordId = 'ABC123';
     this.crmOrgId = 'DEF456';
-    // Layout values in 'px'
-    this.responsiveLayout = {
-      account: {
-        simple: {
-          width: {
-            minimum: 320,
-            maximum: 638,
-          },
-          height: {
-            minimum: 360,
-          },
-        },
-        mini: {
-          width: {
-            minimum: 320,
-            maximum: 638,
-          },
-          height: {
-            minimum: 516,
-          },
-        },
-        tall: {
-          width: {
-            minimum: 320,
-            maximum: 638,
-          },
-          height: {
-            minimum: 820,
-          },
-        },
-        square: {
-          width: {
-            minimum: 640,
-            maximum: 962,
-          },
-          height: {
-            minimum: 524,
-          },
-        },
-        wide: {
-          width: {
-            minimum: 944,
-            maximum: 1680,
-          },
-          height: {
-            minimum: 524,
-          },
-        },
-      },
-      lead: {
-        simple: {
-          width: {
-            minimum: 320,
-            maximum: 638,
-          },
-          height: {
-            minimum: 360,
-          },
-        },
-        mini: {
-          width: {
-            minimum: 320,
-            maximum: 638,
-          },
-          height: {
-            minimum: 516, // Could also be 404
-          },
-        },
-        tall: {
-          width: {
-            minimum: 320,
-            maximum: 638,
-          },
-          height: {
-            minimum: 820,
-          },
-        },
-        square: {
-          width: {
-            minimum: 640,
-            maximum: 962,
-          },
-          height: {
-            minimum: 524,
-          },
-        },
-        wide: {
-          width: {
-            minimum: 944,
-            maximum: 1680,
-          },
-          height: {
-            minimum: 524,
-          },
-        },
-      },
-    };
   }
   asLead() {
     this.profile = LEAD;
@@ -188,6 +91,23 @@ export default class SalesNavigatorUri {
   setModules(modules) {
     this.modules = modules;
     return this;
+  }
+  /**
+   * Sets the URI as a responsive value with a subscribe function to listen to dimension changes
+   * @param {*} observable - an object with a function called subscribe that the
+   *  URI can listen to in order to adjust its layout based on the passed type.
+   *    Subscribe expects to receive the width and height as parameters
+   */
+  setResponsive(observable) {
+    if (observable && observable.subscribe) {
+      observable.subscribe((width, height) => {
+        if (!width || !height) {
+          return;
+        }
+        this.width = typeof width === 'number' ? `${width}px` : width;
+        this.height = typeof height === 'number' ? `${height}px` : height;
+      });
+    }
   }
   build() {
     const builder = {

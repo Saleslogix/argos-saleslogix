@@ -1,13 +1,13 @@
 import declare from 'dojo/_base/declare';
+import getResource from 'argos/I18n';
 import _Module from './_Module';
 import '../Views/Contact/Widget';
 
+const resource = getResource('salesNavigator');
+
 const __class = declare('crm.Integrations.SalesNavigator.Modules.ContactModule', [_Module], {
-  init: function init() {
-  },
-  loadViews: function loadViews() {
-    // const am = this.applicationModule;
-  },
+  init: function init() {},
+  loadViews: function loadViews() {},
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
 
@@ -18,7 +18,7 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.ContactModule',
       type: 'insert',
       where: 'before',
       value: {
-        title: 'Sales Navigator',
+        title: resource.salesNavigator,
         list: true,
         name: 'SalesNavigatorSection',
         enableOffline: false,
@@ -32,8 +32,7 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.ContactModule',
       },
     });
   },
-  loadToolbars: function loadToolbars() {
-  },
+  loadToolbars: function loadToolbars() {},
 });
 
 export default __class;
