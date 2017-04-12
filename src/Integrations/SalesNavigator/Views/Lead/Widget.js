@@ -6,7 +6,7 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import _WidgetBase from '../../_WidgetBase';
 import SalesNavigatorUri from '../../SalesNavigatorUri';
 
-const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_WidgetBase], {
+const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBase], {
   id: 'sales_navigator_base',
   initSalesNavigator: function initSalesNavigator(entry, container, applyScript) {
     const script = this.createEmptyScript().asJavascript();
@@ -15,7 +15,7 @@ const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_Widge
       .setFirstName(entry.FirstName)
       .setLastName(entry.LastName)
       .setEmail(entry.Email)
-      .setCompanyName(entry.AccountName)
+      .setCompanyName(entry.Company)
       .setCompanyWebsite(entry.WebAddress)
       .toString();
     applyScript(script);
@@ -23,5 +23,5 @@ const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_Widge
 });
 
 const rvm = new RelatedViewManager();
-rvm.registerType('sales_navigator_contact', __class);
+rvm.registerType('sales_navigator_lead', __class);
 export default __class;

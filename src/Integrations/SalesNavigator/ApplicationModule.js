@@ -1,17 +1,21 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import ApplicationModule from 'argos/ApplicationModule';
+import AccountModule from './Modules/AccountModule';
 import ContactModule from './Modules/ContactModule';
+import LeadModule from './Modules/LeadModule';
+import SettingsModule from './Modules/SettingsModule';
 
 const __class = declare('crm.Integrations.SalesNavigator.ApplicationModule', [ApplicationModule], {
   modules: null,
   init: function init() {
     this.inherited(arguments);
 
-    // App.picklistService = PicklistService;
-    App.enableDashboards = this.enableDashboards;
     this.modules = [
+      new AccountModule(this),
       new ContactModule(this),
+      new LeadModule(this),
+      new SettingsModule(this),
     ];
 
     this.modules.forEach((mod) => {

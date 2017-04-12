@@ -47,6 +47,103 @@ export default class SalesNavigatorUri {
     this.height = '360px';
     this.crmRecordId = 'ABC123';
     this.crmOrgId = 'DEF456';
+    // Layout values in 'px'
+    this.responsiveLayout = {
+      account: {
+        simple: {
+          width: {
+            minimum: 320,
+            maximum: 638,
+          },
+          height: {
+            minimum: 360,
+          },
+        },
+        mini: {
+          width: {
+            minimum: 320,
+            maximum: 638,
+          },
+          height: {
+            minimum: 516,
+          },
+        },
+        tall: {
+          width: {
+            minimum: 320,
+            maximum: 638,
+          },
+          height: {
+            minimum: 820,
+          },
+        },
+        square: {
+          width: {
+            minimum: 640,
+            maximum: 962,
+          },
+          height: {
+            minimum: 524,
+          },
+        },
+        wide: {
+          width: {
+            minimum: 944,
+            maximum: 1680,
+          },
+          height: {
+            minimum: 524,
+          },
+        },
+      },
+      lead: {
+        simple: {
+          width: {
+            minimum: 320,
+            maximum: 638,
+          },
+          height: {
+            minimum: 360,
+          },
+        },
+        mini: {
+          width: {
+            minimum: 320,
+            maximum: 638,
+          },
+          height: {
+            minimum: 516, // Could also be 404
+          },
+        },
+        tall: {
+          width: {
+            minimum: 320,
+            maximum: 638,
+          },
+          height: {
+            minimum: 820,
+          },
+        },
+        square: {
+          width: {
+            minimum: 640,
+            maximum: 962,
+          },
+          height: {
+            minimum: 524,
+          },
+        },
+        wide: {
+          width: {
+            minimum: 944,
+            maximum: 1680,
+          },
+          height: {
+            minimum: 524,
+          },
+        },
+      },
+    };
   }
   asLead() {
     this.profile = LEAD;
