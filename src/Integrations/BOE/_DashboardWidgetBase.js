@@ -361,26 +361,6 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   _onQueryError: function _onQueryError(error, widget) {
     $(widget.metricDetailNode).replaceWith(widget.itemTemplate.apply({ value: error }, widget));
   },
-  _getCountfromView: function _getCountfromView(widget, obj) {
-    const view = App.getView(widget.navTo);
-    const options = {};
-
-    if (view) {
-      options.where = widget.activeFilter ? widget.activeFilter : '';
-      view.getListCount(options).then((result) => {
-        if (result >= 0) {
-          obj.count = result;
-          $(widget.metricDetailNode).empty();
-          $(widget.metricDetailNode).append($(`<span class="metric-count">${obj.count} ${obj.countTitle}</span>`));
-          $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: obj.value }, widget));
-        }
-      }, (error) => {
-        console.warn(error); //eslint-disable-line
-        $(widget.metricDetailNode).empty();
-        $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: obj.value }, widget));
-      });
-    }
-  },
   _getCountValue: function _getCountValue(widget, obj) {
     const def = new Deferred();
     const queryArg = (this.queryArgs && this.queryArgs[obj.queryIndex]) ? this.queryArgs[obj.queryIndex] : null;
@@ -416,7 +396,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     $(widget.metricDetailNode).empty();
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
-        $(widget.metricDetailNode).append($(`<span class="metric-count">${data.countValue} ${(data.countTitle) ? data.countTitle : widget.countTitle}</span>`));
+        $(widget.metricDetailNode).append($(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`));
       }
       $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
     } else {
