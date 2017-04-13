@@ -13,14 +13,17 @@ module.exports = function(grunt) {
       'de': {
         bundleName: "Mobile 3.6 DE",
       },
+      'en-GB': {
+        bundleName: "Mobile 3.6 EN-GB",
+      },
       'es': {
         bundleName: "Mobile 3.6 ES",
       },
+      'es-ES': {
+        bundleName: "Mobile 3.6 ES-ES",
+      },
       'pt': {
         bundleName: "Mobile 3.6 PT",
-      },
-      'en-GB': {
-        bundleName: "Mobile 3.6 EN-GB"
       },
       'fr': {
         bundleName: "Mobile 3.6 FR",
@@ -28,8 +31,17 @@ module.exports = function(grunt) {
       'it': {
         bundleName: "Mobile 3.6 IT",
       },
+      'ja': {
+        bundleName: "Mobile 3.6 JA",
+      },
+      'nl': {
+        bundleName: "Mobile 3.6 NL",
+      },
       'ru': {
         bundleName: "Mobile 3.6 RU",
+      },
+      'th': {
+        bundleName: "Mobile 3.6 TH",
       },
       'zh-CN': {
         bundleName: "Mobile 3.6 ZH-CN",
