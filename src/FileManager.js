@@ -1,7 +1,6 @@
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import dNumber from 'dojo/number';
-import has from 'dojo/has';
 import getResource from 'argos/I18n';
 
 const resource = getResource('fileManager');
@@ -33,14 +32,6 @@ const __class = declare('crm.FileManager', null, {
   constructor: function constructor() {
     this._files = [];
     this.fileUploadOptions.maxFileSize = App.maxUploadFileSize;
-  },
-  /**
-   * Checks if the HTML5 file api is supported.
-   * @returns {Boolean}
-   */
-  isHTML5Supported: function isHTML5Supported() {
-    const results = has('html5-file-api');
-    return results;
   },
   /**
    * Checks the {@link crm.Application}'s maxFileSize to determine
@@ -87,7 +78,7 @@ const __class = declare('crm.FileManager', null, {
       this._onUnableToUploadError(this.largeFileWarningText, error);
       return;
     }
-    if (this.isHTML5Supported()) {
+    if (App.supportsFileAPI()) {
       this._uploadFileHTML5_asBinary(file, url, progress, complete, error, scope, asPut);
     } else {
       this._onUnableToUploadError(this.unableToUploadText, error);
