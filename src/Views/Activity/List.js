@@ -44,16 +44,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   touchedText: resource.touchedText,
   importantText: resource.importantText,
   recurringText: resource.recurringText,
-  activityTypeText: {
-    atToDo: resource.toDoText,
-    atPhoneCall: resource.phoneCallText,
-    atAppointment: resource.meetingText,
-    atLiterature: resource.literatureText,
-    atPersonal: resource.personalText,
-    atQuestion: resource.questionText,
-    atNote: resource.noteText,
-    atEMail: resource.emailText,
-  },
   titleText: resource.titleText,
   hashTagQueriesText: {
     alarm: hashTagResource.alarmText,
@@ -363,18 +353,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
   },
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-    const view = App.getView(this.historyEditView);
-    if (view) {
-      environment.refreshActivityLists();
-      view.show({
-        title: this.activityTypeText[type],
-        template: {},
-        entry,
-        insert: true,
-      }, {
-        complete,
-      });
-    }
+    action.navigateToHistoryInsert(entry, complete);
   },
   completeActivity: function completeActivity(entry) {
     const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);

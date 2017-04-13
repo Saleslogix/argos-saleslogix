@@ -24,7 +24,6 @@
   industryText: "industry"
   notesText: "notes"
   ownerText: "owner"
-  phoneCallHistoryTitle: "Phone Call"
   phoneText: "phone"
   actionsText: "Quick Actions"
   relatedActivitiesText: "Activities"
@@ -232,14 +231,6 @@
   touchedText: "touched"
   importantText: "important"
   recurringText: "recurring"
-  phoneCallText: "Phone Call"
-  meetingText: "Meeting"
-  toDoText: "To-Do"
-  personalText: "Personal Activity"
-  literatureText: "Literature Request"
-  questionText: "Question"
-  noteText: "Note"
-  emailText: "Email"
 >
 
 <activityMyList ""
