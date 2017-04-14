@@ -1452,12 +1452,14 @@
 >
 
 <languageOptionsEdit ""
-  titleText: "Language Options"
+  titleText: "Language Settings"
 >
 
 <languageUsageWidget ""
-  regionText: "Select regional formatting language"
-  languageText: "Select language"
+  regionText: "Culture"
+  languageText: "Language"
+  toastTitle: "Refresh Page"
+  toastMessage: "Please refresh your browser to see the change."
 >
 
 <authenticationModel ""

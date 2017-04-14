@@ -11,6 +11,8 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
   // Localization
   regionText: resource.regionText,
   languageText: resource.languageText,
+  toastTitle: resource.toastTitle,
+  toastMessage: resource.toastMessage,
 
   cls: 'related-language-usage-widget',
   relatedContentTemplate: new Simplate([
@@ -97,6 +99,12 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
       if (window.localStorage) {
         window.localStorage.setItem('language', language);
         window.localStorage.setItem('region', region);
+
+        App.toast.add({
+          message: this.toastMessage,
+          title: this.toastTitle,
+          toastTime: 3000,
+        });
       }
     } catch (e) {
       console.error(e); // eslint-disable-line
