@@ -460,13 +460,13 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     });
     // Add promoteAccount function to detail
     lang.extend(crm.Views.Account.Detail, {
-      promoteIcon: 'fa fa-level-up',
+      promoteIcon: 'upload',
       successfulLinkText: 'Linked Successfully',
       linkingText: 'Linking ${account} to ${backOffice}',
       errorMessage: 'Error promoting account for reason: ${reason}',
       tabListItemTemplate: new Simplate([
         '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
-        '{%: ($.title || $.options.title) %}',
+        '<a href="#{%: $.name %}">{%: ($.title || $.options.title) %}</a>',
         '</li>',
       ]),
       orginalProcessEntry: crm.Views.Account.Detail.prototype.processEntry,
@@ -475,10 +475,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         this.orginalProcessEntry(entry);
       },
       selectedTab: function selectedTab(params) {
-        const tab = params.$source;
-        this.changeTab(tab);
-        const keyProperty = 'data-key';
-        const key = (tab.attributes[keyProperty]) ? tab.attributes[keyProperty].value : '';
+        const key = params.key;
         if (!this.dashboardLoaded && key === 'DashboardSection') {
           this._loadDashboards();
           this.dashboardLoaded = true;
@@ -740,21 +737,21 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         name: 'PromoteAccount',
         property: 'AccountName',
         label: this.promoteText,
-        iconClass: 'fa fa-level-up fa-lg',
+        iconClass: 'send',
         action: '_onPromoteAccountClick',
         security: 'Entities/Account/PromoteAccount',
       }, {
         name: 'AddQuote',
         property: 'AccountName',
         label: this.addQuoteText,
-        iconClass: 'fa fa-file-text-o fa-2x',
+        iconClass: 'document',
         action: '_onAddQuoteClick',
         security: 'Entities/Quote/Add',
       }, {
         name: 'AddOrder',
         property: 'AccountName',
         label: this.addOrderText,
-        iconClass: 'fa fa-shopping-cart fa-2x',
+        iconClass: 'cart',
         action: '_onAddOrderClick',
         security: 'Entities/SalesOrder/Add',
       }],

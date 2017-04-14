@@ -191,7 +191,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     lang.extend(argos.TabWidget, {// TODO: Avoid global
       tabListItemTemplate: new Simplate([
         '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
-        '{%: ($.title || $.options.title) %}',
+        '<a href="#{%: $.name %}">{%: ($.title || $.options.title) %}</a>',
         '</li>',
       ]),
     });
