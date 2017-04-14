@@ -4,6 +4,7 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Dropdown from 'argos/Dropdown';
 import getResource from 'argos/I18n';
+import LanguageService from 'argos/LanguageService';
 
 const resource = getResource('languageUsageWidget');
 
@@ -13,7 +14,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
   languageText: resource.languageText,
   toastTitle: resource.toastTitle,
   toastMessage: resource.toastMessage,
-
+  languageService: null,
   cls: 'related-language-usage-widget',
   relatedContentTemplate: new Simplate([
     '<div class="language-usage">',
@@ -22,6 +23,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     '</div>',
   ]),
   onInit: function onInit() {
+    this.languageService = new LanguageService();
     this.onLoad();
     if (this.owner) {
       aspect.after(this.owner, 'show', () => {
@@ -34,12 +36,8 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     }
   },
   onLoad: function onLoad() {
-    let language;
-    let region;
-    if (window.localStorage) {
-      language = window.localStorage.getItem('language');
-      region = window.localStorage.getItem('region');
-    }
+    const language = this.languageService.getLanguage('language');
+    const region = this.languageService.getRegion('region');
     this.initUI(language || 'en', region || 'en');
   },
   initUI: function initUI(lang, region) {
@@ -90,16 +88,14 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     const region = this._regionDropdown.getValue();
 
     try {
-      if (window.localStorage) {
-        window.localStorage.setItem('language', language);
-        window.localStorage.setItem('region', region);
+      this.languageService.setLanguage(language);
+      this.languageService.setRegion(region);
 
-        App.toast.add({
-          message: this.toastMessage,
-          title: this.toastTitle,
-          toastTime: 3000,
-        });
-      }
+      App.toast.add({
+        message: this.toastMessage,
+        title: this.toastTitle,
+        toastTime: 3000,
+      });
     } catch (e) {
       console.error(e); // eslint-disable-line
     }
