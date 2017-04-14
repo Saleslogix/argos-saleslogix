@@ -22,6 +22,12 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
   contractName: 'system',
   recurringActivityIdSeparator: ';',
 
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Priorities',
+      property: 'Priorities',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',

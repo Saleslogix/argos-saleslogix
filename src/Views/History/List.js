@@ -30,6 +30,7 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
  * @requires moment
  */
 const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+  format,
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">',
@@ -41,7 +42,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     '</p>',
     '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>',
     '{% if($.Description) { %}',
-    '<p class="micro-text">{%: $$.regardingText + $.Description %}</p>',
+    '<p class="micro-text">{%= $$.regardingText + $$.formatPicklist("Description")($.Description) %}</p>',
     '{% } %}',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',
@@ -222,6 +223,10 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     }
 
     return format.date(startDate.toDate(), fmt);
+  },
+  formatPicklist: function formatPicklist(property) {
+    // TODO: Fix this._model not existing
+    return format.picklist(this.app.picklistService, this._model, property);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;

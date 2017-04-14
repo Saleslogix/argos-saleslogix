@@ -59,11 +59,13 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
     const results$ = this.inherited(arguments);
     return results$.then((entry) => {
       return new Promise((resolve) => {
-        // TODO: Add picklist language option
         Promise.all([App.picklistService.requestPicklist('Name Prefix', {
           filterByLanguage: true,
           language: entry.LocationCode,
         }), App.picklistService.requestPicklist('Name Suffix', {
+          filterByLanguage: true,
+          language: entry.LocationCode,
+        }), App.picklistService.requestPicklist('Title', {
           filterByLanguage: true,
           language: entry.LocationCode,
         })]).then(() => {

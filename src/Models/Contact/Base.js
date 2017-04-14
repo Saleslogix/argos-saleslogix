@@ -18,6 +18,12 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
   modelName: MODEL_NAMES.CONTACT,
   iconClass: 'fa fa-user fa-lg',
   security: 'Entities/Contact/View',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Title',
+      property: 'Title',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',

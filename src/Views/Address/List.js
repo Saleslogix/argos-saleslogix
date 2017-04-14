@@ -21,7 +21,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.$descriptor %}</p>',
-    '<p class="micro-text">{%= crm.Format.address($, true) %}</p>',
+    '<p class="micro-text">{%= $$.format.address($, true) %}</p>',
   ]),
 
   // Localization
@@ -36,6 +36,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   resourceKind: 'addresses',
   allowSelection: true,
   enableActions: true,
+  format,
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());

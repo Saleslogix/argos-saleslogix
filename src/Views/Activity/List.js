@@ -5,12 +5,14 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import List from 'argos/List';
 import convert from 'argos/Convert';
 import action from '../../Action';
+import format from '../../Format';
 import environment from '../../Environment';
 import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
+import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePicklists';
 
 
 const resource = getResource('activityList');
@@ -55,6 +57,8 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   },
   // Card View
   itemIcon: activityTypeIcons.default.atAppointment,
+  format,
+  getPicklistByActivityType,
 
   // Templates
   // Card View
@@ -81,12 +85,12 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     '{% if ($$.isTimelessToday($)) { %}',
     '{%: $$.allDayText %}',
     '{% } else { %}',
-    '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}', // TODO: Avoid global
+    '{%: $$.format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}', // TODO: Avoid global
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
     '<p class="listview-heading">',
-    '<span class="p-description">{%: $.Description %}</span>',
+    '<span class="p-description">{%: $$.format.picklist($$.app.picklistService, null, null, $$.getPicklistByActivityType($.Type, "Description"))($.Description) %}</span>',
     '</p>',
     '<p class="micro-text">',
     '{%! $$.activityTimeTemplate %}',

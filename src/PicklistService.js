@@ -79,64 +79,10 @@ const __class = lang.setObject('crm.PicklistService', {
       this._picklists[code] = picklist;
     }
   },
-  requestPicklists() {
-    // const promise = new Promise((resolve, reject) => {
-    //   const iterableKeys = Object.keys(this._picklists);
-    //   const promises = [];
-    //   for (let i = 0; i < iterableKeys.length; i++) {
-    //     promises.push(this.requestPicklist(iterableKeys[i]));
-    //   }
-    //   Promise.all(promises).then(() => {
-    //     resolve(true);
-    //   }, (response) => {
-    //     reject(response);
-    //   });
-    // });
-    // return promise;
-    return this.requestPicklistsFromArray(Object.keys(this._picklists));
-  },
   requestPicklistsFromArray(picklists) {
     const promise = new Promise((resolve, reject) => {
       const promises = [];
-      // const pickListServiceOptions = {
-      //   storageMode: 'code',
-      // };
       for (let i = 0; i < picklists.length; i++) {
-        // const temp = new Promise((res, rej) => {
-        //   const {
-        //     options,
-        //     handlers,
-        //   } = this.service.getFirstByKey(
-        //     picklists[i],
-        //     false,
-        //     true,
-        //     this.onPicklistSuccess(res),
-        //     this.onPicklistError(rej),
-        //     { pickListServiceOptions }
-        //   );
-        //   if (options) {
-        //     const request = this.service.setUpRequest(
-        //       new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
-        //         .setContractName(this.contractName),
-        //       options
-        //     );
-        //     request.read(handlers);
-            // const store = this.getStore();
-            // store.query(null, options).then((data) => {
-            //   let picklist = null;
-            //   if (data && data[0] && data[0].items) {
-            //     picklist = data[0];
-            //     picklist.items = picklist.items.$resources;
-            //     this._picklists[picklist.name] = picklist;
-            //   }
-            //   res(picklist);
-            // }, (response, o) => {
-            //   ErrorManager.addError(response, o, options, 'failure');
-            //   rej(response);
-            // });
-        //   }
-        // });
-        // promises.push(this.requestPicklist(picklists[i]));
         promises.push(this.requestPicklist(picklists[i]));
       }
       Promise.all(promises).then(() => {

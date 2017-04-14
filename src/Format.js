@@ -65,7 +65,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     let name = picklistName;
     if (!name) {
       if (!service || !model || !property) {
-        return;
+        return val => val;
       }
       name = model.getPicklistNameByProperty(property);
     }

@@ -55,16 +55,17 @@ const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
       ],
     }];
   },
-  // TODO: Add if we decide Lead will have filtered prefix and suffix (and determine property for language code)
   getEntry: function getEntry(/* options */) {
     const results$ = this.inherited(arguments);
     return results$.then((entry) => {
       return new Promise((resolve) => {
-        // TODO: Add picklist language option
         Promise.all([App.picklistService.requestPicklist('Name Prefix', {
           filterByLanguage: false,
           language: ' ',
         }), App.picklistService.requestPicklist('Name Suffix', {
+          filterByLanguage: false,
+          language: ' ',
+        }), App.picklistService.requestPicklist('Title', {
           filterByLanguage: false,
           language: ' ',
         })]).then(() => {

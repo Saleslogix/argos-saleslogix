@@ -585,17 +585,6 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
         },
       }],
     });
-    this.registerAppStatePromise({
-      seq: 2,
-      description: resource.picklistsText,
-      items: [{
-        name: 'picklist-requests',
-        description: resource.retrievingPicklistsText,
-        fn: () => {
-          this.application.picklistService.requestPicklists();
-        },
-      }],
-    });
   },
 });
 
