@@ -23,6 +23,7 @@ const __class = declare('crm.Views.PickList', [List], {
   resourceProperty: 'items',
   contractName: 'system',
   pageSize: 100,
+  languageCode: null,
   autoClearSelection: false,
 
   activateEntry: function activateEntry(params) {
@@ -47,11 +48,14 @@ const __class = declare('crm.Views.PickList', [List], {
     this.inherited(arguments);
   },
   requestData: function requestData() {
-    const picklist = this.app.picklistService.getPicklistByName(this.picklistName);
+    const picklistOptions = (this.options && this.options.picklistOptions) || this.picklistOptions;
+    const languageCode = (this.options && this.options.languageCode)
+      || this.languageCode || App.getCurrentLocale();
+    const picklist = this.app.picklistService.getPicklistByName(this.picklistName, languageCode);
     if (picklist) {
       return this._onQueryComplete({ total: picklist.items.length }, picklist.items);
     }
-    return this.app.picklistService.requestPicklist(this.picklistName)
+    return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions)
       .then(result => this._onQueryComplete({ total: result && result.items.length }, result && result.items),
         err => this._onQueryError(null, err));
   },

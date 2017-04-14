@@ -292,6 +292,9 @@ const __class = declare('crm.Application', [Application], {
 
     return results;
   },
+  getCurrentLocale: function getCurrentLocale() {
+    return this.context.localization && this.context.localization.locale || 'en';
+  },
   run: function run() {
     this.inherited(arguments);
 

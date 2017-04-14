@@ -33,9 +33,15 @@ const __class = lang.setObject('crm.PicklistService', {
     this.service = new PickListService(storage, service);
   },
   getPicklistByKey(key) {
-    return this._picklists[key];
+    return this.getPicklistByName(key);
   },
-  getPicklistByName(name) {
+  getPicklistByName(name, languageCode) {
+    if (languageCode) {
+      const picklist = this._picklists[`${name}_${languageCode}`];
+      if (picklist) {
+        return picklist;
+      }
+    }
     return this._picklists[name] || false;
     // const iterableKeys = Object.keys(this._picklists);
     // for (let i = 0; i < iterableKeys.length; i++) {
@@ -141,13 +147,17 @@ const __class = lang.setObject('crm.PicklistService', {
     });
     return promise;
   },
-  onPicklistSuccess(resolve) {
+  onPicklistSuccess(resolve, languageCode) {
     return (result) => {
       let picklist = null;
       if (result && result.items) {
         picklist = result;
         picklist.items = picklist.items.$resources;
-        this._picklists[picklist.name] = picklist;
+        if (languageCode) {
+          this._picklists[`${picklist.name}_${languageCode}`] = picklist;
+        } else {
+          this._picklists[picklist.name] = picklist;
+        }
       }
       resolve(picklist);
     };
@@ -162,16 +172,26 @@ const __class = lang.setObject('crm.PicklistService', {
     const pickListServiceOptions = Object.assign({}, {
       storageMode: 'code',
     }, queryOptions);
-    const language = queryOptions.language || App.context.localization.locale;
+    let language = null;
+    if (pickListServiceOptions.filterByLanguage) {
+      language = (queryOptions.language && queryOptions.language.trim())
+          || App.getCurrentLocale();
+    } else {
+      if (pickListServiceOptions.filterByLanguage === false) {
+        // This means disable fallback
+        // Used for Name Prefix and Suffix we only want the filtered picklist.
+        language = queryOptions.language || ' ';
+      } else {
+        language = queryOptions.language || App.getCurrentLocale();
+      }
+    }
     return new Promise((resolve, reject) => {
       const {
         options,
         handlers,
-      } = this.service.getFirstByKey(
+      } = this.service.getFirstByName(
         name,
-        false,
-        true,
-        this.onPicklistSuccess(resolve),
+        this.onPicklistSuccess(resolve, language),
         this.onPicklistError(reject),
         { pickListServiceOptions, language }
       );

@@ -56,7 +56,7 @@ const __class = lang.setObject('crm.GroupUtility', {
     const defaults = {
       queryName: 'execute',
       queryArgs: {
-        language: App.context && App.context.localization && App.context.localization.locale,
+        language: App.getCurrentLocale(),
       },
     };
 
@@ -75,7 +75,7 @@ const __class = lang.setObject('crm.GroupUtility', {
     const defaults = {
       queryName: 'executeMetric',
       queryArgs: {
-        language: App.context && App.context.localization && App.context.localization.locale,
+        language: App.getCurrentLocale(),
       },
     };
 

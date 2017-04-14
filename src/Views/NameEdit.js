@@ -34,7 +34,17 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
       name: 'Prefix',
       property: 'Prefix',
       picklist: 'Name Prefix',
+      picklistOptions: (entry) => {
+        // Checks if the LocationCode exists (for Lead it does not)
+        if (entry.LocationCode) {
+          return {
+            filterByLanguage: entry.LocationCode.trim(),
+          };
+        }
+        return {};
+      },
       requireSelection: true,
+      storageMode: 'text',
       title: this.prefixTitleText,
       type: 'picklist',
     }, {
@@ -64,7 +74,17 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
       name: 'Suffix',
       property: 'Suffix',
       picklist: 'Name Suffix',
+      picklistOptions: (entry) => {
+        // Checks if the LocationCode exists (for Lead it does not)
+        if (entry.LocationCode) {
+          return {
+            filterByLanguage: entry.LocationCode.trim(),
+          };
+        }
+        return {};
+      },
       requireSelection: true,
+      storageMode: 'text',
       title: this.suffixTitleText,
       type: 'picklist',
     }]);

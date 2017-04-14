@@ -31,6 +31,8 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
 const control = declare('crm.Fields.PicklistField', [LookupField], {
   picklist: false,
   picklistName: false,
+  picklistOptions: null,
+  languageCode: null,
   storageMode: 'text',
   requireSelection: false,
   valueKeyProperty: false,
@@ -57,13 +59,14 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         this.keyProperty = 'text';
         this.textProperty = 'text';
     }
+    this.languageCode = App.getCurrentLocale();
   },
   isReadOnly: function isReadOnly() {
     return !this.picklist;
   },
   isCodePicklist: function isCodePicklist() {
     // TODO: Ensure this functions as expected
-    const picklist = App.picklistService.getPicklistByName(this.picklistName);
+    const picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
     return picklist.defaultLanguage;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
@@ -164,6 +167,17 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.previousSelections = !this.singleSelect ? this.createSelections() : null;
       options.keyProperty = this.keyProperty;
       options.textProperty = this.textProperty;
+      options.picklistOptions = (this.picklistOptions && this.picklistOptions((this.owner && this.owner.entry) || {})) || {};
+      // TODO: Need a function to generate the key
+      if (options.picklistOptions
+        && options.picklistOptions.filterByLanguage
+          && options.picklistOptions.filterByLanguage !== true) {
+        this.languageCode = options.picklistOptions.filterByLanguage;
+      } else if (this.picklistName !== 'Name Prefix' || this.picklistName !== 'Name Suffix') {
+        // Default to current locale IF not name prefix or suffix picklists (these are filtered text picklists)
+        this.languageCode = App.getCurrentLocale();
+      }
+      options.languageCode = this.languageCode;
     }
 
     if (!this.singleSelect) {
@@ -186,7 +200,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return options;
   },
   updateSelectionProperties: function updateSelectionProperties() {
-    if (App.picklistService.getPicklistByName(this.picklistName)) {
+    if (App.picklistService.getPicklistByName(this.picklistName, this.languageCode)) {
       this.keyProperty = 'code';
     }
   },
@@ -199,7 +213,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     if (this.isCodePicklist()) {
       this.keyProperty = 'code';
     }
-    const view = App.getView(this.view) || getOrCreateViewFor(this.picklistName);
+    const view = App.getView(this.view) || getOrCreateViewFor(this.picklistName, this.languageCode);
 
     if (view && options) {
       view.refreshRequired = true;
