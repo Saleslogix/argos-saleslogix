@@ -95,7 +95,7 @@
             extraLocale: [regionLocale || 'en-us']
         };
     </script>
-    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config=""></script>
+    <script type="text/javascript" src="content/dojo/dojo/dojo.js"></script>
 
     <script type="text/javascript">
     require({

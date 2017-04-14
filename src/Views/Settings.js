@@ -17,7 +17,7 @@ const __class = declare('crm.Views.Settings', [List], {
   // Templates
   itemIconTemplate: new Simplate([
     `<button type="button" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="btn-actions list-item-selector button visible">
-      <span class="audible">Actions</span>
+      <span class="audible">{%: $$.actionsText %}</span>
       <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
         <use xlink:href="#icon-{%= $$.getItemIconClass($) %}"></use>
       </svg>
@@ -50,6 +50,8 @@ const __class = declare('crm.Views.Settings', [List], {
   confirm24HourClockMessage: resource.confirm24HourClockMessage,
   confirm12HourClockMessage: resource.confirm12HourClockMessage,
   confirmClearLocalStorageMessage: resource.confirmClearLocalStorageMessage,
+  languageSettingText: resource.languageSettingText,
+  actionsText: resource.actionsText,
 
   // View Properties
   id: 'settings',
@@ -90,7 +92,7 @@ const __class = declare('crm.Views.Settings', [List], {
         cls: 'user',
       },
       viewLanguageOptions: {
-        title: 'Change Language',
+        title: this.languageSettingText,
         cls: 'url',
       },
     };

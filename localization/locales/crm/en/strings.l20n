@@ -1211,6 +1211,7 @@
   confirm24HourClockMessage: "Changing the clock to 24-hour format will require an application restart. Continue?"
   confirm12HourClockMessage: "Changing the clock to 12-hour format will require an application restart. Continue?"
   confirmClearLocalStorageMessage: "Clearing local storage will require the application to restart. Are you sure?"
+  languageSettingText: "Language Settings"
 >
 
 <speedSearchList ""
