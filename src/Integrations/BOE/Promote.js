@@ -4,7 +4,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
 import when from 'dojo/when';
 import Adapter from 'argos/Models/Adapter';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
@@ -14,6 +13,7 @@ import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import MODEL_NAMES from './Models/Names';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('promote');
 
@@ -251,7 +251,7 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
     return hasAllProperties;
   },
   clearLoading: function clearLoading(node) {
-    domConstruct.empty(node);
+    $(node).empty();
   },
   createAlertDialog: function createAlertDialog(err) {
     this._busy.complete(true);
@@ -267,14 +267,14 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
     }
     this._accountingDropdown = new Dropdown({ id: 'accountingDropdown', dropdownClass: 'promote__dropdown' });
     this._accountingDropdown.createList({ items: this._accountingSelections, defaultValue: this._accountingSelections[0] ? this._accountingSelections[0].value : '' }); // TODO: change the defaultValue selected
-    domConstruct.place(this._accountingDropdown.domNode, this.accountingNode);
+    $(this.accountingNode).append(this._accountingDropdown.domNode);
     return this;
   },
   createBackOfficeDropdown: function createBackOfficeDropdown() {
     if (!this._backOfficeDropdown) {
       this._backOfficeDropdown = new Dropdown({ id: 'backOfficeDropdown', dropdownClass: 'promote__dropdown', onSelect: this.updateAccountingDropdown, onSelectScope: this });
       this._backOfficeDropdown.createList({ items: this._backOfficeSelections, defaultValue: this._backOfficeSelections[0] ? this._backOfficeSelections[0].value : '' }); // TODO: change the defaultValue selected
-      domConstruct.place(this._backOfficeDropdown.domNode, this.backOfficeNode);
+      $(this.backOfficeNode).append(this._backOfficeDropdown.domNode);
     }
     return this;
   },
@@ -306,8 +306,7 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
     };
   },
   setLoading: function setLoading(node) {
-    domConstruct.empty(node);
-    domConstruct.place(this._accountingBusy.domNode, node);
+    $(node).empty().append(this._accountingBusy.domNode);
   },
   show: function show() {
     if (!this._backOfficeModel) {

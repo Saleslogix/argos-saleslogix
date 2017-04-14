@@ -1,12 +1,11 @@
 import declare from 'dojo/_base/declare';
 import event from 'dojo/_base/event';
 import on from 'dojo/on';
-import domConstruct from 'dojo/dom-construct';
 import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Edit from 'argos/Edit';
+
 
 const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase], {
   cls: 'related-edit-widget',
@@ -35,9 +34,9 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
       editView.onUpdateCompleted = this.onUpdateCompleted.bind(this);
     }
     // Add the toolbar for save
-    const toolBarNode = domConstruct.toDom(this.toolBarTemplate.apply(entry, this));
+    const toolBarNode = $(this.toolBarTemplate.apply(entry, this)).get(0);
     on(toolBarNode, 'click', this.onInvokeToolBarAction.bind(this));
-    domConstruct.place(toolBarNode, this.containerNode, 'last');
+    $(this.containerNode).append(toolBarNode);
 
     // Add the edit view to view
     editView.placeAt(this.containerNode, 'last');
@@ -80,7 +79,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
     this.inherited(arguments);
   },
   destroy: function destroy() {
-    array.forEach(this._subscribes, (handle) => {
+    this._subscribes.forEach((handle) => {
       connect.unsubscribe(handle);
     });
 

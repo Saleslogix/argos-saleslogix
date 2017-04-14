@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import MetricWidget from './MetricWidget';
 
@@ -32,9 +31,11 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
     this.inherited(arguments);
   },
   destroyWidgets: function destroyWidgets() {
-    array.forEach(this.metricWidgets, (widget) => {
-      widget.destroy();
-    }, this);
+    if (this.metricWidgets) {
+      this.metricWidgets.forEach((widget) => {
+        widget.destroy();
+      });
+    }
   },
   processEntry: function processEntry(entry) {
     this.inherited(arguments);
@@ -47,7 +48,7 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
 
     // Create metrics widgets and place them in the metricNode
     const widgetOptions = this.createMetricWidgetsLayout(entry) || [];
-    array.forEach(widgetOptions, function createAndPlaceWidget(options) {
+    widgetOptions.forEach((options) => {
       if (this.hasValidOptions(options)) {
         const widget = new MetricWidget(options);
         widget.placeAt(this.metricNode, 'last');

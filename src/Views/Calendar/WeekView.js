@@ -1,14 +1,12 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
 import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
-import domClass from 'dojo/dom-class';
 import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('calendarWeekView');
 const dtFormatResource = getResource('calendarWeekViewDateTimeFormat');
@@ -78,7 +76,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '<div class="nav-bar">',
     '<button data-tool="next" data-action="getNextWeekActivities" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
     '<button data-tool="prev" data-action="getPrevWeekActivities" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
-    '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
+    '<h4 class="date-text" data-dojo-attach-point="dateNode"></h4>',
     '</div>',
   ]),
   groupTemplate: new Simplate([
@@ -96,7 +94,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
     '<table class="calendar-entry-table"><tr>',
     '<td class="entry-table-icon">',
-    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
+    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityTypeIcon[$.Type] %}">',
     '</button>',
     '</td>',
     '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
@@ -108,7 +106,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
     '<table class="calendar-entry-table"><tr>',
     '<td class="entry-table-icon">',
-    '<button data-action="selectEntry" class="list-item-selector button {%= $$.eventIcon %}">',
+    '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityTypeIcon.event %}">',
     '</button>',
     '</td>',
     '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
@@ -123,12 +121,12 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %}</h3>',
-    '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %}</p>',
+    '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>',
   ]),
   eventItemTemplate: new Simplate([
-    '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
-    '<h4>{%! $$.eventNameTemplate %}</h4>',
+    '<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>',
+    '<p class="micro-text">{%! $$.eventNameTemplate %}</p>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
@@ -152,7 +150,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     '</div>',
   ]),
   noDataTemplate: new Simplate([
-    '<div class="no-data"><h3>{%= $.noDataText %}</h3></div>',
+    '<div class="no-data"><p>{%= $.noDataText %}</p></div>',
   ]),
   eventRemainingContentNode: null,
   eventContentNode: null,
@@ -216,17 +214,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     'Description',
     'Type',
   ],
-  activityIconByType: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-calendar-o',
-    atPersonal: 'fa fa-check-square-o',
-    atQuestion: 'fa fa-question',
-    atNote: 'fa fa-calendar-o',
-    atEMail: 'fa fa-envelope',
-  },
-  eventIcon: 'fa fa-calendar-o',
+  activityTypeIcon: activityTypeIcons.default,
 
   contractName: 'system',
   pageSize: 105, // gives 15 activities per day
@@ -247,14 +235,14 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   toggleGroup: function toggleGroup(params) {
     const node = params.$source;
     if (node && node.parentNode) {
-      domClass.toggle(node, 'collapsed');
-      domClass.toggle(node.parentNode, 'collapsed-event');
+      $(node).toggleClass('collapsed');
+      $(node.parentNode).toggleClass('collapsed-event');
 
       const button = this.collapseButton;
 
       if (button) {
-        domClass.toggle(button, this.toggleCollapseClass);
-        domClass.toggle(button, this.toggleExpandClass);
+        $(button).toggleClass(this.toggleCollapseClass);
+        $(button).toggleClass(this.toggleExpandClass);
       }
     }
   },
@@ -308,10 +296,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const start = this.getStartDay(this.currentDate);
     const end = this.getEndDay(this.currentDate);
 
-    this.set('dateContent', string.substitute('${0}-${1}', [
-      start.format(this.weekTitleFormatText),
-      end.format(this.weekTitleFormatText),
-    ]));
+    this.set('dateContent', `${start.format(this.weekTitleFormatText)}-${end.format(this.weekTitleFormatText)}`);
   },
   isInCurrentWeek: function isInCurrentWeek(date) {
     return (date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf());
@@ -330,7 +315,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     // If we fetched a page that has no data due to un-reliable counts,
     // check if we fetched anything in the previous pages before assuming there is no data.
     if (feedLength === 0 && Object.keys(this.entries).length === 0) {
-      query(this.contentNode).append(this.noDataTemplate.apply(this));
+      $(this.contentNode).append(this.noDataTemplate.apply(this));
     } else if (feed.$resources) {
       if (todayNode && !entryGroups[this.todayDate.format(dateCompareString)]) {
         entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];
@@ -389,7 +374,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
 
     this.set('remainingContent', ''); // Feed does not return reliable data, don't show remaining
 
-    domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+    $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
     this._loadPreviousSelections();
   },
   addTodayDom: function addTodayDom() {
@@ -459,10 +444,10 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     );
   },
   hideEventList: function hideEventList() {
-    domClass.add(this.eventContainerNode, 'event-hidden');
+    $(this.eventContainerNode).addClass('event-hidden');
   },
   showEventList: function showEventList() {
-    domClass.remove(this.eventContainerNode, 'event-hidden');
+    $(this.eventContainerNode).removeClass('event-hidden');
   },
   processEventFeed: function processEventFeed(feed) {
     const o = [];
@@ -485,11 +470,11 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     }
 
     if (feed.$totalResults > feedLength) {
-      domClass.add(this.eventContainerNode, 'list-has-more');
+      $(this.eventContainerNode).addClass('list-has-more');
       this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed.$totalResults - feedLength]));
     } else {
-      domClass.remove(this.eventContainerNode, 'list-has-more');
-      domConstruct.empty(this.eventRemainingContentNode);
+      $(this.eventContainerNode).removeClass('list-has-more');
+      $(this.eventRemainingContentNode).empty();
     }
 
     this.set('eventListContent', o.join(''));
@@ -535,7 +520,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     this.set('listContent', this.loadingTemplate.apply(this));
   },
   selectEntry: function selectEntry(params) {
-    const row = query(params.$source).closest('[data-key]')[0];
+    const row = $(params.$source).closest('[data-key]')[0];
     const key = row ? row.getAttribute('data-key') : false;
 
     this.navigateToDetailView(key);

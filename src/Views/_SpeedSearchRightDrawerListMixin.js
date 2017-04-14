@@ -1,9 +1,8 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('speedSearchRightDrawerListMixin');
 
@@ -33,13 +32,14 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   },
   getDefaultIndexPrefences: function getDefaultIndexPrefences() {
     const defaults = [];
-    const self = this;
-    array.forEach(this.indexes, (index) => {
-      defaults.push({
-        indexName: index.indexName,
-        enabled: self._isIndexActive(index.indexName),
+    if (this.indexes) {
+      this.indexes.forEach((index) => {
+        defaults.push({
+          indexName: index.indexName,
+          enabled: this._isIndexActive(index.indexName),
+        });
       });
-    });
+    }
     return defaults;
   },
   setupRightDrawer: function setupRightDrawer() {
@@ -52,12 +52,12 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
       });
 
       if (this.rebuildWidgets) {
-        App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
+        App.viewSettingsModal.element.on('close', () => {
           if (this._hasChangedIndexPrefs) {
             this.rebuildWidgets();
             this._hasChangedIndexPrefs = false;
           }
-        }));
+        });
       }
     }
   },
@@ -66,7 +66,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function snapperOff() {};
-      App.snapper.off('close');
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {
@@ -79,7 +79,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
       indexClicked: lang.hitch(this, function onIndexClicked(params) {
         const prefs = App.preferences && App.preferences.speedSearchIndexes;
 
-        const results = array.filter(prefs, (pref) => {
+        const results = prefs.filter((pref) => {
           return pref.indexName === params.indexname; // the index name is lower cased.
         });
         this.activateIndex(params.indexname);
@@ -88,7 +88,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
           results[0].enabled = !enabled;
           App.persistPreferences();
           this._hasChangedIndexPrefs = true;
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }),
     };
@@ -115,7 +115,7 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
       for (const i in this.indexes) {
         if (this.indexes.hasOwnProperty(i)) {
           let index = this.indexes[i];
-          const indexPref = array.filter(prefs, function getIndexPref(pref) { // eslint-disable-line
+          const indexPref = prefs.filter((pref) => { // eslint-disable-line
             return pref.indexName === index.indexName;
           });
           index = this.indexes[i];

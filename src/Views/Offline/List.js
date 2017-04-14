@@ -8,7 +8,6 @@
  */
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import format from '../../Format';
 import lang from 'dojo/_base/lang';
 import MODEL_TYPES from 'argos/Models/Types';
@@ -17,7 +16,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('offlineList');
 
-export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixin], {
+export default declare('crm.Views.Offline.List', [_ListBase], {
   id: 'offline_list',
   detailView: 'offline_detail',
   enableSearch: false,
@@ -38,8 +37,8 @@ export default declare('crm.Views.Offline.List', [_ListBase, _CardLayoutListMixi
   ]),
 
   itemTemplate: new Simplate([
-    '<h3>{%: $$.getDescription($) %}</h3>',
-    '<h4>{%: $$.getOfflineDate($) %}</h4>',
+    '<p class="listview-heading">{%: $$.getDescription($) %}</p>',
+    '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   getDescription: function getDescription(entry) {
     return this._model.getEntityDescription(entry);

@@ -11,28 +11,40 @@ module.exports = function(grunt) {
     },
     'lang-pack': {
       'de': {
-        bundleName: "Mobile 3.6 DE",
-      },
-      'es': {
-        bundleName: "Mobile 3.6 ES",
-      },
-      'pt': {
-        bundleName: "Mobile 3.6 PT",
+        bundleName: "Mobile 3.7 DE",
       },
       'en-GB': {
-        bundleName: "Mobile 3.6 EN-GB"
+        bundleName: "Mobile 3.7 EN-GB",
+      },
+      'es': {
+        bundleName: "Mobile 3.7 ES",
+      },
+      'es-ES': {
+        bundleName: "Mobile 3.7 ES-ES",
+      },
+      'pt': {
+        bundleName: "Mobile 3.7 PT",
       },
       'fr': {
-        bundleName: "Mobile 3.6 FR",
+        bundleName: "Mobile 3.7 FR",
       },
       'it': {
-        bundleName: "Mobile 3.6 IT",
+        bundleName: "Mobile 3.7 IT",
+      },
+      'ja': {
+        bundleName: "Mobile 3.7 JA",
+      },
+      'nl': {
+        bundleName: "Mobile 3.7 NL",
       },
       'ru': {
-        bundleName: "Mobile 3.6 RU",
+        bundleName: "Mobile 3.7 RU",
+      },
+      'th': {
+        bundleName: "Mobile 3.7 TH",
       },
       'zh-CN': {
-        bundleName: "Mobile 3.6 ZH-CN",
+        bundleName: "Mobile 3.7 ZH-CN",
         includes: [
           {
             src: './index-nocache.aspx',
@@ -43,7 +55,7 @@ module.exports = function(grunt) {
         }],
       },
       'zh-TW': {
-        bundleName: "Mobile 3.6 ZH-TW",
+        bundleName: "Mobile 3.7 ZH-TW",
         includes: [
           {
             src: './index-nocache.aspx',
@@ -68,9 +80,5 @@ module.exports = function(grunt) {
   grunt.loadTasks('grunt-tasks');
 
   // Register alias tasks
-  grunt.registerTask('build', ['clean', 'less']);
-  grunt.registerTask('test', ['connect', 'jasmine:coverage']);
-  grunt.registerTask('test:basic', ['connect', 'jasmine:basic']);
-  grunt.registerTask('server', ['connect:server:keepalive']);
-  grunt.registerTask('bundle', ['less', 'shell:bundle:<%= pkg.version %>']);
+  grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
 };

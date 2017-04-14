@@ -187,8 +187,8 @@ the item entry and the list view is passed as variables: `$` and `$$`. See {@lin
 
             // Templates
             itemTemplate: new Simplate([
-                '<h3>{%: $.AccountName %}</h3>',
-                '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}</h4>'
+                '<p class="listview-heading">{%: $.AccountName %}</p>',
+                '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}</p>'
             ])
 
 11\. Save your List view file, before it will be loaded in the app we need to register it in ApplicationModule. 
@@ -844,8 +844,8 @@ have another List view yet but will will define one soon. For now add `view` and
 
             //Templates
             itemTemplate: new Simplate([
-                '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
-                '<h4>{%: $.UserInfo.Title %}</h4>'
+                '<p class="listview-heading">{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</p>',
+                '<p class="micro-text">{%: $.UserInfo.Title %}</p>'
             ]),
 
             //Localization

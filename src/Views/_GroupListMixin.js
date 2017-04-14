@@ -1,8 +1,7 @@
 import declare from 'dojo/_base/declare';
 import json from 'dojo/json';
-import domClass from 'dojo/dom-class';
-import domConstruct from 'dojo/dom-construct';
 import utility from 'argos/Utility';
+import _ListBase from 'argos/_ListBase';
 import GroupUtility from '../GroupUtility';
 import when from 'dojo/when';
 import lang from 'dojo/_base/lang';
@@ -10,6 +9,7 @@ import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('groupListMixin');
 
@@ -31,12 +31,12 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   hasDefaultGroup: true,
   noDefaultGroupTemplate: new Simplate([
     '<li class="no-data" data-action="openConfigure">',
-    '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
+    '<p class="listview-heading">{%= $$._getNoDefaultGroupMessage() %}</p>',
     '</li>',
   ]),
   currentGoupNotFoundTemplate: new Simplate([
     '<li class="no-data">',
-    '<h3>{%= $$._getCurrentGroupNotFoundMessage() %}</h3>',
+    '<p class="listview-heading">{%= $$._getCurrentGroupNotFoundMessage() %}</p>',
     '</li>',
   ]),
 
@@ -86,7 +86,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   requestData: function requestData() {
     try {
       if (!this._groupInitialized && this.groupsMode) {
-        domClass.add(this.domNode, 'list-loading');
+        $(this.domNode).addClass('list-loading');
         this._setLoading();
         this.initGroup();
       } else {
@@ -276,7 +276,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.onTransitionAway();
     this.loadRightDrawer();
 
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
     this.listLoading = false;
   },
   _onGroupRequestFaild: function _onGroupRequestFaild() {
@@ -304,14 +304,14 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
   getItemLayoutTemplate: function getItemLayoutTemplate(item) {
     const jsonString = json.stringify(item);
-    const template = ['<h4><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</h4>'].join('');
+    const template = ['<p class="micro-text"><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</p>'].join('');
 
     return template;
   },
   defaultGroupLayoutItemTemplate: new Simplate([
-    '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</span></h2></div>',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></h4>',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>',
+    '<p class="micro-text">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</p>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></p>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></p>',
   ]),
   createGroupTemplateLayouts: function createGroupTemplateLayouts() {
     this.groupTemplateLayouts = [{
@@ -375,21 +375,21 @@ const __class = declare('crm.Views._GroupListMixin', null, {
 
     const template = [];
     template.push('<div class="group-item">');
-    template.push('<div class="group-item-header">');
-    template.push(`<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}</span></h2>`);
-    template.push('</div">');
+    template.push('<p>');
+    template.push(`{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}`);
+    template.push('</p">');
     for (let i = 0; i < layout.length; i++) {
       const columnItem = layoutOptions.columns[column - 1];
       if ((columnItem) && (column <= columns) && (i !== 0)) {
         if (row === 1) {
           const columnStyle = columnItem.style || `width:${columnWidth}%;`;
           const columnClass = columnItem.clss || '';
-          template.push(`<div class="group-column ${columnClass}"  style="${columnStyle}">`);
+          template.push(`<div class="micro-text group-column ${columnClass}"  style="${columnStyle}">`);
         }
         const item = layout[i];
         if (item && (columnItem.rows > 0)) {
           if (i !== 0) {
-            template.push('<h3>');
+            template.push('<div>');
             if (!columnItem.hideLabels) {
               template.push(`<span class="group-label">${this.getGroupFieldLabelByName(item.propertyPath)} </span>`);
             }
@@ -398,13 +398,13 @@ const __class = declare('crm.Views._GroupListMixin', null, {
             const formatClss = formatOptions.clss || '';
             const jsonString = json.stringify(formatOptions);
             if (item.format === 'Phone') {
-              template.push(`<span class="href" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
+              template.push(`<span class="hyperlink" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             } else if (item.propertyPath === 'Email') {
-              template.push(`<span class="href" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
+              template.push(`<span class="hyperlink" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             } else {
               template.push(`<span class="group-entry ${formatClss}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
             }
-            template.push('</h3>');
+            template.push('</div>');
           }
         }
         row++;
@@ -609,7 +609,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   _onGroupNotFound: function _onGroupNotFound() {
     GroupUtility.removeGroupPreferences(this.currentGroupId, this.entityName);
     this.refreshRightDrawer();
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
     this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
   },
   activateEntry: function activateEntry(params) {
@@ -637,7 +637,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       }
     }
   },
-  _invokeAction: function _invokeAction(theAction, selection) {
+  _invokeAction: function _invokeAction(theAction, selection = {}) {
     if (this.groupsEnabled && this.groupsMode && !selection.resolved) {
       this._groupInvokeAction(theAction, selection);
     } else {
@@ -674,18 +674,15 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     const resolvedEntry = this._getResolvedEntry(selection.data.$key);
     if (!resolvedEntry) {
       this._fetchResolvedEntry(selection.data.$key).then((resolvedEnt) => {
-        self._groupCheckActionState(resolvedEnt);
-        self._groupApplyActionPanel(rowNode);
+        self._groupCheckActionState(resolvedEnt, rowNode);
       });
     } else {
-      this._groupCheckActionState(resolvedEntry);
+      this._groupCheckActionState(resolvedEntry, rowNode);
       this._groupApplyActionPanel(rowNode);
     }
   },
   _groupApplyActionPanel: function _groupApplyActionPanel(rowNode) {
-    domClass.add(rowNode, 'list-action-selected');
-    this.onApplyRowActionPanel(this.actionsNode, rowNode);
-    domConstruct.place(this.actionsNode, rowNode, 'after');
+    _ListBase.prototype.showActionPanel.call(this, rowNode);
   },
   _getCurrentSelection: function _getCurrentSelection() {
     const selectedItems = this.get('selectionModel').getSelections();
@@ -750,26 +747,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   _addResolvedEntry: function _addResolvedEntry(entry) {
     this._resolvedEntryCache[entry.$key] = entry;
   },
-  _groupCheckActionState: function _groupCheckActionState(resolvedEntry) {
+  _groupCheckActionState: function _groupCheckActionState(resolvedEntry, rowNode) {
     const resolvedSelection = {
       data: resolvedEntry,
     };
-    this._applyStateToActions(resolvedSelection);
-  },
-  onToolLayoutCreated: function onToolLayoutCreated(tools) {
-    if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
-      const refreshTool = {
-        id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
-        action: '_refreshList',
-
-      };
-      if (tools.tbar) {
-        tools.tbar.push(refreshTool);
-        this._refreshAdded = true;
-      }
-    }
-    this.inherited(arguments);
+    this._applyStateToActions(resolvedSelection, rowNode);
   },
   _refreshList: function _refreshList() {
     const self = this;
@@ -781,15 +763,12 @@ const __class = declare('crm.Views._GroupListMixin', null, {
           self.setCurrentGroup(group);
           this.refreshRightDrawer();
         }
-
-        self.clear();
-        self.refreshRequired = true;
-        self.refresh();
+        // Note this is what this.inherited(arguments) calls, but that may change
+        // Can't call this.inherited asynchronously...
+        self.forceRefresh();
       });
     } else {
-      this.clear();
-      this.refreshRequired = true;
-      this.refresh();
+      this.inherited(arguments);
     }
   },
   groupInvokeListAction: function groupInvokeListAction(params) {
@@ -837,7 +816,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     let snapShot;
     if (this._groupInitialized && this.groupsMode) {
       const entry = this.entries[options.key];
-      const template = this.itemRowContainerTemplate;
+      const template = this.rowTemplate;
       snapShot = template.apply(entry, this);
       return snapShot;
     }

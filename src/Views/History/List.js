@@ -1,14 +1,14 @@
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import format from '../../Format';
 import convert from 'argos/Convert';
 import action from '../../Action';
 import List from 'argos/List';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
+
 
 const resource = getResource('historyList');
 const hashTagResource = getResource('historyListHashTags');
@@ -21,7 +21,6 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.Convert
  *
@@ -30,19 +29,19 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
  *
  * @requires moment
  */
-const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>',
+    '<p class="listview-heading">',
     '{% if ($.Type === "atNote") { %}',
     '{%: $$.formatDate($.ModifyDate) %}',
     '{% } else { %}',
     '{%: $$.formatDate($.CompletedDate) %}',
     '{% } %}',
-    '</h3>',
-    '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+    '</p>',
+    '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>',
     '{% if($.Description) { %}',
-    '<h4>{%: $$.regardingText + $.Description %}</h4>',
+    '<p class="micro-text">{%: $$.regardingText + $.Description %}</p>',
     '{% } %}',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',
@@ -132,16 +131,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     personal: 'Type eq "atPersonal"',
     email: 'Type eq "atEMail"',
   },
-  activityIndicatorIconByType: {
-    atToDo: 'fa fa-list-ul fa-2x',
-    atPhoneCall: 'fa fa-phone fa-2x',
-    atAppointment: 'fa fa-calendar-o fa-2x',
-    atLiterature: 'fa fa-book fa-2x',
-    atPersonal: 'fa fa-check-square-o fa-2x',
-    atQuestion: 'fa fa-question-circle fa-2x',
-    atNote: 'fa fa-file-text-o fa-2x',
-    atEMail: 'fa fa-envelope fa-2x',
-  },
+  activityTypeIcon: activityTypeIcons.default,
   allowSelection: true,
   enableActions: true,
 
@@ -234,7 +224,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return format.date(startDate.toDate(), fmt);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
@@ -251,12 +241,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    let cls = this.activityIndicatorIconByType[type];
-    if (!cls) {
-      cls = this.itemIconClass;
-    }
-
-    return cls;
+    return this.activityTypeIcon[type];
   },
   init: function init() {
     this.inherited(arguments);

@@ -1,8 +1,8 @@
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
 import format from './Format';
 import sdkFormat from 'argos/Format';
 import getResource from 'argos/I18n';
+
 
 const dtFormatResource = getResource('groupUtilityDateTimeFormat');
 
@@ -182,7 +182,7 @@ const __class = lang.setObject('crm.GroupUtility', {
         '+',
       ];
 
-      return array.indexOf(truthy, value) === -1 ? sdkFormat.noText : sdkFormat.yesText;
+      return truthy.indexOf(value) === -1 ? sdkFormat.noText : sdkFormat.yesText;
     },
   }],
   transformDateFormatString: function transformDateFormatString(gf, defaultFormat) {
@@ -235,11 +235,11 @@ const __class = lang.setObject('crm.GroupUtility', {
   getFormatterByLayout: function getFormatterByLayout(layoutItem) {
     let results;
     if (layoutItem.format && layoutItem.format !== 'None') {
-      results = array.filter(this.groupFormatters, (formatter) => {
+      results = this.groupFormatters.filter((formatter) => {
         return (formatter.name === layoutItem.format);
       });
       if (results.length === 0) {
-        results = array.filter(this.groupFormatters, (formatter) => {
+        results = this.groupFormatters.filter((formatter) => {
           return (formatter.name === 'None');
         });
       }
@@ -251,7 +251,7 @@ const __class = lang.setObject('crm.GroupUtility', {
           formatString: '',
         };
       }
-      results = array.filter(this.groupFormatters, (formatter) => {
+      results = this.groupFormatters.filter((formatter) => {
         return (formatter.name === fieldFormatType.name);
       });
     }
@@ -281,9 +281,9 @@ const __class = lang.setObject('crm.GroupUtility', {
   },
   getLayout: function getLayout(group) {
     let i = 0;
-    const layout = array.filter(group.layout, function filterLayout(item) {
+    const layout = group.layout.filter((item) => {
       item.index = i++;
-      return array.every(this.groupFilters, (filter) => {
+      return this.groupFilters.every((filter) => {
         return filter(item);
       });
     }, this);
@@ -291,7 +291,7 @@ const __class = lang.setObject('crm.GroupUtility', {
   },
   getColumnNames: function getColumnNames(layout) {
     const extraSelectColumns = [];
-    const columns = array.map(layout, (item) => {
+    const columns = layout.map((item) => {
       if (item.format === 'PickList Item') {
         extraSelectColumns.push(`${item.alias}TEXT`);
       }
@@ -330,7 +330,7 @@ const __class = lang.setObject('crm.GroupUtility', {
     defaultGroupName = this.getDefaultGroupPreference(entityName);
 
     if (groupList && groupList.length > 0) {
-      array.forEach(groupList, (group) => {
+      groupList.forEach((group) => {
         if (group.name === defaultGroupName) {
           defaultGroup = group;
         }
@@ -347,9 +347,9 @@ const __class = lang.setObject('crm.GroupUtility', {
     let groupList = this.getGroupPreferences(entityName);
     if (!overwrite && groupList && groupList.length > 0) {
       if (items && items.length > 0) {
-        array.forEach(items, (item) => {
+        items.forEach((item) => {
           found = -1;
-          array.forEach(groupList, (group, i) => {
+          groupList.forEach((group, i) => {
             if (group.$key === item.$key) {
               found = i;
             }
@@ -373,7 +373,7 @@ const __class = lang.setObject('crm.GroupUtility', {
     let found = -1;
     const groupList = this.getGroupPreferences(entityName);
     if (groupList && groupList.length > 0) {
-      array.forEach(groupList, (group, i) => {
+      groupList.forEach((group, i) => {
         if (group.$key === itemKey) {
           found = i;
         }
@@ -412,7 +412,7 @@ const __class = lang.setObject('crm.GroupUtility', {
     // This is usually just the layout item's alias in upper case, however there are some exceptions:
     // Picklist layout items need to select the alias + 'TEXT',
     // Owner and user items need to select the alias + 'NAME'
-    const results = array.filter(this.groupFieldNames, (name) => {
+    const results = this.groupFieldNames.filter((name) => {
       return name.test(layoutItem);
     });
 

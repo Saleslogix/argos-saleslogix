@@ -17,7 +17,7 @@ const resource = getResource('exchangeRateLookup');
 const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.$key %} ({%: $.Rate %})</h3>',
+    '<p class="listview-heading">{%: $.$key %} ({%: $.Rate %})</p>',
   ]),
 
   // Localization

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -16,10 +15,10 @@ const resource = getResource('productList');
 const __class = declare('crm.Views.Product.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %} | {%: $.Description %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.Name %} | {%: $.Description %}</p>',
+    '<p class="micro-text">',
     '{%: $.Family %}',
-    '</h4>',
+    '</p>',
   ]),
 
   // Localization
@@ -40,7 +39,8 @@ const __class = declare('crm.Views.Product.List', [List], {
   resourceKind: 'products',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Name) like "${q}%" or upper(Family) like "${q}%")`;
   },
 });
 

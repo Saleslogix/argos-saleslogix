@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import validator from '../../Validator';
 import template from '../../Template';
 import utility from 'argos/Utility';
@@ -249,7 +248,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         textProperty: 'AccountName',
         type: 'lookup',
         view: 'account_related',
-        where: string.substitute('upper(SubType) eq "${0}"', [this.subTypePickListResellerText]),
+        where: `upper(SubType) eq "${this.subTypePickListResellerText}"`,
         viewMixin: {
           disableRightDrawer: true,
           onTransitionTo: function onTransitionTo(self) {

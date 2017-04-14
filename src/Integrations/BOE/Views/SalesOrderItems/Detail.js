@@ -10,7 +10,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
 import format from 'crm/Format';
 import Detail from 'argos/Detail';
 import MODEL_NAMES from '../../Models/Names';
@@ -96,7 +95,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
       App.getView('salesorder_list'),
     ];
 
-    array.forEach(views, (view) => {
+    views.forEach((view) => {
       if (view) {
         view.refreshRequired = true;
       }
@@ -122,7 +121,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'removeOrderLine',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeOrderLine',
         title: this.removeOrderLineText,
         security: 'Entities/SalesOrder/Delete',
@@ -154,7 +153,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
         name: 'CheckAvailability',
         property: 'SlxLocation.Name',
         label: this.checkWarehouseAvailabilityText,
-        iconClass: 'fa fa-exchange fa-2x',
+        iconClass: 'redo', // TODO: look for a better icon
         action: 'onAvailability',
         disabled: () => {
           return App.warehouseDiscovery === 'auto';

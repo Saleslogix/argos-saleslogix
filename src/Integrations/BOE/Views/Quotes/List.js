@@ -1,10 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -14,24 +12,24 @@ import utility from '../../Utility';
 
 const resource = getResource('quotesList');
 
-const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
   // Templates
   itemTemplate: new Simplate([
-    '<h4><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.QuoteNumber %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.QuoteNumber %}</p>',
     '{% if ($.Account && $.Account.AccountName) { %}',
-    '<h4><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.createDateText %}</label> {%: $$.formatter.date($.CreateDate) %}</h4>',
-    '<h4><label class="group-label">{%: $$.grandTotalLabelText %} </label>',
+    '<p class="micro-text"><label class="group-label">{%: $$.createDateText %}</label> {%: $$.formatter.date($.CreateDate) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.grandTotalLabelText %} </label>',
     '{%: $$.util.formatMultiCurrency($.DocGrandTotal, $.CurrencyCode) %}',
-    '</h4>',
+    '</p>',
     '{% if ($.ErpExtId) { %}',
-    '<h4><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ErpStatus) %}</h4>',
-    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.DocumentDate) %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ErpStatus) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.DocumentDate) %}</p>',
     '{% } else { %}',
-    '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</p>',
     '{% } %}',
   ]),
 
@@ -61,7 +59,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
   insertSecurity: 'Entities/Quote/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-file-text-o fa-2x',
+  itemIconClass: 'document2',
 
   // Groups
   enableDynamicGroupLayout: true,
@@ -100,7 +98,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(QuoteNumber) like "${0}%" or Account.AccountName like "${0}%" or ErpExtId like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(QuoteNumber) like "${q}%" or Account.AccountName like "${q}%" or ErpExtId like "${q}%"`;
   },
   formatErpStatus: function formatErpStatus(value) {
     const text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);

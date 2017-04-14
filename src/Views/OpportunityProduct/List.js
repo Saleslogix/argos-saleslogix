@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -16,12 +15,12 @@ const resource = getResource('opportunityProductList');
 const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Product.Name %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.Product.Name %}</p>',
+    '<p class="micro-text">',
     '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
     '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',
-    '</h4>',
-    '<h4>',
+    '</p>',
+    '<p class="micro-text">',
     '{%: $.Quantity %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
     '({%: crm.Format.percent($.Discount) %}) = ',
     '<strong>',
@@ -31,7 +30,7 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
     '{%: crm.Format.currency($.ExtendedPrice) %}',
     '{% } %}',
     '</strong>',
-    '</h4>',
+    '</p>',
   ]),
 
   // Localization
@@ -58,7 +57,8 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   enableActions: true,
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Product.Name) like "${q}%" or upper(Product.Family) like "${q}%")`;
   },
 });
 

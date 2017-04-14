@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from '../../Action';
 import format from '../../Format';
 import template from '../../Template';
@@ -77,7 +76,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: string.substitute('${0} ${1}', [this.calledText, this.entry.NameLF]),
+      Description: `${this.calledText} ${this.entry.NameLF}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
@@ -94,7 +93,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: string.substitute('Emailed ${0}', [this.entry.NameLF]),
+      Description: `Emailed ${this.entry.NameLF}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
@@ -150,7 +149,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
         property: 'WorkPhone',
         label: this.callWorkNumberText,
         action: 'callWorkPhone',
-        iconClass: 'fa fa-phone-square fa-lg',
+        iconClass: 'phone',
         disabled: this.checkValueExists,
         renderer: format.phone.bindDelegate(this, false),
       }, {
@@ -158,14 +157,14 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
         property: 'Mobile',
         label: this.callMobileNumberText,
         action: 'callMobilePhone',
-        iconClass: 'fa fa-mobile fa-lg',
+        iconClass: 'phone',
         disabled: this.checkValueExists,
         renderer: format.phone.bindDelegate(this, false),
       }, {
         name: 'ScheduleActivityAction',
         label: this.scheduleActivityText,
         action: 'scheduleActivity',
-        iconClass: 'fa fa-calendar fa-lg',
+        iconClass: 'calendar',
         tpl: new Simplate([
           '{%: $.AccountName %} / {%: $.NameLF %}',
         ]),
@@ -174,20 +173,20 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
         property: 'NameLF',
         label: this.addNoteText,
         action: 'addNote',
-        iconClass: 'fa fa-edit fa-lg',
+        iconClass: 'quick-edit',
       }, {
         name: 'SendEmailAction',
         property: 'Email',
         label: this.sendEmailText,
         action: 'sendEmail',
-        iconClass: 'fa fa-envelope fa-lg',
+        iconClass: 'mail',
         disabled: this.checkValueExists,
       }, {
         name: 'ViewAddressAction',
         property: 'Address',
         label: this.viewAddressText,
         action: 'viewAddress',
-        iconClass: 'fa fa-map-marker fa-lg',
+        iconClass: 'map-pin',
         disabled: this.checkAddress,
         renderer: format.address.bindDelegate(this, true, ' '),
       }],

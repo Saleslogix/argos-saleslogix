@@ -87,8 +87,8 @@
 >
 
 <erpShipmentItemModel ""
-  entityDisplayName: "Элемент доставки"
-  entityDisplayNamePlural: "Элементы доставки"
+  entityDisplayName: "Изделие доставки"
+  entityDisplayNamePlural: "Изделия доставки"
 >
 
 <erpShipToModel ""
@@ -107,7 +107,7 @@
 >
 
 <locationModel ""
-  entityDisplayName: "Местоположение"
+  entityDisplayName: "Расположение"
   entityDisplayNamePlural: "Местоположения"
 >
 
@@ -142,8 +142,8 @@
 >
 
 <salesOrderItemModel ""
-  entityDisplayName: "Элемент заказа на продажу"
-  entityDisplayNamePlural: "Элементы заказа на продажу"
+  entityDisplayName: "Изделие заказа на продажу"
+  entityDisplayNamePlural: "Изделия заказа на продажу"
 >
 
 <unitOfMeasureModel ""
@@ -195,7 +195,7 @@
   docAdjustedPriceText: "скорректированная цена"
   unitOfMeasureText: "единица измерения"
   unitsOfMeasureTitle: "Единицы измерения"
-  titleText: "Элемент заказа на продажу"
+  titleText: "Изделие заказа на продажу"
   warehouseText: "склад"
   docTotalAmountText: "общая сумма"
   lineText: "строка"
@@ -209,7 +209,7 @@
   quoteNumberText: "номер предложения"
   accountText: "клиент"
   commentsText: "комментарии"
-  opportunityText: "возможность"
+  opportunityText: "потенциальная сделка"
   dateCreatedText: "дата создания"
   orderIdText: "ИД заказа"
   statusText: "статус"
@@ -248,7 +248,7 @@
   shipEarlyAllowedText: "разрешена ранняя доставка"
   partialShipAllowedText: "частичная доставка разрешена"
   warehouseText: "склад"
-  locationText: "местоположение"
+  locationText: "расположение"
   accountingEntityRequiredText: "Невозможно добавить продукты в запись, так как не указана система учета. Перейти в режим редактирования, чтобы добавить систему учета?"
   requestedByText: "автор запроса"
   carrierText: "перевозчик"
@@ -265,7 +265,7 @@
   quoteNumberText: "номер предложения"
   orderIdText: "ИД заказа в ERP"
   accountText: "клиент"
-  opportunityText: "возможность"
+  opportunityText: "потенциальная сделка"
   dateCreatedText: "дата создания"
   erpStatusText: "статус в ERP"
   subTotalText: "подитог"
@@ -295,7 +295,7 @@
   accountingEntityText: "сущность системы учета"
   warehouseText: "склад"
   warehouseLocationText: "Местоположения складов"
-  locationText: "местоположение"
+  locationText: "расположение"
   carrierText: "перевозчик"
   locationsTitleText: "Местоположения"
   expectedDeliveryDateText: "ожидаемая дата поставки"
@@ -307,7 +307,7 @@
   orderNumberText: "номер заказа"
   orderIdText: "ИД заказа в ERP"
   accountText: "клиент"
-  opportunityText: "возможность"
+  opportunityText: "потенциальная сделка"
   dateCreatedText: "дата создания"
   erpStatusText: "статус в ERP"
   subTotalText: "подитог"
@@ -336,7 +336,7 @@
   accountingEntityText: "сущность системы учета"
   warehouseText: "склад"
   warehouseLocationText: "Местоположение склада"
-  locationText: "местоположение"
+  locationText: "расположение"
   locationsTitleText: "Местоположения"
   carrierText: "перевозчик"
 >
@@ -344,7 +344,7 @@
 <activityDashboardWidget ""
   recentText: "Недавние"
   myPendingText: "Мои ожидающие"
-  pendingText: "Ожидающие"
+  pendingText: "В ожидании"
   lateText: "Поздно"
   titleText: "Действия"
   categoryText: "Выбрать количество дней"
@@ -392,9 +392,9 @@
   holdText: "Удержание"
   orderedText: "Заказано"
   partiallyShippedText: "Частично доставлено"
-  pendingText: "Ожидающие"
+  pendingText: "В ожидании"
   newText: "Новый"
-  openText: "Открыть"
+  openText: "Открыто"
   approvedText: "Утверждено"
   awardedText: "Передано для"
 >
@@ -412,7 +412,7 @@
 >
 
 <erpAccountPersonsList ""
-  titleText: "Менеджер по продажам"
+  titleText: "Продавец"
 >
 
 <erpBillToAccountsDetail ""
@@ -483,7 +483,7 @@
 >
 
 <erpInvoicePersonsList ""
-  titleText: "Ответственное за счет за продажу лицо"
+  titleText: "Ответственное за счет на продажу лицо"
 >
 
 <erpInvoicesDetail ""
@@ -595,11 +595,11 @@
 >
 
 <erpSalesOrderPersonsList ""
-  titleText: "Менеджер по продажам"
+  titleText: "Продавец"
 >
 
 <erpShipmentItemsDetail ""
-  titleText: "Элемент доставки"
+  titleText: "Изделие доставки"
   actionsText: "Быстрые действия"
   relatedItemsText: "Связанные элементы"
   moreDetailsText: "Подробнее"
@@ -613,11 +613,11 @@
   backOrderedQuantityText: "недопоставленное количество"
   unitOfMeasureText: "единица измерения"
   erpUpcIdText: "ИД универсального кода цены в ERP"
-  entityText: "Элемент доставки"
+  entityText: "Изделие доставки"
 >
 
 <erpShipmentItemsList ""
-  titleText: "Элементы доставки"
+  titleText: "Изделия доставки"
   productNameText: "Имя продукта"
   lineNumberText: "Номер строки"
   shipmentIDText: "ИД доставки"
@@ -688,7 +688,7 @@
   contactAssociationText: "Связи контакта"
   shipToText: "Грузополучатель"
   billToText: "Получатель счета"
-  salesPersonText: "Менеджер по продажам"
+  salesPersonText: "Продавец"
   entityText: "Клиент грузополучателя"
 >
 
@@ -744,7 +744,7 @@
   entityText: "Элемент предложения"
   confirmDeleteText: "Действительно удалить текущий элемент строки?"
   removeQuoteLineText: "Удалить элемент строки"
-  locationText: "местоположение"
+  locationText: "расположение"
   totalAmountText: "общая сумма"
   availableQuantityText: "Доступное количество: "
   checkWarehouseAvailabilityText: "Проверить доступность склада"
@@ -807,7 +807,7 @@
   dropShipText: "прямая доставка"
   backOrderedText: "недопоставлено"
   partialShipAllowedText: "частичная доставка разрешена"
-  fixedPriceItemText: "элемент фиксированной цены"
+  fixedPriceItemText: "изделие с фиксированной ценой"
   rushRequestText: "срочный запрос"
   unitOfMeasureText: "единица измерения"
   warehouseText: "склад"
@@ -815,7 +815,7 @@
   detailsText: "Подробности"
   moreDetailsText: "Подробнее"
   relatedItemsText: "Связанные элементы"
-  entityText: "Элемент заказа на продажу"
+  entityText: "Изделие заказа на продажу"
   confirmDeleteText: "Действительно удалить текущий элемент строки?"
   removeOrderLineText: "Удалить элемент строки"
   totalAmountText: "общая сумма"
@@ -851,7 +851,7 @@
   orderIdText: "ИД заказа в ERP"
   customerPOText: "заказ на покупку заказчика"
   accountText: "клиент"
-  opportunityText: "возможность"
+  opportunityText: "потенциальная сделка"
   dateCreatedText: "дата создания"
   orderDateText: "дата заказа"
   dueDateText: "дата выполнения"
@@ -890,7 +890,7 @@
   backOfficeText: "ИД бэк-офиса"
   accountingEntityText: "ИД сущности системы учета"
   warehouseText: "склад"
-  locationText: "местоположение"
+  locationText: "расположение"
   accountingEntityRequiredText: "Невозможно добавить продукты в запись, так как не указана система учета. Перейти в режим редактирования, чтобы добавить систему учета?"
   requestedByText: "автор запроса"
   carrierText: "перевозчик"
@@ -1106,7 +1106,7 @@
   titleText: "История синхронизации"
   directionText: "Направление"
   userText: "Пользователь"
-  sentFromText: "Отправлено от"
+  sentFromText: "Отправитель"
   processedByText: "Автор обработки"
   loggedText: "Зарегистрировано"
   statusText: "Статус"

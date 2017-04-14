@@ -8,9 +8,13 @@ const resource = getResource('logOff');
 const __class = declare('crm.Views.LogOff', [View], {
   // Templates
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-    '<h3>{%= $.messageText %}</h3>',
-    '<a href="" data-action="login">{%: $.loginText %}</a>',
+    '<div class="panel">',
+    '<div class="wrapper">',
+    '<div title="{%: $.titleText %}" class="signin {%= $.cls %}" hideBackButton="true">',
+    '<p>{%= $.messageText %}</p>',
+    '<p><a href="#" class="hyperlink" data-action="login">{%: $.loginText %}</a></p>',
+    '</div>',
+    '</div>',
     '</div>',
   ]),
 

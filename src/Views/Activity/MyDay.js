@@ -68,7 +68,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
       this.tools.tbar.push({
         id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
+        svg: 'refresh',
         action: '_refreshClicked',
       });
 

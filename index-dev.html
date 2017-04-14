@@ -1,10 +1,5 @@
-
 <!DOCTYPE html>
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="gtie9 modern">
-<!--<![endif]-->
-
+<html lang="en-US" class="gtie9 modern">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -57,6 +52,8 @@
   <link href="content/images/apple-touch-startup-image-320x480.png" media="(device-width: 320px) and (device-height: 480px)
              and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
+  <link rel="stylesheet" id="sohoxi-stylesheet" href="./node_modules/@infor/sohoxi/dist/css/light-theme.css">
+
   <!-- less files -->
   <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/crm.less" />
   <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
@@ -79,7 +76,7 @@
     };
   </script>
 
-  <script type="text/javascript" src="../../argos-sdk/libraries/less/less.min.js"></script>
+  <script type="text/javascript" src="./node_modules/less/dist/less.js"></script>
 
   <!-- SData Client Library -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
@@ -94,28 +91,40 @@
   <!-- Deep Diff -->
   <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
-  <!-- Chart.js -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
-
   <!-- Rx.js -->
-  <script src="../../argos-sdk/libraries/rx/rx.all.js"></script>
+  <script src="./node_modules/rx-lite/rx.lite.js"></script>
+
+  <!-- Page.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
 
   <!-- Babel -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/babel/browser-polyfill.min.js"></script>
+  <script type="text/javascript" src="./node_modules/babel-polyfill/dist/polyfill.js"></script>
 
   <!-- moment -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
+  <script type="text/javascript" src="./node_modules/moment/min/moment-with-locales.js"></script>
 
   <!-- PouchDB -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-4.0.3.min.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/pouchdb/pouchdb-6.1.2.js"></script>
 
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
+  <!-- jQuery -->
+  <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
+
+  <!-- D3 -->
+  <script type="text/javascript" src="./node_modules/d3/d3.js"></script>
+
+  <!-- SohoXi -->
+  <script type="text/javascript" src="./node_modules/@infor/sohoxi/dist/js/sohoxi.js"></script>
+
+  <!-- Redux -->
+  <script type="text/javascript" src="./node_modules/redux/dist/redux.js"></script>
+
   <!-- ICRM Common, depends on moment -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
-  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
-  <script type="text/javascript" src="../../argos-sdk/libraries/icrm/services.bundle.js"></script>
+  <script type="text/javascript" src="./node_modules/@infor/icrm-js-common/dist/bundles/common.bundle.js"></script>
+  <script type="text/javascript" src="./node_modules/@infor/icrm-js-customization/dist/bundles/customization.bundle.js"></script>
+  <script type="text/javascript" src="./node_modules/@infor/icrm-js-services/dist/bundles/services.bundle.js"></script>
 
   <!-- Dojo -->
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -128,10 +137,6 @@
       }, {
         name: 'dijit',
         location: '../../argos-sdk/libraries/dojo/dijit'
-      }, {
-        name: 'snap',
-        location: '../../argos-sdk/libraries/snap',
-        main: 'snap'
       }, {
         name: 'argos',
         location: '../../argos-sdk/src-out'
@@ -154,9 +159,18 @@
       }
     });
   </script>
+</head>
 
+<body>
+  <div id="rootNode"></div>
   <script type="text/javascript">
     (function() {
+
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function() {
+        return window.$;
+      });
+
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
           supportedLocales: [
@@ -169,7 +183,11 @@
             'zh-CN',
             'zh-TW',
             'es',
+            'es-ES',
             'pt',
+            'ja',
+            'nl',
+            'th'
           ],
           defaultLocale: 'en',
           currentLocale: 'en',
@@ -194,14 +212,12 @@
             './localization/locales/salesnavigator/en/strings.l20n',
             '../../argos-sdk/localization/locales/argos/en/strings.l20n',
             '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-          ]
+          ],
+          rootElement: document.getElementById('rootNode')
         });
       });
     })();
   </script>
-</head>
-
-<body>
 </body>
 
 </html>

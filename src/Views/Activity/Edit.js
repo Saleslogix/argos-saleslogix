@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
 import string from 'dojo/string';
 import environment from '../../Environment';
 import validator from '../../Validator';
@@ -11,6 +10,7 @@ import recur from '../../Recurrence';
 import format from 'argos/Format';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
+
 
 const resource = getResource('activityEdit');
 const dtFormatResource = getResource('activityEditDateTimeFormat');
@@ -206,7 +206,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   requestLeader: function requestLeader(userId) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
       .setResourceKind('users')
-      .setResourceSelector(string.substitute("'${0}'", [userId]))
+      .setResourceSelector(`'${userId}'`)
       .setQueryArg('select', [
         'UserInfo/FirstName',
         'UserInfo/LastName',
@@ -293,26 +293,26 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     }
   },
   showFieldsForLead: function showFieldsForLead() {
-    array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideItemsStandard(item) {
+    this.fieldsForStandard.concat(this.fieldsForLeads).forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].hide();
       }
     }, this);
 
-    array.forEach(this.fieldsForLeads, function showItemsLeads(item) {
+    this.fieldsForLeads.forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].show();
       }
     }, this);
   },
   showFieldsForStandard: function showFieldsForStandard() {
-    array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function hideItemsStandard(item) {
+    this.fieldsForStandard.concat(this.fieldsForLeads).forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].hide();
       }
     }, this);
 
-    array.forEach(this.fieldsForStandard, function showItemsStandard(item) {
+    this.fieldsForStandard.forEach((item) => {
       if (this.fields[item]) {
         this.fields[item].show();
       }
@@ -398,10 +398,10 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   onAccountChange: function onAccountChange(value, field) {
     const fields = this.fields;
-    array.forEach(['Contact', 'Opportunity', 'Ticket'], (f) => {
+    ['Contact', 'Opportunity', 'Ticket'].forEach((f) => {
       if (value) {
         fields[f].dependsOn = 'Account';
-        fields[f].where = string.substitute('Account.Id eq "${0}"', [value.AccountId || value.key]);
+        fields[f].where = `Account.Id eq "${value.AccountId || value.key}"`;
 
         if (fields[f].currentSelection &&
           fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
@@ -494,7 +494,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
   onRecurrenceChange: function onRecurrenceChange(value) {
     // did the StartDate change on the recurrence_edit screen?
-    const startDate = argos.Convert.toDateFromString(value.StartDate);
+    const startDate = argos.Convert.toDateFromString(value.StartDate); // TODO: Avoid global
     const currentDate = this.fields.StartDate.getValue();
 
     if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
@@ -835,7 +835,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       });
     }
 
-    this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate);
+    this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
     this.resetRecurrence(values);
     this.onStartDateChange(this.fields.StartDate.getValue(), this.fields.StartDate);
     if (this.isActivityRecurring) {

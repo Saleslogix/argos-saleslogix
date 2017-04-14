@@ -1,8 +1,6 @@
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -11,11 +9,11 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpContactAssociationsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Contact.NameLF %}</h3>',
-    '<h4>{%: $.Account.AccountName %}</h4>',
+    '<p class="listview-heading">{%: $.Contact.NameLF %}</p>',
+    '<p class="micro-text">{%: $.Account.AccountName %}</p>',
   ]),
 
   // Localization
@@ -32,7 +30,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List'
   insertSecurity: 'Entities/Contact/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-building-o fa-2x',
+  itemIconClass: 'spreadsheet',
 
   // Groups
   enableDynamicGroupLayout: true,
@@ -64,7 +62,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List'
     }
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Contact.NameLF) like "%${0}%" or upper(Account.AccountName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Contact.NameLF) like "%${q}%" or upper(Account.AccountName) like "%${q}%"`;
   },
 });
 

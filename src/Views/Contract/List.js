@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,8 +13,8 @@ const resource = getResource('contractList');
 const __class = declare('crm.Views.Contract.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
-    '<h4>{%= $.ReferenceNumber %}</h4>',
+    '<p class="listview-heading">{%= $.Account ? $.Account.AccountName : "" %}</p>',
+    '<p class="micro-text">{%= $.ReferenceNumber %}</p>',
   ]),
 
   // Localization
@@ -36,7 +35,8 @@ const __class = declare('crm.Views.Contract.List', [List], {
   resourceKind: 'contracts',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(ReferenceNumber like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
+    const q = this.escapeSearchQuery(searchQuery);
+    return `(ReferenceNumber like "%${q}%")`;
   },
 });
 

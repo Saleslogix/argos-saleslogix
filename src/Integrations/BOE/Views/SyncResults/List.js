@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import MODEL_NAMES from '../../Models/Names';
@@ -13,18 +12,18 @@ const __class = declare('crm.Integrations.BOE.Views.SyncResults.List', [List], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.directionText %}: </label>{%: $.RunName %}</h3>',
-    '<h4><label class="group-label">{%: $$.statusText %}: </label>{%: $.HttpStatus %}</h4>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.directionText %}: </label>{%: $.RunName %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusText %}: </label>{%: $.HttpStatus %}</p>',
     '{% if ($.ErrorMessage) { %}',
-    '<h4><label class="group-label">{%: $$.errorMessageText %}: </label>{%: $.ErrorMessage %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.errorMessageText %}: </label>{%: $.ErrorMessage %}</p>',
     '{% } %}',
     '{% if ($.SyncedFrom) { %}',
-    '<h4><label class="group-label">{%: $$.sentFromText %}: </label>{%: $.SyncedFrom.Name %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.sentFromText %}: </label>{%: $.SyncedFrom.Name %}</p>',
     '{% } %}',
     '{% if ($.SyncedTo) { %}',
-    '<h4><label class="group-label">{%: $$.processedByText %}: </label>{%: $.SyncedTo.Name %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.processedByText %}: </label>{%: $.SyncedTo.Name %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.loggedText %}: </label>{%: $$.formatter.date($.Stamp, $$.dateFormatText) %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.loggedText %}: </label>{%: $$.formatter.date($.Stamp, $$.dateFormatText) %}</p>',
   ]),
 
   // Localization
@@ -59,7 +58,8 @@ const __class = declare('crm.Integrations.BOE.Views.SyncResults.List', [List], {
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(HttpStatus) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(HttpStatus) like "${q}%"`;
   },
 });
 

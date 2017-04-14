@@ -45,7 +45,7 @@ const __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
     }
 
     // skip parent implementation
-    argos.MainToolbar.superclass.showTools.apply(this, arguments);
+    argos.MainToolbar.superclass.showTools.apply(this, arguments); // TODO: Avoid global
 
     if (tools) {
       for (let i = 0; i < tools.length; i++) {

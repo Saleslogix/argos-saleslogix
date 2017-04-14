@@ -1,7 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
-import domGeo from 'dojo/dom-geometry';
 import View from 'argos/View';
 import _ChartMixin from './_ChartMixin';
 
@@ -19,13 +17,6 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
   titleText: '',
   expose: false,
   chart: null,
-  barColor: '#0896e9',
-
-  chartOptions: {
-    scaleBeginAtZero: false,
-    barShowStroke: false,
-    legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-  },
 
   formatter: function formatter(val) {
     return val;
@@ -43,32 +34,21 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
 
     this.showSearchExpression();
 
-    const labels = [];
-    const seriesData = array.map(rawData, (item) => {
-      labels.push(item.$descriptor);
-      return Math.round(item.value);
+    const data = rawData.map((item) => {
+      return {
+        name: item.$descriptor,
+        value: item.value,
+      };
     });
 
-    const data = {
-      labels,
-      datasets: [{
-        label: 'Default',
-        fillColor: this.barColor,
-        data: seriesData,
+    const chart = $(this.contentNode).chart({
+      type: 'bar',
+      dataset: [{
+        data,
       }],
-    };
-
-    if (this.chart) {
-      this.chart.destroy();
-    }
-
-    const box = domGeo.getMarginBox(this.domNode);
-    this.contentNode.width = box.w;
-    this.contentNode.height = box.h;
-
-    const ctx = this.contentNode.getContext('2d');
-
-    this.chart = new window.Chart(ctx).Bar(data, this.chartOptions); // eslint-disable-line
+      showLegend: false,
+    });
+    this.chart = chart.data('chart');
   },
 });
 

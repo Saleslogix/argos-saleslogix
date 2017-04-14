@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 
 /**
@@ -13,7 +12,7 @@ import List from 'argos/List';
 const __class = declare('crm.Views.PickList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.text %}</h3>',
+    '<p class="listview-heading">{%: $.text %}</p>',
   ]),
 
   // View Properties
@@ -24,7 +23,7 @@ const __class = declare('crm.Views.PickList', [List], {
   contractName: 'system',
   pageSize: 100,
   autoClearSelection: false,
-
+  isCardView: false,
   activateEntry: function activateEntry(params) {
     if (this.options.keyProperty === 'text' && !this.options.singleSelect) {
       params.key = params.descriptor;
@@ -56,7 +55,8 @@ const __class = declare('crm.Views.PickList', [List], {
         err => this._onQueryError(null, err));
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(text) like "${q}%"`;
   },
 });
 

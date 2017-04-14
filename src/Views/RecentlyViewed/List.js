@@ -8,7 +8,6 @@
  */
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from './_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import TotalMetricWidget from './TotalMetricWidget';
@@ -27,7 +26,7 @@ const oppResource = getResource('opportunityModel');
 const ticketResource = getResource('ticketModel');
 const leadResource = getResource('leadModel');
 
-export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawerListMixin, _MetricListMixin], {
   id: 'recently_viewed_list',
   idProperty: 'id',
   detailView: 'offline_detail',
@@ -41,8 +40,8 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   pageSize: 1000,
 
   itemTemplate: new Simplate([
-    '<h3>{%: $$.getTitle($) %}</h3>',
-    '<h4>{%: $$.getOfflineDate($) %}</h4>',
+    '<p class="listview-heading">{%: $$.getTitle($) %}</p>',
+    '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   refreshRequiredFor: function refreshRequiredFor() {
     return true;

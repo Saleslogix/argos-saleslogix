@@ -1,8 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -10,11 +8,11 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('returnsList');
 
-const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   // TODO: Need template from PM
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
+    '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
 
   // Localization
@@ -30,7 +28,7 @@ const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _Right
   enableActions: true,
 
   // Card layout
-  itemIconClass: 'fa fa-recycle-o fa-2x',
+  itemIconClass: 'load', // TODO: ensure soho has this icon
 
   // Groups
   enableDynamicGroupLayout: true,
@@ -40,7 +38,8 @@ const __class = declare('crm.Integrations.BOE.Views.Returns.List', [List, _Right
   entityName: 'Return',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(ReturnNumber) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(ReturnNumber) like "%${q}%"`;
   },
 });
 

@@ -1,5 +1,4 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import MyDayMetricWidget from './MyDayMetricWidget';
 import _MetricListMixin from '../_MetricListMixin';
@@ -26,7 +25,7 @@ const __class = declare('crm.Views.Activity.MyDayMetricListMixin', [_MetricListM
     metrics = App.getMetricsByResourceKind('userActivities');
 
     if (metrics.length > 0) {
-      filtered = array.filter(metrics, (item) => {
+      filtered = metrics.filter((item) => {
         return item.enabled;
       });
     }

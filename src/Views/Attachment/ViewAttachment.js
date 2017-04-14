@@ -1,16 +1,11 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domConstruct from 'dojo/dom-construct';
-import domAttr from 'dojo/dom-attr';
-import domClass from 'dojo/dom-class';
-import has from 'dojo/has';
-import dom from 'dojo/dom';
-import domGeom from 'dojo/dom-geometry';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
@@ -98,12 +93,12 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '<label>{%= $$.attachmentNotSupportedText %}</label>',
     '</div>',
     '<div class="attachment-viewer-not-supported">',
-    '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-    '<h4><span>({%: crm.Format.date($.attachDate, (App.is24HourClock()) ? $$.attachmentDateFormatText24 : $$.attachmentDateFormatText) %})&nbsp;</span>',
-    '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
-    '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
+    '<p class="listview-heading"><span>{%: $.description %}&nbsp;</span></p>',
+    '<p class="micro-text"><span>({%: crm.Format.date($.attachDate, (App.is24HourClock()) ? $$.attachmentDateFormatText24 : $$.attachmentDateFormatText) %})&nbsp;</span>',
+    '<span>{%: crm.Format.fileSize($.fileSize) %} </span></p>',
+    '<p class="micro-text"><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></p>',
     '{% if($.user) { %}',
-    '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
+    '<p class="micro-text"><span>{%: $.user.$descriptor  %}</span></p>',
     '{% } %}',
     '</div>',
   ]),
@@ -114,8 +109,8 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   show: function show(options) {
     this.inherited(arguments);
     this.attachmentViewerNode.innerHTML = '';
-    if (!has('html5-file-api')) {
-      domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
+    if (!App.supportsFileAPI()) {
+      $(this.domNode).empty().append(this.notSupportedTemplate.apply({}, this));
       return;
     }
 
@@ -149,6 +144,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   createLayout: function createLayout() {
     return this.tools || (this.tools = []);
   },
+  setSrc: function setSrc(iframe, url) {
+    $(iframe).attr('src', url);
+  },
   _loadAttachmentView: function _loadAttachmentView(entry) {
     const am = new AttachmentManager();
     let description;
@@ -178,10 +176,10 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       fileType = Utility.getFileExtension(entry.fileName);
       if (this._isfileTypeAllowed(fileType)) {
         if (this._isfileTypeImage(fileType)) {
-          domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+          $(this.attachmentViewerNode).append(this.attachmentViewImageTemplate.apply(data, this));
           const tpl = this.downloadingTemplate.apply(this);
-          const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-          domClass.add(this.domNode, 'list-loading');
+          const dl = $(this.attachmentViewerNode).prepend(tpl);
+          $(this.domNode).addClass('list-loading');
           const self = this;
           const attachmentid = entry.$key;
           // dataurl
@@ -201,7 +199,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
                 height: image.height,
               };
               self._sizeImage(self.domNode, image);
-              domConstruct.place(image, 'imagePlaceholder', 'only');
+              $('#imagePlaceholder').empty().append(image);
               loaded = true;
             };
 
@@ -213,45 +211,45 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             }
 
             // Set download text to hidden
-            domClass.add(dl, 'display-none');
+            $(dl).addClass('display-none');
           });
         } else { // View file type in Iframe
           if (this._viewImageOnly() === false) {
-            domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
             const tpl = this.downloadingTemplate.apply(this);
-            const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-            domClass.add(this.domNode, 'list-loading');
+            const dl = $(this.attachmentViewerNode).prepend(tpl);
+            $(this.domNode).addClass('list-loading');
             const attachmentid = entry.$key;
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
-              domClass.add(dl, 'display-none');
-              const iframe = dom.byId('attachment-Iframe');
+              $(dl).addClass('display-none');
+              const iframe = document.getElementById('attachment-Iframe');
               iframe.onload = function iframeOnLoad() {
-                domClass.add(dl, 'display-none');
+                $(dl).addClass('display-none');
               };
-              domClass.add(dl, 'display-none');
-              domAttr.set(iframe, 'src', dataUrl);
+              $(dl).addClass('display-none');
+              this.setSrc(iframe, dataUrl);
             });
           } else { // Only view images
-            domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+            $(this.attachmentViewerNode).append(this.attachmentViewNotSupportedTemplate.apply(entry, this));
           }
         }
       } else { // File type not allowed
-        domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+        $(this.attachmentViewerNode).append(this.attachmentViewNotSupportedTemplate.apply(entry, this));
       }
     } else { // url Attachment
-      domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+      $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
       const url = am.getAttachmenturlByEntity(entry);
-      domClass.add(this.domNode, 'list-loading');
+      $(this.domNode).addClass('list-loading');
       const tpl = this.downloadingTemplate.apply(this);
-      const dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-      const iframe = dom.byId('attachment-Iframe');
+      const dl = $(this.attachmentViewerNode).prepend(tpl);
+      const iframe = document.getElementById('attachment-Iframe');
       iframe.onload = function iframeOnLoad() {
-        domClass.add(dl, 'display-none');
+        $(dl).addClass('display-none');
       };
-      domAttr.set(iframe, 'src', url);
-      domClass.add(dl, 'display-none');
+      this.setSrc(iframe, url);
+      $(dl).addClass('display-none');
     }
   },
   _isfileTypeImage: function _isfileTypeImage(fileType) {
@@ -298,11 +296,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     return false;
   },
   _sizeImage: function _sizeImage(containerNode, image) {
-    const contentBox = domGeom.getContentBox(containerNode);
+    const contentBox = $(containerNode);
     const iH = image.height;
     const iW = image.width;
-    let wH = contentBox.h;
-    let wW = contentBox.w;
+    let wH = contentBox.height();
+    let wW = contentBox.width();
     let scale = 1;
 
     if (wH > 200) {

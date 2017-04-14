@@ -1,17 +1,12 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
-import domClass from 'dojo/dom-class';
-import domConstruct from 'dojo/dom-construct';
 import string from 'dojo/string';
-import query from 'dojo/query';
-import domAttr from 'dojo/dom-attr';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
-import _CardLayoutListMixin from './_CardLayoutListMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('speedSearchList');
 
@@ -21,20 +16,19 @@ const resource = getResource('speedSearchList');
  *
  * @extends argos.List
  * @mixins crm.Views._SpeedSearchRightDrawerListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  */
-const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h4><strong>{%: $.$heading %}</strong></h4>',
+    '<p class="micro-text"><strong>{%: $.$heading %}</strong></p>',
     '{%! $$.fieldTemplate %}',
   ]),
 
   fieldTemplate: new Simplate([
     '<ul class="speedsearch-fields">',
     '{% for(var i = 0; i < $.fields.length; i++) { %}',
-    '<li><h4><span>{%= $.fields[i].fieldName %}</span> {%= $.fields[i].fieldValue %}</h4></li>',
+    '<li><p class="micro-text"><span>{%= $.fields[i].fieldName %}</span> {%= $.fields[i].fieldValue %}</p></li>',
     '{% } %}',
     '</ul>',
   ]),
@@ -181,16 +175,16 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
         entry.$key = this.extractKeyFromItem(entry);
         entry.$heading = this.extractDescriptorFromItem(entry);
         entry.synopsis = window.unescape(entry.synopsis);
-        entry.fields = array.filter(entry.fields, filter);
+        entry.fields = entry.fields.filter(filter);
 
         this.entries[entry.$key] = entry;
-        const rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
-        docfrag.appendChild(rowNode);
+        const rowNode = $(this.rowTemplate.apply(entry, this));
+        docfrag.appendChild(rowNode.get(0));
         this.onApplyRowTemplate(entry, rowNode);
       }
 
       if (docfrag.childNodes.length > 0) {
-        domConstruct.place(docfrag, this.contentNode, 'last');
+        $(this.contentNode).append(docfrag);
       }
     }
 
@@ -199,7 +193,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
       this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
     }
 
-    domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+    $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
   },
   createRequest: function createRequest() {
     const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
@@ -231,8 +225,8 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   getActiveIndexes: function getActiveIndexes() {
     const results = [];
     const self = this;
-    array.forEach(this.activeIndexes, (indexName) => {
-      array.forEach(self.indexes, (index) => {
+    this.activeIndexes.forEach((indexName) => {
+      self.indexes.forEach((index) => {
         if (index.indexName === indexName) {
           results.push(index);
         }
@@ -242,7 +236,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     return results;
   },
   requestData: function requestData() {
-    domClass.add(this.domNode, 'list-loading');
+    $(this.domNode).addClass('list-loading');
 
     const request = this.createRequest();
     const entry = this.createSearchEntry();
@@ -289,10 +283,10 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     indicator.valueText = this.indexesText[entry.type];
   },
   _intSearchExpressionNode: function _intSearchExpressionNode() {
-    const listNode = query(`#${this.id}`);
+    const listNode = $(`#${this.id}`);
     if (listNode[0]) {
       const html = this.searchExpressionTemplate.apply(this);
-      domConstruct.place(html, listNode[0], 'first');
+      $(listNode[0]).prepend(html);
     }
   },
   _isIndexActive: function _isIndexActive(indexName) {
@@ -304,12 +298,12 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   },
   selectIndex: function selectIndex(e) {
     const button = e.$source;
-    const indexName = domAttr.get(button, 'data-index');
+    const indexName = $(button).attr('data-index');
     const activated = this.activateIndex(indexName);
     if (activated) {
-      domClass.add(button, 'card-layout-speed-search-index-selected');
+      $(button).addClass('card-layout-speed-search-index-selected');
     } else {
-      domClass.remove(button, 'card-layout-speed-search-index-selected');
+      $(button).removeClass('card-layout-speed-search-index-selected');
     }
   },
   activateIndex: function activateIndex(indexName) {
@@ -321,7 +315,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
       indexFound = true;
     }
     if (indexFound) {
-      array.forEach(this.activeIndexes, (aIndexName) => {
+      this.activeIndexes.forEach((aIndexName) => {
         if (aIndexName !== indexName) {
           tempActiveIndex.push(aIndexName);
         }

@@ -1,11 +1,11 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('leftDrawer');
 
@@ -21,26 +21,9 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   cls: ' contextualContent',
   enablePullToRefresh: false,
   rowTemplate: new Simplate([
-    '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-    '{% if ($$._hasIcon($)) { %}',
-    '<div class="list-item-static-selector">',
-    '{% if ($.iconTemplate) { %}',
-    '{%! $.iconTemplate %}',
-    '{% } else if ($.cls) { %}',
-    '<div class="{%: $.cls %}"></div>',
-    '{% } else if ($.icon) { %}',
-    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-    '{% } %}',
+    '<div class="accordion-header" role="presentation">',
+    '<a href="#" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}><span>{%: $.title %}</span></a>',
     '</div>',
-    '{% } %}',
-    '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-    '</li>',
-  ]),
-  _hasIcon: function _hasIcon(entry) {
-    return entry.iconTemplate || entry.cls || entry.icon;
-  },
-  itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>',
   ]),
 
   // Localization
@@ -72,10 +55,30 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   addAccountContactView: 'add_account_contact',
   searchView: 'speedsearch_list',
 
+  initSoho: function initSoho() {
+    this.inherited(arguments);
+    this.accordion.element.on('selected', (evt, header) => {
+      // Fix up the event target to the element with our data-action attribute.
+      evt.target = $('a', header).get(0);
+      this._initiateActionFromEvent(evt);
+    });
+  },
+  shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
+    const menu = App.applicationmenu;
+    return !menu.isLargerThanBreakpoint();
+  },
+  closeAppMenu: function closeAppMenu() {
+    const menu = App.applicationmenu;
+
+    if (menu && this.shouldCloseAppMenuOnAction()) {
+      menu.closeMenu();
+    }
+  },
   logOut: function logOut() {
     const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
     if (sure) {
       App.logOut();
+      this.closeAppMenu();
     }
   },
   loadAndNavigateToView: function loadAndNavigateToView(params) {
@@ -83,18 +86,18 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     this.navigateToView(view);
   },
   navigateToView: function navigateToView(view) {
-    App.snapper.close();
     if (view) {
       view.show();
+      this.closeAppMenu();
     }
   },
   addAccountContact: function addAccountContact() {
-    App.snapper.close();
     const view = App.getView('add_account_contact');
     if (view) {
       view.show({
         insert: true,
       });
+      this.closeAppMenu();
     }
   },
   navigateToConfigurationView: function navigateToConfigurationView() {
@@ -128,7 +131,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       };
     }
 
-    if (array.indexOf(footerItems, entry.name) >= 0) {
+    if (footerItems.indexOf(entry.name) >= 0) {
       return {
         tag: 'footer',
         title: this.footerText,
@@ -321,8 +324,6 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         }
       }, 10);
     }
-
-    App.snapper.close();
   },
 });
 

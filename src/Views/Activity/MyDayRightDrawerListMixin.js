@@ -1,9 +1,8 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('activityMyDayRightDrawerList');
 
@@ -56,7 +55,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      App.snapper.on('close', lang.hitch(this, this.onSnapperClose));
+      App.viewSettingsModal.element.on('close', this.onSnapperClose.bind(this));
     }
   },
   refreshRightDrawer: function refreshRightDrawer() {
@@ -88,7 +87,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function snapperOff() {};
-      App.snapper.off('close');
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {
@@ -100,11 +99,12 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
     const actions = {
       filterClicked: function onFilterClicked(params) {
         const prefs = App.preferences && App.preferences.myDayFilters;
-
-        const filterPref = array.filter(prefs, (pref) => {
-          return pref.name === params.filtername;
-        });
-
+        let filterPref = [];
+        if (prefs.length) {
+          filterPref = prefs.filter((pref) => {
+            return pref.name === params.filtername;
+          });
+        }
         if (filterPref.length > 0) {
           const enabled = !!filterPref[0].enabled;
           filterPref[0].enabled = !enabled;
@@ -119,11 +119,11 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
           }
           App.persistPreferences();
           this._hasChangedFilterPrefs = true;
-          domAttr.set(params.$source, 'data-enabled', (!enabled)
+          $(params.$source).attr('data-enabled', (!enabled)
             .toString());
 
           this.onSnapperClose();
-          this.toggleRightDrawer();
+          App.viewSettingsModal.close();
           this.refreshRightDrawer();
         }
       }.bind(this),
@@ -132,7 +132,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === params.title;
           });
         }
@@ -143,7 +143,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
           App.persistPreferences();
           this._hasChangedKPIPrefs = true;
 
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }.bind(this),
     };
@@ -174,7 +174,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
       children: Object.keys(filters)
         .map((filterName) => {
           const prefs = App.preferences && App.preferences.myDayFilters;
-          const filterPref = array.filter(prefs, (pref) => {
+          const filterPref = prefs.filter((pref) => {
             return pref.name === filterName;
           });
           const {

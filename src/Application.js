@@ -1,23 +1,19 @@
-import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
-import connect from 'dojo/_base/connect';
-import json from 'dojo/json';
-import lang from 'dojo/_base/lang';
-import has from 'dojo/has';
 import string from 'dojo/string';
-import Deferred from 'dojo/Deferred';
 import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
 import environment from './Environment';
-import Application from 'argos/Application';
+import SDKApplication from 'argos/Application';
 import offlineManager from 'argos/Offline/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from './Models/Names';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
-import 'dojo/sniff';
 import MingleUtility from './MingleUtility';
+import { app } from './reducers/index';
+import { setConfig, setEndPoint } from './actions/config';
+import { setUser } from './actions/user';
 import PicklistService from './PicklistService';
+
 
 const resource = getResource('application');
 
@@ -30,98 +26,131 @@ const resource = getResource('application');
  * @requires moment
  *
  */
-const __class = declare('crm.Application', [Application], {
-  navigationState: null,
-  rememberNavigationState: true,
-  enableUpdateNotification: false,
-  multiCurrency: false,
-  enableGroups: true,
-  enableHashTags: true,
-  enableOfflineSupport: false,
-  speedSearch: {
-    includeStemming: true,
-    includePhonic: true,
-    includeThesaurus: false,
-    useFrequentFilter: false,
-    searchType: 1,
-  },
-  enableCaching: true,
-  userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
-  userOptionsToRequest: [
-    'category=DefaultGroup;name=ACCOUNT',
-    'category=DefaultGroup;name=CONTACT',
-    'category=DefaultGroup;name=OPPORTUNITY',
-    'category=DefaultGroup;name=LEAD',
-    'category=DefaultGroup;name=TICKET',
-    'category=DefaultGroup;name=SALESORDER',
-    'category=DefaultGroup;name=QUOTE',
-    'category=General;name=InsertSecCodeID',
-    'category=General;name=Currency',
-    'category=Calendar;name=DayStartTime',
-    'category=Calendar;name=WeekStart',
-    'category=ActivityMeetingOptions;name=AlarmEnabled',
-    'category=ActivityMeetingOptions;name=AlarmLead',
-    'category=ActivityMeetingOptions;name=Duration',
-    'category=ActivityPhoneOptions;name=AlarmEnabled',
-    'category=ActivityPhoneOptions;name=AlarmLead',
-    'category=ActivityPhoneOptions;name=Duration',
-    'category=ActivityToDoOptions;name=AlarmEnabled',
-    'category=ActivityToDoOptions;name=AlarmLead',
-    'category=ActivityToDoOptions;name=Duration',
-    'category=ActivityPersonalOptions;name=AlarmEnabled',
-    'category=ActivityPersonalOptions;name=AlarmLead',
-    'category=ActivityPersonalOptions;name=Duration',
-  ],
-  systemOptionsToRequest: [
-    'BaseCurrency',
-    'MultiCurrency',
-    'ChangeOpportunityRate',
-    'LockOpportunityRate',
-  ],
-  appName: 'argos-saleslogix',
-  serverVersion: {
-    major: 8,
-    minor: 0,
-    revision: 0,
-  },
-  mobileVersion: {
-    major: 3,
-    minor: 6,
-    revision: 0,
-  },
-  versionInfoText: resource.versionInfoText,
-  loadingText: resource.loadingText,
-  authText: resource.authText,
-  connectionToastTitleText: resource.connectionToastTitleText,
-  offlineText: resource.offlineText,
-  onlineText: resource.onlineText,
-  mingleAuthErrorText: resource.mingleAuthErrorText,
-  homeViewId: 'myactivity_list',
-  offlineHomeViewId: 'recently_viewed_list_offline',
-  loginViewId: 'login',
-  logOffViewId: 'logoff',
+export default class Application extends SDKApplication {
+  constructor(options = {
+    connections: null,
+    enableUpdateNotification: false,
+    enableMultiCurrency: false,
+    enableGroups: true,
+    enableHashTags: true,
+    maxUploadFileSize: 40000000,
+    enableConcurrencyCheck: false,
+    enableOfflineSupport: false,
+    warehouseDiscovery: 'auto',
+    enableMingle: false,
+    mingleSettings: null,
+    mingleRedirectUrl: '',
+  }) {
+    super();
+    this.navigationState = null;
+    this.rememberNavigationState = true;
+    this.speedSearch = {
+      includeStemming: true,
+      includePhonic: true,
+      includeThesaurus: false,
+      useFrequentFilter: false,
+      searchType: 1,
+    };
+    this.enableCaching = true;
+    this.userDetailsQuerySelect = ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'];
+    this.userOptionsToRequest = [
+      'category=DefaultGroup;name=ACCOUNT',
+      'category=DefaultGroup;name=CONTACT',
+      'category=DefaultGroup;name=OPPORTUNITY',
+      'category=DefaultGroup;name=LEAD',
+      'category=DefaultGroup;name=TICKET',
+      'category=DefaultGroup;name=SALESORDER',
+      'category=DefaultGroup;name=QUOTE',
+      'category=General;name=InsertSecCodeID',
+      'category=General;name=Currency',
+      'category=Calendar;name=DayStartTime',
+      'category=Calendar;name=WeekStart',
+      'category=ActivityMeetingOptions;name=AlarmEnabled',
+      'category=ActivityMeetingOptions;name=AlarmLead',
+      'category=ActivityMeetingOptions;name=Duration',
+      'category=ActivityPhoneOptions;name=AlarmEnabled',
+      'category=ActivityPhoneOptions;name=AlarmLead',
+      'category=ActivityPhoneOptions;name=Duration',
+      'category=ActivityToDoOptions;name=AlarmEnabled',
+      'category=ActivityToDoOptions;name=AlarmLead',
+      'category=ActivityToDoOptions;name=Duration',
+      'category=ActivityPersonalOptions;name=AlarmEnabled',
+      'category=ActivityPersonalOptions;name=AlarmLead',
+      'category=ActivityPersonalOptions;name=Duration',
+    ];
+    this.systemOptionsToRequest = [
+      'BaseCurrency',
+      'MultiCurrency',
+      'ChangeOpportunityRate',
+      'LockOpportunityRate',
+    ];
+    this.appName = 'argos-saleslogix';
+    this.serverVersion = {
+      major: 8,
+      minor: 0,
+      revision: 0,
+    };
+    this.mobileVersion = {
+      major: 4,
+      minor: 0,
+      revision: 0,
+    };
+    this.versionInfoText = resource.versionInfoText;
+    this.loadingText = resource.loadingText;
+    this.authText = resource.authText;
+    this.connectionToastTitleText = resource.connectionToastTitleText;
+    this.offlineText = resource.offlineText;
+    this.onlineText = resource.onlineText;
+    this.mingleAuthErrorText = resource.mingleAuthErrorText;
+    this.homeViewId = 'myactivity_list';
+    this.offlineHomeViewId = 'recently_viewed_list_offline';
+    this.loginViewId = 'login';
+    this.logOffViewId = 'logoff';
+    this.UID = null;
+    this.isAuthenticated = false;
+    this.hasState = false;
+    this.defaultViews = [
+      'myday_list',
+      'calendar_view',
+      'history_list',
+      'account_list',
+      'contact_list',
+      'lead_list',
+      'opportunity_list',
+      'ticket_list',
+      'myattachment_list',
+      'recently_viewed_list',
+      'briefcase_list',
+    ];
 
-  UID: null,
-  init: function init() {
-    if (has('ie') && has('ie') < 9) {
-      window.location.href = 'unsupported.html';
-    }
+    // Settings
+    Object.assign(this, options); // TODO: Remove
+
+    // Save this config temporarily until we have a working store (init).
+    this._config = options;
+  }
+
+  init() {
     // Must exist here for backwards compatibility for BOE Module
     this.picklistService = PicklistService;
-
-    this.inherited(arguments);
 
     this._cachingService = new ICRMServicesSDK.CachingService(localStorage);
     this.picklistService.init(this.getService(), this._cachingService);
 
+    super.init(...arguments);
+    // Dispatch the temp config we saved in the constructor
+    this.store.dispatch(setConfig(this._config));
+    this._config = null;
     this._loadNavigationState();
+    this._saveDefaultPreferences();
 
     let accessToken = null;
-    if (this.mingleEnabled) {
+    if (this.enableMingle) {
       accessToken = this.mingleAuthResults.access_token;
     }
 
-    this.UID = (new Date()).getTime();
+    this.UID = (new Date())
+      .getTime();
     const original = Sage.SData.Client.SDataService.prototype.executeRequest;
     const self = this;
     Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
@@ -131,22 +160,40 @@ const __class = declare('crm.Application', [Application], {
       }
 
       request.setRequestHeader('X-Application-Name', self.appName);
-      request.setRequestHeader('X-Application-Version', string.substitute('${version.major}.${version.minor}.${version.revision};${id}', {
-        version: self.mobileVersion,
-        id: self.UID,
-      }));
+      const version = self.mobileVersion;
+      const id = self.UID;
+      request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
       return original.apply(this, arguments);
     };
-  },
-  initConnects: function initConnects() {
-    this.inherited(arguments);
+  }
+
+  getReducer() {
+    const sdk = super.getReducer(...arguments);
+    return Redux.combineReducers({
+      sdk,
+      app,
+    });
+  }
+
+  getInitialState() {
+    return {};
+  }
+
+  initConnects() {
+    super.initConnects(...arguments);
 
     if (window.applicationCache) {
-      this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
+      $(window.applicationCache).on('updateready', this._checkForUpdate.bind(this));
     }
-  },
-  isOnFirstView: function isOnFirstView() {
-    const history = ReUI.context.history;
+  }
+
+  destroy() {
+    super.destroy();
+    $(window.applicationCache).off('updateready', this._checkForUpdate.bind(this));
+  }
+
+  isOnFirstView() {
+    const history = this.context.history;
     const length = history.length;
     const current = history[length - 1];
     const previous = history[length - 2];
@@ -161,55 +208,57 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return isFirstView;
-  },
-  onSetOrientation: function onSetOrientation() {
-    if (this.snapper) {
-      this.snapper.close();
-    }
-  },
-  _viewTransitionTo: function _viewTransitionTo() {
-    this.inherited(arguments);
+  }
+
+  onSetOrientation() {
+    // TODO: Close main nav like we did with left drawer?
+  }
+
+  _viewTransitionTo() {
+    super._viewTransitionTo(...arguments);
     this._checkSaveNavigationState();
-    if (this.snapper) {
-      this.snapper.close();
-    }
-  },
-  _checkSaveNavigationState: function _checkSaveNavigationState() {
+    // TODO: Close main nav like we did with left drawer?
+  }
+
+  _checkSaveNavigationState() {
     if (this.rememberNavigationState !== false) {
       this._saveNavigationState();
     }
-  },
-  _checkForUpdate: function _checkForUpdate() {
+  }
+
+  _checkForUpdate() {
     const applicationCache = window.applicationCache;
     if (applicationCache && this.enableUpdateNotification) {
       if (applicationCache.status === applicationCache.UPDATEREADY) {
         this._notifyUpdateAvailable();
       }
     }
-  },
-  _notifyUpdateAvailable: function _notifyUpdateAvailable() {
+  }
+
+  _notifyUpdateAvailable() {
     if (this.bars.updatebar) {
       this.bars.updatebar.show();
     }
-  },
-  _saveNavigationState: function _saveNavigationState() {
+  }
+
+  _saveNavigationState() {
     try {
       if (window.localStorage) {
-        window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
+        window.localStorage.setItem('navigationState', JSON.stringify(ReUI.context.history));
       }
     } catch (e) {} // eslint-disable-line
-  },
-  hasMultiCurrency: function hasMultiCurrency() {
+  }
+  hasMultiCurrency() {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
     // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
     // instead of on startup. We cannot check App.context data that was loaded after login when the startup method is used.
-    if (this.multiCurrency) {
+    if (this.enableMultiCurrency) {
       return true;
     }
 
     return false;
-  },
-  canLockOpportunityRate: function canLockOpportunityRate() {
+  }
+  canLockOpportunityRate() {
     if (this.context &&
       this.context.systemOptions &&
       this.context.systemOptions.LockOpportunityRate === 'True') {
@@ -217,8 +266,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return false;
-  },
-  canChangeOpportunityRate: function canChangeOpportunityRate() {
+  }
+  canChangeOpportunityRate() {
     if (this.context &&
       this.context.systemOptions &&
       this.context.systemOptions.ChangeOpportunityRate === 'True') {
@@ -226,8 +275,8 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return false;
-  },
-  getMyExchangeRate: function getMyExchangeRate() {
+  }
+  getMyExchangeRate() {
     const results = {
       code: '',
       rate: 1,
@@ -240,15 +289,15 @@ const __class = declare('crm.Application', [Application], {
       this.context.userOptions['General:Currency']) {
       const myCode = this.context.userOptions['General:Currency'];
       const myRate = this.context.exchangeRates[myCode];
-      lang.mixin(results, {
+      Object.assign(results, {
         code: myCode,
         rate: myRate,
       });
     }
 
     return results;
-  },
-  getBaseExchangeRate: function getBaseExchangeRate() {
+  }
+  getBaseExchangeRate() {
     const results = {
       code: '',
       rate: 1,
@@ -261,22 +310,23 @@ const __class = declare('crm.Application', [Application], {
       this.context.systemOptions.BaseCurrency) {
       const baseCode = this.context.systemOptions.BaseCurrency;
       const baseRate = this.context.exchangeRates[baseCode];
-      lang.mixin(results, {
+      Object.assign(results, {
         code: baseCode,
         rate: baseRate,
       });
     }
 
     return results;
-  },
-  getCurrentOpportunityExchangeRate: function getCurrentOpportunityExchangeRate() {
+  }
+  getCurrentOpportunityExchangeRate() {
     const results = {
       code: '',
       rate: 1,
     };
 
     let found = this.queryNavigationContext((o) => {
-      return (/^(opportunities)$/).test(o.resourceKind) && o.key;
+      return (/^(opportunities)$/)
+        .test(o.resourceKind) && o.key;
     });
 
     found = found && found.options;
@@ -284,19 +334,20 @@ const __class = declare('crm.Application', [Application], {
     if (found) {
       const rate = found.ExchangeRate;
       const code = found.ExchangeRateCode;
-      lang.mixin(results, {
+      Object.assign(results, {
         code,
         rate,
       });
     }
 
     return results;
-  },
-  run: function run() {
-    this.inherited(arguments);
+  }
+  run() {
+    super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      if (App.mingleEnabled) {
+      this.loadEndpoint();
+      if (this.enableMingle) {
         this.handleMingleAuthentication();
       } else {
         this.handleAuthentication();
@@ -309,10 +360,10 @@ const __class = declare('crm.Application', [Application], {
     if (this.enableUpdateNotification) {
       this._checkForUpdate();
     }
-  },
-  onAuthenticateUserSuccess: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
+  }
+  onAuthenticateUserSuccess(credentials, callback, scope, result) {
     const user = {
-      $key: lang.trim(result.response.userId),
+      $key: result.response.userId.trim(),
       $descriptor: result.response.prettyName,
       UserName: result.response.userName,
     };
@@ -323,7 +374,7 @@ const __class = declare('crm.Application', [Application], {
 
     if (this.context.securedActions) {
       this.context.userSecurity = {};
-      array.forEach(this.context.securedActions, (item) => {
+      this.context.securedActions.forEach((item) => {
         this.context.userSecurity[item] = true;
       });
     } else {
@@ -336,12 +387,13 @@ const __class = declare('crm.Application', [Application], {
       };
     }
 
-    if (!App.mingleEnabled && credentials.remember) {
+    if (!this.enableMingle && credentials.remember) {
       try {
         if (window.localStorage) {
-          window.localStorage.setItem('credentials', Base64.encode(json.stringify({
+          window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
             username: credentials.username,
             password: credentials.password || '',
+            endpoint: credentials.endpoint,
           })));
         }
       } catch (e) {} //eslint-disable-line
@@ -352,8 +404,8 @@ const __class = declare('crm.Application', [Application], {
         user,
       });
     }
-  },
-  onAuthenticateUserFailure: function onAuthenticateUserFailure(callback, scope, response) {
+  }
+  onAuthenticateUserFailure(callback, scope, response) {
     const service = this.getService();
     if (service) {
       service
@@ -366,8 +418,8 @@ const __class = declare('crm.Application', [Application], {
         response,
       });
     }
-  },
-  authenticateUser: function authenticateUser(credentials, options) {
+  }
+  authenticateUser(credentials, options) {
     const service = this.getService();
     if (credentials) {
       service.setUserName(credentials.username)
@@ -379,12 +431,12 @@ const __class = declare('crm.Application', [Application], {
       .setOperationName('getCurrentUser');
 
     request.execute({}, {
-      success: lang.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
-      failure: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
-      aborted: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
+      success: this.onAuthenticateUserSuccess.bind(this, credentials, options.success, options.scope),
+      failure: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
+      aborted: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
     });
-  },
-  hasAccessTo: function hasAccessTo(security) {
+  }
+  hasAccessTo(security) {
     if (!security) {
       return true;
     }
@@ -402,25 +454,27 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return !!userSecurity[security];
-  },
-  reload: function reload() {
-    this.ReUI.disableLocationCheck();
+  }
+  reload() {
+    // this.ReUI.disableLocationCheck();
     this.hash('');
     window.location.reload();
-  },
-  resetModuleAppStatePromises: function resetModuleAppStatePromises() {
+  }
+  resetModuleAppStatePromises() {
     this.clearAppStatePromises();
     for (let i = 0; i < this.modules.length; i++) {
       this.modules[i].loadAppStatePromises(this);
     }
-  },
-  logOut: function logOut() {
+  }
+  logOut() {
     this.removeCredentials();
     this._clearNavigationState();
 
     const service = this.getService();
     this.isAuthenticated = false;
-    this.context = {};
+    this.context = {
+      history: [],
+    };
 
     this.resetModuleAppStatePromises();
 
@@ -435,29 +489,54 @@ const __class = declare('crm.Application', [Application], {
     if (view) {
       view.show();
     }
-  },
-  getCredentials: function getCredentials() {
+  }
+  getCredentials() {
     let credentials = null;
     try {
       if (window.localStorage) {
         const stored = window.localStorage.getItem('credentials');
         const encoded = stored && Base64.decode(stored);
-        credentials = encoded && json.parse(encoded);
+        credentials = encoded && JSON.parse(encoded);
       }
     } catch (e) {} //eslint-disable-line
 
     return credentials;
-  },
-  removeCredentials: function removeCredentials() {
+  }
+  loadEndpoint() {
+    try {
+      if (window.localStorage) {
+        const results = window.localStorage.getItem('endpoint');
+        if (results) {
+          this.store.dispatch(setEndPoint(results));
+        } else {
+          const service = this.getService();
+          service.uri.setHost(window.location.hostname)
+            .setScheme(window.location.protocol.replace(':', ''))
+            .setPort(window.location.port);
+          this.store.dispatch(setEndPoint(service.uri.build()));
+        }
+      }
+    } catch (e) {} // eslint-disable-line
+  }
+  saveEndpoint(url = '') {
+    if (!url) {
+      return;
+    }
+
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem('endpoint', url);
+      }
+    } catch (e) {} // eslint-disable-line
+  }
+  removeCredentials() {
     try {
       if (window.localStorage) {
         window.localStorage.removeItem('credentials');
       }
     } catch (e) {} //eslint-disable-line
-  },
-  isAuthenticated: false,
-  hasState: false,
-  handleAuthentication: function handleAuthentication() {
+  }
+  handleAuthentication() {
     const credentials = this.getCredentials();
 
     if (credentials) {
@@ -471,8 +550,8 @@ const __class = declare('crm.Application', [Application], {
     } else {
       this.navigateToLoginView();
     }
-  },
-  handleMingleAuthentication: function handleMingleAuthentication() {
+  }
+  handleMingleAuthentication() {
     if (this.mingleAuthResults && this.mingleAuthResults.error === 'access_denied') {
       this.setPrimaryTitle(this.mingleAuthErrorText);
     } else {
@@ -484,30 +563,33 @@ const __class = declare('crm.Application', [Application], {
         scope: this,
       });
     }
-  },
-  onHandleAuthenticationSuccess: function onHandleAuthenticationSuccess() {
+  }
+  onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
+
+    const header = $('.header', this.getContainerNode());
+    header.show();
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
       this.onInitAppStateFailed(err);
     });
-  },
-  onHandleAuthenticationFailed: function onHandleAuthenticationFailed() {
+  }
+  onHandleAuthenticationFailed() {
     this.removeCredentials();
     this.navigateToLoginView();
-  },
-  onMingleHandleAuthenticationFailed: function onMingleHandleAuthenticationFailed() {
+  }
+  onMingleHandleAuthenticationFailed() {
     this.removeCredentials();
     this.setPrimaryTitle(this.mingleAuthErrorText);
-  },
-  onHandleAuthenticationAborted: function onHandleAuthenticationAborted() {
+  }
+  onHandleAuthenticationAborted() {
     this.navigateToLoginView();
-  },
-  onInitAppStateSuccess: function onInitAppStateSuccess() {
-    this._saveDefaultPreferences();
+  }
+  onInitAppStateSuccess() {
     this.setDefaultMetricPreferences();
+    this.showApplicationMenuOnLarge();
     if (this.enableOfflineSupport) {
       this.initOfflineData().then(() => {
         this.hasState = true;
@@ -525,8 +607,8 @@ const __class = declare('crm.Application', [Application], {
       this.hasState = true;
       this.navigateToInitialView();
     }
-  },
-  onInitAppStateFailed: function onInitAppStateFailed(error) {
+  }
+  onInitAppStateFailed(error) {
     const message = resource.appStateInitErrorText;
     ErrorManager.addSimpleError(message, error);
     ErrorManager.showErrorDialog(null, message, () => {
@@ -534,8 +616,27 @@ const __class = declare('crm.Application', [Application], {
       this.removeCredentials();
       this.navigateToLoginView();
     });
-  },
-  _clearNavigationState: function _clearNavigationState() {
+  }
+  onStateChange(state) {
+    super.onStateChange(state);
+    if (!state || state === this.previousState) {
+      return;
+    }
+
+    const currentEndpoint = state.app.config.endpoint;
+    const previousEndpoint = this.previousState.app.config.endpoint;
+    if (currentEndpoint !== previousEndpoint) {
+      this.updateServiceUrl(state);
+      this.saveEndpoint(currentEndpoint);
+    }
+  }
+  updateServiceUrl(state) {
+    const service = this.getService();
+    service.setUri(Object.assign({}, state.app.config.connections, {
+      url: state.app.config.endpoint,
+    }));
+  }
+  _clearNavigationState() {
     try {
       this.initialNavigationState = null;
 
@@ -543,15 +644,15 @@ const __class = declare('crm.Application', [Application], {
         window.localStorage.removeItem('navigationState');
       }
     } catch (e) {} //eslint-disable-line
-  },
-  _loadNavigationState: function _loadNavigationState() {
+  }
+  _loadNavigationState() {
     try {
       if (window.localStorage) {
         this.navigationState = window.localStorage.getItem('navigationState');
       }
     } catch (e) {} // eslint-disable-line
-  },
-  _saveDefaultPreferences: function _saveDefaultPreferences() {
+  }
+  _saveDefaultPreferences() {
     if (this.preferences) {
       return;
     }
@@ -566,13 +667,13 @@ const __class = declare('crm.Application', [Application], {
         order: views.slice(0),
       },
     };
-  },
-  getMetricsByResourceKind: function getMetricsByResourceKind(resourceKind) {
+  }
+  getMetricsByResourceKind(resourceKind) {
     let results = [];
     let prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
 
     if (prefs) {
-      prefs = array.filter(prefs, (item) => {
+      prefs = prefs.filter((item) => {
         return item.resourceKind === resourceKind;
       });
 
@@ -582,104 +683,103 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  setDefaultMetricPreferences: function setDefaultMetricPreferences() {
+  }
+  setDefaultMetricPreferences() {
     if (!this.preferences.metrics) {
       const defaults = new DefaultMetrics();
       this.preferences.metrics = defaults.getDefinitions();
       this.persistPreferences();
     }
-  },
-  requestUserDetails: function requestUserDetails() {
+  }
+  requestUserDetails() {
+    const key = this.context.user.$key;
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('users')
-      .setResourceSelector(string.substitute('"${0}"', [this.context.user.$key]))
+      .setResourceSelector(`"${key}"`)
       .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
-    const def = new Deferred();
-
-    request.read({
-      success: function success(entry) {
-        this.context.user = entry;
-        this.context.defaultOwner = entry && entry.DefaultOwner;
-        def.resolve(entry);
-      },
-      failure: function failure() {
-        def.reject();
-      },
-      scope: this,
+    return new Promise((resolve, reject) => {
+      request.read({
+        success: function success(entry) {
+          this.store.dispatch(setUser(entry));
+          this.context.user = entry;
+          this.context.defaultOwner = entry && entry.DefaultOwner;
+          resolve(entry);
+        },
+        failure: function failure(e) {
+          reject(e);
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
-  },
-  requestUserOptions: function requestUserOptions() {
+  }
+  requestUserOptions() {
     const batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
       .setContractName('system')
       .setResourceKind('useroptions')
       .setQueryArg('select', 'name,value,defaultValue')
       .using(function using() {
         const service = this.getService();
-        array.forEach(this.userOptionsToRequest, function forEach(item) {
-          new Sage.SData.Client.SDataSingleResourceRequest(this)
+        this.userOptionsToRequest.forEach((item) => {
+          new Sage.SData.Client.SDataSingleResourceRequest(service)
             .setContractName('system')
             .setResourceKind('useroptions')
             .setResourceKey(item)
             .read();
-        }, service);
+        });
       }, this);
 
-    const def = new Deferred();
-    batch.commit({
-      success: function success(feed) {
-        const userOptions = this.context.userOptions = this.context.userOptions || {};
+    return new Promise((resolve, reject) => {
+      batch.commit({
+        success: function success(feed) {
+          const userOptions = this.context.userOptions = this.context.userOptions || {};
 
-        array.forEach(feed && feed.$resources, (item) => {
-          const key = item && item.$descriptor;
-          let { value } = item;
-          const { defaultValue } = item;
+          feed.$resources.forEach((item) => {
+            const key = item && item.$descriptor;
+            let { value } = item;
+            const { defaultValue } = item;
 
-          if (typeof value === 'undefined' || value === null) {
-            value = defaultValue;
+            if (typeof value === 'undefined' || value === null) {
+              value = defaultValue;
+            }
+
+            if (key) {
+              userOptions[key] = value;
+            }
+          });
+
+          const insertSecCode = userOptions['General:InsertSecCodeID'];
+          const currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
+
+          if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
+            this.requestOwnerDescription(insertSecCode);
           }
 
-          if (key) {
-            userOptions[key] = value;
-          }
-        });
-
-        const insertSecCode = userOptions['General:InsertSecCodeID'];
-        const currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
-
-        if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
-          this.requestOwnerDescription(insertSecCode);
-        }
-
-        this.loadCustomizedMoment();
-        def.resolve(feed);
-      },
-      failure: function failure(response, o) {
-        def.reject();
-        ErrorManager.addError(response, o, {}, 'failure');
-      },
-      scope: this,
+          this.loadCustomizedMoment();
+          resolve(feed);
+        },
+        failure: function failure(response, o) {
+          reject();
+          ErrorManager.addError(response, o, {}, 'failure');
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
-  },
+  }
   /*
    * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
    */
-  loadCustomizedMoment: function loadCustomizedMoment() {
+  loadCustomizedMoment() {
     const custom = this.buildCustomizedMoment();
     const currentLang = moment.locale();
 
     moment.locale(currentLang, custom);
     this.moment = moment().locale(currentLang, custom);
-  },
+  }
   /*
    * Builds an object that will get passed into moment.locale()
    */
-  buildCustomizedMoment: function buildCustomizedMoment() {
+  buildCustomizedMoment() {
     if (!this.context.userOptions) {
       return null;
     }
@@ -696,81 +796,80 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return results;
-  },
-  requestSystemOptions: function requestSystemOptions() {
+  }
+  requestSystemOptions() {
     const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
       .setContractName('system')
       .setResourceKind('systemoptions')
       .setQueryArg('select', 'name,value');
 
-    const def = new Deferred();
-    request.read({
-      success: function succes(feed) {
-        const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
+    return new Promise((resolve, reject) => {
+      request.read({
+        success: function succes(feed) {
+          const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
-        array.forEach(feed && feed.$resources, (item) => {
-          const { name, value } = item;
-          if (value && name && array.indexOf(this.systemOptionsToRequest, name) > -1) {
-            systemOptions[name] = value;
+          feed.$resources.forEach((item) => {
+            const { name, value } = item;
+            if (value && name && this.systemOptionsToRequest.indexOf(name) > -1) {
+              systemOptions[name] = value;
+            }
+          }, this);
+
+          const multiCurrency = systemOptions.MultiCurrency;
+
+          if (multiCurrency && multiCurrency === 'True') {
+            this.requestExchangeRates()
+              .then(() => {
+                resolve(feed);
+              }, () => {
+                reject();
+              });
+          } else {
+            resolve(feed);
           }
-        }, this);
-
-        const multiCurrency = systemOptions.MultiCurrency;
-
-        if (multiCurrency && multiCurrency === 'True') {
-          this.requestExchangeRates().then(() => {
-            def.resolve(feed);
-          }, () => {
-            def.reject();
-          });
-        } else {
-          def.resolve(feed);
-        }
-      },
-      failure: function failure(response, o) {
-        ErrorManager.addError(response, o, {}, 'failure');
-        def.reject();
-      },
-      scope: this,
+        },
+        failure: function failure(response, o) {
+          ErrorManager.addError(response, o, {}, 'failure');
+          reject();
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
-  },
-  requestExchangeRates: function requestExchangeRates() {
+  }
+  requestExchangeRates() {
     const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
       .setContractName('dynamic')
       .setResourceKind('exchangeRates')
       .setQueryArg('select', 'Rate');
 
-    const def = new Deferred();
-    request.read({
-      success: function success(feed) {
-        const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
+    return new Promise((resolve, reject) => {
+      request.read({
+        success: function success(feed) {
+          const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
 
-        array.forEach(feed && feed.$resources, (item) => {
-          const key = item && item.$descriptor;
-          const value = item && item.Rate;
+          feed.$resources.forEach((item) => {
+            const key = item && item.$descriptor;
+            const value = item && item.Rate;
 
-          if (value && key) {
-            exchangeRates[key] = value;
-          }
-        });
+            if (value && key) {
+              exchangeRates[key] = value;
+            }
+          });
 
-        def.resolve(feed);
-      },
-      failure: function failure(response, o) {
-        def.reject();
-        ErrorManager.addError(response, o, {}, 'failure');
-      },
-      scope: this,
+          resolve(feed);
+        },
+        failure: function failure(response, o) {
+          reject();
+          ErrorManager.addError(response, o, {}, 'failure');
+        },
+        scope: this,
+      });
     });
-
-    return def.promise;
-  },
-  requestOwnerDescription: function requestOwnerDescription(key) {
+  }
+  requestOwnerDescription(key) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('owners')
-      .setResourceSelector(string.substitute('"${0}"', [key]))
+      .setResourceSelector(`"${key}"`)
       .setQueryArg('select', 'OwnerDescription');
 
     request.read({
@@ -778,38 +877,25 @@ const __class = declare('crm.Application', [Application], {
       failure: this.onRequestOwnerDescriptionFailure,
       scope: this,
     });
-  },
-  onRequestOwnerDescriptionSuccess: function onRequestOwnerDescriptionSuccess(entry) {
+  }
+  onRequestOwnerDescriptionSuccess(entry) {
     if (entry) {
       this.context.defaultOwner = entry;
     }
-  },
-  onRequestOwnerDescriptionFailure: function onRequestOwnerDescriptionFailure(response, o) {
+  }
+  onRequestOwnerDescriptionFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');
-  },
-  defaultViews: [
-    'myday_list',
-    'calendar_view',
-    'history_list',
-    'account_list',
-    'contact_list',
-    'lead_list',
-    'opportunity_list',
-    'ticket_list',
-    'myattachment_list',
-    'recently_viewed_list',
-    'briefcase_list',
-  ],
-  getDefaultViews: function getDefaultViews() {
+  }
+  getDefaultViews() {
     return this.defaultViews;
-  },
-  getExposedViews: function getExposedViews() {
+  }
+  getExposedViews() {
     return Object.keys(this.views).filter((id) => {
-      const view = this.getView(id);
+      const view = this.getViewDetailOnly(id);
       return view && view.id !== 'home' && view.expose;
     });
-  },
-  cleanRestoredHistory: function cleanRestoredHistory(restoredHistory) {
+  }
+  cleanRestoredHistory(restoredHistory) {
     let result = [];
     let hasRoot = false;
 
@@ -827,13 +913,13 @@ const __class = declare('crm.Application', [Application], {
     }
 
     return hasRoot && result;
-  },
-  navigateToInitialView: function navigateToInitialView() {
-    this.loadSnapper();
+  }
 
+  navigateToInitialView() {
+    this.showLeftDrawer();
     try {
       const restoredState = this.navigationState;
-      const restoredHistory = restoredState && json.parse(restoredState);
+      const restoredHistory = restoredState && JSON.parse(restoredState);
       const cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
       this._clearNavigationState();
@@ -860,11 +946,11 @@ const __class = declare('crm.Application', [Application], {
       this._clearNavigationState();
       this.navigateToHomeView();
     }
-  },
-  setupRedirectHash: function setupRedirectHash() {
+  }
+  setupRedirectHash() {
     let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
-      if (App.mingleEnabled) {
+      if (this.enableMingle) {
         const vars = this.redirectHash.split('&');
         for (let i = 0; i < vars.length; i++) {
           const pair = vars[i].split('=');
@@ -891,14 +977,14 @@ const __class = declare('crm.Application', [Application], {
         }
       }
     }
-  },
-  onConnectionChange: function onConnectionChange(online) {
+  }
+  onConnectionChange(online) {
     const view = this.getView('left_drawer');
     if (!this.enableOfflineSupport) {
       return;
     }
 
-    if (this.mingleEnabled && online && this.requiresMingleRefresh) {
+    if (this.enableMingle && online && this.requiresMingleRefresh) {
       MingleUtility.refreshAccessToken(this);
       return;
     }
@@ -921,34 +1007,36 @@ const __class = declare('crm.Application', [Application], {
     }
 
     this.setToolBarMode(online);
-  },
-  navigateToLoginView: function navigateToLoginView() {
+  }
+  navigateToLoginView() {
     this.setupRedirectHash();
 
     const view = this.getView(this.loginViewId);
     if (view) {
       view.show();
     }
-  },
-  _hasValidRedirect: function _hasValidRedirect() {
+  }
+  _hasValidRedirect() {
     const hashValue = decodeURIComponent(this.redirectHash);
     return hashValue !== '' && hashValue.indexOf('/redirectTo/') > 0;
-  },
-  showLeftDrawer: function showLeftDrawer() {
+  }
+  showLeftDrawer() {
     const view = this.getView('left_drawer');
     if (view) {
       view.show();
     }
-  },
-  showRightDrawer: function showRightDrawer() {
-    const view = this.getView('right_drawer');
-    if (view) {
-      view.show();
-    }
-  },
-  navigateToHomeView: function navigateToHomeView() {
+
+    return this;
+  }
+
+  showRightDrawer() {
+    return this;
+  }
+
+  navigateToHomeView() {
     this.setupRedirectHash();
-    this.loadSnapper();
+    this.showLeftDrawer();
+
 
     const visible = this.preferences && this.preferences.home && this.preferences.home.visible;
     if (visible && visible.length > 0) {
@@ -990,26 +1078,26 @@ const __class = declare('crm.Application', [Application], {
     if (view) {
       view.show();
     }
-  },
-  navigateToActivityInsertView: function navigateToActivityInsertView() {
+  }
+  navigateToActivityInsertView() {
     const view = this.getView('activity_types_list');
     if (view) {
       view.show();
     }
-  },
-  initiateCall: function initiateCall() {
+  }
+  initiateCall() {
     // shortcut for environment call
     environment.initiateCall.apply(this, arguments);
-  },
-  initiateEmail: function initiateEmail() {
+  }
+  initiateEmail() {
     // shortcut for environment call
     environment.initiateEmail.apply(this, arguments);
-  },
-  showMapForAddress: function showMapForAddress() {
+  }
+  showMapForAddress() {
     // shortcut for environment call
     environment.showMapForAddress.apply(this, arguments);
-  },
-  getVersionInfo: function getVersionInfo() {
+  }
+  getVersionInfo() {
     const info = string.substitute(this.versionInfoText, [
       this.mobileVersion.major,
       this.mobileVersion.minor,
@@ -1017,57 +1105,54 @@ const __class = declare('crm.Application', [Application], {
       this.serverVersion.major,
     ]);
     return info;
-  },
-  initOfflineData: function initOfflineData() {
-    const def = new Deferred();
-    const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
-    if (model) {
-      const indicator = new BusyIndicator({
-        id: 'busyIndicator__offlineData',
-        label: resource.offlineInitDataText,
-      });
-      this.modal.disableClose = true;
-      this.modal.showToolbar = false;
-      this.modal.add(indicator);
-      indicator.start();
+  }
+  initOfflineData() {
+    return new Promise((resolve, reject) => {
+      const model = this.ModelManager.getModel(MODEL_NAMES.AUTHENTICATION, MODEL_TYPES.OFFLINE);
+      if (model) {
+        const indicator = new BusyIndicator({
+          id: 'busyIndicator__offlineData',
+          label: resource.offlineInitDataText,
+        });
+        this.modal.disableClose = true;
+        this.modal.showToolbar = false;
+        this.modal.add(indicator);
+        indicator.start();
 
-      model.initAuthentication(this.context.user.$key).then((result) => {
-        let options = offlineManager.getOptions();
-        if (result.hasUserChanged) {
-          options = {
-            clearAll: true,
-          };
-        }
-        if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
-          offlineManager.clearData(options).then(() => {
+        model.initAuthentication(this.context.user.$key).then((result) => {
+          let options = offlineManager.getOptions();
+          if (result.hasUserChanged) {
+            options = {
+              clearAll: true,
+            };
+          }
+          if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
+            offlineManager.clearData(options).then(() => {
+              model.updateEntry(result.entry);
+              indicator.complete(true);
+              this.modal.disableClose = false;
+              this.modal.hide();
+              resolve();
+            }, (err) => {
+              indicator.complete(true);
+              this.modal.disableClose = false;
+              this.modal.hide();
+              reject(err);
+            });
+          } else {
+            result.entry.ModifyDate = moment().toDate();
             model.updateEntry(result.entry);
             indicator.complete(true);
             this.modal.disableClose = false;
             this.modal.hide();
-            def.resolve();
-          }, (err) => {
-            indicator.complete(true);
-            this.modal.disableClose = false;
-            this.modal.hide();
-            def.reject(err);
-          });
-        } else {
-          result.entry.ModifyDate = moment().toDate();
-          model.updateEntry(result.entry);
-          indicator.complete(true);
-          this.modal.disableClose = false;
-          this.modal.hide();
-          def.resolve(); // Do nothing since this not the first time athuenticating.
-        }
-      }, (err) => {
-        def.reject(err);
-      });
-    } else {
-      def.resolve();
-    }
-    return def.promise;
-  },
-});
-
-lang.setObject('Mobile.SalesLogix.Application', __class);
-export default __class;
+            resolve(); // Do nothing since this not the first time athuenticating.
+          }
+        }, (err) => {
+          reject(err);
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
+}

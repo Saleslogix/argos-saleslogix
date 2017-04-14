@@ -9,6 +9,7 @@ import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
 import getResource from 'argos/I18n';
 
+
 const resource = getResource('salesDashboardWidget');
 
 const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [DashboardWidget], {

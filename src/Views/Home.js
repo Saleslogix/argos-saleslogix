@@ -1,6 +1,5 @@
 /*eslint-disable*/
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
 import SpeedSearchWidget from '../SpeedSearchWidget';
 import GroupedList from 'argos/GroupedList';
@@ -29,7 +28,7 @@ var __class = declare('crm.Views.Home', [GroupedList], {
     '</li>'
   ]),
   itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>'
+    '<p class="listview-heading">{%: $.title %}</p>'
   ]),
 
   //Localization

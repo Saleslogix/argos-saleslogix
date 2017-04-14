@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -17,8 +16,8 @@ const resource = getResource('competitorList');
 const __class = declare('crm.Views.Competitor.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%= $.CompetitorName %}</h3>',
-    '{% if ($.WebAddress) { %}<h4>{%= $.WebAddress %}</h4>{% } %}',
+    '<p class="listview-heading">{%= $.CompetitorName %}</p>',
+    '{% if ($.WebAddress) { %}<p class="micro-text">{%= $.WebAddress %}</p>{% } %}',
   ]),
 
   // Localization
@@ -37,7 +36,8 @@ const __class = declare('crm.Views.Competitor.List', [List], {
   resourceKind: 'competitors',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(CompetitorName like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
+    const q = this.escapeSearchQuery(searchQuery);
+    return `(CompetitorName like "%${q}%")`;
   },
 });
 

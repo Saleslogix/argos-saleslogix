@@ -2,7 +2,6 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
 import format from '../../Format';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
@@ -96,11 +95,11 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
       App.getView('opportunity_list'),
     ];
 
-    array.forEach(views, (view) => {
+    views.forEach((view) => {
       if (view) {
         view.refreshRequired = true;
       }
-    }, this);
+    });
 
     connect.publish('/app/refresh', [{
       resourceKind: this.resourceKind,
@@ -111,12 +110,12 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
     return this.tools || (this.tools = {
       tbar: [{
         id: 'edit',
-        cls: 'fa fa-pencil fa-lg',
+        svg: 'edit',
         action: 'navigateToEditView',
         security: App.getViewSecurity(this.editView, 'update'),
       }, {
         id: 'removeOpportunityProduct',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeOpportunityProduct',
         title: this.removeOppProductTitleText,
       }],
