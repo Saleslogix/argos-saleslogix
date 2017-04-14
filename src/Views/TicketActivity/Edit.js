@@ -5,6 +5,7 @@ import validator from '../../Validator';
 import ErrorManager from 'argos/ErrorManager';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('ticketActivityEdit');
 const dtFormatResource = getResource('ticketActivityEditDateTimeFormat');
@@ -36,19 +37,9 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   // View Properties
   entityName: 'TicketActivity',
   id: 'ticketactivity_edit',
-  querySelect: [
-    'ActivityDescription',
-    'ActivityTypeCode',
-    'AssignedDate',
-    'CompletedDate',
-    'PublicAccessCode',
-    'User/UserName',
-    'User/UserInfo/FirstName',
-    'User/UserInfo/LastName',
-  ],
-  queryInclude: [
-    '$permissions',
-  ],
+  querySelect: [],
+  queryInclude: [],
+  modelName: MODEL_NAMES.TICKETACTIVITY,
   resourceKind: 'ticketActivities',
 
   processTemplateEntry: function processTemplateEntry(entry) {

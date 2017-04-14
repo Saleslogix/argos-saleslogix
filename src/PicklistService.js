@@ -51,8 +51,20 @@ const __class = lang.setObject('crm.PicklistService', {
     // }
     // return false;
   },
-  getPicklistItemByCode(picklistName, itemCode) {
-    const picklist = this.getPicklistByName(picklistName);
+  getPicklistItemByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
+    const picklist = this.getPicklistByName(picklistName, languageCode);
+
+    if (picklist) {
+      for (let i = 0; i < picklist.items.length; i++) {
+        if (picklist.items[i].$key === key) {
+          return picklist.items[i];
+        }
+      }
+    }
+    return false;
+  },
+  getPicklistItemByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
+    const picklist = this.getPicklistByName(picklistName, languageCode);
 
     if (picklist) {
       for (let i = 0; i < picklist.items.length; i++) {
@@ -63,9 +75,16 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return false;
   },
-  getPicklistItemTextByCode(picklistName, itemCode) {
-    const picklistItem = this.getPicklistItemByCode(picklistName, itemCode);
+  getPicklistItemTextByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
+    const picklistItem = this.getPicklistItemByCode(picklistName, itemCode, languageCode);
     if (itemCode && picklistItem) {
+      return picklistItem.text;
+    }
+    return null;
+  },
+  getPicklistItemTextByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
+    const picklistItem = this.getPicklistItemByKey(picklistName, key, languageCode);
+    if (key && picklistItem) {
       return picklistItem.text;
     }
     return null;

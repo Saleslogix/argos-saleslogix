@@ -127,6 +127,8 @@ import './Models/LeadAddress/Offline';
 import './Models/LeadAddress/SData';
 import './Models/Opportunity/Offline';
 import './Models/Opportunity/SData';
+import './Models/OpportunityContact/Offline';
+import './Models/OpportunityContact/SData';
 import './Models/UserActivity/Offline';
 import './Models/UserActivity/SData';
 import './Models/Address/Offline';
@@ -135,6 +137,8 @@ import './Models/History/Offline';
 import './Models/History/SData';
 import './Models/Ticket/Offline';
 import './Models/Ticket/SData';
+import './Models/TicketActivity/Offline';
+import './Models/TicketActivity/SData';
 import './Models/Authentication/Offline';
 
 const resource = getResource('applicationModule');

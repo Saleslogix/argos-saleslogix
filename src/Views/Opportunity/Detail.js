@@ -103,6 +103,9 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   formatAccountRelatedQuery: function formatAccountRelatedQuery(fmt) {
     return string.substitute(fmt, [this.entry.Account.$key]);
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     const quickActions = {
       list: true,
@@ -141,6 +144,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         label: this.statusText,
         name: 'Status',
         property: 'Status',
+        renderer: this.formatPicklist('Status'),
       }, {
         label: this.estCloseText,
         name: 'EstimatedClose',
@@ -192,6 +196,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         label: this.typeText,
         name: 'Type',
         property: 'Type',
+        renderer: this.formatPicklist('Type'),
       }, {
         label: this.resellerText,
         key: 'Reseller.$key',
@@ -202,6 +207,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         label: this.probabilityText,
         name: 'CloseProbability',
         property: 'CloseProbability',
+        renderer: this.formatPicklist('CloseProbability'),
       }, {
         label: this.acctMgrText,
         name: 'AccountManager.UserInfo',

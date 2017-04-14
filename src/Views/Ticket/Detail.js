@@ -59,6 +59,9 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
@@ -132,6 +135,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
         label: this.statusText,
         name: 'StatusCode',
         property: 'StatusCode',
+        renderer: this.formatPicklist('StatusCode'),
       }, {
         label: this.completedByText,
         name: 'CompletedBy.OwnerDescription',
@@ -144,6 +148,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
         label: this.sourceText,
         name: 'ViaCode',
         property: 'ViaCode',
+        renderer: this.formatPicklist('ViaCode'),
       }, {
         label: this.assignedDateText,
         name: 'AssignedDate',

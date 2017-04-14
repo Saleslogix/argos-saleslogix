@@ -7,6 +7,7 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityList');
 
@@ -81,21 +82,9 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   itemIconClass: 'finance',
   detailView: 'opportunity_detail',
   insertView: 'opportunity_edit',
-  queryOrderBy: 'EstimatedClose desc',
-  querySelect: [
-    'Account/AccountName',
-    'Account/AccountManager/UserInfo/UserName',
-    'Account/AccountManager/UserInfo/Region',
-    'Description',
-    'Stage',
-    'Status',
-    'SalesPotential',
-    'ExchangeRate',
-    'ExchangeRateCode',
-    'ModifyDate',
-    'ActualClose',
-    'EstimatedClose',
-  ],
+  queryOrderBy: null,
+  querySelect: [],
+  modelName: MODEL_NAMES.OPPORTUNITY,
   resourceKind: 'opportunities',
   entityName: 'Opportunity',
   groupsEnabled: true,

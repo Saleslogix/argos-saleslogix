@@ -2,10 +2,10 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import template from '../../Template';
-import ErrorManager from 'argos/ErrorManager';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
-import 'dojo/NodeList-manipulate';
+// import 'dojo/NodeList-manipulate';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('ticketActivityDetail');
 
@@ -50,65 +50,18 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   id: 'ticketactivity_detail',
   editView: 'ticketactivity_edit',
 
-  querySelect: [
-    'ActivityDescription',
-    'ActivityTypeCode',
-    'AssignedDate',
-    'CompletedDate',
-    'ElapsedUnits',
-    'FollowUp',
-    'PublicAccessCode',
-    'Rate',
-    'RateTypeDescription/Amount',
-    'RateTypeDescription/RateTypeCode',
-    'RateTypeDescription/TypeDescription',
-    'TotalFee',
-    'TotalLabor',
-    'TotalParts',
-    'Units',
-    'Ticket/Account/AccountName',
-    'Ticket/TicketNumber',
-    'Ticket/Contact/Name',
-    'User/UserInfo/LastName',
-    'User/UserInfo/FirstName',
-  ],
+  querySelect: [],
+  modelName: MODEL_NAMES.TICKETACTIVITY,
   resourceKind: 'ticketActivities',
 
-  createPicklistRequest: function createPicklistRequest(predicate) {
-    const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
-      .setResourceKind('picklists')
-      .setContractName('system');
-    const uri = request.getUri();
-
-    uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
-    uri.setCollectionPredicate(predicate);
-
-    request.allowCacheUse = true;
-
-    return request;
+  formatPicklist: function formatPicklist(property) {
+    // TODO: This should be changed on the entity level...
+    // Special case since this is for some reason stored as $key value on the entity
+    const picklistName = this._model.getPicklistNameByProperty(property);
+    return (val) => {
+      return this.app.picklistService.getPicklistItemTextByKey(picklistName, val) || val;
+    };
   },
-
-  requestCodeData: function requestCodeData(row, node, value, entry, predicate) {
-    const request = this.createPicklistRequest(predicate);
-    request.read({
-      success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
-      failure: this.onRequestCodeDataFailure,
-      scope: this,
-    });
-  },
-
-  onRequestCodeDataSuccess: function onRequestCodeDataSuccess(row, node, value, entry, data) {
-    const codeText = this.processCodeDataFeed(data, entry[row.property]);
-    if (codeText) {
-      this.setNodeText(node, codeText);
-      this.entry[row.name] = codeText;
-    }
-  },
-
-  onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
-    ErrorManager.addError(response, o, this.options, 'failure');
-  },
-
   processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
     const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
     const textProperty = options && options.textProperty ? options.textProperty : 'text';
@@ -164,12 +117,12 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         label: this.typeText,
         name: 'ActivityTypeCode',
         property: 'ActivityTypeCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"'),
+        renderer: this.formatPicklist('ActivityTypeCode'),
       }, {
         label: this.publicAccessText,
         name: 'PublicAccessCode',
         property: 'PublicAccessCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"'),
+        renderer: this.formatPicklist('PublicAccessCode'),
       }, {
         label: this.assignedDateText,
         name: 'AssignedDate',

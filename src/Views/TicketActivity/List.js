@@ -2,7 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
-
+import format from 'crm/Format';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('ticketActivityList');
 const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
@@ -15,10 +16,11 @@ const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
  * @requires crm.Format
  */
 const __class = declare('crm.Views.TicketActivity.List', [List], {
+  format,
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Ticket.TicketNumber %}</p>',
-    '<p class="micro-text">{%: crm.Format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</p>',
+    '<p class="micro-text">{%: $$.format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</p>',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',
     '{%: $.ActivityDescription %}',
@@ -39,29 +41,9 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   labelProperty: 'Ticket.TicketNumber',
   detailView: 'ticketactivity_detail',
   insertView: 'ticketactivity_edit',
-  queryOrderBy: 'AssignedDate asc',
-  querySelect: [
-    'ActivityDescription',
-    'ActivityTypeCode',
-    'AssignedDate',
-    'CompletedDate',
-    'ElapsedUnits',
-    'FollowUp',
-    'PublicAccessCode',
-    'Rate',
-    'RateTypeDescription/Amount',
-    'RateTypeDescription/RateTypeCode',
-    'RateTypeDescription/TypeDescription',
-    'TotalFee',
-    'TotalLabor',
-    'TotalParts',
-    'Units',
-    'Ticket/Account/AccountName',
-    'Ticket/TicketNumber',
-    'Ticket/Contact/Name',
-    'User/UserInfo/LastName',
-    'User/UserInfo/FirstName',
-  ],
+  queryOrderBy: null,
+  querySelect: [],
+  modelName: MODEL_NAMES.TICKETACTIVITY,
   resourceKind: 'ticketActivities',
 
   _onResize: function _onResize() {

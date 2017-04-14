@@ -8,6 +8,7 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
+import MODEL_NAMES from '../../Models/Names';
 
 
 const resource = getResource('historyList');
@@ -99,27 +100,9 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   security: null, // 'Entities/History/View',
   existsRE: /^[\w]{12}$/,
   insertView: 'history_edit',
-  queryOrderBy: 'CompletedDate desc',
-  querySelect: [
-    'AccountName',
-    'ContactName',
-    'LeadName',
-    'CompletedDate',
-    'Description',
-    'StartDate',
-    'TimeLess',
-    'Type',
-    'LeadId',
-    'OpportunityId',
-    'OpportunityName',
-    'AccountId',
-    'ContactId',
-    'TicketId',
-    'ModifyDate',
-    'Notes',
-
-  ],
-  queryWhere: 'Type ne "atDatabaseChange"',
+  queryOrderBy: null,
+  querySelect: [],
+  queryWhere: null,
   resourceKind: 'history',
   entityName: 'History',
   hashTagQueries: {
@@ -135,6 +118,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   activityTypeIcon: activityTypeIcons.default,
   allowSelection: true,
   enableActions: true,
+  modelName: MODEL_NAMES.HISTORY,
 
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
@@ -225,7 +209,6 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return format.date(startDate.toDate(), fmt);
   },
   formatPicklist: function formatPicklist(property) {
-    // TODO: Fix this._model not existing
     return format.picklist(this.app.picklistService, this._model, property);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {

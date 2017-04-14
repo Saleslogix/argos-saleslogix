@@ -17,6 +17,15 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
   iconClass: 'fa fa-filter fa-2x',
   security: 'Entities/Lead/View',
   modelName: MODEL_NAMES.LEAD,
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Title',
+      property: 'Title',
+    }, {
+      name: 'Industry',
+      property: 'Industry',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Addresses',

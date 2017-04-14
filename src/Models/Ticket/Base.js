@@ -18,6 +18,15 @@ const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
   security: 'Entities/Ticket/View',
   modelName: MODEL_NAMES.TICKET,
 
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Source',
+      property: 'ViaCode',
+    }, {
+      name: 'Ticket Status',
+      property: 'StatusCode',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',

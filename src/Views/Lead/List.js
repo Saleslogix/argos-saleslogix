@@ -1,12 +1,14 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import action from '../../Action';
+import format from '../../Format';
 import utility from 'argos/Utility';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('leadList');
 
@@ -28,7 +30,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.LeadNameLastFirst %}</p>',
     '<p class="micro-text">',
-    '{%: $$.joinFields(" | ", [$.Title, $.Company]) %}',
+    '{%: $$.joinFields(" | ", [$$.formatPicklist("Title")($.Title), $.Company]) %}',
     '</p>',
     '{% if ($.WorkPhone) { %}',
     '<p class="micro-text">',
@@ -71,6 +73,9 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
       return theAction.id === 'sendEmail';
     }, params.key);
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
 
   // Localization
   titleText: resource.titleText,
@@ -102,18 +107,9 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   id: 'lead_list',
   security: 'Entities/Lead/View',
   insertView: 'lead_edit',
-  queryOrderBy: 'LastNameUpper,FirstName',
-  querySelect: [
-    'Company',
-    'LeadNameLastFirst',
-    'WebAddress',
-    'Email',
-    'WorkPhone',
-    'Mobile',
-    'TollFree',
-    'Title',
-    'ModifyDate',
-  ],
+  queryOrderBy: null,
+  querySelect: [],
+  modelName: MODEL_NAMES.LEAD,
   resourceKind: 'leads',
   entityName: 'Lead',
   groupsEnabled: true,

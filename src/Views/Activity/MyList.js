@@ -105,7 +105,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   // View Properties
   id: 'myactivity_list',
   entityName: 'UserActivity',
-  modelName: 'UserActivity',
+  modelName: MODEL_NAMES.USERACTIVITY,
   enableOffline: true,
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
