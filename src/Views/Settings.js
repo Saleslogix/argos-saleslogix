@@ -16,22 +16,24 @@ const resource = getResource('settings');
 const __class = declare('crm.Views.Settings', [List], {
   // Templates
   itemIconTemplate: new Simplate([
-    '<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">',
-    '{% if ($$.getItemIconClass($)) { %}',
-    '<span class="{%= $$.getItemIconClass($) %}"></span>',
-    '{% } else { %}',
-    '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
-    '{% } %}',
-    '</button>',
+    `<button type="button" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="btn-actions list-item-selector button visible">
+      <span class="audible">Actions</span>
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xlink:href="#icon-{%= $$.getItemIconClass($) %}"></use>
+      </svg>
+    </button>`,
   ]),
-
   itemTemplate: new Simplate([
-    '<p class="listview-heading" data-action="{%= $.action %}">{%: $.title %}</p>',
+    '<h4 data-action="{%= $.action %}" class="list-item-content ',
+    '{% if ($.icon) { %}',
+    'list-item-content',
+    '{% } %} ">',
+    '{%: $.title %}</h4>',
   ]),
-
   liRowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-    '{%! $$.itemRowContentTemplate %}',
+    '{%! $$.itemIconTemplate %}',
+    '{%! $$.itemTemplate %}',
     '</li>',
   ]),
   isCardView: false,
@@ -55,7 +57,7 @@ const __class = declare('crm.Views.Settings', [List], {
   enableSearch: false,
   enablePullToRefresh: false,
   selectionOnly: true,
-  allowSelection: false,
+  allowSelection: true, // adds list-show-selectors class to listview for displaying icons
   actions: null,
   actionOrder: [
     'clearAuthentication',
@@ -63,28 +65,33 @@ const __class = declare('crm.Views.Settings', [List], {
     'viewErrorLogs',
     'viewOfflineOptions',
     'use24HourClock',
+    'viewLanguageOptions',
   ],
   createActions: function createActions() {
     this.actions = {
       clearLocalStorage: {
         title: this.clearLocalStorageTitleText,
-        cls: 'fa fa-database fa-2x',
+        cls: 'technology',
       },
       clearAuthentication: {
         title: this.clearAuthenticationTitleText,
-        cls: 'fa fa-unlock fa-2x',
+        cls: 'unlocked',
       },
       viewErrorLogs: {
         title: this.errorLogTitleText,
-        cls: 'fa fa-list-alt fa-2x',
+        cls: 'bullet-list',
       },
       viewOfflineOptions: {
         title: this.offlineOptionsText,
-        cls: 'fa fa-list-alt fa-2x',
+        cls: 'bullet-list',
       },
       use24HourClock: {
         title: (App.is24HourClock()) ? this.use24HourClockText : this.use12HourClockText,
-        cls: 'fa fa-user fa-2x',
+        cls: 'user',
+      },
+      viewLanguageOptions: {
+        title: 'Change Language',
+        cls: 'url',
       },
     };
   },
@@ -123,6 +130,12 @@ const __class = declare('crm.Views.Settings', [List], {
   },
   viewOfflineOptions: function viewOfflineOptions() {
     const view = App.getView('offline_options_edit');
+    if (view) {
+      view.show();
+    }
+  },
+  viewLanguageOptions: function viewLanguageOptions() {
+    const view = App.getView('language_options_edit');
     if (view) {
       view.show();
     }

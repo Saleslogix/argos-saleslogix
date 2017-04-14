@@ -1451,9 +1451,18 @@
   errorClearingDataText: "Error clearing data"
 >
 
+<languageOptionsEdit ""
+  titleText: "Language Options"
+>
+
+<languageUsageWidget ""
+  regionText: "Select regional formatting language"
+  languageText: "Select language"
+>
+
 <authenticationModel ""
   entityDisplayName: "Authentication"
-  entityDisplayNamePlural : "Authentication"
+  entityDisplayNamePlural: "Authentication"
 >
 
 <mingle ""

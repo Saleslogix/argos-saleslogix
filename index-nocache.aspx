@@ -80,7 +80,22 @@
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
     <!-- Dojo -->
-    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+     <!-- Dojo -->
+  <script pin="pin" type="text/javascript">
+        var language, regionLocale;
+        if (window.localStorage) {
+          language = window.localStorage.getItem('language');
+          regionLocale = window.localStorage.getItem('region');
+        }
+        var dojoConfig = {
+            parseOnLoad:false, 
+            async:true, 
+            blankGif:'content/images/blank.gif',
+            locale: language ||  'en',
+            extraLocale: [regionLocale || 'en-us']
+        };
+    </script>
+    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config=""></script>
 
     <script type="text/javascript">
     require({
@@ -114,6 +129,16 @@
   <div id="rootNode"></div>
 
   <script type="text/javascript">
+  var supportedLocales = <%= Serialize(
+                Enumerate(@"localization\locales\crm", (file) => true)
+                    .Select(item => item.Directory.Name).Distinct()
+            ) %>,
+        defaultLocale = language || 'en',
+        currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
+        parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        defaultRegionLocale = regionLocale || 'en',
+        currentRegionLocale = regionLocale || 'en',
+        parentRegionLocale = regionLocale || 'en';
     (function() {
       // Set Soho culture path
       window.Locale.culturePath = 'content/javascript/cultures';
@@ -125,13 +150,13 @@
 
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
-          supportedLocales: <%= Serialize(
-                Enumerate(@"localization\locales\crm", (file) => true)
-                    .Select(item => item.Directory.Name).Distinct()
-            ) %>,
-          defaultLocale: 'en',
-          currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
-          parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
+          supportedLocales: supportedLocales,
+          defaultLocale: defaultLocale,
+          currentLocale: currentLocale,
+          parentLocale: parentLocale,
+          defaultRegionLocale: defaultRegionLocale,
+          currentRegionLocale: currentRegionLocale,
+          parentRegionLocale: parentRegionLocale,
           isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
           configuration: <%= Serialize(
                   Enumerate("configuration", (file) => file.Name == "production.js")
@@ -146,10 +171,16 @@
               EnumerateLocalizations(string.Empty, "localization", "en")
                   .Select(item => item.Path.Substring(0, item.Path.Length - 3))
           ) %>,
+          // TODO limit to only strings
           localeFiles: <%= Serialize(
                 Enumerate(@"localization", (file) => file.Extension == ".l20n")
                     .Select(item => item.Path)
           ) %>,
+          regionalFiles: [
+            './localization/locales/crm/en/regional.l20n',
+            './localization/locales/icboe/en/regional.l20n',
+            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+          ],
           rootElement: document.getElementById('rootNode')
         });
       });
