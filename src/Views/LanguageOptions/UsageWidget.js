@@ -21,12 +21,6 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     '<span data-dojo-attach-point="_regionThanNode" ></span>',
     '</div>',
   ]),
-  errorTemplate: new Simplate([
-    '<div class="error">',
-    '<span class="fa fa-waring fa-2x"></span>',
-    '<h2>{%= $.message %}</h2>',
-    '</div>',
-  ]),
   onInit: function onInit() {
     this.onLoad();
     if (this.owner) {
@@ -85,7 +79,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
   destroy: function destroy() {
     if (this._regionDropdown) {
       this._regionDropdown.destroy();
-    }  
+    }
     if (this._languageDropdown) {
       this._languageDropdown.destroy();
     }

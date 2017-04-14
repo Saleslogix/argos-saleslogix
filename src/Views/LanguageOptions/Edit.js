@@ -34,7 +34,7 @@ const __class = declare('crm.Views.LanguageOptions.Edit', [_EditBase, _RelatedWi
   },
   getLanguageOptions: function getLanguageOptions() {
     const def = new Deferred();
-    def.resolve({ maxdays: 5 });
+    def.resolve({ });
     return def.promise;
   },
   onRefreshUpdate: function onRefreshUpdate() {

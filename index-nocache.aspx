@@ -136,9 +136,9 @@
         defaultLocale = language || 'en',
         currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
         parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
-        defaultRegionLocale = regionLocale || 'en',
-        currentRegionLocale = regionLocale || 'en',
-        parentRegionLocale = regionLocale || 'en';
+        defaultRegionLocale = regionLocale || '<%= CultureInfo.CurrentUICulture.ToLower() %>',
+        currentRegionLocale = regionLocale || '<%= CultureInfo.CurrentUICulture.ToLower() %>',
+        parentRegionLocale = regionLocale || '<%= CultureInfo.CurrentUICulture.ToLower() %>';
     (function() {
       // Set Soho culture path
       window.Locale.culturePath = 'content/javascript/cultures';
