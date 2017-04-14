@@ -1,8 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import domClass from 'dojo/dom-class';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
+import { setEndPoint } from '../actions/config';
 
 const resource = getResource('login');
 
@@ -15,15 +15,23 @@ const resource = getResource('login');
  */
 const __class = declare('crm.Views.Login', [Edit], {
   // Templates
-  widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-    '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
-    '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
-    '<button data-dojo-attach-point="loginButton" class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
-    '<span class="copyright">{%= $.copyrightText %}</span>',
-    '<span class="copyright">{%= App.getVersionInfo() %}</span>',
-    '<div style="visibility: hidden;" class="fa fa-bars"></div>', // force font-awesome to be included on login
-    '</div>',
+  widgetTemplate: new Simplate([`
+      <div id="{%= $.id %}" title="{%: $.titleText %}" class="view single-column">
+        <div class="wrapper">
+          <section class="signin" role="main">
+            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
+            </svg>
+            <h1>Infor CRM</h1>
+            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
+            </div>
+            <div>
+              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    `,
   ]),
 
   id: 'login',
@@ -33,6 +41,7 @@ const __class = declare('crm.Views.Login', [Edit], {
   copyrightText: resource.copyrightText,
   logOnText: resource.logOnText,
   passText: resource.passText,
+  urlText: resource.urlText,
   rememberText: resource.rememberText,
   titleText: resource.titleText,
   userText: resource.userText,
@@ -49,28 +58,39 @@ const __class = declare('crm.Views.Login', [Edit], {
     }
   },
   _onKeyUp: function _onKeyUp() {
-    const username = this.fields.username.getValue();
+    const username = this.fields['username-display'].getValue();
     if (username && username.length > 0) {
-      domClass.add(this.domNode, 'login-active');
+      $(this.domNode).addClass('login-active');
     } else {
-      domClass.remove(this.domNode, 'login-active');
+      $(this.domNode).removeClass('login-active');
     }
   },
-  show: function init() {
+  initSoho: function initSoho() {
+    const header = $('.header', App.getContainerNode());
+    header.hide();
+  },
+  show: function show() {
     this.inherited(arguments);
     if (!this.connectionState) {
       this._disable();
     }
+
+    const state = this.appStore.getState();
+    if (state && state.app && state.app.config.endpoint) {
+      this.fields['url-display'].setValue(state.app.config.endpoint);
+    }
   },
   _disable: function _disable() {
-    this.fields.username.disable();
-    this.fields.password.disable();
+    this.fields['username-display'].disable();
+    this.fields['password-display'].disable();
+    this.fields['url-display'].disable();
     this.fields.remember.disable();
     this.loginButton.disabled = true;
   },
   _enable: function _enable() {
-    this.fields.username.enable();
-    this.fields.password.enable();
+    this.fields['username-display'].enable();
+    this.fields['password-display'].enable();
+    this.fields['url-display'].enable();
     this.fields.remember.enable();
     this.loginButton.disabled = false;
   },
@@ -105,14 +125,21 @@ const __class = declare('crm.Views.Login', [Edit], {
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
-      name: 'username',
-      placeHolderText: this.userText,
+      name: 'username-display',
+      label: this.userText,
       type: 'text',
+      required: true,
     }, {
-      name: 'password',
-      placeHolderText: this.passText,
+      name: 'password-display',
+      label: this.passText,
       type: 'text',
       inputType: 'password',
+      required: true,
+    }, {
+      name: 'url-display',
+      label: this.urlText,
+      type: 'text',
+      required: true,
     }, {
       name: 'remember',
       label: this.rememberText,
@@ -124,10 +151,16 @@ const __class = declare('crm.Views.Login', [Edit], {
       return;
     }
 
-    const credentials = this.getValues();
-    const username = credentials && credentials.username;
+    const values = this.getValues();
 
-    if (username) {
+    const credentials = {
+      username: values['username-display'],
+      password: values['password-display'],
+      endpoint: values['url-display'],
+      remember: values.remember,
+    };
+
+    if (credentials.username) {
       this.validateCredentials(credentials);
     }
   },
@@ -159,11 +192,15 @@ const __class = declare('crm.Views.Login', [Edit], {
   validateCredentials: function validateCredentials(credentials) {
     this.disable();
 
+    const endpoint = credentials.endpoint;
+    this.appStore.dispatch(setEndPoint(endpoint));
     App.authenticateUser(credentials, {
       success: function success() {
+        // Need to remove Login view from pagejs stack
+        page.len--;
         if (this.fields.remember.getValue() !== true) {
-          this.fields.username.setValue('');
-          this.fields.password.setValue('');
+          this.fields['username-display'].setValue('');
+          this.fields['password-display'].setValue('');
         }
         this.enable();
 

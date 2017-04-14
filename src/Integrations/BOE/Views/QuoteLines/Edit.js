@@ -6,7 +6,6 @@ import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 import PricingAvailabilityService from '../../PricingAvailabilityService';
 import validator from 'crm/Validator';
-import array from 'dojo/_base/array';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 
@@ -279,7 +278,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
       App.getView('quote_lines_list'),
     ];
 
-    array.forEach(views, (view) => {
+    views.forEach((view) => {
       if (view) {
         view.refreshRequired = true;
       }

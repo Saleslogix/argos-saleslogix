@@ -1,14 +1,12 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
-import has from 'dojo/has';
 import utility from '../../Utility';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('attachmentList');
 const hashTagResource = getResource('attachmentListHashTags');
@@ -20,7 +18,6 @@ const dtFormatResource = getResource('attachmentListDateTimeFormat');
  * @extends argos.List
  * @mixins argos.List
  * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._CardLayoutListMixin
  * @mixins argos._LegacySDataListMixin
  *
  * @requires argos.List
@@ -29,12 +26,11 @@ const dtFormatResource = getResource('attachmentListDateTimeFormat');
  *
  * @requires crm.Format
  * @requires crm.Views._RightDrawerListMixin
- * @requires crm.Views._CardLayoutListMixin
  *
  * @requires moment
  *
  */
-const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
+const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.dataType === "R") { %}',
@@ -44,22 +40,22 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     '{% } %}',
   ]),
   fileTemplate: new Simplate([
-    '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-    '<h4><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span>',
-    '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
-    '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
+    '<p class="listview-heading"><span>{%: $.description %}&nbsp;</span></p>',
+    '<p class="micro-text"><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span>',
+    '<span>{%: crm.Format.fileSize($.fileSize) %} </span></p>',
+    '<p class="micro-text"><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></p>',
     '{% if($.user) { %}',
-    '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
+    '<p class="micro-text"><span>{%: $.user.$descriptor  %}</span></p>',
     '{% } %}',
   ]),
   urlTemplate: new Simplate([
-    '<h3><span>{%: $.description %} &nbsp;</span></h3>',
+    '<p class="micro-text"><span>{%: $.description %} &nbsp;</span></p>',
     '{% if ($.attachDate) { %}',
-    '<h4><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span></h4>',
+    '<p class="micro-text"><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span></p>',
     '{% } %}',
-    '<h4><span>{%: $.url %}&nbsp;</span></h4>',
+    '<p class="micro-text"><span>{%: $.url %}&nbsp;</span></p>',
     '{% if($.user) { %}',
-    '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
+    '<p class="micro-text"><span>{%: $.user.$descriptor  %}</span></p>',
     '{% } %}',
   ]),
 
@@ -106,7 +102,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     binary: hashTagResource.hashTagBinaryText,
   },
   createToolLayout: function createToolLayout() {
-    if (!has('html5-file-api')) {
+    if (!App.supportsFileAPI()) {
       this.insertView = null;
     } else {
       return this.inherited(arguments);
@@ -118,40 +114,40 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     return request;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   getLink: function getLink(attachment) {
     let toReturn;
     if (attachment.url) {
       let href = attachment.url || '';
       href = (href.indexOf('http') < 0) ? `http://${href}` : href;
-      toReturn = string.substitute('<a href="${0}" target="_blank" title="${1}">${2}</a>', [href, attachment.url, attachment.$descriptor]);
+      toReturn = `<a class="hyperlink" href="${href}" target="_blank" title="${attachment.url}">${attachment.$descriptor}</a>`;
     } else {
       if (attachment.fileExists) {
-        toReturn = string.substitute('<a href="javascript: Sage.Utility.File.Attachment.getAttachment(\'${0}\');" title="${1}">${1}</a>', [attachment.$key, attachment.$descriptor]);
+        toReturn = `<a class="hyperlink" href="javascript: Sage.Utility.File.Attachment.getAttachment('${attachment.$key}');" title="${attachment.$descriptor}">${attachment.$descriptor}</a>`;
       } else {
         toReturn = attachment.$descriptor;
       }
     }
     return toReturn;
   },
-  itemIconClass: 'fa-file-o',
+  itemIconClass: 'document',
   fileIconByType: {
-    xls: 'fa-file-excel-o',
-    xlsx: 'fa-file-excel-o',
-    doc: 'fa-file-word-o',
-    docx: 'fa-file-word-o',
-    ppt: 'fa-file-powerpoint-o',
-    pptx: 'fa-file-powerpoint-o',
-    txt: 'fa-file-text-o',
-    rtf: 'fa-file-text-o',
-    csv: 'fa-file-text-o',
-    pdf: 'fa-file-pdf-o',
-    zip: 'fa-file-zip-o',
-    png: 'fa-file-image-o',
-    jpg: 'fa-file-image-o',
-    gif: 'fa-file-image-o',
-    bmp: 'fa-file-image-o',
+    xls: 'spreadsheet',
+    xlsx: 'spreadsheet',
+    doc: 'special-item',
+    docx: 'special-item',
+    ppt: 'display',
+    pptx: 'display',
+    txt: 'document2',
+    rtf: 'document2',
+    csv: 'document2',
+    pdf: 'pdf-file',
+    zip: 'document', // TODO: convert to soho icon
+    png: 'overlay-line',
+    jpg: 'overlay-line',
+    gif: 'overlay-line',
+    bmp: 'overlay-line',
   },
   getItemIconClass: function getItemIconClass(entry) {
     const fileName = entry && entry.fileName;
@@ -163,9 +159,6 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
       if (typeCls) {
         cls = typeCls;
       }
-    }
-    if (cls) {
-      cls = `fa ${cls} fa-2x`;
     }
     return cls;
   },

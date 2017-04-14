@@ -1,13 +1,10 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
-import array from 'dojo/_base/array';
 import action from '../../Action';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('ticketList');
@@ -19,43 +16,42 @@ const resource = getResource('ticketList');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires crm.Action
  * @requires crm.Format
  */
-const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.TicketNumber %}</h3>',
-    '<h4>{%: $.Subject %}</h3>',
+    '<p class="listview-heading">{%: $.TicketNumber %}</p>',
+    '<p class="micro-text">{%: $.Subject %}</p>',
     '{% if(($.Account) && (!$.Contact)) { %}',
-    '<h4>{%: $$.viewContactActionText + ": " + $.Account.AccountName %}</h4>',
+    '<p class="micro-text">{%: $$.viewContactActionText + ": " + $.Account.AccountName %}</p>',
     '{% } %}',
     '{% if(($.Account) && ($.Contact)) { %}',
-    '<h4>{%: $$.viewContactActionText + ": " + $.Contact.NameLF + " | " + $.Account.AccountName %}</h4>',
+    '<p class="micro-text">{%: $$.viewContactActionText + ": " + $.Contact.NameLF + " | " + $.Account.AccountName %}</p>',
     '{% } %}',
-    '<h4> {%: $.AssignedTo ? ($$.assignedToText + $.AssignedTo.OwnerDescription) : this.notAssignedText %}</h4>',
+    '<p class="micro-text"> {%: $.AssignedTo ? ($$.assignedToText + $.AssignedTo.OwnerDescription) : this.notAssignedText %}</p>',
     '{% if($.Urgency) { %}',
-    '<h4>{%: $$.urgencyText + $.Urgency.Description %}</h4>',
+    '<p class="micro-text">{%: $$.urgencyText + $.Urgency.Description %}</p>',
     '{% } %}',
     '{% if($.Area) { %}',
-    '<h4>{%: $$._areaCategoryIssueText($) %}</h4>',
+    '<p class="micro-text">{%: $$._areaCategoryIssueText($) %}</p>',
     '{% } %}',
     '{% if($.CreateDate) { %}',
-    '<h4>{%: $$.createdOnText %}  {%: crm.Format.relativeDate($.CreateDate) %}</h4>',
+    '<p class="micro-text">{%: $$.createdOnText %}  {%: crm.Format.relativeDate($.CreateDate) %}</p>',
     '{% } %}',
     '{% if($.ModifyDate) { %}',
-    '<h4>{%: $$.modifiedText %}  {%: crm.Format.relativeDate($.ModifyDate) %}</h4>',
+    '<p class="micro-text">{%: $$.modifiedText %}  {%: crm.Format.relativeDate($.ModifyDate) %}</p>',
     '{% } %}',
     '{% if($.NeededByDate) { %}',
-    '<h4>{%: $$.neededByText %}  {%: crm.Format.relativeDate($.NeededByDate) %}</h4>',
+    '<p class="micro-text">{%: $$.neededByText %}  {%: crm.Format.relativeDate($.NeededByDate) %}</p>',
     '{% } %}',
   ]),
 
   _areaCategoryIssueText: function _areaCategoryIssueText(feedItem) {
     const results = [feedItem.Area, feedItem.Category, feedItem.Issue];
-    return array.filter(results, (item) => {
+    return results.filter((item) => {
       return item !== '' && typeof item !== 'undefined' && item !== null;
     }).join(' > ');
   },
@@ -79,7 +75,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
 
   // View Properties
   detailView: 'ticket_detail',
-  itemIconClass: 'fa fa-clipboard fa-2x',
+  itemIconClass: 'expense-report',
   id: 'ticket_list',
   security: 'Entities/Ticket/View',
   insertView: 'ticket_edit',
@@ -153,9 +149,8 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute(
-      'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]
-    );
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `TicketNumber like "${q}%" or AlternateKeySuffix like "${q}%" or upper(Subject) like "${q}%" or Account.AccountNameUpper like "${q}%"`;
   },
 });
 

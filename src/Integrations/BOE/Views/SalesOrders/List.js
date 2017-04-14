@@ -1,10 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import action from 'crm/Action';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -14,27 +12,27 @@ import utility from '../../Utility';
 
 const resource = getResource('salesOrdersList');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.SalesOrderNumber %}</h3>',
-    '<h4><label class="group-label">{%: $$.erpOrderIdText %}</label> {%: $.ErpExtId %}</h4>',
-    '<h4><label class="group-label">{%: $$.customerPONumberText %}</label> {%: $.CustomerPurchaseOrderNumber %}</h4>',
-    '<h4><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</h4>',
-    '<h4><label class="group-label">{%: $$.orderDateText %}</label> {%: $$.formatter.date($.OrderDate) %}</h4>',
-    '<h4><label class="group-label">{%: $$.baseGrandTotalText %}</label> ',
+    '<p class="listview-heading">{%: $.SalesOrderNumber %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.erpOrderIdText %}</label> {%: $.ErpExtId %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.customerPONumberText %}</label> {%: $.CustomerPurchaseOrderNumber %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.orderDateText %}</label> {%: $$.formatter.date($.OrderDate) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.baseGrandTotalText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.GrandTotal, $.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.grandTotalText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.grandTotalText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocGrandTotal, $.CurrencyCode) %}',
-    '</h4>',
+    '</p>',
     '{% if ($.ErpExtId) { %}',
-    '<h4><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ERPSalesOrder.ERPStatus) %}</h4>',
-    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.erpStatusLabelText %}</label> {%: $$.formatErpStatus($.ERPSalesOrder.ERPStatus) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>',
     '{% } else { %}',
-    '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.Status %}</p>',
     '{% } %}',
   ]),
 
@@ -64,7 +62,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
   insertSecurity: 'Entities/SalesOrder/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-shopping-cart fa-2x',
+  itemIconClass: 'cart',
 
   // Groups
   enableDynamicGroupLayout: true,
@@ -104,7 +102,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(SalesOrderNumber) like "${0}%" ) or (upper(ErpExtId) like "${0}%" ) or (upper(CustomerPurchaseOrderNumber) like "${0}%" ) or (upper(Account.AccountName) like "${0}%" ) ', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(SalesOrderNumber) like "${q}%" ) or (upper(ErpExtId) like "${0}%" ) or (upper(CustomerPurchaseOrderNumber) like "${q}%" ) or (upper(Account.AccountName) like "${q}%" ) `;
   },
   formatErpStatus: function formatErpStatus(value) {
     const text = App.picklistService.getPicklistItemTextByCode('ErpSalesOrderStatus', value);

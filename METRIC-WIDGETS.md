@@ -6,14 +6,12 @@ Metric Widget Customization
 ```javascript
 define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/declare',
-    'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin'
 ], function(
     declare,
-    array,
     string,
     action,
     List,

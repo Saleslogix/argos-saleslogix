@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
 import getResource from 'argos/I18n';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('activityTypesList');
 
@@ -11,32 +12,35 @@ const resource = getResource('activityTypesList');
  *
  * @extends argos.List
  * @mixins argos._LegacySDataListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.List
  * @requires argos._LegacySDataListMixin
  *
- * @requires crm.Views._CardLayoutListMixin
- *
  */
 const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
-  rowTemplate: new Simplate([
+  liRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-    '<div class="list-item-static-selector">',
     '{% if ($.icon) { %}',
-    '<img src="{%: $.icon || "" %}" alt="icon" class="icon" />',
+    `<button type="button" class="btn-icon hide-focus list-item-selector visible">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>
+      </svg>
+    </button>`,
     '{% } else if ($.iconClass) { %}',
     '<div class="{%= $.iconClass %}"></div>',
     '{% } %}',
-    '</div>',
-    '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+    '{%! $$.itemTemplate %}',
     '</li>',
   ]),
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
+    '<h4 class="',
+    '{% if ($.icon) { %}',
+    'list-item-content',
+    '{% } %} ">',
+    '{%: $.$descriptor %}</h4>',
   ]),
-
+  isCardView: false,
   // Localization
   titleText: resource.titleText,
   activityTypeText: {
@@ -48,15 +52,6 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     event: resource.eventText,
   },
 
-  // View Properties
-  activityTypeIcons: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-calendar-o',
-    atPersonal: 'fa fa-check-square-o',
-    event: 'fa fa-calendar-o',
-  },
   activityTypeOrder: [
     'atAppointment',
     // 'atLiterature', // For [#7206791], We will enable this later.
@@ -71,7 +66,8 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   id: 'activity_types_list',
   editView: 'activity_edit',
   eventEditView: 'event_edit',
-
+  allowSelection: true, // adds list-show-selectors class to listview for displaying icons
+  activityTypeIcon: activityTypeIcons.default,
   activateEntry: function activateEntry(params) {
     if (params.key) {
       const view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
@@ -118,7 +114,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
       list.push({
         $key: this.activityTypeOrder[i],
         $descriptor: this.activityTypeText[this.activityTypeOrder[i]],
-        iconClass: this.activityTypeIcons[this.activityTypeOrder[i]],
+        icon: this.activityTypeIcon[this.activityTypeOrder[i]],
         type: this.activityTypeOrder[i],
       });
     }

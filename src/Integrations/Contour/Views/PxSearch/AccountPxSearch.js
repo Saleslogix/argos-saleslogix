@@ -3,20 +3,17 @@
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
-import domClass from 'dojo/dom-class';
-import domConstruct from 'dojo/dom-construct';
 import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
 import _ListBase from 'argos/_ListBase';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('acctPxSearch');
 
-const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_ListBase, _LegacyListBase, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_ListBase, _LegacyListBase], {
   // Localization strings
   accountsNearMeText: resource.accountsNearMeText,
   addActivityActionText: resource.addActivityActionText,
@@ -34,22 +31,22 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.AccountName %}</h3>',
-    '<h4>{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</h4>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.AccountName %}</p>',
+    '<p class="micro-text">{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</p>',
+    '<p class="micro-text">',
     '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}',
-    '</h4>',
-    '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</h4>',
+    '</p>',
+    '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>',
     '{% if ($.MainPhone) { %}',
-    '<h4>',
-    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
+    '</p>',
     '{% } %}',
   ]),
-  itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
+  rowTemplate: new Simplate([
+    '<div data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
     '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+    '</div>',
   ]),
   itemRowContentTemplate: new Simplate([
     '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
@@ -95,7 +92,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // View Properties
   detailView: 'account_detail',
-  itemIconClass: 'fa fa-building-o fa-2x',
+  itemIconClass: 'spreadsheet', // todo: replace with appropriate icon
   id: 'pxSearch_Accounts',
   security: 'Contour/Map/Account',
   entityName: 'Account',
@@ -130,7 +127,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   },
   requestData() {
     this.loadAccountTypes();
-    domClass.add(this.domNode, 'list-loading');
+    $(this.domNode).addClass('list-loading');
 
     if (this.lat && this.lon) {
       const request = this.createRequest();
@@ -161,7 +158,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       });
     }
     this.processFeed(feed);
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
   },
   processFeed: function processFeed(_feed) {
     const feed = _feed;
@@ -179,7 +176,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
         const entry = feed.$resources[i];
         entry.$descriptor = entry.$descriptor || feed.$descriptor;
         this.entries[entry.$key] = entry;
-        const rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
+        const rowNode = $(this.rowTemplate.apply(entry, this));
         docfrag.appendChild(rowNode);
         this.onApplyRowTemplate(entry, rowNode);
         if (this.relatedViews.length > 0) {
@@ -188,13 +185,13 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       }
 
       if (docfrag.childNodes.length > 0) {
-        domConstruct.place(docfrag, this.contentNode, 'last');
+        $(this.contentNode).append(docfrag);
       }
     }
   },
   geoLocationError() {
     alert(this.currentLocationErrorText); // eslint-disable-line
-    domClass.remove(this.domNode, 'list-loading');
+    $(this.domNode).removeClass('list-loading');
   },
   geoLocationReceived(position) {
     this.lat = position.coords.latitude;
@@ -261,7 +258,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     }
   },
   formatSearchQuery(qry) {
-    return string.substitute('AccountName like "${0}%"', [this.escapeSearchQuery(qry)]);
+    return `AccountName like "${this.escapeSearchQuery(qry)}%"`;
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{

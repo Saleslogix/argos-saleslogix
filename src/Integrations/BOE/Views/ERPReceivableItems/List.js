@@ -1,9 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
@@ -11,22 +9,22 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpReceivableItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   formatter: format,
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</h3>',
-    '<h4><label class="group-label">{%: $$.receivablesIdText %}</label> {%: $.ErpReceivable.ErpExtId %}</h4>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.receivablesIdText %}</label> {%: $.ErpReceivable.ErpExtId %}</p>',
     '{% if ($.ErpInvoice && $.ErpInvoice.ErpExtId) { %}',
-    '<h4><label class="group-label">{%: $$.invoiceIDText %}</label> {%: $.ErpInvoice.ErpExtId %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.invoiceIDText %}</label> {%: $.ErpInvoice.ErpExtId %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
     '{% if ($.ErpLineTotalAmount) { %}',
-    '<h4><label class="group-label">{%: $$.lineTotalText %}</label> ',
+    '<p class="micro-text"><label class="group-label">{%: $$.lineTotalText %}</label> ',
     '{% if (App.hasMultiCurrency() && $.ErpReceivable.CurrencyCode) { %}',
     '{%: $$.formatter.multiCurrency($.ErpLineTotalAmount, $.ErpReceivable.CurrencyCode) %}',
     '{% } else { %}',
     '{%: $$.formatter.currency($.ErpLineTotalAmount) %} ',
-    '{% } %}</h4>',
+    '{% } %}</p>',
     '{% } %}',
   ]),
 
@@ -39,7 +37,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [L
   invoiceIDText: resource.invoiceIDText,
 
   // Card layout
-  itemIconClass: 'fa fa-check-circle-o fa-2x',
+  itemIconClass: 'confirm',
 
   // View Properties
   id: 'erpreceivable_items_list',
@@ -53,7 +51,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivableItems.List', [L
   insertSecurity: 'Entities/Receivable/Add',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(ErpReceivable.ErpExtId) like "%${0}%" or upper(ErpInvoice.ErpExtId) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(ErpReceivable.ErpExtId) like "%${q}%" or upper(ErpInvoice.ErpExtId) like "%${q}%"`;
   },
 });
 

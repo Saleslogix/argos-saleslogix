@@ -1,9 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -12,12 +10,12 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('quotePersonList');
 
-const __class = declare('crm.Integrations.BOE.Views.QuotePersons.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.QuotePersons.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
-    '<h4><label class="group-label">{%: $$.personNameText %}</label> {%: $.Person.Name %}</h4>',
-    '<h4><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.Quote.QuoteNumber %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.personNameText %}</label> {%: $.Person.Name %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.quoteNumberText %}</label> {%: $.Quote.QuoteNumber %}</p>',
   ]),
 
   // Localization
@@ -46,7 +44,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuotePersons.List', [List, _
   entityName: 'Quote Person',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Quote.QuoteNumber) like "${0}%" or upper(Person.Name) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Quote.QuoteNumber) like "${q}%" or upper(Person.Name) like "${q}%"`;
   },
 });
 

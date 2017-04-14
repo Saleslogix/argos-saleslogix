@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,12 +13,12 @@ const resource = getResource('opportunityContactList');
 const __class = declare('crm.Views.OpportunityContact.List', [List], {
   // Template
   itemTemplate: new Simplate([
-    '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
-    '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
+    '<p class="listview-heading {% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</p>',
+    '<p class="micro-text {% if ($.IsPrimary) { %} primary {% } %}">',
     '{% if ($.SalesRole) { %}',
     '{%: $.SalesRole %} | ',
     '{% } %}',
-    '{%: $.Contact.Title %}</h4>',
+    '{%: $.Contact.Title %}</p>',
   ]),
 
   // Localization
@@ -132,14 +131,15 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
     return this.tools || (this.tools = {
       tbar: [{
         id: 'associate',
-        cls: 'fa fa-plus fa-fw fa-lg',
+        svg: 'add',
         action: 'navigateToSelectView',
         security: App.getViewSecurity(this.insertView, 'insert'),
       }],
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Contact.NameLF) like "${q}%")`;
   },
 });
 

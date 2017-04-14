@@ -1,10 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import action from 'crm/Action';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
@@ -14,23 +12,23 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipmentsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: format,
   util: utility,
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.shipmentIDLabelText %}</label> {%: $.ErpExtId %}</h3>',
-    '<h4> {% if ($.Account) { %}<label class="group-label"> {%: $$.accountLabelText %}</label> {%: $.Account.AccountName %} {% } %}</h4>',
-    '<h4><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.ErpStatus %}</h4>',
-    '<h4> {% if ($.DatePromised) { %}<label class="group-label">{%: $$.datePromisedLabelText %}</label> {%: $$.formatter.date($.DatePromised) %} {% } %}</h4>',
-    '<h4><label class="group-label"> {%: $$.totalBaseAmountText %} </label>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.shipmentIDLabelText %}</label> {%: $.ErpExtId %}</p>',
+    '<p class="micro-text"> {% if ($.Account) { %}<label class="group-label"> {%: $$.accountLabelText %}</label> {%: $.Account.AccountName %} {% } %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusLabelText %}</label> {%: $.ErpStatus %}</p>',
+    '<p class="micro-text"> {% if ($.DatePromised) { %}<label class="group-label">{%: $$.datePromisedLabelText %}</label> {%: $$.formatter.date($.DatePromised) %} {% } %}</p>',
+    '<p class="micro-text"><label class="group-label"> {%: $$.totalBaseAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalBaseAmount, $.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label"> {%: $$.totalAmountText %} </label>',
+    '</p>',
+    '<p class="micro-text"><label class="group-label"> {%: $$.totalAmountText %} </label>',
     '{%: $$.util.formatMultiCurrency($.ShipmentTotalAmount, $.CurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>',
   ]),
 
   // Localization
@@ -79,7 +77,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Account.AccountName) like "${0}%" or upper(ErpExtId) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Account.AccountName) like "${q}%" or upper(ErpExtId) like "${q}%"`;
   },
 });
 

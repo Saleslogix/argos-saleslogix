@@ -8,14 +8,12 @@
  */
 import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
-import array from 'dojo/_base/array';
-import domConstruct from 'dojo/dom-construct';
 import format from '../../Format';
 import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('offlineDetail');
 export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetDetailMixin], {
@@ -102,7 +100,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     if (this.entry.$offlineDate) {
       offlineDate = format.relativeDate(this.entry.$offlineDate);
     }
-    domConstruct.place(this.detailHeaderTemplate.apply({ value, offlineDate }, this), this.tabList, 'before');
+    $(this.tabList).before(this.detailHeaderTemplate.apply({ value, offlineDate }, this));
   },
   createLayout: function createLayout() {
     const view = this._entityView;
@@ -128,15 +126,15 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this.applyRelatedSections(layout);
     return layout;
   },
-  disableSections: function disableSections(sections) {
-    array.forEach(sections, (section) => {
+  disableSections: function disableSections(sections = []) {
+    sections.forEach((section) => {
       this.disableSection(section);
-    }, this);
+    });
   },
-  disableSection: function disableSection(section) {
-    array.forEach(section.children, (property) => {
+  disableSection: function disableSection(section = []) {
+    section.children.forEach((property) => {
       this.disableProperty(section, property);
-    }, this);
+    });
   },
   disableProperty: function disableProperty(section, property) {
     if (property.enableOffline) {
@@ -144,18 +142,18 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     }
     property.disabled = true;
   },
-  applyRelatedSections: function applyRelatedSections(sections) {
+  applyRelatedSections: function applyRelatedSections(sections = []) {
     this._relatedItems = {};
-    array.forEach(sections, (section) => {
+    sections.forEach((section) => {
       if (section.name === 'RelatedItemsSection') {
         section.children = [];
         this.addRelatedLayout(section);
       }
-    }, this);
+    });
   },
   addRelatedLayout: function addRelatedLayout(section) {
-    const rels = this._model.relationships;
-    array.forEach(rels, (rel) => {
+    const rels = this._model.relationships || [];
+    rels.forEach((rel) => {
       if (rel && rel.relatedEntity) {
         const relatedModel = App.ModelManager.getModel(rel.relatedEntity, MODEL_TYPES.OFFLINE);
         let viewId;
@@ -178,15 +176,15 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
         this._relatedItems[item.name] = item;
         section.children.push(item);
       }
-    }, this);
+    });
   },
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
-    const labelNode = query('.related-item-label', rowNode)[0];
+    const labelNode = $('.related-item-label', rowNode)[0];
     const { relationship } = data;
     if (labelNode && relationship) {
       this._model.getRelatedCount(relationship, this.entry).then((count) => {
         const html = `<span class="related-item-count">${count}</span>`;
-        domConstruct.place(html, labelNode, 'before');
+        $(labelNode).before(html);
       }, (err) => {
         console.warn('Error getting related item count: ' + err); //eslint-disable-line
       });

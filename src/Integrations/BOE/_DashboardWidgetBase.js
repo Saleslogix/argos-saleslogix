@@ -3,20 +3,18 @@
 */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import when from 'dojo/when';
 import all from 'dojo/promise/all';
 import Deferred from 'dojo/_base/Deferred';
-import domConstruct from 'dojo/dom-construct';
-import array from 'dojo/_base/array';
 import crmFormat from '../../Format';
+import crmAggregate from '../../Aggregate';
 import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import SData from 'argos/Store/SData';
 import Utility from './Utility';
-import domClass from 'dojo/dom-class';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('dashboardWidgetBase');
 
@@ -41,7 +39,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   service: null,
   selectedRange: null,
   values: null,
-  formatter: 'bigNumber',
+  formatter: crmFormat.bigNumber,
   contractName: 'dynamic',
   collapsedClass: 'collapsed',
   autoLoad: false,
@@ -168,7 +166,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     this.rebuildValues();
 
     if (!this.loadingNode) {
-      this.loadingNode = domConstruct.toDom(this.loadingTemplate.apply(this));
+      this.loadingNode = $(this.loadingTemplate.apply(this));
     }
     if (this.hasParentEntry()) {
       promise = this.getData();
@@ -225,7 +223,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     const queryResults = [];
     const store = this.getQueryStore();
 
-    array.forEach(store, (storeInstance) => {
+    store.forEach((storeInstance) => {
       queryResults.push(storeInstance.query(null, queryOptions));
     }, this);
 
@@ -242,14 +240,14 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     this.metricWidgets.push(widget);
   },
   sendValues: function sendValues(results) {
-    array.forEach(this.metricWidgets, function handleWidget(widget) {
+    this.metricWidgets.forEach((widget) => {
       const obj = this.values.filter(this.checkForValue, widget)[0];
       let valueFn;
       let values;
       const valueIndex = [];
       if (!obj.value) {
-        if (obj.aggregateModule && obj.aggregate) {
-          valueFn = this._loadModuleFunction(obj.aggregateModule, obj.aggregate);
+        if (obj.aggregate) {
+          valueFn = crmAggregate[obj.aggregate];
         }
         if (!(obj.queryIndex instanceof Array)) {
           // Single query, so get the single index value from the results
@@ -276,7 +274,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       } else {
         this.applyValue(widget, null, null, valueIndex, obj);
       }
-    }, this);
+    });
   },
   applyValue: function applyValue(widget, valueFn, values, valueIndex, obj) {
     let formatterFn;
@@ -284,7 +282,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     // Sales dashboard widget is using formatModule, but all of the others are using formatterModule. Accept both so overrides happen correctly.
     if ((widget.formatterModule && widget.formatter) || (widget.formatModule && widget.formatter)) {
       const module = widget.formatterModule || widget.formatModule;
-      formatterFn = this._loadModuleFunction(module, widget.formatter);
+      formatterFn = module[widget.formatter];
     }
 
     if (valueFn) {
@@ -360,24 +358,8 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   checkForValue: function checkForValue(value) {
     return value.name === this.valueNeeded;
   },
-  _loadModuleFunction: function _loadModuleFunction(module, fn) {
-    const def = new Deferred();
-    try {
-      require([module], lang.hitch(this, (mod) => {
-        if (typeof mod === 'function') {
-          const instance = new mod(); // eslint-disable-line
-          def.resolve(instance[fn]);
-        } else {
-          def.resolve(mod[fn]);
-        }
-      }));
-    } catch (err) {
-      def.reject(err);
-    }
-    return def.promise;
-  },
   _onQueryError: function _onQueryError(error, widget) {
-    domConstruct.place(widget.itemTemplate.apply({ value: error }, widget), widget.metricDetailNode, 'replace');
+    $(widget.metricDetailNode).replaceWith(widget.itemTemplate.apply({ value: error }, widget));
   },
   _getCountValue: function _getCountValue(widget, obj) {
     const def = new Deferred();
@@ -411,14 +393,14 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     return def.promise;
   },
   applyDataToWidget: function applyDataToWidget(widget, data) {
-    domConstruct.empty(widget.metricDetailNode);
+    $(widget.metricDetailNode).empty();
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
-        domConstruct.place(domConstruct.toDom(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`), widget.metricDetailNode);
+        $(widget.metricDetailNode).append($(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`));
       }
-      domConstruct.place(widget.itemTemplate.apply({ value: data.value }, widget), widget.metricDetailNode);
+      $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
     } else {
-      domConstruct.place(widget.itemTemplate.apply({ value: data.value }, widget), widget.metricDetailNode);
+      $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
     }
   },
   navToReportView: function navToReportView() {
@@ -450,10 +432,10 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   buildView: function buildView() {},
   buildNoDataView: function buildNoDataView(entry) {
     const frag = document.createDocumentFragment();
-    const node = domConstruct.toDom(this.nodataTemplate.apply(entry, this));
+    const node = $(this.nodataTemplate.apply(entry, this));
     frag.appendChild(node);
     if (frag.childNodes.length > 0) {
-      domConstruct.place(frag, this.metricsNode, 'last');
+      $(this.metricsNode).append(frag);
     }
   },
   getAbrv: function getAbrv() {
@@ -505,7 +487,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       this.queryName = 'executeMetric';
     }
 
-    array.forEach(this.queryArgs, function createStore(arg) {
+    this.queryArgs.forEach(function createStore(arg) {
       store.push(new SData({
         request: this.request,
         service: App.services.crm,
@@ -548,15 +530,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       today = now.clone().subtract(to, 'days').endOf('day');
     }
 
-    const query = string.substitute(
-      `((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`,
-      [
-        convert.toIsoStringFromDate(pastWeekStart.toDate()),
-        convert.toIsoStringFromDate(today.toDate()),
-        pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'),
-        today.format('YYYY-MM-DDT23:59:59[Z]'),
-      ]
-    );
+    const query = `((${property} between @${convert.toIsoStringFromDate(pastWeekStart.toDate())}@ and @${convert.toIsoStringFromDate(today.toDate())}@) or (${property} between @${pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${today.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
     return query;
   },
   /**
@@ -567,13 +541,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     const now = moment();
     const pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
-    const query = string.substitute(
-      `(${property} lt @\${0}@ or (${property} lt @\${1}@))`,
-      [
-        convert.toIsoStringFromDate(pastDay.toDate()),
-        pastDay.format('YYYY-MM-DDT00:00:00[Z]'),
-      ]
-    );
+    const query = `(${property} lt @${convert.toIsoStringFromDate(pastDay.toDate())}@ or (${property} lt @${pastDay.format('YYYY-MM-DDT00:00:00[Z]')}@))`;
     return query;
   },
   hasValidOptions: function hasValidOptions(options) {
@@ -585,9 +553,11 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
         && options.value;
   },
   destroyWidgets: function destroyWidgets() {
-    array.forEach(this.metricWidgets, (widget) => {
-      widget.destroy();
-    }, this);
+    if (this.metricWidgets) {
+      this.metricWidgets.forEach((widget) => {
+        widget.destroy();
+      });
+    }
   },
   toggleView: function toggleView(evt) {
     this.onToggleView();
@@ -595,9 +565,9 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   },
   onToggleView: function onToggleView(forceOpen) {
     if (forceOpen) {
-      domClass.remove(this.dashboardHeaderNode, this.collapsedClass);
+      $(this.dashboardHeaderNode).removeClass(this.collapsedClass);
     } else {
-      domClass.toggle(this.dashboardHeaderNode, this.collapsedClass);
+      $(this.dashboardHeaderNode).toggleClass(this.collapsedClass);
     }
 
     if (!this.isLoaded) {

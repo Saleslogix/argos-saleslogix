@@ -1,12 +1,12 @@
-
 export default {
-  atToDo: 'fa fa-list-ul',
-  atPhoneCall: 'fa fa-phone',
-  atAppointment: 'fa fa-calendar-o',
-  atLiterature: 'fa fa-book',
-  atPersonal: 'fa fa-check-square-o',
-  atQuestion: 'fa fa-question-circle',
-  atNote: 'fa fa-file-text-o',
-  atEMail: 'fa fa-envelope',
+  atToDo: 'bullet-list',
+  atPhoneCall: 'phone',
+  atAppointment: 'calendar',
+  atLiterature: 'calendar',
+  atPersonal: 'checkbox',
+  atQuestion: 'help',
+  event: 'calendar',
+  atNote: 'document2',
+  atEMail: 'mail',
 };
 

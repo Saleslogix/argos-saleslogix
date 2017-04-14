@@ -1,13 +1,11 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from '../../Action';
 import format from '../../Format';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityList');
@@ -19,47 +17,46 @@ const resource = getResource('opportunityList');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.Format
  *
  * @requires crm.Action
  * @requires crm.Format
  */
-const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   // TODO: Support ExchangeRateCode with proper symbol
   itemTemplate: new Simplate([
-    '<h3>{%: $.Description %}</h3>',
+    '<p class="listview-heading">{%: $.Description %}</p>',
     '{% if ($.Account) { %}',
-    '<h4>',
+    '<p class="micro-text">',
     '{%: $.Account.AccountName %}',
-    '</h4>',
-    '<h4>',
+    '</p>',
+    '<p class="micro-text">',
     '{% if ($.Account.AccountManager && $.Account.AccountManager.UserInfo) { %}',
     '{%: $.Account.AccountManager.UserInfo.UserName %}',
     '{% if ($.Account && $.Account.AccountManager.UserInfo.Region) { %}',
     ' | {%: $.Account.AccountManager.UserInfo.Region %}',
     '{% } %}',
     '{% } %}',
-    '</h4>',
+    '</p>',
     '{% } %}',
-    '<h4>',
+    '<p class="micro-text">',
     '{%: $.Status %}',
     '{% if ($.Stage) { %}',
     ' | {%: $.Stage %}',
     '{% } %}',
-    '</h4>',
+    '</p>',
     '{% if ($.SalesPotential) { %}',
-    '<h4><strong>',
+    '<p class="micro-text"><strong>',
     '{% if (App.hasMultiCurrency()) { %}',
     '{%: crm.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}',
     '{% } else { %}',
     '{%: crm.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}',
     '{% } %}',
-    '</strong></h4>',
+    '</strong></p>',
     '{% } %}',
-    '<h4>{%: $$.formatDate($) %}</h4>',
+    '<p class="micro-text">{%: $$.formatDate($) %}</p>',
   ]),
 
   // Localization
@@ -81,7 +78,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   // View Properties
   id: 'opportunity_list',
   security: 'Entities/Opportunity/View',
-  itemIconClass: 'fa fa-money fa-2x',
+  itemIconClass: 'finance',
   detailView: 'opportunity_detail',
   insertView: 'opportunity_edit',
   queryOrderBy: 'EstimatedClose desc',
@@ -164,7 +161,8 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Description) like "${q}%" or Account.AccountNameUpper like "${q}%")`;
   },
   groupFieldFormatter: {
     CloseProbability: {

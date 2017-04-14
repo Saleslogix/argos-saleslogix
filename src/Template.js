@@ -37,7 +37,7 @@ const __class = lang.setObject('crm.Template', {
    * Template for note details
    */
   noteDetailPropertyOld: new Simplate([
-    '{% var F = argos.Format; %}',
+    '{% var F = argos.Format; %}', // TODO: Avoid global
     '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
     '<label>{%: $.label %}</label>',
     '<div class="note-text-property">',
@@ -53,7 +53,7 @@ const __class = lang.setObject('crm.Template', {
    * Template for note details
    */
   noteDetailProperty: new Simplate([
-    '{% var F = argos.Format; %}',
+    '{% var F = argos.Format; %}', // TODO: Avoid global
     '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
     '<label>{%: $.label %}</label>',
     '<pre>',

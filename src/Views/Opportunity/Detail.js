@@ -113,13 +113,13 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         name: 'ScheduleActivityAction',
         property: 'Description',
         label: this.scheduleActivityText,
-        iconClass: 'fa fa-calendar fa-lg',
+        iconClass: 'calendar',
         action: 'scheduleActivity',
       }, {
         name: 'AddNoteAction',
         property: 'Description',
         label: this.addNoteText,
-        iconClass: 'fa fa-edit fa-lg',
+        iconClass: 'quick-edit',
         action: 'addNote',
       }],
     };

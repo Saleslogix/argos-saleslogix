@@ -9,14 +9,23 @@ const resource = getResource('nameField');
 const control = declare('crm.Fields.NameField', [EditorField], {
   // Localization
   emptyText: resource.emptyText,
-
   widgetTemplate: new Simplate([
-    '<label for="{%= $.name %}">{%: $.label %}</label>',
-    '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
-    '<input data-dojo-attach-point="inputNode" readonly="readonly" type="text" />',
+    `<label for="{%= $.name %}"
+      {% if ($.required) { %}
+          class="required"
+      {% } %}>{%: $.label %}</label>
+    <div class="field-control-wrapper">
+      <button class="button simpleSubHeaderButton field-control-trigger
+        aria-label="{%: $.lookupLabelText %}">
+        <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
+        </svg>
+      </button>
+      <input data-dojo-attach-point="inputNode" readonly="readonly" type="text" />
+    </div>`,
   ]),
 
-  iconClass: 'fa fa-pencil fa-lg',
+  iconClass: 'quick-edit',
 
   createNavigationOptions: function createNavigationOptions() {
     const options = this.inherited(arguments);

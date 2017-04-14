@@ -1,7 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
-import query from 'dojo/query';
 import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
 import ActivityList from './List';
@@ -12,6 +10,7 @@ import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('activityMyList');
 const hashTagResource = getResource('activityMyListHashTags');
@@ -40,31 +39,45 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
 
   // Templates
   // Card View
-  itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">',
-    '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+  rowTemplate: new Simplate([
+    `<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
+      <div class="widget">
+        <div class="widget-header">
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+            <span class="audible">Actions</span>
+            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+              <use xlink:href="#icon-more"></use>
+            </svg>
+          </button>
+          {%! $$.listActionTemplate %}
+        </div>
+        <div class="card-content">
+          {%! $$.itemRowContentTemplate %}
+        </div>
+      </div>
+    </div>`,
   ]),
   activityTimeTemplate: new Simplate([
     '{% if ($$.isTimelessToday($)) { %}',
     '{%: $$.allDayText %}',
     '{% } else { %}',
-    '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}',
+    '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', // TODO: Avoid global
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
-    '<h3>',
+    '<p class="listview-heading">',
     '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: crm.Format.userActivityStatus($.Status) %}) {% } %}</span>',
-    '</h3>',
-    '<h4>',
+    '</p>',
+    '<p class="micro-text">',
     '{%! $$.activityTimeTemplate %}',
-    '</h4>',
-    '<h4>{%! $$.nameTemplate %}</h4>',
-    '<h4>',
+    '</p>',
+    '<p class="micro-text">{%! $$.nameTemplate %}</p>',
+    '<p class="micro-text">',
     '{% if ($.Activity.PhoneNumber) { %}',
-    '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>',
+    '<span class="hyperlink" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>', // TODO: Avoid global
     '{% } %}',
-    '</h4>',
+    '</p>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.Activity.ContactName) { %}',
@@ -96,7 +109,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,
   queryWhere: function queryWhere() {
-    return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context.user.$key]);
+    return `User.Id eq "${App.context.user.$key}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"`;
   },
   queryOrderBy: 'Activity.StartDate desc',
   querySelect: [
@@ -139,14 +152,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
       const yesterdayEnd = yesterdayStart.clone().endOf('day');
 
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(yesterdayStart.toDate()),
-          convert.toIsoStringFromDate(yesterdayEnd.toDate()),
-          yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(yesterdayStart.toDate())}@ and @${convert.toIsoStringFromDate(yesterdayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return theQuery;
     },
     today: function today() {
@@ -154,14 +160,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       const todayStart = now.clone().startOf('day');
       const todayEnd = todayStart.clone().endOf('day');
 
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(todayStart.toDate()),
-          convert.toIsoStringFromDate(todayEnd.toDate()),
-          todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(todayStart.toDate())}@ and @${convert.toIsoStringFromDate(todayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return theQuery;
     },
     'this-week': function thisWeek() {
@@ -169,14 +168,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       const weekStartDate = now.clone().startOf('week');
       const weekEndDate = weekStartDate.clone().endOf('week');
 
-      const theQuery = string.substitute(
-        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(weekStartDate.toDate()),
-          convert.toIsoStringFromDate(weekEndDate.toDate()),
-          weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-          weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${convert.toIsoStringFromDate(weekStartDate.toDate())}@ and @${convert.toIsoStringFromDate(weekEndDate.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${weekStartDate.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return theQuery;
     },
   },
@@ -196,7 +188,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
       this.tools.tbar.push({
         id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
+        svg: 'refresh',
         action: '_refreshClicked',
       });
 
@@ -374,7 +366,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
      * Grabbing a different key here, since we use entry.Activity.$key as the main data-key.
      * TODO: Make [data-key] overrideable in the base class.
      */
-    const row = query(node).closest('[data-my-activity-key]')[0];
+    const row = $(node).closest('.widget').parent()[0];
     const key = row ? row.getAttribute('data-my-activity-key') : false;
 
     if (this._selectionModel && key) {
@@ -386,7 +378,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     }
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Activity.Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   declineActivityFor: function declineActivityFor(activityId, userId) {
     this._getUserNotifications(activityId, userId, false);
@@ -403,7 +395,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     const req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
     req.setResourceKind('userNotifications');
     req.setContractName('dynamic');
-    req.setQueryArg('where', string.substitute('ActivityId eq \'${0}\' and ToUser.Id eq \'${1}\'', [id, userId]));
+    req.setQueryArg('where', `ActivityId eq '${id}' and ToUser.Id eq '${userId}'`);
     req.setQueryArg('precedence', '0');
     req.read({
       success: function success(userNotifications) {
@@ -590,7 +582,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       ContactId: entry.Activity.ContactId,
       AccountName: entry.Activity.AccountName,
       AccountId: entry.Activity.AccountId,
-      Description: string.substitute('${0} ${1}', [this.calledText, (entry.Activity.ContactName || '')]),
+      Description: `${this.calledText} ${entry.Activity.ContactName || ''}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,

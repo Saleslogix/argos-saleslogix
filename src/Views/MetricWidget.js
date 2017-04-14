@@ -2,12 +2,13 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Deferred from 'dojo/Deferred';
 import when from 'dojo/when';
-import all from 'dojo/promise/all';
-import domConstruct from 'dojo/dom-construct';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 import SDataStore from 'argos/Store/SData';
 import getResource from 'argos/I18n';
+import format from 'crm/Format';
+import aggregate from 'crm/Aggregate';
+
 
 const resource = getResource('metricWidget');
 
@@ -55,17 +56,17 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
    * HTML markup for the loading text and icon
    */
   loadingTemplate: new Simplate([
-    '<div class="metric-title list-loading">',
+    '<div class="metric-title list-loading busy-sm">',
     '<span class="list-loading-indicator">',
-    '<div aria-live="polite">',
-    '<div class="busyIndicator busyIndicator--small">',
-    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--one"></div>',
-    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--two"></div>',
-    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--three"></div>',
-    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--four"></div>',
-    '<div class="busyIndicator__bar busyIndicator__bar--small busyIndicator__bar--five"></div>',
+    '<div class="busy-indicator-container" aria-live="polite">',
+    '<div class="busy-indicator active">',
+    '<div class="bar one"></div>',
+    '<div class="bar two"></div>',
+    '<div class="bar three"></div>',
+    '<div class="bar four"></div>',
+    '<div class="bar five"></div>',
     '</div>',
-    '<span class="busyIndicator__label">{%: $.loadingText %}</span>',
+    '<span>{%: $.loadingText %}</span>',
     '</div>',
     '</span>',
     '</div>',
@@ -105,24 +106,8 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     line: 'chart_generic_line',
   },
 
-  // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-  formatModule: 'crm/Format', // AMD Module
-  formatter: 'bigNumber', // Function of formatModule module
-
-  /**
-   * Loads a module/function via AMD and wraps it in a deferred
-   * @return {object} Returns a deferred with the function loaded via AMD require
-   */
-  getFormatterFnDeferred: function getFormatterFnDeferred() {
-    if (this.formatModule && this.formatter) {
-      return this._loadModuleFunction(this.formatModule, this.formatter);
-    }
-
-    // Return the default fn if aggregateModule and aggregate were not assigned
-    const d = new Deferred();
-    d.resolve(this.formatter);
-    return d.promise;
-  },
+  formatModule: format,
+  formatter: format.bigNumber,
 
   /**
    * Calculates the value shown in the metric widget button.
@@ -134,43 +119,9 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
   },
 
   // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-  aggregateModule: 'crm/Aggregate',
+  aggregateModule: aggregate,
   aggregate: null,
 
-  /**
-   * Loads a module/function via AMD and wraps it in a deferred
-   * @return {object} Returns a deferred with the function loaded via AMD require
-   */
-  getValueFnDeferred: function getValueFnDeferred() {
-    if (this.aggregateModule && this.aggregate) {
-      return this._loadModuleFunction(this.aggregateModule, this.aggregate);
-    }
-
-    // Return the default fn if aggregateModule and aggregate were not assigned
-    const d = new Deferred();
-    d.resolve(this.valueFn);
-    return d.promise;
-  },
-  _loadModuleFunction: function _loadModuleFunction(module, fn) {
-    // Attempt to load the function fn from the AMD module
-    const def = new Deferred();
-    try {
-      require([module], lang.hitch(this, (Mod) => {
-        // Handle if required module is a ctor else object
-        if (typeof Mod === 'function') {
-          const instance = new Mod();
-          def.resolve(instance[fn]);
-        } else {
-          def.resolve(Mod[fn]);
-        }
-      }));
-    } catch (err) {
-      def.reject(err);
-    }
-
-    // the promise property prevents consumer from calling resolve/reject on the Deferred while still allowing access to the value
-    return def.promise;
-  },
   /**
    * Requests the widget's data, value fn, format fn, and renders it's itemTemplate
    */
@@ -185,35 +136,24 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     this.requestDataDeferred = new Deferred();
     this._getData();
 
-    const loadFormatter = this.getFormatterFnDeferred(); // deferred for loading in our formatter
-    const loadValueFn = this.getValueFnDeferred(); // deferred for loading in value function
-
-    all([loadValueFn, loadFormatter, this.requestDataDeferred])
+    this.requestDataDeferred
       .then((results) => {
-        if (!results[0] || !results[1] || !results[2]) {
+        const data = results;
+        if (!data) {
           throw new Error('An error occurred loading the KPI widget data.');
         }
 
-        const valueFn = results[0];
-        const formatterFn = results[1];
-        const data = results[2];
-
-        if (typeof valueFn === 'function') {
-          this.valueFn = valueFn;
-        }
-
-        if (typeof formatterFn === 'function') {
-          this.formatter = formatterFn;
-        }
+        this.valueFn = this.aggregateModule[this.aggregate];
+        this.formatter = this.formatModule[this.formatter];
 
         const value = this.value = this.valueFn.call(this, data);
-        domConstruct.place(this.itemTemplate.apply({
+        $(this.metricDetailNode).replaceWith(this.itemTemplate.apply({
           value,
-        }, this), this.metricDetailNode, 'replace');
+        }, this));
       }, (err) => {
         // Error
         console.error(err); // eslint-disable-line
-        domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
+        $(this.metricDetailNode).replaceWith(this.errorTemplate.apply({}, this));
       });
   },
   navToReportView: function navToReportView() {

@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,8 +13,8 @@ const resource = getResource('ticketActivityRateLookup');
 const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',
-    '<h4>{%: $.TypeDescription %}</h4>',
+    '<p class="listview-heading">{%: $.RateTypeCode %} - {%: $.Amount %}</p>',
+    '<p class="micro-text">{%: $.TypeDescription %}</p>',
   ]),
 
   // Localization
@@ -33,7 +32,8 @@ const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
   resourceKind: 'ticketActivityRates',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(RateTypeCode) like "%${q}%"`;
   },
 });
 

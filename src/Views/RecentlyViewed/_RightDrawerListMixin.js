@@ -1,9 +1,8 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('rightDrawerListMixin');
 
@@ -47,7 +46,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
         return this.getGroupForRightDrawerEntry(entry);
       });
 
-      App.snapper.on('close', lang.hitch(this, function onSnapperClose() {
+      App.viewSettingsModal.element.on('close', () => {
         if (this._hasChangedEntityPrefs) {
           this.clear();
           this.refreshRequired = true;
@@ -61,15 +60,15 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
           this.rebuildWidgets();
           this._hasChangedKPIPrefs = false;
         }
-      }));
+      });
     }
   },
   unloadRightDrawer: function unloadRightDrawer() {
     const drawer = App.getView('right_drawer');
     if (drawer) {
       drawer.setLayout([]);
-      drawer.getGroupForEntry = function snapperOff() {};
-      App.snapper.off('close');
+      drawer.getGroupForEntry = function noop() {};
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {
@@ -82,7 +81,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
       entityFilterClicked: function onentityFilterClicked(params) {
         const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
 
-        const results = array.filter(prefs, (pref) => {
+        const results = prefs.filter((pref) => {
           return pref.name === params.entityname;
         });
 
@@ -91,7 +90,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
           results[0].enabled = !enabled;
           App.persistPreferences();
           this._hasChangedEntityPrefs = true;
-          domAttr.set(params.$source, 'data-enabled', (!enabled)
+          $(params.$source).attr('data-enabled', (!enabled)
             .toString());
         }
       }.bind(this),
@@ -100,7 +99,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === params.title;
           });
         }
@@ -111,7 +110,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
           App.persistPreferences();
           this._hasChangedKPIPrefs = true;
 
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }.bind(this),
     };
@@ -138,7 +137,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
       children: Object.keys(this.entityMappings)
         .map((entityName) => {
           const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
-          const entityPref = array.filter(prefs, (pref) => {
+          const entityPref = prefs.filter((pref) => {
             return pref.name === entityName;
           });
           const {

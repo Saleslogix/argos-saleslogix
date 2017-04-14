@@ -4,17 +4,17 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
-import domConstruct from 'dojo/dom-construct';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
+
 
 const resource = getResource('locPicker');
 
 const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
   ]),
   // overriding the stock rowTemplate with our custom key and descriptor
   rowTemplate: new Simplate([
@@ -67,7 +67,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker'
         'UserInfo/HomeAddress/GeocodeFailed'];
       const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService())
         .setResourceKind('users')
-        .setResourceSelector(string.substitute("'${0}'", [App.context.user.$key]))
+        .setResourceSelector(`'${App.context.user.$key}'`)
         .setQueryArg('select', querySelect.join(','));
 
       request.read({
@@ -121,7 +121,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker'
       }
 
       if (docfrag.childNodes.length > 0) {
-        domConstruct.place(docfrag, this.contentNode, 'last');
+        $(this.contentNode).append(docfrag);
       }
     }
   },
@@ -139,7 +139,8 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker'
     }
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute(`(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "${App.context.user.$key}")) and Name like "%\${0}%"`, [this.escapeSearchQuery(searchQuery)]);
+    const q = this.escapeSearchQuery(searchQuery);
+    return `(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "${App.context.user.$key}")) and Name like "%${q}%"`;
   },
 });
 

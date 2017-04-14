@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import dString from 'dojo/string';
 import format from 'crm/Format';
 import template from 'crm/Template';
 import validator from 'crm/Validator';
@@ -124,7 +123,7 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
   requestAccount: function requestAccount(accountId) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('accounts')
-      .setResourceSelector(dString.substitute("'${0}'", [accountId]))
+      .setResourceSelector(`'${accountId}'`)
       .setQueryArg('select', [
         'AccountName',
         'Address/*',

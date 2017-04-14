@@ -1,7 +1,6 @@
 import FileManager from './FileManager';
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
-import string from 'dojo/string';
 import convert from 'argos/Convert';
 import utility from './Utility';
 
@@ -236,7 +235,7 @@ const __class = declare('crm.AttachmentManager', null, {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
     request.setResourceKind(this.resourceKind);
     request.setContractName(this.contractName);
-    request.setResourceSelector(string.substitute("'${0}'", [id]));
+    request.setResourceSelector(`'${id}'`);
 
     request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.querySelect.join(','));
     request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
