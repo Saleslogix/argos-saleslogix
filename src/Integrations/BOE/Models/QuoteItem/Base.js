@@ -14,7 +14,7 @@ const __class = declare('crm.Integrations.BOE.Models.QuoteItem.Base', [_ModelBas
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.QUOTEITEM,
-  iconClass: 'fa fa-file-text-o fa-2x',
+  iconClass: 'document',
   detailViewId: 'quote_lines_detail',
   listViewId: 'quote_lines_list',
   editViewId: '',

@@ -210,19 +210,19 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     RecentlyViewedList.prototype.entityMappings = Object.assign({}, originalMappings, {
       ERPShipment: {
-        iconClass: 'fa-truck',
+        iconClass: 'warehouse',
       },
       SalesOrder: {
-        iconClass: 'fa-shopping-cart',
+        iconClass: 'cart',
       },
       ERPReceivable: {
-        iconClass: 'fa-check-circle-o',
+        iconClass: 'checkbox',
       },
       Quote: {
-        iconClass: 'fa-file-text-o',
+        iconClass: 'document',
       },
       ERPInvoice: {
-        iconClass: 'fa-file-text',
+        iconClass: 'document2',
       },
     });
   },
