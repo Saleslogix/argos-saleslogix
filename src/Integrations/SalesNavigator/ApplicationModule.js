@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import ApplicationModule from 'argos/ApplicationModule';
+import Application from 'crm/Application';
 import AccountModule from './Modules/AccountModule';
 import ContactModule from './Modules/ContactModule';
 import LeadModule from './Modules/LeadModule';
@@ -71,8 +72,8 @@ const __class = declare('crm.Integrations.SalesNavigator.ApplicationModule', [Ap
   },
   registerDefaultViews: function registerDefaultViews() {
     const self = this;
-    const originalGetDefaultViews = crm.Application.prototype.getDefaultViews;
-    lang.extend(crm.Application, {
+    const originalGetDefaultViews = Application.prototype.getDefaultViews;
+    lang.extend(Application, {
       getDefaultViews: function getDefaultViews() {
         const views = originalGetDefaultViews.apply(this, arguments) || [];
         self.modules.forEach((module) => {

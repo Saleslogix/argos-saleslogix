@@ -100,6 +100,14 @@ export default class SalesNavigatorUri {
     this.height = typeof height === 'number' ? `${height}px` : height;
     return this;
   }
+  setRecordId(id) {
+    this.crmRecordId = id;
+    return this;
+  }
+  setOrgId(id) {
+    this.crmOrgId = id;
+    return this;
+  }
   /**
    * Sets the URI as a responsive value with a subscribe function to listen to dimension changes
    * @param {*} observable - an object with a function called subscribe that the
@@ -140,6 +148,6 @@ export default class SalesNavigatorUri {
     return builder.str;
   }
   toString() {
-    return Format.encode(`https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`);
+    return encodeURI(`https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`);
   }
 }

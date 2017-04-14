@@ -24,6 +24,7 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.ContactModule',
         enableOffline: false,
         children: [{
           name: 'ContactSalesNavigator',
+          enableOffline: false,
           relatedView: {
             widgetType: ContactWidget.prototype.id,
             id: ContactWidget.prototype.id,

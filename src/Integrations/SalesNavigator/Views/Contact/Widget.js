@@ -24,6 +24,7 @@ const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_Widge
     const script = this.createEmptyScript().asJavascript();
     script.src = new SalesNavigatorUri()
       .asLead()
+      // .setRecordId(entry.$key)
       .setFirstName(entry.FirstName)
       .setLastName(entry.LastName)
       .setEmail(entry.Email)

@@ -24,6 +24,7 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.LeadModule', [_
         enableOffline: false,
         children: [{
           name: 'LeadSalesNavigator',
+          enableOffline: false,
           relatedView: {
             widgetType: LeadWidget.prototype.id,
             id: LeadWidget.prototype.id,
