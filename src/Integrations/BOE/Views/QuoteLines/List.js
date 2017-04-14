@@ -1,10 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
@@ -14,7 +12,7 @@ import QuoteItemAvailabilityList from '../Locations/QuoteItemAvailabilityList';
 
 const resource = getResource('quoteItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   formatter: format,
   util: utility,
   // Localization
@@ -37,32 +35,32 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.ErpLineNumber) { %}',
-    '<h3><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h3>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</p>',
     '{% } %}',
     '{% if ($.SlxLocation) { %}',
-    '<h4><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h4>',
-    '<h4><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</h4>',
-    '<h4> <label class="group-label">{%: $$.priceText %} </label>',
+    '<p class="micro-text"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.priceText %} </label>',
     '{%: $$.util.formatMultiCurrency($.Price, $.Quote.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocCalculatedPrice, $.Quote.CurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.Quote.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
-    '<h4> <label class="group-label">{%: $$.baseAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.baseAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.Quote.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.amountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.amountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocExtendedPrice, $.Quote.CurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.totalAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.totalAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocTotalAmount, $.Quote.CurrencyCode) %}',
-    '</h4>',
+    '</p>',
 
   ]),
   // View Properties
@@ -77,7 +75,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
   insertSecurity: 'Entities/Quote/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-list-ul fa-2x',
+  itemIconClass: 'bullet-list',
 
   // Metrics
   entityName: 'QuoteItem',
@@ -98,7 +96,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
     return this.tools || (this.tools = {
       tbar: [{
         id: 'new',
-        cls: 'fa fa-plus fa-fw fa-lg',
+        svg: 'add',
         action: 'preNavigateToInsert',
         security: this.app.getViewSecurity(this.insertView, 'insert'),
       }],
@@ -116,7 +114,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
     this.navigateToInsertView(el, options);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Description) like "${0}%") or (upper(ProductName) like "${0}%") or (upper(Quote.QuoteNumber) like "${0}%") or (upper(ErpLineNumber) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Description) like "${q}%") or (upper(ProductName) like "${q}%") or (upper(Quote.QuoteNumber) like "${q}%") or (upper(ErpLineNumber) like "${q}%")`;
   },
   assignWarehouseAction: function assignWarehouseAction(theAction, selection) {
     const quote = this.options.fromContext.entry;

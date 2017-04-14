@@ -1,12 +1,10 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from '../../Action';
 import utility from 'argos/Utility';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
@@ -26,41 +24,40 @@ const resource = getResource('accountList');
  * @requires crm.Action
  * @requires crm.Views._GroupListMixin
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
-const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.AccountName %}</h3>',
-    '<h4>{%: $.Industry %}</h4>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.AccountName %}</p>',
+    '<p class="micro-text">{%: $.Industry %}</p>',
+    '<p class="micro-text">',
     '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}',
-    '</h4>',
-    '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}',
-    '{% if ($.Owner && $.Owner.OwnerDescription) { %} | {%: $.Owner.OwnerDescription %}{% } %}</h4>',
-    '<h4>{%: $.WebAddress %}</h4>',
+    '</p>',
+    '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}',
+    '{% if ($.Owner && $.Owner.OwnerDescription) { %} | {%: $.Owner.OwnerDescription %}{% } %}</p>',
+    '<p class="micro-text">{%: $.WebAddress %}</p>',
     '{% if ($.MainPhone) { %}',
-    '<h4>',
-    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
+    '</p>',
     '{% } %}',
     '{% if ($.Fax) { %}',
-    '<h4>',
-    '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}', // TODO: Avoid global
+    '</p>',
     '{% } %}',
   ]),
   groupsEnabled: true,
   enableDynamicGroupLayout: true,
   groupLayoutItemTemplate: new Simplate([
     '<div style="float:left; ">',
-    '<h3><span class="group-label">{%= $$.getGroupFieldLabelByName($,"AccountName") %} </span><span class="group-entry"><strong>{%= $$.getGroupFieldValueByName($,"AccountName") %}</strong></span></h2>',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"MainPhone") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "MainPhone") %}</span></h4>',
+    '<p class="listview-heading"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"AccountName") %} </span><span class="group-entry"><strong>{%= $$.getGroupFieldValueByName($,"AccountName") %}</strong></span></h2>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"MainPhone") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "MainPhone") %}</span></p>',
     '</div><div style="float:left;">',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></h4>',
-    '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></h4>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></p>',
+    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></p>',
     '</div>',
   ]),
 
@@ -86,7 +83,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
 
   // View Properties
   detailView: 'account_detail',
-  itemIconClass: 'fa fa-building-o fa-2x',
+  itemIconClass: 'spreadsheet', // todo: replace with appropriate icon
   id: 'account_list',
   security: 'Entities/Account/View',
   insertView: 'account_edit',
@@ -139,7 +136,8 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `AccountNameUpper like "${q}%"`;
   },
 });
 

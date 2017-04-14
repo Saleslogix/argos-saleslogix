@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,8 +13,8 @@ const resource = getResource('userList');
 const __class = declare('crm.Views.User.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
-    '<h4>{%: $.UserInfo.Title %}</h4>',
+    '<p class="listview-heading">{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</p>',
+    '<p class="micro-text">{%: $.UserInfo.Title %}</p>',
   ]),
 
   // Localization
@@ -41,7 +40,8 @@ const __class = declare('crm.Views.User.List', [List], {
   resourceKind: 'users',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(UserInfo.UserName) like "%${q}%"`;
   },
 });
 

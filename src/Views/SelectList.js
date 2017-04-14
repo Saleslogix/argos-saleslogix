@@ -13,7 +13,7 @@ import List from 'argos/List';
 const __class = declare('crm.Views.SelectList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
+    '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
 
   // View Properties

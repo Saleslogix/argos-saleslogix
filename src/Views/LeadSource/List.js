@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,8 +13,8 @@ const resource = getResource('leadSourceList');
 const __class = declare('crm.Views.LeadSource.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Description %}</h3>',
-    '<h4>{%: $.Status %}</h4>',
+    '<p class="listview-heading">{%: $.Description %}</p>',
+    '<p class="micro-text">{%: $.Status %}</p>',
   ]),
 
   // Localization
@@ -32,7 +31,8 @@ const __class = declare('crm.Views.LeadSource.List', [List], {
   resourceKind: 'leadsources',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Description) like "${q}%"`;
   },
 });
 

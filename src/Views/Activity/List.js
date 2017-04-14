@@ -1,10 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import string from 'dojo/string';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import List from 'argos/List';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import convert from 'argos/Convert';
 import action from '../../Action';
 import environment from '../../Environment';
@@ -12,6 +10,8 @@ import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
+
 
 const resource = getResource('activityList');
 const hashTagResource = getResource('activityListHashTags');
@@ -21,7 +21,6 @@ const hashTagResource = getResource('activityListHashTags');
  *
  * @extends argos.List
  * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.List
  * @requires argos.Utility
@@ -30,11 +29,10 @@ const hashTagResource = getResource('activityListHashTags');
  * @requires crm.Action
  * @requires crm.Environment
  * @requires crm.Format
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
-const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin], {
   // Localization
   allDayText: resource.allDayText,
   completeActivityText: resource.completeActivityText,
@@ -56,30 +54,44 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     yesterday: hashTagResource.yesterdayText,
   },
   // Card View
-  itemIcon: 'content/images/icons/man_1.png',
+  itemIcon: activityTypeIcons.default.atAppointment,
 
   // Templates
   // Card View
-  itemRowContainerTemplate: new Simplate([
-    '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">',
-    '{%! $$.itemRowContentTemplate %}',
-    '</li>',
+  rowTemplate: new Simplate([
+    `<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">
+      <div class="widget">
+        <div class="widget-header">
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+            <span class="audible">Actions</span>
+            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+              <use xlink:href="#icon-more"></use>
+            </svg>
+          </button>
+          {%! $$.listActionTemplate %}
+        </div>
+        <div class="card-content">
+          {%! $$.itemRowContentTemplate %}
+        </div>
+      </div>
+    </div>`,
   ]),
   activityTimeTemplate: new Simplate([
     '{% if ($$.isTimelessToday($)) { %}',
     '{%: $$.allDayText %}',
     '{% } else { %}',
-    '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}',
+    '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}', // TODO: Avoid global
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
-    '<h3>',
+    '<p class="listview-heading">',
     '<span class="p-description">{%: $.Description %}</span>',
-    '</h3>',
-    '<h4>',
+    '</p>',
+    '<p class="micro-text">',
     '{%! $$.activityTimeTemplate %}',
-    '</h4>',
-    '<h4>{%! $$.nameTemplate %}</h4>',
+    '</p>',
+    '<p class="micro-text">{%! $$.nameTemplate %}</p>',
   ]),
   nameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
@@ -90,16 +102,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     '{%: $.LeadName %}',
     '{% } %}',
   ]),
-  activityIndicatorIconByType: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-book',
-    atPersonal: 'fa fa-check-square-o',
-    atQuestion: 'fa fa-question-circle',
-    atNote: 'fa fa-file-text-o',
-    atEMail: 'fa fa-envelope',
-  },
 
   // View Properties
   id: 'activity_list',
@@ -125,14 +127,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       const yesterdayEnd = yesterdayStart.clone()
         .endOf('day');
 
-      const query = string.substitute(
-        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(yesterdayStart.toDate()),
-          convert.toIsoStringFromDate(yesterdayEnd.toDate()),
-          yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const query = `((Timeless eq false and StartDate between @${convert.toIsoStringFromDate(yesterdayStart.toDate())}@ and @${convert.toIsoStringFromDate(yesterdayEnd.toDate())}@) or (Timeless eq true and StartDate between @${yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return query;
     },
     today: function computeToday() {
@@ -142,14 +137,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       const todayEnd = todayStart.clone()
         .endOf('day');
 
-      const query = string.substitute(
-        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(todayStart.toDate()),
-          convert.toIsoStringFromDate(todayEnd.toDate()),
-          todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
-          todayEnd.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const query = `((Timeless eq false and StartDate between @${convert.toIsoStringFromDate(todayStart.toDate())}@ and @${convert.toIsoStringFromDate(todayEnd.toDate())}@) or (Timeless eq true and StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return query;
     },
     'this-week': function computeThisWeek() {
@@ -159,14 +147,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       const weekEndDate = weekStartDate.clone()
         .endOf('week');
 
-      const query = string.substitute(
-        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))', [
-          convert.toIsoStringFromDate(weekStartDate.toDate()),
-          convert.toIsoStringFromDate(weekEndDate.toDate()),
-          weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-          weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-        ]
-      );
+      const query = `((Timeless eq false and StartDate between @${convert.toIsoStringFromDate(weekStartDate.toDate())}@ and @${convert.toIsoStringFromDate(weekEndDate.toDate())}@) or (Timeless eq true and StartDate between @${weekStartDate.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return query;
     },
   },
@@ -183,7 +164,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     return '';
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
   formatDateTime: function formatDateTime() {
     return 'StartTime';
@@ -301,12 +282,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    let cls = this.activityIndicatorIconByType[type];
-    if (cls) {
-      cls = `${cls} fa-2x`;
-    }
-
-    return cls;
+    return activityTypeIcons.default[type];
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
@@ -367,7 +343,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin,
       ContactId: entry.ContactId,
       AccountName: entry.AccountName,
       AccountId: entry.AccountId,
-      Description: string.substitute('${0} ${1}', [this.calledText, (entry.ContactName || '')]),
+      Description: `${this.calledText} ${entry.ContactName || ''}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,

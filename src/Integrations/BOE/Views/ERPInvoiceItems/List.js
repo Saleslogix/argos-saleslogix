@@ -9,38 +9,35 @@
  *
  * @requires crm.Action
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   itemTemplate: new Simplate([
-    '<h3><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h3>',
-    '<h4><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</h4>',
-    '<h4><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</h4>',
-    '<h4><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h4>',
-    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
-    '<h4><label class="group-label">{%: $$.priceText %}</label> {%: $.Price %}</h4>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.priceText %}</label> {%: $.Price %}</p>',
     '{% if ($.ErpLineTotalAmount) { %}',
-    '<h4> <label class="group-label">{%: $$.amountText %}</label> <strong>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.amountText %}</label> <strong>',
     '{% if (App.hasMultiCurrency() && $.ErpInvoice.CurrencyCode) { %}',
     '{%: crm.Format.multiCurrency($.ErpLineTotalAmount, $.ErpInvoice.CurrencyCode) %}',
     '{% } else { %}',
     '{%: crm.Format.currency($.ErpLineTotalAmount) %}',
     '{% } %}',
-    '</strong></h4>',
+    '</strong></p>',
     '{% } %}',
   ]),
 
@@ -66,7 +63,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List
   itemIconClass: 'fa fa-list-ul fa-2x',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('ProductName like "${0}%" or ErpLineNumber like "${0}%" or Description like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(ProductName) like "${q}%" or upper(ErpLineNumber) like "${q}%" or upper(Description) like "${q}%"`;
   },
 });
 

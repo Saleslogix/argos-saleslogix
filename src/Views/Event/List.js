@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -23,12 +22,12 @@ const __class = declare('crm.Views.Event.List', [List], {
 
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%= $.Description %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%= $.Description %}</p>',
+    '<p class="micro-text">',
     '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.eventDateFormatText24 : $$.eventDateFormatText) %}',
     '&nbsp;-&nbsp;',
     '{%: crm.Format.date($.EndDate, (App.is24HourClock()) ? $$.eventDateFormatText24 : $$.eventDateFormatText) %}',
-    '</h4>',
+    '</p>',
   ]),
 
   // View Properties
@@ -48,7 +47,8 @@ const __class = declare('crm.Views.Event.List', [List], {
   resourceKind: 'events',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Description) like "%${q}%"`;
   },
 });
 

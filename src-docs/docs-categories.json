@@ -152,8 +152,7 @@
       "crm.Views.SelectList",
       "crm.Views.Settings",
       "crm.Views.SpeedSearchList",
-      "crm.Views.TextEdit",
-      "crm.Views.UpdateToolbar"
+      "crm.Views.TextEdit"
     ]
   }, {
     "name": "Views",

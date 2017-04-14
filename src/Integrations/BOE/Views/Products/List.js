@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import MODEL_NAMES from '../../Models/Names';
@@ -12,23 +11,23 @@ const __class = declare('crm.Integrations.BOE.Views.Products.List', [List], {
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
     '{% if ($.Description) { %}',
-    '<h4>{%: $.Description %}</h4>',
+    '<p class="micro-text">{%: $.Description %}</p>',
     '{% } %}',
     '{% if ($.Family) { %}',
-    '<h4><label class="group-label">{%: $$.familyText %}</label> {%: $.Family %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.familyText %}</label> {%: $.Family %}</p>',
     '{% } %}',
     '{% if ($.Status) { %}',
-    '<h4><label class="group-label">{%: $$.statusText %}</label> {%: $.Status %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusText %}</label> {%: $.Status %}</p>',
     '{% } %}',
     '{% if ($.Price) { %}',
-    '<h4><label class="group-label">{%: $$.priceText %} </label>',
+    '<p class="micro-text"><label class="group-label">{%: $$.priceText %} </label>',
     '{% if (App.hasMultiCurrency() && $.CurrencyCode) { %}',
     '{%: $$.formatter.multiCurrency($.Price, $.CurrencyCode) %}',
     '{% } else { %}',
     '{%: $$.formatter.currency($.Price) %} ',
-    '{% } %}</h4>',
+    '{% } %}</p>',
     '{% } %}',
   ]),
 
@@ -59,7 +58,8 @@ const __class = declare('crm.Integrations.BOE.Views.Products.List', [List], {
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Name) like "${0}%" or upper(Family) like "${0}%" or ActualId like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Name) like "${q}%" or upper(Family) like "${q}%" or ActualId like "${q}%"`;
   },
 });
 

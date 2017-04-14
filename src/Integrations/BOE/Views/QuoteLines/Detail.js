@@ -10,7 +10,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import array from 'dojo/_base/array';
 import format from 'crm/Format';
 import Detail from 'argos/Detail';
 import MODEL_NAMES from '../../Models/Names';
@@ -105,7 +104,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
       App.getView('quote_list'),
     ];
 
-    array.forEach(views, (view) => {
+    views.forEach((view) => {
       if (view) {
         view.refreshRequired = true;
       }
@@ -131,7 +130,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'removeQuoteLine',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeQuoteLine',
         title: this.removeQuoteLineText,
         security: 'Entities/Quote/Delete',
@@ -151,7 +150,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'CheckAvailability',
         property: 'SlxLocation.Name',
         label: this.checkWarehouseAvailabilityText,
-        iconClass: 'fa fa-exchange fa-2x',
+        iconClass: 'redo', // check for a better icon
         action: 'onAvailability',
         disabled: () => {
           return App.warehouseDiscovery === 'auto';

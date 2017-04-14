@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import _Module from './_Module';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import BillToList from '../Views/ERPBillTos/List';
@@ -331,7 +330,8 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
 
     lang.extend(crm.Views.Account.List, {
       formatSearchQuery: function formatSearchQuery(searchQuery) {
-        return string.substitute('AccountNameUpper like "${0}%" or upper(ErpExtId) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+        return `AccountNameUpper like "${q}%" or upper(ErpExtId) like "${q}%"`;
       },
     });
 

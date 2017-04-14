@@ -4,7 +4,7 @@ REM :: Mobile supports the current platform + one prior
 SET BUNDLE_NAME=ICRM Mobile v%VERSION% for 8.2 and later VFS.zip
 
 call grunt clean:css clean:js less
-call npm run build
+call yarn run build
 
 rmdir /S /Q deploy
 rmdir /S /Q %SDK%\deploy
@@ -23,7 +23,7 @@ mkdir deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix
 
 pushd %SDK%
 call grunt clean:css clean:js less
-call npm run build
+call yarn run build
 popd
 
 xcopy %SDK%\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk /E /Y /exclude:build\bundleExcludes.txt

@@ -19,7 +19,7 @@ define('spec/Application.spec', [
           .and.callThrough();
         spyOn(instance, 'initModules');
         spyOn(instance, 'initToolbars');
-        spyOn(instance, 'initReUI');
+        spyOn(instance, 'initHash');
         spyOn(instance, 'initToasts');
         spyOn(instance, 'run')
           .and.callThrough();
@@ -37,7 +37,7 @@ define('spec/Application.spec', [
           .toHaveBeenCalled();
         expect(instance.initToolbars)
           .toHaveBeenCalled();
-        expect(instance.initReUI)
+        expect(instance.initHash)
           .toHaveBeenCalled();
 
         instance.run();
@@ -60,7 +60,7 @@ define('spec/Application.spec', [
         expect(instance.connections.crm.offline)
           .toBe(true);
         expect(instance.connections.crm.url)
-          .toBe('http://localhost:8000/sdata/slx/dynamic/-/');
+          .toBe('http://slocalhost:8000/sdata/slx/dynamic/-/');
         expect(instance.connections.crm.json)
           .toBe(true);
         expect(instance.enableUpdateNotification)

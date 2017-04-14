@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import LookupField from 'argos/Fields/LookupField';
 import PickList from '../Views/PickList';
 import FieldManager from 'argos/FieldManager';
@@ -37,7 +36,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   requireSelection: false,
   valueKeyProperty: false,
   valueTextProperty: false,
-  iconClass: 'fa fa-ellipsis-h fa-lg',
+  iconClass: 'more',
 
   constructor: function constructor(options) {
     switch (this.storageMode) {
@@ -70,7 +69,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return picklist.defaultLanguage;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
-    return string.substitute('name eq "${0}"', [name]);
+    return `name eq "${name}"`;
   },
   _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value, unloadedValues) {
     if (typeof value === 'string') {
@@ -184,12 +183,12 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.tools = {
         tbar: [{
           id: 'complete',
-          cls: 'fa fa-check fa-fw fa-lg',
+          svg: 'check',
           fn: this.complete,
           scope: this,
         }, {
           id: 'cancel',
-          cls: 'fa fa-ban fa-fw fa-lg',
+          svg: 'cancel',
           side: 'left',
           fn: ReUI.back,
           scope: ReUI,

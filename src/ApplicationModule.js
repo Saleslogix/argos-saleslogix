@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import query from 'dojo/query';
 import ApplicationModule from 'argos/ApplicationModule';
 import Calendar from 'argos/Calendar';
 import 'argos/RelatedViewManager';
@@ -13,7 +12,6 @@ import AddAccountContact from './Views/AddAccountContact';
 import AreaCategoryIssueLookup from './Views/AreaCategoryIssueLookup';
 import ExchangeRateLookup from './Views/ExchangeRateLookup';
 import MainToolbar from './Views/MainToolbar';
-import UpdateToolbar from './Views/UpdateToolbar';
 import LeftDrawer from './Views/LeftDrawer';
 import RightDrawer from './Views/RightDrawer';
 import OfflineDetail from './Views/Offline/Detail';
@@ -168,10 +166,13 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
     }));
 
     this.registerView(new Login());
+
     this.registerView(new LogOff());
 
-    this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
-    this.registerView(new RightDrawer(), query('.right-drawer')[0]);
+    this.registerView(new LeftDrawer(), $('.application-menu', this.application.getContainerNode()).first().get(0));
+
+    const modalBody = $('.modal-body', this.application.viewSettingsModal.element);
+    this.registerView(new RightDrawer(), modalBody.first().get(0));
 
     this.registerView(new OfflineDetail({
       canRedirectTo: true,
@@ -532,10 +533,6 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerToolbar(new MainToolbar({
       name: 'tbar',
-    }));
-
-    this.registerToolbar(new UpdateToolbar({
-      name: 'updatebar',
     }));
   },
   loadCustomizations: function loadCustomizations() {

@@ -1,8 +1,8 @@
 import declare from 'dojo/_base/declare';
 import aspect from 'dojo/aspect';
-import domConstruct from 'dojo/dom-construct';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
+
 
 const __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase], {
 
@@ -36,15 +36,15 @@ const __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBas
   },
   processSnapShot: function processSnapShot(snapShot) {
     if (this.containerNode && snapShot) {
-      const wrapper = domConstruct.toDom(this.contextWrapperTemplate.apply(this));
-      domConstruct.place(snapShot, wrapper, 'last');
-      domConstruct.place(wrapper, this.containerNode, 'last');
+      const wrapper = $(this.contextWrapperTemplate.apply(this));
+      $(wrapper).append(snapShot);
+      $(this.containerNode).append(wrapper);
     }
   },
   onRefreshView: function onRefreshView() {
     if (this.containerNode) {
-      const node = domConstruct.toDom('<div></div>');
-      domConstruct.place(node, this.containerNode, 'only');
+      const node = $('<div></div>');
+      $(this.containerNode).empty().append(node);
       this.onLoad();
     }
   },

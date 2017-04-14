@@ -1,11 +1,9 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from 'crm/Action';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
 
@@ -17,7 +15,6 @@ const resource = getResource('contactList');
  * @extends argos.List
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.List
  * @requires argos.Format
@@ -25,32 +22,31 @@ const resource = getResource('contactList');
  * @requires crm.Views._RightDrawerListMixin
  * @requires crm.Views._GroupListMixin
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Action
  *
  */
-const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Template
   // Card Layout
-  itemIconClass: 'fa fa-user fa-2x',
+  itemIconClass: 'user',
   itemTemplate: new Simplate([
-    '<h3>{%: $.NameLF %}</h3>',
-    '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',
-    '<h4>{%: $.WebAddress %}</h4>',
+    '<p class="listview-heading">{%: $.NameLF %}</p>',
+    '<p class="micro-text">{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</p>',
+    '<p class="micro-text">{%: $.WebAddress %}</p>',
     '{% if ($.WorkPhone) { %}',
-    '<h4>',
-    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', // TODO: Avoid global
+    '</p>',
     '{% } %}',
     '{% if ($.Mobile) { %}',
-    '<h4>',
-    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', // TODO: Avoid global
+    '</p>',
     '{% } %}',
     '{% if ($.Email) { %}',
-    '<h4>',
-    '<span class="href" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '<span class="hyperlink" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>',
+    '</p>',
     '{% } %}',
   ]),
 
@@ -160,7 +156,8 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%") or (Account.AccountNameUpper like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or upper(NameLF) like "%${q}%") or (Account.AccountNameUpper like "%${q}%")`;
   },
 });
 

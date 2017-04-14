@@ -5,6 +5,7 @@ import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
+
 const resource = getResource('eventEdit');
 const dtFormatResource = getResource('eventEditDateTimeFormat');
 

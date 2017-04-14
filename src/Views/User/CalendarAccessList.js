@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,8 +13,8 @@ const resource = getResource('userCalendarAccessList');
 const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
-    '<h4>{%: $.SubType %}</h4>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
+    '<p class="micro-text">{%: $.SubType %}</p>',
   ]),
 
   // Localization
@@ -37,7 +36,8 @@ const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   resourceKind: 'activityresourceviews',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Name) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Name) like "%${q}%"`;
   },
 });
 

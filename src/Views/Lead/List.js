@@ -1,13 +1,11 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from '../../Action';
 import utility from 'argos/Utility';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
-import _CardLayoutListMixin from '../_CardLayoutListMixin';
 import getResource from 'argos/I18n';
 
 const resource = getResource('leadList');
@@ -19,40 +17,39 @@ const resource = getResource('leadList');
  * @mixins crm.Views._RightDrawerListMixin
  * @mixins crm.Views._MetricListMixin
  * @mixins crm.Views._GroupListMixin
- * @mixins crm.Views._CardLayoutListMixin
  *
  * @requires argos.Format
  * @requires argos.Utility
  *
  * @requires crm.Action
  */
-const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.LeadNameLastFirst %}</h3>',
-    '<h4>',
+    '<p class="listview-heading">{%: $.LeadNameLastFirst %}</p>',
+    '<p class="micro-text">',
     '{%: $$.joinFields(" | ", [$.Title, $.Company]) %}',
-    '</h4>',
+    '</p>',
     '{% if ($.WorkPhone) { %}',
-    '<h4>',
-    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', // TODO: Avoid global
+    '</p>',
     '{% } %}',
     '{% if ($.Mobile) { %}',
-    '<h4>',
-    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', // TODO: Avoid global
+    '</p>',
     '{% } %}',
     '{% if ($.TollFree) { %}',
-    '<h4>',
-    '{%: $$.tollFreeAbbreviationText %} {%: argos.Format.phone($.TollFree) %}',
-    '</h4>',
+    '<p class="micro-text">',
+    '{%: $$.tollFreeAbbreviationText %} {%: argos.Format.phone($.TollFree) %}', // TODO: Avoid global
+    '</p>',
     '{% } %}',
-    '<h4>{%: $.WebAddress %}</h4>',
+    '<p class="micro-text">{%: $.WebAddress %}</p>',
     '{% if ($.Email) { %}',
-    '<h4>',
-    '<span class="href" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>',
-    '</h4>',
+    '<p class="micro-text">',
+    '<span class="hyperlink" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>',
+    '</p>',
     '{% } %}',
   ]),
 
@@ -95,7 +92,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
 
   // View Properties
   detailView: 'lead_detail',
-  itemIconClass: 'fa fa-filter fa-2x',
+  itemIconClass: 'agent',
   iconTemplate: new Simplate([
     '<span class="fa-stack">',
     '<i class="fa fa-square-o fa-stack-2x"></i>',
@@ -193,7 +190,8 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%" or upper(LeadNameLastFirst) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or CompanyUpper like "${q}%" or upper(LeadNameLastFirst) like "%${q}%")`;
   },
 });
 

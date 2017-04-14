@@ -9,19 +9,16 @@
  *
  * @requires crm.Action
  * @requires crm.Views._MetricListMixin
- * @requires crm.Views._CardLayoutListMixin
  * @requires crm.Views._RightDrawerListMixin
  *
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import action from 'crm/Action';
 import crmFormat from 'crm/Format';
 import List from 'argos/List';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
 import utility from '../../Utility';
@@ -29,37 +26,37 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicesList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: crmFormat,
   util: utility,
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.Account && $.Account.AccountName) { %}',
-    '<h3><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</h3>',
-    '<h4><label class="group-label">{%: $$.invoiceNumberText %}</label> {%: $.InvoiceNumber %}</h4>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.accountText %}</label> {%: $.Account.AccountName %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.invoiceNumberText %}</label> {%: $.InvoiceNumber %}</p>',
     '{% } else { %}',
-    '<h3><label class="group-label">{%: $$.invoiceNumberText %}</label> {%: $.InvoiceNumber %}</h3>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.invoiceNumberText %}</label> {%: $.InvoiceNumber %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.statusText %}</label> {%: $.ErpStatus %}</h4>',
-    '<h4><label class="group-label">{%: $$.statusDateText %}</label> {%: $$.formatStatusDate($) %}</h4>',
-    '<h4><label class="group-label">{%: $$.termsText %}</label> {%: $.ErpPaymentTermId %}</h4>',
-    '<h4><label class="group-label">{%: $$.ownerText %} </label>{%: $.Owner.OwnerDescription %}</h4>',
-    '<h4><label class="group-label">{%: $$.extendedBaseAmountText %}</label> ',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusText %}</label> {%: $.ErpStatus %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.statusDateText %}</label> {%: $$.formatStatusDate($) %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.termsText %}</label> {%: $.ErpPaymentTermId %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.ownerText %} </label>{%: $.Owner.OwnerDescription %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.extendedBaseAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.ErpExtendedBaseAmount, $.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.extendedAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.extendedAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.ErpExtendedAmount, $.CurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.totalBaseAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.totalBaseAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.ErpTotalBaseAmount, $.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.totalAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.totalAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.GrandTotal, $.CurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.totalAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.totalAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.GrandTotal, $.CurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</h4>',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>',
   ]),
 
   // Localization
@@ -91,7 +88,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
   insertSecurity: 'Entities/ErpInvoice/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-file-text fa-2x',
+  itemIconClass: 'document2',
 
   // Groups
   groupsEnabled: true,
@@ -111,7 +108,8 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _R
     }]);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('Account.AccountName like "${0}%" or InvoiceNumber like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Account.AccountName) like "${q}%" or upper(InvoiceNumber) like "${q}%"`;
   },
   formatStatusDate: function formatStatusDate(entry) {
     return (entry && entry.ErpStatusDate) ? this.formatter.relativeDate(entry.ErpStatusDate) : this.unknownText;

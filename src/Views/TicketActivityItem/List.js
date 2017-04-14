@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -16,9 +15,9 @@ const resource = getResource('ticketActivityItemList');
 const __class = declare('crm.Views.TicketActivityItem.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Product.Name %}</h3>',
-    '<h4>{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</h4>',
-    '<h4>{%: $.ItemDescription %}</h4>',
+    '<p class="listview-heading">{%: $.Product.Name %}</p>',
+    '<p class="micro-text">{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</p>',
+    '<p class="micro-text">{%: $.ItemDescription %}</p>',
   ]),
 
   // Localization
@@ -42,7 +41,8 @@ const __class = declare('crm.Views.TicketActivityItem.List', [List], {
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Product.Name) like "${q}%" or upper(Product.Family) like "${q}%")`;
   },
 });
 

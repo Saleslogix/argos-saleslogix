@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import MODEL_NAMES from '../../Models/Names';
@@ -12,7 +11,7 @@ const __class = declare('crm.Integrations.BOE.Views.UnitsOfMeasure.List', [List]
   formatter: format,
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.Name %}</h3>',
+    '<p class="listview-heading">{%: $.Name %}</p>',
   ]),
 
   // Localization
@@ -37,7 +36,8 @@ const __class = declare('crm.Integrations.BOE.Views.UnitsOfMeasure.List', [List]
     });
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Name) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `upper(Name) like "${q}%"`;
   },
 });
 

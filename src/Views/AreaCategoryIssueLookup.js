@@ -17,7 +17,7 @@ const resource = getResource('areaCategoryIssueLookup');
 const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<h3>{%: $.$descriptor %}</h3>',
+    '<p class="listview-heading">{%: $.$descriptor %}</p>',
   ]),
 
   // Localization

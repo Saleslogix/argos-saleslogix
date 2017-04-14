@@ -144,7 +144,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         property: 'WorkPhone',
         label: this.callWorkNumberText,
         action: 'callWorkPhone',
-        iconClass: 'fa fa-phone-square fa-lg',
+        iconClass: 'phone',
         disabled: this.checkWorkPhone,
         renderer: format.phone.bindDelegate(this, false),
       }, {
@@ -152,20 +152,20 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         property: 'Email',
         label: this.sendEmailText,
         action: 'sendEmail',
-        iconClass: 'fa fa-envelope fa-lg',
+        iconClass: 'mail',
         disabled: this.checkEmail,
       }, {
         name: 'ScheduleActivityAction',
         label: this.scheduleActivityText,
         action: 'scheduleActivity',
-        iconClass: 'fa fa-calendar fa-lg',
+        iconClass: 'calendar',
         tpl: new Simplate([
           '{%: $.Company %} / {%: $.LeadNameLastFirst %}',
         ]),
       }, {
         name: 'AddNoteAction',
         property: 'LeadNameLastFirst',
-        iconClass: 'fa fa-edit fa-lg',
+        iconClass: 'quick-edit',
         label: this.addNoteText,
         action: 'addNote',
       }, {
@@ -173,7 +173,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         property: 'Address',
         label: this.viewAddressText,
         action: 'viewAddress',
-        iconClass: 'fa fa-map-marker fa-lg',
+        iconClass: 'map-pin',
         disabled: this.checkAddress,
         renderer: format.address.bindDelegate(this, true, ' '),
       }],

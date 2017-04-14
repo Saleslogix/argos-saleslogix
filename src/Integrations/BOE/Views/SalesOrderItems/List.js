@@ -1,10 +1,8 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import action from 'crm/Action';
 import format from 'crm/Format';
-import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
 import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
@@ -15,7 +13,7 @@ import SalesOrderItemAvailabilityList from '../Locations/SalesOrderItemAvailabil
 
 const resource = getResource('salesOrderItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   formatter: format,
   util: utility,
   // Localization
@@ -38,32 +36,32 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   // Templates
   itemTemplate: new Simplate([
     '{% if ($.ErpLineNumber) { %}',
-    '<h3><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</h3>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.lineText %}</label> {%: $.ErpLineNumber %}</p>',
     '{% } %}',
     '{% if ($.SlxLocation) { %}',
-    '<h4><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.warehouseText %}</label> {%: $.SlxLocation.Description %}</p>',
     '{% } %}',
-    '<h4><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</h4>',
-    '<h4><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</h4>',
-    '<h4> <label class="group-label">{%: $$.priceText %}</label> ',
+    '<p class="micro-text"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.descriptionText %}</label> {%: $.Description %}</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.priceText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.Price, $.SalesOrder.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.adjustedPriceText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocCalculatedPrice, $.SalesOrder.CurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.SalesOrder.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
-    '<h4> <label class="group-label">{%: $$.baseAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.baseAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.SalesOrder.BaseCurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.amountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.amountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocExtendedPrice, $.SalesOrder.CurrencyCode) %}',
-    '</h4>',
-    '<h4> <label class="group-label">{%: $$.totalAmountText %}</label> ',
+    '</p>',
+    '<p class="micro-text"> <label class="group-label">{%: $$.totalAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.DocTotalAmount, $.SalesOrder.CurrencyCode) %}',
-    '</h4>',
+    '</p>',
   ]),
   // View Properties
   id: 'salessorder_items_list',
@@ -77,7 +75,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   insertSecurity: 'Entities/SalesOrder/Add',
 
   // Card layout
-  itemIconClass: 'fa fa-list-ul fa-2x',
+  itemIconClass: 'bullet-list',
 
   // Metrics
   entityName: 'SalesOrderItem',
@@ -98,7 +96,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
     return this.tools || (this.tools = {
       tbar: [{
         id: 'new',
-        cls: 'fa fa-plus fa-fw fa-lg',
+        svg: 'add',
         action: 'preNavigateToInsert',
         security: this.app.getViewSecurity(this.insertView, 'insert'),
       }],
@@ -143,7 +141,8 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
     return view;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('(upper(Description) like "${0}%") or (upper(ProductName) like "${0}%") or (upper(SalesOrder.SalesOrderNumber) like "${0}%") or (upper(ErpLineNumber) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+    return `(upper(Description) like "${q}%") or (upper(ProductName) like "${q}%") or (upper(SalesOrder.SalesOrderNumber) like "${q}%") or (upper(ErpLineNumber) like "${q}%")`;
   },
 });
 

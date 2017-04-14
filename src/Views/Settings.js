@@ -1,7 +1,6 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
-import _CardLayoutListMixin from './_CardLayoutListMixin';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
@@ -14,7 +13,7 @@ const resource = getResource('settings');
  * @extends argos.List
  *
  */
-const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
+const __class = declare('crm.Views.Settings', [List], {
   // Templates
   itemIconTemplate: new Simplate([
     '<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">',
@@ -27,15 +26,15 @@ const __class = declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
   ]),
 
   itemTemplate: new Simplate([
-    '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>',
+    '<p class="listview-heading" data-action="{%= $.action %}">{%: $.title %}</p>',
   ]),
 
-  itemRowContainerTemplate: new Simplate([
+  liRowTemplate: new Simplate([
     '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
     '{%! $$.itemRowContentTemplate %}',
     '</li>',
   ]),
-
+  isCardView: false,
   // Localization
   clearLocalStorageTitleText: resource.clearLocalStorageTitleText,
   clearAuthenticationTitleText: resource.clearAuthenticationTitleText,

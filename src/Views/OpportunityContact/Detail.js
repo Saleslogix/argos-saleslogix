@@ -88,11 +88,11 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
       tbar: [{
         id: 'edit',
         action: 'navigateToEditView',
-        cls: 'fa fa-pencil fa-fw fa-lg',
+        svg: 'edit',
         security: App.getViewSecurity(this.editView, 'update'),
       }, {
         id: 'removeContact',
-        cls: 'fa fa-times-circle fa-lg',
+        svg: 'close',
         action: 'removeContact',
         title: this.removeContactTitleText,
       }],

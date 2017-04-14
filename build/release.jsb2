@@ -187,6 +187,12 @@
           "text": "Action.js",
           "path": "../src-out/"
         }, {
+          "text": "config.js",
+          "path": "../src-out/actions/"
+        }, {
+          "text": "user.js",
+          "path": "../src-out/actions/"
+        }, {
           "text": "Aggregate.js",
           "path": "../src-out/"
         }, {
@@ -214,16 +220,13 @@
           "text": "MainToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "UpdateToolbar.js",
-          "path": "../src-out/Views/"
-        }, {
           "text": "RightDrawer.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "Login.js",
+          "text": "LogOff.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "LogOff.js",
+          "text": "Settings.js",
           "path": "../src-out/Views/"
         }, {
           "text": "Configure.js",
@@ -240,15 +243,6 @@
         }, {
           "text": "TextEdit.js",
           "path": "../src-out/Views/"
-        }, {
-          "text": "TypesList.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "DayView.js",
-          "path": "../src-out/Views/Calendar/"
-        }, {
-          "text": "WeekView.js",
-          "path": "../src-out/Views/Calendar/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Competitor/"
@@ -346,8 +340,8 @@
           "text": "FileManager.js",
           "path": "../src-out/"
         }, {
-          "text": "MetricWidget.js",
-          "path": "../src-out/Views/"
+          "text": "Bootstrap.localization.js",
+          "path": "../src-out/"
         }, {
           "text": "DateRangeWidget.js",
           "path": "../src-out/Integrations/BOE/"
@@ -364,8 +358,8 @@
           "text": "PicklistService.js",
           "path": "../src-out/Integrations/BOE/"
         }, {
-          "text": "_CardLayoutListMixin.js",
-          "path": "../src-out/Views/"
+          "text": "AccountPxSearch.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
         }, {
           "text": "Names.js",
           "path": "../src-out/Integrations/Contour/Models/"
@@ -393,6 +387,15 @@
         }, {
           "text": "FooterToolbar.js",
           "path": "../src-out/Views/"
+        }, {
+          "text": "config.js",
+          "path": "../src-out/reducers/"
+        }, {
+          "text": "Login.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "user.js",
+          "path": "../src-out/reducers/"
         }, {
           "text": "Aggregate.js",
           "path": "../src-out/Integrations/BOE/"
@@ -427,9 +430,6 @@
           "text": "Bootstrap.js",
           "path": "../src-out/"
         }, {
-          "text": "Application.js",
-          "path": "../src-out/"
-        }, {
           "text": "PicklistField.js",
           "path": "../src-out/Fields/"
         }, {
@@ -442,9 +442,6 @@
           "text": "List.js",
           "path": "../src-out/Views/Address/"
         }, {
-          "text": "MonthView.js",
-          "path": "../src-out/Views/Calendar/"
-        }, {
           "text": "Detail.js",
           "path": "../src-out/Views/ErrorLog/"
         }, {
@@ -453,6 +450,9 @@
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Lead/"
+        }, {
+          "text": "MetricWidget.js",
+          "path": "../src-out/Views/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Offline/"
@@ -526,23 +526,8 @@
           "text": "Edit.js",
           "path": "../src-out/Views/TicketActivity/"
         }, {
-          "text": "CalendarView.js",
-          "path": "../src-out/Views/Calendar/"
-        }, {
           "text": "AttachmentManager.js",
           "path": "../src-out/"
-        }, {
-          "text": "_MetricDetailMixin.js",
-          "path": "../src-out/Views/"
-        }, {
-          "text": "MyDayMetricWidget.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "TotalMetricWidget.js",
-          "path": "../src-out/Views/Offline/"
-        }, {
-          "text": "TotalMetricWidget.js",
-          "path": "../src-out/Views/RecentlyViewed/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"
@@ -709,17 +694,26 @@
           "text": "ReturnLineModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
-          "text": "AccountPxSearch.js",
-          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
-        }, {
-          "text": "Settings.js",
-          "path": "../src-out/Views/"
-        }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/Contour/Models/Place/"
         }, {
           "text": "LocationPicker.js",
           "path": "../src-out/Integrations/Contour/Views/PxSearch/"
+        }, {
+          "text": "TypesList.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "CalendarView.js",
+          "path": "../src-out/Views/Calendar/"
+        }, {
+          "text": "DayView.js",
+          "path": "../src-out/Views/Calendar/"
+        }, {
+          "text": "MonthView.js",
+          "path": "../src-out/Views/Calendar/"
+        }, {
+          "text": "WeekView.js",
+          "path": "../src-out/Views/Calendar/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
@@ -762,6 +756,9 @@
         }, {
           "text": "GenericPie.js",
           "path": "../src-out/Views/Charts/"
+        }, {
+          "text": "index.js",
+          "path": "../src-out/reducers/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Models/Account/"
@@ -817,9 +814,6 @@
           "text": "_GroupListMixin.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "_MetricListMixin.js",
-          "path": "../src-out/Views/"
-        }, {
           "text": "_RightDrawerListMixin.js",
           "path": "../src-out/Views/"
         }, {
@@ -828,6 +822,21 @@
         }, {
           "text": "SalesOrderItemAvailabilityList.js",
           "path": "../src-out/Integrations/BOE/Views/Locations/"
+        }, {
+          "text": "_MetricDetailMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "_MetricListMixin.js",
+          "path": "../src-out/Views/"
+        }, {
+          "text": "MyDayMetricWidget.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/Offline/"
+        }, {
+          "text": "TotalMetricWidget.js",
+          "path": "../src-out/Views/RecentlyViewed/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Briefcase/"
@@ -1057,11 +1066,14 @@
           "text": "SpeedSearchList.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "MyDayMetricListMixin.js",
+          "text": "Application.js",
+          "path": "../src-out/"
+        }, {
+          "text": "List.js",
           "path": "../src-out/Views/Activity/"
         }, {
           "text": "List.js",
-          "path": "../src-out/Views/RecentlyViewed/"
+          "path": "../src-out/Views/Attachment/"
         }, {
           "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/ERPAccountPersons/"
@@ -1106,6 +1118,9 @@
           "path": "../src-out/Integrations/BOE/Views/ERPShipTos/"
         }, {
           "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/QuoteLines/"
+        }, {
+          "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/QuotePersons/"
         }, {
           "text": "List.js",
@@ -1115,16 +1130,13 @@
           "path": "../src-out/Integrations/BOE/Views/Returns/"
         }, {
           "text": "List.js",
+          "path": "../src-out/Integrations/BOE/Views/SalesOrderItems/"
+        }, {
+          "text": "List.js",
           "path": "../src-out/Integrations/BOE/Views/SalesOrders/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Account/"
-        }, {
-          "text": "List.js",
-          "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "List.js",
-          "path": "../src-out/Views/Attachment/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Contact/"
@@ -1141,11 +1153,11 @@
           "text": "List.js",
           "path": "../src-out/Views/Ticket/"
         }, {
-          "text": "List.js",
-          "path": "../src-out/Integrations/BOE/Views/QuoteLines/"
+          "text": "MyDayMetricListMixin.js",
+          "path": "../src-out/Views/Activity/"
         }, {
           "text": "List.js",
-          "path": "../src-out/Integrations/BOE/Views/SalesOrderItems/"
+          "path": "../src-out/Views/RecentlyViewed/"
         }, {
           "text": "ContactAssociationModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
@@ -1177,8 +1189,11 @@
           "text": "SData.js",
           "path": "../src-out/Models/UserActivity/"
         }, {
-          "text": "MyDayOffline.js",
+          "text": "MyList.js",
           "path": "../src-out/Views/Activity/"
+        }, {
+          "text": "MyAttachmentList.js",
+          "path": "../src-out/Views/Attachment/"
         }, {
           "text": "InvoiceModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
@@ -1192,6 +1207,9 @@
           "text": "QuoteLineModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
+          "text": "QuoteModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
           "text": "ContactModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
@@ -1199,6 +1217,9 @@
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
           "text": "SalesOrderItemModule.js",
+          "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "SalesOrderModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
           "text": "BillToAccountModule.js",
@@ -1213,17 +1234,8 @@
           "text": "ShipToModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
-          "text": "MyList.js",
+          "text": "MyDayOffline.js",
           "path": "../src-out/Views/Activity/"
-        }, {
-          "text": "MyAttachmentList.js",
-          "path": "../src-out/Views/Attachment/"
-        }, {
-          "text": "QuoteModule.js",
-          "path": "../src-out/Integrations/BOE/Modules/"
-        }, {
-          "text": "SalesOrderModule.js",
-          "path": "../src-out/Integrations/BOE/Modules/"
         }, {
           "text": "ActivityDashboardWidget.js",
           "path": "../src-out/Integrations/BOE/Views/Account/"

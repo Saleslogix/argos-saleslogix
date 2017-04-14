@@ -1,6 +1,4 @@
 import lang from 'dojo/_base/lang';
-import array from 'dojo/_base/array';
-import string from 'dojo/string';
 import 'dojo/_base/sniff';
 
 /**
@@ -13,12 +11,12 @@ const __class = lang.setObject('crm.Environment', {
   // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
   initiateCall: function initiateCall(number) {
     setTimeout(() => {
-      window.location.href = string.substitute('tel:${0}', [number]);
+      window.location.href = `tel:${number}`;
     }, 500);
   },
   initiateEmail: function initiateEmail(email, subject, body) {
     setTimeout(() => {
-      const mailtoUri = (subject) ? string.substitute('mailto:${0}?subject=${1}&body=${2}', [email, subject, body || '']) : string.substitute('mailto:${0}', [email]);
+      const mailtoUri = (subject) ? `mailto:${email}?subject=${subject}&body=${body || ''}` : `mailto:${email}`;
       window.location.href = mailtoUri;
     }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
   },
@@ -76,7 +74,7 @@ const __class = lang.setObject('crm.Environment', {
   },
   refreshViews: function refreshViews(views) {
     if (views && views.length > 0) {
-      array.forEach(views, (viewId) => {
+      views.forEach((viewId) => {
         const view = App.getView(viewId);
         if (view) {
           view.refreshRequired = true;

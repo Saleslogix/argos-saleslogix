@@ -22,7 +22,6 @@ const __class = lang.setObject('crm.Action', {
     const view = App.getView('history_edit');
     if (view) {
       view.show({
-        title: entry.Title || null,
         template: {},
         entry,
         insert: true,

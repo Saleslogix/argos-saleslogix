@@ -1,12 +1,11 @@
 import declare from 'dojo/_base/declare';
-import array from 'dojo/_base/array';
 import lang from 'dojo/_base/lang';
-import domAttr from 'dojo/dom-attr';
 import aspect from 'dojo/aspect';
 import GroupUtility from '../GroupUtility';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
 import LookupField from 'argos/Fields/LookupField';
 import getResource from 'argos/I18n';
+
 
 const resource = getResource('rightDrawerListMixin');
 
@@ -33,6 +32,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   groupList: null,
   DRAWER_PAGESIZE: 100,
   groupLookupId: 'groups_configure',
+  hasSettings: true,
 
   setupRightDrawer: function setupRightDrawer() {
     const drawer = App.getView('right_drawer');
@@ -59,7 +59,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     }.bind(this);
 
     if (this.rebuildWidgets) {
-      App.snapper.on('close', () => {
+      App.viewSettingsModal.element.on('close', () => {
         if (this._hasChangedKPIPrefs) {
           this.destroyWidgets();
 
@@ -82,7 +82,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     if (drawer) {
       drawer.setLayout([]);
       drawer.getGroupForEntry = function getGroupForEntry() {};
-      App.snapper.off('close');
+      App.viewSettingsModal.element.off('close');
     }
   },
   _onSearchExpression: function _onSearchExpression() {
@@ -92,6 +92,9 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
     }
 
     this.inherited(arguments);
+  },
+  openSettings: function openSettings() {
+    App.viewSettingsModal.open();
   },
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.
@@ -112,7 +115,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
           }
 
           this.search();
-          this.toggleRightDrawer();
+          App.viewSettingsModal.close();
         }
       }.bind(this),
       kpiClicked: function kpiClicked(params) {
@@ -120,7 +123,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         let results;
 
         if (metrics.length > 0) {
-          results = array.filter(metrics, (metric) => {
+          results = metrics.filter((metric) => {
             return metric.title === unescape(params.title);
           });
         }
@@ -131,18 +134,22 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
           App.persistPreferences();
           this._hasChangedKPIPrefs = true;
 
-          domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+          $(params.$source).attr('data-enabled', (!enabled).toString());
         }
       }.bind(this),
       groupConfigureClicked: function groupConfigureClicked() {
         this._selectGroups();
-        this.toggleRightDrawer();
+        App.viewSettingsModal.close();
       }.bind(this),
       groupClicked: function groupClicked(params) {
         this._startGroupMode();
         const groupId = params.$key;
 
-        const group = array.filter(this.groupList, (item) => {
+        $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
+          $(a).attr('data-enabled', (($(a).attr('data-$key') === groupId)).toString());
+        });
+
+        const group = this.groupList.filter((item) => {
           return item.$key === groupId;
         })[0];
 
@@ -151,14 +158,18 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         }
         this.setCurrentGroup(group);
         this.refresh();
-        this.toggleRightDrawer();
+        App.viewSettingsModal.close();
       }.bind(this),
       layoutSelectedClicked: function layoutSelectedClicked(params) {
         const name = params.name;
+        $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
+          $(a).attr('data-enabled', (($(a).attr('data-name') === name)).toString());
+        });
+
         GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
         this._groupInitialized = false;
         this.refresh();
-        this.toggleRightDrawer();
+        App.viewSettingsModal.close();
       }.bind(this),
 
     };
@@ -176,7 +187,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       owner: this,
       view,
       singleSelect: false,
-      previousSelections: array.map(this.groupList, (group) => {
+      previousSelections: this.groupList.map((group) => {
         return group.$key;
       }),
     });
@@ -210,7 +221,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       if (hasDefaultGroup) {
         // We will transition back to the list, pop back open the right drawer so the user is back where they started
         const processDataHandle = aspect.after(list, 'processData', function postProcessData() {
-          this.toggleRightDrawer();
+          App.viewSettingsModal.close();
           processDataHandle.remove();
           if (this.transitionHandle) {
             this.transitionHandle.remove();
@@ -273,8 +284,9 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         iconCls: 'fa fa-cog fa-fw ',
       });
 
+      const defaultGroup = GroupUtility.getDefaultGroup(this.entityName);
       if (this.groupList && this.groupList.length > 0) {
-        array.forEach(this.groupList, (group) => {
+        this.groupList.forEach((group) => {
           groupsSection.children.push({
             name: group.name,
             action: 'groupClicked',
@@ -282,6 +294,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
             dataProps: {
               $key: group.$key,
               title: group.displayName,
+              enabled: defaultGroup.$key === group.$key,
             },
           });
         });
@@ -291,7 +304,11 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         children: [],
       };
       if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
-        array.forEach(this.groupTemplateLayouts, (theLayout) => {
+        let layoutSelected = false;
+        this.groupTemplateLayouts.forEach((theLayout) => {
+          if (!layoutSelected) {
+            layoutSelected = theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`];
+          }
           layoutSection.children.push({
             name: theLayout.name,
             action: 'layoutSelectedClicked',
@@ -299,9 +316,13 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
             dataProps: {
               name: theLayout.name,
               title: theLayout.displayName,
+              enabled: theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`],
             },
           });
         });
+        if (!layoutSelected && layoutSection.children.length) {
+          layoutSection.children[0].dataProps.enabled = true;
+        }
       }
 
       if (this.entityName) {
@@ -343,7 +364,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       };
 
       if (metrics.length > 0) {
-        array.forEach(metrics, (metric, i) => {
+        metrics.forEach((metric, i) => {
           if (metric.title) {
             kpiSection.children.push({
               name: `KPI${i}`,

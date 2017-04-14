@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
+
 import GroupedList from 'argos/GroupedList';
 
 /**
@@ -14,28 +15,16 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([
-    '<li class="{%: $.cls %}" data-action="{%= $.action %}"',
+    '<div class="accordion-header list-content" role="presentation">',
+    '<a data-action="{%= $.action %}"',
     '{% if($.dataProps) { %}',
     '{% for(var prop in $.dataProps) { %}',
     ' data-{%= prop %}="{%= $.dataProps[prop] %}"',
     '{% } %}',
     '{% } %}',
     '>',
-    '{% if ($$._hasIcon($)) { %}',
-    '<div class="list-item-static-selector {%: $.iconCls %} ">',
-    '{% if ($.icon) { %}',
-    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-    '{% } %}',
+    '<span>{%: $.title %}</span></a>',
     '</div>',
-    '{% } %}',
-    '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-    '</li>',
-  ]),
-  _hasIcon: function _hasIcon(entry) {
-    return entry.iconTemplate || entry.cls || entry.icon || entry.iconCls;
-  },
-  itemTemplate: new Simplate([
-    '<h3>{%: $.title %}</h3>',
   ]),
 
   // View Properties
@@ -54,6 +43,14 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   init: function init() {
     this.inherited(arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
+  },
+  initSoho: function initSoho() {
+    this.inherited(arguments);
+    this.accordion.element.on('selected', (evt, header) => {
+      // Fix up the event target to the element with our data-action attribute.
+      evt.target = $('a', header).get(0);
+      this._initiateActionFromEvent(evt);
+    });
   },
   setLayout: function setLayout(layout) {
     this.layout = layout;

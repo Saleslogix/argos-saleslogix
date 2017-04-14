@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import string from 'dojo/string';
 import List from 'argos/List';
 import format from 'crm/Format';
 import convert from 'argos/Convert';
@@ -11,10 +10,10 @@ const resource = getResource('locationsPricingAvailabilityList');
 const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<h4><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</h4>',
-    '<h3><label class="group-label">{%: $$.availableToPromiseDateText %}: </label>{%: $$.formatATPDate($.ATPDate) %}</h3>',
-    '<h3><label class="group-label">{%: $$.availableText %}: </label>{%: $.AvailableQuantity %}</h3>',
-    '<h4>{%: $.UnitOfMeasure %}</h4>',
+    '<p class="micro-text"><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</p>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.availableToPromiseDateText %}: </label>{%: $$.formatATPDate($.ATPDate) %}</p>',
+    '<p class="listview-heading"><label class="group-label">{%: $$.availableText %}: </label>{%: $.AvailableQuantity %}</p>',
+    '<p class="micro-text">{%: $.UnitOfMeasure %}</p>',
   ]),
 
   // Localization
@@ -54,7 +53,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
       }, {
         id: 'cancel',
         side: 'left',
-        cls: 'fa fa-ban fa-fw fa-lg',
+        svg: 'cancel',
         fn: ReUI.back,
         scope: ReUI,
       },
@@ -119,7 +118,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
     return value;
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(Description) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return `upper(Description) like "${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
   },
 });
 

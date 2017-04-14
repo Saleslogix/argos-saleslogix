@@ -1,10 +1,5 @@
-import array from 'dojo/_base/array';
 import convert from 'argos/Convert';
 import declare from 'dojo/_base/declare';
-import domAttr from 'dojo/dom-attr';
-import domClass from 'dojo/dom-class';
-import query from 'dojo/query';
-import domConstruct from 'dojo/dom-construct';
 import lang from 'dojo/_base/lang';
 import on from 'dojo/on';
 import string from 'dojo/string';
@@ -13,6 +8,7 @@ import Calendar from 'argos/Calendar';
 import List from 'argos/List';
 import Utility from '../../Utility';
 import getResource from 'argos/I18n';
+import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('calendarView');
 const dtFormatResource = getResource('calendarViewDateTimeFormat');
@@ -56,8 +52,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   string,
   Utility,
   trimTo: 16,
-  toggleCollapseClass: 'fa fa-chevron-down',
-  toggleExpandClass: 'fa fa-chevron-right',
+  activityTypeIcon: activityTypeIcons.default,
 
   // Templates
   widgetTemplate: new Simplate([
@@ -69,7 +64,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
     '{%! $.eventMoreTemplate %}',
     '</div>',
-    '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
+    '<div class="activity-content listview" data-dojo-attach-point="activityContainerNode">',
     '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
     '{%! $.activityMoreTemplate %}',
     '</div>',
@@ -88,21 +83,23 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   activityIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-    '<button class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
-    '</button>',
-    '</div>',
+    `<button type="button" class="btn-icon hide-focus">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon[$.Type] %}"></use>
+      </svg>
+    </button></div>`,
   ]),
   activityHeaderTemplate: new Simplate([
     '<div class="activityEntry__header">',
     '<div class="header__content">',
-    '<h3 class="header__title">{%: $.Description %}</h3>',
-    '<h4 class="header__subTitle">{%! $$.activityNameTemplate %}</h4>',
+    '<p class="listview-heading">{%: $.Description %}</p>',
+    '<p class="listview-subheading">{%! $$.activityNameTemplate %}</p>',
     '</div>',
     '<div class="header__timeStamp">',
-    '<span class="timeStamp__time">',
+    '<span class="timeStamp__time listview-subheading">',
     '{% if ($.Timeless) { %}',
     '{%= $$.allDayText %}',
-    '{% } else if ($$.activityIconByType[$.Type]) { %}',
+    '{% } else if ($$.activityTypeIcon[$.Type]) { %}',
     '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}',
     '{% } else { %}',
     '{%! $$.eventTimeTemplate %}',
@@ -129,7 +126,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
     '{% } else if ($.LeadName) { %}',
     '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
-    '{% } else if ($$.activityIconByType[$.Type]) { %}',
+    '{% } else if ($$.activityTypeIcon[$.Type]) { %}',
     '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}',
     '{% } else { %}',
     '{%= $$.string.substitute($$.forText, { reason: $.Type }) %}',
@@ -156,8 +153,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   eventIconTemplate: new Simplate([
     '<div class="activityEntry__icon">',
-    '<button class="list-item-selector button {%= $$.eventIcon %}">',
-    '</button>',
+    `<button type="button" class="btn-icon hide-focus">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon.event %}"></use>
+      </svg>
+    </button>`,
     '</div>',
   ]),
   eventMoreTemplate: new Simplate([
@@ -170,18 +170,20 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   headerRowTemplate: new Simplate([
     '<li data-descriptor="{%: $.day %}">',
     '<div class="dayHeader">',
-    '<h3 class="header__title">{%: $.day %}</h3>',
+    '<h4 class="header__title">{%: $.day %}</h4>',
     '</div>',
     '</li>',
   ]),
   weekSelectTemplate: new Simplate([
-    '<div class="toggle toggle-horizontal calendar__weekToggle">',
-    '<span class="thumb horizontal weekToggle__thumb"></span>',
-    '<span class="toggleOn weekToggle__on display-none">{%= $.weekText %}</span>',
-    '<span class="toggleOff weekToggle__off">{%= $.dayText %}</span>',
-    '</div>',
+    `<div class="switch">
+        <input
+          type="checkbox"
+          name="weekToggleNode"
+          id="weekToggleNode"
+          class="switch" />
+        <label class="toggleWeekOrDay" for="weekToggleNode">{%= $.dayText %}</label>
+      </div>`,
   ]),
-
   attributeMap: {
     calendarContent: {
       node: 'contentNode',
@@ -233,17 +235,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _showMulti: false,
   _refreshAdded: false,
 
-  activityIconByType: {
-    atToDo: 'fa fa-list-ul',
-    atPhoneCall: 'fa fa-phone',
-    atAppointment: 'fa fa-calendar-o',
-    atLiterature: 'fa fa-calendar-o',
-    atPersonal: 'fa fa-check-square-o',
-    atQuestion: 'fa fa-question',
-    atNote: 'fa fa-calendar-o',
-    atEMail: 'fa fa-envelope',
-  },
-  eventIcon: 'fa fa-calendar-o',
 
   queryOrderBy: 'StartDate asc',
   querySelect: [
@@ -286,7 +277,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
   },
   changeDayActivities: function changeDayActivities() {
-    domClass.remove(this.activityContainerNode, 'list-loading');
+    $(this.activityContainerNode).removeClass('list-loading');
     let multiDays = [];
     let entries;
 
@@ -315,32 +306,31 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   createActivityRows: function createActivityRows(entries = [], day) {
     const count = entries.length;
-
     if (count > 0) {
       const activityDocfrag = document.createDocumentFragment();
       const eventDocfrag = document.createDocumentFragment();
       if (this._showMulti) {
-        const headerNode = domConstruct.toDom(this.headerRowTemplate.apply({ day }, this));
+        const headerNode = $(this.headerRowTemplate.apply({ day }, this)).get(0);
         activityDocfrag.appendChild(headerNode);
       }
       for (let i = 0; i < count; i++) {
         const entry = this.entries[entries[i]];
         let rowNode;
-        if (this.activityIconByType[entry.Type]) {
+        if (this.activityTypeIcon[entry.Type]) {
           try {
-            rowNode = domConstruct.toDom(this.activityRowTemplate.apply(entry, this));
+            rowNode = $(this.activityRowTemplate.apply(entry, this)).get(0);
           } catch (err) {
             console.error(err); // eslint-disable-line
-            rowNode = domConstruct.toDom(this.rowTemplateError.apply(entry, this));
+            rowNode = $(this.rowTemplateError.apply(entry, this)).get(0);
           }
 
           activityDocfrag.appendChild(rowNode);
         } else {
           try {
-            rowNode = domConstruct.toDom(this.eventRowTemplate.apply(entry, this));
+            rowNode = $(this.eventRowTemplate.apply(entry, this)).get(0);
           } catch (err) {
             console.error(err); // eslint-disable-line
-            rowNode = domConstruct.toDom(this.rowTemplateError.apply(entry, this));
+            rowNode = $(this.rowTemplateError.apply(entry, this)).get(0);
           }
 
           eventDocfrag.appendChild(rowNode);
@@ -349,13 +339,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       }
 
       if (activityDocfrag.childNodes.length > 0) {
-        domConstruct.place(activityDocfrag, this.activityContentNode, 'last');
+        $(this.activityContentNode).append(activityDocfrag);
       }
       if (eventDocfrag.childNodes.length > 0) {
-        domClass.remove(this.eventContainerNode, 'event-hidden');
-        domConstruct.place(eventDocfrag, this.eventContentNode, 'last');
+        $(this.eventContainerNode).removeClass('event-hidden');
+        $(this.eventContentNode).append(eventDocfrag);
       } else {
-        domClass.add(this.eventContainerNode, 'event-hidden');
+        $(this.eventContainerNode).addClass('event-hidden');
       }
     }
   },
@@ -393,25 +383,24 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     );
   },
   formatQueryEvent: function formatQueryEvent(value) {
-    return string.substitute('UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)', {
-      user: App.context.user && App.context.user.$key,
-      start: convert.toIsoStringFromDate(value.clone().startOf('month').toDate()),
-      end: convert.toIsoStringFromDate(value.clone().endOf('month').toDate()),
-    });
+    const user = App.context.user && App.context.user.$key;
+    const start = convert.toIsoStringFromDate(value.clone().startOf('month').toDate());
+    const end = convert.toIsoStringFromDate(value.clone().endOf('month').toDate());
+    return `UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)`;
   },
   highlightActivities: function highlightActivities() {
-    array.forEach(this._calendar.weeksNode.childNodes, (week) => {
-      array.forEach(week.childNodes, (day) => {
-        if (!this.monthActivities[domAttr.get(day, 'data-date')]) {
+    this._calendar.weeksNode.childNodes.forEach((week) => {
+      week.childNodes.forEach((day) => {
+        if (!this.monthActivities[$(day).attr('data-date')]) {
           this._calendar.removeActive(day);
           return;
         }
         if (!this._calendar.isActive(day)) {
-          day.subValue = this.monthActivities[domAttr.get(day, 'data-date')];
+          day.subValue = this.monthActivities[$(day).attr('data-date')];
           this._calendar.setActiveDay(day);
         }
-      }, this);
-    }, this);
+      });
+    });
     return this;
   },
   navigateToDetailView: function navigateToDetailView(key, _descriptor) {
@@ -448,7 +437,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
       const refreshTool = {
         id: 'refresh',
-        cls: 'fa fa-refresh fa-fw fa-lg',
+        svg: 'refresh',
         action: 'refresh',
 
       };
@@ -516,17 +505,17 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   refreshData: function refreshData() {
     this._dataLoaded = false;
     this._eventStore = null;
-    domClass.add(this.activityContainerNode, 'list-loading');
+    $(this.activityContainerNode).addClass('list-loading');
     this.set('activityContent', this.loadingTemplate.apply(this));
-    domConstruct.empty(this.eventContentNode);
+    $(this.eventContentNode).empty();
     this.currentDate = this._calendar.getSelectedDateMoment();
     this.queryText = '';
     this.monthActivities = [];
     this.activityQuery = this.formatQueryActivity(this.currentDate);
     this.eventQuery = this.formatQueryEvent(this.currentDate);
     Promise.all([this.requestData(), this.requestEventData()]).then(() => {
-      domConstruct.empty(this.activityContentNode);
-      domConstruct.empty(this.eventContentNode);
+      $(this.activityContentNode).empty();
+      $(this.eventContentNode).empty();
       this.highlightActivities();
       this.changeDayActivities();
       this._dataLoaded = true;
@@ -539,10 +528,10 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   renderCalendar: function renderCalendar() {
     if (!this._calendar) {
       this._calendar = new Calendar({ id: 'calendar-view__calendar', noClearButton: true });
-      domConstruct.place(this._calendar.domNode, this.calendarNode);
-      const toggle = domConstruct.toDom(this.weekSelectTemplate.apply(this));
-      domConstruct.place(toggle, this._calendar.footerNode, 'last');
-      on(toggle, 'click', this.toggleMultiSelect.bind(this));
+      $(this.calendarNode).append(this._calendar.domNode);
+      const toggle = $(this.weekSelectTemplate.apply(this)).get(0);
+      $(this._calendar.footerNode).append(toggle);
+      on($(toggle).children()[0], 'click', this.toggleMultiSelect.bind(this));
       this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
@@ -608,8 +597,8 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   selectDay: function selectDay() {
     const selected = this._calendar.getSelectedDateMoment();
     if (this.currentDate && this._dataLoaded) {
-      domConstruct.empty(this.activityContentNode);
-      domConstruct.empty(this.eventContentNode);
+      $(this.activityContentNode).empty();
+      $(this.eventContentNode).empty();
       this.currentDate = selected;
       this.changeDayActivities();
     } else {
@@ -630,18 +619,15 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   toggleMultiSelect: function toggleMultiSelect({ currentTarget }) {
     this._showMulti = !this._showMulti;
-    const toggleOnNode = query('.toggleOn', currentTarget).shift();
-    const toggleOffNode = query('.toggleOff', currentTarget).shift();
-
-    if (toggleOnNode && toggleOffNode) {
-      domClass.toggle(toggleOnNode, 'display-none', !this._showMulti);
-      domClass.toggle(toggleOffNode, 'display-none', this._showMulti);
+    if (this._showMulti) {
+      $(currentTarget).next().html(this.weekText);
+    } else {
+      $(currentTarget).next().html(this.dayText);
     }
 
     this._calendar.toggleSelectWeek();
-    domClass.toggle(currentTarget, 'toggleStateOn');
-    domConstruct.empty(this.activityContentNode);
-    domConstruct.empty(this.eventContentNode);
+    $(this.activityContentNode).empty();
+    $(this.eventContentNode).empty();
     this.changeDayActivities();
   },
   _buildQueryExpression: function _buildQueryExpression(queryParam = {}) {
