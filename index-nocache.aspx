@@ -173,14 +173,13 @@
           ) %>,
           // TODO limit to only strings
           localeFiles: <%= Serialize(
-                Enumerate(@"localization", (file) => file.Extension == ".l20n")
+                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf('regional') == -1)
                     .Select(item => item.Path)
           ) %>,
-          regionalFiles: [
-            './localization/locales/crm/en/regional.l20n',
-            './localization/locales/icboe/en/regional.l20n',
-            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-          ],
+          regionalFiles: <%= Serialize(
+                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf('regional') != -1)
+                    .Select(item => item.Path)
+          ) %>,
           rootElement: document.getElementById('rootNode')
         });
       });
