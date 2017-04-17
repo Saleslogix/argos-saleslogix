@@ -60,7 +60,10 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
     App.navigateToActivityInsertView();
   },
   formatPicklist: function formatPicklist(property) {
-    return format.picklist(this.app.picklistService, this._model, property);
+    return format.picklist(this.app.picklistService, this._model, property, undefined, undefined, {
+      display: 2,
+      storage: 1,
+    });
   },
 
   createLayout: function createLayout() {

@@ -117,7 +117,7 @@ const __class = lang.setObject('crm.PicklistService', {
       let picklist = null;
       if (result && result.items) {
         picklist = result;
-        picklist.items = picklist.items.$resources;
+        picklist.items = picklist.items.$resources.map(item => Object.assign({}, item, { id: item.$key }));
         if (languageCode) {
           this._picklists[`${picklist.name}_${languageCode}`] = picklist;
         } else {

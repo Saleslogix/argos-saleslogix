@@ -57,10 +57,10 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   formatPicklist: function formatPicklist(property) {
     // TODO: This should be changed on the entity level...
     // Special case since this is for some reason stored as $key value on the entity
-    const picklistName = this._model.getPicklistNameByProperty(property);
-    return (val) => {
-      return this.app.picklistService.getPicklistItemTextByKey(picklistName, val) || val;
-    };
+    return format.picklist(this.app.picklistService, this._model, property, undefined, undefined, {
+      display: 2,
+      storage: 1,
+    });
   },
   processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
     const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';

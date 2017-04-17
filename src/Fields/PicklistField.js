@@ -132,11 +132,18 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
             ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
         }
       }
-      // Can get a location code using this.owner.entry
-      const picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
+      let picklistItem = false;
+      if (this.storageMode !== 'id') {
+        picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
+      } else {
+        // Special case of item being stored by $key...
+        picklistItem = this.app.picklistService.getPicklistItemByKey(this.picklistName, val);
+      }
       if (picklistItem) {
         val = picklistItem;
-        this.keyProperty = 'code';
+        if (this.storageMode !== 'id') {
+          this.keyProperty = 'code';
+        }
         this.textProperty = 'text';
       }
     }

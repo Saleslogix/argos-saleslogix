@@ -61,7 +61,17 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
   phoneFormat: f.phoneFormat,
   phone: f.phone,
-  picklist: (service, model, property, picklistName, languageCode = App.getCurrentLocale()) => {
+  picklist: (
+    service, // Picklist service reference
+    model, // Reference to the entity's model for call getPicklistNameByProperty
+    property, // Property to reference for fetching the picklist off the model
+    picklistName, // Picklist name used (can use this instead of model-property)
+    languageCode = App.getCurrentLocale(), // Override for languageCode to fetch
+    picklistOptions = { // Override for picklistOptions on storage and display modes
+      storage: 0,
+      display: 2,
+    }
+  ) => {
     let name = picklistName;
     if (!name) {
       if (!service || !model || !property) {
@@ -70,12 +80,9 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
       name = model.getPicklistNameByProperty(property);
     }
     const picklist = service.getPicklistByName(name, languageCode);
-    // TODO: Update to picklist service enums
-    picklist.storage = 0;
-    picklist.display = 2;
 
     return (val) => {
-      return f.picklist(val, picklist);
+      return f.picklist(val, Object.assign({}, picklistOptions, picklist));
     };
   },
   currency: function currency(_val) {
