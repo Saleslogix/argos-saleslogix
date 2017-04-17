@@ -123,7 +123,6 @@
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
 
     <!-- Modules -->
-    <!--{{modules}}-->
 </head>
 <body>
   <div id="rootNode"></div>
@@ -136,9 +135,9 @@
         defaultLocale = language || 'en',
         currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
         parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
-        defaultRegionLocale = regionLocale || '<%= CultureInfo.CurrentUICulture.ToLower() %>',
-        currentRegionLocale = regionLocale || '<%= CultureInfo.CurrentUICulture.ToLower() %>',
-        parentRegionLocale = regionLocale || '<%= CultureInfo.CurrentUICulture.ToLower() %>';
+        defaultRegionLocale = regionLocale || 'en',
+        currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
+        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
     (function() {
       // Set Soho culture path
       window.Locale.culturePath = 'content/javascript/cultures';
@@ -173,11 +172,11 @@
           ) %>,
           // TODO limit to only strings
           localeFiles: <%= Serialize(
-                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf('regional') == -1)
+                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf("regional") == -1)
                     .Select(item => item.Path)
           ) %>,
           regionalFiles: <%= Serialize(
-                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf('regional') != -1)
+                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf("regional") != -1)
                     .Select(item => item.Path)
           ) %>,
           rootElement: document.getElementById('rootNode')
