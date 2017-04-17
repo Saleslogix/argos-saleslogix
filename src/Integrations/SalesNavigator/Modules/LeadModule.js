@@ -19,7 +19,8 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.LeadModule', [_
       where: 'before',
       value: {
         title: resource.salesNavigator,
-        list: true,
+        cls: 'sales_navigator_section',
+        list: false,
         name: 'SalesNavigatorSection',
         enableOffline: false,
         children: [{

@@ -1,4 +1,4 @@
-import Format from 'argos/Format';
+// import Format from 'argos/Format';
 
 const LEAD = 'lead';
 const ACCOUNT = 'account';
@@ -132,9 +132,9 @@ export default class SalesNavigatorUri {
       ifExistsAdd(prop, val) {
         if (val) {
           if (this.str) {
-            this.str = `${this.str}&${prop}=${val}`;
+            this.str = `${this.str}&${encodeURI(prop)}=${encodeURIComponent(val)}`;
           } else {
-            this.str = `${prop}=${val}`;
+            this.str = `${encodeURI(prop)}=${encodeURIComponent(val)}`;
           }
         }
       },
@@ -148,6 +148,6 @@ export default class SalesNavigatorUri {
     return builder.str;
   }
   toString() {
-    return encodeURI(`https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`);
+    return `https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`;
   }
 }

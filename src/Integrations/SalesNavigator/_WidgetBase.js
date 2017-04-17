@@ -26,7 +26,7 @@ const __class = declare('crm.Integrations.SalesNavigator._WidgetBase', [_Related
     const container = this.scriptContainerNode;
 
     const applyScript = (script) => {
-      container.appendChild(script);
+      $(container).append(script);
     };
 
     this.initSalesNavigator(entry, container, applyScript);

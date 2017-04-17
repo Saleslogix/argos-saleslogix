@@ -1,6 +1,9 @@
 import declare from 'dojo/_base/declare';
 import _EditBase from 'argos/_EditBase';
 import getResource from 'argos/I18n';
+import AccountDetailView from 'crm/Views/Account/Detail';
+import ContactDetailView from 'crm/Views/Contact/Detail';
+import LeadDetailView from 'crm/Views/Lead/Detail';
 import WidgetTypes from '../../WidgetTypes';
 
 const resource = getResource('salesNavigator');
@@ -102,6 +105,12 @@ const __class = declare('crm.Integrations.SalesNavigator.Settings.Configuration'
   requestData: function requestData() {
     return this._onGetComplete(Object.assign({}, this.app.salesNavigatorSettings));
   },
+  setRefreshRequired: function setRefreshRequired(viewId) {
+    const view = App.getView(viewId);
+    if (view) {
+      view.refreshRequired = true;
+    }
+  },
   onRefreshUpdate: function onRefreshUpdate() {
     this.requestData();
   },
@@ -118,18 +127,21 @@ const __class = declare('crm.Integrations.SalesNavigator.Settings.Configuration'
     }
     if (values.AccountSmallWidgetType !== undefined) {
       revertEntry.accounts.smallWidgetType = values.AccountSmallWidgetType;
+      this.setRefreshRequired(AccountDetailView.prototype.id);
     }
     if (values.ContactResponsive !== undefined) {
       revertEntry.contacts.isResponsive = values.ContactResponsive;
     }
     if (values.ContactSmallWidgetType !== undefined) {
       revertEntry.contacts.smallWidgetType = values.ContactSmallWidgetType;
+      this.setRefreshRequired(ContactDetailView.prototype.id);
     }
     if (values.LeadResponsive !== undefined) {
       revertEntry.leads.isResponsive = values.LeadResponsive;
     }
     if (values.LeadSmallWidgetType !== undefined) {
       revertEntry.leads.smallWidgetType = values.LeadSmallWidgetType;
+      this.setRefreshRequired(LeadDetailView.prototype.id);
     }
 
     this.app.salesNavigatorSettings = Object.assign({}, this.app.salesNavigatorSettings, revertEntry);
