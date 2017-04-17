@@ -97,10 +97,12 @@ import MyAttachmentList from './Views/Attachment/MyAttachmentList';
 import RecentlyViewedList from './Views/RecentlyViewed/List';
 import BriefcaseList from './Views/Briefcase/List';
 import OfflineOptionsEdit from './Views/OfflineOptions/Edit';
+import LanguageOptionsEdit from './Views/LanguageOptions/Edit';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from './Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
 import './Views/OfflineOptions/UsageWidget';
+import './Views/LanguageOptions/UsageWidget';
 import './Fields/AddressField';
 import './Fields/MultiCurrencyField';
 import './Fields/NameField';
@@ -525,6 +527,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
       },
     }));
     this.registerView(new OfflineOptionsEdit({
+      expose: false,
+    }));
+    this.registerView(new LanguageOptionsEdit({
       expose: false,
     }));
   },
