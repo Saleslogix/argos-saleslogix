@@ -120,23 +120,25 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return results || value;
   },
   setValue: function setValue(val) { // eslint-disable-line
-    if (val && !this.picklistName) {
-      this.picklistName = this.picklist;
-      if (typeof this.picklistName === 'function') {
-        let dependent = this.getDependentValue();
-        if (typeof dependent === 'object') {
-          dependent = dependent.code;
+    if (this.singleSelect) {
+      if (val && !this.picklistName) {
+        this.picklistName = this.picklist;
+        if (typeof this.picklistName === 'function') {
+          let dependent = this.getDependentValue();
+          if (typeof dependent === 'object') {
+            dependent = dependent.code;
+          }
+          this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
+            ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
         }
-        this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
-          ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
       }
-    }
-    // Can get a location code using this.owner.entry
-    const picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
-    if (picklistItem) {
-      val = picklistItem;
-      this.keyProperty = 'code';
-      this.textProperty = 'text';
+      // Can get a location code using this.owner.entry
+      const picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
+      if (picklistItem) {
+        val = picklistItem;
+        this.keyProperty = 'code';
+        this.textProperty = 'text';
+      }
     }
     this.inherited(arguments);
   },
