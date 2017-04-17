@@ -35,7 +35,6 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
     '<div class="offline-usage">',
-    '<span class="label"> {%: $$.olderThanText %} </span>',
     '<span data-dojo-attach-point="_olderThanNode" ></span>',
     '<span class="label"> {%: $$.daysText %} </span>',
     '<div data-dojo-attach-point="_lastClearDateNode"></div>',
@@ -108,6 +107,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         id: `olderThan-dropdown ${this.id}`,
         onSelect: this.olderThanSelect,
         onSelectScope: this,
+        label: this.olderThanText,
+        dropdownClass: 'input-xs',
       });
       this._olderThanDropdown.createList({
         items: this._olderThanValues,

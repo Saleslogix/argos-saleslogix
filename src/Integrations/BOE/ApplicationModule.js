@@ -191,7 +191,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     lang.extend(argos.TabWidget, {// TODO: Avoid global
       tabListItemTemplate: new Simplate([
         '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
-        '{%: ($.title || $.options.title) %}',
+        '<a href="#{%: $.name %}">{%: ($.title || $.options.title) %}</a>',
         '</li>',
       ]),
     });
@@ -210,19 +210,19 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     RecentlyViewedList.prototype.entityMappings = Object.assign({}, originalMappings, {
       ERPShipment: {
-        iconClass: 'fa-truck',
+        iconClass: 'warehouse',
       },
       SalesOrder: {
-        iconClass: 'fa-shopping-cart',
+        iconClass: 'cart',
       },
       ERPReceivable: {
-        iconClass: 'fa-check-circle-o',
+        iconClass: 'checkbox',
       },
       Quote: {
-        iconClass: 'fa-file-text-o',
+        iconClass: 'document',
       },
       ERPInvoice: {
-        iconClass: 'fa-file-text',
+        iconClass: 'document2',
       },
     });
   },

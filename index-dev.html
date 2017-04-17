@@ -127,7 +127,21 @@
   <script type="text/javascript" src="./node_modules/@infor/icrm-js-services/dist/bundles/services.bundle.js"></script>
 
   <!-- Dojo -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+  <script pin="pin" type="text/javascript">
+        var language, regionLocale;
+        if (window.localStorage) {
+          language = window.localStorage.getItem('language');
+          regionLocale = window.localStorage.getItem('region');
+        }
+        var dojoConfig = {
+            parseOnLoad:false,
+            async:true,
+            blankGif:'content/images/blank.gif',
+            locale: language ||  'en',
+            extraLocale: [regionLocale || 'en-us']
+        };
+    </script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js"></script>
   <script type="text/javascript">
     require({
       baseUrl: "./",
@@ -164,16 +178,7 @@
 <body>
   <div id="rootNode"></div>
   <script type="text/javascript">
-    (function() {
-
-      // Shim, sohoxi will use define.amd and require it.
-      define('jquery', function() {
-        return window.$;
-      });
-
-      require(['crm/Bootstrap'], function(bootstrap) {
-        bootstrap({
-          supportedLocales: [
+     var supportedLocales = [
             'en',
             'en-GB',
             'de',
@@ -189,9 +194,27 @@
             'nl',
             'th'
           ],
-          defaultLocale: 'en',
-          currentLocale: 'en',
-          parentLocale: 'en',
+        defaultLocale = language || 'en',
+        currentLocale = language || 'en',
+        parentLocale = language || 'en',
+        defaultRegionLocale = regionLocale || 'en',
+        currentRegionLocale = regionLocale || 'en',
+        parentRegionLocale = regionLocale || 'en';
+    (function() {
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function() {
+        return window.$;
+      });
+      
+      require(['crm/Bootstrap'], function(bootstrap) {
+        bootstrap({
+          supportedLocales: supportedLocales,
+          defaultLocale: defaultLocale,
+          currentLocale: currentLocale,
+          parentLocale: parentLocale,
+          defaultRegionLocale: defaultRegionLocale,
+          currentRegionLocale: currentRegionLocale,
+          parentRegionLocale: parentRegionLocale,
           isRegionMetric: false,
           configuration: [
             'configuration/development'
@@ -205,12 +228,14 @@
           ],
           localeFiles: [
             './localization/locales/crm/en/strings.l20n',
-            './localization/locales/crm/en/regional.l20n',
             './localization/locales/icboe/en/strings.l20n',
-            './localization/locales/icboe/en/regional.l20n',
             './localization/locales/contour/en/strings.l20n',
             './localization/locales/salesnavigator/en/strings.l20n',
             '../../argos-sdk/localization/locales/argos/en/strings.l20n',
+          ],
+          regionalFiles: [
+            './localization/locales/crm/en/regional.l20n',
+            './localization/locales/icboe/en/regional.l20n',
             '../../argos-sdk/localization/locales/argos/en/regional.l20n',
           ],
           rootElement: document.getElementById('rootNode')

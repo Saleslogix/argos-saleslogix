@@ -46,12 +46,12 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
     return this.tools && (this.tools.tbar = []);
   },
   resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
-    const cultureName = Mobile.CultureInfo.name || 'en';
+    const cultureName = App.context.localization.locale || 'en';
     const localizedUrl = `${baseUrl}/${cultureName}/${fileName}`;
     return localizedUrl;
   },
   resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
-    const languageSpec = Mobile.CultureInfo.name || 'en';
+    const languageSpec = App.context.localization.locale || 'en';
     const languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec;
     const localizedUrl = `${baseUrl}/${languageGen}/${fileName}`;
     return localizedUrl;
