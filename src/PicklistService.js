@@ -7,6 +7,7 @@ const picklistFormat = ICRMCommonSDK.format.picklist;
 
 const __class = lang.setObject('crm.PicklistService', {
   _picklists: {},
+  _currentRequests: new Map(),
 
   // Previous properties
   _viewMapping: {},
@@ -43,13 +44,6 @@ const __class = lang.setObject('crm.PicklistService', {
       }
     }
     return this._picklists[name] || false;
-    // const iterableKeys = Object.keys(this._picklists);
-    // for (let i = 0; i < iterableKeys.length; i++) {
-    //   if (this._picklists[iterableKeys[i]].name === name) {
-    //     return this._picklists[iterableKeys[i]];
-    //   }
-    // }
-    // return false;
   },
   getPicklistItemByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
     const picklist = this.getPicklistByName(picklistName, languageCode);
@@ -124,40 +118,35 @@ const __class = lang.setObject('crm.PicklistService', {
           this._picklists[picklist.name] = picklist;
         }
       }
+      this.removeRequest(picklist.name);
       resolve(picklist);
     };
   },
-  onPicklistError(reject) {
+  onPicklistError(reject, name) {
     return (response, o) => {
+      this.removeRequest(name);
       ErrorManager.addError(response, o, null, 'failure');
       reject(response);
     };
   },
   requestPicklist(name, queryOptions = {}) {
+    // Avoid duplicating model requests
+    if (this.hasRequest(name)) {
+      return new Promise(resolve => resolve());
+    }
     const pickListServiceOptions = Object.assign({}, {
       storageMode: 'code',
     }, queryOptions);
-    let language = null;
-    if (pickListServiceOptions.filterByLanguage) {
-      language = (queryOptions.language && queryOptions.language.trim())
-          || App.getCurrentLocale();
-    } else {
-      if (pickListServiceOptions.filterByLanguage === false) {
-        // This means disable fallback
-        // Used for Name Prefix and Suffix we only want the filtered picklist.
-        language = queryOptions.language || ' ';
-      } else {
-        language = queryOptions.language || App.getCurrentLocale();
-      }
-    }
+    const language = this.determineLanguage(pickListServiceOptions, queryOptions);
     return new Promise((resolve, reject) => {
+      this.addRequest(name);
       const {
         options,
         handlers,
       } = this.service.getFirstByName(
         name,
         this.onPicklistSuccess(resolve, language),
-        this.onPicklistError(reject),
+        this.onPicklistError(reject, name),
         { pickListServiceOptions, language }
       );
       if (options) {
@@ -169,6 +158,31 @@ const __class = lang.setObject('crm.PicklistService', {
         request.read(handlers);
       }
     });
+  },
+  determineLanguage(serviceOptions, queryOptions) {
+    if (serviceOptions.filterByLanguage) {
+      return (queryOptions.language && queryOptions.language.trim())
+          || App.getCurrentLocale();
+    }
+    if (serviceOptions.filterByLanguage === false) {
+      // This means disable fallback
+      // Used for Name Prefix and Suffix we only want the filtered picklist.
+      return queryOptions.language || ' ';
+    }
+    return queryOptions.language || App.getCurrentLocale();
+  },
+
+  /**
+   * Simple requestMap to optimize requests to avoid overlap from model requests
+   */
+  addRequest(name) {
+    return this._currentRequests.set(name, true);
+  },
+  removeRequest(name) {
+    return this._currentRequests.delete(name);
+  },
+  hasRequest(name) {
+    return this._currentRequests.has(name);
   },
 
   // Previous functions
@@ -198,27 +212,6 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     this.registerPicklist(code, true);
   },
-  // requestPicklist: function requestPicklist(name, options) {
-  //   const promise = new Promise((resolve, reject) => {
-  //     const store = this.getStore();
-  //     const queryOptions = {
-  //       where: `name eq '${name}'`,
-  //     };
-  //     store.query(null, queryOptions).then((data) => {
-  //       let picklist = null;
-  //       if (data && data[0] && data[0].items) {
-  //         picklist = data[0];
-  //         picklist.items = picklist.items.$resources;
-  //         this._picklists[picklist.name] = picklist;
-  //       }
-  //       resolve(picklist);
-  //     }, (response, o) => {
-  //       ErrorManager.addError(response, o, options, 'failure');
-  //       reject(response);
-  //     });
-  //   });
-  //   return promise;
-  // },
   getStore: function getStore() {
     if (!this._store) {
       const options = this.getStoreOptions();

@@ -22,6 +22,10 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
     return this.picklists || (this.picklists = [{
       name: 'Title',
       property: 'Title',
+    }, {
+      name: 'Name Prefix',
+    }, {
+      name: 'Name Suffix',
     }]);
   },
   createRelationships: function createRelationships() {

@@ -141,7 +141,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       }
       if (picklistItem) {
         val = picklistItem;
-        if (this.storageMode !== 'id') {
+        if (this.storageMode !== 'id' && this.storageMode !== 'text') {
           this.keyProperty = 'code';
         }
         this.textProperty = 'text';

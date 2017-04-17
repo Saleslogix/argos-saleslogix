@@ -53,6 +53,37 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
       queryInclude: [
         '$permissions',
       ],
+    }, {
+      name: 'edit',
+      querySelect: [
+        'Account/AccountName',
+        'AccountManager/UserInfo/FirstName',
+        'AccountManager/UserInfo/LastName',
+        'AccountName',
+        'Address/*',
+        'CuisinePreference',
+        'CreateDate',
+        'CreateUser',
+        'Email',
+        'Fax',
+        'FirstName',
+        'HomePhone',
+        'LastName',
+        'LocationCode',
+        'MiddleName',
+        'Mobile',
+        'Name',
+        'NameLF',
+        'Owner/OwnerDescription',
+        'Prefix',
+        'Suffix',
+        'Title',
+        'WebAddress',
+        'WorkPhone',
+      ],
+      queryInclude: [
+        '$permissions',
+      ],
     }];
   },
   getEntry: function getEntry(/* options */) {
@@ -61,13 +92,13 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
       return new Promise((resolve) => {
         Promise.all([App.picklistService.requestPicklist('Name Prefix', {
           filterByLanguage: true,
-          language: entry.LocationCode,
+          language: entry.LocationCode || App.getCurrentLocale(),
         }), App.picklistService.requestPicklist('Name Suffix', {
           filterByLanguage: true,
-          language: entry.LocationCode,
+          language: entry.LocationCode || App.getCurrentLocale(),
         }), App.picklistService.requestPicklist('Title', {
           filterByLanguage: true,
-          language: entry.LocationCode,
+          language: entry.LocationCode || App.getCurrentLocale(),
         })]).then(() => {
           resolve(entry);
         });
