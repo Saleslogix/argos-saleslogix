@@ -128,6 +128,10 @@
   <div id="rootNode"></div>
 
   <script type="text/javascript">
+  
+  // set path for soho cultures
+  window.Locale.culturesPath = 'content/javascript/cultures/';
+
     // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
   var supportedLocales = <%= Serialize(
                 Enumerate(@"localization\locales\crm", (file) => true)
