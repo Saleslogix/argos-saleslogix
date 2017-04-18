@@ -304,6 +304,9 @@
           "text": "Edit.js",
           "path": "../src-out/Views/OfflineOptions/"
         }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/LanguageOptions/"
+        }, {
           "text": "AddressField.js",
           "path": "../src-out/Fields/"
         }, {
@@ -459,6 +462,9 @@
         }, {
           "text": "UsageWidget.js",
           "path": "../src-out/Views/OfflineOptions/"
+        }, {
+          "text": "UsageWidget.js",
+          "path": "../src-out/Views/LanguageOptions/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Opportunity/"
