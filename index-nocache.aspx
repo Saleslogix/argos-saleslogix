@@ -128,6 +128,7 @@
   <div id="rootNode"></div>
 
   <script type="text/javascript">
+    // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
   var supportedLocales = <%= Serialize(
                 Enumerate(@"localization\locales\crm", (file) => true)
                     .Select(item => item.Directory.Name).Distinct()
