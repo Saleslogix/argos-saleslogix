@@ -1,5 +1,6 @@
 import declare from 'dojo/_base/declare';
 import getResource from 'argos/I18n';
+import ContactDetailView from 'crm/Views/Contact/Detail';
 import _Module from './_Module';
 import ContactWidget from '../Views/Contact/Widget';
 
@@ -33,6 +34,18 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.ContactModule',
         }],
       },
     });
+
+    const { onTransitionAway } = ContactDetailView.prototype;
+    ContactDetailView.prototype.onTransitionAway = function salesOnTransitionAway(...args) {
+      if (this.relatedViewManagers) {
+        const relatedView = this.relatedViewManagers[this.getRelatedViewId(ContactWidget.prototype)];
+        if (relatedView) {
+          relatedView.destroyViews();
+          this.refreshRequired = true;
+        }
+      }
+      onTransitionAway.apply(this, args);
+    };
   },
   loadToolbars: function loadToolbars() {},
 });

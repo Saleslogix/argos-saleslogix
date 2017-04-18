@@ -1,5 +1,6 @@
 import declare from 'dojo/_base/declare';
 import getResource from 'argos/I18n';
+import LeadDetailView from 'crm/Views/Lead/Detail';
 import _Module from './_Module';
 import LeadWidget from '../Views/Lead/Widget';
 
@@ -33,6 +34,18 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.LeadModule', [_
         }],
       },
     });
+
+    const { onTransitionAway } = LeadDetailView.prototype;
+    LeadDetailView.prototype.onTransitionAway = function salesOnTransitionAway(...args) {
+      if (this.relatedViewManagers) {
+        const relatedView = this.relatedViewManagers[this.getRelatedViewId(LeadWidget.prototype)];
+        if (relatedView) {
+          relatedView.destroyViews();
+          this.refreshRequired = true;
+        }
+      }
+      onTransitionAway.apply(this, args);
+    };
   },
   loadToolbars: function loadToolbars() {},
 });
