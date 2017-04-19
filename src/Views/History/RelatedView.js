@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import RelatedViewWidget from 'argos/RelatedViewWidget';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
+import format from '../../Format';
 
 const resource = getResource('historyRelated');
 
@@ -44,7 +45,7 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
     '{% if($.UserName) { %}',
     '<p class="micro-text">{%= $$.getHeader($) %}</p>',
     '{% } else { %}',
-    '<p class="micro-text">{%: crm.Format.date($.ModifyDate) %}</p>',
+    '<p class="micro-text">{%: format.date($.ModifyDate) %}</p>',
     '{% } %}',
   ]),
   relatedItemDetailTemplate: new Simplate([
@@ -59,7 +60,7 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
     return (entry.Description) ? entry.Description : entry.$descriptor;
   },
   getHeader: function getHeader(entry) {
-    return string.substitute(this.byText, [crm.Format.formatByUser(entry.UserName), crm.Format.date(entry.ModifyDate)]);
+    return string.substitute(this.byText, [format.formatByUser(entry.UserName), format.date(entry.ModifyDate)]);
   },
 });
 
