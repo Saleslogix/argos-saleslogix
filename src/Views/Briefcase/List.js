@@ -58,7 +58,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
     const tools = {
       tbar: [{
         id: 'resync',
-        cls: 'fa fa-suitcase fa-fw fa-lg',
+        svg: 'roles',
         action: 'briefCaseList',
         security: '',
       }],
