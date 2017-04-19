@@ -619,7 +619,7 @@
 
 <historyRelated ""
   regardingText: "Regarding"
-  byText: "wrote "
+  byText: "${0} wrote on ${1}"
   titleText: "Notes"
 >
 
