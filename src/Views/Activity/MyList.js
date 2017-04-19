@@ -9,6 +9,7 @@ import action from '../../Action';
 import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
+import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
 
 
@@ -597,7 +598,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     if (view) {
       environment.refreshActivityLists();
       view.show({
-        title: this.activityTypeText[type],
+        title: ActivityTypeText[type],
         template: {},
         entry,
         insert: true,
