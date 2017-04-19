@@ -68,8 +68,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     picklistName, // Picklist name used (can use this instead of model-property)
     languageCode = App.getCurrentLocale(), // Override for languageCode to fetch
     picklistOptions = { // Override for picklistOptions on storage and display modes
-      storage: 0,
-      display: 2,
+      storage: f.PicklistStorageType.CODE,
+      display: f.PicklistDataDisplayType.TEXT,
     }
   ) => {
     let name = picklistName;

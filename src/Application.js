@@ -343,7 +343,10 @@ export default class Application extends SDKApplication {
     return results;
   }
   getCurrentLocale() {
-    return this.context.localization && this.context.localization.locale || 'en';
+    return this.context.localization && this.context.localization.locale || this.getDefaultLocale();
+  }
+  getDefaultLocale() {
+    return 'en';
   }
   run() {
     super.run(...arguments);

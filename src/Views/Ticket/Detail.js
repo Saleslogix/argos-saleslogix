@@ -61,8 +61,8 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   },
   formatPicklist: function formatPicklist(property) {
     return format.picklist(this.app.picklistService, this._model, property, undefined, undefined, {
-      display: 2,
-      storage: 1,
+      display: format.PicklistDisplayDataType.TEXT,
+      storage: format.PicklistStorageType.ID,
     });
   },
 

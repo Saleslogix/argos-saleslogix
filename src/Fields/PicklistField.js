@@ -5,9 +5,6 @@ import PickList from '../Views/PickList';
 import FieldManager from 'argos/FieldManager';
 const viewsByName = {};
 let viewsByNameCount = 0;
-//   getOrCreateViewFor,
-//   control,
-//   viewsByNameCount = 0;
 
 const getOrCreateViewFor = function getOrCreateViewFor(name) {
   if (viewsByName[name]) {
@@ -17,7 +14,6 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
   const view = new PickList({
     id: `pick_list_${viewsByNameCount++}`,
     expose: false,
-    // picklist: App.picklistService.getPicklistByName(name) || null,
     picklistName: name,
   });
 
@@ -64,9 +60,8 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return !this.picklist;
   },
   isCodePicklist: function isCodePicklist() {
-    // TODO: Ensure this functions as expected
     const picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
-    return picklist.defaultLanguage;
+    return picklist && picklist.defaultLanguage;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
     return `name eq "${name}"`;
