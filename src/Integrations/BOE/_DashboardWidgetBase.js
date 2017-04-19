@@ -305,7 +305,6 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       this._getCountValue(widget, obj).then((result) => {
         if (result >= 0) {
           obj.countValue = result;
-          this.applyDataToWidget(widget, obj);
         }
         this.applyDataToWidget(widget, obj);
       });
@@ -398,10 +397,9 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       if (data.count && (data.countValue >= 0)) {
         $(widget.metricDetailNode).append($(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`));
       }
-      $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
-    } else {
-      $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
     }
+
+    $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
   },
   navToReportView: function navToReportView() {
     let view;

@@ -8,7 +8,6 @@ import MetricWidget from '../../Views/MetricWidget';
 import DateRangeWidget from './DateRangeWidget';
 import _DashboardWidgetBase from './_DashboardWidgetBase';
 
-
 /**
  * @class crm.Views._DashboardWidgetBase
  *
@@ -44,11 +43,11 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
         const widget = new MetricWidget(options);
         const itemNode = $(this.metricItemTemplate.apply(options, this));
         frag.appendChild(itemNode.get(0));
-        widget.placeAt(itemNode, 'last');
+        $(itemNode).append(widget);
         this.registerWidget(widget);
       }
     });
-    if (frag.childNodes.length > 0) {
+    if (frag.childNodes.length) {
       $(this.metricsNode).append(frag);
     }
   },
@@ -66,10 +65,10 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
           this.selectedRange = itemNode;
         }
         rangeFrag.appendChild(itemNode);
-        widget.placeAt(itemNode, 'last');
+        $(itemNode).append(widget);
       });
     }
-    if (rangeFrag.childNodes.length > 0) {
+    if (rangeFrag.childNodes.length) {
       if (!this.selectedRange) {
         this.selectedRange = rangeFrag.childNodes[0];
       }

@@ -8,6 +8,8 @@ import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
 import getResource from 'argos/I18n';
+import format from 'crm/Format';
+import aggregate from 'crm/Aggregate';
 
 
 const resource = getResource('salesDashboardWidget');
@@ -39,6 +41,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   closedCode: 'Closed',
   canceledCode: 'Canceled',
 
+  formatModule: format,
   /**
      * Values for the metrics
      * name: valueNeeded by the widget,
@@ -51,14 +54,14 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   values: [{
     name: 'revenue',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 0,
     dateDependent: true,
   }, {
     name: 'cost',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 1,
     dateDependent: true,
@@ -137,37 +140,37 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
      */
     const metricLayout = [{
       formatter: 'bigNumber',
-      formatModule: 'crm/Format',
+      formatModule: this.formatModule,
       title: this.recentRevenueText,
       valueNeeded: 'revenue',
       decorator: 'positiveTrend',
     }, {
       formatter: 'bigNumber',
-      formatModule: 'crm/Format',
+      formatModule: this.formatModule,
       title: this.recentProfitText,
       valueNeeded: 'profit',
       decorator: 'positiveTrend',
     }, {
       formatter: 'percent',
-      formatModule: 'argos/Format',
+      formatModule: this.formatModule,
       title: this.recentMarginText,
       valueNeeded: 'margin',
       decorator: 'positiveTrend',
     }, {
       formatter: 'percent',
-      formatModule: 'argos/Format',
+      formatModule: this.formatModule,
       title: this.yoyRevenueText,
       valueNeeded: 'yoyRevenue',
       decorator: 'positiveTrend',
     }, {
       formatter: 'percent',
-      formatModule: 'argos/Format',
+      formatModule: this.formatModule,
       title: this.yoyProfitText,
       valueNeeded: 'yoyProfit',
       decorator: 'positiveTrend',
     }, {
       formatter: 'percent',
-      formatModule: 'argos/Format',
+      formatModule: this.formatModule,
       title: this.yoyMarginText,
       valueNeeded: 'yoyMargin',
       decorator: 'positiveTrend',
