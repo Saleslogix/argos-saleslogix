@@ -263,12 +263,6 @@
           "path": "../src-out/Views/LeadSource/"
         }, {
           "text": "List.js",
-          "path": "../src-out/Views/OpportunityContact/"
-        }, {
-          "text": "Detail.js",
-          "path": "../src-out/Views/OpportunityContact/"
-        }, {
-          "text": "List.js",
           "path": "../src-out/Views/OpportunityProduct/"
         }, {
           "text": "List.js",
@@ -282,9 +276,6 @@
         }, {
           "text": "UrgencyLookup.js",
           "path": "../src-out/Views/Ticket/"
-        }, {
-          "text": "List.js",
-          "path": "../src-out/Views/TicketActivity/"
         }, {
           "text": "RateLookup.js",
           "path": "../src-out/Views/TicketActivity/"
@@ -305,6 +296,9 @@
           "path": "../src-out/Views/OfflineOptions/"
         }, {
           "text": "Edit.js",
+          "path": "../src-out/Views/LanguageOptions/"
+        }, {
+          "text": "UsageWidget.js",
           "path": "../src-out/Views/LanguageOptions/"
         }, {
           "text": "AddressField.js",
@@ -370,6 +364,9 @@
           "text": "ActivityTypeIcon.js",
           "path": "../src-out/Models/Activity/"
         }, {
+          "text": "ActivityTypePicklists.js",
+          "path": "../src-out/Models/Activity/"
+        }, {
           "text": "ActivityTypeText.js",
           "path": "../src-out/Models/Activity/"
         }, {
@@ -428,7 +425,13 @@
           "path": "../src-out/Models/Opportunity/"
         }, {
           "text": "Base.js",
+          "path": "../src-out/Models/OpportunityContact/"
+        }, {
+          "text": "Base.js",
           "path": "../src-out/Models/Ticket/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Models/TicketActivity/"
         }, {
           "text": "Bootstrap.js",
           "path": "../src-out/"
@@ -463,13 +466,16 @@
           "text": "UsageWidget.js",
           "path": "../src-out/Views/OfflineOptions/"
         }, {
-          "text": "UsageWidget.js",
-          "path": "../src-out/Views/LanguageOptions/"
-        }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Opportunity/"
         }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/OpportunityContact/"
+        }, {
           "text": "Edit.js",
+          "path": "../src-out/Views/OpportunityContact/"
+        }, {
+          "text": "List.js",
           "path": "../src-out/Views/OpportunityContact/"
         }, {
           "text": "Detail.js",
@@ -477,6 +483,9 @@
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Ticket/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Views/TicketActivity/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/TicketActivityItem/"
@@ -812,10 +821,22 @@
           "path": "../src-out/Models/Opportunity/"
         }, {
           "text": "Offline.js",
+          "path": "../src-out/Models/OpportunityContact/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/OpportunityContact/"
+        }, {
+          "text": "Offline.js",
           "path": "../src-out/Models/Ticket/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Models/Ticket/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/TicketActivity/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/TicketActivity/"
         }, {
           "text": "_GroupListMixin.js",
           "path": "../src-out/Views/"
