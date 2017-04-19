@@ -324,6 +324,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           view.search();
         }
       }, 10);
+      this.closeAppMenu();
     }
   },
 });
