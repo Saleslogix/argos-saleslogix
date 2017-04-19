@@ -56,9 +56,9 @@ const __class = lang.setObject('crm.Template', {
     '{% var F = argos.Format; %}', // TODO: Avoid global
     '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
     '<label>{%: $.label %}</label>',
-    '<pre>',
+    '<span class="data">',
     '{%= F.encode($.value) %}',
-    '</pre>',
+    '</span>',
     '</div>',
   ]),
 });
