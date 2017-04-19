@@ -2,6 +2,7 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import RelatedViewWidget from 'argos/RelatedViewWidget';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 const resource = getResource('historyRelated');
 
@@ -40,7 +41,11 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
   ]),
   relatedItemHeaderTemplate: new Simplate([
     '<p class="micro-text"><strong>{%: $$.getDescription($) %} </strong></p>',
-    '<p class="micro-text">{%: crm.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: crm.Format.relativeDate($.ModifyDate, false) %}</p>',
+    '{% if($.UserName) { %}',
+    '<p class="micro-text">{%= $$.getHeader($) %}</p>',
+    '{% } else { %}',
+    '<p class="micro-text">{%: crm.Format.date($.ModifyDate) %}</p>',
+    '{% } %}',
   ]),
   relatedItemDetailTemplate: new Simplate([
     '<div class="note-text-wrap">',
@@ -52,6 +57,9 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
   ]),
   getDescription: function getDescription(entry) {
     return (entry.Description) ? entry.Description : entry.$descriptor;
+  },
+  getHeader: function getHeader(entry) {
+    return string.substitute(this.byText, [crm.Format.formatByUser(entry.UserName), crm.Format.date(entry.ModifyDate)]);
   },
 });
 
