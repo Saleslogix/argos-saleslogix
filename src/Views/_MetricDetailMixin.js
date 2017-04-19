@@ -51,7 +51,7 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
     widgetOptions.forEach((options) => {
       if (this.hasValidOptions(options)) {
         const widget = new MetricWidget(options);
-        widget.placeAt(this.metricNode, 'last');
+        $(this.metricNode).append($(widget)[0].domNode);
         widget.requestData();
         this.metricWidgets.push(widget);
       }

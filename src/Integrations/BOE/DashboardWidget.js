@@ -43,7 +43,7 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
         const widget = new MetricWidget(options);
         const itemNode = $(this.metricItemTemplate.apply(options, this));
         frag.appendChild(itemNode.get(0));
-        $(itemNode).append(widget);
+        $(itemNode).append($(widget)[0].domNode);
         this.registerWidget(widget);
       }
     });
@@ -65,7 +65,7 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
           this.selectedRange = itemNode;
         }
         rangeFrag.appendChild(itemNode);
-        $(itemNode).append(widget);
+        $(itemNode).append($(widget)[0].domNode);
       });
     }
     if (rangeFrag.childNodes.length) {
