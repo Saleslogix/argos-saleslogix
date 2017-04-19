@@ -108,7 +108,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
       .map((options) => {
         const clonedOptions = Object.assign({}, options);
         return this._instantiateMetricWidget(clonedOptions).then((widget) => {
-          widget.placeAt(this.metricNode, 'last');
+          $(this.metricNode).append(widget);
           widget.requestData();
           return widget;
         });

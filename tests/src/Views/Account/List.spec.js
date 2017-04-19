@@ -100,7 +100,7 @@ define('spec/Views/Account/List.spec', [
         .and.callThrough();
 
       view.init(new Rx.ReplaySubject());
-      view.placeAt(document.body, 'first');
+      $(document.body).prepend(view);
       view._started = true;
       view._placeAt = null;
 
