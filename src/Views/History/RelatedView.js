@@ -37,6 +37,7 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
   where: null,
   sort: 'ModifyDate desc',
   pageSize: 3,
+  Format: format,
   relatedItemIconTemplate: new Simplate([
     '<div class="user-icon">{%: crm.Format.formatUserInitial($.UserName) %}</div>',
   ]),
@@ -45,7 +46,7 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
     '{% if($.UserName) { %}',
     '<p class="micro-text">{%= $$.getHeader($) %}</p>',
     '{% } else { %}',
-    '<p class="micro-text">{%: format.date($.ModifyDate) %}</p>',
+    '<p class="micro-text">{%: $$.Format.date($.ModifyDate) %}</p>',
     '{% } %}',
   ]),
   relatedItemDetailTemplate: new Simplate([
