@@ -39,7 +39,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
     $(this.containerNode).append(toolBarNode);
 
     // Add the edit view to view
-    $(this.containerNode).append(editView);
+    editView.placeAt(this.containerNode, 'last');
 
     const options = {
       select: this.getEditSelect(),
