@@ -83,7 +83,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'assignWarehouse',
-      cls: 'fa fa-truck fa-2x',
+      cls: 'warehouse',
       label: this.assignWarehouseText,
       enabled: (layoutAction, selection) => {
         return App.warehouseDiscovery === 'auto' &&

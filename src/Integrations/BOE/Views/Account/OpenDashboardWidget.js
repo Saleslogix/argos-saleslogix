@@ -7,6 +7,8 @@ import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
 import getResource from 'argos/I18n';
+import format from 'crm/Format';
+import aggregate from 'crm/Aggregate';
 
 
 const resource = getResource('openDashboardWidget');
@@ -62,7 +64,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
   values: [{
     name: 'quotes',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 0,
     count: true,
@@ -70,7 +72,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
   }, {
     name: 'invoices',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 1,
     count: true,
@@ -78,7 +80,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
   }, {
     name: 'salesOrders',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 2,
     count: true,
@@ -118,21 +120,21 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
     const metricLayout = [{
       navTo: 'account_openquotes_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.agingQuotesText,
       countTitle: this.quotesTotalingText,
       valueNeeded: 'quotes',
     }, {
       navTo: 'account_lateinvoice_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.agingInvoicesText,
       countTitle: this.invoicesTotalingText,
       valueNeeded: 'invoices',
     }, {
       navTo: 'account_opensalesorders_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.agingSalesOrdersText,
       countTitle: this.ordersTotalingText,
       valueNeeded: 'salesOrders',

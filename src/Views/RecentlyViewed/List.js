@@ -186,25 +186,25 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
   },
   entityMappings: {
     Contact: {
-      iconClass: 'fa-user',
+      iconClass: 'user',
     },
     Account: {
-      iconClass: 'fa-building-o',
+      iconClass: 'spreadsheet',
     },
     Opportunity: {
-      iconClass: 'fa-money',
+      iconClass: 'finance',
     },
     Ticket: {
-      iconClass: 'fa-clipboard',
+      iconClass: 'expense-report',
     },
     Lead: {
-      iconClass: 'fa-filter',
+      iconClass: 'agent',
     },
     Activity: {
-      iconClass: 'fa-calendar-o',
+      iconClass: 'calendar',
     },
     History: {
-      iconClass: 'fa-history',
+      iconClass: 'search-results-history',
     },
   },
   createToolLayout: function createToolLayout() {

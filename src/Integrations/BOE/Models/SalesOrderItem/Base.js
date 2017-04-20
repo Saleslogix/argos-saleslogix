@@ -14,7 +14,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrderItem.Base', [_Mod
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.SALESORDERITEM,
-  iconClass: 'fa fa-list-ul fa-2x',
+  iconClass: 'bullet-list',
   detailViewId: 'salesorder_item_detail',
   listViewId: 'salessorder_items_list',
   editViewId: 'salesorder_item_edit',

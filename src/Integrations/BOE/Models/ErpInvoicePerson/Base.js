@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpInvoicePerson.Base', [_M
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPINVOICEPERSON,
-  iconClass: 'fa fa-user fa-2x',
+  iconClass: 'user',
   detailViewId: '',
   listViewId: 'invoiceperson_list',
   editViewId: '',

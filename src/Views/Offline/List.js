@@ -35,9 +35,8 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
     '{% } %}',
     '</span>',
   ]),
-
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $$.getDescription($) %}</p>',
+    '<p>{%: $$.getDescription($) %}</p>',
     '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   getDescription: function getDescription(entry) {

@@ -60,7 +60,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List
   resourceKind: 'erpInvoiceItems',
 
   // Card layout
-  itemIconClass: 'fa fa-list-ul fa-2x',
+  itemIconClass: 'bullet-list',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());

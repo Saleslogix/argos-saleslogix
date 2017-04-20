@@ -7,6 +7,8 @@ import convert from 'argos/Convert';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import DashboardWidget from '../../DashboardWidget';
 import getResource from 'argos/I18n';
+import format from 'crm/Format';
+import aggregate from 'crm/Aggregate';
 
 
 const resource = getResource('newDashboardWidget');
@@ -55,7 +57,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   values: [{
     name: 'quotes',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 0,
     count: true,
@@ -63,7 +65,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   }, {
     name: 'salesOrders',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 1,
     count: true,
@@ -71,7 +73,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   }, {
     name: 'shipments',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 2,
     count: true,
@@ -79,7 +81,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   }, {
     name: 'invoices',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 3,
     count: true,
@@ -87,7 +89,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
   }, {
     name: 'receivables',
     aggregate: 'sum',
-    aggregateModule: 'crm/Aggregate',
+    aggregateModule: aggregate,
     value: null,
     queryIndex: 4,
     count: true,
@@ -121,35 +123,35 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
     const metricLayout = [{
       navTo: 'account_newquotes_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.newQuotesText,
       countTitle: this.quotesTotalingText,
       valueNeeded: 'quotes',
     }, {
       navTo: 'account_neworders_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.newOrdersText,
       countTitle: this.ordersTotalingText,
       valueNeeded: 'salesOrders',
     }, {
       navTo: 'account_newerpshipments_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.newShipmentsText,
       countTitle: this.shipmentsTotalingText,
       valueNeeded: 'shipments',
     }, {
       navTo: 'account_newerpinvoice_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.newInvoicesText,
       countTitle: this.invoicesTotalingText,
       valueNeeded: 'invoices',
     }, {
       navTo: 'account_newerpreceivables_related',
       formatter: 'bigNumber',
-      formatterModule: 'crm/Format',
+      formatterModule: format,
       title: this.newReceivablesText,
       countTitle: this.receivablesTotalingText,
       valueNeeded: 'receivables',

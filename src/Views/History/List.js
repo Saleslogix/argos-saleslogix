@@ -161,7 +161,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
       enabled: this.hasContactOrLead,
     }, {
       id: 'addAttachment',
-      cls: 'fa fa-paperclip fa-2x',
+      cls: 'attach',
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }]);

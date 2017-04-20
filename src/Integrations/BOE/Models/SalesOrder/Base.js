@@ -23,7 +23,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.Base', [_ModelBa
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.SALESORDER,
-  iconClass: 'fa fa-shopping-cart fa-2x',
+  iconClass: 'cart',
   detailViewId: 'salesorder_detail',
   listViewId: 'salesorder_list',
   editViewId: 'salesorder_edit',

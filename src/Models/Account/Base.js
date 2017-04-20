@@ -17,7 +17,7 @@ const __class = declare('crm.Models.Account.Base', [_ModelBase], {
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ACCOUNT,
-  iconClass: 'fa fa-building-o fa-2x',
+  iconClass: 'spreadsheet',
   detailViewId: 'account_detail',
   listViewId: 'account_list',
   editViewId: 'account_edit',

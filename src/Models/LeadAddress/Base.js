@@ -11,7 +11,7 @@ const __class = declare('crm.Models.LeadAddress.Base', [_ModelBase], {
   listViewId: 'address_related',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-list-ul fa-2x',
+  iconClass: 'bullet-list',
   modelName: MODEL_NAMES.LEADADDRESS,
 
 });
