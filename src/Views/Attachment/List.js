@@ -71,7 +71,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   enableActions: true,
   detailView: 'view_attachment',
   insertView: 'attachment_Add',
-  iconClass: 'fa fa-paperclip fa-lg',
+  iconClass: 'attach',
   queryOrderBy: 'attachDate desc',
   querySelect: [
     'description',

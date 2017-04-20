@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpContactAssociation.Base'
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPCONTACTASSOCIATION,
-  iconClass: 'fa fa-building-o fa-2x',
+  iconClass: 'spreadsheet',
   detailViewId: '',
   listViewId: 'erpcontactassociations_list',
   editViewId: '',

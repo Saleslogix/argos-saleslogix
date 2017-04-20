@@ -10,7 +10,7 @@ const __class = declare('crm.Models.UserActivity.Base', [ActivityBase], {
   entityName: 'UserActivity',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-list-ul fa-2x',
+  iconClass: 'bullet-list',
   resourceKind: 'userActivities',
   contractName: 'system',
   createRelationships: function createRelationships() {

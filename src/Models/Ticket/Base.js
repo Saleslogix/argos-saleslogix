@@ -13,7 +13,7 @@ const __class = declare('crm.Models.Ticket.Base', [_ModelBase], {
   entityName: 'Ticket',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-clipboard fa-2x',
+  iconClass: 'expense-report',
   resourceKind: 'tickets',
   security: 'Entities/Ticket/View',
   modelName: MODEL_NAMES.TICKET,

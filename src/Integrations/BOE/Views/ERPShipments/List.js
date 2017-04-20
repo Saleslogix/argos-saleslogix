@@ -60,7 +60,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.List', [List, _
   entityName: 'ERPShipment',
 
   // Card layout
-  itemIconClass: 'fa fa-truck fa-2x',
+  itemIconClass: 'warehouse',
 
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{

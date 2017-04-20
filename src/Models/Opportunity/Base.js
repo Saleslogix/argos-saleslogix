@@ -12,7 +12,7 @@ const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
   entityName: 'Opportunity',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-money fa-2x',
+  iconClass: 'finance',
   resourceKind: 'opportunities',
   modelName: MODEL_NAMES.OPPORTUNITY,
   security: 'Entities/Opportunity/View',
