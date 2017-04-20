@@ -83,7 +83,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
       }),
     }, {
       id: 'addOrderItem',
-      cls: 'fa fa-list-ul fa-2x',
+      cls: 'bullet-list',
       label: this.addLineItemsText,
       fn: (evt, selection) => {
         const view = App.getView('salesorder_item_edit');

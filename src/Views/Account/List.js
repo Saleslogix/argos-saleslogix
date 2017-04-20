@@ -104,13 +104,13 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
-      cls: 'fa fa-pencil fa-2x',
+      cls: 'edit',
       label: this.editActionText,
       security: 'Entities/Account/Edit',
       action: 'navigateToEditView',
     }, {
       id: 'callMain',
-      cls: 'fa fa-phone-square fa-2x',
+      cls: 'phone',
       label: this.callMainActionText,
       enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
       fn: action.callPhone.bindDelegate(this, 'MainPhone'),
@@ -120,17 +120,17 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
       fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"'),
     }, {
       id: 'addNote',
-      cls: 'fa fa-edit fa-2x',
+      cls: 'quick-edit',
       label: this.addNoteActionText,
       fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
-      cls: 'fa fa-calendar fa-2x',
+      cls: 'calendar',
       label: this.addActivityActionText,
       fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
-      cls: 'fa fa-paperclip fa-2x',
+      cls: 'attach',
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }]);

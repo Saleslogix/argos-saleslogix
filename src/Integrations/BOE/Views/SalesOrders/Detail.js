@@ -222,7 +222,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         name: 'GetOrderTotal',
         property: 'SalesOrderNumber',
         label: this.getOrderTotalText,
-        iconClass: 'fa fa-money fa-2x', // TODO: look for an icon
+        iconClass: 'finance',
         action: 'onGetOrderTotal',
         security: 'Entities/SalesOrder/GetOrderTotal',
       }, {
@@ -236,7 +236,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         name: 'RePrice',
         property: 'SalesOrderNumber',
         label: this.refreshPricingText,
-        iconClass: 'fa fa-money fa-2x', // TODO: look for an icon
+        iconClass: 'finance',
         action: 'onRePrice',
         security: 'Entities/SalesOrder/Add',
       }],

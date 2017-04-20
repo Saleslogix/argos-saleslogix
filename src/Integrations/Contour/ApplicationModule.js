@@ -90,7 +90,7 @@ const __class = declare('crm.Integrations.Contour.ApplicationModule', [Applicati
         name: 'ViewNearbyAction',
         property: 'AccountName',
         label: this.viewAccountsNearbyText,
-        iconClass: 'fa fa-building fa-lg',
+        iconClass: 'spreadsheet',
         action: 'viewNearby',
       },
     });

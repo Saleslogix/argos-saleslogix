@@ -14,7 +14,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillToAccount.Base', [_M
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPBILLTOACCOUNT,
-  iconClass: 'fa fa-building-o fa-2x',
+  iconClass: 'spreadsheet',
   detailViewId: 'erpbilltoaccounts_detail',
   listViewId: 'erpbilltoaccounts_list',
   editViewId: '',

@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.Carrier.Base', [_ModelBase]
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.CARRIER,
-  iconClass: 'fa fa-building-o fa-2x',
+  iconClass: 'spreadsheet',
   detailViewId: '',
   listViewId: 'carriers_list',
   editViewId: '',
