@@ -157,7 +157,7 @@ const __class = lang.setObject('crm.PicklistService', {
         );
         request.read(handlers);
       }
-    });
+    }).catch(err => console.error(err)); // eslint-disable-line
   },
   determineLanguage(serviceOptions, queryOptions) {
     if (serviceOptions.filterByLanguage) {
