@@ -172,11 +172,11 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.textProperty = this.textProperty;
       options.picklistOptions = (this.picklistOptions && this.picklistOptions((this.owner && this.owner.entry) || {})) || {};
       // TODO: Need a function to generate the key
-      if (options.picklistOptions
-        && options.picklistOptions.filterByLanguage
-          && options.picklistOptions.filterByLanguage !== true) {
-        this.languageCode = options.picklistOptions.filterByLanguage;
-      } else if (this.picklistName !== 'Name Prefix' || this.picklistName !== 'Name Suffix') {
+      // if (options.picklistOptions
+      //     && options.picklistOptions.filterByLanguage !== true) {
+      //   this.languageCode = ' ';
+      // } else
+      if (this.picklistName !== 'Name Prefix' || this.picklistName !== 'Name Suffix') {
         // Default to current locale IF not name prefix or suffix picklists (these are filtered text picklists)
         this.languageCode = App.getCurrentLocale();
       }
@@ -201,11 +201,6 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     }
 
     return options;
-  },
-  updateSelectionProperties: function updateSelectionProperties() {
-    if (App.picklistService.getPicklistByName(this.picklistName, this.languageCode)) {
-      this.keyProperty = 'code';
-    }
   },
   navigateToListView: function navigateToListView() {
     if (this.isDisabled()) {
