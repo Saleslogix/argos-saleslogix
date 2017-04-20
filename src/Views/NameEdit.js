@@ -35,10 +35,10 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
       property: 'Prefix',
       picklist: 'Name Prefix',
       picklistOptions: (entry) => {
-        // Checks if the LocationCode exists (for Lead it does not)
-        if (entry.LocationCode) {
+        // Checks if entry is a Contact
+        if (entry.hasOwnProperty('NameLF')) {
           return {
-            filterByLanguage: entry.LocationCode.trim(),
+            filterByLanguage: true,
           };
         }
         return {};
@@ -75,10 +75,10 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
       property: 'Suffix',
       picklist: 'Name Suffix',
       picklistOptions: (entry) => {
-        // Checks if the LocationCode exists (for Lead it does not)
-        if (entry.LocationCode) {
+        // Checks if entry is a Contact
+        if (entry.hasOwnProperty('NameLF')) {
           return {
-            filterByLanguage: entry.LocationCode.trim(),
+            filterByLanguage: true,
           };
         }
         return {};
