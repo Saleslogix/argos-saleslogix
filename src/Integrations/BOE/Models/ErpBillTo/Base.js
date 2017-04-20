@@ -24,6 +24,12 @@ const __class = declare('crm.Integrations.BOE.Models.ErpBillTo.Base', [_ModelBas
   detailViewId: 'erpbillto_detail',
   listViewId: 'erpbillto_list',
   editViewId: '',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'SyncStatus',
+      property: 'SyncStatus',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [
     // TODO: Update with ManyToMany relationship when available in core.

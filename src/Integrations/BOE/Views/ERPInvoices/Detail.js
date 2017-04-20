@@ -63,6 +63,9 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
       App.initiateCall(this.entry.MainPhone);
     }));
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.actionsText,
@@ -120,13 +123,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
         name: 'ErpStatus',
         property: 'ErpStatus',
         label: this.statusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('ErpInvoiceStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
-        },
+        renderer: this.formatPicklist('ErpStatus'),
       }, {
         name: 'ErpStatusDate',
         property: 'ErpStatusDate',

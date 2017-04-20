@@ -27,6 +27,15 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.Base', [_ModelBa
   detailViewId: 'salesorder_detail',
   listViewId: 'salesorder_list',
   editViewId: 'salesorder_edit',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'SyncStatus',
+      property: 'SyncStatus',
+    }, {
+      name: 'ErpSalesOrderStatus',
+      property: 'ERPSalesOrder.ERPStatus',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',

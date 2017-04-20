@@ -22,6 +22,12 @@ const __class = declare('crm.Integrations.BOE.Models.ErpInvoice.Base', [_ModelBa
   detailViewId: 'invoice_detail',
   listViewId: 'invoice_list',
   editViewId: '',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'ErpInvoiceStatus',
+      property: 'ErpStatus',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',

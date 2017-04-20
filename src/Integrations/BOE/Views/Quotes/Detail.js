@@ -279,6 +279,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
     App.modal.showToolbar = false;
     App.modal.add(this._busyIndicator);
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.actionsText,
@@ -428,24 +431,12 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         name: 'SyncStatus',
         property: 'SyncStatus',
         label: this.syncStatusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('SyncStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
-        },
+        renderer: this.formatPicklist('SyncStatus'),
       }, {
         name: 'ErpStatus',
         property: 'ErpStatus',
         label: this.erpStatusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
-        },
+        renderer: this.formatPicklist('ErpStatus'),
       }, {
         name: 'StatusDate',
         property: 'StatusDate',

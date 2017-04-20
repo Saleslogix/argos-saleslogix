@@ -105,13 +105,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail]
         name: 'SyncStatus',
         property: 'SyncStatus',
         label: this.syncStatusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('SyncStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
-        },
+        renderer: this.formatPicklist('SyncStatus'),
       }, {
         name: 'LogicalId',
         property: 'ErpLogicalId',
@@ -183,6 +177,9 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail]
         view: 'billto_synchistory_related',
       }],
     }]);
+  },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
   },
   formatMultiCurrency: function formatMultiCurrency(val) {
     if (App.hasMultiCurrency() && val) {

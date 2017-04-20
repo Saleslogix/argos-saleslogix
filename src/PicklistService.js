@@ -147,7 +147,7 @@ const __class = lang.setObject('crm.PicklistService', {
         name,
         this.onPicklistSuccess(resolve, language),
         this.onPicklistError(reject, name),
-        { pickListServiceOptions, language }
+        { pickListServiceOptions, language, useCache: true }
       );
       if (options) {
         const request = this.service.setUpRequest(
