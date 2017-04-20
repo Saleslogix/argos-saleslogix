@@ -15,7 +15,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipmentItem.Base', [_Mo
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPSHIPMENTITEM,
-  iconClass: 'fa fa-truck fa-2x',
+  iconClass: 'warehouse',
   detailViewId: 'erpshipment_items_detail',
   listViewId: 'erpshipment_items_list',
   editViewId: '',

@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.BackOfficeAccountingEntitie
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.BACKOFFICEACCOUNTINGENTITY,
-  iconClass: 'fa fa-building-o fa-2x',
+  iconClass: 'spreadsheet',
   detailViewId: '',
   listViewId: 'backofficeaccountingentities_list',
   editViewId: '',

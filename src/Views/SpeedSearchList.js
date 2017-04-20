@@ -83,13 +83,13 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     Ticket: resource.ticketText,
   },
   itemIconByType: {
-    Contact: 'fa-user',
-    Account: 'fa-building-o',
-    Opportunity: 'fa-money',
-    Ticket: 'fa-clipboard',
-    Lead: 'fa-filter',
-    Activity: 'fa-calendar-o',
-    History: 'fa-history',
+    Contact: 'user',
+    Account: 'spreadsheet',
+    Opportunity: 'finance',
+    Ticket: 'expense-report',
+    Lead: 'agent',
+    Activity: 'calendar',
+    History: 'search-results-history',
   },
   currentPage: null,
 
@@ -104,10 +104,6 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     let cls = this.itemIconClass;
     if (typeCls) {
       cls = typeCls;
-    }
-
-    if (cls) {
-      cls = `fa ${cls} fa-2x`;
     }
 
     return cls;

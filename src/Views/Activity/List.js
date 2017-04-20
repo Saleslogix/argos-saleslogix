@@ -317,7 +317,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
         .bindDelegate(this),
     }, {
       id: 'call',
-      cls: 'fa fa-phone-square fa-2x',
+      cls: 'phone',
       label: this.callText,
       enabled: function enabled(theAction, selection) {
         const entry = selection && selection.data;
@@ -334,7 +334,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
       }.bindDelegate(this),
     }, {
       id: 'addAttachment',
-      cls: 'fa fa-paperclip fa-2x',
+      cls: 'attach',
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }]);

@@ -103,7 +103,7 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
-      cls: 'fa fa-pencil fa-2x',
+      cls: 'edit',
       label: this.editActionText,
       action: 'navigateToEditView',
       security: 'Entities/Opportunity/Edit',
@@ -126,22 +126,22 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
       fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"'),
     }, {
       id: 'addNote',
-      cls: 'fa fa-edit fa-2x',
+      cls: 'edit',
       label: this.addNoteActionText,
       fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
-      cls: 'fa fa-calendar fa-2x',
+      cls: 'calendar',
       label: this.addActivityActionText,
       fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
-      cls: 'fa fa-paperclip fa-2x',
+      cls: 'attach',
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }, {
       id: 'quickEdit',
-      cls: 'fa fa-pencil fa-2x',
+      cls: 'edit',
       label: this.quickEditActionText,
       editView: 'opportunity_quick_edit',
       action: 'navigateToQuickEdit',

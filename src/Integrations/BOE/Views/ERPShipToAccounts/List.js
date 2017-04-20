@@ -36,7 +36,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [Li
   groupsEnabled: false,
 
   // Card layout
-  itemIconClass: 'fa fa-truck fa-2x',
+  itemIconClass: 'warehouse',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return `upper(ErpShipTo.Name) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;

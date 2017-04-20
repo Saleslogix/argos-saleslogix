@@ -17,7 +17,7 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
   entityName: 'Activity',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-list-ul fa-2x',
+  iconClass: 'bullet-list',
   resourceKind: 'activities',
   contractName: 'system',
   recurringActivityIdSeparator: ';',

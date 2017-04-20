@@ -80,7 +80,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
       }),
     }, {
       id: 'addQuoteItem',
-      cls: 'fa fa-list-ul fa-2x',
+      cls: 'bullet-list',
       label: this.addLineItemsText,
       fn: (evt, selection) => {
         const view = App.getView('quote_line_edit');

@@ -94,7 +94,7 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'edit',
-      cls: 'fa fa-pencil fa-2x',
+      cls: 'edit',
       label: this.editActionText,
       action: 'navigateToEditView',
       security: 'Entities/Ticket/Edit',
@@ -118,17 +118,17 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
       }),
     }, {
       id: 'addNote',
-      cls: 'fa fa-edit fa-2x',
+      cls: 'edit',
       label: this.addNoteActionText,
       fn: action.addNote.bindDelegate(this),
     }, {
       id: 'addActivity',
-      cls: 'fa fa-calendar fa-2x',
+      cls: 'calendar',
       label: this.addActivityActionText,
       fn: action.addActivity.bindDelegate(this),
     }, {
       id: 'addAttachment',
-      cls: 'fa fa-paperclip fa-2x',
+      cls: 'attach',
       label: this.addAttachmentActionText,
       fn: action.addAttachment.bindDelegate(this),
     }]);

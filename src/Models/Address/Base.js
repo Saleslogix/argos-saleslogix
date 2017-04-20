@@ -11,6 +11,6 @@ const __class = declare('crm.Models.Address.Base', [_ModelBase], {
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ADDRESS,
-  iconClass: 'fa fa-list-ul fa-2x',
+  iconClass: 'bullet-list',
 });
 export default __class;

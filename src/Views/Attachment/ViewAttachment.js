@@ -177,8 +177,8 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       if (this._isfileTypeAllowed(fileType)) {
         if (this._isfileTypeImage(fileType)) {
           $(this.attachmentViewerNode).append(this.attachmentViewImageTemplate.apply(data, this));
-          const tpl = this.downloadingTemplate.apply(this);
-          const dl = $(this.attachmentViewerNode).prepend(tpl);
+          const tpl = $(this.downloadingTemplate.apply(this));
+          $(this.attachmentViewerNode).prepend(tpl);
           $(this.domNode).addClass('list-loading');
           const self = this;
           const attachmentid = entry.$key;
@@ -211,24 +211,24 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             }
 
             // Set download text to hidden
-            $(dl).addClass('display-none');
+            $(tpl).addClass('display-none');
           });
         } else { // View file type in Iframe
           if (this._viewImageOnly() === false) {
             $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
-            const tpl = this.downloadingTemplate.apply(this);
-            const dl = $(this.attachmentViewerNode).prepend(tpl);
+            const tpl = $(this.downloadingTemplate.apply(this));
+            $(this.attachmentViewerNode).prepend(tpl);
             $(this.domNode).addClass('list-loading');
             const attachmentid = entry.$key;
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
-              $(dl).addClass('display-none');
+              $(tpl).addClass('display-none');
               const iframe = document.getElementById('attachment-Iframe');
               iframe.onload = function iframeOnLoad() {
-                $(dl).addClass('display-none');
+                $(tpl).addClass('display-none');
               };
-              $(dl).addClass('display-none');
+              $(tpl).addClass('display-none');
               this.setSrc(iframe, dataUrl);
             });
           } else { // Only view images
@@ -242,14 +242,14 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
       const url = am.getAttachmenturlByEntity(entry);
       $(this.domNode).addClass('list-loading');
-      const tpl = this.downloadingTemplate.apply(this);
-      const dl = $(this.attachmentViewerNode).prepend(tpl);
+      const tpl = $(this.downloadingTemplate.apply(this));
+      $(this.attachmentViewerNode).prepend(tpl);
       const iframe = document.getElementById('attachment-Iframe');
       iframe.onload = function iframeOnLoad() {
-        $(dl).addClass('display-none');
+        $(tpl).addClass('display-none');
       };
       this.setSrc(iframe, url);
-      $(dl).addClass('display-none');
+      $(tpl).addClass('display-none');
     }
   },
   _isfileTypeImage: function _isfileTypeImage(fileType) {
@@ -296,7 +296,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     return false;
   },
   _sizeImage: function _sizeImage(containerNode, image) {
-    const contentBox = $(containerNode);
+    const contentBox = $(containerNode).parent(); // hack to get parent dimensions since child containers occupy 0 height as they are not absolute anymore
     const iH = image.height;
     const iW = image.width;
     let wH = contentBox.height();

@@ -42,7 +42,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.List', [Lis
   enableActions: true,
 
   // Card layout
-  itemIconClass: 'fa fa-truck fa-2x',
+  itemIconClass: 'warehouse',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());

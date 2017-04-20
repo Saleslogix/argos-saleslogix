@@ -22,7 +22,7 @@ const control = declare('crm.Fields.RecurrencesField', [EditorField], {
     '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
     '<div data-dojo-attach-point="inputNode" class="note-text"></div>',
   ]),
-  iconClass: 'fa fa-ellipsis-h fa-lg',
+  iconClass: 'more',
 
   setText: function setText(text) {
     this.set('noteText', text);

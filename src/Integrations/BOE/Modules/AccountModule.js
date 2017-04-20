@@ -485,7 +485,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       errorMessage: 'Error promoting account for reason: ${reason}',
       tabListItemTemplate: new Simplate([
         '<li data-key="{%: $.name %}" class="tab" data-action="selectedTab">',
-        '<a href="#{%: $.name %}">{%: ($.title || $.options.title) %}</a>',
+        '<a href="#{%: $$.id %}_{%: $.name %}">{%: ($.title || $.options.title) %}</a>',
         '</li>',
       ]),
       orginalProcessEntry: crm.Views.Account.Detail.prototype.processEntry,

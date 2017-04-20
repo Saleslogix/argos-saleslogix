@@ -18,7 +18,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpInvoice.Base', [_ModelBa
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPINVOICE,
-  iconClass: 'fa fa-file-text fa-2x',
+  iconClass: 'document',
   detailViewId: 'invoice_detail',
   listViewId: 'invoice_list',
   editViewId: '',

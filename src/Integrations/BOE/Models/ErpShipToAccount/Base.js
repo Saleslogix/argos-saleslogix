@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipToAccount.Base', [_M
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPSHIPTOACCOUNT,
-  iconClass: 'fa fa-truck fa-2x',
+  iconClass: 'warehouse',
   detailViewId: 'erpshipto_detail',
   listViewId: 'erpshipto_list',
   editViewId: '',

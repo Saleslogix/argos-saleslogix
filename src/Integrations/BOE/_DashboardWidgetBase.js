@@ -41,7 +41,6 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   values: null,
   formatter: crmFormat.bigNumber,
   contractName: 'dynamic',
-  collapsedClass: 'collapsed',
   autoLoad: false,
   isLoaded: false,
   enabled: false,
@@ -99,36 +98,41 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   ]),
   dashboardTemplate: new Simplate([
     '<div class="dashboard-widget">',
-    '{%! $$.dashboardHeaderTemplate %}',
-    '<div class="node-container">',
+    '{%! $$.dashboardHeaderTemplateStart %}',
+    '<div class="node-container accordion-pane">',
     '{%! $$.dashboardRangeTemplate %}',
     '<div data-dojo-attach-point="metricsNode" class="dashboard-metric-list"></div>',
     '</div>',
     '</div>',
+    '{%! $$.dashboardHeaderTemplateEnd %}',
   ]),
   dashboardIconTemplate: new Simplate([
     '{% if($.titleText) { %}',
-    '<span class="dashboard-icon" style="background-color:{%= $$.getColor($) %}" >',
+    '<span class="dashboard-icon round info badge" style="background-color:{%= $$.getColor($) %}" >',
     '{%: $$.getAbrv($) %}',
     '</span>',
     '{% } %}',
   ]),
-  dashboardHeaderTemplate: new Simplate([
+  dashboardHeaderTemplateEnd: new Simplate([
     '{% if($.titleText || $.categoryText) { %}',
-    '<div data-dojo-attach-point="dashboardHeaderNode" data-dojo-attach-event="onclick:toggleView" class="dashboard-header {%: $._getCollapsedClass() %} {%: $$.headerClass %}">',
-    '<div class="dashboard-header-content">',
-    '{%! $$.dashboardIconTemplate %}',
-    '<div class="dashboard-header-text">',
-    '{% if($.titleText) { %}',
-    '<div class="dashboard-title">{%: $.titleText %} {%: $$.getFormattedCurrencyCodeForTitle() %}</div>',
+    '</div>',
     '{% } %}',
-    '{% if($.categoryText) { %}',
-    '<div class="dashboard-category">{%: $.categoryText %}</div>',
-    '{% } %}',
-    '</div>',
-    '</div>',
-    '<button class="fa fa-chevron-down"></button>',
-    '</div>',
+  ]),
+  dashboardHeaderTemplateStart: new Simplate([
+    '{% if($.titleText || $.categoryText) { %}',
+    `<div class="dashboard-header accordion" data-dojo-attach-point="dashboardHeaderNode">
+      <div class="accordion-header is-selected">
+        <a href="#" class="dashboard-header-text">
+        {%! $$.dashboardIconTemplate %}
+        {% if($.titleText) { %}
+          <div class="dashboard-title">{%: ($.titleText) %} {%: $$.getFormattedCurrencyCodeForTitle() %}</div>
+        {% } %}
+        {% if($.categoryText) { %}
+         <div class="dashboard-category">{%: ($.categoryText) %}</div>
+        {% } %}
+        </a>
+      </div>
+    `,
     '{% } %}',
   ]),
   dashboardRangeTemplate: new Simplate([
@@ -184,6 +188,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       this.buildErrorView({});
     }
     this.isLoaded = true;
+    $(this.dashboardHeaderNode).accordion();
   },
   processEntry: function processEntry(entry) {
     this.buildView(entry);
@@ -305,7 +310,6 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       this._getCountValue(widget, obj).then((result) => {
         if (result >= 0) {
           obj.countValue = result;
-          this.applyDataToWidget(widget, obj);
         }
         this.applyDataToWidget(widget, obj);
       });
@@ -398,10 +402,9 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       if (data.count && (data.countValue >= 0)) {
         $(widget.metricDetailNode).append($(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`));
       }
-      $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
-    } else {
-      $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
     }
+
+    $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
   },
   navToReportView: function navToReportView() {
     let view;
@@ -564,18 +567,10 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     evt.stopPropagation();
   },
   onToggleView: function onToggleView(forceOpen) {
-    if (forceOpen) {
-      $(this.dashboardHeaderNode).removeClass(this.collapsedClass);
-    } else {
-      $(this.dashboardHeaderNode).toggleClass(this.collapsedClass);
-    }
-
     if (!this.isLoaded) {
       this.onLoad();
     }
-  },
-  _getCollapsedClass: function _getCollapsedClass() {
-    return (this.autoLoad) ? '' : this.collapsedClass;
+    $(this.dashboardHeaderNode).toggleClass(this.collapsedClass, forceOpen);
   },
 });
 

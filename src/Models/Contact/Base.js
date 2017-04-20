@@ -16,7 +16,7 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.CONTACT,
-  iconClass: 'fa fa-user fa-lg',
+  iconClass: 'user',
   security: 'Entities/Contact/View',
   createPicklists: function createPicklists() {
     return this.picklists || (this.picklists = [{

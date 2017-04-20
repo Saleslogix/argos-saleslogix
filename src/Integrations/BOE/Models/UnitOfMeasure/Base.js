@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.UnitOfMeasure.Base', [_Mode
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.UNITOFMEASURE,
-  iconClass: 'fa fa-building-o fa-2x',
+  iconClass: 'spreadsheet',
   detailViewId: '',
   listViewId: 'unitofmeasure_list',
   editViewId: '',
