@@ -38,6 +38,38 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         'FirstName',
         'HomePhone',
         'LastName',
+        'LocationCode',
+        'MiddleName',
+        'Mobile',
+        'Name',
+        'NameLF',
+        'Owner/OwnerDescription',
+        'Prefix',
+        'Suffix',
+        'Title',
+        'WebAddress',
+        'WorkPhone',
+      ],
+      queryInclude: [
+        '$permissions',
+      ],
+    }, {
+      name: 'edit',
+      querySelect: [
+        'Account/AccountName',
+        'AccountManager/UserInfo/FirstName',
+        'AccountManager/UserInfo/LastName',
+        'AccountName',
+        'Address/*',
+        'CuisinePreference',
+        'CreateDate',
+        'CreateUser',
+        'Email',
+        'Fax',
+        'FirstName',
+        'HomePhone',
+        'LastName',
+        'LocationCode',
         'MiddleName',
         'Mobile',
         'Name',
@@ -53,6 +85,22 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         '$permissions',
       ],
     }];
+  },
+  getEntry: function getEntry(/* options */) {
+    const results$ = this.inherited(arguments);
+    return results$.then((entry) => {
+      return new Promise((resolve) => {
+        Promise.all([App.picklistService.requestPicklist('Name Prefix', {
+          language: entry.LocationCode || App.getCurrentLocale(),
+        }), App.picklistService.requestPicklist('Name Suffix', {
+          language: entry.LocationCode || App.getCurrentLocale(),
+        }), App.picklistService.requestPicklist('Title', {
+          language: entry.LocationCode || App.getCurrentLocale(),
+        })]).then(() => {
+          resolve(entry);
+        });
+      });
+    });
   },
 });
 

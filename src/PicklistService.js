@@ -7,6 +7,7 @@ const picklistFormat = ICRMCommonSDK.format.picklist;
 
 const __class = lang.setObject('crm.PicklistService', {
   _picklists: {},
+  _currentRequests: new Map(),
 
   // Previous properties
   _viewMapping: {},
@@ -33,20 +34,31 @@ const __class = lang.setObject('crm.PicklistService', {
     this.service = new PickListService(storage, service);
   },
   getPicklistByKey(key) {
-    return this._picklists[key];
+    return this.getPicklistByName(key);
   },
-  getPicklistByName(name) {
+  getPicklistByName(name, languageCode) {
+    if (languageCode) {
+      const picklist = this._picklists[`${name}_${languageCode}`];
+      if (picklist) {
+        return picklist;
+      }
+    }
     return this._picklists[name] || false;
-    // const iterableKeys = Object.keys(this._picklists);
-    // for (let i = 0; i < iterableKeys.length; i++) {
-    //   if (this._picklists[iterableKeys[i]].name === name) {
-    //     return this._picklists[iterableKeys[i]];
-    //   }
-    // }
-    // return false;
   },
-  getPicklistItemByCode(picklistName, itemCode) {
-    const picklist = this.getPicklistByName(picklistName);
+  getPicklistItemByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
+    const picklist = this.getPicklistByName(picklistName, languageCode);
+
+    if (picklist) {
+      for (let i = 0; i < picklist.items.length; i++) {
+        if (picklist.items[i].$key === key) {
+          return picklist.items[i];
+        }
+      }
+    }
+    return false;
+  },
+  getPicklistItemByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
+    const picklist = this.getPicklistByName(picklistName, languageCode);
 
     if (picklist) {
       for (let i = 0; i < picklist.items.length; i++) {
@@ -57,9 +69,16 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return false;
   },
-  getPicklistItemTextByCode(picklistName, itemCode) {
-    const picklistItem = this.getPicklistItemByCode(picklistName, itemCode);
+  getPicklistItemTextByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
+    const picklistItem = this.getPicklistItemByCode(picklistName, itemCode, languageCode);
     if (itemCode && picklistItem) {
+      return picklistItem.text;
+    }
+    return null;
+  },
+  getPicklistItemTextByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
+    const picklistItem = this.getPicklistItemByKey(picklistName, key, languageCode);
+    if (key && picklistItem) {
       return picklistItem.text;
     }
     return null;
@@ -73,65 +92,11 @@ const __class = lang.setObject('crm.PicklistService', {
       this._picklists[code] = picklist;
     }
   },
-  requestPicklists() {
-    // const promise = new Promise((resolve, reject) => {
-    //   const iterableKeys = Object.keys(this._picklists);
-    //   const promises = [];
-    //   for (let i = 0; i < iterableKeys.length; i++) {
-    //     promises.push(this.requestPicklist(iterableKeys[i]));
-    //   }
-    //   Promise.all(promises).then(() => {
-    //     resolve(true);
-    //   }, (response) => {
-    //     reject(response);
-    //   });
-    // });
-    // return promise;
-    return this.requestPicklistsFromArray(Object.keys(this._picklists));
-  },
   requestPicklistsFromArray(picklists) {
     const promise = new Promise((resolve, reject) => {
       const promises = [];
-      // const pickListServiceOptions = {
-      //   storageMode: 'code',
-      // };
       for (let i = 0; i < picklists.length; i++) {
-        // const temp = new Promise((res, rej) => {
-        //   const {
-        //     options,
-        //     handlers,
-        //   } = this.service.getFirstByKey(
-        //     picklists[i],
-        //     false,
-        //     true,
-        //     this.onPicklistSuccess(res),
-        //     this.onPicklistError(rej),
-        //     { pickListServiceOptions }
-        //   );
-        //   if (options) {
-        //     const request = this.service.setUpRequest(
-        //       new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
-        //         .setContractName(this.contractName),
-        //       options
-        //     );
-        //     request.read(handlers);
-            // const store = this.getStore();
-            // store.query(null, options).then((data) => {
-            //   let picklist = null;
-            //   if (data && data[0] && data[0].items) {
-            //     picklist = data[0];
-            //     picklist.items = picklist.items.$resources;
-            //     this._picklists[picklist.name] = picklist;
-            //   }
-            //   res(picklist);
-            // }, (response, o) => {
-            //   ErrorManager.addError(response, o, options, 'failure');
-            //   rej(response);
-            // });
-        //   }
-        // });
-        // promises.push(this.requestPicklist(picklists[i]));
-        promises.push(this.requestPicklist(picklists[i]));
+        promises.push(this.requestPicklist(picklists[i].name, picklists[i].options));
       }
       Promise.all(promises).then(() => {
         resolve(true);
@@ -141,40 +106,57 @@ const __class = lang.setObject('crm.PicklistService', {
     });
     return promise;
   },
-  onPicklistSuccess(resolve) {
+  onPicklistSuccess(resolve, languageCode) {
     return (result) => {
       let picklist = null;
       if (result && result.items) {
         picklist = result;
-        picklist.items = picklist.items.$resources;
-        this._picklists[picklist.name] = picklist;
+        picklist.items = picklist.items.$resources.map(item => Object.assign({}, item, { id: item.$key }));
+        if (languageCode) {
+          this._picklists[`${picklist.name}_${languageCode}`] = picklist;
+        } else {
+          this._picklists[picklist.name] = picklist;
+        }
       }
+      this.removeRequest(picklist.name);
       resolve(picklist);
     };
   },
-  onPicklistError(reject) {
+  onPicklistError(reject, name) {
     return (response, o) => {
+      this.removeRequest(name);
       ErrorManager.addError(response, o, null, 'failure');
       reject(response);
     };
   },
   requestPicklist(name, queryOptions = {}) {
+    // Avoid duplicating model requests
+    if (this.hasRequest(name)) {
+      return new Promise(resolve => resolve());
+    }
+
     const pickListServiceOptions = Object.assign({}, {
       storageMode: 'code',
     }, queryOptions);
-    const language = queryOptions.language || App.context.localization.locale;
+    const language = this.determineLanguage(pickListServiceOptions, queryOptions);
+    const useCache = typeof queryOptions.useCache === 'boolean' ? queryOptions.useCache : true;
+
+    // if (queryOptions.filterByLanguage) {
+    //   useCache = false;
+    // }
+
     return new Promise((resolve, reject) => {
+      this.addRequest(name);
       const {
         options,
         handlers,
-      } = this.service.getFirstByKey(
+      } = this.service.getFirstByName(
         name,
-        false,
-        true,
-        this.onPicklistSuccess(resolve),
-        this.onPicklistError(reject),
-        { pickListServiceOptions, language }
+        this.onPicklistSuccess(resolve, language),
+        this.onPicklistError(reject, name),
+        { pickListServiceOptions, language, useCache }
       );
+
       if (options) {
         const request = this.service.setUpRequest(
           new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
@@ -183,7 +165,32 @@ const __class = lang.setObject('crm.PicklistService', {
         );
         request.read(handlers);
       }
-    });
+    }).catch(err => console.error(err)); // eslint-disable-line
+  },
+  determineLanguage(serviceOptions, queryOptions) {
+    if (serviceOptions.filterByLanguage) {
+      return (queryOptions.language && queryOptions.language.trim())
+          || App.getCurrentLocale();
+    }
+    if (serviceOptions.filterByLanguage === false) {
+      // This means disable fallback
+      // Used for Name Prefix and Suffix we only want the filtered picklist.
+      return queryOptions.language || ' ';
+    }
+    return queryOptions.language || App.getCurrentLocale();
+  },
+
+  /**
+   * Simple requestMap to optimize requests to avoid overlap from model requests
+   */
+  addRequest(name) {
+    return this._currentRequests.set(name, true);
+  },
+  removeRequest(name) {
+    return this._currentRequests.delete(name);
+  },
+  hasRequest(name) {
+    return this._currentRequests.has(name);
   },
 
   // Previous functions
@@ -213,27 +220,6 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     this.registerPicklist(code, true);
   },
-  // requestPicklist: function requestPicklist(name, options) {
-  //   const promise = new Promise((resolve, reject) => {
-  //     const store = this.getStore();
-  //     const queryOptions = {
-  //       where: `name eq '${name}'`,
-  //     };
-  //     store.query(null, queryOptions).then((data) => {
-  //       let picklist = null;
-  //       if (data && data[0] && data[0].items) {
-  //         picklist = data[0];
-  //         picklist.items = picklist.items.$resources;
-  //         this._picklists[picklist.name] = picklist;
-  //       }
-  //       resolve(picklist);
-  //     }, (response, o) => {
-  //       ErrorManager.addError(response, o, options, 'failure');
-  //       reject(response);
-  //     });
-  //   });
-  //   return promise;
-  // },
   getStore: function getStore() {
     if (!this._store) {
       const options = this.getStoreOptions();

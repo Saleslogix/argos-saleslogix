@@ -12,5 +12,12 @@ const __class = declare('crm.Models.History.Base', [_ModelBase], {
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.HISTORY,
   iconClass: 'bullet-list',
+
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Note Regarding',
+      property: 'Description',
+    }]);
+  },
 });
 export default __class;

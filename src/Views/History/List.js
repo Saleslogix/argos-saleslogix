@@ -8,6 +8,7 @@ import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
+import MODEL_NAMES from '../../Models/Names';
 
 
 const resource = getResource('historyList');
@@ -30,6 +31,7 @@ const dtFormatResource = getResource('historyListDateTimeFormat');
  * @requires moment
  */
 const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+  format,
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">',
@@ -41,7 +43,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     '</p>',
     '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>',
     '{% if($.Description) { %}',
-    '<p class="micro-text">{%: $$.regardingText + $.Description %}</p>',
+    '<p class="micro-text">{%= $$.regardingText + $$.formatPicklist("Description")($.Description) %}</p>',
     '{% } %}',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',
@@ -98,27 +100,9 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   security: null, // 'Entities/History/View',
   existsRE: /^[\w]{12}$/,
   insertView: 'history_edit',
-  queryOrderBy: 'CompletedDate desc',
-  querySelect: [
-    'AccountName',
-    'ContactName',
-    'LeadName',
-    'CompletedDate',
-    'Description',
-    'StartDate',
-    'TimeLess',
-    'Type',
-    'LeadId',
-    'OpportunityId',
-    'OpportunityName',
-    'AccountId',
-    'ContactId',
-    'TicketId',
-    'ModifyDate',
-    'Notes',
-
-  ],
-  queryWhere: 'Type ne "atDatabaseChange"',
+  queryOrderBy: null,
+  querySelect: [],
+  queryWhere: null,
   resourceKind: 'history',
   entityName: 'History',
   hashTagQueries: {
@@ -134,6 +118,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   activityTypeIcon: activityTypeIcons.default,
   allowSelection: true,
   enableActions: true,
+  modelName: MODEL_NAMES.HISTORY,
 
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
@@ -222,6 +207,9 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     }
 
     return format.date(startDate.toDate(), fmt);
+  },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;

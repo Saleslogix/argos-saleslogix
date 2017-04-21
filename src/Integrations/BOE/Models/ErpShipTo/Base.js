@@ -25,6 +25,12 @@ const __class = declare('crm.Integrations.BOE.Models.ErpShipTo.Base', [_ModelBas
   detailViewId: '',
   listViewId: 'erpShipto_list',
   editViewId: 'erpShipto_detail',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'SyncStatus',
+      property: 'SyncStatus',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [
     // TODO: Update when ManyToMany relationship is supported

@@ -25,6 +25,15 @@ const __class = declare('crm.Integrations.BOE.Models.Quote.Base', [_ModelBase], 
   detailViewId: 'quote_detail',
   listViewId: 'quote_list',
   editViewId: 'quote_edit',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'SyncStatus',
+      property: 'SyncStatus',
+    }, {
+      name: 'ErpQuoteStatus',
+      property: 'ErpStatus',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',

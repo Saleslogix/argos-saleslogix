@@ -5,9 +5,6 @@ import PickList from '../Views/PickList';
 import FieldManager from 'argos/FieldManager';
 const viewsByName = {};
 let viewsByNameCount = 0;
-//   getOrCreateViewFor,
-//   control,
-//   viewsByNameCount = 0;
 
 const getOrCreateViewFor = function getOrCreateViewFor(name) {
   if (viewsByName[name]) {
@@ -17,7 +14,6 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
   const view = new PickList({
     id: `pick_list_${viewsByNameCount++}`,
     expose: false,
-    // picklist: App.picklistService.getPicklistByName(name) || null,
     picklistName: name,
   });
 
@@ -30,6 +26,8 @@ const getOrCreateViewFor = function getOrCreateViewFor(name) {
 const control = declare('crm.Fields.PicklistField', [LookupField], {
   picklist: false,
   picklistName: false,
+  picklistOptions: null,
+  languageCode: null,
   storageMode: 'text',
   requireSelection: false,
   valueKeyProperty: false,
@@ -56,14 +54,14 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         this.keyProperty = 'text';
         this.textProperty = 'text';
     }
+    this.languageCode = App.getCurrentLocale();
   },
   isReadOnly: function isReadOnly() {
     return !this.picklist;
   },
   isCodePicklist: function isCodePicklist() {
-    // TODO: Ensure this functions as expected
-    const picklist = App.picklistService.getPicklistByName(this.picklistName);
-    return picklist.defaultLanguage;
+    const picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
+    return picklist && picklist.defaultLanguage;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
     return `name eq "${name}"`;
@@ -117,22 +115,32 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return results || value;
   },
   setValue: function setValue(val) { // eslint-disable-line
-    if (val && !this.picklistName) {
-      this.picklistName = this.picklist;
-      if (typeof this.picklistName === 'function') {
-        let dependent = this.getDependentValue();
-        if (typeof dependent === 'object') {
-          dependent = dependent.code;
+    if (this.singleSelect) {
+      if (val && !this.picklistName) {
+        this.picklistName = this.picklist;
+        if (typeof this.picklistName === 'function') {
+          let dependent = this.getDependentValue();
+          if (typeof dependent === 'object') {
+            dependent = dependent.code;
+          }
+          this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
+            ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
         }
-        this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
-          ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
       }
-    }
-    const picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
-    if (picklistItem) {
-      val = picklistItem;
-      this.keyProperty = 'code';
-      this.textProperty = 'text';
+      let picklistItem = false;
+      if (this.storageMode !== 'id') {
+        picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
+      } else {
+        // Special case of item being stored by $key...
+        picklistItem = this.app.picklistService.getPicklistItemByKey(this.picklistName, val);
+      }
+      if (picklistItem) {
+        val = picklistItem;
+        if (this.storageMode !== 'id' && this.storageMode !== 'text') {
+          this.keyProperty = 'code';
+        }
+        this.textProperty = 'text';
+      }
     }
     this.inherited(arguments);
   },
@@ -162,6 +170,17 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.previousSelections = !this.singleSelect ? this.createSelections() : null;
       options.keyProperty = this.keyProperty;
       options.textProperty = this.textProperty;
+      options.picklistOptions = (this.picklistOptions && this.picklistOptions((this.owner && this.owner.entry) || {})) || {};
+      // TODO: Need a function to generate the key
+      // if (options.picklistOptions
+      //     && options.picklistOptions.filterByLanguage !== true) {
+      //   this.languageCode = ' ';
+      // } else
+      if (this.picklistName !== 'Name Prefix' || this.picklistName !== 'Name Suffix') {
+        // Default to current locale IF not name prefix or suffix picklists (these are filtered text picklists)
+        this.languageCode = App.getCurrentLocale();
+      }
+      options.languageCode = this.languageCode;
     }
 
     if (!this.singleSelect) {
@@ -183,11 +202,6 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
 
     return options;
   },
-  updateSelectionProperties: function updateSelectionProperties() {
-    if (App.picklistService.getPicklistByName(this.picklistName)) {
-      this.keyProperty = 'code';
-    }
-  },
   navigateToListView: function navigateToListView() {
     if (this.isDisabled()) {
       return;
@@ -197,7 +211,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     if (this.isCodePicklist()) {
       this.keyProperty = 'code';
     }
-    const view = App.getView(this.view) || getOrCreateViewFor(this.picklistName);
+    const view = App.getView(this.view) || getOrCreateViewFor(this.picklistName, this.languageCode);
 
     if (view && options) {
       view.refreshRequired = true;

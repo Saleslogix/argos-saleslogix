@@ -2,6 +2,8 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
+import format from 'crm/Format';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityContactList');
 
@@ -16,7 +18,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
     '<p class="listview-heading {% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</p>',
     '<p class="micro-text {% if ($.IsPrimary) { %} primary {% } %}">',
     '{% if ($.SalesRole) { %}',
-    '{%: $.SalesRole %} | ',
+    '{%: $$.formatPicklist("SalesRole")($.SalesRole) %} | ',
     '{% } %}',
     '{%: $.Contact.Title %}</p>',
   ]),
@@ -34,16 +36,10 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   selectView: 'contact_related',
   insertView: 'opportunitycontact_edit',
   security: 'Entities/Contact/View',
-  queryOrderBy: 'Contact.NameLF',
+  queryOrderBy: null,
   expose: false,
-  querySelect: [
-    'Contact/Account/AccountName',
-    'Contact/AccountName',
-    'SalesRole',
-    'IsPrimary',
-    'Contact/NameLF',
-    'Contact/Title',
-  ],
+  querySelect: [],
+  modelName: MODEL_NAMES.OPPORTUNITYCONTACT,
   resourceKind: 'opportunityContacts',
 
   complete: function complete() {
@@ -136,6 +132,9 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
         security: App.getViewSecurity(this.insertView, 'insert'),
       }],
     });
+  },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());

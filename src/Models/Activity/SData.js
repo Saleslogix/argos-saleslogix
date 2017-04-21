@@ -7,9 +7,11 @@ import ErrorManager from 'argos/ErrorManager';
 import Manager from 'argos/Models/Manager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
+import { getPicklistByActivityType } from './ActivityTypePicklists';
 
 const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
   id: 'activity_sdata_model',
+
   createQueryModels: function createQueryModels() {
     return [{
       name: 'list',
@@ -154,8 +156,13 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
         this.resourceKind,
         this.contractName,
         options);
+      const picklists$ = Promise.all([
+        App.picklistService.requestPicklist(getPicklistByActivityType(entry.Type, 'Category')),
+        App.picklistService.requestPicklist(getPicklistByActivityType(entry.Type, 'Description')),
+        App.picklistService.requestPicklist('Priorities'),
+      ]);
 
-      return all([leader$, recurrence$])
+      return all([leader$, recurrence$, picklists$])
         .then(([leader, recurrence]) => {
           entry.Leader = leader;
           entry.recurrence = recurrence;

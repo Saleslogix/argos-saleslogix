@@ -1,11 +1,13 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import action from 'crm/Action';
+import format from 'argos/Format';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('contactList');
 
@@ -26,6 +28,7 @@ const resource = getResource('contactList');
  *
  */
 const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
+  format,
   // Template
   // Card Layout
   itemIconClass: 'user',
@@ -35,12 +38,12 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
     '<p class="micro-text">{%: $.WebAddress %}</p>',
     '{% if ($.WorkPhone) { %}',
     '<p class="micro-text">',
-    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', // TODO: Avoid global
+    '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: $$.format.phone($.WorkPhone) %}</span>', // TODO: Avoid global
     '</p>',
     '{% } %}',
     '{% if ($.Mobile) { %}',
     '<p class="micro-text">',
-    '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', // TODO: Avoid global
+    '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: $$.format.phone($.Mobile) %}</span>', // TODO: Avoid global
     '</p>',
     '{% } %}',
     '{% if ($.Email) { %}',
@@ -73,20 +76,11 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   id: 'contact_list',
   security: 'Entities/Contact/View',
   insertView: 'contact_edit',
-  queryOrderBy: 'LastNameUpper,FirstName',
-  querySelect: [
-    'AccountName',
-    'Account/AccountName',
-    'NameLF',
-    'WorkPhone',
-    'Mobile',
-    'Email',
-    'Title',
-    'LastHistoryDate',
-    'ModifyDate',
-  ],
+  queryOrderBy: null,
+  querySelect: [],
   resourceKind: 'contacts',
   entityName: 'Contact',
+  modelName: MODEL_NAMES.CONTACT,
   groupsEnabled: true,
   enableActions: true,
   callWork: function callWork(params) {

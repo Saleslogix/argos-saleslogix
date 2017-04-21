@@ -17,6 +17,18 @@ const __class = declare('crm.Models.Opportunity.Base', [_ModelBase], {
   modelName: MODEL_NAMES.OPPORTUNITY,
   security: 'Entities/Opportunity/View',
 
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Opportunity Type',
+      property: 'Type',
+    }, {
+      name: 'Opportunity Status',
+      property: 'Status',
+    }, {
+      name: 'Opportunity Probability',
+      property: 'CloseProbability',
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Account',
