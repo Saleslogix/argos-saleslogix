@@ -1518,3 +1518,13 @@
   personalHash: "#personal"
   emailHash: "#email"
 >
+
+<opportunityContactModel ""
+  entityDisplayName: "Opportunity Contact"
+  entityDisplayNamePlural: "Opportunity Contacts"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "Ticket Activity"
+  entityDisplayNamePlural: "Ticket Activities"
+>

@@ -29,6 +29,7 @@ const resource = getResource('application');
 export default class Application extends SDKApplication {
   constructor(options = {
     connections: null,
+    defaultLocale: 'en',
     enableUpdateNotification: false,
     enableMultiCurrency: false,
     enableGroups: true,
@@ -341,6 +342,9 @@ export default class Application extends SDKApplication {
     }
 
     return results;
+  }
+  getCurrentLocale() {
+    return this.context.localization && this.context.localization.locale || this.defaultLocale;
   }
   run() {
     super.run(...arguments);

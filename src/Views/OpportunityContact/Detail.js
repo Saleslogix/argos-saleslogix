@@ -3,8 +3,10 @@ import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
-import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
+// import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
+import format from 'crm/Format';
+import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityContactDetail');
 
@@ -14,7 +16,7 @@ const resource = getResource('opportunityContactDetail');
  * @extends argos.Detail
  * @mixins argos._LegacySDataDetailMixin
  */
-const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
+const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _LegacySDataDetailMixin */], {
   // Localization
   titleText: resource.titleText,
   accountText: resource.accountText,
@@ -36,21 +38,9 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
   id: 'opportunitycontact_detail',
   editView: 'opportunitycontact_edit',
   security: 'Entities/Contact/View',
-  querySelect: [
-    'Opportunity/Description',
-    'Contact/Account/AccountName',
-    'Contact/AccountName',
-    'SalesRole',
-    'Contact/NameLF',
-    'Contact/Title',
-    'IsPrimary',
-    'Competitors/CompetitorName',
-    'Issues',
-    'PersonalBenefits',
-    'Standing',
-    'Strategy',
-  ],
+  querySelect: [],
   resourceKind: 'opportunityContacts',
+  modelName: MODEL_NAMES.OPPORTUNITYCONTACT,
 
   createEntryForDelete: function createEntryForDelete() {
     const entry = {
@@ -82,6 +72,9 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
       resourceKind: this.resourceKind,
     }]);
     ReUI.back();
+  },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
@@ -128,10 +121,12 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacyS
         name: 'SalesRole',
         property: 'SalesRole',
         label: this.salesRoleText,
+        renderer: this.formatPicklist('SalesRole'),
       }, {
         name: 'Standing',
         property: 'Standing',
         label: this.standingText,
+        renderer: this.formatPicklist('Standing'),
       }, {
         name: 'PersonalBenefits',
         property: 'PersonalBenefits',

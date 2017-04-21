@@ -205,6 +205,9 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
     App.modal.showToolbar = false;
     App.modal.add(this._busyIndicator);
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.actionsText,
@@ -328,24 +331,12 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         name: 'SyncStatus',
         property: 'SyncStatus',
         label: this.syncStatusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('SyncStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
-        },
+        renderer: this.formatPicklist('SyncStatus'),
       }, {
         name: 'ERPStatus',
         property: 'ERPSalesOrder.ERPStatus',
         label: this.erpStatusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('ErpSalesOrderStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
-        },
+        renderer: this.formatPicklist('ERPSalesOrder.ERPStatus'),
       }, {
         name: 'ErpStatusDate',
         property: 'ErpStatusDate',

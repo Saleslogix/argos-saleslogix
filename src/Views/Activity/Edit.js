@@ -10,6 +10,7 @@ import recur from '../../Recurrence';
 import format from 'argos/Format';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
+import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePicklists';
 
 
 const resource = getResource('activityEdit');
@@ -101,6 +102,9 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   detailView: 'activity_detail',
   fieldsForLeads: ['AccountName', 'Lead'],
   fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
+  /**
+   * @deprecated Use ActivityTypePicklists from Modes/Activity/ActivityTypePicklists instead
+   */
   picklistsByType: {
     atAppointment: {
       Category: 'Meeting Category Codes',
@@ -546,7 +550,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   },
 
   formatPicklistForType: function formatPicklistForType(type, which) {
-    return this.picklistsByType[type] && this.picklistsByType[type][which];
+    return getPicklistByActivityType(type, which);
   },
   formatRecurrence: function formatRecurrence(recurrence) {
     if (typeof recurrence === 'string') {

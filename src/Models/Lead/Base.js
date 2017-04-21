@@ -17,6 +17,32 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
   iconClass: 'filter',
   security: 'Entities/Lead/View',
   modelName: MODEL_NAMES.LEAD,
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Title',
+      property: 'Title',
+      // TODO: Add once Title is a code picklist
+      // options: {
+      //   filterByLanguage: false,
+      //   language: ' ',
+      // },
+    }, {
+      name: 'Industry',
+      property: 'Industry',
+    }, {
+      name: 'Name Prefix',
+      options: {
+        filterByLanguage: false,
+        language: ' ',
+      },
+    }, {
+      name: 'Name Suffix',
+      options: {
+        filterByLanguage: false,
+        language: ' ',
+      },
+    }]);
+  },
   createRelationships: function createRelationships() {
     const rel = this.relationships || (this.relationships = [{
       name: 'Addresses',

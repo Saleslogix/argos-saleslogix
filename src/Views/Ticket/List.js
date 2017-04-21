@@ -6,6 +6,8 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
+import MODEL_NAMES from '../../Models/Names';
+import format from 'crm/Format';
 
 const resource = getResource('ticketList');
 
@@ -21,6 +23,7 @@ const resource = getResource('ticketList');
  * @requires crm.Format
  */
 const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
+  format,
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.TicketNumber %}</p>',
@@ -39,13 +42,13 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
     '<p class="micro-text">{%: $$._areaCategoryIssueText($) %}</p>',
     '{% } %}',
     '{% if($.CreateDate) { %}',
-    '<p class="micro-text">{%: $$.createdOnText %}  {%: crm.Format.relativeDate($.CreateDate) %}</p>',
+    '<p class="micro-text">{%: $$.createdOnText %}  {%: $$.format.relativeDate($.CreateDate) %}</p>',
     '{% } %}',
     '{% if($.ModifyDate) { %}',
-    '<p class="micro-text">{%: $$.modifiedText %}  {%: crm.Format.relativeDate($.ModifyDate) %}</p>',
+    '<p class="micro-text">{%: $$.modifiedText %}  {%: $$.format.relativeDate($.ModifyDate) %}</p>',
     '{% } %}',
     '{% if($.NeededByDate) { %}',
-    '<p class="micro-text">{%: $$.neededByText %}  {%: crm.Format.relativeDate($.NeededByDate) %}</p>',
+    '<p class="micro-text">{%: $$.neededByText %}  {%: $$.format.relativeDate($.NeededByDate) %}</p>',
     '{% } %}',
   ]),
 
@@ -79,26 +82,9 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   id: 'ticket_list',
   security: 'Entities/Ticket/View',
   insertView: 'ticket_edit',
-  queryOrderBy: 'TicketNumber',
-  querySelect: [
-    'Account/AccountName',
-    'Account/MainPhone',
-    'Area',
-    'Category',
-    'Issue',
-    'AssignedTo/OwnerDescription',
-    'Contact/NameLF',
-    'Contact/WorkPhone',
-    'ReceivedDate',
-    'StatusCode',
-    'Subject',
-    'TicketNumber',
-    'UrgencyCode',
-    'Urgency/Description',
-    'ModifyDate',
-    'CreateDate',
-    'NeededByDate',
-  ],
+  queryOrderBy: null,
+  querySelect: [],
+  modelName: MODEL_NAMES.TICKET,
   resourceKind: 'tickets',
   entityName: 'Ticket',
   groupsEnabled: true,

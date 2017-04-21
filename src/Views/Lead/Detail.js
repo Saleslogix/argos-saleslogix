@@ -133,6 +133,9 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
       });
     }
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       list: true,
@@ -192,6 +195,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         label: this.leadTitleText,
         name: 'Title',
         property: 'Title',
+        renderer: this.formatPicklist('Title'),
       }],
     }, {
       title: this.moreDetailsText,
@@ -229,6 +233,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         label: this.industryText,
         name: 'Industry',
         property: 'Industry',
+        renderer: this.formatPicklist('Industry'),
       }, {
         label: this.sicCodeText,
         name: 'SICCode',

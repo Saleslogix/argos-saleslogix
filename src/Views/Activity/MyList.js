@@ -6,6 +6,7 @@ import ActivityList from './List';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
 import action from '../../Action';
+import format from '../../Format';
 import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
@@ -37,7 +38,7 @@ const hashTagResource = getResource('activityMyListHashTags');
  *
  */
 const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOfflineMixin], {
-
+  format,
   // Templates
   // Card View
   rowTemplate: new Simplate([
@@ -63,12 +64,12 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     '{% if ($$.isTimelessToday($)) { %}',
     '{%: $$.allDayText %}',
     '{% } else { %}',
-    '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', // TODO: Avoid global
+    '{%: $$.format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', // TODO: Avoid global
     '{% } %}',
   ]),
   itemTemplate: new Simplate([
     '<p class="listview-heading">',
-    '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: crm.Format.userActivityStatus($.Status) %}) {% } %}</span>',
+    '<span class="p-description">{%: $$.format.picklist($$.app.picklistService, null, null, $$.getPicklistByActivityType($.Activity.Type, "Description"))($.Activity.Description) %}{% if ($.Status === "asUnconfirmed") { %} ({%: $$.format.userActivityStatus($.Status) %}) {% } %}</span>',
     '</p>',
     '<p class="micro-text">',
     '{%! $$.activityTimeTemplate %}',
@@ -105,7 +106,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   // View Properties
   id: 'myactivity_list',
   entityName: 'UserActivity',
-  modelName: 'UserActivity',
+  modelName: MODEL_NAMES.USERACTIVITY,
   enableOffline: true,
   historyEditView: 'history_edit',
   existsRE: /^[\w]{12}$/,

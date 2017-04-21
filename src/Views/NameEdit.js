@@ -34,7 +34,20 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
       name: 'Prefix',
       property: 'Prefix',
       picklist: 'Name Prefix',
+      picklistOptions: (entry) => {
+        // Checks if entry is a Contact
+        if (entry.hasOwnProperty('NameLF')) {
+          return {
+            filterByLanguage: true,
+          };
+        }
+        return {
+          filterByLanguage: false,
+          language: ' ',
+        };
+      },
       requireSelection: true,
+      storageMode: 'text',
       title: this.prefixTitleText,
       type: 'picklist',
     }, {
@@ -64,7 +77,20 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
       name: 'Suffix',
       property: 'Suffix',
       picklist: 'Name Suffix',
+      picklistOptions: (entry) => {
+        // Checks if entry is a Contact
+        if (entry.hasOwnProperty('NameLF')) {
+          return {
+            filterByLanguage: true,
+          };
+        }
+        return {
+          filterByLanguage: false,
+          language: ' ',
+        };
+      },
       requireSelection: true,
+      storageMode: 'text',
       title: this.suffixTitleText,
       type: 'picklist',
     }]);

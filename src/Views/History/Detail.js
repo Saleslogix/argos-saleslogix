@@ -82,6 +82,9 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   provideText: function provideText(entry) {
     return entry && (entry.LongNotes || entry.Notes);
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       title: this.notesText,
@@ -119,6 +122,7 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
         name: 'Description',
         property: 'Description',
         label: this.regardingText,
+        renderer: this.formatPicklist('Description'),
       }, {
         name: 'CompletedUser',
         property: 'CompletedUser.UserInfo',

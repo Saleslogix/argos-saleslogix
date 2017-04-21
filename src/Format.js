@@ -61,30 +61,39 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
   phoneFormat: f.phoneFormat,
   phone: f.phone,
-  picklist: (service, model, property, picklistName) => {
+  picklist: (
+    service, // Picklist service reference
+    model, // Reference to the entity's model for call getPicklistNameByProperty
+    property, // Property to reference for fetching the picklist off the model
+    picklistName, // Picklist name used (can use this instead of model-property)
+    languageCode = App.getCurrentLocale(), // Override for languageCode to fetch
+    picklistOptions = { // Override for picklistOptions on storage and display modes
+      storage: f.PicklistStorageType.CODE,
+      display: f.PicklistDataDisplayType.TEXT,
+    }
+  ) => {
     let name = picklistName;
     if (!name) {
       if (!service || !model || !property) {
-        return;
+        return val => val;
       }
       name = model.getPicklistNameByProperty(property);
     }
-    const picklist = service.getPicklistByName(name);
-    // TODO: Update to picklist service enums
-    picklist.storage = 0;
-    picklist.display = 2;
+    const picklist = service.getPicklistByName(name, languageCode);
 
     return (val) => {
-      return f.picklist(val, picklist);
+      return f.picklist(val, Object.assign({}, picklistOptions, picklist));
     };
   },
+  PicklistDataDisplayType: f.PicklistDataDisplayType,
+  PicklistStorageType: f.PicklistStorageType,
   currency: function currency(_val) {
     return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
   },
   bigNumberAbbrText: f.bigNumberAbbrText,
   bigNumber: function bigNumber(val) {
-    const locale = App.context.localization.locale;
+    const locale = App.getCurrentLocale();
     return f.bigNumber(val, locale);
   },
   relativeDate: function relativeDate(date, timeless) {

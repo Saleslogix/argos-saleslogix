@@ -187,7 +187,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       owner: this,
       view,
       singleSelect: false,
-      previousSelections: this.groupList.map((group) => {
+      previousSelections: this.groupList && this.groupList.map((group) => {
         return group.$key;
       }),
     });

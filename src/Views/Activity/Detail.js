@@ -4,14 +4,15 @@ import string from 'dojo/string';
 import platformUtility from 'argos/Utility';
 import convert from 'argos/Convert';
 import Detail from 'argos/Detail';
+import getResource from 'argos/I18n';
+import Deferred from 'dojo/Deferred';
 import template from '../../Template';
 import format from '../../Format';
 import environment from '../../Environment';
 import recur from '../../Recurrence';
 import utility from '../../Utility';
 import MODEL_NAMES from '../../Models/Names';
-import getResource from 'argos/I18n';
-import Deferred from 'dojo/Deferred';
+import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePicklists';
 
 const resource = getResource('activityDetail');
 const dtFormatResource = getResource('activityDetailDateTimeFormat');
@@ -234,6 +235,9 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   checkCanComplete: function checkCanComplete(entry) {
     return !(entry && (entry.AllowComplete));
   },
+  formatPicklist: function formatPicklist(property) {
+    return format.picklist(this.app.picklistService, this._model, property);
+  },
   formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
     let toReturn;
     if (property === 'activityId') {
@@ -283,6 +287,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         name: 'Description',
         property: 'Description',
         label: this.regardingText,
+        renderer: format.picklist(this.app.picklistService, null, null, getPicklistByActivityType(this.entry.Type, 'Description')),
       }, {
         name: 'LongNotes',
         property: 'LongNotes',
@@ -314,6 +319,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         name: 'Category',
         property: 'Category',
         label: this.categoryText,
+        renderer: format.picklist(this.app.picklistService, null, null, getPicklistByActivityType(this.entry.Type, 'Category')),
       }, {
         name: 'Location',
         property: 'Location',
@@ -322,6 +328,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         name: 'Priority',
         property: 'Priority',
         label: this.priorityText,
+        renderer: this.formatPicklist('Priority'),
       }, {
         name: 'Leader',
         property: 'Leader.UserInfo',

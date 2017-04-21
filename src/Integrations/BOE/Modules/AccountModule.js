@@ -1,6 +1,7 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Module from './_Module';
+import AccountDetailView from 'crm/Views/Account/Detail';
 import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import BillToList from '../Views/ERPBillTos/List';
 import ERPContactAssociationsList from '../Views/ERPContactAssociations/List';
@@ -389,6 +390,24 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       where: 'after',
       value: 'ErpBillToAccounts/*',
     });
+    am.registerCustomization('models/picklists', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: {
+        name: 'ErpAccountStatus',
+        property: 'ErpStatus',
+      },
+    });
+    am.registerCustomization('models/picklists', 'account_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: {
+        name: 'SyncStatus',
+        property: 'SyncStatus',
+      },
+    });
 
     am.registerCustomization('models/relationships', 'account_offline_model', {
       at: (relationship) => { return relationship.name === 'Tickets'; },
@@ -770,12 +789,8 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
         name: 'ErpStatus',
         property: 'ErpStatus',
         label: this.erpStatusText,
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('ErpAccountStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
+        renderer: function renderer(val) {
+          return AccountDetailView.prototype.formatPicklist.call(this, 'ErpAccountStatus')(val);
         },
       }, {
         name: 'ErpStatusDate',
@@ -787,12 +802,8 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       }, {
         label: this.syncStatusText,
         property: 'SyncStatus',
-        renderer: (value) => {
-          const text = App.picklistService.getPicklistItemTextByCode('SyncStatus', value);
-          if (text) {
-            return text;
-          }
-          return value;
+        renderer: function renderer(val) {
+          return AccountDetailView.prototype.formatPicklist.call(this, 'SyncStatus')(val);
         },
       }, {
         label: this.erpCustomerText,
