@@ -60,7 +60,7 @@ const __class = declare('crm.Views.Settings', [List], {
   enablePullToRefresh: false,
   selectionOnly: true,
   allowSelection: true, // adds list-show-selectors class to listview for displaying icons
-  actions: null,
+  actionItems: null,
   actionOrder: [
     'clearAuthentication',
     'clearLocalStorage',
@@ -69,8 +69,8 @@ const __class = declare('crm.Views.Settings', [List], {
     'use24HourClock',
     'viewLanguageOptions',
   ],
-  createActions: function createActions() {
-    this.actions = {
+  createActionsList: function createActionsList() {
+    this.actionItems = {
       clearLocalStorage: {
         title: this.clearLocalStorageTitleText,
         cls: 'technology',
@@ -160,7 +160,7 @@ const __class = declare('crm.Views.Settings', [List], {
     const list = [];
 
     for (let i = 0; i < this.actionOrder.length; i++) {
-      const action = this.actions[this.actionOrder[i]];
+      const action = this.actionItems[this.actionOrder[i]];
       if (action) {
         list.push({
           action: this.actionOrder[i],
@@ -176,7 +176,7 @@ const __class = declare('crm.Views.Settings', [List], {
   },
   init: function init() {
     this.inherited(arguments);
-    this.createActions();
+    this.createActionsList();
   },
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
