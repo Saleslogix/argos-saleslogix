@@ -40,7 +40,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     const metricList = $(this.metricTemplate.apply(this)).get(0);
     this.metricNode = $(this.metricWrapper.apply(this)).get(0);
     $(metricList).append(this.metricNode);
-    $(this.domNode).prepend(metricList);
+    $(this.scrollerNode).prepend(metricList);
   },
   destroyWidgets: function destroyWidgets() {
     if (this.metricWidgets) {
