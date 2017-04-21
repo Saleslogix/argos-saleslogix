@@ -106,23 +106,19 @@ const __class = lang.setObject('crm.PicklistService', {
     });
     return promise;
   },
-  onPicklistSuccess(resolve, languageCode, isQuery) {
+  onPicklistSuccess(resolve, languageCode) {
     return (result) => {
       let picklist = null;
       if (result && result.items) {
         picklist = result;
         picklist.items = picklist.items.$resources.map(item => Object.assign({}, item, { id: item.$key }));
-        if (!isQuery) {
-          if (languageCode) {
-            this._picklists[`${picklist.name}_${languageCode}`] = picklist;
-          } else {
-            this._picklists[picklist.name] = picklist;
-          }
+        if (languageCode) {
+          this._picklists[`${picklist.name}_${languageCode}`] = picklist;
+        } else {
+          this._picklists[picklist.name] = picklist;
         }
       }
-      if (!isQuery) {
-        this.removeRequest(picklist.name);
-      }
+      this.removeRequest(picklist.name);
       resolve(picklist);
     };
   },
@@ -143,16 +139,11 @@ const __class = lang.setObject('crm.PicklistService', {
       storageMode: 'code',
     }, queryOptions);
     const language = this.determineLanguage(pickListServiceOptions, queryOptions);
-    let useCache = typeof queryOptions.useCache === 'boolean' ? queryOptions.useCache : true;
-    let isQuery = false;
+    const useCache = typeof queryOptions.useCache === 'boolean' ? queryOptions.useCache : true;
 
-    if (queryOptions.filterByLanguage) {
-      useCache = false;
-    }
-    if (queryOptions.where) {
-      isQuery = true;
-      useCache = false;
-    }
+    // if (queryOptions.filterByLanguage) {
+    //   useCache = false;
+    // }
 
     return new Promise((resolve, reject) => {
       this.addRequest(name);
@@ -161,15 +152,12 @@ const __class = lang.setObject('crm.PicklistService', {
         handlers,
       } = this.service.getFirstByName(
         name,
-        this.onPicklistSuccess(resolve, language, isQuery),
+        this.onPicklistSuccess(resolve, language),
         this.onPicklistError(reject, name),
         { pickListServiceOptions, language, useCache }
       );
 
       if (options) {
-        if (queryOptions.where) {
-          options.where += ` and ${queryOptions.where}`;
-        }
         const request = this.service.setUpRequest(
           new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
             .setContractName(this.contractName),

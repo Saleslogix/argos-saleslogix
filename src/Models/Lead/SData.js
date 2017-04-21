@@ -60,13 +60,10 @@ const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
     return results$.then((entry) => {
       return new Promise((resolve) => {
         Promise.all([App.picklistService.requestPicklist('Name Prefix', {
-          filterByLanguage: false,
           language: ' ',
         }), App.picklistService.requestPicklist('Name Suffix', {
-          filterByLanguage: false,
           language: ' ',
         }), App.picklistService.requestPicklist('Title', {
-          filterByLanguage: false,
           language: ' ',
         })]).then(() => {
           resolve(entry);

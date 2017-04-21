@@ -22,9 +22,10 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
     return this.picklists || (this.picklists = [{
       name: 'Title',
       property: 'Title',
-      options: {
-        filterByLanguage: true,
-      },
+      // TODO: Add once Title is a code picklist
+      // options: {
+      //   filterByLanguage: true,
+      // },
     }, {
       name: 'Name Prefix',
       options: {

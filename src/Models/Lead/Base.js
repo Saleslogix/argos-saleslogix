@@ -21,6 +21,11 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
     return this.picklists || (this.picklists = [{
       name: 'Title',
       property: 'Title',
+      // TODO: Add once Title is a code picklist
+      // options: {
+      //   filterByLanguage: false,
+      //   language: ' ',
+      // },
     }, {
       name: 'Industry',
       property: 'Industry',
@@ -28,11 +33,13 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
       name: 'Name Prefix',
       options: {
         filterByLanguage: false,
+        language: ' ',
       },
     }, {
       name: 'Name Suffix',
       options: {
         filterByLanguage: false,
+        language: ' ',
       },
     }]);
   },
