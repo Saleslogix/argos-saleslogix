@@ -26,8 +26,14 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
       property: 'Industry',
     }, {
       name: 'Name Prefix',
+      options: {
+        filterByLanguage: false,
+      },
     }, {
       name: 'Name Suffix',
+      options: {
+        filterByLanguage: false,
+      },
     }]);
   },
   createRelationships: function createRelationships() {

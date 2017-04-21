@@ -85,6 +85,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
       return f.picklist(val, Object.assign({}, picklistOptions, picklist));
     };
   },
+  PicklistDataDisplayType: f.PicklistDataDisplayType,
+  PicklistStorageType: f.PicklistStorageType,
   currency: function currency(_val) {
     return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);

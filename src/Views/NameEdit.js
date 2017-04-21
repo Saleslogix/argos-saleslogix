@@ -41,7 +41,10 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
             filterByLanguage: true,
           };
         }
-        return {};
+        return {
+          filterByLanguage: false,
+          language: ' ',
+        };
       },
       requireSelection: true,
       storageMode: 'text',
@@ -81,7 +84,10 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
             filterByLanguage: true,
           };
         }
-        return {};
+        return {
+          filterByLanguage: false,
+          language: ' ',
+        };
       },
       requireSelection: true,
       storageMode: 'text',

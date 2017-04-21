@@ -25,12 +25,28 @@ const __class = declare('crm.Views.PickList', [List], {
   languageCode: null,
   autoClearSelection: false,
   isCardView: false,
+
+  _onQueryComplete: function _onQueryComplete(queryResults, entries) { // eslint-disable-line
+    if (this.options
+          && this.options.picklistOptions
+            && this.options.picklistOptions.filterByLanguage) {
+      entries = entries.filter(entry => entry.languageCode === this.getLanguageCode());
+    }
+    this.inherited(arguments);
+  },
   activateEntry: function activateEntry(params) {
     if (this.options.keyProperty === 'text' && !this.options.singleSelect) {
       params.key = params.descriptor;
     }
 
     this.inherited(arguments);
+  },
+  getLanguageCode: function getLanguageCode() {
+    return (this.options && this.options.languageCode)
+      || this.languageCode || App.getCurrentLocale();
+  },
+  getPicklistOptions: function getPicklistOptions() {
+    return (this.options && this.options.picklistOptions) || this.picklistOptions || {};
   },
   show: function show(options) {
     this.set('title', options && options.title || this.title);
@@ -47,13 +63,22 @@ const __class = declare('crm.Views.PickList', [List], {
     this.inherited(arguments);
   },
   requestData: function requestData() {
-    const picklistOptions = (this.options && this.options.picklistOptions) || this.picklistOptions;
-    const languageCode = (this.options && this.options.languageCode)
-      || this.languageCode || App.getCurrentLocale();
-    const picklist = this.app.picklistService.getPicklistByName(this.picklistName, languageCode);
-    if (picklist) {
-      return this._onQueryComplete({ total: picklist.items.length }, picklist.items);
+    const picklistOptions = this.getPicklistOptions();
+    picklistOptions.language = picklistOptions.language || this.getLanguageCode();
+
+    // Search, query like normal (with filtering from queryComplete)
+    if (this.query) {
+      return this.inherited(arguments);
     }
+
+    // If there aren't any options passed, attempt to use cache
+    // if (!picklistOptions) {
+    //   const picklist = this.app.picklistService.getPicklistByName(this.picklistName, languageCode);
+    //   if (picklist) {
+    //     return this._onQueryComplete({ total: picklist.items.length }, picklist.items);
+    //   }
+    // }
+
     return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions)
       .then(result => this._onQueryComplete({ total: result && result.items.length }, result && result.items),
         err => this._onQueryError(null, err));
