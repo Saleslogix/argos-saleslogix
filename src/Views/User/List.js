@@ -22,6 +22,7 @@ const __class = declare('crm.Views.User.List', [List], {
 
   // View Properties
   id: 'user_list',
+  isCardView: false,
   queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
 
   // Excluded types for the queryWhere

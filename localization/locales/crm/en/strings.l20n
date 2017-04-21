@@ -1063,9 +1063,8 @@
   titleText: "Users"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "Contact"
-  allRecordsText: "no search applied"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""

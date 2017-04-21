@@ -189,7 +189,6 @@
   }, {
     "name": "Mixins",
     "classes": [
-      "crm.Views._CardLayoutListMixin",
       "crm.Views._MetricDetailMixin",
       "crm.Views._MetricListMixin",
       "crm.Views._RightDrawerBaseMixin",

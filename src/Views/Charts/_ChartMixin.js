@@ -2,6 +2,10 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import has from 'dojo/has';
+import string from 'dojo/string';
+import getResource from 'argos/I18n';
+
+const resource = getResource('chartMixin');
 
 /**
  * @class crm.Views.Charts._ChartMixin
@@ -14,6 +18,7 @@ import has from 'dojo/has';
 const __class = declare('crm.Views.Charts._ChartMixin', null, {
   _handle: null,
   _feedData: null,
+  searchText: resource.searchText,
 
   /**
    * @property {Number} RENDER_DELAY
@@ -68,6 +73,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', null, {
     $(this.contentNode)
       .width(width)
       .height(height);
+    this.showSearchExpression();
   },
   destroyChart: function destroyChart() {
     if (this.chart) {
@@ -80,12 +86,21 @@ const __class = declare('crm.Views.Charts._ChartMixin', null, {
   },
 
   getSearchExpression: function getSearchExpression() {
-    return this.options && this.options.currentSearchExpression;
+    const searchExpression = this.options && this.options.currentSearchExpression;
+
+    if (searchExpression) {
+      return string.substitute(this.searchText, {
+        title: this.title,
+        searchTerm: searchExpression,
+      });
+    }
+
+    return this.title;
   },
 
   showSearchExpression: function showSearchExpression() {
     const app = this.app || window.App;
-    app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
+    app.setPrimaryTitle(this.getSearchExpression());
   },
 
   refresh: function refresh() {
