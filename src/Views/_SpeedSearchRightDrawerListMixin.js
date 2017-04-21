@@ -19,9 +19,13 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   indexSectionText: resource.indexSectionText,
 
   _hasChangedIndexPrefs: false, // Dirty flag so we know when to reload the widgets
+  hasSettings: true,
 
   onShow: function onShow() {
     this.setDefaultIndexPreferences();
+  },
+  openSettings: function openSettings() {
+    App.viewSettingsModal.open();
   },
   setDefaultIndexPreferences: function setDefaultIndexPreferences() {
     if (!App.preferences.speedSeacrchIndexes) {
