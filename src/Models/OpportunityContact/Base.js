@@ -18,8 +18,8 @@ const __class = declare('crm.Models.OpportunityContact.Base', [_ModelBase], {
 
   createPicklists: function createPicklists() {
     return this.picklists || (this.picklists = [{
-      name: 'SalesRole',
-      property: 'Role',
+      name: 'Role',
+      property: 'SalesRole',
     }, {
       name: 'Standing',
       property: 'Standing',
