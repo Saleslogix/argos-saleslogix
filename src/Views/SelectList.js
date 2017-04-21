@@ -20,7 +20,7 @@ const __class = declare('crm.Views.SelectList', [List], {
   id: 'select_list',
   expose: false,
   enablePullToRefresh: false,
-
+  isCardView: false,
   refreshRequiredFor: function refreshRequiredFor(options) {
     if (this.options) {
       return options ? (this.options.data !== options.data) : false;

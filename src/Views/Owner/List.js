@@ -21,6 +21,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
 
   // View Properties
   id: 'owner_list',
+  isCardView: false,
   security: 'Entities/Owner/View',
   queryOrderBy: 'OwnerDescription',
   querySelect: [

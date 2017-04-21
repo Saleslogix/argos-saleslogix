@@ -1,4 +1,4 @@
-﻿<%@ Page AutoEventWireup="true" Language="c#" Culture="auto" UICulture="auto" %>
+<%@ Page AutoEventWireup="true" Language="c#" Culture="auto" UICulture="auto" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="System.Globalization" %>
@@ -6,17 +6,13 @@
 <%@ Import Namespace="System.Text.RegularExpressions" %>
 <%@ Import Namespace="System.Web.Script.Serialization" %>
 <!DOCTYPE html>
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="gtie9 modern" manifest="index.manifest.ashx">
-<!--<![endif]-->
+<html lang="en-US" class="gtie9 modern" manifest="index.manifest.ashx">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
 
     <title>Infor CRM</title>
 
@@ -76,6 +72,7 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
+    <link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="content/css/light-theme.min.css" />
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
@@ -83,7 +80,23 @@
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
     <!-- Dojo -->
-    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+     <!-- Dojo -->
+  <script pin="pin" type="text/javascript">
+        var language, regionLocale;
+        if (window.localStorage) {
+          language = window.localStorage.getItem('language');
+          regionLocale = window.localStorage.getItem('region');
+        }
+        var dojoConfig = {
+            parseOnLoad:false,
+            async:true,
+            blankGif:'content/images/blank.gif',
+            locale: language ||  'en',
+            extraLocale: [regionLocale || 'en-us']
+        };
+    </script>
+    <script type="text/javascript" src="content/dojo/dojo/dojo.js"></script>
+
     <script type="text/javascript">
     require({
         baseUrl: "./",
@@ -110,19 +123,44 @@
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
 
     <!-- Modules -->
-    <!--{{modules}}-->
+</head>
+<body>
+  <div id="rootNode"></div>
 
-    <script type="text/javascript">
-    (function() {
-      require(['crm/Bootstrap'], function(bootstrap) {
-        bootstrap({
-          supportedLocales: <%= Serialize(
+  <script type="text/javascript">
+
+  // set path for soho cultures
+  window.Locale.culturesPath = 'content/javascript/cultures/';
+
+    // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
+  var supportedLocales = <%= Serialize(
                 Enumerate(@"localization\locales\crm", (file) => true)
                     .Select(item => item.Directory.Name).Distinct()
             ) %>,
-          defaultLocale: 'en',
-          currentLocale: '<%= CurrentCulture.Name.ToLower() %>',
-          parentLocale: '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        defaultLocale = language || 'en',
+        currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
+        parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        defaultRegionLocale = regionLocale || 'en',
+        currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
+        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
+    (function() {
+      // Set Soho culture path
+      window.Locale.culturePath = 'content/javascript/cultures';
+
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function() {
+        return window.$;
+      });
+
+      require(['crm/Bootstrap'], function(bootstrap) {
+        bootstrap({
+          supportedLocales: supportedLocales,
+          defaultLocale: defaultLocale,
+          currentLocale: currentLocale,
+          parentLocale: parentLocale,
+          defaultRegionLocale: defaultRegionLocale,
+          currentRegionLocale: currentRegionLocale,
+          parentRegionLocale: parentRegionLocale,
           isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
           configuration: <%= Serialize(
                   Enumerate("configuration", (file) => file.Name == "production.js")
@@ -137,16 +175,20 @@
               EnumerateLocalizations(string.Empty, "localization", "en")
                   .Select(item => item.Path.Substring(0, item.Path.Length - 3))
           ) %>,
+          // TODO limit to only strings
           localeFiles: <%= Serialize(
-                Enumerate(@"localization", (file) => file.Extension == ".l20n")
+                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf("regional") == -1)
                     .Select(item => item.Path)
-          ) %>
+          ) %>,
+          regionalFiles: <%= Serialize(
+                Enumerate(@"localization", (file) => file.Extension == ".l20n" && file.Name.IndexOf("regional") != -1)
+                    .Select(item => item.Path)
+          ) %>,
+          rootElement: document.getElementById('rootNode')
         });
       });
     })();
   </script>
-</head>
-<body>
 </body>
 </html>
 

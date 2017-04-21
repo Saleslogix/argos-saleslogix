@@ -224,6 +224,17 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
       },
     }]);
   },
+  hasBeenTouched: function hasBeenTouched(entry) {
+    if (entry.ModifyDate) {
+      const modifiedDate = moment(convert.toDateFromString(entry.ModifyDate));
+      const currentDate = moment().endOf('day');
+      const weekAgo = moment().subtract(1, 'weeks');
+
+      return modifiedDate.isAfter(weekAgo) &&
+        modifiedDate.isBefore(currentDate);
+    }
+    return false;
+  },
   getItemIconClass: function getItemIconClass(entry) {
     const type = entry && entry.Type;
     return this._getItemIconClass(type);
