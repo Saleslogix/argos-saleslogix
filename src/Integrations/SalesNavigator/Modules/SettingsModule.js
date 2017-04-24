@@ -52,7 +52,7 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
 
     const {
       init,
-      createActions,
+      createActionsList,
     } = crm.Views.Settings.prototype;
     crm.Views.Settings.prototype.salesNavigatorConfiguration = function salesNavigatorConfiguration() {
       const view = this.app.getView(SalesNavigatorConfigurationView.prototype.id);
@@ -69,11 +69,11 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
       // };
       this.actionOrder.push('salesNavigatorConfiguration');
     };
-    crm.Views.Settings.prototype.createActions = function createSalesNavigatorActions(...args) {
-      createActions.apply(this, args);
-      this.actions.salesNavigatorConfiguration = {
+    crm.Views.Settings.prototype.createActionsList = function createSalesNavigatorActionsList(...args) {
+      createActionsList.apply(this, args);
+      this.actionItems.salesNavigatorConfiguration = {
         title: resource.salesNavigatorConfiguration,
-        cls: 'fa fa-linkedin-square fa-2x',
+        cls: 'settings',
       };
     };
   },
