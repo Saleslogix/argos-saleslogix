@@ -95,7 +95,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
 
   // View Properties
   detailView: 'history_detail',
-  itemIconClass: 'fa fa-archive fa-2x',
+  itemIconClass: 'folder',
   id: 'history_list',
   security: null, // 'Entities/History/View',
   existsRE: /^[\w]{12}$/,
@@ -217,7 +217,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
-      cls: 'fa fa-hand-o-up fa-lg',
+      cls: 'flag',
       label: 'Touched',
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
@@ -240,7 +240,11 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this._getItemIconClass(type);
   },
   _getItemIconClass: function _getItemIconClass(type) {
-    return this.activityTypeIcon[type];
+    let cls = this.activityTypeIcon[type];
+    if (!cls) {
+      cls = this.itemIconClass;
+    }
+    return cls;
   },
   init: function init() {
     this.inherited(arguments);

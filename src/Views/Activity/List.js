@@ -182,35 +182,35 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'alarm',
-      cls: 'fa fa-bell-o fa-lg',
+      cls: 'notification',
       label: this.alarmText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasAlarm(entry);
       },
     }, {
       id: 'touched',
-      cls: 'fa fa-hand-o-up fa-lg',
+      cls: 'flag',
       label: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },
     }, {
       id: 'important',
-      cls: 'fa fa-exclamation fa-lg',
+      cls: 'star-filled',
       label: this.importantText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isImportant(entry);
       },
     }, {
       id: 'recurring',
-      cls: 'fa fa-refresh fa-lg',
+      cls: 'load',
       label: this.recurringText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isRecurring(entry, this);
       },
     }, {
       id: 'overdue',
-      cls: 'fa fa-exclamation-circle fa-lg',
+      cls: 'error',
       label: this.overdueText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isOverdue(entry);
@@ -231,12 +231,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     return false;
   },
   isImportant: function isImportant(entry) {
-    if (entry.Priority) {
-      if (entry.Priority === 'High') {
-        return true;
-      }
-    }
-    return false;
+    return entry.Priority === 'High';
   },
   isOverdue: function isOverdue(entry) {
     if (entry.StartDate) {
@@ -291,7 +286,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'complete',
-      cls: 'fa fa-check-square fa-2x',
+      cls: 'checkbox',
       label: this.completeActivityText,
       enabled: function enabled(theAction, selection) {
         const entry = selection && selection.data;

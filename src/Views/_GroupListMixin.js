@@ -678,7 +678,6 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       });
     } else {
       this._groupCheckActionState(resolvedEntry, rowNode);
-      this._groupApplyActionPanel(rowNode);
     }
   },
   _groupApplyActionPanel: function _groupApplyActionPanel(rowNode) {
