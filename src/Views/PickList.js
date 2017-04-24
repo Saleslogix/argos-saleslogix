@@ -31,6 +31,7 @@ const __class = declare('crm.Views.PickList', [List], {
           && this.options.picklistOptions
             && this.options.picklistOptions.filterByLanguage) {
       entries = entries.filter(entry => entry.languageCode === this.getLanguageCode());
+      queryResults.total = entries.length;
     }
     this.inherited(arguments);
   },
@@ -42,8 +43,8 @@ const __class = declare('crm.Views.PickList', [List], {
     this.inherited(arguments);
   },
   getLanguageCode: function getLanguageCode() {
-    return (this.options && this.options.languageCode)
-      || this.languageCode || App.getCurrentLocale();
+    return this.languageCode
+      || (this.options && this.options.languageCode) || App.getCurrentLocale();
   },
   getPicklistOptions: function getPicklistOptions() {
     return (this.options && this.options.picklistOptions) || this.picklistOptions || {};
@@ -65,6 +66,7 @@ const __class = declare('crm.Views.PickList', [List], {
   requestData: function requestData() {
     const picklistOptions = this.getPicklistOptions();
     picklistOptions.language = picklistOptions.language || this.getLanguageCode();
+    this.languageCode = this.languageCode || (picklistOptions.language && picklistOptions.language.trim());
 
     // Search, query like normal (with filtering from queryComplete)
     if (this.query) {
