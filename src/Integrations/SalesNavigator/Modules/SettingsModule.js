@@ -35,8 +35,24 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
   },
   loadCustomizations: function loadCustomizations() {
     // const am = this.applicationModule;
+
+    // am.registerCustomization('list/actions', 'settings', {
+    //   at: function at(row) {
+    //     return row.name === 'viewLanguageOptions';
+    //   },
+    //   type: 'insert',
+    //   where: 'after',
+    //   value: {
+    //     salesNavigatorConfiguration: {
+    //       title: resource.salesNavigatorConfiguration,
+    //       cls: 'fa fa-linkedin-square fa-2x',
+    //     },
+    //   },
+    // });
+
     const {
       init,
+      createActions,
     } = crm.Views.Settings.prototype;
     crm.Views.Settings.prototype.salesNavigatorConfiguration = function salesNavigatorConfiguration() {
       const view = this.app.getView(SalesNavigatorConfigurationView.prototype.id);
@@ -47,11 +63,18 @@ const __class = declare('crm.Integrations.SalesNavigator.Modules.SettingsModule'
     crm.Views.Settings.prototype.init = function addSalesNavigatorActions(...args) {
       init.apply(this, args);
       // createActions.apply(this, args);
+      // this.actions.salesNavigatorConfiguration = {
+      //   title: resource.salesNavigatorConfiguration,
+      //   cls: 'fa fa-linkedin-square fa-2x',
+      // };
+      this.actionOrder.push('salesNavigatorConfiguration');
+    };
+    crm.Views.Settings.prototype.createActions = function createSalesNavigatorActions(...args) {
+      createActions.apply(this, args);
       this.actions.salesNavigatorConfiguration = {
         title: resource.salesNavigatorConfiguration,
         cls: 'fa fa-linkedin-square fa-2x',
       };
-      this.actionOrder.push('salesNavigatorConfiguration');
     };
   },
   loadToolbars: function loadToolbars() {},
