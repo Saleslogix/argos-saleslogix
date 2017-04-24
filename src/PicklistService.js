@@ -141,10 +141,6 @@ const __class = lang.setObject('crm.PicklistService', {
     const language = this.determineLanguage(pickListServiceOptions, queryOptions);
     const useCache = typeof queryOptions.useCache === 'boolean' ? queryOptions.useCache : true;
 
-    // if (queryOptions.filterByLanguage) {
-    //   useCache = false;
-    // }
-
     return new Promise((resolve, reject) => {
       this.addRequest(name);
       const {

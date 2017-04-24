@@ -39,6 +39,7 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
         if (entry.hasOwnProperty('NameLF')) {
           return {
             filterByLanguage: true,
+            language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
           };
         }
         return {
@@ -82,6 +83,7 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
         if (entry.hasOwnProperty('NameLF')) {
           return {
             filterByLanguage: true,
+            language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
           };
         }
         return {
