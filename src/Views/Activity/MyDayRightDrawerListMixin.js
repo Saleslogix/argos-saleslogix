@@ -21,8 +21,12 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedKPIPrefs: false,
   _hasChangedKFilterPrefs: false,
+  hasSettings: true,
   onShow: function onShow() {
     this.setDefaultFilterPreferences();
+  },
+  openSettings: function openSettings() {
+    App.viewSettingsModal.open();
   },
   setDefaultFilterPreferences: function setDefaultFilterPreferences() {
     if (!App.preferences.myDayFilters) {
