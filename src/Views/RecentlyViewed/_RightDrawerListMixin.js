@@ -18,8 +18,12 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedEntityPrefs: false,
   _hasChangedKPIPrefs: false,
+  hasSettings: true,
   onShow: function onShow() {
     this.setDefaultEntityPreferences();
+  },
+  openSettings: function openSettings() {
+    App.viewSettingsModal.open();
   },
   setDefaultEntityPreferences: function setDefaultEntityPreferences() {
     if (!App.preferences.recentlyViewedEntityFilters) {
