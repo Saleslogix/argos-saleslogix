@@ -486,13 +486,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     return false;
   },
   isImportant: function isImportant(entry) {
-    if (entry.Activity.Priority) {
-      if (entry.Activity.Priority === 'High') {
-        return true;
-      }
-    }
-
-    return false;
+    return entry.Activity.Priority === 'High';
   },
   isOverdue: function isOverdue(entry) {
     if (entry.Activity.StartDate) {

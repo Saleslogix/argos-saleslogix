@@ -29,8 +29,10 @@ const __class = declare('crm.Views.PickList', [List], {
   _onQueryComplete: function _onQueryComplete(queryResults, entries) { // eslint-disable-line
     if (this.options
           && this.options.picklistOptions
-            && this.options.picklistOptions.filterByLanguage) {
+            && this.options.picklistOptions.filterByLanguage
+              && this.query) {
       entries = entries.filter(entry => entry.languageCode === this.getLanguageCode());
+      queryResults.total = entries.length;
     }
     this.inherited(arguments);
   },
@@ -42,11 +44,19 @@ const __class = declare('crm.Views.PickList', [List], {
     this.inherited(arguments);
   },
   getLanguageCode: function getLanguageCode() {
-    return (this.options && this.options.languageCode)
-      || this.languageCode || App.getCurrentLocale();
+    return this.languageCode
+      || (this.options && this.options.languageCode) || App.getCurrentLocale();
   },
   getPicklistOptions: function getPicklistOptions() {
     return (this.options && this.options.picklistOptions) || this.picklistOptions || {};
+  },
+  onTransitionAway: function onTransitionAway() {
+    this.inherited(arguments);
+    if (this.searchWidget) {
+      this.searchWidget.clear();
+      this.query = false;
+      this.hasSearched = false;
+    }
   },
   show: function show(options) {
     this.set('title', options && options.title || this.title);
@@ -65,19 +75,12 @@ const __class = declare('crm.Views.PickList', [List], {
   requestData: function requestData() {
     const picklistOptions = this.getPicklistOptions();
     picklistOptions.language = picklistOptions.language || this.getLanguageCode();
+    this.languageCode = (picklistOptions.language && picklistOptions.language.trim()) || this.languageCode;
 
     // Search, query like normal (with filtering from queryComplete)
     if (this.query) {
       return this.inherited(arguments);
     }
-
-    // If there aren't any options passed, attempt to use cache
-    // if (!picklistOptions) {
-    //   const picklist = this.app.picklistService.getPicklistByName(this.picklistName, languageCode);
-    //   if (picklist) {
-    //     return this._onQueryComplete({ total: picklist.items.length }, picklist.items);
-    //   }
-    // }
 
     return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions)
       .then(result => this._onQueryComplete({ total: result && result.items.length }, result && result.items),
