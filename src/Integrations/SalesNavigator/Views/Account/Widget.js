@@ -5,33 +5,22 @@ import declare from 'dojo/_base/declare';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _WidgetBase from '../../_WidgetBase';
 import SalesNavigatorUri from '../../SalesNavigatorUri';
-import { getSizeFromWidthAndPreference } from '../../SalesNavigatorService';
-import WidgetTypes from '../../WidgetTypes';
 
 const __class = declare('crm.Integrations.SalesNavigator.AccountWidget', [_WidgetBase], {
   id: 'sales_navigator_account',
-  initSalesNavigator: function initSalesNavigator(entry, container, applyScript) {
-    const {
-      accounts: {
-        // isResponsive,
-        smallWidgetType,
-      },
-    } = App.salesNavigatorSettings;
-    // const height = WidgetTypes[smallWidgetType].height.minimum;
+  type: 'accounts',
 
-    // Use this function in the responsive listener
-    const size = getSizeFromWidthAndPreference(WidgetTypes.simple.width.minimum, smallWidgetType);
-
+  initSalesNavigator: function initSalesNavigator(entry) {
     const script = this.createEmptyScript().asJavascript();
     script.src = new SalesNavigatorUri()
       .asAccount()
       .setCompanyName(entry.AccountName)
       .setCompanyWebsite(entry.WebAddress)
-      .setHeight(size.height)
-      .setWidth(size.width)
+      .setHeight(this.size.height)
+      .setWidth(this.size.width)
       .toString();
 
-    applyScript(script);
+    this.applyScript(script);
   },
 });
 

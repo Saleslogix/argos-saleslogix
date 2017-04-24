@@ -62,7 +62,7 @@ export function defaultSettings() {
  * @return {Object} a size object representing width and height
  */
 export function getSizeFromWidthAndPreference(width, preference) {
-  const smallWidgetTypePreference = WidgetTypes[preference];
+  // const smallWidgetTypePreference = WidgetTypes[preference];
   const getSize = type => ({
     width: WidgetTypes[type].width.minimum,
     height: WidgetTypes[type].height.minimum,
@@ -74,14 +74,14 @@ export function getSizeFromWidthAndPreference(width, preference) {
   const isMediumWidgetType = value => value < WidgetTypes.wide.width.minimum;
 
   if (isTooSmall(width)) {
-    console.warn(`Container width is too small for the Sales Navigator Widget... needs ${WidgetTypes.simple.width.minimum}`);
-    return;
+    console.warn(`Container width is too small for the Sales Navigator Widget... expects at least ${WidgetTypes.simple.width.minimum}`); // eslint-disable-line
+    return getSize(preference);
   }
   if (isSmallWidgetType(width)) {
-    return getSize(smallWidgetTypePreference);
+    return getSize(preference);
   }
   if (isMediumWidgetType(width)) {
-    return getSize('square');
+    return getSize(WidgetTypes.square.value);
   }
-  return getSize('wide');
+  return getSize(WidgetTypes.wide.value);
 }

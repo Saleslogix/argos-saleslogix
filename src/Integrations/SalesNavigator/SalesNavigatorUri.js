@@ -1,5 +1,3 @@
-// import Format from 'argos/Format';
-
 const LEAD = 'lead';
 const ACCOUNT = 'account';
 

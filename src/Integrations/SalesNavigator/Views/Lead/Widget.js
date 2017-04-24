@@ -5,22 +5,11 @@ import declare from 'dojo/_base/declare';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _WidgetBase from '../../_WidgetBase';
 import SalesNavigatorUri from '../../SalesNavigatorUri';
-import WidgetTypes from '../../WidgetTypes';
 
 const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBase], {
   id: 'sales_navigator_lead',
-  initSalesNavigator: function initSalesNavigator(entry, container, applyScript) {
-    const {
-      leads: {
-        // isResponsive,
-        smallWidgetType,
-      },
-    } = App.salesNavigatorSettings;
-    const height = WidgetTypes[smallWidgetType].height.minimum;
-
-    // Use this function in the responsive listener
-    // const size = getSizeFromWidthAndPreference(WidgetTypes.simple.width.minimum, smallWidgetType);
-
+  type: 'leads',
+  initSalesNavigator: function initSalesNavigator(entry) {
     const script = this.createEmptyScript().asJavascript();
     script.src = new SalesNavigatorUri()
       .asLead()
@@ -29,10 +18,11 @@ const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBa
       .setEmail(entry.Email)
       .setCompanyName(entry.Company)
       .setCompanyWebsite(entry.WebAddress)
-      .setHeight(height)
+      .setWidth(this.size.width)
+      .setHeight(this.size.height)
       .toString();
 
-    applyScript(script);
+    this.applyScript(script);
   },
 });
 
