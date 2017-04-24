@@ -29,7 +29,8 @@ const __class = declare('crm.Views.PickList', [List], {
   _onQueryComplete: function _onQueryComplete(queryResults, entries) { // eslint-disable-line
     if (this.options
           && this.options.picklistOptions
-            && this.options.picklistOptions.filterByLanguage) {
+            && this.options.picklistOptions.filterByLanguage
+              && this.query) {
       entries = entries.filter(entry => entry.languageCode === this.getLanguageCode());
       queryResults.total = entries.length;
     }
@@ -66,20 +67,12 @@ const __class = declare('crm.Views.PickList', [List], {
   requestData: function requestData() {
     const picklistOptions = this.getPicklistOptions();
     picklistOptions.language = picklistOptions.language || this.getLanguageCode();
-    this.languageCode = this.languageCode || (picklistOptions.language && picklistOptions.language.trim());
+    this.languageCode = (picklistOptions.language && picklistOptions.language.trim()) || this.languageCode;
 
     // Search, query like normal (with filtering from queryComplete)
     if (this.query) {
       return this.inherited(arguments);
     }
-
-    // If there aren't any options passed, attempt to use cache
-    // if (!picklistOptions) {
-    //   const picklist = this.app.picklistService.getPicklistByName(this.picklistName, languageCode);
-    //   if (picklist) {
-    //     return this._onQueryComplete({ total: picklist.items.length }, picklist.items);
-    //   }
-    // }
 
     return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions)
       .then(result => this._onQueryComplete({ total: result && result.items.length }, result && result.items),
