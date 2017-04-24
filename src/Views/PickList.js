@@ -50,6 +50,14 @@ const __class = declare('crm.Views.PickList', [List], {
   getPicklistOptions: function getPicklistOptions() {
     return (this.options && this.options.picklistOptions) || this.picklistOptions || {};
   },
+  onTransitionAway: function onTransitionAway() {
+    this.inherited(arguments);
+    if (this.searchWidget) {
+      this.searchWidget.clear();
+      this.query = false;
+      this.hasSearched = false;
+    }
+  },
   show: function show(options) {
     this.set('title', options && options.title || this.title);
     if (!options.singleSelect) {
