@@ -50,6 +50,10 @@ const __class = declare('crm.Views.PickList', [List], {
   getPicklistOptions: function getPicklistOptions() {
     return (this.options && this.options.picklistOptions) || this.picklistOptions || {};
   },
+  getRemainingCount: function getRemainingCount() {
+    // Picklists fetch all items on the first request (not based on pageSize)
+    return -this.pageSize;
+  },
   onTransitionAway: function onTransitionAway() {
     this.inherited(arguments);
     if (this.searchWidget) {
