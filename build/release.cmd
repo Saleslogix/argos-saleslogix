@@ -9,6 +9,7 @@ mkdir deploy\help
 mkdir deploy\content\javascript
 mkdir deploy\content\images
 mkdir deploy\content\css
+mkdir deploy\docs
 
 call grunt clean:css clean:js less
 call yarn run build

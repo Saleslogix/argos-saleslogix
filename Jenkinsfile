@@ -11,6 +11,7 @@ node('windows && nodejs') {
       try {
         bat 'yarn'
         bat 'yarn run lint'
+        bat 'yarn run docs'
         bat 'build\\release.cmd'
         bat 'yarn run testbasic'
       } catch (err) {
