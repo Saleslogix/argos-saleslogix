@@ -21,9 +21,9 @@
     moment "^2.17.1"
     requirejs "^2.3.2"
 
-"@infor/sohoxi@4.2.6-develop":
-  version "4.2.6-develop"
-  resolved "http://npm.infor.com:4873/@infor%2fsohoxi/-/sohoxi-4.2.6-develop.tgz#ea2624b625a6dbf711bd62f122ccd99f3e4cfe32"
+"@infor/sohoxi@git+http://git.infor.com/scm/soho/controls.git#4.3.0-rc":
+  version "4.2.6"
+  resolved "git+http://git.infor.com/scm/soho/controls.git#e4e648f6c4ae2d3eb1a2f1f952ae9b990a3aa17c"
   dependencies:
     d3 "^3.4.6"
     jquery "^3.1.1"
