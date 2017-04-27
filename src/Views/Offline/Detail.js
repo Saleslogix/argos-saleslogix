@@ -31,14 +31,26 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     '</div>',
   ]),
   relatedTemplate: new Simplate([
-    '<li class="{%= $.cls %}">',
+    '<li class="relatedviewitem {%= $.cls %}">',
     '<a data-action="activateRelatedList" data-view="{%= $.view %}" data-name="{%: $.name %}" data-context="{%: $.context %}" {% if ($.disabled) { %}data-disable-action="true"{% } %} class="{% if ($.disabled) { %}disabled{% } %}">',
     '{% if ($.icon) { %}',
     '<img src="{%= $.icon %}" alt="icon" class="icon" />',
     '{% } else if ($.iconClass) { %}',
     '<div class="{%= $.iconClass %}" alt="icon"></div>',
     '{% } %}',
-    '<span class="related-item-label">{%: $.label %}</span>',
+    '<span class="related-item-label">',
+    '<div class="busy-xs badge"',
+    '<div class="busy-indicator-container" aria-live="polite">',
+    '<div class="busy-indicator active">',
+    '<div class="bar one"></div>',
+    '<div class="bar two"></div>',
+    '<div class="bar three"></div>',
+    '<div class="bar four"></div>',
+    '<div class="bar five"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+    '{%: $.label %}</span>',
     '</a>',
     '</li>',
   ]),
@@ -100,7 +112,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     if (this.entry.$offlineDate) {
       offlineDate = format.relativeDate(this.entry.$offlineDate);
     }
-    $(this.tabList).before(this.detailHeaderTemplate.apply({ value, offlineDate }, this));
+    $(this.tabContainer).before(this.detailHeaderTemplate.apply({ value, offlineDate }, this));
   },
   createLayout: function createLayout() {
     const view = this._entityView;
@@ -179,11 +191,12 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     });
   },
   _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
-    const labelNode = $('.related-item-label', rowNode)[0];
+    const labelNode = $('.related-item-label', rowNode).first();
     const { relationship } = data;
     if (labelNode && relationship) {
       this._model.getRelatedCount(relationship, this.entry).then((count) => {
-        const html = `<span class="related-item-count">${count}</span>`;
+        $('.busy-xs', labelNode).remove();
+        const html = `<span class="info badge">${count}</span>`;
         $(labelNode).before(html);
       }, (err) => {
         console.warn('Error getting related item count: ' + err); //eslint-disable-line
