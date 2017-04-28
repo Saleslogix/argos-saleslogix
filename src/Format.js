@@ -73,9 +73,9 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     // TODO: Update to picklist service enums
     picklist.storage = 0;
     picklist.display = 2;
-
+    
     return (val) => {
-      return f.picklist(val, picklist);
+      return format.picklist(val, picklist);
     };
   },
   currency: function currency(_val) {
