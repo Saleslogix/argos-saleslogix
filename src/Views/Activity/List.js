@@ -188,13 +188,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
         this.isEnabled = parent.hasAlarm(entry);
       },
     }, {
-      id: 'touched',
-      cls: 'flag',
-      label: this.touchedText,
-      onApply: function onApply(entry, parent) {
-        this.isEnabled = parent.hasBeenTouched(entry);
-      },
-    }, {
       id: 'important',
       cls: 'star-filled',
       label: this.importantText,
@@ -214,6 +207,13 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
       label: this.overdueText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isOverdue(entry);
+      },
+    }, {
+      id: 'touched',
+      cls: 'flag',
+      label: this.touchedText,
+      onApply: function onApply(entry, parent) {
+        this.isEnabled = parent.hasBeenTouched(entry);
       },
     }]);
   },

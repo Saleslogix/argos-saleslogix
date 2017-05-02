@@ -36,7 +36,7 @@ const __class = declare('crm.Views.Login', [Edit], {
 
   id: 'login',
   busy: false,
-
+  multiColumnView: false,
   // Localization
   copyrightText: resource.copyrightText,
   logOnText: resource.logOnText,
