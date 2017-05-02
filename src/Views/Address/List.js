@@ -37,6 +37,7 @@ const __class = declare('crm.Views.Address.List', [List], {
   allowSelection: true,
   enableActions: true,
   format,
+  isCardView: false,
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
