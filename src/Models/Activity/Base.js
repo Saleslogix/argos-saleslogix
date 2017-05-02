@@ -67,7 +67,7 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
     if (entry && entry.Type) {
       cls = ACTIVITY_TYPE_ICON[entry.Type];
       if (cls) {
-        cls = `${cls} fa-2x`;
+        cls = `${cls}`;
       }
     }
     return cls;
