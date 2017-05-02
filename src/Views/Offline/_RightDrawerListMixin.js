@@ -17,7 +17,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
   // Localization
   entitySectionText: 'Entity',
   kpiSectionText: 'KPI',
-  hasSettings: false,
+  hasSettings: true,
 
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedEntityPrefs: false,
