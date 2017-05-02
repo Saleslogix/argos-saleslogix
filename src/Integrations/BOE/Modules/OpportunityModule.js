@@ -22,7 +22,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
     am.registerView(new QuotesList({
       id: 'opportunity_quotes_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -30,7 +30,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
     am.registerView(new SalesOrdersList({
       id: 'opportunity_salesorders_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));

@@ -85,7 +85,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPInvoicesList({
       id: 'account_erpinvoice_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;
@@ -95,7 +95,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPInvoicesList({
       id: 'account_revenueerpinvoice_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
       queryOrderBy: 'CreateDate asc',
@@ -107,7 +107,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPInvoicesList({
       id: 'account_costerpinvoice_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
       queryOrderBy: 'CreateDate asc',
@@ -119,7 +119,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPInvoicesList({
       id: 'account_lateinvoice_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
       queryOrderBy: 'CreateDate asc',
@@ -131,7 +131,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPInvoicesList({
       id: 'account_newerpinvoice_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
       queryOrderBy: 'CreateDate asc',
@@ -143,7 +143,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPShipmentsList({
       id: 'account_erpshipments_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;
@@ -153,7 +153,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPShipmentsList({
       id: 'account_newerpshipments_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
       queryOrderBy: 'CreateDate asc',
@@ -165,7 +165,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ReturnsList({
       id: 'account_returns_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;
@@ -175,7 +175,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPReceivablesList({
       id: 'account_erpreceivables_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;
@@ -185,7 +185,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new ERPReceivablesList({
       id: 'account_newerpreceivables_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
       queryOrderBy: 'CreateDate asc',
@@ -198,7 +198,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_quotes_related',
       title: this.quotesText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -207,7 +207,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_openquotes_related',
       title: this.erpOpenQuotesText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -216,7 +216,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_newquotes_related',
       title: this.erpNewQuotesText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -225,7 +225,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_salesorders_related',
       title: this.ordersText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -234,7 +234,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_opensalesorders_related',
       title: this.erpOpenSalesOrdersText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -243,7 +243,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_latesalesorders_related',
       title: this.erpSalesOrdersText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -252,7 +252,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       id: 'account_neworders_related',
       title: this.erpNewSalesOrdersText,
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryWhere: '',
     }));
@@ -260,21 +260,21 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new BillToList({
       id: 'account_billto_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
 
     am.registerView(new ERPShipToList({
       id: 'account_shipto_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
 
     am.registerView(new ERPContactAssociationsList({
       id: 'account_contactassociations_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;
@@ -284,7 +284,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new SyncResultsList({
       id: 'account_syncresults_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;
@@ -294,7 +294,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
     am.registerView(new AccountPersonList({
       id: 'account_salesperson_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       createToolLayout: function createToolLayout() {
         return this.tools;

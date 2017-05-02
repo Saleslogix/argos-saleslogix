@@ -37,7 +37,7 @@ const __class = declare('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module
 
     am.registerView(new UnitOfMeasureList({
       id: 'quoteline_unitofmeasure_list',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
   },
   loadCustomizations: function loadCustomizations() {
