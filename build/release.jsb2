@@ -1475,6 +1475,11 @@
       "src": "../help",
       "dest": "help",
       "filters": ".*\\.html"
+    },
+    {
+      "src": "../docs",
+      "dest": "docs",
+      "filters": ".*"
     }
   ]
 }
