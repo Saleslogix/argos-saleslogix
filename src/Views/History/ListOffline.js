@@ -10,7 +10,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
 
   // Templates
   itemTemplate: new Simplate([`
-    <p>{%: $.$key %}</p>
+    <p>time: {%: Locale.formatDate($.StartDate) %}</p>
   `]),
 
   // View Properties
@@ -26,6 +26,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   enableOnlineSupport: true, // TODO: don't show this when online, set to false when done testing.
   enableSearch: false,
   expose: true,
+  labelProperty: 'Text',
 
   getModel: function getModel() {
     const model = App.ModelManager.getModel(MODEL_NAMES.HISTORY, MODEL_TYPES.OFFLINE);
