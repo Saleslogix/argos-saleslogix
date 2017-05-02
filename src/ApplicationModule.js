@@ -85,8 +85,10 @@ import TicketActivityRateLookup from './Views/TicketActivity/RateLookup';
 import TicketActivityItemList from './Views/TicketActivityItem/List';
 import TicketActivityItemDetail from './Views/TicketActivityItem/Detail';
 import HistoryList from './Views/History/List';
+import HistoryListOffline from './Views/History/ListOffline';
 import HistoryDetail from './Views/History/Detail';
 import HistoryEdit from './Views/History/Edit';
+import HistoryEditOffline from './Views/History/EditOffline';
 import './Views/History/RelatedView';
 import CalendarAccessList from './Views/User/CalendarAccessList';
 import UserList from './Views/User/List';
@@ -432,7 +434,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
 
     this.registerView(new HistoryDetail());
     this.registerView(new HistoryList());
+    this.registerView(new HistoryListOffline());
     this.registerView(new HistoryEdit());
+    this.registerView(new HistoryEditOffline());
     this.registerView(new HistoryList({
       id: 'history_related',
       expose: false,
