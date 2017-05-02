@@ -25,13 +25,13 @@ const __class = declare('crm.Integrations.BOE.Modules.InvoiceModule', [_Module],
     am.registerView(new ERPInvoiceItemDetail());
     am.registerView(new ERPInvoiceItemList({
       id: 'invoice_items_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
     am.registerView(new ERPReceivablesList({
       id: 'invoice_receivables_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
   },
