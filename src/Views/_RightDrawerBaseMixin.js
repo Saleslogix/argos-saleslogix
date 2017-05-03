@@ -35,7 +35,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     // This avoid drawer refresh to happen which causes list from prev view to load
     // Aftter commenting out this code Drawer refresh is being called twice on each view change - find a way to call it once
     // if (this.drawerLoaded || this.hasSettings) {
-    if (this.hasSettings) {
+    if (!this.hasSettings) {
       return;
     }
 
@@ -67,19 +67,19 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
     this.inherited(arguments);
   },
   _addTools: function _addTools(tools) { // eslint-disable-line
-    if (this.hasSettings) {
+    if (!this.hasSettings) {
       return;
     }
   },
   onTransitionTo: function onTransitionTo() {
-    if (this.hasSettings) {
+    if (!this.hasSettings) {
       return;
     }
 
     this.loadRightDrawer();
   },
   onTransitionAway: function onTransitionAway() {
-    if (this.hasSettings) {
+    if (!this.hasSettings) {
       return;
     }
 
