@@ -21,13 +21,6 @@
     moment "^2.17.1"
     requirejs "^2.3.2"
 
-"@infor/sohoxi@4.2.6-develop":
-  version "4.2.6-develop"
-  resolved "http://npm.infor.com:4873/@infor%2fsohoxi/-/sohoxi-4.2.6-develop.tgz#ea2624b625a6dbf711bd62f122ccd99f3e4cfe32"
-  dependencies:
-    d3 "^3.4.6"
-    jquery "^3.1.1"
-
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -1179,10 +1172,6 @@ currently-unhandled@^0.4.1:
 custom-event@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
-
-d3@^3.4.6:
-  version "3.5.17"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
 
 d@1:
   version "1.0.0"
@@ -2796,10 +2785,6 @@ joi@9.X.X:
     items "2.x.x"
     moment "2.x.x"
     topo "2.x.x"
-
-jquery@^3.1.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
 js-tokens@^3.0.0:
   version "3.0.1"
