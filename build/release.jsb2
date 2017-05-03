@@ -220,10 +220,10 @@
           "text": "MainToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "RightDrawer.js",
+          "text": "UpdateToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "UpdateToolbar.js",
+          "text": "RightDrawer.js",
           "path": "../src-out/Views/"
         }, {
           "text": "LogOff.js",

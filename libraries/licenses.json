@@ -1,20 +1,4 @@
 {
-  "@infor/icrm-js-common@0.1.1": {
-    "licenses": "UNLICENSED",
-    "publisher": "Infor CRM"
-  },
-  "@infor/icrm-js-customization@0.1.0": {
-    "licenses": "Commercial",
-    "publisher": "Infor CRM"
-  },
-  "@infor/icrm-js-services@0.1.1": {
-    "licenses": "UNLICENSED",
-    "publisher": "Infor CRM"
-  },
-  "@infor/sohoxi@4.2.6-develop": {
-    "licenses": "UNLICENSED",
-    "publisher": "Hook & Loop"
-  },
   "abbrev@1.0.9": {
     "licenses": "ISC",
     "repository": "https://github.com/isaacs/abbrev-js",

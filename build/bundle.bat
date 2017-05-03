@@ -25,9 +25,6 @@ mkdir deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix
 xcopy %SDK%\node_modules\babel-polyfill\dist\polyfill.min.js %SDK%\deps\babel-polyfill\ /E /Y
 xcopy %SDK%\node_modules\moment\min\moment-with-locales.js %SDK%\deps\moment\ /E /Y
 xcopy %SDK%\node_modules\rx-lite\rx.lite.js %SDK%\deps\rx-lite\ /E /Y
-xcopy %SDK%\node_modules\@infor\icrm-js-common\dist\bundles\common.bundle.js %SDK%\deps\icrm-js-common\ /E /Y
-xcopy %SDK%\node_modules\@infor\icrm-js-customization\dist\bundles\customization.bundle.js %SDK%\deps\icrm-js-customization\ /E /Y
-xcopy %SDK%\node_modules\@infor\icrm-js-services\dist\bundles\services.bundle.js %SDK%\deps\icrm-js-services\ /E /Y
 xcopy %SDK%\node_modules\redux\dist\redux.min.js %SDK%\deps\redux\ /E /Y
 
 pushd %SDK%
