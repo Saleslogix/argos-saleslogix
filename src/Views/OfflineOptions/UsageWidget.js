@@ -261,7 +261,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
     totalItem.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
     const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this));
-    const columnHeaderNode = $(`<div class="row"></div>`).append(headerNode);
+    const columnHeaderNode = $('<div class="row"></div>').append(headerNode);
     docfrag.appendChild(columnHeaderNode.get(0));
     this._selectFields = {};
     const entities = usage.entities;
