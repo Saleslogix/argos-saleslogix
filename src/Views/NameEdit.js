@@ -47,6 +47,7 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
           language: ' ',
         };
       },
+      languageCodeProperty: 'LocationCode',
       requireSelection: true,
       storageMode: 'text',
       title: this.prefixTitleText,
@@ -91,6 +92,7 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
           language: ' ',
         };
       },
+      languageCodeProperty: 'LocationCode',
       requireSelection: true,
       storageMode: 'text',
       title: this.suffixTitleText,
