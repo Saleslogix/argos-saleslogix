@@ -32,6 +32,7 @@ export default class Application extends SDKApplication {
     defaultLocale: 'en',
     enableUpdateNotification: false,
     enableMultiCurrency: false,
+    multiCurrency: false, // Backwards compatibility
     enableGroups: true,
     enableHashTags: true,
     maxUploadFileSize: 40000000,
@@ -39,6 +40,7 @@ export default class Application extends SDKApplication {
     enableOfflineSupport: false,
     warehouseDiscovery: 'auto',
     enableMingle: false,
+    mingleEnabled: false, // Backwards compatibility
     mingleSettings: null,
     mingleRedirectUrl: '',
   }) {
@@ -146,7 +148,7 @@ export default class Application extends SDKApplication {
     this._saveDefaultPreferences();
 
     let accessToken = null;
-    if (this.enableMingle) {
+    if (this.isMingleEnabled()) {
       accessToken = this.mingleAuthResults.access_token;
     }
 
@@ -166,6 +168,10 @@ export default class Application extends SDKApplication {
       request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
       return original.apply(this, arguments);
     };
+  }
+
+  isMingleEnabled() {
+    return this.enableMingle || this.mingleEnabled;
   }
 
   getReducer() {
@@ -253,7 +259,7 @@ export default class Application extends SDKApplication {
     // Check if the configuration specified multiCurrency, this will override the dynamic check.
     // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
     // instead of on startup. We cannot check App.context data that was loaded after login when the startup method is used.
-    if (this.enableMultiCurrency) {
+    if (this.enableMultiCurrency || this.multiCurrency) {
       return true;
     }
 
@@ -351,7 +357,7 @@ export default class Application extends SDKApplication {
 
     if (this.isOnline() || !this.enableCaching) {
       this.loadEndpoint();
-      if (this.enableMingle) {
+      if (this.isMingleEnabled()) {
         this.handleMingleAuthentication();
       } else {
         this.handleAuthentication();
@@ -391,7 +397,7 @@ export default class Application extends SDKApplication {
       };
     }
 
-    if (!this.enableMingle && credentials.remember) {
+    if (!this.isMingleEnabled() && credentials.remember) {
       try {
         if (window.localStorage) {
           window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
@@ -954,7 +960,7 @@ export default class Application extends SDKApplication {
   setupRedirectHash() {
     let isMingleRefresh = false;
     if (this._hasValidRedirect()) {
-      if (this.enableMingle) {
+      if (this.isMingleEnabled()) {
         const vars = this.redirectHash.split('&');
         for (let i = 0; i < vars.length; i++) {
           const pair = vars[i].split('=');
@@ -988,7 +994,7 @@ export default class Application extends SDKApplication {
       return;
     }
 
-    if (this.enableMingle && online && this.requiresMingleRefresh) {
+    if (this.isMingleEnabled() && online && this.requiresMingleRefresh) {
       MingleUtility.refreshAccessToken(this);
       return;
     }

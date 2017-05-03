@@ -15,7 +15,7 @@ const __class = declare('crm.Integrations.BOE.Models.ErpReceivableItem.Base', [_
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ERPRECEIVABLEITEM,
-  iconClass: 'fa fa-check-circle-o fa-2x',
+  iconClass: 'checkbox',
   detailViewId: 'erpreceivableitems_detail',
   listViewId: 'erpreceivable_items_list',
   editViewId: '',

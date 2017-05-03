@@ -44,7 +44,7 @@ const __class = declare('crm.Integrations.BOE.Views.SyncResults.List', [List], {
   resourceKind: 'syncResults',
   enableActions: false,
   groupsEnabled: false,
-  disableRightDrawer: true,
+  hasSettings: false,
   expose: false,
 
   // Card layout
