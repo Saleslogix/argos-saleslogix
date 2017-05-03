@@ -29,7 +29,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
     am.registerView(new ErpContactAssociationsList({
       id: 'contact_account_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       title: this.erpAccountAssociationsText,
       createToolLayout: function createToolLayout() {
@@ -40,7 +40,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
     am.registerView(new QuotesList({
       id: 'contact_quotes_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -48,7 +48,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
     am.registerView(new SalesOrdersList({
       id: 'contact_salesorders_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       queryOrderBy: 'CreateDate asc',
     }));
@@ -56,7 +56,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
     am.registerView(new SyncResultsList({
       id: 'contact_syncresults_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
   },

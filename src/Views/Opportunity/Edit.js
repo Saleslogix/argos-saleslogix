@@ -231,7 +231,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         validator: validator.exists,
         view: 'account_related',
         viewMixin: {
-          disableRightDrawer: true,
+          hasSettings: false,
         },
       }, {
         label: this.acctMgrText,
@@ -250,7 +250,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         view: 'account_related',
         where: `upper(SubType) eq "${this.subTypePickListResellerText}"`,
         viewMixin: {
-          disableRightDrawer: true,
+          hasSettings: false,
           onTransitionTo: function onTransitionTo(self) {
             // Clear the initial where clause, allowing the user to search for others if they want
             self.options.where = '';

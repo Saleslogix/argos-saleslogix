@@ -38,7 +38,7 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
     am.registerView(new SalesOrderEdit());
     am.registerView(new SalesOrderItemList({
       id: 'salesorder_items_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       addLineItems: function addLineItems() {
         if (!this.options.selectedEntry.ErpLogicalId) {
@@ -96,13 +96,13 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
 
     am.registerView(new InvoiceItemsList({
       id: 'salesorder_invoice_items_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
 
     am.registerView(new ShipmentItemsList({
       id: 'salesorder_shipment_items_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
 
@@ -113,41 +113,41 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
 
     am.registerView(new BackOfficeList({
       id: 'salesorder_backoffice_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new BackOfficeAccountingEntityList({
       id: 'salesorder_backofficeaccountingentity_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new LocationList({
       id: 'order_location_list',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new LocationList({
       id: 'order_warehouse_list',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new SyncResultsList({
       id: 'order_syncresult_related',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new BillToList({
       id: 'salesorder_billTo_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new ShipToList({
       id: 'salesorder_shipTo_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       groupsEnabled: false,
     }));
@@ -155,7 +155,7 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderModule', [_Modul
     am.registerView(new SalesPersonList({
       id: 'salesorder_salesperson_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';

@@ -223,6 +223,9 @@
           "text": "RightDrawer.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "UpdateToolbar.js",
+          "path": "../src-out/Views/"
+        }, {
           "text": "LogOff.js",
           "path": "../src-out/Views/"
         }, {
