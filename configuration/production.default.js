@@ -43,10 +43,10 @@ define('configuration/production.default', [
     enableUpdateNotification: true,
 
     /**
-     * @property {Boolean} multiCurrency
+     * @property {Boolean} enableMultiCurrency
      * Set to true to enable multicurrency support. This must also be configured properly on the SData server.
      */
-    multiCurrency: false,
+    enableMultiCurrency: false,
 
     /**
      * @property {Boolean} enableGroups
@@ -80,10 +80,10 @@ define('configuration/production.default', [
     enableOfflineSupport: false,
 
     /**
-     * @property {Boolean} mingleEnabled
+     * @property {Boolean} enableMingle
      * Enables mingle SSO support
      */
-    mingleEnabled: false,
+    enableMingle: false,
 
     /**
      * @property {String} warehouseDiscovery
