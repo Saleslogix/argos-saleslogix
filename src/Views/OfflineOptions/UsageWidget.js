@@ -35,14 +35,14 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
     '<div class="offline-usage">',
-    '<span data-dojo-attach-point="_olderThanNode" ></span>',
+    '<span data-dojo-attach-point="_olderThanNode"></span>',
     '<span class="label"> {%: $$.daysText %} </span>',
     '<div data-dojo-attach-point="_lastClearDateNode"></div>',
     '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
     '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearBriefcasedData">{%: $$.clearBriefcasedText %}</button></div>',
     '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearRecentData">{%: $$.clearRecentText %}</button></div>',
     '<div><button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
-    '<div data-dojo-attach-point="usageNode" >',
+    '<div data-dojo-attach-point="usageNode" style="margin-top:2rem;">',
     '</div>',
   ]),
   errorTemplate: new Simplate([
@@ -52,17 +52,17 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '</div>',
   ]),
   usageHeaderTemplate: new Simplate([
-    '<div class="offline-usage-header">',
+    '<div class="offline-usage-header full column">',
     '{%! $$.usageItemTemplate %}',
     '</div>',
   ]),
   usageItemTemplate: new Simplate([
-    '<div class="offline-usage-item">',
-    '<div class="header">',
+    '<div class="offline-usage-item widget">',
+    '<div class="widget-header">',
     '<span {% if ($.iconClass) { %} class="{%= $.iconClass %}" {% } %}></span>',
     '<span class="label"> {%: $.label %}</span>',
     '</div>',
-    '<div class="content">',
+    '<div class="content card-content">',
     '<div class="item"><div class="label">{%: $$.countText %}</div> <span class="value">{%: $.count %}</span><span class="value percent">{%: $.countPercent %}</span></div>',
     '<div class="item"><div class="label">{%: $$.sizeText %}</div> <span class="value">{%: $.size %}</span><span class="value percent">{%: $.sizePercent %}</span></div>',
     '<div class="item"><div class="label">{%: $$.sizeAVGText %}</div> <span class="value">{%: $.sizeAVG %}</span></div>',
@@ -80,6 +80,16 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     ' {%: $.lastClearedDate %}',
     '</span',
   ]),
+  /**
+   * @property {string}
+   * SoHo class to be applied on multi column.
+   */
+  multiColumnClass: 'one-third',
+  /**
+   * @property {number}
+   * Number of columns in view
+   */
+  multiColumnCount: 3,
   onInit: function onInit() {
     this.onLoad();
     if (this.owner) {
@@ -244,10 +254,12 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     newestDate = utility.getValue(usage, 'newestDate');
     totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
     totalItem.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
-    const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this)).get(0);
-    docfrag.appendChild(headerNode);
+    const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this));
+    const columnHeaderNode = $(`<div class="row"></div>`).append(headerNode);
+    docfrag.appendChild(columnHeaderNode.get(0));
     this._selectFields = {};
     const entities = usage.entities;
+    let row = [];
     for (i = 0; i < entities.length; i++) {
       const entity = entities[i];
       try {
@@ -265,7 +277,17 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         item.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
         item.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
         const itemNode = $(this.usageItemTemplate.apply(item, this)).get(0);
-        docfrag.appendChild(itemNode);
+
+        const column = $(`<div class="${this.multiColumnClass} column">`).append(itemNode);
+        row.push(column);
+        if ((i + 1) % this.multiColumnCount === 0 || i === entities.length - 1) {
+          const rowTemplate = $('<div class="row"></div>');
+          row.forEach((element) => {
+            rowTemplate.append(element);
+          });
+          docfrag.appendChild(rowTemplate.get(0));
+          row = [];
+        }
       } catch (err) {
         console.log(err); // eslint-disable-line
       }
