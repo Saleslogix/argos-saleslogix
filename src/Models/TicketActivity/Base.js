@@ -9,7 +9,7 @@ const __class = declare('crm.Models.TicketActivity.Base', [_ModelBase], {
   entityName: 'TicketActivity',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-list-ul fa-2x',
+  iconClass: 'bullet-list',
   resourceKind: 'ticketActivities',
   security: 'Entities/Ticket/View',
   modelName: MODEL_NAMES.TICKETACTIVITY,

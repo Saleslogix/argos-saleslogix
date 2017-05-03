@@ -13,7 +13,7 @@ const __class = declare('crm.Integrations.BOE.Models.Location.Base', [_ModelBase
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.LOCATION,
-  iconClass: 'fa fa-map-marker fa-2x',
+  iconClass: 'map-pin',
   detailViewId: '',
   listViewId: 'locations_list',
   editViewId: '',

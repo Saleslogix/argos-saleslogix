@@ -81,7 +81,7 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
     let iconClass;
     iconClass = entry.iconClass;
     if (!iconClass) {
-      iconClass = 'fa fa-cloud fa-2x';
+      iconClass = 'url';
     }
     return iconClass;
   },

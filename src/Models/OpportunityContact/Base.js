@@ -11,7 +11,7 @@ const __class = declare('crm.Models.OpportunityContact.Base', [_ModelBase], {
   entityName: 'OpportunityContact',
   entityDisplayName: resource.entityDisplayName,
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
-  iconClass: 'fa fa-user fa-lg',
+  iconClass: 'user',
   resourceKind: 'opportunityContacts',
   modelName: MODEL_NAMES.OPPORTUNITYCONTACT,
   security: 'Entities/Contact/View',
