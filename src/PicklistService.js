@@ -69,6 +69,18 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return false;
   },
+  getPicklistItemByText(picklistName, text, languageCode = App.getCurrentLocale()) {
+    const picklist = this.getPicklistByName(picklistName, languageCode);
+
+    if (picklist) {
+      for (let i = 0; i < picklist.items.length; i++) {
+        if (picklist.items[i].text === text) {
+          return picklist.items[i];
+        }
+      }
+    }
+    return false;
+  },
   getPicklistItemTextByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
     const picklistItem = this.getPicklistItemByCode(picklistName, itemCode, languageCode);
     if (itemCode && picklistItem) {
@@ -171,9 +183,9 @@ const __class = lang.setObject('crm.PicklistService', {
     if (serviceOptions.filterByLanguage === false) {
       // This means disable fallback
       // Used for Name Prefix and Suffix we only want the filtered picklist.
-      return queryOptions.language || ' ';
+      return queryOptions.language && queryOptions.language.trim() || ' ';
     }
-    return queryOptions.language || App.getCurrentLocale();
+    return queryOptions.language && queryOptions.language.trim() || App.getCurrentLocale();
   },
 
   /**

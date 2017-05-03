@@ -52,7 +52,7 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
     let iconClass;
     iconClass = this._model.getIconClass(entry);
     if (!iconClass) {
-      iconClass = 'fa fa-cloud fa-2x';
+      iconClass = 'url';
     }
     return iconClass;
   },
