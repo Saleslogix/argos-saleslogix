@@ -3,11 +3,6 @@ CACHE MANIFEST
 # Time: Thu Nov 12 2015 09:41:38 GMT-0700 (US Mountain Standard Time)
 
 CACHE:
-content/css/themes/fonts/FontAwesome.otf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
 configuration/development.js
 configuration/production.js
 content/clippy.swf
@@ -15,12 +10,6 @@ content/css/app.min.css
 content/css/app.min.debug.css
 content/css/themes/crm/sdk.min.crm.css
 content/css/themes/crm/sdk.min.crm.debug.css
-content/css/themes/fonts/FontAwesome.otf
-content/css/themes/fonts/fontawesome-webfont.eot
-content/css/themes/fonts/fontawesome-webfont.svg
-content/css/themes/fonts/fontawesome-webfont.ttf
-content/css/themes/fonts/fontawesome-webfont.woff
-content/css/themes/fonts/fontawesome-webfont.woff2
 content/dojo/dojo-dependencies-debug.js
 content/dojo/dojo-dependencies.js
 content/dojo/dojo/cldr/nls/ar/buddhist.js
@@ -493,10 +482,3 @@ prefer-online
 NETWORK:
 ../sdata/
 *
-
-FALLBACK:
-content/css/themes/fonts/FontAwesome.otf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0

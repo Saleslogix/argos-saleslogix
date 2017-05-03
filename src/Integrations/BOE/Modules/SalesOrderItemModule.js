@@ -23,7 +23,7 @@ const __class = declare('crm.Integrations.BOE.Modules.SalesOrderItemModule', [_M
     am.registerView(new SalesOrderItemEdit());
     am.registerView(new UnitOfMeasureList({
       id: 'orderitem_unitofmeasure_list',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new LocationPricingAvailabilityList({

@@ -71,7 +71,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
     let iconClass;
     iconClass = entry.iconClass;
     if (!iconClass) {
-      iconClass = 'fa fa-cloud fa-2x';
+      iconClass = 'url';
     }
     return iconClass;
   },

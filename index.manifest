@@ -7,13 +7,6 @@ CACHE:
 content/css/themes/swiftpage/sdk.min.swiftpage.css
 content/css/app.min.css
 
-# fonts
-content/css/themes/fonts/FontAwesome.otf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
-
 # images
 content/images/114x114.png
 content/images/144x144.png

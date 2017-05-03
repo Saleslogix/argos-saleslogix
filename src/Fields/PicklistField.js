@@ -28,6 +28,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   picklistName: false,
   picklistOptions: null,
   languageCode: null,
+  languageCodeProperty: null,
   storageMode: 'text',
   requireSelection: false,
   valueKeyProperty: false,
@@ -54,7 +55,6 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         this.keyProperty = 'text';
         this.textProperty = 'text';
     }
-    this.languageCode = App.getCurrentLocale();
   },
   isReadOnly: function isReadOnly() {
     return !this.picklist;
@@ -114,6 +114,12 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
 
     return results || value;
   },
+  getLanguageCode: function getLanguageCode() {
+    if (this.languageCodeProperty) {
+      return this.owner && this.owner.entry && this.owner.entry[this.languageCodeProperty] && this.owner.entry[this.languageCodeProperty].trim();
+    }
+    return this.languageCode || App.getCurrentLocale();
+  },
   setValue: function setValue(val) { // eslint-disable-line
     if (this.singleSelect) {
       if (val && !this.picklistName) {
@@ -128,11 +134,15 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         }
       }
       let picklistItem = false;
+      this.languageCode = this.getLanguageCode();
       if (this.storageMode !== 'id') {
-        picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val);
+        // Name Prefix and Suffix are special case pick lists stored as text but languageCode may have changed, just ignore new method
+        if (this.picklistName !== 'Name Prefix' && this.picklistName !== 'Name Suffix') {
+          picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val, this.languageCode);
+        }
       } else {
         // Special case of item being stored by $key...
-        picklistItem = this.app.picklistService.getPicklistItemByKey(this.picklistName, val);
+        picklistItem = this.app.picklistService.getPicklistItemByKey(this.picklistName, val, this.languageCode);
       }
       if (picklistItem) {
         val = picklistItem;

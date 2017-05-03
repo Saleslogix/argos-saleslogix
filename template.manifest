@@ -6,13 +6,6 @@ CACHE:
 # css
 @include 'content/css'
 
-# fonts
-content/css/themes/fonts/FontAwesome.otf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.eot?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.svg?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.ttf?v=4.4.0
-content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
-
 # images
 @include 'content/images'
 

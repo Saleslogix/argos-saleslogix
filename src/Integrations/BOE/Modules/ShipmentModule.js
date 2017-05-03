@@ -19,7 +19,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipmentModule', [_Module]
 
     am.registerView(new ShipmentItemsList({
       id: 'shipment_lines_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
   },

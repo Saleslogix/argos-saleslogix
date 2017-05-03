@@ -1041,16 +1041,14 @@ canvas,
         font-size: 18px;
         color: @black-light;
     }
+    > span.label{
+        display: inline-block;
+    }
 }
 .offline-usage-header {
     width:100%;
 }
 .offline-usage-item {
-    margin: 6px;
-    display: inline-block;
-    min-width: 180px;
-    padding: 6px;
-
     .header {
       .label {
          font-weight: bold;
@@ -1088,8 +1086,7 @@ canvas,
         }
       }
        .bar {
-          border-bottom-style:solid;
-          border-width:2px;
+          border-bottom:1px solid #bdbdbd;
           margin: 6px 0px 6px 0px;
         }
 
@@ -1301,4 +1298,51 @@ span.range-value {
 
 .list-item-indicator-content {
     text-align: right;
+}
+
+.update-toolbar {
+    @height: 44px;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    .box-sizing(border-box);
+    width: 100%;
+    padding: 0px 0px 10px 0px;
+    z-index: 10;
+    background-color: @color-emerald;
+    height: @height;
+    > h1 {
+        width: 100%;
+        line-height: @height;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: normal;
+        color: #fff;
+        position: absolute;
+        z-index: 0;
+    }
+
+    > .toolButton {
+        background: transparent;
+        border: none 0 black;
+        .box-shadow(none);
+    }
+}
+
+.update-available /* body */
+ {
+    padding: 90px 0 0 0;
+}
+
+.update-available > .update-toolbar {
+    display: block;
+}
+
+.update-available > .toolbar {
+    top: 45px;
 }
