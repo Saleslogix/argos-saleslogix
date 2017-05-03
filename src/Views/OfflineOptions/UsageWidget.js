@@ -53,7 +53,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '</div>',
   ]),
   usageHeaderTemplate: new Simplate([
-    '<div class="offline-usage-header full column">',
+    '<div class="offline-usage-header twelve columns">',
     '{%! $$.usageItemTemplate %}',
     '</div>',
   ]),
@@ -91,7 +91,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
    * @property {string}
    * SoHo class to be applied on multi column.
    */
-  multiColumnClass: 'one-third',
+  multiColumnClass: 'four',
   /**
    * @property {number}
    * Number of columns in view
@@ -284,7 +284,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         item.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
         const itemNode = $(this.usageItemTemplate.apply(item, this)).get(0);
 
-        const column = $(`<div class="${this.multiColumnClass} column">`).append(itemNode);
+        const column = $(`<div class="${this.multiColumnClass} columns">`).append(itemNode);
         row.push(column);
         if ((i + 1) % this.multiColumnCount === 0 || i === entities.length - 1) {
           const rowTemplate = $('<div class="row"></div>');
