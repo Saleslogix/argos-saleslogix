@@ -58,7 +58,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new QuotesList({
       id: 'erpshiptoaccount_quotes_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -68,7 +68,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new SalesOrdersList({
       id: 'erpshiptoaccount_salesorders_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -78,7 +78,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new InvoicesList({
       id: 'erpshiptoaccount_invoices_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -88,7 +88,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new ShipmentsList({
       id: 'erpshiptoaccount_shipments_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -98,7 +98,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new ReceivablesList({
       id: 'erpshiptoaccount_receivables_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -108,7 +108,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new ReturnsList({
       id: 'erpshiptoaccount_returns_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -118,7 +118,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new ContactAssociationsList({
       id: 'erpshiptoaccount_contactassociations_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';
@@ -146,7 +146,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Mo
     am.registerView(new SalesPersonList({
       id: 'erpshiptoaccount_salesperson_related',
       groupsEnabled: false,
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       defaultSearchTerm: function defaultSearchTerm() {
         return '';

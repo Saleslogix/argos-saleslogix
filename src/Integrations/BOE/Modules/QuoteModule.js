@@ -44,13 +44,13 @@ const __class = declare('crm.Integrations.BOE.Modules.QuoteModule', [_Module], {
 
     am.registerView(new QuotePersonsList({
       id: 'quotepersons_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
     }));
 
     am.registerView(new QuoteLinesList({
       id: 'quote_lines_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       addLineItems: function addLineItems() {
         if (!this.options.selectedEntry.ErpLogicalId) {
@@ -104,43 +104,43 @@ const __class = declare('crm.Integrations.BOE.Modules.QuoteModule', [_Module], {
 
     am.registerView(new BillToList({
       id: 'quote_billTos_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new ShipToList({
       id: 'quote_shipTos_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       expose: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new BackOfficeList({
       id: 'quote_backoffice_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new BackOfficeAccountingEntityList({
       id: 'quote_backofficeaccountingentity_related',
-      disableRightDrawer: true,
+      hasSettings: false,
       groupsEnabled: false,
     }));
 
     am.registerView(new LocationList({
       id: 'quote_location_list',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new LocationList({
       id: 'quote_warehouse_list',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new SyncResultsList({
       id: 'quote_syncresult_related',
-      disableRightDrawer: true,
+      hasSettings: false,
     }));
 
     am.registerView(new QuoteLinesDetail());
