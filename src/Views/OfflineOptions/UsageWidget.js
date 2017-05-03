@@ -245,7 +245,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     totalItem.oldestDate = (oldestDate) ? format.relativeDate(oldestDate) : '';
     totalItem.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
     const headerNode = $(this.usageHeaderTemplate.apply(totalItem, this));
-    const columnHeaderNode = $(`<div class="row">`).append(headerNode);
+    const columnHeaderNode = $(`<div class="row"></div>`).append(headerNode);
     docfrag.appendChild(columnHeaderNode.get(0));
     this._selectFields = {};
     const entities = usage.entities;
@@ -268,7 +268,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
         item.newestDate = (newestDate) ? format.relativeDate(newestDate) : '';
         const itemNode = $(this.usageItemTemplate.apply(item, this)).get(0);
 
-        const column = $(`<div class="one-third column">`).append(itemNode);
+        const column = $(`<div class="one-third column"></div>`).append(itemNode);
         row.push(column);
         if ((i + 1) % 3 === 0 || i === entities.length - 1) {
           const rowTemplate = $('<div class="row"></div>');
