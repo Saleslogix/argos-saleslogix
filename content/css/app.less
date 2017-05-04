@@ -415,13 +415,16 @@ td.old-calendar-day {
     .calendarContainer,
     .activity-content,
     .event-content {
-        width: 50%;
-        float: left;
+        max-width: calc(~'100% - 334px');
+        display: inline-block;
+        min-width: 400px;
+        vertical-align: top;
      }
 
     .calendarContainer {
         box-sizing: border-box;
         border-right: 1px solid @color-lighter-slate !important;
+        min-width: 334px;
     }
 
     .calendar-footer {
