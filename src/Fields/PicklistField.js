@@ -139,8 +139,6 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         // Name Prefix and Suffix are special case pick lists stored as text but languageCode may have changed, just ignore new method
         if (this.picklistName !== 'Name Prefix' && this.picklistName !== 'Name Suffix') {
           picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val, this.languageCode);
-        } else {
-          picklistItem = this.app.picklistService.getPicklistItemByText(this.picklistName, val);
         }
       } else {
         // Special case of item being stored by $key...
