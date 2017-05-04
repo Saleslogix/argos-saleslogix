@@ -69,8 +69,8 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return false;
   },
-  getPicklistItemByText(picklistName, text, languageCode = App.getCurrentLocale()) {
-    const picklist = this.getPicklistByName(picklistName, languageCode);
+  getPicklistItemByText(picklistName, text) {
+    const picklist = this.getPicklistByName(picklistName, '');
 
     if (picklist) {
       for (let i = 0; i < picklist.items.length; i++) {
