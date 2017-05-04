@@ -220,10 +220,10 @@
           "text": "MainToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "RightDrawer.js",
+          "text": "UpdateToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "UpdateToolbar.js",
+          "text": "RightDrawer.js",
           "path": "../src-out/Views/"
         }, {
           "text": "LogOff.js",
@@ -360,6 +360,15 @@
         }, {
           "text": "Names.js",
           "path": "../src-out/Integrations/Contour/Models/"
+        }, {
+          "text": "_Module.js",
+          "path": "../src-out/Integrations/SalesNavigator/Modules/"
+        }, {
+          "text": "WidgetTypes.js",
+          "path": "../src-out/Integrations/SalesNavigator/"
+        }, {
+          "text": "SalesNavigatorUri.js",
+          "path": "../src-out/Integrations/SalesNavigator/"
         }, {
           "text": "ActivityTypeIcon.js",
           "path": "../src-out/Models/Activity/"
@@ -718,6 +727,9 @@
           "text": "LocationPicker.js",
           "path": "../src-out/Integrations/Contour/Views/PxSearch/"
         }, {
+          "text": "SalesNavigatorService.js",
+          "path": "../src-out/Integrations/SalesNavigator/"
+        }, {
           "text": "TypesList.js",
           "path": "../src-out/Views/Activity/"
         }, {
@@ -873,6 +885,9 @@
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Offline/"
+        }, {
+          "text": "Configuration.js",
+          "path": "../src-out/Integrations/SalesNavigator/Views/Settings/"
         }, {
           "text": "AddAttachment.js",
           "path": "../src-out/Views/Attachment/"
@@ -1084,6 +1099,9 @@
           "text": "SData.js",
           "path": "../src-out/Integrations/Contour/Models/Place/"
         }, {
+          "text": "_WidgetBase.js",
+          "path": "../src-out/Integrations/SalesNavigator/"
+        }, {
           "text": "Offline.js",
           "path": "../src-out/Models/Activity/"
         }, {
@@ -1189,6 +1207,9 @@
           "text": "List.js",
           "path": "../src-out/Views/RecentlyViewed/"
         }, {
+          "text": "SettingsModule.js",
+          "path": "../src-out/Integrations/SalesNavigator/Modules/"
+        }, {
           "text": "ContactAssociationModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
         }, {
@@ -1212,6 +1233,15 @@
         }, {
           "text": "ApplicationModule.js",
           "path": "../src-out/Integrations/Contour/"
+        }, {
+          "text": "Widget.js",
+          "path": "../src-out/Integrations/SalesNavigator/Views/Account/"
+        }, {
+          "text": "Widget.js",
+          "path": "../src-out/Integrations/SalesNavigator/Views/Contact/"
+        }, {
+          "text": "Widget.js",
+          "path": "../src-out/Integrations/SalesNavigator/Views/Lead/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Models/UserActivity/"
@@ -1279,11 +1309,23 @@
           "text": "SalesDashboardWidget.js",
           "path": "../src-out/Integrations/BOE/Views/Account/"
         }, {
+          "text": "AccountModule.js",
+          "path": "../src-out/Integrations/SalesNavigator/Modules/"
+        }, {
+          "text": "ContactModule.js",
+          "path": "../src-out/Integrations/SalesNavigator/Modules/"
+        }, {
+          "text": "LeadModule.js",
+          "path": "../src-out/Integrations/SalesNavigator/Modules/"
+        }, {
           "text": "MyDay.js",
           "path": "../src-out/Views/Activity/"
         }, {
           "text": "AccountModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
+        }, {
+          "text": "ApplicationModule.js",
+          "path": "../src-out/Integrations/SalesNavigator/"
         }, {
           "text": "ApplicationModule.js",
           "path": "../src-out/"
