@@ -49,7 +49,7 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
   promotionRequested: resource.promotionRequested,
   promotionText: resource.promotionText,
   errorMessage: resource.errorMessage,
-  promoteIcon: 'fa fa-level-up',
+  promoteIcon: 'upload',
 
   _accountingDeferred: null,
   _accountingDropdown: null,

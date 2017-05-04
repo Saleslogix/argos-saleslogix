@@ -302,7 +302,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         name: 'PromoteQuote',
         property: 'QuoteNumber',
         label: this.promoteQuoteText,
-        iconClass: 'fa fa-level-up fa-2x',
+        iconClass: 'upload',
         action: 'onPromoteQuote',
         security: 'Entities/Quote/Promote',
       }, {
