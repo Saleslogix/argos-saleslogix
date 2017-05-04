@@ -10,7 +10,7 @@ define('configuration/production.default', [
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
   'crm/Integrations/SalesNavigator/ApplicationModule',
-], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
+], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule, SalesNavigatorApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
