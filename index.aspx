@@ -125,8 +125,6 @@
     <!-- Modules -->
 </head>
 <body>
-  <div id="rootNode"></div>
-
   <script type="text/javascript">
 
   // set path for soho cultures
@@ -189,6 +187,8 @@
       });
     })();
   </script>
+
+  <div id="rootNode"></div>
 </body>
 </html>
 
