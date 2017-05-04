@@ -68,7 +68,8 @@
         map: {
             '*': {
                 'Sage/Platform/Mobile': 'argos',
-                'Mobile/SalesLogix': 'crm'
+                'Mobile/SalesLogix': 'crm',
+                'icboe': 'crm/Integrations/BOE'
             }
         }
   });
@@ -117,6 +118,10 @@
     ]);
   });
 
+  // Shim, sohoxi will use define.amd and require it.
+  define('jquery', function() {
+    return window.$;
+  });
   require([
     '<%= boot %>',
     '<%= reporters[0] %>',
