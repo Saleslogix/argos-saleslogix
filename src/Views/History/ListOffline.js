@@ -59,6 +59,25 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
       view.show(options);
     }
   },
+  _onRefresh: function _onRefresh(args) {
+    this.inherited(arguments);
+    if (typeof args === 'undefined' || args === null) {
+      return;
+    }
+
+    const entry = args.data;
+    if (typeof entry === 'undefined' || entry == null) {
+      return;
+    }
+
+    if (args.resourceKind === 'history' && typeof args.id === 'undefined' && typeof args.key === 'undefined') {
+      this.removeEntry(entry);
+      this.refreshRequired = true;
+    }
+  },
+  removeEntry: function removeEntry(entry) {
+    // TODO: Lookup entry in offline store and remove it
+  },
 });
 
 export default __class;
