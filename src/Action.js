@@ -46,7 +46,7 @@ const __class = lang.setObject('crm.Action', {
       return;
     }
 
-    let appOpened = false;
+    let actionInitiated = false;
     this.setSource({
       entry: selection.data,
       descriptor: selection.data.$descriptor,
@@ -60,9 +60,9 @@ const __class = lang.setObject('crm.Action', {
 
     const value = utility.getValue(selection.data, phoneProperty, '');
     crm.Action.recordToHistory(() => {
-      if (!appOpened) {
+      if (!actionInitiated) {
         App.initiateCall(value);
-        appOpened = true;
+        actionInitiated = true;
       }
     }, selection.data);
   },
