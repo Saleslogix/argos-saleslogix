@@ -46,6 +46,7 @@ const __class = lang.setObject('crm.Action', {
       return;
     }
 
+    let appOpened = false;
     this.setSource({
       entry: selection.data,
       descriptor: selection.data.$descriptor,
@@ -59,7 +60,10 @@ const __class = lang.setObject('crm.Action', {
 
     const value = utility.getValue(selection.data, phoneProperty, '');
     crm.Action.recordToHistory(() => {
-      App.initiateCall(value);
+      if (!appOpened) {
+        App.initiateCall(value);
+        appOpened = true;
+      }
     }, selection.data);
   },
   sendEmail: function sendEmail(action, selection, emailProperty) {
