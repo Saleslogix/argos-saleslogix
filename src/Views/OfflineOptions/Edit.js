@@ -15,6 +15,7 @@ const resource = getResource('offlineOptionsEdit');
 const __class = declare('crm.Views.OfflineOptions.Edit', [_EditBase, _RelatedWidgetEditMixin], {
   // Localization
   titleText: resource.titleText,
+  multiColumnView: false,
   // View Properties
   id: 'offline_options_edit',
   createLayout: function createLayout() {

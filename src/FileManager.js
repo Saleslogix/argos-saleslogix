@@ -105,7 +105,7 @@ const __class = declare('crm.FileManager', null, {
       request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
       request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
-      if (App.enableMingle) {
+      if (App.isMingleEnabled()) {
         const accessToken = App.mingleAuthResults.access_token;
         request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
         request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
@@ -243,7 +243,7 @@ const __class = declare('crm.FileManager', null, {
       request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
       request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
-      if (App.enableMingle) {
+      if (App.isMingleEnabled()) {
         const accessToken = App.mingleAuthResults.access_token;
         request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
         request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
