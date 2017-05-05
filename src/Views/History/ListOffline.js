@@ -28,7 +28,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   enableSearch: false,
   expose: true,
   labelProperty: 'Text',
-  idProperty: 'StartDate',
+  idProperty: '$offlineDate',
   enableActions: true,
 
   getModel: function getModel() {
@@ -43,6 +43,21 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
       security: 'Entities/Account/Edit',
       action: 'navigateToEditView',
     }]);
+  },
+  navigateToEditView: function navigateToEditView(action, selection) {
+    const view = this.app.getView(this.editView);
+    const key = selection.data[this.idProperty];
+    const options = {
+      key,
+      selectedEntry: selection.data,
+      fromContext: this,
+      insert: true,
+      fromOffline: true,
+    };
+
+    if (view) {
+      view.show(options);
+    }
   },
 });
 
