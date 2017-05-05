@@ -55,16 +55,14 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
     if (!confirm(confirmMessage)) { // eslint-disable-line
       return;
     }
-
     const entry = this.createEntryForDelete();
-    const request = this.createRequest();
-
-    if (request) {
-      request.delete(entry, {
-        success: this.onDeleteSuccess,
-        failure: this.onRequestDataFailure,
-        scope: this,
-      });
+    if (entry) {
+      const store = this.get('store');
+      if (store) {
+        store.remove(entry).then(
+          this.onDeleteSuccess()
+        );
+      }
     }
   },
   onDeleteSuccess: function onDeleteSuccess() {
