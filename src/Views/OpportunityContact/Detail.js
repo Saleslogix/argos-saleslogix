@@ -60,7 +60,8 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
       const store = this.get('store');
       if (store) {
         store.remove(entry).then(
-          this.onDeleteSuccess()
+          this.onDeleteSuccess(),
+          error => this._onGetError(null, error),
         );
       }
     }
