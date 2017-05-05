@@ -18,6 +18,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   id: 'history_list_offline',
   security: 'Entities/Account/View',
   insertView: 'history_edit_offline',
+  editView: 'history_edit',
   entityName: 'History',
   pageSize: 100,
   resourceKind: 'history',
@@ -27,10 +28,21 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   enableSearch: false,
   expose: true,
   labelProperty: 'Text',
+  idProperty: 'StartDate',
+  enableActions: true,
 
   getModel: function getModel() {
     const model = App.ModelManager.getModel(MODEL_NAMES.HISTORY, MODEL_TYPES.OFFLINE);
     return model;
+  },
+  createActionLayout: function createActionLayout() {
+    return this.actions || (this.actions = [{
+      id: 'edit',
+      cls: 'edit',
+      label: 'Save to CRM', // TODO: Localize
+      security: 'Entities/Account/Edit',
+      action: 'navigateToEditView',
+    }]);
   },
 });
 

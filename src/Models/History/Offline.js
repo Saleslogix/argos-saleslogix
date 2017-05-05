@@ -8,6 +8,7 @@ import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase], {
   id: 'history_offline_model',
+  idProperty: 'StartDate',
   createOfflineNote: function createOfflineNote() {
     const entity = {}; //
     entity.$descriptor = 'offline Note';
