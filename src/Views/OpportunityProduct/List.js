@@ -15,7 +15,6 @@ const resource = getResource('opportunityProductList');
 const __class = declare('crm.Views.OpportunityProduct.List', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.Product.Name %}</p>',
     '<p class="micro-text">',
     '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
     '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',

@@ -33,7 +33,6 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   // Card Layout
   itemIconClass: 'user',
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.NameLF %}</p>',
     '<p class="micro-text">{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</p>',
     '<p class="micro-text">{%: $.WebAddress %}</p>',
     '{% if ($.WorkPhone) { %}',

@@ -15,7 +15,6 @@ const resource = getResource('opportunityContactList');
 const __class = declare('crm.Views.OpportunityContact.List', [List], {
   // Template
   itemTemplate: new Simplate([
-    '<p class="listview-heading {% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</p>',
     '<p class="micro-text {% if ($.IsPrimary) { %} primary {% } %}">',
     '{% if ($.SalesRole) { %}',
     '{%: $$.formatPicklist("SalesRole")($.SalesRole) %} | ',
