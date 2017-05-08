@@ -28,7 +28,6 @@ const resource = getResource('leadList');
 const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.LeadNameLastFirst %}</p>',
     '<p class="micro-text">',
     '{%: $$.joinFields(" | ", [$$.formatPicklist("Title")($.Title), $.Company]) %}',
     '</p>',
