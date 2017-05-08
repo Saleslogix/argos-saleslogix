@@ -31,6 +31,10 @@ const __class = declare('crm.Views.History.EditOffline', [_EditBase], {
       }],
     }]);
   },
+  beforeTransitionTo: function beforeTransitionTo() {
+    this.inherited(arguments);
+    $(this.domNode).removeClass('panel-loading');
+  },
 });
 
 export default __class;

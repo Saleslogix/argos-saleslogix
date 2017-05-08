@@ -10,7 +10,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
 
   // Templates
   itemTemplate: new Simplate([`
-    <p>time: {%: Locale.formatDate($.StartDate) %}</p>
+    <p>{%: $.Text %}</p>
   `]),
 
   // View Properties
@@ -31,6 +31,9 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   idProperty: '$offlineDate',
   enableActions: true,
 
+  getTitle: function getTitle() {
+    return 'Offline Note';// TODO: Localize
+  },
   getModel: function getModel() {
     const model = App.ModelManager.getModel(MODEL_NAMES.HISTORY, MODEL_TYPES.OFFLINE);
     return model;
@@ -74,9 +77,16 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
       this.removeEntry(entry);
       this.refreshRequired = true;
     }
+
+    // Edit will pass response message from pouch that the data was saved: { ok: true, ... }
+    if (entry.ok === true) {
+      this.refreshRequired = true;
+    }
   },
   removeEntry: function removeEntry(entry) {
     // TODO: Lookup entry in offline store and remove it
+    const model = this.getModel();
+    model.deleteEntry(entry);
   },
 });
 

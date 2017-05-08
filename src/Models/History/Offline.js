@@ -21,6 +21,32 @@ const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase],
     entity.relatedDescription = null;
     return entity;
   },
+  deleteEntry: function deleteEntry(entry) {
+    return new Promise((resolve, reject) => {
+      const store = this.getStore();
+      store.query((doc, emit) => {
+        if (doc.entityName === this.entityName && doc.entity && doc.entity.entityId === null || typeof doc.entity.entityId === 'undefined') {
+          if (doc.entity.Text === entry.Notes) {
+            emit(doc);
+          }
+        }
+      }).then((docs) => {
+        if (docs && docs.length === 1) {
+          const doc = docs[0];
+          this._removeDoc(doc.key).then((result) => {
+            this.onEntryDelete(entry);
+            resolve(result);
+          }, (err) => {
+            reject(err);
+          });
+        } else {
+          reject('No entry to delete.');
+        }
+      }, (err) => {
+        reject(err);
+      });
+    });
+  },
 });
 
 
