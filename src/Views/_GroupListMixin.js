@@ -371,7 +371,6 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     layoutOptions.columns.forEach((item) => {
       rows = rows + item.rows;
     });
-    const columnWidth = utility.roundNumberTo((100 / columns), 0);
 
     const template = [];
     template.push('<div class="group-item">');
@@ -382,9 +381,8 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       const columnItem = layoutOptions.columns[column - 1];
       if ((columnItem) && (column <= columns) && (i !== 0)) {
         if (row === 1) {
-          const columnStyle = columnItem.style || `width:${columnWidth}%;`;
           const columnClass = columnItem.clss || '';
-          template.push(`<div class="micro-text group-column ${columnClass}"  style="${columnStyle}">`);
+          template.push(`<div class="micro-text group-column ${columnClass}">`);
         }
         const item = layout[i];
         if (item && (columnItem.rows > 0)) {
