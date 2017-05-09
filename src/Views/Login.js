@@ -16,7 +16,7 @@ const resource = getResource('login');
 const __class = declare('crm.Views.Login', [Edit], {
   // Templates
   widgetTemplate: new Simplate([`
-      <div id="{%= $.id %}" title="{%: $.titleText %}" class="view single-column">
+      <div id="{%= $.id %}" title="{%: $.titleText %}" class="view">
         <div class="wrapper">
           <section class="signin" role="main">
             <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">
