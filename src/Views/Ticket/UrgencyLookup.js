@@ -27,7 +27,7 @@ const __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
     'UrgencyCode',
   ],
   resourceKind: 'urgencies',
-
+  isCardView: false,
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const toUpper = searchQuery && searchQuery.toUpperCase() || '';
     const escaped = this.escapeSearchQuery(toUpper);

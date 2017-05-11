@@ -1,6 +1,5 @@
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 // import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
@@ -42,36 +41,12 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
   resourceKind: 'opportunityContacts',
   modelName: MODEL_NAMES.OPPORTUNITYCONTACT,
 
-  createEntryForDelete: function createEntryForDelete() {
-    const entry = {
-      $key: this.entry.$key,
-      $etag: this.entry.$etag,
-      $name: this.entry.$name,
-    };
-    return entry;
-  },
   removeContact: function removeContact() {
     const confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
     if (!confirm(confirmMessage)) { // eslint-disable-line
       return;
     }
-
-    const entry = this.createEntryForDelete();
-    const request = this.createRequest();
-
-    if (request) {
-      request.delete(entry, {
-        success: this.onDeleteSuccess,
-        failure: this.onRequestDataFailure,
-        scope: this,
-      });
-    }
-  },
-  onDeleteSuccess: function onDeleteSuccess() {
-    connect.publish('/app/refresh', [{
-      resourceKind: this.resourceKind,
-    }]);
-    ReUI.back();
+    this.removeEntry();
   },
   formatPicklist: function formatPicklist(property) {
     return format.picklist(this.app.picklistService, this._model, property);

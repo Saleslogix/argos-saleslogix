@@ -77,7 +77,6 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   logOut: function logOut() {
     const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
     if (sure) {
-      App.hideApplicationMenuOnLarge();
       App.hideApplicationMenu();
       App.bars.tbar.hide();
       App.logOut();
