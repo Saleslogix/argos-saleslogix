@@ -19,7 +19,6 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
   format,
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.Ticket.TicketNumber %}</p>',
     '<p class="micro-text">{%: $$.format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</p>',
     '<div class="note-text-item">',
     '<div class="note-text-wrap">',

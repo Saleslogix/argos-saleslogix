@@ -31,7 +31,6 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
   pageSize: 1000,
   autoNavigateToBriefcase: true,
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $$.getTitle($) %}</p>',
     '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   refreshRequiredFor: function refreshRequiredFor() {

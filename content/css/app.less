@@ -410,7 +410,7 @@ td.old-calendar-day {
 }
 
 /* Excludes iphone <= 3 */
-@media only screen and (min-width: 568px) {
+@media only screen and (min-width: 668px) {
     .viewContainer > #calendar_monthlist > .old-month-content,
     .viewContainer > #calendar_monthlist > .old-day-content,
     .calendarContainer,
@@ -423,6 +423,7 @@ td.old-calendar-day {
     .calendarContainer {
         box-sizing: border-box;
         border-right: 1px solid @color-lighter-slate !important;
+        min-width: 334px;
     }
 
     .calendar-footer {
@@ -683,11 +684,6 @@ td.entry-table-icon .list-item-selector {
 }
 
 .event-content {
-  .list-content {
-    > li{
-      border-bottom: 1px solid @color-lighter-slate;
-    }
-  }
   .list-content > li.no-data,
   .list-content > div.no-data {
       padding: 8px 3px 8px 3px;

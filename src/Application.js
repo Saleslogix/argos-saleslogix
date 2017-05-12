@@ -802,6 +802,7 @@ export default class Application extends SDKApplication {
         week: {
           dow: userWeekStartDay,
         },
+        relativeTime: moment().locale(this.getCurrentLocale())._locale._relativeTime,
       };
     }
 

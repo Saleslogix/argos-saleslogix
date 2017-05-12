@@ -26,7 +26,6 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   format,
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.TicketNumber %}</p>',
     '<p class="micro-text">{%: $.Subject %}</p>',
     '{% if(($.Account) && (!$.Contact)) { %}',
     '<p class="micro-text">{%: $$.viewContactActionText + ": " + $.Account.AccountName %}</p>',
