@@ -47,6 +47,9 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
       label: resource.saveToCRMText,
       security: 'Entities/Account/Edit',
       action: 'navigateToEditView',
+      enabled: function enabled() {
+        return App.isOnline();
+      },
     }]);
   },
   navigateToEditView: function navigateToEditView(action, selection) {
