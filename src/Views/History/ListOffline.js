@@ -1,12 +1,14 @@
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import MODEL_TYPES from 'argos/Models/Types';
-import getResource from 'argos/I18n'; // eslint-disable-line
+import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
+
+const resource = getResource('historyListOffline');
 
 const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   // Localization
-  titleText: 'Offline Notes',
+  titleText: resource.titleText,
 
   // Templates
   itemTemplate: new Simplate([`
@@ -24,7 +26,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   resourceKind: 'history',
   modelName: MODEL_NAMES.HISTORY,
   enableOfflineSupport: true,
-  enableOnlineSupport: true, // TODO: don't show this when online, set to false when done testing.
+  enableOnlineSupport: true,
   enableSearch: false,
   expose: true,
   labelProperty: 'Text',
@@ -32,7 +34,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   enableActions: true,
 
   getTitle: function getTitle() {
-    return 'Offline Note';// TODO: Localize
+    return resource.widgetTitle;
   },
   getModel: function getModel() {
     const model = App.ModelManager.getModel(MODEL_NAMES.HISTORY, MODEL_TYPES.OFFLINE);
@@ -42,7 +44,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
     return this.actions || (this.actions = [{
       id: 'edit',
       cls: 'edit',
-      label: 'Save to CRM', // TODO: Localize
+      label: resource.saveToCRMText,
       security: 'Entities/Account/Edit',
       action: 'navigateToEditView',
     }]);
@@ -84,7 +86,6 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
     }
   },
   removeEntry: function removeEntry(entry) {
-    // TODO: Lookup entry in offline store and remove it
     const model = this.getModel();
     model.deleteEntry(entry);
   },

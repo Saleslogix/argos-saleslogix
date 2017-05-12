@@ -9,18 +9,6 @@ import MODEL_NAMES from '../Names';
 const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase], {
   id: 'history_offline_model',
   idProperty: '$offlineDate',
-  createOfflineNote: function createOfflineNote() {
-    const entity = {}; //
-    entity.$descriptor = 'offline Note';
-    entity.createDate = moment().toDate();
-    entity.modifyDate = moment().toDate();
-    entity.description = '';
-    entity.note = '';
-    entity.relatedEntityId = null;
-    entity.relatedEntityName = null;
-    entity.relatedDescription = null;
-    return entity;
-  },
   deleteEntry: function deleteEntry(entry) {
     return new Promise((resolve, reject) => {
       const store = this.getStore();
