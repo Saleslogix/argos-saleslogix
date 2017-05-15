@@ -515,16 +515,19 @@ export default class Application extends SDKApplication {
   loadEndpoint() {
     try {
       if (window.localStorage) {
-        const results = window.localStorage.getItem('endpoint');
-        if (results) {
-          this.store.dispatch(setEndPoint(results));
-        } else {
+        let results = window.localStorage.getItem('endpoint');
+        if (!results) {
           const service = this.getService();
-          service.uri.setHost(window.location.hostname)
-            .setScheme(window.location.protocol.replace(':', ''))
-            .setPort(window.location.port);
-          this.store.dispatch(setEndPoint(service.uri.build()));
+          if (!this.isMingleEnabled()) {
+            service.uri.setHost(window.location.hostname)
+              .setScheme(window.location.protocol.replace(':', ''))
+              .setPort(window.location.port);
+          }
+
+          results = service.uri.build();
         }
+
+        this.store.dispatch(setEndPoint(results));
       }
     } catch (e) {} // eslint-disable-line
   }
