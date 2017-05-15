@@ -91,11 +91,14 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
     return results$.then((entry) => {
       return new Promise((resolve) => {
         Promise.all([App.picklistService.requestPicklist('Name Prefix', {
-          language: entry.LocationCode || App.getCurrentLocale(),
+          language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
+          filterByLanguage: true,
         }), App.picklistService.requestPicklist('Name Suffix', {
-          language: entry.LocationCode || App.getCurrentLocale(),
+          language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
+          filterByLanguage: true,
         }), App.picklistService.requestPicklist('Title', {
-          language: entry.LocationCode || App.getCurrentLocale(),
+          language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
+          filterByLanguage: true,
         })]).then(() => {
           resolve(entry);
         });

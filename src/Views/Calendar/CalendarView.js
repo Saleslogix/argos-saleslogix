@@ -60,7 +60,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
     '<div class="panel-content">',
     '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',
-    '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+    '<div class="event-content event-hidden listview" data-dojo-attach-point="eventContainerNode">',
     '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
     '{%! $.eventMoreTemplate %}',
     '</div>',

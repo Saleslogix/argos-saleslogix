@@ -31,7 +31,6 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
   pageSize: 1000,
   autoNavigateToBriefcase: true,
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $$.getTitle($) %}</p>',
     '<p class="micro-text">{%: $$.getOfflineDate($) %}</p>',
   ]),
   refreshRequiredFor: function refreshRequiredFor() {
@@ -71,7 +70,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
     let iconClass;
     iconClass = entry.iconClass;
     if (!iconClass) {
-      iconClass = 'fa fa-cloud fa-2x';
+      iconClass = 'url';
     }
     return iconClass;
   },

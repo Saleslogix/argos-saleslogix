@@ -36,6 +36,7 @@ const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySData
     'Issue',
   ],
   resourceKind: 'areaCategoryIssues',
+  isCardView: false,
 
   show: function show(options) {
     this.active = options.where;

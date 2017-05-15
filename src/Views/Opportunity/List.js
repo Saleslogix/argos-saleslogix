@@ -28,7 +28,6 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   // Templates
   // TODO: Support ExchangeRateCode with proper symbol
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.Description %}</p>',
     '{% if ($.Account) { %}',
     '<p class="micro-text">',
     '{%: $.Account.AccountName %}',

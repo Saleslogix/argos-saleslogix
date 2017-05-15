@@ -30,7 +30,6 @@ const resource = getResource('accountList');
 const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.AccountName %}</p>',
     '<p class="micro-text">{%: $.Industry %}</p>',
     '<p class="micro-text">',
     '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}',
@@ -51,16 +50,6 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   ]),
   groupsEnabled: true,
   enableDynamicGroupLayout: true,
-  groupLayoutItemTemplate: new Simplate([
-    '<div style="float:left; ">',
-    '<p class="listview-heading"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"AccountName") %} </span><span class="group-entry"><strong>{%= $$.getGroupFieldValueByName($,"AccountName") %}</strong></span></h2>',
-    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"MainPhone") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "MainPhone") %}</span></p>',
-    '</div><div style="float:left;">',
-    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></p>',
-    '<p class="micro-text"><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></p>',
-    '</div>',
-  ]),
-
 
   joinFields: function joinFields(sep, fields) {
     return utility.joinFields(sep, fields);
@@ -91,7 +80,6 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   entityName: 'Account',
   allowSelection: true,
   enableActions: true,
-  pageSize: 10,
   offlineIds: null,
   resourceKind: 'accounts',
   modelName: MODEL_NAMES.ACCOUNT,
