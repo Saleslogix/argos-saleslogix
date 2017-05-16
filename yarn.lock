@@ -12,9 +12,9 @@
   version "0.1.0"
   resolved "http://npm.infor.com:4873/@infor%2ficrm-js-customization/-/icrm-js-customization-0.1.0.tgz#2d7d8c473c31f36f5b9d2378d38e3cbce6bae9b9"
 
-"@infor/icrm-js-services@^0.1.2":
-  version "0.1.2"
-  resolved "http://npm.infor.com:4873/@infor%2ficrm-js-services/-/icrm-js-services-0.1.2.tgz#b746bc8f11e2d886da10296c79dfa47f1960b97d"
+"@infor/icrm-js-services@^0.2.1":
+  version "0.2.1"
+  resolved "http://npm.infor.com:4873/@infor%2ficrm-js-services/-/icrm-js-services-0.2.1.tgz#d47b0487b3fdfca06ccb51f70bd8e71ec6ca2fad"
   dependencies:
     karma "^1.4.1"
     karma-requirejs "^1.1.0"

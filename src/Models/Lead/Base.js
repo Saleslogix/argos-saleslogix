@@ -34,12 +34,14 @@ const __class = declare('crm.Models.Lead.Base', [_ModelBase], {
       options: {
         filterByLanguage: false,
         language: ' ',
+        storageMode: 'text',
       },
     }, {
       name: 'Name Suffix',
       options: {
         filterByLanguage: false,
         language: ' ',
+        storageMode: 'text',
       },
     }]);
   },
