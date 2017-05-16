@@ -155,10 +155,10 @@
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,
-          defaultLocale: defaultLocale,
+          defaultLocale: 'en',
           currentLocale: currentLocale,
           parentLocale: parentLocale,
-          defaultRegionLocale: defaultRegionLocale,
+          defaultRegionLocale: 'en',
           currentRegionLocale: currentRegionLocale,
           parentRegionLocale: parentRegionLocale,
           isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
