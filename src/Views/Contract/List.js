@@ -14,7 +14,6 @@ const __class = declare('crm.Views.Contract.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%= $.Account ? $.Account.AccountName : "" %}</p>',
-    '<p class="micro-text">{%= $.ReferenceNumber %}</p>',
   ]),
 
   // Localization
