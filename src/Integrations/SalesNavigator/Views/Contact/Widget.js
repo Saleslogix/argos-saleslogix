@@ -18,6 +18,7 @@ const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_Widge
       .setFirstName(entry.FirstName)
       .setLastName(entry.LastName)
       .setEmail(entry.Email)
+      .setRecordId(entry.$key)
       .setCompanyName(entry.AccountName)
       .setCompanyWebsite(entry.WebAddress)
       .setHeight(this.size.height)

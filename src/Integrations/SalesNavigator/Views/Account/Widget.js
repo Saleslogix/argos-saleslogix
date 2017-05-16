@@ -16,6 +16,7 @@ const __class = declare('crm.Integrations.SalesNavigator.AccountWidget', [_Widge
       .asAccount()
       .setCompanyName(entry.AccountName)
       .setCompanyWebsite(entry.WebAddress)
+      .setRecordId(entry.$key)
       .setHeight(this.size.height)
       .setWidth(this.size.width)
       .toString();

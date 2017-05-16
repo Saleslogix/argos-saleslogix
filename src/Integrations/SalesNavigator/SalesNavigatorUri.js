@@ -8,7 +8,7 @@ const ACCOUNT = 'account';
  * @required apiKey
  * @required profile - either lead or account
  * @required crmRecordId
- * @required crmOrdId
+ * @required crmOrgId
  * @required width
  * @required height
  *
@@ -43,8 +43,8 @@ export default class SalesNavigatorUri {
     this.profile = 'lead';
     this.width = '320px';
     this.height = '360px';
-    this.crmRecordId = 'ABC123';
-    this.crmOrgId = 'DEF456';
+    this.crmRecordId = null;
+    this.crmOrgId = 'INFOR';
   }
   asLead() {
     this.profile = LEAD;

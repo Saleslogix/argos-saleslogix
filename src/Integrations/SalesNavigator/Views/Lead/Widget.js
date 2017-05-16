@@ -16,6 +16,7 @@ const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBa
       .setFirstName(entry.FirstName)
       .setLastName(entry.LastName)
       .setEmail(entry.Email)
+      .setRecordId(entry.$key)
       .setCompanyName(entry.Company)
       .setCompanyWebsite(entry.WebAddress)
       .setWidth(this.size.width)
