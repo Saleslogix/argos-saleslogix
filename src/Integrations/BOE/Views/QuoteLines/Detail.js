@@ -41,7 +41,6 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
   rushRequestText: resource.rushRequestText,
   warehouseText: resource.warehouseText,
   detailsText: resource.detailsText,
-  moreDetailsText: resource.moreDetailsText,
   relatedItemsText: resource.relatedItemsText,
   entityText: resource.entityText,
   confirmDeleteText: resource.confirmDeleteText,
@@ -250,12 +249,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
         name: 'Status',
         property: 'Status',
         label: this.statusText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'SlxLocation',
         property: 'SlxLocation.Description',
         label: this.warehouseText,

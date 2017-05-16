@@ -13,7 +13,6 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.Detail', [Detai
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   shipmentIdText: resource.shipmentIdText,
   accountText: resource.accountText,
   datePromisedText: resource.datePromisedText,
@@ -103,12 +102,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipments.Detail', [Detai
         renderer: function renderer(data) {
           return format.date(data);
         },
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'WarehouseLocation',
         property: 'SlxLocation.Name',
         label: this.warehouseLocationText,

@@ -43,7 +43,6 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.Detail', [Detail
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
   invoiceItemsText: resource.invoiceItemsText,
-  moreDetailsText: resource.moreDetailsText,
   receivablesText: resource.receivablesText,
   billToText: resource.billToText,
   shipToText: resource.shipToText,

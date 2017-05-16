@@ -21,7 +21,6 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
   accountText: resource.accountText,
   contactTitleText: resource.contactTitleText,
   nameText: resource.nameText,
-  moreDetailsText: resource.moreDetailsText,
   salesRoleText: resource.salesRoleText,
   strategyText: resource.strategyText,
   personalBenefitsText: resource.personalBenefitsText,
@@ -88,11 +87,7 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
         name: 'Title',
         property: 'Contact.Title',
         label: this.contactTitleText,
-      }],
-    }, {
-      title: this.detailsText,
-      name: 'MoreDetailsSection',
-      children: [{
+      }, {
         name: 'SalesRole',
         property: 'SalesRole',
         label: this.salesRoleText,

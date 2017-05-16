@@ -12,7 +12,6 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.Detail', [D
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   shipmentLineNumberText: resource.shipmentLineNumberText,
   shipmentIdText: resource.shipmentIdText,
   salesOrderText: resource.salesOrderText,
@@ -95,12 +94,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipmentItems.Detail', [D
           }
           return format.currency.call(null, val);
         }).bindDelegate(this),
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'ErpUPCId',
         property: 'ErpUPCId',
         label: this.erpUpcIdText,

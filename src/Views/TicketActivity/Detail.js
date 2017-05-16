@@ -42,7 +42,6 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   userText: resource.userText,
   entityText: resource.entityText,
   completeTicketText: resource.completeTicketText,
-  moreDetailsText: resource.moreDetailsText,
   relatedItemsText: resource.relatedItemsText,
   relatedTicketActivityItemText: resource.relatedTicketActivityItemText,
 
@@ -138,12 +137,7 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         name: 'FollowUp',
         property: 'FollowUp',
         renderer: format.yesNo,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      collapsed: true,
-      name: 'MoreDetailsTextSection',
-      children: [{
+      }, {
         label: this.unitsText,
         name: 'Units',
         property: 'Units',

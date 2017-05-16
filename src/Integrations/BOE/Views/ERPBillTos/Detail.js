@@ -20,7 +20,6 @@ const resource = getResource('erpBillTosDetail');
 const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
-  moreDetailsText: resource.moreDetailsText,
   relatedItemsText: resource.relatedItemsText,
   entityText: resource.entityText,
   backOfficeIdText: resource.backOfficeIdText,
@@ -93,11 +92,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail]
         name: 'Owner',
         property: 'Owner.OwnerDescription',
         label: this.ownerText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      children: [{
+      }, {
         name: 'Fax',
         property: 'Fax',
         label: this.faxText,
