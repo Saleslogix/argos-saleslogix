@@ -91,7 +91,7 @@ export default function bootstrap({
       let completed = false;
       let mingleAuthResults;
 
-      if (appConfig.mingleEnabled) {
+      if (appConfig.mingleEnabled || appConfig.enableMingle) {
         mingleAuthResults = MingleUtility.populateAccessToken(appConfig);
         if (!mingleAuthResults) {
           return;
