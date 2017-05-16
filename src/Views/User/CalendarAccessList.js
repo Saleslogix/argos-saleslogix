@@ -13,7 +13,6 @@ const resource = getResource('userCalendarAccessList');
 const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   // Templates
   itemTemplate: new Simplate([
-    '<p class="listview-heading">{%: $.Name %}</p>',
     '<p class="micro-text">{%: $.SubType %}</p>',
   ]),
 
