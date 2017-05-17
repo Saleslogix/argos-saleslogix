@@ -498,7 +498,7 @@ export default class Application extends SDKApplication {
         .setPassword(false);
     }
 
-    this.scene.show(this.logOffViewId);
+    this.scene.showNew(this.logOffViewId);
   }
   getCredentials() {
     let credentials = null;
@@ -983,7 +983,7 @@ export default class Application extends SDKApplication {
       if (isMingleRefresh) {
         const view = this.getView(App.getDefaultViews()[0]);
         if (view) {
-          this.scene.show(view.id);
+          this.scene.showNew(view.id);
         }
       } else {
         // Split by "/redirectTo/"
@@ -1025,7 +1025,7 @@ export default class Application extends SDKApplication {
   }
   navigateToLoginView() {
     this.setupRedirectHash();
-    this.scene.show(this.loginViewId);
+    this.scene.showNew(this.loginViewId);
   }
   _hasValidRedirect() {
     const hashValue = decodeURIComponent(this.redirectHash);
@@ -1072,7 +1072,7 @@ export default class Application extends SDKApplication {
           } else {
             view = redirectView;
             if (key) {
-              this.scene.show(redirectView.id, { key });
+              this.scene.showNew(redirectView.id, { key });
             }
           }
         }
@@ -1085,11 +1085,11 @@ export default class Application extends SDKApplication {
     }
 
     if (view) {
-      this.scene.show(view.id);
+      this.scene.showNew(view.id);
     }
   }
   navigateToActivityInsertView() {
-    this.scene.show('activity_types_list');
+    this.scene.showNew('activity_types_list');
   }
   initiateCall() {
     // shortcut for environment call

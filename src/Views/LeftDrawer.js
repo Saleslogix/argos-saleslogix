@@ -88,12 +88,12 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   },
   navigateToView: function navigateToView(view) {
     if (view) {
-      App.scene.show(view.id);
+      App.scene.showNew(view.id);
       this.closeAppMenu();
     }
   },
   addAccountContact: function addAccountContact() {
-    App.scene.show('add_account_contact', {
+    App.scene.showNew('add_account_contact', {
       insert: true,
     });
     this.closeAppMenu();
@@ -313,7 +313,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     if (view) {
       // If the speedsearch list is not our current view, show it first
       if (view.id !== current.id) {
-        App.scene.show(view.id, {
+        App.scene.showNew(view.id, {
           query: expression,
         });
       }
