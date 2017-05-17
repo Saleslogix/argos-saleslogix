@@ -12,7 +12,6 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   nameText: resource.nameText,
   addressText: resource.addressText,
   statusText: resource.statusText,
@@ -83,12 +82,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
         name: 'ERPStatus',
         property: 'ErpShipTo.ErpStatus',
         label: this.statusText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'MainPhone',
         property: 'ErpShipTo.MainPhone',
         label: this.mainPhoneText,

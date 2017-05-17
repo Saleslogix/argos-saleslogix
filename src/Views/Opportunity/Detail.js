@@ -47,7 +47,6 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   typeText: resource.typeText,
   scheduleActivityText: resource.scheduleActivityText,
   addNoteText: resource.addNoteText,
-  moreDetailsText: resource.moreDetailsText,
   multiCurrencyText: resource.multiCurrencyText,
   multiCurrencyRateText: resource.multiCurrencyRateText,
   multiCurrencyCodeText: resource.multiCurrencyCodeText,
@@ -127,6 +126,28 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
       }],
     };
 
+    const multiCurrency = {
+      title: this.multiCurrencyText,
+      name: 'MultiCurrencySection',
+      children: [{
+        label: this.multiCurrencyRateText,
+        name: 'ExchangeRate',
+        property: 'ExchangeRate',
+      }, {
+        label: this.multiCurrencyCodeText,
+        name: 'ExchangeRateCode',
+        property: 'ExchangeRateCode',
+      }, {
+        label: this.multiCurrencyDateText,
+        name: 'ExchangeRateDate',
+        property: 'ExchangeRateDate',
+        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText, false),
+      }, {
+        label: this.multiCurrencyLockedText,
+        name: 'ExchangeRateLocked',
+        property: 'ExchangeRateLocked',
+      }],
+    };
     const details = {
       title: this.detailsText,
       name: 'DetailsSection',
@@ -162,37 +183,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
           }
           return format.currency.call(null, val);
         }).bindDelegate(this),
-      }],
-    };
-
-    const multiCurrency = {
-      title: this.multiCurrencyText,
-      name: 'MultiCurrencySection',
-      children: [{
-        label: this.multiCurrencyRateText,
-        name: 'ExchangeRate',
-        property: 'ExchangeRate',
       }, {
-        label: this.multiCurrencyCodeText,
-        name: 'ExchangeRateCode',
-        property: 'ExchangeRateCode',
-      }, {
-        label: this.multiCurrencyDateText,
-        name: 'ExchangeRateDate',
-        property: 'ExchangeRateDate',
-        renderer: format.date.bindDelegate(this, (App.is24HourClock()) ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText, false),
-      }, {
-        label: this.multiCurrencyLockedText,
-        name: 'ExchangeRateLocked',
-        property: 'ExchangeRateLocked',
-      }],
-    };
-
-    const moreDetails = {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
         label: this.typeText,
         name: 'Type',
         property: 'Type',
@@ -295,7 +286,6 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
       layout.push(multiCurrency);
     }
 
-    layout.push(moreDetails);
     layout.push(relatedItems);
     return layout;
   },

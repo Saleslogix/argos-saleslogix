@@ -49,7 +49,6 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   addNoteText: resource.addNoteText,
   sendEmailText: resource.sendEmailText,
   viewAddressText: resource.viewAddressText,
-  moreDetailsText: resource.moreDetailsText,
   calledText: resource.calledText,
   emailedText: resource.emailedText,
   entityText: resource.entityText,
@@ -196,12 +195,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         name: 'Title',
         property: 'Title',
         renderer: this.formatPicklist('Title'),
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         label: this.workText,
         name: 'WorkPhone',
         property: 'WorkPhone',

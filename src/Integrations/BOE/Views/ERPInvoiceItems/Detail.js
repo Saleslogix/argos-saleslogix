@@ -35,7 +35,6 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [D
   unitPricePerQuanityUOMText: resource.unitPricePerQuanityUOMText,
   salesOrderLineNumberText: resource.salesOrderLineNumberText,
   extendedCostText: resource.extendedCostText,
-  moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
 
   // View Properties
@@ -105,12 +104,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [D
         renderer: (function renderer(val) {
           return format.date.call(null, val);
         }).bindDelegate(this),
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'SalesOrder',
         property: 'SalesOrder.SalesOrderNumber',
         label: this.salesOrderNumberText,

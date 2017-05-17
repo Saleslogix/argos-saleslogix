@@ -52,7 +52,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   webText: resource.webText,
   scheduleActivityText: resource.scheduleActivityText,
   addNoteText: resource.addNoteText,
-  moreDetailsText: resource.moreDetailsText,
   calledText: resource.calledText,
   entityText: resource.entityText,
 
@@ -144,12 +143,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         property: 'AccountManager.UserInfo',
         label: this.acctMgrText,
         tpl: template.nameLF,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'WebAddress',
         property: 'WebAddress',
         label: this.webText,

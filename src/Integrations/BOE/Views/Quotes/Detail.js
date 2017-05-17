@@ -20,7 +20,6 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   quoteNumberText: resource.quoteNumberText,
   accountText: resource.accountText,
   commentsText: resource.commentsText,
@@ -476,12 +475,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         name: 'Comments',
         property: 'Comments',
         label: this.commentsText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'BillTo',
         property: 'BillTo.Name',
         label: this.billToText,

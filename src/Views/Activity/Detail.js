@@ -72,7 +72,6 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
   relatedItemsText: resource.relatedItemsText,
   phoneText: resource.phoneText,
-  moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
   activityTypeText: {
     atToDo: resource.toDoText,
@@ -305,12 +304,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'PhoneNumber',
         label: this.phoneText,
         renderer: format.phone.bindDelegate(this, true),
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'Type',
         property: 'Type',
         label: this.typeText,

@@ -52,7 +52,6 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   addNoteText: resource.addNoteText,
   sendEmailText: resource.sendEmailText,
   viewAddressText: resource.viewAddressText,
-  moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
 
   // View Properties
@@ -214,12 +213,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
         property: 'AccountManager.UserInfo',
         label: this.acctMgrText,
         tpl: template.nameLF,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'HomePhone',
         property: 'HomePhone',
         label: this.homeText,
