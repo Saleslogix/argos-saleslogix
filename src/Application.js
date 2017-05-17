@@ -703,8 +703,8 @@ export default class Application extends SDKApplication {
 
     return results;
   }
-  setDefaultMetricPreferences() {
-    if (!this.preferences.metrics) {
+  setDefaultMetricPreferences(force) {
+    if (force || !this.preferences.metrics) {
       const defaults = new DefaultMetrics();
       this.preferences.metrics = defaults.getDefinitions();
       this.persistPreferences();
