@@ -182,6 +182,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
           title: view.titleText,
           security: view.getSecurity(),
           enableOfflineSupport: view.enableOfflineSupport,
+          enableOnlineSupport: view.enableOnlineSupport,
           disabled: view.isDisabled(),
         });
       }
@@ -244,6 +245,10 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         }
 
         if (!App.isOnline() && !row.enableOfflineSupport) {
+          continue;
+        }
+
+        if (App.isOnline() && row.enableOnlineSupport === false) {
           continue;
         }
 

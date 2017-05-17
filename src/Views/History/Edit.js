@@ -126,6 +126,17 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       this.showFieldsForStandard();
     }
   },
+  setOfflineNoteData: function setOfflineNoteData() {
+    const entry = this.options && this.options.selectedEntry;
+    if (!entry) {
+      return;
+    }
+
+    this.setUserContext();
+    this.fields.Text.setValue(entry.Text);
+    const start = moment(entry.StartDate);
+    this.fields.StartDate.setValue(start.toDate());
+  },
   onIsLeadChange: function onIsLeadChange(value) {
     this.options.isForLead = value;
 
@@ -214,13 +225,16 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       lookup[found.resourceKind].call(this, found);
     }
 
+    this.setUserContext();
+    this.fields.StartDate.setValue(new Date());
+    this.fields.Text.setValue('');
+  },
+  setUserContext: function setUserContext() {
     const user = App.context && App.context.user;
 
     this.fields.Type.setValue('atNote');
     this.fields.UserId.setValue(user && user.$key);
     this.fields.UserName.setValue(user && user.$descriptor);
-    this.fields.StartDate.setValue(new Date());
-    this.fields.Text.setValue('');
   },
   _getNavContext: function _getNavContext() {
     let found = App.queryNavigationContext((o) => {
@@ -355,6 +369,12 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
         ContactName: contactEntry.NameLF,
       });
       this.onAccountDependentChange(contactField.getValue(), contactField);
+    }
+  },
+  onRefreshInsert: function onRefreshInsert() {
+    if (this.options.fromOffline) {
+      this.setOfflineNoteData();
+      $(this.domNode).removeClass('panel-loading');
     }
   },
   setValues: function setValues(values) {

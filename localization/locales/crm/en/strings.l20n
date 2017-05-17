@@ -601,6 +601,12 @@
   validationCanEditText: "You are not allowed to edit"
 >
 
+<historyEditOffline ""
+  titleText: "Offline Notes"
+  notesSectionText: "Notes"
+  notesLabelText: "notes"
+>
+
 <historyList ""
   titleText: "Notes/History"
   viewAccountActionText: "Account"
@@ -615,6 +621,12 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+>
+
+<historyListOffline ""
+  titleText: "Offline Notes"
+  widgetTitle: "Offline Note"
+  saveToCRMText: "Save to CRM"
 >
 
 <historyRelated ""

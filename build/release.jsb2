@@ -220,10 +220,10 @@
           "text": "MainToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "RightDrawer.js",
+          "text": "UpdateToolbar.js",
           "path": "../src-out/Views/"
         }, {
-          "text": "UpdateToolbar.js",
+          "text": "RightDrawer.js",
           "path": "../src-out/Views/"
         }, {
           "text": "LogOff.js",
@@ -432,6 +432,12 @@
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/TicketActivity/"
+        }, {
+          "text": "EditOffline.js",
+          "path": "../src-out/Views/History/"
+        }, {
+          "text": "ListOffline.js",
+          "path": "../src-out/Views/History/"
         }, {
           "text": "Bootstrap.js",
           "path": "../src-out/"

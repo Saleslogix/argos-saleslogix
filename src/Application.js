@@ -580,14 +580,16 @@ export default class Application extends SDKApplication {
   onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
-
-    const header = $('.header', this.getContainerNode());
-    header.show();
+    this.showHeader();
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
       this.onInitAppStateFailed(err);
     });
+  }
+  showHeader() {
+    const header = $('.header', this.getContainerNode());
+    header.show();
   }
   onHandleAuthenticationFailed() {
     this.removeCredentials();
@@ -931,6 +933,7 @@ export default class Application extends SDKApplication {
 
   navigateToInitialView() {
     this.showLeftDrawer();
+    this.showHeader();
     try {
       const restoredState = this.navigationState;
       const restoredHistory = restoredState && JSON.parse(restoredState);
@@ -1007,7 +1010,6 @@ export default class Application extends SDKApplication {
       view.refresh();
     }
 
-    this.ReUI.resetHistory();
     if (online) {
       this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
       if (this.context && this.context.user) {

@@ -121,7 +121,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     this.registerDefaultViews();
 
     lang.extend(argos._ListBase, { // TODO: Avoid global
-      navigateToInsertView: function navigateToInsertView(el, additionalOptions) {
+      navigateToInsertView: function navigateToInsertView(additionalOptions) {
         const view = this.app.getView(this.insertView || this.editView);
         let options = {
           detailView: this.detailView,
