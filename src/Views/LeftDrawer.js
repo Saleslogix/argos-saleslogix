@@ -88,18 +88,15 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   },
   navigateToView: function navigateToView(view) {
     if (view) {
-      view.show();
+      App.scene.show(view.id);
       this.closeAppMenu();
     }
   },
   addAccountContact: function addAccountContact() {
-    const view = App.getView('add_account_contact');
-    if (view) {
-      view.show({
-        insert: true,
-      });
-      this.closeAppMenu();
-    }
+    App.scene.show('add_account_contact', {
+      insert: true,
+    });
+    this.closeAppMenu();
   },
   navigateToConfigurationView: function navigateToConfigurationView() {
     const view = App.getView(this.configurationView);
@@ -316,7 +313,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     if (view) {
       // If the speedsearch list is not our current view, show it first
       if (view.id !== current.id) {
-        view.show({
+        App.scene.show(view.id, {
           query: expression,
         });
       }

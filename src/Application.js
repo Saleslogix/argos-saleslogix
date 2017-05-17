@@ -498,11 +498,7 @@ export default class Application extends SDKApplication {
         .setPassword(false);
     }
 
-    const view = this.getView(this.logOffViewId);
-
-    if (view) {
-      view.show();
-    }
+    this.scene.show(this.logOffViewId);
   }
   getCredentials() {
     let credentials = null;
@@ -956,10 +952,9 @@ export default class Application extends SDKApplication {
         ReUI.context.transitioning = false;
 
         const last = cleanedHistory[cleanedHistory.length - 1];
-        const view = this.getView(last.page);
         const options = last.data && last.data.options;
 
-        view.show(options);
+        this.scene.show(last.page, options);
       } else {
         this.navigateToHomeView();
       }
@@ -988,7 +983,7 @@ export default class Application extends SDKApplication {
       if (isMingleRefresh) {
         const view = this.getView(App.getDefaultViews()[0]);
         if (view) {
-          view.show();
+          this.scene.show(view.id);
         }
       } else {
         // Split by "/redirectTo/"
@@ -1030,11 +1025,7 @@ export default class Application extends SDKApplication {
   }
   navigateToLoginView() {
     this.setupRedirectHash();
-
-    const view = this.getView(this.loginViewId);
-    if (view) {
-      view.show();
-    }
+    this.scene.show(this.loginViewId);
   }
   _hasValidRedirect() {
     const hashValue = decodeURIComponent(this.redirectHash);
@@ -1081,9 +1072,7 @@ export default class Application extends SDKApplication {
           } else {
             view = redirectView;
             if (key) {
-              redirectView.show({
-                key,
-              });
+              this.scene.show(redirectView.id, { key });
             }
           }
         }
@@ -1096,14 +1085,11 @@ export default class Application extends SDKApplication {
     }
 
     if (view) {
-      view.show();
+      this.scene.show(view.id);
     }
   }
   navigateToActivityInsertView() {
-    const view = this.getView('activity_types_list');
-    if (view) {
-      view.show();
-    }
+    this.scene.show('activity_types_list');
   }
   initiateCall() {
     // shortcut for environment call

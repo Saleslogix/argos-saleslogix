@@ -166,7 +166,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
     if (view) {
       view.parent = this;
       view.formatter = this.formatter;
-      view.show({
+      App.scene.show(view.id, {
         returnTo: this.returnToId,
         currentSearchExpression: this.currentSearchExpression,
         title: this.title,

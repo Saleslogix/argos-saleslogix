@@ -203,11 +203,6 @@ const __class = declare('crm.Views.Login', [Edit], {
           this.fields['password-display'].setValue('');
         }
         this.enable();
-
-        const attr = this.domNode.attributes.getNamedItem('selected');
-        if (attr) {
-          attr.value = 'false';
-        }
         App.onHandleAuthenticationSuccess();
       },
       failure: function failure(result) {
