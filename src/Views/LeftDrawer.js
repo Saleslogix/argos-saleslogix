@@ -173,7 +173,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     };
 
     const configured = lang.getObject('preferences.home.visible', false, window.App);
-    for (let i = 0; i < configured.length; i++) {
+    for (let i = 0; configured && i < configured.length; i++) {
       const view = App.getView(configured[i]);
       if (view) {
         goTo.children.push({
