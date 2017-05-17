@@ -145,7 +145,6 @@ export default class Application extends SDKApplication {
     this.store.dispatch(setConfig(this._config));
     this._config = null;
     this._loadNavigationState();
-    this._saveDefaultPreferences();
 
     let accessToken = null;
     if (this.isMingleEnabled()) {
@@ -168,6 +167,11 @@ export default class Application extends SDKApplication {
       request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
       return original.apply(this, arguments);
     };
+  }
+
+  initPreferences() {
+    super.initPreferences();
+    this._saveDefaultPreferences();
   }
 
   isMingleEnabled() {
