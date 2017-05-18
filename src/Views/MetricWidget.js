@@ -170,7 +170,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
         returnTo: this.returnToId,
         currentSearchExpression: this.currentSearchExpression,
         title: this.title,
-      });
+      }, null, this.returnToId);
     }
   },
   _buildQueryOptions: function _buildQueryOptions() {
