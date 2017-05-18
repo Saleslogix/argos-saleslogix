@@ -60,6 +60,11 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return !this.picklist;
   },
   isCodePicklist: function isCodePicklist() {
+    // Name Prefix and Suffix are both text picklists that have code like functionality
+    if (this.picklistName === 'Name Prefix' || this.picklistName === 'Name Suffix') {
+      return false;
+    }
+    // Current flag for checking whether the picklist is a code picklist server side is the default language
     const picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
     return picklist && picklist.defaultLanguage;
   },
@@ -181,13 +186,9 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.keyProperty = this.keyProperty;
       options.textProperty = this.textProperty;
       options.picklistOptions = (this.picklistOptions && this.picklistOptions((this.owner && this.owner.entry) || {})) || {};
-      // TODO: Need a function to generate the key
-      // if (options.picklistOptions
-      //     && options.picklistOptions.filterByLanguage !== true) {
-      //   this.languageCode = ' ';
-      // } else
-      if (this.picklistName !== 'Name Prefix' || this.picklistName !== 'Name Suffix') {
-        // Default to current locale IF not name prefix or suffix picklists (these are filtered text picklists)
+
+      if (this.picklistName !== 'Name Prefix' && this.picklistName !== 'Name Suffix') {
+        // Default to current locale IF not name prefix and suffix picklists (these are filtered text picklists)
         this.languageCode = App.getCurrentLocale();
       }
       options.languageCode = this.languageCode;

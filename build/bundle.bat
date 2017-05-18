@@ -27,7 +27,7 @@ xcopy %SDK%\node_modules\moment\min\moment-with-locales.js %SDK%\deps\moment\ /E
 xcopy %SDK%\node_modules\rx-lite\rx.lite.js %SDK%\deps\rx-lite\ /E /Y
 xcopy %SDK%\node_modules\@infor\icrm-js-common\dist\bundles\common.bundle.js %SDK%\deps\icrm-js-common\ /E /Y
 xcopy %SDK%\node_modules\@infor\icrm-js-customization\dist\bundles\customization.bundle.js %SDK%\deps\icrm-js-customization\ /E /Y
-xcopy %SDK%\node_modules\@infor\icrm-js-services\dist\bundles\services.bundle.js %SDK%\deps\icrm-js-services\ /E /Y
+xcopy %SDK%\node_modules\@infor\icrm-js-services\dist\bundles\icrm-js-services.js %SDK%\deps\icrm-js-services\ /E /Y
 xcopy %SDK%\node_modules\redux\dist\redux.min.js %SDK%\deps\redux\ /E /Y
 xcopy %SDK%\node_modules\@infor\sohoxi\js\vendor\d3.js %SDK%\deps\d3\ /E /Y
 xcopy %SDK%\node_modules\jquery\dist\jquery.js %SDK%\deps\jquery\ /E /Y

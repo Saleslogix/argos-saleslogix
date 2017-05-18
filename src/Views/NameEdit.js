@@ -40,11 +40,13 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
           return {
             filterByLanguage: true,
             language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
+            storageMode: 'text',
           };
         }
         return {
           filterByLanguage: false,
           language: ' ',
+          storageMode: 'text',
         };
       },
       languageCodeProperty: 'LocationCode',
@@ -85,11 +87,13 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
           return {
             filterByLanguage: true,
             language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
+            storageMode: 'text',
           };
         }
         return {
           filterByLanguage: false,
           language: ' ',
+          storageMode: 'text',
         };
       },
       languageCodeProperty: 'LocationCode',
