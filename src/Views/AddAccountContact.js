@@ -133,6 +133,20 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
     this.fields.Type.setValue(templateEntry.Type);
     this.fields.Status.setValue(templateEntry.Status);
   },
+  convertEntry: function convertEntry(entry) {
+    // Fix so that Name Prefix and Suffix picklists function correctly
+    if (entry && !entry.Contacts) {
+      entry.Contacts = {
+        $resources: [{
+          FirstName: null,
+          LastName: null,
+          NameLF: null,
+        }],
+      };
+    }
+    this.inherited(arguments);
+    return entry;
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       emptyText: '',
