@@ -650,7 +650,7 @@ export default class Application extends SDKApplication {
     }
   }
   updateServiceUrl(state) {
-    if (this.enableMingle || this.mingleEnabled) { // See TODO below, as to why we are bailing here
+    if (this.isMingleEnabled()) { // See TODO below, as to why we are bailing here
       return;
     }
 
