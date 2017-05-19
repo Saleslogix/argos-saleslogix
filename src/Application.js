@@ -650,9 +650,13 @@ export default class Application extends SDKApplication {
     }
   }
   updateServiceUrl(state) {
+    if (this.enableMingle || this.mingleEnabled) { // See TODO below, as to why we are bailing here
+      return;
+    }
+
     const service = this.getService();
     service.setUri(Object.assign({}, state.app.config.connections, {
-      url: state.app.config.endpoint,
+      url: state.app.config.endpoint, // TODO: Setting the URL here will break mingle instances that use custom virtual directories
     }));
   }
   _clearNavigationState() {
