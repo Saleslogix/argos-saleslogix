@@ -68,7 +68,7 @@ export default function bootstrap({
   defaultCtx.registerLocales(defaultLocale);
   defaultCtx.requestLocales(defaultLocale);
 
-  ctxRegional.registerLocales(defaultRegionLocale);
+  ctxRegional.registerLocales(defaultRegionLocale, supportedLocales);
   ctxRegional.requestLocales(currentRegionLocale);
   defaultCtxRegional.registerLocales(defaultRegionLocale);
   defaultCtxRegional.requestLocales(defaultRegionLocale);
@@ -117,8 +117,8 @@ export default function bootstrap({
           instance.context.localization = {
             localeContext: ctx,
             defaultLocaleContext: defaultCtx,
-            locale: currentLocale || defaultLocale || 'en',
-            region: currentRegionLocale || defaultRegionLocale || 'en',
+            locale: currentLocale || defaultLocale,
+            region: currentRegionLocale || defaultRegionLocale,
             supportedLocales,
           };
           instance.localeContext = ctx;

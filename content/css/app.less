@@ -107,8 +107,24 @@
 #help {
   .row {
     font-size: 1.4rem;
+    padding-left: 20px;
+    > ul > li {
+        padding: 8px;
+        line-height: inherit;
+        > div {
+            display: inline;
+        }
+        > p {
+            display: inline;
+        }
+    }
   }
-
+  h2 {
+      font-size: 2rem;
+  }
+  h3 {
+      font-size: 1.6rem;
+  }
   a > div {
       margin-left: 32px;
       vertical-align: middle;
@@ -129,6 +145,10 @@
   ul {
     padding-left: 2rem;
     list-style: disc;
+    margin-bottom: 1rem;
+  }
+  ul#help_search > li {
+    list-style: none;
   }
 }
 
