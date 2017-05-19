@@ -104,22 +104,32 @@
     padding: 0;
 }
 
-#help a > div {
-    margin-left: 32px;
-    vertical-align: middle;
-}
+#help {
+  .row {
+    font-size: 1.4rem;
+  }
 
-#help span.fa {
-    display: inline;
-    padding: 5px;
-}
+  a > div {
+      margin-left: 32px;
+      vertical-align: middle;
+  }
 
-#help span {
+  span {
+      font-size: inherit;
+  }
+
+  .detailContent li {
+    border: none;
+  }
+
+  .tab-container {
     font-size: inherit;
-}
+  }
 
-#help .detailContent li {
-  border: none;
+  ul {
+    padding-left: 2rem;
+    list-style: disc;
+  }
 }
 
 #help_search > li > h3 {
@@ -1164,7 +1174,7 @@ canvas,
        background-color: @black-light;
        font-size: 12px;
        color: white;
-       text-align: center; 
+       text-align: center;
        float: left;
       }
  }
@@ -1248,7 +1258,7 @@ canvas,
 }
 }
 span.range-value {
- color: white;    
+ color: white;
 }
 .dashboard-range-list {
     margin: 4px 0;
@@ -1282,13 +1292,6 @@ span.range-value {
 }
 .micro-text.group-column {
     margin-bottom: 0;
-} 
-.crmhelp {
-    ul {
-        padding-left: 2rem;
-        font-size: 1.4rem;
-        list-style: disc;
-    }
 }
 
 .list-item-indicator-content {
