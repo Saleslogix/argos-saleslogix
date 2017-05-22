@@ -558,6 +558,11 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       view.show(options);
     }
   },
+  navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
+    const myListOptions = additionalOptions || {};
+    myListOptions.returnTo = this.id;
+    this.inherited(arguments, [key, descriptor, myListOptions]);
+  },
   resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
     const exists = this.existsRE;
 
