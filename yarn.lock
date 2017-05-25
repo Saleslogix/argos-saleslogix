@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@infor/icrm-js-common@^0.1.3":
-  version "0.1.3"
-  resolved "http://npm.infor.com:4873/@infor%2ficrm-js-common/-/icrm-js-common-0.1.3.tgz#f05f89498b0250cbc29df0cffe7b0b497b59d8d6"
+"@infor/icrm-js-common@^0.1.4":
+  version "0.1.4"
+  resolved "http://npm.infor.com:4873/@infor%2ficrm-js-common/-/icrm-js-common-0.1.4.tgz#6df64f06d9a4f3552ff54f161193ec2424e63a18"
   dependencies:
     typings "^2.1.0"
 
