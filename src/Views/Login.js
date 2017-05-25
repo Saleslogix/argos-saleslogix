@@ -160,7 +160,7 @@ const __class = declare('crm.Views.Login', [Edit], {
       remember: values.remember,
     };
 
-    if (credentials.username) {
+    if (credentials.username && credentials.endpoint) {
       this.validateCredentials(credentials);
     }
   },
