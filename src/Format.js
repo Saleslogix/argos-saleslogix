@@ -100,8 +100,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     const val = f.date(date, timeless);
     return moment(val).fromNow();
   },
-  multiCurrency: function multiCurrency(_val) {
-    return f.multiCurrency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
+  multiCurrency: function multiCurrency(_val, code) {
+    return f.multiCurrency(_val, code, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
   },
   nameLF: f.nameLF,
