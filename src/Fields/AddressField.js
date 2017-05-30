@@ -9,7 +9,7 @@ const resource = getResource('addressField');
 const control = declare('crm.Fields.AddressField', [EditorField], {
   widgetTemplate: new Simplate([
     `<label for="{%= $.name %}">{%: $.label %}</label>
-    <div class="field addressfield field-control-wrapper">
+    <div class="field field-control-wrapper">
       <button
         class="button simpleSubHeaderButton field-control-trigger"
         aria-label="{%: $.lookupLabelText %}">
