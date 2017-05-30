@@ -707,12 +707,16 @@ export default class Application extends SDKApplication {
 
     return results;
   }
-  setDefaultMetricPreferences(force) {
-    if (force || !this.preferences.metrics) {
+  setDefaultMetricPreferences() {
+    if (!this.preferences.metrics) {
       const defaults = new DefaultMetrics();
       this.preferences.metrics = defaults.getDefinitions();
       this.persistPreferences();
     }
+  }
+  clearMetricPreferences() {
+    this.preferences.metrics = null;
+    this.persistPreferences();
   }
   requestUserDetails() {
     const key = this.context.user.$key;
