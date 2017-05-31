@@ -90,7 +90,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     try {
       this.languageService.setLanguage(language);
       this.languageService.setRegion(region);
-      App.setDefaultMetricPreferences(true);
+      App.clearMetricPreferences();
       App.toast.add({
         message: this.toastMessage,
         title: this.toastTitle,

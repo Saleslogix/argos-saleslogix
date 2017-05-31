@@ -376,6 +376,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       this.setOfflineNoteData();
     }
     $(this.domNode).removeClass('panel-loading');
+    this.inherited(arguments);
   },
   setValues: function setValues(values) {
     this.inherited(arguments);
