@@ -374,9 +374,10 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   onRefreshInsert: function onRefreshInsert() {
     if (this.options.fromOffline) {
       this.setOfflineNoteData();
+      $(this.domNode).removeClass('panel-loading');
+    } else {
+      this.inherited(arguments);
     }
-    $(this.domNode).removeClass('panel-loading');
-    this.inherited(arguments);
   },
   setValues: function setValues(values) {
     this.inherited(arguments);
