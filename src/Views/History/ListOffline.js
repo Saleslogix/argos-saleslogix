@@ -32,6 +32,11 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   labelProperty: 'Text',
   idProperty: '$offlineDate',
   enableActions: true,
+  query: function query(doc, emit) {
+    if (doc && doc.entity && typeof doc.entity.Text === 'string') {
+      emit(doc);
+    }
+  },
 
   getTitle: function getTitle() {
     return resource.widgetTitle;
