@@ -167,11 +167,6 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         property: 'Status',
         renderer: this.formatPicklist('Status'),
       }, {
-        label: this.estCloseText,
-        name: 'EstimatedClose',
-        property: 'EstimatedClose',
-        renderer: format.date.bindDelegate(this, null, true),
-      }, {
         label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
         name: 'SalesPotential',
         property: 'SalesPotential',
@@ -183,6 +178,11 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
           }
           return format.currency.call(null, val);
         }).bindDelegate(this),
+      }, {
+        label: this.estCloseText,
+        name: 'EstimatedClose',
+        property: 'EstimatedClose',
+        renderer: format.date.bindDelegate(this, null, true),
       }, {
         label: this.typeText,
         name: 'Type',
@@ -257,7 +257,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
     layout.push(details);
 
     if (App.hasMultiCurrency()) {
-      details.children.push({
+      details.children.splice(4, 0, {
         label: this.potentialMyRateText,
         name: 'SalesPotentialMine',
         property: 'SalesPotential',
