@@ -397,6 +397,12 @@
           "text": "user.js",
           "path": "../src-out/reducers/"
         }, {
+          "text": "index.js",
+          "path": "../src-out/polyfills/"
+        }, {
+          "text": "nodelist.js",
+          "path": "../src-out/polyfills/"
+        }, {
           "text": "Aggregate.js",
           "path": "../src-out/Integrations/BOE/"
         }, {

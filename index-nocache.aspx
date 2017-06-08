@@ -88,8 +88,8 @@
           regionLocale = window.localStorage.getItem('region');
         }
         var dojoConfig = {
-            parseOnLoad:false, 
-            async:true, 
+            parseOnLoad:false,
+            async:true,
             blankGif:'content/images/blank.gif',
             locale: language ||  'en',
             extraLocale: [regionLocale || 'en-us']
@@ -128,7 +128,7 @@
   <div id="rootNode"></div>
 
   <script type="text/javascript">
-  
+
   // set path for soho cultures
   window.Locale.culturesPath = 'content/javascript/cultures/';
 
@@ -152,6 +152,7 @@
         return window.$;
       });
 
+      require(['crm/polyfills/index']);
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,
