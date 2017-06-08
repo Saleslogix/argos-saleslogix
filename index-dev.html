@@ -179,8 +179,9 @@
   <div id="rootNode"></div>
   <script type="text/javascript">
     // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
+    // window.Locale.culturesPath = './node_modules/@infor/sohoxi/dist/js/cultures/';
 
-     var supportedLocales = [
+    var supportedLocales = [
             'en',
             'en-GB',
             'de',
@@ -207,7 +208,7 @@
       define('jquery', function() {
         return window.$;
       });
-      
+      require(['crm/polyfills/index']);
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,

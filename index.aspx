@@ -152,6 +152,7 @@
         return window.$;
       });
 
+      require(['crm/polyfills/index']);
       require(['crm/Bootstrap'], function(bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,
