@@ -13,6 +13,7 @@ import _RelatedWidgetDetailMixin from 'argos/_RelatedViewWidgetDetailMixin';
 import MODEL_TYPES from 'argos/Models/Types';
 import lang from 'dojo/_base/lang';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 
 const resource = getResource('offlineDetail');
@@ -104,9 +105,9 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     let value;
     let offlineDate = '';
     if (this._model && this._model.entityDisplayName) {
-      value = `${this._model.entityDisplayName} ${this.informationText}`;
+      value = string.substitute(this.informationText, [this._model.entityDisplayName]);
     } else {
-      value = `${this.entityText} ${this.informationText}`;
+      value = string.substitute(this.informationText, [this.entityText]);
     }
     value = `${value} - ${this.offlineText}`;
     if (this.entry.$offlineDate) {
