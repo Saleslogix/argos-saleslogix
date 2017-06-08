@@ -234,8 +234,8 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
           this.isRefreshing = false;
           this.clear();
           this.refresh();
-          if (this.transitionHandle) {
-            this.transitionHandle.remove();
+          if (self.transitionHandle) {
+            self.transitionHandle.remove();
           }
         }.bind(list));
       }
