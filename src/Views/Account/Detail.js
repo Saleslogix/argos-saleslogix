@@ -64,10 +64,10 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   resourceKind: 'accounts',
   modelName: MODEL_NAMES.ACCOUNT,
 
-  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-    action.navigateToHistoryInsert(entry, complete);
+  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
+    action.navigateToHistoryInsert(entry);
   },
-  recordCallToHistory: function recordCallToHistory(complete) {
+  recordCallToHistory: function recordCallToHistory(phoneNumber) {
     const entry = {
       Type: 'atPhoneCall',
       AccountId: this.entry.$key,
@@ -79,12 +79,11 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+    this.navigateToHistoryInsert('atPhoneCall', entry);
+    App.initiateCall(phoneNumber);
   },
   callMainPhone: function callMainPhone() {
-    this.recordCallToHistory(lang.hitch(this, function initiateCall() {
-      App.initiateCall(this.entry.MainPhone);
-    }));
+    this.recordCallToHistory(this.entry.MainPhone);
   },
   scheduleActivity: function scheduleActivity() {
     App.navigateToActivityInsertView();

@@ -63,11 +63,11 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   resourceKind: 'contacts',
   modelName: MODEL_NAMES.CONTACT,
 
-  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
+  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
     this.refreshRequired = true;
-    action.navigateToHistoryInsert(entry, complete);
+    action.navigateToHistoryInsert(entry);
   },
-  recordCallToHistory: function recordCallToHistory(complete) {
+  recordCallToHistory: function recordCallToHistory(phoneNumber) {
     const entry = {
       $name: 'History',
       Type: 'atPhoneCall',
@@ -82,9 +82,10 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+    this.navigateToHistoryInsert('atPhoneCall', entry);
+    App.initiateCall(phoneNumber);
   },
-  recordEmailToHistory: function recordEmailToHistory(complete) {
+  recordEmailToHistory: function recordEmailToHistory(email) {
     const entry = {
       $name: 'History',
       Type: 'atEMail',
@@ -99,22 +100,17 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atEMail', entry, complete);
+    this.navigateToHistoryInsert('atEMail', entry);
+    App.initiateEmail(email);
   },
   callWorkPhone: function callWorkPhone() {
-    this.recordCallToHistory(function initiateCall() {
-      App.initiateCall(this.entry.WorkPhone);
-    }.bindDelegate(this));
+    this.recordCallToHistory(this.entry.WorkPhone);
   },
   callMobilePhone: function callMobilePhone() {
-    this.recordCallToHistory(function initiateCall() {
-      App.initiateCall(this.entry.Mobile);
-    }.bindDelegate(this));
+    this.recordCallToHistory(this.entry.Mobile);
   },
   sendEmail: function sendEmail() {
-    this.recordEmailToHistory(function initiateEmail() {
-      App.initiateEmail(this.entry.Email);
-    }.bindDelegate(this));
+    this.recordEmailToHistory(this.entry.Email);
   },
   checkValueExists: function checkValueExists(entry, value) {
     return !value;
