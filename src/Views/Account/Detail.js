@@ -63,7 +63,6 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   enableOffline: true,
   resourceKind: 'accounts',
   modelName: MODEL_NAMES.ACCOUNT,
-  actionInitiated: false,
 
   navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
     action.navigateToHistoryInsert(entry);
