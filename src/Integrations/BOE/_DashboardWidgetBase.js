@@ -252,7 +252,11 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       const valueIndex = [];
       if (!obj.value) {
         if (obj.aggregate) {
-          valueFn = crmAggregate[obj.aggregate];
+          if (obj.aggregateModule) {
+            valueFn = obj.aggregateModule[obj.aggregate];
+          } else {
+            valueFn = crmAggregate[obj.aggregate];
+          }
         }
         if (!(obj.queryIndex instanceof Array)) {
           // Single query, so get the single index value from the results
