@@ -530,7 +530,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       exclude: true,
       notificationTrigger: 'blur',
     }, {
-      label: '',
+      label: this.recurringFrequencyText,
       title: this.recurringFrequencyText,
       name: 'Scale',
       property: 'Scale',
