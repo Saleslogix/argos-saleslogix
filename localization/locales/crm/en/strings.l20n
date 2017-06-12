@@ -313,7 +313,7 @@
   descriptionText: "description"
   descriptionTitleText: "Description"
   isMailingText: "shipping"
-  isPrimaryText: "primary"
+  isPrimaryText: "primary address"
   postalCodeText: "postal"
   salutationText: "attention"
   stateText: "state"
