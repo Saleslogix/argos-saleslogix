@@ -8,7 +8,6 @@ import MODEL_NAMES from '../Names';
 
 const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase], {
   id: 'history_offline_model',
-  idProperty: '$offlineDate',
   deleteEntry: function deleteEntry(entry) {
     return new Promise((resolve, reject) => {
       const store = this.getStore();
