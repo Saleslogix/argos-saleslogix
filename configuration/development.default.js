@@ -32,7 +32,7 @@ define('configuration/development.default', [
     enableHashTags: true,
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
-    enableOfflineSupport: false,
+    enableOfflineSupport: true,
     enableMingle: false,
     warehouseDiscovery: 'auto',
     mingleSettings: {
