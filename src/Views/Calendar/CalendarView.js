@@ -537,7 +537,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
     } else {
       this.refreshingCalendar = true;
-      this._calendar.refresh(false);
+      this._calendar.refresh(true);
     }
   },
   onRefreshCalendar: function onRefreshCalendar(refresh) {
