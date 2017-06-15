@@ -23,8 +23,7 @@
   importSourceText: "Interessentenquelle"
   industryText: "Branche"
   notesText: "Notizen"
-  ownerText: "Zugriffsberechtigter"
-  phoneCallHistoryTitle: "Anruf"
+  ownerText: "Zugriffsberecht."
   phoneText: "Telefon"
   actionsText: "Schnellaktionen"
   relatedActivitiesText: "Aktivitäten"
@@ -63,7 +62,7 @@
   importSourceText: "Interessentenquelle"
   industryText: "Branche"
   industryTitleText: "Branche"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   phoneText: "Telefon"
   statusText: "Status"
   subTypeText: "Untertyp"
@@ -117,7 +116,7 @@
   resultText: "Ergebnis"
   resultTitleText: "Ergebnis"
   startingText: "Startdatum"
-  timelessText: "ohneZeitangabe"
+  timelessText: "ohne Zeitangabe"
   noneText: "keine"
   quarterHourText: "15 Minuten"
   halfHourText: "30 Minuten"
@@ -148,7 +147,7 @@
   rolloverText: "automatische Ausdehnung"
   startTimeText: "Startzeit"
   allDayText: "den gesamten Tag"
-  timelessText: "ohneZeitangabe"
+  timelessText: "ohne Zeitangabe"
   titleText: "Aktivität"
   typeText: "Typ"
   companyText: "Unternehmen"
@@ -196,7 +195,7 @@
   repeatsText: "Wiederholungen"
   recurringText: "wiederkehrend"
   recurringTitleText: "Wiederkehrend"
-  timelessText: "ohneZeitangabe"
+  timelessText: "ohne Zeitangabe"
   titleText: "Aktivität"
   typeText: "Typ"
   accountText: "Firma"
@@ -229,17 +228,9 @@
   addAttachmentActionText: "Anlage hinzufügen"
   overdueText: "überfällig"
   alarmText: "Alarm"
-  touchedText: "zuletzt bearbeitet von"
+  touchedText: "bearbeitet"
   importantText: "wichtig"
   recurringText: "wiederkehrend"
-  phoneCallText: "Anruf"
-  meetingText: "Meeting"
-  toDoText: "Aufgabe"
-  personalText: "Private Aktivität"
-  literatureText: "Literaturanfrage"
-  questionText: "Frage"
-  noteText: "Notiz"
-  emailText: "E-Mail"
 >
 
 <activityMyList ""
@@ -420,10 +411,6 @@
   toggleCollapseText: "ein-/ausblenden"
 >
 
-<chartMixin ""
-  loadingText: "Ladevorgang läuft"
->
-
 <competitorList ""
   titleText: "Mitbewerber"
 >
@@ -439,7 +426,7 @@
   faxText: "Fax"
   homeText: "Private Telefonnummer"
   nameText: "Kontakt"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   actionsText: "Schnellaktionen"
   relatedAccountsText: "Firmen"
   relatedActivitiesText: "Aktivitäten"
@@ -464,8 +451,6 @@
   viewAddressText: "Adresse anzeigen"
   moreDetailsText: "Weitere Details"
   entityText: "Kontakt"
-  phoneCall: "Anruf"
-  email: "E-Mail"
 >
 
 <contactEdit ""
@@ -483,7 +468,7 @@
   contactTitleText: "Titel"
   titleTitleText: "Titel"
   addressTitleText: "Adresse"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   cuisinePreferenceText: "Kulinarische Vorlieben"
   cuisinePreferenceTitleText: "Kulinarische Vorlieben"
 >
@@ -571,7 +556,7 @@
   regardingText: "Betreff"
   completedByText: "abgeschlossen von"
   scheduledText: "geplant"
-  timelessText: "ohneZeitangabe"
+  timelessText: "ohne Zeitangabe"
   companyText: "Unternehmen"
   leadText: "Interessent"
   titleText: "Historie"
@@ -597,7 +582,7 @@
 
 <historyEdit ""
   accountText: "Firma"
-  noteDescriptionTitleText: "Beschreibung der Notiz"
+  noteDescriptionTitleText: "Notizbeschreibung"
   contactText: "Kontakt"
   longNotesText: "Notizen"
   longNotesTitleText: "Notizen"
@@ -616,6 +601,12 @@
   validationCanEditText: "Sie besitzen keine Bearbeitungsrechte"
 >
 
+<historyEditOffline ""
+  titleText: "Offline-Notizen"
+  notesSectionText: "Notizen"
+  notesLabelText: "Notizen"
+>
+
 <historyList ""
   titleText: "Notizen/Historie"
   viewAccountActionText: "Firma"
@@ -632,9 +623,15 @@
   email: "E-Mail"
 >
 
+<historyListOffline ""
+  titleText: "Offline-Notizen"
+  widgetTitle: "Offline-Notiz"
+  saveToCRMText: "In CRM speichern"
+>
+
 <historyRelated ""
   regardingText: "Betreff"
-  byText: "geschrieben "
+  byText: "${0} schrieb am ${1}"
   titleText: "Notizen"
 >
 
@@ -651,7 +648,7 @@
   leadTitleText: "Titel"
   nameText: "Name"
   notesText: "Kommentare"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   relatedActivitiesText: "Aktivitäten"
   relatedHistoriesText: "Notizen/Historie"
   relatedItemsText: "Zugehörige Elemente"
@@ -674,8 +671,6 @@
   calledText: "Anruf bei ${0}"
   emailedText: "E-Mail an ${0}"
   entityText: "Interessent"
-  phoneCall: "Anruf"
-  email: "E-Mail"
 >
 
 <leadEdit ""
@@ -692,7 +687,7 @@
   industryTitleText: "Branche"
   interestsText: "Interessen"
   leadNameLastFirstText: "Name"
-  leadOwnerText: "Zugriffsberechtigter"
+  leadOwnerText: "Zugriffsberecht."
   nameText: "Name"
   notesText: "Kommentare"
   notesTitleText: "Kommentare"
@@ -737,7 +732,7 @@
   fbarScheduleTitleText: "Zeitplan"
   importSourceText: "Interessentenquelle"
   opportunityText: "Verkaufschance"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   actionsText: "Schnellaktionen"
   potentialText: "Umsatzpotenzial"
   potentialBaseText: "Umsatzpotenzial (Basiskurs)"
@@ -776,7 +771,7 @@
   opportunityStatusTitleText: "Status der Verkaufschance"
   opportunityText: "Verkaufschance"
   opportunityTypeTitleText: "Verkaufschancentyp"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   potentialText: "Umsatzpotenzial"
   probabilityText: "Abschlusswahrsch."
   probabilityTitleText: "Wahrscheinlichkeit der Verkaufschance"
@@ -873,7 +868,7 @@
   productFamilyText: "Produktfamilie"
   priceLevelText: "Preisstufe"
   priceText: "Preis"
-  basePriceText: "Basispreis"
+  basePriceText: "Preis in Basiswährung"
   discountText: "Rabatt"
   quantityText: "Menge"
   baseExtendedPriceText: "Basis"
@@ -883,20 +878,20 @@
   baseAdjustedPriceText: "Basis"
   adjustedPriceText: "angepasster Preis"
   myAdjustedPriceText: "Benutzer"
-  confirmDeleteText: "${0} von den Produkten mit Verkaufschancen entfernen?"
-  removeOppProductTitleText: "Produkt mit Verkaufschancen entfernen"
-  entityText: "Produkt mit Verkaufschancen"
+  confirmDeleteText: "${0} aus den Verkaufschancenprodukten entfernen?"
+  removeOppProductTitleText: "Verkaufschancenprodukt entfernen"
+  entityText: "Verkaufschancenprodukt"
 >
 
 <opportunityProductEdit ""
-  titleText: "Produkt mit Verkaufschancen"
+  titleText: "Verkaufschancenprodukt"
   detailsText: "Details"
   opportunityText: "Verkaufschance"
   productText: "Produkt"
   productFamilyText: "Produktfamilie"
   priceLevelText: "Preisstufe"
   priceText: "Preis"
-  basePriceText: "Basispreis"
+  basePriceText: "Preis in Basiswährung"
   discountText: "Rabatt %"
   adjustedPriceText: "angepasster Preis"
   myAdjustedPriceText: "Benutzer"
@@ -1080,9 +1075,8 @@
   titleText: "Benutzer"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "Kontakt"
-  allRecordsText: "keine Suche angewendet"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1123,7 +1117,7 @@
   faxText: "Fax"
   homePhoneText: "Private Telefonnummer"
   industryText: "Branche"
-  ownerText: "Zugriffsberechtigter"
+  ownerText: "Zugriffsberecht."
   lastNameText: "Nachname"
   mobileText: "Mobil"
   nameText: "Name"
@@ -1181,9 +1175,9 @@
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. Alle Rechte vorbehalten. www.infor.com"
   logOnText: "Anmelden"
   passText: "Passwort"
+  urlText: "SData-Endpunkt"
   rememberText: "Speichern"
   titleText: "Anmelden"
   userText: "Benutzer-ID"
@@ -1228,6 +1222,7 @@
   confirm24HourClockMessage: "Wenn Sie die Uhrzeit auf das 24-Stunden-Format umstellen, muss die Anwendung neu gestartet werden. Möchten Sie fortfahren?"
   confirm12HourClockMessage: "Wenn Sie die Uhrzeit auf das 12-Stunden-Format umstellen, muss die Anwendung neu gestartet werden. Möchten Sie fortfahren?"
   confirmClearLocalStorageMessage: "Wenn Sie den Speicher leeren, muss die Anwendung neu gestartet werden. Fortfahren?"
+  languageSettingText: "Spracheinstellungen"
 >
 
 <speedSearchList ""
@@ -1252,6 +1247,8 @@
 <action ""
   calledText: "Anruf bei ${0}"
   emailedText: "E-Mail an ${0}"
+  phoneCall: "Anruf"
+  email: "E-Mail"
 >
 
 <application ""
@@ -1280,6 +1277,8 @@
   systemOptionsText: "Systemoptionen"
   userContextAndOptionsText: "Benutzerkontext und -optionen"
   integrationsText: "Integrationen"
+  picklistsText: "Auswahllisten"
+  retrievingPicklistsText: "Auswahllisten werden abgerufen"
 >
 
 <defaultMetrics ""
@@ -1459,7 +1458,7 @@
   clearBriefcasedText: "Aktentasche leeren"
   olderThanText: "Offline-Daten löschen, die älter sind als"
   daysText: "Tage"
-  showUsageText: "Verwendung anzeigen"
+  showUsageText: "Nutzung anzeigen"
   processingText: "Verarbeitung läuft, bitte warten."
   calculatingUsageText: "Verwendung wird berechnet, bitte warten."
   clearingDataText: "Daten werden bereinigt, bitte warten."
@@ -1468,9 +1467,20 @@
   errorClearingDataText: "Fehler bei Datenbereinigung"
 >
 
+<languageOptionsEdit ""
+  titleText: "Spracheinstellungen"
+>
+
+<languageUsageWidget ""
+  regionText: "Kultur"
+  languageText: "Sprache"
+  toastTitle: "Seite aktualisieren"
+  toastMessage: "Bitte aktualisieren Sie die Browseransicht, damit die Änderungen angezeigt werden."
+>
+
 <authenticationModel ""
   entityDisplayName: "Authentifizierung"
-  entityDisplayNamePlural : "Authentifizierung"
+  entityDisplayNamePlural: "Authentifizierung"
 >
 
 <mingle ""
@@ -1523,4 +1533,14 @@
   meetingHash: "#Meeting"
   personalHash: "#privat"
   emailHash: "#E-Mail"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "Kontakt für Verkaufschance"
+  entityDisplayNamePlural: "Kontakte für Verkaufschance"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "Ticketaktivität"
+  entityDisplayNamePlural: "Ticketaktivitäten"
 >

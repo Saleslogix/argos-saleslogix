@@ -14,7 +14,7 @@
 
 <accountDetail ""
   accountText: "取引先"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   addressText: "住所"
   businessDescriptionText: "業務内容"
   createDateText: "作成日"
@@ -24,7 +24,6 @@
   industryText: "業界"
   notesText: "メモ"
   ownerText: "所有者"
-  phoneCallHistoryTitle: "電話"
   phoneText: "電話番号"
   actionsText: "クイックアクション"
   relatedActivitiesText: "アクティビティ"
@@ -54,7 +53,7 @@
   accountSubTypeTitleText: "取引先サブタイプ"
   accountText: "取引先"
   accountTypeTitleText: "取引先タイプ"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   businessDescriptionText: "業務内容"
   businessDescriptionTitleText: "業務内容"
   descriptionText: "説明"
@@ -158,7 +157,7 @@
   opportunityText: "商談"
   ticketNumberText: "チケット"
   recurrenceText: "繰り返し"
-  confirmEditRecurrenceText: "すべての「発生」を編集しますか?単一の「発生」を編集するにはキャンセルします。"
+  confirmEditRecurrenceText: "すべての「発生」を編集しますか? 単一の「発生」を編集するにはキャンセルします。"
   relatedAttachmentText: "添付"
   relatedAttachmentTitleText: "添付"
   relatedItemsText: "関連項目"
@@ -232,14 +231,6 @@
   touchedText: "更新済"
   importantText: "重要"
   recurringText: "定期的"
-  phoneCallText: "電話"
-  meetingText: "会議"
-  toDoText: "To Do"
-  personalText: "個人アクティビティ"
-  literatureText: "資料要求"
-  questionText: "質問"
-  noteText: "メモ"
-  emailText: "電子メール"
 >
 
 <activityMyList ""
@@ -269,7 +260,7 @@
   weekdaysText: "平日"
   dayText: "日"
   monthText: "月"
-  onText: "on"
+  onText: " "
   occurrencesText: "発生"
   summaryText: "サマリー"
   recurringFrequencyText: "繰り返し頻度"
@@ -420,17 +411,13 @@
   toggleCollapseText: "トグル折りたたみ"
 >
 
-<chartMixin ""
-  loadingText: "ロードしています"
->
-
 <competitorList ""
   titleText: "競合社"
 >
 
 <contactDetail ""
   accountText: "取引先"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   addressText: "住所"
   contactTitleText: "役職"
   createDateText: "作成日"
@@ -464,8 +451,6 @@
   viewAddressText: "住所の表示"
   moreDetailsText: "詳細"
   entityText: "連絡先"
-  phoneCall: "電話"
-  email: "電子メール"
 >
 
 <contactEdit ""
@@ -475,7 +460,7 @@
   mobileText: "携帯電話"
   emailText: "電子メール"
   webText: "Web"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   accountNameText: "取引先"
   homePhoneText: "自宅電話番号"
   faxText: "FAX"
@@ -616,6 +601,12 @@
   validationCanEditText: "編集は許可されていません"
 >
 
+<historyEditOffline ""
+  titleText: "オフラインメモ"
+  notesSectionText: "メモ"
+  notesLabelText: "メモ"
+>
+
 <historyList ""
   titleText: "メモ/履歴"
   viewAccountActionText: "取引先"
@@ -632,9 +623,15 @@
   email: "電子メール"
 >
 
+<historyListOffline ""
+  titleText: "オフラインメモ"
+  widgetTitle: "オフラインメモ"
+  saveToCRMText: "CRM に保存"
+>
+
 <historyRelated ""
   regardingText: "件名"
-  byText: "書き込み済 "
+  byText: "${0} は ${1} に書き込み済"
   titleText: "メモ"
 >
 
@@ -674,8 +671,6 @@
   calledText: "${0} の呼び出し"
   emailedText: "${0} に電子メールを送信しました"
   entityText: "リード"
-  phoneCall: "電話"
-  email: "電子メール"
 >
 
 <leadEdit ""
@@ -730,7 +725,7 @@
 
 <opportunityDetail ""
   accountText: "取引先"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   estCloseText: "見積クローズ"
   detailsText: "詳細"
   fbarHomeTitleText: "ホーム"
@@ -769,7 +764,7 @@
 
 <opportunityEdit ""
   accountText: "取引先"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   estCloseText: "見積クローズ"
   importSourceText: "リードソース"
   detailsText: "詳細"
@@ -816,8 +811,8 @@
   opportunityText: "商談"
   stageText: "ステージ"
   statusOpenText: "未完"
-  statusClosedLostText: "クローズ済 - 損失"
-  statusClosedWonText: "クローズ済 - 獲得"
+  statusClosedLostText: "クローズ済 - 不成立"
+  statusClosedWonText: "クローズ済 - 成立"
   salesProcessText: "販売プロセスによってロックされたステージ:"
   probabilityText: "クローズ確度"
   probabilityTitleText: "商談確度"
@@ -1080,9 +1075,8 @@
   titleText: "ユーザー"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "連絡先"
-  allRecordsText: "適用されている検索はありません"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1112,12 +1106,12 @@
   accountSubTypeTitleText: "取引先サブタイプ"
   accountText: "取引先"
   accountTypeTitleText: "取引先タイプ"
-  acctMgrText: "取引先マネージャ"
+  acctMgrText: "取引先担当者"
   addressText: "住所"
   contactTitleText: "役職"
   descriptionText: "説明"
   detailsAccountText: "取引先情報"
-  detailsContactText: "コントロール情報"
+  detailsContactText: "連絡先情報"
   detailsText: "連絡先/取引先情報"
   emailText: "電子メール"
   faxText: "FAX"
@@ -1173,17 +1167,17 @@
   footerText: "その他"
   settingsText: "設定"
   helpText: "ヘルプ"
-  logOutText: "ログアウト"
-  logOutConfirmText: "ログアウトしてもよろしいですか?"
+  logOutText: "サインオフ"
+  logOutConfirmText: "サインオフしてもよろしいですか?"
   onlineText: "オンライン"
   offlineText: "オフライン"
   connectionText: "接続: ${connectionStatus}"
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. All rights reserved. www.infor.com"
   logOnText: "サインイン"
   passText: "パスワード"
+  urlText: "SData エンドポイント"
   rememberText: "記憶する"
   titleText: "サインイン"
   userText: "ユーザー ID"
@@ -1228,6 +1222,7 @@
   confirm24HourClockMessage: "24 時間形式に時計を変更すると、アプリケーションの再起動が必要になります。続行しますか?"
   confirm12HourClockMessage: "12 時間形式に時計を変更すると、アプリケーションの再起動が必要になります。続行しますか?"
   confirmClearLocalStorageMessage: "ローカルストレージをクリアすると、アプリケーションが再起動します。よろしいですか?"
+  languageSettingText: "言語設定"
 >
 
 <speedSearchList ""
@@ -1252,6 +1247,8 @@
 <action ""
   calledText: "${0} の呼び出し"
   emailedText: "${0} へ電子メール送信済"
+  phoneCall: "電話"
+  email: "電子メール"
 >
 
 <application ""
@@ -1268,7 +1265,7 @@
   offlineInitDataText: "オフラインデータを初期化しています"
   offlineInitErrorText: "オフラインの初期化中にエラーが発生しました。全てのオフラインオプションは無効化されます。"
   appStateInitErrorText: "アプリケーションの初期化中にエラーが発生しました: 再試行してください。"
-  mingleAuthErrorText: "Mingle 単一サインオンに失敗しました。アクセスが拒否されました。"
+  mingleAuthErrorText: "Mingle シングルサインオンに失敗しました。アクセスが拒否されました。"
 >
 
 <applicationModule ""
@@ -1280,6 +1277,8 @@
   systemOptionsText: "システムオプション"
   userContextAndOptionsText: "ユーザーコンテキストおよびオプション"
   integrationsText: "統合"
+  picklistsText: "選択リスト"
+  retrievingPicklistsText: "選択リストを取得しています"
 >
 
 <defaultMetrics ""
@@ -1468,9 +1467,20 @@
   errorClearingDataText: "データ消去エラー"
 >
 
+<languageOptionsEdit ""
+  titleText: "言語設定"
+>
+
+<languageUsageWidget ""
+  regionText: "カルチャ"
+  languageText: "言語"
+  toastTitle: "ページの更新"
+  toastMessage: "ブラウザーを更新して変更箇所を表示します。"
+>
+
 <authenticationModel ""
   entityDisplayName: "認証"
-  entityDisplayNamePlural : "認証"
+  entityDisplayNamePlural: "認証"
 >
 
 <mingle ""
@@ -1523,4 +1533,14 @@
   meetingHash: "#会議"
   personalHash: "#個人"
   emailHash: "#電子メール"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "商談連絡先"
+  entityDisplayNamePlural: "商談連絡先"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "チケットアクティビティ"
+  entityDisplayNamePlural: "チケットアクティビティ"
 >

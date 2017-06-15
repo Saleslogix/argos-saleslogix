@@ -107,8 +107,8 @@
 >
 
 <locationModel ""
-  entityDisplayName: "地点"
-  entityDisplayNamePlural: "地点"
+  entityDisplayName: "位置"
+  entityDisplayNamePlural: "位置"
 >
 
 <quoteModel ""
@@ -294,10 +294,10 @@
   backOfficeText: "后台办公室"
   accountingEntityText: "会计实体"
   warehouseText: "仓库"
-  warehouseLocationText: "仓库地点"
+  warehouseLocationText: "仓库位置"
   locationText: "位置"
   carrierText: "承运人"
-  locationsTitleText: "地点"
+  locationsTitleText: "位置"
   expectedDeliveryDateText: "预期交货日期"
 >
 
@@ -335,9 +335,9 @@
   backOfficeText: "后台办公室"
   accountingEntityText: "会计实体"
   warehouseText: "仓库"
-  warehouseLocationText: "仓库地点"
+  warehouseLocationText: "仓库位置"
   locationText: "位置"
-  locationsTitleText: "地点"
+  locationsTitleText: "位置"
   carrierText: "承运人"
 >
 
@@ -639,7 +639,7 @@
   carrierText: "承运人"
   erpStatusText: "状态"
   erpStatusDateText: "状态日期"
-  warehouseLocationText: "仓库地点"
+  warehouseLocationText: "仓库位置"
   partialShipAllowedText: "允许部分发货"
   grossWeightText: "毛重"
   declaredValueText: "申报价值"
@@ -1076,7 +1076,7 @@
 >
 
 <locationsList ""
-  titleText: "地点"
+  titleText: "位置"
 >
 
 <locationsPricingAvailabilityList ""

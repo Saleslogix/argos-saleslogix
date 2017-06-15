@@ -24,7 +24,6 @@
   industryText: "industria"
   notesText: "notas"
   ownerText: "propietario"
-  phoneCallHistoryTitle: "Llamada telefónica"
   phoneText: "teléfono"
   actionsText: "Acciones rápidas"
   relatedActivitiesText: "Actividades"
@@ -232,14 +231,6 @@
   touchedText: "tocado"
   importantText: "importante"
   recurringText: "periódico"
-  phoneCallText: "Llamada telefónica"
-  meetingText: "Reunión"
-  toDoText: "Tarea"
-  personalText: "Actividad personal"
-  literatureText: "Solicitud de documentación"
-  questionText: "Pregunta"
-  noteText: "Nota"
-  emailText: "Correo electrónico"
 >
 
 <activityMyList ""
@@ -325,8 +316,8 @@
   isPrimaryText: "principal"
   postalCodeText: "postal"
   salutationText: "atención"
-  stateText: "Estado"
-  stateTitleText: "Estado"
+  stateText: "estado o región"
+  stateTitleText: "Estado o región"
   titleText: "Dirección"
 >
 
@@ -420,10 +411,6 @@
   toggleCollapseText: "contraer alternancia"
 >
 
-<chartMixin ""
-  loadingText: "Cargando"
->
-
 <competitorList ""
   titleText: "Competidores"
 >
@@ -464,8 +451,6 @@
   viewAddressText: "Ver dirección"
   moreDetailsText: "Más detalles"
   entityText: "Contacto"
-  phoneCall: "Llamada telefónica"
-  email: "Correo electrónico"
 >
 
 <contactEdit ""
@@ -616,6 +601,12 @@
   validationCanEditText: "No está autorizado a editar"
 >
 
+<historyEditOffline ""
+  titleText: "Notas sin conexión"
+  notesSectionText: "Notas"
+  notesLabelText: "notas"
+>
+
 <historyList ""
   titleText: "Notas/historial"
   viewAccountActionText: "Cuenta"
@@ -632,9 +623,15 @@
   email: "Correo electrónico"
 >
 
+<historyListOffline ""
+  titleText: "Notas sin conexión"
+  widgetTitle: "Nota sin conexión"
+  saveToCRMText: "Guardar en CRM"
+>
+
 <historyRelated ""
   regardingText: "Asunto"
-  byText: "escribió "
+  byText: "${0} escribió en ${1}"
   titleText: "Notas"
 >
 
@@ -674,8 +671,6 @@
   calledText: "${0} llamado"
   emailedText: "Enviado correo electrónico a ${0}"
   entityText: "Lead"
-  phoneCall: "Llamada telefónica"
-  email: "Correo electrónico"
 >
 
 <leadEdit ""
@@ -1080,9 +1075,8 @@
   titleText: "Usuarios"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "Contacto"
-  allRecordsText: "ninguna búsqueda aplicada"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1181,9 +1175,9 @@
 >
 
 <login ""
-  copyrightText: "Derechos de autor &copy; 2016 Infor. Todos los derechos reservados. www.infor.com"
   logOnText: "Iniciar sesión"
   passText: "Contraseña"
+  urlText: "Punto final de SData"
   rememberText: "Recordarme"
   titleText: "Iniciar sesión"
   userText: "Id. de usuario"
@@ -1228,6 +1222,7 @@
   confirm24HourClockMessage: "El cambio al reloj en formato de 24 horas requerirá un reinicio de la aplicación. ¿Desea continuar?"
   confirm12HourClockMessage: "El cambio al reloj en formato de 12 horas requerirá un reinicio de la aplicación. ¿Desea continuar?"
   confirmClearLocalStorageMessage: "El borrado del almacenamiento local requerirá un reinicio de la aplicación. ¿Está seguro?"
+  languageSettingText: "Configuración de idioma"
 >
 
 <speedSearchList ""
@@ -1252,6 +1247,8 @@
 <action ""
   calledText: "${0} llamado"
   emailedText: "Enviado correo electrónico a ${0}"
+  phoneCall: "Llamada telefónica"
+  email: "Correo electrónico"
 >
 
 <application ""
@@ -1280,6 +1277,8 @@
   systemOptionsText: "Opciones del sistema"
   userContextAndOptionsText: "Contexto de usuario y opciones"
   integrationsText: "Integraciones"
+  picklistsText: "Listas de selección"
+  retrievingPicklistsText: "Recuperando listas de selección"
 >
 
 <defaultMetrics ""
@@ -1457,7 +1456,7 @@
   clearDataText: "Borrar todo"
   clearRecentText: "Borrar visto recientemente"
   clearBriefcasedText: "Vaciar maletín"
-  olderThanText: "Borrar datos sin conexión más antiguos que"
+  olderThanText: "Borrar los datos sin conexión con una antigüedad superior a"
   daysText: "días"
   showUsageText: "Mostrar uso"
   processingText: "procesando, espere."
@@ -1468,9 +1467,20 @@
   errorClearingDataText: "Error al borrar datos"
 >
 
+<languageOptionsEdit ""
+  titleText: "Configuración de idioma"
+>
+
+<languageUsageWidget ""
+  regionText: "Cultura"
+  languageText: "Idioma"
+  toastTitle: "Actualizar la página"
+  toastMessage: "Actualice su navegador para ver el cambio."
+>
+
 <authenticationModel ""
   entityDisplayName: "Autenticación"
-  entityDisplayNamePlural : "Autenticación"
+  entityDisplayNamePlural: "Autenticación"
 >
 
 <mingle ""
@@ -1523,4 +1533,14 @@
   meetingHash: "#reunión"
   personalHash: "#personal"
   emailHash: "#correoelectrónico"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "Contacto de oportunidad"
+  entityDisplayNamePlural: "Contactos de oportunidad"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "Actividad de ticket"
+  entityDisplayNamePlural: "Actividades de ticket"
 >

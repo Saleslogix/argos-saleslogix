@@ -24,7 +24,6 @@
   industryText: "Secteur"
   notesText: "Notes"
   ownerText: "Propriétaire"
-  phoneCallHistoryTitle: "Appel téléphonique"
   phoneText: "Téléphone"
   actionsText: "Actions rapides"
   relatedActivitiesText: "Activités"
@@ -232,14 +231,6 @@
   touchedText: "Modifié"
   importantText: "Important"
   recurringText: "récurrent"
-  phoneCallText: "Appel téléphonique"
-  meetingText: "Rendez-vous"
-  toDoText: "Tâche à faire"
-  personalText: "Activité personnelle"
-  literatureText: "Demande de documentation"
-  questionText: "Question"
-  noteText: "Note"
-  emailText: "E-mail"
 >
 
 <activityMyList ""
@@ -420,10 +411,6 @@
   toggleCollapseText: "Développer/réduire"
 >
 
-<chartMixin ""
-  loadingText: "Chargement en cours"
->
-
 <competitorList ""
   titleText: "Concurrents"
 >
@@ -464,8 +451,6 @@
   viewAddressText: "Voir l'adresse"
   moreDetailsText: "Plus de détails"
   entityText: "Contact"
-  phoneCall: "Appel téléphonique"
-  email: "E-mail"
 >
 
 <contactEdit ""
@@ -616,6 +601,12 @@
   validationCanEditText: "Vous n'êtes pas autorisé à apporter des modifications."
 >
 
+<historyEditOffline ""
+  titleText: "Notes hors ligne"
+  notesSectionText: "Notes"
+  notesLabelText: "Notes"
+>
+
 <historyList ""
   titleText: "Notes/Historique"
   viewAccountActionText: "Compte"
@@ -632,9 +623,15 @@
   email: "E-mail"
 >
 
+<historyListOffline ""
+  titleText: "Notes hors ligne"
+  widgetTitle: "Note hors ligne"
+  saveToCRMText: "Enregistrer dans CRM"
+>
+
 <historyRelated ""
   regardingText: "Objet"
-  byText: "Ecrit "
+  byText: "${0} écrit sur ${1}"
   titleText: "Notes"
 >
 
@@ -674,8 +671,6 @@
   calledText: "Appelé ${0}"
   emailedText: "E-mail envoyé à ${0}"
   entityText: "Lead"
-  phoneCall: "Appel téléphonique"
-  email: "E-mail"
 >
 
 <leadEdit ""
@@ -1080,9 +1075,8 @@
   titleText: "Utilisateurs"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "Contact"
-  allRecordsText: "Aucune recherche appliquée"
+<chartMixin ""
+  searchText: "${title} : ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1181,9 +1175,9 @@
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. Tous droits réservés. www.infor.com"
   logOnText: "Connexion"
   passText: "Mot de passe"
+  urlText: "Point de terminaison SData"
   rememberText: "Mémoriser"
   titleText: "Connexion"
   userText: "ID d'utilisateur"
@@ -1228,6 +1222,7 @@
   confirm24HourClockMessage: "Le passage au format horaire 24 heures requiert un redémarrage de l'application. Continuer ?"
   confirm12HourClockMessage: "Le passage au format horaire 12 heures requiert un redémarrage de l'application. Continuer ?"
   confirmClearLocalStorageMessage: "L'effacement du stockage local requiert un redémarrage de l'application. Confirmer ?"
+  languageSettingText: "Paramètres de langue"
 >
 
 <speedSearchList ""
@@ -1252,6 +1247,8 @@
 <action ""
   calledText: "Appelé ${0}"
   emailedText: "E-mail envoyé à ${0}"
+  phoneCall: "Appel téléphonique"
+  email: "E-mail"
 >
 
 <application ""
@@ -1280,6 +1277,8 @@
   systemOptionsText: "Options du système"
   userContextAndOptionsText: "Contexte et options utilisateur"
   integrationsText: "Intégrations"
+  picklistsText: "Listes de sélection"
+  retrievingPicklistsText: "Extraction des listes de sélection"
 >
 
 <defaultMetrics ""
@@ -1468,9 +1467,20 @@
   errorClearingDataText: "Erreur lors de l'effacement des données"
 >
 
+<languageOptionsEdit ""
+  titleText: "Paramètres de langue"
+>
+
+<languageUsageWidget ""
+  regionText: "Culture"
+  languageText: "Langue"
+  toastTitle: "Actualiser la page"
+  toastMessage: "Actualisez votre navigateur pour voir le changement."
+>
+
 <authenticationModel ""
   entityDisplayName: "Authentification"
-  entityDisplayNamePlural : "Authentification"
+  entityDisplayNamePlural: "Authentification"
 >
 
 <mingle ""
@@ -1523,4 +1533,14 @@
   meetingHash: "#rendez-vous"
   personalHash: "#personnel"
   emailHash: "#e-mail"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "Contact d'opportunité"
+  entityDisplayNamePlural: "Contacts d'opportunité"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "Activité du ticket"
+  entityDisplayNamePlural: "Activités du ticket"
 >

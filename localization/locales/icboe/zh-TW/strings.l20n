@@ -390,7 +390,7 @@
   creditHoldText: "信用保留"
   adminHoldText: "管理員保留"
   holdText: "保留"
-  orderedText: "已排定"
+  orderedText: "已排序"
   partiallyShippedText: "部分已出貨"
   pendingText: "擱置中"
   newText: "新增"
@@ -757,7 +757,7 @@
   priceText: "價格"
   adjustedPriceText: "調整後價格"
   baseAdjustedPriceText: "基準調整後價格"
-  baseAmountText: "基準總價"
+  baseAmountText: "基準貨幣總價"
   amountText: "總價"
   productNameText: "產品名稱"
   descriptionText: "描述"
@@ -830,7 +830,7 @@
   priceText: "價格"
   adjustedPriceText: "調整後價格"
   baseAdjustedPriceText: "基準調整後價格"
-  baseAmountText: "基準總價"
+  baseAmountText: "基準貨幣總價"
   amountText: "總價"
   productNameText: "產品名稱"
   descriptionText: "描述"
@@ -976,8 +976,8 @@
   titleText: "收貨方"
 >
 <icboeApplicationModule ""
-  picklistsText: "揀貨清單"
-  retrievingPicklistsText: "正在取得揀貨清單"
+  picklistsText: "挑選清單"
+  retrievingPicklistsText: "正在取得挑選清單"
 >
 
 <erpShipTosDetail ""
