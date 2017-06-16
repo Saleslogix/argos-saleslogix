@@ -140,11 +140,10 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       }
       let picklistItem = false;
       this.languageCode = this.getLanguageCode();
-      if (this.storageMode !== 'id') {
-        // Name Prefix and Suffix are special case pick lists stored as text but languageCode may have changed, just ignore new method
-        if (this.picklistName !== 'Name Prefix' && this.picklistName !== 'Name Suffix') {
-          picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val, this.languageCode);
-        }
+      if (this.storageMode === 'text') {
+        picklistItem = this.app.picklistService.getPicklistItemTextByCode(this.picklistName, val, this.languageCode);
+      } else if (this.storageMode !== 'id') {
+        picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val, this.languageCode);
       } else {
         // Special case of item being stored by $key...
         picklistItem = this.app.picklistService.getPicklistItemByKey(this.picklistName, val, this.languageCode);
