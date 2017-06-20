@@ -6,14 +6,14 @@ import lang from 'dojo/_base/lang';
 import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
-import _ListBase from 'argos/_ListBase';
+import List from 'argos/List';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
 
 const resource = getResource('acctPxSearch');
 
-const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_ListBase, _LegacyListBase], {
+const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [List, _LegacyListBase], {
   // Localization strings
   accountsNearMeText: resource.accountsNearMeText,
   addActivityActionText: resource.addActivityActionText,
@@ -44,17 +44,9 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     '</p>',
     '{% } %}',
   ]),
-  rowTemplate: new Simplate([
-    '<div data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
-    '{%! $$.itemRowContentTemplate %}',
-    '</div>',
-  ]),
   itemRowContentTemplate: new Simplate([
     '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
-    '{%! $$.itemIconTemplate %}',
-    '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-    '<div id="list-item-content-related"></div>',
-    '{%! $$.itemFooterTemplate %}',
+    '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
   ]),
 
   // Functions
@@ -177,7 +169,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
         const entry = feed.$resources[i];
         entry.$descriptor = entry.$descriptor || feed.$descriptor;
         this.entries[entry.$key] = entry;
-        const rowNode = $(this.rowTemplate.apply(entry, this));
+        const rowNode = $(this.rowTemplate.apply(entry, this)).get(0);
         docfrag.appendChild(rowNode);
         this.onApplyRowTemplate(entry, rowNode);
         if (this.relatedViews.length > 0) {
@@ -222,6 +214,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     this.startup();
     this.initConnects();
     this.titleEl = document.getElementById('pageTitle');
+    this.inherited(arguments);
   },
   loadAccountTypes() {
     this.queryTypeEl = document.getElementById('queryType');
