@@ -108,8 +108,7 @@
 
     <script type="text/javascript">
     (function() {
-      require(['crm/polyfills/index']);
-      require(['crm/Bootstrap'], function(bootstrap) {
+      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
         bootstrap({
           supportedLocales: [
             'en',

@@ -131,8 +131,7 @@
         },
         // Update DOM on a Received Event
         receivedEvent: function(id) {
-          require(['crm/polyfills/index']);
-          require(['crm/Bootstrap'], function(bootstrap) {
+          require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
             bootstrap({
               supportedLocales: [
                 'en',

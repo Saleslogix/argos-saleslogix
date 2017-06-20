@@ -370,6 +370,9 @@
           "text": "ActivityTypeText.js",
           "path": "../src-out/Models/Activity/"
         }, {
+          "text": "nodelist.js",
+          "path": "../src-out/polyfills/"
+        }, {
           "text": "Recurrence.js",
           "path": "../src-out/"
         }, {
@@ -396,12 +399,6 @@
         }, {
           "text": "user.js",
           "path": "../src-out/reducers/"
-        }, {
-          "text": "index.js",
-          "path": "../src-out/polyfills/"
-        }, {
-          "text": "nodelist.js",
-          "path": "../src-out/polyfills/"
         }, {
           "text": "Aggregate.js",
           "path": "../src-out/Integrations/BOE/"
@@ -747,6 +744,9 @@
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "index.js",
+          "path": "../src-out/polyfills/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Activity/"
