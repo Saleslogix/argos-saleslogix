@@ -73,7 +73,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
       AccountName: this.entry.Company,
       LeadId: this.entry.$key,
       LeadName: this.entry.LeadNameLastFirst,
-      Description: string.substitute(this.calledText, [this.entry.LeadNameLastFirst]),
+      Description: string.substitute(this.calledText, [this.entry.LeadNameFirstLast]),
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,
