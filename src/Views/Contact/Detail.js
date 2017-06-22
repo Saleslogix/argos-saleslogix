@@ -6,6 +6,7 @@ import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 const resource = getResource('contactDetail');
 
@@ -75,7 +76,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: `${this.calledText} ${this.entry.NameLF}`,
+      Description: string.substitute(this.calledText, [this.entry.Name]),
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
@@ -93,7 +94,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: `Emailed ${this.entry.NameLF}`,
+      Description: `Emailed ${this.entry.Name}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
