@@ -49,7 +49,7 @@
     "@infor/icrm-js-common": "^0.1.4",
     "@infor/icrm-js-customization": "^0.1.0",
     "@infor/icrm-js-services": "^0.2.1",
-    "@infor/sohoxi": "4.3.0-rc",
+    "@infor/sohoxi": "4.3.0",
     "moment": "^2.17.1",
     "pouchdb-browser": "^6.1.1",
     "redux": "^3.6.0",
