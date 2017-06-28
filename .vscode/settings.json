@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.jsb2": "json",
+        "*.tmpl": "json"
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true
+}

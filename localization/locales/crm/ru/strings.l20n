@@ -24,7 +24,6 @@
   industryText: "отрасль"
   notesText: "заметки"
   ownerText: "владелец"
-  phoneCallHistoryTitle: "Звонок"
   phoneText: "телефон"
   actionsText: "Быстрые действия"
   relatedActivitiesText: "Действия"
@@ -232,14 +231,6 @@
   touchedText: "затронуто"
   importantText: "важно"
   recurringText: "повторение"
-  phoneCallText: "Звонок"
-  meetingText: "Встреча"
-  toDoText: "Дело"
-  personalText: "Личное действие"
-  literatureText: "Запрос информационных материалов"
-  questionText: "Вопрос"
-  noteText: "Заметка"
-  emailText: "Электронная почта"
 >
 
 <activityMyList ""
@@ -420,10 +411,6 @@
   toggleCollapseText: "показать/скрыть"
 >
 
-<chartMixin ""
-  loadingText: "Загрузка"
->
-
 <competitorList ""
   titleText: "Конкуренты"
 >
@@ -464,8 +451,6 @@
   viewAddressText: "Показать адрес"
   moreDetailsText: "Подробнее"
   entityText: "Контакт"
-  phoneCall: "Звонок"
-  email: "Электронная почта"
 >
 
 <contactEdit ""
@@ -616,6 +601,12 @@
   validationCanEditText: "У вас нет прав для редактирования"
 >
 
+<historyEditOffline ""
+  titleText: "Автономные заметки"
+  notesSectionText: "Заметки"
+  notesLabelText: "заметки"
+>
+
 <historyList ""
   titleText: "Заметки/история"
   viewAccountActionText: "Клиент"
@@ -632,9 +623,15 @@
   email: "Электронная почта"
 >
 
+<historyListOffline ""
+  titleText: "Автономные заметки"
+  widgetTitle: "Автономная заметка"
+  saveToCRMText: "Сохранить в CRM"
+>
+
 <historyRelated ""
   regardingText: "Тема"
-  byText: "написал "
+  byText: "Дата создания записи пользователем \"${0}\": ${1}"
   titleText: "Заметки"
 >
 
@@ -674,8 +671,6 @@
   calledText: "Вызвано: ${0}"
   emailedText: "Отправлено писем: ${0}"
   entityText: "Заинтересованное лицо"
-  phoneCall: "Звонок"
-  email: "Электронная почта"
 >
 
 <leadEdit ""
@@ -873,14 +868,14 @@
   productFamilyText: "семейство продуктов"
   priceLevelText: "уровень цены"
   priceText: "цена"
-  basePriceText: "базовая цена"
+  basePriceText: "цена в базовой валюте"
   discountText: "скидка"
   quantityText: "количество"
-  baseExtendedPriceText: "базовый"
+  baseExtendedPriceText: "базовая валюта"
   extendedPriceText: "сумма без учета скидок и наценок"
   extendedPriceSectionText: "Сумма без учета скидок и наценок"
   adjustedPriceSectionText: "Скорректированная цена"
-  baseAdjustedPriceText: "базовый"
+  baseAdjustedPriceText: "базовая валюта"
   adjustedPriceText: "скорректированная цена"
   myAdjustedPriceText: "пользователь"
   confirmDeleteText: "Удалить \"${0}\" из перспективных товаров?"
@@ -896,13 +891,13 @@
   productFamilyText: "семейство продуктов"
   priceLevelText: "уровень цены"
   priceText: "цена"
-  basePriceText: "базовая цена"
+  basePriceText: "цена в базовой валюте"
   discountText: "Процент скидки"
   adjustedPriceText: "скорректированная цена"
   myAdjustedPriceText: "пользователь"
-  baseAdjustedPriceText: "базовый"
+  baseAdjustedPriceText: "базовая валюта"
   quantityText: "количество"
-  baseExtendedPriceText: "базовый"
+  baseExtendedPriceText: "базовая валюта"
   extendedPriceText: "сумма без учета скидок и наценок"
   extendedPriceSectionText: "Сумма без учета скидок и наценок"
   adjustedPriceSectionText: "Скорректированная цена"
@@ -1080,9 +1075,8 @@
   titleText: "Пользователи"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "Контакт"
-  allRecordsText: "поиск не выполнен"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1181,9 +1175,9 @@
 >
 
 <login ""
-  copyrightText: "Авторские права &copy; Infor, 2016. Все права сохранены. www.infor.com"
   logOnText: "Вход"
   passText: "Пароль"
+  urlText: "Конечная точка SData"
   rememberText: "Запомнить меня"
   titleText: "Вход"
   userText: "ИД пользователя"
@@ -1228,6 +1222,7 @@
   confirm24HourClockMessage: "При изменении на 24-часовой формат потребуется перезагрузка приложения. Продолжить?"
   confirm12HourClockMessage: "При изменении на 12-часовой формат потребуется перезагрузка приложения. Продолжить?"
   confirmClearLocalStorageMessage: "При очистке локального хранилища потребуется перезагрузка приложения. Действительно продолжить?"
+  languageSettingText: "Настройки языка"
 >
 
 <speedSearchList ""
@@ -1252,6 +1247,8 @@
 <action ""
   calledText: "Вызвано: ${0}"
   emailedText: "Отправлено писем: ${0}"
+  phoneCall: "Звонок"
+  email: "Электронная почта"
 >
 
 <application ""
@@ -1280,6 +1277,8 @@
   systemOptionsText: "Системные параметры"
   userContextAndOptionsText: "Контакт и параметры пользователя"
   integrationsText: "Интеграции"
+  picklistsText: "Списки выбора"
+  retrievingPicklistsText: "Списки выбора"
 >
 
 <defaultMetrics ""
@@ -1468,9 +1467,20 @@
   errorClearingDataText: "Ошибка при очистке данных"
 >
 
+<languageOptionsEdit ""
+  titleText: "Настройки языка"
+>
+
+<languageUsageWidget ""
+  regionText: "Культура"
+  languageText: "Язык"
+  toastTitle: "Обновить страницу"
+  toastMessage: "Обновите веб-браузер, чтобы увидеть обновления."
+>
+
 <authenticationModel ""
   entityDisplayName: "Аутентификация"
-  entityDisplayNamePlural : "Аутентификация"
+  entityDisplayNamePlural: "Аутентификация"
 >
 
 <mingle ""
@@ -1523,4 +1533,14 @@
   meetingHash: "#встреча"
   personalHash: "#личное"
   emailHash: "#электронная-почта"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "Контакт по потенциальной сделке"
+  entityDisplayNamePlural: "Контакты по потенциальной сделке"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "Действие по заявке"
+  entityDisplayNamePlural: "Действия по заявке"
 >

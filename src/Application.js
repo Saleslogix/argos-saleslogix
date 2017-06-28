@@ -145,7 +145,6 @@ export default class Application extends SDKApplication {
     this.store.dispatch(setConfig(this._config));
     this._config = null;
     this._loadNavigationState();
-    this._saveDefaultPreferences();
 
     let accessToken = null;
     if (this.isMingleEnabled()) {
@@ -168,6 +167,11 @@ export default class Application extends SDKApplication {
       request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
       return original.apply(this, arguments);
     };
+  }
+
+  initPreferences() {
+    super.initPreferences();
+    this._saveDefaultPreferences();
   }
 
   isMingleEnabled() {
@@ -580,14 +584,16 @@ export default class Application extends SDKApplication {
   onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
-
-    const header = $('.header', this.getContainerNode());
-    header.show();
+    this.showHeader();
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
       this.onInitAppStateFailed(err);
     });
+  }
+  showHeader() {
+    const header = $('.header', this.getContainerNode());
+    header.show();
   }
   onHandleAuthenticationFailed() {
     this.removeCredentials();
@@ -644,9 +650,13 @@ export default class Application extends SDKApplication {
     }
   }
   updateServiceUrl(state) {
+    if (this.isMingleEnabled()) { // See TODO below, as to why we are bailing here
+      return;
+    }
+
     const service = this.getService();
     service.setUri(Object.assign({}, state.app.config.connections, {
-      url: state.app.config.endpoint,
+      url: state.app.config.endpoint, // TODO: Setting the URL here will break mingle instances that use custom virtual directories
     }));
   }
   _clearNavigationState() {
@@ -703,6 +713,10 @@ export default class Application extends SDKApplication {
       this.preferences.metrics = defaults.getDefinitions();
       this.persistPreferences();
     }
+  }
+  clearMetricPreferences() {
+    this.preferences.metrics = null;
+    this.persistPreferences();
   }
   requestUserDetails() {
     const key = this.context.user.$key;
@@ -931,6 +945,7 @@ export default class Application extends SDKApplication {
 
   navigateToInitialView() {
     this.showLeftDrawer();
+    this.showHeader();
     try {
       const restoredState = this.navigationState;
       const restoredHistory = restoredState && JSON.parse(restoredState);
@@ -1007,7 +1022,6 @@ export default class Application extends SDKApplication {
       view.refresh();
     }
 
-    this.ReUI.resetHistory();
     if (online) {
       this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
       if (this.context && this.context.user) {

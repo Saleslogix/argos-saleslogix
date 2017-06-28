@@ -12,6 +12,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
 import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 
 const resource = getResource('activityMyList');
@@ -558,6 +559,11 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       view.show(options);
     }
   },
+  navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
+    const myListOptions = additionalOptions || {};
+    myListOptions.returnTo = this.id;
+    this.inherited(arguments, [key, descriptor, myListOptions]);
+  },
   resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
     const exists = this.existsRE;
 
@@ -578,7 +584,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       ContactId: entry.Activity.ContactId,
       AccountName: entry.Activity.AccountName,
       AccountId: entry.Activity.AccountId,
-      Description: `${this.calledText} ${entry.Activity.ContactName || ''}`,
+      Description: string.substitute(this.calledText, [entry.Activity.ContactName || '']),
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,

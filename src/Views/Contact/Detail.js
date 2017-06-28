@@ -6,6 +6,7 @@ import template from '../../Template';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 const resource = getResource('contactDetail');
 
@@ -52,7 +53,6 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   addNoteText: resource.addNoteText,
   sendEmailText: resource.sendEmailText,
   viewAddressText: resource.viewAddressText,
-  moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
 
   // View Properties
@@ -64,11 +64,11 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
   resourceKind: 'contacts',
   modelName: MODEL_NAMES.CONTACT,
 
-  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
+  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
     this.refreshRequired = true;
-    action.navigateToHistoryInsert(entry, complete);
+    action.navigateToHistoryInsert(entry);
   },
-  recordCallToHistory: function recordCallToHistory(complete) {
+  recordCallToHistory: function recordCallToHistory(phoneNumber) {
     const entry = {
       $name: 'History',
       Type: 'atPhoneCall',
@@ -76,16 +76,17 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: `${this.calledText} ${this.entry.NameLF}`,
+      Description: string.substitute(this.calledText, [this.entry.Name]),
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+    this.navigateToHistoryInsert('atPhoneCall', entry);
+    App.initiateCall(phoneNumber);
   },
-  recordEmailToHistory: function recordEmailToHistory(complete) {
+  recordEmailToHistory: function recordEmailToHistory(email) {
     const entry = {
       $name: 'History',
       Type: 'atEMail',
@@ -93,29 +94,24 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
       ContactId: this.entry.$key,
       AccountName: this.entry.AccountName,
       AccountId: this.entry.Account.$key,
-      Description: `Emailed ${this.entry.NameLF}`,
+      Description: `Emailed ${this.entry.Name}`,
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
       Duration: 15,
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atEMail', entry, complete);
+    this.navigateToHistoryInsert('atEMail', entry);
+    App.initiateEmail(email);
   },
   callWorkPhone: function callWorkPhone() {
-    this.recordCallToHistory(function initiateCall() {
-      App.initiateCall(this.entry.WorkPhone);
-    }.bindDelegate(this));
+    this.recordCallToHistory(this.entry.WorkPhone);
   },
   callMobilePhone: function callMobilePhone() {
-    this.recordCallToHistory(function initiateCall() {
-      App.initiateCall(this.entry.Mobile);
-    }.bindDelegate(this));
+    this.recordCallToHistory(this.entry.Mobile);
   },
   sendEmail: function sendEmail() {
-    this.recordEmailToHistory(function initiateEmail() {
-      App.initiateEmail(this.entry.Email);
-    }.bindDelegate(this));
+    this.recordEmailToHistory(this.entry.Email);
   },
   checkValueExists: function checkValueExists(entry, value) {
     return !value;
@@ -214,12 +210,7 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
         property: 'AccountManager.UserInfo',
         label: this.acctMgrText,
         tpl: template.nameLF,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'HomePhone',
         property: 'HomePhone',
         label: this.homeText,

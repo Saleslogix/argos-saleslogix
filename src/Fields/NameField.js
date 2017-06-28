@@ -14,7 +14,7 @@ const control = declare('crm.Fields.NameField', [EditorField], {
       {% if ($.required) { %}
           class="required"
       {% } %}>{%: $.label %}</label>
-    <div class="field-control-wrapper">
+    <div class="field field-control-wrapper">
       <button class="button simpleSubHeaderButton field-control-trigger
         aria-label="{%: $.lookupLabelText %}">
         <svg class="icon" focusable="false" aria-hidden="true" role="presentation">

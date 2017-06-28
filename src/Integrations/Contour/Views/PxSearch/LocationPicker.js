@@ -17,14 +17,17 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker'
     '<p class="listview-heading">{%: $.Name %}</p>',
   ]),
   // overriding the stock rowTemplate with our custom key and descriptor
-  rowTemplate: new Simplate([
+  liRowTemplate: new Simplate([
     '<li data-action="activateEntry" data-key="{%: $.$key %}" data-descriptor="{%: $.$descriptor %}" data-lat="{%: $.Address.GeocodeLatitude %}" data-lon="{%: $.Address.GeocodeLongitude %}">',
-    '<button data-action="selectEntry" class="list-item-selector button">',
-    '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
+    '<button data-action="selectEntry" class="list-item-selector btn-icon hide-focus">',
+    `<svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xlink:href="#icon-{%= $$.icon || $$.selectIcon %}" />
+      </svg>`,
     '</button>',
     '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
     '</li>',
   ]),
+  isCardView: false,
 
   // Localization
   accountsNearText: resource.accountsNearText,

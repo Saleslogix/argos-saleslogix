@@ -150,13 +150,13 @@
         return window.$;
       });
 
-      require(['crm/Bootstrap'], function(bootstrap) {
+      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,
-          defaultLocale: defaultLocale,
+          defaultLocale: 'en',
           currentLocale: currentLocale,
           parentLocale: parentLocale,
-          defaultRegionLocale: defaultRegionLocale,
+          defaultRegionLocale: 'en',
           currentRegionLocale: currentRegionLocale,
           parentRegionLocale: parentRegionLocale,
           isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,

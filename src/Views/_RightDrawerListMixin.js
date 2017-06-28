@@ -231,10 +231,11 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
         this.transitionHandle = aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
           this.refreshRequired = true;
+          this.isRefreshing = false;
           this.clear();
           this.refresh();
-          if (this.transitionHandle) {
-            this.transitionHandle.remove();
+          if (self.transitionHandle) {
+            self.transitionHandle.remove();
           }
         }.bind(list));
       }

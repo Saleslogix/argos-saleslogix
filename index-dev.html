@@ -178,8 +178,9 @@
 <body>
   <script type="text/javascript">
     // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
+    // window.Locale.culturesPath = './node_modules/@infor/sohoxi/dist/js/cultures/';
 
-     var supportedLocales = [
+    var supportedLocales = [
             'en',
             'en-GB',
             'de',
@@ -195,10 +196,10 @@
             'nl',
             'th'
           ],
-        defaultLocale = language || 'en',
+        defaultLocale = 'en',
         currentLocale = language || 'en',
         parentLocale = language || 'en',
-        defaultRegionLocale = regionLocale || 'en',
+        defaultRegionLocale = 'en',
         currentRegionLocale = regionLocale || 'en',
         parentRegionLocale = regionLocale || 'en';
     (function() {
@@ -206,8 +207,7 @@
       define('jquery', function() {
         return window.$;
       });
-      
-      require(['crm/Bootstrap'], function(bootstrap) {
+      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,
           defaultLocale: defaultLocale,

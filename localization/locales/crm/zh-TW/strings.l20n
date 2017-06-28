@@ -24,7 +24,6 @@
   industryText: "行業"
   notesText: "備註"
   ownerText: "擁有者"
-  phoneCallHistoryTitle: "電話"
   phoneText: "電話"
   actionsText: "快速動作"
   relatedActivitiesText: "活動"
@@ -232,14 +231,6 @@
   touchedText: "已更動"
   importantText: "重要"
   recurringText: "週期性"
-  phoneCallText: "電話"
-  meetingText: "會議"
-  toDoText: "待辦事項"
-  personalText: "個人活動"
-  literatureText: "文宣要求"
-  questionText: "問題"
-  noteText: "備註"
-  emailText: "電子郵件"
 >
 
 <activityMyList ""
@@ -420,10 +411,6 @@
   toggleCollapseText: "切換摺疊"
 >
 
-<chartMixin ""
-  loadingText: "載入"
->
-
 <competitorList ""
   titleText: "競爭者"
 >
@@ -464,8 +451,6 @@
   viewAddressText: "檢視地址"
   moreDetailsText: "更多詳細資料"
   entityText: "聯絡人"
-  phoneCall: "電話"
-  email: "電子郵件"
 >
 
 <contactEdit ""
@@ -616,6 +601,12 @@
   validationCanEditText: "您無權編輯"
 >
 
+<historyEditOffline ""
+  titleText: "離線備註"
+  notesSectionText: "備註"
+  notesLabelText: "備註"
+>
+
 <historyList ""
   titleText: "備註/歷程記錄"
   viewAccountActionText: "客戶"
@@ -632,9 +623,15 @@
   email: "電子郵件"
 >
 
+<historyListOffline ""
+  titleText: "離線備註"
+  widgetTitle: "離線備註"
+  saveToCRMText: "儲存至 CRM"
+>
+
 <historyRelated ""
   regardingText: "關於"
-  byText: "撰寫 "
+  byText: "${0} 寫於 ${1}"
   titleText: "備註"
 >
 
@@ -674,8 +671,6 @@
   calledText: "已撥打 ${0}"
   emailedText: "已傳送電子郵件給 ${0}"
   entityText: "銷售線索"
-  phoneCall: "電話"
-  email: "電子郵件"
 >
 
 <leadEdit ""
@@ -1080,9 +1075,8 @@
   titleText: "使用者"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "聯絡人"
-  allRecordsText: "未套用搜尋"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1174,16 +1168,16 @@
   settingsText: "設定"
   helpText: "說明"
   logOutText: "登出"
-  logOutConfirmText: "您確定要登出？"
+  logOutConfirmText: "您確定要登出?"
   onlineText: "線上"
   offlineText: "離線"
   connectionText: "連線：${connectionStatus}"
 >
 
 <login ""
-  copyrightText: "版權所有 &copy; 2016 Infor。著作權所有，並保留一切權利。www.infor.com"
   logOnText: "登入"
   passText: "密碼"
+  urlText: "SData 結束點"
   rememberText: "記住我的帳戶"
   titleText: "登入"
   userText: "使用者 ID"
@@ -1228,6 +1222,7 @@
   confirm24HourClockMessage: "將時鐘變更為 24 小時格式需要重新啟動應用程式。是否繼續?"
   confirm12HourClockMessage: "將時鐘變更為 12 小時格式需要重新啟動應用程式。是否繼續?"
   confirmClearLocalStorageMessage: "清除本機儲存空間需要重新啟動應用程式。確定嗎？"
+  languageSettingText: "語言設定"
 >
 
 <speedSearchList ""
@@ -1252,6 +1247,8 @@
 <action ""
   calledText: "已撥打 ${0}"
   emailedText: "已傳送電子郵件給 ${0}"
+  phoneCall: "電話"
+  email: "電子郵件"
 >
 
 <application ""
@@ -1280,6 +1277,8 @@
   systemOptionsText: "系統選項"
   userContextAndOptionsText: "使用者內容與選項"
   integrationsText: "整合"
+  picklistsText: "挑選清單"
+  retrievingPicklistsText: "正在取得挑選清單"
 >
 
 <defaultMetrics ""
@@ -1468,9 +1467,20 @@
   errorClearingDataText: "清除資料時發生錯誤"
 >
 
+<languageOptionsEdit ""
+  titleText: "語言設定"
+>
+
+<languageUsageWidget ""
+  regionText: "文化"
+  languageText: "語言"
+  toastTitle: "重新整理頁面"
+  toastMessage: "請重新整理瀏覽器以查看變更。"
+>
+
 <authenticationModel ""
   entityDisplayName: "驗證"
-  entityDisplayNamePlural : "驗證"
+  entityDisplayNamePlural: "驗證"
 >
 
 <mingle ""
@@ -1523,4 +1533,14 @@
   meetingHash: "#會議"
   personalHash: "#個人"
   emailHash: "#電子郵件"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "商機聯絡人"
+  entityDisplayNamePlural: "商機聯絡人"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "記錄單活動"
+  entityDisplayNamePlural: "記錄單活動"
 >

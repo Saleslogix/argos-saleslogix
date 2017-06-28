@@ -40,7 +40,6 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     '{% } %}',
   ]),
   fileTemplate: new Simplate([
-    '<p class="listview-heading"><span>{%: $.description %}&nbsp;</span></p>',
     '<p class="micro-text"><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span>',
     '<span>{%: crm.Format.fileSize($.fileSize) %} </span></p>',
     '<p class="micro-text"><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></p>',
@@ -49,7 +48,6 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     '{% } %}',
   ]),
   urlTemplate: new Simplate([
-    '<p class="micro-text"><span>{%: $.description %} &nbsp;</span></p>',
     '{% if ($.attachDate) { %}',
     '<p class="micro-text"><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span></p>',
     '{% } %}',

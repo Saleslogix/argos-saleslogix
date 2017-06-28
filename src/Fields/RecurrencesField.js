@@ -19,8 +19,15 @@ const control = declare('crm.Fields.RecurrencesField', [EditorField], {
 
   widgetTemplate: new Simplate([
     '<label for="{%= $.name %}">{%: $.label %}</label>',
-    '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
+    '<div class="field field-control-wrapper">',
+    `<button class="button simpleSubHeaderButton field-control-trigger {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
+      </svg>
+      <span>{%: $.lookupText %}</span>
+    </button>`,
     '<div data-dojo-attach-point="inputNode" class="note-text"></div>',
+    '</div>',
   ]),
   iconClass: 'more',
 

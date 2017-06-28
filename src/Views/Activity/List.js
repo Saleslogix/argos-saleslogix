@@ -13,6 +13,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePicklists';
+import string from 'dojo/string';
 
 
 const resource = getResource('activityList');
@@ -342,7 +343,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
       ContactId: entry.ContactId,
       AccountName: entry.AccountName,
       AccountId: entry.AccountId,
-      Description: `${this.calledText} ${entry.ContactName || ''}`,
+      Description: string.substitute(this.calledText, [entry.ContactName || '']),
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,

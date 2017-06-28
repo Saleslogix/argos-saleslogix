@@ -12,7 +12,6 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.Detail', [
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   // Details Section
   nameText: resource.nameText,
   addressText: resource.addressText,
@@ -73,12 +72,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.Detail', [
         name: 'Status',
         property: 'ErpBillTo.ErpStatus',
         label: this.erpStatusText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'MainPhone',
         property: 'ErpBillTo.MainPhone',
         label: this.mainPhoneText,

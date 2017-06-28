@@ -224,7 +224,7 @@
   allDayText: "Timeless"
   completeActivityText: "Complete"
   callText: "Call"
-  calledText: "Called"
+  calledText: "Called ${0}"
   addAttachmentActionText: "Add Attachment"
   overdueText: "overdue"
   alarmText: "alarm"
@@ -239,7 +239,7 @@
   acceptActivityText: "Accept"
   declineActivityText: "Decline"
   callText: "Call"
-  calledText: "Called"
+  calledText: "Called ${0}"
   addAttachmentActionText: "Add Attachment"
   viewContactActionText: "Contact"
   viewAccountActionText: "Account"
@@ -313,7 +313,7 @@
   descriptionText: "description"
   descriptionTitleText: "Description"
   isMailingText: "shipping"
-  isPrimaryText: "primary"
+  isPrimaryText: "primary address"
   postalCodeText: "postal"
   salutationText: "attention"
   stateText: "state"
@@ -444,7 +444,7 @@
   cuisinePreferenceText: "cuisine"
   callMobileNumberText: "Call mobile"
   callWorkNumberText: "Call work"
-  calledText: "Called"
+  calledText: "Called ${0}"
   scheduleActivityText: "Schedule activity"
   addNoteText: "Add note"
   sendEmailText: "Send email"
@@ -601,6 +601,12 @@
   validationCanEditText: "You are not allowed to edit"
 >
 
+<historyEditOffline ""
+  titleText: "Offline Notes"
+  notesSectionText: "Notes"
+  notesLabelText: "notes"
+>
+
 <historyList ""
   titleText: "Notes/History"
   viewAccountActionText: "Account"
@@ -615,6 +621,12 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+>
+
+<historyListOffline ""
+  titleText: "Offline Notes"
+  widgetTitle: "Offline Note"
+  saveToCRMText: "Save to CRM"
 >
 
 <historyRelated ""
@@ -1253,7 +1265,7 @@
   offlineInitDataText: "Initializing Offline Data"
   offlineInitErrorText: "An error occurred during offline initialization. All Offline options will be disabled."
   appStateInitErrorText: "An error occurred during application initialization. Please try again."
-  mingleAuthErrorText: "Mingle single sign on failed. Access Denied."
+  mingleAuthErrorText: "Infor Ming.le authentication failed. Access Denied."
 >
 
 <applicationModule ""

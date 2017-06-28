@@ -27,7 +27,6 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   statusTextText: resource.statusTextText,
   urlText: resource.urlText,
   entityText: resource.entityText,
-  moreDetailsText: resource.moreDetailsText,
   errorText: resource.errorText,
   emailSubjectText: resource.emailSubjectText,
   copiedSuccessText: resource.copiedSuccessText,
@@ -165,12 +164,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         label: this.statusTextText,
         name: 'Description',
         property: 'Description',
-      }],
-    }, {
-      title: this.moreDetailsText,
-      collapsed: true,
-      name: 'MoreDetailsTextSection',
-      children: [{
+      }, {
         label: this.errorText,
         name: 'Error',
         property: 'Error',

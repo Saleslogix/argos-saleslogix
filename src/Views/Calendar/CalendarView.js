@@ -611,6 +611,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (options) {
       this.processShowOptions(options);
     } else {
+      this.refreshRequired = true;
       this.renderCalendar();
     }
   },

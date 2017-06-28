@@ -41,7 +41,6 @@ const __class = declare('crm.Views.History.Detail', [Detail], {
   contactText: resource.contactText,
   opportunityText: resource.opportunityText,
   ticketNumberText: resource.ticketNumberText,
-  moreDetailsText: resource.moreDetailsText,
   relatedItemsText: resource.relatedItemsText,
   relatedAttachmentText: resource.relatedAttachmentText,
   relatedAttachmentTitleText: resource.relatedAttachmentTitleText,

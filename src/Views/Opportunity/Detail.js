@@ -47,7 +47,6 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   typeText: resource.typeText,
   scheduleActivityText: resource.scheduleActivityText,
   addNoteText: resource.addNoteText,
-  moreDetailsText: resource.moreDetailsText,
   multiCurrencyText: resource.multiCurrencyText,
   multiCurrencyRateText: resource.multiCurrencyRateText,
   multiCurrencyCodeText: resource.multiCurrencyCodeText,
@@ -127,44 +126,6 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
       }],
     };
 
-    const details = {
-      title: this.detailsText,
-      name: 'DetailsSection',
-      children: [{
-        label: this.opportunityText,
-        name: 'Description',
-        property: 'Description',
-      }, {
-        label: this.accountText,
-        key: 'Account.$key',
-        name: 'Account.AccountName',
-        property: 'Account.AccountName',
-        view: 'account_detail',
-      }, {
-        label: this.statusText,
-        name: 'Status',
-        property: 'Status',
-        renderer: this.formatPicklist('Status'),
-      }, {
-        label: this.estCloseText,
-        name: 'EstimatedClose',
-        property: 'EstimatedClose',
-        renderer: format.date.bindDelegate(this, null, true),
-      }, {
-        label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
-        name: 'SalesPotential',
-        property: 'SalesPotential',
-        renderer: (function renderSalesPotential(val) {
-          if (App.hasMultiCurrency()) {
-            const exhangeRate = App.getBaseExchangeRate();
-            const convertedValue = val * exhangeRate.rate;
-            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
-          }
-          return format.currency.call(null, val);
-        }).bindDelegate(this),
-      }],
-    };
-
     const multiCurrency = {
       title: this.multiCurrencyText,
       name: 'MultiCurrencySection',
@@ -187,12 +148,42 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         property: 'ExchangeRateLocked',
       }],
     };
-
-    const moreDetails = {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
+    const details = {
+      title: this.detailsText,
+      name: 'DetailsSection',
       children: [{
+        label: this.opportunityText,
+        name: 'Description',
+        property: 'Description',
+      }, {
+        label: this.accountText,
+        key: 'Account.$key',
+        name: 'Account.AccountName',
+        property: 'Account.AccountName',
+        view: 'account_detail',
+      }, {
+        label: this.statusText,
+        name: 'Status',
+        property: 'Status',
+        renderer: this.formatPicklist('Status'),
+      }, {
+        label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
+        name: 'SalesPotential',
+        property: 'SalesPotential',
+        renderer: (function renderSalesPotential(val) {
+          if (App.hasMultiCurrency()) {
+            const exhangeRate = App.getBaseExchangeRate();
+            const convertedValue = val * exhangeRate.rate;
+            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
+          }
+          return format.currency.call(null, val);
+        }).bindDelegate(this),
+      }, {
+        label: this.estCloseText,
+        name: 'EstimatedClose',
+        property: 'EstimatedClose',
+        renderer: format.date.bindDelegate(this, null, true),
+      }, {
         label: this.typeText,
         name: 'Type',
         property: 'Type',
@@ -266,7 +257,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
     layout.push(details);
 
     if (App.hasMultiCurrency()) {
-      details.children.push({
+      details.children.splice(4, 0, {
         label: this.potentialMyRateText,
         name: 'SalesPotentialMine',
         property: 'SalesPotential',
@@ -295,7 +286,6 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
       layout.push(multiCurrency);
     }
 
-    layout.push(moreDetails);
     layout.push(relatedItems);
     return layout;
   },

@@ -28,7 +28,7 @@
 
 <backOfficeAccountingEntityModel ""
   entityDisplayName: "Entità contabile applicazione back office"
-  entityDisplayNamePlural : "Entità contabili applicazioni back office"
+  entityDisplayNamePlural : "Entità contabili applicazione back office"
 >
 
 <erpAccountPersonModel ""
