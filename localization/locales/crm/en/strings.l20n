@@ -101,6 +101,7 @@
   completedText: "completed date"
   completionText: "Completion"
   durationText: "duration"
+  durationTitleText: "Duration"
   durationInvalidText: "The field '${2}' must have a value."
   carryOverNotesText: "carry over notes"
   followUpText: "follow-up"

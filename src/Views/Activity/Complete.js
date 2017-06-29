@@ -48,6 +48,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   completedFormatText24: dtFormatResource.completedFormatText24,
   completionText: resource.completionText,
   durationText: resource.durationText,
+  durationTitleText: resource.durationTitleText,
   durationInvalidText: resource.durationInvalidText,
   carryOverNotesText: resource.carryOverNotesText,
   followUpText: resource.followUpText,
