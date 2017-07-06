@@ -14,6 +14,7 @@ import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import SData from 'argos/Store/SData';
 import Utility from './Utility';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 
 const resource = getResource('dashboardWidgetBase');
@@ -404,7 +405,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     $(widget.metricDetailNode).empty();
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
-        $(widget.metricDetailNode).append($(`<span class="metric-count">${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}${crmFormat.encode(data.countValue)}</span>`));
+        $(widget.metricDetailNode).append($(`<span class="metric-count">${string.substitute(data.countTitle ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle), [crmFormat.encode(data.countValue)])}</span>`));
       }
     }
 
