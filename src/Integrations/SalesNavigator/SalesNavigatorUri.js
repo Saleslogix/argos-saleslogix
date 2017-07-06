@@ -8,9 +8,8 @@ const ACCOUNT = 'account';
  * @required apiKey
  * @required profile - either lead or account
  * @required crmRecordId
- * @required crmOrgId
- * @required width
- * @required height
+ * @required crmOrganizationId
+ * @required crmSourceType
  *
  * Optional Values:
  * firstName - Only valid for lead profile. Used to find the most relevant person based on first name.
@@ -41,10 +40,9 @@ export default class SalesNavigatorUri {
     // }
     this.apiKey = key || '789tfhvrjq81yf';
     this.profile = 'lead';
-    this.width = '320px';
-    this.height = '360px';
     this.crmRecordId = null;
-    this.crmOrgId = 'INFOR';
+    this.crmOrganizationId = 'INFOR';
+    this.crmSourceType = 'INFOR';
   }
   asLead() {
     this.profile = LEAD;
@@ -90,14 +88,6 @@ export default class SalesNavigatorUri {
     this.modules = modules;
     return this;
   }
-  setWidth(width) {
-    this.width = typeof width === 'number' ? `${width}px` : width;
-    return this;
-  }
-  setHeight(height) {
-    this.height = typeof height === 'number' ? `${height}px` : height;
-    return this;
-  }
   setRecordId(id) {
     this.crmRecordId = id;
     return this;
@@ -106,23 +96,14 @@ export default class SalesNavigatorUri {
     this.crmOrgId = id;
     return this;
   }
-  /**
-   * Sets the URI as a responsive value with a subscribe function to listen to dimension changes
-   * @param {*} observable - an object with a function called subscribe that the
-   *  URI can listen to in order to adjust its layout based on the passed type.
-   *    Subscribe expects to receive the width and height as parameters
-   */
-  setResponsive(observable) {
-    if (observable && observable.subscribe) {
-      observable.subscribe((width, height) => {
-        if (!width || !height) {
-          return;
-        }
-        this.setWidth(width);
-        this.setHeight(height);
-      });
+  getModule() {
+    if (this.profile === LEAD) {
+      return 'profile-matching';
     }
-    return this;
+    if (this.profile === ACCOUNT) {
+      return 'company-matching';
+    }
+    return '';
   }
   build() {
     const builder = {
@@ -146,6 +127,6 @@ export default class SalesNavigatorUri {
     return builder.str;
   }
   toString() {
-    return `https://static.licdn.com/sc/h/b208wussapvfe318bbcr8o844?${this.build()}`;
+    return `https://www.linkedin.com/sales/widget/${this.getModule()}?from=crm&${this.build()}`;
   }
 }

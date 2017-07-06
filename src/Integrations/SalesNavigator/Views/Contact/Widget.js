@@ -11,18 +11,15 @@ const __class = declare('crm.Integrations.SalesNavigator.ContactWidget', [_Widge
   type: 'contacts',
 
   initSalesNavigator: function initSalesNavigator(entry) {
-    const script = this.createEmptyScript().asJavascript();
+    const script = this.createEmptyScript();
     script.src = new SalesNavigatorUri()
       .asLead()
-      // .setRecordId(entry.$key)
       .setFirstName(entry.FirstName)
       .setLastName(entry.LastName)
       .setEmail(entry.Email)
       .setRecordId(entry.$key)
       .setCompanyName(entry.AccountName)
       .setCompanyWebsite(entry.WebAddress)
-      .setHeight(this.size.height)
-      .setWidth(this.size.width)
       .toString();
 
     this.applyScript(script);

@@ -5,7 +5,6 @@ import Application from 'crm/Application';
 import AccountModule from './Modules/AccountModule';
 import ContactModule from './Modules/ContactModule';
 import LeadModule from './Modules/LeadModule';
-import SettingsModule from './Modules/SettingsModule';
 
 const __class = declare('crm.Integrations.SalesNavigator.ApplicationModule', [ApplicationModule], {
   modules: null,
@@ -16,7 +15,6 @@ const __class = declare('crm.Integrations.SalesNavigator.ApplicationModule', [Ap
       new AccountModule(this),
       new ContactModule(this),
       new LeadModule(this),
-      new SettingsModule(this),
     ];
 
     this.modules.forEach((mod) => {

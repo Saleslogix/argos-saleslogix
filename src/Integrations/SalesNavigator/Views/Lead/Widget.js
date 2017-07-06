@@ -10,7 +10,7 @@ const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBa
   id: 'sales_navigator_lead',
   type: 'leads',
   initSalesNavigator: function initSalesNavigator(entry) {
-    const script = this.createEmptyScript().asJavascript();
+    const script = this.createEmptyScript();
     script.src = new SalesNavigatorUri()
       .asLead()
       .setFirstName(entry.FirstName)
@@ -19,8 +19,6 @@ const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBa
       .setRecordId(entry.$key)
       .setCompanyName(entry.Company)
       .setCompanyWebsite(entry.WebAddress)
-      .setWidth(this.size.width)
-      .setHeight(this.size.height)
       .toString();
 
     this.applyScript(script);

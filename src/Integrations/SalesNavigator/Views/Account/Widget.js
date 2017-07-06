@@ -11,14 +11,12 @@ const __class = declare('crm.Integrations.SalesNavigator.AccountWidget', [_Widge
   type: 'accounts',
 
   initSalesNavigator: function initSalesNavigator(entry) {
-    const script = this.createEmptyScript().asJavascript();
+    const script = this.createEmptyScript();
     script.src = new SalesNavigatorUri()
       .asAccount()
       .setCompanyName(entry.AccountName)
       .setCompanyWebsite(entry.WebAddress)
       .setRecordId(entry.$key)
-      .setHeight(this.size.height)
-      .setWidth(this.size.width)
       .toString();
 
     this.applyScript(script);
