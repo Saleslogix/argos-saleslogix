@@ -174,8 +174,8 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     lang.extend(crm.Views.MetricWidget, {
       itemTemplate: new Simplate([
-        '<h1 class="metric-value" {%: $$.getValueStyle() %} >{%: $$.formatter($.value) %}</h1>',
         '<span class="metric-title">{%: $$.title %}</span>',
+        '<h1 class="metric-value" {%: $$.getValueStyle() %} >{%: $$.formatter($.value) %}</h1>',
       ]),
       setValueColor: function setValueColor(color) {
         this.valueColor = color;
