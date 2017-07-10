@@ -78,6 +78,26 @@ export default function bootstrap({
   window.regionalContext = ctxRegional;
   window.defaultregionalContext = defaultCtxRegional;
 
+  // Set the window locale for the Soho Library
+  let localeLong = currentLocale;
+  if (localeLong.indexOf('-') === -1) {
+    switch (localeLong) {
+      case 'en':
+        localeLong = 'en-US';
+        break;
+      case 'ja':
+        localeLong = 'ja-JP';
+        break;
+      case 'es':
+        localeLong = 'es-MX';
+        break;
+      default: // eslint-disable-line
+        const localeExtension = `-${localeLong.toUpperCase()}`;
+        localeLong = localeLong.concat(localeExtension);
+    }
+  }
+  window.Locale.set(localeLong);
+
   Promise.all([new Promise((resolve) => {
     ctxRegional.ready(() => resolve(true));
   }), new Promise((resolve) => {

@@ -28,6 +28,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
   resourceKind: '',
   entityName: 'Briefcase',
   titleText: resource.titleText,
+  resyncTooltipText: resource.resyncTooltipText,
   pageSize: 1000,
   autoNavigateToBriefcase: true,
   itemTemplate: new Simplate([
@@ -57,6 +58,7 @@ export default declare('crm.Views.Briefcase', [_ListBase, _ListOfflineMixin], {
       tbar: [{
         id: 'resync',
         svg: 'roles',
+        title: this.resyncTooltipText,
         action: 'briefCaseList',
         security: '',
       }],
