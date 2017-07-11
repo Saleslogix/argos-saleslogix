@@ -261,6 +261,16 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         action: 'completeActivity',
         disabled: this.checkCanComplete.bind(this),
         exclude: this.isActivityRecurringSeries.bind(this),
+        renderer: function renderer(value) {
+          // INFORCRM-17347: The property binding for Description is not used.
+          // However, if it is null/empty it will cause the action to hide.
+          // We will work around this by returning a truthy string.
+          if (!value) {
+            return ' ';
+          }
+
+          return value;
+        },
       }, {
         name: 'completeOccurrenceAction',
         property: 'StartDate',
