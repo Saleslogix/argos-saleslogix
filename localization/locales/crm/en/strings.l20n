@@ -1437,7 +1437,7 @@
   reBriefcaseText: "return record to briefcase"
   goToOnlineText: "go to online view"
   goToOfflineText: "go to offline view"
-  resyncTooltipText: "resync"
+  resyncTooltipText: "Resync"
 >
 
 <recentlyViewedList ""
