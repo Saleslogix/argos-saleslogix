@@ -137,6 +137,15 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     const start = moment(entry.StartDate);
     this.fields.StartDate.setValue(start.toDate());
   },
+  _buildRefreshMessage: function _buildRefreshMessage() {
+    const base = this.inherited(arguments);
+    const entry = this.options && this.options.selectedEntry;
+    if (entry && this.options.fromOffline) {
+      base.UID = entry.UID;
+    }
+
+    return base;
+  },
   onIsLeadChange: function onIsLeadChange(value) {
     this.options.isForLead = value;
 
