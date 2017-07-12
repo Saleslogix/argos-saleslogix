@@ -39,6 +39,21 @@ const __class = lang.setObject('crm.Validator', {
     message: resource.existsText,
   },
 
+  picklistExists: {
+    fn: function picklistExists(value) {
+      if (!value) {
+        return true;
+      }
+
+      if (value.text === '' && value.key === '') {
+        return true;
+      }
+
+      return false;
+    },
+    message: resource.existsText,
+  },
+
   /**
    * @property {Object} name
    * Validator that ensures a FirstName and LastName property have been specified.

@@ -13,6 +13,23 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'], function(Validato
       });
     });
 
+    describe('picklistExists', function() {
+      it('not empty should exist', function() {
+        expect(Validator.picklistExists.fn('foo'))
+          .toEqual(false);
+      });
+
+      it('empty string should not exist', function() {
+        expect(Validator.picklistExists.fn(''))
+          .toEqual(true);
+      });
+
+      it('empty key/text should not exist', function() {
+        expect(Validator.picklistExists.fn({ key: '', text: '' }))
+          .toEqual(true);
+      });
+    });
+
     describe('name', function() {
       it('should validate if first and last name are filled out', function() {
         expect(Validator.name.fn({

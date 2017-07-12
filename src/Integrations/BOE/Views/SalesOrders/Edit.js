@@ -429,6 +429,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         view: 'account_related',
         autoFocus: true,
         required: true,
+        validator: validator.exists,
       }, {
         label: this.opportunityText,
         name: 'Opportunity',
@@ -473,10 +474,9 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         singleSelect: true,
         textProperty: 'code',
         keyProperty: 'code',
+        required: true,
         requireSelection: true,
-        validator: [
-          validator.exists,
-        ],
+        validator: validator.picklistExists,
       }, {
         label: this.dueDateText,
         name: 'DueDate',
