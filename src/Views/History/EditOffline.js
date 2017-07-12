@@ -30,12 +30,23 @@ const __class = declare('crm.Views.History.EditOffline', [_EditBase], {
         cls: 'row-edit-text',
         type: 'textarea',
         autoFocus: true,
+      }, {
+        name: 'UID',
+        property: 'UID',
+        type: 'hidden',
       }],
     }]);
   },
   beforeTransitionTo: function beforeTransitionTo() {
     this.inherited(arguments);
     $(this.domNode).removeClass('panel-loading');
+  },
+  onTransitionTo: function onTransitionTo() {
+    this.inherited(arguments);
+    if (this.options.insert) {
+      const now = Date.now();
+      this.fields.UID.setValue(now);
+    }
   },
 });
 

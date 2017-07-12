@@ -13,7 +13,7 @@ const __class = declare('crm.Models.History.Offline', [Base, _OfflineModelBase],
       const store = this.getStore();
       store.query((doc, emit) => {
         if (doc.entityName === this.entityName && doc.entity && doc.entity.entityId === null || typeof doc.entity.entityId === 'undefined') {
-          if (doc.entity.Text === entry.LongNotes) {
+          if (doc.entity.UID === entry.UID) {
             emit(doc);
           }
         }
