@@ -2,7 +2,9 @@ import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import has from 'dojo/has';
 import MainToolbar from 'argos/MainToolbar';
+import getResource from 'argos/I18n';
 
+const resource = getResource('mainToolbar');
 
 /**
  * @class crm.Views.MainToolbar
@@ -12,6 +14,8 @@ import MainToolbar from 'argos/MainToolbar';
  *
  */
 const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
+  backTooltipText: resource.backTooltipText,
+
   showTools: function showTools(tools) {
     let isOnEdit;
     const isOnFirstView = App.isOnFirstView();
@@ -32,6 +36,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
           id: 'back',
           svg: 'previous-page',
           side: 'left',
+          title: this.backTooltipText,
           fn: this.navigateBack,
           scope: this,
         }]);

@@ -54,7 +54,22 @@ export default function bootstrap({
 
   const ctxRegional = window.L20n.getContext();
   const defaultCtxRegional = window.L20n.getContext();
-
+  const localesLong = {
+    en: 'en-US',
+    'en-GB': 'en-GB',
+    de: 'de-DE',
+    fr: 'fr-FR',
+    it: 'it-IT',
+    ru: 'ru-RU',
+    'zh-CN': 'zh-CN',
+    'zh-TW': 'zh-TW',
+    es: 'es-US',
+    'es-ES': 'es-ES',
+    pt: 'pt-PT',
+    ja: 'ja-JP',
+    nl: 'nl-NL',
+    th: 'th-TH',
+  };
   // The L20n context (ctx) should only call linkResource once per file.
   // We need to:
   //    * Strip out the locale from the path string (map)
@@ -77,6 +92,11 @@ export default function bootstrap({
   window.defaultLocaleContext = defaultCtx;
   window.regionalContext = ctxRegional;
   window.defaultregionalContext = defaultCtxRegional;
+
+  // Set the window locale for the Soho Library
+  if (localesLong[currentLocale]) {
+    window.Locale.set(localesLong[currentLocale]);
+  }
 
   Promise.all([new Promise((resolve) => {
     ctxRegional.ready(() => resolve(true));
