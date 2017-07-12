@@ -658,6 +658,13 @@ export default class Application extends SDKApplication {
     service.setUri(Object.assign({}, state.app.config.connections, {
       url: state.app.config.endpoint, // TODO: Setting the URL here will break mingle instances that use custom virtual directories
     }));
+
+    // Fixes cases where the user sets and invalid contract name in the url.
+    // We have a lot of requests throughout the application that do not specify
+    // a contractName and depend on the default contractName of "dynamic"
+    // in the service.
+    service.setContractName('dynamic');
+    service.setApplicationName('slx');
   }
   _clearNavigationState() {
     try {
@@ -721,6 +728,7 @@ export default class Application extends SDKApplication {
   requestUserDetails() {
     const key = this.context.user.$key;
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+      .setContractName('dynamic')
       .setResourceKind('users')
       .setResourceSelector(`"${key}"`)
       .setQueryArg('select', this.userDetailsQuerySelect.join(','));
@@ -896,6 +904,7 @@ export default class Application extends SDKApplication {
   }
   requestOwnerDescription(key) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+      .setContractName('dynamic')
       .setResourceKind('owners')
       .setResourceSelector(`"${key}"`)
       .setQueryArg('select', 'OwnerDescription');

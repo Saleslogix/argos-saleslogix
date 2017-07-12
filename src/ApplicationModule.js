@@ -596,7 +596,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], {
         description: resource.integrationsText,
         fn: () => {
           const model = this.application.ModelManager.getModel(MODEL_NAMES.INTEGRATION, MODEL_TYPES.SDATA);
-          return model.getEntries().then((results) => {
+          return model.getEntries(null, { contractName: 'dynamic' }).then((results) => {
             this.application.context.integrations = results;
             return results;
           });
