@@ -664,6 +664,7 @@ export default class Application extends SDKApplication {
     // a contractName and depend on the default contractName of "dynamic"
     // in the service.
     service.setContractName('dynamic');
+    service.setApplicationName('slx');
   }
   _clearNavigationState() {
     try {
