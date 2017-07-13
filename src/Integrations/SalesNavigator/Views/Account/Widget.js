@@ -4,7 +4,7 @@
 import declare from 'dojo/_base/declare';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _WidgetBase from '../../_WidgetBase';
-import SalesNavigatorUri from '../../SalesNavigatorUri';
+import { getSalesNavigatorUrl } from '../../SalesNavigatorService';
 
 const __class = declare('crm.Integrations.SalesNavigator.AccountWidget', [_WidgetBase], {
   id: 'sales_navigator_account',
@@ -12,14 +12,10 @@ const __class = declare('crm.Integrations.SalesNavigator.AccountWidget', [_Widge
 
   initSalesNavigator: function initSalesNavigator(entry) {
     const script = this.createEmptyScript();
-    script.src = new SalesNavigatorUri()
-      .asAccount()
-      .setCompanyName(entry.AccountName)
-      .setCompanyWebsite(entry.WebAddress)
-      .setRecordId(entry.$key)
-      .toString();
-
-    this.applyScript(script);
+    getSalesNavigatorUrl(this.type, entry).then((result) => {
+      script.src = result;
+      this.applyScript(script);
+    });
   },
 });
 

@@ -33,9 +33,8 @@ const __class = declare('crm.Integrations.SalesNavigator.ApplicationModule', [Ap
     this.inherited(arguments);
   },
   isIntegrationEnabled: function isIntegrationEnabled() {
-    // const results = this.application.context.integrations.filter(integration => integration.Name === 'Back Office Extension')[0];
-    // return results && results.Enabled;
-    return true;
+    const results = this.application.context.integrations.filter(integration => integration.Name === 'LinkedIn Sales Navigator')[0];
+    return results && results.Enabled;
   },
   loadViewsDynamic: function loadViewsDynamic() {
     if (!this.isIntegrationEnabled()) {

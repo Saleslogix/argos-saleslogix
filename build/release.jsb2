@@ -367,9 +367,6 @@
           "text": "_Module.js",
           "path": "../src-out/Integrations/SalesNavigator/Modules/"
         }, {
-          "text": "SalesNavigatorUri.js",
-          "path": "../src-out/Integrations/SalesNavigator/"
-        }, {
           "text": "WidgetTypes.js",
           "path": "../src-out/Integrations/SalesNavigator/"
         }, {
