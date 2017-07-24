@@ -18,10 +18,11 @@ const __class = lang.setObject('crm.Action', {
   calledText: resource.calledText,
   emailedText: resource.emailedText,
 
-  navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete) {
+  navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete, title) {
     const view = App.getView('history_edit');
     if (view) {
       view.show({
+        title,
         template: {},
         entry,
         insert: true,
@@ -30,7 +31,7 @@ const __class = lang.setObject('crm.Action', {
       });
     }
   },
-  recordToHistory: function recordToHistory(complete, o) {
+  recordToHistory: function recordToHistory(complete, o, title) {
     const entry = {
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.$descriptor,
@@ -39,9 +40,9 @@ const __class = lang.setObject('crm.Action', {
     };
     lang.mixin(entry, o);
 
-    this.navigateToHistoryInsert(entry, complete);
+    this.navigateToHistoryInsert(entry, complete, title);
   },
-  callPhone: function callPhone(action, selection, phoneProperty) {
+  callPhone: function callPhone(action, selection, phoneProperty, title) {
     if (!selection || !selection.data) {
       return;
     }
@@ -64,7 +65,7 @@ const __class = lang.setObject('crm.Action', {
         App.initiateCall(value);
         actionInitiated = true;
       }
-    }, selection.data);
+    }, selection.data, title);
   },
   sendEmail: function sendEmail(action, selection, emailProperty) {
     if (!selection || !selection.data) {
