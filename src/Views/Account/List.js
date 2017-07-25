@@ -7,6 +7,7 @@ import _GroupListMixin from '../_GroupListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import MODEL_NAMES from '../../Models/Names';
+import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
 
 
@@ -101,7 +102,7 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
       cls: 'phone',
       label: this.callMainActionText,
       enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
-      fn: action.callPhone.bindDelegate(this, 'MainPhone'),
+      fn: action.callPhone.bindDelegate(this, 'MainPhone', ActivityTypeText.atPhoneCall),
     }, {
       id: 'viewContacts',
       label: this.viewContactsActionText,
