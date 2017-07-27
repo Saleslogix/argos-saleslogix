@@ -49,7 +49,10 @@ const __class = declare('crm.Views.Login', [Edit], {
   missingUserText: resource.missingUserText,
   requestAbortedText: resource.requestAbortedText,
   logoText: resource.logoText,
-
+  errorText: {
+    general: resource.logOnError,
+    status: {},
+  },
   ENTER_KEY: 13,
 
   _onKeyPress: function _onKeyPress(evt) {

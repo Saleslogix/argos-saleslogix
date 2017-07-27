@@ -1186,6 +1186,7 @@
   missingUserText: "The user record was not found."
   requestAbortedText: "The request was aborted."
   logoText: "Infor CRM"
+  logOnError: "Either the server is not available or you have entered incorrect information for the connection to the endpoint. Try re-entering your endpoint information or contact your System Administrator."
 >
 
 <logOff ""
