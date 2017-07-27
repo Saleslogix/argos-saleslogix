@@ -25,7 +25,6 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   clearRecentText: resource.clearRecentText,
   clearBriefcasedText: resource.clearBriefcasedText,
   olderThanText: resource.olderThanText,
-  daysText: resource.daysText,
   showUsageText: resource.showUsageText,
   processingText: resource.processingText,
   calculatingUsageText: resource.calculatingUsageText,
@@ -35,9 +34,8 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   cls: 'related-offline-usage-widget',
   relatedContentTemplate: new Simplate([
     '<div class="offline-usage">',
-    '<span class="label">{%: $$.olderThanText %}</span>',
+    '<span class="label" style="line-height:150%">{%: $$.olderThanText %}</span>',
     '&nbsp;<span data-dojo-attach-point="_olderThanNode" style="display:inline-block"></span>&nbsp;',
-    '<span class="label"> {%: $$.daysText %} </span>',
     '<div data-dojo-attach-point="_lastClearDateNode"></div>',
     '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
     '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearBriefcasedData">{%: $$.clearBriefcasedText %}</button></div>',
