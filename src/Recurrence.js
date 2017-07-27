@@ -17,27 +17,38 @@ const dtFormatResource = getResource('recurrenceDateTimeFormat');
 const __class = lang.setObject('crm.Recurrence', {
   // Localization
   neverText: resource.neverText,
-  daysText: resource.daysText,
   dailyText: resource.dailyText,
-  weeksText: resource.weeksText,
   weeklyText: resource.weeklyText,
-  weeklyOnText: resource.weeklyOnText, // eg. {weekly} on {friday}
-  monthsText: resource.monthsText,
   monthlyText: resource.monthlyText,
-  monthlyOnDayText: resource.monthlyOnDayText, // eg. {monthly} on day {15}
-  monthlyOnText: resource.monthlyOnText, // eg. {monthly} on {second} {Monday}
-  yearsText: resource.yearsText,
   yearlyText: resource.yearlyText,
-  yearlyOnText: resource.yearlyOnText, // eg. {yearly} on {short_date}
-  yearlyOnWeekdayText: resource.yearlyOnWeekdayText, // eg. {yearly} on {first} {Thursday} in {April}
-  everyText: resource.everyText, // eg. every {2} {weeks}
-  afterCompletionText: resource.afterCompletionText,
-  untilEndDateText: resource.untilEndDateText, // eg. {daily} until {31/10/2012}
   dayFormatText: dtFormatResource.dayFormatText,
   monthFormatText: dtFormatResource.monthFormatText,
   monthAndDayFormatText: dtFormatResource.monthAndDayFormatText,
   weekdayFormatText: dtFormatResource.weekdayFormatText,
   endDateFormatText: dtFormatResource.endDateFormatText,
+  dateFormatText: dtFormatResource.endDateFormatText,
+  singleActivitySummary: resource.singleActivitySummary,
+  dailySummary: resource.dailySummary,
+  dailyEverySummary: resource.dailyEverySummary,
+  dailyAfterCompletionSummary: resource.dailyAfterCompletionSummary,
+  dailyEveryAfterCompletionSummary: resource.dailyEveryAfterCompletionSummary,
+  weeklySummary: resource.weeklySummary,
+  weeklyEverySummary: resource.weeklyEverySummary,
+  weeklyAfterCompletionSummary: resource.weeklyAfterCompletionSummary,
+  weeklyEveryAfterCompletionSummary: resource.weeklyEveryAfterCompletionSummary,
+  monthlyOrdSummary: resource.monthlyOrdSummary,
+  monthlyEveryOrdSummary: resource.monthlyEveryOrdSummary,
+  monthlySummary: resource.monthlySummary,
+  monthlyEverySummary: resource.monthlyEverySummary,
+  monthlyAfterCompletionSummary: resource.monthlyAfterCompletionSummary,
+  monthlyEveryAfterCompletionSummary: resource.monthlyEveryAfterCompletionSummary,
+  yearlySummary: resource.yearlySummary,
+  yearlyEverySummary: resource.yearlyEverySummary,
+  yearlyOrdSummary: resource.yearlyOrdSummary,
+  yearlyEveryOrdSummary: resource.yearlyEveryOrdSummary,
+  yearlyAfterCompletionSummary: resource.yearlyAfterCompletionSummary,
+  yearlyEveryAfterCompletionSummary: resource.yearlyEveryAfterCompletionSummary,
+  daySeparator: resource.daySeparator,
   weekDaysText: [
     resource.sunday,
     resource.monday,
@@ -93,7 +104,7 @@ const __class = lang.setObject('crm.Recurrence', {
     RecurIterations: 7, // override from this.defaultIterations
     RecurrenceState: 'rstMaster',
   }, {
-    label: 'weeklyOnText',
+    label: 'weeklyText',
     Recurring: true,
     RecurPeriod: 2,
     basePeriodSpec: 0,
@@ -103,7 +114,7 @@ const __class = lang.setObject('crm.Recurrence', {
     RecurrenceState: 'rstMaster',
     calc: true,
   }, {
-    label: 'monthlyOnDayText',
+    label: 'monthlyText',
     Recurring: true,
     RecurPeriod: 4,
     basePeriodSpec: 1048576,
@@ -111,30 +122,11 @@ const __class = lang.setObject('crm.Recurrence', {
     RecurIterations: 12,
     RecurrenceState: 'rstMaster',
   }, {
-    label: 'monthlyOnText',
-    Recurring: true,
-    RecurPeriod: 5,
-    basePeriodSpec: 0,
-    RecurPeriodSpec: 0,
-    RecurIterations: 12,
-    RecurrenceState: 'rstMaster',
-    calc: true,
-  }, {
-    label: 'yearlyOnText',
+    label: 'yearlyText',
     Recurring: true,
     RecurPeriod: 7,
     basePeriodSpec: 38797312,
     RecurPeriodSpec: 0,
-    RecurIterations: 5,
-    RecurrenceState: 'rstMaster',
-  }, {
-    // Need one more for Yearly on #ord #weekday of month
-    label: 'yearlyOnWeekdayText',
-    Recurring: true,
-    RecurPeriod: 8,
-    basePeriodSpec: 0,
-    RecurPeriodSpec: 0,
-    weekdays: [0, 0, 0, 0, 0, 0, 0],
     RecurIterations: 5,
     RecurrenceState: 'rstMaster',
   }],
@@ -175,22 +167,22 @@ const __class = lang.setObject('crm.Recurrence', {
       $resources: list,
     };
   },
-  getPanel: function getPanel(recurPeriod, plural) {
+  getPanel: function getPanel(recurPeriod) {
     switch (recurPeriod) {
       case 0:
       case 1:
-        return plural ? this.daysText : this.dailyText;
+        return this.dailyText;
       case 2:
       case 3:
-        return plural ? this.weeksText : this.weeklyText;
+        return this.weeklyText;
       case 4:
       case 5:
       case 6:
-        return plural ? this.monthsText : this.monthlyText;
+        return this.monthlyText;
       case 7:
       case 8:
       case 9:
-        return plural ? this.yearsText : this.yearlyText;
+        return this.yearlyText;
       default:
         return this.neverText;
     }
@@ -314,67 +306,109 @@ const __class = lang.setObject('crm.Recurrence', {
     return spec + interval; // + every interval days/weeks/months/years
   },
 
-  toString: function toString(entry, dependsOnPanel) {
+  toString: function toString(entry) {
     if (entry.RecurrenceState !== 'rstMaster' || !entry.StartDate) {
+      if (entry.RecurrenceState === 'rsNotRecurring' && entry.StartDate) {
+        return this.singleActivitySummary;
+      }
       return '';
     }
-
+    let text = '';
+    let weekdaysString = '';
     const rp = parseInt(entry.RecurPeriod, 10);
     const recurPeriodSpec = parseInt(entry.RecurPeriodSpec, 10);
     const interval = recurPeriodSpec % 65536;
-    let text = (1 < interval) ? string.substitute(this.everyText, [interval, this.getPanel(rp, true)]) : ((true === dependsOnPanel) ? '' : this.getPanel(rp));// eslint-disable-line
-    const currentDate = argos.Convert.toDateFromString(entry.StartDate);// TODO: Avoid global
+    const currentDate = entry.StartDate;
+    const momentCurrentDate = moment(currentDate);
     const day = currentDate.getDate();
-    const weekday = moment(currentDate).format(this.weekdayFormatText);
-    const textOptions = [
-      text,
-      day,
-      moment(currentDate).format(this.monthAndDayFormatText),
-      this.getWeekdays(recurPeriodSpec, true),
-      moment(currentDate).format(this.monthFormatText),
-      this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1],
-    ];
+    const weekday = momentCurrentDate.format(this.weekdayFormatText);
+    const weekdays = this.getWeekdays(recurPeriodSpec, true);
+    const month = momentCurrentDate.localeData().months(momentCurrentDate);
 
+    for (const key in weekdays) {
+      if (weekdays[key] && parseInt(key, 10) < weekdays.length - 1) {
+        weekdays[key] = string.substitute(this.daySeparator, [weekdays[key]]);
+      }
+      weekdaysString += weekdays[key];
+    }
+
+    const textOptions = [
+      interval,
+      currentDate.toLocaleTimeString(),
+      momentCurrentDate.format(this.dateFormatText),
+      this.calcEndDate(currentDate, entry).format(this.endDateFormatText),
+      weekdaysString,
+      month,
+      string.substitute(this.ordText[parseInt(((day - 1) / 7), 10) + 1], [weekday]),
+      day,
+    ];
     switch (rp) {
+      case -1:
+        // occurs only once
+        text = this.singleActivitySummary;
+        break;
       case 0:
         // daily
-      case 1: // eslint-disable-line
+        text = (interval <= 1) ?
+          string.substitute(this.dailySummary, textOptions) :
+          string.substitute(this.dailyEverySummary, textOptions);
+        break;
+      case 1:
+        // daily after completion
+        text = (interval <= 1) ?
+          string.substitute(this.dailyAfterCompletionSummary, textOptions) :
+          string.substitute(this.dailyEveryAfterCompletionSummary, textOptions);
         break;
       case 2:
         // weekly
-        textOptions[2] = this.getWeekdays(recurPeriodSpec, true);
-        text = string.substitute(this.weeklyOnText, textOptions);
+        text = (interval <= 1) ?
+          string.substitute(this.weeklySummary, textOptions) :
+          string.substitute(this.weeklyEverySummary, textOptions);
         break;
       case 3:
+        // weekly after completion
+        text = (interval <= 1) ?
+          string.substitute(this.weeklyAfterCompletionSummary, textOptions) :
+          string.substitute(this.weeklyEveryAfterCompletionSummary, textOptions);
         break;
       case 4:
-        // monthly
-        text = string.substitute(this.monthlyOnDayText, textOptions);
+        // monthly on day
+        text = (interval <= 1) ?
+          string.substitute(this.monthlySummary, textOptions) :
+          string.substitute(this.monthlyEverySummary, textOptions);
         break;
       case 5:
-        textOptions[3] = weekday;
-        text = string.substitute(this.monthlyOnText, textOptions);
+        // monthly on day ordinal
+        text = (interval <= 1) ?
+          string.substitute(this.monthlyOrdSummary, textOptions) :
+          string.substitute(this.monthlyEveryOrdSummary, textOptions);
         break;
       case 6:
+        // monthly after completion
+        text = (interval <= 1) ?
+          string.substitute(this.monthlyAfterCompletionSummary, textOptions) :
+          string.substitute(this.monthlyEveryAfterCompletionSummary, textOptions);
         break;
       case 7:
-        // yearly
-        text = string.substitute(this.yearlyOnText, textOptions);
+        // yearly on day of the month
+        text = (interval <= 1) ?
+          string.substitute(this.yearlySummary, textOptions) :
+          string.substitute(this.yearlyEverySummary, textOptions);
         break;
       case 8:
-        textOptions[3] = weekday;
-        text = string.substitute(this.yearlyOnWeekdayText, textOptions);
+      // yearly on day ordinal
+        text = (interval <= 1) ?
+          string.substitute(this.yearlyOrdSummary, textOptions) :
+          string.substitute(this.yearlyEveryOrdSummary, textOptions);
         break;
       case 9:
+      // Yearly after completion
+        text = (interval <= 1) ?
+          string.substitute(this.yearlyAfterCompletionSummary, textOptions) :
+          string.substitute(this.yearlyEveryAfterCompletionSummary, textOptions);
         break;
       default:
         return '';
-    }
-
-    if (this.isAfterCompletion(rp)) {
-      text = string.substitute('${0} ${1}', [text, this.afterCompletionText]);
-    } else {
-      text = string.substitute(this.untilEndDateText, [text, this.calcEndDate(currentDate, entry).format(this.endDateFormatText)]);
     }
 
     return text;
