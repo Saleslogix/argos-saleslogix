@@ -329,7 +329,7 @@ const __class = lang.setObject('crm.Recurrence', {
       if (weekdays[key] && parseInt(key, 10) < weekdays.length - 1) {
         weekdays[key] = string.substitute(this.daySeparator, [weekdays[key]]);
       }
-      weekdaysString = string.substitute('${0}${1}', [weekdaysString, weekdays[key]]);
+      weekdaysString += weekdays[key];
     }
 
     const textOptions = [
@@ -339,7 +339,7 @@ const __class = lang.setObject('crm.Recurrence', {
       this.calcEndDate(currentDate, entry).format(this.endDateFormatText),
       weekdaysString,
       month,
-      string.substitute(this.ordText[parseInt(((day - 1) / 7).toString(), 10) + 1], [weekday]),
+      string.substitute(this.ordText[parseInt(((day - 1) / 7), 10) + 1], [weekday]),
       day,
     ];
     switch (rp) {
