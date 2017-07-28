@@ -3,7 +3,8 @@ define('configuration/development.default', [
   'crm/ApplicationModule',
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
-], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
+  'crm/Integrations/SalesNavigator/ApplicationModule',
+], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule, SalesNavigatorApplicationModule) {
   // Toggle console logs for PouchDB
   // PouchDB.debug.enable('*');
   PouchDB.debug.disable();
@@ -15,6 +16,7 @@ define('configuration/development.default', [
         enableDashboards: true,
       }),
       new ContourApplicationModule(),
+      new SalesNavigatorApplicationModule(),
     ],
     connections: {
       'crm': {

@@ -9,7 +9,8 @@ define('configuration/production.default', [
   'crm/ApplicationModule',
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
-], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
+  'crm/Integrations/SalesNavigator/ApplicationModule',
+], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule, SalesNavigatorApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
@@ -17,6 +18,7 @@ define('configuration/production.default', [
         enableDashboards: true,
       }),
       new ContourApplicationModule(),
+      new SalesNavigatorApplicationModule(),
     ],
     connections: {
       'crm': {
