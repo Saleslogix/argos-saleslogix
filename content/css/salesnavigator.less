@@ -1,12 +1,18 @@
 .salesnavigator__container {
-  width: 100vw;
-  height: 100vh;
-  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  height: 70vh;
   display: flex;
   justify-content: center;
 }
 
 .salesnavigator-iframe {
   width: 100%;
-  height: 100%;
+}
+
+@media(max-width: 767px) {
+  .salesnavigator__container {
+    width: 100vw;
+    // LESS fails to compile the calc correctly, need to escape like so
+    // see the following issue: https://github.com/less/less.js/issues/974
+    margin-left: calc(~"-1 * ((100vw - 100%) / 2)");
+  }
 }

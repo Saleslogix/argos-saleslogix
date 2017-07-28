@@ -23,7 +23,7 @@ const __class = declare('crm.Integrations.SalesNavigator._WidgetBase', [_Related
 
   // Have to have style inlined due to less compiling the result incorrectly for this value
   relatedContentTemplate: new Simplate([
-    '<div class="salesnavigator__container" style="margin-left: calc(-1 * ((100vw - 100%) / 2));" data-dojo-attach-point="scriptContainerNode"></div>',
+    '<div class="salesnavigator__container" data-dojo-attach-point="scriptContainerNode"></div>',
   ]),
 
   applyScript: function applyScript(script) {
