@@ -305,17 +305,8 @@ const __class = lang.setObject('crm.Recurrence', {
 
     return spec + interval; // + every interval days/weeks/months/years
   },
-
-  toString: function toString(entry) {
-    if (entry.RecurrenceState !== 'rstMaster' || !entry.StartDate) {
-      if (entry.RecurrenceState === 'rsNotRecurring' && entry.StartDate) {
-        return this.singleActivitySummary;
-      }
-      return '';
-    }
-    let text = '';
+  createTextOptions: function createTextOptions(entry) {
     let weekdaysString = '';
-    const rp = parseInt(entry.RecurPeriod, 10);
     const recurPeriodSpec = parseInt(entry.RecurPeriodSpec, 10);
     const interval = recurPeriodSpec % 65536;
     const currentDate = entry.StartDate;
@@ -332,7 +323,7 @@ const __class = lang.setObject('crm.Recurrence', {
       weekdaysString += weekdays[key];
     }
 
-    const textOptions = [
+    return [
       interval,
       currentDate.toLocaleTimeString(),
       momentCurrentDate.format(this.dateFormatText),
@@ -342,76 +333,76 @@ const __class = lang.setObject('crm.Recurrence', {
       string.substitute(this.ordText[parseInt(((day - 1) / 7), 10) + 1], [weekday]),
       day,
     ];
+  },
+  buildSummaryText: function buildSummaryText(entry, textOptions) {
+    const rp = parseInt(entry.RecurPeriod, 10);
     switch (rp) {
       case -1:
         // occurs only once
-        text = this.singleActivitySummary;
-        break;
+        return this.singleActivitySummary;
       case 0:
         // daily
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.dailySummary, textOptions) :
           string.substitute(this.dailyEverySummary, textOptions);
-        break;
       case 1:
         // daily after completion
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.dailyAfterCompletionSummary, textOptions) :
           string.substitute(this.dailyEveryAfterCompletionSummary, textOptions);
-        break;
       case 2:
         // weekly
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.weeklySummary, textOptions) :
           string.substitute(this.weeklyEverySummary, textOptions);
-        break;
       case 3:
         // weekly after completion
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.weeklyAfterCompletionSummary, textOptions) :
           string.substitute(this.weeklyEveryAfterCompletionSummary, textOptions);
-        break;
       case 4:
         // monthly on day
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.monthlySummary, textOptions) :
           string.substitute(this.monthlyEverySummary, textOptions);
-        break;
       case 5:
         // monthly on day ordinal
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.monthlyOrdSummary, textOptions) :
           string.substitute(this.monthlyEveryOrdSummary, textOptions);
-        break;
       case 6:
         // monthly after completion
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.monthlyAfterCompletionSummary, textOptions) :
           string.substitute(this.monthlyEveryAfterCompletionSummary, textOptions);
-        break;
       case 7:
         // yearly on day of the month
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.yearlySummary, textOptions) :
           string.substitute(this.yearlyEverySummary, textOptions);
-        break;
       case 8:
       // yearly on day ordinal
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.yearlyOrdSummary, textOptions) :
           string.substitute(this.yearlyEveryOrdSummary, textOptions);
-        break;
       case 9:
       // Yearly after completion
-        text = (interval <= 1) ?
+        return (textOptions[0] <= 1) ?
           string.substitute(this.yearlyAfterCompletionSummary, textOptions) :
           string.substitute(this.yearlyEveryAfterCompletionSummary, textOptions);
-        break;
       default:
         return '';
     }
-
-    return text;
+  },
+  toString: function toString(entry) {
+    if (entry.RecurrenceState !== 'rstMaster' || !entry.StartDate) {
+      if (entry.RecurrenceState === 'rsNotRecurring' && entry.StartDate) {
+        return this.singleActivitySummary;
+      }
+      return '';
+    }
+    const textOptions = this.createTextOptions(entry);
+    return this.buildSummaryText(entry, textOptions);
   },
   calcEndDate: function calcEndDate(date, entry) {
     const interval = entry.RecurPeriodSpec % 65536;
