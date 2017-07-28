@@ -9,8 +9,8 @@ const addressResource = getResource('addressModel');
 const __class = declare('crm.Integrations.Contour.Models.Place.Base', [_ModelBase], {
   resourceKind: 'places',
   entityName: 'Place',
-  entityDisplayName: 'Place', // TODO: Localize
-  entityDisplayNamePlural: 'Places', // TODO: Localize
+  entityDisplayName: resource.entityDisplayName,
+  entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.PLACE,
   listViewId: 'pxSearch_locations',
   createRelationships: function createRelationships() {

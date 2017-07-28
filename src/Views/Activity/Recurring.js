@@ -5,6 +5,7 @@ import validator from '../../Validator';
 import Edit from 'argos/Edit';
 import recur from '../../Recurrence';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 
 const resource = getResource('activityRecurring');
@@ -33,7 +34,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   afterCompletionText: resource.afterCompletionText,
   singleWeekdayText: resource.singleWeekdayText,
   weekdaysText: resource.weekdaysText,
-  dayText: resource.dayText,
+  dayNumberText: resource.dayNumberText,
   monthText: resource.monthText,
   onText: resource.onText,
   occurrencesText: resource.occurrencesText,
@@ -62,15 +63,26 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     resource.december,
   ],
   frequencyOptionsText: [
-    resource.days,
-    resource.weeks,
-    resource.months,
-    resource.years,
+    resource.dailyText,
+    resource.weeklyText,
+    resource.monthlyText,
+    resource.yearlyText,
   ],
   recurringFrequencyText: resource.recurringFrequencyText,
+  frequencyIntervalText: resource.frequencyIntervalText,
   yesText: resource.yesText,
   noText: resource.noText,
   titleText: resource.titleText,
+  weeklyFrequencySingleAfterCompletion: resource.weeklyFrequencySingleAfterCompletion,
+  weeklyFrequencySingle: resource.weeklyFrequencySingle,
+  weeklyFrequencyAfterCompletion: resource.weeklyFrequencyAfterCompletion,
+  weeklyFrequency: resource.weeklyFrequency,
+  monthlyFrequencyAfterCompletion: resource.monthlyFrequencyAfterCompletion,
+  monthlyFrequency: resource.monthlyFrequency,
+  monthlyFrequencyOrdinalAfterCompletion: resource.monthlyFrequencyOrdinalAfterCompletion,
+  monthlyFrequencyOrdinal: resource.monthlyFrequencyOrdinal,
+  dailyFrequencyAfterCompletion: resource.dailyFrequencyAfterCompletion,
+  dailyFrequency: resource.dailyFrequency,
 
   // View Properties
   monthNames: moment.monthsShort,
@@ -120,6 +132,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       case 4:
         // monthly
         showthese += 'Day,OrdWeek';
+        this.fields.OrdWeek.data = this.createOrdData(this.formatSingleWeekday(this.entry.StartDate.getDay()));
         break;
       case 5:
         showthese += 'OrdWeek,OrdWeekday,';
@@ -237,7 +250,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   },
   onDayChange: function onDayChange(value, field) {
     const startDate = this.fields.StartDate.getValue();
-    const maxValue = startDate.getDaysInMonth(); // <-- from lib date.js
+    const maxValue = moment(startDate).daysInMonth();
 
     if (value > 0 && value <= maxValue) {
       startDate.setDate(value);
@@ -300,7 +313,13 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     this.fields.Day.setValue(startDate.getDate());
     this.fields.OrdWeekday.setValue(startDate.getDay());
 
+    this.fields.OrdWeek.data = this.createOrdData(this.formatSingleWeekday(startDate.getDay()));
     this.summarize();
+    let key = this.fields.OrdWeek.getValue();
+    if (typeof key === 'object') {
+      key = key.$key;
+    }
+    this.fields.OrdWeek.setValue(this.fields.OrdWeek.data.$resources[key]);
   },
   onScaleChange: function onScaleChange(value) {
     const startDate = this.fields.StartDate.getValue();
@@ -444,14 +463,14 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       $resources: list,
     };
   },
-  createOrdData: function createOrdData() {
+  createOrdData: function createOrdData(day = '') {
     const list = [];
 
     for (const ord in recur.ordText) {
       if (recur.ordText.hasOwnProperty(ord)) {
         list.push({
           $key: ord,
-          $descriptor: recur.ordText[ord],
+          $descriptor: string.substitute(recur.ordText[ord], [day]),
         });
       }
     }
@@ -522,14 +541,6 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       type: 'date',
       dateFormatText: this.startingFormatText,
     }, {
-      label: this.everyText,
-      name: 'Interval',
-      property: 'Interval',
-      type: 'text',
-      inputType: 'numeric',
-      exclude: true,
-      notificationTrigger: 'blur',
-    }, {
       label: this.recurringFrequencyText,
       title: this.recurringFrequencyText,
       name: 'Scale',
@@ -538,6 +549,15 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       view: 'select_list',
       exclude: true,
       data: this.createScaleData(),
+    }, {
+      label: this.frequencyIntervalText,
+      title: this.frequencyIntervalText,
+      name: 'Interval',
+      property: 'Interval',
+      type: 'text',
+      inputType: 'numeric',
+      exclude: true,
+      notificationTrigger: 'blur',
     }, {
       label: this.afterCompletionText,
       name: 'AfterCompletion',
@@ -557,8 +577,8 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       data: this.createOrdData(),
       textRenderer: this.formatOrd.bindDelegate(this),
     }, {
-      label: this.dayText,
-      title: this.dayText,
+      label: this.dayNumberText,
+      title: this.dayNumberText,
       name: 'Day',
       property: 'Day',
       type: 'text',

@@ -120,8 +120,8 @@
 >
 
 <ticketActivityListDateTimeFormat ""
-  startDateFormatText: "DD.MM.YYYY h:mm A"
-  startDateFormatText24: "DD.MM.YYYY H:mm"
+  startDateFormatText: "DD-MM-YYYY h:mm A"
+  startDateFormatText24: "DD-MM-YYYY H:mm"
 >
 
 <groupUtilityDateTimeFormat ""

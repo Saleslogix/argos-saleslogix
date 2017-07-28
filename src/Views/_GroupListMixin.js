@@ -8,6 +8,7 @@ import lang from 'dojo/_base/lang';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
+import ActivityTypeText from '../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
 
 
@@ -800,7 +801,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     }
     switch (actionName) {
       case 'callPhone':
-        action.callPhone.call(this, null, opt.selection, opt.propertyName);
+        action.callPhone.call(this, null, opt.selection, opt.propertyName, ActivityTypeText.atPhoneCall);
         break;
       case 'sendEmail':
         action.sendEmail.call(this, null, opt.selection, opt.propertyName);
