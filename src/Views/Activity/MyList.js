@@ -47,13 +47,15 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       <div class="widget">
         <div class="widget-header">
           {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
-          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
-            <span class="audible">Actions</span>
-            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-              <use xlink:href="#icon-more"></use>
-            </svg>
-          </button>
-          {%! $$.listActionTemplate %}
+          {% if($$.visibleActions.length > 0 && $$.enableActions) { %}
+            <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+              <span class="audible">Actions</span>
+              <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+                <use xlink:href="#icon-more"></use>
+              </svg>
+            </button>
+            {%! $$.listActionTemplate %}
+          {% } %}
         </div>
         <div class="card-content">
           {%! $$.itemRowContentTemplate %}
@@ -364,16 +366,16 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       fn: action.addAttachment.bindDelegate(this),
     }]);
   },
-  selectEntry: function selectEntry(params, evt, node) {
+  selectEntry: function selectEntry(params) {
     /* Override selectEntry from the base List mixin.
      * Grabbing a different key here, since we use entry.Activity.$key as the main data-key.
      * TODO: Make [data-key] overrideable in the base class.
      */
-    const row = $(node).closest('.widget').parent()[0];
-    const key = row ? row.getAttribute('data-my-activity-key') : false;
+    const row = $(`[data-key='${params.key}']`, this.contentNode).first();
+    const key = row ? row.attr('data-my-activity-key') : false;
 
     if (this._selectionModel && key) {
-      this._selectionModel.toggle(key, this.entries[key], row);
+      this._selectionModel.select(key, this.entries[key], row.get(0));
     }
 
     if (this.options.singleSelect && this.options.singleSelectAction && !this.enableActions) {
