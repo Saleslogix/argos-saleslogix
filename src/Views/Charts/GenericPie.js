@@ -48,7 +48,7 @@ const __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
       labels: {
         lineColor: 'color-as-arc',
       },
-      animate: false
+      animate: false,
     });
     this.chart = chart.data('chart');
   },
