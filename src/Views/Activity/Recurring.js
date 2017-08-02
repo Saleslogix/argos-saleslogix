@@ -9,6 +9,7 @@ import string from 'dojo/string';
 
 
 const resource = getResource('activityRecurring');
+const dtFormatResource = getResource('activityEditDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Recurring
@@ -83,6 +84,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   monthlyFrequencyOrdinal: resource.monthlyFrequencyOrdinal,
   dailyFrequencyAfterCompletion: resource.dailyFrequencyAfterCompletion,
   dailyFrequency: resource.dailyFrequency,
+  startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
 
   // View Properties
   monthNames: moment.monthsShort,
@@ -102,6 +104,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     this.connect(this.fields.OrdWeekday, 'onChange', this.onStartDateChange); // Single day of week
     this.connect(this.fields.OrdWeek, 'onChange', this.onStartDateChange); // 1st..last week of month, or on Day #
     this.connect(this.fields.OrdMonth, 'onChange', this.onStartDateChange); // Month of year
+    this.fields.EndDate.disable();
   },
   resetUI: function resetUI() {
     // hide or reveal and set fields according to panel/RecurPeriod
@@ -132,7 +135,9 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       case 4:
         // monthly
         showthese += 'Day,OrdWeek';
-        this.fields.OrdWeek.data = this.createOrdData(this.formatSingleWeekday(this.entry.StartDate.getDay()));
+        if (this.entry && this.entry.StartDate) {
+          this.fields.OrdWeek.data = this.createOrdData(this.formatSingleWeekday(this.entry.StartDate.getDay()));
+        }
         break;
       case 5:
         showthese += 'OrdWeek,OrdWeekday,';
@@ -272,7 +277,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     const theValue = parseInt(value.key || value, 10);
     let startDate = this.fields.StartDate.getValue();
     let weekday = startDate.getDay();
-    let ordWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
+    let ordWeek = parseInt(((startDate.getDate() - 1) / 7), 10) + 1;
 
     switch (field.name) {
       case 'Weekdays':
@@ -313,13 +318,16 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     this.fields.Day.setValue(startDate.getDate());
     this.fields.OrdWeekday.setValue(startDate.getDay());
 
-    this.fields.OrdWeek.data = this.createOrdData(this.formatSingleWeekday(startDate.getDay()));
+    const weekData = this.createOrdData(this.formatSingleWeekday(startDate.getDay()));
+    this.fields.OrdWeek.data = weekData;
     this.summarize();
     let key = this.fields.OrdWeek.getValue();
     if (typeof key === 'object') {
       key = key.$key;
+      this.fields.OrdWeek.setValue(weekData.$resources[key]);
+    } else if (parseInt(key, 10) > 0) {
+      this.fields.OrdWeek.setValue(weekData.$resources[key]);
     }
-    this.fields.OrdWeek.setValue(this.fields.OrdWeek.data.$resources[key]);
   },
   onScaleChange: function onScaleChange(value) {
     const startDate = this.fields.StartDate.getValue();
@@ -656,7 +664,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       type: 'date',
       timeless: false,
       showTimePicker: false,
-      dateFormatText: this.startingFormatText,
+      dateFormatText: this.startingTimelessFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
