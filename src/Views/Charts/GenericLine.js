@@ -43,6 +43,14 @@ const __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
         data,
       }],
       showLegend: false,
+      xAxis: {
+        rotate: '-65',
+      },
+      yAxis: {
+        ticks: {
+          number: 5,
+          format: ',.1s',
+      }},
     });
     this.chart = chart.data('chart');
   },
