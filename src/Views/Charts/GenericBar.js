@@ -42,11 +42,14 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
     });
 
     const chart = $(this.contentNode).chart({
-      type: 'bar',
+      type: 'column',
       dataset: [{
         data,
       }],
       showLegend: false,
+      xAxis: {
+        rotate: '-65',
+      },
     });
     this.chart = chart.data('chart');
   },
