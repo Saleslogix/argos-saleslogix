@@ -21,9 +21,9 @@
     moment "^2.17.1"
     requirejs "^2.3.2"
 
-"@infor/sohoxi@4.3.1-rc":
-  version "4.3.1-rc"
-  resolved "http://npm.infor.com:4873/@infor%2fsohoxi/-/sohoxi-4.3.1-rc.tgz#8da6da976b7e18311a90ce09260c354c91a8bfc2"
+"@infor/sohoxi@4.3.1":
+  version "4.3.1"
+  resolved "http://npm.infor.com:4873/@infor%2fsohoxi/-/sohoxi-4.3.1.tgz#f6af3ff2b7ca0f355356c5e7bbdcf8d753431aa0"
   dependencies:
     d3 "^3.4.6"
     jquery "^3.1.1"
