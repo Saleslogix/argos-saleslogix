@@ -325,7 +325,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     if (typeof key === 'object') {
       key = key.$key;
       this.fields.OrdWeek.setValue(weekData.$resources[key]);
-    } else if (parseInt(key, 10) > 0) {
+    } else if (!isNaN(parseInt(key, 10))) {
       this.fields.OrdWeek.setValue(weekData.$resources[key]);
     }
   },
