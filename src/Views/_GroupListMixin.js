@@ -260,6 +260,16 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       })(this, queryResults);
     }
   },
+  setPrimaryTitle: function setPrimaryTitle() {
+    const group = this._currentGroup;
+
+    if (group) {
+      const title = this.getGroupTitle(group);
+      this.set('title', title);
+    }
+
+    this.inherited(arguments);
+  },
   _onGroupRequestSuccess: function _onGroupRequestSuccess(result) {
     if (result.length > 0) {
       const group = result[0];
