@@ -48,7 +48,6 @@ const __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
       },
       yAxis: {
         ticks: {
-          number: 5,
           format: ',.1s',
       }},
     });
