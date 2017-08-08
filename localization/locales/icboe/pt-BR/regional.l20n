@@ -1,0 +1,12 @@
+
+<quoteEditDateTimeFormat ""
+  dateFormat: "M/D/YYYY h:mm A"
+>
+
+<salesOrderEditDateTimeFormat ""
+  dateFormat: "M/D/YYYY h:mm A"
+>
+
+<syncResultsListDateTimeFormat ""
+  dateFormatText: "M/D/YYYY h:mm:ss A"
+>
