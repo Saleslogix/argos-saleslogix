@@ -1561,3 +1561,7 @@
   entityDisplayName: "Ticket Activity"
   entityDisplayNamePlural: "Ticket Activities"
 >
+
+<chartMixin ""
+  loadingText: "Loading"
+>
