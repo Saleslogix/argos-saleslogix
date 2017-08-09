@@ -634,6 +634,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _buildQueryExpression: function _buildQueryExpression(queryParam = {}) {
     return lang.mixin(queryParam || {}, this.options && (this.options.query || this.options.where));
   },
+  transitionAway: function transitionAway() {
+    $(this._calendar._monthDropdown.dropdownSelect).data('dropdown').close();
+    $(this._calendar._yearDropdown.dropdownSelect).data('dropdown').close();
+    this.inherited(arguments);
+  },
 });
 
 export default __class;
