@@ -26,6 +26,7 @@ module.exports = {
     "define": false,
     "require": false,
     "moment": false,
+    "Chart": false,
     "Rx": false,
     "$": false,
     "d3": false,
