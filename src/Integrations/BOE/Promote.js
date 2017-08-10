@@ -318,6 +318,12 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
     this.setLoading(this.accountingNode);
     this.getAccountingEntitiesEntries(this._backOfficeDropdown.getValue());
   },
+  transitionAway: function transitionAway() {
+    // force soho dropdown to close since they dont close on a button click elsewhere on UI
+    $(this._backOfficeDropdown.dropdownSelect).data('dropdown').close();
+    $(this._accountingDropdown.dropdownSelect).data('dropdown').close();
+    this.inherited(arguments);
+  },
 });
 
 lang.setObject('icboe.Promote', __class);

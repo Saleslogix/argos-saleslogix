@@ -41,6 +41,16 @@ const __class = declare('crm.Views.OfflineOptions.Edit', [_EditBase, _RelatedWid
   onRefreshUpdate: function onRefreshUpdate() {
     this.requestData();
   },
+  transitionAway: function transitionAway() {
+    // force soho dropdown to close since they dont close on a button click elsewhere on UI
+    $(this.relatedViewManagers
+      .offline_usage_widget
+      .relatedViews
+      .offline_usage_widget_undefined
+      ._olderThanDropdown
+      .dropdownSelect).data('dropdown').close();
+    this.inherited(arguments);
+  },
 });
 
 export default __class;

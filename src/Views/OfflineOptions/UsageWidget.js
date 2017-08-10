@@ -321,6 +321,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     options.clearOlderThan = this._options.clearOlderThan;
     offlineManager.saveOptions(options);
   },
+
 });
 const rvm = new RelatedViewManager();
 rvm.registerType('offlineUsageWidget', __class);
