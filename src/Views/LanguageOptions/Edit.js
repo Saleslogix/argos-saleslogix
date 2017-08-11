@@ -40,6 +40,22 @@ const __class = declare('crm.Views.LanguageOptions.Edit', [_EditBase, _RelatedWi
   onRefreshUpdate: function onRefreshUpdate() {
     this.requestData();
   },
+  transitionAway: function transitionAway() {
+    // force soho dropdown to close since they dont close on a button click elsewhere on UI
+    $(this.relatedViewManagers
+      .language_usage_widget
+      .relatedViews
+      .language_usage_widget_undefined
+      ._regionDropdown
+      .dropdownSelect).data('dropdown').close();
+    $(this.relatedViewManagers
+      .language_usage_widget
+      .relatedViews
+      .language_usage_widget_undefined
+      ._languageDropdown
+      .dropdownSelect).data('dropdown').close();
+    this.inherited(arguments);
+  },
 });
 
 export default __class;
