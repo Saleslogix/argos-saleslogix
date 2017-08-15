@@ -5,13 +5,9 @@ import SData from 'argos/Store/SData';
 
 /**
  * @class crm.SalesProcessUtility
- *
- * Saleslogix salesprocess utils
- *
  * @singleton
- *
  */
-const __class = lang.setObject('crm.SalesProcessUtility', {
+const __class = lang.setObject('crm.SalesProcessUtility', /** @lends crm.SalesProcessUtility */{
   store: null,
   service: null,
   contractName: 'dynamic',

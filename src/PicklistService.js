@@ -5,7 +5,11 @@ import SData from 'argos/Store/SData';
 const PickListService = ICRMServicesSDK.PickListService;
 const picklistFormat = ICRMCommonSDK.format.picklist;
 
-const __class = lang.setObject('crm.PicklistService', {
+/**
+ * @class crm.PicklistService
+ * @singleton
+ */
+const __class = lang.setObject('crm.PicklistService', /** @lends crm.PicklistService */{
   _picklists: {},
   _currentRequests: new Map(),
 

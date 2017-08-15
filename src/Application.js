@@ -18,15 +18,10 @@ import PicklistService from './PicklistService';
 const resource = getResource('application');
 
 /**
- * @class crm.Application
- *
+ * @alias crm.Application
  * @extends argos.Application
- * @requires argos.ErrorManager
- * @requires crm.Environment
- * @requires moment
- *
  */
-export default class Application extends SDKApplication {
+class Application extends SDKApplication {
   constructor(options = {
     connections: null,
     defaultLocale: 'en',
@@ -1193,3 +1188,5 @@ export default class Application extends SDKApplication {
     });
   }
 }
+
+export default Application;

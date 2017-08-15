@@ -5,7 +5,7 @@ const resource = getResource('validators');
 
 /**
  * @class crm.Validator
- * Validators for use in {@link argos.Edit} forms. To use validators, you add them to your view's layout:
+ * @classdesc Validators for use in {@link argos.Edit} forms. To use validators, you add them to your view's layout:
  *
  *      @example
  *       createLayout: function() {
@@ -26,8 +26,9 @@ const resource = getResource('validators');
  *                   validator: validator.exceedsMaxTextLength
  *               }]);
  *       }
+ * @singleton
  */
-const __class = lang.setObject('crm.Validator', {
+const __class = lang.setObject('crm.Validator', /** @lends crm.Validator */{
   /**
    * @property {Object} exists
    * Validator that ensures the field contains a value.

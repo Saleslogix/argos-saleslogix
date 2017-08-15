@@ -11,11 +11,9 @@ const resource = getResource('chartMixin');
 
 /**
  * @class crm.Views.Charts._ChartMixin
- *
  * @mixins argos._PullToRefreshMixin
- * @requires argos._PullToRefreshMixin
  *
- * Base mixin for creating chart views.
+ * @classdesc Base mixin for creating chart views.
  *
  */
 lang.setObject('Chart.defaults.global', {
@@ -149,7 +147,7 @@ lang.setObject('Chart.defaults.global', {
   onAnimationComplete: function onAnimationComplete() {},
 });
 
-const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
+const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /** @lends crm.Views.Charts._ChartMixin# */ {
   _handle: null,
   _feedData: null,
 

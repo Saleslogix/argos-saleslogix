@@ -4,14 +4,12 @@ import MODEL_NAMES from './Models/Names';
 import format from '../../Format';
 
 /**
- * @class icboe.Utility
- *
- * Utility provides functions that are more javascript enhancers than application related code.
- *
+ * @class crm.Integrations.BOE.Utility
+ * @classdesc Utility provides functions that are more javascript enhancers than application related code.
  * @singleton
  *
  */
-const __class = lang.setObject('crm.Integrations.BOE.Utility', {
+const __class = lang.setObject('crm.Integrations.BOE.Utility', /** @lends crm.Integrations.BOE.Utility */{
   // Lookup table for the aggregate functions used by DashboardWidget
   aggregateLookup: {
     calcProfit: function calcProfit(fn, widget, data) {

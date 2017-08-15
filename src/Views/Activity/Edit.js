@@ -18,21 +18,10 @@ const dtFormatResource = getResource('activityEditDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Edit
- *
  * @extends argos.Edit
  *
- * @requires argos.Edit
- * @requires argos.Utility
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- * @requires crm.Environment
- * @requires crm.Recurrence
- *
- * @requires moment
- *
  */
-const __class = declare('crm.Views.Activity.Edit', [Edit], {
+const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.Activity.Edit# */{
   // Localization
   activityCategoryTitleText: resource.activityCategoryTitleText,
   activityDescriptionTitleText: resource.activityDescriptionTitleText,

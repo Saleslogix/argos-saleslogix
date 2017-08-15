@@ -3,13 +3,10 @@ import 'argos/Format';
 
 /**
  * @class crm.Template
- *
- * Helper class that contains re-usuable {@link Simplate} templates.
- *
+ * @classdesc Helper class that contains re-usuable {@link Simplate} templates.
  * @requires argos.Format
- *
  */
-const __class = lang.setObject('crm.Template', {
+const __class = lang.setObject('crm.Template', /** @lends crm.Template */ {
   /**
    * @property {Simplate} nameLF
    * Template for lastname, firstname

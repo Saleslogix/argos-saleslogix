@@ -2,11 +2,10 @@ import lang from 'dojo/_base/lang';
 
 /**
  * @class crm.Aggregate
- *
- * Aggregate functions. Currently used in metric widgets.
- *
+ * @classdesc Aggregate functions. Currently used in metric widgets.
+ * @singleton
  */
-const __class = lang.setObject('crm.Aggregate', {
+const __class = lang.setObject('crm.Aggregate', /** @lends crm.Aggregate */{
   /**
    * Average
    * @param {Array} data Array of objects that contain a value property

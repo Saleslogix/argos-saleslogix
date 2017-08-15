@@ -3,19 +3,14 @@
  */
 
 /**
- * @class crm.Views.rangeWidget
- *
- *
- * @requires argos._Templated
- * @requires argos._Widget
- *
+ * @class crm.Integrations.BOE.DateRangeWidget
  */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 
-const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], {
+const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], /** @lends crm.Integrations.BOE.DateRangeWidget# */{
     /**
      * @property {Simplate}
      * Simple that defines the HTML Markup

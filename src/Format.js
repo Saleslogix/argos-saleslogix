@@ -5,12 +5,10 @@ const f = ICRMCommonSDK.format;
 
 /**
  * @class crm.Format
- *
  * @extends argos.Format
- * @requires crm.Template
- *
+ * @singleton
  */
-const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
+const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends crm.Format */{
   /**
    * Address Culture Formats as defined by crm.Format.address
    * http://msdn.microsoft.com/en-us/library/cc195167.aspx

@@ -8,9 +8,7 @@ const resource = getResource('speedSearchRightDrawerListMixin');
 
 /**
  * @class crm.Views._SpeedSearchRightDrawerListMixin
- *
- * Speedsearch specific mixin for right drawer functionality.
- *
+ * @classdesc Speedsearch specific mixin for right drawer functionality.
  * @mixins crm.Views._RightDrawerBaseMixin
  *
  */

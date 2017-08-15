@@ -1,5 +1,5 @@
 /**
- * @class .Views.SalesOrderItems.Detail
+ * @class crm.Integrations.BOE.Views.SalesOrderItems.Detail
  *
  *
  * @extends argos.Detail
@@ -19,7 +19,7 @@ import PricingAvailabilityService from '../../PricingAvailabilityService';
 
 const resource = getResource('salesOrderItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.SalesOrderItems.Detail# */ {
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,

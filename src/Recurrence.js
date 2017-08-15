@@ -8,13 +8,9 @@ const dtFormatResource = getResource('recurrenceDateTimeFormat');
 
 /**
  * @class crm.Recurrence
- *
- * @requires argos._ActionMixin
- * @requires argos._CustomizationMixin
- * @requires argos._Templated
- *
+ * @singleton
  */
-const __class = lang.setObject('crm.Recurrence', {
+const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
   // Localization
   neverText: resource.neverText,
   dailyText: resource.dailyText,
