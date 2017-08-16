@@ -838,7 +838,7 @@
   issuesText: "Probleme"
   competitorNameText: "Bevorzugter Mitbewerber"
   removeContactTitleText: "Kontakt entfernen"
-  confirmDeleteText: ""${0}" aus der Verkaufschance entfernen?"
+  confirmDeleteText: "\"${0}\" aus der Verkaufschance entfernen?"
   contactText: "Kontakt"
   entityText: "Kontakt für Verkaufschance"
 >
@@ -1296,7 +1296,7 @@
   potential: "Umsatzpotenzial gesamt"
   montlyPotential: "Durchschnittliches Umsatzpotenzial pro Monat"
   totalTickets: "Tickets gesamt"
-  averageOpen: "Status "Offen" - Durchschnittsdauer"
+  averageOpen: "Status \"Offen\" - Durchschnittsdauer"
   totalContacts: "Kontakte gesamt"
   totalLeads: "Interessenten gesamt"
   totalHistory: "Historie gesamt"

@@ -228,7 +228,7 @@
   salesPersonsText: "Verkäufer"
   syncHistoryText: "Synchronisierungshistorie"
   addLineItemsText: "Position(en) hinzufügen"
-  hasWonErrorText: "Angebote können nicht umgewandelt werden, wenn einer Angebotsversion der Status "Erfolg" zugewiesen ist."
+  hasWonErrorText: "Angebote können nicht umgewandelt werden, wenn einer Angebotsversion der Status \"Erfolg\" zugewiesen ist."
   wonStatusCode: "Erfolg"
   convertQuoteText: "In Verkaufsauftrag umwandeln"
   promoteQuoteText: "Angebot hochstufen"

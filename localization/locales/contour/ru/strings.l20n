@@ -1,7 +1,7 @@
 <proxAppModule ""
   viewAccountsNearbyText: "Показать клиентов вблизи"
   addressNotGeocodedErrorText: "Геокодирование адреса не выполнено. Невозможен поиск клиентов вблизи."
-  accountsNearText: "Клиенты рядом с "${0}""
+  accountsNearText: "Клиенты рядом с \"${0}\""
   helpTitleText: "Справка Contour"
 >
 
@@ -23,7 +23,7 @@
 >
 
 <locPicker ""
-  accountsNearText: "Клиенты рядом с "${0}""
+  accountsNearText: "Клиенты рядом с \"${0}\""
 	myHouseText: "Мой дом"
 	myOfficeText: "Мой офис"
 	titleText: "Поиск расстояния Contour"
