@@ -1,7 +1,6 @@
-#List Data Life Cycle
 Of the three base views List data is the easiest to understand with a clear cut refresh, clear, request, process cycle.
 
-##Function Order Overview
+## Function Order Overview
 * `show(options)`
 * `refreshRequiredFor(options)`
 * `beforeTransitionTo()`
@@ -18,7 +17,7 @@ Of the three base views List data is the easiest to understand with a clear cut 
 
 * `_onRefresh()`
 
-##Functions In Detail
+## Functions In Detail
 * The List view is being shown via `view.show(options);`
 
 * `refreshRequiredFor(options)` is called and checks the option values vs the current values for the following properties:
@@ -86,7 +85,7 @@ Of the three base views List data is the easiest to understand with a clear cut 
       * store the item into `this.entries{}` using the item $key
       * apply the `rowTemplate` using the item for `$` and view for `$$`
       * place all markup at once into `this.contentNode`
-   * Set the amount of rows remaining text using the following equation: 
+   * Set the amount of rows remaining text using the following equation:
       `$totalResults - $startIndex + $itemsPerPage - 1`
    * Call `hasMoreData()` to toggle the `list-has-more` CSS class (which shows the Request Next X Items button)
 
@@ -101,6 +100,3 @@ List Views subscribe to the global `/app/refresh` event and connect it to `_onRe
 **this.entries** - also during `processFeed()` each entry is stored to the `entries: {}` object where the $key of the entry is the key in `this.entries`.
 
 **this.options** - during `show()` the navigation options are stored after calling `refreshRequiredFor`.
-
-
-   

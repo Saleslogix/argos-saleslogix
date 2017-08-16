@@ -1,7 +1,6 @@
-#Defining Quick Actions
 Quick Actions are special row objects in a Detail view that instead of display a label and read-only text it has: icon, header, description and upon clicking performs an action. This is very similar to toolbar items but is placed in Detail View itself.
 
-##Adding a Simple Quick Action
+## Adding a Simple Quick Action
 Let's add a simple quick action that opens the Account Address in a Google Maps window. If you have completed Advanced Detail: Value/OnCreate then you will need to adjust the following options rather than add them.
 
 1\. Open `argos-template/src/Views/Account/Detail.js` and in `querySelect` add the property `Address/FullAddress`.

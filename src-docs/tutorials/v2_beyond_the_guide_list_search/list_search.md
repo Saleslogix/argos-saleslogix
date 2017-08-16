@@ -1,7 +1,6 @@
-#How List Search Works
 By default all List views have a built in search bar that lets the user search for more records. This topic will first cover hiding/showing the bar and then into the specifics of what happens when a user types in a query and presses search.
 
-##Hiding Search
+## Hiding Search
 Since the default is to show a search we will turn it off in a view then turn it back on. We will use the Account List view made in [Argos-Template Guide](#!/guide/v2_template_guide).
 
 1\. Open `argos-template/src/Views/Account/List.js`.
@@ -14,7 +13,7 @@ Since the default is to show a search we will turn it off in a view then turn it
 
 4\. Go back and either remove `hideSearch` or set it to false. Save your app and go ahead and check that it now shows up.
 
-##Manipulating the Expression
+## Manipulating the Expression
 When a search is performed it does a new SData request using the text from the user as the `where=` clause of the current entity url. Typically you want to insert the text into some sort of expression for the server to process.
 
 1\. Open `argos-template/src/Views/Account/List.js`.
@@ -34,20 +33,20 @@ When a search is performed it does a new SData request using the text from the u
     }
 
 
-##View to Search Widget Relationship
+## View to Search Widget Relationship
 Each List View has a property named `searchWidget` and it is set to an instance of a dijit widget that implements: widgetTemplate, onSearchExpression, and configure.
 
 1\. Open `argos-sdk/src/List.js` and scroll down to the `postCreate()` function. A large block of it is within `if (this.enableSearch) {}` everything in there is creating an instance, hooking it up and placing it into the List views DOM. In particular look at these lines:
-
+```javascript
                     this.searchWidget = this.searchWidget || new searchWidgetCtor({
                         'class': 'list-search',
                         'owner': this,
                         'onSearchExpression': lang.hitch(this, this._onSearchExpression)
                     });
                     this.searchWidget.placeAt(this.searchNode, 'replace');
-
+```
 2\. The key here is that when the search widget fires its `onSearchExpression` the List Views `_onSearchExpression` also fires and will receive the same arguments. Meaning the search widget itself handles everything until the very end then calls `onSearchExpression` which we know is being listed to. Scroll down to `_onSearchExpression` and you will find:
-
+```javascript
             _onSearchExpression: function(expression) {
 
                 this.clear(false);
@@ -56,7 +55,7 @@ Each List View has a property named `searchWidget` and it is set to an instance 
 
                 this.requestData();
             },
-
+```
 3\. Which takes the result (`expression` being passed in), clears the view empties any pre-existing queryText, sets `this.query` to the result and calls `requestData()` which starts the request-handle success-render feed process.
 
 4\. The last part that the List View does is in the `startup()` function which runs when the application is being initialized:
@@ -70,7 +69,7 @@ Each List View has a property named `searchWidget` and it is set to an instance 
 5\. This is where the `configure()` comes into play, it passes in the views hashtags and format search function so that this views instance of the search widget is now "configured" for this view.
 
 
-##Search Widget
+## Search Widget
 The final piece is the search widget itself, the one provided out of the box is located at `argos-sdk/src/SearchWidget.js` and has a processor for hashtags and using the configured formatter for the remaining text.
 
 1\. Open up `argos-sdk/src/SearchWidget.js` and let's go through the interesting properties:
@@ -86,5 +85,5 @@ The final piece is the search widget itself, the one provided out of the box is 
    * calls `onSearchExpression()` with the result of the handler
    * (which is being listened to by the View, saves the result and calls requestData())
 
-###Result
+### Result
 Use the hideSearch property to show/hide the search bar. Each List View uses a Search Widget which is definable and acts upon the resulting expression in `_onSearchExpression()`. The view uses the expression to make an entirely new data call and processes the results. The search widget is entirely self contained with its own markup, events, etc needing only to implement a few details to be configured for each view.

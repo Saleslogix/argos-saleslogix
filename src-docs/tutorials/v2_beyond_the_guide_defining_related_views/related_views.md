@@ -1,9 +1,8 @@
-#Defining Related Views
 Related Views are List Views that we want to duplicate for purposes of looking up or for specific filters. For example I may adding a new "Employee" and need to assign them to a "Company". When selecting a company it should show a list with logic to handle making a selection and passing the value back to my new employee. We don't want that extra logic to still be there when looking at the "main" employee listing.
 
-##Prep
+## Prep
 Since we need a base list view in order to create a related one make a new List view (see Create a List in [Argos-Template Guide](#!/guide/v2_template_guide) for help) with the following properties into `argos-template/src/Views/Contact/List.js`:
-
+```javascript
         //Template
         itemTemplate: new Simplate([
             '<p class="listview-heading">{%: $.NameLF %}</p>',
@@ -12,7 +11,7 @@ Since we need a base list view in order to create a related one make a new List 
 
         //Localization
         titleText: 'Contacts',
-        
+
         detailView: 'contact_detail',
         icon: 'content/images/icons/Contacts_24x24.png',
         id: 'contact_list',
@@ -27,13 +26,13 @@ Since we need a base list view in order to create a related one make a new List 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
-
-##Duplicating an Existing List
+```
+## Duplicating an Existing List
 Now that we have a List view we need to duplicate it for the related part.
 
 1\. Open `src/ApplicationModule.js`
 
-2\. Find where the list is being registered: `this.registerView(new ContactList());` 
+2\. Find where the list is being registered: `this.registerView(new ContactList());`
 
 3\. Copy that line and paste it below but for the constructor add an object with a key of `id` set to `'contact_related'`.
 
@@ -47,7 +46,7 @@ Now that we have a List view we need to duplicate it for the related part.
 5\. Done! Now when the app is started you will have a duplicate instance of the ContactList ready for it's own separate use that doesn't interfere with the original.
 
 
-##Related View Action
+## Related View Action
 As an example we will use the Account Detail view to define a related action that utilizes our newly duplicated related list view.
 
 1\. Open `src/Views/Account/Detail.js`
@@ -81,4 +80,3 @@ As an example we will use the Account Detail view to define a related action tha
        relatedContactsText: 'Contacts',
 
 5\. Save and reload.
-

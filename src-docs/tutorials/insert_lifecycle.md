@@ -1,9 +1,8 @@
-#Edit as Insert Data Life Cycle
 This topic will cover creating a new record via Edit as Insert. The Edit View is a dual-purpose in that in serves as creating new records as well as updating existing records, both have unique data flows and properties.
 
 To signify we are inserting when creating the navigation options in the previous view add `insert: true`. This will then be stored into `this.inserting` of the Edit view.
 
-##Function Order Overview
+## Function Order Overview
 * `show(options, transition options)`
 * `onShow()`
 * `refreshRequiredFor(options)`
@@ -31,7 +30,7 @@ To signify we are inserting when creating the navigation options in the previous
 * `applyFieldDefaults()`
 * `applyContext()`
 
-##Functions in Detail
+## Functions in Detail
 * `show(options, transition options)` - show is called with the navigation options, first it fires `onShow()` then checks to see if `refreshRequiredFor(options)` is true and sets `this.refreshRequired = true` if it is. Then it saves the nav options to `this.options` and sets the title bar to `options.title` if present. Lastly it calls `ReUI.show()` passing the transition options. `this.getTag()` and `this.getContext()`.
 
 * `onShow()` - fired.
@@ -95,7 +94,7 @@ To signify we are inserting when creating the navigation options in the previous
 
 * Edit View is now finished loading and is fully interactive.
 
-##Properties
+## Properties
 * `this.fields` - object where each key is a fields `name` and the value being the corresponding field.
 * `this.options` - the navigation options, where you will find `entry`, `template`, `changes`, `insert`, and other values to base decisions off of.
 * `this.templateEntry` - if a template was requested it will be stored here.

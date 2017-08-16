@@ -1,6 +1,4 @@
-#Toolbars
-
-##Titlebar Text
+## Titlebar Text
 All Views by default have a Title bar defined and the text shown is controlled with the Views `titleText` property.
 
 1\. Open the Home View: `src/Views/Home.js`.
@@ -12,11 +10,11 @@ All Views by default have a Title bar defined and the text shown is controlled w
 
 3\. Save and refresh your browser.
 
-{@img toolbar-hello.png Toolbar Hello}
+![Toolbar Hello](img/toolbar-hello.png)
 
 Upon refreshing you should the title text at the top change to Hello World!, this property provides the most basic way of setting the title.
 
-##Adding a Toolbar Item
+## Adding a Toolbar Item
 
 It's not much of a toolbar without a toolbar item!
 
@@ -47,7 +45,7 @@ It's not much of a toolbar without a toolbar item!
 
 6\. Save and reload your app
 
-{@img toolbar-button.png Adding Toolbar Item}
+![Adding Toolbar Item](img/toolbar-button.png)
 
 You should now have a big green plus sign on the right hand side of your Titlebar, and on click it should run the `onHello` function. To go a bit deeper into each property:
 
@@ -58,8 +56,8 @@ You should now have a big green plus sign on the right hand side of your Titleba
     fn: function, // instead of action you can point to a function to run directly, or define inline
     scope: object // the scope to call the fn function if defined, defaults to current view
 
-    
-##Toolbar Item Sided-ness
+
+## Toolbar Item Sided-ness
 As noted in Adding a Toolbar, the new item automatically went to the right side -- what if we wanted it to be on the left?
 
 1. Go back to your custom button and add a new property key `side` and set it to `left`:
@@ -76,7 +74,7 @@ As noted in Adding a Toolbar, the new item automatically went to the right side 
 
 Since the Titlebar supports the `side` property it added the appropriate CSS class to move the toolbar item visually.
 
-##Custom Markup
+## Custom Markup
 Since the Titlebar only supports icon-only items out the box you may wish to pass in your own markup to use. Note that in order for the toolbar item to function there needs to be a `button` element with `data-action="invokeTool"` and `data-tool="{%= $.id %}"`.
 
 1\. In `Home.js` add a new property to the view itself called `textOnlyToolTemplate` and set it as:
@@ -107,7 +105,7 @@ Since the Titlebar only supports icon-only items out the box you may wish to pas
 
 The green plus should have disappeared and been replaced with the word `Click`. It should still show up on the left side and function as normal. The `template` property overrides the default Simplate used to define the tool item markup.
 
-##Footer text
+## Footer text
 All the previous exercises have focused on the title bar, which derives from the `MainToolbar` class in `argos-template/src/Views/MainToolbar.js` (which in turn inherits MainToolbar from argos-sdk). The bottom footer bar on the other hand is defined in `argos-template/src/Views/FooterToolbar` and has slightly different properties - namely `copyrightText` and already supporting text in the items.
 
 First we will change the copyright text:
@@ -123,7 +121,7 @@ First we will change the copyright text:
 
 The text in the footer changed to our new string, notice however that the Views have no ties to the `copyrightText` as it is assumed the footer to be fairly static in regards to copyright.
 
-##Footer items
+## Footer items
 The footer tool items, however, are customized just like the Title bar items are. Let's move our custom button down to the right side of the footer bar.
 
 1\. Open `Home.js` and go to the `createToolLayout` function

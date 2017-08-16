@@ -1,7 +1,6 @@
-#Defining Hashtags
 Hashtags are like a quick filter for searches and in the case of Argos, used to insert predefined Where expressions. For example: `#open` may insert `'Status eq "open"`, any other part of the search will go through the normal search formatting.
 
-##Adding a Hashtag
+## Adding a Hashtag
 Here we will be adding a simple hash tag to our Account List view (from the [Argos-Template Guide](#!/guide/v2_template_guide)) for finding small businesses with less than 10,000 in revenue using `#10k`.
 
 1\. Open `argos-template/src/Views/Account/List.js` and add a new property `hashTagQueries` and set it to an object with a key of `10k` with value `'Revenue lt 10000'`:
@@ -16,7 +15,7 @@ Here we will be adding a simple hash tag to our Account List view (from the [Arg
 
 4\. To continue adding hashtags just keep adding more key value pairs to the `hashTagQueries` object for that view.
 
-##Localizing Hashes
+## Localizing Hashes
 Hash tags a special case for localization as we need to create a map for the localization version to the English version that is set to the actual where expression. While that sounds a bit complicated it is really easy to implement.
 
 1\. In the `List.js` we just added the `#10k` tag, add a new property named `hashTagQueriesText` and set it as an object with a key `'10k'` and value `'10k'` (think of it as English to English):
@@ -47,5 +46,5 @@ Hash tags a special case for localization as we need to create a map for the loc
             }
         });
 
-        
+
 7\. Save and run. If you type in `#10tds` into the search bar you will get the same filtered results as before. This happens because the hash engine matches up the keys of the two objects to the two values.

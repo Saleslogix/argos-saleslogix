@@ -1,4 +1,3 @@
-#Wire List to Detail
 In order for Detail Views to work they need to be passed a `key` in the navigation options. This topic covers setting up an existing List View for the same entity as a Detail View so when a List row is clicked it will pass the `key` to the right Detail View.
 
 First let's inspect how the List View shows the Detail View which will leads us to the first way of showing data in Detail -- passing a key.
@@ -24,7 +23,7 @@ First let's inspect how the List View shows the Detail View which will leads us 
             });
     },
 
-3\. In the navigation options it is passing the `key` and `descriptor`. Also the view it is going to is defined at List.detailView. 
+3\. In the navigation options it is passing the `key` and `descriptor`. Also the view it is going to is defined at List.detailView.
 
 4\. Without going into too great of detail (pun not intended!) to quickly go over how the Detail view requests data when it is shown with a `key` is to take a look at `argos-sdk/src/Detail.js` and at the `refreshRequiredFor()` function.
 

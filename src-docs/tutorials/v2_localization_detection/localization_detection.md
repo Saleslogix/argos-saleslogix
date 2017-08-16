@@ -1,4 +1,3 @@
-#Localization Detection
 With an Argos app you have four included `index` files:
 
 `index.html`, `index-dev.html`, `index.aspx` and `index-dev.aspx`.
@@ -6,7 +5,7 @@ With an Argos app you have four included `index` files:
 Namely two files each for dev and production - the difference lies in the file extension and thereby the
 way it adds in the needed localization.
 
-##HTML Files
+## HTML Files
 
 The `*.html` files hard-code the localization:
 
@@ -23,7 +22,7 @@ Which includes two localization pieces:
 
 
 
-##ASPX Files
+## ASPX Files
 
 The `*.aspx` files use server side code for detecting the localization of the browser and dynamically
 include the needed localization paths:
@@ -39,34 +38,34 @@ may be set in the browser itself, the operating system you are running, or even 
 
 
 
-##Adding a New Language
+## Adding a New Language
 
 To add a new language you need to have both the "top level" and the "app strings" pieces:
 
 `localization/klingon.js` and `localization/appname/klingon.js`
 
 
-###Top Level
+### Top Level
 To define a new top level localization piece:
 
-1\. Download a [sample top level](guides/v2_localization_detection/en.js)
+1\. Download a [sample top level](files/en.js)
 
 2\. Rename to the proper
 [ISO 3166](http://www.iso.org/iso/country_codes.htm) code. Note that the locale detection performs a fall-
 back to generic locale (browser detects `de-DE`, doesn't find `de-DE.js` so it tries `de.js` which is successful).
 
 3\. Edit the file, making sure to change the define path:
-
+```javascript
     define('localization/en', ['dojo/_base/lang'], function(lang) {
-
+```
 to
-
+```javascript
     define('localization/klingon', ['dojo/_base/lang'], function(lang) {
-
+```
 4\. Save and drop into the `products/appname/localization/` folder.
 
 
-###App Strings
+### App Strings
 
 1\. Follow either [Localization Example](#!/guide/v2_localization_example) or the Argos-Localizer code directly on [Github](https://github.com/Saleslogix/argos-localizer).
 
@@ -74,7 +73,7 @@ to
 
 
 
-##Testing
+## Testing
 
 There are two approaches depending on what tools you want to use:
 
@@ -86,7 +85,7 @@ Note that in both cases if you don't see a change right away that means you shou
 b) close all browser instances and restart it (in the case of approach 2).
 
 
-###Editing the HTML File
+### Editing the HTML File
 
 Testing using the hard coded HTML file is the easiest and most direct approach:
 
@@ -109,11 +108,11 @@ to your added locale
 2\. Save and open the file.
 
 
-###Changing the Browser Locale
+### Changing the Browser Locale
 
 To use the `.aspx` file auto-detection you need to alter the browsers locale.
 
-####Chrome (Windows)
+#### Chrome (Windows)
 
 1\. Create a shortcut to Chrome
 
@@ -134,7 +133,7 @@ multiple languages and you can add more command line options to point to your fi
 and other features.
 
 
-####Chrome (Mac)
+#### Chrome (Mac)
 
 No option available besides changing:
 
@@ -147,7 +146,7 @@ No option available besides changing:
 4\. Restart all browser sessions.
 
 
-####FireFox
+#### FireFox
 
 Since FireFox has an excellent extension API it is possible to alter the locale directly via a plugin:
 
@@ -158,11 +157,10 @@ Since FireFox has an excellent extension API it is possible to alter the locale 
 2\. After opening the page, use the plugins icon to change the locale.
 
 
-####IE9
+#### IE9
 
 1\. Click the gears icon and select `Internet options`;
 
 2\. In the `General` tab, at the bottom, click `Languages`; and
 
 3\. Add the locale and move it to the very top. Click Ok.
-

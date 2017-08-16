@@ -1,4 +1,3 @@
-#AMD - Define and Declare
 Argos-SDK uses Dojo's AMD loader system for defining modules, declaring "classes" and loading said modules.
 
 AMD stands for Asynchronous Module Definition which means that you define all your parts into separate files and when your page loads it loads asynchronously only the modules it needs to display that page.
@@ -10,17 +9,18 @@ Concretely you get:
 * Away from giant objects like `dojo` or `$` that contain a myriad of functions; and
 * Easier to locate usage, with explicit dependencies you can quickly call up what modules are in use.
 
-##Define
+## Define
 All modules will be wrapped in a `define()` statement. For the purposes of argos-template it will always use the following skeleton:
-
-    define( /*Path To File*/ , 
+```javascript
+    define( /*Path To File*/ ,
     ['Array of dependencies to require'], function(
     /*the returned object of each dependency*/
     ) {
     return {}; // the object that this module defines, to then be required in other modules
     });
-
+```
 An example:
+```javascript
     define('Sage/Platform/Mobile/Format', [
         'dojo/_base/lang',
         'dojo/string'
@@ -30,8 +30,8 @@ An example:
     ) {
         return lang.setObject('Sage.Platform.Mobile.Format', { ... });
     });
-
-At first glance the paths don't quite look like paths, you can setup shortcuts to your folder structure in your `index-dev.html` file to point to libraries or setup a namespace etc. 
+```
+At first glance the paths don't quite look like paths, you can setup shortcuts to your folder structure in your `index-dev.html` file to point to libraries or setup a namespace etc.
 
 Breaking this down, this file should will be loaded from: `../../argos-sdk/src/Format.js'.
 It see's that it requires the two files: 'lang.js' and 'string.js' from the dojo library so it goes and loads those, and their dependencies (and so on), once `lang` and `string` are loaded and initialized then our `Format` module is started and is passed in the result of those two files into the function.
@@ -46,7 +46,7 @@ It is important to note that the loader only initializes each module once and it
 The example above used `lang.setObject()` to set a global object, however, in most cases you will use `declare` which sets up a factory-like class where you would use the `new` keyword to create instances of.
 
 Meaning if you have this:
-
+```javascript
     define('Mobile/Template/Views/Account/List', [
         'dojo/_base/declare',
         'dojo/string',
@@ -81,8 +81,9 @@ Meaning if you have this:
             }
         });
     });
-
+```
 Then when you require (as a dependency) in another module you need to use `new`, or refer to the `prototype`:
+```javascript
     define('Mobile/Template/ApplicationModule', [
         Mobile/Template/Views/Account/List
     ], function(AccountList) {
@@ -91,5 +92,4 @@ Then when you require (as a dependency) in another module you need to use `new`,
     var accountListTitle = AccountList.prototype.titleText;
 
     });
-
-
+```

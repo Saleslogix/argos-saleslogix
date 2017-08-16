@@ -1,9 +1,8 @@
-#Defining List Actions
 List Views may have what is called List Actions. Basically it treats every row as an actionable item so that tapping that row's icon displays a context-sensitive action ribbon below that row. As an example you may have a List view of Service Tickets, you could then define a list action bar with actions like "Close Ticket", "Delete Ticket" and "Call Customer".
 
 The context-sensitive portion refers to the fact that the actions will have access to that rows data, most importantly the $key of that row.
 
-##Layout
+## Layout
 Defining List Actions is very similar to toolbars and layouts for views, it takes place within the `createActionLayout()` function and it returns and defines the `this.actions` array:
 
     createActionLayout: function() {
@@ -11,9 +10,9 @@ Defining List Actions is very similar to toolbars and layouts for views, it take
         );
     }
 
-##Action Objects
+## Action Objects
 The action objects that describe each action button are, again, similar to toolbar objects:
-
+```javascript
     {
         id: 'edit',
         icon: 'content/images/icons/edit_24.png',
@@ -22,7 +21,7 @@ The action objects that describe each action button are, again, similar to toolb
         action: 'navigateToEditView',
         /* fn: this.navigateToEditView or you can define a fn instead of action */
     }
-
+```
 * `id` - the unique identify for the action.
 * `icon` - path to the icon to be used.
 * `label` - the text shown below the icon.
@@ -35,7 +34,7 @@ The action objects that describe each action button are, again, similar to toolb
 * `security` - String or function. If defined it will be passed to the `App.hasAccessTo()` where that string will be compared to the array of secured actions. If it is not found in that list it will return false and the action object will be disabled (unless the array of actions is empty, in which it returns true for all `hasAccessTo` requests).
 * `scope` - object, if defined and has `fn` defined the `fn` function will be invoked with the `scope` as the `this` property of the function. If not defined it will use the current view as the scope.
 
-##Enabling List Actions
+## Enabling List Actions
 Even with `createActionLayout` defined there are still two flags to be on the List view in order to enable action items to be display:
 
 * `allowSelection` to `true`; and

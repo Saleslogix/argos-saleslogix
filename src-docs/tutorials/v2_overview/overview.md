@@ -1,6 +1,4 @@
-#Overview
-
-##Starting Files
+## Starting Files
 Using `argos-template` as a starting point provides the following files to get started:
 
 **index-dev.aspx**   
@@ -22,7 +20,7 @@ This is the built in Home page that is initially loaded and navigated to upon lo
 These two modules are for establishing a base top and bottom toolbars that inject standard mobile buttons such as back, home, top of page, etc.
 
 **localization/en.js**   
-This file sets up the culture configuration such as decimal places, digits, currency symbol, percent symbols. 
+This file sets up the culture configuration such as decimal places, digits, currency symbol, percent symbols.
 
 **localization/template/en.js**   
 This file is empty as the app will be setup as english in default. When adding more locales their respective file within this folder will have overrides for all the strings and formatters in the application.

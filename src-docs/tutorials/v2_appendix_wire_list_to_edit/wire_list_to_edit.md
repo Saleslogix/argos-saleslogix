@@ -1,4 +1,3 @@
-#Wiring List to Edit View
 Once you have an Edit View defined for an entity you will need to go back to the Detail and List view to point them in the right direction. This topic covers going from List to Edit.
 
 1\. List views have the `insertView` property and that should point to the id of the view that will handle inserting entities of the same kind.

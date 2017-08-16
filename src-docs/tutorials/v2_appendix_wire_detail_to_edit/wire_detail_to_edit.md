@@ -1,4 +1,3 @@
-#Wiring Detail to Edit View
 Once you have an Edit View defined for an entity you will need to go back to the Detail and List view to point them in the right direction. This topic covers going from Detail to Edit
 
 1\. Detail Views have a property named `editView` that is used to point to the correct view id upon clicking the Edit toolbar button.

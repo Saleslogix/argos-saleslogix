@@ -1,7 +1,6 @@
-#Detail Data Life Cycle
 The Detail View has a simplistic data process, namely that it re-constructs itself every time a new key is passed - completely refreshing everything.
 
-##Function Order Overview
+## Function Order Overview
 * `show(options)`
 * `onShow()`
 * `refreshRequiredFor(options)`
@@ -31,7 +30,7 @@ The Detail View has a simplistic data process, namely that it re-constructs itse
 
 * `_onRefresh()`
 
-##Functions In Detail
+## Functions In Detail
 
 * `show(options)` - when a Detail view is being navigated to it must pass in the options `key` and optionally `descriptor`. Key will be used in the SData query as the resource predicate and `descriptor` will be set as the top toolbar title. Instead of `descriptor` you may also pass `title` to accomplish the same thing. The options will be stored into `this.options` after onShow and refreshRequiredFor are called.
 
@@ -47,7 +46,7 @@ The Detail View has a simplistic data process, namely that it re-constructs itse
 
 * `App._beforeViewTransitionTo(view)` this is at the Application (window.App) level and it handles calling the before transition functions and it clears out all the toolbars.
 
-* `onBeforeTransitionTo()` is fired, this function is where you will see several views using to do things before the view is shown acting upon `this.options` and before any data is requested. 
+* `onBeforeTransitionTo()` is fired, this function is where you will see several views using to do things before the view is shown acting upon `this.options` and before any data is requested.
 
 * `beforeTransitionTo()` is function used internally, and it checks if `this.refreshRequired` is true and if so calls `this.clear()`.
 
@@ -75,7 +74,7 @@ The Detail View has a simplistic data process, namely that it re-constructs itse
    * `this.queryInclude` -> setQueryArg
    * `this.queryOrderBy` -> setQueryArg
    * `this.contractName` -> setContractName
- 
+
 * `onTransitionTo()` fires
 
 * Navigation state is cleaned up and saved to local storage
@@ -88,7 +87,7 @@ The Detail View has a simplistic data process, namely that it re-constructs itse
 
 * `createLayout()` this is where the definition for `this.layout` is defined which is an array of sections that have children of rows.
 
-* `processLayout(layout, entry)` this is the layout engine for detail views and is out of scope for this guide but to cover the key points: 
+* `processLayout(layout, entry)` this is the layout engine for detail views and is out of scope for this guide but to cover the key points:
    * `children` property signifies current object is a "section" and to then iterate over the children
    * `include/exclude` if defined and opposite of their meaning then the row/section will not be processed at all and it will continue to the next object.
    * section and row elements are placed into the DOM as they are defined. Any `onCreate` callbacks are kept and then called after everything is in the DOM and is called within the scope of the Detail view.
@@ -96,7 +95,7 @@ The Detail View has a simplistic data process, namely that it re-constructs itse
 
 * `_onRefresh()` all Detail views subscribe to the global `/app/refresh` event and this function is called. If the global event message has a `key` defined and it matches the current `this.options.key` then it means this Detail views object was changed and we need to reload it. It sets `this.refreshRequired` to true and if the message has `descriptor` defined it will now use that as the top title.
 
-##Important View Properties
+## Important View Properties
 
 * `this.options` - navigation options this view was shown with
 * `this.entry` - the response from SData for this view

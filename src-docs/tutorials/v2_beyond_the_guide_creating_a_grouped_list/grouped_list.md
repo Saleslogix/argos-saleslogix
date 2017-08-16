@@ -1,7 +1,6 @@
-#Creating a Grouped List
 A common extension of List Views is a Grouped List which is used to logically categorize the list items into sections.
 
-##Contact List
+## Contact List
 To demonstrate we will make a new List view for the Contact entity but it will be based off GroupedList instead of List. When the items are added to the page they will be alphabetized and separated by the first letter of the last names -- just like a phone book.
 
 If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_search) then you already have the file defined, just follow along and add the new properties.
@@ -9,7 +8,7 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
 1\. Create a new folder in `argos-template/src/Views` named Contact. Within that folder create a file named `List.js` and open it up.
 
 2\. Add the following code and note we are now pulling in, referencing and mixing in `GroupedList` instead of `List`:
-
+```javascript
     define('Mobile/SalesLogix/Views/Contact/List', [
         'dojo/_base/declare',
         'dojo/string',
@@ -48,13 +47,13 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
                 'AccountName'
             ],
             resourceKind: 'contacts',
-
+```
 4\. Now add the `formatSearchQuery()` function that formats to `like LastNameUpper or like upper(FirstName)`:
-
+```javascript
             formatSearchQuery: function(searchQuery) {
                 return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
             }
-
+```
 5\. Save, register and add it to the home view. You now see a fully functioning List view for contacts - but not grouped. We need to add the Grouped List logic.
 
 6\. GroupedLists have a function named {@link GroupedList#getGroupForEntry getGroupForEntry()} and it is passed each list item and it should return an object with two keys: `tag` and `title`. Each entry will be grouped with other entries that have the same `tag` and will be added to the List view under a collapsible header using the `title` as the header text.

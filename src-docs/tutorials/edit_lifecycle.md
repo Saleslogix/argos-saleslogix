@@ -1,4 +1,3 @@
-#Edit as Update Data Life Cycle
 This topic will cover editing an existing record. The Edit View is a dual-purpose in that in serves as creating new records as well as updating existing records, both have unique data flows and properties.
 
 When creating the navigation options in the previous view you have two ways to signal we are Updating an existing record:
@@ -7,7 +6,7 @@ When creating the navigation options in the previous view you have two ways to s
 
 2\. Pass in `options.key` which will then be used to request the entry from SData and then applied as initial data.
 
-##Function Order Overview
+## Function Order Overview
 * `show(options, transition options)`
 * `onShow()`
 * `refreshRequiredFor(options)`
@@ -35,7 +34,7 @@ When creating the navigation options in the previous view you have two ways to s
 * `applyFieldDefaults()`
 * `applyContext()`
 
-##Functions in Detail
+## Functions in Detail
 * `show(options, transition options)` - show is called with the navigation options, first it fires `onShow()` then checks to see if `refreshRequiredFor(options)` is true and sets `this.refreshRequired = true` if it is. Then it saves the nav options to `this.options` and sets the title bar to `options.title` if present. Lastly it calls `ReUI.show()` passing the transition options. `this.getTag()` and `this.getContext()`.
 
 * `onShow()` - fired.
@@ -96,7 +95,7 @@ When creating the navigation options in the previous view you have two ways to s
 
 * Edit View is now finished loading and is fully interactive.
 
-##Properties
+## Properties
 * `this.fields` - object where each key is a fields `name` and the value being the corresponding field.
 * `this.options` - the navigation options, where you will find `entry`, `template`, `changes`, `insert`, and other values to base decisions off of.
 * `this.entry` - the entry, either requested or the passed in options.

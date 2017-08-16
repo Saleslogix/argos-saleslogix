@@ -12,29 +12,20 @@
   },
   "plugins": [],
   "templates": {
-    "systemName": "Infor CRM Mobile",
-    "footer": "Infor CRM Mobile",
-    "copyright": "Copyright 2017 Infor. All rights reserved. www.infor.com",
-    "includeDate": true,
-    "navType": "vertical",
-    "theme": "readable",
-    "linenums": true,
-    "collapseSymbols": false,
-    "inverseNav": false,
-    "outputSourceFiles": true,
-    "outputSourcePath": true,
-    "dateFormat": "LLL",
-    "syntaxTheme": "dark",
-    "sort": true,
-    "search": true
+    "default": {
+      "useLongnameInNav": true,
+      "staticFiles": {
+        "include": [
+          "./src-docs/tutorials/static/"
+        ]
+      }
+    }
   },
   "opts": {
     "destination": "./docs/",
     "recurse": true,
     "tutorials": "./src-docs/tutorials/",
     "readme": "./README.md",
-    "package": "./package.json",
-    "template": "./node_modules/ink-docstrap/template/",
     "verbose": true
   }
 }

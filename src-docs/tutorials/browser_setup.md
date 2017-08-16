@@ -1,19 +1,18 @@
-##Supported Browsers
 Any HTML5 compatible browser should be able to run `argos-sdk` without issue, namely: Chrome 11+, FireFox 4+, IE 9+, and Safari 5+.
 
-###Cache
+### Cache
 During development you may wish to disable browser caching: storing of cookies, form data, history, local storage etc. This way you can make a change to your code and simply refresh your browser to load the new changes:
 
-* Chrome: Incognito `(Ctrl+Shift+N)` 
+* Chrome: Incognito `(Ctrl+Shift+N)`
 * FireFox: Private Browsing `(Ctrl+Shift+P)`
 * IE: InPrivate Browsing `(Ctrl+Shift+P)`
 
 These private browsing modes either a) don't store any information or b) store them in a temp location and is deleted upon closing the window. There are also command line arguments to always open the browser to a particular mode or profile.
 
-###Console/Debugging
+### Console/Debugging
 The final step is making sure you can:
 
-1. Access the javascript console 
+1. Access the javascript console
 1. Inspect HTML/CSS of the document
 1. View any network activity for your browser of choice:
 

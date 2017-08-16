@@ -1,4 +1,3 @@
-##Creating a Login Page: Authentication (Basic Auth)
 This exercise will setup a login page and send the credentials using Basic Authentication which will be stored for future SData requests.
 
 1\. In `argos-template/src/Views` create a new file named `Login.js`
@@ -157,7 +156,7 @@ It is also important to note that the `getService()` calls returns the _instance
                         this[item] = true;
                     }, (this.context['userSecurity'] = {}));
                 }
-                
+
                 if (callback)
                     callback.call(scope || this, {user: user});
             },
