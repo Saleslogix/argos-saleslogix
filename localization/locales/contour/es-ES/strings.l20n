@@ -19,6 +19,7 @@
   phoneAbbreviationText: "Teléfono: "
 	titleText: "Cuentas cerca de mí"
 	viewContactsActionText: "Contactos"
+  accountTypeText: "Tipo de cuenta:"
 >
 
 <locPicker ""
