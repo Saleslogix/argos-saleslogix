@@ -5,6 +5,7 @@ import domGeo from 'dojo/dom-geometry';
 import domAttr from 'dojo/dom-attr';
 import has from 'dojo/has';
 import _PullToRefreshMixin from 'argos/_PullToRefreshMixin';
+import Utility from 'argos/Utility';
 import getResource from 'argos/I18n';
 
 const resource = getResource('chartMixin');
@@ -71,7 +72,7 @@ lang.setObject('Chart.defaults.global', {
   scaleFontColor: '#666',
 
   // Boolean - whether or not the chart should be responsive and resize when the browser does.
-  responsive: true,
+  responsive: false,
 
   // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
   maintainAspectRatio: true,
@@ -155,7 +156,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
    * @property {Number} RENDER_DELAY
    * Number The re-render delay in milliseconds when the user changes device orientation.
    */
-  RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
+  RENDER_DELAY: has('ios') < 8 ? 500 : 16, // Work around IOS7 orientation change issues
 
   /**
    * @property {Object} parent
@@ -197,13 +198,17 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
     this.initPullToRefresh(this.scrollerNode);
   },
   onTransitionTo: function onTransitionTo() {
-    this._handle = connect.subscribe('/app/setOrientation', this, function orientationChange() {
-      setTimeout(() => {
-        if (this._feedData) {
-          this.createChart(this._feedData);
-        }
-      }, this.RENDER_DELAY);
-    });
+    // Render fn is debounced to prevent too many calls as a user resizes, or
+    // if it fires multiple times (onresize fires on desktop browsers with /app/setOrientation)
+    // Some browsers do not fire window onResize for orientation changes.
+    const _renderFn = Utility.debounce(() => {
+      if (this._feedData) {
+        this.createChart(this._feedData);
+      }
+    }, this.RENDER_DELAY);
+
+    this._handle = connect.subscribe('/app/setOrientation', this, _renderFn);
+    $(window).on('resize', _renderFn);
   },
   onTransitionAway: function onTransitionAway() {
     connect.unsubscribe(this._handle);
