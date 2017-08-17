@@ -11,12 +11,9 @@ const resource = getResource('leftDrawer');
 
 /**
  * @class crm.Views.LeftDrawer
- *
- *
  * @extends argos.GroupedList
- *
  */
-const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
+const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Views.LeftDrawer# */{
   // Templates
   cls: ' contextualContent',
   enablePullToRefresh: false,

@@ -11,10 +11,8 @@ import _ChartMixin from './_ChartMixin';
  * @extends argos.View
  * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires argos.View
- *
  */
-const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
+const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], /** @lends crm.Views.Charts.GenericBar# */{
   id: 'chart_generic_bar',
   titleText: '',
   expose: false,

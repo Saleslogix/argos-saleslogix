@@ -14,13 +14,8 @@ const resource = getResource('metricWidget');
 
 /**
  * @class crm.Views.MetricWidget
- *
- *
- * @requires argos._Templated
- * @requires argos.Store.SData
- *
  */
-const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
+const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], /** @lends crm.Views.MetricWidget# */{
   /**
    * @property {Simplate}
    * Simple that defines the HTML Markup

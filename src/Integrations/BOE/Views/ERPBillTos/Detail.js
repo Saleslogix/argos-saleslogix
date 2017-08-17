@@ -1,13 +1,3 @@
-/**
- * @class .Views.ERPInvocieItems.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- * @requires crm.Template
- *
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from 'crm/Format';
@@ -17,7 +7,11 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpBillTosDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail], {
+/**
+ * @class crm.Integrations.BOE.Views.ERPBillTos.Detail
+ * @extends argos.Detail
+ */
+const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.ERPBillTos.Detail# */{
   // Localization
   titleText: resource.titleText,
   relatedItemsText: resource.relatedItemsText,

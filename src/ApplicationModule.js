@@ -150,18 +150,9 @@ const resource = getResource('applicationModule');
 
 /**
  * @class crm.ApplicationModule
- *
  * @extends argos.ApplicationModule
- * @requires argos.Calendar
- * @requires argos.RelatedViewManager
- * @requires argos.RelatedViewWidget
- * @requires argos.List
- * @requires argos.Views.Signature
- * @requires argos.Views.FileSelect
- * @requires argos.SearchWidget
- *
  */
-const __class = declare('crm.ApplicationModule', [ApplicationModule], {
+const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends crm.ApplicationModule# */{
   searchText: resource.searchText,
   loadViews: function loadViews() {
     this.inherited(arguments);

@@ -6,12 +6,9 @@ import GroupedList from 'argos/GroupedList';
 
 /**
  * @class crm.Views.RightDrawer
- *
- *
  * @extends argos.GroupedList
- *
  */
-const __class = declare('crm.Views.RightDrawer', [GroupedList], {
+const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.Views.RightDrawer# */{
   // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([

@@ -35,13 +35,9 @@ function _createGroupRequest(o) {
 
 /**
  * @class crm.GroupUtility
- *
- * Saleslogix group based utils
- *
  * @singleton
- *
  */
-const __class = lang.setObject('crm.GroupUtility', {
+const __class = lang.setObject('crm.GroupUtility', /** @lends crm.GroupUtility */{
   groupDateFormatText: dtFormatResource.groupDateFormatText,
   groupDateFormatText24: dtFormatResource.groupDateFormatText24,
   /**

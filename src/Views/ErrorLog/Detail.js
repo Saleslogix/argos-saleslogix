@@ -11,13 +11,9 @@ const dtFormatResource = getResource('errorLogDetailDateTimeFormat');
 
 /**
  * @class crm.Views.ErrorLog.Detail
- *
  * @extends argos.Detail
- *
- * @requires crm.Format
- * @requires argos.ErrorManager
  */
-const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
+const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Views.ErrorLog.Detail# */{
   // Localization
   titleText: resource.titleText,
   detailsText: resource.detailsText,

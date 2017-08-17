@@ -1,17 +1,3 @@
-/**
- * @class .Views.ERPInvoces.List
- *
- * @extends argos.List
- * @requires argos.List
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- *
- * @requires crm.Action
- * @requires crm.Views._MetricListMixin
- * @requires crm.Views._RightDrawerListMixin
- *
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import action from 'crm/Action';
@@ -26,7 +12,12 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicesList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
+/**
+ * @class crm.Integrations.BOE.Views.ERPInvoces.List
+ *
+ * @extends argos.List
+ */
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], /** @lends crm.Integrations.BOE.Views.ERPInvoces.List# */ {
   formatter: crmFormat,
   util: utility,
   // Templates

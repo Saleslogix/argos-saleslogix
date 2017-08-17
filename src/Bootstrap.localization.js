@@ -1,3 +1,7 @@
+/**
+ * @module crm.Bootstrap.localization
+ */
+
 export function makeRequest(url) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();

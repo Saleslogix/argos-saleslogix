@@ -1,5 +1,5 @@
 /**
- * @class .Views.QuoteLines.Detail
+ * @class crm.Integrations.BOE.Views.QuoteLines.Detail
  *
  *
  * @extends argos.Detail
@@ -19,7 +19,7 @@ import PricingAvailabilityService from '../../PricingAvailabilityService';
 
 const resource = getResource('quoteItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.QuoteLines.Detail# */{
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,

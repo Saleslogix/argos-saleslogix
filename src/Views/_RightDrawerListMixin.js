@@ -11,12 +11,9 @@ const resource = getResource('rightDrawerListMixin');
 
 /**
  * @class crm.Views._RightDrawerListMixin
- *
- * List mixin for right drawers.
- *
+ * @classdesc List mixin for right drawers.
  * @since 3.0
  * @mixins crm.Views._RightDrawerBaseMixin
- *
  */
 const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization

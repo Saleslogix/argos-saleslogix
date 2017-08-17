@@ -13,7 +13,10 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('offlineUsageWidget');
 
-const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
+/**
+ * @class crm.Views.OfflineOptions.UsageWidget
+ */
+const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], /** @lends crm.Views.OfflineOptions.UsageWidget# */{
 
   totalUsageText: resource.totalUsageText,
   countText: resource.countText,

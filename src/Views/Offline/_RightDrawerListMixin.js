@@ -7,9 +7,7 @@ const mixinName = 'crm.Views.Offline._RightDrawerListMixin';
 
 /**
  * @class crm.Views._SpeedSearchRightDrawerListMixin
- *
- * Speedsearch specific mixin for right drawer functionality.
- *
+ * @classdesc Offline specific mixin for right drawer functionality.
  * @mixins crm.Views._RightDrawerBaseMixin
  *
  */

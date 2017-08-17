@@ -16,12 +16,8 @@ const resource = getResource('groupListMixin');
 
 /**
  * @class crm.Views._GroupListMixin
- *
- * Mixin for slx group list layouts.
- *
+ * @classdesc Mixin for slx group list layouts.
  * @since 3.1
- *
- *
  */
 const __class = declare('crm.Views._GroupListMixin', null, {
   noDefaultGroupText: resource.noDefaultGroupText,

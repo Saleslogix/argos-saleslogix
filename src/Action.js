@@ -9,10 +9,7 @@ import getResource from 'argos/I18n';
 const resource = getResource('action');
 /**
  * @class crm.Action
- *
- *
  * @requires argos.Utility
- *
  */
 const __class = lang.setObject('crm.Action', {
   calledText: resource.calledText,

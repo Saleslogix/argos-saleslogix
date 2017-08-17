@@ -10,16 +10,10 @@ const resource = getResource('addressEdit');
 
 /**
  * @class crm.Views.Address.Edit
- *
  * @extends argos.Edit
  *
- * @requires argos.Edit
- *
- * @requires crm.Format
- * @requires crm.Validator
- *
  */
-const __class = declare('crm.Views.Address.Edit', [Edit], {
+const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.Address.Edit# */{
   // Localization
   address1Text: resource.address1Text,
   address2Text: resource.address2Text,

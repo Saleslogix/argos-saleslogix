@@ -5,13 +5,13 @@ const commonutil = ICRMCommonSDK.utility;
 /**
  * @class crm.Utility
  *
- * Utility provides functions that are more javascript enhancers than application related code. Mixes in argos.Utility.
+ * @classdesc Utility provides functions that are more javascript enhancers than application related code. Mixes in argos.Utility.
  *
  * @requires argos.Utility
  * @singleton
  *
  */
-const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
+const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, /** @lends crm.Utility */{
   base64ArrayBuffer: commonutil.base64ArrayBuffer,
 
   /** Gets the extension for a file.

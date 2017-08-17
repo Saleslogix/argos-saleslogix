@@ -1,5 +1,5 @@
 /**
- * @class .Views.ERPInvocieItems.Detail
+ * @class crm.Integrations.BOE.Views.ERPInvocieItems.Detail
  *
  *
  * @extends argos.Detail
@@ -17,7 +17,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.ERPInvocieItems.Detail# */ {
   // Localization
   titleText: resource.titleText,
   invoiceNumberText: resource.invoiceNumberText,
