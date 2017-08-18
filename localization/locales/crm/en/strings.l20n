@@ -229,7 +229,7 @@
   addAttachmentActionText: "Add Attachment"
   overdueText: "overdue"
   alarmText: "alarm"
-  touchedText: "touched"
+  touchedText: "Touched"
   importantText: "important"
   recurringText: "recurring"
 >
@@ -337,7 +337,8 @@
 
 <attachmentList ""
   titleText: "Attachments"
-  uploadedOnText: "Uploaded "
+  uploadedOnText: "Uploaded on ${0} at ${1}"
+  touchedText: "Touched"
 >
 
 <attachmentMyList ""
@@ -627,6 +628,7 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+  touchedText: "Touched"
 >
 
 <historyListOffline ""
@@ -1489,7 +1491,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Culture"
+  regionText: "Regional Format"
   languageText: "Language"
   toastTitle: "Refresh Page"
   toastMessage: "Please refresh your browser to see the change."
