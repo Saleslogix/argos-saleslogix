@@ -1491,7 +1491,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Culture"
+  regionText: "Regional Format"
   languageText: "Language"
   toastTitle: "Refresh Page"
   toastMessage: "Please refresh your browser to see the change."
