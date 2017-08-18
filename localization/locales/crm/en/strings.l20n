@@ -337,7 +337,7 @@
 
 <attachmentList ""
   titleText: "Attachments"
-  uploadedOnText: "Uploaded "
+  uploadedOnText: "Uploaded on ${0} at ${1}"
 >
 
 <attachmentMyList ""
