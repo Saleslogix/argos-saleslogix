@@ -149,7 +149,9 @@ lang.setObject('Chart.defaults.global', {
 });
 
 const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /** @lends crm.Views.Charts._ChartMixin# */ {
-  _handle: null,
+  _orientationHandle: null,
+  _menuOpenHandle: null,
+  _menuCloseHandle: null,
   _feedData: null,
 
   /**
@@ -207,11 +209,15 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
       }
     }, this.RENDER_DELAY);
 
-    this._handle = connect.subscribe('/app/setOrientation', this, _renderFn);
+    this._orientationHandle = connect.subscribe('/app/setOrientation', this, _renderFn);
+    this._menuOpenHandle = connect.subscribe('/app/menuopen', this, _renderFn);
+    this._menuCloseHandle = connect.subscribe('/app/menuclose', this, _renderFn);
     $(window).on('resize', _renderFn);
   },
   onTransitionAway: function onTransitionAway() {
-    connect.unsubscribe(this._handle);
+    connect.unsubscribe(this._orientationHandle);
+    connect.unsubscribe(this._menuOpenHandle);
+    connect.unsubscribe(this._menuCloseHandle);
     this._feedData = null;
     this.parent = null;
 
