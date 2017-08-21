@@ -82,5 +82,5 @@ const __class = declare('crm.Integrations.SalesNavigator.ApplicationModule', [Ap
   },
 });
 
-lang.setObject('icboe.ApplicationModule', __class);
+lang.setObject('salesnavigator.ApplicationModule', __class);
 export default __class;
