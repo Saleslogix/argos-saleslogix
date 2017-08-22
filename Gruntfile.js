@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         bundleName: "Mobile 4.0 PT",
       },
       'pt-BR': {
-        bundleName: "Mobile 3.7 PT-BR",
+        bundleName: "Mobile 4.0 PT-BR",
       },
       'fr': {
         bundleName: "Mobile 4.0 FR",
