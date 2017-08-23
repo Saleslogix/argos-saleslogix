@@ -56,6 +56,11 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
       enabled: function enabled() {
         return App.isOnline();
       },
+    }, {
+      id: 'delete',
+      cls: 'delete',
+      label: resource.deleteNoteText,
+      action: 'deleteNote',
     }]);
   },
   navigateToEditView: function navigateToEditView(action, selection) {
@@ -72,6 +77,12 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
     if (view) {
       view.show(options);
     }
+  },
+  deleteNote: function deleteNote(action, selection) {
+    const selectedEntry = selection && selection.data;
+    this.removeEntry(selectedEntry).then(() => {
+      this.forceRefresh();
+    });
   },
   show: function show() {
     this.refreshRequired = true;
@@ -101,7 +112,7 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   },
   removeEntry: function removeEntry(entry) {
     const model = this.getModel();
-    model.deleteEntry(entry);
+    return model.deleteEntry(entry);
   },
 });
 
