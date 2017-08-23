@@ -64,13 +64,13 @@
 >
 
 <errorLogDetailDateTimeFormat ""
-  errorDateFormatText: "DD.MM.YYYY hh:mm A"
-  errorDateFormatText24: "DD.MM.YYYY HH:mm"
+  errorDateFormatText: "DD-MM-YYYY hh:mm A"
+  errorDateFormatText24: "DD-MM-YYYY HH:mm"
 >
 
 <errorLogListDateTimeFormat ""
-  errorDateFormatText: "DD.MM.YYYY hh:mm A"
-  errorDateFormatText24: "DD.MM.YYYY HH:mm"
+  errorDateFormatText: "DD-MM-YYYY hh:mm A"
+  errorDateFormatText24: "DD-MM-YYYY HH:mm"
 >
 
 <eventDetailDateTimeFormat ""
