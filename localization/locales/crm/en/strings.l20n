@@ -635,6 +635,7 @@
   titleText: "Offline Notes"
   widgetTitle: "Offline Note"
   saveToCRMText: "Save to CRM"
+  deleteNoteText: "Delete"
 >
 
 <historyRelated ""
