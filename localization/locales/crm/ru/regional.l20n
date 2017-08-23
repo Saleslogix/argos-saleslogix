@@ -94,8 +94,8 @@
 >
 
 <historyEditDateTimeFormat ""
-  startingFormatText: "D.M.YYYY h:mm A"
-  startingFormatText24: "D.M.YYYY H:mm"
+  startingFormatText: "DD.MM.YYYY h:mm A"
+  startingFormatText24: "DD.MM.YYYY H:mm"
 >
 
 <historyListDateTimeFormat ""
