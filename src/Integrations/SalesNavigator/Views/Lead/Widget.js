@@ -10,10 +10,8 @@ const __class = declare('crm.Integrations.SalesNavigator.LeadWidget', [_WidgetBa
   id: 'sales_navigator_lead',
   type: 'leads',
   initSalesNavigator: function initSalesNavigator(entry) {
-    const script = this.createEmptyScript();
     getSalesNavigatorUrl(this.type, entry).then((result) => {
-      script.src = result;
-      this.applyScript(script);
+      this.iframeNode.contentWindow.location.replace(result);
     });
   },
 });

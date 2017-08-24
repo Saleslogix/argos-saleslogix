@@ -11,10 +11,8 @@ const __class = declare('crm.Integrations.SalesNavigator.AccountWidget', [_Widge
   type: 'accounts',
 
   initSalesNavigator: function initSalesNavigator(entry) {
-    const script = this.createEmptyScript();
     getSalesNavigatorUrl(this.type, entry).then((result) => {
-      script.src = result;
-      this.applyScript(script);
+      this.iframeNode.contentWindow.location.replace(result);
     });
   },
 });
