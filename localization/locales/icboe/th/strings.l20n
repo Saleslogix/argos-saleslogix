@@ -27,7 +27,7 @@
 >
 
 <backOfficeAccountingEntityModel ""
-  entityDisplayName: "สำนักงานด้านการจัดการเอนทิตีการบัญชี"
+  entityDisplayName: "เอนทิตีการบัญชีของสำนักงานด้านการจัดการ"
   entityDisplayNamePlural : "สำนักงานด้านการจัดการเอนทิตีการบัญชี"
 >
 
@@ -358,11 +358,11 @@
   newReceivablesText: "ลูกหนี้ใหม่"
   titleText: "ธุรกรรมใหม่"
   categoryText: "เลือกวันที่ผ่านมาจากวันนี้"
-  quotesTotalingText: "ยอดรวมการเสนอราคา"
-  ordersTotalingText: "ยอดรวมการสั่ง"
-  shipmentsTotalingText: "ยอดรวมการจัดส่ง"
-  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้"
-  receivablesTotalingText: "ยอดรวมลูกหนี้"
+  quotesTotalingText: "ยอดรวมการเสนอราคา: ${0}"
+  ordersTotalingText: "ยอดรวมการสั่ง: ${0}"
+  shipmentsTotalingText: "ยอดรวมการจัดส่ง: ${0}"
+  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้: ${0}"
+  receivablesTotalingText: "ยอดรวมลูกหนี้: ${0}"
   closedText: "ปิดแล้ว"
   deletedText: "ลบแล้ว"
   replacedText: "แทนที่แล้ว"
@@ -378,9 +378,9 @@
   lateSalesOrdersText: "ใบสั่งขายล่าช้า"
   titleText: "ธุรกรรมเปิด"
   categoryText: "เลือกวันที่ผ่านมาเกินจากนี้"
-  quotesTotalingText: "ยอดรวมการเสนอราคา"
-  ordersTotalingText: "ยอดรวมการสั่ง"
-  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้"
+  quotesTotalingText: "ยอดรวมการเสนอราคา: ${0}"
+  ordersTotalingText: "ยอดรวมการสั่ง: ${0}"
+  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้: ${0}"
   agingInvoicesText: "ใบแจ้งหนี้ที่จัดอายุหนี้"
   agingSalesOrdersText: "ใบสั่งขายที่จัดอายุ"
   agingQuotesText: "การเสนอราคาที่จัดอายุ"
@@ -976,8 +976,8 @@
   titleText: "จัดส่งถึง"
 >
 <icboeApplicationModule ""
-  picklistsText: "รายการการเลือก"
-  retrievingPicklistsText: "กำลังเรียกข้อมูลรายการการเลือก"
+  picklistsText: "รายการให้เลือก"
+  retrievingPicklistsText: "กำลังเรียกข้อมูลรายการให้เลือก"
 >
 
 <erpShipTosDetail ""
