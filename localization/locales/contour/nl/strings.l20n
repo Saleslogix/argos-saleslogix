@@ -19,6 +19,7 @@
   phoneAbbreviationText: "Telefoonnummer: "
 	titleText: "Accounts bij mij in de buurt"
 	viewContactsActionText: "Contactpersonen"
+  accountTypeText: "Type account:"
 >
 
 <locPicker ""
