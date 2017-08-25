@@ -39,5 +39,6 @@ npm-debug.log
 \argos-sdk\npm-debug.log
 \argos-sdk\tools\bundler
 \argos-sdk\tools\argos-localizer
+\argos-sdk\tools\l20n-grammar
 \argos-sdk\libraries\jasmine\
 \argos-sdk\libraries\jasmine-2.0.0\
