@@ -388,7 +388,7 @@
   salesOrderText: "Pedido de Venda"
   salesHoldText: "Vendas Retidas"
   creditHoldText: "Retenção de Crédito"
-  adminHoldText: "Admin. Hold"
+  adminHoldText: "Bloqueio Admin."
   holdText: "Aguardar"
   orderedText: "Pedido"
   partiallyShippedText: "Enviado Parcialmente"

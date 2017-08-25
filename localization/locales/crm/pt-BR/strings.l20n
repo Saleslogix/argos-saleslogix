@@ -146,7 +146,7 @@
   priorityText: "prioridade"
   regardingText: "referência"
   rolloverText: "postergar automaticamente"
-  startTimeText: "horário de inicio"
+  startTimeText: "horário de início"
   allDayText: "dia inteiro"
   timelessText: "horário indeterminado"
   titleText: "Atividade"
@@ -192,7 +192,7 @@
   priorityTitleText: "Prioridade"
   regardingText: "referência"
   rolloverText: "postergar automaticamente"
-  startingText: "horário de inicio"
+  startingText: "horário de início"
   repeatsText: "repete"
   recurringText: "recorrência"
   recurringTitleText: "Recorrência"
@@ -948,12 +948,12 @@
   sourceText: "origem"
   statusText: "status"
   subjectText: "assunto"
-  ticketIdText: "número do tíquete"
+  ticketIdText: "número de tíquete"
   titleText: "Tíquete"
   urgencyText: "urgência"
   scheduleActivityText: "Programar Atividade"
   moreDetailsText: "Mais Detalhes"
-  relatedTicketActivitiesText: "Atividades do Tíquete"
+  relatedTicketActivitiesText: "Atividades de Tíquete"
   loadingText: "Carregando"
   entityText: "Tíquete"
 >
@@ -981,12 +981,12 @@
   sourceTitleText: "Origem"
   statusText: "status"
   subjectText: "assunto"
-  ticketAreaTitleText: "Área do Tíquete"
-  ticketCategoryTitleText: "Categoria do Tíquete"
-  ticketIdText: "número do tíquete"
-  ticketIssueTitleText: "Ocorrência do Tíquete"
-  ticketStatusTitleText: "Status do Tíquete"
-  ticketUrgencyTitleText: "Urgência do Tíquete"
+  ticketAreaTitleText: "Área de Tíquete"
+  ticketCategoryTitleText: "Categoria de Tíquete"
+  ticketIdText: "número de tíquete"
+  ticketIssueTitleText: "Ocorrência de Tíquete"
+  ticketStatusTitleText: "Status de Tíquete"
+  ticketUrgencyTitleText: "Urgência de Tíquete"
   titleText: "Tíquete"
   urgencyText: "urgência"
 >
@@ -1010,11 +1010,11 @@
 >
 
 <ticketUrgencyLookup ""
-  titleText: "Urgência do Tíquete"
+  titleText: "Urgência de Tíquete"
 >
 
 <ticketActivityDetail ""
-  titleText: "Atividade do Tíquete"
+  titleText: "Atividade de Tíquete"
   accountText: "conta"
   contactText: "contato"
   typeText: "tipo"
@@ -1030,17 +1030,17 @@
   totalPartsText: "total de peças"
   totalFeeText: "total de taxas"
   activityDescriptionText: "comentários"
-  ticketNumberText: "número do tíquete"
+  ticketNumberText: "número de tíquete"
   userText: "usuário"
-  entityText: "Atividade do Tíquete"
-  completeTicketText: "Concluir Atividade do Tíquete"
+  entityText: "Atividade de Tíquete"
+  completeTicketText: "Concluir Atividade de Tíquete"
   moreDetailsText: "Mais Detalhes"
   relatedItemsText: "Itens Relacionados"
-  relatedTicketActivityItemText: "Peças da Atividade do Tíquete"
+  relatedTicketActivityItemText: "Peças da Atividade de Tíquete"
 >
 
 <ticketActivityEdit ""
-  titleText: "Editar Atividade do Tíquete"
+  titleText: "Editar Atividade de Tíquete"
   activityTypeText: "tipo"
   activityTypeTitleText: "Tipo"
   publicAccessText: "acesso público"
@@ -1052,7 +1052,7 @@
 >
 
 <ticketActivityList ""
-  titleText: "Atividades do Tíquete"
+  titleText: "Atividades de Tíquete"
 >
 
 <ticketActivityRateLookup ""
@@ -1060,17 +1060,17 @@
 >
 
 <ticketActivityItemDetail ""
-  titleText: "Peça da Atividade do Tíquete"
+  titleText: "Peça da Atividade de Tíquete"
   productNameText: "produto"
   skuText: "SKU"
   serialNumberText: "Nº de Série"
   itemAmountText: "preço"
   itemDescriptionText: "descrição"
-  entityText: "Item Atividade do Tíquete"
+  entityText: "Item Atividade de Tíquete"
 >
 
 <ticketActivityItemList ""
-  titleText: "Peças da Atividade do Tíquete"
+  titleText: "Peças da Atividade de Tíquete"
 >
 
 <userCalendarAccessList ""
@@ -1221,9 +1221,9 @@
   clearAuthenticationTitleText: "Limpar Credenciais Salvas"
   errorLogTitleText: "Visualizar Logs de Erro"
   localStorageClearedText: "Dados locais excluídos com sucesso."
-  credentialsClearedText: "Credenciais salvas com sucesso."
+  credentialsClearedText: "As credenciais salvas foram apagadas com sucesso."
   titleText: "Definições"
-  offlineOptionsText: "Opções da Função Offline"
+  offlineOptionsText: "Opções de Dados Offline"
   use24HourClockText: "Usando Relógio de 24 horas"
   use12HourClockText: "Usando Relógio de 12 horas"
   confirm24HourClockMessage: "Alterar para o formato de 24 horas requer a reinicialização da aplicação. Continuar?"
@@ -1268,7 +1268,7 @@
   offlineText: "Sua conexão à Internet não está mais funcionando."
   onlineText: "Sua conexão está funcionando."
   connectionToastTitleText: "Status da Conexão"
-  offlineOptionsText: "Opções da Função Offline"
+  offlineOptionsText: "Opções de Dados Offline"
   offlineInitDataText: "Inicializando Dados Offline"
   offlineInitErrorText: "Ocorreu um erro durante a inicialização offline. Todas as opções Offline serão desabilitadas."
   appStateInitErrorText: "Ocorreu um erro durante a inicialização da aplicação. Tente novamente."
@@ -1278,7 +1278,7 @@
 <applicationModule ""
   searchText: "Pesquisar"
   offlineDataText: "Dados Offline"
-  offlineOptions: "Opções da Função Offline"
+  offlineOptions: "Opções de Dados Offline"
   userInformationText: "Informações do Usuário"
   userOptionsText: "Opções do Usuário"
   systemOptionsText: "Opções de Sistema"
@@ -1289,7 +1289,7 @@
 >
 
 <defaultMetrics ""
-  totalRevenue: "Total de Receita"
+  totalRevenue: "Receita Total"
   averageTime: "Tempo Médio como Cliente"
   totalAccounts: "Total de Contas"
   totalOpportunities: "Total de Oportunidades"
@@ -1461,7 +1461,7 @@
 >
 
 <offlineOptionsEdit ""
-  titleText: "Opções da Função Offline"
+  titleText: "Opções de Dados Offline"
 >
 
 <offlineUsageWidget ""
@@ -1528,7 +1528,7 @@
 
 <activityMyListHashTags ""
   hashTagAlarmText: "#alarme"
-  hashTagUnconfirmedText: "#status-não confirmado"
+  hashTagUnconfirmedText: "#status-não-confirmado"
   hashTagAcceptedText: "#status-aceito"
   hashTagDeclinedText: "#status-declinado"
   hashTagRecurringText: "#recorrência"
@@ -1558,6 +1558,6 @@
 >
 
 <ticketActivityModel ""
-  entityDisplayName: "Atividade do Tíquete"
-  entityDisplayNamePlural: "Atividades do Tíquete"
+  entityDisplayName: "Atividade de Tíquete"
+  entityDisplayNamePlural: "Atividades de Tíquete"
 >
