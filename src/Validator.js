@@ -177,6 +177,51 @@ const __class = lang.setObject('crm.Validator', /** @lends crm.Validator */{
 
   /**
    * @property {Object}
+   * @param {Number} greaterThan
+   * Validator that ensures the field value is greater than the specified greaterThan option.
+   * Combine with the lessThan validator to create a range.
+   */
+  isGreaterThan: {
+    fn: function isGreaterThan(value, field) {
+      const comp = field.greaterThan;
+
+      if (typeof comp !== 'number' || Number.isNaN(comp)) {
+        return false;
+      }
+
+      if (value > comp) {
+        return false;
+      }
+
+      return true;
+    },
+    message: resource.isGreaterThanText,
+  },
+
+  /**
+   * @property {Object}
+   * @param {Number} lessThan
+   * Validator that ensures the field value is under the specified lessThan option.
+   * Combine with the greaterThan validator to create a range.
+   */
+  isLessThan: {
+    fn: function isLessThan(value, field) {
+      const comp = field.lessThan;
+
+      if (typeof comp !== 'number' || Number.isNaN(comp)) {
+        return false;
+      }
+
+      if (value < comp) {
+        return false;
+      }
+
+      return true;
+    },
+    message: resource.isLessThanText,
+  },
+  /**
+   * @property {Object}
    * @deprecated
    * @removed
    * Validator that ensures the field is a phone number.

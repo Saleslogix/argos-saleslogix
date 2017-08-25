@@ -243,5 +243,45 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'], function(Validato
           .toEqual(false);
       });
     });
+    describe('isGreaterThan', function() {
+      var field = {
+        greaterThan: 0,
+      };
+
+      it('should validate greater than 0', function() {
+        expect(Validator.isGreaterThan.fn(1, field))
+          .toEqual(false);
+      });
+
+      it('is not greater when equal', function() {
+        expect(Validator.isGreaterThan.fn(0, field))
+          .toEqual(true);
+      });
+
+      it('should not validate when less than', function() {
+        expect(Validator.isGreaterThan.fn(-1, field))
+          .toEqual(true);
+      });
+    });
+    describe('isLessThan', function() {
+      var field = {
+        lessThan: 0,
+      };
+
+      it('should validate greater than 0', function() {
+        expect(Validator.isLessThan.fn(-1, field))
+          .toEqual(false);
+      });
+
+      it('is not greater when equal', function() {
+        expect(Validator.isLessThan.fn(0, field))
+          .toEqual(true);
+      });
+
+      it('should not validate when greater than', function() {
+        expect(Validator.isLessThan.fn(1, field))
+          .toEqual(true);
+      });
+    });
   });
 });
