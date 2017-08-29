@@ -42,9 +42,11 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
   },
   initUI: function initUI(lang, region) {
     const locales = [];
-    window.supportedLocales.forEach((locale) => {
-      locales.push({ item: locale, value: locale, key: locale });
-    });
+    for (const key in window.languages) {
+      if (window.languages.hasOwnProperty(key)) {
+        locales.push({ value: key, text: window.languages[key], key });
+      }
+    }
     if (!this._languageDropdown) {
       this._languageDropdown = new Dropdown({
         id: 'language-dropdown',

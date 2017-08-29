@@ -2,6 +2,8 @@
 .gitignore
 .gitattributes
 .travis.yml
+.vscode
+.vs
 argos-saleslogix.csproj.user
 argos-saleslogix.sln
 argos-saleslogix.v11.suo
@@ -31,7 +33,6 @@ typings
 .idea
 tests
 obj
-bin
 argos-sdk.csproj.user
 npm-debug.log
 \argos-sdk\src-out\placeholder.txt

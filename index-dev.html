@@ -112,9 +112,6 @@
   <!-- jQuery -->
   <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
 
-  <!-- D3 -->
-  <script type="text/javascript" src="./node_modules/d3/d3.js"></script>
-
   <!-- SohoXi -->
   <script type="text/javascript" src="./node_modules/@infor/sohoxi/dist/js/sohoxi.js"></script>
 
@@ -131,19 +128,19 @@
 
   <!-- Dojo -->
   <script pin="pin" type="text/javascript">
-        var language, regionLocale;
-        if (window.localStorage) {
-          language = window.localStorage.getItem('language');
-          regionLocale = window.localStorage.getItem('region');
-        }
-        var dojoConfig = {
-            parseOnLoad:false,
-            async:true,
-            blankGif:'content/images/blank.gif',
-            locale: language ||  'en',
-            extraLocale: [regionLocale || 'en-us']
-        };
-    </script>
+      var language, regionLocale;
+      if (window.localStorage) {
+        language = window.localStorage.getItem('language');
+        regionLocale = window.localStorage.getItem('region');
+      }
+      var dojoConfig = {
+          parseOnLoad:false,
+          async:true,
+          blankGif:'content/images/blank.gif',
+          locale: language ||  'en',
+          extraLocale: [regionLocale || 'en-us']
+      };
+  </script>
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js"></script>
   <script type="text/javascript">
     require({
@@ -183,6 +180,7 @@
   <script type="text/javascript">
     // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
     // window.Locale.culturesPath = './node_modules/@infor/sohoxi/dist/js/cultures/';
+    var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
 
     var supportedLocales = [
             'en',

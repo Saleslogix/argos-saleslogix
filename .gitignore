@@ -1,6 +1,7 @@
 # visual studio
 *.obj
 *.exe
+*.jar
 *.pdb
 *.user
 *.aps
@@ -22,7 +23,6 @@
 *.sdf
 ipch/
 obj/
-[Bb]in
 [Dd]ebug*/
 [Rr]elease*/
 
