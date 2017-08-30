@@ -48,7 +48,6 @@ yarn-error.log
 GruntRunnerBasic.tmpl
 obj
 npm-debug.log
-\argos-sdk\src\
 .map\
 \argos-sdk\.eslintrc.js
 \argos-sdk\package.json
@@ -58,7 +57,6 @@ npm-debug.log
 \argos-sdk\.babelrc
 \argos-sdk.csproj.user
 \argos-sdk\src-out\placeholder.txt
-\argos-sdk\content\css
 \argos-sdk\min\css\themes\crm\placeholder.txt
 \argos-sdk\npm-debug.log
 \argos-sdk\tools\bundler

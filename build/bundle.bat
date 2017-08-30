@@ -45,8 +45,4 @@ xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\pro
 rmdir %SDK%\deploy\temp /S /Q
 rmdir %SDK%\deps /S /Q
 
-REM Find a clean way to exclude src folder
-REM having src\ in excludes file causes *src* pattern matching
-rmdir deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix\src /S /Q
-
 %SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\%BUNDLE_NAME%" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
