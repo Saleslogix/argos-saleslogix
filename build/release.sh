@@ -29,3 +29,4 @@ cp unsupported.html ./deploy
 cp manifest.appcache ./deploy
 cp web.config ./deploy
 cp ping.gif ./deploy
+cp Index.aspx.cs ./deploy
