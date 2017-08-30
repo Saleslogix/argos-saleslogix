@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en" class="gtie9 modern" manifest="manifest.appcache">
@@ -73,6 +72,9 @@
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
+    <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
+    <script type="application/l20n">{}</script>
+
     <!-- Global (window) dependencies. Load these before the AMD loader -->
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
@@ -106,6 +108,9 @@
     <!-- Modules -->
     <script type="text/javascript">
     var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
+
+    // set path for soho cultures
+    window.Locale.culturesPath = 'content/javascript/cultures/';
 
     (function() {
       require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {

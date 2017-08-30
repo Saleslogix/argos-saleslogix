@@ -71,6 +71,9 @@
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
+    <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
+    <script type="application/l20n">{}</script>
+
     <!-- Global (window) dependencies. Load these before the AMD loader -->
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
@@ -127,8 +130,6 @@
 
       // set path for soho cultures
       window.Locale.culturesPath = 'content/javascript/cultures/';
-
-      // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
       var supportedLocales = <%= SupportedLocales %>,
         defaultLocale = language || 'en',
         currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
@@ -137,8 +138,6 @@
         currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
         parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
       (function () {
-        // Set Soho culture path
-        window.Locale.culturePath = 'content/javascript/cultures';
 
         // Shim, sohoxi will use define.amd and require it.
         define('jquery', function () {

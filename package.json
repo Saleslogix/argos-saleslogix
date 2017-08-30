@@ -10,7 +10,7 @@
     "testbasic": "grunt test:basic",
     "less": "grunt less",
     "start": "node scripts/server.js",
-    "build": "babel src --out-dir src-out --source-maps inline",
+    "build": "babel src --out-dir src-out",
     "build:watch": "babel src --out-dir src-out --source-maps inline --watch",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",

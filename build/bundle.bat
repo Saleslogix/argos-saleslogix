@@ -39,9 +39,9 @@ call grunt clean:css clean:js less
 call yarn run build
 popd
 
-xcopy %SDK%\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk /E /Y /exclude:build\bundleExcludes.txt
-xcopy *.* %SDK%\deploy\temp /E /Y /exclude:build\bundleExcludes.txt
-xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix /E /Y
+xcopy %SDK%\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk\ /E /Y /exclude:build\bundleExcludes.txt
+xcopy *.* %SDK%\deploy\temp\ /E /Y /exclude:build\bundleExcludes.txt
+xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix\ /E /Y
 rmdir %SDK%\deploy\temp /S /Q
 rmdir %SDK%\deps /S /Q
 
