@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US" class="gtie9 modern">
-<head>
+  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -126,6 +126,10 @@
   <script type="text/javascript" src="./node_modules/@infor/icrm-js-customization/dist/bundles/customization.bundle.js"></script>
   <script type="text/javascript" src="./node_modules/@infor/icrm-js-services/dist/bundles/icrm-js-services.js"></script>
 
+
+  <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
+  <script type="application/l20n">{}</script>
+
   <!-- Dojo -->
   <script pin="pin" type="text/javascript">
       var language, regionLocale;
@@ -178,9 +182,8 @@
 <body>
   <div id="rootNode"></div>
   <script type="text/javascript">
-    // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
-    // window.Locale.culturesPath = './node_modules/@infor/sohoxi/dist/js/cultures/';
-    var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
+  window.Locale.culturesPath = './node_modules/@infor/sohoxi/dist/js/cultures/';
+ var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
 
     var supportedLocales = [
             'en',
