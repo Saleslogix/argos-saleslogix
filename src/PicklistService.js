@@ -159,23 +159,20 @@ const __class = lang.setObject('crm.PicklistService', /** @lends crm.PicklistSer
 
     return new Promise((resolve, reject) => {
       this.addRequest(name);
-      const {
-        options,
-        handlers,
-      } = this.service.getFirstByName(
+      const x = this.service.getFirstByName(
         name,
         this.onPicklistSuccess(resolve, language),
         this.onPicklistError(reject, name),
         { pickListServiceOptions, language, useCache }
       );
 
-      if (options) {
+      if (x && x.options) {
         const request = this.service.setUpRequest(
           new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
             .setContractName(this.contractName),
-          options
+          x.options
         );
-        request.read(handlers);
+        request.read(x.handlers);
       }
     }).catch(err => console.error(err)); // eslint-disable-line
   },
