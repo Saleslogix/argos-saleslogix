@@ -69,6 +69,7 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
+    <link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="content/css/light-theme.min.css" />
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
@@ -107,15 +108,18 @@
 
     <!-- Modules -->
     <script type="text/javascript">
-    var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
+      var language, regionLocale;
+      if (window.localStorage) {
+        language = window.localStorage.getItem('language');
+        regionLocale = window.localStorage.getItem('region');
+      }
 
-    // set path for soho cultures
-    window.Locale.culturesPath = 'content/javascript/cultures/';
+      var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
 
-    (function() {
-      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
-        bootstrap({
-          supportedLocales: [
+      // set path for soho cultures
+      window.Locale.culturesPath = 'content/javascript/cultures/';
+
+      var supportedLocales = [
             'en',
             'en-GB',
             'de',
@@ -132,27 +136,51 @@
             'nl',
             'th'
           ],
-          defaultLocale: 'en',
-          currentLocale: 'en',
-          parentLocale: 'en',
+        defaultLocale = 'en',
+        currentLocale = language || 'en',
+        parentLocale = language || 'en',
+        defaultRegionLocale = 'en',
+        currentRegionLocale = regionLocale || 'en',
+        parentRegionLocale = regionLocale || 'en';
+
+    (function() {
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function () {
+          return window.$;
+      });
+
+      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
+        bootstrap({
+          supportedLocales: supportedLocales,
+          defaultLocale: defaultLocale,
+          currentLocale: currentLocale,
+          parentLocale: parentLocale,
+          defaultRegionLocale: defaultRegionLocale,
+          currentRegionLocale: currentRegionLocale,
+          parentRegionLocale: parentRegionLocale,
+          isRegionMetric: false,
           configuration: [
-            'configuration/production'
+            'configuration/development'
           ],
           application: 'crm/Application',
           legacyLocalization: [
-            'localization/en',
             'localization/saleslogix/en'
           ],
           legacyLocalizationFallback: [
-            'localization/en',
             'localization/saleslogix/en'
           ],
           localeFiles: [
             './localization/locales/crm/en/strings.l20n',
+            './localization/locales/icboe/en/strings.l20n',
+            './localization/locales/contour/en/strings.l20n',
+            './localization/locales/argos/en/strings.l20n',
+          ],
+          regionalFiles: [
             './localization/locales/crm/en/regional.l20n',
-            '../../argos-sdk/localization/locales/argos/en/strings.l20n',
-            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-          ]
+            './localization/locales/icboe/en/regional.l20n',
+            './localization/locales/argos/en/regional.l20n',
+          ],
+          rootElement: document.getElementById('rootNode')
         });
       });
     })();
