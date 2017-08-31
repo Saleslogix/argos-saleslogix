@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="gtie9 modern">
-<!--<![endif]-->
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="index.ascx.cs" Inherits="Index_html" %>
+<%@ Import Namespace="System.Globalization" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
 
     <title>Infor CRM</title>
 
@@ -69,6 +65,7 @@
              and (-webkit-device-pixel-ratio: 1)"
           rel="apple-touch-startup-image">
 
+    <link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="content/css/light-theme.min.css" />
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
@@ -79,24 +76,39 @@
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
     <!-- Dojo -->
-    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
-    <script type="text/javascript">
-    require({
-        baseUrl: "./",
-        packages: [
-            { name: 'dojo', location: 'content/dojo/dojo' },
-            { name: 'dijit', location: 'content/dojo/dijit' },
-            { name: 'configuration', location: 'configuration' },
-            { name: 'localization', location: 'localization' }
-        ],
-        map: {
-            '*': {
-                'Sage/Platform/Mobile': 'argos',
-                'Mobile/SalesLogix': 'crm',
-                'icboe': 'crm/Integrations/BOE'
-            }
+    <script pin="pin" type="text/javascript">
+        var language, regionLocale;
+        if (window.localStorage) {
+            language = window.localStorage.getItem('language');
+            regionLocale = window.localStorage.getItem('region');
         }
-    });
+        var dojoConfig = {
+            parseOnLoad: false,
+            async: true,
+            blankGif: 'content/images/blank.gif',
+            locale: language || 'en',
+            extraLocale: [regionLocale || 'en-us']
+        };
+    </script>
+    <script type="text/javascript" src="content/dojo/dojo/dojo.js"></script>
+
+    <script type="text/javascript">
+        require({
+            baseUrl: "./",
+            packages: [
+                { name: 'dojo', location: 'content/dojo/dojo' },
+                { name: 'dijit', location: 'content/dojo/dijit' },
+                { name: 'configuration', location: 'configuration' },
+                { name: 'localization', location: 'localization' }
+            ],
+            map: {
+                '*': {
+                    'Sage/Platform/Mobile': 'argos',
+                    'Mobile/SalesLogix': 'crm',
+                    'icboe': 'crm/Integrations/BOE'
+                }
+            }
+        });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-amd-dependencies.js"></script>
@@ -105,59 +117,49 @@
     <!-- Application -->
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
 
-    <!-- Modules -->
-    <script type="text/javascript">
-    var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
-
-    // set path for soho cultures
-    window.Locale.culturesPath = 'content/javascript/cultures/';
-
-    (function() {
-      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
-        bootstrap({
-          supportedLocales: [
-            'en',
-            'en-GB',
-            'de',
-            'fr',
-            'it',
-            'ru',
-            'zh-CN',
-            'zh-TW',
-            'es',
-            'es-ES',
-            'pt',
-            'pt-BR',
-            'ja',
-            'nl',
-            'th'
-          ],
-          defaultLocale: 'en',
-          currentLocale: 'en',
-          parentLocale: 'en',
-          configuration: [
-            'configuration/production'
-          ],
-          application: 'crm/Application',
-          legacyLocalization: [
-            'localization/en',
-            'localization/saleslogix/en'
-          ],
-          legacyLocalizationFallback: [
-            'localization/en',
-            'localization/saleslogix/en'
-          ],
-          localeFiles: [
-            './localization/locales/crm/en/strings.l20n',
-            './localization/locales/crm/en/regional.l20n',
-            '../../argos-sdk/localization/locales/argos/en/strings.l20n',
-            '../../argos-sdk/localization/locales/argos/en/regional.l20n',
-          ]
-        });
-      });
-    })();
-  </script>
 </head>
 <body>
+  <div id="rootNode"></div>
+
+  <script type="text/javascript">
+      var languages = <%= Languages %>;
+
+      // set path for soho cultures
+      window.Locale.culturesPath = 'content/javascript/cultures/';
+
+      var supportedLocales = <%= SupportedLocales %>,
+          defaultLocale = language || 'en',
+          currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
+        parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        defaultRegionLocale = regionLocale || 'en',
+        currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
+        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
+      (function () {
+
+          // Shim, sohoxi will use define.amd and require it.
+          define('jquery', function () {
+              return window.$;
+          });
+          require(['crm/polyfills/index', 'crm/Bootstrap'], function (polyfills, bootstrap) {
+              bootstrap({
+                  supportedLocales: supportedLocales,
+                  defaultLocale: 'en',
+                  currentLocale: currentLocale,
+                  parentLocale: parentLocale,
+                  defaultRegionLocale: 'en',
+                  currentRegionLocale: currentRegionLocale,
+                  parentRegionLocale: parentRegionLocale,
+                  isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
+            configuration: <%= Configuration %>,
+            application: 'crm/Application',
+            legacyLocalization: <%= LegacyLocalization %>,
+            legacyLocalizationFallback: <%= LegacyLocalizationFallback %>,
+            // TODO limit to only strings
+            localeFiles: <%= LocaleFiles %>,
+            regionalFiles: <%= RegionalFiles %>,
+            rootElement: document.getElementById('rootNode')
+            });
+        });
+      })();
+  </script>
 </body>
-</html>
