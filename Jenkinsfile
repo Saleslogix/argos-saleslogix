@@ -72,7 +72,7 @@ node('windows && nodejs') {
 stage('Copying to IIS') {
   node('slx82') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
-    bat """PowerShell -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command " & '%~dp0iis.ps1 -branch $env.BRANCH_NAME -build $build' %*; exit $LASTEXITCODE"""
+    bat """PowerShell -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command " & '%~dp0build\iis.ps1 -branch $env.BRANCH_NAME -build $build' %*; exit $LASTEXITCODE"""
   }
 }
 
