@@ -117,6 +117,9 @@
     <!-- Application -->
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
 
+    <!-- Place holder for custom modules. Do not remove line below -->
+    <!--{{modules}}-->
+
 </head>
 <body>
   <div id="rootNode"></div>
