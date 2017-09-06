@@ -36,3 +36,4 @@ cp index.manifest ./deploy
 cp index.manifest.ashx ./deploy
 cp Global.asax ./deploy
 cp build\iis.ps1 ./deploy/scripts /Y /Q
+cp template.manifest ./deploy /Y /Q
