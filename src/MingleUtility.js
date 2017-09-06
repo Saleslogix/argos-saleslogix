@@ -5,11 +5,7 @@ import getResource from 'argos/I18n';
 
 /**
  * @class crm.MingleUtility
- *
- * Saleslogix Mingle utils
- *
  * @singleton
- *
  */
 const __class = lang.setObject('crm.MingleUtility', {
   accessToken: '',

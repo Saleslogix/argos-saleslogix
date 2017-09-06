@@ -36,6 +36,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventDateFormatText: dtFormatResource.eventDateFormatText,
   startTimeFormatText: dtFormatResource.startTimeFormatText,
   startTimeFormatText24: dtFormatResource.startTimeFormatText24,
+  dayHeaderFormat: dtFormatResource.dayHeaderFormat,
   allDayText: resource.allDayText,
   eventText: resource.eventText,
   eventHeaderText: resource.eventHeaderText,
@@ -224,7 +225,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   activityDetailView: 'activity_detail',
   eventDetailView: 'event_detail',
   enableSearch: false,
-  dayHeaderFormat: 'dddd, MMMM Do',
   dateCounts: null,
   currentDate: null,
   monthActivities: null,
@@ -611,6 +611,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     if (options) {
       this.processShowOptions(options);
     } else {
+      this.refreshRequired = true;
       this.renderCalendar();
     }
   },
@@ -632,6 +633,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   },
   _buildQueryExpression: function _buildQueryExpression(queryParam = {}) {
     return lang.mixin(queryParam || {}, this.options && (this.options.query || this.options.where));
+  },
+  transitionAway: function transitionAway() {
+    $(this._calendar._monthDropdown.dropdownSelect).data('dropdown').close();
+    $(this._calendar._yearDropdown.dropdownSelect).data('dropdown').close();
+    this.inherited(arguments);
   },
 });
 

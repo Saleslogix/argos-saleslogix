@@ -6,9 +6,7 @@ import GroupUtility from '../GroupUtility';
 
 /**
  * @class crm.Views._MetricListMixin
- *
- * Mixin for adding KPI widgets to list views.
- *
+ * @classdesc Mixin for adding KPI widgets to list views.
  * @since 3.0
  *
  * @requires crm.Views.MetricWidget

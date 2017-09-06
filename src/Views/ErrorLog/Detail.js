@@ -11,13 +11,9 @@ const dtFormatResource = getResource('errorLogDetailDateTimeFormat');
 
 /**
  * @class crm.Views.ErrorLog.Detail
- *
  * @extends argos.Detail
- *
- * @requires crm.Format
- * @requires argos.ErrorManager
  */
-const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
+const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Views.ErrorLog.Detail# */{
   // Localization
   titleText: resource.titleText,
   detailsText: resource.detailsText,
@@ -27,7 +23,6 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   statusTextText: resource.statusTextText,
   urlText: resource.urlText,
   entityText: resource.entityText,
-  moreDetailsText: resource.moreDetailsText,
   errorText: resource.errorText,
   emailSubjectText: resource.emailSubjectText,
   copiedSuccessText: resource.copiedSuccessText,
@@ -165,12 +160,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
         label: this.statusTextText,
         name: 'Description',
         property: 'Description',
-      }],
-    }, {
-      title: this.moreDetailsText,
-      collapsed: true,
-      name: 'MoreDetailsTextSection',
-      children: [{
+      }, {
         label: this.errorText,
         name: 'Error',
         property: 'Error',

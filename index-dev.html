@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en-US" class="gtie9 modern">
-<head>
+<!--<![endif]-->
+  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -112,11 +115,11 @@
   <!-- jQuery -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sohoxi/js/jquery-3.1.1.js"></script>
 
-  <!-- D3 -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/sohoxi/js/d3.js"></script>
-
   <!-- SohoXi -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sohoxi/js//sohoxi.js"></script>
+
+  <!-- Chart.js -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/chartjs/Chart.min.js"></script>
 
   <!-- Redux -->
   <script type="text/javascript" src="../../argos-sdk/libraries/redux/redux.js"></script>
@@ -126,21 +129,23 @@
   <script type="text/javascript" src="../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
   <script type="text/javascript" src="../../argos-sdk/libraries/icrm/services.bundle.js"></script>
 
+  <script type="application/l20n">{}</script>
+
   <!-- Dojo -->
   <script pin="pin" type="text/javascript">
-        var language, regionLocale;
-        if (window.localStorage) {
-          language = window.localStorage.getItem('language');
-          regionLocale = window.localStorage.getItem('region');
-        }
-        var dojoConfig = {
-            parseOnLoad:false,
-            async:true,
-            blankGif:'content/images/blank.gif',
-            locale: language ||  'en',
-            extraLocale: [regionLocale || 'en-us']
-        };
-    </script>
+      var language, regionLocale;
+      if (window.localStorage) {
+        language = window.localStorage.getItem('language');
+        regionLocale = window.localStorage.getItem('region');
+      }
+      var dojoConfig = {
+          parseOnLoad:false,
+          async:true,
+          blankGif:'content/images/blank.gif',
+          locale: language ||  'en',
+          extraLocale: [regionLocale || 'en-us']
+      };
+  </script>
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js"></script>
   <script type="text/javascript">
     require({
@@ -178,9 +183,13 @@
 <body>
   <div id="rootNode"></div>
   <script type="text/javascript">
-    // todo: use window.Locale { currentLocale, culturesPath} to be consistent with soho
 
-     var supportedLocales = [
+    // set path for soho cultures
+    window.Locale.culturesPath = './node_modules/@infor/sohoxi/dist/js/cultures/';
+
+    var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Inglês (Estados Unidos)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
+
+    var supportedLocales = [
             'en',
             'en-GB',
             'de',
@@ -192,14 +201,15 @@
             'es',
             'es-ES',
             'pt',
+            'pt-BR',
             'ja',
             'nl',
             'th'
           ],
-        defaultLocale = language || 'en',
+        defaultLocale = 'en',
         currentLocale = language || 'en',
         parentLocale = language || 'en',
-        defaultRegionLocale = regionLocale || 'en',
+        defaultRegionLocale = 'en',
         currentRegionLocale = regionLocale || 'en',
         parentRegionLocale = regionLocale || 'en';
     (function() {
@@ -207,8 +217,7 @@
       define('jquery', function() {
         return window.$;
       });
-
-      require(['crm/Bootstrap'], function(bootstrap) {
+      require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
         bootstrap({
           supportedLocales: supportedLocales,
           defaultLocale: defaultLocale,

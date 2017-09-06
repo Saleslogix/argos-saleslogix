@@ -1,17 +1,3 @@
-/**
- * @class .Views.ERPInvoces.List
- *
- * @extends argos.List
- * @requires argos.List
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- *
- * @requires crm.Action
- * @requires crm.Views._MetricListMixin
- * @requires crm.Views._RightDrawerListMixin
- *
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import List from 'argos/List';
@@ -22,7 +8,11 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+/**
+ * @class crm.Integrations.BOE.Views.ERPInvoiceItems.List
+ * @extends argos.List
+ */
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin], /** @lends crm.Integrations.BOE.Views.ERPInvoiceItems.List# */{
   itemTemplate: new Simplate([
     '<p class="listview-heading"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
     '<p class="micro-text"><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</p>',

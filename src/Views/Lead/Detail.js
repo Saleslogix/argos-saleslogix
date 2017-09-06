@@ -49,7 +49,6 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   addNoteText: resource.addNoteText,
   sendEmailText: resource.sendEmailText,
   viewAddressText: resource.viewAddressText,
-  moreDetailsText: resource.moreDetailsText,
   calledText: resource.calledText,
   emailedText: resource.emailedText,
   entityText: resource.entityText,
@@ -63,27 +62,28 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   resourceKind: 'leads',
   modelName: MODEL_NAMES.LEAD,
 
-  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
+  navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
     this.refreshRequired = true;
-    action.navigateToHistoryInsert(entry, complete);
+    action.navigateToHistoryInsert(entry);
   },
-  recordCallToHistory: function recordCallToHistory(complete) {
+  recordCallToHistory: function recordCallToHistory(phoneNumber) {
     const entry = {
       $name: 'History',
       Type: 'atPhoneCall',
       AccountName: this.entry.Company,
       LeadId: this.entry.$key,
       LeadName: this.entry.LeadNameLastFirst,
-      Description: string.substitute(this.calledText, [this.entry.LeadNameLastFirst]),
+      Description: string.substitute(this.calledText, [this.entry.LeadNameFirstLast]),
       UserId: App.context && App.context.user.$key,
       UserName: App.context && App.context.user.UserName,
       Duration: 15,
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+    this.navigateToHistoryInsert('atPhoneCall', entry);
+    App.initiateCall(phoneNumber);
   },
-  recordEmailToHistory: function recordEmailToHistory(complete) {
+  recordEmailToHistory: function recordEmailToHistory(email) {
     const entry = {
       $name: 'History',
       Type: 'atEMail',
@@ -97,20 +97,17 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
       CompletedDate: (new Date()),
     };
 
-    this.navigateToHistoryInsert('atEMail', entry, complete);
+    this.navigateToHistoryInsert('atEMail', entry);
+    App.initiateEmail(email);
   },
   callWorkPhone: function callWorkPhone() {
-    this.recordCallToHistory(function initiateCall() {
-      App.initiateCall(this.entry.WorkPhone);
-    }.bindDelegate(this));
+    this.recordCallToHistory(this.entry.WorkPhone);
   },
   checkWorkPhone: function checkWorkPhone(entry, value) {
     return !value;
   },
   sendEmail: function sendEmail() {
-    this.recordEmailToHistory(function initiateEmail() {
-      App.initiateEmail(this.entry.Email);
-    }.bindDelegate(this));
+    this.recordEmailToHistory(this.entry.Email);
   },
   checkEmail: function checkEmail(entry, value) {
     return !value;
@@ -196,12 +193,7 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
         name: 'Title',
         property: 'Title',
         renderer: this.formatPicklist('Title'),
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         label: this.workText,
         name: 'WorkPhone',
         property: 'WorkPhone',

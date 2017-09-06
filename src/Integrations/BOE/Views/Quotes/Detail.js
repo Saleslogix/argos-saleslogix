@@ -20,7 +20,6 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   quoteNumberText: resource.quoteNumberText,
   accountText: resource.accountText,
   commentsText: resource.commentsText,
@@ -164,6 +163,13 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   },
   processEntry: function processEntry() {
     this.inherited(arguments);
+
+    // INFORCRM-16828 - Since we are manually taking over the disable/enable of
+    // the edit, check the security before we might potentially re-enable it.
+    if (!App.hasAccessTo(this.editView)) {
+      return;
+    }
+
     if (this.isQuoteClosed()) {
       App.bars.tbar.disableTool('edit');
     } else {
@@ -476,12 +482,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         name: 'Comments',
         property: 'Comments',
         label: this.commentsText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'BillTo',
         property: 'BillTo.Name',
         label: this.billToText,

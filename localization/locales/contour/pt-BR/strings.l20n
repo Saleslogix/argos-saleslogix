@@ -1,0 +1,35 @@
+<proxAppModule ""
+  viewAccountsNearbyText: "Visualizar Contas Próximas"
+  addressNotGeocodedErrorText: "Não foram aplicados códigos geográficos ao endereço. Não é possível pesquisar as contas próximas."
+  accountsNearText: "Contas Próximas a ${0}"
+  helpTitleText: "Ajuda do Contour"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Contas Próximas a Mim"
+  addActivityActionText: "Adicionar Atividade"
+  addAttachmentActionText: "Adicionar Anexo"
+  addNoteActionText: "Adicionar Nota"
+	callMainActionText: "Ligar para o Tel. Principal"
+	currentLocationErrorText: "Não é possível obter o seu local atual. Não é possível realizar a pesquisa."
+	editActionText: "Editar"
+  faxAbbreviationText: "Fax: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Telefone: "
+	titleText: "Contas Próximas a Mim"
+	viewContactsActionText: "Contatos"
+  accountTypeText: "Tipo de Conta:"
+>
+
+<locPicker ""
+  accountsNearText: "Contas Próximas a ${0}"
+	myHouseText: "Minha Casa"
+	myOfficeText: "Meu Escritório"
+	titleText: "Pesquisa de Distância do Contour"
+>
+
+<placeModel ""
+  entityDisplayName: "Local"
+  entityDisplayNamePlural : "Locais"
+>

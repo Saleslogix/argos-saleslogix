@@ -19,6 +19,7 @@
   phoneAbbreviationText: "Телефон: "
 	titleText: "Клиенты рядом со мной"
 	viewContactsActionText: "Контакты"
+  accountTypeText: "Тип клиента:"
 >
 
 <locPicker ""

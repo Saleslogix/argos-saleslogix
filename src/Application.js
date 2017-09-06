@@ -18,15 +18,10 @@ import PicklistService from './PicklistService';
 const resource = getResource('application');
 
 /**
- * @class crm.Application
- *
+ * @alias crm.Application
  * @extends argos.Application
- * @requires argos.ErrorManager
- * @requires crm.Environment
- * @requires moment
- *
  */
-export default class Application extends SDKApplication {
+class Application extends SDKApplication {
   constructor(options = {
     connections: null,
     defaultLocale: 'en',
@@ -145,7 +140,6 @@ export default class Application extends SDKApplication {
     this.store.dispatch(setConfig(this._config));
     this._config = null;
     this._loadNavigationState();
-    this._saveDefaultPreferences();
 
     let accessToken = null;
     if (this.isMingleEnabled()) {
@@ -168,6 +162,11 @@ export default class Application extends SDKApplication {
       request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
       return original.apply(this, arguments);
     };
+  }
+
+  initPreferences() {
+    super.initPreferences();
+    this._saveDefaultPreferences();
   }
 
   isMingleEnabled() {
@@ -515,16 +514,19 @@ export default class Application extends SDKApplication {
   loadEndpoint() {
     try {
       if (window.localStorage) {
-        const results = window.localStorage.getItem('endpoint');
-        if (results) {
-          this.store.dispatch(setEndPoint(results));
-        } else {
+        let results = window.localStorage.getItem('endpoint');
+        if (!results) {
           const service = this.getService();
-          service.uri.setHost(window.location.hostname)
-            .setScheme(window.location.protocol.replace(':', ''))
-            .setPort(window.location.port);
-          this.store.dispatch(setEndPoint(service.uri.build()));
+          if (!this.isMingleEnabled()) {
+            service.uri.setHost(window.location.hostname)
+              .setScheme(window.location.protocol.replace(':', ''))
+              .setPort(window.location.port);
+          }
+
+          results = service.uri.build();
         }
+
+        this.store.dispatch(setEndPoint(results));
       }
     } catch (e) {} // eslint-disable-line
   }
@@ -577,14 +579,16 @@ export default class Application extends SDKApplication {
   onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
-
-    const header = $('.header', this.getContainerNode());
-    header.show();
+    this.showHeader();
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
       this.onInitAppStateFailed(err);
     });
+  }
+  showHeader() {
+    const header = $('.header', this.getContainerNode());
+    header.show();
   }
   onHandleAuthenticationFailed() {
     this.removeCredentials();
@@ -641,10 +645,21 @@ export default class Application extends SDKApplication {
     }
   }
   updateServiceUrl(state) {
+    if (this.isMingleEnabled()) { // See TODO below, as to why we are bailing here
+      return;
+    }
+
     const service = this.getService();
     service.setUri(Object.assign({}, state.app.config.connections, {
-      url: state.app.config.endpoint,
+      url: state.app.config.endpoint, // TODO: Setting the URL here will break mingle instances that use custom virtual directories
     }));
+
+    // Fixes cases where the user sets and invalid contract name in the url.
+    // We have a lot of requests throughout the application that do not specify
+    // a contractName and depend on the default contractName of "dynamic"
+    // in the service.
+    service.setContractName('dynamic');
+    service.setApplicationName('slx');
   }
   _clearNavigationState() {
     try {
@@ -701,9 +716,14 @@ export default class Application extends SDKApplication {
       this.persistPreferences();
     }
   }
+  clearMetricPreferences() {
+    this.preferences.metrics = null;
+    this.persistPreferences();
+  }
   requestUserDetails() {
     const key = this.context.user.$key;
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+      .setContractName('dynamic')
       .setResourceKind('users')
       .setResourceSelector(`"${key}"`)
       .setQueryArg('select', this.userDetailsQuerySelect.join(','));
@@ -879,6 +899,7 @@ export default class Application extends SDKApplication {
   }
   requestOwnerDescription(key) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+      .setContractName('dynamic')
       .setResourceKind('owners')
       .setResourceSelector(`"${key}"`)
       .setQueryArg('select', 'OwnerDescription');
@@ -928,6 +949,7 @@ export default class Application extends SDKApplication {
 
   navigateToInitialView() {
     this.showLeftDrawer();
+    this.showHeader();
     try {
       const restoredState = this.navigationState;
       const restoredHistory = restoredState && JSON.parse(restoredState);
@@ -1004,7 +1026,6 @@ export default class Application extends SDKApplication {
       view.refresh();
     }
 
-    this.ReUI.resetHistory();
     if (online) {
       this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
       if (this.context && this.context.user) {
@@ -1167,3 +1188,5 @@ export default class Application extends SDKApplication {
     });
   }
 }
+
+export default Application;

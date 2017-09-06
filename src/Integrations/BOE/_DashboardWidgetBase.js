@@ -14,18 +14,16 @@ import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import SData from 'argos/Store/SData';
 import Utility from './Utility';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 
 const resource = getResource('dashboardWidgetBase');
 
 /**
- * @class crm.Views._DashboardWidgetBase
- *
- *
+ * @class crm.Integrations.BOE._DashboardWidgetBase
  * @extends argos._RelatedViewWidgetBase
- *
  */
-const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase], {
+const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase], /** @lends crm.Integrations.BOE._DashboardWidgetBase# */{
   owner: null,
   id: 'dashboard-widget-base',
   titleText: resource.titleText,
@@ -252,7 +250,11 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       const valueIndex = [];
       if (!obj.value) {
         if (obj.aggregate) {
-          valueFn = crmAggregate[obj.aggregate];
+          if (obj.aggregateModule) {
+            valueFn = obj.aggregateModule[obj.aggregate];
+          } else {
+            valueFn = crmAggregate[obj.aggregate];
+          }
         }
         if (!(obj.queryIndex instanceof Array)) {
           // Single query, so get the single index value from the results
@@ -400,11 +402,11 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     $(widget.metricDetailNode).empty();
     if (!data.error) {
       if (data.count && (data.countValue >= 0)) {
-        $(widget.metricDetailNode).append($(`<span class="metric-count">${crmFormat.encode(data.countValue)} ${(data.countTitle) ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle)}</span>`));
+        $(widget.metricDetailNode).prepend($(`<span class="metric-count">${string.substitute(data.countTitle ? crmFormat.encode(data.countTitle) : crmFormat.encode(widget.countTitle), [crmFormat.encode(data.countValue)])}</span>`));
       }
     }
 
-    $(widget.metricDetailNode).append(widget.itemTemplate.apply({ value: data.value }, widget));
+    $(widget.metricDetailNode).prepend(widget.itemTemplate.apply({ value: data.value }, widget));
   },
   navToReportView: function navToReportView() {
     let view;

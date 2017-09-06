@@ -24,7 +24,6 @@
   industryText: "Secteur"
   notesText: "Notes"
   ownerText: "Propriétaire"
-  phoneCallHistoryTitle: "Appel téléphonique"
   phoneText: "Téléphone"
   actionsText: "Actions rapides"
   relatedActivitiesText: "Activités"
@@ -102,6 +101,7 @@
   completedText: "Date de réalisation"
   completionText: "Fin"
   durationText: "Durée"
+  durationTitleText: "Durée"
   durationInvalidText: "Le champ '${2}' doit contenir une valeur."
   carryOverNotesText: "Reporter les notes"
   followUpText: "Suivi"
@@ -225,21 +225,13 @@
   allDayText: "Heure indéfinie"
   completeActivityText: "Terminer"
   callText: "Appel"
-  calledText: "Appelé"
+  calledText: "Appelé ${0}"
   addAttachmentActionText: "Ajouter une pièce jointe"
   overdueText: "En retard"
   alarmText: "Alarme"
   touchedText: "Modifié"
   importantText: "Important"
   recurringText: "récurrent"
-  phoneCallText: "Appel téléphonique"
-  meetingText: "Rendez-vous"
-  toDoText: "Tâche à faire"
-  personalText: "Activité personnelle"
-  literatureText: "Demande de documentation"
-  questionText: "Question"
-  noteText: "Note"
-  emailText: "E-mail"
 >
 
 <activityMyList ""
@@ -248,7 +240,7 @@
   acceptActivityText: "Accepter"
   declineActivityText: "Refuser"
   callText: "Appel"
-  calledText: "Appelé"
+  calledText: "Appelé ${0}"
   addAttachmentActionText: "Ajouter une pièce jointe"
   viewContactActionText: "Contact"
   viewAccountActionText: "Compte"
@@ -266,13 +258,14 @@
   everyText: "chaque"
   afterCompletionText: "Après la fin"
   singleWeekdayText: "jour de semaine"
-  weekdaysText: "jour(s) de semaine"
-  dayText: "jour"
+  weekdaysText: "jours de semaine"
+  dayNumberText: "numéro de jour"
   monthText: "mois"
-  onText: "le"
+  onText: "jour du mois"
   occurrencesText: "occurrences"
   summaryText: "Résumé"
-  recurringFrequencyText: "Fréquence de récurrence"
+  recurringFrequencyText: "fréquence de récurrence"
+  frequencyIntervalText: "Intervalle de fréquence"
   yesText: "Oui"
   noText: "Non"
   titleText: "Récurrence"
@@ -299,6 +292,10 @@
   weeks: "semaines"
   months: "mois"
   years: "ans"
+  dailyText: "Chaque jour"
+  weeklyText: "Chaque semaine"
+  monthlyText: "Chaque mois"
+  yearlyText: "Chaque année"
 >
 
 <activityTypesList ""
@@ -322,7 +319,7 @@
   descriptionText: "Description"
   descriptionTitleText: "Description"
   isMailingText: "Expédition"
-  isPrimaryText: "Principal"
+  isPrimaryText: "Adresse principale"
   postalCodeText: "Code postal"
   salutationText: "Attention"
   stateText: "Département"
@@ -340,7 +337,7 @@
 
 <attachmentList ""
   titleText: "Pièces jointes"
-  uploadedOnText: "Chargé "
+  uploadedOnText: "Chargé le "
 >
 
 <attachmentMyList ""
@@ -420,10 +417,6 @@
   toggleCollapseText: "Développer/réduire"
 >
 
-<chartMixin ""
-  loadingText: "Chargement en cours"
->
-
 <competitorList ""
   titleText: "Concurrents"
 >
@@ -457,15 +450,13 @@
   cuisinePreferenceText: "Cuisine"
   callMobileNumberText: "Appeler le portable"
   callWorkNumberText: "Appeler le bureau"
-  calledText: "Appelé"
+  calledText: "Appelé ${0}"
   scheduleActivityText: "Planifier l'activité"
   addNoteText: "Ajouter une note"
   sendEmailText: "Envoyer un e-mail"
   viewAddressText: "Voir l'adresse"
   moreDetailsText: "Plus de détails"
   entityText: "Contact"
-  phoneCall: "Appel téléphonique"
-  email: "E-mail"
 >
 
 <contactEdit ""
@@ -616,6 +607,12 @@
   validationCanEditText: "Vous n'êtes pas autorisé à apporter des modifications."
 >
 
+<historyEditOffline ""
+  titleText: "Notes hors ligne"
+  notesSectionText: "Notes"
+  notesLabelText: "Notes"
+>
+
 <historyList ""
   titleText: "Notes/Historique"
   viewAccountActionText: "Compte"
@@ -632,9 +629,15 @@
   email: "E-mail"
 >
 
+<historyListOffline ""
+  titleText: "Notes hors ligne"
+  widgetTitle: "Note hors ligne"
+  saveToCRMText: "Enregistrer dans CRM"
+>
+
 <historyRelated ""
   regardingText: "Objet"
-  byText: "Ecrit "
+  byText: "${0} écrit sur ${1}"
   titleText: "Notes"
 >
 
@@ -674,8 +677,6 @@
   calledText: "Appelé ${0}"
   emailedText: "E-mail envoyé à ${0}"
   entityText: "Lead"
-  phoneCall: "Appel téléphonique"
-  email: "E-mail"
 >
 
 <leadEdit ""
@@ -1080,9 +1081,8 @@
   titleText: "Utilisateurs"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "Contact"
-  allRecordsText: "Aucune recherche appliquée"
+<chartMixin ""
+  searchText: "${title} : ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1181,9 +1181,9 @@
 >
 
 <login ""
-  copyrightText: "Copyright &copy; 2016 Infor. Tous droits réservés. www.infor.com"
   logOnText: "Connexion"
   passText: "Mot de passe"
+  urlText: "Point de terminaison SData"
   rememberText: "Mémoriser"
   titleText: "Connexion"
   userText: "ID d'utilisateur"
@@ -1191,6 +1191,7 @@
   missingUserText: "La fiche utilisateur est introuvable."
   requestAbortedText: "La demande a été abandonnée."
   logoText: "Infor CRM"
+  logOnError: "Le serveur n'est pas disponible ou vous avez saisi des informations incorrectes pour la connexion au point de terminaison. Saisissez de nouvelles informations ou contactez votre administrateur."
 >
 
 <logOff ""
@@ -1228,6 +1229,7 @@
   confirm24HourClockMessage: "Le passage au format horaire 24 heures requiert un redémarrage de l'application. Continuer ?"
   confirm12HourClockMessage: "Le passage au format horaire 12 heures requiert un redémarrage de l'application. Continuer ?"
   confirmClearLocalStorageMessage: "L'effacement du stockage local requiert un redémarrage de l'application. Confirmer ?"
+  languageSettingText: "Paramètres de langue"
 >
 
 <speedSearchList ""
@@ -1252,6 +1254,8 @@
 <action ""
   calledText: "Appelé ${0}"
   emailedText: "E-mail envoyé à ${0}"
+  phoneCall: "Appel téléphonique"
+  email: "E-mail"
 >
 
 <application ""
@@ -1268,7 +1272,7 @@
   offlineInitDataText: "Initialisation des données hors ligne"
   offlineInitErrorText: "Une erreur s'est produite lors de l'initialisation hors ligne. Toutes les options hors ligne sont désactivées."
   appStateInitErrorText: "Une erreur s'est produite lors de l'initialisation de l'application. Veuillez réessayer."
-  mingleAuthErrorText: "Echec d'accès à Mingle. Accès refusé."
+  mingleAuthErrorText: "Echec d'authentification Infor Ming.le. Accès refusé."
 >
 
 <applicationModule ""
@@ -1280,6 +1284,8 @@
   systemOptionsText: "Options du système"
   userContextAndOptionsText: "Contexte et options utilisateur"
   integrationsText: "Intégrations"
+  picklistsText: "Listes de sélection"
+  retrievingPicklistsText: "Extraction des listes de sélection"
 >
 
 <defaultMetrics ""
@@ -1313,22 +1319,11 @@
 
 <recurrence ""
   neverText: "Jamais"
-  daysText: "jours"
   dailyText: "Chaque jour"
-  weeksText: "semaines"
   weeklyText: "Chaque semaine"
-  weeklyOnText: "Toutes les semaines le ${3}"
-  monthsText: "mois"
   monthlyText: "Chaque mois"
-  monthlyOnDayText: "Tous les mois le ${1}"
-  monthlyOnText: "Tous les mois le ${5} ${3}"
-  yearsText: "ans"
   yearlyText: "Chaque année"
-  yearlyOnText: "Tous les ans le ${2}"
-  yearlyOnWeekdayText: "Tous les ans le ${5} ${3} en ${4}"
-  everyText: "chaque ${0} ${1}"
-  afterCompletionText: "après la fin"
-  untilEndDateText: "${0} jusqu'à ${1}"
+  daySeparator: "${0}, "
   sunday: "Dimanche"
   monday: "Lundi"
   tuesday: "Mardi"
@@ -1336,12 +1331,33 @@
   thursday: "Jeudi"
   friday: "Vendredi"
   saturday: "Samedi"
-  day: "jour"
-  first: "Premier"
-  second: "deuxième"
-  third: "troisième"
-  fourth: "Quatrième"
-  last: "Dernier"
+  day: "jour donné"
+  first: "Premier ${0}"
+  second: "deuxième ${0}"
+  third: "troisième ${0}"
+  fourth: "Quatrième ${0}"
+  last: "Dernier ${0}"
+  singleActivitySummary: "Cette activité ne se produit qu'une seule fois"
+  dailySummary: "Tous les jours à ${1} à compter du ${2} et jusqu'au ${3}"
+  dailyEverySummary: "Tous les ${0} jours à ${1} à compter du ${2} et jusqu'au ${3}"
+  dailyAfterCompletionSummary: "Tous les jours après la fin"
+  dailyEveryAfterCompletionSummary: "Tous les ${0} jours après la fin"
+  weeklySummary: "Toutes les semaines le ${4} à ${1} à compter du ${2} et jusqu'au ${3}"
+  weeklyEverySummary: "Toutes les ${0} semaines le ${4} à ${1} à compter du ${2} et jusqu'au ${3}"
+  weeklyAfterCompletionSummary: "Toutes les semaines le ${4} après la fin"
+  weeklyEveryAfterCompletionSummary: "Toutes les ${0} semaines le ${4} après la fin"
+  monthlyOrdSummary: "Tous les mois le ${6} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
+  monthlyEveryOrdSummary: "Tous les ${0} mois le ${6} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
+  monthlySummary: "Tous les mois le ${7} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
+  monthlyEverySummary: "Tous les ${0} mois le ${7} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
+  monthlyAfterCompletionSummary: "Tous les mois après la fin"
+  monthlyEveryAfterCompletionSummary: "Tous les ${0} mois après la fin"
+  yearlySummary: "Tous les ans le ${7} du mois de ${5} à ${1} à compter du ${2} et jusqu'au ${3}"
+  yearlyEverySummary: "Tous les ${0} ans le ${7} du mois de ${5} à ${1} à compter du ${2} et jusqu'au ${3}"
+  yearlyOrdSummary: "Tous les ans le ${6} du mois de ${5} à ${1} à compter du ${2} et jusqu'au ${3}"
+  yearlyEveryOrdSummary: "Tous les ${0} ans le ${6} du mois de ${5} à ${1} à compter du ${2} et jusqu'au ${3}"
+  yearlyAfterCompletionSummary: "Tous les ans après la fin"
+  yearlyEveryAfterCompletionSummary: "Tous les ${0} ans après la fin"
 >
 
 <speedSearchWidget ""
@@ -1437,6 +1453,7 @@
   reBriefcaseText: "Renvoyer l'enregistrement dans le porte-documents"
   goToOnlineText: "Accéder à l'affichage en ligne"
   goToOfflineText: "Accéder à l'affichage hors ligne"
+  resyncTooltipText: "Resync"
 >
 
 <recentlyViewedList ""
@@ -1457,8 +1474,7 @@
   clearDataText: "Effacer tout"
   clearRecentText: "Effacer les affichés récemment"
   clearBriefcasedText: "Vider le porte-documents"
-  olderThanText: "Effacer les données hors ligne de plus de"
-  daysText: "jours"
+  olderThanText: "Effacer les données hors ligne de plus de ce nombre de jours :"
   showUsageText: "Afficher l'utilisation"
   processingText: "Traitement en cours, veuillez patienter."
   calculatingUsageText: "Veuillez patienter, calcul de l'utilisation en cours."
@@ -1468,9 +1484,20 @@
   errorClearingDataText: "Erreur lors de l'effacement des données"
 >
 
+<languageOptionsEdit ""
+  titleText: "Paramètres de langue"
+>
+
+<languageUsageWidget ""
+  regionText: "Culture"
+  languageText: "Langue"
+  toastTitle: "Actualiser la page"
+  toastMessage: "Actualisez votre navigateur pour voir le changement."
+>
+
 <authenticationModel ""
   entityDisplayName: "Authentification"
-  entityDisplayNamePlural : "Authentification"
+  entityDisplayNamePlural: "Authentification"
 >
 
 <mingle ""
@@ -1523,4 +1550,14 @@
   meetingHash: "#rendez-vous"
   personalHash: "#personnel"
   emailHash: "#e-mail"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "Contact d'opportunité"
+  entityDisplayNamePlural: "Contacts d'opportunité"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "Activité du ticket"
+  entityDisplayNamePlural: "Activités du ticket"
 >

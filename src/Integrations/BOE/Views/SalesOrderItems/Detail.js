@@ -1,5 +1,5 @@
 /**
- * @class .Views.SalesOrderItems.Detail
+ * @class crm.Integrations.BOE.Views.SalesOrderItems.Detail
  *
  *
  * @extends argos.Detail
@@ -19,7 +19,7 @@ import PricingAvailabilityService from '../../PricingAvailabilityService';
 
 const resource = getResource('salesOrderItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.SalesOrderItems.Detail# */ {
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,
@@ -45,7 +45,6 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
   warehouseText: resource.warehouseText,
   substituteItemText: resource.substituteItemText,
   detailsText: resource.detailsText,
-  moreDetailsText: resource.moreDetailsText,
   relatedItemsText: resource.relatedItemsText,
   entityText: resource.entityText,
   confirmDeleteText: resource.confirmDeleteText,
@@ -253,12 +252,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
         name: 'ErpStatus',
         property: 'ErpStatus',
         label: this.statusText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'Warehouse',
         property: 'SlxLocation.Description',
         label: this.warehouseText,

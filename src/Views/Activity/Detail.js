@@ -72,7 +72,6 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
   relatedItemsText: resource.relatedItemsText,
   phoneText: resource.phoneText,
-  moreDetailsText: resource.moreDetailsText,
   entityText: resource.entityText,
   activityTypeText: {
     atToDo: resource.toDoText,
@@ -262,6 +261,16 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         action: 'completeActivity',
         disabled: this.checkCanComplete.bind(this),
         exclude: this.isActivityRecurringSeries.bind(this),
+        renderer: function renderer(value) {
+          // INFORCRM-17347: The property binding for Description is not used.
+          // However, if it is null/empty it will cause the action to hide.
+          // We will work around this by returning a truthy string.
+          if (!value) {
+            return ' ';
+          }
+
+          return value;
+        },
       }, {
         name: 'completeOccurrenceAction',
         property: 'StartDate',
@@ -305,12 +314,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
         property: 'PhoneNumber',
         label: this.phoneText,
         renderer: format.phone.bindDelegate(this, true),
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'Type',
         property: 'Type',
         label: this.typeText,

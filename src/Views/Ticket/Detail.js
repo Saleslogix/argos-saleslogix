@@ -44,7 +44,6 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   titleText: resource.titleText,
   urgencyText: resource.urgencyText,
   scheduleActivityText: resource.scheduleActivityText,
-  moreDetailsText: resource.moreDetailsText,
   relatedTicketActivitiesText: resource.relatedTicketActivitiesText,
   loadingText: resource.loadingText,
   entityText: resource.entityText,
@@ -109,12 +108,7 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
         name: 'NeededByDate',
         property: 'NeededByDate',
         renderer: format.date,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         label: this.areaText,
         name: 'Area',
         property: 'Area',

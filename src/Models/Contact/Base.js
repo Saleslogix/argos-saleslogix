@@ -30,11 +30,13 @@ const __class = declare('crm.Models.Contact.Base', [_ModelBase], {
       name: 'Name Prefix',
       options: {
         filterByLanguage: true,
+        storageMode: 'text',
       },
     }, {
       name: 'Name Suffix',
       options: {
         filterByLanguage: true,
+        storageMode: 'text',
       },
     }]);
   },

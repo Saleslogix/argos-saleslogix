@@ -11,12 +11,9 @@ const resource = getResource('rightDrawerListMixin');
 
 /**
  * @class crm.Views._RightDrawerListMixin
- *
- * List mixin for right drawers.
- *
+ * @classdesc List mixin for right drawers.
  * @since 3.0
  * @mixins crm.Views._RightDrawerBaseMixin
- *
  */
 const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
@@ -231,10 +228,11 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
         this.transitionHandle = aspect.after(list, 'onTransitionTo', function postOnTransitionTo() {
           this.refreshRequired = true;
+          this.isRefreshing = false;
           this.clear();
           this.refresh();
-          if (this.transitionHandle) {
-            this.transitionHandle.remove();
+          if (self.transitionHandle) {
+            self.transitionHandle.remove();
           }
         }.bind(list));
       }

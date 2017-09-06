@@ -16,7 +16,6 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   titleText: resource.titleText,
   actionsText: resource.actionsText,
   relatedItemsText: resource.relatedItemsText,
-  moreDetailsText: resource.moreDetailsText,
   orderNumberText: resource.orderNumberText,
   orderIdText: resource.orderIdText,
   customerPOText: resource.customerPOText,
@@ -376,12 +375,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         renderer: (value) => {
           return utility.formatMultiCurrency(value, this.entry.CurrencyCode);
         },
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: true,
-      children: [{
+      }, {
         name: 'CreateDate',
         property: 'CreateDate',
         label: this.dateCreatedText,

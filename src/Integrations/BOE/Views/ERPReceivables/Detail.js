@@ -11,7 +11,6 @@ const resource = getResource('erpReceivablesDetail');
 const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
-  moreDetailsText: resource.moreDetailsText,
   receivablesIdText: resource.receivablesIdText,
   accountText: resource.accountText,
   invoiceNumberText: resource.invoiceNumberText,
@@ -126,12 +125,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPReceivables.Detail', [Det
         name: 'ErpPaymentTermId',
         property: 'ErpPaymentTermId',
         label: this.paymentTermText,
-      }],
-    }, {
-      title: this.moreDetailsText,
-      name: 'MoreDetailsSection',
-      collapsed: false,
-      children: [{
+      }, {
         name: 'ErpBillTo',
         property: 'ErpBillTo.Name',
         label: this.billToText,

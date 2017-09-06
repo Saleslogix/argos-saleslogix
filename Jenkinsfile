@@ -69,16 +69,12 @@ node('windows && nodejs') {
   }
 }
 
-stage 'Copying to IIS'
-parallel slx81: {
-  node('slx81') {
-    iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
-  }
-}, slx82: {
+stage('Copying to IIS') {
   node('slx82') {
     iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
+    bat """PowerShell -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command " & '%~dp0build\\iis.ps1 -branch $env.BRANCH_NAME -build $build' %*; exit $LASTEXITCODE"""
   }
-}, failFast: false
+}
 
 stage('Sending Slack notification') {
   node {

@@ -60,6 +60,11 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return !this.picklist;
   },
   isCodePicklist: function isCodePicklist() {
+    // Name Prefix and Suffix are both text picklists that have code like functionality
+    if (this.picklistName === 'Name Prefix' || this.picklistName === 'Name Suffix') {
+      return false;
+    }
+    // Current flag for checking whether the picklist is a code picklist server side is the default language
     const picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
     return picklist && picklist.defaultLanguage;
   },
@@ -135,11 +140,10 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       }
       let picklistItem = false;
       this.languageCode = this.getLanguageCode();
-      if (this.storageMode !== 'id') {
-        // Name Prefix and Suffix are special case pick lists stored as text but languageCode may have changed, just ignore new method
-        if (this.picklistName !== 'Name Prefix' && this.picklistName !== 'Name Suffix') {
-          picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val, this.languageCode);
-        }
+      if (this.storageMode === 'text') {
+        picklistItem = this.app.picklistService.getPicklistItemTextByCode(this.picklistName, val, this.languageCode);
+      } else if (this.storageMode !== 'id') {
+        picklistItem = this.app.picklistService.getPicklistItemByCode(this.picklistName, val, this.languageCode);
       } else {
         // Special case of item being stored by $key...
         picklistItem = this.app.picklistService.getPicklistItemByKey(this.picklistName, val, this.languageCode);
@@ -181,13 +185,9 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
       options.keyProperty = this.keyProperty;
       options.textProperty = this.textProperty;
       options.picklistOptions = (this.picklistOptions && this.picklistOptions((this.owner && this.owner.entry) || {})) || {};
-      // TODO: Need a function to generate the key
-      // if (options.picklistOptions
-      //     && options.picklistOptions.filterByLanguage !== true) {
-      //   this.languageCode = ' ';
-      // } else
-      if (this.picklistName !== 'Name Prefix' || this.picklistName !== 'Name Suffix') {
-        // Default to current locale IF not name prefix or suffix picklists (these are filtered text picklists)
+
+      if (this.picklistName !== 'Name Prefix' && this.picklistName !== 'Name Suffix') {
+        // Default to current locale IF not name prefix and suffix picklists (these are filtered text picklists)
         this.languageCode = App.getCurrentLocale();
       }
       options.languageCode = this.languageCode;

@@ -17,7 +17,10 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('promote');
 
-const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
+/**
+ * @class crm.Integrations.BOE.Promote
+ */
+const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], /** @lends crm.Integrations.BOE.Promote */{
   widgetTemplate: new Simplate([
     '<div class="modal__content" data-dojo-attach-point="promoteNode">',
     '<div class="modal__header__title">{%: $.promoteTitle %}</div>',
@@ -317,6 +320,12 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
   updateAccountingDropdown: function updateAccountingDropdown() {
     this.setLoading(this.accountingNode);
     this.getAccountingEntitiesEntries(this._backOfficeDropdown.getValue());
+  },
+  transitionAway: function transitionAway() {
+    // force soho dropdown to close since they dont close on a button click elsewhere on UI
+    $(this._backOfficeDropdown.dropdownSelect).data('dropdown').close();
+    $(this._accountingDropdown.dropdownSelect).data('dropdown').close();
+    this.inherited(arguments);
   },
 });
 

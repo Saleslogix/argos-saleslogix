@@ -370,6 +370,9 @@
           "text": "ActivityTypeText.js",
           "path": "../src-out/Models/Activity/"
         }, {
+          "text": "nodelist.js",
+          "path": "../src-out/polyfills/"
+        }, {
           "text": "Recurrence.js",
           "path": "../src-out/"
         }, {
@@ -432,6 +435,12 @@
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/TicketActivity/"
+        }, {
+          "text": "EditOffline.js",
+          "path": "../src-out/Views/History/"
+        }, {
+          "text": "ListOffline.js",
+          "path": "../src-out/Views/History/"
         }, {
           "text": "Bootstrap.js",
           "path": "../src-out/"
@@ -735,6 +744,9 @@
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "index.js",
+          "path": "../src-out/polyfills/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Activity/"
@@ -1478,6 +1490,16 @@
       "src": "../help",
       "dest": "help",
       "filters": ".*\\.html"
+    },
+    {
+      "src": "../bin",
+      "dest": "bin",
+      "filters": ".*\\.dll"
+    },
+    {
+      "src": "../App_Code",
+      "dest": "App_Code",
+      "filters": ".*\\.cs"
     }
   ]
 }

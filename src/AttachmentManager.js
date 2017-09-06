@@ -6,12 +6,8 @@ import utility from './Utility';
 
 /**
  * @class crm.AttachmentManager
- *
- * @requires argos.Convert
- * @requires crm.Utility
- * @requires crm.FileManager
  */
-const __class = declare('crm.AttachmentManager', null, {
+const __class = declare('crm.AttachmentManager', null, /** @lends crm.AttachmentManager# */{
   _fileManager: null,
   _entityContext: null,
   _uploadUrl: '',

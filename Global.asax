@@ -1,12 +1,12 @@
 ﻿<%@ Application Language="C#" %>
-<%@ Import Namespace="System.Threading" %> 
+<%@ Import Namespace="System.Threading" %>
 <%@ Import Namespace="System.Globalization" %>
 
 <script runat="server">
 
     public override void Init()
     {
-        this.BeginRequest += new EventHandler(Global_BeginRequest);        
+        this.BeginRequest += new EventHandler(Global_BeginRequest);
         base.Init();
     }
 
@@ -49,5 +49,5 @@
         }
         return culture;
     }
-       
+
 </script>

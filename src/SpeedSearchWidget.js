@@ -7,11 +7,9 @@ const resource = getResource('speedSearchWidget');
 
 /**
  * @class crm.SpeedSearchWidget
- *
  * @mixins argos._Templated
- *
  */
-const __class = declare('crm.SpeedSearchWidget', [SearchWidget], {
+const __class = declare('crm.SpeedSearchWidget', [SearchWidget], /** @lends crm.SpeedSearchWidget# */{
   /**
    * @property {String} searchText The placeholder text for the input.
    */

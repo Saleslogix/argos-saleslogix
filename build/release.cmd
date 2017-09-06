@@ -26,3 +26,9 @@ xcopy unsupported.html .\deploy /Y /Q
 xcopy manifest.appcache .\deploy /Y /Q
 xcopy web.config .\deploy /Y /Q
 xcopy ping.gif .\deploy /Y /Q
+xcopy index.aspx.cs .\deploy /Y /Q
+xcopy index.ascx .\deploy /Y /Q
+xcopy index.ascx.cs .\deploy /Y /Q
+xcopy index.manifest .\deploy /Y /Q
+xcopy index.manifest.ashx .\deploy /Y /Q
+xcopy Global.asax .\deploy /Y /Q

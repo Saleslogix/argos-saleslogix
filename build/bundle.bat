@@ -26,9 +26,9 @@ call grunt clean:css clean:js less
 call yarn run build
 popd
 
-xcopy %SDK%\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk /E /Y /exclude:build\bundleExcludes.txt
-xcopy *.* %SDK%\deploy\temp /E /Y /exclude:build\bundleExcludes.txt
-xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix /E /Y
+xcopy %SDK%\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\argos-sdk\ /E /Y /exclude:build\bundleExcludes.txt
+xcopy *.* %SDK%\deploy\temp\ /E /Y /exclude:build\bundleExcludes.txt
+xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix\ /E /Y
 rmdir %SDK%\deploy\temp /S /Q
 
 %SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\%BUNDLE_NAME%" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"

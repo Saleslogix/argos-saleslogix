@@ -121,7 +121,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     this.registerDefaultViews();
 
     lang.extend(argos._ListBase, { // TODO: Avoid global
-      navigateToInsertView: function navigateToInsertView(el, additionalOptions) {
+      navigateToInsertView: function navigateToInsertView(additionalOptions) {
         const view = this.app.getView(this.insertView || this.editView);
         let options = {
           detailView: this.detailView,
@@ -174,8 +174,8 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
 
     lang.extend(crm.Views.MetricWidget, {
       itemTemplate: new Simplate([
-        '<h1 class="metric-value" {%: $$.getValueStyle() %} >{%: $$.formatter($.value) %}</h1>',
         '<span class="metric-title">{%: $$.title %}</span>',
+        '<h1 class="metric-value" {%: $$.getValueStyle() %} >{%: $$.formatter($.value) %}</h1>',
       ]),
       setValueColor: function setValueColor(color) {
         this.valueColor = color;

@@ -19,6 +19,7 @@
   phoneAbbreviationText: "Telefon: "
 	titleText: "Firmen in meiner Nähe"
 	viewContactsActionText: "Kontakte"
+  accountTypeText: "Firmentyp:"
 >
 
 <locPicker ""

@@ -9,7 +9,10 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpContactAssociationsList');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
+/**
+ * @class crm.Integrations.BOE.Views.ERPContactAssociations.List
+ */
+const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], /** @lends crm.Integrations.BOE.Views.ERPContactAssociations.List# */{
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: $.Contact.NameLF %}</p>',

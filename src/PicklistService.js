@@ -5,7 +5,11 @@ import SData from 'argos/Store/SData';
 const PickListService = ICRMServicesSDK.PickListService;
 const picklistFormat = ICRMCommonSDK.format.picklist;
 
-const __class = lang.setObject('crm.PicklistService', {
+/**
+ * @class crm.PicklistService
+ * @singleton
+ */
+const __class = lang.setObject('crm.PicklistService', /** @lends crm.PicklistService */{
   _picklists: {},
   _currentRequests: new Map(),
 
@@ -69,8 +73,8 @@ const __class = lang.setObject('crm.PicklistService', {
     }
     return false;
   },
-  getPicklistItemByText(picklistName, text, languageCode = App.getCurrentLocale()) {
-    const picklist = this.getPicklistByName(picklistName, languageCode);
+  getPicklistItemByText(picklistName, text) {
+    const picklist = this.getPicklistByName(picklistName, '');
 
     if (picklist) {
       for (let i = 0; i < picklist.items.length; i++) {
@@ -155,23 +159,20 @@ const __class = lang.setObject('crm.PicklistService', {
 
     return new Promise((resolve, reject) => {
       this.addRequest(name);
-      const {
-        options,
-        handlers,
-      } = this.service.getFirstByName(
+      const first = this.service.getFirstByName(
         name,
         this.onPicklistSuccess(resolve, language),
         this.onPicklistError(reject, name),
         { pickListServiceOptions, language, useCache }
       );
 
-      if (options) {
+      if (first && first.options) {
         const request = this.service.setUpRequest(
           new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
             .setContractName(this.contractName),
-          options
+            first.options
         );
-        request.read(handlers);
+        request.read(first.handlers);
       }
     }).catch(err => console.error(err)); // eslint-disable-line
   },

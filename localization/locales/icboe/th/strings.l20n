@@ -27,7 +27,7 @@
 >
 
 <backOfficeAccountingEntityModel ""
-  entityDisplayName: "สำนักงานด้านการจัดการเอนทิตีการบัญชี"
+  entityDisplayName: "เอนทิตีการบัญชีของสำนักงานด้านการจัดการ"
   entityDisplayNamePlural : "สำนักงานด้านการจัดการเอนทิตีการบัญชี"
 >
 
@@ -217,7 +217,7 @@
   grandTotalText: "ยอดรวมทั้งหมด"
   baseSubTotalText: "ยอดรวมฐานย่อย"
   baseGrandTotalText: "ยอดรวมฐานทั้งหมด"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   billToAddressText: "ที่อยู่ เรียกเก็บเงินถึง"
   shipToText: "จัดส่งถึง"
   shipToAddressText: "ที่อยู่จัดส่งถึง"
@@ -270,7 +270,7 @@
   erpStatusText: "ERP - สถานะ"
   subTotalText: "ยอดรวมย่อย"
   grandTotalText: "ยอดรวมทั้งหมด"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   shipToText: "จัดส่งถึง"
   payFromText: "ชำระเงินจาก"
   startDateText: "วันที่เริ่มต้น"
@@ -312,7 +312,7 @@
   erpStatusText: "ERP - สถานะ"
   subTotalText: "ยอดรวมย่อย"
   grandTotalText: "ยอดรวมทั้งหมด"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   shipToText: "จัดส่งถึง"
   payFromText: "ชำระเงินจาก"
   dueDateText: "วันที่ครบกำหนด"
@@ -358,11 +358,11 @@
   newReceivablesText: "ลูกหนี้ใหม่"
   titleText: "ธุรกรรมใหม่"
   categoryText: "เลือกวันที่ผ่านมาจากวันนี้"
-  quotesTotalingText: "ยอดรวมการเสนอราคา"
-  ordersTotalingText: "ยอดรวมการสั่ง"
-  shipmentsTotalingText: "ยอดรวมการจัดส่ง"
-  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้"
-  receivablesTotalingText: "ยอดรวมลูกหนี้"
+  quotesTotalingText: "ยอดรวมการเสนอราคา: ${0}"
+  ordersTotalingText: "ยอดรวมการสั่ง: ${0}"
+  shipmentsTotalingText: "ยอดรวมการจัดส่ง: ${0}"
+  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้: ${0}"
+  receivablesTotalingText: "ยอดรวมลูกหนี้: ${0}"
   closedText: "ปิดแล้ว"
   deletedText: "ลบแล้ว"
   replacedText: "แทนที่แล้ว"
@@ -378,9 +378,9 @@
   lateSalesOrdersText: "ใบสั่งขายล่าช้า"
   titleText: "ธุรกรรมเปิด"
   categoryText: "เลือกวันที่ผ่านมาเกินจากนี้"
-  quotesTotalingText: "ยอดรวมการเสนอราคา"
-  ordersTotalingText: "ยอดรวมการสั่ง"
-  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้"
+  quotesTotalingText: "ยอดรวมการเสนอราคา: ${0}"
+  ordersTotalingText: "ยอดรวมการสั่ง: ${0}"
+  invoicesTotalingText: "ยอดรวมใบแจ้งหนี้: ${0}"
   agingInvoicesText: "ใบแจ้งหนี้ที่จัดอายุหนี้"
   agingSalesOrdersText: "ใบสั่งขายที่จัดอายุ"
   agingQuotesText: "การเสนอราคาที่จัดอายุ"
@@ -416,7 +416,7 @@
 >
 
 <erpBillToAccountsDetail ""
-  titleText: "บัญชีเรียกเก็บเงินถึง"
+  titleText: "บัญชี เรียกเก็บเงินถึง"
   actionsText: "การดำเนินการด่วน"
   relatedItemsText: "รายการที่เกี่ยวข้อง"
   moreDetailsText: "รายละเอียดเพิ่มเติม"
@@ -433,15 +433,15 @@
   invoicesText: "ใบแจ้งหนี้"
   receivablesText: "ลูกหนี้"
   returnsText: "การส่งคืน"
-  entityText: "บัญชีเรียกเก็บเงินถึง"
+  entityText: "บัญชี เรียกเก็บเงินถึง"
 >
 
 <erpBillToAccountsList ""
-  titleText: "บัญชีเรียกเก็บเงินถึง"
+  titleText: "บัญชี เรียกเก็บเงินถึง"
 >
 
 <erpBillToAccountsEdit ""
-  titleText: "บัญชีเรียกเก็บเงินถึง"
+  titleText: "บัญชี เรียกเก็บเงินถึง"
   billToText: "เรียกเก็บเงินถึง"
   accountText: "บัญชี"
 >
@@ -509,7 +509,7 @@
   invoiceItemsText: "รายการใบแจ้งหนี้"
   moreDetailsText: "รายละเอียดเพิ่มเติม"
   receivablesText: "ลูกหนี้"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   shipToText: "จัดส่งถึง"
   salesPersonsText: "พนักงานขาย"
   entityText: "ใบแจ้งหนี้"
@@ -570,7 +570,7 @@
   erpStatusDateText: "ERP - วันที่สถานะ"
   documentDateText: "วันที่เอกสาร"
   paymentTermText: "ID เงื่อนไขการชำระเงิน"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   billToAddressText: "ที่อยู่ เรียกเก็บเงินถึง"
   shipToText: "จัดส่งถึง"
   shipToAddressText: "ที่อยู่จัดส่งถึง"
@@ -687,7 +687,7 @@
   returnsText: "การส่งคืน"
   contactAssociationText: "การเชื่อมโยงที่ติดต่อ"
   shipToText: "จัดส่งถึง"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   salesPersonText: "พนักงานขาย"
   entityText: "บัญชีจัดส่งถึง"
 >
@@ -747,7 +747,7 @@
   locationText: "ที่ตั้ง"
   totalAmountText: "จำนวนรวม"
   availableQuantityText: "ปริมาณที่มีอยู่ปริมาณที่มีอยู่: "
-  checkWarehouseAvailabilityText: "ตรวจสอบการมีอยู่ของคลังสินค้า"
+  checkWarehouseAvailabilityText: "ตรวจสอบความพร้อมใช้งานของคลังสินค้า"
 >
 
 <quoteItemsList ""
@@ -762,7 +762,7 @@
   productNameText: "ชื่อผลิตภัณฑ์"
   descriptionText: "คำอธิบาย"
   accountingEntityRequiredText: "ผลิตภัณฑ์ไม่สามารถเพิ่มไปที่รายการได้เพราะระบบการบัญชียังไม่ถูกกำหนด คุณต้องการให้นำทางไปที่การแก้ไขมุมมองเพื่อเพิ่มระบบการบัญชีหรือไม่"
-  assignWarehouseText: "กำหนดคลังสินค้า"
+  assignWarehouseText: "มอบหมายคลังสินค้า"
   warehousesTitleText: "คลังสินค้า"
   warehouseText: "คลังสินค้า"
   totalAmountText: "จำนวนรวม"
@@ -820,7 +820,7 @@
   removeOrderLineText: "ลบรายการบรรทัด"
   totalAmountText: "จำนวนรวม"
   availableQuantityText: "ปริมาณที่มีอยู่ปริมาณที่มีอยู่: "
-  checkWarehouseAvailabilityText: "ตรวจสอบการมีอยู่ของคลังสินค้า"
+  checkWarehouseAvailabilityText: "ตรวจสอบความพร้อมใช้งานของคลังสินค้า"
 >
 
 <salesOrderItemsList ""
@@ -835,7 +835,7 @@
   productNameText: "ชื่อผลิตภัณฑ์"
   descriptionText: "คำอธิบาย"
   warehouseText: "คลังสินค้า"
-  assignWarehouseText: "กำหนดคลังสินค้า"
+  assignWarehouseText: "มอบหมายคลังสินค้า"
   warehouseTitleText: "คลังสินค้า"
   warehouseText: "คลังสินค้า"
   accountingEntityRequiredText: "ผลิตภัณฑ์ไม่สามารถเพิ่มไปที่รายการได้เพราะระบบการบัญชียังไม่ถูกกำหนด คุณต้องการให้นำทางไปที่การแก้ไขมุมมองเพื่อเพิ่มระบบการบัญชีหรือไม่"
@@ -862,7 +862,7 @@
   grandTotalText: "ยอดรวมทั้งหมด"
   baseSubTotalText: "ยอดรวมฐานย่อย"
   baseGrandTotalText: "ยอดรวมฐานทั้งหมด"
-  billToText: "การเรียกเก็บเงิน"
+  billToText: "เรียกเก็บเงินถึง"
   billToAddressText: "ที่อยู่ เรียกเก็บเงินถึง"
   shipToText: "จัดส่งถึง"
   shipToAddressText: "ที่อยู่จัดส่งถึง"
@@ -976,8 +976,8 @@
   titleText: "จัดส่งถึง"
 >
 <icboeApplicationModule ""
-  picklistsText: "รายการการเลือก"
-  retrievingPicklistsText: "กำลังเรียกข้อมูลรายการการเลือก"
+  picklistsText: "รายการให้เลือก"
+  retrievingPicklistsText: "กำลังเรียกข้อมูลรายการให้เลือก"
 >
 
 <erpShipTosDetail ""
@@ -1082,7 +1082,7 @@
 <locationsPricingAvailabilityList ""
   titleText: "คลังสินค้า"
   warehouseText: "คลังสินค้า"
-  availableText: "ที่มีอยู่"
+  availableText: "พร้อมใช้งาน"
   availableToPromiseDateText: "วันที่สัญญา"
 >
 

@@ -24,7 +24,6 @@
   industryText: "行业"
   notesText: "备注"
   ownerText: "所有者"
-  phoneCallHistoryTitle: "电话呼叫"
   phoneText: "电话"
   actionsText: "快速操作"
   relatedActivitiesText: "活动"
@@ -102,6 +101,7 @@
   completedText: "完成日期"
   completionText: "完成"
   durationText: "持续时间"
+  durationTitleText: "持续时间"
   durationInvalidText: "字段“${2}”为必填项。"
   carryOverNotesText: "沿用备注"
   followUpText: "跟进"
@@ -125,7 +125,7 @@
   hourAndHalfText: "1.5 小时"
   twoHoursText: "2 小时"
   nonePropText: "无"
-  phoneCallText: "电话呼叫"
+  phoneCallText: "电话"
   meetingText: "会议"
   toDoText: "待办事项"
   personalText: "个人活动"
@@ -157,14 +157,14 @@
   contactText: "联系人"
   opportunityText: "销售机会"
   ticketNumberText: "工单"
-  recurrenceText: "重现"
+  recurrenceText: "重复"
   confirmEditRecurrenceText: "是否要编辑所有出现的情况? 点击“取消”以编辑单个出现的情况。"
   relatedAttachmentText: "附件"
   relatedAttachmentTitleText: "活动附件"
   relatedItemsText: "相关项"
   phoneText: "电话"
   moreDetailsText: "更多明细"
-  phoneCallText: "电话呼叫"
+  phoneCallText: "电话"
   meetingText: "会议"
   toDoText: "待办事项"
   personalText: "个人活动"
@@ -225,21 +225,13 @@
   allDayText: "无时间限制"
   completeActivityText: "完成"
   callText: "呼叫"
-  calledText: "已呼叫"
+  calledText: "已致电 ${0}"
   addAttachmentActionText: "添加附件"
   overdueText: "过期"
   alarmText: "提醒"
   touchedText: "已接触"
   importantText: "重要"
   recurringText: "定期"
-  phoneCallText: "电话呼叫"
-  meetingText: "会议"
-  toDoText: "待办事项"
-  personalText: "个人活动"
-  literatureText: "营销材料申请"
-  questionText: "问题"
-  noteText: "备注"
-  emailText: "电子邮件"
 >
 
 <activityMyList ""
@@ -248,7 +240,7 @@
   acceptActivityText: "接受"
   declineActivityText: "拒绝"
   callText: "呼叫"
-  calledText: "已呼叫"
+  calledText: "已致电 ${0}"
   addAttachmentActionText: "添加附件"
   viewContactActionText: "联系人"
   viewAccountActionText: "客户"
@@ -267,15 +259,16 @@
   afterCompletionText: "完成后"
   singleWeekdayText: "工作日"
   weekdaysText: "工作日"
-  dayText: "日"
+  dayNumberText: "日期数"
   monthText: "月"
-  onText: "于"
+  onText: "周几"
   occurrencesText: "次后结束。"
   summaryText: "摘要"
   recurringFrequencyText: "重复频率"
+  frequencyIntervalText: "频率间隔"
   yesText: "是"
   noText: "否"
-  titleText: "重现"
+  titleText: "重复"
   sunday: "星期日"
   monday: "星期一"
   tuesday: "星期二"
@@ -299,12 +292,16 @@
   weeks: "周"
   months: "月"
   years: "年"
+  dailyText: "每天"
+  weeklyText: "每周"
+  monthlyText: "每月"
+  yearlyText: "每年"
 >
 
 <activityTypesList ""
   titleText: "日程安排..."
   toDo: "待办事项"
-  phoneCall: "电话呼叫"
+  phoneCall: "电话"
   meeting: "会议"
   literature: "营销材料申请"
   personal: "个人活动"
@@ -322,7 +319,7 @@
   descriptionText: "描述"
   descriptionTitleText: "描述"
   isMailingText: "发货"
-  isPrimaryText: "主要"
+  isPrimaryText: "主要地址"
   postalCodeText: "邮编"
   salutationText: "注意"
   stateText: "省/州"
@@ -340,7 +337,7 @@
 
 <attachmentList ""
   titleText: "附件"
-  uploadedOnText: "已上传 "
+  uploadedOnText: "上传于 "
 >
 
 <attachmentMyList ""
@@ -366,7 +363,7 @@
   eventHeaderText: "事件"
   countMoreText: "查看更多"
   toggleCollapseText: "切换折叠"
-  withFromText: "使用 ${accountName} 中的 ${contactName}"
+  withFromText: "客户 ${accountName} 的联系人 ${contactName} 的活动"
   withText: "使用 ${object}"
   unspecifiedText: "未指定"
   forText: "针对 ${reason}"
@@ -420,10 +417,6 @@
   toggleCollapseText: "切换折叠"
 >
 
-<chartMixin ""
-  loadingText: "正在加载"
->
-
 <competitorList ""
   titleText: "竞争对手"
 >
@@ -457,15 +450,13 @@
   cuisinePreferenceText: "美食"
   callMobileNumberText: "呼叫移动电话"
   callWorkNumberText: "呼叫单位电话"
-  calledText: "已呼叫"
+  calledText: "已致电 ${0}"
   scheduleActivityText: "安排活动"
   addNoteText: "添加备注"
   sendEmailText: "发送电子邮件"
   viewAddressText: "查看地址"
   moreDetailsText: "更多明细"
   entityText: "联系人"
-  phoneCall: "电话呼叫"
-  email: "电子邮件"
 >
 
 <contactEdit ""
@@ -481,7 +472,7 @@
   faxText: "传真"
   addressText: "地址"
   contactTitleText: "职位"
-  titleTitleText: "职位"
+  titleTitleText: "称谓"
   addressTitleText: "地址"
   ownerText: "所有者"
   cuisinePreferenceText: "美食"
@@ -539,7 +530,7 @@
   meeting: "会议"
   literature: "营销材料申请"
   personal: "个人活动"
-  phoneCall: "电话呼叫"
+  phoneCall: "电话"
   toDo: "待办事项"
 >
 
@@ -587,7 +578,7 @@
   typeText: "类型"
   entityText: "历史"
   toDo: "待办事项"
-  phoneCall: "电话呼叫"
+  phoneCall: "电话"
   meeting: "会议"
   literature: "营销材料申请"
   personal: "个人活动"
@@ -616,6 +607,12 @@
   validationCanEditText: "不允许进行编辑"
 >
 
+<historyEditOffline ""
+  titleText: "离线备注"
+  notesSectionText: "备注"
+  notesLabelText: "备注"
+>
+
 <historyList ""
   titleText: "备注/历史"
   viewAccountActionText: "客户"
@@ -624,7 +621,7 @@
   addAttachmentActionText: "添加附件"
   regardingText: "相关事项: "
   toDo: "待办事项"
-  phoneCall: "电话呼叫"
+  phoneCall: "电话"
   meeting: "会议"
   literature: "营销材料申请"
   personal: "个人活动"
@@ -632,9 +629,15 @@
   email: "电子邮件"
 >
 
+<historyListOffline ""
+  titleText: "离线备注"
+  widgetTitle: "离线备注"
+  saveToCRMText: "保存到 CRM"
+>
+
 <historyRelated ""
   regardingText: "相关事项"
-  byText: "已编写 "
+  byText: "${0} 在 ${1} 编写"
   titleText: "备注"
 >
 
@@ -648,7 +651,7 @@
   leadSourceText: "销售线索来源"
   industryText: "行业"
   interestsText: "兴趣"
-  leadTitleText: "职位"
+  leadTitleText: "称谓"
   nameText: "姓名"
   notesText: "备注"
   ownerText: "所有者"
@@ -674,8 +677,6 @@
   calledText: "已致电 ${0}"
   emailedText: "已通过电子邮件联系 ${0}"
   entityText: "销售线索"
-  phoneCall: "电话呼叫"
-  email: "电子邮件"
 >
 
 <leadEdit ""
@@ -698,7 +699,7 @@
   notesTitleText: "备注"
   sicCodeText: "标准行业分类代码"
   titleText: "销售线索"
-  titleTitleText: "职位"
+  titleTitleText: "称谓"
   tollFreeText: "免费电话"
   webText: "网站"
   workText: "单位电话"
@@ -1080,9 +1081,8 @@
   titleText: "用户"
 >
 
-<cardLayoutListMixin ""
-  itemIconAltText: "联系人"
-  allRecordsText: "未应用搜索"
+<chartMixin ""
+  searchText: "${title}: ${searchTerm}"
 >
 
 <groupListMixin ""
@@ -1181,9 +1181,9 @@
 >
 
 <login ""
-  copyrightText: "版权所有 &copy; 2016 Infor。保留所有权利。www.infor.com"
   logOnText: "登录"
   passText: "密码"
+  urlText: "SData 端点"
   rememberText: "记住我"
   titleText: "登录"
   userText: "用户 ID"
@@ -1191,6 +1191,7 @@
   missingUserText: "找不到用户记录。"
   requestAbortedText: "请求已中止。"
   logoText: "Infor CRM"
+  logOnError: "服务器不可用，或者您为端点的连接输入了错误信息。尝试重新输入端点信息，或联系您的系统管理员。"
 >
 
 <logOff ""
@@ -1228,6 +1229,7 @@
   confirm24HourClockMessage: "将时钟改成 24 小时制需要重启应用程序。是否继续?"
   confirm12HourClockMessage: "将时钟改成 12 小时制需要重启应用程序。是否继续?"
   confirmClearLocalStorageMessage: "清除本地存储需要重启应用程序。是否确定?"
+  languageSettingText: "语言设置"
 >
 
 <speedSearchList ""
@@ -1252,6 +1254,8 @@
 <action ""
   calledText: "已致电 ${0}"
   emailedText: "已通过电子邮件联系 ${0}"
+  phoneCall: "电话"
+  email: "电子邮件"
 >
 
 <application ""
@@ -1268,7 +1272,7 @@
   offlineInitDataText: "正在初始化离线数据"
   offlineInitErrorText: "离线初始化过程中出现错误。将禁用所有离线选项。"
   appStateInitErrorText: "应用程序初始化过程中出现错误。请重试。"
-  mingleAuthErrorText: "Mingle 单一登录失败，拒绝访问。"
+  mingleAuthErrorText: "Infor Ming.le 身份验证失败。拒绝访问。"
 >
 
 <applicationModule ""
@@ -1280,6 +1284,8 @@
   systemOptionsText: "系统选项"
   userContextAndOptionsText: "用户上下文和选项"
   integrationsText: "集成"
+  picklistsText: "选择列表"
+  retrievingPicklistsText: "正在检索选择列表"
 >
 
 <defaultMetrics ""
@@ -1313,22 +1319,11 @@
 
 <recurrence ""
   neverText: "从不"
-  daysText: "天"
   dailyText: "每天"
-  weeksText: "周"
   weeklyText: "每周"
-  weeklyOnText: "每周${3}"
-  monthsText: "月"
   monthlyText: "每月"
-  monthlyOnDayText: "每月 ${1} 号"
-  monthlyOnText: "每月${5} ${3}"
-  yearsText: "年"
   yearlyText: "每年"
-  yearlyOnText: "每年${2}"
-  yearlyOnWeekdayText: "每年${4}中的${5} ${3}"
-  everyText: "每 ${0} ${1}"
-  afterCompletionText: "完成后"
-  untilEndDateText: "${0} 直到 ${1}"
+  daySeparator: "${0}， "
   sunday: "星期日"
   monday: "星期一"
   tuesday: "星期二"
@@ -1336,12 +1331,33 @@
   thursday: "星期四"
   friday: "星期五"
   saturday: "星期六"
-  day: "日"
-  first: "第一个"
-  second: "第二个"
-  third: "第三个"
-  fourth: "第四个"
-  last: "最后一个"
+  day: "特定日"
+  first: "第一个 ${0}"
+  second: "第二个 ${0}"
+  third: "第三个 ${0}"
+  fourth: "第四个 ${0}"
+  last: "最后一个 ${0}"
+  singleActivitySummary: "该活动只发生一次"
+  dailySummary: "每天，时间为 ${1}，自 ${2} 到 ${3}"
+  dailyEverySummary: "每隔 ${0} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  dailyAfterCompletionSummary: "完成后每日"
+  dailyEveryAfterCompletionSummary: "完成后每隔 ${0} 天"
+  weeklySummary: "每周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
+  weeklyEverySummary: "每隔 ${0} 周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
+  weeklyAfterCompletionSummary: "完成后每周的 ${4}"
+  weeklyEveryAfterCompletionSummary: "完成后每隔 ${0} 周的${4}"
+  monthlyOrdSummary: "每月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
+  monthlyEveryOrdSummary: "每隔 ${0} 月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
+  monthlySummary: "每月的该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  monthlyEverySummary: "每隔 ${0} 月的该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  monthlyAfterCompletionSummary: "完成后每月"
+  monthlyEveryAfterCompletionSummary: "完成后每隔 ${0} 月"
+  yearlySummary: "每年${5}，该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  yearlyEverySummary: "每隔 ${0} 年，月份 ${5}，该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  yearlyOrdSummary: "每年${5}${6}，时间为 ${1}，自 ${2} 到 ${3}"
+  yearlyEveryOrdSummary: "每隔 ${0} 年，${5}的${6}，时间为 ${1}，自 ${2} 到 ${3}"
+  yearlyAfterCompletionSummary: "完成后的每年"
+  yearlyEveryAfterCompletionSummary: "完成后的每隔 ${0} 年"
 >
 
 <speedSearchWidget ""
@@ -1350,7 +1366,7 @@
 
 <activityTypeText ""
   atToDoText: "待办事项"
-  atPhoneCallText: "电话呼叫"
+  atPhoneCallText: "电话"
   atAppointmentText: "会议"
   atLiteratureText: "营销材料申请"
   atPersonalText: "个人"
@@ -1437,6 +1453,7 @@
   reBriefcaseText: "将记录退回到公文包"
   goToOnlineText: "转到离线视图"
   goToOfflineText: "转到离线视图"
+  resyncTooltipText: "重新同步"
 >
 
 <recentlyViewedList ""
@@ -1457,20 +1474,30 @@
   clearDataText: "全部清除"
   clearRecentText: "清除最近查看的内容"
   clearBriefcasedText: "清除公文包"
-  olderThanText: "清除以下时间之前的离线数据"
-  daysText: "天"
+  olderThanText: "清除以下天数之前的离线数据:"
   showUsageText: "显示使用情况"
   processingText: "正在处理，请稍候。"
   calculatingUsageText: "正在计算使用情况，请稍候。"
   clearingDataText: "正在清除数据，请稍候。"
-  lastClearedText: "上次清除时间"
+  lastClearedText: "上次清除时间:"
   errorCalculatingText: "计算使用情况时出错"
   errorClearingDataText: "清除数据时出错"
 >
 
+<languageOptionsEdit ""
+  titleText: "语言设置"
+>
+
+<languageUsageWidget ""
+  regionText: "区域设置"
+  languageText: "语言"
+  toastTitle: "刷新页面"
+  toastMessage: "请刷新您的浏览器，查看更改。"
+>
+
 <authenticationModel ""
   entityDisplayName: "身份验证"
-  entityDisplayNamePlural : "身份验证"
+  entityDisplayNamePlural: "身份验证"
 >
 
 <mingle ""
@@ -1523,4 +1550,14 @@
   meetingHash: "#会议"
   personalHash: "#个人"
   emailHash: "#电子邮件"
+>
+
+<opportunityContactModel ""
+  entityDisplayName: "销售机会联系人"
+  entityDisplayNamePlural: "销售机会联系人"
+>
+
+<ticketActivityModel ""
+  entityDisplayName: "工单活动"
+  entityDisplayNamePlural: "工单活动"
 >

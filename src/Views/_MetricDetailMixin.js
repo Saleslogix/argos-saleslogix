@@ -4,9 +4,7 @@ import MetricWidget from './MetricWidget';
 
 /**
  * @class crm.Views._MetricDetailMixin
- *
- * Mixin for adding KPI widgets to detail views.
- *
+ * @classdesc Mixin for adding KPI widgets to detail views.
  * @since 3.0
  *
  * @requires crm.Views.MetricWidget

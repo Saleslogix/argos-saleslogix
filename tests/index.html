@@ -43,9 +43,6 @@
   <!-- jQuery -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/sohoxi/js/jquery-3.1.1.js"></script>
 
-  <!-- D3 -->
-  <script type="text/javascript" src="../../../argos-sdk/libraries/sohoxi/js/d3.js"></script>
-
   <!-- SohoXi -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/sohoxi/js/sohoxi.js"></script>
 
@@ -143,6 +140,10 @@
     }
     var ctx = buildContext();
     ctx.ready(function() {
+      // Shim, sohoxi will use define.amd and require it.
+      define('jquery', function() {
+        return window.$;
+      });
       require([
         'spec/all'
       ]);

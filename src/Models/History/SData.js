@@ -71,6 +71,7 @@ const __class = declare('crm.Models.History.SData', [Base, _SDataModelBase], {
 
     if (completedUser) {
       const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService())
+        .setContractName('dynamic')
         .setResourceKind('users')
         .setResourceSelector(`'${completedUser}'`)
         .setQueryArg('select', [

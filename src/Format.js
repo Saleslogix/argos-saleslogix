@@ -5,12 +5,10 @@ const f = ICRMCommonSDK.format;
 
 /**
  * @class crm.Format
- *
  * @extends argos.Format
- * @requires crm.Template
- *
+ * @singleton
  */
-const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
+const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends crm.Format */{
   /**
    * Address Culture Formats as defined by crm.Format.address
    * http://msdn.microsoft.com/en-us/library/cc195167.aspx
@@ -100,7 +98,10 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
     const val = f.date(date, timeless);
     return moment(val).fromNow();
   },
-  multiCurrency: f.multiCurrency,
+  multiCurrency: function multiCurrency(_val, code) {
+    return f.multiCurrency(_val, code, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
+      Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+  },
   nameLF: f.nameLF,
   mail: f.mail,
   // TODO: L20n

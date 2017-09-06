@@ -14,13 +14,10 @@ import lang from 'dojo/_base/lang';
 // 2. unloadRightDrawer
 /**
  * @class crm.Views._RightDrawerBaseMixin
- *
- * The base mixin for the right drawer.
- *
+ * @classdesc The base mixin for the right drawer.
  * @since 3.0
- *
  */
-const __class = declare('crm.Views._RightDrawerBaseMixin', null, {
+const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.Views._RightDrawerBaseMixin# */{
   drawerLoaded: false,
   /**
    * @property {Boolean}

@@ -6,6 +6,7 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
+import string from 'dojo/string';
 
 
 const resource = getResource('attachmentList');
@@ -29,6 +30,7 @@ const dtFormatResource = getResource('attachmentListDateTimeFormat');
  *
  * @requires moment
  *
+ * @requires string
  */
 const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _LegacySDataListMixin], {
   // Templates
@@ -40,18 +42,18 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     '{% } %}',
   ]),
   fileTemplate: new Simplate([
-    '<p class="listview-heading"><span>{%: $.description %}&nbsp;</span></p>',
-    '<p class="micro-text"><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span>',
-    '<span>{%: crm.Format.fileSize($.fileSize) %} </span></p>',
+    '{% if ($.attachDate) { %}',
+    '<p class="micro-text"><span>({%: $$.buildUploadedText($.attachDate) %})</span></p>',
+    '{% } %}',
+    '<p class="micro-text"><span>{%: crm.Format.fileSize($.fileSize) %}</span></p>',
     '<p class="micro-text"><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></p>',
     '{% if($.user) { %}',
     '<p class="micro-text"><span>{%: $.user.$descriptor  %}</span></p>',
     '{% } %}',
   ]),
   urlTemplate: new Simplate([
-    '<p class="micro-text"><span>{%: $.description %} &nbsp;</span></p>',
     '{% if ($.attachDate) { %}',
-    '<p class="micro-text"><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span></p>',
+    '<p class="micro-text"><span>({%: $$.buildUploadedText($.attachDate) %})&nbsp;</span></p>',
     '{% } %}',
     '<p class="micro-text"><span>{%: $.url %}&nbsp;</span></p>',
     '{% if($.user) { %}',
@@ -64,6 +66,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
   attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
   uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
+  touchedText: resource.touchedText,
 
   // View Properties
   id: 'attachment_list',
@@ -166,7 +169,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: 'Touched',
+      label: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },
@@ -182,6 +185,10 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
         modifiedDate.isBefore(currentDate);
     }
     return false;
+  },
+  buildUploadedText: function buildUploadedText(date) {
+    const modifiedDate = moment(date).toDate();
+    return string.substitute(this.uploadedOnText, [modifiedDate.toLocaleDateString(), modifiedDate.toLocaleTimeString()]);
   },
 });
 

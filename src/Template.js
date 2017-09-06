@@ -3,13 +3,10 @@ import 'argos/Format';
 
 /**
  * @class crm.Template
- *
- * Helper class that contains re-usuable {@link Simplate} templates.
- *
+ * @classdesc Helper class that contains re-usuable {@link Simplate} templates.
  * @requires argos.Format
- *
  */
-const __class = lang.setObject('crm.Template', {
+const __class = lang.setObject('crm.Template', /** @lends crm.Template */ {
   /**
    * @property {Simplate} nameLF
    * Template for lastname, firstname
@@ -56,9 +53,9 @@ const __class = lang.setObject('crm.Template', {
     '{% var F = argos.Format; %}', // TODO: Avoid global
     '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
     '<label>{%: $.label %}</label>',
-    '<span class="data">',
+    '<pre>',
     '{%= F.encode($.value) %}',
-    '</span>',
+    '</pre>',
     '</div>',
   ]),
 });

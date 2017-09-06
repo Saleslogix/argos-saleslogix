@@ -49,7 +49,10 @@ const __class = declare('crm.Views.Login', [Edit], {
   missingUserText: resource.missingUserText,
   requestAbortedText: resource.requestAbortedText,
   logoText: resource.logoText,
-
+  errorText: {
+    general: resource.logOnError,
+    status: {},
+  },
   ENTER_KEY: 13,
 
   _onKeyPress: function _onKeyPress(evt) {
@@ -160,7 +163,7 @@ const __class = declare('crm.Views.Login', [Edit], {
       remember: values.remember,
     };
 
-    if (credentials.username) {
+    if (credentials.username && credentials.endpoint) {
       this.validateCredentials(credentials);
     }
   },

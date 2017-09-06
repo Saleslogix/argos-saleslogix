@@ -37,6 +37,7 @@ const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
         'Interests',
         'LastName',
         'LeadNameLastFirst',
+        'LeadNameFirstLast',
         'LeadSource/Description',
         'MiddleName',
         'Mobile',

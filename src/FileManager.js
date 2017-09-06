@@ -7,9 +7,8 @@ const resource = getResource('fileManager');
 
 /**
  * @class crm.FileManager
- *
  */
-const __class = declare('crm.FileManager', null, {
+const __class = declare('crm.FileManager', null, /** @lends crm.FileManager# */{
   unableToUploadText: resource.unableToUploadText,
   unknownSizeText: resource.unknownSizeText,
   unknownErrorText: resource.unknownErrorText,
@@ -27,7 +26,7 @@ const __class = declare('crm.FileManager', null, {
   _isUploading: false,
 
   /**
-   * @constructor
+   * @constructs
    */
   constructor: function constructor() {
     this._files = [];

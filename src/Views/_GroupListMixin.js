@@ -8,6 +8,7 @@ import lang from 'dojo/_base/lang';
 import SDataStore from 'argos/Store/SData';
 import Deferred from 'dojo/Deferred';
 import action from '../Action';
+import ActivityTypeText from '../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
 
 
@@ -15,12 +16,8 @@ const resource = getResource('groupListMixin');
 
 /**
  * @class crm.Views._GroupListMixin
- *
- * Mixin for slx group list layouts.
- *
+ * @classdesc Mixin for slx group list layouts.
  * @since 3.1
- *
- *
  */
 const __class = declare('crm.Views._GroupListMixin', null, {
   noDefaultGroupText: resource.noDefaultGroupText,
@@ -258,6 +255,16 @@ const __class = declare('crm.Views._GroupListMixin', null, {
         }
       })(this, queryResults);
     }
+  },
+  setPrimaryTitle: function setPrimaryTitle() {
+    const group = this._currentGroup;
+
+    if (group) {
+      const title = this.getGroupTitle(group);
+      this.set('title', title);
+    }
+
+    this.inherited(arguments);
   },
   _onGroupRequestSuccess: function _onGroupRequestSuccess(result) {
     if (result.length > 0) {
@@ -800,7 +807,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     }
     switch (actionName) {
       case 'callPhone':
-        action.callPhone.call(this, null, opt.selection, opt.propertyName);
+        action.callPhone.call(this, null, opt.selection, opt.propertyName, ActivityTypeText.atPhoneCall);
         break;
       case 'sendEmail':
         action.sendEmail.call(this, null, opt.selection, opt.propertyName);
