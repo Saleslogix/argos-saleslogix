@@ -9,6 +9,7 @@ mkdir deploy\help
 mkdir deploy\content\javascript
 mkdir deploy\content\images
 mkdir deploy\content\css
+mkdir deploy\scripts
 
 call grunt clean:css clean:js less
 call yarn run build
@@ -32,3 +33,4 @@ xcopy index.ascx.cs .\deploy /Y /Q
 xcopy index.manifest .\deploy /Y /Q
 xcopy index.manifest.ashx .\deploy /Y /Q
 xcopy Global.asax .\deploy /Y /Q
+xcopy build\iis.ps1 .\deploy\scripts /Y /Q
