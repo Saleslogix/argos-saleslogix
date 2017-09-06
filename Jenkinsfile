@@ -85,7 +85,7 @@ void iiscopy(branch, build) {
   dir("C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build") {
     unstash 'slx'
     unstash 'sdk'
-    bat """PowerShell -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command "scripts\\iis.ps1 -branch $env.BRANCH_NAME -build $build" """
+    bat """%windir%\\SysNative\\WindowsPowerShell\\v1.0\\PowerShell.exe -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command "scripts\\iis.ps1 -branch $branch -build $build" """
   }
 }
 
