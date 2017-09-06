@@ -34,3 +34,4 @@ xcopy index.manifest .\deploy /Y /Q
 xcopy index.manifest.ashx .\deploy /Y /Q
 xcopy Global.asax .\deploy /Y /Q
 xcopy build\iis.ps1 .\deploy\scripts /Y /Q
+xcopy template.manifest .\deploy /Y /Q
