@@ -1,48 +1,46 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="index-body.ascx.cs" Inherits="Index_html" %>
 <%@ Import Namespace="System.Globalization" %>
 
-<body>
-  <div id="rootNode"></div>
+<div id="rootNode"></div>
 
-  <script type="text/javascript">
-      var languages = <%= Languages %>;
+<script type="text/javascript">
+    var languages = <%= Languages %>;
 
-      // set path for soho cultures
-      window.Locale.culturesPath = 'content/javascript/cultures/';
+    // set path for soho cultures
+    window.Locale.culturesPath = 'content/javascript/cultures/';
 
-      var supportedLocales = <%= SupportedLocales %>,
-          defaultLocale = language || 'en',
-          currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
-          parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
-          defaultRegionLocale = regionLocale || 'en',
-          currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
-          parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
-      (function () {
+    var supportedLocales = <%= SupportedLocales %>,
+        defaultLocale = language || 'en',
+        currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',
+        parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        defaultRegionLocale = regionLocale || 'en',
+        currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
+        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
+    (function () {
 
-          // Shim, sohoxi will use define.amd and require it.
-          define('jquery', function () {
-              return window.$;
-          });
-          require(['crm/polyfills/index', 'crm/Bootstrap'], function (polyfills, bootstrap) {
-              bootstrap({
-                  supportedLocales: supportedLocales,
-                  defaultLocale: 'en',
-                  currentLocale: currentLocale,
-                  parentLocale: parentLocale,
-                  defaultRegionLocale: 'en',
-                  currentRegionLocale: currentRegionLocale,
-                  parentRegionLocale: parentRegionLocale,
-                  isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
-                  configuration: <%= Configuration %>,
-                  application: 'crm/Application',
-                  legacyLocalization: <%= LegacyLocalization %>,
-                  legacyLocalizationFallback: <%= LegacyLocalizationFallback %>,
-                  // TODO limit to only strings
-                  localeFiles: <%= LocaleFiles %>,
-                  regionalFiles: <%= RegionalFiles %>,
-                  rootElement: document.getElementById('rootNode')
-          });
+        // Shim, sohoxi will use define.amd and require it.
+        define('jquery', function () {
+            return window.$;
         });
-      })();
-  </script>
-</body>
+        require(['crm/polyfills/index', 'crm/Bootstrap'], function (polyfills, bootstrap) {
+            bootstrap({
+                supportedLocales: supportedLocales,
+                defaultLocale: 'en',
+                currentLocale: currentLocale,
+                parentLocale: parentLocale,
+                defaultRegionLocale: 'en',
+                currentRegionLocale: currentRegionLocale,
+                parentRegionLocale: parentRegionLocale,
+                isRegionMetric: <%= (CurrentRegion.IsMetric) ? "true" : "false" %>,
+                configuration: <%= Configuration %>,
+                application: 'crm/Application',
+                legacyLocalization: <%= LegacyLocalization %>,
+                legacyLocalizationFallback: <%= LegacyLocalizationFallback %>,
+                // TODO limit to only strings
+                localeFiles: <%= LocaleFiles %>,
+                regionalFiles: <%= RegionalFiles %>,
+                rootElement: document.getElementById('rootNode')
+        });
+    });
+    })();
+</script>
