@@ -188,7 +188,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
    * Overrides View widgetTemplate
    */
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
+    '<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
     '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
     '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',

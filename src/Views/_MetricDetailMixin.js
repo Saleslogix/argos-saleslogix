@@ -18,7 +18,7 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
 
   postMixInProperties: function postMixInProperties() {
     this.widgetTemplate = new Simplate([
-      '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+      '<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
       '{%! $.loadingTemplate %}',
       '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>',
       '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',

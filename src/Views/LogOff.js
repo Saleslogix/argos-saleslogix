@@ -10,7 +10,7 @@ const __class = declare('crm.Views.LogOff', [View], {
   widgetTemplate: new Simplate([
     '<div class="panel">',
     '<div class="wrapper">',
-    '<div title="{%: $.titleText %}" class="signin {%= $.cls %}" hideBackButton="true">',
+    '<div data-title="{%: $.titleText %}" class="signin {%= $.cls %}" hideBackButton="true">',
     '<p>{%= $.messageText %}</p>',
     '<p><a href="#" class="hyperlink" data-action="login">{%: $.loginText %}</a></p>',
     '</div>',
