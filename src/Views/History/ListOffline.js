@@ -3,8 +3,10 @@ import _ListBase from 'argos/_ListBase';
 import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
+import format from '../../Format';
 
 const resource = getResource('historyListOffline');
+const dateResource = getResource('historyListOfflineFormat');
 
 const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   // Localization
@@ -39,8 +41,12 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   getIdentity: function getIdentity(entry) {
     return entry && entry.$offlineDate;
   },
-  getTitle: function getTitle() {
-    return resource.widgetTitle;
+  getTitle: function getTitle(entry) {
+    if (App.is24HourClock()) {
+      return `${format.date(entry.$offlineDate, dateResource.dateFormatText24)}`;
+    }
+
+    return `${format.date(entry.$offlineDate, dateResource.dateFormatText)}`;
   },
   getModel: function getModel() {
     const model = App.ModelManager.getModel(MODEL_NAMES.HISTORY, MODEL_TYPES.OFFLINE);
