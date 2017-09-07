@@ -89,6 +89,11 @@
   eventDateFormatText: "YYYY-M-D"
 >
 
+<historyListOfflineFormat ""
+  dateFormatText: "ddd YYYY-M-D h:mm:ss A"
+  dateFormatText24: "ddd YYYY-M-D H:mm:ss"
+>
+
 <historyDetailDateTimeFormat ""
   dateFormatText: "YYYY-M-D h:mm:ss A"
   dateFormatText24: "YYYY-M-D H:mm:ss"
