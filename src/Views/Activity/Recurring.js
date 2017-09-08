@@ -235,7 +235,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     this.summarize();
   },
   onEndDateChange: function onEndDateChange(value) {
-    if (value > this.fields.StartDate.getValue()) {
+    if (value >= this.fields.StartDate.getValue()) {
       const iterations = recur.calcRecurIterations(
         value,
         this.fields.StartDate.getValue(),
