@@ -64,8 +64,6 @@ export default function bootstrap({
     'zh-CN': 'zh-CN',
     'zh-TW': 'zh-TW',
     es: 'es-US',
-    'es-ES': 'es-ES',
-    pt: 'pt-PT',
     'pt-BR': 'pt-BR',
     ja: 'ja-JP',
     nl: 'nl-NL',
