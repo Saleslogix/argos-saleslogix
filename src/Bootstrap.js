@@ -63,7 +63,7 @@ export default function bootstrap({
     ru: 'ru-RU',
     'zh-CN': 'zh-CN',
     'zh-TW': 'zh-TW',
-    es: 'es-US',
+    es: 'es',
     'pt-BR': 'pt-BR',
     ja: 'ja-JP',
     nl: 'nl-NL',
