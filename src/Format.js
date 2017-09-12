@@ -1,7 +1,11 @@
 import lang from 'dojo/_base/lang';
+import dojoNumber from 'dojo/number';
+import string from 'dojo/string';
 import format from 'argos/Format';
+import getResource from 'argos/I18n';
 
 const f = ICRMCommonSDK.format;
+const resource = getResource('crmFormat');
 
 /**
  * @class crm.Format
@@ -89,10 +93,36 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
     return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
   },
-  bigNumberAbbrText: f.bigNumberAbbrText,
   bigNumber: function bigNumber(val) {
-    const locale = App.getCurrentLocale();
-    return f.bigNumber(val, locale);
+    let numParse = typeof val !== 'number' ? parseFloat(val) : val;
+    const absVal = Math.abs(numParse);
+
+    if (isNaN(numParse)) {
+      return val;
+    }
+
+    let results = numParse.toString();
+    if (absVal >= 1000000000) {
+      // Billion
+      numParse = numParse / 1000000000;
+      results = string.substitute(resource.billionText, {
+        val: dojoNumber.format(numParse, { places: 1 }),
+      });
+    } else if (absVal >= 1000000) {
+      numParse = numParse / 1000000;
+      results = string.substitute(resource.millionText, {
+        val: dojoNumber.format(numParse, { places: 1 }),
+      });
+    } else if (absVal >= 1000) {
+      numParse = numParse / 1000;
+      results = string.substitute(resource.thousandText, {
+        val: dojoNumber.format(numParse, { places: 1 }),
+      });
+    } else {
+      results = dojoNumber.round(numParse, 2).toString();
+    }
+
+    return results;
   },
   relativeDate: function relativeDate(date, timeless) {
     const val = f.date(date, timeless);

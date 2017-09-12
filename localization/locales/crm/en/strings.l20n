@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "edit"
   emptyText: ""
