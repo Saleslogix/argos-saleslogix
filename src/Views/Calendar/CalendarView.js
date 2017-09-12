@@ -57,7 +57,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
 
   // Templates
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+    '<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
     '<div class="panel-content">',
     '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>',

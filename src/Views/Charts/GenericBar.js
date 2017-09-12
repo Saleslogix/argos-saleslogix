@@ -34,6 +34,8 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], /** 
       node: 'contentNode',
       type: 'innerHTML',
     },
+    title: View.prototype.attributeMap.title,
+    selected: View.prototype.attributeMap.selected,
   },
 
   createChart: function createChart(rawData) {
