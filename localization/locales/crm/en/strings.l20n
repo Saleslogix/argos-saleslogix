@@ -634,7 +634,7 @@
 <historyListOffline ""
   titleText: "Offline Notes"
   widgetTitle: "Offline Note"
-  saveToCRMText: "Save to CRM"
+  saveToCRMText: "Save to Infor CRM"
   deleteNoteText: "Delete"
 >
 
