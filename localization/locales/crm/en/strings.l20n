@@ -233,6 +233,11 @@
   callText: "Call"
   calledText: "Called ${0}"
   addAttachmentActionText: "Add Attachment"
+  overdueText: "overdue"
+  alarmText: "alarm"
+  touchedText: "Touched"
+  importantText: "important"
+  recurringText: "recurring"
 >
 
 <activityMyList ""
@@ -339,6 +344,7 @@
 <attachmentList ""
   titleText: "Attachments"
   uploadedOnText: "Uploaded on ${0} at ${1}"
+  touchedText: "Touched"
 >
 
 <attachmentMyList ""
@@ -628,6 +634,7 @@
   personal: "Personal Activity"
   question: "Question"
   email: "E-mail"
+  touchedText: "Touched"
 >
 
 <historyListOffline ""
