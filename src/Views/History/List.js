@@ -75,7 +75,6 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   viewContactActionText: resource.viewContactActionText,
   addAttachmentActionText: resource.addAttachmentActionText,
   regardingText: resource.regardingText,
-  touchedText: resource.touchedText,
   activityTypeText: {
     atToDo: resource.toDo,
     atPhoneCall: resource.phoneCall,
@@ -219,7 +218,6 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },

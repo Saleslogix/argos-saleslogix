@@ -66,7 +66,6 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
   attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
   uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
-  touchedText: resource.touchedText,
 
   // View Properties
   id: 'attachment_list',
@@ -169,7 +168,6 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },

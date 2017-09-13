@@ -42,11 +42,6 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   callText: resource.callText,
   calledText: resource.calledText,
   addAttachmentActionText: resource.addAttachmentActionText,
-  overdueText: resource.overdueText,
-  alarmText: resource.alarmText,
-  touchedText: resource.touchedText,
-  importantText: resource.importantText,
-  recurringText: resource.recurringText,
   titleText: resource.titleText,
   hashTagQueriesText: {
     alarm: hashTagResource.alarmText,
@@ -184,35 +179,30 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'alarm',
       cls: 'notification',
-      label: this.alarmText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasAlarm(entry);
       },
     }, {
       id: 'important',
       cls: 'star-filled',
-      label: this.importantText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isImportant(entry);
       },
     }, {
       id: 'recurring',
       cls: 'load',
-      label: this.recurringText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isRecurring(entry, this);
       },
     }, {
       id: 'overdue',
       cls: 'error',
-      label: this.overdueText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isOverdue(entry);
       },
     }, {
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },
