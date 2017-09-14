@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import Base from './Base';
 import _SDataModelBase from 'argos/Models/_SDataModelBase';
 import Manager from 'argos/Models/Manager';
+import ErrorManager from 'argos/ErrorManager';
 import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
@@ -130,6 +131,40 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.SData', [Base, _
         '$permissions',
       ],
     }];
+  },
+  isClosed: function isClosed($key, options) {
+    const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService())
+      .setResourceKind(this.resourceKind)
+      .setOperationName('isClosed');
+    const entry = {
+      $name: 'isClosed',
+      request: {
+        entity: {
+          $key,
+        },
+      },
+    };
+    return new Promise((resolve, reject) => {
+      request.execute(entry, {
+        success: (data) => {
+          const { response: { Result } } = data;
+          resolve(Result);
+        },
+        failure: (response, o) => {
+          ErrorManager.addError(response, o, options, 'failure');
+          reject(response);
+        },
+      });
+    });
+  },
+  getEntry: function getEntry(key, options) {
+    const results$ = this.inherited(arguments);
+    const closed$ = this.isClosed(key, options);
+    return Promise.all([results$, closed$])
+      .then(([entry, closed]) => {
+        entry.IsClosed = closed;
+        return entry;
+      });
   },
 });
 
