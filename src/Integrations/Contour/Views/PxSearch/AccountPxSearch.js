@@ -15,6 +15,7 @@
 
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
+import string from 'dojo/string';
 import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
@@ -117,6 +118,8 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   createRequest() {
     const request = new Sage.SData.Client.SDataBaseRequest(this.getService());
+    const pageSize = this.pageSize;
+    const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
     request.uri.setPathSegment(0, 'slx');
     request.uri.setPathSegment(1, 'dynamic');
     request.uri.setPathSegment(2, '-');
@@ -124,6 +127,8 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     request.uri.setQueryArg('format', 'JSON');
     request.uri.setQueryArg('select', 'AccountName,Industry,Type,SubType,AccountManager/UserInfo/UserName,Address/GeocodeLatitude,Address/GeocodeLongitude,Owner/OwnerDescription,WebAddress,MainPhone,Fax');
     request.uri.setQueryArg('where', `Type eq "${this.acctType ? this.acctType : 'Customer'}" and ${this._requestDistanceCalc()}`);
+    request.uri.setStartIndex(startIndex);
+    request.uri.setCount(pageSize);
     return request;
   },
   _requestDistanceCalc() {
@@ -193,6 +198,19 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
         $(this.contentNode).append(docfrag);
       }
     }
+
+    if (typeof this.feed.$totalResults !== 'undefined') {
+      const remaining = this.feed.$totalResults - (this.feed.$startIndex + this.feed.$itemsPerPage - 1);
+      this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
+    }
+
+    $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
+
+    if (this.options.allowEmptySelection) {
+      $(this.domNode).addClass('list-has-empty-opt');
+    }
+
+    this._loadPreviousSelections();
   },
   geoLocationError() {
     alert(this.currentLocationErrorText); // eslint-disable-line
@@ -202,10 +220,6 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     this.lat = position.coords.latitude;
     this.lon = position.coords.longitude;
     this.requestData();
-  },
-  // only want the top 100 records
-  hasMoreData() {
-    return false;
   },
   options: {},
   // always refresh
