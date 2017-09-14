@@ -90,6 +90,10 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   enableOffline: true,
   _busyIndicator: null,
 
+  onTransitionTo: function onTransitionTo() {
+    this.inherited(arguments);
+    App.bars.tbar.disableTool('edit');
+  },
   _canPromote: function _canPromote() {
     const promise = new Promise(
       (resolve) => {
@@ -202,6 +206,22 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
       const promote = new Promote();
       promote.promoteToBackOffice(this.entry, 'SalesOrder', this);
     });
+  },
+  isSalesOrderClosed: function isSalesOrderClosed() {
+    return this.entry.IsClosed;
+  },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+
+    if (!App.hasAccessTo(this.editView)) {
+      return;
+    }
+
+    if (this.isSalesOrderClosed()) {
+      App.bars.tbar.disableTool('edit');
+    } else {
+      App.bars.tbar.enableTool('edit');
+    }
   },
   hideBusy: function hideBusy() {
     this._busyIndicator.complete();
