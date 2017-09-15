@@ -67,7 +67,7 @@ const __class = declare('crm.Views.Lead.Edit', [Edit], {
     'Company',
     'Email',
     'FirstName',
-    'FullAddress',
+    'Address/*',
     'Industry',
     'Interests',
     'LastName',
@@ -83,6 +83,7 @@ const __class = declare('crm.Views.Lead.Edit', [Edit], {
     'TollFree',
     'WebAddress',
     'WorkPhone',
+    'Owner/OwnerDescription',
   ],
   queryInclude: [
     '$permissions',
