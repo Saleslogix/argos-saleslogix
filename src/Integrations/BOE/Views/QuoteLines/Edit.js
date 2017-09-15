@@ -328,8 +328,12 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
         required: true,
         validator: validator.exists,
         where: () => {
-          if (this.fields.Quote.currentSelection && this.fields.Quote.currentSelection.ErpLogicalId || this.options && this.options.context && this.options.context.Quote && this.options.context.Quote.ErpLogicalId) {
-            return `ErpLogicalId eq "${this.fields.Quote.currentSelection.ErpLogicalId || this.options.context.Quote.ErpLogicalId}"`;
+          const logicalIdFromSelection = this.fields.Quote.currentSelection && this.fields.Quote.currentSelection.ErpLogicalId;
+          const logicalIdFromOptions = this.options && this.options.context && this.options.context.Quote && this.options.context.Quote.ErpLogicalId;
+          const logicalIdFromEntry = this.entry && this.entry.Quote && this.entry.Quote.ErpLogicalId;
+          const logicalId = logicalIdFromSelection || logicalIdFromOptions || logicalIdFromEntry;
+          if (logicalId) {
+            return `ErpLogicalId eq "${logicalId}"`;
           }
           return null;
         },
