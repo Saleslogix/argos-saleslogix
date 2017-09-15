@@ -340,6 +340,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         iconClass: 'bullet-list',
         action: 'addLineItems',
         security: 'Entities/Quote/Add',
+        disabled: this.isQuoteClosed.bind(this),
       }, {
         name: 'RePrice',
         property: 'QuoteNumber',
