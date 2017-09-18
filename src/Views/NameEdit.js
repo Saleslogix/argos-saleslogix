@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import validator from '../Validator';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
@@ -120,5 +119,4 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.NameEdit', __class);
 export default __class;

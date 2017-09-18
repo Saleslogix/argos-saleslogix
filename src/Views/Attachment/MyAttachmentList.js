@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import AttachmentList from './List';
 import getResource from 'argos/I18n';
 
@@ -45,5 +44,4 @@ const __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);
 export default __class;

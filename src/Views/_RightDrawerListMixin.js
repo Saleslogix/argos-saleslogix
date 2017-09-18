@@ -402,5 +402,4 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
 export default __class;

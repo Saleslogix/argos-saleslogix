@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import _MetricListMixin from '../_MetricListMixin';
 import MODEL_NAMES from '../../Models/Names';
@@ -115,5 +114,4 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   hashTagQueriesText: {},
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.MyDay', __class);
 export default __class;

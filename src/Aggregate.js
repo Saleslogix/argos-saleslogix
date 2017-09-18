@@ -100,5 +100,4 @@ const __class = lang.setObject('crm.Aggregate', /** @lends crm.Aggregate */{
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Aggregate', __class);
 export default __class;

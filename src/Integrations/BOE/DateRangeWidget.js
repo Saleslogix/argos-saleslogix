@@ -52,6 +52,5 @@ const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templ
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.DateRangeWidget', __class);
 lang.setObject('crm.Views.DateRangeWidget', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import platformUtility from 'argos/Utility';
 import convert from 'argos/Convert';
@@ -460,5 +459,4 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
 export default __class;

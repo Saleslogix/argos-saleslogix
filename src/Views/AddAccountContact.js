@@ -324,5 +324,4 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
 export default __class;

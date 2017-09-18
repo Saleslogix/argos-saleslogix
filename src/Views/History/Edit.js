@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import environment from '../../Environment';
 import validator from '../../Validator';
@@ -660,5 +659,4 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.History.Edit', __class);
 export default __class;

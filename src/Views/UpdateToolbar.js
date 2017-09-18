@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import MainToolbar from 'argos/MainToolbar';
 import getResource from 'argos/I18n';
 
@@ -66,5 +65,4 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.UpdateToolbar', __class);
 export default __class;

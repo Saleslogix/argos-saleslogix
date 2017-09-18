@@ -68,7 +68,7 @@ const __class = declare('crm.Integrations.Contour.ApplicationModule', [Applicati
     });
 
     // Add the new help
-    const onHelpRowCreated = Mobile.SalesLogix.Views.Help.prototype.onHelpRowCreated;
+    const onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
     this.registerCustomization('detail', 'help', {
       at: (row) => {
         return row.name === 'HelpSection';

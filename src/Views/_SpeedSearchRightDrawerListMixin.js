@@ -156,5 +156,4 @@ const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDra
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
 export default __class;

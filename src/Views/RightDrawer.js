@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 
 import GroupedList from 'argos/GroupedList';
@@ -117,5 +116,4 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.V
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.RightDrawer', __class);
 export default __class;

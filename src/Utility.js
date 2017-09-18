@@ -46,5 +46,4 @@ const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, /** @lends
   stripQueryArgs: commonutil.stripQueryArgs,
 }));
 
-lang.setObject('Mobile.SalesLogix.Utility', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import MainToolbar from 'argos/MainToolbar';
 
 
@@ -71,5 +70,4 @@ const __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.FooterToolbar', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 
 // Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
 //
@@ -104,5 +103,4 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
 export default __class;

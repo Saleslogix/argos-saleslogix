@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import DecimalField from 'argos/Fields/DecimalField';
 import FieldManager from 'argos/FieldManager';
 
@@ -44,5 +43,4 @@ const control = declare('crm.Fields.MultiCurrencyField', [DecimalField], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Fields.MultiCurrencyField', control);
 export default FieldManager.register('multiCurrency', control);

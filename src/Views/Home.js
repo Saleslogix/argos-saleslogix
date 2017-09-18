@@ -217,5 +217,4 @@ var __class = declare('crm.Views.Home', [GroupedList], {
   }
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Home', __class);
 export default __class;

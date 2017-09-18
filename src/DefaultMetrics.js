@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import _CustomizationMixin from 'argos/_CustomizationMixin';
 import getResource from 'argos/I18n';
 
@@ -265,5 +264,4 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.DefaultMetrics', __class);
 export default __class;

@@ -2,7 +2,7 @@
 /**
  * @class configuration.production
  *
- * @requires Mobile.SalesLogix.ApplicationModule
+ * @requires crm.ApplicationModule
  *
  */
 define('configuration/production.default', [

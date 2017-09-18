@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
@@ -926,5 +925,4 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
 export default __class;

@@ -612,5 +612,4 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
   },
 });
 
-lang.setObject('Mobile.SalesLogix.ApplicationModule', __class);
 export default __class;

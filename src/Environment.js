@@ -99,5 +99,4 @@ const __class = lang.setObject('crm.Environment', {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Environment', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import ErrorManager from 'argos/ErrorManager';
 import convert from 'argos/Convert';
@@ -527,5 +526,4 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
@@ -155,5 +154,4 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Help', __class);
 export default __class;

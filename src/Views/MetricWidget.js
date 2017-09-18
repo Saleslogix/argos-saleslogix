@@ -246,5 +246,4 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], /** @le
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);
 export default __class;

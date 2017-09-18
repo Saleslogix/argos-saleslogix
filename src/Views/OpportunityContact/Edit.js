@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
@@ -136,5 +135,4 @@ const __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Edit', __class);
 export default __class;

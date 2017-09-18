@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import json from 'dojo/_base/json';
 import format from 'crm/Format';
 import ErrorManager from 'argos/ErrorManager';
@@ -184,5 +183,4 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.ErrorLog.Detail', __class);
 export default __class;

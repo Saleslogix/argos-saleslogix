@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import action from '../../Action';
 import format from '../../Format';
 import List from 'argos/List';
@@ -177,5 +176,4 @@ const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMix
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);
 export default __class;

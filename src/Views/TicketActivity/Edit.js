@@ -186,5 +186,4 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
 export default __class;

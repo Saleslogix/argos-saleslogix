@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import _ConfigureBase from 'argos/_ConfigureBase';
 import getResource from 'argos/I18n';
@@ -94,5 +93,4 @@ const __class = declare('crm.Views.Configure', [_ConfigureBase], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Configure', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import SDataStore from 'argos/Store/SData';
 import getResource from 'argos/I18n';
@@ -92,5 +91,4 @@ const __class = declare('crm.Views.Groups.Selector', [List], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Groups.Selector', __class);
 export default __class;

@@ -156,5 +156,4 @@ const __class = lang.setObject('crm.Action', {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Action', __class);
 export default __class;

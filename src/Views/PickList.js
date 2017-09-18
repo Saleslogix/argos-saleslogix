@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 
 /**
@@ -111,5 +110,4 @@ const __class = declare('crm.Views.PickList', [List], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.PickList', __class);
 export default __class;
