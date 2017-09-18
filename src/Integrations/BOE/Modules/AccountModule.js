@@ -631,10 +631,10 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       },
     });
 
-    const originalProcessData = Mobile.SalesLogix.Views.Account.Edit.prototype.processData;
-    const originalInit = Mobile.SalesLogix.Views.Account.Edit.prototype.init;
-    const originalProcessEntry = Mobile.SalesLogix.Views.Account.Edit.prototype.processEntry;
-    const originalOnRefreshInsert = Mobile.SalesLogix.Views.Account.Edit.prototype.onRefreshInsert;
+    const originalProcessData = crm.Views.Account.Edit.prototype.processData;
+    const originalInit = crm.Views.Account.Edit.prototype.init;
+    const originalProcessEntry = crm.Views.Account.Edit.prototype.processEntry;
+    const originalOnRefreshInsert = crm.Views.Account.Edit.prototype.onRefreshInsert;
     const icboeUtility = Utility;
     lang.extend(crm.Views.Account.Edit, {
       _busyIndicator: null,

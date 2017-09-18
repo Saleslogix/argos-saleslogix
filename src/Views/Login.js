@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 import { setEndPoint } from '../actions/config';
@@ -244,5 +243,4 @@ const __class = declare('crm.Views.Login', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Login', __class);
 export default __class;

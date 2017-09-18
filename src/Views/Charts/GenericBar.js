@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import array from 'dojo/_base/array';
 import domGeo from 'dojo/dom-geometry';
 import View from 'argos/View';
@@ -87,5 +86,4 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], /** 
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Charts.GenericBar', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import RelatedViewWidget from 'argos/RelatedViewWidget';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
@@ -80,5 +79,4 @@ const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.History.RelatedView', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import action from '../../Action';
 import utility from 'argos/Utility';
 import List from 'argos/List';
@@ -145,5 +144,4 @@ const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, 
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Account.List', __class);
 export default __class;

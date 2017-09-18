@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import MetricWidget from './MetricWidget';
 
 /**
@@ -75,5 +74,4 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views._MetricDetailMixin', __class);
 export default __class;

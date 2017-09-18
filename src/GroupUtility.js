@@ -446,5 +446,4 @@ const __class = lang.setObject('crm.GroupUtility', /** @lends crm.GroupUtility *
   },
 });
 
-lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
 export default __class;

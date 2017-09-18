@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import action from '../../Action';
 import List from 'argos/List';
 import _GroupListMixin from '../_GroupListMixin';
@@ -154,5 +153,4 @@ const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Ticket.List', __class);
 export default __class;

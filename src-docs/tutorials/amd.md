@@ -28,7 +28,7 @@ An example:
         lang,
         string,
     ) {
-        return lang.setObject('Sage.Platform.Mobile.Format', { ... });
+        return lang.setObject('argos.Format', { ... });
     });
 ```
 At first glance the paths don't quite look like paths, you can setup shortcuts to your folder structure in your `index-dev.html` file to point to libraries or setup a namespace etc.
@@ -38,7 +38,7 @@ It see's that it requires the two files: 'lang.js' and 'string.js' from the dojo
 
 Now we are within the `{ }` which can be considered "private". Things defined here are only ran once during the loading process and if the return object does not expose them they are no longer accessible.
 
-In this case we are returning a global object with some various properties. So if another module adds this `Format` module as a dependency the object that is passed to their function will be the object `Sage.Platform.Mobile.Format`.
+In this case we are returning a global object with some various properties. So if another module adds this `Format` module as a dependency the object that is passed to their function will be the object `argos.Format`.
 
 It is important to note that the loader only initializes each module once and it passes the references to any module that needs it.
 

@@ -186,5 +186,4 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
   },
 }));
 
-lang.setObject('Mobile.SalesLogix.Format', __class);
 export default __class;

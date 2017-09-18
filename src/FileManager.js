@@ -283,5 +283,4 @@ const __class = declare('crm.FileManager', null, /** @lends crm.FileManager# */{
   },
 });
 
-lang.setObject('Mobile.SalesLogix.FileManager', __class);
 export default __class;

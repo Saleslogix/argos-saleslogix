@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
@@ -74,5 +73,4 @@ const __class = declare('crm.Views.Address.List', [List], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Address.List', __class);
 export default __class;

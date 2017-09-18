@@ -378,5 +378,4 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
 export default __class;

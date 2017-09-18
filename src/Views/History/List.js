@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import format from '../../Format';
 import convert from 'argos/Convert';
@@ -267,5 +266,4 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
 export default __class;

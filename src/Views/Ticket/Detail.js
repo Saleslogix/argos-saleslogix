@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import MODEL_NAMES from '../../Models/Names';
 import Detail from 'argos/Detail';
@@ -200,5 +199,4 @@ const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
 export default __class;

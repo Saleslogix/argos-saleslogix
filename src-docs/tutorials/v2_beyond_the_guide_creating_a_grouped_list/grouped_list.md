@@ -20,7 +20,7 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
         GroupedList
     ) {
 
-        return declare('Mobile.SalesLogix.Views.Contact.List', [GroupedList], {
+        return declare('crm.Views.Contact.List', [GroupedList], {
             titleText: 'Contacts',
 
             id: 'contact_list',
@@ -31,7 +31,7 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
 
 3\. For querySelect get: `NameLF` and `AccountName`, order by `'LastNameUpper, FirstName'` and for the itemTemplate use `NameLF` in a `listview-heading` and `AccountName` in a `micro-text`:
 
-        return declare('Mobile.SalesLogix.Views.Contact.List', [GroupedList], {
+        return declare('crm.Views.Contact.List', [GroupedList], {
             titleText: 'Contacts',
 
             itemTemplate: new Simplate([

@@ -61,7 +61,7 @@ What this means for upgrading is that you go from:
         List
     ) {
 
-        return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
+        return declare('crm.Views.Calendar.MonthView', [List], {
             // define view
         });
     });
@@ -83,7 +83,7 @@ To break down the define statement we have:
 ```
 ##### Path/To/My/Script
 This is the path to the script minus the extension. In the `index` file you can setup shortcuts (namespaces) and in this case `Mobile/SalesLogix` links to `argos-saleslogix/src`, so the final path for Month View is:
-`argos-saleslogix/src/Views/Calendar/MonthView.js`, which translates to: `Mobile.SalesLogix.Views.Calendar.MonthView`.
+`argos-saleslogix/src/Views/Calendar/MonthView.js`, which translates to: `crm.Views.Calendar.MonthView`.
 
 ##### [dependencies]
 This is an array of other script paths that this module needs to run, again using the shortcuts defined in the `index` file.
@@ -108,13 +108,13 @@ An array of objects that this new module should inherit from - in Dojo terms the
 ### Notes
 As seen in the first example you will no longer reference global variables as you have a local variable instance as a reference. Notice in the old Ext code we had:
 
-`Sage.Platform.Mobile.List`
+`argos.List`
 
-and now we pull it in as a dependency: `Sage/Platform/Mobile/List`, get passed a reference: `function(,,, List)` and then use the List variable:
+and now we pull it in as a dependency: `argos/List`, get passed a reference: `function(,,, List)` and then use the List variable:
 
-`declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], ...`
+`declare('crm.Views.Calendar.MonthView', [List], ...`
 
-This happens for all globals like `Mobile.SalesLogix.Format` or `Sage.Platform.Mobile.Convert` - you will see them pulled in and used in code as `format` and `convert`.
+This happens for all globals like `crm.Format` or `argos.Convert` - you will see them pulled in and used in code as `format` and `convert`.
 
 Naming the references is completely up to the person creating the module but the standard used by SLX Mobile, and in general Dojo, is that constructors (factories) are initial case and everything else is lowercase.
 
@@ -165,14 +165,14 @@ Folder Name Changes:
 `argos-saleslogix/src/views` to `argos-saleslogix/src/Views`
 
 What this means for your code is if you are referencing `Account.Detail` like so:
-`Mobile.SalesLogix.Accout.Detail`
+`crm.Accout.Detail`
 it is now:
-`Mobile.SalesLogix.Views.Account.Detail`
+`crm.Views.Account.Detail`
 
 The same goes for Controls which are now Fields:
 `Sage.Platform.Mobile.Controls.BooleanField`
 to:
-`Sage.Platform.Mobile.Fields.BooleanField`
+`argos.Fields.BooleanField`
 
 
 The following modules have been moved from `argos-sdk/src/Controls` to `argos-saleslogix/src/Fields`:
@@ -184,7 +184,7 @@ The following modules have been moved from `argos-sdk/src/Controls` to `argos-sa
 With their name change correspondingly:
 `SalesLogix.Platform.Mobile.Controls.AddressField`
 to:
-`Mobile.SalesLogix.Fields.AddressField`
+`crm.Fields.AddressField`
 
 
 

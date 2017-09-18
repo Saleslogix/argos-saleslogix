@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
 
@@ -148,5 +147,4 @@ const __class = declare('crm.Views._MetricListMixin', null, {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);
 export default __class;

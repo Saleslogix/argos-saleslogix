@@ -342,5 +342,4 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.SpeedSearchList', __class);
 export default __class;

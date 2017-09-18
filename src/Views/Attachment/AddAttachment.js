@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import sdkFormat from 'argos/Format';
 import FileSelect from 'argos/Views/FileSelect';
 import AttachmentManager from '../../AttachmentManager';
@@ -75,5 +74,4 @@ const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
 export default __class;

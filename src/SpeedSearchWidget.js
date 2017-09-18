@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import SearchWidget from 'argos/SearchWidget';
 import getResource from 'argos/I18n';
 
@@ -36,5 +35,4 @@ const __class = declare('crm.SpeedSearchWidget', [SearchWidget], /** @lends crm.
   },
 });
 
-lang.setObject('Mobile.SalesLogix.SpeedSearchWidget', __class);
 export default __class;

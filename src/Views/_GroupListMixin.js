@@ -850,5 +850,4 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
 export default __class;

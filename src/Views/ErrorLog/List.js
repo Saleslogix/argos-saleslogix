@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import Memory from 'dojo/store/Memory';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
@@ -83,5 +82,4 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
 export default __class;

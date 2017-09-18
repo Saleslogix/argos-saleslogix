@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import List from 'argos/List';
 import MemoryStore from 'dojo/store/Memory';
 import getResource from 'argos/I18n';
@@ -158,5 +157,4 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.TypesList', __class);
 export default __class;

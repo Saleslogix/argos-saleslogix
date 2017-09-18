@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import EditorField from 'argos/Fields/EditorField';
 import FieldManager from 'argos/FieldManager';
 import getResource from 'argos/I18n';
@@ -51,5 +50,4 @@ const control = declare('crm.Fields.RecurrencesField', [EditorField], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Fields.RecurrencesField', control);
 export default FieldManager.register('recurrences', control);

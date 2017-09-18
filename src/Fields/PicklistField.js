@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import LookupField from 'argos/Fields/LookupField';
 import PickList from '../Views/PickList';
 import FieldManager from 'argos/FieldManager';
@@ -245,5 +244,4 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Fields.PickListField', control);
 export default FieldManager.register('picklist', control);

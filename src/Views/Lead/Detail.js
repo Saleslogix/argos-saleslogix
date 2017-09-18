@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import action from '../../Action';
 import format from '../../Format';
@@ -283,5 +282,4 @@ const __class = declare('crm.Views.Lead.Detail', [Detail], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Lead.Detail', __class);
 export default __class;

@@ -28,7 +28,7 @@ const __class = declare('crm.Integrations.BOE.Modules.HelpModule', [_Module], {
   },
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
-    const onHelpRowCreated = Mobile.SalesLogix.Views.Help.prototype.onHelpRowCreated;
+    const onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
     am.registerCustomization('detail', 'help', {
       at: (row) => {
         return row.name === 'HelpSection';

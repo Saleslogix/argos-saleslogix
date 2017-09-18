@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
 // import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
@@ -133,5 +132,4 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Detail', __class);
 export default __class;

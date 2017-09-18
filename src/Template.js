@@ -75,5 +75,4 @@ const __class = lang.setObject('crm.Template', /** @lends crm.Template */ {
   ]),
 });
 
-lang.setObject('Mobile.SalesLogix.Template', __class);
 export default __class;

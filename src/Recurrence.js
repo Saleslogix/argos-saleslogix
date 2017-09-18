@@ -512,5 +512,4 @@ const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Recurrence', __class);
 export default __class;

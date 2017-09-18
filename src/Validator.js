@@ -199,5 +199,4 @@ const __class = lang.setObject('crm.Validator', /** @lends crm.Validator */{
   isPhoneNumber: {},
 });
 
-lang.setObject('Mobile.SalesLogix.Validator', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import format from '../../Format';
 import validator from '../../Validator';
 import Edit from 'argos/Edit';
@@ -218,5 +217,4 @@ const __class = declare('crm.Views.Lead.Edit', [Edit], {
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);
 export default __class;

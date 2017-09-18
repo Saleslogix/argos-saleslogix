@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import format from '../../Format';
 import validator from '../../Validator';
@@ -190,5 +189,4 @@ const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.A
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Address.Edit', __class);
 export default __class;

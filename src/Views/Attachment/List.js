@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import utility from '../../Utility';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
@@ -207,5 +206,4 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Attachment.List', __class);
 export default __class;

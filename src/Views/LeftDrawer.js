@@ -351,5 +351,4 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);
 export default __class;

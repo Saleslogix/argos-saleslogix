@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import environment from '../../Environment';
@@ -1270,5 +1269,4 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.Edit', __class);
 export default __class;

@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
 import ActivityList from './List';
@@ -639,5 +638,4 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
 export default __class;

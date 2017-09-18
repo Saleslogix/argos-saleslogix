@@ -368,5 +368,4 @@ const __class = declare('crm.AttachmentManager', null, /** @lends crm.Attachment
   },
 });
 
-lang.setObject('Mobile.SalesLogix.AttachmentManager', __class);
 export default __class;
