@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "edit"
   emptyText: ""
@@ -634,7 +640,7 @@
 <historyListOffline ""
   titleText: "Offline Notes"
   widgetTitle: "Offline Note"
-  saveToCRMText: "Save to CRM"
+  saveToCRMText: "Save to Infor CRM"
   deleteNoteText: "Delete"
 >
 
@@ -1347,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "Every ${0} days after completion"
   weeklySummary: "Every week on ${4} at ${1} effective from ${2} until ${3}"
   weeklyEverySummary: "Every ${0} weeks on ${4} at ${1} effective from ${2} until ${3}"
-  weeklyAfterCompletionSummary: "Every week on ${4} after completion"
-  weeklyEveryAfterCompletionSummary: "Every ${0} weeks on ${4} after completion"
+  weeklyAfterCompletionSummary: "Every week after completion"
+  weeklyEveryAfterCompletionSummary: "Every ${0} weeks after completion"
   monthlyOrdSummary: "Every month on the ${6} of the month at ${1} effective from ${2} until ${3}"
   monthlyEveryOrdSummary: "Every ${0} months on the ${6} of the month at ${1} effective from ${2} until ${3}"
   monthlySummary: "Every month on day ${7} of the month at ${1} effective from ${2} until ${3}"

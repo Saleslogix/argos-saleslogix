@@ -1,7 +1,26 @@
+/* Copyright 2017 Infor
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import lang from 'dojo/_base/lang';
+import dojoNumber from 'dojo/number';
+import string from 'dojo/string';
 import format from 'argos/Format';
+import getResource from 'argos/I18n';
 
 const f = ICRMCommonSDK.format;
+const resource = getResource('crmFormat');
 
 /**
  * @class crm.Format
@@ -89,10 +108,36 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
     return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
       Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
   },
-  bigNumberAbbrText: f.bigNumberAbbrText,
   bigNumber: function bigNumber(val) {
-    const locale = App.getCurrentLocale();
-    return f.bigNumber(val, locale);
+    let numParse = typeof val !== 'number' ? parseFloat(val) : val;
+    const absVal = Math.abs(numParse);
+
+    if (isNaN(numParse)) {
+      return val;
+    }
+
+    let results = numParse.toString();
+    if (absVal >= 1000000000) {
+      // Billion
+      numParse = numParse / 1000000000;
+      results = string.substitute(resource.billionText, {
+        val: dojoNumber.format(numParse, { places: 1 }),
+      });
+    } else if (absVal >= 1000000) {
+      numParse = numParse / 1000000;
+      results = string.substitute(resource.millionText, {
+        val: dojoNumber.format(numParse, { places: 1 }),
+      });
+    } else if (absVal >= 1000) {
+      numParse = numParse / 1000;
+      results = string.substitute(resource.thousandText, {
+        val: dojoNumber.format(numParse, { places: 1 }),
+      });
+    } else {
+      results = dojoNumber.round(numParse, 2).toString();
+    }
+
+    return results;
   },
   relativeDate: function relativeDate(date, timeless) {
     const val = f.date(date, timeless);
@@ -141,5 +186,4 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
   },
 }));
 
-lang.setObject('Mobile.SalesLogix.Format', __class);
 export default __class;

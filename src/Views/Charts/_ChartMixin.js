@@ -1,3 +1,18 @@
+/* Copyright 2017 Infor
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
@@ -188,7 +203,7 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
    * Overrides View widgetTemplate
    */
   widgetTemplate: new Simplate([
-    '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
+    '<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
     '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
     '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
@@ -363,5 +378,4 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
   },
 });
 
-lang.setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
 export default __class;

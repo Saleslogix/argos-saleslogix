@@ -1,3 +1,18 @@
+/* Copyright 2017 Infor
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from 'crm/Format';
@@ -75,6 +90,10 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   enableOffline: true,
   _busyIndicator: null,
 
+  onTransitionTo: function onTransitionTo() {
+    this.inherited(arguments);
+    App.bars.tbar.disableTool('edit');
+  },
   _canPromote: function _canPromote() {
     const promise = new Promise(
       (resolve) => {
@@ -188,6 +207,22 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
       promote.promoteToBackOffice(this.entry, 'SalesOrder', this);
     });
   },
+  isSalesOrderClosed: function isSalesOrderClosed() {
+    return this.entry.IsClosed;
+  },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+
+    if (!App.hasAccessTo(this.editView)) {
+      return;
+    }
+
+    if (this.isSalesOrderClosed()) {
+      App.bars.tbar.disableTool('edit');
+    } else {
+      App.bars.tbar.enableTool('edit');
+    }
+  },
   hideBusy: function hideBusy() {
     this._busyIndicator.complete();
     App.modal.disableClose = false;
@@ -234,6 +269,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         iconClass: 'bullet-list',
         action: 'addLineItems',
         security: 'Entities/SalesOrder/Add',
+        disabled: this.isSalesOrderClosed.bind(this),
       }, {
         name: 'RePrice',
         property: 'SalesOrderNumber',

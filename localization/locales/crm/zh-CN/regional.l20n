@@ -36,7 +36,7 @@
   eventDateFormatText: "M-D"
   startTimeFormatText: "A h:mm"
   startTimeFormatText24: "H:mm"
-  dayHeaderFormat: "dddd, MMMM Do"
+  dayHeaderFormat: "dddd , M 月 D 日"
 >
 
 <calendarDayViewDateTimeFormat ""
@@ -87,6 +87,11 @@
 
 <eventListDateTimeFormat ""
   eventDateFormatText: "YYYY-M-D"
+>
+
+<historyListOfflineFormat ""
+  dateFormatText: "ddd YYYY-M-D A h:mm:ss"
+  dateFormatText24: "ddd YYYY-M-D H:mm:ss"
 >
 
 <historyDetailDateTimeFormat ""

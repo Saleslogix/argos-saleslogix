@@ -11,7 +11,7 @@ This exercise will setup a login page and send the credentials using Basic Authe
         declare,
         Edit
     ) {
-        return declare('Mobile.SalesLogix.Views.Login', [Edit], {
+        return declare('crm.Views.Login', [Edit], {
         });
     });
 

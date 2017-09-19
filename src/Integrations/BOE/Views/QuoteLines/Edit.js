@@ -1,3 +1,18 @@
+/* Copyright 2017 Infor
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
@@ -313,8 +328,12 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
         required: true,
         validator: validator.exists,
         where: () => {
-          if (this.fields.Quote.currentSelection && this.fields.Quote.currentSelection.ErpLogicalId || this.options && this.options.context && this.options.context.Quote && this.options.context.Quote.ErpLogicalId) {
-            return `ErpLogicalId eq "${this.fields.Quote.currentSelection.ErpLogicalId || this.options.context.Quote.ErpLogicalId}"`;
+          const logicalIdFromSelection = this.fields.Quote.currentSelection && this.fields.Quote.currentSelection.ErpLogicalId;
+          const logicalIdFromOptions = this.options && this.options.context && this.options.context.Quote && this.options.context.Quote.ErpLogicalId;
+          const logicalIdFromEntry = this.entry && this.entry.Quote && this.entry.Quote.ErpLogicalId;
+          const logicalId = logicalIdFromSelection || logicalIdFromOptions || logicalIdFromEntry;
+          if (logicalId) {
+            return `ErpLogicalId eq "${logicalId}"`;
           }
           return null;
         },

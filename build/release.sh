@@ -30,8 +30,12 @@ cp manifest.appcache ./deploy
 cp web.config ./deploy
 cp ping.gif ./deploy
 cp index.aspx.cs ./deploy
-cp index.ascx./deploy
+cp index-head.ascx ./deploy
+cp index-body.ascx ./deploy
+cp index-body.ascx.cs ./deploy
 cp index.ascx.cs ./deploy
 cp index.manifest ./deploy
 cp index.manifest.ashx ./deploy
 cp Global.asax ./deploy
+cp build\iis.ps1 ./deploy/scripts /Y /Q
+cp template.manifest ./deploy /Y /Q

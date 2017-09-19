@@ -12,7 +12,7 @@ define('spec/Views/ExchangeRateLookup.spec', [
 ) {
   var data = json.parse(feed);
 
-  describe('Mobile.SalesLogix.Views.ExchangeRateLookup', function() {
+  describe('crm.Views.ExchangeRateLookup', function() {
     var _app = window.App;
     beforeEach(function() {
       window.App = {

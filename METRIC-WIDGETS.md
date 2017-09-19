@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _MetricListMixin], {});
+    return declare('crm.Views.Account.List', [List, _MetricListMixin], {});
 }
 ```
 * Set a property on the list view for entity name. This is used by the metadata sdata endpoint to get a list of metrics/filters for that view

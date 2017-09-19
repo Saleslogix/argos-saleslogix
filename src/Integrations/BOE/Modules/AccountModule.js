@@ -1,3 +1,18 @@
+/* Copyright 2017 Infor
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Module from './_Module';
@@ -616,10 +631,10 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       },
     });
 
-    const originalProcessData = Mobile.SalesLogix.Views.Account.Edit.prototype.processData;
-    const originalInit = Mobile.SalesLogix.Views.Account.Edit.prototype.init;
-    const originalProcessEntry = Mobile.SalesLogix.Views.Account.Edit.prototype.processEntry;
-    const originalOnRefreshInsert = Mobile.SalesLogix.Views.Account.Edit.prototype.onRefreshInsert;
+    const originalProcessData = crm.Views.Account.Edit.prototype.processData;
+    const originalInit = crm.Views.Account.Edit.prototype.init;
+    const originalProcessEntry = crm.Views.Account.Edit.prototype.processEntry;
+    const originalOnRefreshInsert = crm.Views.Account.Edit.prototype.onRefreshInsert;
     const icboeUtility = Utility;
     lang.extend(crm.Views.Account.Edit, {
       _busyIndicator: null,
