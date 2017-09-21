@@ -87,7 +87,7 @@
   offlineText: "Offline"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "Info activiteit"
   accountText: "Account"
   contactText: "Contactpersoon"

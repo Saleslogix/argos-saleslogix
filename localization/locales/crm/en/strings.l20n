@@ -93,7 +93,7 @@
   offlineText: "Offline"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "Activity Info"
   accountText: "account"
   contactText: "contact"

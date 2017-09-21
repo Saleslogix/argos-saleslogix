@@ -87,7 +87,7 @@
   offlineText: "Sin conexión"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "Información de actividad"
   accountText: "cuenta"
   contactText: "contacto"
