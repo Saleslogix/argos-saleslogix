@@ -87,7 +87,7 @@
   offlineText: "ออฟไลน์"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "ข้อมูลกิจกรรม"
   accountText: "บัญชี"
   contactText: "ที่ติดต่อ"

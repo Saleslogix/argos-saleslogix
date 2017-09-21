@@ -87,7 +87,7 @@
   offlineText: "離線"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "活動資訊"
   accountText: "客戶"
   contactText: "聯絡人"

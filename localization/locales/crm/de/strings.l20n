@@ -87,7 +87,7 @@
   offlineText: "Offline"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "Aktivitätsinfo"
   accountText: "Firma"
   contactText: "Kontakt"
@@ -158,7 +158,7 @@
   opportunityText: "Verkaufschance"
   ticketNumberText: "Ticket"
   recurrenceText: "Wiederholung"
-  confirmEditRecurrenceText: "Alle Wiederholungen bearbeiten? Wählen Sie "Abbrechen", um nur eine einzelne Wiederholung zu bearbeiten."
+  confirmEditRecurrenceText: "Alle Wiederholungen bearbeiten? Wählen Sie \"Abbrechen\", um nur eine einzelne Wiederholung zu bearbeiten."
   relatedAttachmentText: "Anlagen"
   relatedAttachmentTitleText: "Anlagen zur Aktivität"
   relatedItemsText: "Zugehörige Elemente"

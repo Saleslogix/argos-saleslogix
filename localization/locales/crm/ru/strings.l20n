@@ -87,7 +87,7 @@
   offlineText: "Автономно"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "Информация о действии"
   accountText: "Клиент"
   contactText: "Контакт"
