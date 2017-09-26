@@ -126,7 +126,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
       }],
     });
   },
-  preNavigateToInsert: function preNavigateToInsert(el) {
+  preNavigateToInsert: function preNavigateToInsert() {
     let options = {};
     if (this.options && this.options.fromContext && this.options.fromContext.entry) {
       options = {
@@ -135,7 +135,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
         },
       };
     }
-    this.navigateToInsertView(el, options);
+    this.navigateToInsertView(options);
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());

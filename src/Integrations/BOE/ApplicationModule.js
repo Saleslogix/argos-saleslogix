@@ -172,8 +172,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
               returnTo: -1,
             });
           }
-        }
-        if (this.options && this.options.returnTo) {
+        } else if (this.options && this.options.returnTo) {
           const returnTo = this.options.returnTo;
           const view = App.getView(returnTo);
           if (view) {

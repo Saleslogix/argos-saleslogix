@@ -126,7 +126,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
       }],
     });
   },
-  preNavigateToInsert: function preNavigateToInsert(el) {
+  preNavigateToInsert: function preNavigateToInsert() {
     let options = {};
     if (this.options && this.options.fromContext && this.options.fromContext.entry) {
       options = {
@@ -135,7 +135,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
         },
       };
     }
-    this.navigateToInsertView(el, options);
+    this.navigateToInsertView(options);
   },
   assignWarehouseAction: function assignWarehouseAction(theAction, selection) {
     const order = this.options.fromContext.entry;
