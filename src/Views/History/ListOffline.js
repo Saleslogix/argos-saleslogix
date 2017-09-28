@@ -48,10 +48,12 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   expose: true,
   labelProperty: 'Text',
   enableActions: true,
-  query: function query(doc, emit) {
-    if (doc && doc.entity && typeof doc.entity.Text === 'string') {
-      emit(doc);
-    }
+  _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
+    queryOptions.filter = (entity) => {
+      return entity && typeof entity.Text === 'string';
+    };
+
+    return queryOptions;
   },
   getIdentity: function getIdentity(entry) {
     return entry && entry.$offlineDate;
