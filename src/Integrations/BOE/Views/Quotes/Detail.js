@@ -86,6 +86,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   erpStatusText: resource.erpStatusText,
   erpStatusDateText: resource.erpStatusDateText,
   refreshPricingText: resource.refreshPricingText,
+  pricingUnavailableText: resource.pricingUnavailableText,
 
   resourceKind: 'quotes',
   modelName: MODEL_NAMES.QUOTE,
@@ -263,6 +264,15 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   },
   onRePrice: function onRePrice() {
     if (this.entry) {
+      if (this.isQuoteClosed()) {
+        const options = {
+          title: 'alert',
+          content: this.pricingUnavailableText,
+          getContent: null,
+        };
+        App.modal.createSimpleDialog(options);
+        return;
+      }
       if (!this.options.context) {
         this.options.context = {
           Quote: this.entry,

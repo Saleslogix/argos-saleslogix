@@ -95,12 +95,15 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.List', [List, _Ri
   // Metrics
   entityName: 'QuoteItem',
 
+  readOnly: false,
+
   transitionTo: function transitionTo() {
     const entry = this.options && this.options.fromContext && this.options.fromContext.entry;
     if (entry && entry.IsClosed) {
       if (App.bars && App.bars.tbar) {
         App.bars.tbar.disableTool('new');
       }
+      this.readOnly = entry.IsClosed;
     }
     this.inherited(arguments);
   },

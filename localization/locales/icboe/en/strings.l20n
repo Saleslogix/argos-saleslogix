@@ -256,6 +256,7 @@
   erpStatusText: "erp status"
   erpStatusDateText: "erp status date"
   refreshPricingText: "Refresh Pricing"
+  pricingUnavailableText: "This quote is currently closed and pricing is not available."
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "erp status"
   erpStatusDateText: "erp status date"
   refreshPricingText: "Refresh Pricing"
+  pricingUnavailableText: "This sales order is currently closed and pricing is not available."
 >
 
 <salesOrdersList ""
