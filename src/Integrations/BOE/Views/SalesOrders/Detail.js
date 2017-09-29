@@ -81,6 +81,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   erpStatusDateText: resource.erpStatusDateText,
   erpStatusText: resource.erpStatusText,
   refreshPricingText: resource.refreshPricingText,
+  pricingUnavailableText: resource.pricingUnavailableText,
 
   // View Properties
   id: 'salesorder_detail',
@@ -176,6 +177,15 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   },
   onRePrice: function onRePrice() {
     if (this.entry) {
+      if (this.isSalesOrderClosed()) {
+        const options = {
+          title: 'alert',
+          content: this.pricingUnavailableText,
+          getContent: null,
+        };
+        App.modal.createSimpleDialog(options);
+        return;
+      }
       if (!this.options.context) {
         this.options.context = {
           SalesOrder: this.entry,
