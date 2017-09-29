@@ -86,6 +86,15 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
     delete queryOptions.start;
     queryOptions.include_docs = true;
     queryOptions.descending = true;
+    const filters = this.getActiveEntityFilters();
+    queryOptions.filter = (entity) => {
+      // If the user has entity filters stored in preferences, filter based on that
+      if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
+        return filters.some(filter => entity.entityName === filter.name);
+      }
+
+      return true;
+    };
     return queryOptions;
   },
   createIndicatorLayout: function createIndicatorLayout() {
@@ -160,21 +169,6 @@ export default declare('crm.Views.RecentlyViewed.List', [_ListBase, _RightDrawer
     view = this.app.getView(viewId);
 
     return view;
-  },
-  _buildQueryExpression: function _buildQueryExpression() {
-    const filters = this.getActiveEntityFilters();
-    return function queryFn(doc, emit) {
-      // If the user has entity filters stored in preferences, filter based on that
-      if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
-        filters.forEach((f) => {
-          if (doc.entity.entityName === f.name) {
-            emit(doc.modifyDate);
-          }
-        });
-      } else {
-        emit(doc.modifyDate);
-      }
-    };
   },
   getActiveEntityFilters: function getActiveEntityFilters() {
     return Object.keys(this.entityMappings)

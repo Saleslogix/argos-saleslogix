@@ -215,10 +215,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   },
   onClearAllData: function onClearAllData() {
     this.showProcessing(true, this.clearingDataText);
-    const options = Object.assign({}, this._options, {
-      all: true,
-    });
-    offlineManager.clearData(options).then(() => {
+    offlineManager.clearAllData().then(() => {
       this.showProcessing(false);
       this.setLastClearedDate(moment().toDate());
     }, (err) => {
@@ -227,13 +224,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   },
   onClearRecentData: function onClearRecentData() {
     this.showProcessing(true, this.clearingDataText);
-    const options = Object.assign({}, this._options, {
-      skipModels: [
-        'Briefcase',
-      ],
-      recent: true,
-    });
-    offlineManager.clearData(options).then(() => {
+    offlineManager.clearRecentData(this._options.clearOlderThan).then(() => {
       this.showProcessing(false);
       this.setLastClearedDate(moment().toDate());
     }, (err) => {
@@ -242,13 +233,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
   },
   onClearBriefcasedData: function onClearBriefcasedData() {
     this.showProcessing(true, this.clearingDataText);
-    const options = Object.assign({}, this._options, {
-      skipModels: [
-        'RecentlyViewed',
-      ],
-      briefcased: true,
-    });
-    offlineManager.clearData(options).then(() => {
+    offlineManager.clearBriefcaseData(this._options.clearOlderThan).then(() => {
       this.showProcessing(false);
       this.setLastClearedDate(moment().toDate());
     }, (err) => {

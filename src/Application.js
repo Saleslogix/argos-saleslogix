@@ -1167,14 +1167,8 @@ class Application extends SDKApplication {
         indicator.start();
 
         model.initAuthentication(this.context.user.$key).then((result) => {
-          let options = offlineManager.getOptions();
-          if (result.hasUserChanged) {
-            options = {
-              clearAll: true,
-            };
-          }
           if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
-            offlineManager.clearData(options).then(() => {
+            offlineManager.clearAllData().then(() => {
               model.updateEntry(result.entry);
               indicator.complete(true);
               this.modal.disableClose = false;

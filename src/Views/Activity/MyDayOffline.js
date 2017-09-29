@@ -77,19 +77,21 @@ export default declare('crm.Views.Activity.MyDayOffline', [OfflineList, MyDayMet
   setCurrentFilter: function setCurrentFilter(name) {
     this._currentFilterName = name;
   },
-  _buildQueryExpression: function _buildQueryExpression() {
+  _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
     const self = this;
-    return function queryFn(doc, emit) {
+    queryOptions.filter = (entity) => {
       const filter = self.getCurrentFilter();
       if (filter && filter.fn) {
-        const result = filter.fn.apply(self, [doc.entity]);
+        const result = filter.fn.apply(self, [entity]);
         if (result) {
-          emit(doc.entity.StartDate);
+          return true;
         }
       } else {
-        emit(doc.entity.StartDate);
+        return true;
       }
     };
+
+    return queryOptions;
   },
   isToday: function isToday(entry) {
     if (entry.StartDate) {
