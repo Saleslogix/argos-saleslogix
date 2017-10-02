@@ -84,7 +84,6 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     return entry;
   },
   processEntry: function processEntry() {
-    debugger;
     this.inherited(arguments);
     if (this.options && this.options.fromContext && this.options.fromContext.readOnly) {
       if (App.bars && App.bars.tbar) {

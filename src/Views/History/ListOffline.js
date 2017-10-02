@@ -48,10 +48,12 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   expose: true,
   labelProperty: 'Text',
   enableActions: true,
-  query: function query(doc, emit) {
-    if (doc && doc.entity && typeof doc.entity.Text === 'string') {
-      emit(doc);
-    }
+  _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
+    queryOptions.filter = (entity) => {
+      return entity && typeof entity.Text === 'string';
+    };
+
+    return queryOptions;
   },
   getIdentity: function getIdentity(entry) {
     return entry && entry.$offlineDate;
@@ -122,8 +124,9 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
 
     if (args.resourceKind === 'history' && typeof args.id === 'undefined' && typeof args.key === 'undefined') {
       entry.UID = args.UID;
-      this.removeEntry(entry);
-      this.refreshRequired = true;
+      this.removeEntry(entry).then(() => {
+        this.forceRefresh();
+      });
     }
 
     // Edit will pass response message from pouch that the data was saved: { ok: true, ... }

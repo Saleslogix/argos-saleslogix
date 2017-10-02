@@ -25,31 +25,32 @@ export default declare('crm.Views.Activity.MyDayMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   activityType: '',
   _buildQueryOptions: function _buildQueryOptions() {
-    return { returnQueryResults: true };
-  },
-  _buildQueryExpression: function _buildQueryExpression() {
     const self = this;
-    return function map(doc, emit) {
-      if (doc.entity.Type === self.activityType) {
-        if (self.parent) {
-          const filter = self.parent.getCurrentFilter();
-          if (filter && filter.fn) {
-            const result = filter.fn.apply(self.parent, [doc.entity]);
-            if (result) {
-              emit(doc.entity);
+    return {
+      returnQueryResults: true,
+      filter: (entity) => {
+        if (entity.Type === self.activityType) {
+          if (self.parent) {
+            const filter = self.parent.getCurrentFilter();
+            if (filter && filter.fn) {
+              const result = filter.fn.apply(self.parent, [entity]);
+              if (result) {
+                return true;
+              }
+              return false;
             }
-            return;
           }
+          return true;
         }
-        emit(doc.entity);
-      }
+
+        return false;
+      },
     };
   },
   _getData: function _getData() {
     const queryOptions = this._buildQueryOptions();
-    const queryExpression = this._buildQueryExpression();
     const model = App.ModelManager.getModel('Activity', MODEL_TYPES.OFFLINE);
-    const queryResults = model.getEntries(queryExpression, queryOptions);
+    const queryResults = model.getEntries(null, queryOptions);
     when(queryResults, lang.hitch(this, this._onQuerySuccessCount, queryResults), lang.hitch(this, this._onQueryError));
   },
   _onQuerySuccessCount: function _onQuerySuccessCount(results) {
