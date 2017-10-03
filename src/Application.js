@@ -598,12 +598,17 @@ class Application extends SDKApplication {
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
+      this.hideHeader();
       this.onInitAppStateFailed(err);
     });
   }
   showHeader() {
     const header = $('.header', this.getContainerNode());
     header.show();
+  }
+  hideHeader() {
+    const header = $('.header', this.getContainerNode());
+    header.hide();
   }
   onHandleAuthenticationFailed() {
     this.removeCredentials();
@@ -639,6 +644,7 @@ class Application extends SDKApplication {
   }
   onInitAppStateFailed(error) {
     const message = resource.appStateInitErrorText;
+    this.hideApplicationMenu();
     ErrorManager.addSimpleError(message, error);
     ErrorManager.showErrorDialog(null, message, () => {
       this._clearNavigationState();
