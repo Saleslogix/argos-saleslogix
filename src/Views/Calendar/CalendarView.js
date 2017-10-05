@@ -326,7 +326,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       const eventDocfrag = document.createDocumentFragment();
       if (this._showMulti) {
         const headerNode = $(this.headerRowTemplate.apply({ day }, this)).get(0);
-        activityDocfrag.appendChild(headerNode);
+        // Create the day header for whatever type comes first (activity or event)
+        const first = this.entries[entries[0]];
+        if (this.activityTypeIcon[first.Type]) {
+          activityDocfrag.appendChild(headerNode);
+        } else {
+          eventDocfrag.appendChild(headerNode);
+        }
       }
       for (let i = 0; i < count; i++) {
         const entry = this.entries[entries[i]];
@@ -359,8 +365,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       if (eventDocfrag.childNodes.length > 0) {
         $(this.eventContainerNode).removeClass('event-hidden');
         $(this.eventContentNode).append(eventDocfrag);
-      } else {
-        $(this.eventContainerNode).addClass('event-hidden');
       }
     }
   },
