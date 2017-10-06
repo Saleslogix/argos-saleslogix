@@ -79,7 +79,7 @@ const __class = declare('crm.AttachmentManager', null, /** @lends crm.Attachment
       this._attachmentTemplate = template;
       this.uploadFiles();
     },
-      this.onRequestTemplateFailure
+    this.onRequestTemplateFailure
     );
   },
   getAttachmentUrl: function getAttachmentUrl(attachmentId) {
@@ -307,7 +307,7 @@ const __class = declare('crm.AttachmentManager', null, /** @lends crm.Attachment
           }
         }
       },
-        this.onRequestDataFailure
+      this.onRequestDataFailure
       );
     }
   },

@@ -326,7 +326,13 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       const eventDocfrag = document.createDocumentFragment();
       if (this._showMulti) {
         const headerNode = $(this.headerRowTemplate.apply({ day }, this)).get(0);
-        activityDocfrag.appendChild(headerNode);
+        // Create the day header for whatever type comes first (activity or event)
+        const first = this.entries[entries[0]];
+        if (this.activityTypeIcon[first.Type]) {
+          activityDocfrag.appendChild(headerNode);
+        } else {
+          eventDocfrag.appendChild(headerNode);
+        }
       }
       for (let i = 0; i < count; i++) {
         const entry = this.entries[entries[i]];
@@ -359,8 +365,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       if (eventDocfrag.childNodes.length > 0) {
         $(this.eventContainerNode).removeClass('event-hidden');
         $(this.eventContentNode).append(eventDocfrag);
-      } else {
-        $(this.eventContainerNode).addClass('event-hidden');
       }
     }
   },
@@ -383,18 +387,18 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     const startDate = value.clone().startOf('month');
     const endDate = value.clone().endOf('month');
     return string.substitute(
-    [
-      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-      '(Timeless eq false and StartDate',
-      ' between @${1}@ and @${2}@) or ',
-      '(Timeless eq true and StartDate',
-      ' between @${3}@ and @${4}@))',
-    ].join(''), [App.context.user && App.context.user.$key,
-      convert.toIsoStringFromDate(startDate.toDate()),
-      convert.toIsoStringFromDate(endDate.toDate()),
-      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-    ]
+      [
+        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+        '(Timeless eq false and StartDate',
+        ' between @${1}@ and @${2}@) or ',
+        '(Timeless eq true and StartDate',
+        ' between @${3}@ and @${4}@))',
+      ].join(''), [App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(startDate.toDate()),
+        convert.toIsoStringFromDate(endDate.toDate()),
+        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+      ]
     );
   },
   formatQueryEvent: function formatQueryEvent(value) {
@@ -549,7 +553,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       on($(toggle).children()[0], 'click', this.toggleMultiSelect.bind(this));
       this._calendar.onChangeDay = this.onChangeDay.bind(this);
       this._calendar.show();
-      this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this);  // Must be called after show because this will call requestData since show calls refreshCalendar
+      this._calendar.onRefreshCalendar = this.onRefreshCalendar.bind(this); // Must be called after show because this will call requestData since show calls refreshCalendar
     } else {
       this.refreshingCalendar = true;
       this._calendar.refresh(false);

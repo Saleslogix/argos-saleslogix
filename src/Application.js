@@ -447,7 +447,7 @@ class Application extends SDKApplication {
     const service = this.getService();
     if (credentials) {
       service.setUserName(credentials.username)
-                 .setPassword(credentials.password || '');
+        .setPassword(credentials.password || '');
     }
 
     const request = new Sage.SData.Client.SDataServiceOperationRequest(service)

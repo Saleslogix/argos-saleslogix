@@ -48,22 +48,22 @@ export default function bootstrap({
         file,
       };
     })
-    .reduce((p, c) => {
-      if (p.some((pathInfo) => {
-        return pathInfo.base === c.base && pathInfo.file === c.file;
-      })) {
-        return p;
-      }
+      .reduce((p, c) => {
+        if (p.some((pathInfo) => {
+          return pathInfo.base === c.base && pathInfo.file === c.file;
+        })) {
+          return p;
+        }
 
-      return p.concat(c);
-    }, [])
-    .forEach((pathInfo) => {
-      [ctx, defaultCtx].forEach((context) => {
-        context.linkResource((locale) => {
-          return [pathInfo.base, locale, pathInfo.file].join('/');
+        return p.concat(c);
+      }, [])
+      .forEach((pathInfo) => {
+        [ctx, defaultCtx].forEach((context) => {
+          context.linkResource((locale) => {
+            return [pathInfo.base, locale, pathInfo.file].join('/');
+          });
         });
       });
-    });
   }
   const languageService = new LanguageService();
   const ctx = window.L20n.getContext();

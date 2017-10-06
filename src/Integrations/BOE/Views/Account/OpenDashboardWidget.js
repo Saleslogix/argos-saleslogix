@@ -208,13 +208,13 @@ const __class = declare('crm.Integrations.BOE.Views.Account.OpenDashboardWidget'
                   ` or ERPSalesOrder.ERPStatus eq "${this.holdCode}"` +
                   ` or ERPSalesOrder.ERPStatus eq "${this.partialShipCode}"` +
                   ` or ERPSalesOrder.ERPStatus eq "${this.approvedCode}"` +
-                 `) and ${this.pastDays('ErpDocumentDate')  // ' and ' +
+                 `) and ${this.pastDays('ErpDocumentDate') // ' and ' +
                  // '(SalesOrderItems.ErpStatus eq "' + this.openCode + '"' + // This does not work since it creates a cartesion duplicate result for each line
                  //    ' or SalesOrderItems.ErpStatus eq "' + this.partialShipCode + '"' +
                  //    ' or SalesOrderItems.ErpStatus eq "' + this.holdCode + '"' +
                  //  ') and ' +
                  //  this.pastDays('SalesOrderItems.ErpRequiredDeliveryDate') +
-                })` +
+                 })` +
              ') or ' +
              '((ErpExtId eq null) and ' +
              `(Status eq "${this.openOrderText}"` +

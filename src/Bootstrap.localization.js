@@ -100,13 +100,13 @@ export function bootstrapLocalization({
         file,
       };
     })
-    .reduce((p, c) => {
-      if (p.some(pathInfo => pathInfo.base === c.base && pathInfo.file === c.file)) {
-        return p;
-      }
+      .reduce((p, c) => {
+        if (p.some(pathInfo => pathInfo.base === c.base && pathInfo.file === c.file)) {
+          return p;
+        }
 
-      return p.concat(c);
-    }, []);
+        return p.concat(c);
+      }, []);
 
     fetchFunc(processedLocaleFiles).then((files) => {
       const ctx = window.L20n.getContext();

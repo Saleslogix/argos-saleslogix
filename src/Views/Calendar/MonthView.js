@@ -440,33 +440,33 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     const startDate = this.getFirstDayOfCurrentMonth();
     const endDate = this.getLastDayOfCurrentMonth();
     return string.substitute(
-    [
-      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-      '(Timeless eq false and StartDate',
-      ' between @${1}@ and @${2}@) or ',
-      '(Timeless eq true and StartDate',
-      ' between @${3}@ and @${4}@))',
-    ].join(''), [App.context.user && App.context.user.$key,
-      convert.toIsoStringFromDate(startDate.toDate()),
-      convert.toIsoStringFromDate(endDate.toDate()),
-      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-    ]
+      [
+        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+        '(Timeless eq false and StartDate',
+        ' between @${1}@ and @${2}@) or ',
+        '(Timeless eq true and StartDate',
+        ' between @${3}@ and @${4}@))',
+      ].join(''), [App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(startDate.toDate()),
+        convert.toIsoStringFromDate(endDate.toDate()),
+        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+      ]
     );
   },
   getEventQuery: function getEventQuery() {
     const startDate = this.getFirstDayOfCurrentMonth();
     const endDate = this.getLastDayOfCurrentMonth();
     return string.substitute(
-    [
-      'UserId eq "${0}" and (',
-      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-      'StartDate lt @${2}@',
-      ')',
-    ].join(''), [App.context.user && App.context.user.$key,
-      convert.toIsoStringFromDate(startDate.toDate()),
-      convert.toIsoStringFromDate(endDate.toDate()),
-    ]
+      [
+        'UserId eq "${0}" and (',
+        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+        'StartDate lt @${2}@',
+        ')',
+      ].join(''), [App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(startDate.toDate()),
+        convert.toIsoStringFromDate(endDate.toDate()),
+      ]
     );
   },
   processFeed: function processFeed(feed) {
@@ -655,18 +655,18 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
   },
   getSelectedDateEventQuery: function getSelectedDateEventQuery() {
     return string.substitute(
-    [
-      'UserId eq "${0}" and (',
-      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-      'StartDate lt @${2}@',
-      ')',
-    ].join(''), [
-      App.context.user && App.context.user.$key,
-      convert.toIsoStringFromDate(this.currentDate.toDate()),
-      convert.toIsoStringFromDate(this.currentDate.clone()
+      [
+        'UserId eq "${0}" and (',
+        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+        'StartDate lt @${2}@',
+        ')',
+      ].join(''), [
+        App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(this.currentDate.toDate()),
+        convert.toIsoStringFromDate(this.currentDate.clone()
           .endOf('day')
           .toDate()),
-    ]
+      ]
     );
   },
   onRequestSelectedDateActivityDataSuccess: function onRequestSelectedDateActivityDataSuccess(feed) {
@@ -802,7 +802,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     if (options.currentDate) {
       this.currentDate = moment(options.currentDate)
         .startOf('day') || moment()
-        .startOf('day');
+          .startOf('day');
       this.refreshRequired = true;
     }
   },
