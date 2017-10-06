@@ -133,14 +133,14 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
       list: true,
       name: 'RelatedItemsSection',
       children: [
-    // {
-         // name: 'ShipToAccounts',
-         // label: this.accountsText,
-         // where: function(entry) {
-             // return 'ErpShipToAccounts.Id eq "' + entry.$key + '"';
-         // },
-         // view: 'erpshiptoaccount_accounts_related'
-     // },
+        // {
+        // name: 'ShipToAccounts',
+        // label: this.accountsText,
+        // where: function(entry) {
+        // return 'ErpShipToAccounts.Id eq "' + entry.$key + '"';
+        // },
+        // view: 'erpshiptoaccount_accounts_related'
+        // },
         {
           name: 'OpenQuotesList',
           label: this.openQuotesText,
@@ -156,14 +156,14 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
           },
           view: 'erpshiptoaccount_salesorders_related',
         },
-     // {
-         // name: 'OpenInvoices',
-         // label: this.invoicesText,
-         // where: function(entry) {
-             // return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and ErpStatus eq "Open"';
-         // },
-         // view: 'erpshiptoaccount_invoices_related'
-     // },
+        // {
+        // name: 'OpenInvoices',
+        // label: this.invoicesText,
+        // where: function(entry) {
+        // return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and ErpStatus eq "Open"';
+        // },
+        // view: 'erpshiptoaccount_invoices_related'
+        // },
         {
           name: 'Shipments',
           label: this.shipmentsText,
@@ -172,14 +172,14 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
           },
           view: 'erpshiptoaccount_shipments_related',
         },
-     // {
-         // name: 'Receivables',
-         // label: this.receivablesText,
-         // where: function(entry) {
-             // return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
-         // },
-         // view: 'erpshiptoaccount_receivables_related'
-     // },
+        // {
+        // name: 'Receivables',
+        // label: this.receivablesText,
+        // where: function(entry) {
+        // return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+        // },
+        // view: 'erpshiptoaccount_receivables_related'
+        // },
         {
           name: 'Returns',
           label: this.returnsText,
@@ -195,22 +195,22 @@ const __class = declare('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [
           },
           view: 'erpshiptoaccount_contactassociations_related',
         },
-     // , {
-         // name: 'Bill-To',
-         // label: this.billToText,
-         // where: function(entry) {
-             // return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
-         // },
-         // view: 'erpshiptoaccount_billto_related'
-     // },
-     // {
-         // name: 'SalesPerson',
-         // label: this.salesPersonText,
-         // where: function(entry) {
-             // return 'SalesOrder.ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
-         // },
-         // view: 'erpshiptoaccount_salesperson_related'
-     // }
+        // , {
+        // name: 'Bill-To',
+        // label: this.billToText,
+        // where: function(entry) {
+        // return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
+        // },
+        // view: 'erpshiptoaccount_billto_related'
+        // },
+        // {
+        // name: 'SalesPerson',
+        // label: this.salesPersonText,
+        // where: function(entry) {
+        // return 'SalesOrder.ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+        // },
+        // view: 'erpshiptoaccount_salesperson_related'
+        // }
       ],
     }]);
   },

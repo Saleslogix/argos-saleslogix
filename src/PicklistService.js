@@ -185,7 +185,7 @@ const __class = lang.setObject('crm.PicklistService', /** @lends crm.PicklistSer
         const request = this.service.setUpRequest(
           new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false))
             .setContractName(this.contractName),
-            first.options
+          first.options
         );
         request.read(first.handlers);
       }

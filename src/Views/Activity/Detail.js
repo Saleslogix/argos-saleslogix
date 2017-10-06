@@ -114,7 +114,7 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       this.onEditActivity(this.entry);
     } else {
       if (confirm(this.confirmEditRecurrenceText)) { // eslint-disable-line
-       // edit series
+        // edit series
         this.entry.recurrence.Leader = this.entry.Leader;
         this.onEditActivity(this.entry.recurrence);
       } else {

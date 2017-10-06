@@ -104,7 +104,7 @@ const __class = lang.setObject('crm.Integrations.BOE.Aggregate', /** @lends crm.
     }
     return marginYoY;
   },
-    /**
+  /**
     * Change Color
     * @deprecated
     */

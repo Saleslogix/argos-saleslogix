@@ -229,7 +229,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
       }],
     });
 
-     /*
+    /*
      * Related Items
      */
     am.registerCustomization('detail', 'contact_detail', {
