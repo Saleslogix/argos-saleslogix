@@ -182,7 +182,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
   resolveFirstLast: f.resolveFirstLast,
   fixedLocale: function fixedLocale(val, d) {
     return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator,
-    Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+      Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
   },
 }));
 

@@ -37,18 +37,18 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
     this.getQueryData();
   },
   createMetricWidgets: function createMetricWidgets(entry) {
-      // Create metrics widgets and place them in the metricsNode
+    // Create metrics widgets and place them in the metricsNode
     const frag = document.createDocumentFragment();
     const widgetOptions = this.createMetricLayout(entry) || [];
     widgetOptions.forEach((options) => {
       if (this.hasValidOptions(options)) {
-          // Check if widget has a navigate to view option
+        // Check if widget has a navigate to view option
         if (options.navTo) {
           const obj = this.values.filter(this.checkForValue, options)[0];
           options.navToReportView = this.navToReportView;
           options.chartType = 'noChart';
           if (!(obj.queryIndex instanceof Array)) {
-              // Get the active filter from the query args array and pass it as an option to the widget to be consumed by the navToReportView function
+            // Get the active filter from the query args array and pass it as an option to the widget to be consumed by the navToReportView function
             options.activeFilter = this.queryArgs[obj.queryIndex][1]._activeFilter;
           }
         }
@@ -65,7 +65,7 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
   },
   createRangeWidgets: function createRangeWidgets() {
     const rangeFrag = document.createDocumentFragment();
-      // Check if range widgets are desired, if so create and place in rangeNode
+    // Check if range widgets are desired, if so create and place in rangeNode
     if (this.createRangeLayout) {
       const rangeOptions = this.createRangeLayout() || [];
       rangeOptions.forEach((options) => {
@@ -89,7 +89,7 @@ const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidge
     }
   },
   rebuildWidgets: function rebuildWidgets(entry) {
-      // this.destroyWidgets();
+    // this.destroyWidgets();
     $(this.metricsNode).empty();
     this.metricWidgets = [];
     this.rebuildValues();

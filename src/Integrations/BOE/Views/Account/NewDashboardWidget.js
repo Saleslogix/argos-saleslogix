@@ -231,7 +231,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
              `ErpStatus ne "${this.cancledCode}" and ` +
              `ErpStatus ne "${this.deletedCode}" and ` +
              `ErpStatus ne "${this.holdCode}" and ${
-             this.pastDays('ErpDocumentDate')}`,
+               this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ERPStatus',
         _metricName: 'SumTotalAmount',
       },
@@ -243,7 +243,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
              `ErpStatus ne "${this.voidCode}" and ` +
              `ErpStatus ne "${this.disputeCode}" and ` +
              `ErpStatus ne "${this.writeOffCode}" and ${
-             this.pastDays('ErpDocumentDate')}`,
+               this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal',
       },
