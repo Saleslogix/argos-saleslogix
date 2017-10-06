@@ -14,6 +14,7 @@
  */
 
 import MingleUtility from './MingleUtility';
+import LanguageService from 'argos/LanguageService';
 
 export default function bootstrap({
   supportedLocales,
@@ -64,6 +65,7 @@ export default function bootstrap({
         });
       });
   }
+  const languageService = new LanguageService();
   const ctx = window.L20n.getContext();
   const defaultCtx = window.L20n.getContext();
 
@@ -111,6 +113,8 @@ export default function bootstrap({
   if (localesLong[currentLocale]) {
     window.Locale.set(localesLong[currentLocale]);
   }
+  languageService.setLanguage(currentLocale);
+  languageService.setRegion(currentRegionLocale);
 
   Promise.all([new Promise((resolve) => {
     ctxRegional.ready(() => resolve(true));

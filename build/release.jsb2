@@ -439,9 +439,6 @@
           "text": "EditOffline.js",
           "path": "../src-out/Views/History/"
         }, {
-          "text": "ListOffline.js",
-          "path": "../src-out/Views/History/"
-        }, {
           "text": "Bootstrap.js",
           "path": "../src-out/"
         }, {
@@ -462,6 +459,9 @@
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/Event/"
+        }, {
+          "text": "ListOffline.js",
+          "path": "../src-out/Views/History/"
         }, {
           "text": "RelatedView.js",
           "path": "../src-out/Views/History/"
