@@ -24,29 +24,24 @@ import QueryResults from 'dojo/store/util/QueryResults';
 export default declare('crm.Views.RecentlyViewed.TotalMetricWidget', [MetricWidget], {
   navToReportView: function navToReportView() {},
   _buildQueryOptions: function _buildQueryOptions() {
-    return { returnQueryResults: true };
-  },
-  _buildQueryExpression: function _buildQueryExpression() {
     const filters = (App.preferences && App.preferences.recentlyViewedEntityFilters) ? App.preferences.recentlyViewedEntityFilters : [];
-    return function filter(doc, emit) {
-      // If the user has entity filters stored in preferences, filter based on that
-      if (filters) {
-        filters.forEach((f) => {
-          if ((doc.entity.entityName === f.name) && f.enabled) {
-            emit(doc.entity);
-          }
-        });
-      } else {
+    return {
+      returnQueryResults: true,
+      filter: (entity) => {
+        // If the user has entity filters stored in preferences, filter based on that
+        if (filters) {
+          return filters.some(filter => entity.entityName === filter.name && filter.enabled);
+        }
+
         // User has no entity filter preferences (from right drawer)
-        emit(doc.entity);
-      }
+        return true;
+      },
     };
   },
   _getData: function _getData() {
     const queryOptions = this._buildQueryOptions();
-    const queryExpression = this._buildQueryExpression();
     const model = App.ModelManager.getModel('RecentlyViewed', MODEL_TYPES.OFFLINE);
-    const queryResults = model.getEntries(queryExpression, queryOptions);
+    const queryResults = model.getEntries(null, queryOptions);
     when(queryResults, lang.hitch(this, this._onQuerySuccessCount, queryResults), lang.hitch(this, this._onQueryError));
   },
   _onQuerySuccessCount: function _onQuerySuccessCount(results) {

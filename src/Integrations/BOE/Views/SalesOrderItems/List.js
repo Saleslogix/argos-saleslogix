@@ -95,6 +95,18 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
   // Metrics
   entityName: 'SalesOrderItem',
 
+  readOnly: false,
+
+  transitionTo: function transitionTo() {
+    const entry = this.options && this.options.fromContext && this.options.fromContext.entry;
+    if (entry && entry.IsClosed) {
+      if (App.bars && App.bars.tbar) {
+        App.bars.tbar.disableTool('new');
+      }
+      this.readOnly = entry.IsClosed;
+    }
+    this.inherited(arguments);
+  },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
       id: 'assignWarehouse',
@@ -117,7 +129,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
       }],
     });
   },
-  preNavigateToInsert: function preNavigateToInsert(el) {
+  preNavigateToInsert: function preNavigateToInsert() {
     let options = {};
     if (this.options && this.options.fromContext && this.options.fromContext.entry) {
       options = {
@@ -126,7 +138,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
         },
       };
     }
-    this.navigateToInsertView(el, options);
+    this.navigateToInsertView(options);
   },
   assignWarehouseAction: function assignWarehouseAction(theAction, selection) {
     const order = this.options.fromContext.entry;

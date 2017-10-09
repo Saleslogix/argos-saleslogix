@@ -447,7 +447,7 @@ class Application extends SDKApplication {
     const service = this.getService();
     if (credentials) {
       service.setUserName(credentials.username)
-                 .setPassword(credentials.password || '');
+        .setPassword(credentials.password || '');
     }
 
     const request = new Sage.SData.Client.SDataServiceOperationRequest(service)
@@ -598,12 +598,17 @@ class Application extends SDKApplication {
     this.initAppState().then(() => {
       this.onInitAppStateSuccess();
     }, (err) => {
+      this.hideHeader();
       this.onInitAppStateFailed(err);
     });
   }
   showHeader() {
     const header = $('.header', this.getContainerNode());
     header.show();
+  }
+  hideHeader() {
+    const header = $('.header', this.getContainerNode());
+    header.hide();
   }
   onHandleAuthenticationFailed() {
     this.removeCredentials();
@@ -639,6 +644,7 @@ class Application extends SDKApplication {
   }
   onInitAppStateFailed(error) {
     const message = resource.appStateInitErrorText;
+    this.hideApplicationMenu();
     ErrorManager.addSimpleError(message, error);
     ErrorManager.showErrorDialog(null, message, () => {
       this._clearNavigationState();
@@ -1167,14 +1173,8 @@ class Application extends SDKApplication {
         indicator.start();
 
         model.initAuthentication(this.context.user.$key).then((result) => {
-          let options = offlineManager.getOptions();
-          if (result.hasUserChanged) {
-            options = {
-              clearAll: true,
-            };
-          }
           if (result.hasUserChanged || (!result.hasAuthenticatedToday)) {
-            offlineManager.clearData(options).then(() => {
+            offlineManager.clearAllData().then(() => {
               model.updateEntry(result.entry);
               indicator.complete(true);
               this.modal.disableClose = false;

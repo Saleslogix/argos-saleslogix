@@ -83,6 +83,15 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     };
     return entry;
   },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+    if (this.options && this.options.fromContext && this.options.fromContext.readOnly) {
+      if (App.bars && App.bars.tbar) {
+        App.bars.tbar.disableTool('removeOrderLine');
+        App.bars.tbar.disableTool('edit');
+      }
+    }
+  },
   removeOrderLine: function removeOrderLine() {
     // TODO: [INFORCRM-7712] Implement this in the model (model needs remove call)
     App.modal.createSimpleDialog({

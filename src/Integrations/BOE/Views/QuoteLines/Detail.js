@@ -80,6 +80,15 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Detail', [Detail]
     };
     return entry;
   },
+  processEntry: function processEntry() {
+    this.inherited(arguments);
+    if (this.options && this.options.fromContext && this.options.fromContext.readOnly) {
+      if (App.bars && App.bars.tbar) {
+        App.bars.tbar.disableTool('removeQuoteLine');
+        App.bars.tbar.disableTool('edit');
+      }
+    }
+  },
   removeQuoteLine: function removeQuoteLine() {
     // TODO: [INFORCRM-7712] Implement this in the model (model needs remove call)
     App.modal.createSimpleDialog({

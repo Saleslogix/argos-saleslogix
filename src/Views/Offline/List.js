@@ -96,10 +96,12 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
     this.inherited(arguments);
     App.setToolBarMode(false);
   },
-  _buildQueryExpression: function _buildQueryExpression() {
+  _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
     if (this.offlineContext && this.offlineContext.queryExpression) {
-      return this.offlineContext.queryExpression;
+      queryOptions.filter = this.offlineContext.queryExpression;
     }
+
+    return queryOptions;
   },
   _hasValidOptions: function _hasValidOptions(options) {
     return options;

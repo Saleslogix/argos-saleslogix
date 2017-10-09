@@ -87,7 +87,7 @@
   offlineText: "オフライン"
 >
 
-<activityComplete
+<activityComplete ""
   activityInfoText: "アクティビティ情報"
   accountText: "取引先"
   contactText: "連絡先"
