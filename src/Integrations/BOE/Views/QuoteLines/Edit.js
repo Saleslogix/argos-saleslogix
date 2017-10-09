@@ -139,8 +139,8 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
         (results) => {
           this.onProductPricingSuccess(results);
         }, (error) => {
-        this.onProductPricingFailed(error);
-      });
+          this.onProductPricingFailed(error);
+        });
     }
   },
   onProductPricingSuccess: function onProductPricingSuccess(result) {
@@ -248,7 +248,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
     }
   },
   enablePricingControls: function enablePricingControls(enable) {
-    if (enable) {  // To-do make this more dynamic.
+    if (enable) { // To-do make this more dynamic.
       this.fields.Product.enable();
       this.fields.Quantity.enable();
 

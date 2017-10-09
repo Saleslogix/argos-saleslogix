@@ -293,17 +293,17 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     this.weekStartDate = this.getStartDay(setDate);
     this.weekEndDate = this.getEndDay(setDate);
     this.queryWhere = string.substitute(
-    [
-      'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
-      '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
-      '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
-    ].join(''), [
-      App.context.user && App.context.user.$key,
-      convert.toIsoStringFromDate(this.weekStartDate.toDate()),
-      convert.toIsoStringFromDate(this.weekEndDate.toDate()),
-      this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
-      this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
-    ]
+      [
+        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
+        '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
+        '(Timeless eq true and StartDate between @${3}@ and @${4}@))',
+      ].join(''), [
+        App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(this.weekStartDate.toDate()),
+        convert.toIsoStringFromDate(this.weekEndDate.toDate()),
+        this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
+        this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]'),
+      ]
     );
   },
   setWeekTitle: function setWeekTitle() {
@@ -446,15 +446,15 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     const startDate = this.weekStartDate;
     const endDate = this.weekEndDate;
     return string.substitute(
-    [
-      'UserId eq "${0}" and (',
-      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-      'StartDate lt @${2}@',
-      ')',
-    ].join(''), [App.context.user && App.context.user.$key,
-      startDate.format('YYYY-MM-DDT00:00:00[Z]'),
-      endDate.format('YYYY-MM-DDT23:59:59[Z]'),
-    ]
+      [
+        'UserId eq "${0}" and (',
+        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+        'StartDate lt @${2}@',
+        ')',
+      ].join(''), [App.context.user && App.context.user.$key,
+        startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+        endDate.format('YYYY-MM-DDT23:59:59[Z]'),
+      ]
     );
   },
   hideEventList: function hideEventList() {

@@ -283,16 +283,16 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   },
   getEventQuery: function getEventQuery() {
     return string.substitute(
-    [
-      'UserId eq "${0}" and (',
-      '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
-      'StartDate lt @${2}@',
-      ')',
-    ].join(''), [
-      App.context.user && App.context.user.$key,
-      convert.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()),
-      convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
-    ]
+      [
+        'UserId eq "${0}" and (',
+        '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+        'StartDate lt @${2}@',
+        ')',
+      ].join(''), [
+        App.context.user && App.context.user.$key,
+        convert.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()),
+        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
+      ]
     );
   },
   activateEventMore: function activateEventMore() {

@@ -198,7 +198,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
           });
           const {
             enabled,
-            } = filterPref[0];
+          } = filterPref[0];
           return {
             name: filterName,
             action: 'filterClicked',
