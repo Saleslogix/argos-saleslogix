@@ -45,7 +45,10 @@ const __class = declare('crm.Views.PickList', [List], {
           && this.options.picklistOptions
             && this.options.picklistOptions.filterByLanguage
               && this.query) {
-      entries = entries.filter(entry => entry.languageCode === this.getLanguageCode());
+      entries = entries.filter(
+        entry => entry.languageCode === this.getLanguageCode() ||
+        typeof entry.languageCode === 'undefined' ||
+        entry.languageCode === null);
       queryResults.total = entries.length;
     }
     this.inherited(arguments);
