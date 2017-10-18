@@ -22,7 +22,7 @@ const __class = declare('crm.Views.OpportunityProduct.List', [List], {
     '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',
     '</h4>',
     '<h4>',
-    '{%: $.Quantity %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
+    '{%: crm.Format.fixedLocale($.Quantity, 2) %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
     '({%: crm.Format.percent($.Discount) %}) = ',
     '<strong>',
     '{% if (App.hasMultiCurrency()) { %}',

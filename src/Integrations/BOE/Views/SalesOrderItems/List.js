@@ -54,7 +54,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
     '<h4> <label class="group-label">{%: $$.baseAdjustedPriceText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.CalculatedPrice, $.SalesOrder.BaseCurrencyCode) %}',
     '</h4>',
-    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $.Quantity %}</h4>',
+    '<h4><label class="group-label">{%: $$.quantityText %}</label> {%: $$.formatter.fixedLocale($.Quantity, 2) %}</h4>',
     '<h4> <label class="group-label">{%: $$.baseAmountText %}</label> ',
     '{%: $$.util.formatMultiCurrency($.ExtendedPrice, $.SalesOrder.BaseCurrencyCode) %}',
     '</h4>',
