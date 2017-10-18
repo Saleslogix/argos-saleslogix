@@ -170,6 +170,9 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
         label: this.quantityText,
         name: 'Quantity',
         property: 'Quantity',
+        renderer: function renderQty(val) {
+          return format.fixedLocale(val, 2);
+        },
       }],
     };
 
