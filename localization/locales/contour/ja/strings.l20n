@@ -19,6 +19,7 @@
   phoneAbbreviationText: "電話番号: "
 	titleText: "自分の近くの取引先"
 	viewContactsActionText: "連絡先"
+  accountTypeText: "取引先タイプ:"
 >
 
 <locPicker ""
