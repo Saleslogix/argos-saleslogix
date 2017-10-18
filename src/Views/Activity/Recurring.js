@@ -8,6 +8,7 @@ import recur from '../../Recurrence';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityRecurring');
+const dtFormatResource = getResource('recurrenceDateTimeFormat');
 
 /**
  * @class crm.Views.Activity.Recurring
@@ -71,6 +72,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   yesText: resource.yesText,
   noText: resource.noText,
   titleText: resource.titleText,
+  endDateFormatText: dtFormatResource.endDateFormatText,
 
   // View Properties
   monthNames: moment.monthsShort,
@@ -636,7 +638,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
       type: 'date',
       timeless: false,
       showTimePicker: false,
-      dateFormatText: this.startingFormatText,
+      dateFormatText: this.endDateFormatText,
       minValue: (new Date(1900, 0, 1)),
       validator: [
         validator.exists,
