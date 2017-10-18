@@ -19,6 +19,7 @@
   phoneAbbreviationText: "電話: "
 	titleText: "鄰近我的客戶"
 	viewContactsActionText: "聯絡人"
+  accountTypeText: "客戶類型"
 >
 
 <locPicker ""
