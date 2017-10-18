@@ -102,8 +102,14 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
 
     return results;
   },
-  relativeDate: f.relativeDate,
-  multiCurrency: f.multiCurrency,
+  relativeDate: function relativeDate(date, timeless) {
+    const val = f.date(date, timeless);
+    return moment(val).fromNow();
+  },
+  multiCurrency: function multiCurrency(_val, code) {
+    return f.multiCurrency(_val, code, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
+      Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+  },
   nameLF: f.nameLF,
   mail: f.mail,
   // TODO: L20n
@@ -139,7 +145,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, {
   resolveFirstLast: f.resolveFirstLast,
   fixedLocale: function fixedLocale(val, d) {
     return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator,
-    Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+      Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
   },
 }));
 
