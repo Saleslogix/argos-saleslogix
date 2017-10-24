@@ -7,7 +7,7 @@
     var languages = <%= Languages %>;
 
     // set path for soho cultures
-    window.Locale.culturesPath = 'content/javascript/cultures/';
+    window.Locale.culturesPath = 'https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/js/cultures/';
 
     var supportedLocales = <%= SupportedLocales %>,
         defaultLocale = language || 'en',

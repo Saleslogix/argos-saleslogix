@@ -59,4 +59,8 @@ prefer-online
 NETWORK:
 ../sdata/
 ping.gif
+https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/
+https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/css/light-theme.min.css
+https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/js/jquery-3.1.1.js
+https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/js/sohoxi.js
 *
