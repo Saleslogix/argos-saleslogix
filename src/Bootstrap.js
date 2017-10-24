@@ -113,8 +113,8 @@ export default function bootstrap({
   if (localesLong[currentLocale]) {
     window.Locale.set(localesLong[currentLocale]);
   }
-  languageService.setLanguage(currentLocale);
-  languageService.setRegion(currentRegionLocale);
+  languageService.setLanguage(currentLocale || parentLocale || defaultLocale);
+  languageService.setRegion(currentRegionLocale || parentRegionLocale || defaultRegionLocale);
 
   Promise.all([new Promise((resolve) => {
     ctxRegional.ready(() => resolve(true));
