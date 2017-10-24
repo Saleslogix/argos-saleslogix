@@ -64,7 +64,7 @@
             and (-webkit-device-pixel-ratio: 1)"
         rel="apple-touch-startup-image">
 
-<link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/css/light-theme.min.css" />
+<link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/css/light-theme.min.css" />
 <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
 <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
@@ -72,8 +72,8 @@
 <script type="application/l20n">{}</script>
 
 <!-- Global (window) dependencies. Load these before the AMD loader -->
-<script type="text/javascript" src="https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="https://dx6yfd7aurvg3.cloudfront.net/sohoxi/4.3.1/dist/js/sohoxi.min.js"></script>
+<script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/sohoxi.min.js"></script>
 <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
 <!-- Dojo -->
