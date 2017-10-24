@@ -47,15 +47,5 @@
     "node-sass": "^4.5.0",
     "spdy": "^3.4.4"
   },
-  "dependencies": {
-    "@infor/icrm-js-common": "^0.1.4",
-    "@infor/icrm-js-customization": "^0.1.0",
-    "@infor/icrm-js-services": "^0.2.1",
-    "@infor/sohoxi": "4.3.1",
-    "moment": "^2.17.1",
-    "redux": "^3.6.0",
-    "redux-logger": "^2.7.4",
-    "redux-thunk": "^2.2.0",
-    "rxjs": "^5.4.3"
-  }
+  "dependencies": {}
 }
