@@ -15,6 +15,7 @@
 
 import declare from 'dojo/_base/declare';
 import aspect from 'dojo/aspect';
+import string from 'dojo/string';
 import RelatedViewManager from 'argos/RelatedViewManager';
 import _RelatedViewWidgetBase from 'argos/_RelatedViewWidgetBase';
 import Dropdown from 'argos/Dropdown';
@@ -29,6 +30,8 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
   languageText: resource.languageText,
   toastTitle: resource.toastTitle,
   toastMessage: resource.toastMessage,
+  invalidLanguageError: resource.invalidLanguageError,
+  invalidRegionError: resource.invalidRegionError,
   languageService: null,
   cls: 'related-language-usage-widget',
   relatedContentTemplate: new Simplate([
@@ -73,6 +76,13 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
       });
       $(this._languageNode).append(this._languageDropdown.domNode);
       this._languageDropdown.setValue(lang);
+      try {
+        this._languageDropdown.getValue();
+      } catch (e) {
+        console.error(string.substitute(this.invalidLanguageError, [lang])); // eslint-disable-line
+        this._languageDropdown.setValue('en');
+        this.languageService.setLanguage('en');
+      }
     }
 
     if (!this._regionDropdown) {
@@ -86,6 +96,13 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
       });
       $(this._regionThanNode).append(this._regionDropdown.domNode);
       this._regionDropdown.setValue(region);
+      try {
+        this._regionDropdown.getValue();
+      } catch (e) {
+        console.error(string.substitute(this.invalidRegionError, [region]));  // eslint-disable-line
+        this._regionDropdown.setValue('en');
+        this.languageService.setRegion('en');
+      }
     }
   },
   onRefreshView: function onRefreshView() {
