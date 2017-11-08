@@ -370,7 +370,7 @@
   eventHeaderText: "Events"
   countMoreText: "View More"
   toggleCollapseText: "toggle collapse"
-  withFromText: "with ${contactName} from ${accountName}"
+  withFromText: "Attendee: ${contactName} from ${accountName}"
   withText: "Attendee(s): ${object}"
   unspecifiedText: "unspecified"
   forText: "for ${reason}"
