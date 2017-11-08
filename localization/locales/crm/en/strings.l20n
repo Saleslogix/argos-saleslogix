@@ -367,7 +367,7 @@
   countMoreText: "View More"
   toggleCollapseText: "toggle collapse"
   withFromText: "with ${contactName} from ${accountName}"
-  withText: "with ${object}"
+  withText: "Attendee(s): ${object}"
   unspecifiedText: "unspecified"
   forText: "for ${reason}"
   dayText: "Day"
