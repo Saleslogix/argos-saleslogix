@@ -256,6 +256,7 @@
   erpStatusText: "erp 狀態"
   erpStatusDateText: "erp 狀態日期"
   refreshPricingText: "重新整理定價"
+  pricingUnavailableText: "這個報價目前已關閉，因此無法取得定價。"
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "erp 狀態"
   erpStatusDateText: "erp 狀態日期"
   refreshPricingText: "重新整理定價"
+  pricingUnavailableText: "這個銷售訂單目前已關閉，因此無法取得定價。"
 >
 
 <salesOrdersList ""
