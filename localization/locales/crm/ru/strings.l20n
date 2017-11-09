@@ -610,7 +610,7 @@
   relatedItemsText: "Связанные элементы"
   yesText: "ДА"
   noText: "НЕТ"
-  validationText: "Поле "${2}" должно иметь значение."
+  validationText: "Поле \"${2}\" должно иметь значение."
   validationCanEditText: "У вас нет прав для редактирования"
 >
 
