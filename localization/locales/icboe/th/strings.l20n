@@ -256,6 +256,7 @@
   erpStatusText: "ERP - สถานะ"
   erpStatusDateText: "ERP - วันที่สถานะ"
   refreshPricingText: "รีเฟรชการกำหนดราคา"
+  pricingUnavailableText: "ขณะนี้การเสนอราคานี้ปิดแล้วและการกำหนดราคาไม่มีอยู่"
 
 >
 
@@ -364,7 +365,7 @@
   invoicesTotalingText: "ยอดรวมใบแจ้งหนี้: ${0}"
   receivablesTotalingText: "ยอดรวมลูกหนี้: ${0}"
   closedText: "ปิดแล้ว"
-  deletedText: "ลบแล้ว"
+  deletedText: "ถูกลบ"
   replacedText: "แทนที่แล้ว"
   canceledText: "ยกเลิกแล้ว"
   unapprovedText: "ไม่อนุมัติ"
@@ -853,7 +854,7 @@
   accountText: "บัญชี"
   opportunityText: "โอกาส"
   dateCreatedText: "วันที่สร้าง"
-  orderDateText: "วันที่การสั่ง"
+  orderDateText: "วันที่สั่ง"
   dueDateText: "วันที่ครบกำหนด"
   documentDateText: "วันที่เอกสาร"
   statusText: "สถานะ"
@@ -898,6 +899,7 @@
   erpStatusText: "ERP - สถานะ"
   erpStatusDateText: "ERP - วันที่สถานะ"
   refreshPricingText: "รีเฟรชการกำหนดราคา"
+  pricingUnavailableText: "ขณะนี้การเสนอราคานี้ปิดแล้วและการกำหนดราคาไม่มีอยู่"
 >
 
 <salesOrdersList ""
@@ -909,7 +911,7 @@
   statusLabelText: "สถานะ"
   erpStatusLabelText: "ERP - สถานะ"
   customerPONumberText: "หมายเลขใบสั่งซื้อของลูกค้า"
-  orderDateText: "วันที่การสั่ง"
+  orderDateText: "วันที่สั่ง"
   viewAccountActionText: "ดูบัญชี"
   addLineItemsText: "เพิ่มรายการ"
   documentDateText: "วันที่เอกสาร"

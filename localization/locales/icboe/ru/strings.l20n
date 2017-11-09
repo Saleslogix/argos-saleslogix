@@ -228,7 +228,7 @@
   salesPersonsText: "Продавцы"
   syncHistoryText: "История синхронизации"
   addLineItemsText: "Добавить элементы строки"
-  hasWonErrorText: "Невозможно преобразовать предложение, если какая-либо версия предложения имеет статус \"Выигрыш\"."
+  hasWonErrorText: "Невозможно преобразовать предложение, если какая-либо версия предложения имеет статус "Выигрыш"."
   wonStatusCode: "Выигрыш"
   convertQuoteText: "Преобразовать в заказ на продажу"
   promoteQuoteText: "Выдвинуть предложение"
@@ -256,6 +256,7 @@
   erpStatusText: "Статус в ERP"
   erpStatusDateText: "Дата статуса в ERP"
   refreshPricingText: "Обновить стоимость"
+  pricingUnavailableText: "Это предложение в настоящий момент закрыто, расчет цены недоступен."
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "Статус в ERP"
   erpStatusDateText: "Дата статуса в ERP"
   refreshPricingText: "Обновить стоимость"
+  pricingUnavailableText: "Этот заказ на продажу в настоящий момент закрыт, расчет цены недоступен."
 >
 
 <salesOrdersList ""

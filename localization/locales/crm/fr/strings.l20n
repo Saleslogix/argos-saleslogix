@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "Modifier"
   emptyText: ""
@@ -137,7 +143,7 @@
   completeOccurrenceText: "Terminer l'occurrence"
   completeSeriesText: "Terminer la série"
   locationText: "Emplacement"
-  alarmText: "Alarme"
+  alarmText: "alarme"
   alarmTimeText: "Alarme"
   categoryText: "Catégorie"
   durationText: "Durée"
@@ -177,7 +183,7 @@
   activityDescriptionTitleText: "Description de l'activité"
   locationText: "Emplacement"
   activityTypeTitleText: "Type d'activité"
-  alarmText: "Alarme"
+  alarmText: "alarme"
   reminderText: "Rappel"
   categoryText: "Catégorie"
   durationText: "Durée"
@@ -228,7 +234,7 @@
   calledText: "Appelé ${0}"
   addAttachmentActionText: "Ajouter une pièce jointe"
   overdueText: "En retard"
-  alarmText: "Alarme"
+  alarmText: "alarme"
   touchedText: "Modifié"
   importantText: "Important"
   recurringText: "récurrent"
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "Pièces jointes"
-  uploadedOnText: "Chargé le "
+  uploadedOnText: "Chargé le ${0} à ${1}"
+  touchedText: "Modifié"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "Activité personnelle"
   question: "Question"
   email: "E-mail"
+  touchedText: "Modifié"
 >
 
 <historyListOffline ""
   titleText: "Notes hors ligne"
   widgetTitle: "Note hors ligne"
-  saveToCRMText: "Enregistrer dans CRM"
+  saveToCRMText: "Enregistrer dans Infor CRM"
+  deleteNoteText: "Supprimer"
 >
 
 <historyRelated ""
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "Tous les ${0} jours après la fin"
   weeklySummary: "Toutes les semaines le ${4} à ${1} à compter du ${2} et jusqu'au ${3}"
   weeklyEverySummary: "Toutes les ${0} semaines le ${4} à ${1} à compter du ${2} et jusqu'au ${3}"
-  weeklyAfterCompletionSummary: "Toutes les semaines le ${4} après la fin"
-  weeklyEveryAfterCompletionSummary: "Toutes les ${0} semaines le ${4} après la fin"
+  weeklyAfterCompletionSummary: "Toutes les semaines après la fin"
+  weeklyEveryAfterCompletionSummary: "Toutes les ${0} semaines après la fin"
   monthlyOrdSummary: "Tous les mois le ${6} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
   monthlyEveryOrdSummary: "Tous les ${0} mois le ${6} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
   monthlySummary: "Tous les mois le ${7} du mois à ${1} à compter du ${2} et jusqu'au ${3}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Culture"
+  regionText: "Format régional"
   languageText: "Langue"
   toastTitle: "Actualiser la page"
   toastMessage: "Actualisez votre navigateur pour voir le changement."
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "Activité du ticket"
   entityDisplayNamePlural: "Activités du ticket"
+>
+
+<chartMixin ""
+  loadingText: "Chargement en cours"
 >

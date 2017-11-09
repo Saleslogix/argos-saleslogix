@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val} mrd"
+  millionText: "${val} mio"
+  thousandText: "${val} mila"
+>
+
 <addressField ""
   lookupLabelText: "modifica"
   emptyText: ""
@@ -229,7 +235,7 @@
   addAttachmentActionText: "Aggiungi allegato"
   overdueText: "scadenza oltrepassata"
   alarmText: "allarme"
-  touchedText: "ultima attività"
+  touchedText: "Modificato"
   importantText: "importante"
   recurringText: "ricorrente"
 >
@@ -257,14 +263,14 @@
   repeatsText: "ripetizioni"
   everyText: "ogni"
   afterCompletionText: "dopo il completamento"
-  singleWeekdayText: "giorno feriale"
-  weekdaysText: "giorni feriali"
+  singleWeekdayText: "giorno settimana"
+  weekdaysText: "giorni settimana"
   dayNumberText: "numero di giorni"
   monthText: "mese"
   onText: "giorno del mese"
   occurrencesText: "occorrenze"
   summaryText: "riepilogo"
-  recurringFrequencyText: "frequenza ricorrenza"
+  recurringFrequencyText: "frequenza"
   frequencyIntervalText: "intervallo di frequenza"
   yesText: "Sì"
   noText: "No"
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "Allegati"
-  uploadedOnText: "Caricato "
+  uploadedOnText: "Caricato il ${0} alle ${1}"
+  touchedText: "Modificato"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "Attività personale"
   question: "Domanda"
   email: "E-mail"
+  touchedText: "Modificato"
 >
 
 <historyListOffline ""
   titleText: "Note offline"
   widgetTitle: "Nota offline"
-  saveToCRMText: "Salva in CRM"
+  saveToCRMText: "Salva in Infor CRM"
+  deleteNoteText: "Elimina"
 >
 
 <historyRelated ""
@@ -816,9 +825,9 @@
   opportunityStageTitleText: "Fase opportunità"
   opportunityText: "opportunità"
   stageText: "fase"
-  statusOpenText: "Aperta"
-  statusClosedLostText: "Chiusa - Persa"
-  statusClosedWonText: "Chiusa - Acquisita"
+  statusOpenText: "Aperto"
+  statusClosedLostText: "Chiuso - Perso"
+  statusClosedWonText: "Chiuso - Acquisito"
   salesProcessText: "fase bloccata dal processo di vendita:"
   probabilityText: "prob. chiusura"
   probabilityTitleText: "Probabilità opportunità"
@@ -1336,7 +1345,7 @@
   second: "2° ${0}"
   third: "3° ${0}"
   fourth: "4° ${0}"
-  last: "ultima/o ${0}"
+  last: "Ultima/o ${0}"
   singleActivitySummary: "Questa attività si verifica solo una volta"
   dailySummary: "Ogni giorno alle ${1} dal ${2} al ${3}"
   dailyEverySummary: "Ogni ${0} giorni alle ${1} dal ${2} al ${3}"
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "Ogni ${0} giorni dopo il completamento"
   weeklySummary: "Ogni settimana di ${4} alle ${1} dal ${2} al ${3}"
   weeklyEverySummary: "Ogni ${0} settimane di ${4} alle ${1} dal ${2} al ${3}"
-  weeklyAfterCompletionSummary: "Ogni settimana di ${4} dopo il completamento"
-  weeklyEveryAfterCompletionSummary: "Ogni ${0} settimane di ${4} dopo il completamento"
+  weeklyAfterCompletionSummary: "Ogni settimana dopo il completamento"
+  weeklyEveryAfterCompletionSummary: "Ogni ${0} settimane dopo il completamento"
   monthlyOrdSummary: "Ogni mese il/la ${6} del mese alle ${1} dal ${2} al ${3}"
   monthlyEveryOrdSummary: "Ogni ${0} mesi il/la ${6} del mese alle ${1} dal ${2} al ${3}"
   monthlySummary: "Ogni mese il giorno ${7} del mese alle ${1} dal ${2} al ${3}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Impostazioni cultura"
+  regionText: "Formato regionale"
   languageText: "Lingua"
   toastTitle: "Aggiorna pagina"
   toastMessage: "Aggiornare il browser per vedere la modifica."
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "Attività per ticket"
   entityDisplayNamePlural: "Attività per ticket"
+>
+
+<chartMixin ""
+  loadingText: "Caricamento"
 >

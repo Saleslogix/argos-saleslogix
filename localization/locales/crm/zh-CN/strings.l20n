@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "编辑"
   emptyText: ""
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "附件"
-  uploadedOnText: "上传于 "
+  uploadedOnText: "已在 ${0} ${1} 上传"
+  touchedText: "已接触"
 >
 
 <attachmentMyList ""
@@ -364,7 +371,7 @@
   countMoreText: "查看更多"
   toggleCollapseText: "切换折叠"
   withFromText: "客户 ${accountName} 的联系人 ${contactName} 的活动"
-  withText: "使用 ${object}"
+  withText: "${object}"
   unspecifiedText: "未指定"
   forText: "针对 ${reason}"
   dayText: "日"
@@ -627,12 +634,14 @@
   personal: "个人活动"
   question: "问题"
   email: "电子邮件"
+  touchedText: "已接触"
 >
 
 <historyListOffline ""
   titleText: "离线备注"
   widgetTitle: "离线备注"
-  saveToCRMText: "保存到 CRM"
+  saveToCRMText: "保存到 Infor CRM"
+  deleteNoteText: "删除"
 >
 
 <historyRelated ""
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "完成后每隔 ${0} 天"
   weeklySummary: "每周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
   weeklyEverySummary: "每隔 ${0} 周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
-  weeklyAfterCompletionSummary: "完成后每周的 ${4}"
-  weeklyEveryAfterCompletionSummary: "完成后每隔 ${0} 周的${4}"
+  weeklyAfterCompletionSummary: "完成后每周"
+  weeklyEveryAfterCompletionSummary: "完成后每隔 ${0} 周"
   monthlyOrdSummary: "每月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
   monthlyEveryOrdSummary: "每隔 ${0} 月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
   monthlySummary: "每月的该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "区域设置"
+  regionText: "区域格式"
   languageText: "语言"
   toastTitle: "刷新页面"
   toastMessage: "请刷新您的浏览器，查看更改。"
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "工单活动"
   entityDisplayNamePlural: "工单活动"
+>
+
+<chartMixin ""
+  loadingText: "正在加载"
 >

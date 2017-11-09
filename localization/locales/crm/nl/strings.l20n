@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val} miljard"
+  millionText: "${val} miljoen"
+  thousandText: "${val} duizend"
+>
+
 <addressField ""
   lookupLabelText: "Bewerken"
   emptyText: ""
@@ -229,7 +235,7 @@
   addAttachmentActionText: "Bijlage toevoegen"
   overdueText: "Achterstallig"
   alarmText: "Alarm"
-  touchedText: "Benaderd"
+  touchedText: "Gewijzigd"
   importantText: "Belangrijk"
   recurringText: "Terugkerend"
 >
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "Bijlagen"
-  uploadedOnText: "Geüpload "
+  uploadedOnText: "Geüpload op ${0} om ${1}"
+  touchedText: "Gewijzigd"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "Privéactiviteit"
   question: "Vraag"
   email: "E-mailadres"
+  touchedText: "Gewijzigd"
 >
 
 <historyListOffline ""
   titleText: "Offlinenotities"
   widgetTitle: "Offlinenotitie"
-  saveToCRMText: "Opslaan in CRM"
+  saveToCRMText: "Opslaan in Infor CRM"
+  deleteNoteText: "Verwijderen"
 >
 
 <historyRelated ""
@@ -734,7 +743,7 @@
   acctMgrText: "Acctmanager"
   estCloseText: "Geschtte aflstdtm"
   detailsText: "Details"
-  fbarHomeTitleText: "Telefoonnr thuis"
+  fbarHomeTitleText: "Start"
   fbarScheduleTitleText: "Planning"
   importSourceText: "Leadbron"
   opportunityText: "Verkoopkans"
@@ -927,7 +936,7 @@
 
 <ticketDetail ""
   accountText: "Account"
-  areaText: "Onderwerp"
+  areaText: "Vakgebied"
   assignedDateText: "Toewijzingsdatum"
   assignedToText: "Toegewezen aan"
   completedByText: "Voltooid door"
@@ -960,7 +969,7 @@
 
 <ticketEdit ""
   accountText: "Account"
-  areaText: "Onderwerp"
+  areaText: "Vakgebied"
   assignedDateText: "Toewijzingsdatum"
   assignedToText: "Toegewezen aan"
   categoryText: "Categorie"
@@ -981,7 +990,7 @@
   sourceTitleText: "Bron"
   statusText: "Status"
   subjectText: "Onderwerp"
-  ticketAreaTitleText: "Onderwerp ticket"
+  ticketAreaTitleText: "Vakgebied ticket"
   ticketCategoryTitleText: "Categorie ticket"
   ticketIdText: "Ticketnummer"
   ticketIssueTitleText: "Probleem ticket"
@@ -1159,7 +1168,7 @@
 <home ""
   configureText: "Configureren"
   addAccountContactText: "Account/contactpersoon toevoegen"
-  titleText: "Telefoonnr thuis"
+  titleText: "Start"
   actionsText: "Snelle acties"
   viewsText: "Ga naar"
 >
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "Elke ${0} dagen na voltooiing"
   weeklySummary: "Elke week op ${4} om ${1}, geldig van ${2} t/m ${3}"
   weeklyEverySummary: "Elke ${0} weken op ${4} om ${1}, geldig van ${2} t/m ${3}"
-  weeklyAfterCompletionSummary: "Elke week op ${4} na voltooiing"
-  weeklyEveryAfterCompletionSummary: "Elke ${0} weken op ${4} na voltooiing"
+  weeklyAfterCompletionSummary: "Elke week na voltooiing"
+  weeklyEveryAfterCompletionSummary: "Elke ${0} weken na voltooiing"
   monthlyOrdSummary: "Elke maand op de ${6} van de maand om ${1}, geldig van ${2} t/m ${3}"
   monthlyEveryOrdSummary: "Elke ${0} maanden op de ${6} van de maand om ${1}, geldig van ${2} t/m ${3}"
   monthlySummary: "Elke maand op dag ${7} van de maand om ${1}, geldig van ${2} t/m ${3}"
@@ -1355,7 +1364,7 @@
   yearlySummary: "Elk jaar op dag ${7} van ${5} om ${1}, geldig van ${2} t/m ${3}"
   yearlyEverySummary: "Elke ${0} jaar op dag ${7} van ${5} om ${1}, geldig van ${2} t/m ${3}"
   yearlyOrdSummary: "Elk jaar op de ${6} van ${5} om ${1}, geldig van ${2} t/m ${3}"
-  yearlyEveryOrdSummary: "Alle ${0} jaar op de ${6} van ${5} om ${1}, geldig van ${2} t/m ${3}"
+  yearlyEveryOrdSummary: "Elke ${0} jaar op de ${6} van ${5} om ${1}, geldig van ${2} t/m ${3}"
   yearlyAfterCompletionSummary: "Elk jaar na voltooiing"
   yearlyEveryAfterCompletionSummary: "Elke ${0} jaar na voltooiing"
 >
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Cultuur"
+  regionText: "Regionale notatie"
   languageText: "Taal"
   toastTitle: "Pagina vernieuwen"
   toastMessage: "Vernieuw uw browser om de wijziging te zien."
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "Ticketactiviteit"
   entityDisplayNamePlural: "Ticketactiviteiten"
+>
+
+<chartMixin ""
+  loadingText: "Laden"
 >

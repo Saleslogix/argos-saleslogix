@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "แก้ไข"
   emptyText: ""
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "สิ่งที่แนบ"
-  uploadedOnText: "อัปโหลดแล้ว "
+  uploadedOnText: "อัปโหลด ${0} ณ ${1}"
+  touchedText: "ติดต่อแล้ว"
 >
 
 <attachmentMyList ""
@@ -574,7 +581,7 @@
   relatedItemsText: "รายการที่เกี่ยวข้อง"
   relatedAttachmentText: "สิ่งที่แนบ"
   relatedAttachmentTitleText: "สิ่งที่แนบประวัติ"
-  modifiedText: "ปรับเปลี่ยนแล้ว"
+  modifiedText: "ถูกปรับเปลี่ยน"
   typeText: "ชนิด"
   entityText: "ประวัติ"
   toDo: "สิ่งที่ต้องทำ"
@@ -627,12 +634,14 @@
   personal: "กิจกรรมส่วนบุคคล"
   question: "คำถาม"
   email: "อีเมล"
+  touchedText: "ติดต่อแล้ว"
 >
 
 <historyListOffline ""
   titleText: "บันทึกย่อแบบออฟไลน์"
   widgetTitle: "บันทึกย่อแบบออฟไลน์"
-  saveToCRMText: "บันทึกไปที่ CRM"
+  saveToCRMText: "บันทึกไปที่ Infor CRM"
+  deleteNoteText: "ลบ"
 >
 
 <historyRelated ""
@@ -1004,8 +1013,8 @@
   addAttachmentActionText: "เพิ่มสิ่งที่แนบ"
   assignedToText: "มอบหมายให้: "
   urgencyText: "ความด่วน: "
-  createdOnText: "สร้างแล้ว  "
-  modifiedText: "ปรับเปลี่ยนแล้ว "
+  createdOnText: "ถูกสร้าง  "
+  modifiedText: "ถูกปรับเปลี่ยน "
   neededByText: "ที่ต้องการ  "
 >
 
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "ทุก ${0} วันหลังจากเสร็จสมบูรณ์"
   weeklySummary: "ทุกสัปดาห์ใน ${4} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
   weeklyEverySummary: "ทุก ${0} สัปดาห์ใน ${4} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
-  weeklyAfterCompletionSummary: "ทุกสัปดาห์ใน ${4} หลังจากเสร็จสมบูรณ์"
-  weeklyEveryAfterCompletionSummary: "ทุก ${0} สัปดาห์ใน ${4} หลังจากเสร็จสมบูรณ์"
+  weeklyAfterCompletionSummary: "ทุกสัปดาห์หลังจากเสร็จสมบูรณ์"
+  weeklyEveryAfterCompletionSummary: "ทุก ${0} สัปดาห์หลังจากเสร็จสมบูรณ์"
   monthlyOrdSummary: "ทุกเดือนในวัน ${6} ของเดือน ณ ${1} มีผลจาก ${2} จนถึง ${3}"
   monthlyEveryOrdSummary: "ทุก ${0} เดือนในวัน ${6} ของเดือน ณ ${1} มีผลจาก ${2} จนถึง ${3}"
   monthlySummary: "ทุกเดือนในวัน ${7} ของเดือน ณ ${1} มีผลจาก ${2} จนถึง ${3}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "วัฒนธรรม"
+  regionText: "รูปแบบภูมิภาค"
   languageText: "ภาษา"
   toastTitle: "รีเฟรชหน้า"
   toastMessage: "โปรดรีเฟรชเบราว์เซอร์ของคุณเพื่อดูการเปลี่ยนแปลง"
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "กิจกรรมตั๋ว"
   entityDisplayNamePlural: "กิจกรรมตั๋ว"
+>
+
+<chartMixin ""
+  loadingText: "กำลังโหลด"
 >

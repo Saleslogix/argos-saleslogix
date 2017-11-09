@@ -78,7 +78,7 @@
 
 <erpSalesOrderPersonModel ""
   entityDisplayName: "Verantwoordelijke voor verkooporder"
-  entityDisplayNamePlural: "Verantw. voor verkooporders"
+  entityDisplayNamePlural: "Verantwoordelijken voor verkooporders"
 >
 
 <erpShipmentModel ""
@@ -256,6 +256,7 @@
   erpStatusText: "erp - status"
   erpStatusDateText: "erp - statusdatum"
   refreshPricingText: "Prijzen vernieuwen"
+  pricingUnavailableText: "Deze offerte is momenteel gesloten en er zijn geen prijzen beschikbaar."
 
 >
 
@@ -381,9 +382,9 @@
   quotesTotalingText: "Totaal aantal offertes: ${0}"
   ordersTotalingText: "Totaal aantal orders: ${0}"
   invoicesTotalingText: "Totaal aantal facturen: ${0}"
-  agingInvoicesText: "Ouderdomsanalyse openstaande facturen"
-  agingSalesOrdersText: "Ouderdomsanalyse openstaande verkooporders"
-  agingQuotesText: "Ouderdomsanalyse openstaande offertes"
+  agingInvoicesText: "Ouderdomsanalyse facturen"
+  agingSalesOrdersText: "Ouderdomsanalyse verkooporders"
+  agingQuotesText: "Ouderdomsanalyse offertes"
   openOrderText: "Openstaande order"
   salesOrderText: "Verkooporder"
   salesHoldText: "Verkoop uitgesteld"
@@ -898,6 +899,7 @@
   erpStatusText: "erp - status"
   erpStatusDateText: "erp - statusdatum"
   refreshPricingText: "Prijzen vernieuwen"
+  pricingUnavailableText: "Deze verkooporder is momenteel gesloten en er zijn geen prijzen beschikbaar."
 >
 
 <salesOrdersList ""
@@ -1095,7 +1097,7 @@
 >
 
 <helpModule ""
-  sectionTitleText: "ICBOE Help"
+  sectionTitleText: "ICBOE (backoffice-extensie) Help"
 >
 
 <unitOfMeasureList ""

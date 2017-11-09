@@ -256,6 +256,7 @@
   erpStatusText: "ERP 状态"
   erpStatusDateText: "ERP 状态日期"
   refreshPricingText: "刷新定价"
+  pricingUnavailableText: "该报价单当前已结，定价不可用。"
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "ERP 状态"
   erpStatusDateText: "ERP 状态日期"
   refreshPricingText: "刷新定价"
+  pricingUnavailableText: "该销售订单当前已结，定价不可用。"
 >
 
 <salesOrdersList ""

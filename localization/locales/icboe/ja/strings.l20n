@@ -256,6 +256,7 @@
   erpStatusText: "ERP 状況"
   erpStatusDateText: "ERP 状況日"
   refreshPricingText: "価格の更新"
+  pricingUnavailableText: "この見積は現在クローズされており、価格設定は利用できません。"
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "ERP 状況"
   erpStatusDateText: "ERP 状況日"
   refreshPricingText: "価格の更新"
+  pricingUnavailableText: "この販売オーダーは現在クローズされており、価格設定は利用できません。"
 >
 
 <salesOrdersList ""

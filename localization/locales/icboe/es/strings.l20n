@@ -256,6 +256,7 @@
   erpStatusText: "estado de erp"
   erpStatusDateText: "fecha del estado de ERP"
   refreshPricingText: "Actualizar precios"
+  pricingUnavailableText: "Esta oferta está actualmente cerrada y el precio no está disponible."
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "estado de erp"
   erpStatusDateText: "fecha del estado de ERP"
   refreshPricingText: "Actualizar precios"
+  pricingUnavailableText: "Esta orden de venta está actualmente cerrada y el precio no está disponible."
 >
 
 <salesOrdersList ""

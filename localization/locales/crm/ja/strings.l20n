@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}0 億"
+  millionText: "${val}百万"
+  thousandText: "${val}千"
+>
+
 <addressField ""
   lookupLabelText: "編集"
   emptyText: ""
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "添付"
-  uploadedOnText: "アップロード済 "
+  uploadedOnText: "アップロード ${0} ${1}"
+  touchedText: "更新済"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "個人アクティビティ"
   question: "質問"
   email: "電子メール"
+  touchedText: "更新済"
 >
 
 <historyListOffline ""
   titleText: "オフラインメモ"
   widgetTitle: "オフラインメモ"
-  saveToCRMText: "CRM に保存"
+  saveToCRMText: "InforCRM に保存"
+  deleteNoteText: "削除"
 >
 
 <historyRelated ""
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "完了後 ${0} 日毎"
   weeklySummary: "${2} から ${3} まで毎週${4}の${1}"
   weeklyEverySummary: "${2} から ${3} まで${0}週毎の${4} ${1}"
-  weeklyAfterCompletionSummary: "完了後毎週${4}"
-  weeklyEveryAfterCompletionSummary: "完了後${0}週毎の${4}"
+  weeklyAfterCompletionSummary: "完了後毎週"
+  weeklyEveryAfterCompletionSummary: "完了後 ${0} 週ごと"
   monthlyOrdSummary: "${2} から ${3} まで毎月${6}${1}"
   monthlyEveryOrdSummary: "${2} から ${3} まで${0}月毎の${6}${1}"
   monthlySummary: "${2} から ${3} まで毎月${7}日${1}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "カルチャ"
+  regionText: "地域設定"
   languageText: "言語"
   toastTitle: "ページの更新"
   toastMessage: "ブラウザーを更新して変更箇所を表示します。"
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "チケットアクティビティ"
   entityDisplayNamePlural: "チケットアクティビティ"
+>
+
+<chartMixin ""
+  loadingText: "ロードしています"
 >
