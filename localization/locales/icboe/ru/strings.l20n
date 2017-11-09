@@ -256,6 +256,7 @@
   erpStatusText: "Статус в ERP"
   erpStatusDateText: "Дата статуса в ERP"
   refreshPricingText: "Обновить стоимость"
+  pricingUnavailableText: "Это предложение в настоящий момент закрыто, расчет цены недоступен."
 
 >
 
@@ -898,6 +899,7 @@
   erpStatusText: "Статус в ERP"
   erpStatusDateText: "Дата статуса в ERP"
   refreshPricingText: "Обновить стоимость"
+  pricingUnavailableText: "Этот заказ на продажу в настоящий момент закрыт, расчет цены недоступен."
 >
 
 <salesOrdersList ""

@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val} млрд"
+  millionText: "${val} млн"
+  thousandText: "${val} тыс."
+>
+
 <addressField ""
   lookupLabelText: "Редактировать"
   emptyText: ""
@@ -229,7 +235,7 @@
   addAttachmentActionText: "Добавить вложение"
   overdueText: "Просроченные"
   alarmText: "Оповещение"
-  touchedText: "Затронуто"
+  touchedText: "Измененные"
   importantText: "Важно"
   recurringText: "Повторение"
 >
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "Вложения"
-  uploadedOnText: "Загружено "
+  uploadedOnText: "Передано ${0} в ${1}"
+  touchedText: "Измененные"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "Личное действие"
   question: "Вопрос"
   email: "Электронная почта"
+  touchedText: "Измененные"
 >
 
 <historyListOffline ""
   titleText: "Автономные заметки"
   widgetTitle: "Автономная заметка"
-  saveToCRMText: "Сохранить в CRM"
+  saveToCRMText: "Сохранить в Infor CRM"
+  deleteNoteText: "Удалить"
 >
 
 <historyRelated ""
@@ -1311,10 +1320,10 @@
 <fileManager ""
   unableToUploadText: "Этот браузер не поддерживает операции с файлами API в HTML5."
   unknownSizeText: "Неизвестно"
-  unknownErrorText: "Предупреждение: возникла ошибка, не удалось выгрузить файл."
-  largeFileWarningText: "Предупреждение: не удалось загрузить этот запрос, так как его размер превышает ограничение, установленное администратором."
+  unknownErrorText: "Предупреждение: возникла ошибка, не удалось передать файл."
+  largeFileWarningText: "Предупреждение: не удалось передать этот запрос, так как его размер превышает ограничение, установленное администратором."
   largeFileWarningTitle: "Предупреждение"
-  percentCompleteText: "Загрузка, подождите..."
+  percentCompleteText: "Передача, подождите..."
 >
 
 <recurrence ""
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "Каждые ${0} дн. после завершения"
   weeklySummary: "Каждую неделю (день: ${4}, время: ${1}), начиная с ${2} до ${3}"
   weeklyEverySummary: "Каждые ${0} нед. (день: ${4}, время: ${1}) начиная с ${2} до ${3}"
-  weeklyAfterCompletionSummary: "Каждую неделю (день: ${4}) после завершения"
-  weeklyEveryAfterCompletionSummary: "Каждые ${0} нед. (день: ${4}) после завершения"
+  weeklyAfterCompletionSummary: "Каждую неделю после завершения"
+  weeklyEveryAfterCompletionSummary: "Каждые ${0} нед. после завершения"
   monthlyOrdSummary: "Каждый месяц (${6}, время: ${1}), начиная с ${2} до ${3}"
   monthlyEveryOrdSummary: "Каждые ${0} мес. (день месяца: ${6}, время: ${1}) начиная с ${2} до ${3}"
   monthlySummary: "Каждый месяц (день месяца: ${7}, время: ${1}), начиная с ${2} до ${3}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Культура"
+  regionText: "Формат региона"
   languageText: "Язык"
   toastTitle: "Обновить страницу"
   toastMessage: "Обновите веб-браузер, чтобы увидеть обновления."
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "Действие по заявке"
   entityDisplayNamePlural: "Действия по заявке"
+>
+
+<chartMixin ""
+  loadingText: "Загрузка"
 >

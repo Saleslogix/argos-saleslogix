@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "editar"
   emptyText: ""
@@ -229,7 +235,7 @@
   addAttachmentActionText: "Añadir archivo adjunto"
   overdueText: "vencido"
   alarmText: "alarma"
-  touchedText: "tocado"
+  touchedText: "Tocado"
   importantText: "importante"
   recurringText: "periódico"
 >
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "Archivos adjuntos"
-  uploadedOnText: "Cargado "
+  uploadedOnText: "Cargado en ${0} en ${1}"
+  touchedText: "Tocado"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "Actividad personal"
   question: "Pregunta"
   email: "Correo electrónico"
+  touchedText: "Tocado"
 >
 
 <historyListOffline ""
   titleText: "Notas sin conexión"
   widgetTitle: "Nota sin conexión"
-  saveToCRMText: "Guardar en CRM"
+  saveToCRMText: "Guardar en Infor CRM"
+  deleteNoteText: "Eliminar"
 >
 
 <historyRelated ""
@@ -1272,7 +1281,7 @@
   offlineInitDataText: "Inicializando datos sin conexión"
   offlineInitErrorText: "Ha ocurrido un error durante la inicialización sin conexión. Se deshabilitarán todas las opciones sin conexión."
   appStateInitErrorText: "Un error ocurrió durante la inicialización de la aplicación. Inténtelo de nuevo."
-  mingleAuthErrorText: "Error de autenticación de InforMing.le. Acceso denegado."
+  mingleAuthErrorText: "Error de autenticación de Infor Ming.le. Acceso denegado."
 >
 
 <applicationModule ""
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "Cada ${0} días después de la finalización"
   weeklySummary: "Cada semana el ${4} a las ${1} con efecto desde ${2} hasta ${3}."
   weeklyEverySummary: "Cada ${0} semanas el ${4} a las ${1} con efecto desde ${2} hasta ${3}."
-  weeklyAfterCompletionSummary: "Cada semana el ${4} después de la finalización."
-  weeklyEveryAfterCompletionSummary: "Cada ${0} semanas el ${4} después de la finalización."
+  weeklyAfterCompletionSummary: "Cada semana después de la finalización"
+  weeklyEveryAfterCompletionSummary: "Cada ${0} semanas después de la finalización"
   monthlyOrdSummary: "Cada mes el día ${6} del mes a las ${1} con efecto desde ${2} hasta ${3}."
   monthlyEveryOrdSummary: "Cada ${0} meses el día ${6} de cada mes a las ${1} con efecto desde ${2} hasta ${3}."
   monthlySummary: "Cada mes el día ${7} del mes a las ${1} con efecto desde ${2} hasta ${3}."
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "Cultura"
+  regionText: "Formato regional"
   languageText: "Idioma"
   toastTitle: "Actualizar la página"
   toastMessage: "Actualice su navegador para ver el cambio."
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "Actividad de ticket"
   entityDisplayNamePlural: "Actividades de ticket"
+>
+
+<chartMixin ""
+  loadingText: "Cargando"
 >

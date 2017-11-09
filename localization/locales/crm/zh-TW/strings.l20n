@@ -1,3 +1,9 @@
+<crmFormat ""
+  billionText: "${val}B"
+  millionText: "${val}M"
+  thousandText: "${val}K"
+>
+
 <addressField ""
   lookupLabelText: "編輯"
   emptyText: ""
@@ -229,7 +235,7 @@
   addAttachmentActionText: "新增附件"
   overdueText: "逾期"
   alarmText: "鬧鐘"
-  touchedText: "已更動"
+  touchedText: "已接觸"
   importantText: "重要"
   recurringText: "週期性"
 >
@@ -337,7 +343,8 @@
 
 <attachmentList ""
   titleText: "附件"
-  uploadedOnText: "已上傳 "
+  uploadedOnText: "上傳於 ${0} ${1}"
+  touchedText: "已接觸"
 >
 
 <attachmentMyList ""
@@ -627,12 +634,14 @@
   personal: "個人活動"
   question: "問題"
   email: "電子郵件"
+  touchedText: "已接觸"
 >
 
 <historyListOffline ""
   titleText: "離線備註"
   widgetTitle: "離線備註"
-  saveToCRMText: "儲存至 CRM"
+  saveToCRMText: "儲存至 InforCRM"
+  deleteNoteText: "刪除"
 >
 
 <historyRelated ""
@@ -1093,7 +1102,7 @@
 >
 
 <rightDrawerListMixin ""
-  hashTagsSectionText: "# 標籤"
+  hashTagsSectionText: "#標籤"
   groupsSectionText: "群組"
   entitySectionText: "實體"
   kpiSectionText: "KPI"
@@ -1290,7 +1299,7 @@
 
 <defaultMetrics ""
   totalRevenue: "總收益"
-  averageTime: "消費者平均時間"
+  averageTime: "作為客戶的平均時間"
   totalAccounts: "客戶總數"
   totalOpportunities: "商機總數"
   potential: "銷售潛力總計"
@@ -1344,8 +1353,8 @@
   dailyEveryAfterCompletionSummary: "完成之後每 ${0} 天"
   weeklySummary: "每週${4}的${1}，有效時間自 ${2} 至 ${3} 為止"
   weeklyEverySummary: "每 ${0} 週的${4}於${1}，有效時間自 ${2} 至 ${3}"
-  weeklyAfterCompletionSummary: "完成之後每週於 ${4}"
-  weeklyEveryAfterCompletionSummary: "完成之後每 ${0} 週於 ${4}"
+  weeklyAfterCompletionSummary: "完成之後每週"
+  weeklyEveryAfterCompletionSummary: "完成之後每 ${0} 週"
   monthlyOrdSummary: "每月的月份${6}於 ${1}，有效時間自 ${2} 至 ${3}"
   monthlyEveryOrdSummary: "每 ${0} 個月的月份${6}於 ${1}，有效時間自 ${2} 至 ${3}"
   monthlySummary: "每月的月份${7}日於 ${1}，有效時間自 ${2} 至 ${3}"
@@ -1489,7 +1498,7 @@
 >
 
 <languageUsageWidget ""
-  regionText: "文化"
+  regionText: "地區格式"
   languageText: "語言"
   toastTitle: "重新整理頁面"
   toastMessage: "請重新整理瀏覽器以查看變更。"
@@ -1560,4 +1569,8 @@
 <ticketActivityModel ""
   entityDisplayName: "記錄單活動"
   entityDisplayNamePlural: "記錄單活動"
+>
+
+<chartMixin ""
+  loadingText: "載入"
 >
