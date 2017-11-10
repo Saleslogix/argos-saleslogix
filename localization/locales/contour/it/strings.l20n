@@ -11,7 +11,7 @@
   addAttachmentActionText: "Aggiungi allegato"
   addNoteActionText: "Aggiungi nota"
 	callMainActionText: "Chiama numero principale"
-	currentLocationErrorText: "Impossibile stabilire l’ubicazione corrente. Ricerca non eseguita."
+	currentLocationErrorText: "Impossibile stabilire la posizione corrente. Ricerca non eseguita."
 	editActionText: "Modifica"
   faxAbbreviationText: "Fax: "
 	kilometerAbbrevText: "km"

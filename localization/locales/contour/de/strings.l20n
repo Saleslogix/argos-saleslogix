@@ -11,7 +11,7 @@
   addAttachmentActionText: "Anlage hinzufügen"
   addNoteActionText: "Notiz hinzufügen"
 	callMainActionText: "Hauptnr. anrufen"
-	currentLocationErrorText: "Ihr aktueller Standort kann nicht übertragen werden. Suchen nicht möglich."
+	currentLocationErrorText: "Ihr aktueller Standort kann nicht abgerufen werden. Suchen nicht möglich."
 	editActionText: "Bearbeiten"
   faxAbbreviationText: "Fax: "
 	kilometerAbbrevText: "km"

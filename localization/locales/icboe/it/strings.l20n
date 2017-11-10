@@ -28,12 +28,12 @@
 
 <backOfficeAccountingEntityModel ""
   entityDisplayName: "Entità contabile applicazione back office"
-  entityDisplayNamePlural : "Entità contabili applicazioni back office"
+  entityDisplayNamePlural : "Entità contabili applicazione back office"
 >
 
 <erpAccountPersonModel ""
-  entityDisplayName: "Addetto azienda"
-  entityDisplayNamePlural: "Addetti aziende"
+  entityDisplayName: "Persona addetta azienda"
+  entityDisplayNamePlural: "Persone addette aziende"
 >
 
 <erpBillToModel ""
@@ -62,8 +62,8 @@
 >
 
 <erpInvoicePersonModel ""
-  entityDisplayName: "Addetto fattura"
-  entityDisplayNamePlural: "Addetti fatture"
+  entityDisplayName: "Persona addetta fattura"
+  entityDisplayNamePlural: "Persone addette fatture"
 >
 
 <erpReceivableModel ""
@@ -77,8 +77,8 @@
 >
 
 <erpSalesOrderPersonModel ""
-  entityDisplayName: "Addetto ordine di vendita"
-  entityDisplayNamePlural: "Addetti ordini di vendita"
+  entityDisplayName: "Persona addetta ordine di vendita"
+  entityDisplayNamePlural: "Persone addette ordini di vendita"
 >
 
 <erpShipmentModel ""
@@ -122,8 +122,8 @@
 >
 
 <quotePersonModel ""
-  entityDisplayName: "Addetto offerta"
-  entityDisplayNamePlural: "Addetti offerte"
+  entityDisplayName: "Persona addetta offerta"
+  entityDisplayNamePlural: "Persone addette offerte"
 >
 
 <productModel ""
@@ -143,7 +143,7 @@
 
 <salesOrderItemModel ""
   entityDisplayName: "Articolo ordine di vendita"
-  entityDisplayNamePlural: "Articoli ordine di vendita"
+  entityDisplayNamePlural: "Articoli ordini di vendita"
 >
 
 <unitOfMeasureModel ""
@@ -162,7 +162,7 @@
 >
 
 <quotePersonList ""
-  titleText: "Addetti offerte"
+  titleText: "Persone addette offerte"
   personNameText: "Nome"
   quoteNumberText: "Numero offerta"
 >
@@ -228,8 +228,8 @@
   salesPersonsText: "Venditori"
   syncHistoryText: "Cronologia di sincronizzazione"
   addLineItemsText: "Aggiungi voci"
-  hasWonErrorText: "Impossibile convertire un'offerta se lo stato di una qualsiasi versione dell'offerta è Acquisita."
-  wonStatusCode: "Acquisita"
+  hasWonErrorText: "Impossibile convertire un'offerta se lo stato di una qualsiasi versione dell'offerta è Acquisito."
+  wonStatusCode: "Acquisito"
   convertQuoteText: "Converti in ordine di vendita"
   promoteQuoteText: "Integra offerta"
   getQuoteTotalText: "Recupera totale offerta"
@@ -294,7 +294,7 @@
   backOfficeText: "applicazione back office"
   accountingEntityText: "entità contabile"
   warehouseText: "magazzino"
-  warehouseLocationText: "Ubicazione magazzino"
+  warehouseLocationText: "Ubicazioni magazzino"
   locationText: "ubicazione"
   carrierText: "vettore"
   locationsTitleText: "Ubicazioni"
@@ -357,7 +357,7 @@
   newInvoicesText: "Nuove fatture"
   newReceivablesText: "Nuovi crediti"
   titleText: "Nuove transazioni"
-  categoryText: "Seleziona giorni trascorsi da oggi"
+  categoryText: "Seleziona n. giorni trascorsi da oggi"
   quotesTotalingText: "Totale offerte"
   ordersTotalingText: "Totale ordini"
   shipmentsTotalingText: "Totale spedizioni"
@@ -404,11 +404,11 @@
   recentCostText: "Costi fatturati"
   recentProfitText: "Profitto fatturato"
   recentMarginText: "Margine fatturato"
-  yoyRevenueText: "Ricavi anno su anno"
-  yoyProfitText: "Profitto anno su anno"
-  yoyMarginText: "Margine anno su anno"
-  titleText: "Snapshot finanziario"
-  categoryText: "Seleziona giorni trascorsi da oggi"
+  yoyRevenueText: "Ricavi su base annuale"
+  yoyProfitText: "Profitto su base annuale"
+  yoyMarginText: "Margine su base annuale"
+  titleText: "Istantanea finanziaria"
+  categoryText: "Seleziona n. giorni trascorsi da oggi"
 >
 
 <erpAccountPersonsList ""
@@ -460,7 +460,7 @@
   productNameText: "nome prodotto"
   descriptionText: "descrizione"
   totalText: "importo totale"
-  requestedDeliveryDateText: "data consegna richiesta"
+  requestedDeliveryDateText: "data di consegna richiesta"
   unitPriceText: "prezzo unitario"
   salesOrderNumberText: "numero ordine di vendita"
   unitPricePerQuanityText: "prezzo unitario per quantità"
@@ -633,8 +633,8 @@
   shipmentIdText: "ID spedizione"
   accountText: "azienda"
   datePromisedText: "data promessa"
-  actualShipDateText: "data spedizione effettiva"
-  actualDeliveryDateText: "data consegna effettiva"
+  actualShipDateText: "data di spedizione effettiva"
+  actualDeliveryDateText: "data di consegna effettiva"
   documentDateText: "data documento"
   carrierText: "vettore"
   erpStatusText: "stato"
@@ -1056,7 +1056,7 @@
   dashboardText: "Dashboard"
   newTransactionsText: "Nuove transazioni"
   openTransactionsText: "Transazioni aperte"
-  financialSnapshotText: "Snapshot finanziario"
+  financialSnapshotText: "Istantanea finanziaria"
   promoteText: "Integra"
   addQuoteText: "Aggiungi offerta"
   addOrderText: "Aggiungi ordine"

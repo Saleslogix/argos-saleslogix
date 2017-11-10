@@ -325,8 +325,8 @@
   isPrimaryText: "principal"
   postalCodeText: "postal"
   salutationText: "atención"
-  stateText: "Estado"
-  stateTitleText: "Estado"
+  stateText: "estado o región"
+  stateTitleText: "Estado o región"
   titleText: "Dirección"
 >
 
@@ -1457,7 +1457,7 @@
   clearDataText: "Borrar todo"
   clearRecentText: "Borrar visto recientemente"
   clearBriefcasedText: "Vaciar maletín"
-  olderThanText: "Borrar datos sin conexión más antiguos que"
+  olderThanText: "Borrar los datos sin conexión con una antigüedad superior a"
   daysText: "días"
   showUsageText: "Mostrar uso"
   processingText: "procesando, espere."

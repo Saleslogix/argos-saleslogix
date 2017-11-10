@@ -107,8 +107,8 @@
 >
 
 <locationModel ""
-  entityDisplayName: "地点"
-  entityDisplayNamePlural: "地点"
+  entityDisplayName: "位置"
+  entityDisplayNamePlural: "位置"
 >
 
 <quoteModel ""
@@ -294,10 +294,10 @@
   backOfficeText: "后台办公室"
   accountingEntityText: "会计实体"
   warehouseText: "仓库"
-  warehouseLocationText: "仓库地点"
+  warehouseLocationText: "仓库位置"
   locationText: "位置"
   carrierText: "承运人"
-  locationsTitleText: "地点"
+  locationsTitleText: "位置"
   expectedDeliveryDateText: "预期交货日期"
 >
 
@@ -335,9 +335,9 @@
   backOfficeText: "后台办公室"
   accountingEntityText: "会计实体"
   warehouseText: "仓库"
-  warehouseLocationText: "仓库地点"
+  warehouseLocationText: "仓库位置"
   locationText: "位置"
-  locationsTitleText: "地点"
+  locationsTitleText: "位置"
   carrierText: "承运人"
 >
 
@@ -358,11 +358,11 @@
   newReceivablesText: "新应收帐款"
   titleText: "新事务"
   categoryText: "选择今天之前的天数"
-  quotesTotalingText: "报价单总计"
-  ordersTotalingText: "订单总计"
+  quotesTotalingText: "报价单合计"
+  ordersTotalingText: "订单合计"
   shipmentsTotalingText: "发货合计"
-  invoicesTotalingText: "发票总计"
-  receivablesTotalingText: "应收帐款总计"
+  invoicesTotalingText: "发票合计"
+  receivablesTotalingText: "应收帐款合计"
   closedText: "已结"
   deletedText: "已删除"
   replacedText: "已替换"
@@ -378,15 +378,15 @@
   lateSalesOrdersText: "逾期销售订单"
   titleText: "未结事务"
   categoryText: "选择天数，以显示此天数之前的数据"
-  quotesTotalingText: "报价单总计"
-  ordersTotalingText: "订单总计"
-  invoicesTotalingText: "发票总计"
+  quotesTotalingText: "报价单合计"
+  ordersTotalingText: "订单合计"
+  invoicesTotalingText: "发票合计"
   agingInvoicesText: "发票总数"
   agingSalesOrdersText: "销售订单总数"
   agingQuotesText: "报价单总数"
   openOrderText: "未结订单"
   salesOrderText: "销售订单"
-  salesHoldText: "销售暂停"
+  salesHoldText: "销售冻结"
   creditHoldText: "信贷冻结"
   adminHoldText: "管理流程暂停"
   holdText: "保留"
@@ -639,7 +639,7 @@
   carrierText: "承运人"
   erpStatusText: "状态"
   erpStatusDateText: "状态日期"
-  warehouseLocationText: "仓库地点"
+  warehouseLocationText: "仓库位置"
   partialShipAllowedText: "允许部分发货"
   grossWeightText: "毛重"
   declaredValueText: "申报价值"
@@ -1076,7 +1076,7 @@
 >
 
 <locationsList ""
-  titleText: "地点"
+  titleText: "位置"
 >
 
 <locationsPricingAvailabilityList ""

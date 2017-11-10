@@ -583,7 +583,7 @@
   relatedItemsText: "รายการที่เกี่ยวข้อง"
   relatedAttachmentText: "สิ่งที่แนบ"
   relatedAttachmentTitleText: "สิ่งที่แนบประวัติ"
-  modifiedText: "ปรับเปลี่ยนแล้ว"
+  modifiedText: "ถูกปรับเปลี่ยน"
   typeText: "ชนิด"
   entityText: "ประวัติ"
   toDo: "สิ่งที่ต้องทำ"
@@ -1003,8 +1003,8 @@
   addAttachmentActionText: "เพิ่มสิ่งที่แนบ"
   assignedToText: "มอบหมายให้: "
   urgencyText: "ความด่วน: "
-  createdOnText: "สร้างแล้ว  "
-  modifiedText: "ปรับเปลี่ยนแล้ว "
+  createdOnText: "ถูกสร้าง  "
+  modifiedText: "ถูกปรับเปลี่ยน "
   neededByText: "ที่ต้องการ  "
 >
 
@@ -1174,7 +1174,7 @@
   settingsText: "การตั้งค่า"
   helpText: "วิธีใช้"
   logOutText: "ออกจากระบบ"
-  logOutConfirmText: "คุณแน่ใจหรือไม่ว่าต้องการจะออกจากระบบ"
+  logOutConfirmText: "คุณแน่ใจว่าต้องการจะออกจากระบบ"
   onlineText: "ออนไลน์"
   offlineText: "ออฟไลน์"
   connectionText: "การเชื่อมต่อ: ${connectionStatus}"
