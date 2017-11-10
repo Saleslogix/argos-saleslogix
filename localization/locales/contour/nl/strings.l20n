@@ -10,7 +10,7 @@
   addActivityActionText: "Activiteit toevoegen"
   addAttachmentActionText: "Bijlage toevoegen"
   addNoteActionText: "Notitie toevoegen"
-	callMainActionText: "Hooftelefoonnummer bellen"
+	callMainActionText: "Telefoonnummer 1 bellen"
 	currentLocationErrorText: "Uw huidige locatie kan niet worden geïdentificeerd. Er kan geen zoekopdracht worden uitgevoerd."
 	editActionText: "Bewerken"
   faxAbbreviationText: "Fax: "

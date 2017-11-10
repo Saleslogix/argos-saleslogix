@@ -11,7 +11,7 @@
   addAttachmentActionText: "添加附件"
   addNoteActionText: "添加备注"
 	callMainActionText: "呼叫主要号码"
-	currentLocationErrorText: "无法拉出您当前位置。不能搜索。"
+	currentLocationErrorText: "无法获取您当前的位置。不能搜索。"
 	editActionText: "编辑"
   faxAbbreviationText: "传真: "
 	kilometerAbbrevText: "km"

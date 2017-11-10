@@ -30,6 +30,6 @@
 >
 
 <placeModel ""
-  entityDisplayName: "Emplacement"
-  entityDisplayNamePlural : "Emplacements"
+  entityDisplayName: "Lieu"
+  entityDisplayNamePlural : "Lieux"
 >

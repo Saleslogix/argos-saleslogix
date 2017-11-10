@@ -27,7 +27,7 @@
 >
 
 <backOfficeAccountingEntityModel ""
-  entityDisplayName: "สำนักงานด้านการจัดการเอนทิตีการบัญชี"
+  entityDisplayName: "เอนทิตีการบัญชีของสำนักงานด้านการจัดการ"
   entityDisplayNamePlural : "สำนักงานด้านการจัดการเอนทิตีการบัญชี"
 >
 
@@ -364,7 +364,7 @@
   invoicesTotalingText: "ยอดรวมใบแจ้งหนี้"
   receivablesTotalingText: "ยอดรวมลูกหนี้"
   closedText: "ปิดแล้ว"
-  deletedText: "ลบแล้ว"
+  deletedText: "ถูกลบ"
   replacedText: "แทนที่แล้ว"
   canceledText: "ยกเลิกแล้ว"
   unapprovedText: "ไม่อนุมัติ"
@@ -853,7 +853,7 @@
   accountText: "บัญชี"
   opportunityText: "โอกาส"
   dateCreatedText: "วันที่สร้าง"
-  orderDateText: "วันที่การสั่ง"
+  orderDateText: "วันที่สั่ง"
   dueDateText: "วันที่ครบกำหนด"
   documentDateText: "วันที่เอกสาร"
   statusText: "สถานะ"
@@ -909,7 +909,7 @@
   statusLabelText: "สถานะ"
   erpStatusLabelText: "ERP - สถานะ"
   customerPONumberText: "หมายเลขใบสั่งซื้อของลูกค้า"
-  orderDateText: "วันที่การสั่ง"
+  orderDateText: "วันที่สั่ง"
   viewAccountActionText: "ดูบัญชี"
   addLineItemsText: "เพิ่มรายการ"
   documentDateText: "วันที่เอกสาร"
@@ -976,8 +976,8 @@
   titleText: "จัดส่งถึง"
 >
 <icboeApplicationModule ""
-  picklistsText: "รายการการเลือก"
-  retrievingPicklistsText: "กำลังเรียกข้อมูลรายการการเลือก"
+  picklistsText: "รายการให้เลือก"
+  retrievingPicklistsText: "กำลังเรียกข้อมูลรายการให้เลือก"
 >
 
 <erpShipTosDetail ""
