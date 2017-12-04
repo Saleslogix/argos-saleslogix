@@ -123,7 +123,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         },
         chartType: 'pie',
         aggregate: 'avg',
-        formatter: 'fixedLocale',
+        formatter: 'time',
         enabled: false,
       }, {
         title: this.accountsText.total,
