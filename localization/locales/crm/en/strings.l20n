@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} days"
+  weeksText: "${val} weeks"
+  monthsText: "${val} months"
+  yearsText: "${val} years"
 >
 
 <addressField ""

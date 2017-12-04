@@ -184,6 +184,33 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
     return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator,
       Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
   },
+  time: function time(val, type = 'days') {
+    const numParse = typeof val !== 'number' ? parseFloat(val) : val;
+    let results = val;
+    switch (type) { // eslint-disable-line
+      case 'days':
+        results = string.substitute(resource.daysText, {
+          val: numParse,
+        });
+        break;
+      case 'weeks':
+        results = string.substitute(resource.weeksText, {
+          val: numParse,
+        });
+        break;
+      case 'months':
+        results = string.substitute(resource.monthsText, {
+          val: numParse,
+        });
+        break;
+      case 'years':
+        results = string.substitute(resource.yearsText, {
+          val: numParse,
+        });
+        break;
+    }
+    return results;
+  },
 }));
 
 export default __class;
