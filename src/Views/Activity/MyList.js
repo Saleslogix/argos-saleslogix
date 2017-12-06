@@ -160,7 +160,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   allowSelection: true,
   enableActions: true,
   hashTagQueries: {
-    alarm: 'Alarm eq true',
+    alarm: 'Activity.Alarm eq true',
     'status-unconfirmed': 'Status eq "asUnconfirmed"',
     'status-accepted': 'Status eq "asAccepted"',
     'status-declined': 'Status eq "asDeclned"',
