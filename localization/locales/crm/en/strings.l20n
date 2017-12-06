@@ -743,7 +743,7 @@
 >
 
 <opportunityDetail ""
-  accountText: "acct"
+  accountText: "account"
   acctMgrText: "acct mgr"
   estCloseText: "est close"
   detailsText: "Details"
@@ -782,7 +782,7 @@
 >
 
 <opportunityEdit ""
-  accountText: "acct"
+  accountText: "account"
   acctMgrText: "acct mgr"
   estCloseText: "est close"
   importSourceText: "lead source"
@@ -972,7 +972,7 @@
 >
 
 <ticketEdit ""
-  accountText: "acct"
+  accountText: "account"
   areaText: "area"
   assignedDateText: "assigned date"
   assignedToText: "assigned to"
