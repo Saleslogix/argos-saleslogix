@@ -158,7 +158,7 @@
   opportunityText: "Verkaufschance"
   ticketNumberText: "Ticket"
   recurrenceText: "Wiederholung"
-  confirmEditRecurrenceText: "Alle Wiederholungen bearbeiten? Wählen Sie "Abbrechen", um nur eine einzelne Wiederholung zu bearbeiten."
+  confirmEditRecurrenceText: "Alle Wiederholungen bearbeiten? Wählen Sie \"Abbrechen\", um nur eine einzelne Wiederholung zu bearbeiten."
   relatedAttachmentText: "Anlagen"
   relatedAttachmentTitleText: "Anlagen zur Aktivität"
   relatedItemsText: "Verknüpfte Elemente"
