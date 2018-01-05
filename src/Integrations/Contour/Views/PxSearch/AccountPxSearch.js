@@ -90,7 +90,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       '</div>',
       '<label data-dojo-attach-point="labelNode">{%= $.searchText %}</label>',
       '</div>',
-      '<div>$$.accountTypeText<select id="queryType" style="font-size: 16px"></select></div>', // add our own search stuff
+      '<div>{%: $$.accountTypeText %}<select id="queryType" style="font-size: 16px"></select></div>', // add our own search stuff
     ]),
   }),
 
