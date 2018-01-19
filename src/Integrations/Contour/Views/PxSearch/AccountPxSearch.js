@@ -32,7 +32,6 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   phoneAbbreviationText: resource.phoneAbbreviationText,
   titleText: resource.titleText,
   viewContactsActionText: resource.viewContactsActionText,
-  accountTypeText: resource.accountTypeText,
 
   // Templates
   itemTemplate: new Simplate([
@@ -81,6 +80,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // Add a search template for account type dropdown
   searchWidget: new SearchWidget({
+    accountTypeText: resource.accountTypeText,
     class: 'list-search',
     widgetTemplate: new Simplate([
       '<div class="search-widget" style="display: none;">', // hide the stock search stuff
