@@ -9,6 +9,7 @@ import domConstruct from 'dojo/dom-construct';
 import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
+import crmFormat from '../../../../Format';
 import _ListBase from 'argos/_ListBase';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
 import _CardLayoutListMixin from 'crm/Views/_CardLayoutListMixin';
@@ -31,7 +32,6 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   phoneAbbreviationText: resource.phoneAbbreviationText,
   titleText: resource.titleText,
   viewContactsActionText: resource.viewContactsActionText,
-  accountTypeText: resource.accountTypeText,
 
   // Templates
   itemTemplate: new Simplate([
@@ -62,7 +62,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // Functions
   formatDecimal(n) {
-    return Math.round(n * 100) / 100;
+    return crmFormat.fixedLocale(n, 2);
   },
   distanceText() {
     return (App.isRegionMetric) ? this.kilometerAbbrevText : this.mileAbbrevText;
@@ -80,6 +80,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // Add a search template for account type dropdown
   searchWidget: new SearchWidget({
+    accountTypeText: resource.accountTypeText,
     class: 'list-search',
     widgetTemplate: new Simplate([
       '<div class="search-widget" style="display: none;">', // hide the stock search stuff
