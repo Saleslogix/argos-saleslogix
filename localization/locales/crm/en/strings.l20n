@@ -1530,6 +1530,8 @@
   int32Text: "The field '${2}' value exceeds the allowed numeric range."
   maxLengthText: "The field '${2}' value exceeds the allowed limit in length."
   dateRangeText: "The field '${2}' value is out of allowed date range."
+  isLessThanText: "The field '${2}' value is greater than the allowed."
+  isGreaterThanText: "The field '${2}' value is less than allowed."
 >
 
 <activityListHashTags ""
