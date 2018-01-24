@@ -22,6 +22,7 @@ import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
 import MODEL_NAMES from '../../Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 import utility from '../../Utility';
 
@@ -60,6 +61,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
   statusLabelText: resource.statusLabelText,
   erpStatusLabelText: resource.erpStatusLabelText,
   documentDateText: resource.documentDateText,
+  quoteClosedText: resource.quoteClosedText,
 
   // View Properties
   id: 'quote_list',
@@ -97,20 +99,38 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.List', [List, _RightD
       id: 'addQuoteItem',
       cls: 'bullet-list',
       label: this.addLineItemsText,
-      fn: (evt, selection) => {
-        const view = App.getView('quote_line_edit');
-        if (view) {
-          const options = {
-            insert: true,
-            context: {
-              Quote: selection.data,
-            },
-          };
-          view.show(options);
-        }
-      },
+      fn: this.onAddLineItems,
       security: 'Entities/Quote/Add',
     }]);
+  },
+  onAddLineItems: function onAddLineItems(evt, selection) {
+    const key = selection && selection.data && selection.data.$key;
+    if (key) {
+      const quoteModel = App.ModelManager.getModel(MODEL_NAMES.QUOTE, MODEL_TYPES.SDATA);
+      const isClosedPromise = quoteModel.isClosed(key);
+      isClosedPromise.then((isClosed) => {
+        if (isClosed) {
+          App.modal.createSimpleAlert({
+            title: 'alert',
+            content: this.quoteClosedText,
+          });
+          return;
+        }
+        this.navigateToLineItems(evt, selection);
+      });
+    }
+  },
+  navigateToLineItems: function navigateToLineItems(evt, selection) {
+    const view = App.getView('quote_line_edit');
+    if (view) {
+      const options = {
+        insert: true,
+        context: {
+          Quote: selection.data,
+        },
+      };
+      view.show(options);
+    }
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());

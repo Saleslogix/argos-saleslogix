@@ -781,6 +781,7 @@
   statusLabelText: "Status"
   erpStatusLabelText: "ERP Status"
   documentDateText: "Document Date"
+  quoteClosedText: "Quote is closed, cannot add more line items"
 >
 
 <returnsList ""
