@@ -3,7 +3,7 @@
   searchResults: "ผลลัพธ์การค้นหา"
   multiSystemDetected: "ตรวจพบมากกว่าหนึ่งระบบการบัญชี เลือกหนึ่งระบบเพื่อเริ่มต้นการดำเนินการการลิงก์"
   createLink: "สร้างลิงก์ใน"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "เอนทิตีการบัญชีระบบ:"
   cancelText: "ยกเลิก"
   promoteText: "เลื่อนระดับ"

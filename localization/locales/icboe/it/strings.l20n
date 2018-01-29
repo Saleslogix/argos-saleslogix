@@ -3,7 +3,7 @@
   searchResults: "Risultati della ricerca"
   multiSystemDetected: "È stato rilevato più di un sistema contabile. Selezionare un sistema per avviare il processo di collegamento."
   createLink: "Crea un collegamento in"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "Entità contabile di sistema:"
   cancelText: "Annulla"
   promoteText: "Integra"

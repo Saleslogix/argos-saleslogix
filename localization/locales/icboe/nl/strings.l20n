@@ -3,7 +3,7 @@
   searchResults: "Zoekresultaten"
   multiSystemDetected: "Er is meer dan één financieel systeem gedetecteerd. Selecteer een systeem om het koppelingsproces te starten."
   createLink: "Een koppeling aanmaken in"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "Financiële entiteit:"
   cancelText: "Annuleren"
   promoteText: "Doortrekken"
