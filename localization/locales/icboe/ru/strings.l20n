@@ -3,7 +3,7 @@
   searchResults: "Результаты поиска"
   multiSystemDetected: "Обнаружено более одной системы учета. Выберите систему для начала процесса связи."
   createLink: "Создать ссылку в"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "Экономическая единица системы:"
   cancelText: "Отмена"
   promoteText: "Выдвинуть"

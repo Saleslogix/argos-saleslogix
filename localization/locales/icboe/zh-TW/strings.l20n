@@ -3,7 +3,7 @@
   searchResults: "搜尋結果"
   multiSystemDetected: "偵測到多個會計系統。選取要開始連結程序的系統。"
   createLink: "將連結建立在"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "系統會計實體："
   cancelText: "取消"
   promoteText: "升階"

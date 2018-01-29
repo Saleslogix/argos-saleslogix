@@ -3,7 +3,7 @@
   searchResults: "搜索结果"
   multiSystemDetected: "已检测到多个会计系统。请选择系统以开始执行链接过程。"
   createLink: "在以下位置中创建链接"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "系统会计实体:"
   cancelText: "取消"
   promoteText: "升级"

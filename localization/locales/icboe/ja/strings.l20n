@@ -3,7 +3,7 @@
   searchResults: "結果の検索"
   multiSystemDetected: "2 つ以上の会計システムが検出されました。システムを選択して、リンクプロセスを開始します。"
   createLink: "リンクの作成"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "システム会計エンティティ:"
   cancelText: "キャンセル"
   promoteText: "昇格"
