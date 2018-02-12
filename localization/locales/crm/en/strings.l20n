@@ -1099,7 +1099,7 @@
 >
 
 <groupListMixin ""
-  noDefaultGroupText: "No default group set. Click here to configure groups."
+  noDefaultGroupText: "No default group set. Tap here to configure groups."
   currentGroupNotFoundText: "The current group was not found."
   groupTemplateSummaryText: "Summary"
   groupTemplateDetailText: "Detail"
