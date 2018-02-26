@@ -566,8 +566,12 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       },
       _onAddQuoteClick: function _onAddQuoteClick() {
         const view = App.getView('quote_edit');
+        const entry = Object.assign({}, this.entry);
+        if (entry && entry.Status) {
+          delete entry.Status; // Need to remove status from the context so that it does not mix in with the Quote's status on insert
+        }
         view.show({
-          entry: this.entry,
+          entry,
           fromContext: this,
           detailView: 'quote_detail',
           insert: true,
