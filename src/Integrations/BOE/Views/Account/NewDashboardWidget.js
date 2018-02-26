@@ -175,7 +175,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
              '((ErpExtId eq null) and ' +
                '(' +
                  `(Status ne "${this.closedText}") and ` +
-                 `(Status ne "${this.cancledText}") and ` +
+                 `(Status ne "${this.canceledText}") and ` +
                  `(Status ne "${this.replacedText}") and ` +
                  `(Status ne "${this.deletedText}") and ` +
                  `(Status ne "${this.unapprovedText}") and ` +
@@ -200,7 +200,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
                   ' or ' +
                   '((ErpExtId eq null) and ' +
                     `(Status ne "${this.closedText}") and ` +
-                    `(Status ne "${this.cancledText}") and ` +
+                    `(Status ne "${this.canceledText}") and ` +
                     `(Status ne "${this.deletedText}") and ` +
                     `(Status ne "${this.replacedText}") and ` +
                     `(Status ne "${this.unapprovedText}") and ` +
