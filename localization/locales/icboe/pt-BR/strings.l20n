@@ -3,7 +3,7 @@
   searchResults: "Resultados de Pesquisa"
   multiSystemDetected: "Mais de um sistema contábil foi encontrado. Selecione um sistema para começar o processo de link."
   createLink: "Criar um Link em"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "Entidade de Sistema Contábil:"
   cancelText: "Cancelar"
   promoteText: "Promover"
@@ -781,6 +781,7 @@
   statusLabelText: "Status"
   erpStatusLabelText: "Status do ERP"
   documentDateText: "Data do Documento"
+  quoteClosedText: "A cotação está fechada; não é possível adicionar itens de linha"
 >
 
 <returnsList ""

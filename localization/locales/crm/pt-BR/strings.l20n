@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} dias"
+  weeksText: "${val} semanas"
+  monthsText: "${val} meses"
+  yearsText: "${val} anos"
 >
 
 <addressField ""
@@ -123,7 +127,7 @@
   resultText: "Resultado"
   resultTitleText: "Resultado"
   startingText: "Data de início"
-  timelessText: "horário indeterminado"
+  timelessText: "Horário indeterminado"
   noneText: "Nenhum"
   quarterHourText: "15 minutos"
   halfHourText: "30 minutos"
@@ -154,7 +158,7 @@
   rolloverText: "Postergar Automaticamente"
   startTimeText: "Horário de início"
   allDayText: "Dia inteiro"
-  timelessText: "horário indeterminado"
+  timelessText: "Horário indeterminado"
   titleText: "Atividade"
   typeText: "Tipo"
   companyText: "Empresa"
@@ -202,7 +206,7 @@
   repeatsText: "Repete"
   recurringText: "recorrência"
   recurringTitleText: "Recorrência"
-  timelessText: "horário indeterminado"
+  timelessText: "Horário indeterminado"
   titleText: "Atividade"
   typeText: "Tipo"
   accountText: "Conta"
@@ -370,8 +374,8 @@
   eventHeaderText: "Eventos"
   countMoreText: "Exibir Mais"
   toggleCollapseText: "Alternar Recolher"
-  withFromText: "com ${contactName} de ${accountName}"
-  withText: "com ${object}"
+  withFromText: "Participante: ${contactName} de ${accountName}"
+  withText: "Participante(s): ${object}"
   unspecifiedText: "Não Especificado"
   forText: "Para ${reason}"
   dayText: "Dia"
@@ -569,7 +573,7 @@
   regardingText: "Referência"
   completedByText: "Concluído por"
   scheduledText: "Programado"
-  timelessText: "horário indeterminado"
+  timelessText: "Horário indeterminado"
   companyText: "Empresa"
   leadText: "Lead"
   titleText: "Histórico"
@@ -615,7 +619,7 @@
 >
 
 <historyEditOffline ""
-  titleText: "Nota Offline"
+  titleText: "Notas Offline"
   notesSectionText: "Notas"
   notesLabelText: "Notas"
 >
@@ -638,7 +642,7 @@
 >
 
 <historyListOffline ""
-  titleText: "Nota Offline"
+  titleText: "Notas Offline"
   widgetTitle: "Nota Offline"
   saveToCRMText: "Salvar no Infor CRM"
   deleteNoteText: "Excluir"
@@ -1502,6 +1506,8 @@
   languageText: "Idioma"
   toastTitle: "Atualizar Página"
   toastMessage: "Atualize o seu navegador para ver a alteração."
+  invalidLanguageError: "Código de idioma inválido: '${0}'"
+  invalidRegionError: "Código de região inválido: '${0}'"
 >
 
 <authenticationModel ""
@@ -1524,12 +1530,14 @@
   int32Text: "O valor do campo '${2}' ultrapassa o intervalo numérico permitido."
   maxLengthText: "O valor do campo '${2}' ultrapassa o limite de comprimento permitido."
   dateRangeText: "O valor do campo '${2}' está fora do intervalo de datas permitido."
+  isLessThanText: "O valor do campo '${2}' é maior que o permitido."
+  isGreaterThanText: "O valor do campo '${2}‘ é menor que o permitido."
 >
 
 <activityListHashTags ""
   alarmText: "#alarme"
   recurringText: "#recorrência"
-  timelessText: "#horário indeterminado"
+  timelessText: "#horário-indeterminado"
   todayText: "#hoje"
   thisWeekText: "#esta-semana"
   yesterdayText: "#ontem"
@@ -1541,7 +1549,7 @@
   hashTagAcceptedText: "#status-aceito"
   hashTagDeclinedText: "#status-declinado"
   hashTagRecurringText: "#recorrência"
-  hashTagTimelessText: "#horário indeterminado"
+  hashTagTimelessText: "#horário-indeterminado"
   hashTagTodayText: "#hoje"
   hashTagThisWeekText: "#esta-semana"
   hashTagYesterdayText: "#ontem"

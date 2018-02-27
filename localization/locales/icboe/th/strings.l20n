@@ -3,8 +3,8 @@
   searchResults: "ผลลัพธ์การค้นหา"
   multiSystemDetected: "ตรวจพบมากกว่าหนึ่งระบบการบัญชี เลือกหนึ่งระบบเพื่อเริ่มต้นการดำเนินการการลิงก์"
   createLink: "สร้างลิงก์ใน"
-  backOffice: "BackOffice:"
-  accountingEntity: "เอนทิตีการบัญชีระบบ:"
+  backOffice: "สำนักงานด้านการจัดการ:"
+  accountingEntity: "เอนทิตีการบัญชีของระบบ:"
   cancelText: "ยกเลิก"
   promoteText: "เลื่อนระดับ"
   noBackOfficesText: "ไม่พบสำนักงานด้านการจัดการในระบบ ไม่สามารถเลื่อนระดับบัญชีนอกจากจะมีสำนักงานด้านการจัดการให้มา"
@@ -358,7 +358,7 @@
   newInvoicesText: "ใบแจ้งหนี้ใหม่"
   newReceivablesText: "ลูกหนี้ใหม่"
   titleText: "ธุรกรรมใหม่"
-  categoryText: "เลือกวันที่ผ่านมาจากวันนี้"
+  categoryText: "เลือกจำนวนวันก่อนหน้านับจากวันนี้"
   quotesTotalingText: "ยอดรวมการเสนอราคา: ${0}"
   ordersTotalingText: "ยอดรวมการสั่ง: ${0}"
   shipmentsTotalingText: "ยอดรวมการจัดส่ง: ${0}"
@@ -367,7 +367,7 @@
   closedText: "ปิดแล้ว"
   deletedText: "ถูกลบ"
   replacedText: "แทนที่แล้ว"
-  canceledText: "ยกเลิกแล้ว"
+  canceledText: "ถูกยกเลิก"
   unapprovedText: "ไม่อนุมัติ"
 >
 
@@ -378,7 +378,7 @@
   lateInvoicesText: "ใบแจ้งหนี้ล่าช้า"
   lateSalesOrdersText: "ใบสั่งขายล่าช้า"
   titleText: "ธุรกรรมเปิด"
-  categoryText: "เลือกวันที่ผ่านมาเกินจากนี้"
+  categoryText: "เลือกจำนวนวันที่ผ่านมาเกิน"
   quotesTotalingText: "ยอดรวมการเสนอราคา: ${0}"
   ordersTotalingText: "ยอดรวมการสั่ง: ${0}"
   invoicesTotalingText: "ยอดรวมใบแจ้งหนี้: ${0}"
@@ -397,7 +397,7 @@
   newText: "ใหม่"
   openText: "เปิด"
   approvedText: "อนุมัติแล้ว"
-  awardedText: "มอบให้"
+  awardedText: "มอบให้แล้ว"
 >
 
 <salesDashboardWidget ""
@@ -409,7 +409,7 @@
   yoyProfitText: "กำไรปีต่อปี"
   yoyMarginText: "มาร์จินปีต่อปี"
   titleText: "สแนปช็อตทางการเงิน"
-  categoryText: "เลือกวันที่ผ่านมาจากวันนี้"
+  categoryText: "เลือกจำนวนวันก่อนหน้านับจากวันนี้"
 >
 
 <erpAccountPersonsList ""
@@ -464,8 +464,8 @@
   requestedDeliveryDateText: "วันที่นำส่งที่ร้องขอ"
   unitPriceText: "ราคาต่อหน่วย"
   salesOrderNumberText: "หมายเลขใบสั่งขาย"
-  unitPricePerQuanityText: "ราคาต่อหน่วยต่อปริมาณ"
-  unitPricePerQuanityUOMText: "หน่วยวัดของราคาต่อหน่วยต่อปริมาณ"
+  unitPricePerQuanityText: "จำนวนชิ้นในหนึ่งหน่วยวัดของราคาต่อหน่วย"
+  unitPricePerQuanityUOMText: "หน่วยวัดจำนวนชิ้นในหนึ่งหน่วยวัดของราคาต่อหน่วย"
   salesOrderLineNumberText: "หมายเลขบรรทัดใบสั่งขาย"
   extendedCostText: "ต้นทุนรวม"
   moreDetailsText: "รายละเอียดเพิ่มเติม"
@@ -781,6 +781,7 @@
   statusLabelText: "สถานะ"
   erpStatusLabelText: "ERP - สถานะ"
   documentDateText: "วันที่เอกสาร"
+  quoteClosedText: "การเสนอราคาถูกปิดแล้ว ไม่สามารถเพิ่มรายการบรรทัด"
 >
 
 <returnsList ""

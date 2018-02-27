@@ -2,6 +2,10 @@
   billionText: "${val} miljard"
   millionText: "${val} miljoen"
   thousandText: "${val} duizend"
+  daysText: "${val} dagen"
+  weeksText: "${val} weken"
+  monthsText: "${val} maanden"
+  yearsText: "${val} jaar"
 >
 
 <addressField ""
@@ -328,8 +332,8 @@
   isPrimaryText: "primair adres"
   postalCodeText: "Postcode"
   salutationText: "Ter attentie van"
-  stateText: "(Deel)staat"
-  stateTitleText: "(Deel)staat"
+  stateText: "Staat/provincie"
+  stateTitleText: "Staat/provincie"
   titleText: "Adres"
 >
 
@@ -370,8 +374,8 @@
   eventHeaderText: "Gebeurtenissen"
   countMoreText: "Meer weergeven"
   toggleCollapseText: "Uitvouwen/samenvouwen"
-  withFromText: "met ${contactName} van ${accountName}"
-  withText: "met ${object}"
+  withFromText: "Deelnemer: ${contactName} van ${accountName}"
+  withText: "Deelnemer(s): ${object}"
   unspecifiedText: "niet gespecificeerd"
   forText: "vanwege ${reason}"
   dayText: "Dag"
@@ -750,9 +754,9 @@
   ownerText: "Eigenaar"
   actionsText: "Snelle acties"
   potentialText: "Verkooppotentieel"
-  potentialBaseText: "Verkooppotentieel (basistarief)"
-  potentialOpportunityText: "Verkooppotentieel (vkpknstarief)"
-  potentialMyRateText: "Verkooppotentieel (mijn tarief)"
+  potentialBaseText: "Verkooppotentieel (basisvaluta)"
+  potentialOpportunityText: "Verkooppotentieel (valuta verkoopkans)"
+  potentialMyRateText: "Verkooppotentieel (mijn valuta)"
   probabilityText: "Waarschnlkhd deal"
   relatedActivitiesText: "Activiteiten"
   relatedContactsText: "Contactpersonen verkoopkans"
@@ -1095,7 +1099,7 @@
 >
 
 <groupListMixin ""
-  noDefaultGroupText: "Geen standaardgroep ingesteld. Klik hier om groepen te configureren."
+  noDefaultGroupText: "Geen standaardgroep ingesteld. Tik hier om groepen te configureren."
   currentGroupNotFoundText: "De huidige groep is niet gevonden."
   groupTemplateSummaryText: "Overzicht"
   groupTemplateDetailText: "Details"
@@ -1502,6 +1506,8 @@
   languageText: "Taal"
   toastTitle: "Pagina vernieuwen"
   toastMessage: "Vernieuw uw browser om de wijziging te zien."
+  invalidLanguageError: "Ongeldige taalcode: ${0}"
+  invalidRegionError: "Ongeldige regiocode: ${0}"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "De waarde in het veld ${2} overschrijdt het toegestane numerieke bereik."
   maxLengthText: "De waarde in het veld ${2} overschrijdt de toegestane limiet voor de lengte."
   dateRangeText: "De waarde in het veld ${2} valt buiten het toegestane datumbereik."
+  isLessThanText: "De waarde van veld ${2} is groter dan is toegestaan."
+  isGreaterThanText: "De waarde van veld ${2} is kleiner dan is toegestaan."
 >
 
 <activityListHashTags ""

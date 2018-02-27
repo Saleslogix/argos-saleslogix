@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} วัน"
+  weeksText: "${val} สัปดาห์"
+  monthsText: "${val} เดือน"
+  yearsText: "${val} ปี"
 >
 
 <addressField ""
@@ -83,7 +87,7 @@
   notesText: "หมายเหตุ"
   scheduleText: "กำหนดการ"
   editActionText: "แก้ไข"
-  callMainActionText: "การติดต่อหลัก"
+  callMainActionText: "โทรหลัก"
   viewContactsActionText: "ที่ติดต่อ"
   addNoteActionText: "เพิ่มหมายเหตุ"
   addActivityActionText: "เพิ่มกิจกรรม"
@@ -370,8 +374,8 @@
   eventHeaderText: "เหตุการณ์"
   countMoreText: "ดูเพิ่มเติม"
   toggleCollapseText: "สลับ/ยุบ"
-  withFromText: "กับ ${contactName} จาก ${accountName}"
-  withText: "กับ ${object}"
+  withFromText: "ผู้เข้าร่วม: ${contactName} จาก ${accountName}"
+  withText: "ผู้เข้าร่วม: ${object}"
   unspecifiedText: "ไม่ได้ระบุ"
   forText: "สำหรับ ${reason}"
   dayText: "วัน"
@@ -492,7 +496,7 @@
   notesText: "หมายเหตุ"
   scheduleText: "กำหนดการ"
   editActionText: "แก้ไข"
-  callMainActionText: "การติดต่อหลัก"
+  callMainActionText: "โทรหลัก"
   callWorkActionText: "ติดต่อที่ทำงาน"
   callMobileActionText: "ติดต่อมือถือ"
   sendEmailActionText: "อีเมล"
@@ -568,7 +572,7 @@
   priorityText: "ลำดับความสำคัญ"
   regardingText: "เกี่ยวกับ"
   completedByText: "ทำเสร็จสมบูรณ์โดย"
-  scheduledText: "จัดกำหนดการแล้ว"
+  scheduledText: "จัดกำหนดการไว้"
   timelessText: "ไม่มีเวลา"
   companyText: "บริษัท"
   leadText: "ลูกค้าเป้าหมาย"
@@ -615,7 +619,7 @@
 >
 
 <historyEditOffline ""
-  titleText: "บันทึกย่อแบบออฟไลน์"
+  titleText: "หมายเหตุแบบออฟไลน์"
   notesSectionText: "หมายเหตุ"
   notesLabelText: "หมายเหตุ"
 >
@@ -638,8 +642,8 @@
 >
 
 <historyListOffline ""
-  titleText: "บันทึกย่อแบบออฟไลน์"
-  widgetTitle: "บันทึกย่อแบบออฟไลน์"
+  titleText: "หมายเหตุแบบออฟไลน์"
+  widgetTitle: "หมายเหตุแบบออฟไลน์"
   saveToCRMText: "บันทึกไปที่ Infor CRM"
   deleteNoteText: "ลบ"
 >
@@ -1305,7 +1309,7 @@
   potential: "ยอดรวมความเป็นไปได้ของการขาย"
   montlyPotential: "ความเป็นไปได้ของการขายเฉลี่ยรายเดือน"
   totalTickets: "ยอดรวมตั๋ว"
-  averageOpen: "เปิดอายุเฉลี่ย"
+  averageOpen: "อายุเปิดเฉลี่ย"
   totalContacts: "ยอดรวมที่ติดต่อ"
   totalLeads: "ยอดรวมลูกค้าเป้าหมาย"
   totalHistory: "ยอดรวมประวัติ"
@@ -1361,10 +1365,10 @@
   monthlyEverySummary: "ทุก ${0} เดือนในวัน ${7} ของเดือน ณ ${1} มีผลจาก ${2} จนถึง ${3}"
   monthlyAfterCompletionSummary: "ทุกเดือนหลังจากเสร็จสมบูรณ์"
   monthlyEveryAfterCompletionSummary: "ทุก ${0} เดือนหลังจากเสร็จสมบูรณ์"
-  yearlySummary: "ทุกปีในวัน ${7} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
-  yearlyEverySummary: "ทุก ${0} ปีในวัน ${7} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
-  yearlyOrdSummary: "ทุกปีในวัน ${6} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
-  yearlyEveryOrdSummary: "ทุก ${0} ปีในวัน ${6} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
+  yearlySummary: "ทุกปีในวันที่ ${7} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
+  yearlyEverySummary: "ทุก ${0} ปีในวันที่ ${7} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
+  yearlyOrdSummary: "ทุกปีในวันที่ ${6} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
+  yearlyEveryOrdSummary: "ทุก ${0} ปีในวันที่ ${6} ของเดือน ${5} ณ ${1} มีผลจาก ${2} จนถึง ${3}"
   yearlyAfterCompletionSummary: "ทุกปีหลังจากเสร็จสมบูรณ์"
   yearlyEveryAfterCompletionSummary: "ทุก ${0} ปีหลังจากเสร็จสมบูรณ์"
 >
@@ -1488,7 +1492,7 @@
   processingText: "กำลังประมวลผล โปรดรอ"
   calculatingUsageText: "กำลังคำนวณการใช้ โปรดรอ"
   clearingDataText: "กำลังล้างข้อมูล โปรดรอ"
-  lastClearedText: "ที่เคลียร์ล่าสุด"
+  lastClearedText: "ที่ล้างล่าสุด:"
   errorCalculatingText: "ข้อผิดพลาดการคำนวณการใช้"
   errorClearingDataText: "ข้อผิดพลาดการล้างข้อมูล"
 >
@@ -1502,6 +1506,8 @@
   languageText: "ภาษา"
   toastTitle: "รีเฟรชหน้า"
   toastMessage: "โปรดรีเฟรชเบราว์เซอร์ของคุณเพื่อดูการเปลี่ยนแปลง"
+  invalidLanguageError: "รหัสภาษาไม่ถูกต้อง: '${0}'"
+  invalidRegionError: "รหัสภูมิภาคไม่ถูกต้อง: '${0}'"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "ฟิลด์ '${2}' ค่าเกินกว่าช่วงตัวเลขที่อนุญาต"
   maxLengthText: "ค่าฟิลด์ '${2}' เกินกว่าความยาวที่อนุญาต"
   dateRangeText: "ฟิลด์ '${2}' ค่าอยู่นอกช่วงวันที่ที่อนุญาต"
+  isLessThanText: "ค่า '${2}' ฟิลด์มากกว่าที่อนุญาต"
+  isGreaterThanText: "ค่า '${2}' ฟิลด์น้อยกว่าที่อนุญาต"
 >
 
 <activityListHashTags ""
@@ -1538,8 +1546,8 @@
 <activityMyListHashTags ""
   hashTagAlarmText: "#การเตือน"
   hashTagUnconfirmedText: "#สถานะ-ยังไม่ยืนยัน"
-  hashTagAcceptedText: "#สถานะ-ได้รับการยอมรับแล้ว"
-  hashTagDeclinedText: "#สถานะ-ถูกปฏิเสธแล้ว"
+  hashTagAcceptedText: "#สถานะ-ยอมรับแล้ว"
+  hashTagDeclinedText: "#สถานะ-ถูกปฏิเสธ"
   hashTagRecurringText: "#เกิดซ้ำ"
   hashTagTimelessText: "#ไม่มีเวลา"
   hashTagTodayText: "#วันนี้"

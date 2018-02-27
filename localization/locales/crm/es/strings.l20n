@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} días"
+  weeksText: "${val} semanas"
+  monthsText: "${val} meses"
+  yearsText: "${val} años"
 >
 
 <addressField ""
@@ -343,7 +347,7 @@
 
 <attachmentList ""
   titleText: "Archivos adjuntos"
-  uploadedOnText: "Cargado en ${0} en ${1}"
+  uploadedOnText: "Cargado el ${0} a la(s) ${1}"
   touchedText: "Tocado"
 >
 
@@ -370,8 +374,8 @@
   eventHeaderText: "Eventos"
   countMoreText: "Ver más"
   toggleCollapseText: "contraer alternancia"
-  withFromText: "con ${contactName} desde ${accountName}"
-  withText: "con ${object}"
+  withFromText: "Asistente: ${contactName} desde ${accountName}"
+  withText: "Asistentes: ${object}"
   unspecifiedText: "no especificado"
   forText: "para ${reason}"
   dayText: "Día"
@@ -623,7 +627,7 @@
 <historyList ""
   titleText: "Notas/historial"
   viewAccountActionText: "Cuenta"
-  viewOpportunityActionText: "Oprt."
+  viewOpportunityActionText: "Oportunidad"
   viewContactActionText: "Contacto"
   addAttachmentActionText: "Añadir archivo adjunto"
   regardingText: "Asunto: "
@@ -1095,7 +1099,7 @@
 >
 
 <groupListMixin ""
-  noDefaultGroupText: "No hay ningún grupo establecido como predeterminado. Haga clic aquí para configurar grupos."
+  noDefaultGroupText: "No hay ningún grupo establecido como predeterminado. Toque aquí para configurar grupos."
   currentGroupNotFoundText: "El grupo actual no se encontró."
   groupTemplateSummaryText: "Resumen"
   groupTemplateDetailText: "Detalle"
@@ -1502,6 +1506,8 @@
   languageText: "Idioma"
   toastTitle: "Actualizar la página"
   toastMessage: "Actualice su navegador para ver el cambio."
+  invalidLanguageError: "Código de idioma no válido: ${0}"
+  invalidRegionError: "Código de región no válido: ${0}"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "El valor «${2}» del campo supera el rango numérico permitido."
   maxLengthText: "El valor «${2}» del campo supera el límite de longitud permitido."
   dateRangeText: "El valor «${2}» del campo está fuera del rango de fechas permitido."
+  isLessThanText: "El valor del campo ${2} es superior a lo permitdo."
+  isGreaterThanText: "El valor del campo ${2} es inferior a lo permitido"
 >
 
 <activityListHashTags ""

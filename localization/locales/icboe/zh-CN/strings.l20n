@@ -3,7 +3,7 @@
   searchResults: "搜索结果"
   multiSystemDetected: "已检测到多个会计系统。请选择系统以开始执行链接过程。"
   createLink: "在以下位置中创建链接"
-  backOffice: "BackOffice:"
+  backOffice: "后台办公室:"
   accountingEntity: "系统会计实体:"
   cancelText: "取消"
   promoteText: "升级"
@@ -464,8 +464,8 @@
   requestedDeliveryDateText: "申请交货日期"
   unitPriceText: "单价"
   salesOrderNumberText: "销售订单编号"
-  unitPricePerQuanityText: "单价基于数量"
-  unitPricePerQuanityUOMText: "单价基于数量计量单位"
+  unitPricePerQuanityText: "单价基础数量"
+  unitPricePerQuanityUOMText: "单价基础数量计量单位"
   salesOrderLineNumberText: "销售订单行号"
   extendedCostText: "总成本"
   moreDetailsText: "更多明细"
@@ -781,6 +781,7 @@
   statusLabelText: "状态"
   erpStatusLabelText: "ERP 状态"
   documentDateText: "文档日期"
+  quoteClosedText: "报价单已关闭，不能添加更多行项目"
 >
 
 <returnsList ""

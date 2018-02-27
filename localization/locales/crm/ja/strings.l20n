@@ -2,6 +2,10 @@
   billionText: "${val}0 億"
   millionText: "${val}百万"
   thousandText: "${val}千"
+  daysText: "${val} 日"
+  weeksText: "${val} 週"
+  monthsText: "${val} か月"
+  yearsText: "${val} 年"
 >
 
 <addressField ""
@@ -370,8 +374,8 @@
   eventHeaderText: "イベント"
   countMoreText: "追加表示"
   toggleCollapseText: "トグル折りたたみ"
-  withFromText: "${accountName} から ${contactName}"
-  withText: "${object}"
+  withFromText: "参加者: ${contactName} - ${accountName}"
+  withText: "参加者: ${object}"
   unspecifiedText: "未指定"
   forText: "${reason}"
   dayText: "日"
@@ -1095,7 +1099,7 @@
 >
 
 <groupListMixin ""
-  noDefaultGroupText: "設定されているデフォルトグループはありません。ここをクリックしてグループを構成します。"
+  noDefaultGroupText: "設定されているデフォルトグループはありません。ここをタップしてグループを構成します。"
   currentGroupNotFoundText: "現在のグループが見つかりませんでした。"
   groupTemplateSummaryText: "サマリー"
   groupTemplateDetailText: "詳細"
@@ -1502,6 +1506,8 @@
   languageText: "言語"
   toastTitle: "ページの更新"
   toastMessage: "ブラウザーを更新して変更箇所を表示します。"
+  invalidLanguageError: "無効な言語コード: 「${0}」"
+  invalidRegionError: "無効な地域コード: 「${0}」"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "フィールド「${2}」値は、許容数値範囲を超過しています。"
   maxLengthText: "フィールド「${2}」値は、長さの制限を超過しています。"
   dateRangeText: "フィールド「${2}」値は、許可されている日付範囲外です。"
+  isLessThanText: "フィールド「${2}」の値は許容値より大きくなっています。"
+  isGreaterThanText: "フィールド「${2}」の値は許容値より小さくなっています。"
 >
 
 <activityListHashTags ""

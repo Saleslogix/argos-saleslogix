@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} 天"
+  weeksText: "${val} 周"
+  monthsText: "${val} 月"
+  yearsText: "${val} 年"
 >
 
 <addressField ""
@@ -343,7 +347,7 @@
 
 <attachmentList ""
   titleText: "附件"
-  uploadedOnText: "已在 ${0} ${1} 上传"
+  uploadedOnText: "上传于 ${0} ${1}"
   touchedText: "已接触"
 >
 
@@ -370,8 +374,8 @@
   eventHeaderText: "事件"
   countMoreText: "查看更多"
   toggleCollapseText: "切换折叠"
-  withFromText: "客户 ${accountName} 的联系人 ${contactName} 的活动"
-  withText: "${object}"
+  withFromText: "参与者: 客户 ${accountName} 的联系人 ${contactName}"
+  withText: "参与者: ${object}"
   unspecifiedText: "未指定"
   forText: "针对 ${reason}"
   dayText: "日"
@@ -1502,6 +1506,8 @@
   languageText: "语言"
   toastTitle: "刷新页面"
   toastMessage: "请刷新您的浏览器，查看更改。"
+  invalidLanguageError: "无效语言代码:“${0}”"
+  invalidRegionError: "无效区域代码:“${0}”"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "字段“${2}”值超出允许的数字范围。"
   maxLengthText: "字段“${2}”值超出允许的长度最大值。"
   dateRangeText: "字段“${2}”值超出允许的日期范围。"
+  isLessThanText: "字段“${2}”值大于允许值。"
+  isGreaterThanText: "字段“${2}”值小于允许值。"
 >
 
 <activityListHashTags ""
