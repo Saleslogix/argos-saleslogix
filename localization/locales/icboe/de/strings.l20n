@@ -464,8 +464,8 @@
   requestedDeliveryDateText: "gewünschtes Lieferdatum"
   unitPriceText: "Preis pro Einheit"
   salesOrderNumberText: "Verkaufsauftragsnummer"
-  unitPricePerQuanityText: "Grundmengenpreis pro Einheit"
-  unitPricePerQuanityUOMText: "ME für Grundmengenpreis pro Einheit"
+  unitPricePerQuanityText: "Anzahl Einheiten für Grundmengenpreis"
+  unitPricePerQuanityUOMText: "ME für Grundmengenpreis"
   salesOrderLineNumberText: "Verkaufsauftragspositionsnummer"
   extendedCostText: "Gesamtkosten"
   moreDetailsText: "Weitere Details"
@@ -781,6 +781,7 @@
   statusLabelText: "Status"
   erpStatusLabelText: "ERP-Status"
   documentDateText: "Dokumentdatum"
+  quoteClosedText: "Das Angebot ist abgeschlossen. Weitere Positionen können nicht hinzugefügt werden."
 >
 
 <returnsList ""

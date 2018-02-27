@@ -3,7 +3,7 @@
   searchResults: "Résultats de la recherche"
   multiSystemDetected: "Plusieurs systèmes de comptabilité ont été détectés. Sélectionnez un système pour commencer le processus de liaison."
   createLink: "Créer un lien dans"
-  backOffice: "BackOffice :"
+  backOffice: "Back Office :"
   accountingEntity: "Système - Entité comptable :"
   cancelText: "Annuler"
   promoteText: "Promouvoir"
@@ -781,6 +781,7 @@
   statusLabelText: "Etat"
   erpStatusLabelText: "Etat ERP"
   documentDateText: "Date du document"
+  quoteClosedText: "Le devis est fermé, impossible d'y ajouter des lignes"
 >
 
 <returnsList ""

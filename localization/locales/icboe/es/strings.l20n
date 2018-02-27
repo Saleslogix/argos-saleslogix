@@ -3,7 +3,7 @@
   searchResults: "Resultados de la búsqueda"
   multiSystemDetected: "Se ha detectado más de un sistema de contabilidad se ha detectado. Seleccione un sistema para iniciar el proceso de enlace."
   createLink: "Crear un enlace en"
-  backOffice: "BackOffice:"
+  backOffice: "Oficina administrativa:"
   accountingEntity: "Entidad del sistema de contabilidad:"
   cancelText: "Cancelar"
   promoteText: "Promover"
@@ -781,6 +781,7 @@
   statusLabelText: "Estado"
   erpStatusLabelText: "Estado de ERP"
   documentDateText: "Fecha del documento"
+  quoteClosedText: "La oferta está cerrada. No se pueden añadir más elementos de línea."
 >
 
 <returnsList ""

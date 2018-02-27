@@ -3,7 +3,7 @@
   searchResults: "Zoekresultaten"
   multiSystemDetected: "Er is meer dan één financieel systeem gedetecteerd. Selecteer een systeem om het koppelingsproces te starten."
   createLink: "Een koppeling aanmaken in"
-  backOffice: "BackOffice:"
+  backOffice: "Backoffice:"
   accountingEntity: "Financiële entiteit:"
   cancelText: "Annuleren"
   promoteText: "Doortrekken"
@@ -33,7 +33,7 @@
 
 <erpAccountPersonModel ""
   entityDisplayName: "Verantwoordelijke voor account"
-  entityDisplayNamePlural: "Verantwoordelijken voor account"
+  entityDisplayNamePlural: "Verantwoordelijken voor accounts"
 >
 
 <erpBillToModel ""
@@ -123,7 +123,7 @@
 
 <quotePersonModel ""
   entityDisplayName: "Verantwoordelijke voor offerte"
-  entityDisplayNamePlural: "Verantwoordelijken voor offerte"
+  entityDisplayNamePlural: "Verantwoordelijken voor offertes"
 >
 
 <productModel ""
@@ -162,7 +162,7 @@
 >
 
 <quotePersonList ""
-  titleText: "Verantwoordelijken voor offerte"
+  titleText: "Verantwoordelijken voor offertes"
   personNameText: "Naam"
   quoteNumberText: "Offertenummer"
 >
@@ -781,6 +781,7 @@
   statusLabelText: "Status"
   erpStatusLabelText: "ERP - Status"
   documentDateText: "Datum document"
+  quoteClosedText: "Offerte is gesloten; er kunnen geen regels meer worden toegevoegd"
 >
 
 <returnsList ""
@@ -1097,7 +1098,7 @@
 >
 
 <helpModule ""
-  sectionTitleText: "ICBOE (backoffice-extensie) Help"
+  sectionTitleText: "ICBOE Help (backoffice-extensie)"
 >
 
 <unitOfMeasureList ""

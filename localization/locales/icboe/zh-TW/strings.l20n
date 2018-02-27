@@ -3,7 +3,7 @@
   searchResults: "搜尋結果"
   multiSystemDetected: "偵測到多個會計系統。選取要開始連結程序的系統。"
   createLink: "將連結建立在"
-  backOffice: "BackOffice:"
+  backOffice: "後端辦公室:"
   accountingEntity: "系統會計實體："
   cancelText: "取消"
   promoteText: "升階"
@@ -464,8 +464,8 @@
   requestedDeliveryDateText: "要求的交貨日期"
   unitPriceText: "單價"
   salesOrderNumberText: "銷售訂單編號"
-  unitPricePerQuanityText: "每單位數量單價"
-  unitPricePerQuanityUOMText: "每單位數量單價 UOM"
+  unitPricePerQuanityText: "單價對應數量"
+  unitPricePerQuanityUOMText: "單價對應數量 UOM"
   salesOrderLineNumberText: "銷售訂單行號碼"
   extendedCostText: "總成本"
   moreDetailsText: "更多詳細資料"
@@ -781,6 +781,7 @@
   statusLabelText: "狀態"
   erpStatusLabelText: "ERP 狀態"
   documentDateText: "文件日期"
+  quoteClosedText: "報價已關閉，無法新增更多行項目"
 >
 
 <returnsList ""

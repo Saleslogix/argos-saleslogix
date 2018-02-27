@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} 天"
+  weeksText: "${val} 週"
+  monthsText: "${val} 月"
+  yearsText: "${val} 年"
 >
 
 <addressField ""
@@ -370,8 +374,8 @@
   eventHeaderText: "事件"
   countMoreText: "檢視更多"
   toggleCollapseText: "切換摺疊"
-  withFromText: "${contactName} 自 ${accountName}"
-  withText: "含 ${object}"
+  withFromText: "出席者: ${contactName} 自 ${accountName}"
+  withText: "出席者: ${object}"
   unspecifiedText: "未指定"
   forText: "用於 ${reason}"
   dayText: "天"
@@ -1341,10 +1345,10 @@
   friday: "週五"
   saturday: "週六"
   day: "特定日"
-  first: "第一${0}"
-  second: "第二${0}"
-  third: "第三${0}"
-  fourth: "第四${0}"
+  first: "第一個${0}"
+  second: "第二個${0}"
+  third: "第三個${0}"
+  fourth: "第四個${0}"
   last: "最後${0}"
   singleActivitySummary: "這個活動只發生一次"
   dailySummary: "每天的${1}，有效時間自${2}至${3}"
@@ -1502,6 +1506,8 @@
   languageText: "語言"
   toastTitle: "重新整理頁面"
   toastMessage: "請重新整理瀏覽器以查看變更。"
+  invalidLanguageError: "無效語言代碼: '${0}'"
+  invalidRegionError: "無效地區代碼: '${0}'"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "欄位「${2}」值超出允許的數字範圍。"
   maxLengthText: "欄位「${2}」值超出允許的長度限制。"
   dateRangeText: "欄位「${2}」值超出允許的日期範圍。"
+  isLessThanText: "欄位 '${2}' 的值大於允許的值。"
+  isGreaterThanText: "欄位 '${2}' 的值小於允許的值。"
 >
 
 <activityListHashTags ""

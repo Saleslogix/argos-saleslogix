@@ -2,6 +2,10 @@
   billionText: "${val}B"
   millionText: "${val}M"
   thousandText: "${val}K"
+  daysText: "${val} jours"
+  weeksText: "${val} semaines"
+  monthsText: "${val} mois"
+  yearsText: "${val} ans"
 >
 
 <addressField ""
@@ -370,8 +374,8 @@
   eventHeaderText: "Evénements"
   countMoreText: "Voir plus"
   toggleCollapseText: "Développer/réduire"
-  withFromText: "avec ${contactName} de ${accountName}"
-  withText: "avec ${object}"
+  withFromText: "Participant : ${contactName} de ${accountName}"
+  withText: "Participant(s) : ${object}"
   unspecifiedText: "Non spécifié"
   forText: "pour ${reason}"
   dayText: "Jour"
@@ -739,7 +743,7 @@
 >
 
 <opportunityDetail ""
-  accountText: "Cpte"
+  accountText: "Compte"
   acctMgrText: "Resp. cpte"
   estCloseText: "Clôture est."
   detailsText: "Détails"
@@ -778,7 +782,7 @@
 >
 
 <opportunityEdit ""
-  accountText: "Cpte"
+  accountText: "Compte"
   acctMgrText: "Resp. cpte"
   estCloseText: "Clôture est."
   importSourceText: "Source du lead"
@@ -968,7 +972,7 @@
 >
 
 <ticketEdit ""
-  accountText: "Cpte"
+  accountText: "Compte"
   areaText: "Domaine"
   assignedDateText: "Date de l'affectation"
   assignedToText: "Affecté à"
@@ -1013,7 +1017,7 @@
   addAttachmentActionText: "Ajouter une pièce jointe"
   assignedToText: "Affecté à : "
   urgencyText: "Priorité : "
-  createdOnText: "Créé  "
+  createdOnText: "Créé le  "
   modifiedText: "Modifié "
   neededByText: "Nécessaire  "
 >
@@ -1502,6 +1506,8 @@
   languageText: "Langue"
   toastTitle: "Actualiser la page"
   toastMessage: "Actualisez votre navigateur pour voir le changement."
+  invalidLanguageError: "Code langue non valide : '${0}'"
+  invalidRegionError: "Code région non valide : '${0}'"
 >
 
 <authenticationModel ""
@@ -1524,6 +1530,8 @@
   int32Text: "La valeur du champ '${2}' dépasse la plage numérique autorisée."
   maxLengthText: "La valeur du champ '${2}' dépasse la longueur autorisée."
   dateRangeText: "La valeur du champ '${2}' est en dehors de la plage de dates autorisée."
+  isLessThanText: "La valeur du champ '${2}' dépasse la limite autorisée."
+  isGreaterThanText: "La valeur du champ '${2}' est trop basse."
 >
 
 <activityListHashTags ""

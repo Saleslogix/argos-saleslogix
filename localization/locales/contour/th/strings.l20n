@@ -10,7 +10,7 @@
   addActivityActionText: "เพิ่มกิจกรรม"
   addAttachmentActionText: "เพิ่มสิ่งที่แนบ"
   addNoteActionText: "เพิ่มหมายเหตุ"
-	callMainActionText: "การติดต่อหลัก"
+	callMainActionText: "โทรหลัก"
 	currentLocationErrorText: "ไม่สามารถดึงที่ตั้งปัจจุบันของคุณได้ ไม่สามารถค้นหา"
 	editActionText: "แก้ไข"
   faxAbbreviationText: "แฟกซ์: "
