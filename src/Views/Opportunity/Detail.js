@@ -36,6 +36,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   acctMgrText: resource.acctMgrText,
   estCloseText: resource.estCloseText,
   detailsText: resource.detailsText,
+  fbarHomeTitleText: resource.fbarHomeTitleText,
   fbarScheduleTitleText: resource.fbarScheduleTitleText,
   importSourceText: resource.importSourceText,
   opportunityText: resource.opportunityText,
