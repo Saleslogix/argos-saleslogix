@@ -3,7 +3,7 @@
   searchResults: "Suchergebnisse"
   multiSystemDetected: "Es wurden mehrere Buchhaltungssysteme gefunden. Wählen Sie ein System aus, um den Verknüpfungsprozess zu starten."
   createLink: "Verknüpfung erstellen in"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "System-Buchhaltungsentität:"
   cancelText: "Abbrechen"
   promoteText: "Hochstufen"

@@ -36,7 +36,7 @@
   eventDateFormatText: "D/M"
   startTimeFormatText: "h:mm A"
   startTimeFormatText24: "HH:mm"
-  dayHeaderFormat: "dddd, MMMM D"
+  dayHeaderFormat: "dddd, D MMMM"
 >
 
 <calendarDayViewDateTimeFormat ""
