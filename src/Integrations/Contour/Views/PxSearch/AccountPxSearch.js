@@ -20,6 +20,7 @@ import action from 'Mobile/SalesLogix/Action';
 import SearchWidget from 'Sage/Platform/Mobile/SearchWidget';
 import utility from 'argos/Utility';
 import List from 'argos/List';
+import format from '../../../../Format';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
 
@@ -64,7 +65,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
   // Functions
   formatDecimal(n) {
-    return Math.round(n * 100) / 100;
+    return format.fixedLocale(n, 2);
   },
   distanceText() {
     return (App.isRegionMetric) ? this.kilometerAbbrevText : this.mileAbbrevText;

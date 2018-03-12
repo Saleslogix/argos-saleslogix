@@ -1049,7 +1049,7 @@
   completeTicketText: "チケットアクティビティの完了"
   moreDetailsText: "詳細"
   relatedItemsText: "関連項目"
-  relatedTicketActivityItemText: "チケットアクティビティ部品"
+  relatedTicketActivityItemText: "チケットアクティビティパーツ"
 >
 
 <ticketActivityEdit ""
@@ -1073,7 +1073,7 @@
 >
 
 <ticketActivityItemDetail ""
-  titleText: "チケットアクティビティ部品"
+  titleText: "チケットアクティビティパーツ"
   productNameText: "商品"
   skuText: "SKU"
   serialNumberText: "シリアル番号"
@@ -1083,7 +1083,7 @@
 >
 
 <ticketActivityItemList ""
-  titleText: "チケットアクティビティ部品"
+  titleText: "チケットアクティビティパーツ"
 >
 
 <userCalendarAccessList ""
