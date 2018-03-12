@@ -98,7 +98,7 @@
 
 <erpShipToAccountModel ""
   entityDisplayName: "Firma Lieferungsempfänger"
-  entityDisplayNamePlural: "Firmen Lieferungsempfänger"
+  entityDisplayNamePlural: "Lieferungsempfänger - Firmen"
 >
 
 <operatingCompanyModel ""
@@ -438,7 +438,7 @@
 >
 
 <erpBillToAccountsList ""
-  titleText: "Firmen Rechnungsempfänger"
+  titleText: "Rechnungsempfänger - Firmen"
 >
 
 <erpBillToAccountsEdit ""
@@ -694,7 +694,7 @@
 >
 
 <erpShipToAccountsList ""
-  titleText: "Firmen Lieferungsempfänger"
+  titleText: "Lieferungsempfänger - Firmen"
 >
 
 <erpShipToAccountsEdit ""
@@ -859,7 +859,7 @@
   dueDateText: "Fälligkeitsdatum"
   documentDateText: "Dokumentdatum"
   statusText: "Status"
-  currencyCodeText: "Währungscode"
+  currencyCodeText: "Währ.-Code"
   subTotalText: "Zwischensumme"
   grandTotalText: "Gesamtsumme"
   baseSubTotalText: "Basis-Zwischensumme"

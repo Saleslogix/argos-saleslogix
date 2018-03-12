@@ -254,7 +254,7 @@
   carrierText: "Transportador"
   expectedDeliveryDateText: "Data de Entrega Esperada"
   erpStatusText: "Status do ERP"
-  erpStatusDateText: "Data do status do erp"
+  erpStatusDateText: "Data do status do ERP"
   refreshPricingText: "Atualizar Precificação"
   pricingUnavailableText: "Esta cotação está fechada no momento e a precificação não está disponível."
 
@@ -568,7 +568,7 @@
   receivedAmountText: "Montante Recebido"
   receivedBaseAmountText: "Montante Base Recebido"
   erpStatusText: "Status do ERP"
-  erpStatusDateText: "Data do status do erp"
+  erpStatusDateText: "Data do status do ERP"
   documentDateText: "Data do documento"
   paymentTermText: "ID de Condição de Pagamento"
   billToText: "Faturado"
@@ -898,7 +898,7 @@
   carrierText: "Transportador"
   totalAmountText: "Montante Total"
   erpStatusText: "Status do ERP"
-  erpStatusDateText: "Data do status do erp"
+  erpStatusDateText: "Data do status do ERP"
   refreshPricingText: "Atualizar Precificação"
   pricingUnavailableText: "Este pedido de vendas está fechado no momento e a precificação não está disponível."
 >
@@ -1030,7 +1030,7 @@
 
 <accountModule ""
   erpStatusText: "Status do ERP"
-  erpStatusDateText: "Data do status do erp"
+  erpStatusDateText: "Data do status do ERP"
   erpCustomerText: "Cliente do ERP"
   erpPaymentTermText: "Condições de Pagamento do ERP"
   erpFinanceLimitText: "Limite Financeiro"

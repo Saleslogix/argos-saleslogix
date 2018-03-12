@@ -745,7 +745,7 @@
 <opportunityDetail ""
   accountText: "Account"
   acctMgrText: "Acctmanager"
-  estCloseText: "Geschtte aflstdtm"
+  estCloseText: "Verwachte aflstdtm"
   detailsText: "Details"
   fbarHomeTitleText: "Start"
   fbarScheduleTitleText: "Planning"
@@ -784,7 +784,7 @@
 <opportunityEdit ""
   accountText: "Account"
   acctMgrText: "Acctmanager"
-  estCloseText: "Geschtte aflstdtm"
+  estCloseText: "Verwachte aflstdtm"
   importSourceText: "Leadbron"
   detailsText: "Details"
   opportunityStatusTitleText: "Status verkoopkans"
@@ -824,7 +824,7 @@
 >
 
 <opportunityQuickEdit ""
-  estCloseText: "Geschtte aflstdtm"
+  estCloseText: "Verwachte aflstdtm"
   detailsText: "Details"
   opportunityStageTitleText: "Fase verkoopkans"
   opportunityText: "Verkoopkans"
