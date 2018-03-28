@@ -23,6 +23,8 @@ CACHE:
 @include 'configuration', /^production.js$/i
 
 # localization
+localization/en.js
+localization/saleslogix/en.js
 @localize 'localization', '{0}.js'
 
 # help
