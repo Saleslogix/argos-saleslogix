@@ -30,6 +30,8 @@ content/css/themes/fonts/fontawesome-webfont.woff?v=4.4.0
 @include 'configuration', /^production.js$/i
 
 # localization
+localization/en.js
+localization/saleslogix/en.js
 @localize 'localization', '{0}.js'
 
 # help
