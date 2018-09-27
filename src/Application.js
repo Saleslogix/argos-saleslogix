@@ -586,7 +586,7 @@ const __class = declare('crm.Application', [Application], {
   requestUserDetails: function requestUserDetails() {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('users')
-      .setResourceSelector(string.substitute('"${0}"', [this.context.user.$key]))
+      .setResourceSelector(string.substitute("'${0}'", [this.context.user.$key]))
       .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
     const def = new Deferred();
@@ -763,7 +763,7 @@ const __class = declare('crm.Application', [Application], {
   requestOwnerDescription: function requestOwnerDescription(key) {
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
       .setResourceKind('owners')
-      .setResourceSelector(string.substitute('"${0}"', [key]))
+      .setResourceSelector(string.substitute("'${0}'", [key]))
       .setQueryArg('select', 'OwnerDescription');
 
     request.read({
