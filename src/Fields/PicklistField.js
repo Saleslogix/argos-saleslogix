@@ -59,7 +59,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return !this.picklist;
   },
   formatResourcePredicate: function formatResourcePredicate(name) {
-    return string.substitute('name eq "${0}"', [name]);
+    return string.substitute("name eq '${0}'", [name]);
   },
   _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value, unloadedValues) {
     if (typeof value === 'string') {

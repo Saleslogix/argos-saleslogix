@@ -166,12 +166,12 @@ const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         label: this.typeText,
         name: 'ActivityTypeCode',
         property: 'ActivityTypeCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"'),
+        onCreate: this.requestCodeData.bindDelegate(this, "name eq 'Ticket Activity'"),
       }, {
         label: this.publicAccessText,
         name: 'PublicAccessCode',
         property: 'PublicAccessCode',
-        onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"'),
+        onCreate: this.requestCodeData.bindDelegate(this, "name eq 'Ticket Activity Public Access'"),
       }, {
         label: this.assignedDateText,
         name: 'AssignedDate',

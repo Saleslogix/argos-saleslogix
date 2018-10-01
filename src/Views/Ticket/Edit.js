@@ -100,11 +100,11 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
 
     if (!this.options.entry) {
       if (entry.StatusCode) {
-        this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
+        this.requestCodeData("name eq 'Ticket Status'", entry.StatusCode, this.fields.StatusCode, entry, 'Status');
       }
 
       if (entry.ViaCode) {
-        this.requestCodeData('name eq "Source"', entry.ViaCode, this.fields.ViaCode, entry, 'SourceText');
+        this.requestCodeData("name eq 'Source'", entry.ViaCode, this.fields.ViaCode, entry, 'SourceText');
       }
     }
 
@@ -114,7 +114,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     this.inherited(arguments);
 
     if (entry.StatusCode) {
-      this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
+      this.requestCodeData("name eq 'Ticket Status'", entry.StatusCode, this.fields.StatusCode, entry, 'Status');
     }
   },
   createPicklistRequest: function createPicklistRequest(name) {
