@@ -312,7 +312,7 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         validator: validator.exists,
         where: (function where() {
           const val = this.fields.Product.getValue();
-          return string.substitute('Product.Name eq "${0}"', [Utility.escapeSearchQuery(val.Name)]);
+          return string.substitute("Product.Name eq '${0}'", [Utility.escapeSearchQuery(val.Name)]);
         }).bindDelegate(this),
       }, {
         label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,

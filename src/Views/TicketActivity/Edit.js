@@ -55,7 +55,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
     this.inherited(arguments);
 
     if (entry.PublicAccessCode) {
-      this.requestCodeData('name eq "Ticket Activity Public Access"', entry.PublicAccessCode, this.fields.PublicAccessCode);
+      this.requestCodeData("name eq 'Ticket Activity Public Access'", entry.PublicAccessCode, this.fields.PublicAccessCode);
     }
   },
   createPicklistRequest: function createPicklistRequest(name) {

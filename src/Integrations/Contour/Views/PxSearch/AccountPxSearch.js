@@ -235,7 +235,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       .setContractName('system');
     const uri = request.getUri();
     uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
-    uri.setCollectionPredicate('name eq "Account Type"');
+    uri.setCollectionPredicate("name eq 'Account Type'");
     request.allowCacheUse = true;
     request.read({
       success: this.onAccountTypeLoad,

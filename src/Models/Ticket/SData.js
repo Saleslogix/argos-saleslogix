@@ -90,8 +90,8 @@ const __class = declare('crm.Models.Ticket.SData', [Base, _SDataModelBase], {
   },
   getEntry: function getEntry(options) {
     const results$ = this.inherited(arguments);
-    const status$ = this.createPicklistPromise('name eq "Ticket Status"', options);
-    const source$ = this.createPicklistPromise('name eq "Source"', options);
+    const status$ = this.createPicklistPromise("name eq 'Ticket Status'", options);
+    const source$ = this.createPicklistPromise("name eq 'Source'", options);
     return all([results$, status$, source$])
       .then(([entry, status, source]) => {
         // Transform the entry with our fetched picklist values instead of the key/code

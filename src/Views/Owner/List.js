@@ -31,11 +31,11 @@ const __class = declare('crm.Views.Owner.List', [List], {
     'User/Type',
     'Type',
   ],
-  queryWhere: 'Type ne "Department"',
+  queryWhere: "Type ne 'Department'",
   resourceKind: 'owners',
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {
-    return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+    return string.substitute("upper(OwnerDescription) like '%${0}%'", [this.escapeSearchQuery(searchQuery.toUpperCase())]);
   },
   processData: function processData(items) {
     if (items) {
