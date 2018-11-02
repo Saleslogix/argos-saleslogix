@@ -327,6 +327,7 @@ const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
     const weekdays = this.getWeekdays(recurPeriodSpec, true);
     const month = momentCurrentDate.localeData().months(momentCurrentDate);
 
+    // eslint-disable-next-line guard-for-in
     for (const key in weekdays) {
       if (weekdays[key] && parseInt(key, 10) < weekdays.length - 1) {
         weekdays[key] = string.substitute(this.daySeparator, [weekdays[key]]);

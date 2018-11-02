@@ -1,10 +1,11 @@
 /* eslint-disable */
-var Hapi = require('hapi');
-var Inert = require('inert');
-var spdy = require('spdy');
-var fs = require('fs');
+const Hapi = require('hapi');
+const Inert = require('inert');
+const spdy = require('spdy');
+const fs = require('fs');
+const h2o2 = require('h2o2');
 
-var config;
+let config;
 try {
     config = require('./config.json');
 } catch (e) {
@@ -12,25 +13,9 @@ try {
     config = require('./default.config.json');
 }
 
-var server = new Hapi.Server();
-server.register(Inert, function() {});
-server.register({
-    register: require('h2o2')
-}, function(err) {
-    if (err) {
-        console.log('Failed to load h2o2');
-    }
-
-    server.start(function(err) {
-        if (err) {
-            throw err;
-        }
-        console.log('info', 'Started server at: ', server.info.uri);
-    });
-});
-
-server.connection({
+const options = {
     port: config.port,
+    tls: true,
     listener: spdy.createServer({
         key: fs.readFileSync('./scripts/server.key'),
         cert: fs.readFileSync('./scripts/server.crt'),
@@ -40,7 +25,6 @@ server.connection({
             'x-forwarded-for': true
         }
     }),
-    tls: true,
     routes: {
         "cors": {
             "headers": [
@@ -57,41 +41,61 @@ server.connection({
             ]
         }
     }
-});
+};
 
-var proxyConfig = config.proxy || {};
+const server = new Hapi.Server(options);
 
-server.route({
-    method: '*',
-    path: '/sdata/{param*}',
-    handler: {
-        proxy: {
-            host: proxyConfig.host || 'localhost',
-            port: proxyConfig.port || 80,
-            protocol: proxyConfig.protocol || 'http',
-            passThrough: true,
-            xforward: true,
-            localStatePassThrough: true,
-            rejectUnauthorized: false
+const init = async () => {
+    await server.register(Inert);
+    await server.register(h2o2);
+
+    const proxyConfig = config.proxy || {};
+
+    server.route({
+        method: '*',
+        path: '/sdata/{param*}',
+        handler: {
+            proxy: {
+                host: proxyConfig.host || 'localhost',
+                port: proxyConfig.port || 80,
+                protocol: proxyConfig.protocol || 'http',
+                passThrough: true,
+                xforward: true,
+                localStatePassThrough: true,
+                rejectUnauthorized: false
+            }
         }
-    }
+    });
+
+    server.route({
+        method: '*',
+        path: '/{param*}',
+        config: {
+        cache: {
+            expiresIn: 30 * 1000,
+            privacy: 'private'
+        },
+        },
+        handler: {
+            directory: {
+                path: '../../',
+                index: false,
+                listing: true,
+                redirectToSlash: true
+            }
+        }
+    });
+
+    await server.start();
+    console.log('info', 'Started server at: ', server.info.uri);
+};
+
+
+
+process.on('unhandledRejection', (err) => {
+
+    console.log(err);
+    process.exit(1);
 });
 
-server.route({
-    method: '*',
-    path: '/{param*}',
-    config: {
-      cache: {
-        expiresIn: 30 * 1000,
-        privacy: 'private'
-      },
-    },
-    handler: {
-        directory: {
-            path: '../../',
-            index: false,
-            listing: true,
-            redirectToSlash: true
-        }
-    }
-});
+init();
