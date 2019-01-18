@@ -95,10 +95,10 @@ void iiscopy(branch, build) {
 
 void clonesdk(branch, fallback='develop') {
   try {
-    git branch: "$branch", url: 'http://git.infor.com/scm/inforcrm/argos-sdk.git'
+    git branch: "$branch", url: 'https://github.com/Saleslogix/argos-sdk.git'
   } catch(err) {
     try {
-      git branch: "$fallback", url: 'http://git.infor.com/scm/inforcrm/argos-sdk.git'
+      git branch: "$fallback", url: 'https://github.com/Saleslogix/argos-sdk.git'
     } catch(er) {
       slack.failure('Failed getting argos-sdk')
       throw er
