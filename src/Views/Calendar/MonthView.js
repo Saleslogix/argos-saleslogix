@@ -802,7 +802,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     if (options.currentDate) {
       this.currentDate = moment(options.currentDate)
         .startOf('day') || moment()
-          .startOf('day');
+        .startOf('day');
       this.refreshRequired = true;
     }
   },
