@@ -14,12 +14,12 @@
  */
 
 import declare from 'dojo/_base/declare';
+import domGeo from 'dojo/dom-geometry';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
-
 
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
@@ -88,6 +88,26 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '<div class="attachment-viewer-area">',
     '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
     '</div>',
+  ]),
+  pdfViewTemplate: new Simplate([
+    '<div class="row">',
+      '<div class="one-half column one-half-mobile">',
+        '<button type="button" class="btn-icon" style="position: absolute; left: 0px;">',
+          '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+            '<use xlink:href="#icon-previous-page"></use>',
+            '</svg>',
+        '</button>',
+      '</div>',
+      '<div class="one-half column one-half-mobile">',
+        '<button type="button" class="btn-icon" style="position: absolute; right: 0px;">',
+          '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+            '<use xlink:href="#icon-next-page"></use>',
+            '</svg>',
+        '</button>',
+      '</div>',
+    '</div>',
+    '<canvas id="pdfViewer">',
+    '</canvas>',
   ]),
   attachmentViewImageTemplate: new Simplate([
     '<div class="attachment-viewer-label" style="white-space:nowrap;">',
@@ -228,15 +248,52 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             $(tpl).addClass('display-none');
           });
         } else { // View file type in Iframe
-          if (this._viewImageOnly() === false) {
+          const attachmentid = entry.$key;
+
+          if (fileType === '.pdf') {
+            $(this.attachmentViewerNode).append(this.pdfViewTemplate.apply(data, this));
+            const box = domGeo.getMarginBox(this.domNode);
+            const pdfLib = window.pdfjsLib;
+            am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
+              const dataResponse = Utility.base64ArrayBuffer(responseInfo.response);
+              const task = pdfLib.getDocument({ data: atob(dataResponse) });
+              task.promise.then((pdf) => {
+                console.log('PDF Loaded.');
+                const pageNumber = 1;
+                pdf.getPage(pageNumber).then((page) => {
+                  const scale = 1;
+                  let viewport = page.getViewport(scale);
+                  const canvas = document.getElementById('pdfViewer');
+                  const context = canvas.getContext('2d');
+                  const desiredWidth = box.w;
+                  viewport = page.getViewport(desiredWidth / viewport.width);
+                  canvas.height = viewport.height;
+                  canvas.width = viewport.width;
+
+                  const renderContext = {
+                    canvasContext: context,
+                    viewport,
+                  };
+
+                  const renderTask = page.render(renderContext);
+                  renderTask.promise.then(() => {
+                    console.log('Page rendered.');
+                  });
+                });
+              }, (reason) => {
+                console.error('PDF Failed to load. ' + reason);
+              });
+            });
+          } else {
             $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
             const tpl = $(this.downloadingTemplate.apply(this));
             $(this.attachmentViewerNode).prepend(tpl);
             $(this.domNode).addClass('list-loading');
-            const attachmentid = entry.$key;
+
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
+              window.open(dataUrl, '_blank');
               $(tpl).addClass('display-none');
               const iframe = document.getElementById('attachment-Iframe');
               iframe.onload = function iframeOnLoad() {
@@ -245,8 +302,6 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
               $(tpl).addClass('display-none');
               this.setSrc(iframe, dataUrl);
             });
-          } else { // Only view images
-            $(this.attachmentViewerNode).append(this.attachmentViewNotSupportedTemplate.apply(entry, this));
           }
         }
       } else { // File type not allowed
