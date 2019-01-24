@@ -96,6 +96,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   ]),
   pdfViewTemplate: new Simplate([
     '<div class="pdf-controls">',
+    '<button type="button" class="first-page-button btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-first-page"></use>',
+    '</svg>',
+    '</button>',
     '<button type="button" class="prev-button btn-icon">',
     '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
     '<use xlink:href="#icon-previous-page"></use>',
@@ -105,6 +110,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '<button type="button" class="next-button btn-icon">',
     '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
     '<use xlink:href="#icon-next-page"></use>',
+    '</svg>',
+    '</button>',
+    '<button type="button" class="last-page-button btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-last-page"></use>',
     '</svg>',
     '</button>',
     '</div>',
@@ -183,6 +193,13 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   setSrc: function setSrc(iframe, url) {
     $(iframe).attr('src', url);
   },
+  onFirstPageClick: function onFirstPageClick() {
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    this.renderPdfPage(1);
+  },
   onPrevClick: function onPrevClick() {
     if (this.pdfIsLoading) {
       return;
@@ -196,6 +213,13 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     }
 
     this.renderPdfPage(this.pdfCurrentPage + 1);
+  },
+  onLastPageClick: function onLastPageClick() {
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    this.renderPdfPage(this.pdfTotalPages);
   },
   renderPdfPage: function renderPdfPage(pageNumber) {
     if (pageNumber < 1 || this.pdfDoc === null) {
@@ -345,6 +369,8 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             $(this.attachmentViewerNode).append(this.pdfViewTemplate.apply(data, this));
             $('.prev-button', this.attachmentViewerNode).on('click', this.onPrevClick.bind(this));
             $('.next-button', this.attachmentViewerNode).on('click', this.onNextClick.bind(this));
+            $('.first-page-button', this.attachmentViewerNode).on('click', this.onFirstPageClick.bind(this));
+            $('.last-page-button', this.attachmentViewerNode).on('click', this.onLastPageClick.bind(this));
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               this.loadPdfDocument(responseInfo);
             });
