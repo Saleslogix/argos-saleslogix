@@ -20,6 +20,7 @@ import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
+import ErrorManager from 'argos/ErrorManager';
 
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
@@ -231,8 +232,12 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
         this.pdfCurrentPage = pageNumber;
         this.pdfIsLoading = false;
         this.updatePageStats();
-      }, () => {
+      }, (reason) => {
         this.pdfIsLoading = false;
+        const fileName = this.entry && this.entry.fileName;
+        const message = `Failed to render page ${pageNumber} for PDF "${fileName}".`;
+        console.error(message, reason); // eslint-disable-line
+        ErrorManager.addSimpleError(message, reason);
       });
     });
   },
@@ -260,7 +265,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       this.pdfTotalPages = pdf.numPages;
       this.renderPdfPage(1);
     }, (reason) => {
-      console.error('PDF Failed to load. ' + reason); // eslint-disable-line
+      this.pdfIsLoading = false;
+      const fileName = this.entry && this.entry.fileName;
+      const message = `The PDF "${fileName}" failed to load.`;
+      console.error(message, reason); // eslint-disable-line
+      ErrorManager.addSimpleError(message, reason);
     });
   },
   _loadAttachmentView: function _loadAttachmentView(entry) {
