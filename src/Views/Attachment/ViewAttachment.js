@@ -247,6 +247,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   loadPdfDocument: function loadPdfDocument(responseInfo) {
     if (this.pdfDoc !== null) {
       this.pdfDoc.destroy();
+      this.pdfDoc = null;
     }
 
     const dataResponse = Utility.base64ArrayBuffer(responseInfo.response);
