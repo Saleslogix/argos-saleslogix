@@ -80,7 +80,7 @@ export default function bootstrap({
     ru: 'ru-RU',
     'zh-CN': 'zh-CN',
     'zh-TW': 'zh-TW',
-    es: 'es',
+    es: 'es-ES',
     'pt-BR': 'pt-BR',
     ja: 'ja-JP',
     nl: 'nl-NL',
@@ -110,11 +110,13 @@ export default function bootstrap({
   window.defaultregionalContext = defaultCtxRegional;
 
   // Set the window locale for the Soho Library
-  if (localesLong[currentLocale]) {
-    window.Locale.set(localesLong[currentLocale]);
+  const normalizedLocale = languageService.bestAvailableLocale(supportedLocales, currentLocale) || currentLocale;
+  const normalizedRegionLocale = languageService.bestAvailableLocale(supportedLocales, currentRegionLocale) || currentRegionLocale;
+  if (localesLong[normalizedLocale]) {
+    window.Locale.set(localesLong[normalizedLocale]);
   }
-  languageService.setLanguage(currentLocale || parentLocale || defaultLocale);
-  languageService.setRegion(currentRegionLocale || parentRegionLocale || defaultRegionLocale);
+  languageService.setLanguage(normalizedLocale || currentLocale || parentLocale || defaultLocale);
+  languageService.setRegion(normalizedRegionLocale || currentRegionLocale || parentRegionLocale || defaultRegionLocale);
 
   Promise.all([new Promise((resolve) => {
     ctxRegional.ready(() => resolve(true));
@@ -155,8 +157,8 @@ export default function bootstrap({
           instance.context.localization = {
             localeContext: ctx,
             defaultLocaleContext: defaultCtx,
-            locale: currentLocale || defaultLocale,
-            region: currentRegionLocale || defaultRegionLocale,
+            locale: normalizedLocale || currentLocale || defaultLocale,
+            region: normalizedRegionLocale || currentRegionLocale || defaultRegionLocale,
             supportedLocales,
           };
           instance.localeContext = ctx;
