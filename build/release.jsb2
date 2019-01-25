@@ -355,9 +355,6 @@
           "text": "PicklistService.js",
           "path": "../src-out/Integrations/BOE/"
         }, {
-          "text": "AccountPxSearch.js",
-          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
-        }, {
           "text": "Names.js",
           "path": "../src-out/Integrations/Contour/Models/"
         }, {
@@ -450,6 +447,9 @@
         }, {
           "text": "PricingAvailabilityList.js",
           "path": "../src-out/Integrations/BOE/Views/Locations/"
+        }, {
+          "text": "AccountPxSearch.js",
+          "path": "../src-out/Integrations/Contour/Views/PxSearch/"
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Address/"
