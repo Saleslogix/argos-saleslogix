@@ -90,6 +90,7 @@
         locale: language || 'en',
         extraLocale: [regionLocale || 'en-us']
     };
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "content/javascript/pdf.worker.min.js";
 </script>
 <script type="text/javascript" src="content/dojo/dojo/dojo.js"></script>
 

@@ -14,12 +14,13 @@
  */
 
 import declare from 'dojo/_base/declare';
+import domGeo from 'dojo/dom-geometry';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
-
+import ErrorManager from 'argos/ErrorManager';
 
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
@@ -68,6 +69,10 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   },
   queryInclude: ['$descriptors'],
   dataURL: null,
+  pdfDoc: null,
+  pdfTotalPages: 0,
+  pdfCurrentPage: 0,
+  pdfIsLoading: false,
   notSupportedTemplate: new Simplate([
     '<h2>{%= $$.notSupportedText %}</h2>',
   ]),
@@ -88,6 +93,33 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '<div class="attachment-viewer-area">',
     '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
     '</div>',
+  ]),
+  pdfViewTemplate: new Simplate([
+    '<div class="pdf-controls">',
+    '<button type="button" class="first-page-button btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-first-page"></use>',
+    '</svg>',
+    '</button>',
+    '<button type="button" class="prev-button btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-previous-page"></use>',
+    '</svg>',
+    '</button>',
+    '<div class="page-stats"></div>',
+    '<button type="button" class="next-button btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-next-page"></use>',
+    '</svg>',
+    '</button>',
+    '<button type="button" class="last-page-button btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-last-page"></use>',
+    '</svg>',
+    '</button>',
+    '</div>',
+    '<canvas id="pdfViewer">',
+    '</canvas>',
   ]),
   attachmentViewImageTemplate: new Simplate([
     '<div class="attachment-viewer-label" style="white-space:nowrap;">',
@@ -161,6 +193,109 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   setSrc: function setSrc(iframe, url) {
     $(iframe).attr('src', url);
   },
+  onFirstPageClick: function onFirstPageClick() {
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    this.renderPdfPage(1);
+  },
+  onPrevClick: function onPrevClick() {
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    this.renderPdfPage(this.pdfCurrentPage - 1);
+  },
+  onNextClick: function onNextClick() {
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    this.renderPdfPage(this.pdfCurrentPage + 1);
+  },
+  onLastPageClick: function onLastPageClick() {
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    this.renderPdfPage(this.pdfTotalPages);
+  },
+  renderPdfPage: function renderPdfPage(pageNumber) {
+    if (pageNumber < 1 || this.pdfDoc === null) {
+      return;
+    }
+
+    if (pageNumber > this.pdfDoc.numPages) {
+      return;
+    }
+
+    if (this.pdfIsLoading) {
+      return;
+    }
+
+    const box = domGeo.getMarginBox(this.domNode);
+    this.pdfDoc.getPage(pageNumber).then((page) => {
+      const scale = 1;
+      let viewport = page.getViewport(scale);
+      const canvas = document.getElementById('pdfViewer');
+      const context = canvas.getContext('2d');
+      const desiredWidth = box.w;
+      viewport = page.getViewport(desiredWidth / viewport.width);
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      const renderContext = {
+        canvasContext: context,
+        viewport,
+      };
+
+      this.pdfIsLoading = true;
+      const renderTask = page.render(renderContext);
+      renderTask.promise.then(() => {
+        this.pdfCurrentPage = pageNumber;
+        this.pdfIsLoading = false;
+        this.updatePageStats();
+      }, (reason) => {
+        this.pdfIsLoading = false;
+        const fileName = this.entry && this.entry.fileName;
+        const message = `Failed to render page ${pageNumber} for PDF "${fileName}".`;
+        console.error(message, reason); // eslint-disable-line
+        ErrorManager.addSimpleError(message, reason);
+      });
+    });
+  },
+  updatePageStats: function updatePageStats() {
+    if (!this.pdfDoc) {
+      return;
+    }
+
+    const node = $('.page-stats', this.attachmentViewerNode).first();
+    node.text(`${this.pdfCurrentPage} / ${this.pdfTotalPages}`);
+  },
+  loadPdfDocument: function loadPdfDocument(responseInfo) {
+    if (this.pdfDoc !== null) {
+      this.pdfDoc.destroy();
+      this.pdfDoc = null;
+    }
+
+    const dataResponse = Utility.base64ArrayBuffer(responseInfo.response);
+    const task = window.pdfjsLib.getDocument({ data: atob(dataResponse) });
+    this.pdfIsLoading = true;
+    task.promise.then((pdf) => {
+      this.pdfIsLoading = false;
+      this.pdfDoc = pdf;
+      this.pdfCurrentPage = 1;
+      this.pdfTotalPages = pdf.numPages;
+      this.renderPdfPage(1);
+    }, (reason) => {
+      this.pdfIsLoading = false;
+      const fileName = this.entry && this.entry.fileName;
+      const message = `The PDF "${fileName}" failed to load.`;
+      console.error(message, reason); // eslint-disable-line
+      ErrorManager.addSimpleError(message, reason);
+    });
+  },
   _loadAttachmentView: function _loadAttachmentView(entry) {
     const am = new AttachmentManager();
     let description;
@@ -228,12 +363,23 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             $(tpl).addClass('display-none');
           });
         } else { // View file type in Iframe
-          if (this._viewImageOnly() === false) {
+          const attachmentid = entry.$key;
+
+          if (fileType === '.pdf') {
+            $(this.attachmentViewerNode).append(this.pdfViewTemplate.apply(data, this));
+            $('.prev-button', this.attachmentViewerNode).on('click', this.onPrevClick.bind(this));
+            $('.next-button', this.attachmentViewerNode).on('click', this.onNextClick.bind(this));
+            $('.first-page-button', this.attachmentViewerNode).on('click', this.onFirstPageClick.bind(this));
+            $('.last-page-button', this.attachmentViewerNode).on('click', this.onLastPageClick.bind(this));
+            am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
+              this.loadPdfDocument(responseInfo);
+            });
+          } else {
             $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
             const tpl = $(this.downloadingTemplate.apply(this));
             $(this.attachmentViewerNode).prepend(tpl);
             $(this.domNode).addClass('list-loading');
-            const attachmentid = entry.$key;
+
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
@@ -245,8 +391,6 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
               $(tpl).addClass('display-none');
               this.setSrc(iframe, dataUrl);
             });
-          } else { // Only view images
-            $(this.attachmentViewerNode).append(this.attachmentViewNotSupportedTemplate.apply(entry, this));
           }
         }
       } else { // File type not allowed
