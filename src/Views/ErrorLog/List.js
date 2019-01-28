@@ -17,7 +17,7 @@ import declare from 'dojo/_base/declare';
 import Memory from 'dojo/store/Memory';
 import convert from 'argos/Convert';
 import ErrorManager from 'argos/ErrorManager';
-import List from 'argos/List';
+import List from 'argos/_ListBase';
 import getResource from 'argos/I18n';
 
 const resource = getResource('errorLogList');
@@ -40,7 +40,6 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Templates
   itemTemplate: new Simplate([
     '<p class="listview-heading">{%: crm.Format.date($.Date, (App.is24HourClock()) ? $$.errorDateFormatText24 : $$.errorDateFormatText) %}</p>',
-    '<p class="micro-text">{%: $.Description %}</p>',
   ]),
 
   // View Properties
@@ -50,6 +49,8 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   hideSearch: true,
   expose: false,
   detailView: 'errorlog_detail',
+  idProperty: '$key',
+  labelProperty: 'Description',
 
   _onRefresh: function _onRefresh(o) {
     this.inherited(arguments);
@@ -73,6 +74,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
 
     return new Memory({
       data: errorItems,
+      idProperty: this.idProperty,
     });
   },
   createToolLayout: function createToolLayout() {

@@ -50,24 +50,9 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
     '</pre>',
     '</div>',
   ]),
-  copyButtonTemplate: new Simplate([
-    '<div class="copyButton button toolButton toolButton-right">',
-    '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="40" height="36" id="errorlog-detail-copy" class="fa fa-clipboard fa-lg">',
-    '<param name="movie" value="content/clippy.swf"/>',
-    '<param name="allowScriptAccess" value="always" />',
-    '<param name="quality" value="high" />',
-    '<param name="scale" value="noscale" />',
-    '<param name="FlashVars" value="{%= $.flashVars %}" />',
-    '<param name="wmode" value="transparent" />',
-    '<embed src="content/clippy.swf" width="45" height="36" scale="noscale" name="clippy" quality="high" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="{%= $.flashVars %}" wmode="transparent" />',
-    '</object>',
-    '</div>',
-  ]),
-
 
   // View Properties
   id: 'errorlog_detail',
-  sendType: null,
 
   /**
    * Email address to be placed in the "To:" field when sending a report via a mobile device
@@ -76,7 +61,6 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
 
   init: function init() {
     this.inherited(arguments);
-    this.determineSendType();
   },
 
   createToolLayout: function createToolLayout() {
@@ -84,69 +68,19 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
       tbar: [],
     };
 
-    if (this.sendType === 'mailto') {
-      tools.tbar.push({
-        id: 'generateEmail',
-        action: 'constructReport',
-        svg: 'mail',
-        title: 'Generate Email Report',
-      });
-    }
-
-    if (this.sendType === 'copy') {
-      const flashVars = this.constructFlashVars({
-        retrieveFunction: `App.views.${this.id}.constructReport`,
-        callbackFunction: `App.views.${this.id}.onCopySuccess`,
-        labelVisible: '0',
-      });
-
-      tools.tbar.push({
-        template: this.copyButtonTemplate,
-        flashVars,
-      });
-    }
+    tools.tbar.push({
+      id: 'generateEmail',
+      action: 'constructReport',
+      svg: 'mail',
+      title: 'Generate Email Report',
+    });
 
     return this.tools || tools;
   },
 
-  /**
-   * Determines the method to use for sending the error report
-   * 'mailto': Used on Mobile devices to indicate to form a mailto: url
-   * 'copy': Used on desktops to indicate a "copy" button should be placed on the page
-   */
-  determineSendType: function determineSendType() {
-    switch (true) {
-      case (typeof window.orientation !== 'undefined'):
-        this.sendType = 'mailto';
-        break;
-      default:
-        this.sendType = 'copy';
-    }
-  },
-
-  constructFlashVars: function constructFlashVars(options) {
-    const flashVars = [];
-    for (const key in options) {
-      if (options.hasOwnProperty(key)) {
-        flashVars.push(`${key}=${options[key]}`);
-      }
-    }
-
-    return flashVars.join('&');
-  },
-
-  onCopySuccess: function onCopySuccess() {
-    alert(this.copiedSuccessText); // eslint-disable-line
-  },
-
   constructReport: function constructReport() {
     const body = `\r\n\r\n\r\n-----------------\r\n${json.toJson(this.entry, true)}`;
-
-    if (this.sendType === 'mailto') {
-      this.sendEmailReport(body);
-    } else {
-      return body;
-    }
+    this.sendEmailReport(body);
   },
 
   sendEmailReport: function sendEmailReport(body) {

@@ -5,7 +5,6 @@ CACHE MANIFEST
 CACHE:
 configuration/development.js
 configuration/production.js
-content/clippy.swf
 content/css/app.min.css
 content/css/app.min.debug.css
 content/css/themes/crm/sdk.min.crm.css
