@@ -185,7 +185,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends c
       Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
   },
   time: function time(val, type = 'days') {
-    const numParse = typeof val !== 'number' ? this.formatModule.fixedLocale(parseFloat(val), 2) : this.formatModule.fixedLocale(val, 2);
+    const numParse = crm.Format.fixedLocale(val, 2);
     let results = val;
     switch (type) { // eslint-disable-line
       case 'days':
