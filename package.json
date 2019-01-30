@@ -44,7 +44,6 @@
     "jsdoc": "^3.5.5",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "node-sass": "^4.9.4",
     "spdy": "^3.4.4"
   },
   "dependencies": {}
