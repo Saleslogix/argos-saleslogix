@@ -68,10 +68,10 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     return format.fixedLocale(n, 2);
   },
   distanceText() {
-    return (App.isRegionMetric) ? this.kilometerAbbrevText : this.mileAbbrevText;
+    return App.isCurrentRegionMetric() ? this.kilometerAbbrevText : this.mileAbbrevText;
   },
   distanceCalc(gLat, gLon) {
-    const conv = (App.isRegionMetric) ? 1.609344 : 1;
+    const conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
     return conv * Math.sqrt(
       Math.pow((69.1 * (gLat - this.lat)), 2) +
       Math.pow((53.0 * (gLon - this.lon)), 2)
@@ -133,7 +133,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     return request;
   },
   _requestDistanceCalc() {
-    const conv = (App.isRegionMetric) ? 1.609344 : 1;
+    const conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
     return `((${conv} mul sqrt((((69.1 mul (Address.GeocodeLatitude-(${this.lat})))) mul (69.1 mul (Address.GeocodeLatitude-(${this.lat}))))+((53 mul (Address.GeocodeLongitude-(${this.lon}))) mul (53 mul (Address.GeocodeLongitude-(${this.lon})))))) lt ${this.maxDistance})`;
   },
   requestData() {
