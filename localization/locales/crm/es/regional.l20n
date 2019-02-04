@@ -21,8 +21,8 @@
 >
 
 <attachmentListDateTimeFormat ""
-  attachmentDateFormatText: "ddd D/M/YYYY hh:mm a"
-  attachmentDateFormatText24: "ddd D/M/YYYY HH:mm"
+  attachmentTimeFormatText: "h:mm:ss a"
+  attachmentTimeFormatText24: "HH:mm:ss"
 >
 
 <attachmentViewDateTimeFormat ""
@@ -36,7 +36,7 @@
   eventDateFormatText: "M/D"
   startTimeFormatText: "h:mm A"
   startTimeFormatText24: "HH:mm"
-  dayHeaderFormat: "dddd, MMMM D"
+  dayHeaderFormat: "dddd, D [de] MMMM"
 >
 
 <calendarDayViewDateTimeFormat ""
