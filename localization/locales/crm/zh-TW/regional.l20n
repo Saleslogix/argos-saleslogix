@@ -21,8 +21,8 @@
 >
 
 <attachmentListDateTimeFormat ""
-  attachmentDateFormatText: "ddd YYYY-M-D hh:mm:ss A"
-  attachmentDateFormatText24: "ddd YYYY-M-D HH:mm:ss"
+  attachmentTimeFormatText: "h:mm:ss A"
+  attachmentTimeFormatText24: "HH:mm:ss"
 >
 
 <attachmentViewDateTimeFormat ""

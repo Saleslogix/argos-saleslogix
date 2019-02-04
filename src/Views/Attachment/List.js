@@ -21,6 +21,7 @@ import convert from 'argos/Convert';
 import _RightDrawerListMixin from '../_RightDrawerListMixin';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
+import format from '../../Format';
 
 
 const resource = getResource('attachmentList');
@@ -77,8 +78,8 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
 
   // Localization
   titleText: resource.titleText,
-  attachmentDateFormatText: dtFormatResource.attachmentDateFormatText,
-  attachmentDateFormatText24: dtFormatResource.attachmentDateFormatText24,
+  attachmentTimeFormatText: dtFormatResource.attachmentTimeFormatText,
+  attachmentTimeFormatText24: dtFormatResource.attachmentTimeFormatText24,
   uploadedOnText: resource.uploadedOnText, // Uploaded 10 days ago
   touchedText: resource.touchedText,
 
@@ -202,7 +203,8 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
   },
   buildUploadedText: function buildUploadedText(date) {
     const modifiedDate = moment(date).toDate();
-    return string.substitute(this.uploadedOnText, [modifiedDate.toLocaleDateString(), modifiedDate.toLocaleTimeString()]);
+    return string.substitute(this.uploadedOnText, [format.date(modifiedDate),
+      format.date(modifiedDate, App.is24HourClock() ? this.attachmentTimeFormatText24 : this.attachmentTimeFormatText)]);
   },
 });
 
