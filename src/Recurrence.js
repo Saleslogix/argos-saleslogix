@@ -38,6 +38,8 @@ const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
   weekdayFormatText: dtFormatResource.weekdayFormatText,
   endDateFormatText: dtFormatResource.endDateFormatText,
   dateFormatText: dtFormatResource.endDateFormatText,
+  timeFormatText: dtFormatResource.timeFormatText,
+  timeFormatText24: dtFormatResource.timeFormatText24,
   singleActivitySummary: resource.singleActivitySummary,
   dailySummary: resource.dailySummary,
   dailyEverySummary: resource.dailyEverySummary,
@@ -327,6 +329,12 @@ const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
     const weekdays = this.getWeekdays(recurPeriodSpec, true);
     const month = momentCurrentDate.localeData().months(momentCurrentDate);
 
+    let timeFormatted = momentCurrentDate.format(this.timeFormatText);
+
+    if (App && App.is24HourClock()) {
+      timeFormatted = momentCurrentDate.format(this.timeFormatText24);
+    }
+
     // eslint-disable-next-line guard-for-in
     for (const key in weekdays) {
       if (weekdays[key] && parseInt(key, 10) < weekdays.length - 1) {
@@ -337,7 +345,7 @@ const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
 
     return [
       interval,
-      currentDate.toLocaleTimeString(),
+      timeFormatted,
       momentCurrentDate.format(this.dateFormatText),
       this.calcEndDate(currentDate, entry).format(this.endDateFormatText),
       weekdaysString,

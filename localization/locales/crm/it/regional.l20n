@@ -142,4 +142,6 @@
   monthAndDayFormatText: "MM/DD"
   weekdayFormatText: "dddd"
   endDateFormatText: "D/M/YYYY"
+  timeFormatText: "h:mm:ss A"
+  timeFormatText24: "HH:mm:ss"
 >

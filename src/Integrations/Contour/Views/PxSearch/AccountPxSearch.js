@@ -23,6 +23,7 @@ import List from 'argos/List';
 import format from '../../../../Format';
 import _LegacyListBase from 'argos/_LegacySDataListMixin';
 import getResource from 'argos/I18n';
+import ErrorManager from 'argos/ErrorManager';
 
 
 const resource = getResource('acctPxSearch');
@@ -117,7 +118,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   lat: null, // latitude
   lon: null, // longitude
 
-  createRequest() {
+  createRequest: function createRequest() {
     const request = new Sage.SData.Client.SDataBaseRequest(this.getService());
     const pageSize = this.pageSize;
     const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
@@ -136,7 +137,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     const conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
     return `((${conv} mul sqrt((((69.1 mul (Address.GeocodeLatitude-(${this.lat})))) mul (69.1 mul (Address.GeocodeLatitude-(${this.lat}))))+((53 mul (Address.GeocodeLongitude-(${this.lon}))) mul (53 mul (Address.GeocodeLongitude-(${this.lon})))))) lt ${this.maxDistance})`;
   },
-  requestData() {
+  requestData: function requestData() {
     this.loadAccountTypes();
     $(this.domNode).addClass('list-loading');
 
@@ -155,7 +156,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     }
   },
   // custom request data success method to insert our "me" at the front
-  onRequestDataSuccess(feed) {
+  onRequestDataSuccess: function onRequestDataSuccess(feed) {
     const feedResources = feed.$resources;
     if (feedResources) {
       for (let i = 0; i < feed.$resources.length; i++) {
@@ -213,18 +214,20 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
 
     this._loadPreviousSelections();
   },
-  geoLocationError() {
-    alert(this.currentLocationErrorText); // eslint-disable-line
+  geoLocationError: function geoLocationError(positionError) {
+    App.toast.add({ title: this.currentLocationErrorText, message: positionError.message });
     $(this.domNode).removeClass('list-loading');
+    this.set('listContent', '');
+    ErrorManager.addSimpleError('Geolocation error.', positionError.message);
   },
-  geoLocationReceived(position) {
+  geoLocationReceived: function geoLocationReceived(position) {
     this.lat = position.coords.latitude;
     this.lon = position.coords.longitude;
     this.requestData();
   },
   options: {},
   // always refresh
-  refreshRequiredFor(options) {
+  refreshRequiredFor: function refreshRequiredFor(options) {
     if (!options) { // if no options were passed in, then we are searching from an account
       this.lat = null;
       this.lon = null;
@@ -232,18 +235,18 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     }
     return true;
   },
-  createToolLayout() {
+  createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
       tbar: [],
     });
   },
-  init() {
+  init: function init() {
     this.startup();
     this.initConnects();
     this.titleEl = document.getElementById('pageTitle');
     this.inherited(arguments);
   },
-  loadAccountTypes() {
+  loadAccountTypes: function loadAccountTypes() {
     this.queryTypeEl = document.getElementById('queryType');
     this.queryTypeEl.onchange = lang.hitch(this, 'onAccountTypeChange'); // this.;
     const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
@@ -261,12 +264,12 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       scope: this,
     });
   },
-  onAccountTypeChange() {
+  onAccountTypeChange: function onAccountTypeChange() {
     this.acctType = this.queryTypeEl.value;
     this.clear();
     this.requestData();
   },
-  onAccountTypeLoad(data) {
+  onAccountTypeLoad: function onAccountTypeLoad(data) {
     if (this.queryTypeEl.options && this.queryTypeEl.options.length > 0) {
       return;
     }
@@ -278,7 +281,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
       }
     }
   },
-  formatSearchQuery(qry) {
+  formatSearchQuery: function formatSearchQuery(qry) {
     return `AccountName like "${this.escapeSearchQuery(qry)}%"`;
   },
   createActionLayout: function createActionLayout() {
