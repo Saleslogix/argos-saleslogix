@@ -3,7 +3,7 @@
   searchResults: "Search Results"
   multiSystemDetected: "More than one accounting system has been detected. Select a system to begin the link process."
   createLink: "Create a Link in"
-  backOffice: "BackOffice:"
+  backOffice: "Back Office:"
   accountingEntity: "System Accounting Entity:"
   cancelText: "Cancel"
   promoteText: "Promote"
