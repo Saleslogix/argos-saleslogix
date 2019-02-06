@@ -7,7 +7,7 @@
   accountingEntity: "Entidade de Sistema Contábil:"
   cancelText: "Cancelar"
   promoteText: "Promover"
-  noBackOfficesText: "Não foi encontrado nenhum backoffice no sistema. Não é possível promover a conta a menos que um backoffice seja fornecido."
+  noBackOfficesText: "Não foi encontrado nenhum back office no sistema. Não é possível promover a conta a menos que um back office seja fornecido."
   promotionRequested: "Promoção Solicitada"
   promotionText: "A entrada foi submetida para promoção com sucesso."
   errorMessage: "Erro ao promover conta pela razão: ${reason}"
