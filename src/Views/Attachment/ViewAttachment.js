@@ -176,6 +176,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   onTransitionAway: function onTransitionAway() {
     $(window).off('resize', this._renderFn);
     connect.unsubscribe(this._orientationHandle);
+    this._orientationHandle = null;
   },
   show: function show(options) {
     this.inherited(arguments);
