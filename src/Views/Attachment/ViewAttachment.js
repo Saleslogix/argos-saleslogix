@@ -167,15 +167,15 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
   ]),
   onTransitionTo: function onTransitionTo() {
-    const _renderFn = () => {
-      if (this.pdfDoc) {
-        this.pdfScale = 1;
-        this.renderPdfPage(this.pdfCurrentPage);
-      }
-    };
-
-    this._orientationHandle = connect.subscribe('/app/setOrientation', this, _renderFn);
-    $(window).on('resize', _renderFn);
+    if (this._orientationHandle) {
+      return;
+    }
+    this._orientationHandle = connect.subscribe('/app/setOrientation', this, this._renderFn);
+    $(window).on('resize', this._renderFn);
+  },
+  onTransitionAway: function onTransitionAway() {
+    $(window).off('resize', this._renderFn);
+    connect.unsubscribe(this._orientationHandle);
   },
   show: function show(options) {
     this.inherited(arguments);
@@ -190,6 +190,12 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       if (options.key === this.entry.$key) {
         this._loadAttachmentView(this.entry);
       }
+    }
+  },
+  _renderFn: function _renderFn() {
+    if (this.pdfDoc) {
+      this.pdfScale = 1;
+      this.renderPdfPage(this.pdfCurrentPage);
     }
   },
   processEntry: function processEntry(entry) {
