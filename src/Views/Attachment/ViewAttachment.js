@@ -15,6 +15,7 @@
 
 import declare from 'dojo/_base/declare';
 import domGeo from 'dojo/dom-geometry';
+import connect from 'dojo/_base/connect';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import Detail from 'argos/Detail';
@@ -73,6 +74,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   pdfTotalPages: 0,
   pdfCurrentPage: 0,
   pdfIsLoading: false,
+  pdfScale: 1,
   notSupportedTemplate: new Simplate([
     '<h2>{%= $$.notSupportedText %}</h2>',
   ]),
@@ -107,6 +109,16 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '</svg>',
     '</button>',
     '<div class="page-stats"></div>',
+    '<button type="button" class="zoom-out btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-zoom-out"></use>',
+    '</svg>',
+    '</button>',
+    '<button type="button" class="zoom-in btn-icon">',
+    '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
+    '<use xlink:href="#icon-zoom-in"></use>',
+    '</svg>',
+    '</button>',
     '<button type="button" class="next-button btn-icon">',
     '<svg role="presentation" aria-hidden="true" focusable="false" class="icon">',
     '<use xlink:href="#icon-next-page"></use>',
@@ -118,8 +130,10 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '</svg>',
     '</button>',
     '</div>',
+    '<div style="overflow-x:auto">',
     '<canvas id="pdfViewer">',
     '</canvas>',
+    '</div>',
   ]),
   attachmentViewImageTemplate: new Simplate([
     '<div class="attachment-viewer-label" style="white-space:nowrap;">',
@@ -152,6 +166,18 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   downloadingTemplate: new Simplate([
     '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
   ]),
+  onTransitionTo: function onTransitionTo() {
+    if (this._orientationHandle) {
+      return;
+    }
+    this._orientationHandle = connect.subscribe('/app/setOrientation', this, this._renderFn);
+    $(window).on('resize', this._renderFn);
+  },
+  onTransitionAway: function onTransitionAway() {
+    $(window).off('resize', this._renderFn);
+    connect.unsubscribe(this._orientationHandle);
+    this._orientationHandle = null;
+  },
   show: function show(options) {
     this.inherited(arguments);
     this.attachmentViewerNode.innerHTML = '';
@@ -165,6 +191,12 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       if (options.key === this.entry.$key) {
         this._loadAttachmentView(this.entry);
       }
+    }
+  },
+  _renderFn: function _renderFn() {
+    if (this.pdfDoc) {
+      this.pdfScale = 1;
+      this.renderPdfPage(this.pdfCurrentPage);
     }
   },
   processEntry: function processEntry(entry) {
@@ -221,6 +253,20 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
 
     this.renderPdfPage(this.pdfTotalPages);
   },
+  onZoomOutClick: function onZoomOutClick() {
+    if (this.pdfIsLoading || this.pdfScale >= 1.5) {
+      return;
+    }
+    this.pdfScale += 0.25;
+    this.renderPdfPage(this.pdfCurrentPage);
+  },
+  onZoomInClick: function onZoomInClick() {
+    if (this.pdfIsLoading || this.pdfScale <= 0.25) {
+      return;
+    }
+    this.pdfScale -= 0.25;
+    this.renderPdfPage(this.pdfCurrentPage);
+  },
   renderPdfPage: function renderPdfPage(pageNumber) {
     if (pageNumber < 1 || this.pdfDoc === null) {
       return;
@@ -236,7 +282,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
 
     const box = domGeo.getMarginBox(this.domNode);
     this.pdfDoc.getPage(pageNumber).then((page) => {
-      const scale = 1;
+      const scale = this.pdfScale;
       let viewport = page.getViewport(scale);
       const canvas = document.getElementById('pdfViewer');
       const context = canvas.getContext('2d');
@@ -371,6 +417,8 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
             $('.next-button', this.attachmentViewerNode).on('click', this.onNextClick.bind(this));
             $('.first-page-button', this.attachmentViewerNode).on('click', this.onFirstPageClick.bind(this));
             $('.last-page-button', this.attachmentViewerNode).on('click', this.onLastPageClick.bind(this));
+            $('.zoom-in', this.attachmentViewerNode).on('click', this.onZoomInClick.bind(this));
+            $('.zoom-out', this.attachmentViewerNode).on('click', this.onZoomOutClick.bind(this));
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               this.loadPdfDocument(responseInfo);
             });
