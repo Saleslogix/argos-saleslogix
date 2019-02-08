@@ -458,7 +458,6 @@ class Application extends SDKApplication {
       success: this.onAuthenticateUserSuccess.bind(this, credentials, options.success, options.scope),
       failure: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
       aborted: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
-      timeout: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
     });
   }
   hasAccessTo(security) {
