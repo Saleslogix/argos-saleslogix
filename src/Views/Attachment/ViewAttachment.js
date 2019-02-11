@@ -170,11 +170,12 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     if (this._orientationHandle) {
       return;
     }
+    const _renderFn = this._renderFn.bind(this);
     this._orientationHandle = connect.subscribe('/app/setOrientation', this, this._renderFn);
-    $(window).on('resize', this._renderFn);
+    $(window).on('resize.attachment', _renderFn);
   },
   onTransitionAway: function onTransitionAway() {
-    $(window).off('resize', this._renderFn);
+    $(window).off('resize.attachment');
     connect.unsubscribe(this._orientationHandle);
     this._orientationHandle = null;
   },
