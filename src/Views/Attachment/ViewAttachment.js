@@ -130,7 +130,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '</svg>',
     '</button>',
     '</div>',
-    '<div style="overflow-x:auto">',
+    '<div style="overflow:scroll;">',
     '<canvas id="pdfViewer">',
     '</canvas>',
     '</div>',
