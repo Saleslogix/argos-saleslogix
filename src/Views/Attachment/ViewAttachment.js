@@ -199,10 +199,12 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     }
   },
   _renderFn: function _renderFn() {
-    if (this.pdfDoc) {
-      this.pdfScale = 1;
-      this.renderPdfPage(this.pdfCurrentPage);
-    }
+    setTimeout(() => {
+      if (this.pdfDoc && !this.pdfIsLoading) {
+        this.pdfScale = 1;
+        this.renderPdfPage(this.pdfCurrentPage);
+      }
+    }, 100);
   },
   processEntry: function processEntry(entry) {
     this.inherited(arguments);
