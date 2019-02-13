@@ -293,7 +293,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
       const context = canvas.getContext('2d');
       const desiredWidth = box.w;
       viewport = page.getViewport(desiredWidth / viewport.width);
-      canvas.height = viewport.height;
+      canvas.height = viewport.height < box.h ? box.h : viewport.height;
       canvas.width = viewport.width;
 
       const renderContext = {
