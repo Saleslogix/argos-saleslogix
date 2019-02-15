@@ -18,6 +18,7 @@ import domGeo from 'dojo/dom-geometry';
 import connect from 'dojo/_base/connect';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
+import has from 'dojo/has';
 import Detail from 'argos/Detail';
 import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
@@ -75,6 +76,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   pdfCurrentPage: 0,
   pdfIsLoading: false,
   pdfScale: 1,
+  RENDER_DELAY: has('ios') < 8 ? 500 : 16 || 500, // Work around IOS7 orientation change issues
   notSupportedTemplate: new Simplate([
     '<h2>{%= $$.notSupportedText %}</h2>',
   ]),
@@ -170,8 +172,13 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     if (this._orientationHandle) {
       return;
     }
-    const _renderFn = this._renderFn.bind(this);
-    this._orientationHandle = connect.subscribe('/app/setOrientation', this, this._renderFn);
+    const _renderFn = Utility.debounce(() => {
+      if (this.pdfDoc && !this.pdfIsLoading) {
+        this.pdfScale = 1;
+        this.renderPdfPage(this.pdfCurrentPage);
+      }
+    }, this.RENDER_DELAY);
+    this._orientationHandle = connect.subscribe('/app/setOrientation', this, _renderFn);
     $(window).on('resize.attachment', _renderFn);
     $(window).on('applicationmenuclose.attachment', _renderFn);
     $(window).on('applicationmenuopen.attachment', _renderFn);
@@ -197,14 +204,6 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
         this._loadAttachmentView(this.entry);
       }
     }
-  },
-  _renderFn: function _renderFn() {
-    setTimeout(() => {
-      if (this.pdfDoc && !this.pdfIsLoading) {
-        this.pdfScale = 1;
-        this.renderPdfPage(this.pdfCurrentPage);
-      }
-    }, 100);
   },
   processEntry: function processEntry(entry) {
     this.inherited(arguments);
