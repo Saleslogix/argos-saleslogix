@@ -132,7 +132,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '</svg>',
     '</button>',
     '</div>',
-    '<div style="overflow:auto;">',
+    '<div style="overflow:auto; min-height:100%;">', // min-height to fix iOS <= 9 issues with scroll
     '<canvas id="pdfViewer">',
     '</canvas>',
     '</div>',
