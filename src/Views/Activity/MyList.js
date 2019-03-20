@@ -60,7 +60,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     `<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
       <div class="widget">
         <div class="widget-header">
-          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getTitle($) %}</h2>
           {% if($$.visibleActions.length > 0 && $$.enableActions) { %}
             <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
               <span class="audible">Actions</span>
@@ -542,6 +542,12 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
   getItemDescriptor: function getItemDescriptor(entry) {
     return entry.Activity.$descriptor;
   },
+  getTitle: function getTitle(entry) {
+    if (entry && entry.Activity) {
+      return this._model.getEntityDescription(entry.Activity) || entry.Activity.$descriptor;
+    }
+    return '';
+  },
   hasContactOrLead: function hasContactOrLead(theAction, selection) {
     return (selection.data.Activity.ContactId) || (selection.data.Activity.LeadId);
   },
@@ -635,6 +641,16 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       },
     };
     return entity;
+  },
+  activateEntry: function activateEntry(params) {
+    const entry = this.entries[params.myActivityKey];
+    if (entry) {
+      const activityParams = params;
+      activityParams.descriptor = this._model.getEntityDescription(entry.Activity);
+      this.inherited(arguments, [activityParams]);
+    } else {
+      this.inherited(arguments);
+    }
   },
 });
 
