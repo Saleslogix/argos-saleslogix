@@ -167,6 +167,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         queryArgs: {
           _filterName: 'EstimatedClose',
           _metricName: 'SumSalesPotential',
+          language: App.getCurrentLocale(),
         },
         chartType: 'line',
         aggregate: 'avg',
