@@ -72,7 +72,6 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
       id: 'generateEmail',
       action: 'constructReport',
       svg: 'mail',
-      title: 'Generate Email Report',
     });
 
     return this.tools || tools;
