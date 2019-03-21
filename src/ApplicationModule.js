@@ -184,7 +184,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
 
     this.registerView(new LogOff());
 
-    this.registerView(new LeftDrawer(), $('.application-menu', this.application.getContainerNode()).first().get(0));
+    this.registerView(new LeftDrawer(), $('.application-menu', this.application.getContainerNode()).first().get(0), 'last');
 
     const modalBody = $('.modal-body', this.application.viewSettingsModal.element);
     this.registerView(new RightDrawer(), modalBody.first().get(0));
