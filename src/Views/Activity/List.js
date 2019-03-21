@@ -81,7 +81,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     `<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">
       <div class="widget">
         <div class="widget-header">
-          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getItemDescriptor($) %}</h2>
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getTitle($) %}</h2>
           <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
             <span class="audible">Actions</span>
             <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
@@ -193,6 +193,12 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   },
   getItemDescriptor: function getItemDescriptor(entry) {
     return entry.$descriptor;
+  },
+  getTitle: function getTitle(entry) {
+    if (entry) {
+      return this._model.getEntityDescription(entry) || entry.$descriptor;
+    }
+    return '';
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
@@ -386,6 +392,16 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   },
   onRequestFailure: function onRequestFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');
+  },
+  activateEntry: function activateEntry(params) {
+    const entry = this.entries[params.key];
+    if (entry) {
+      const activityParams = params;
+      activityParams.descriptor = this._model.getEntityDescription(entry);
+      this.inherited(arguments, [activityParams]);
+    } else {
+      this.inherited(arguments);
+    }
   },
 });
 

@@ -741,6 +741,10 @@ class Application extends SDKApplication {
     this.preferences.metrics = null;
     this.persistPreferences();
   }
+  clearQuickActionPreferences() {
+    this.preferences.quickActions = null;
+    this.persistPreferences();
+  }
   requestUserDetails() {
     const key = this.context.user.$key;
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())

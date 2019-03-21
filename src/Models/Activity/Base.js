@@ -26,6 +26,7 @@ const contactResource = getResource('contactModel');
 const oppResource = getResource('opportunityModel');
 const ticketResource = getResource('ticketModel');
 const leadResource = getResource('leadModel');
+const activityTypeResource = getResource('activityTypeText');
 
 const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
   modelName: MODEL_NAMES.ACTIVITY,
@@ -36,6 +37,17 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
   resourceKind: 'activities',
   contractName: 'system',
   recurringActivityIdSeparator: ';',
+
+  activityTypeText: {
+    atToDo: activityTypeResource.atToDoText,
+    atPhoneCall: activityTypeResource.atPhoneCallText,
+    atAppointment: activityTypeResource.atAppointmentText,
+    atLiterature: activityTypeResource.atLiteratureText,
+    atPersonal: activityTypeResource.atPersonalText,
+    atQuestion: activityTypeResource.atQuestionText,
+    atNote: activityTypeResource.atNoteText,
+    atEMail: activityTypeResource.atEMailText,
+  },
 
   createPicklists: function createPicklists() {
     return this.picklists || (this.picklists = [{
@@ -86,6 +98,14 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
       }
     }
     return cls;
+  },
+  getEntityDescription: function getEntityDescription(entry) {
+    if (entry) {
+      const type = entry.Type || '';
+      const titleText = this.activityTypeText[type] ? `${this.activityTypeText[type]} - ${entry.Description}` : entry.$descriptor;
+      return titleText;
+    }
+    return '';
   },
   getTypeText: function getTypeText(entry) {
     let name = '';

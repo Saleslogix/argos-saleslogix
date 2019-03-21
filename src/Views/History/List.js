@@ -26,6 +26,7 @@ import MODEL_NAMES from '../../Models/Names';
 
 
 const resource = getResource('historyList');
+const activityTypeResource = getResource('activityTypeText');
 const hashTagResource = getResource('historyListHashTags');
 const dtFormatResource = getResource('historyListDateTimeFormat');
 
@@ -91,13 +92,14 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   regardingText: resource.regardingText,
   touchedText: resource.touchedText,
   activityTypeText: {
-    atToDo: resource.toDo,
-    atPhoneCall: resource.phoneCall,
-    atAppointment: resource.meeting,
-    atLiterature: resource.literature,
-    atPersonal: resource.personal,
-    atQuestion: resource.question,
-    atEMail: resource.email,
+    atToDo: activityTypeResource.atToDoText,
+    atPhoneCall: activityTypeResource.atPhoneCallText,
+    atAppointment: activityTypeResource.atAppointmentText,
+    atLiterature: activityTypeResource.atLiteratureText,
+    atPersonal: activityTypeResource.atPersonalText,
+    atQuestion: activityTypeResource.atQuestionText,
+    atEMail: activityTypeResource.atEMailText,
+    atNote: activityTypeResource.atNoteText,
   },
   hashTagQueriesText: {
     'my-history': hashTagResource.myHistoryHash,
@@ -253,6 +255,10 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   getItemIconClass: function getItemIconClass(entry) {
     const type = entry && entry.Type;
     return this._getItemIconClass(type);
+  },
+  getTitle: function getTitle(entry) {
+    const type = entry && entry.Type;
+    return this.activityTypeText[type] || this.titleText;
   },
   _getItemIconClass: function _getItemIconClass(type) {
     let cls = this.activityTypeIcon[type];
