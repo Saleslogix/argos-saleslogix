@@ -124,6 +124,7 @@ const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacyS
     return this.tools || (this.tools = {
       tbar: [{
         id: 'edit',
+        title: this.editText,
         svg: 'edit',
         action: 'navigateToEditView',
         security: App.getViewSecurity(this.editView, 'update'),
