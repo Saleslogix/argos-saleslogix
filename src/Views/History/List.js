@@ -270,6 +270,16 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
   init: function init() {
     this.inherited(arguments);
   },
+  activateEntry: function activateEntry(params) {
+    const entry = this.entries[params.key];
+    if (entry) {
+      const activityParams = params;
+      activityParams.descriptor = this.getTitle(entry);
+      this.inherited(arguments, [activityParams]);
+    } else {
+      this.inherited(arguments);
+    }
+  },
 });
 
 export default __class;
