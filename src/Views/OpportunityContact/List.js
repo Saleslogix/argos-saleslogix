@@ -140,6 +140,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
     return this.tools || (this.tools = {
       tbar: [{
         id: 'associate',
+        title: this.selectTitleText,
         svg: 'add',
         action: 'navigateToSelectView',
         security: App.getViewSecurity(this.insertView, 'insert'),

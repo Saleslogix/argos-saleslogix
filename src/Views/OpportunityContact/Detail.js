@@ -68,6 +68,7 @@ const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _Lega
     return this.tools || (this.tools = {
       tbar: [{
         id: 'edit',
+        title: this.editText,
         action: 'navigateToEditView',
         svg: 'edit',
         security: App.getViewSecurity(this.editView, 'update'),
