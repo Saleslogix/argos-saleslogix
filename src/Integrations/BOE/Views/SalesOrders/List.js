@@ -22,6 +22,7 @@ import _RightDrawerListMixin from 'crm/Views/_RightDrawerListMixin';
 import _MetricListMixin from 'crm/Views/_MetricListMixin';
 import _GroupListMixin from 'crm/Views/_GroupListMixin';
 import MODEL_NAMES from '../../Models/Names';
+import MODEL_TYPES from 'argos/Models/Types';
 import getResource from 'argos/I18n';
 import utility from '../../Utility';
 
@@ -100,22 +101,39 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.List', [List, _R
       id: 'addOrderItem',
       cls: 'bullet-list',
       label: this.addLineItemsText,
-      fn: (evt, selection) => {
-        const view = App.getView('salesorder_item_edit');
-        if (view) {
-          const options = {
-            insert: true,
-            context: {
-              SalesOrder: selection.data,
-            },
-          };
-          view.show(options);
-        }
-      },
+      fn: this.onAddLineItems,
       security: 'Entities/SalesOrder/Add',
     }]);
   },
-
+  onAddLineItems: function onAddLineItems(evt, selection) {
+    const key = selection && selection.data && selection.data.$key;
+    if (key) {
+      const salesOrderModel = App.ModelManager.getModel(MODEL_NAMES.SALESORDER, MODEL_TYPES.SDATA);
+      const isClosedPromise = salesOrderModel.isClosed(key);
+      isClosedPromise.then((isClosed) => {
+        if (isClosed) {
+          App.modal.createSimpleAlert({
+            title: 'alert',
+            content: `${this.statusLabelText}: ${selection.data.Status || ''}`,
+          });
+          return;
+        }
+        this.navigateToLineItems(evt, selection);
+      });
+    }
+  },
+  navigateToLineItems: function navigateToLineItems(evt, selection) {
+    const view = App.getView('salesorder_item_edit');
+    if (view) {
+      const options = {
+        insert: true,
+        context: {
+          SalesOrder: selection.data,
+        },
+      };
+      view.show(options);
+    }
+  },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
     return `(upper(SalesOrderNumber) like "${q}%" ) or (upper(ErpExtId) like "${0}%" ) or (upper(CustomerPurchaseOrderNumber) like "${q}%" ) or (upper(Account.AccountName) like "${q}%" ) `;
