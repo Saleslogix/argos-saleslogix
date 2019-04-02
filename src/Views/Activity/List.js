@@ -195,10 +195,11 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     return entry.$descriptor;
   },
   getTitle: function getTitle(entry) {
-    if (entry) {
-      return this._model.getEntityDescription(entry) || entry.$descriptor;
+    if (!entry) {
+      return '';
     }
-    return '';
+
+    return (this._model && this._model.getEntityDescription(entry)) || entry.$descriptor;
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{

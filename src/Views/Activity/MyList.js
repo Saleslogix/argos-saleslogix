@@ -543,10 +543,11 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     return entry.Activity.$descriptor;
   },
   getTitle: function getTitle(entry) {
-    if (entry && entry.Activity) {
-      return this._model.getEntityDescription(entry.Activity) || entry.Activity.$descriptor;
+    if (!entry || !entry.Activity) {
+      return '';
     }
-    return '';
+
+    return (this._model && this._model.getEntityDescription(entry.Activity)) || entry.Activity.$descriptor;
   },
   hasContactOrLead: function hasContactOrLead(theAction, selection) {
     return (selection.data.Activity.ContactId) || (selection.data.Activity.LeadId);
