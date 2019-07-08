@@ -1,0 +1,35 @@
+﻿<proxAppModule ""
+  viewAccountsNearbyText: "Wyświetl klientów w pobliżu"
+  addressNotGeocodedErrorText: "Adres nie jest geokodowany. Nie można wyszukać klientów w pobliżu."
+  accountsNearText: "Klienci w pobliżu ${0}"
+  helpTitleText: "Pomoc Contour"
+>
+
+<acctPxSearch ""
+  accountsNearMeText: "Klienci w pobliżu"
+  addActivityActionText: "Dodaj czynność"
+  addAttachmentActionText: "Dodaj załącznik"
+  addNoteActionText: "Dodaj notatkę"
+	callMainActionText: "Zadzwoń na główny"
+	currentLocationErrorText: "Nie można ściągnąć aktualnej lokalizacji. Nie można wyszukać."
+	editActionText: "edycja"
+  faxAbbreviationText: "Faks: "
+	kilometerAbbrevText: "km"
+	mileAbbrevText: "mi"
+  phoneAbbreviationText: "Telefon: "
+	titleText: "Klienci w pobliżu"
+	viewContactsActionText: "Kontakty"
+  accountTypeText: "Typ klienta:"
+>
+
+<locPicker ""
+  accountsNearText: "Klienci w pobliżu ${0}"
+	myHouseText: "Mój dom"
+	myOfficeText: "Moje biuro"
+	titleText: "Wyszukiwanie odległości Contour"
+>
+
+<placeModel ""
+  entityDisplayName: "Miejsce"
+  entityDisplayNamePlural : "Miejsca"
+>

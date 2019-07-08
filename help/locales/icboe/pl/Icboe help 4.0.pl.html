@@ -1,0 +1,284 @@
+﻿
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body><h1>Wprowadzenie do Infor CRM Back Office Extension</h1>
+
+
+Infor CRM Back Office Extension (ICBOE) dodaje następujące encje do Klienta mobilnego: 
+<ul>
+ <li>
+      Faktury</li>
+ <li>
+     Oferty</li>
+ <li>
+      Zlecenia sprzedaży</li>
+ <li>
+      Wysyłki</li>
+ <li>
+      Należności</li>
+</ul>
+Aby zobaczyć te encje, musisz włączyć widoki:
+<ul>
+ <li>
+      Dotknij kolejno ikony Menu globalne&gt; <strong>Inne</strong> &gt;<strong> Konfiguracja menu</strong>, a następnie <strong>Faktury</strong>, <strong>Należności</strong> i/lub <strong>Wysyłki</strong>. Na górnym pasku menu dotknij ikony znacznika wyboru, aby zaakceptować zaznaczenia i wyjść z konfiguracji menu.</li>
+</ul>
+<ul>
+<li>
+      W razie potrzeby ustaw domyślną grupę dla encji: W widoku listy encji dotknij przycisku <strong>Nie ustawiono grupy domyślnej.</strong> <strong>Aby skonfigurować grupy, kliknij tutaj</strong> i wybierz, aby wyświetlić dla tej encji wszystkie dostępne rekordy albo tylko swoje rekordy.</p>
+
+</li>
+<li><p>Zakładki Pozycje powiązane w szczegółowym widoku encji zapewniają dostęp do dodatkowych informacji. Otwórz widok szczegółowy dla następujących typów encji, aby uzyskać dostęp do pozycji w zakładce Pozycje powiązane:</p>
+<ul>
+<li>Faktury: pozycje faktury i pozycje należności</li>
+<li>Oferty: linie oferty, załączniki, sprzedawcy i historia synchronizacji.</li>
+<li>Należności: pozycje należności</li>
+<li>Zlecenia sprzedaży: linie zlecenia, linie faktury, linie wysyłki, załączniki i historia synchronizacji</li>
+<li>Wysyłki: linie wysyłki</li>
+</ul>
+</li>
+</ul>
+
+<h1>Szybkie porady</h1>
+<ul>
+  <li>
+    Grupy są dostępne dla ofert i zleceń sprzedaży.
+  </li>
+    <li>
+      <span class="fa fa-times-circle"></span>
+      <div>
+        W pozycjach linii oferty i zlecenia dostępny jest przycisk Usuń. Dotknij go, aby usunąć bieżący rekord z CRM. Jest to możliwe tylko w widoku szczegółowym pozycji linii.
+      </div>
+    </li>
+	<li>
+    Funkcje pracy w trybie offline <b> Ostatnio przeglądane</b> i <b>Moja aktówka</b> są dostępne dla rekordów ICBOE. 
+  </li>
+</ul>
+<h1>Pulpity</h1>
+<p>
+Użyj pulpitów, aby zobaczyć konfigurowalne, predefiniowane analizy związane z klientem w postaci widgetów list. 
+</p>
+<p>
+W układzie Szczegóły klienta wybierz zakładkę <strong>Pulpity</strong>. </p>
+<ul>
+<li><strong>Analiza wycinkowa finansów:</strong> wyświetla informacje dotyczące konfigurowalnego okresu 30, 60, 90, 180 i 365 dni. 
+<ul>
+<li><strong>Zafakturowany przychód:</strong> łączna kwota rozszerzona dla faktur dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Zafakturowany zysk:</strong> (łączna kwota rozszerzona) minus (łączny koszt) dla faktur dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Zafakturowana marża:</strong> (kwota zafakturowanego zysku) podzielona przez (kwotę rozszerzoną) dla faktur dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Przychód rok do roku:</strong> (przychód za poprzedni rok pomniejszony o przychód za okres od 2 lat do 1 roku poprzedzającego) podzielony przez (przychód za okres od 2 lat do 1 roku poprzedzającego).</li>
+<li><strong>Zysk rok do roku:</strong> (łączna kwota rozszerzona) minus (łączny koszt) dla faktur dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Marża rok do roku:</strong> (marża za poprzedni rok pomniejszona o marżę za okres od 2 lat do 1 roku poprzedzającego) podzielona przez (marżę za okres od 2 lat do 1 roku poprzedzającego) dla faktury dotyczącej klienta utworzonego w ciągu ostatnich x dni.  </li>
+</ul>
+</li>
+<li><strong>Nowe operacje:</strong> wyświetla informacje dotyczące konfigurowalnego okresu 7, 14, 30 i 90 dni, który obejmuje bieżącą datę. Wyświetla zarówno liczbę faktur, jak i ich łączną wartość.
+<ul>
+<li><strong>Nowe oferty:</strong> liczba ofert dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Nowe zlecenia:</strong> liczba zleceń dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Nowe wysyłki:</strong> liczba wysyłek dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Nowe faktury:</strong> liczba faktur dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<!--<li><strong>New Receivables:</strong> The number of receivables related to the account created in the last x days.  </li>-->
+</ul>
+</li>
+<li><strong>Otwarte operacje:</strong> wyświetla otwarte oferty (czas), faktury (czas) i zlecenia sprzedaży (czas) dla konfigurowalnego okresu 0+, 30+, 60+, 90+ i 180+ dni przed bieżącą datą. Wyświetla zarówno liczbę rekordów operacji, jak i ich łączną wartość.
+<ul>
+<li><strong>Oferty (czas):</strong> liczba otwartych ofert ogółem dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Faktury (czas):</strong> liczba otwartych faktur ogółem dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+<li><strong>Zlecenia sprzedaży (czas):</strong> liczba otwartych zleceń sprzedaży ogółem dotyczących klienta utworzonego w ciągu ostatnich x dni.</li>
+</ul>
+</li>
+</ul>
+
+<h1>Pola wyszukiwania ICBOE</h1>
+<p>
+ Poniższe pola wyszukiwania są dostępne, gdy instalacja systemu Infor CRM obejmuje integrację Infor CRM Back Office Extension. Wybierz zakładkę Pomoc Infor CRM, aby wyświetlić listę dodatkowych pól wyszukiwania.
+</p>
+<p>Dla każdej encji przefiltruj wyniki widoku listy z paska wyszukiwania, korzystając z pól wymienionych poniżej.</p>
+<ul id="help_search_icboe">
+
+  <li>
+    <h2>Klienci</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>ID klienta w ERP: zaczyna się od </li>
+    </ul>
+  </li>
+  
+<!--<li>
+    <h2>Account Persons</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name : starts with </li>
+    </ul>
+  </li>-->
+  <!--<li>
+    <h2>Back Offices</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name : starts with </li>
+      <li>Logical ID : starts with </li>
+    </ul>
+  </li>-->
+  <li>
+    <!--<h2>Back Office Acounting Entities</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name : starts with </li>
+    </ul>
+  </li>
+  <li>-->
+    <h2>Klienci - odbiorcy faktury</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Faktura na nazwisko: zaczyna się od </li>
+    </ul>
+  </li>
+<li><h2>Kontakt</h2>
+<h3>Pola wyszukiwania</h3>
+<ul>
+<li>Imię i nazwisko kontaktu: zaczyna się od </li>
+</ul></li>
+<li>
+    <h2>Klient kontaktu</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Imię i nazwisko kontaktu: zaczyna się od </li>
+    </ul>
+  </li>
+  <li>
+    <h2>Faktury</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Nazwa klienta: zaczyna się od</li>
+      <li>ID faktury: zaczyna się od</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Pozycje faktury</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+	<li>Nazwa produktu: zaczyna się od</li>  
+	<li>ID faktury: zaczyna się od</li>    
+	<li>Opis produktu: zaczyna się od</li>
+	<li>Numer linii: zaczyna się od</li>
+        </ul>
+  </li>
+  <li>
+    <!--<h2>Invoice Persons</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name: starts with</li>
+    </ul>
+  </li>-->
+   <!--<li> 
+    <h2>Products</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Actual ID: starts with</li>
+      <li>Family: starts with</li>
+      <li>Name: starts with</li>
+    </ul>
+  </li>
+  <li>-->
+    <h2>Oferty</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Numer oferty: zaczyna się od</li>
+      <li>Nazwa klienta: zaczyna się od</li>
+      <li>ID zlecenia ERP: zaczyna się od</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Linie oferty</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Numer linii: zaczyna się od</li>
+      <li>Nazwa produktu: zaczyna się od</li>
+      <li>Opis produktu: zaczyna się od</li>
+      <li>Numer oferty: zaczyna się od</li>
+    </ul>
+  </li>
+<li>
+    <h2>Osoby z oferty</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Nazwa: zaczyna się od</li>
+      <li>ID faktury: zaczyna się od</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Należności</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>ID należności: zawiera</li>
+      <li>Nazwa klienta: zawiera</li>
+      <li>ID faktury: zawiera</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Pozycje należności</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>ID faktury: zawiera</li>
+      <li>ID należności: zawiera</li>
+      <li>Nazwa klienta: zawiera</li>
+    </ul>
+  </li>
+  <!--<li>
+    <h2>Returns</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Return Number: contains</li>
+    </ul>
+  </li>-->
+  <li>
+    <h2>Zlecenia sprzedaży</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Numer zlecenia sprzedaży: zaczyna się od</li>
+      <li>Nazwa klienta: zaczyna się od</li>
+      <li>ID zlecenia ERP: zaczyna się od</li>
+      <li>Zamówienie klienta: zaczyna się od</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Linie zlecenia sprzedaży</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Numer linii: zaczyna się od</li>
+      <li>Nazwa produktu: zaczyna się od</li>
+      <li>Opis produktu: zaczyna się od </li>
+     <li>Numer zlecenia sprzedaży: zaczyna się od </li>
+    </ul>
+  </li>
+  <!--<li>
+     <h2>Sales Order Persons</h2>
+    <h3>Search Fields</h3>
+    <ul>
+      <li>Name: starts with</li>
+    </ul>
+  </li>-->
+  <li>
+    <h2>Wysyłki</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Nazwa klienta: zaczyna się od</li>
+      <li>ID wysyłki: zaczyna się od</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Linie wysyłki</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Numer linii: zaczyna się od</li>
+      <li>Nazwa produktu: zaczyna się od</li>
+      <li>ID zlecenia sprzedaży: zaczyna się od</li>
+    </ul>
+  </li>
+  <li>
+    <h2>Klienci - adresaci</h2>
+    <h3>Pola wyszukiwania</h3>
+    <ul>
+      <li>Nazwa odbiorcy: zaczyna się od</li>
+    </ul>
+  </li>
+
+</ul></body></html>

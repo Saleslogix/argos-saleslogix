@@ -85,6 +85,7 @@ export default function bootstrap({
     ja: 'ja-JP',
     nl: 'nl-NL',
     th: 'th-TH',
+    pl: 'pl-PL',
   };
   // The L20n context (ctx) should only call linkResource once per file.
   // We need to:
