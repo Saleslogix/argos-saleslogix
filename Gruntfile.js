@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/argos-sdk/src-out/Calendar.js'
           }, {
             src: './*.html',
-            dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix'
+            dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix/'
           }],
       },
       'ru': {
