@@ -36,6 +36,11 @@ module.exports = function(grunt) {
       },
       'pl': {
         bundleName: "Mobile 4.0 PL",
+        includes: [
+          {
+            src: '../../argos-sdk/src-out/Calendar.js',
+            dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/argos-sdk/src-out/Calendar.js'
+          }],
       },
       'ru': {
         bundleName: "Mobile 4.0 RU",
