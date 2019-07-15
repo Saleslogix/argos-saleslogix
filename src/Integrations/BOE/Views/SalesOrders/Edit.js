@@ -525,7 +525,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         type: 'lookup',
         emptyText: '',
         valueTextProperty: 'Description',
-        view: 'quote_location_list',
+        view: 'order_location_list',
         title: this.locationsTitleText,
       }, {
         name: 'ErpLocation',
