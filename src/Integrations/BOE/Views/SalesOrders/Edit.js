@@ -554,7 +554,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
         name: 'Sales Order Status',
         property: 'Status',
         type: 'picklist',
-        picklist: 'Sales Order Status',
+        picklist: 'ErpSalesOrderStatus',
         singleSelect: true,
         titleText: this.statusTitle,
       }, {

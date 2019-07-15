@@ -624,7 +624,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
         name: 'Quote Status',
         property: 'Status',
         type: 'picklist',
-        picklist: 'QuoteStatus',
+        picklist: 'ErpQuoteStatus',
         singleSelect: true,
         titleText: this.statusTitle,
       }, {
