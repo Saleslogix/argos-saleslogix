@@ -168,7 +168,6 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
       _onAddQuoteClick: function _onAddQuoteClick() {
         const view = App.getView('quote_edit');
         view.show({
-          entry: this.entry,
           detailView: 'quote_detail',
           fromContext: this,
           insert: true,
@@ -177,7 +176,6 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
       _onAddOrderClick: function _onAddOrderClick() {
         const view = App.getView('salesorder_edit');
         view.show({
-          entry: this.entry,
           detailView: 'salesorder_detail',
           fromContext: this,
           insert: true,
