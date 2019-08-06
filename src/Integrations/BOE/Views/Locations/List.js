@@ -44,7 +44,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.List', [List], {
   itemIconClass: '',
 
   // Metrics
-  entityName: 'Location',
+  entityName: 'SlxLocation',
 
   createToolLayout: function createToolLayout() {
     return this.tools || (this.tools = {
