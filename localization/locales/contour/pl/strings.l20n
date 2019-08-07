@@ -12,7 +12,7 @@
   addNoteActionText: "Dodaj notatkę"
 	callMainActionText: "Zadzwoń na główny"
 	currentLocationErrorText: "Nie można ściągnąć aktualnej lokalizacji. Nie można wyszukać."
-	editActionText: "edycja"
+	editActionText: "Edytuj"
   faxAbbreviationText: "Faks: "
 	kilometerAbbrevText: "km"
 	mileAbbrevText: "mi"
