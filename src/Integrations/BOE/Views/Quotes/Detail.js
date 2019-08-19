@@ -31,6 +31,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   // View Properties
   id: 'quote_detail',
   editView: 'quote_edit',
+  locationType: '',
 
   titleText: resource.titleText,
   actionsText: resource.actionsText,
@@ -96,6 +97,10 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   onTransitionTo: function onTransitionTo() {
     this.inherited(arguments);
     App.bars.tbar.disableTool('edit');
+    if (!this.locationType) {
+      this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] &&
+        App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
+    }
   },
   _canPromote: function _canPromote() {
     const promise = new Promise(
@@ -552,6 +557,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         property: 'Location',
         label: this.locationText,
         renderer: function renderer(data) {
+          if (this.locationType === 'Warehouse') {
+            return false;
+          }
           if (data) {
             if (data.Address && data.Address.FullAddress) {
               return format.address(data.Address);
@@ -564,6 +572,9 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         property: 'Warehouse',
         label: this.warehouseText,
         renderer: function renderer(data) {
+          if (this.locationType && this.locationType !== 'Warehouse') {
+            return false;
+          }
           if (data) {
             if (data.Address && data.Address.FullAddress) {
               return format.address(data.Address);

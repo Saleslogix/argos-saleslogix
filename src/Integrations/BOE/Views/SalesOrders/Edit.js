@@ -54,6 +54,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   siteCode: 'Site',
   modelName: MODEL_NAMES.SALESORDER,
   _busyIndicator: null,
+  locationType: '',
 
   // Localization
   titleText: resource.titleText,
@@ -106,6 +107,17 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
     this.connect(this.fields.BackOfficeAccountingEntity, 'onChange', this.onBackOfficeAccountingEntityChange);
     this.connect(this.fields.Location, 'onChange', this.onLocationChange);
     this.connect(this.fields.Warehouse, 'onChange', this.onWarehouseChange);
+    if (!this.locationType) {
+      this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] &&
+        App.context.integrationSettings['Back Office Extension']['Type of Order Location'];
+    }
+    if (this.locationType === 'Warehouse') {
+      this.fields.Location.hide();
+      this.fields.Warehouse.show();
+    } else if (this.locationType !== 'Warehouse') {
+      this.fields.Location.show();
+      this.fields.Warehouse.hide();
+    }
   },
   processData: function processData() {
     this.showBusy();

@@ -604,6 +604,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
           const model = this.application.ModelManager.getModel(MODEL_NAMES.INTEGRATION, MODEL_TYPES.SDATA);
           return model.getEntries(null, { contractName: 'dynamic' }).then((results) => {
             this.application.context.integrations = results;
+            if (results) {
+              results.forEach((integration) => {
+                App.requestIntegrationSettings(integration.$descriptor);
+              });
+            }
             return results;
           });
         },

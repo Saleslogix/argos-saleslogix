@@ -971,7 +971,42 @@ class Application extends SDKApplication {
 
     return hasRoot && result;
   }
-
+  requestIntegrationSettings(integration) {
+    if (!this.context.integrationSettings) {
+      this.context.integrationSettings = {};
+    }
+    const request = new Sage.SData.Client.SDataBaseRequest(App.getService());
+    const pageSize = this.pageSize;
+    const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
+    request.uri.setPathSegment(0, 'slx');
+    request.uri.setPathSegment(1, 'dynamic');
+    request.uri.setPathSegment(2, '-');
+    request.uri.setPathSegment(3, 'customsettings');
+    request.uri.setQueryArg('format', 'JSON');
+    request.uri.setQueryArg('select', 'Description,DataValue,DataType');
+    request.uri.setQueryArg('where', `Category eq "${integration}"`);
+    request.uri.setStartIndex(startIndex);
+    request.uri.setCount(pageSize);
+    request.service.readFeed(request, {
+      success: (feed) => {
+        const integrationSettings = {};
+        feed.$resources.forEach((item) => {
+          const key = item && item.$descriptor;
+          let value = item && item.DataValue;
+          if (typeof value === 'undefined' || value === null) {
+            value = '';
+          }
+          if (key) {
+            integrationSettings[`${key}`] = value;
+          }
+          this.context.integrationSettings[`${integration}`] = integrationSettings;
+        });
+      },
+      failure: (response, o) => {
+        ErrorManager.addError(response, o, '', 'failure');
+      },
+    });
+  }
   navigateToInitialView() {
     this.showLeftDrawer();
     this.showHeader();
