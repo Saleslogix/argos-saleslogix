@@ -111,7 +111,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.connect(this.fields.Warehouse, 'onChange', this.onWarehouseChange);
     if (!this.locationType) {
       this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] &&
-        App.context.integrationSettings['Back Office Extension']['Type of Order Location'];
+        App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
     }
     if (this.locationType === 'Warehouse') {
       this.fields.Location.hide();
@@ -123,6 +123,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   },
   insert: function insert() {
     this.showUnpromotedFields();
+    this.fields.Location.show();
+    this.fields.Warehouse.show();
     this.inherited(arguments);
   },
   isQuoteClosed: function isQuoteClosed() {
@@ -386,6 +388,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   },
   onWarehouseChange: function onWarehouseChange(value, field) {
     this.fields.Warehouse.setValue(field.currentSelection);
+    this.fields.Location.setValue(field.currentSelection);
   },
   applyContext: function applyContext() {
     this.inherited(arguments);
