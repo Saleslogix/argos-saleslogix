@@ -163,18 +163,6 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   },
   // custom request data success method to insert our "me" at the front
   onRequestDataSuccess: function onRequestDataSuccess(feed) {
-    const feedResources = feed.$resources;
-    if (feedResources) {
-      for (let i = 0; i < feed.$resources.length; i++) {
-        const entry = feed.$resources[i];
-        entry.Distance = this.distanceCalc(entry.GeocodeLatitude, entry.GeocodeLongitude);
-      }
-
-      // Sort by distance ASC
-      feed.$resources.sort((a, b) => {
-        return a.Distance > b.Distance ? 1 : -1;
-      });
-    }
     this.processFeed(feed);
     $(this.domNode).removeClass('list-loading');
   },
