@@ -132,7 +132,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     request.uri.setQueryArg('_Lat', this.lat);
     request.uri.setQueryArg('_Lon', this.lon);
     request.uri.setQueryArg('_Distance', this.maxDistance);
-    request.uri.setQueryArg('_AccountType', this.acctType ? this.acctType : 'All');
+    request.uri.setQueryArg('_AccountType', this.acctType ? this.acctType : 'Customer');
     request.uri.setQueryArg('_SubType', 'All');
     request.uri.setQueryArg('format', 'JSON');
     request.uri.setStartIndex(startIndex);
