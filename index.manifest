@@ -59,8 +59,4 @@ prefer-online
 NETWORK:
 ../sdata/
 ping.gif
-https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/
-https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/css/light-theme.min.css
-https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/jquery-3.1.1.js
-https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/sohoxi.js
 *
