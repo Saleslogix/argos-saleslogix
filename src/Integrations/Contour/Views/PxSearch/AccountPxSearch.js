@@ -102,6 +102,8 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
   detailView: 'account_detail',
   itemIconClass: 'spreadsheet', // todo: replace with appropriate icon
   id: 'pxSearch_Accounts',
+  idProperty: 'AccountId',
+  labelProperty: 'AccountName',
   security: 'Contour/Map/Account',
   entityName: 'Account',
   allowSelection: true,
