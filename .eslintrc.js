@@ -29,6 +29,7 @@ module.exports = {
     "Chart": false,
     "Rx": false,
     "$": false,
+    "Soho": false,
     "d3": false,
     "Redux": false,
     "page": false,
