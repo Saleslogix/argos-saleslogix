@@ -113,7 +113,7 @@ export default function bootstrap({
   const normalizedLocale = languageService.bestAvailableLocale(supportedLocales, currentLocale) || currentLocale;
   const normalizedRegionLocale = languageService.bestAvailableLocale(supportedLocales, currentRegionLocale) || currentRegionLocale;
   if (localesLong[normalizedLocale]) {
-    window.Locale.set(localesLong[normalizedLocale]);
+    Soho.Locale.set(localesLong[normalizedLocale]);
   }
   languageService.setLanguage(normalizedLocale || currentLocale || parentLocale || defaultLocale);
   languageService.setRegion(normalizedRegionLocale || currentRegionLocale || parentRegionLocale || defaultRegionLocale);
