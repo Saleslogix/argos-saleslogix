@@ -58,5 +58,3 @@ _SpecRunner.html
 report/junit.xml
 coverage
 scripts/config.json
-src-out/
-min/css/
