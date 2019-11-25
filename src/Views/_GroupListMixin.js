@@ -95,6 +95,29 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     this.createGroupTemplates();
     this.inherited(arguments);
   },
+  getTitle: function getTitle(entry, labelProperty) {
+    // labelproperty will default to the group's family, which doesn't work with all groups...
+    let value = utility.getValue(entry, labelProperty);
+    if (value) {
+      return value;
+    }
+
+    // Try to extract a description
+    value = utility.getValue(entry, '$descriptor') || utility.getValue(entry, 'DESCRIPTION');
+    if (value) {
+      return value;
+    }
+
+    // Fallback to the first layout item
+    const firstLayoutItem = this.layout && this.layout[0];
+    if (firstLayoutItem && firstLayoutItem.alias) {
+      return utility.getValue(entry, firstLayoutItem.alias);
+    }
+
+    // Should never land here
+    console.warn(`No descriptor found for ${labelProperty}`); // eslint-disable-line
+    return '';
+  },
   requestData: function requestData() {
     try {
       if (!this._groupInitialized && this.groupsMode) {
