@@ -95,7 +95,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   ],
   existsRE: /^[\w]{12}$/,
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
     this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
@@ -122,7 +122,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     return !!lead;
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
 
     // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
     // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -152,7 +152,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     this.fields.StartDate.setValue(start.toDate());
   },
   _buildRefreshMessage: function _buildRefreshMessage() {
-    const base = this.inherited(arguments);
+    const base = this.inherited(_buildRefreshMessage, arguments);
     const entry = this.options && this.options.selectedEntry;
     if (entry && this.options.fromOffline) {
       base.UID = entry.UID;
@@ -231,7 +231,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   },
   onInsertSuccess: function onInsertSuccess() {
     environment.refreshStaleDetailViews();
-    this.inherited(arguments);
+    this.inherited(onInsertSuccess, arguments);
   },
   applyContext: function applyContext() {
     const found = this._getNavContext();
@@ -399,11 +399,11 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       this.setOfflineNoteData();
       $(this.domNode).removeClass('panel-loading');
     } else {
-      this.inherited(arguments);
+      this.inherited(onRefreshInsert, arguments);
     }
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
     const isLeadField = this.fields.IsLead;
     if (this.isInLeadContext()) {
       isLeadField.setValue(true);
@@ -477,7 +477,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     return '';
   },
   getValues: function getValues() {
-    let values = this.inherited(arguments);
+    let values = this.inherited(getValues, arguments);
 
     if (this.fields.Text.isDirty()) {
       const text = this.fields.Text.getValue();

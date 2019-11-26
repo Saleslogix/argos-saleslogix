@@ -69,7 +69,7 @@ const __class = declare('crm.Views.LanguageOptions.Edit', [_EditBase, _RelatedWi
       .language_usage_widget_undefined
       ._languageDropdown
       .dropdownSelect).data('dropdown').close();
-    this.inherited(arguments);
+    this.inherited(transitionAway, arguments);
   },
 });
 

@@ -72,7 +72,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   ]),
   show: function show(options) {
     this._initOfflineView(options);
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   _initOfflineView: function _initOfflineView(options) {
     this.offlineContext = {
@@ -93,7 +93,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this._entityView = this.getEntityView();
   },
   onTransitionTo: function onTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(onTransitionTo, arguments);
     App.setToolBarMode(false);
   },
   getEntityView: function getEntityView() {

@@ -78,7 +78,7 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
     this.processEntry({});
   },
   processEntry: function processEntry() {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     // Processing the layout should be done now
     const self = this;
     Promise.all(this.promises).then((results) => {

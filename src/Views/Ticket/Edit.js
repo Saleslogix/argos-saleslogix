@@ -101,7 +101,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
   resourceKind: 'tickets',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
     this.connect(this.fields.Contact, 'onChange', this.onContactChange);
@@ -110,7 +110,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     this.connect(this.fields.Category, 'onChange', this.onCategoryChange);
   },
   convertEntry: function convertEntry() {
-    const entry = this.inherited(arguments);
+    const entry = this.inherited(convertEntry, arguments);
 
     if (!this.options.entry) {
       if (entry.StatusCode) {
@@ -125,7 +125,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     return entry;
   },
   processTemplateEntry: function processTemplateEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processTemplateEntry, arguments);
 
     if (entry.StatusCode) {
       this.requestCodeData('name eq "Ticket Status"', entry.StatusCode, this.fields.StatusCode, entry, 'Status');
@@ -174,7 +174,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
   },
 
   setValues: function setValues(entry) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     if (entry.SourceText) {
       this.fields.ViaCode.setText(entry.SourceText);

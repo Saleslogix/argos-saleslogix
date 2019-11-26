@@ -115,7 +115,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     if (this._languageDropdown) {
       this._languageDropdown.destroy();
     }
-    this.inherited(arguments);
+    this.inherited(destroy, arguments);
   },
   onSave: function onSave() {
     const language = this._languageDropdown.getValue();

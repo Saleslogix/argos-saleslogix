@@ -51,14 +51,14 @@ const __class = declare('crm.Views.PickList', [List], {
         entry.languageCode === null);
       queryResults.total = entries.length;
     }
-    this.inherited(arguments);
+    this.inherited(_onQueryComplete, arguments);
   },
   activateEntry: function activateEntry(params) {
     if (this.options.keyProperty === 'text' && !this.options.singleSelect) {
       params.key = params.descriptor;
     }
 
-    this.inherited(arguments);
+    this.inherited(activateEntry, arguments);
   },
   getLanguageCode: function getLanguageCode() {
     return this.languageCode
@@ -72,7 +72,7 @@ const __class = declare('crm.Views.PickList', [List], {
     return -this.pageSize;
   },
   onTransitionAway: function onTransitionAway() {
-    this.inherited(arguments);
+    this.inherited(onTransitionAway, arguments);
     if (this.searchWidget) {
       this.searchWidget.clear();
       this.query = false;
@@ -91,7 +91,7 @@ const __class = declare('crm.Views.PickList', [List], {
       }
     }
 
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   requestData: function requestData() {
     const picklistOptions = this.getPicklistOptions();
@@ -100,7 +100,7 @@ const __class = declare('crm.Views.PickList', [List], {
 
     // Search, query like normal (with filtering from queryComplete)
     if (this.query) {
-      return this.inherited(arguments);
+      return this.inherited(requestData, arguments);
     }
 
     return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions)

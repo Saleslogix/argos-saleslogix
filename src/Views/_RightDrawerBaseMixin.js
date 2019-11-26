@@ -59,7 +59,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.
   },
   show: function show(options) {
     this.ensureToolsCreated(options);
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   ensureToolsCreated: function ensureToolsCreated(options) {
     // Inject tools into options if it exists
@@ -75,7 +75,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.
       this._addTools(theTools);
       this.toolsAdded = true;
     }
-    this.inherited(arguments);
+    this.inherited(onToolLayoutCreated, arguments);
   },
   _addTools: function _addTools(tools) { // eslint-disable-line
     if (!this.hasSettings) {

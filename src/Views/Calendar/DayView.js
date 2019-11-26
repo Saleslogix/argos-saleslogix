@@ -216,13 +216,13 @@ const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMix
   continuousScrolling: false,
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.currentDate = moment().startOf('day');
   },
   toggleGroup: function toggleGroup(params) {

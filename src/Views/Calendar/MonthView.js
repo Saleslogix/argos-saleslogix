@@ -291,19 +291,19 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.dateCounts = [];
   },
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
   },
   clear: function clear() {},
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
     this.currentDate = moment()
       .startOf('day');
   },
   render: function render() {
-    this.inherited(arguments);
+    this.inherited(render, arguments);
     this.renderCalendar();
   },
   activateActivityMore: function activateActivityMore() {
@@ -790,7 +790,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.set('dateContent', this.currentDate.format(this.monthTitleFormatText));
   },
   show: function show(options) {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
 
     if (options) {
       this.processShowOptions(options);

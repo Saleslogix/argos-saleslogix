@@ -75,7 +75,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
       ] });
   },
   show: function show() {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
     if (!this.options) {
       this.options = {};
     }
@@ -115,7 +115,7 @@ const __class = declare('crm.Integrations.BOE.Views.Locations.PricingAvailabilit
   },
   onTransitionAway: function onTransitionAway() {
     this.refreshRequired = true;
-    this.inherited(arguments);
+    this.inherited(onTransitionAway, arguments);
   },
   requestData: function requestData() {
     this.getAvailability().then((entries) => {

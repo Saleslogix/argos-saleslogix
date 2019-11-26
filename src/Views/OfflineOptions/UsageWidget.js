@@ -317,7 +317,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     if (this._olderThanDropdown) {
       this._olderThanDropdown.destroy();
     }
-    this.inherited(arguments);
+    this.inherited(destroy, arguments);
   },
   onSave: function onSave() {
     const options = offlineManager.getOptions();

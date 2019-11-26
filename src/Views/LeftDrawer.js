@@ -68,7 +68,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
   searchView: 'speedsearch_list',
 
   initSoho: function initSoho() {
-    this.inherited(arguments);
+    this.inherited(initSoho, arguments);
     this.accordion.element.on('selected', (evt, header) => {
       // Fix up the event target to the element with our data-action attribute.
       evt.target = $('a', header).get(0);
@@ -158,7 +158,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
     };
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
   },
   createLayout: function createLayout() {
@@ -296,7 +296,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
     }
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.layout = null;
     this.store = null;
   },
@@ -321,7 +321,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
       }
     }
 
-    return this.inherited(arguments);
+    return this.inherited(refreshRequiredFor, arguments);
   },
   _onRegistered: function _onRegistered() {
     this.refreshRequired = true;

@@ -58,7 +58,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
   warehouseText: resource.warehouseText,
   accountLinked: false,
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.fields.ErpLineNumber.disable();
     this.fields.Quote.disable();
     this.fields.Price.disable();
@@ -78,7 +78,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
     values.CommodityType = product.CommodityType;
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
     if (this.options && this.options.context) {
       if (this.options.context.Quote) {
         this.fields.Quote.setSelection(this.options.context.Quote);
@@ -113,10 +113,10 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
   },
   onInsert: function onInsert(values) {
     this._applyLogicValues(values);
-    this.inherited(arguments);
+    this.inherited(onInsert, arguments);
   },
   onRefresh: function onRefresh() {
-    this.inherited(arguments);
+    this.inherited(onRefresh, arguments);
     this.setProductDependentFields();
   },
   processEntry: function processEntry(entry) {
@@ -281,11 +281,11 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /*
   },
   onUpdateCompleted: function onUpdateCompleted() {
     this._refreshRelatedViews();
-    this.inherited(arguments);
+    this.inherited(onUpdateCompleted, arguments);
   },
   onInsertCompleted: function onInsertCompleted() {
     this._refreshRelatedViews();
-    this.inherited(arguments);
+    this.inherited(onInsertCompleted, arguments);
   },
   _refreshRelatedViews: function _refreshRelatedViews() {
     const views = [

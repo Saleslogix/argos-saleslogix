@@ -94,12 +94,12 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
     'Type',
   ],
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
   },
   getValues: function getValues() {
-    const values = this.inherited(arguments);
+    const values = this.inherited(getValues, arguments);
 
     utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
     utility.setValue(values, 'Contacts.$resources[0].AccountName', values.AccountName);
@@ -123,7 +123,7 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
         returnTo: -1,
       });
     } else {
-      this.inherited(arguments);
+      this.inherited(onInsertCompleted, arguments);
     }
   },
   onContactAddressChange: function onContactAddressChange(value) {
@@ -140,7 +140,7 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
     }
   },
   applyContext: function applyContext(templateEntry) {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     this.fields.AccountManager.setValue(App.context.user);
     this.fields.Owner.setValue(App.context.defaultOwner);
@@ -159,7 +159,7 @@ const __class = declare('crm.Views.AddAccountContact', [Edit], {
         }],
       };
     }
-    this.inherited(arguments);
+    this.inherited(convertEntry, arguments);
     return entry;
   },
   createLayout: function createLayout() {

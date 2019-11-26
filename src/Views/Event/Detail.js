@@ -67,7 +67,7 @@ const __class = declare('crm.Views.Event.Detail', [Detail], {
     return this.eventTypeText[val] || val;
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{

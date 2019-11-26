@@ -66,7 +66,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.LocationPicker'
   _myHome: null,
 
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
     this._getUserInfoAddresses();
   },
   _getUserInfoAddresses() {

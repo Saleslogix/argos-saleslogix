@@ -44,7 +44,7 @@ const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   onUploadFiles: function onUploadFiles() {
     const self = this;
     if (this._files && this._files.length > 0) {
-      this.inherited(arguments);
+      this.inherited(onUploadFiles, arguments);
       const fileItems = this.getFileItems();
       const am = new AttachmentManager();
 

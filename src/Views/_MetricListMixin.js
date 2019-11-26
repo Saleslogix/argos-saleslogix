@@ -48,7 +48,7 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     return metrics.filter(item => item.enabled);
   },
   postCreate: function postCreate() {
-    this.inherited(arguments);
+    this.inherited(postCreate, arguments);
     const metricList = $(this.metricTemplate.apply(this)).get(0);
     this.metricNode = $(this.metricWrapper.apply(this)).get(0);
     $(metricList).append(this.metricNode);
@@ -64,11 +64,11 @@ const __class = declare('crm.Views._MetricListMixin', null, {
     this.metricWidgetsBuilt = false;
   },
   requestData: function requestData() {
-    this.inherited(arguments);
+    this.inherited(requestData, arguments);
     this.rebuildWidgets();
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.destroyWidgets();
   },
   _applyStateToWidgetOptions: function _applyStateToWidgetOptions(options) {// eslint-disable-line

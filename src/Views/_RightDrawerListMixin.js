@@ -103,7 +103,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
       this._clearGroupMode();
     }
 
-    this.inherited(arguments);
+    this.inherited(_onSearchExpression, arguments);
   },
   openSettings: function openSettings() {
     App.viewSettingsModal.open();

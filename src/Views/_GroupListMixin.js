@@ -89,11 +89,11 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (this.groupsEnabled) {
       this.groupsMode = true;
     }
-    this.inherited(arguments);
+    this.inherited(postMixInProperties, arguments);
   },
   startup: function startup() {
     this.createGroupTemplates();
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
   },
   getTitle: function getTitle(entry, labelProperty) {
     // labelproperty will default to the group's family, which doesn't work with all groups...
@@ -125,7 +125,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
         this._setLoading();
         this.initGroup();
       } else {
-        this.inherited(arguments);
+        this.inherited(requestData, arguments);
       }
     } catch (e) {
       console.error(e); // eslint-disable-line
@@ -195,7 +195,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     }
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this._clearResolvedEntryCache();
   },
   _onApplyGroup: function _onApplyGroup(group) {
@@ -302,7 +302,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       this.set('title', title);
     }
 
-    this.inherited(arguments);
+    this.inherited(setPrimaryTitle, arguments);
   },
   _onGroupRequestSuccess: function _onGroupRequestSuccess(result) {
     if (result.length > 0) {
@@ -647,7 +647,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
         }
       }
     }
-    this.inherited(arguments);
+    this.inherited(_onQueryError, arguments);
   },
   _onGroupNotFound: function _onGroupNotFound() {
     GroupUtility.removeGroupPreferences(this.currentGroupId, this.entityName);
@@ -659,7 +659,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (this.groupsEnabled && this.groupsMode && !params.resolved) {
       this._groupActivateEntry(params);
     } else {
-      this.inherited(arguments);
+      this.inherited(activateEntry, arguments);
     }
   },
   _groupActivateEntry: function _groupActivateEntry(params) {
@@ -684,7 +684,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (this.groupsEnabled && this.groupsMode && !selection.resolved) {
       this._groupInvokeAction(theAction, selection);
     } else {
-      this.inherited(arguments);
+      this.inherited(_invokeAction, arguments);
     }
   },
   _groupInvokeAction: function _groupInvokeAction(theAction, selection) {
@@ -708,7 +708,7 @@ const __class = declare('crm.Views._GroupListMixin', null, {
     if (this.groupsEnabled && this.groupsMode) {
       this._groupShowActionPanel(rowNode);
     } else {
-      this.inherited(arguments);
+      this.inherited(showActionPanel, arguments);
     }
   },
   _groupShowActionPanel: function _groupShowActionPanel(rowNode) {
@@ -805,12 +805,12 @@ const __class = declare('crm.Views._GroupListMixin', null, {
           self.setCurrentGroup(group);
           this.refreshRightDrawer();
         }
-        // Note this is what this.inherited(arguments) calls, but that may change
+        // Note this is what this.inherited(_refreshList, arguments) calls, but that may change
         // Can't call this.inherited asynchronously...
         self.forceRefresh();
       });
     } else {
-      this.inherited(arguments);
+      this.inherited(_refreshList, arguments);
     }
   },
   groupInvokeListAction: function groupInvokeListAction(params) {
@@ -862,13 +862,13 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       snapShot = template.apply(entry, this);
       return snapShot;
     }
-    snapShot = this.inherited(arguments);
+    snapShot = this.inherited(getContextSnapShot, arguments);
 
     return snapShot;
   },
   initModel: function initModel() {
     if (!this._groupInitialized || !this.groupsMode) {
-      this.inherited(arguments);
+      this.inherited(initModel, arguments);
     }
   },
 });

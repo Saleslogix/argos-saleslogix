@@ -92,7 +92,7 @@ const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawer
   },
   _onSearchExpression: function _onSearchExpression() {
     // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-    this.inherited(arguments);
+    this.inherited(_onSearchExpression, arguments);
   },
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.

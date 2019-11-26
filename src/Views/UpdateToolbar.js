@@ -47,11 +47,11 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
       scope: this,
     }]);
 
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
 
   showTools: function showTools() {
-    this.inherited(arguments);
+    this.inherited(showTools, arguments);
   },
 
   hide: function hide() {

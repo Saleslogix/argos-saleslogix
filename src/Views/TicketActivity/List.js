@@ -71,11 +71,11 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
     });
   },
   processData: function processData() {
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
     this._onResize();
   },
   postCreate: function postCreate() {
-    this.inherited(arguments);
+    this.inherited(postCreate, arguments);
     $(window).on('resize', this._onResize.bind(this));
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {

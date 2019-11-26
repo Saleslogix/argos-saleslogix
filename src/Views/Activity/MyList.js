@@ -203,7 +203,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     yesterday: hashTagResource.hashTagYesterdayText,
   },
   createToolLayout: function createToolLayout() {
-    this.inherited(arguments);
+    this.inherited(createToolLayout, arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
       this.tools.tbar.push({
         id: 'refresh',
@@ -648,9 +648,9 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     if (entry) {
       const activityParams = params;
       activityParams.descriptor = this._model.getEntityDescription(entry.Activity);
-      this.inherited(arguments, [activityParams]);
+      this.inherited(activateEntry, arguments, [activityParams]);
     } else {
-      this.inherited(arguments);
+      this.inherited(activateEntry, arguments);
     }
   },
 });

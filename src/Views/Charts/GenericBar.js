@@ -53,7 +53,7 @@ const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], /** 
   },
 
   createChart: function createChart(rawData) {
-    this.inherited(arguments);
+    this.inherited(createChart, arguments);
 
     this.showSearchExpression();
 

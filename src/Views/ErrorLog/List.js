@@ -53,7 +53,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   labelProperty: 'Description',
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
       this.refreshRequired = true;
     }

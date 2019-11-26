@@ -65,7 +65,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
     Holiday: 'Holiday',
   },
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
 
     this.connect(this.fields.StartDate, 'onChange', this.onStartDateChange);
   },
@@ -124,7 +124,7 @@ const __class = declare('crm.Views.Event.Edit', [Edit], {
     }
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     const found = App.queryNavigationContext((o) => {
       const context = (o.options && o.options.source) || o;

@@ -123,11 +123,11 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     if (!App.supportsFileAPI()) {
       this.insertView = null;
     } else {
-      return this.inherited(arguments);
+      return this.inherited(createToolLayout, arguments);
     }
   },
   createRequest: function createRequest() {
-    const request = this.inherited(arguments);
+    const request = this.inherited(createRequest, arguments);
     request.setQueryArg('_includeFile', 'false');
     return request;
   },

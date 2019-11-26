@@ -57,7 +57,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       }
     }
 
-    this.inherited(arguments);
+    this.inherited(showTools, arguments);
   },
   navigateBack: function navigateBack() {
     ReUI.back();

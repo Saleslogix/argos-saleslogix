@@ -150,7 +150,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   _previousRecurrence: null,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.recurrence = {
       RecurIterations: '0',
@@ -174,7 +174,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   },
   onAddComplete: function onAddComplete() {
     environment.refreshActivityLists();
-    this.inherited(arguments);
+    this.inherited(onAddComplete, arguments);
   },
   onPutComplete: function onPutComplete(entry, updatedEntry) {
     const view = App.getView(this.detailView);
@@ -201,7 +201,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     }
   },
   convertEntry: function convertEntry() {
-    const entry = this.inherited(arguments);
+    const entry = this.inherited(convertEntry, arguments);
     if (!this.options.entry) {
       if (entry && entry.Leader.$key) {
         this.requestLeader(entry.Leader.$key);
@@ -260,7 +260,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     return !!lead;
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
 
     // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
     // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -589,7 +589,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     return this._getCalculatedStartTime(optionsDate);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     let startDate = this._getCalculatedStartTime(moment());
     const activityType = this.options && this.options.activityType;
@@ -797,7 +797,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
       values.Reminder = format.fixed(reminder, 0);
     }
 
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     this.enableFields();
 
@@ -887,7 +887,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     const reminderIn = this.fields.Reminder.getValue();
     const timeless = this.fields.Timeless.getValue();
     let startDate = this.fields.StartDate.getValue();
-    let values = this.inherited(arguments);
+    let values = this.inherited(getValues, arguments);
 
     // Fix timeless if necessary (The date picker won't add 5 seconds)
     if (timeless) {

@@ -73,7 +73,7 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     '$permissions',
   ],
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(this.fields.Product, 'onChange', this.onProductChange);
     this.connect(this.fields.Program, 'onChange', this.onProgramChange);
     this.connect(this.fields.Discount, 'onChange', this.onDiscountChange);
@@ -82,7 +82,7 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     this.connect(this.fields.Quantity, 'onChange', this.onQuantityChange);
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
     this.fields.Program.setValue({
       $key: '',
       Program: values.Program,
@@ -133,7 +133,7 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     return App.getMyExchangeRate().rate;
   },
   getValues: function getValues() {
-    const o = this.inherited(arguments);
+    const o = this.inherited(getValues, arguments);
     o.Program = o.Program.Program;
 
     /*
@@ -265,11 +265,11 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
   },
   onUpdateCompleted: function onUpdateCompleted() {
     this._refreshOpportunityViews();
-    this.inherited(arguments);
+    this.inherited(onUpdateCompleted, arguments);
   },
   onInsertCompleted: function onInsertCompleted() {
     this._refreshOpportunityViews();
-    this.inherited(arguments);
+    this.inherited(onInsertCompleted, arguments);
   },
   _refreshOpportunityViews: function _refreshOpportunityViews() {
     const views = [

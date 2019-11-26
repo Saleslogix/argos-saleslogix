@@ -87,7 +87,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     header.hide();
   },
   show: function show() {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
     if (!this.connectionState) {
       this._disable();
     }
@@ -112,7 +112,7 @@ const __class = declare('crm.Views.Login', [Edit], {
     this.loginButton.disabled = false;
   },
   _updateConnectionState: function _updateConnectionState(online) {
-    this.inherited(arguments);
+    this.inherited(_updateConnectionState, arguments);
     if (online) {
       this._enable();
     } else {

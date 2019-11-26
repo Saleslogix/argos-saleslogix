@@ -34,10 +34,10 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillToAccounts.Edit', [Ed
   modelName: MODEL_NAMES.ERPSHIPTOACCOUNT,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
     if (this.options && this.options.fromContext) {
       this.fields.ErpBillTo.disable();
       this.fields.Account.disable();

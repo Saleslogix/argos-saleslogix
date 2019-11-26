@@ -102,7 +102,7 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
     }];
   },
   getEntry: function getEntry(/* options */) {
-    const results$ = this.inherited(arguments);
+    const results$ = this.inherited(getEntry, arguments);
     return results$.then((entry) => {
       return new Promise((resolve) => {
         Promise.all([App.picklistService.requestPicklist('Name Prefix', {

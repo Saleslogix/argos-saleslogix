@@ -170,7 +170,7 @@ const resource = getResource('applicationModule');
 const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends crm.ApplicationModule# */{
   searchText: resource.searchText,
   loadViews: function loadViews() {
-    this.inherited(arguments);
+    this.inherited(loadViews, arguments);
 
     this.registerView(new Calendar({
       expose: false,
@@ -549,7 +549,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
     }));
   },
   loadToolbars: function loadToolbars() {
-    this.inherited(arguments);
+    this.inherited(loadToolbars, arguments);
 
     this.registerToolbar(new MainToolbar({
       name: 'tbar',

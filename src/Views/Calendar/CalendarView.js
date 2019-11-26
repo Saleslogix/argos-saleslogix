@@ -286,7 +286,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventContractName: 'dynamic',
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
@@ -465,7 +465,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
         this._refreshAdded = true;
       }
     }
-    this.inherited(arguments);
+    this.inherited(onToolLayoutCreated, arguments);
   },
   parseName: function parseName(name = {}) {
     return name.split(' ').splice(-1)[0];
@@ -541,7 +541,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     });
   },
   render: function render() {
-    this.inherited(arguments);
+    this.inherited(render, arguments);
     this.renderCalendar();
   },
   renderCalendar: function renderCalendar() {
@@ -625,7 +625,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
   },
   show: function show(options) {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
 
     if (options) {
       this.processShowOptions(options);
@@ -635,7 +635,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
   },
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
   },
   toggleMultiSelect: function toggleMultiSelect({ currentTarget }) {
     this._showMulti = !this._showMulti;
@@ -656,7 +656,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   transitionAway: function transitionAway() {
     $(this._calendar._monthDropdown.dropdownSelect).data('dropdown').close();
     $(this._calendar._yearDropdown.dropdownSelect).data('dropdown').close();
-    this.inherited(arguments);
+    this.inherited(transitionAway, arguments);
   },
 });
 

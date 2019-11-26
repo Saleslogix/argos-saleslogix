@@ -106,7 +106,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   id: 'recurrence_edit',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(this.fields.AfterCompletion, 'onChange', this.onAfterCompletionChange);
     this.connect(this.fields.Interval, 'onChange', this.onIntervalChange);
     this.connect(this.fields.RecurIterations, 'onChange', this.onRecurIterationsChange);
@@ -502,7 +502,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     };
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     // calculate some values from the ones provided
     this.entry = values;

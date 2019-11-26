@@ -89,11 +89,11 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
   resourceKind: 'contacts',
 
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
     if (this.options.insert) {
       this.fields.Account.enable();
     } else {

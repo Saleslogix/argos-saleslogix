@@ -60,7 +60,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
   defaultToAddress: null,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
 
   createToolLayout: function createToolLayout() {

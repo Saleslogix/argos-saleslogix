@@ -46,7 +46,7 @@ const __class = declare('crm.Views.SelectList', [List], {
   },
   requestData: function requestData() {
     this.store = null;
-    this.inherited(arguments);
+    this.inherited(requestData, arguments);
   },
   createStore: function createStore() {
     // caller is responsible for passing in a well-structured feed object.

@@ -95,7 +95,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
   enableOffline: true,
 
   onTransitionTo: function onTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(onTransitionTo, arguments);
     App.bars.tbar.disableTool('edit');
     if (!this.locationType) {
       this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] &&
@@ -183,7 +183,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
     return this.entry.IsClosed;
   },
   processEntry: function processEntry() {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
 
     // INFORCRM-16828 - Since we are manually taking over the disable/enable of
     // the edit, check the security before we might potentially re-enable it.

@@ -136,7 +136,7 @@ const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], /** @le
    * Requests the widget's data, value fn, format fn, and renders it's itemTemplate
    */
   requestData: function requestData() {
-    this.inherited(arguments);
+    this.inherited(requestData, arguments);
 
     if (this._data && this._data.length > 0) {
       return;

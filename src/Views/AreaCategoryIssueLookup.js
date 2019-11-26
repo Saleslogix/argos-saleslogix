@@ -64,7 +64,7 @@ const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySData
       this.processFeed();
       this.isRefreshing = false;
     } else {
-      this.inherited(arguments);
+      this.inherited(requestData, arguments);
     }
   },
   processFeed: function processFeed(feed) {

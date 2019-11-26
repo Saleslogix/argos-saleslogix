@@ -52,11 +52,11 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.V
   },
   getGroupForEntry: function getGroupForEntry() {},
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
   },
   initSoho: function initSoho() {
-    this.inherited(arguments);
+    this.inherited(initSoho, arguments);
     this.accordion.element.on('selected', (evt, header) => {
       // Fix up the event target to the element with our data-action attribute.
       evt.target = $('a', header).get(0);
@@ -94,7 +94,7 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.V
     return store;
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.store = null;
   },
   /**

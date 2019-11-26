@@ -93,7 +93,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   locationType: '',
 
   onTransitionTo: function onTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(onTransitionTo, arguments);
     App.bars.tbar.disableTool('edit');
     if (!this.locationType) {
       this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] &&
@@ -226,7 +226,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
     return this.entry.IsClosed;
   },
   processEntry: function processEntry() {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
 
     if (!App.hasAccessTo(this.editView)) {
       return;

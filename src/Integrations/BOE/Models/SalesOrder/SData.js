@@ -173,7 +173,7 @@ const __class = declare('crm.Integrations.BOE.Models.SalesOrder.SData', [Base, _
     });
   },
   getEntry: function getEntry(key, options) {
-    const results$ = this.inherited(arguments);
+    const results$ = this.inherited(getEntry, arguments);
     const closed$ = this.isClosed(key, options);
     return Promise.all([results$, closed$])
       .then(([entry, closed]) => {

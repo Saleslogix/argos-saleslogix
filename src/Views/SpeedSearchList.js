@@ -109,7 +109,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   currentPage: null,
 
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.currentPage = 0;
   },
   _formatFieldName: function _formatFieldName() {},
@@ -155,7 +155,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   },
   more: function more() {
     this.currentPage += 1;
-    this.inherited(arguments);
+    this.inherited(more, arguments);
   },
   hasMoreData: function hasMoreData() {
     const total = this.feed.totalCount;

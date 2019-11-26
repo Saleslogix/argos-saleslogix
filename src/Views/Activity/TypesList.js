@@ -143,10 +143,10 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     return store;
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   onTransitionAway: function onTransitionAway() {
-    this.inherited(arguments);
+    this.inherited(onTransitionAway, arguments);
     this.refreshRequired = true;
     this.store = null;
   },

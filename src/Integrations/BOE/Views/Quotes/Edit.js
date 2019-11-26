@@ -98,7 +98,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   locationType: '',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
     this.connect(this.fields.RequestedBy, 'onChange', this.onContactChange);
@@ -125,14 +125,14 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.showUnpromotedFields();
     this.fields.Location.show();
     this.fields.Warehouse.show();
-    this.inherited(arguments);
+    this.inherited(insert, arguments);
   },
   isQuoteClosed: function isQuoteClosed() {
     return this.entry && this.entry.IsClosed;
   },
   processData: function processData() {
     this.showBusy();
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
     this.getEntriesFromIds();
     if (this.isQuoteClosed()) {
       App.bars.tbar.disableTool('save');
@@ -141,7 +141,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     }
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
     this.hideUnpromotedFields();
     if (!this.fields.AccountManager.isDisabled) {
       this.fields.AccountManager.disable();
@@ -173,7 +173,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     return values;
   },
   processEntry: function processEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     if (entry && entry.Account) {
       ['RequestedBy', 'Opportunity'].forEach((f) => {
         this.fields[f].dependsOn = 'Account';
@@ -214,7 +214,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     return entry;
   },
   setValues: function setValues() {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     if (!this.fields.CurrencyCode.getValue()) {
       const account = this.fields.Account.currentSelection;
@@ -226,14 +226,14 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     }
   },
   onRefresh: function onRefresh() {
-    this.inherited(arguments);
+    this.inherited(onRefresh, arguments);
     ['RequestedBy', 'Opportunity', 'BackOfficeAccountingEntity', 'Warehouse', 'Location'].forEach((f) => {
       this.fields[f].dependsOn = null;
       this.fields[f].where = null;
     });
   },
   onRefreshInsert: function onRefreshInsert() {
-    this.inherited(arguments);
+    this.inherited(onRefreshInsert, arguments);
     this.enableBackOfficeData();
   },
   getEntriesFromIds: function getEntriesFromIds() {
@@ -391,7 +391,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.fields.Location.setValue(field.currentSelection);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
     const found = this._getNavContext();
 
     const accountField = this.fields.Account;

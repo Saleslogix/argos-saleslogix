@@ -91,7 +91,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
     if (this.owner && this.owner._refreshClicked) {
       this.owner._refreshClicked();
     }
-    this.inherited(arguments);
+    this.inherited(onUpdateCompleted, arguments);
   },
   destroy: function destroy() {
     this._subscribes.forEach((handle) => {
@@ -106,7 +106,7 @@ const __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase],
       }
       this.editViewInstance.destroy();
     }
-    this.inherited(arguments);
+    this.inherited(destroy, arguments);
   },
 });
 const rvm = new RelatedViewManager();

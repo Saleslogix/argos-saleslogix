@@ -399,9 +399,9 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     if (entry) {
       const activityParams = params;
       activityParams.descriptor = this._model.getEntityDescription(entry);
-      this.inherited(arguments, [activityParams]);
+      this.inherited(activateEntry, arguments, [activityParams]);
     } else {
-      this.inherited(arguments);
+      this.inherited(activateEntry, arguments);
     }
   },
 });

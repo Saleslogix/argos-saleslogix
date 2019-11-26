@@ -58,7 +58,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
       }, this);
     }
 
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
   },
   _userEnabled: function _userEnabled(item) {
     // If User is null, it is probably a team

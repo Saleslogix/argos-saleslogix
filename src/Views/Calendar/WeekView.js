@@ -236,13 +236,13 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   resourceKind: 'activities',
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.todayDate = moment().startOf('day');
     this.currentDate = this.todayDate.clone();
   },
@@ -510,7 +510,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
       this.processShowOptions(options);
     }
 
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   processShowOptions: function processShowOptions(options) {
     if (options.currentDate) {
@@ -528,7 +528,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     }
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.entryGroups = {};
     this.set('eventContent', '');
     this.set('listContent', this.loadingTemplate.apply(this));

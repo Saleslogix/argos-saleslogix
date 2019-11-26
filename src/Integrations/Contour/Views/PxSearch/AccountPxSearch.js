@@ -244,7 +244,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     this.startup();
     this.initConnects();
     this.titleEl = document.getElementById('pageTitle');
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   loadAccountTypes: function loadAccountTypes() {
     this.queryTypeEl = document.getElementById('queryType');

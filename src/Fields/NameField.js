@@ -42,7 +42,7 @@ const control = declare('crm.Fields.NameField', [EditorField], {
   iconClass: 'quick-edit',
 
   createNavigationOptions: function createNavigationOptions() {
-    const options = this.inherited(arguments);
+    const options = this.inherited(createNavigationOptions, arguments);
     // Name does not have an entity.
     delete options.entityName;
 

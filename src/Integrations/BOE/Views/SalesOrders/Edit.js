@@ -96,7 +96,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   carrierText: resource.carrierText,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
     this.connect(this.fields.RequestedBy, 'onChange', this.onContactChange);
@@ -122,15 +122,15 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   insert: function insert() {
     this.fields.Location.show();
     this.fields.Warehouse.show();
-    this.inherited(arguments);
+    this.inherited(insert, arguments);
   },
   processData: function processData() {
     this.showBusy();
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
     this.getEntriesFromIds();
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
     if (!this.fields.AccountManager.isDisabled) {
       this.fields.AccountManager.disable();
     }
@@ -201,7 +201,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
     return entry;
   },
   setValues: function setValues() {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     if (!this.fields.CurrencyCode.getValue()) {
       const account = this.fields.Account.currentSelection;
@@ -213,14 +213,14 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
     }
   },
   onRefresh: function onRefresh() {
-    this.inherited(arguments);
+    this.inherited(onRefresh, arguments);
     ['RequestedBy', 'Opportunity', 'Warehouse', 'Location'].forEach((f) => {
       this.fields[f].dependsOn = null;
       this.fields[f].where = null;
     });
   },
   onRefreshInsert: function onRefreshInsert() {
-    this.inherited(arguments);
+    this.inherited(onRefreshInsert, arguments);
     this.enableBackOfficeData();
   },
   getEntriesFromIds: function getEntriesFromIds() {

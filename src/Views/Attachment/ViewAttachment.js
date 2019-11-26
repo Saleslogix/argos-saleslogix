@@ -191,7 +191,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     this._orientationHandle = null;
   },
   show: function show(options) {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
     this.attachmentViewerNode.innerHTML = '';
     if (!App.supportsFileAPI()) {
       $(this.domNode).empty().append(this.notSupportedTemplate.apply({}, this));
@@ -206,11 +206,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     }
   },
   processEntry: function processEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     this._loadAttachmentView(entry);
   },
   createRequest: function createRequest() {
-    const request = this.inherited(arguments);
+    const request = this.inherited(createRequest, arguments);
     request.setQueryArg('_includeFile', 'false');
     return request;
   },

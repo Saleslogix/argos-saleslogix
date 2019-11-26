@@ -172,7 +172,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   contractName: 'system',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Leader, 'onChange', this.onLeaderChange);
     this.connect(this.fields.Timeless, 'onChange', this.onTimelessChange);
@@ -193,7 +193,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     return entry && /^[\w]{12}$/.test(entry.LeadId);
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
 
     this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function hideFields(item) {
       if (this.fields[item]) {
@@ -301,7 +301,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     return this.picklistsByType[type] && this.picklistsByType[type][which];
   },
   setValues: function setValues() {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
     this.fields.CarryOverNotes.setValue(true);
     this.fields.CompletedDate.setValue(new Date());
     this.fields.Followup.setValue('none');
@@ -405,14 +405,14 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     if (entry.$key.split(this.recurringActivityIdSeparator).length === 2) {
       this._completedBasedOn = entry;
     }
-    this.inherited(arguments);
+    this.inherited(onPutComplete, arguments);
   },
   onUpdateCompleted: function onUpdateCompleted(entry) {
     if (!entry) {
       return;
     }
 
-    const followup = this.fields.Followup.getValue() === 'none' ? this.getInherited(arguments) : this.navigateToFollowUpView;
+    const followup = this.fields.Followup.getValue() === 'none' ? this.getInherited(onUpdateCompleted, arguments) : this.navigateToFollowUpView;
     entry.$completedBasedOn = this._completedBasedOn;
     this.completeActivity(entry, followup);
   },

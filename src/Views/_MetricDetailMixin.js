@@ -40,7 +40,7 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
     ]);
   },
   postCreate: function postCreate() {
-    this.inherited(arguments);
+    this.inherited(postCreate, arguments);
   },
   destroyWidgets: function destroyWidgets() {
     if (this.metricWidgets) {
@@ -50,7 +50,7 @@ const __class = declare('crm.Views._MetricDetailMixin', null, {
     }
   },
   processEntry: function processEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     this.rebuildWidgets(entry);
   },
   createMetricWidgetsLayout: function createMetricWidgetsLayout() {},

@@ -64,7 +64,7 @@ const __class = declare('crm.Views.OfflineOptions.Edit', [_EditBase, _RelatedWid
       .offline_usage_widget_undefined
       ._olderThanDropdown
       .dropdownSelect).data('dropdown').close();
-    this.inherited(arguments);
+    this.inherited(transitionAway, arguments);
   },
 });
 

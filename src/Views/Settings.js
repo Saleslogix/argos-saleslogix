@@ -189,7 +189,7 @@ const __class = declare('crm.Views.Settings', [List], {
     this.processData(list);
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.createActionsList();
   },
   createToolLayout: function createToolLayout() {

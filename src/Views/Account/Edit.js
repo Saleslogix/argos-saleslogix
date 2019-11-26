@@ -90,7 +90,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
     return string.substitute(nformat, [dependentValue]);
   },
   applyContext: function applyContext(templateEntry) {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     this.fields.AccountManager.setValue(App.context.user);
     this.fields.Owner.setValue(App.context.defaultOwner);

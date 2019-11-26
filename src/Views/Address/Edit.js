@@ -62,7 +62,7 @@ const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.A
   id: 'address_edit',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(this.fields.Country, 'onChange', this.onCountryChange);
   },
   onCountryChange: function onCountryChange(value) {
