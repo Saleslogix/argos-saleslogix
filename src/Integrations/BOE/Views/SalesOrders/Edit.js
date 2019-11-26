@@ -355,7 +355,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
     this.fields.Location.setValue(field.currentSelection);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
     const found = this._getNavContext();
 
     const accountField = this.fields.Account;
