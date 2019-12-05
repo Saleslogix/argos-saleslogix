@@ -381,6 +381,7 @@
   forText: "for ${reason}"
   dayText: "Day"
   weekText: "Week"
+  addUnscheduledText: "New Unscheduled"
 >
 
 <calendarDayView ""
