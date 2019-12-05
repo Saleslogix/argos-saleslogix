@@ -400,6 +400,10 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       activityModel.completeActivity(entry).then(success, this.onRequestFailure);
     }
   },
+  onInsertCompleted: function onInsertCompleted(entry) {
+    // Activity inserted, so now complete it like our normal flow
+    this.onUpdateCompleted(entry);
+  },
   onPutComplete: function onPutComplete(entry) {
     this._completedBasedOn = null;
     if (entry.$key.split(this.recurringActivityIdSeparator).length === 2) {
