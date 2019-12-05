@@ -18,6 +18,9 @@
 #right_drawer {
   min-width: 200px;
 }
+#left_drawer .scrollable {
+  overflow: hidden;
+}
 /* note view */
 .note-text {
   height: 5em;
@@ -1010,7 +1013,7 @@ canvas,
   padding: 5px;
   background-color: #dee1e8;
 }
-.dark-them .dashboard-widget {
+.dark-theme .dashboard-widget {
   background-color: #414247;
 }
 .listview li.related-view-detail-content:hover {
