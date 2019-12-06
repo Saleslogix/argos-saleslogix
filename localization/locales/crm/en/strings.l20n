@@ -242,6 +242,7 @@
   touchedText: "Touched"
   importantText: "important"
   recurringText: "recurring"
+  addUnscheduledText: "New Unscheduled"
 >
 
 <activityMyList ""
@@ -380,6 +381,7 @@
   forText: "for ${reason}"
   dayText: "Day"
   weekText: "Week"
+  addUnscheduledText: "New Unscheduled"
 >
 
 <calendarDayView ""
@@ -1191,6 +1193,7 @@
   onlineText: "Online"
   offlineText: "Offline"
   connectionText: "Connection: ${connectionStatus}"
+  aboutText: "About"
 >
 
 <login ""

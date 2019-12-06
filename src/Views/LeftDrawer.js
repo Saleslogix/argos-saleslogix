@@ -52,6 +52,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
   onlineText: resource.onlineText,
   offlineText: resource.offlineText,
   connectionText: resource.connectionText,
+  aboutText: resource.aboutText,
 
   // View Properties
   id: 'left_drawer',
@@ -136,6 +137,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
       'HelpAction',
       'Logout',
       'ConnectionIndicator',
+      'AboutAction',
     ];
 
     if (entry.view) {
@@ -229,12 +231,22 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
         name: 'ConnectionIndicator',
         title: string.substitute(this.connectionText, { connectionStatus: App.onLine ? this.onlineText : this.offlineText }),
         enableOfflineSupport: true,
+      }, {
+        name: 'AboutAction',
+        title: this.aboutText,
+        action: 'showAbout',
       }],
     };
 
     layout.push(footer);
 
     return layout;
+  },
+  showAbout: function showAbout() {
+    $('body').about({
+      appName: 'Infor CRM',
+      version: App.getVersionInfo(),
+    });
   },
   createStore: function createStore() {
     const layout = this._createCustomizedLayout(this.createLayout());

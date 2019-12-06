@@ -80,11 +80,17 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   id: 'activity_types_list',
   editView: 'activity_edit',
   eventEditView: 'event_edit',
+  unscheduledView: 'activity_complete',
+
   allowSelection: true, // adds list-show-selectors class to listview for displaying icons
   activityTypeIcon: activityTypeIcons.default,
   activateEntry: function activateEntry(params) {
     if (params.key) {
-      const view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
+      let view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
+
+      if (this.options.unscheduled === true) {
+        view = App.getView(this.unscheduledView);
+      }
 
       if (view) {
         const source = this.options && this.options.source;
@@ -96,6 +102,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
           title: this.activityTypeText[params.key],
           returnTo: this.options && this.options.returnTo,
           currentDate: this.options && this.options.currentDate,
+          unscheduled: this.options.unscheduled,
         }, {
           returnTo: -1,
         });

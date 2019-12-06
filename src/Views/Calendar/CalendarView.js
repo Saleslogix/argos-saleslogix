@@ -63,6 +63,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   forText: resource.forText,
   dayText: resource.dayText,
   weekText: resource.weekText,
+  addUnscheduledText: resource.addUnscheduledText,
 
   enablePullToRefresh: true,
   string,
@@ -249,7 +250,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _eventStore: null,
   _showMulti: false,
   _refreshAdded: false,
-
+  _newUnscheduledAdded: false,
 
   queryOrderBy: 'StartDate asc',
   querySelect: [
@@ -452,6 +453,28 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       });
     }
   },
+  createToolLayout: function createToolLayout() {
+    this.inherited(createToolLayout, arguments);
+    if (this.tools && this.tools.tbar && !this._newUnscheduledAdded) {
+      this.tools.tbar.unshift({
+        id: 'newUnscheduled',
+        svg: 'add',
+        title: this.addUnscheduledText,
+        action: 'navigateToNewUnscheduled',
+        security: this.app.getViewSecurity(this.insertView, 'insert'),
+      });
+      this._newUnscheduledAdded = true;
+    }
+
+    return this.tools;
+  },
+  navigateToNewUnscheduled: function navigateToNewUnscheduled() {
+    const additionalOptions = {
+      unscheduled: true,
+    };
+
+    this.navigateToInsertView(additionalOptions);
+  },
   onToolLayoutCreated: function onToolLayoutCreated(tools) {
     if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
       const refreshTool = {
@@ -461,7 +484,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
 
       };
       if (tools.tbar) {
-        tools.tbar.push(refreshTool);
+        tools.tbar.unshift(refreshTool);
         this._refreshAdded = true;
       }
     }

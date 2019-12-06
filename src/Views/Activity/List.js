@@ -62,6 +62,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   importantText: resource.importantText,
   recurringText: resource.recurringText,
   titleText: resource.titleText,
+  addUnscheduledText: resource.addUnscheduledText,
   hashTagQueriesText: {
     alarm: hashTagResource.alarmText,
     recurring: hashTagResource.recurringText,
@@ -200,6 +201,27 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     }
 
     return (this._model && this._model.getEntityDescription(entry)) || entry.$descriptor;
+  },
+  createToolLayout: function createToolLayout() {
+    this.inherited(createToolLayout, arguments);
+    if (this.tools && this.tools.tbar) {
+      this.tools.tbar.unshift({
+        id: 'newUnscheduled',
+        svg: 'add',
+        title: this.addUnscheduledText,
+        action: 'navigateToNewUnscheduled',
+        security: this.app.getViewSecurity(this.insertView, 'insert'),
+      });
+    }
+
+    return this.tools;
+  },
+  navigateToNewUnscheduled: function navigateToNewUnscheduled() {
+    const additionalOptions = {
+      unscheduled: true,
+    };
+
+    this.navigateToInsertView(additionalOptions);
   },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
