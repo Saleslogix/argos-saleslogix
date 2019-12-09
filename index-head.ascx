@@ -68,6 +68,15 @@
 <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
 <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
+<!-- Soho Configuration -->
+<script type="application/javascript">
+    var SohoConfig = {
+      personalize: {
+        noInit: true
+      }
+    };
+</script>
+
 <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
 <script type="application/l20n">{}</script>
 

@@ -79,6 +79,15 @@
     <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
     <script type="application/l20n">{}</script>
 
+    <!-- Soho Configuration -->
+    <script type="application/javascript">
+      var SohoConfig = {
+        personalize: {
+          noInit: true
+        }
+      };
+    </script>
+
     <!-- Global (window) dependencies. Load these before the AMD loader -->
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
