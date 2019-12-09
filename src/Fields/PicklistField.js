@@ -210,18 +210,18 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     if (!this.singleSelect) {
       options.tools = {
         tbar: [{
-          id: 'complete',
-          title: this.completeText,
-          svg: 'check',
-          fn: this.complete,
-          scope: this,
-        }, {
           id: 'cancel',
           title: this.cancelText,
           svg: 'cancel',
           side: 'left',
           fn: ReUI.back,
           scope: ReUI,
+        }, {
+          id: 'complete',
+          title: this.completeText,
+          svg: 'check',
+          fn: this.complete,
+          scope: this,
         }],
       };
     }
