@@ -11,7 +11,7 @@
     "less": "grunt less",
     "start": "node scripts/server.js",
     "build": "babel src --out-dir src-out",
-    "build:watch": "babel src --out-dir src-out --source-maps inline --watch",
+    "build:watch": "babel src --out-dir src-out --watch",
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
     "watch": "yarn run build:watch",
