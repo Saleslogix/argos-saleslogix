@@ -268,6 +268,20 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       };
       return this.executeRequest(options);
     },
+    opportunityRePrice: function opportunityRePrice(opportunity) {
+      var options = {
+        operationName: 'RePriceOpportunity',
+        resourceKind: 'opportunities',
+        requestOptions: {
+          entityId: opportunity.$key,
+          childEntityName: 'Product',
+          itemEntityName: 'OpportunityProduct',
+          entityName: 'Opportunity',
+          serviceName: 'OpportunityOrderLineTotal'
+        }
+      };
+      return this.executeRequest(options);
+    },
     quoteRePrice: function quoteRePrice(quote) {
       var options = {
         operationName: 'RePriceQuote',

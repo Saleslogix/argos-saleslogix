@@ -1,4 +1,4 @@
-define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_Module', '../Views/Quotes/List', '../Views/SalesOrders/List', 'argos/I18n'], function (module, exports, _declare, _lang, _Module2, _List, _List3, _I18n) {
+define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_Module', '../Views/Quotes/List', '../Views/SalesOrders/List', '../PricingAvailabilityService', 'argos/I18n'], function (module, exports, _declare, _lang, _Module2, _List, _List3, _PricingAvailabilityService, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -13,6 +13,8 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
 
   var _List4 = _interopRequireDefault(_List3);
 
+  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
+
   var _I18n2 = _interopRequireDefault(_I18n);
 
   function _interopRequireDefault(obj) {
@@ -21,22 +23,20 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
-
-  var resource = (0, _I18n2.default)('opportunityModule');
+  var resource = (0, _I18n2.default)('opportunityModule'); /* Copyright 2017 Infor
+                                                            *
+                                                            * Licensed under the Apache License, Version 2.0 (the "License");
+                                                            * you may not use this file except in compliance with the License.
+                                                            * You may obtain a copy of the License at
+                                                            *
+                                                            *    http://www.apache.org/licenses/LICENSE-2.0
+                                                            *
+                                                            * Unless required by applicable law or agreed to in writing, software
+                                                            * distributed under the License is distributed on an "AS IS" BASIS,
+                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                            * See the License for the specific language governing permissions and
+                                                            * limitations under the License.
+                                                            */
 
   var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.OpportunityModule', [_Module3.default], {
     addQuoteText: resource.addQuoteText,
@@ -44,6 +44,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
     relatedERPItemsText: resource.relatedERPItemsText,
     quotesText: resource.quotesText,
     ordersText: resource.ordersText,
+    opportunityRefreshPricingText: resource.opportunityRefreshPricingText,
 
     init: function init() {},
     loadViews: function loadViews() {
@@ -113,6 +114,21 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
             },
             failure: function failure() {}
           });
+        },
+        handlePricingSuccess: function handlePricingSuccess(result) {
+          this._refreshClicked();
+          return result;
+        },
+        opportunityRePrice: function opportunityRePrice() {
+          var _this = this;
+
+          if (!this.entry) {
+            return;
+          }
+
+          _PricingAvailabilityService2.default.opportunityRePrice(this.entry).then(function (result) {
+            _this.handlePricingSuccess(result);
+          });
         }
       });
 
@@ -139,6 +155,21 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
           iconClass: 'cart',
           action: '_onAddOrderClick',
           security: 'Entities/SalesOrder/Add'
+        }]
+      });
+
+      am.registerCustomization('detail', 'opportunity_detail', {
+        at: function at(row) {
+          return row.name === 'AddNoteAction';
+        },
+        type: 'insert',
+        where: 'after',
+        value: [{
+          name: 'RefreshPricing',
+          label: this.opportunityRefreshPricingText,
+          iconClass: 'finance',
+          action: 'opportunityRePrice',
+          security: 'Entities/Opportunity/Add'
         }]
       });
 
