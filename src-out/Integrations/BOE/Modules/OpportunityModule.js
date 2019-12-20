@@ -169,7 +169,16 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
           label: this.opportunityRefreshPricingText,
           iconClass: 'finance',
           action: 'opportunityRePrice',
-          security: 'Entities/Opportunity/Add'
+          security: 'Entities/Opportunity/Add',
+          disabled: function disabled() {
+            var boeSettings = App.context.integrationSettings['Back Office Extension'];
+
+            if (boeSettings === null || typeof boeSettings === 'undefined') {
+              return true;
+            }
+
+            return boeSettings['Local CRM Pricing Opportunity'] !== 'True';
+          }
         }]
       });
 

@@ -156,6 +156,16 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
         iconClass: 'finance',
         action: 'opportunityRePrice',
         security: 'Entities/Opportunity/Add',
+        disabled: () => {
+          const boeSettings = App.context.integrationSettings['Back Office Extension'];
+
+          if (boeSettings === null || typeof boeSettings === 'undefined') {
+            return true;
+          }
+
+
+          return boeSettings['Local CRM Pricing Opportunity'] !== 'True';
+        },
       }],
     });
 
