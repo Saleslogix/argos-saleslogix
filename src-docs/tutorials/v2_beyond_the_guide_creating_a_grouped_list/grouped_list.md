@@ -32,6 +32,7 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
 
 3\. For querySelect get: `NameLF` and `AccountName`, order by `'LastNameUpper, FirstName'` and for the itemTemplate use `NameLF` in a `listview-heading` and `AccountName` in a `micro-text`:
 
+```
         return declare('crm.Views.Contact.List', [GroupedList], {
             titleText: 'Contacts',
 
@@ -49,7 +50,9 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
             ],
             resourceKind: 'contacts',
 ```
+
 4\. Now add the `formatSearchQuery()` function that formats to `like LastNameUpper or like upper(FirstName)`:
+
 ```javascript
             formatSearchQuery: function(searchQuery) {
                 return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
