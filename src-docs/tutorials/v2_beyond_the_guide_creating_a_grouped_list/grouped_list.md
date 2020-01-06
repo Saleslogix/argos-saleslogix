@@ -28,6 +28,7 @@ If you have completed [How List Search Works](#!/guide/v2_beyond_the_guide_list_
             resourceKind: 'contacts'
         });
     });
+```
 
 3\. For querySelect get: `NameLF` and `AccountName`, order by `'LastNameUpper, FirstName'` and for the itemTemplate use `NameLF` in a `listview-heading` and `AccountName` in a `micro-text`:
 
