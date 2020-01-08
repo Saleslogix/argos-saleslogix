@@ -18,6 +18,7 @@ import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import QuotesList from '../Views/Quotes/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
+import PricingAvailabilityService from '../PricingAvailabilityService';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityModule');
@@ -28,6 +29,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   relatedERPItemsText: resource.relatedERPItemsText,
   quotesText: resource.quotesText,
   ordersText: resource.ordersText,
+  opportunityRefreshPricingText: resource.opportunityRefreshPricingText,
 
   init: function init() {
   },
@@ -101,6 +103,19 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           },
         });
       },
+      handlePricingSuccess: function handlePricingSuccess(result) {
+        this._refreshClicked();
+        return result;
+      },
+      opportunityRePrice: function opportunityRePrice() {
+        if (!this.entry) {
+          return;
+        }
+
+        PricingAvailabilityService.opportunityRePrice(this.entry).then((result) => {
+          this.handlePricingSuccess(result);
+        });
+      },
     });
 
     /*
@@ -126,6 +141,31 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
         iconClass: 'cart',
         action: '_onAddOrderClick',
         security: 'Entities/SalesOrder/Add',
+      }],
+    });
+
+    am.registerCustomization('detail', 'opportunity_detail', {
+      at: function at(row) {
+        return row.name === 'AddNoteAction';
+      },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'RefreshPricing',
+        label: this.opportunityRefreshPricingText,
+        iconClass: 'finance',
+        action: 'opportunityRePrice',
+        security: 'Entities/Opportunity/Add',
+        disabled: () => {
+          const boeSettings = App.context.integrationSettings['Back Office Extension'];
+
+          if (boeSettings === null || typeof boeSettings === 'undefined') {
+            return true;
+          }
+
+
+          return boeSettings['Local CRM Pricing Opportunity'] !== 'True';
+        },
       }],
     });
 

@@ -1095,6 +1095,7 @@
   relatedERPItemsText: "Related Items (ERP)"
   quotesText: "Quotes"
   ordersText: "Sales Orders"
+  opportunityRefreshPricingText: "Refresh Pricing"
 >
 
 <helpModule ""
