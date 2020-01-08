@@ -74,5 +74,6 @@ module.exports = function(grunt) {
   grunt.loadTasks('grunt-tasks');
 
   // Register alias tasks
+  grunt.registerTask('test', ['connect', 'jasmine:basic']);
   grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
 };
