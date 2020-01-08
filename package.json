@@ -29,7 +29,7 @@
     "babel-preset-es2017": "^6.24.1",
     "eslint": "^6.8.0",
     "grunt": "^1.0.4",
-    "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.4",
+    "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.5",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-connect": "^2.1.0",
     "grunt-contrib-copy": "^1.0.0",
