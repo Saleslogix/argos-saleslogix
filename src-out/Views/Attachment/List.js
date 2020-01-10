@@ -45,25 +45,6 @@ define('crm/Views/Attachment/List', ['module', 'exports', 'dojo/_base/declare', 
   var hashTagResource = (0, _I18n2.default)('attachmentListHashTags');
   var dtFormatResource = (0, _I18n2.default)('attachmentListDateTimeFormat');
 
-  /**
-   * @class crm.Views.Attachments.List
-   *
-   * @extends argos.List
-   * @mixins argos.List
-   * @mixins crm.Views._RightDrawerListMixin
-   * @mixins argos._LegacySDataListMixin
-   *
-   * @requires argos.List
-   * @requires argos._LegacySDataListMixin
-   * @requires argos.Convert
-   *
-   * @requires crm.Format
-   * @requires crm.Views._RightDrawerListMixin
-   *
-   * @requires moment
-   *
-   * @requires string
-   */
   var __class = (0, _declare2.default)('crm.Views.Attachment.List', [_List2.default, _RightDrawerListMixin3.default, _LegacySDataListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['{% if ($.dataType === "R") { %}', '{%! $$.fileTemplate %}', '{% } else { %}', '{%! $$.urlTemplate %}', '{% } %}']),

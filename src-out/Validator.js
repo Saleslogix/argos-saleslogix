@@ -28,13 +28,16 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Validator
+   */
   var resource = (0, _I18n2.default)('validators');
 
   /**
-   * @class crm.Validator
+   * @class
+   * @alias module:crm/Validator
    * @classdesc Validators for use in {@link argos.Edit} forms. To use validators, you add them to your view's layout:
-   *
-   *      @example
+   * @example
    *       createLayout: function() {
    *           return this.layout || (this.layout = [{
    *                   label: this.accountText,
@@ -53,9 +56,9 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
    *                   validator: validator.exceedsMaxTextLength
    *               }]);
    *       }
-   * @singleton
+   * @static
    */
-  var __class = _lang2.default.setObject('crm.Validator', /** @lends crm.Validator */{
+  var __class = _lang2.default.setObject('crm.Validator', /** @lends module:crm/Validator */{
     /**
      * @property {Object} exists
      * Validator that ensures the field contains a value.

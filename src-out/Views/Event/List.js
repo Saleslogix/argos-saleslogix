@@ -32,13 +32,6 @@ define('crm/Views/Event/List', ['module', 'exports', 'dojo/_base/declare', 'argo
 
   var dtFormatResource = (0, _I18n2.default)('eventListDateTimeFormat');
 
-  /**
-   * @class crm.Views.Event.List
-   *
-   * @extends argos.List
-   *
-   * @requires crm.Format
-   */
   var __class = (0, _declare2.default)('crm.Views.Event.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,

@@ -43,16 +43,6 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
   var resource = (0, _I18n2.default)('ticketActivityEdit');
   var dtFormatResource = (0, _I18n2.default)('ticketActivityEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.TicketActivity.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.ErrorManager
-   *
-   * @requires crm.Template
-   * @requires crm.Validator
-   */
   var __class = (0, _declare2.default)('crm.Views.TicketActivity.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,

@@ -12,17 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Integrations.BOE.Views.ERPInvocieItems.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- * @requires crm.Template
- *
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import format from 'crm/Format';
@@ -32,7 +21,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.ERPInvocieItems.Detail# */ {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   invoiceNumberText: resource.invoiceNumberText,

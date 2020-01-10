@@ -31,23 +31,6 @@ import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePic
 const resource = getResource('activityDetail');
 const dtFormatResource = getResource('activityDetailDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Detail
- *
- *
- * @extends argos.Detail
- * @mixins argos.Detail
- *
- * @requires argos.Detail
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires crm.Format
- * @requires crm.Template
- * @requires crm.Environment
- * @requires crm.Recurrence
- * @requires crm.Utility
- *
- */
 const __class = declare('crm.Views.Activity.Detail', [Detail], {
   // Localization
   actionsText: resource.actionsText,

@@ -44,12 +44,16 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Views/MetricWidget
+   */
   var resource = (0, _I18n2.default)('metricWidget');
 
   /**
-   * @class crm.Views.MetricWidget
+   * @class
+   * @alias module:crm/Views/MetricWidget
    */
-  var __class = (0, _declare2.default)('crm.Views.MetricWidget', [_Widget3.default, _Templated3.default], /** @lends crm.Views.MetricWidget# */{
+  var __class = (0, _declare2.default)('crm.Views.MetricWidget', [_Widget3.default, _Templated3.default], /** @lends module:crm/Views/MetricWidget.prototype */{
     /**
      * @property {Simplate}
      * Simple that defines the HTML Markup

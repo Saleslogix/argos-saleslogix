@@ -29,10 +29,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('promote');
 
-/**
- * @class crm.Integrations.BOE.Promote
- */
-const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], /** @lends crm.Integrations.BOE.Promote */{
+const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
   widgetTemplate: new Simplate([
     '<div class="modal__content" data-dojo-attach-point="promoteNode">',
     '<div class="modal__header__title">{%: $.promoteTitle %}</div>',

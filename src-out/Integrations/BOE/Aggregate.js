@@ -13,6 +13,12 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
     };
   }
 
+  /**
+   * @class
+   * @alias module:/crm/Integrations/BOE/Aggregate
+   * @classdesc Aggregate functions. Currently used in metric widgets.
+   * @static
+   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,11 +35,9 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
    */
 
   /**
-   * @class crm.Integrations.BOE.Aggregate
-   * @classdesc Aggregate functions. Currently used in metric widgets.
-   * @singleton
-   */
-  var __class = _lang2.default.setObject('crm.Integrations.BOE.Aggregate', /** @lends crm.Integrations.BOE.Aggregate */{
+  * @module crm/Integrations/BOE/Aggregate
+  */
+  var __class = _lang2.default.setObject('crm.Integrations.BOE.Aggregate', /** @lends module:crm/Integrations/BOE/Aggregate */{
     /**
      * Calculate Profit
      * @param {Array} data arrays of revenue and cost

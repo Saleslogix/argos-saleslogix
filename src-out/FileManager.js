@@ -32,12 +32,12 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
    * limitations under the License.
    */
 
+  /**
+  * @module crm/FileManager
+  */
   var resource = (0, _I18n2.default)('fileManager');
 
-  /**
-   * @class crm.FileManager
-   */
-  var __class = (0, _declare2.default)('crm.FileManager', null, /** @lends crm.FileManager# */{
+  var __class = (0, _declare2.default)('crm.FileManager', null, /** @lends module:crm/FileManager.prototype */{
     unableToUploadText: resource.unableToUploadText,
     unknownSizeText: resource.unknownSizeText,
     unknownErrorText: resource.unknownErrorText,
@@ -55,7 +55,8 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     _isUploading: false,
 
     /**
-     * @constructs
+     * @class
+     * @alias module:crm/FileManager
      */
     constructor: function constructor() {
       this._files = [];

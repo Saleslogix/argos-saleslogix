@@ -21,14 +21,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('leadEdit');
 
-/**
- * @class crm.Views.Lead.Edit
- *
- * @extends argos.Edit
- *
- * @requires crm.Format
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.Lead.Edit', [Edit], {
   // Localization
   accountText: resource.accountText,

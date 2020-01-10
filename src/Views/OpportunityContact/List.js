@@ -21,11 +21,6 @@ import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityContactList');
 
-/**
- * @class crm.Views.OpportunityContact.List
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.OpportunityContact.List', [List], {
   // Template
   itemTemplate: new Simplate([

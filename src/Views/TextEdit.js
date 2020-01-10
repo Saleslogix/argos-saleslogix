@@ -19,13 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('textEdit');
 
-/**
- * @class crm.Views.TextEdit
- *
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.TextEdit', [Edit], {
   // View Properties
   id: 'text_edit',

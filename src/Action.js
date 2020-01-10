@@ -13,17 +13,22 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Action
+ */
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import utility from 'argos/Utility';
 import getResource from 'argos/I18n';
 
 const resource = getResource('action');
+
 /**
- * @class crm.Action
- * @requires argos.Utility
+ * @class
+ * @alias module:crm/Action
+ * @static
  */
-const __class = lang.setObject('crm.Action', {
+const __class = lang.setObject('crm.Action', /** @lends module:crm/Action */{
   calledText: resource.calledText,
   emailedText: resource.emailedText,
 

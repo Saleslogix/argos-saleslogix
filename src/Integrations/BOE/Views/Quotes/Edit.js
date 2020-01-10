@@ -30,17 +30,6 @@ const resource = getResource('quoteEdit');
 const contactResource = getResource('contactModel');
 const dtFormatResource = getResource('quoteEditDateTimeFormat');
 
-/**
- * @class crm.Views.Account.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,

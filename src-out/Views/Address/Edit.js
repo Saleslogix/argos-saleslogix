@@ -38,12 +38,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
 
   var resource = (0, _I18n2.default)('addressEdit');
 
-  /**
-   * @class crm.Views.Address.Edit
-   * @extends argos.Edit
-   *
-   */
-  var __class = (0, _declare2.default)('crm.Views.Address.Edit', [_Edit2.default], /** @lends crm.Views.Address.Edit# */{
+  var __class = (0, _declare2.default)('crm.Views.Address.Edit', [_Edit2.default], {
     // Localization
     address1Text: resource.address1Text,
     address2Text: resource.address2Text,

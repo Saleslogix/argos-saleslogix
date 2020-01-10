@@ -49,12 +49,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
   var resource = (0, _I18n2.default)('activityEdit');
   var dtFormatResource = (0, _I18n2.default)('activityEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.Activity.Edit
-   * @extends argos.Edit
-   *
-   */
-  var __class = (0, _declare2.default)('crm.Views.Activity.Edit', [_Edit2.default], /** @lends crm.Views.Activity.Edit# */{
+  var __class = (0, _declare2.default)('crm.Views.Activity.Edit', [_Edit2.default], {
     // Localization
     activityCategoryTitleText: resource.activityCategoryTitleText,
     activityDescriptionTitleText: resource.activityDescriptionTitleText,

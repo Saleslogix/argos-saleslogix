@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/_GroupListMixin
+ */
 import declare from 'dojo/_base/declare';
 import json from 'dojo/json';
 import utility from 'argos/Utility';
@@ -30,11 +33,13 @@ import getResource from 'argos/I18n';
 const resource = getResource('groupListMixin');
 
 /**
- * @class crm.Views._GroupListMixin
+ * @class
+ * @alias module:crm/Views/_GroupListMixin
+ * @mixin
  * @classdesc Mixin for slx group list layouts.
  * @since 3.1
  */
-const __class = declare('crm.Views._GroupListMixin', null, {
+const __class = declare('crm.Views._GroupListMixin', null, /** @lends module:crm/Views/_GroupListMixin.prototype */{
   noDefaultGroupText: resource.noDefaultGroupText,
   currentGroupNotFoundText: resource.currentGroupNotFoundText,
   groupTemplateSummaryText: resource.groupTemplateSummaryText,
@@ -294,6 +299,9 @@ const __class = declare('crm.Views._GroupListMixin', null, {
       })(this, queryResults);
     }
   },
+  /**
+   * Sets the titlebar to the current group's displayName.
+   */
   setPrimaryTitle: function setPrimaryTitle() {
     const group = this._currentGroup;
 
@@ -327,9 +335,16 @@ const __class = declare('crm.Views._GroupListMixin', null, {
   _onGroupRequestFaild: function _onGroupRequestFaild() {
 
   },
+  /**
+   *
+   * @param {string} group.displayName
+   */
   getGroupTitle: function getGroupTitle(group) {
     return group.displayName;
   },
+  /**
+   *
+   */
   getItemTemplate: function getItemTemplate() {
     const layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
     if (this.enableDynamicGroupLayout) {

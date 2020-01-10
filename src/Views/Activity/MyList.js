@@ -28,30 +28,9 @@ import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
 
-
 const resource = getResource('activityMyList');
 const hashTagResource = getResource('activityMyListHashTags');
 
-/**
- * @class crm.Views.Activity.MyList
- *
- * @extends crm.Views.Activity.List
- * @mixins crm.Views.Activity.List
- *
- * @requires argos.List
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- * @requires crm.Environment
- * @requires crm.Views.Activity.List
- * @requires crm.Action
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOfflineMixin], {
   format,
   // Templates

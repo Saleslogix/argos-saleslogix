@@ -21,16 +21,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityProductEdit');
 
-/**
- * @class crm.Views.OpportunityProduct.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Validator
- * @requires crm.Template
- */
 const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,

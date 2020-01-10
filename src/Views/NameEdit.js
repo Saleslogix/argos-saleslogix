@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('nameEdit');
 
-/**
- * @class crm.Views.NameEdit
- *
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.NameEdit', [Edit], {
   // Localization
   titleText: resource.titleText,

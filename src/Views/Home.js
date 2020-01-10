@@ -22,14 +22,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('home');
 
-/**
- * @deprecated
- * @class crm.Views.Home
- *
- *
- * @extends argos.GroupedList
- *
- */
 var __class = declare('crm.Views.Home', [GroupedList], {
   //Templates
   rowTemplate: new Simplate([

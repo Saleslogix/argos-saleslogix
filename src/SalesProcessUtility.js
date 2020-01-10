@@ -13,16 +13,20 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/SalesProcessUtility
+ */
 import lang from 'dojo/_base/lang';
 import when from 'dojo/when';
 import Deferred from 'dojo/_base/Deferred';
 import SData from 'argos/Store/SData';
 
 /**
- * @class crm.SalesProcessUtility
- * @singleton
+ * @class
+ * @alias module:crm/SalesProcessUtility
+ * @static
  */
-const __class = lang.setObject('crm.SalesProcessUtility', /** @lends crm.SalesProcessUtility */{
+const __class = lang.setObject('crm.SalesProcessUtility', /** @lends module:crm/SalesProcessUtility */{
   store: null,
   service: null,
   contractName: 'dynamic',

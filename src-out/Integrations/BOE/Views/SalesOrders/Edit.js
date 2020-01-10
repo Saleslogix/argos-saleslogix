@@ -52,17 +52,6 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
   var contactResource = (0, _I18n2.default)('contactModel');
   var dtFormatResource = (0, _I18n2.default)('salesOrderEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.Account.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Edit
-   * @requires crm.Format
-   * @requires crm.Validator
-   * @requires crm.Template
-   *
-   */
   var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.Edit', [_Edit2.default], {
     // View Properties
     id: 'salesorder_edit',

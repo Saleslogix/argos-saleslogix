@@ -23,15 +23,6 @@ import MODEL_NAMES from '../../Models/Names';
 const resource = getResource('historyDetail');
 const dtFormatResource = getResource('historyDetailDateTimeFormat');
 
-/**
- * @class crm.Views.History.Detail
- *
- * @extends argos.Detail
- *
- *
- * @requires crm.Format
- * @requires crm.Template
- */
 const __class = declare('crm.Views.History.Detail', [Detail], {
   // Templates
   createUserTemplate: template.nameLF,

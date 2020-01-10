@@ -34,13 +34,6 @@ define('crm/Views/OpportunityContact/Edit', ['module', 'exports', 'dojo/_base/de
 
   var resource = (0, _I18n2.default)('opportunityContactEdit');
 
-  /**
-   * @class crm.Views.OpportunityContact.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Utility
-   */
   var __class = (0, _declare2.default)('crm.Views.OpportunityContact.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,

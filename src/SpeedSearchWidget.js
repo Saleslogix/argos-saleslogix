@@ -19,11 +19,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('speedSearchWidget');
 
-/**
- * @class crm.SpeedSearchWidget
- * @mixins argos._Templated
- */
-const __class = declare('crm.SpeedSearchWidget', [SearchWidget], /** @lends crm.SpeedSearchWidget# */{
+const __class = declare('crm.SpeedSearchWidget', [SearchWidget], {
   /**
    * @property {String} searchText The placeholder text for the input.
    */

@@ -19,19 +19,8 @@ import salesProcessUtility from '../../SalesProcessUtility';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('opportunityQuickEdit');
 
-/**
- * @class crm.Views.Opportunity.QuickEdit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Validator
- * @requires crm.Template
- */
 const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
   // Localization
   estCloseText: resource.estCloseText,

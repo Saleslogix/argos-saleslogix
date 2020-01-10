@@ -60,23 +60,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
   var resource = (0, _I18n2.default)('calendarWeekView');
   var dtFormatResource = (0, _I18n2.default)('calendarWeekViewDateTimeFormat');
 
-  /**
-   * @class crm.Views.Calendar.WeekView
-   *
-   * @extends argos.List
-   * @mixins argos.List
-   * @mixins argos._LegacySDataListMixin
-   *
-   * @requires argos.List
-   * @requires argos._LegacySDataListMixin
-   * @requires argos.Convert
-   * @requires argos.ErrorManager
-   *
-   * @requires crm.Format
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Calendar.WeekView', [_List2.default, _LegacySDataListMixin3.default], {
     // Localization
     titleText: resource.titleText,

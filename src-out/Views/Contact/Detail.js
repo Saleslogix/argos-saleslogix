@@ -42,14 +42,6 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
 
   var resource = (0, _I18n2.default)('contactDetail');
 
-  /**
-   * @class crm.Views.Contact.Detail
-   *
-   * @extends argos.Detail
-   *
-   * @requires crm.Format
-   * @requires crm.Template
-   */
   var __class = (0, _declare2.default)('crm.Views.Contact.Detail', [_Detail2.default], {
     // Localization
     accountText: resource.accountText,
@@ -229,7 +221,8 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           descriptor: 'AccountName',
           label: this.accountText,
           view: 'account_detail',
-          key: 'Account.$key'
+          key: 'Account.$key',
+          tpl: new Simplate(['<span data-action="fooBar">foo: {%: $ %}</span>'])
         }, {
           name: 'WorkPhone',
           property: 'WorkPhone',

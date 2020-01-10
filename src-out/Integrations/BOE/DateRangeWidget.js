@@ -31,11 +31,7 @@ define('crm/Integrations/BOE/DateRangeWidget', ['module', 'exports', 'dojo/_base
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  /**
-   * @class crm.Integrations.BOE.DateRangeWidget
-   */
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.DateRangeWidget', [_Widget3.default, _Templated3.default], /** @lends crm.Integrations.BOE.DateRangeWidget# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.DateRangeWidget', [_Widget3.default, _Templated3.default], {
     /**
        * @property {Simplate}
        * Simple that defines the HTML Markup

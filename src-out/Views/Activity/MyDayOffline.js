@@ -40,14 +40,6 @@ define('crm/Views/Activity/MyDayOffline', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  /**
-   * @class crm.Views.Activity.MyDayOffline
-   *
-   * @extends argos._ListBase
-   * @requires argos._ListBase
-   *
-   *
-   */
   var resource = (0, _I18n2.default)('activityMyDayOffline');
 
   exports.default = (0, _declare2.default)('crm.Views.Activity.MyDayOffline', [_List2.default, _MyDayMetricListMixin2.default, _MyDayRightDrawerListMixin2.default], {

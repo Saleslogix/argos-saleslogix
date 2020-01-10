@@ -21,25 +21,9 @@ import recur from '../../Recurrence';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
 
-
 const resource = getResource('activityRecurring');
 const dtFormatResource = getResource('activityEditDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Recurring
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires argos.Utility
- *
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Recurrence
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   // Localization
   startingText: resource.startingText,

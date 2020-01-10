@@ -19,14 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('competitorList');
 
-/**
- * @class crm.Views.Competitor.List
- *
- * @extends argos.List
- *
- * @requires argos.List
- *
- */
 const __class = declare('crm.Views.Competitor.List', [List], {
   // Templates
   itemTemplate: new Simplate([

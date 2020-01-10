@@ -23,13 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('leadDetail');
 
-/**
- * @class crm.Views.Lead.Detail
- *
- * @extends argos.Detail
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Lead.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,

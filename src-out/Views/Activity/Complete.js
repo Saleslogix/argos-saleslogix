@@ -48,22 +48,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
 
   var dtFormatResource = (0, _I18n2.default)('activityCompleteDateTimeFormat');
 
-  /**
-   * @class crm.Views.Activity.Complete
-   *
-   * @extends argos.Edit
-   * @mixins argos.Edit
-   *
-   * @requires argos.Edit
-   * @requires argos.Utility
-   *
-   * @requires crm.Environment
-   * @requires crm.Validator
-   * @requires crm.Template
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Activity.Complete', [_Edit2.default], {
     // Localization
     activityInfoText: resource.activityInfoText,

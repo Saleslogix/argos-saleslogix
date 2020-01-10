@@ -39,14 +39,6 @@ define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'd
   var resource = (0, _I18n2.default)('errorLogList');
   var dtFormatResource = (0, _I18n2.default)('errorLogListDateTimeFormat');
 
-  /**
-   * @class crm.Views.ErrorLog.List
-   *
-   * @extends argos.List
-   *
-   * @requires crm.Format
-   * @requires argos.ErrorManager
-   */
   var __class = (0, _declare2.default)('crm.Views.ErrorLog.List', [_ListBase2.default], {
     // Localization
     titleText: resource.titleText,

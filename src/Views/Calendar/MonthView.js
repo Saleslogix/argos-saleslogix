@@ -26,23 +26,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarMonthView');
 const dtFormatResource = getResource('calendarMonthViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.MonthView
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,

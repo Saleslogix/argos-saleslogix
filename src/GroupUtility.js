@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/GroupUtility
+*/
 import lang from 'dojo/_base/lang';
 import format from './Format';
 import sdkFormat from 'argos/Format';
@@ -49,10 +52,11 @@ function _createGroupRequest(o) {
 }
 
 /**
- * @class crm.GroupUtility
+ * @class
+ * @alias module:crm/GroupUtility
  * @singleton
  */
-const __class = lang.setObject('crm.GroupUtility', /** @lends crm.GroupUtility */{
+const __class = lang.setObject('crm.GroupUtility', /** @lends module:crm/GroupUtility */{
   groupDateFormatText: dtFormatResource.groupDateFormatText,
   groupDateFormatText24: dtFormatResource.groupDateFormatText24,
   /**

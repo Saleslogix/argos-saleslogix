@@ -65,21 +65,6 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
 
   var dtFormatResource = (0, _I18n2.default)('calendarViewDateTimeFormat');
 
-  /**
-   * @class crm.Views.Calendar.CalendarView
-   *
-   * @extends argos.List
-   * @mixins argos.List
-   *
-   * @requires argos.List
-   * @requires argos.Convert
-   *
-   * @requires crm.Format
-   * @requires crm.Utility
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Calendar.CalendarView', [_List2.default], {
     // Localization
     titleText: resource.titleText,

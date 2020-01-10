@@ -32,6 +32,9 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
    * limitations under the License.
    */
 
+  /**
+  * @module crm/GroupUtility
+  */
   var dtFormatResource = (0, _I18n2.default)('groupUtilityDateTimeFormat');
 
   function _createGroupRequest(o) {
@@ -62,10 +65,11 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
   }
 
   /**
-   * @class crm.GroupUtility
+   * @class
+   * @alias module:crm/GroupUtility
    * @singleton
    */
-  var __class = _lang2.default.setObject('crm.GroupUtility', /** @lends crm.GroupUtility */{
+  var __class = _lang2.default.setObject('crm.GroupUtility', /** @lends module:crm/GroupUtility */{
     groupDateFormatText: dtFormatResource.groupDateFormatText,
     groupDateFormatText24: dtFormatResource.groupDateFormatText24,
     /**

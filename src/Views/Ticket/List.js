@@ -25,17 +25,6 @@ import format from 'crm/Format';
 
 const resource = getResource('ticketList');
 
-/**
- * @class crm.Views.Ticket.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._GroupListMixin
- *
- * @requires crm.Action
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   format,
   // Templates

@@ -67,7 +67,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
 
   var resource = (0, _I18n2.default)('salesOrderItemsDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [_Detail2.default], /** @lends crm.Integrations.BOE.Views.SalesOrderItems.Detail# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     lineText: resource.lineText,

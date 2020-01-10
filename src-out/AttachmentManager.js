@@ -20,9 +20,10 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
   }
 
   /**
-   * @class crm.AttachmentManager
+   * @class
+   * @alias module:crm/AttachmentManager
    */
-  var __class = (0, _declare2.default)('crm.AttachmentManager', null, /** @lends crm.AttachmentManager# */{
+  var __class = (0, _declare2.default)('crm.AttachmentManager', null, /** @lends module:crm/AttachmentManager.prototype */{
     _fileManager: null,
     _entityContext: null,
     _uploadUrl: '',
@@ -372,6 +373,9 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
        * limitations under the License.
        */
 
+  /**
+  * @module crm/AttachmentManager
+  */
   exports.default = __class;
   module.exports = exports['default'];
 });

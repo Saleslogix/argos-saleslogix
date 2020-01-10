@@ -23,11 +23,7 @@ import getResource from 'argos/I18n';
 const resource = getResource('errorLogDetail');
 const dtFormatResource = getResource('errorLogDetailDateTimeFormat');
 
-/**
- * @class crm.Views.ErrorLog.Detail
- * @extends argos.Detail
- */
-const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Views.ErrorLog.Detail# */{
+const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   detailsText: resource.detailsText,

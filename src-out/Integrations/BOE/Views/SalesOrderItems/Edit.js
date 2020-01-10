@@ -46,14 +46,6 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
 
   var resource = (0, _I18n2.default)('salesOrderItemEdit');
 
-  /**
-   * @class crm.Views.QuoteLines.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Edit
-   *
-   */
   var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [_Edit2.default], {
     // View Properties
     id: 'salesorder_item_edit',

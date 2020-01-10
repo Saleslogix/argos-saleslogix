@@ -16,14 +16,13 @@ define('crm/Views/_MetricListMixin', ['module', 'exports', 'dojo/_base/declare',
   }
 
   /**
-   * @class crm.Views._MetricListMixin
+   * @class
+   * @alias module:crm/Views/_MetricListMixin
+   * @mixin
    * @classdesc Mixin for adding KPI widgets to list views.
    * @since 3.0
-   *
-   * @requires crm.Views.MetricWidget
-   *
    */
-  var __class = (0, _declare2.default)('crm.Views._MetricListMixin', null, {
+  var __class = (0, _declare2.default)('crm.Views._MetricListMixin', null, /** @lends module:crm/Views/_MetricListMixin.prototype */{
     // Metrics
     metricTemplate: new Simplate(['<div class="metric-list">', '</div>']),
     metricWrapper: new Simplate(['<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>']),
@@ -159,6 +158,9 @@ define('crm/Views/_MetricListMixin', ['module', 'exports', 'dojo/_base/declare',
        * limitations under the License.
        */
 
+  /**
+   * @module crm/Views/_MetricListMixin
+   */
   exports.default = __class;
   module.exports = exports['default'];
 });

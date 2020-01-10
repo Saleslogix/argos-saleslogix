@@ -60,21 +60,6 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
   var resource = (0, _I18n2.default)('calendarDayView');
   var dtFormatResource = (0, _I18n2.default)('calendarDayViewDateTimeFormat');
 
-  /**
-   * @class crm.Views.Calendar.DayView
-   *
-   * @extends argos.List
-   * @mixins argos.List
-   * @mixins argos._LegacySDataListMixin
-   *
-   * @requires argos.List
-   * @requires argos._LegacySDataListMixin
-   * @requires argos.Convert
-   * @requires argos.ErrorManager
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Calendar.DayView', [_List2.default, _LegacySDataListMixin3.default], {
     // Localization
     titleText: resource.titleText,

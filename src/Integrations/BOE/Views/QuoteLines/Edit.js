@@ -26,15 +26,7 @@ import MODEL_TYPES from 'argos/Models/Types';
 
 const resource = getResource('quoteItemEdit');
 
-/**
- * @class crm.Integrations.BOE.Views.QuoteLines.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- *
- */
-const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], /** @lends crm.Integrations.BOE.Views.QuoteLines.Edit# */{
+const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
   // View Properties
   id: 'quote_line_edit',
   detailView: 'quote_line_detail',

@@ -218,8 +218,9 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
   var resource = (0, _I18n2.default)('applicationModule');
 
   /**
-   * @class crm.ApplicationModule
-   * @extends argos.ApplicationModule
+   * @class
+   * @alias module:crm/ApplicationModule
+   * @extends module:argos/ApplicationModule
    */
   /* Copyright 2017 Infor
    *
@@ -236,7 +237,10 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends crm.ApplicationModule# */{
+  /**
+  * @module crm/ApplicationModule
+  */
+  var __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends module:crm/ApplicationModule.prototype */{
     searchText: resource.searchText,
     loadViews: function loadViews() {
       this.inherited(loadViews, arguments);

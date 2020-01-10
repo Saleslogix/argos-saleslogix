@@ -39,15 +39,6 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  /**
-   * @class crm.Views.Offline.Detail
-   *
-   *
-   * @extends argos._DetailBase
-   * @requires argos._DetailBase
-   *
-   */
   var resource = (0, _I18n2.default)('offlineDetail');
   exports.default = (0, _declare2.default)('crm.Views.Offline.Detail', [_DetailBase3.default, _RelatedViewWidgetDetailMixin2.default], {
     id: 'offline_detail',

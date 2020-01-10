@@ -67,7 +67,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
 
   var resource = (0, _I18n2.default)('quoteItemsDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Detail', [_Detail2.default], /** @lends crm.Integrations.BOE.Views.QuoteLines.Detail# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     lineText: resource.lineText,

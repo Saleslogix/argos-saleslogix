@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/AttachmentManager
+*/
 import FileManager from './FileManager';
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
@@ -20,9 +23,10 @@ import convert from 'argos/Convert';
 import utility from './Utility';
 
 /**
- * @class crm.AttachmentManager
+ * @class
+ * @alias module:crm/AttachmentManager
  */
-const __class = declare('crm.AttachmentManager', null, /** @lends crm.AttachmentManager# */{
+const __class = declare('crm.AttachmentManager', null, /** @lends module:crm/AttachmentManager.prototype */{
   _fileManager: null,
   _entityContext: null,
   _uploadUrl: '',

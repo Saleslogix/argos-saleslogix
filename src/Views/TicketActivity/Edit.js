@@ -25,16 +25,6 @@ import MODEL_NAMES from '../../Models/Names';
 const resource = getResource('ticketActivityEdit');
 const dtFormatResource = getResource('ticketActivityEditDateTimeFormat');
 
-/**
- * @class crm.Views.TicketActivity.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.ErrorManager
- *
- * @requires crm.Template
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,

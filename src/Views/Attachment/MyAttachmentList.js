@@ -19,15 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('attachmentMyList');
 
-/**
- * @class crm.Views.Attachments.MyAttachmentList
- *
- * @extends crm.Views.Attachments.List
- *
- * @requires crm.Format
- * @requires crm.Views.Attachments.List
- *
- */
 const __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
   id: 'myattachment_list',
   titleText: resource.titleText,

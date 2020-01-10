@@ -25,13 +25,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('addAccountContact');
 
-/**
- * @class crm.Views.AddAccountContact
- *
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.AddAccountContact', [Edit], {
   // Localization
   accountNameText: resource.accountNameText,

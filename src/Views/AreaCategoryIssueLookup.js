@@ -20,14 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('areaCategoryIssueLookup');
 
-/**
- * @class crm.Views.AreaCategoryIssueLookup
- *
- *
- * @extends argos.List
- * @mixins argos._LegacySDataListMixin
- *
- */
 const __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([

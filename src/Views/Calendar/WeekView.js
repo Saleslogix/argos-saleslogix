@@ -25,23 +25,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarWeekView');
 const dtFormatResource = getResource('calendarWeekViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.WeekView
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,

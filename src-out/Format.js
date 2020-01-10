@@ -34,14 +34,19 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'do
                                  * limitations under the License.
                                  */
 
+  /**
+   * @module crm/Format
+   */
+
   var resource = (0, _I18n2.default)('crmFormat');
 
   /**
-   * @class crm.Format
-   * @extends argos.Format
-   * @singleton
+   * @class
+   * @alias module:crm/Format
+   * @extends module:argos/Format
+   * @static
    */
-  var __class = _lang2.default.setObject('crm.Format', _lang2.default.mixin({}, _Format2.default, /** @lends crm.Format */{
+  var __class = _lang2.default.setObject('crm.Format', _lang2.default.mixin({}, _Format2.default, /** @lends module:crm/Format */{
     /**
      * Address Culture Formats as defined by crm.Format.address
      * http://msdn.microsoft.com/en-us/library/cc195167.aspx

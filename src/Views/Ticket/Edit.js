@@ -23,16 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('ticketEdit');
 
-/**
- * @class crm.Views.Ticket.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.Ticket.Edit', [Edit], {
   // Localization
   accountText: resource.accountText,

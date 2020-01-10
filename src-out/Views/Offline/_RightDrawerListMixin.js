@@ -18,9 +18,11 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
   var mixinName = 'crm.Views.Offline._RightDrawerListMixin';
 
   /**
-   * @class crm.Views._SpeedSearchRightDrawerListMixin
+   * @class
+   * @mixin
+   * @alias module:crm/Views/Offline/_RightDrawerListMixin
    * @classdesc Offline specific mixin for right drawer functionality.
-   * @mixins crm.Views._RightDrawerBaseMixin
+   * @mixes module:crm/Views/_RightDrawerBaseMixin
    *
    */
   /* Copyright 2017 Infor
@@ -38,7 +40,10 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
+  /**
+   * @module crm/Views/Offline/_RightDrawerListMixin
+   */
+  var __class = (0, _declare2.default)('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/Offline/_RightDrawerListMixin.prototype */{
     // Localization
     entitySectionText: 'Entity',
     kpiSectionText: 'KPI',

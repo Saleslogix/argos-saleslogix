@@ -44,14 +44,6 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
    * limitations under the License.
    */
 
-  /**
-   * @class crm.Views.RecentlyViewed.List
-   *
-   * @extends argos._ListBase
-   * @requires argos._ListBase
-   *
-   *
-   */
   var resource = (0, _I18n2.default)('recentlyViewedList');
   var accountResource = (0, _I18n2.default)('accountModel');
   var contactResource = (0, _I18n2.default)('contactModel');

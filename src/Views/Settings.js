@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('settings');
 
-/**
- * @class crm.Views.Settings
- *
- *
- * @extends argos.List
- *
- */
 const __class = declare('crm.Views.Settings', [List], {
   // Templates
   itemIconTemplate: new Simplate([

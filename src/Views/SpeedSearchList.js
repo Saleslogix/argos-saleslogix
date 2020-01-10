@@ -22,17 +22,8 @@ import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('speedSearchList');
 
-/**
- * @class crm.Views.SpeedSearchList
- *
- *
- * @extends argos.List
- * @mixins crm.Views._SpeedSearchRightDrawerListMixin
- *
- */
 const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin], {
   // Templates
   itemTemplate: new Simplate([

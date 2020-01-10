@@ -13,14 +13,6 @@
  * limitations under the License.
  */
 
-/**
- * @class crm.Views.Offline.List
- *
- * @extends argos._ListBase
- * @requires argos._ListBase
- *
- *
- */
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import format from '../../Format';

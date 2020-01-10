@@ -46,19 +46,6 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
 
   var resource = (0, _I18n2.default)('leadList');
 
-  /**
-   * @class crm.Views.Lead.List
-   *
-   * @extends argos.List
-   * @mixins crm.Views._RightDrawerListMixin
-   * @mixins crm.Views._MetricListMixin
-   * @mixins crm.Views._GroupListMixin
-   *
-   * @requires argos.Format
-   * @requires argos.Utility
-   *
-   * @requires crm.Action
-   */
   var __class = (0, _declare2.default)('crm.Views.Lead.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">', '{%: $$.joinFields(" | ", [$$.formatPicklist("Title")($.Title), $.Company]) %}', '</p>', '{% if ($.WorkPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', // TODO: Avoid global

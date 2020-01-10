@@ -38,18 +38,6 @@ define('crm/Views/Attachment/AddAttachment', ['module', 'exports', 'dojo/_base/d
 
   var resource = (0, _I18n2.default)('attachmentAdd');
 
-  /**
-   * @class crm.Views.Attachment.AddAttachment
-   *
-   * @extends argos.Views.FileSelect
-   *
-   * @requires argos.Views.FileSelect
-   * @requires argos.Format
-   *
-   * @requires crm.AttachmentManager
-   * @requires crm.Environment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Attachment.AddAttachment', [_FileSelect2.default], {
     // Localization
     titleText: resource.titleText,

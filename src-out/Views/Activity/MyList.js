@@ -55,26 +55,6 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
   var resource = (0, _I18n2.default)('activityMyList');
   var hashTagResource = (0, _I18n2.default)('activityMyListHashTags');
 
-  /**
-   * @class crm.Views.Activity.MyList
-   *
-   * @extends crm.Views.Activity.List
-   * @mixins crm.Views.Activity.List
-   *
-   * @requires argos.List
-   * @requires argos.Format
-   * @requires argos.Utility
-   * @requires argos.Convert
-   * @requires argos.ErrorManager
-   *
-   * @requires crm.Format
-   * @requires crm.Environment
-   * @requires crm.Views.Activity.List
-   * @requires crm.Action
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Activity.MyList', [_List2.default, _ListOfflineMixin3.default], {
     format: _Format2.default,
     // Templates

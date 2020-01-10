@@ -12,16 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Integrations.BOE.Views.SalesOrderItems.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- *
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
@@ -34,7 +24,7 @@ import PricingAvailabilityService from '../../PricingAvailabilityService';
 
 const resource = getResource('salesOrderItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.SalesOrderItems.Detail# */ {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,

@@ -48,14 +48,19 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Views/_GroupListMixin
+   */
   var resource = (0, _I18n2.default)('groupListMixin');
 
   /**
-   * @class crm.Views._GroupListMixin
+   * @class
+   * @alias module:crm/Views/_GroupListMixin
+   * @mixin
    * @classdesc Mixin for slx group list layouts.
    * @since 3.1
    */
-  var __class = (0, _declare2.default)('crm.Views._GroupListMixin', null, {
+  var __class = (0, _declare2.default)('crm.Views._GroupListMixin', null, /** @lends module:crm/Views/_GroupListMixin.prototype */{
     noDefaultGroupText: resource.noDefaultGroupText,
     currentGroupNotFoundText: resource.currentGroupNotFoundText,
     groupTemplateSummaryText: resource.groupTemplateSummaryText,
@@ -309,6 +314,9 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
         })(this, queryResults);
       }
     },
+    /**
+     * Sets the titlebar to the current group's displayName.
+     */
     setPrimaryTitle: function setPrimaryTitle() {
       var group = this._currentGroup;
 
@@ -340,9 +348,16 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       this.listLoading = false;
     },
     _onGroupRequestFaild: function _onGroupRequestFaild() {},
+    /**
+     *
+     * @param {string} group.displayName
+     */
     getGroupTitle: function getGroupTitle(group) {
       return group.displayName;
     },
+    /**
+     *
+     */
     getItemTemplate: function getItemTemplate() {
       var layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
       if (this.enableDynamicGroupLayout) {

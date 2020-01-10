@@ -23,17 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('accountEdit');
 
-/**
- * @class crm.Views.Account.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Views.Account.Edit', [Edit], {
   // Localization
   accountStatusTitleText: resource.accountStatusTitleText,

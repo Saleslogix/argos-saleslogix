@@ -12,9 +12,10 @@ define('crm/Template', ['module', 'exports', 'dojo/_base/lang', 'argos/Format'],
   }
 
   /**
-   * @class crm.Template
+   * @class
+   * @alias module:crm/Template
    * @classdesc Helper class that contains re-usuable {@link Simplate} templates.
-   * @requires argos.Format
+   * @static
    */
   /* Copyright 2017 Infor
    *
@@ -31,7 +32,10 @@ define('crm/Template', ['module', 'exports', 'dojo/_base/lang', 'argos/Format'],
    * limitations under the License.
    */
 
-  var __class = _lang2.default.setObject('crm.Template', /** @lends crm.Template */{
+  /**
+   * @module crm/Template
+   */
+  var __class = _lang2.default.setObject('crm.Template', /** @lends module:crm/Template */{
     /**
      * @property {Simplate} nameLF
      * Template for lastname, firstname

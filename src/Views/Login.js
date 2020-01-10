@@ -20,13 +20,6 @@ import { setEndPoint } from '../actions/config';
 
 const resource = getResource('login');
 
-/**
- * @class crm.Views.Login
- *
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.Login', [Edit], {
   // Templates
   widgetTemplate: new Simplate([`

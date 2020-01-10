@@ -46,10 +46,7 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
 
   var resource = (0, _I18n2.default)('salesDashboardWidget');
 
-  /**
-   * @class crm.Integrations.BOE.Views.Account.SalesDashboardWidget
-   */
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [_DashboardWidget2.default], /** @lends crm.Integrations.BOE.Views.Account.SalesDashboardWidget# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [_DashboardWidget2.default], {
     // Localization
     recentRevenueText: resource.recentRevenueText,
     recentCostText: resource.recentCostText,

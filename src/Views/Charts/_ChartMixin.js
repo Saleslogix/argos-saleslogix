@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/Charts/_ChartMixin
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
@@ -25,13 +28,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('chartMixin');
 
-/**
- * @class crm.Views.Charts._ChartMixin
- * @mixins argos._PullToRefreshMixin
- *
- * @classdesc Base mixin for creating chart views.
- *
- */
 lang.setObject('Chart.defaults.global', {
   // Boolean - Whether to animate the chart
   animation: false,
@@ -163,7 +159,16 @@ lang.setObject('Chart.defaults.global', {
   onAnimationComplete: function onAnimationComplete() {},
 });
 
-const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /** @lends crm.Views.Charts._ChartMixin# */ {
+/**
+ * @class
+ * @alias module:crm/Views/Charts/_ChartMixin
+ * @mixin
+ * @mixes module:argos/_PullToRefreshMixin
+ *
+ * @classdesc Base mixin for creating chart views.
+ *
+ */
+const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /** @lends module:crm/Views/Charts/_ChartMixin.prototype */ {
   _orientationHandle: null,
   _menuOpenHandle: null,
   _menuCloseHandle: null,

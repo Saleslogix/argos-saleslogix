@@ -13,20 +13,24 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/Offline/_RightDrawerListMixin
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 
-
 const mixinName = 'crm.Views.Offline._RightDrawerListMixin';
 
 /**
- * @class crm.Views._SpeedSearchRightDrawerListMixin
+ * @class
+ * @mixin
+ * @alias module:crm/Views/Offline/_RightDrawerListMixin
  * @classdesc Offline specific mixin for right drawer functionality.
- * @mixins crm.Views._RightDrawerBaseMixin
+ * @mixes module:crm/Views/_RightDrawerBaseMixin
  *
  */
-const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+const __class = declare('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin], /** @lends module:crm/Views/Offline/_RightDrawerListMixin.prototype */{
   // Localization
   entitySectionText: 'Entity',
   kpiSectionText: 'KPI',

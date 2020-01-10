@@ -26,10 +26,12 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
   var resource = (0, _I18n2.default)('rightDrawerListMixin');
 
   /**
-   * @class crm.Views._RightDrawerListMixin
+   * @class
+   * @alias module:crm/Views/_RightDrawerListMixin
+   * @mixin
    * @classdesc List mixin for right drawers.
    * @since 3.0
-   * @mixins crm.Views._RightDrawerBaseMixin
+   * @mixes module:crm/Views/_RightDrawerBaseMixin
    */
   /* Copyright 2017 Infor
    *
@@ -46,7 +48,10 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
+  /**
+   * @module crm/Views/_RightDrawerListMixin
+   */
+  var __class = (0, _declare2.default)('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_RightDrawerListMixin.prototype */{
     // Localization
     hashTagsSectionText: resource.hashTagsSectionText,
     groupsSectionText: resource.groupsSectionText,

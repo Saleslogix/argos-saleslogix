@@ -25,19 +25,6 @@ import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityList');
 
-/**
- * @class crm.Views.Opportunity.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._GroupListMixin
- *
- * @requires argos.Format
- *
- * @requires crm.Action
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   // TODO: Support ExchangeRateCode with proper symbol

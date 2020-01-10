@@ -34,13 +34,6 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
 
   var resource = (0, _I18n2.default)('settings');
 
-  /**
-   * @class crm.Views.Settings
-   *
-   *
-   * @extends argos.List
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Settings', [_List2.default], {
     // Templates
     itemIconTemplate: new Simplate(['<button type="button" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="btn-actions list-item-selector button visible">\n      <span class="audible">{%: $$.actionsText %}</span>\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xlink:href="#icon-{%= $$.getItemIconClass($) %}"></use>\n      </svg>\n    </button>']),

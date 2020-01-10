@@ -12,15 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Views.Offline.Detail
- *
- *
- * @extends argos._DetailBase
- * @requires argos._DetailBase
- *
- */
 import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
 import format from '../../Format';

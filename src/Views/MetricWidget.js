@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/MetricWidget
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import Deferred from 'dojo/Deferred';
@@ -28,9 +31,10 @@ import aggregate from 'crm/Aggregate';
 const resource = getResource('metricWidget');
 
 /**
- * @class crm.Views.MetricWidget
+ * @class
+ * @alias module:crm/Views/MetricWidget
  */
-const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], /** @lends crm.Views.MetricWidget# */{
+const __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], /** @lends module:crm/Views/MetricWidget.prototype */{
   /**
    * @property {Simplate}
    * Simple that defines the HTML Markup

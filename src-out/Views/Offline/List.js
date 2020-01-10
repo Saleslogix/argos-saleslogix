@@ -38,14 +38,6 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
                                                       * limitations under the License.
                                                       */
 
-  /**
-   * @class crm.Views.Offline.List
-   *
-   * @extends argos._ListBase
-   * @requires argos._ListBase
-   *
-   *
-   */
   exports.default = (0, _declare2.default)('crm.Views.Offline.List', [_ListBase3.default], {
     id: 'offline_list',
     detailView: 'offline_detail',

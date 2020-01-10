@@ -30,12 +30,7 @@ import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePic
 const resource = getResource('activityEdit');
 const dtFormatResource = getResource('activityEditDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Edit
- * @extends argos.Edit
- *
- */
-const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.Activity.Edit# */{
+const __class = declare('crm.Views.Activity.Edit', [Edit], {
   // Localization
   activityCategoryTitleText: resource.activityCategoryTitleText,
   activityDescriptionTitleText: resource.activityDescriptionTitleText,

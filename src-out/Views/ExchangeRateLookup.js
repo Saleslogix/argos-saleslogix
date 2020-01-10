@@ -34,14 +34,6 @@ define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare
 
   var resource = (0, _I18n2.default)('exchangeRateLookup');
 
-  /**
-   * @class crm.Views.ExchangeRateLookup
-   *
-   *
-   * @extends argos.List
-   * @mixins argos._LegacySDataListMixin
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.ExchangeRateLookup', [_List2.default, _LegacySDataListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$key %} ({%: $.Rate %})</p>']),

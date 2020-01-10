@@ -31,11 +31,7 @@ import string from 'dojo/string';
 
 const resource = getResource('dashboardWidgetBase');
 
-/**
- * @class crm.Integrations.BOE._DashboardWidgetBase
- * @extends argos._RelatedViewWidgetBase
- */
-const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase], /** @lends crm.Integrations.BOE._DashboardWidgetBase# */{
+const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase], {
   owner: null,
   id: 'dashboard-widget-base',
   titleText: resource.titleText,

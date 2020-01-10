@@ -38,19 +38,6 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
 
   var resource = (0, _I18n2.default)('ticketActivityDetail');
 
-  /**
-   * @class crm.Views.TicketActivity.Detail
-   *
-   * @extends argos.Detail
-   *
-   * @requires argos.ErrorManager
-   * @requires argos.Format
-   *
-   * @requires crm.Format
-   * @requires crm.Template
-   */
-
-  // import 'dojo/NodeList-manipulate';
   var __class = (0, _declare2.default)('crm.Views.TicketActivity.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,

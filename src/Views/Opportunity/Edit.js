@@ -23,16 +23,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('opportunityEdit');
 const dtFormatResource = getResource('opportunityEditDateTimeFormat');
 
-/**
- * @class crm.Views.Opportunity.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Validator
- * @requires crm.Template
- */
 const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   // Localization
   accountText: resource.accountText,

@@ -47,22 +47,6 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
   var resource = (0, _I18n2.default)('attachmentView');
   var dtFormatResource = (0, _I18n2.default)('attachmentViewDateTimeFormat');
 
-  /**
-   * @class crm.Views.Attachment.ViewAttachment
-   *
-   *
-   * @extends argos.Detail
-   * @mixins argos.Detail
-   * @mixins argos._LegacySDataDetailMixin
-   *
-   * @requires argos.Detail
-   * @requires argos._LegacySDataDetailMixin
-   *
-   * @requires crm.Format
-   * @requires crm.AttachmentManager
-   * @requires crm.Utility
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Attachment.ViewAttachment', [_Detail2.default, _LegacySDataDetailMixin3.default], {
     // Localization
     detailsText: resource.detailsText,

@@ -50,10 +50,7 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
 
   var resource = (0, _I18n2.default)('promote');
 
-  /**
-   * @class crm.Integrations.BOE.Promote
-   */
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Promote', [_Widget3.default, _Templated3.default], /** @lends crm.Integrations.BOE.Promote */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Promote', [_Widget3.default, _Templated3.default], {
     widgetTemplate: new Simplate(['<div class="modal__content" data-dojo-attach-point="promoteNode">', '<div class="modal__header__title">{%: $.promoteTitle %}</div>', '<div class="modal__header__title">{%: $.searchResults %}</div>', '<p class="modal__content__text">{%: $.multiSystemDetected %}</p>', '<div class="modal__header__title">{%: $.createLink %}</div>', '<div class="promote__options">', '<div class="promote__row">', '<label class="promote__row__label">{%: $.backOffice %}</label>', '<div data-dojo-attach-point="backOfficeNode"></div>', '</div>', '<div class="promote__row">', '<label class="promote__row__label">{%: $.accountingEntity %}</label>', '<div data-dojo-attach-point="accountingNode"></div>', '</div>', '</div>', '</div>']),
 
     promoteTitle: resource.promoteTitle,

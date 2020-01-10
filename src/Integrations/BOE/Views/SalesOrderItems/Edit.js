@@ -26,14 +26,6 @@ import MODEL_TYPES from 'argos/Models/Types';
 
 const resource = getResource('salesOrderItemEdit');
 
-/**
- * @class crm.Views.QuoteLines.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- *
- */
 const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit], {
   // View Properties
   id: 'salesorder_item_edit',

@@ -34,13 +34,6 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
 
   var resource = (0, _I18n2.default)('configure');
 
-  /**
-   * @class crm.Views.Configure
-   *
-   *
-   * @extends argos._ConfigureBase
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Configure', [_ConfigureBase3.default], {
     // Localization
     titleText: resource.titleText,

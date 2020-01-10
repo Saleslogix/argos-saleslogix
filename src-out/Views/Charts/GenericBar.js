@@ -20,13 +20,13 @@ define('crm/Views/Charts/GenericBar', ['module', 'exports', 'dojo/_base/declare'
   }
 
   /**
-   * @class crm.Views.Charts.GenericBar
-   *
-   * @extends argos.View
-   * @mixins crm.Views.Charts._ChartMixin
+   * @class
+   * @alias module:crm/Views/Charts/GenericBar
+   * @extends module:argos/View
+   * @mixes module:crm/Views/Charts/_ChartMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.Charts.GenericBar', [_View2.default, _ChartMixin3.default], /** @lends crm.Views.Charts.GenericBar# */{
+  var __class = (0, _declare2.default)('crm.Views.Charts.GenericBar', [_View2.default, _ChartMixin3.default], /** @lends module:crm/Views/Charts/GenericBar.prototype */{
     id: 'chart_generic_bar',
     titleText: '',
     expose: false,
@@ -99,6 +99,9 @@ define('crm/Views/Charts/GenericBar', ['module', 'exports', 'dojo/_base/declare'
        * limitations under the License.
        */
 
+  /**
+   * @module crm/Views/Charts/GenericBar
+   */
   exports.default = __class;
   module.exports = exports['default'];
 });

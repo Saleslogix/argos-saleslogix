@@ -27,10 +27,7 @@ import icboeaggregate from 'icboe/Aggregate';
 
 const resource = getResource('salesDashboardWidget');
 
-/**
- * @class crm.Integrations.BOE.Views.Account.SalesDashboardWidget
- */
-const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [DashboardWidget], /** @lends crm.Integrations.BOE.Views.Account.SalesDashboardWidget# */{
+const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [DashboardWidget], {
   // Localization
   recentRevenueText: resource.recentRevenueText,
   recentCostText: resource.recentCostText,

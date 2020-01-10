@@ -32,16 +32,19 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Views/RecentlyViewed/_RightDrawerListMixin
+   */
   var resource = (0, _I18n2.default)('rightDrawerListMixin');
 
   /**
-   * @class crm.Views.RecentlyViewed._RightDrawerListMixin
-   *
-   *
-   * @mixins crm.Views._RightDrawerBaseMixin
+   * @class
+   * @alias module:crm/Views/RecentlyViewed/_RightDrawerListMixin
+   * @mixin
+   * @mixes module:crm/Views/_RightDrawerBaseMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/RecentlyViewed/_RightDrawerListMixin.prototype */{
 
     // Dirty flags to refresh the mainview and/or widgets
     _hasChangedEntityPrefs: false,

@@ -23,30 +23,10 @@ import getResource from 'argos/I18n';
 import string from 'dojo/string';
 import format from '../../Format';
 
-
 const resource = getResource('attachmentList');
 const hashTagResource = getResource('attachmentListHashTags');
 const dtFormatResource = getResource('attachmentListDateTimeFormat');
 
-/**
- * @class crm.Views.Attachments.List
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Views._RightDrawerListMixin
- *
- * @requires moment
- *
- * @requires string
- */
 const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([

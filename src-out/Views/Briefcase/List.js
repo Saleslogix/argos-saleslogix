@@ -42,14 +42,6 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
                                                         * limitations under the License.
                                                         */
 
-  /**
-   * @class crm.Views.Offline.List
-   *
-   * @extends argos._ListBase
-   * @requires argos._ListBase
-   *
-   *
-   */
   exports.default = (0, _declare2.default)('crm.Views.Briefcase', [_ListBase3.default, _ListOfflineMixin3.default], {
     id: 'briefcase_list',
     idProperty: 'id',

@@ -19,11 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('leadSourceList');
 
-/**
- * @class crm.Views.LeadSource.List
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.LeadSource.List', [List], {
   // Templates
   itemTemplate: new Simplate([

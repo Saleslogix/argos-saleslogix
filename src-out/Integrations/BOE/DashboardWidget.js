@@ -21,13 +21,6 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
     };
   }
 
-  /**
-   * @class crm.Views._DashboardWidgetBase
-   *
-   *
-   * @extends argos._RelatedViewWidgetBase
-   *
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");

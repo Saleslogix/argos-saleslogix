@@ -21,16 +21,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('activityTypesList');
 
-/**
- * @class crm.Views.Activity.TypesList
- *
- * @extends argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- *
- */
 const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
   liRowTemplate: new Simplate([

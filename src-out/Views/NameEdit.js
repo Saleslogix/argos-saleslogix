@@ -34,13 +34,6 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
 
   var resource = (0, _I18n2.default)('nameEdit');
 
-  /**
-   * @class crm.Views.NameEdit
-   *
-   *
-   * @extends argos.Edit
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.NameEdit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,

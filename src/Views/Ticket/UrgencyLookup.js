@@ -19,11 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('ticketUrgencyLookup');
 
-/**
- * @class crm.Views.Ticket.UrgencyLookup
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
   // Localization
   titleText: resource.titleText,

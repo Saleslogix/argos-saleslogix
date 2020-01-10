@@ -30,17 +30,6 @@ const resource = getResource('salesOrderEdit');
 const contactResource = getResource('contactModel');
 const dtFormatResource = getResource('salesOrderEditDateTimeFormat');
 
-/**
- * @class crm.Views.Account.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Edit', [Edit], {
   // View Properties
   id: 'salesorder_edit',

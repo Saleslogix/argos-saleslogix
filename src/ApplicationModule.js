@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/ApplicationModule
+*/
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import ApplicationModule from 'argos/ApplicationModule';
@@ -164,10 +167,11 @@ import './Models/Authentication/Offline';
 const resource = getResource('applicationModule');
 
 /**
- * @class crm.ApplicationModule
- * @extends argos.ApplicationModule
+ * @class
+ * @alias module:crm/ApplicationModule
+ * @extends module:argos/ApplicationModule
  */
-const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends crm.ApplicationModule# */{
+const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends module:crm/ApplicationModule.prototype */{
   searchText: resource.searchText,
   loadViews: function loadViews() {
     this.inherited(loadViews, arguments);

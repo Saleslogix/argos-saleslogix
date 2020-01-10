@@ -46,15 +46,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
 
   var resource = (0, _I18n2.default)('quoteItemEdit');
 
-  /**
-   * @class crm.Integrations.BOE.Views.QuoteLines.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Edit
-   *
-   */
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Edit', [_Edit2.default], /** @lends crm.Integrations.BOE.Views.QuoteLines.Edit# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Edit', [_Edit2.default], {
     // View Properties
     id: 'quote_line_edit',
     detailView: 'quote_line_detail',

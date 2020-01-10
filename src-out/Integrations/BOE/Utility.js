@@ -18,9 +18,10 @@ define('crm/Integrations/BOE/Utility', ['module', 'exports', 'dojo/_base/lang', 
   }
 
   /**
-   * @class crm.Integrations.BOE.Utility
+   * @class
+   * @alias module:crm/Integrations/BOE/Utility
    * @classdesc Utility provides functions that are more javascript enhancers than application related code.
-   * @singleton
+   * @static
    *
    */
   /* Copyright 2017 Infor
@@ -38,7 +39,10 @@ define('crm/Integrations/BOE/Utility', ['module', 'exports', 'dojo/_base/lang', 
    * limitations under the License.
    */
 
-  var __class = _lang2.default.setObject('crm.Integrations.BOE.Utility', /** @lends crm.Integrations.BOE.Utility */{
+  /**
+   * @module crm/Integrations/BOE/Utility
+   */
+  var __class = _lang2.default.setObject('crm.Integrations.BOE.Utility', /** @lends module:crm/Integrations/BOE/Utility */{
     // Lookup table for the aggregate functions used by DashboardWidget
     aggregateLookup: {
       calcProfit: function calcProfit(fn, widget, data) {

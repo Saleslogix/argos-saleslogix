@@ -46,21 +46,6 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
 
   var resource = (0, _I18n2.default)('accountList');
 
-  /**
-   * @class crm.Views.Account.List
-   *
-   * @extends argos.List
-   * @requires argos.List
-   * @requires argos.Format
-   * @requires argos.Utility
-   * @requires argos.Convert
-   *
-   * @requires crm.Action
-   * @requires crm.Views._GroupListMixin
-   * @requires crm.Views._MetricListMixin
-   * @requires crm.Views._RightDrawerListMixin
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Account.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.Industry %}</p>', '<p class="micro-text">', '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}', '</p>', '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}', '{% if ($.Owner && $.Owner.OwnerDescription) { %} | {%: $.Owner.OwnerDescription %}{% } %}</p>', '<p class="micro-text">{%: $.WebAddress %}</p>', '{% if ($.MainPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global

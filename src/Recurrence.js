@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Recurrence
+ */
 import lang from 'dojo/_base/lang';
 import string from 'dojo/string';
 import getResource from 'argos/I18n';
@@ -22,10 +25,11 @@ const resource = getResource('recurrence');
 const dtFormatResource = getResource('recurrenceDateTimeFormat');
 
 /**
- * @class crm.Recurrence
- * @singleton
+ * @class
+ * @alias module:crm/Recurrence
+ * @static
  */
-const __class = lang.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
+const __class = lang.setObject('crm.Recurrence', /** @lends module:crm/Recurrence */{
   // Localization
   neverText: resource.neverText,
   dailyText: resource.dailyText,

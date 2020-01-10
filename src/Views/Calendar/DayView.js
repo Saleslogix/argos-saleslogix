@@ -25,21 +25,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarDayView');
 const dtFormatResource = getResource('calendarDayViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.DayView
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,

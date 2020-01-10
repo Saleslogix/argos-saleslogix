@@ -39,13 +39,6 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
   var resource = (0, _I18n2.default)('opportunityDetail');
   var dtFormatResource = (0, _I18n2.default)('opportunityDetailDateTimeFormat');
 
-  /**
-   * @class crm.Views.Opportunity.Detail
-   *
-   * @extends argos.Detail
-   *
-   * @requires crm.Format
-   */
   var __class = (0, _declare2.default)('crm.Views.Opportunity.Detail', [_Detail2.default], {
     // Localization
     accountText: resource.accountText,

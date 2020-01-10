@@ -25,13 +25,9 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('offlineUsageWidget');
 
-/**
- * @class crm.Views.OfflineOptions.UsageWidget
- */
-const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], /** @lends crm.Views.OfflineOptions.UsageWidget# */{
+const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
 
   totalUsageText: resource.totalUsageText,
   countText: resource.countText,

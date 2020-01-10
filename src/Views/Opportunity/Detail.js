@@ -23,13 +23,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('opportunityDetail');
 const dtFormatResource = getResource('opportunityDetailDateTimeFormat');
 
-/**
- * @class crm.Views.Opportunity.Detail
- *
- * @extends argos.Detail
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,

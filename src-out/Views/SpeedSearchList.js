@@ -42,14 +42,6 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
 
   var resource = (0, _I18n2.default)('speedSearchList');
 
-  /**
-   * @class crm.Views.SpeedSearchList
-   *
-   *
-   * @extends argos.List
-   * @mixins crm.Views._SpeedSearchRightDrawerListMixin
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.SpeedSearchList', [_List2.default, _LegacySDataListMixin3.default, _SpeedSearchRightDrawerListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text"><strong>{%: $.$heading %}</strong></p>', '{%! $$.fieldTemplate %}']),

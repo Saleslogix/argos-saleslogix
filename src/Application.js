@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/Application
+*/
 import string from 'dojo/string';
 import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
@@ -33,8 +36,8 @@ import PicklistService from './PicklistService';
 const resource = getResource('application');
 
 /**
- * @alias crm.Application
- * @extends argos.Application
+ * @alias module:crm/Application
+ * @extends module:argos/Application
  */
 class Application extends SDKApplication {
   constructor(options = {

@@ -23,14 +23,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('eventEdit');
 const dtFormatResource = getResource('eventEditDateTimeFormat');
 
-/**
- * @class crm.Views.Event.Edit
- *
- * @extends argos.Edit
- *
- * @requires crm.Format
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.Event.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,

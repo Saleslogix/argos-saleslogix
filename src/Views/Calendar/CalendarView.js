@@ -28,21 +28,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarView');
 const dtFormatResource = getResource('calendarViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.CalendarView
- *
- * @extends argos.List
- * @mixins argos.List
- *
- * @requires argos.List
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Utility
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // Localization
   titleText: resource.titleText,

@@ -14,10 +14,11 @@ define('crm/MingleUtility', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n
   }
 
   /**
-   * @class crm.MingleUtility
-   * @singleton
+   * @class
+   * @alias module:crm/MingleUtility
+   * @static
    */
-  var __class = _lang2.default.setObject('crm.MingleUtility', {
+  var __class = _lang2.default.setObject('crm.MingleUtility', /** @lends module:crm/MingleUtility */{
     accessToken: '',
 
     refreshAccessToken: function refreshAccessToken(appConfig) {
@@ -92,6 +93,9 @@ define('crm/MingleUtility', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n
        * limitations under the License.
        */
 
+  /**
+   * @module crm/MingleUtility
+   */
   exports.default = __class;
   module.exports = exports['default'];
 });

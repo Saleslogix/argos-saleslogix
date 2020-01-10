@@ -34,13 +34,6 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
 
   var resource = (0, _I18n2.default)('activityMyDayRightDrawerList');
 
-  /**
-   * @class crm.Views.Activity.MyDayRightDrawerListMixin
-   *
-   *
-   * @mixins crm.Views._RightDrawerBaseMixin
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
     // Localization
     kpiSectionText: resource.kpiSectionText,

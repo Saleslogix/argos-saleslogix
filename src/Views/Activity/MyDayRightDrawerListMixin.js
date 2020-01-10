@@ -18,16 +18,8 @@ import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('activityMyDayRightDrawerList');
 
-/**
- * @class crm.Views.Activity.MyDayRightDrawerListMixin
- *
- *
- * @mixins crm.Views._RightDrawerBaseMixin
- *
- */
 const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
   kpiSectionText: resource.kpiSectionText,

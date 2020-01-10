@@ -21,14 +21,9 @@ import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('leftDrawer');
 
-/**
- * @class crm.Views.LeftDrawer
- * @extends argos.GroupedList
- */
-const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Views.LeftDrawer# */{
+const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
   enablePullToRefresh: false,

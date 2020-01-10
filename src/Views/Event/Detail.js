@@ -21,13 +21,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('eventDetail');
 const dtFormatResource = getResource('eventDetailDateTimeFormat');
 
-/**
- * @class crm.Views.Event.Detail
- *
- * @extends argos.Detail
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Event.Detail', [Detail], {
   // Localization
   actionsText: resource.actionsText,

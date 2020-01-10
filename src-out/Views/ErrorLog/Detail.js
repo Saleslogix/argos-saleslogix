@@ -39,11 +39,7 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
   var resource = (0, _I18n2.default)('errorLogDetail');
   var dtFormatResource = (0, _I18n2.default)('errorLogDetailDateTimeFormat');
 
-  /**
-   * @class crm.Views.ErrorLog.Detail
-   * @extends argos.Detail
-   */
-  var __class = (0, _declare2.default)('crm.Views.ErrorLog.Detail', [_Detail2.default], /** @lends crm.Views.ErrorLog.Detail# */{
+  var __class = (0, _declare2.default)('crm.Views.ErrorLog.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     detailsText: resource.detailsText,

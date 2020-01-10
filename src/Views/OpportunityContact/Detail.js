@@ -16,19 +16,12 @@
 import declare from 'dojo/_base/declare';
 import string from 'dojo/string';
 import Detail from 'argos/Detail';
-// import _LegacySDataDetailMixin from 'argos/_LegacySDataDetailMixin';
 import getResource from 'argos/I18n';
 import format from 'crm/Format';
 import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityContactDetail');
 
-/**
- * @class crm.Views.OpportunityContact.Detail
- *
- * @extends argos.Detail
- * @mixins argos._LegacySDataDetailMixin
- */
 const __class = declare('crm.Views.OpportunityContact.Detail', [Detail/* , _LegacySDataDetailMixin */], {
   // Localization
   titleText: resource.titleText,

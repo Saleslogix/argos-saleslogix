@@ -35,20 +35,9 @@ define('crm/Integrations/BOE/Views/ERPInvoiceItems/Detail', ['module', 'exports'
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  /**
-   * @class crm.Integrations.BOE.Views.ERPInvocieItems.Detail
-   *
-   *
-   * @extends argos.Detail
-   * @requires argos.Detail
-   * @requires crm.Format
-   * @requires crm.Template
-   *
-   */
   var resource = (0, _I18n2.default)('erpInvoiceItemsDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [_Detail2.default], /** @lends crm.Integrations.BOE.Views.ERPInvocieItems.Detail# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     invoiceNumberText: resource.invoiceNumberText,

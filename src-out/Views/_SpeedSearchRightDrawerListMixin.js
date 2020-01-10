@@ -32,15 +32,19 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Views/_SpeedSearchRightDrawerListMixin
+   */
   var resource = (0, _I18n2.default)('speedSearchRightDrawerListMixin');
 
   /**
-   * @class crm.Views._SpeedSearchRightDrawerListMixin
+   * @class
+   * @alias module:crm/Views/_SpeedSearchRightDrawerListMixin
    * @classdesc Speedsearch specific mixin for right drawer functionality.
-   * @mixins crm.Views._RightDrawerBaseMixin
+   * @mixes module:crm/Views/_RightDrawerBaseMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_SpeedSearchRightDrawerListMixin.prototype */{
     // Localization
     indexSectionText: resource.indexSectionText,
 

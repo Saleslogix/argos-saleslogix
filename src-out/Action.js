@@ -32,12 +32,17 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('action');
   /**
-   * @class crm.Action
-   * @requires argos.Utility
+   * @module crm/Action
    */
-  var __class = _lang2.default.setObject('crm.Action', {
+  var resource = (0, _I18n2.default)('action');
+
+  /**
+   * @class
+   * @alias module:crm/Action
+   * @static
+   */
+  var __class = _lang2.default.setObject('crm.Action', /** @lends module:crm/Action */{
     calledText: resource.calledText,
     emailedText: resource.emailedText,
 

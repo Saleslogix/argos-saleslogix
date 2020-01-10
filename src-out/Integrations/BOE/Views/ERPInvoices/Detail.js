@@ -38,17 +38,6 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
                                                             * limitations under the License.
                                                             */
 
-  /**
-   * @class crm.Views.Account.Detail
-   *
-   *
-   * @extends argos.Detail
-   * @requires argos.Detail
-   * @requires crm.Format
-   * @requires crm.Template
-   *
-   */
-
 
   var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvoices.Detail', [_Detail2.default], {
     // Localization

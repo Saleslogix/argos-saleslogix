@@ -59,23 +59,6 @@ define('crm/Views/Calendar/MonthView', ['module', 'exports', 'dojo/_base/declare
 
   var dtFormatResource = (0, _I18n2.default)('calendarMonthViewDateTimeFormat');
 
-  /**
-   * @class crm.Views.Calendar.MonthView
-   *
-   * @extends argos.List
-   * @mixins argos.List
-   * @mixins argos._LegacySDataListMixin
-   *
-   * @requires argos.List
-   * @requires argos._LegacySDataListMixin
-   * @requires argos.Convert
-   * @requires argos.ErrorManager
-   *
-   * @requires crm.Format
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Calendar.MonthView', [_List2.default, _LegacySDataListMixin3.default], {
     // Localization
     titleText: resource.titleText,

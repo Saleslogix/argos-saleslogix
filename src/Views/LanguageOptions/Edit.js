@@ -21,12 +21,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('languageOptionsEdit');
 
-/**
- * @class crm.Views.OfflineOptions.Edit
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.LanguageOptions.Edit', [_EditBase, _RelatedWidgetEditMixin], {
   // Localization
   titleText: resource.titleText,

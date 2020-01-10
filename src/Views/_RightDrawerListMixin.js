@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/_RightDrawerListMixin
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import aspect from 'dojo/aspect';
@@ -25,12 +28,14 @@ import getResource from 'argos/I18n';
 const resource = getResource('rightDrawerListMixin');
 
 /**
- * @class crm.Views._RightDrawerListMixin
+ * @class
+ * @alias module:crm/Views/_RightDrawerListMixin
+ * @mixin
  * @classdesc List mixin for right drawers.
  * @since 3.0
- * @mixins crm.Views._RightDrawerBaseMixin
+ * @mixes module:crm/Views/_RightDrawerBaseMixin
  */
-const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], /** @lends module:crm/Views/_RightDrawerListMixin.prototype */{
   // Localization
   hashTagsSectionText: resource.hashTagsSectionText,
   groupsSectionText: resource.groupsSectionText,

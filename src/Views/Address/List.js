@@ -18,19 +18,8 @@ import format from '../../Format';
 import List from 'argos/List';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('addressList');
 
-/**
- * @class crm.Views.Address.List
- *
- * @extends argos.List
- *
- * @requires argos.List
- *
- * @requires crm.Format
- *
- */
 const __class = declare('crm.Views.Address.List', [List], {
   // Templates
   itemTemplate: new Simplate([

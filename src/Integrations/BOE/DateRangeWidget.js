@@ -12,16 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Integrations.BOE.DateRangeWidget
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 
-const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], /** @lends crm.Integrations.BOE.DateRangeWidget# */{
+const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], {
   /**
      * @property {Simplate}
      * Simple that defines the HTML Markup

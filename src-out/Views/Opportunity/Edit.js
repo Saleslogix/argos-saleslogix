@@ -39,16 +39,6 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
   var resource = (0, _I18n2.default)('opportunityEdit');
   var dtFormatResource = (0, _I18n2.default)('opportunityEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.Opportunity.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Utility
-   *
-   * @requires crm.Validator
-   * @requires crm.Template
-   */
   var __class = (0, _declare2.default)('crm.Views.Opportunity.Edit', [_Edit2.default], {
     // Localization
     accountText: resource.accountText,

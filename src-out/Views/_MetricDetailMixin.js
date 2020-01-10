@@ -14,11 +14,11 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
   }
 
   /**
-   * @class crm.Views._MetricDetailMixin
+   * @class
+   * @alias module:crm/Views/_MetricDetailMixin
+   * @mixin
    * @classdesc Mixin for adding KPI widgets to detail views.
    * @since 3.0
-   *
-   * @requires crm.Views.MetricWidget
    *
    */
   /* Copyright 2017 Infor
@@ -36,7 +36,10 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Views._MetricDetailMixin', null, {
+  /**
+   * @module crm/Views/_MetricDetailMixin
+   */
+  var __class = (0, _declare2.default)('crm.Views._MetricDetailMixin', null, /** @lends module:crm/Views/_MetricDetailMixin.prototype */{
     // Metrics
     metricNode: null,
     metricWidgets: null,

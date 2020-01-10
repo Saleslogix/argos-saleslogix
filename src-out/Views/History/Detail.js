@@ -39,15 +39,6 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
   var resource = (0, _I18n2.default)('historyDetail');
   var dtFormatResource = (0, _I18n2.default)('historyDetailDateTimeFormat');
 
-  /**
-   * @class crm.Views.History.Detail
-   *
-   * @extends argos.Detail
-   *
-   *
-   * @requires crm.Format
-   * @requires crm.Template
-   */
   var __class = (0, _declare2.default)('crm.Views.History.Detail', [_Detail2.default], {
     // Templates
     createUserTemplate: _Template2.default.nameLF,

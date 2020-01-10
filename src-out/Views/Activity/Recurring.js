@@ -32,21 +32,6 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
   var resource = (0, _I18n2.default)('activityRecurring');
   var dtFormatResource = (0, _I18n2.default)('activityEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.Activity.Recurring
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Edit
-   * @requires argos.Utility
-   *
-   * @requires crm.Format
-   * @requires crm.Validator
-   * @requires crm.Recurrence
-   *
-   * @requires moment
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Activity.Recurring', [_Edit2.default], {
     // Localization
     startingText: resource.startingText,

@@ -14,14 +14,18 @@
  */
 
 /**
- * @class crm.Integrations.BOE.Aggregate
- * @classdesc Aggregate functions. Currently used in metric widgets.
- * @singleton
- */
+* @module crm/Integrations/BOE/Aggregate
+*/
 import lang from 'dojo/_base/lang';
 import crmAggergate from '../../Aggregate';
 
-const __class = lang.setObject('crm.Integrations.BOE.Aggregate', /** @lends crm.Integrations.BOE.Aggregate */{
+/**
+ * @class
+ * @alias module:/crm/Integrations/BOE/Aggregate
+ * @classdesc Aggregate functions. Currently used in metric widgets.
+ * @static
+ */
+const __class = lang.setObject('crm.Integrations.BOE.Aggregate', /** @lends module:crm/Integrations/BOE/Aggregate */{
   /**
    * Calculate Profit
    * @param {Array} data arrays of revenue and cost

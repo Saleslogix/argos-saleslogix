@@ -24,7 +24,7 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
    */
 
   /**
-   * @module crm.Bootstrap.localization
+   * @module crm/Bootstrap/localization
    */
 
   function makeRequest(url) {

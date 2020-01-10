@@ -12,11 +12,12 @@ define('crm/Aggregate', ['module', 'exports', 'dojo/_base/lang'], function (modu
   }
 
   /**
-   * @class crm.Aggregate
+   * @class
+   * @alias module:crm/Aggregate
    * @classdesc Aggregate functions. Currently used in metric widgets.
-   * @singleton
+   * @static
    */
-  var __class = _lang2.default.setObject('crm.Aggregate', /** @lends crm.Aggregate */{
+  var __class = _lang2.default.setObject('crm.Aggregate', /** @lends module:crm/Aggregate */{
     /**
      * Average
      * @param {Array} data Array of objects that contain a value property
@@ -109,6 +110,9 @@ define('crm/Aggregate', ['module', 'exports', 'dojo/_base/lang'], function (modu
        * limitations under the License.
        */
 
+  /**
+   * @module crm/Aggregate
+   */
   exports.default = __class;
   module.exports = exports['default'];
 });

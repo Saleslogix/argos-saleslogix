@@ -42,16 +42,6 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
 
   var resource = (0, _I18n2.default)('accountDetail');
 
-  /**
-   * @class crm.Views.Account.Detail
-   *
-   *
-   * @extends argos.Detail
-   * @requires argos.Detail
-   * @requires crm.Format
-   * @requires crm.Template
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Account.Detail', [_Detail2.default], {
     // Localization
     accountText: resource.accountText,

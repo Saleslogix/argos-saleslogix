@@ -54,11 +54,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
 
   var resource = (0, _I18n2.default)('dashboardWidgetBase');
 
-  /**
-   * @class crm.Integrations.BOE._DashboardWidgetBase
-   * @extends argos._RelatedViewWidgetBase
-   */
-  var __class = (0, _declare2.default)('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase3.default], /** @lends crm.Integrations.BOE._DashboardWidgetBase# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase3.default], {
     owner: null,
     id: 'dashboard-widget-base',
     titleText: resource.titleText,

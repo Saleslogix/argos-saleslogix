@@ -13,13 +13,6 @@ define('crm/Views/FooterToolbar', ['module', 'exports', 'dojo/_base/declare', 'a
     };
   }
 
-  /**
-   * @class crm.Views.FooterToolbar
-   *
-   * @deprecated
-   * @extends argos.MainToolbar
-   *
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");

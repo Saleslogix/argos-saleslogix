@@ -23,33 +23,20 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     };
   }
 
-  var resource = (0, _I18n2.default)('accountEdit');
-
-  /**
-   * @class crm.Views.Account.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Edit
-   * @requires crm.Format
-   * @requires crm.Validator
-   * @requires crm.Template
-   *
-   */
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
+  var resource = (0, _I18n2.default)('accountEdit'); /* Copyright 2017 Infor
+                                                      *
+                                                      * Licensed under the Apache License, Version 2.0 (the "License");
+                                                      * you may not use this file except in compliance with the License.
+                                                      * You may obtain a copy of the License at
+                                                      *
+                                                      *    http://www.apache.org/licenses/LICENSE-2.0
+                                                      *
+                                                      * Unless required by applicable law or agreed to in writing, software
+                                                      * distributed under the License is distributed on an "AS IS" BASIS,
+                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                      * See the License for the specific language governing permissions and
+                                                      * limitations under the License.
+                                                      */
 
   var __class = (0, _declare2.default)('crm.Views.Account.Edit', [_Edit2.default], {
     // Localization

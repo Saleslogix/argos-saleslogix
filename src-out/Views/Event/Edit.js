@@ -36,14 +36,6 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
 
   var dtFormatResource = (0, _I18n2.default)('eventEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.Event.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires crm.Format
-   * @requires crm.Validator
-   */
   var __class = (0, _declare2.default)('crm.Views.Event.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,

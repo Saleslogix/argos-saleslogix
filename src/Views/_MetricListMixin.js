@@ -13,20 +13,22 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/_MetricListMixin
+ */
 import declare from 'dojo/_base/declare';
 import MetricWidget from './MetricWidget';
 import GroupUtility from '../GroupUtility';
 
 
 /**
- * @class crm.Views._MetricListMixin
+ * @class
+ * @alias module:crm/Views/_MetricListMixin
+ * @mixin
  * @classdesc Mixin for adding KPI widgets to list views.
  * @since 3.0
- *
- * @requires crm.Views.MetricWidget
- *
  */
-const __class = declare('crm.Views._MetricListMixin', null, {
+const __class = declare('crm.Views._MetricListMixin', null, /** @lends module:crm/Views/_MetricListMixin.prototype */{
   // Metrics
   metricTemplate: new Simplate([
     '<div class="metric-list">',

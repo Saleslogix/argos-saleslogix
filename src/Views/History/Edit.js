@@ -24,16 +24,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('historyEdit');
 const dtFormatResource = getResource('historyEditDateTimeFormat');
 
-/**
- * @class crm.Views.History.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Environment
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.History.Edit', [Edit], {
   // Localization
   accountText: resource.accountText,

@@ -18,8 +18,9 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
   }
 
   /**
-   * @class crm.SalesProcessUtility
-   * @singleton
+   * @class
+   * @alias module:crm/SalesProcessUtility
+   * @static
    */
   /* Copyright 2017 Infor
    *
@@ -36,7 +37,10 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
    * limitations under the License.
    */
 
-  var __class = _lang2.default.setObject('crm.SalesProcessUtility', /** @lends crm.SalesProcessUtility */{
+  /**
+   * @module crm/SalesProcessUtility
+   */
+  var __class = _lang2.default.setObject('crm.SalesProcessUtility', /** @lends module:crm/SalesProcessUtility */{
     store: null,
     service: null,
     contractName: 'dynamic',

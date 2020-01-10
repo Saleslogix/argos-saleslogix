@@ -27,12 +27,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoicesList');
 
-/**
- * @class crm.Integrations.BOE.Views.ERPInvoces.List
- *
- * @extends argos.List
- */
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], /** @lends crm.Integrations.BOE.Views.ERPInvoces.List# */ {
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoices.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   formatter: crmFormat,
   util: utility,
   // Templates

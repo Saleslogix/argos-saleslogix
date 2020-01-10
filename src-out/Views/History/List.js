@@ -66,21 +66,6 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
   var hashTagResource = (0, _I18n2.default)('historyListHashTags');
   var dtFormatResource = (0, _I18n2.default)('historyListDateTimeFormat');
 
-  /**
-   * @class crm.Views.History.List
-   *
-   * @extends argos.List
-   * @mixins crm.Views._RightDrawerListMixin
-   * @mixins crm.Views._MetricListMixin
-   * @mixins crm.Views._GroupListMixin
-   *
-   * @requires argos.Convert
-   *
-   * @requires crm.Format
-   * @requires crm.Action
-   *
-   * @requires moment
-   */
   var __class = (0, _declare2.default)('crm.Views.History.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
     format: _Format2.default,
     // Templates

@@ -13,14 +13,6 @@
  * limitations under the License.
  */
 
-/**
- * @class crm.Views.Activity.MyDayOffline
- *
- * @extends argos._ListBase
- * @requires argos._ListBase
- *
- *
- */
 import declare from 'dojo/_base/declare';
 import OfflineList from '../Offline/List';
 import MyDayMetricListMixin from './MyDayMetricListMixin';

@@ -24,27 +24,11 @@ import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 import MODEL_NAMES from '../../Models/Names';
 
-
 const resource = getResource('historyList');
 const activityTypeResource = getResource('activityTypeText');
 const hashTagResource = getResource('historyListHashTags');
 const dtFormatResource = getResource('historyListDateTimeFormat');
 
-/**
- * @class crm.Views.History.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._GroupListMixin
- *
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Action
- *
- * @requires moment
- */
 const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   format,
   // Templates

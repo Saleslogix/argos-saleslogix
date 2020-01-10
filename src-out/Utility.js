@@ -28,17 +28,18 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Utility
+   */
   var commonutil = ICRMCommonSDK.utility;
   /**
-   * @class crm.Utility
-   *
+   * @class
+   * @alias module:crm/Utility
    * @classdesc Utility provides functions that are more javascript enhancers than application related code. Mixes in argos.Utility.
-   *
-   * @requires argos.Utility
-   * @singleton
+   * @static
    *
    */
-  var __class = _lang2.default.setObject('crm.Utility', _lang2.default.mixin({}, _Utility2.default, /** @lends crm.Utility */{
+  var __class = _lang2.default.setObject('crm.Utility', _lang2.default.mixin({}, _Utility2.default, /** @lends module:crm/Utility */{
     base64ArrayBuffer: commonutil.base64ArrayBuffer,
 
     /** Gets the extension for a file.

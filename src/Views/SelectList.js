@@ -17,13 +17,6 @@ import declare from 'dojo/_base/declare';
 import Memory from 'dojo/store/Memory';
 import List from 'argos/List';
 
-/**
- * @class crm.Views.SelectList
- *
- *
- * @extends argos.List
- *
- */
 const __class = declare('crm.Views.SelectList', [List], {
   // Templates
   itemTemplate: new Simplate([

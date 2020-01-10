@@ -15,11 +15,7 @@ define('crm/Views/RightDrawer', ['module', 'exports', 'dojo/_base/declare', 'doj
     };
   }
 
-  /**
-   * @class crm.Views.RightDrawer
-   * @extends argos.GroupedList
-   */
-  var __class = (0, _declare2.default)('crm.Views.RightDrawer', [_GroupedList2.default], /** @lends crm.Views.RightDrawer# */{
+  var __class = (0, _declare2.default)('crm.Views.RightDrawer', [_GroupedList2.default], {
     // Templates
     cls: ' contextualContent',
     rowTemplate: new Simplate(['<div class="accordion-header list-content" role="presentation">', '<a data-action="{%= $.action %}"', '{% if($.dataProps) { %}', '{% for(var prop in $.dataProps) { %}', ' data-{%= prop %}="{%= $.dataProps[prop] %}"', '{% } %}', '{% } %}', '>', '<span>{%: $.title %}</span></a>', '</div>']),

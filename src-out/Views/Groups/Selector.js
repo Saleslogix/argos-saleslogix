@@ -34,13 +34,6 @@ define('crm/Views/Groups/Selector', ['module', 'exports', 'dojo/_base/declare', 
 
   var resource = (0, _I18n2.default)('groupsSelector');
 
-  /**
-   * @class crm.Views.Groups.Selector
-   *
-   * @extends argos.List
-   * @requires argos.List
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Groups.Selector', [_List2.default], {
     id: 'groups_configure',
     expose: false,

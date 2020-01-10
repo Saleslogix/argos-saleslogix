@@ -27,22 +27,6 @@ import ErrorManager from 'argos/ErrorManager';
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
 
-/**
- * @class crm.Views.Attachment.ViewAttachment
- *
- *
- * @extends argos.Detail
- * @mixins argos.Detail
- * @mixins argos._LegacySDataDetailMixin
- *
- * @requires argos.Detail
- * @requires argos._LegacySDataDetailMixin
- *
- * @requires crm.Format
- * @requires crm.AttachmentManager
- * @requires crm.Utility
- *
- */
 const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
   // Localization
   detailsText: resource.detailsText,

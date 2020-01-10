@@ -36,13 +36,6 @@ define('crm/Views/TicketActivity/List', ['module', 'exports', 'dojo/_base/declar
 
   var dtFormatResource = (0, _I18n2.default)('ticketActivityListDateTimeFormat');
 
-  /**
-   * @class crm.Views.TicketActivity.List
-   *
-   * @extends argos.List
-   *
-   * @requires crm.Format
-   */
   var __class = (0, _declare2.default)('crm.Views.TicketActivity.List', [_List2.default], {
     format: _Format2.default,
     // Templates

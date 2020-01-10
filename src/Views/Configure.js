@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('configure');
 
-/**
- * @class crm.Views.Configure
- *
- *
- * @extends argos._ConfigureBase
- *
- */
 const __class = declare('crm.Views.Configure', [_ConfigureBase], {
   // Localization
   titleText: resource.titleText,

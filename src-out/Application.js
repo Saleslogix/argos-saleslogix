@@ -147,8 +147,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
   var resource = (0, _I18n2.default)('application');
 
   /**
-   * @alias crm.Application
-   * @extends argos.Application
+   * @alias module:crm/Application
+   * @extends module:argos/Application
    */
 
   var Application = function (_SDKApplication) {

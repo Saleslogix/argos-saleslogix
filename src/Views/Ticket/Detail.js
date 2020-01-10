@@ -21,15 +21,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('ticketDetail');
 
-/**
- * @class crm.Views.Ticket.Detail
- *
- * @extends argos.Detail
- *
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Ticket.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,

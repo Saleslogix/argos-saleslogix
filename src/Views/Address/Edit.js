@@ -22,12 +22,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('addressEdit');
 
-/**
- * @class crm.Views.Address.Edit
- * @extends argos.Edit
- *
- */
-const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.Address.Edit# */{
+const __class = declare('crm.Views.Address.Edit', [Edit], {
   // Localization
   address1Text: resource.address1Text,
   address2Text: resource.address2Text,

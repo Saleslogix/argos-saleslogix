@@ -34,13 +34,6 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var resource = (0, _I18n2.default)('mainToolbar');
 
-  /**
-   * @class crm.Views.MainToolbar
-   *
-   *
-   * @extends argos.MainToolbar
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.MainToolbar', [_MainToolbar2.default], {
     backTooltipText: resource.backTooltipText,
 

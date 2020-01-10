@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/_SpeedSearchRightDrawerListMixin
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from './_RightDrawerBaseMixin';
@@ -22,12 +25,13 @@ import getResource from 'argos/I18n';
 const resource = getResource('speedSearchRightDrawerListMixin');
 
 /**
- * @class crm.Views._SpeedSearchRightDrawerListMixin
+ * @class
+ * @alias module:crm/Views/_SpeedSearchRightDrawerListMixin
  * @classdesc Speedsearch specific mixin for right drawer functionality.
- * @mixins crm.Views._RightDrawerBaseMixin
+ * @mixes module:crm/Views/_RightDrawerBaseMixin
  *
  */
-const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
+const __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], /** @lends module:crm/Views/_SpeedSearchRightDrawerListMixin.prototype */{
   // Localization
   indexSectionText: resource.indexSectionText,
 

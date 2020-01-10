@@ -42,10 +42,7 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
 
   var resource = (0, _I18n2.default)('erpContactAssociationsList');
 
-  /**
-   * @class crm.Integrations.BOE.Views.ERPContactAssociations.List
-   */
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPContactAssociations.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], /** @lends crm.Integrations.BOE.Views.ERPContactAssociations.List# */{
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPContactAssociations.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Contact.NameLF %}</p>', '<p class="micro-text">{%: $.Account.AccountName %}</p>']),
 

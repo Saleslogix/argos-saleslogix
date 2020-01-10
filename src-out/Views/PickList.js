@@ -13,13 +13,6 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
     };
   }
 
-  /**
-   * @class crm.Views.PickList
-   *
-   *
-   * @extends argos.List
-   *
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");

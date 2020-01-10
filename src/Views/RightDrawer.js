@@ -18,11 +18,7 @@ import Memory from 'dojo/store/Memory';
 
 import GroupedList from 'argos/GroupedList';
 
-/**
- * @class crm.Views.RightDrawer
- * @extends argos.GroupedList
- */
-const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.Views.RightDrawer# */{
+const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([

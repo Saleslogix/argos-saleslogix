@@ -35,13 +35,6 @@ define('crm/Views/Event/Detail', ['module', 'exports', 'dojo/_base/declare', '..
   var resource = (0, _I18n2.default)('eventDetail');
   var dtFormatResource = (0, _I18n2.default)('eventDetailDateTimeFormat');
 
-  /**
-   * @class crm.Views.Event.Detail
-   *
-   * @extends argos.Detail
-   *
-   * @requires crm.Format
-   */
   var __class = (0, _declare2.default)('crm.Views.Event.Detail', [_Detail2.default], {
     // Localization
     actionsText: resource.actionsText,

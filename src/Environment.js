@@ -13,18 +13,25 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/Environment
+*/
 import lang from 'dojo/_base/lang';
 import 'dojo/_base/sniff';
 
 /**
- * @class crm.Environment
- *
+ * @class
+ * @alias module:crm/Environment
+ * @static
  */
-const __class = lang.setObject('crm.Environment', {
-  // todo: open a new browser window for these when on a mobile device?
-  // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
-  // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
+const __class = lang.setObject('crm.Environment', /** @lends module:crm/Environment */{
+  /**
+   * @param {string} number
+   */
   initiateCall: function initiateCall(number) {
+    // todo: open a new browser window for these when on a mobile device?
+    // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
+    // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
     setTimeout(() => {
       window.location.href = `tel:${number}`;
     }, 500);

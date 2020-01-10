@@ -34,14 +34,6 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
 
   var resource = (0, _I18n2.default)('areaCategoryIssueLookup');
 
-  /**
-   * @class crm.Views.AreaCategoryIssueLookup
-   *
-   *
-   * @extends argos.List
-   * @mixins argos._LegacySDataListMixin
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.AreaCategoryIssueLookup', [_List2.default, _LegacySDataListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>']),

@@ -34,16 +34,6 @@ define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '..
 
   var resource = (0, _I18n2.default)('addressList');
 
-  /**
-   * @class crm.Views.Address.List
-   *
-   * @extends argos.List
-   *
-   * @requires argos.List
-   *
-   * @requires crm.Format
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Address.List', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>', '<p class="micro-text">{%= $$.format.address($, true) %}</p>']),

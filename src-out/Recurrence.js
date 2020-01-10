@@ -30,13 +30,18 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
                                                      * limitations under the License.
                                                      */
 
+  /**
+   * @module crm/Recurrence
+   */
+
   var dtFormatResource = (0, _I18n2.default)('recurrenceDateTimeFormat');
 
   /**
-   * @class crm.Recurrence
-   * @singleton
+   * @class
+   * @alias module:crm/Recurrence
+   * @static
    */
-  var __class = _lang2.default.setObject('crm.Recurrence', /** @lends crm.Recurrence */{
+  var __class = _lang2.default.setObject('crm.Recurrence', /** @lends module:crm/Recurrence */{
     // Localization
     neverText: resource.neverText,
     dailyText: resource.dailyText,

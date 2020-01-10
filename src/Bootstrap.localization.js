@@ -14,7 +14,7 @@
  */
 
 /**
- * @module crm.Bootstrap.localization
+ * @module crm/Bootstrap/localization
  */
 
 export function makeRequest(url) {

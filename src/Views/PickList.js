@@ -16,13 +16,6 @@
 import declare from 'dojo/_base/declare';
 import List from 'argos/List';
 
-/**
- * @class crm.Views.PickList
- *
- *
- * @extends argos.List
- *
- */
 const __class = declare('crm.Views.PickList', [List], {
   // Templates
   itemTemplate: new Simplate([

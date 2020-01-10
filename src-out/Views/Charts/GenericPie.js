@@ -20,13 +20,14 @@ define('crm/Views/Charts/GenericPie', ['module', 'exports', 'dojo/_base/declare'
   }
 
   /**
-   * @class crm.Views.Charts.GenericPie
+   * @class
+   * @alias module:crm/Views/Charts/GenericPie
    *
-   * @extends argos.View
-   * @mixins crm.Views.Charts._ChartMixin
+   * @extends module:argos/View
+   * @mixes module:crm/Views/Charts/_ChartMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.Charts.GenericPie', [_View2.default, _ChartMixin3.default], /** @lends crm.Views.Charts.GenericPie# */{
+  var __class = (0, _declare2.default)('crm.Views.Charts.GenericPie', [_View2.default, _ChartMixin3.default], /** @lends module:crm/Views/Charts/GenericPie.prototype */{
     id: 'chart_generic_pie',
     titleText: '',
     expose: false,
@@ -116,6 +117,9 @@ define('crm/Views/Charts/GenericPie', ['module', 'exports', 'dojo/_base/declare'
        * limitations under the License.
        */
 
+  /**
+   * @module crm/Views/Charts/GenericPie
+   */
   exports.default = __class;
   module.exports = exports['default'];
 });

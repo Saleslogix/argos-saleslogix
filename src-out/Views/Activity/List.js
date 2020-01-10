@@ -71,22 +71,6 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
 
   var hashTagResource = (0, _I18n2.default)('activityListHashTags');
 
-  /**
-   * @class crm.Views.Activity.List
-   *
-   * @extends argos.List
-   * @mixins crm.Views._RightDrawerListMixin
-   *
-   * @requires argos.List
-   * @requires argos.Utility
-   * @requires argos.Convert
-   * @requires argos.ErrorManager
-   * @requires crm.Action
-   * @requires crm.Environment
-   * @requires crm.Format
-   * @requires crm.Views._RightDrawerListMixin
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Activity.List', [_List2.default, _RightDrawerListMixin3.default], {
     // Localization
     allDayText: resource.allDayText,

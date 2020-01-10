@@ -17,14 +17,6 @@ define('crm/Views/Activity/MyDayMetricListMixin', ['module', 'exports', 'dojo/_b
     };
   }
 
-  /**
-   * @class crm.Views.Activity.MyDayMetricListMixin
-   *
-   *
-   * @requires crm.Views.MetricWidget
-   * @extends crm.Views._MetricListMixin
-   *
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");

@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/Charts/GenericBar
+ */
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import domGeo from 'dojo/dom-geometry';
@@ -20,13 +23,13 @@ import View from 'argos/View';
 import _ChartMixin from './_ChartMixin';
 
 /**
- * @class crm.Views.Charts.GenericBar
- *
- * @extends argos.View
- * @mixins crm.Views.Charts._ChartMixin
+ * @class
+ * @alias module:crm/Views/Charts/GenericBar
+ * @extends module:argos/View
+ * @mixes module:crm/Views/Charts/_ChartMixin
  *
  */
-const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], /** @lends crm.Views.Charts.GenericBar# */{
+const __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], /** @lends module:crm/Views/Charts/GenericBar.prototype */{
   id: 'chart_generic_bar',
   titleText: '',
   expose: false,

@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/FileManager
+*/
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
 import dNumber from 'dojo/number';
@@ -20,10 +23,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('fileManager');
 
-/**
- * @class crm.FileManager
- */
-const __class = declare('crm.FileManager', null, /** @lends crm.FileManager# */{
+const __class = declare('crm.FileManager', null, /** @lends module:crm/FileManager.prototype */{
   unableToUploadText: resource.unableToUploadText,
   unknownSizeText: resource.unknownSizeText,
   unknownErrorText: resource.unknownErrorText,
@@ -41,7 +41,8 @@ const __class = declare('crm.FileManager', null, /** @lends crm.FileManager# */{
   _isUploading: false,
 
   /**
-   * @constructs
+   * @class
+   * @alias module:crm/FileManager
    */
   constructor: function constructor() {
     this._files = [];

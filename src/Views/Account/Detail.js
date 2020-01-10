@@ -24,16 +24,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('accountDetail');
 
-/**
- * @class crm.Views.Account.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Views.Account.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,

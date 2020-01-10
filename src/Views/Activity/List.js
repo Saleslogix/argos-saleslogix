@@ -33,22 +33,6 @@ import string from 'dojo/string';
 const resource = getResource('activityList');
 const hashTagResource = getResource('activityListHashTags');
 
-/**
- * @class crm.Views.Activity.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- *
- * @requires argos.List
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires argos.ErrorManager
- * @requires crm.Action
- * @requires crm.Environment
- * @requires crm.Format
- * @requires crm.Views._RightDrawerListMixin
- *
- */
 const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin], {
   // Localization
   allDayText: resource.allDayText,

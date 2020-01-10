@@ -22,13 +22,6 @@ import MODEL_NAMES from '../../Models/Names';
 const resource = getResource('ticketActivityList');
 const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
 
-/**
- * @class crm.Views.TicketActivity.List
- *
- * @extends argos.List
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.TicketActivity.List', [List], {
   format,
   // Templates

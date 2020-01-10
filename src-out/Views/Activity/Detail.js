@@ -53,23 +53,6 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
   var resource = (0, _I18n2.default)('activityDetail');
   var dtFormatResource = (0, _I18n2.default)('activityDetailDateTimeFormat');
 
-  /**
-   * @class crm.Views.Activity.Detail
-   *
-   *
-   * @extends argos.Detail
-   * @mixins argos.Detail
-   *
-   * @requires argos.Detail
-   * @requires argos.Utility
-   * @requires argos.Convert
-   * @requires crm.Format
-   * @requires crm.Template
-   * @requires crm.Environment
-   * @requires crm.Recurrence
-   * @requires crm.Utility
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.Activity.Detail', [_Detail2.default], {
     // Localization
     actionsText: resource.actionsText,

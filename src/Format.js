@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Format
+ */
 import lang from 'dojo/_base/lang';
 import dojoNumber from 'dojo/number';
 import string from 'dojo/string';
@@ -23,11 +26,12 @@ const f = ICRMCommonSDK.format;
 const resource = getResource('crmFormat');
 
 /**
- * @class crm.Format
- * @extends argos.Format
- * @singleton
+ * @class
+ * @alias module:crm/Format
+ * @extends module:argos/Format
+ * @static
  */
-const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends crm.Format */{
+const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends module:crm/Format */{
   /**
    * Address Culture Formats as defined by crm.Format.address
    * http://msdn.microsoft.com/en-us/library/cc195167.aspx

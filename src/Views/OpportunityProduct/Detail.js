@@ -23,14 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityProductDetail');
 
-/**
- * @class crm.Views.OpportunityProduct.Detail
- *
- * @extends argos.Detail
- * @mixins argos._LegacySDataDetailMixin
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
   // Localization
   detailsText: resource.detailsText,

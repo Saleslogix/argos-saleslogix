@@ -15,13 +15,6 @@ define('crm/Views/SelectList', ['module', 'exports', 'dojo/_base/declare', 'dojo
     };
   }
 
-  /**
-   * @class crm.Views.SelectList
-   *
-   *
-   * @extends argos.List
-   *
-   */
   var __class = (0, _declare2.default)('crm.Views.SelectList', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>']),

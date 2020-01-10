@@ -40,16 +40,6 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
 
   var dtFormatResource = (0, _I18n2.default)('historyEditDateTimeFormat');
 
-  /**
-   * @class crm.Views.History.Edit
-   *
-   * @extends argos.Edit
-   *
-   * @requires argos.Utility
-   *
-   * @requires crm.Environment
-   * @requires crm.Validator
-   */
   var __class = (0, _declare2.default)('crm.Views.History.Edit', [_Edit2.default], {
     // Localization
     accountText: resource.accountText,

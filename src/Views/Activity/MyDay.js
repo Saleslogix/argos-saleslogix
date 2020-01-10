@@ -23,20 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('activityMyDay');
 
-/**
- * @class crm.Views.Activity.MyDay
- *
- * @requires argos._ListBase
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- * @requires crm.Environment
- * @requires crm.Views.Activity.List
- * @requires crm.Action
- */
 const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMixin, _MetricListMixin], {
 
   // Localization

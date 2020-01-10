@@ -29,22 +29,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('activityComplete');
 const dtFormatResource = getResource('activityCompleteDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Complete
- *
- * @extends argos.Edit
- * @mixins argos.Edit
- *
- * @requires argos.Edit
- * @requires argos.Utility
- *
- * @requires crm.Environment
- * @requires crm.Validator
- * @requires crm.Template
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Activity.Complete', [Edit], {
   // Localization
   activityInfoText: resource.activityInfoText,
