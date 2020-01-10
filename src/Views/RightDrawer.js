@@ -93,7 +93,7 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], {
     this.inherited(clear, arguments);
     this.store = null;
   },
-  /**
+  /*
    * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
    */
   refresh: function refresh() {

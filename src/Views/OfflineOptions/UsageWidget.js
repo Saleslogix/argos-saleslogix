@@ -99,13 +99,11 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     ' {%: $.lastClearedDate %}',
     '</span',
   ]),
-  /**
-   * @property {string}
+  /*
    * SoHo class to be applied on multi column.
    */
   multiColumnClass: 'four',
-  /**
-   * @property {number}
+  /*
    * Number of columns in view
    */
   multiColumnCount: 3,

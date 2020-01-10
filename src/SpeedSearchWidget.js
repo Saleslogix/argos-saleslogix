@@ -20,8 +20,8 @@ import getResource from 'argos/I18n';
 const resource = getResource('speedSearchWidget');
 
 const __class = declare('crm.SpeedSearchWidget', [SearchWidget], {
-  /**
-   * @property {String} searchText The placeholder text for the input.
+  /*
+   * The placeholder text for the input.
    */
   searchText: resource.searchText,
 

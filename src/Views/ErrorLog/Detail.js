@@ -50,9 +50,8 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   // View Properties
   id: 'errorlog_detail',
 
-  /**
-   * Email address to be placed in the "To:" field when sending a report via a mobile device
-   */
+
+  // Email address to be placed in the "To:" field when sending a report via a mobile device
   defaultToAddress: null,
 
   init: function init() {

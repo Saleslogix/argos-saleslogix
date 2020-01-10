@@ -13,14 +13,11 @@
  * limitations under the License.
  */
 
-/**
-* @module crm/Bootstrap
-*/
 import MingleUtility from './MingleUtility';
 import LanguageService from 'argos/LanguageService';
 
 /**
- * @alias module:crm/Bootstrap
+ * @module crm/Bootstrap
  */
 export default function bootstrap({
   supportedLocales,

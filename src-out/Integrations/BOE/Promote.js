@@ -125,7 +125,7 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
         this._operatingCompanyModel.init();
       }
     },
-    /**
+    /*
      * Returns a new instance of a model for the view.
      */
     getModel: function getModel(modelName) {

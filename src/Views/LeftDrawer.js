@@ -288,7 +288,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     this.clear();
     $('#application-menu').data('applicationmenu').destroy();
   },
-  /**
+  /*
    * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
    */
   refresh: function refresh() {

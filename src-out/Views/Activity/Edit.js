@@ -108,8 +108,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       120: resource.twoHoursText
     },
 
-    /**
-     * @property {Number}
+    /*
      * The number of minutes that should be rounded to as a default start when creating a new activity
      */
     ROUND_MINUTES: 15,
@@ -119,7 +118,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     detailView: 'activity_detail',
     fieldsForLeads: ['AccountName', 'Lead'],
     fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
-    /**
+    /*
      * @deprecated Use ActivityTypePicklists from Modes/Activity/ActivityTypePicklists instead
      */
     picklistsByType: {

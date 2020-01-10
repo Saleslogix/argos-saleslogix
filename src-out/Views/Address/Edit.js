@@ -56,7 +56,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     stateText: resource.stateText,
     stateTitleText: resource.stateTitleText,
     titleText: resource.titleText,
-    /**
+    /*
      * Each locale key contains an array of field names to be hidden
      * Set to null to skip and leave all fields visible
      */
@@ -80,7 +80,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       var locale = _Format2.default.countryCultures[value] || 'en-US';
       this.hideFieldsForLocale(locale);
     },
-    /**
+    /*
      * Hides from view the field names defined in localeFieldHidden for the given locale
      * Doing so enables a user to enter an address
      * @param locale Localization string (Ex: 'en-US' or 'de-DE')

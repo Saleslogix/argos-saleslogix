@@ -50,39 +50,39 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
   autoLoad: false,
   isLoaded: false,
   enabled: false,
-  /**
+  /*
   * @cfg {String} resourceKind
   * The SData resource kind the view is responsible for.  This will be used as the default resource kind
   * for all SData requests.
   */
   resourceKind: null,
-  /**
+  /*
    * @cfg {String[]}
    * A list of fields to be selected in an SData request.
    */
   querySelect: null,
-  /**
+  /*
    * @cfg {String[]?}
    * A list of child properties to be included in an SData request.
    */
   queryInclude: null,
   queryName: null,
-  /**
+  /*
    * @cfg {String}
    * A where clause to filter the  SData request.
    */
   queryWhere: '',
-  /**
+  /*
    * @cfg {String}
    * A orderBy clause to sort the  SData request.
    */
   queryOrderBy: '',
-  /**
+  /*
    * @cfg {String?/Function?}
    * The default resource property for an SData request.
    */
   resourceProperty: null,
-  /**
+  /*
    * @cfg {String?/Function?}
    * The default resource predicate for an SData request.
    */
@@ -528,7 +528,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
       }
     }
   },
-  /**
+  /*
    * Sets up the date range search query based upon the from and to value (can use this.dayValue which is set by the range nodes)
    * @params {string, int, int} Property to be searched for, the days ago from the current, and days up to (from current)
    */
@@ -546,7 +546,7 @@ const __class = declare('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedVi
     const query = `((${property} between @${convert.toIsoStringFromDate(pastWeekStart.toDate())}@ and @${convert.toIsoStringFromDate(today.toDate())}@) or (${property} between @${pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${today.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
     return query;
   },
-  /**
+  /*
    * Sets up the date range search query based on the this.dayValue and searches between that many days ago and today
    * @params {string} Property to be searched for
    */

@@ -121,7 +121,7 @@ const __class = declare('crm.Integrations.BOE.Promote', [_Widget, _Templated], {
       this._operatingCompanyModel.init();
     }
   },
-  /**
+  /*
    * Returns a new instance of a model for the view.
    */
   getModel: function getModel(modelName) {

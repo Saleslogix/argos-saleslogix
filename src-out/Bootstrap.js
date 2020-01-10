@@ -15,7 +15,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
   }
 
   /**
-   * @alias module:crm/Bootstrap
+   * @module crm/Bootstrap
    */
   /* Copyright 2017 Infor
    *
@@ -32,9 +32,6 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
    * limitations under the License.
    */
 
-  /**
-  * @module crm/Bootstrap
-  */
   function bootstrap(_ref) {
     var supportedLocales = _ref.supportedLocales,
         defaultLocale = _ref.defaultLocale,

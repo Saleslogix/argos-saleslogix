@@ -31,8 +31,8 @@ define('crm/SpeedSearchWidget', ['module', 'exports', 'dojo/_base/declare', 'arg
                                                             */
 
   var __class = (0, _declare2.default)('crm.SpeedSearchWidget', [_SearchWidget2.default], {
-    /**
-     * @property {String} searchText The placeholder text for the input.
+    /*
+     * The placeholder text for the input.
      */
     searchText: resource.searchText,
 

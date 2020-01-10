@@ -70,13 +70,11 @@ define('crm/Views/OfflineOptions/UsageWidget', ['module', 'exports', 'dojo/_base
     usageHeaderTemplate: new Simplate(['<div class="offline-usage-header twelve columns">', '{%! $$.usageItemTemplate %}', '</div>']),
     usageItemTemplate: new Simplate(['<div class="offline-usage-item widget">', '<div class="widget-header">', '{% if ($.iconClass) { %}\n    <button type="button" class="btn-icon hide-focus">\n    <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n      <use xlink:href="#icon-{%= $.iconClass %}"></use>\n    </svg>\n    </button>\n    {% } %}', '<h2 class="widget-title">{%: $.label %}</h2>', '</div>', '<div class="content card-content">', '<div class="item"><div class="label">{%: $$.countText %}</div> <span class="value">{%: $.count %}</span><span class="value percent">{%: $.countPercent %}</span></div>', '<div class="item"><div class="label">{%: $$.sizeText %}</div> <span class="value">{%: $.size %}</span><span class="value percent">{%: $.sizePercent %}</span></div>', '<div class="item"><div class="label">{%: $$.sizeAVGText %}</div> <span class="value">{%: $.sizeAVG %}</span></div>', '<div class="bar"></div>', '<div class="item"><div class="label small">{%: $$.oldestText %}</div> <span class="value small">{%: $.oldestDate %}</span></div>', '<div class="item"><div class="label small">{%: $$.newestText %}</div> <span class="value small">{%: $.newestDate %}</span></div>', '</div>', '</div>']),
     lastClearDateTemplate: new Simplate(['<span class="label">', '{%: $$.lastClearedText %}', '</span', '<span class="value">', ' {%: $.lastClearedDate %}', '</span']),
-    /**
-     * @property {string}
+    /*
      * SoHo class to be applied on multi column.
      */
     multiColumnClass: 'four',
-    /**
-     * @property {number}
+    /*
      * Number of columns in view
      */
     multiColumnCount: 3,

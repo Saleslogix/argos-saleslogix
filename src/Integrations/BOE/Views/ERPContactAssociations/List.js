@@ -56,6 +56,7 @@ const __class = declare('crm.Integrations.BOE.Views.ERPContactAssociations.List'
    * @param {String} key Key of the entry to be shown in detail
    * @param {String} descriptor Description of the entry, will be used as the top toolbar title text
    * @param {Object} additionalOptions Additional options to be passed into the next view
+   * @ignore
    */
   navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
     // Ignore ContactAssociation and navigate to contact detail view
