@@ -144,7 +144,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   createMetricLayout: function createMetricLayout(entry) {
     this.setQueryArgs(entry);
 
-    /**
+    /*
        * Format of metric layout:
        * formatter: value,
        * formatModule: module to load that contains the value,

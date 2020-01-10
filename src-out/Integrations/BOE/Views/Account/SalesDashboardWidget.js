@@ -161,7 +161,7 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
     createMetricLayout: function createMetricLayout(entry) {
       this.setQueryArgs(entry);
 
-      /**
+      /*
          * Format of metric layout:
          * formatter: value,
          * formatModule: module to load that contains the value,
