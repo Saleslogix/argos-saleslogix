@@ -74,7 +74,7 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
     canceledCode: 'Canceled',
 
     formatModule: _Format2.default,
-    /**
+    /*
        * Values for the metrics
        * name: valueNeeded by the widget,
        * aggregate: function to aggregate the value,

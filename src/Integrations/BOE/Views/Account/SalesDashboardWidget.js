@@ -55,7 +55,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   canceledCode: 'Canceled',
 
   formatModule: format,
-  /**
+  /*
      * Values for the metrics
      * name: valueNeeded by the widget,
      * aggregate: function to aggregate the value,
