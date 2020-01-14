@@ -76,6 +76,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
     addNoteText: resource.addNoteText,
     calledText: resource.calledText,
     entityText: resource.entityText,
+    addTicketText: resource.addTicketText,
 
     // View Properties
     id: 'account_detail',
@@ -119,6 +120,15 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
         });
       }
     },
+    addTicket: function addNote() {
+      var view = App.getView(this.noteEditView);
+      if (view) {
+        view.show({
+          template: {},
+          insert: true
+        });
+      }
+    },
     formatPicklist: function formatPicklist(property) {
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
@@ -140,6 +150,12 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
           label: this.addNoteText,
           iconClass: 'edit',
           action: 'addNote'
+        }, {
+          name: 'AddTicketAction',
+          property: 'AccountName',
+          label: this.addTicketText,
+          iconClass: 'edit',
+          action: 'addTicket'
         }]
       }, {
         title: this.detailsText,
