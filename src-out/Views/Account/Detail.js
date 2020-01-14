@@ -121,7 +121,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     addTicket: function addNote() {
-      var view = App.getView(this.noteEditView);
+      var view = App.getView('ticket_edit');
       if (view) {
         view.show({
           template: {},

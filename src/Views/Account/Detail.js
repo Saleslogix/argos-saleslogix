@@ -103,7 +103,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
     }
   },
   addTicket: function addNote() {
-    const view = App.getView(this.noteEditView);
+    const view = App.getView('ticket_edit');
     if (view) {
       view.show({
         template: {},
