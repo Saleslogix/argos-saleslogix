@@ -61,11 +61,6 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     '</a>',
     '</li>',
   ]),
-  postCreate: function postCreate() {
-    this.inherited(arguments);
-    this._ActionMixin.hasAction = this.hasAction.bind(this);
-    this._ActionMixin.invokeAction = this.invokeAction.bind(this);
-  },
   show: function show(options) {
     this._initOfflineView(options);
     this.inherited(show, arguments);
