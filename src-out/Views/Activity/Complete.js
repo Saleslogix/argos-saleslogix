@@ -88,11 +88,13 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     recurringActivityIdSeparator: ';',
     durationValueText: {
       0: resource.noneText,
+      5: resource.fiveMinutesText,
+      10: resource.tenMinutesText,
       15: resource.quarterHourText,
       30: resource.halfHourText,
       60: resource.hourText,
-      90: resource.hourAndHalfText,
-      120: resource.twoHoursText
+      120: resource.twoHoursText,
+      240: resource.fourHoursText
     },
     followupValueText: {
       none: resource.nonePropText,

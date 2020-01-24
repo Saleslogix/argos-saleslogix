@@ -101,11 +101,13 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     },
     durationValueText: {
       0: resource.noneText,
+      5: resource.fiveMinText,
+      10: resource.tenMinutesText,
       15: resource.quarterHourText,
       30: resource.halfHourText,
       60: resource.hourText,
-      90: resource.hourAndHalfText,
-      120: resource.twoHoursText
+      120: resource.twoHoursText,
+      240: resource.fourHoursText
     },
 
     /*
