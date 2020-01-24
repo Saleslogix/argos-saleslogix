@@ -227,7 +227,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       return this.itemIndicators || (this.itemIndicators = [{
         id: 'touched',
         cls: 'flag',
-        label: this.touchedText,
+        title: this.touchedText,
         onApply: function onApply(entry, parent) {
           this.isEnabled = parent.hasBeenTouched(entry);
         }

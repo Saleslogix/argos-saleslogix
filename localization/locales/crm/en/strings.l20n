@@ -243,11 +243,11 @@
   callText: "Call"
   calledText: "Called ${0}"
   addAttachmentActionText: "Add Attachment"
-  overdueText: "overdue"
-  alarmText: "alarm"
+  overdueText: "Overdue"
+  alarmText: "Alarm"
   touchedText: "Touched"
-  importantText: "important"
-  recurringText: "recurring"
+  importantText: "Important"
+  recurringText: "Recurring"
   addUnscheduledText: "New Unscheduled"
 >
 

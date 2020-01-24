@@ -203,35 +203,35 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       return this.itemIndicators || (this.itemIndicators = [{
         id: 'alarm',
         cls: 'notification',
-        label: this.alarmText,
+        title: this.alarmText,
         onApply: function onApply(entry, parent) {
           this.isEnabled = parent.hasAlarm(entry);
         }
       }, {
         id: 'important',
         cls: 'star-filled',
-        label: this.importantText,
+        title: this.importantText,
         onApply: function onApply(entry, parent) {
           this.isEnabled = parent.isImportant(entry);
         }
       }, {
         id: 'recurring',
         cls: 'load',
-        label: this.recurringText,
+        title: this.recurringText,
         onApply: function onApply(entry, parent) {
           this.isEnabled = parent.isRecurring(entry, this);
         }
       }, {
         id: 'overdue',
         cls: 'error',
-        label: this.overdueText,
+        title: this.overdueText,
         onApply: function onApply(entry, parent) {
           this.isEnabled = parent.isOverdue(entry);
         }
       }, {
         id: 'touched',
         cls: 'flag',
-        label: this.touchedText,
+        title: this.touchedText,
         onApply: function onApply(entry, parent) {
           this.isEnabled = parent.hasBeenTouched(entry);
         }

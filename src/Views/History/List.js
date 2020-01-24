@@ -219,7 +219,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
+      title: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },

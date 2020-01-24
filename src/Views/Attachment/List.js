@@ -164,7 +164,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
+      title: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },
