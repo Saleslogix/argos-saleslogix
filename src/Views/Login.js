@@ -89,6 +89,11 @@ const __class = declare('crm.Views.Login', [Edit], {
     if (state && state.app && state.app.config.endpoint) {
       this.fields['url-display'].setValue(state.app.config.endpoint);
     }
+
+    if (App.enableRememberMe !== true) {
+      this.fields.remember.disable();
+      this.fields.remember.hide();
+    }
   },
   _disable: function _disable() {
     this.fields['username-display'].disable();
