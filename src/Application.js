@@ -51,6 +51,7 @@ class Application extends SDKApplication {
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    enableRememberMe: true,
     warehouseDiscovery: 'auto',
     enableMingle: false,
     mingleEnabled: false, // Backwards compatibility

@@ -166,6 +166,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         maxUploadFileSize: 40000000,
         enableConcurrencyCheck: false,
         enableOfflineSupport: false,
+        enableRememberMe: true,
         warehouseDiscovery: 'auto',
         enableMingle: false,
         mingleEnabled: false, // Backwards compatibility
