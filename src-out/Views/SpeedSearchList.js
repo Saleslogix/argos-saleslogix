@@ -1,4 +1,4 @@
-define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../SpeedSearchWidget', 'argos/List', 'argos/_LegacySDataListMixin', './_SpeedSearchRightDrawerListMixin', 'argos/I18n'], function (module, exports, _declare, _lang, _string, _SpeedSearchWidget, _List, _LegacySDataListMixin2, _SpeedSearchRightDrawerListMixin2, _I18n) {
+define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../SpeedSearchWidget', 'argos/List', 'argos/_LegacySDataListMixin', './_SpeedSearchRightDrawerListMixin', '../actions/speedsearch', 'argos/I18n'], function (module, exports, _declare, _lang, _string, _SpeedSearchWidget, _List, _LegacySDataListMixin2, _SpeedSearchRightDrawerListMixin2, _speedsearch, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -25,22 +25,20 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
-
-  var resource = (0, _I18n2.default)('speedSearchList');
+  var resource = (0, _I18n2.default)('speedSearchList'); /* Copyright 2017 Infor
+                                                          *
+                                                          * Licensed under the Apache License, Version 2.0 (the "License");
+                                                          * you may not use this file except in compliance with the License.
+                                                          * You may obtain a copy of the License at
+                                                          *
+                                                          *    http://www.apache.org/licenses/LICENSE-2.0
+                                                          *
+                                                          * Unless required by applicable law or agreed to in writing, software
+                                                          * distributed under the License is distributed on an "AS IS" BASIS,
+                                                          * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                          * See the License for the specific language governing permissions and
+                                                          * limitations under the License.
+                                                          */
 
   var __class = (0, _declare2.default)('crm.Views.SpeedSearchList', [_List2.default, _LegacySDataListMixin3.default, _SpeedSearchRightDrawerListMixin3.default], {
     // Templates
@@ -111,6 +109,9 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     clear: function clear() {
       this.inherited(clear, arguments);
       this.currentPage = 0;
+      if (this.appStore) {
+        this.appStore.dispatch((0, _speedsearch.setSearchTerm)(''));
+      }
     },
     _formatFieldName: function _formatFieldName() {},
     getItemIconClass: function getItemIconClass(entry) {
@@ -211,6 +212,7 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       return request;
     },
     createSearchEntry: function createSearchEntry() {
+      this.appStore.dispatch((0, _speedsearch.setSearchTerm)(this.query));
       var entry = {
         request: {
           docTextItem: -1,

@@ -190,6 +190,9 @@
           "text": "config.js",
           "path": "../src-out/actions/"
         }, {
+          "text": "speedsearch.js",
+          "path": "../src-out/actions/"
+        }, {
           "text": "user.js",
           "path": "../src-out/actions/"
         }, {
@@ -393,6 +396,9 @@
         }, {
           "text": "Login.js",
           "path": "../src-out/Views/"
+        }, {
+          "text": "speedsearch.js",
+          "path": "../src-out/reducers/"
         }, {
           "text": "user.js",
           "path": "../src-out/reducers/"
