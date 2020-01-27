@@ -361,6 +361,14 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
         }, 10);
         this.closeAppMenu();
       }
+    },
+    onStateChange: function onStateChange(state) {
+      if (typeof state === 'undefined') {
+        return;
+      }
+      var searchTerm = state.app.speedsearch.searchTerm;
+
+      this.searchWidget.set('queryValue', searchTerm);
     }
   });
 

@@ -1,4 +1,4 @@
-/* Copyright 2017 Infor
+/* Copyright 2020 Infor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,32 @@
  * limitations under the License.
  */
 
-import { config } from './config';
-import { user } from './user';
-import { speedsearch } from './speedsearch';
+// action Types
+export const SET_SEARCHTERM = 'SET_SEARCHTERM';
 
-export const app = Redux.combineReducers({
-  user,
-  config,
-  speedsearch,
-});
+/*
+
+See: https://github.com/acdlite/flux-standard-action
+
+An action MUST
++ be a plain JavaScript object.
++ have a type property.
+
+ An action MAY
++ have an error property.
++ have a payload property.
++ have a meta property.
+
+An action MUST NOT
++ include properties other than type, payload, error, and meta.
+*/
+
+// creators
+export function setSearchTerm(searchTerm) {
+  return {
+    type: SET_SEARCHTERM,
+    payload: {
+      searchTerm,
+    },
+  };
+}

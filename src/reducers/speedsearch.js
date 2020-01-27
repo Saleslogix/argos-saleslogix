@@ -1,4 +1,4 @@
-/* Copyright 2017 Infor
+/* Copyright 2020 Infor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,20 @@
  * limitations under the License.
  */
 
-import { config } from './config';
-import { user } from './user';
-import { speedsearch } from './speedsearch';
+import { SET_SEARCHTERM } from '../actions/speedsearch';
 
-export const app = Redux.combineReducers({
-  user,
-  config,
-  speedsearch,
-});
+const initialUserState = {
+  searchTerm: '',
+};
+
+export function speedsearch(state = initialUserState, action) {
+  const { type, payload, error, meta } = action; // eslint-disable-line
+  switch (type) {
+    case SET_SEARCHTERM:
+      return Object.assign({}, state, {
+        searchTerm: payload.searchTerm,
+      });
+    default:
+      return state;
+  }
+}

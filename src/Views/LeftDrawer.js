@@ -356,6 +356,13 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
       this.closeAppMenu();
     }
   },
+  onStateChange: function onStateChange(state) {
+    if (typeof state === 'undefined') {
+      return;
+    }
+    const { app: { speedsearch: { searchTerm } } } = state;
+    this.searchWidget.set('queryValue', searchTerm);
+  },
 });
 
 export default __class;

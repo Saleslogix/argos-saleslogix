@@ -20,6 +20,7 @@ import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
+import { setSearchTerm } from '../actions/speedsearch';
 import getResource from 'argos/I18n';
 
 const resource = getResource('speedSearchList');
@@ -102,6 +103,9 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   clear: function clear() {
     this.inherited(clear, arguments);
     this.currentPage = 0;
+    if (this.appStore) {
+      this.appStore.dispatch(setSearchTerm(''));
+    }
   },
   _formatFieldName: function _formatFieldName() {},
   getItemIconClass: function getItemIconClass(entry) {
@@ -204,6 +208,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     return request;
   },
   createSearchEntry: function createSearchEntry() {
+    this.appStore.dispatch(setSearchTerm(this.query));
     const entry = {
       request: {
         docTextItem: -1,
