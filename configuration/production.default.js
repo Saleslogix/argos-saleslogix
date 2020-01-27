@@ -108,6 +108,12 @@ define('configuration/production.default', [
      * @property mingleRedirectUrl
      * This should be the same url that was added in mingle as redirected url
      */
-    mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html'
+    mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html',
+
+    /**
+     * @property enableRememberMe
+     * Turn on/off the UI for "Remember Me" on the login view.
+     */
+    enableRememberMe: true
   };
 });
