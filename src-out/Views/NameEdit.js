@@ -71,7 +71,7 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
           };
         },
         languageCodeProperty: 'LocationCode',
-        requireSelection: true,
+        requireSelection: false,
         storageMode: 'text',
         title: this.prefixTitleText,
         type: 'picklist'
@@ -118,7 +118,7 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
           };
         },
         languageCodeProperty: 'LocationCode',
-        requireSelection: true,
+        requireSelection: false,
         storageMode: 'text',
         title: this.suffixTitleText,
         type: 'picklist'
