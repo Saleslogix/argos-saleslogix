@@ -906,6 +906,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         values.AlarmTime = alarmTime;
       }
 
+      if (this.fields.IsLead.getValue() === false) {
+        values.LeadId = null;
+        values.LeadName = null;
+      }
+
       return values;
     },
     createReminderData: function createReminderData() {

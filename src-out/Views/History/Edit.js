@@ -471,6 +471,11 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
       }
 
+      if (this.fields.IsLead.getValue() === false) {
+        values.LeadId = null;
+        values.LeadName = null;
+      }
+
       return values;
     },
     _lookupApplyTo: function _lookupApplyTo(payload, value) {

@@ -477,6 +477,11 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
     }
 
+    if (this.fields.IsLead.getValue() === false) {
+      values.LeadId = null;
+      values.LeadName = null;
+    }
+
     return values;
   },
   _lookupApplyTo: function _lookupApplyTo(payload, value) {
