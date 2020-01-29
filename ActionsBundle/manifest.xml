@@ -47,6 +47,7 @@
             <DataValue>True</DataValue>
             <VersionNumber>8.4</VersionNumber>
             <Id>ad347f51-747e-429d-bcee-bb55b6655385</Id>
+            <DataKey>MobileEnableGroups</DataKey>
           </AddCustomSettingAction>
         </bundleItem>
       </children>
