@@ -1306,6 +1306,7 @@
   systemOptionsText: "System Options"
   userContextAndOptionsText: "User context and options"
   integrationsText: "Integrations"
+  customSettingsText: "Custom Mobile Settings"
   picklistsText: "Picklists"
   retrievingPicklistsText: "Retrieving Picklists"
 >

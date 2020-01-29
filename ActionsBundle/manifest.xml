@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<BundleManifest id="15636bd9-eb3f-4686-bdc1-617c440c9035">
+  <bundleProperties>
+    <name>ICRM Mobile v4.1.0 Action Items</name>
+    <description><![CDATA[]]></description>
+    <address><![CDATA[]]></address>
+    <company>Infor</company>
+    <copyright><![CDATA[]]></copyright>
+    <majorVersion>4</majorVersion>
+    <minorVersion>1</minorVersion>
+    <revision>0</revision>
+    <build>1</build>
+    <autoIncrement>false</autoIncrement>
+    <installDate>0001-01-01T00:00:00</installDate>
+    <installPassword />
+    <formatVersion>8.4.0.0</formatVersion>
+  </bundleProperties>
+  <bundleItemHierarchy>
+    <bundleItem modelId="af988c91-97c8-4527-b072-e021c9e2cb1a" itemTypeName="Sage.Platform.BundleModel.BundleManifestItem, Sage.Platform.BundleModel">
+      <BundleManifestItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <ItemId>15636bd9-eb3f-4686-bdc1-617c440c9035</ItemId>
+        <Url>\</Url>
+        <BundleItemType>Container</BundleItemType>
+        <Caption>ICRM Mobile v4.1.0 Action Items</Caption>
+      </BundleManifestItem>
+    </bundleItem>
+  </bundleItemHierarchy>
+  <bundleActionHierarchy>
+    <bundleItem modelId="af988c91-97c8-4527-b072-e021c9e2cb1a" itemTypeName="Sage.Platform.BundleModel.RootBundleAction, Sage.Platform.BundleModel">
+      <RootBundleAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <ItemId>\Actions</ItemId>
+        <Url>\Actions</Url>
+        <BundleItemType>Container</BundleItemType>
+        <Caption>Bundle Actions</Caption>
+      </RootBundleAction>
+      <children>
+        <bundleItem modelId="af988c91-97c8-4527-b072-e021c9e2cb1a" itemTypeName="Sage.SalesLogix.BundleModel.BundleActions.CustomSetting.AddCustomSettingAction, Sage.SalesLogix.BundleModel.BundleActions">
+          <AddCustomSettingAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <ItemId>\Actions\AddCustomSettingAction\setting_ad347f51-747e-429d-bcee-bb55b6655385.xml</ItemId>
+            <Url>\Actions\AddCustomSettingAction\setting_ad347f51-747e-429d-bcee-bb55b6655385.xml</Url>
+            <BundleItemType>Action</BundleItemType>
+            <Caption>Custom Setting:[Mobile] EnableGroups = True</Caption>
+            <Validation>True or False</Validation>
+            <Category>Mobile</Category>
+            <Description>EnableGroups</Description>
+            <DataType>True / False</DataType>
+            <DataValue>True</DataValue>
+            <VersionNumber>8.4</VersionNumber>
+            <Id>ad347f51-747e-429d-bcee-bb55b6655385</Id>
+          </AddCustomSettingAction>
+        </bundleItem>
+      </children>
+    </bundleItem>
+  </bundleActionHierarchy>
+  <itemsToDelete />
+  <globalResources />
+</BundleManifest>

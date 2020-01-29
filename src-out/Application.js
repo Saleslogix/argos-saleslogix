@@ -762,6 +762,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       value: function onInitAppStateSuccess() {
         var _this4 = this;
 
+        this.setMobileCustomSettings();
         this.setDefaultMetricPreferences();
         this.showApplicationMenuOnLarge();
         if (this.enableOfflineSupport) {
@@ -886,6 +887,19 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
 
         return results;
+      }
+    }, {
+      key: 'setMobileCustomSettings',
+      value: function setMobileCustomSettings() {
+        if (!this.context || !this.context.integrationSettings || !this.context.integrationSettings.Mobile) {
+          // No custom settings loaded from server
+          return;
+        }
+
+        var EnableGroups = this.context.integrationSettings.Mobile.EnableGroups;
+
+
+        this.enableGroups = typeof EnableGroups === 'string' && EnableGroups.toLowerCase() === 'true';
       }
     }, {
       key: 'setDefaultMetricPreferences',
@@ -1153,7 +1167,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           this.context.integrationSettings = {};
         }
         var request = new Sage.SData.Client.SDataBaseRequest(App.getService());
-        var pageSize = this.pageSize;
+        var pageSize = 500;
         var startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
         request.uri.setPathSegment(0, 'slx');
         request.uri.setPathSegment(1, 'dynamic');
