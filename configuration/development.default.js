@@ -45,6 +45,13 @@ define('configuration/development.default', [
         "oa": "authorization.oauth2", "ot": "token.oauth2", "or": "revoke_token.oauth2", "ev": "M1448056811"
     },
     mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html',
-    enableRememberMe: true
+    enableRememberMe: true,
+    speedSearch: {
+      includeStemming: true,
+      includePhonic: true,
+      includeThesaurus: false,
+      useFrequentFilter: false,
+      searchType: 1,
+    }
   };
 });

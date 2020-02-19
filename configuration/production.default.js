@@ -114,6 +114,18 @@ define('configuration/production.default', [
      * @property enableRememberMe
      * Turn on/off the UI for "Remember Me" on the login view.
      */
-    enableRememberMe: true
+    enableRememberMe: true,
+
+    /**
+     * @property speedSearch
+     * Speedsearch service call settings
+     */
+    speedSearch: {
+      includeStemming: true,
+      includePhonic: true,
+      includeThesaurus: false,
+      useFrequentFilter: false,
+      searchType: 1,
+    }
   };
 });
