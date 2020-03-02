@@ -430,7 +430,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           property: 'StartDate',
           type: 'date',
           showTimePicker: true,
-          formatString: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
+          dateFormatText: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
           minValue: new Date(1900, 0, 1),
           validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
         }, {
@@ -474,7 +474,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           property: 'CompletedDate',
           type: 'date',
           showTimePicker: true,
-          formatString: this.completedFormatText,
+          dateFormatText: this.completedFormatText,
           minValue: new Date(1900, 0, 1),
           validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
         }, {

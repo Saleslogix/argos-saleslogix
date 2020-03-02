@@ -445,7 +445,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
         property: 'StartDate',
         type: 'date',
         showTimePicker: true,
-        formatString: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
+        dateFormatText: (App.is24HourClock()) ? this.startingFormatText24 : this.startingFormatText,
         minValue: (new Date(1900, 0, 1)),
         validator: [
           validator.exists,
@@ -492,7 +492,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
         property: 'CompletedDate',
         type: 'date',
         showTimePicker: true,
-        formatString: this.completedFormatText,
+        dateFormatText: this.completedFormatText,
         minValue: (new Date(1900, 0, 1)),
         validator: [
           validator.exists,
