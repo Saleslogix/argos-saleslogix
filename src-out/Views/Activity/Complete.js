@@ -284,8 +284,54 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.toggleSelectField(this.fields.CompletedDate, false);
     },
     onLeaderChange: function onLeaderChange(value, field) {
-      var userId = field.getValue();
-      this.fields.UserId.setValue(userId && userId.$key);
+      var user = field.getValue();
+      var resourceId = '';
+
+      var key = user.$key;
+
+      // The key is a composite key on activityresourceviews endpoint.
+      // The format is 'ResourceId-AccessId'.
+      // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
+      // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
+      if (key) {
+        key = key.split('-');
+        resourceId = key[0];
+        if (resourceId) {
+          this.fields.UserId.setValue(resourceId);
+
+          // Set back to a single $key so the PUT request payload is not messed up
+          this.fields.Leader.setValue({
+            $key: resourceId,
+            $descriptor: value && value.text
+          });
+        }
+      }
+    },
+    convertEntry: function convertEntry() {
+      var entry = this.inherited(convertEntry, arguments);
+      if (!this.options.entry) {
+        if (entry && entry.Leader.$key) {
+          this.requestLeader(entry.Leader.$key);
+        }
+      }
+
+      return entry;
+    },
+    requestLeader: function requestLeader(userId) {
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector('\'' + userId + '\'').setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+
+      request.read({
+        success: this.processLeader,
+        failure: this.requestLeaderFailure,
+        scope: this
+      });
+    },
+    requestLeaderFailure: function requestLeaderFailure() {},
+    processLeader: function processLeader(leader) {
+      if (leader) {
+        this.entry.Leader = leader;
+        this.fields.Leader.setValue(leader);
+      }
     },
     formatFollowupText: function formatFollowupText(val, key, text) {
       return this.followupValueText[key] || text;
@@ -348,6 +394,17 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       }, {
         returnTo: -1
       });
+    },
+    applyContext: function applyContext() {
+      this.inherited(applyContext, arguments);
+      var user = App.context.user;
+      if (user) {
+        this.fields.UserId.setValue(user.$key);
+
+        var leaderField = this.fields.Leader;
+        leaderField.setValue(user);
+        this.onLeaderChange(user, leaderField);
+      }
     },
     completeActivity: function completeActivity(entry, callback) {
       var activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
@@ -547,10 +604,8 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           property: 'Leader',
           include: false,
           type: 'lookup',
-          textProperty: 'UserInfo',
-          textTemplate: _Template2.default.nameLF,
           requireSelection: true,
-          view: 'user_list'
+          view: 'calendar_access_list'
         }, {
           label: this.accountText,
           name: 'Account',
