@@ -18,7 +18,6 @@ import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import environment from '../../Environment';
 import validator from '../../Validator';
-import template from '../../Template';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import MODEL_NAMES from '../../Models/Names';
