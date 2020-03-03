@@ -1,4 +1,4 @@
-define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', 'argos/Utility', 'argos/Edit', '../../Models/Names', 'argos/Models/Types', 'argos/I18n'], function (module, exports, _declare, _connect, _string, _Environment, _Validator, _Utility, _Edit, _Names, _Types, _I18n) {
+define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', '../../Models/Activity/ActivityTypePicklists', 'argos/Utility', 'argos/Edit', '../../Models/Names', 'argos/Models/Types', 'argos/I18n'], function (module, exports, _declare, _connect, _string, _Environment, _Validator, _ActivityTypePicklists, _Utility, _Edit, _Names, _Types, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -29,22 +29,21 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
+  var resource = (0, _I18n2.default)('activityComplete'); /* Copyright 2017 Infor
+                                                           *
+                                                           * Licensed under the Apache License, Version 2.0 (the "License");
+                                                           * you may not use this file except in compliance with the License.
+                                                           * You may obtain a copy of the License at
+                                                           *
+                                                           *    http://www.apache.org/licenses/LICENSE-2.0
+                                                           *
+                                                           * Unless required by applicable law or agreed to in writing, software
+                                                           * distributed under the License is distributed on an "AS IS" BASIS,
+                                                           * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                           * See the License for the specific language governing permissions and
+                                                           * limitations under the License.
+                                                           */
 
-  var resource = (0, _I18n2.default)('activityComplete');
   var dtFormatResource = (0, _I18n2.default)('activityCompleteDateTimeFormat');
 
   var __class = (0, _declare2.default)('crm.Views.Activity.Complete', [_Edit2.default], {
@@ -140,6 +139,12 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         Category: 'E-mail Category Codes',
         Description: 'E-mail Regarding'
       }
+    },
+    groupOptionsByType: {
+      atToDo: 'ActivityToDoOptions',
+      atPersonal: 'ActivityPersonalOptions',
+      atPhoneCall: 'ActivityPhoneOptions',
+      atAppointment: 'ActivityMeetingOptions'
     },
 
     entityName: 'Activity',
@@ -324,7 +329,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       }
     },
     formatPicklistForType: function formatPicklistForType(type, which) {
-      return this.picklistsByType[type] && this.picklistsByType[type][which];
+      return (0, _ActivityTypePicklists.getPicklistByActivityType)(type, which);
     },
     setValues: function setValues(values) {
       this.inherited(setValues, arguments);
@@ -458,6 +463,13 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
+      var startDate = this._getCalculatedStartTime(moment());
+      var activityType = this.options && this.options.activityType;
+      var activityGroup = this.groupOptionsByType[activityType] || '';
+      var activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
+      this.fields.StartDate.setValue(startDate.toDate());
+      this.fields.Type.setValue(activityType);
+      this.fields.Duration.setValue(activityDuration);
       var user = App.context.user;
       if (user) {
         this.fields.UserId.setValue(user.$key);
@@ -483,6 +495,26 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       if (context && lookup[context.resourceKind]) {
         lookup[context.resourceKind].call(this, context);
       }
+    },
+    _getCalculatedStartTime: function _getCalculatedStartTime(selectedDate) {
+      var now = moment();
+      var thisSelectedDate = selectedDate;
+
+      if (!moment.isMoment(selectedDate)) {
+        thisSelectedDate = moment(selectedDate);
+      }
+
+      // Take the start of the selected date, add the *current* time to it,
+      // and round it up to the nearest ROUND_MINUTES
+      // Examples:
+      // 11:24 -> 11:30
+      // 11:12 -> 11:15
+      // 11:31 -> 11:45
+      var startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
+        minutes: Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES + this.ROUND_MINUTES
+      });
+
+      return startDate;
     },
     applyAccountContext: function applyAccountContext(context) {
       var view = App.getView(context.id);

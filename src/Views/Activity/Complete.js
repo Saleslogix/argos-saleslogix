@@ -18,6 +18,7 @@ import connect from 'dojo/_base/connect';
 import string from 'dojo/string';
 import environment from '../../Environment';
 import validator from '../../Validator';
+import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePicklists';
 import utility from 'argos/Utility';
 import Edit from 'argos/Edit';
 import MODEL_NAMES from '../../Models/Names';
@@ -121,6 +122,12 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
       Category: 'E-mail Category Codes',
       Description: 'E-mail Regarding',
     },
+  },
+  groupOptionsByType: {
+    atToDo: 'ActivityToDoOptions',
+    atPersonal: 'ActivityPersonalOptions',
+    atPhoneCall: 'ActivityPhoneOptions',
+    atAppointment: 'ActivityMeetingOptions',
   },
 
   entityName: 'Activity',
@@ -336,7 +343,7 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     }
   },
   formatPicklistForType: function formatPicklistForType(type, which) {
-    return this.picklistsByType[type] && this.picklistsByType[type][which];
+    return getPicklistByActivityType(type, which);
   },
   setValues: function setValues(values) {
     this.inherited(setValues, arguments);
@@ -477,6 +484,13 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
   },
   applyContext: function applyContext() {
     this.inherited(applyContext, arguments);
+    const startDate = this._getCalculatedStartTime(moment());
+    const activityType = this.options && this.options.activityType;
+    const activityGroup = this.groupOptionsByType[activityType] || '';
+    const activityDuration = App.context.userOptions && App.context.userOptions[`${activityGroup}:Duration`] || 15;
+    this.fields.StartDate.setValue(startDate.toDate());
+    this.fields.Type.setValue(activityType);
+    this.fields.Duration.setValue(activityDuration);
     const user = App.context.user;
     if (user) {
       this.fields.UserId.setValue(user.$key);
@@ -502,6 +516,29 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     if (context && lookup[context.resourceKind]) {
       lookup[context.resourceKind].call(this, context);
     }
+  },
+  _getCalculatedStartTime: function _getCalculatedStartTime(selectedDate) {
+    const now = moment();
+    let thisSelectedDate = selectedDate;
+
+    if (!moment.isMoment(selectedDate)) {
+      thisSelectedDate = moment(selectedDate);
+    }
+
+    // Take the start of the selected date, add the *current* time to it,
+    // and round it up to the nearest ROUND_MINUTES
+    // Examples:
+    // 11:24 -> 11:30
+    // 11:12 -> 11:15
+    // 11:31 -> 11:45
+    const startDate = thisSelectedDate.clone()
+      .startOf('day')
+      .hours(now.hours())
+      .add({
+        minutes: (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES,
+      });
+
+    return startDate;
   },
   applyAccountContext: function applyAccountContext(context) {
     const view = App.getView(context.id);
