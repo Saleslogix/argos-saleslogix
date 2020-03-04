@@ -327,6 +327,12 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       if (selection && this.insert) {
         this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
       }
+
+      var entry = field.currentSelection;
+      if (entry.WorkPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.WorkPhone);
+      }
     },
     formatPicklistForType: function formatPicklistForType(type, which) {
       return (0, _ActivityTypePicklists.getPicklistByActivityType)(type, which);

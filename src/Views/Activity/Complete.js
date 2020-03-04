@@ -341,6 +341,12 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     if (selection && this.insert) {
       this.fields.AccountName.setValue(utility.getValue(selection, 'Company'));
     }
+
+    const entry = field.currentSelection;
+    if (entry.WorkPhone) {
+      const phoneField = this.fields.PhoneNumber;
+      phoneField.setValue(entry.WorkPhone);
+    }
   },
   formatPicklistForType: function formatPicklistForType(type, which) {
     return getPicklistByActivityType(type, which);
