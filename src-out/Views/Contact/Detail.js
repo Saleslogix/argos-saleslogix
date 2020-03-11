@@ -221,8 +221,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           descriptor: 'AccountName',
           label: this.accountText,
           view: 'account_detail',
-          key: 'Account.$key',
-          tpl: new Simplate(['<span data-action="fooBar">foo: {%: $ %}</span>'])
+          key: 'Account.$key'
         }, {
           name: 'WorkPhone',
           property: 'WorkPhone',
