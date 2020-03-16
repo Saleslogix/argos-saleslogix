@@ -36,6 +36,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   errorText: resource.errorText,
   emailSubjectText: resource.emailSubjectText,
   copiedSuccessText: resource.copiedSuccessText,
+  emailText: resource.emailText,
 
   // Templates
   longDetailProperty: new Simplate([
@@ -65,6 +66,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
 
     tools.tbar.push({
       id: 'generateEmail',
+      title: this.emailText,
       action: 'constructReport',
       svg: 'mail',
     });

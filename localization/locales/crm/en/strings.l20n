@@ -535,6 +535,7 @@
   errorText: "error"
   emailSubjectText: "Error received in Infor CRM Mobile Client"
   copiedSuccessText: "Copied to clipboard"
+  emailText: "Email"
 >
 
 <errorLogList ""
