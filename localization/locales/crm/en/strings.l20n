@@ -891,6 +891,7 @@
   activitiesText: "Activities"
   notesText: "Notes"
   scheduleText: "Schedule"
+  cancelText: "Cancel"
 >
 
 <opportunityProductDetail ""
