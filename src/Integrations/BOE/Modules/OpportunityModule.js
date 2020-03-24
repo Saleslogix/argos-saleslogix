@@ -152,6 +152,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
       where: 'after',
       value: [{
         name: 'RefreshPricing',
+        property: 'Description',
         label: this.opportunityRefreshPricingText,
         iconClass: 'finance',
         action: 'opportunityRePrice',
@@ -164,7 +165,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           }
 
 
-          return boeSettings['Local CRM Pricing Opportunity'] !== 'True';
+          return boeSettings['Local CRM Pricing Opportunity'] === 'True';
         },
       }],
     });

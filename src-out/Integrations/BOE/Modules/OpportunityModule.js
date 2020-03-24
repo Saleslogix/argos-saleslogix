@@ -166,6 +166,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
         where: 'after',
         value: [{
           name: 'RefreshPricing',
+          property: 'Description',
           label: this.opportunityRefreshPricingText,
           iconClass: 'finance',
           action: 'opportunityRePrice',
@@ -177,7 +178,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
               return true;
             }
 
-            return boeSettings['Local CRM Pricing Opportunity'] !== 'True';
+            return boeSettings['Local CRM Pricing Opportunity'] === 'True';
           }
         }]
       });
