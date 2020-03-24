@@ -75,7 +75,11 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
               key: data.response.Result,
             });
           },
-          failure: () => {
+          failure: (xhr) => {
+            const response = JSON.parse(xhr.responseText);
+            if (response && response.length && response[0].message) {
+              alert(response[0].message); // eslint-disable-line
+            }
           },
         });
       },
@@ -99,7 +103,11 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
               key: data.response.Result,
             });
           },
-          failure: () => {
+          failure: (xhr) => {
+            const response = JSON.parse(xhr.responseText);
+            if (response && response.length && response[0].message) {
+              alert(response[0].message); // eslint-disable-line
+            }
           },
         });
       },

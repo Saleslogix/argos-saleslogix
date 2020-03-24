@@ -89,7 +89,12 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
                 key: data.response.Result
               });
             },
-            failure: function failure() {}
+            failure: function failure(xhr) {
+              var response = JSON.parse(xhr.responseText);
+              if (response && response.length && response[0].message) {
+                alert(response[0].message); // eslint-disable-line
+              }
+            }
           });
         },
         _onAddOrderClick: function _onAddOrderClick() {
@@ -112,7 +117,12 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
                 key: data.response.Result
               });
             },
-            failure: function failure() {}
+            failure: function failure(xhr) {
+              var response = JSON.parse(xhr.responseText);
+              if (response && response.length && response[0].message) {
+                alert(response[0].message); // eslint-disable-line
+              }
+            }
           });
         },
         handlePricingSuccess: function handlePricingSuccess(result) {
