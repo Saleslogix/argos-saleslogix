@@ -45,6 +45,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
     quotesText: resource.quotesText,
     ordersText: resource.ordersText,
     opportunityRefreshPricingText: resource.opportunityRefreshPricingText,
+    warehouseText: resource.warehouseText,
 
     init: function init() {},
     loadViews: function loadViews() {
@@ -68,6 +69,15 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
     },
     loadCustomizations: function loadCustomizations() {
       var am = this.applicationModule;
+
+      am.registerCustomization('models/detail/querySelect', 'opportunity_sdata_model', {
+        at: function at() {
+          return true;
+        },
+        type: 'insert',
+        where: 'after',
+        value: 'Location/Name'
+      });
 
       _lang2.default.extend(crm.Views.Opportunity.Detail, {
         _onAddQuoteClick: function _onAddQuoteClick() {
@@ -222,6 +232,20 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
             },
             view: 'opportunity_salesorders_related'
           }]
+        }
+      });
+
+      // Show location/warehouse name on detail
+      am.registerCustomization('detail', 'opportunity_detail', {
+        at: function at(row) {
+          return row.name === 'LeadSource.Description';
+        },
+        type: 'insert',
+        where: 'after',
+        value: {
+          label: this.warehouseText,
+          name: 'Location.Name',
+          property: 'Location.Name'
         }
       });
     },

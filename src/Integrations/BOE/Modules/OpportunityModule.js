@@ -30,6 +30,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   quotesText: resource.quotesText,
   ordersText: resource.ordersText,
   opportunityRefreshPricingText: resource.opportunityRefreshPricingText,
+  warehouseText: resource.warehouseText,
 
   init: function init() {
   },
@@ -54,6 +55,13 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   },
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
+
+    am.registerCustomization('models/detail/querySelect', 'opportunity_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'Location/Name',
+    });
 
     lang.extend(crm.Views.Opportunity.Detail, {
       _onAddQuoteClick: function _onAddQuoteClick() {
@@ -207,6 +215,20 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           },
           view: 'opportunity_salesorders_related',
         }],
+      },
+    });
+
+    // Show location/warehouse name on detail
+    am.registerCustomization('detail', 'opportunity_detail', {
+      at: function at(row) {
+        return row.name === 'LeadSource.Description';
+      },
+      type: 'insert',
+      where: 'after',
+      value: {
+        label: this.warehouseText,
+        name: 'Location.Name',
+        property: 'Location.Name',
       },
     });
   },
