@@ -76,7 +76,16 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
         },
         type: 'insert',
         where: 'after',
-        value: 'Location/Name'
+        value: 'Location/*'
+      });
+
+      am.registerCustomization('models/edit/querySelect', 'opportunity_sdata_model', {
+        at: function at() {
+          return true;
+        },
+        type: 'insert',
+        where: 'after',
+        value: 'Location/*'
       });
 
       _lang2.default.extend(crm.Views.Opportunity.Detail, {
@@ -246,6 +255,24 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
           label: this.warehouseText,
           name: 'Location.Name',
           property: 'Location.Name'
+        }
+      });
+
+      // Add warehouse to opportunity edit (SlxLocation)
+      am.registerCustomization('edit', 'opportunity_edit', {
+        at: function at(row) {
+          return row.name === 'CloseProbability';
+        },
+        type: 'insert',
+        where: 'after',
+        value: {
+          label: this.warehouseText,
+          name: 'Location',
+          property: 'Location',
+          textProperty: 'Name',
+          type: 'lookup',
+          view: 'locations_list',
+          where: "ErpStatus eq 'Open' and LocationType eq 'Warehouse'"
         }
       });
     },

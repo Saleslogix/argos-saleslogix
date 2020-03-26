@@ -1096,7 +1096,7 @@
   quotesText: "Quotes"
   ordersText: "Sales Orders"
   opportunityRefreshPricingText: "Refresh Pricing"
-  warehouseText: "Warehouse"
+  warehouseText: "warehouse"
 >
 
 <helpModule ""
