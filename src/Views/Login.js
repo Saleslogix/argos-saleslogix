@@ -32,7 +32,7 @@ const __class = declare('crm.Views.Login', [Edit], {
             <h1>Infor CRM</h1>
             <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
             </div>
-            <div>
+            <div class="login-button-container">
               <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>
             </div>
           </section>
