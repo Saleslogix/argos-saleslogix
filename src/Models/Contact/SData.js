@@ -28,7 +28,6 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
       queryOrderBy: 'LastNameUpper,FirstName',
       querySelect: [
         'AccountName',
-        'Account/AccountName',
         'NameLF',
         'WorkPhone',
         'Mobile',

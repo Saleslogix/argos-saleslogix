@@ -149,7 +149,7 @@ define('crm/Views/Contact/List', ['module', 'exports', 'dojo/_base/declare', 'cr
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return '(LastNameUpper like "' + q + '%" or upper(FirstName) like "' + q + '%" or upper(NameLF) like "%' + q + '%") or (Account.AccountNameUpper like "%' + q + '%")';
+      return '(LastNameUpper like "' + q + '%" or upper(FirstName) like "' + q + '%" or upper(NameLF) like "%' + q + '%") or (AccountName like "%' + q + '%")';
     }
   });
 

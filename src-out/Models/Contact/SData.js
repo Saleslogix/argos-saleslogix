@@ -42,7 +42,7 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
       return [{
         name: 'list',
         queryOrderBy: 'LastNameUpper,FirstName',
-        querySelect: ['AccountName', 'Account/AccountName', 'NameLF', 'WorkPhone', 'Mobile', 'Email', 'Title', 'LastHistoryDate', 'ModifyDate']
+        querySelect: ['AccountName', 'NameLF', 'WorkPhone', 'Mobile', 'Email', 'Title', 'LastHistoryDate', 'ModifyDate']
       }, {
         name: 'detail',
         querySelect: ['Account/AccountName', 'AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'CuisinePreference', 'CreateDate', 'CreateUser', 'Email', 'Fax', 'FirstName', 'HomePhone', 'LastName', 'LocationCode', 'MiddleName', 'Mobile', 'Name', 'NameLF', 'Owner/OwnerDescription', 'Prefix', 'Suffix', 'Title', 'WebAddress', 'WorkPhone'],
