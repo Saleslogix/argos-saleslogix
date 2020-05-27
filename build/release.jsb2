@@ -410,6 +410,9 @@
           "path": "../src-out/Models/Account/"
         }, {
           "text": "Base.js",
+          "path": "../src-out/Models/ActivityAttendee/"
+        }, {
+          "text": "Base.js",
           "path": "../src-out/Models/Address/"
         }, {
           "text": "Base.js",
@@ -522,9 +525,6 @@
         }, {
           "text": "Edit.js",
           "path": "../src-out/Views/Account/"
-        }, {
-          "text": "Complete.js",
-          "path": "../src-out/Views/Activity/"
         }, {
           "text": "AddAccountContact.js",
           "path": "../src-out/Views/"
@@ -748,8 +748,14 @@
           "text": "WeekView.js",
           "path": "../src-out/Views/Calendar/"
         }, {
+          "text": "Complete.js",
+          "path": "../src-out/Views/Activity/"
+        }, {
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
+        }, {
+          "text": "AttendeeList.js",
+          "path": "../src-out/Views/Activity/"
         }, {
           "text": "index.js",
           "path": "../src-out/polyfills/"
@@ -801,6 +807,12 @@
         }, {
           "text": "SData.js",
           "path": "../src-out/Models/Account/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/ActivityAttendee/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/ActivityAttendee/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Models/Address/"

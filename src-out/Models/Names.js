@@ -6,6 +6,7 @@ define('crm/Models/Names', ['module', 'exports'], function (module, exports) {
     ACCOUNT: 'Account',
     AUTHENTICATION: 'Authentication',
     ACTIVITY: 'Activity',
+    ACTIVITYATTENDEE: 'ActivityAttendee',
     CONTACT: 'Contact',
     INTEGRATION: 'Integration',
     LEAD: 'Lead',

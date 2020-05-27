@@ -50,6 +50,7 @@ import AccountDetail from './Views/Account/Detail';
 import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
+import ActivityAttendeeList from './Views/Activity/AttendeeList';
 import ActivityList from './Views/Activity/List';
 import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
@@ -139,6 +140,8 @@ import './Environment';
 import './Utility';
 import './Models/Account/Offline';
 import './Models/Account/SData';
+import './Models/ActivityAttendee/Offline';
+import './Models/ActivityAttendee/SData';
 import './Models/Activity/Offline';
 import './Models/Activity/SData';
 import './Models/Contact/Offline';
@@ -423,6 +426,10 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
       defaultSearchTerm: () => {
         return '';
       },
+    }));
+
+    this.registerView(new ActivityAttendeeList({
+      id: 'activity_attendee_related',
     }));
 
     this.registerView(new ActivityDetail({
