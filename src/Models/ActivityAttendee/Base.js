@@ -27,5 +27,11 @@ const __class = declare('crm.Models.ActivityAttendee.Base', [_ModelBase], {
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.ACTIVITYATTENDEE,
   iconClass: 'user',
+  createPicklists: function createPicklists() {
+    return this.picklists || (this.picklists = [{
+      name: 'Attendee Role',
+      property: 'RoleName',
+    }]);
+  },
 });
 export default __class;

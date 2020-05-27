@@ -442,6 +442,9 @@
           "text": "Base.js",
           "path": "../src-out/Models/TicketActivity/"
         }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/ActivityAttendee/"
+        }, {
           "text": "EditOffline.js",
           "path": "../src-out/Views/History/"
         }, {
@@ -525,6 +528,9 @@
         }, {
           "text": "Edit.js",
           "path": "../src-out/Views/Account/"
+        }, {
+          "text": "Edit.js",
+          "path": "../src-out/Views/ActivityAttendee/"
         }, {
           "text": "AddAccountContact.js",
           "path": "../src-out/Views/"

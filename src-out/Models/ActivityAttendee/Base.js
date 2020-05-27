@@ -40,7 +40,13 @@ define('crm/Models/ActivityAttendee/Base', ['module', 'exports', 'dojo/_base/dec
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
     modelName: _Names2.default.ACTIVITYATTENDEE,
-    iconClass: 'user'
+    iconClass: 'user',
+    createPicklists: function createPicklists() {
+      return this.picklists || (this.picklists = [{
+        name: 'Attendee Role',
+        property: 'RoleName'
+      }]);
+    }
   });
   exports.default = __class;
   module.exports = exports['default'];

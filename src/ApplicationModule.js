@@ -51,6 +51,8 @@ import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
 import ActivityAttendeeList from './Views/ActivityAttendee/List';
+import ActivityAttendeeDetail from './Views/ActivityAttendee/Detail';
+import ActivityAttendeeEdit from './Views/ActivityAttendee/Edit';
 import ActivityList from './Views/Activity/List';
 import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
@@ -431,6 +433,8 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
     this.registerView(new ActivityAttendeeList({
       id: 'activity_attendee_related',
     }));
+    this.registerView(new ActivityAttendeeDetail());
+    this.registerView(new ActivityAttendeeEdit());
 
     this.registerView(new ActivityDetail({
       canRedirectTo: true,

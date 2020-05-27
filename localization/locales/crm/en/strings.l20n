@@ -248,6 +248,15 @@
   callPhoneActionText: "Call Phone"
 >
 
+<activityAttendeeDetail ""
+  titleText: "Activity Attendee"
+  entityText: "Activity Attendee"
+>
+
+<activityAttendeeEdit ""
+  titleText: "Activity Attendee"
+>
+
 <activityList ""
   titleText: "Activities"
   allDayText: "Timeless"

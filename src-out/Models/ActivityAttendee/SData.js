@@ -42,10 +42,14 @@ define('crm/Models/ActivityAttendee/SData', ['module', 'exports', 'dojo/_base/de
       return [{
         name: 'list',
         queryOrderBy: 'Name',
-        querySelect: ['EntityType', 'EntityId', 'Name', 'Description', 'Notes', 'AccountId', 'AccountName', 'Id', 'RoleName', 'PhoneNumber', 'Email', 'TimeZone']
+        querySelect: ['EntityType', 'EntityId', 'Name', 'Description', 'Notes', 'AccountId', 'AccountName', 'Id', 'RoleName', 'PhoneNumber', 'Email', 'TimeZone', 'ActivityId']
       }, {
         name: 'detail',
-        querySelect: ['EntityType', 'EntityId', 'Name', 'Description', 'Notes', 'AccountId', 'AccountName', 'Id', 'RoleName', 'PhoneNumber', 'Email', 'TimeZone'],
+        querySelect: ['EntityType', 'EntityId', 'Name', 'Description', 'Notes', 'AccountId', 'AccountName', 'Id', 'RoleName', 'PhoneNumber', 'Email', 'TimeZone', 'IsPrimary', 'IsAttendee', 'ActivityId', 'EntityId', 'AccountId'],
+        queryInclude: ['$permissions']
+      }, {
+        name: 'edit',
+        querySelect: ['EntityType', 'EntityId', 'Name', 'Description', 'Notes', 'AccountId', 'AccountName', 'Id', 'RoleName', 'PhoneNumber', 'Email', 'TimeZone', 'IsPrimary', 'IsAttendee', 'ActivityId', 'EntityId', 'AccountId'],
         queryInclude: ['$permissions']
       }];
     }
