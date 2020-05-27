@@ -1,4 +1,4 @@
-define('crm/Views/Activity/AttendeeList', ['module', 'exports', 'dojo/_base/declare', 'argos/List', '../../Models/Names', '../../Action', 'argos/I18n', 'crm/Format', '../../Models/Activity/ActivityTypeText'], function (module, exports, _declare, _List, _Names, _Action, _I18n, _Format, _ActivityTypeText) {
+define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/declare', 'argos/List', '../../Models/Names', '../../Action', 'argos/I18n', 'crm/Format', '../../Models/Activity/ActivityTypeText'], function (module, exports, _declare, _List, _Names, _Action, _I18n, _Format, _ActivityTypeText) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -38,7 +38,7 @@ define('crm/Views/Activity/AttendeeList', ['module', 'exports', 'dojo/_base/decl
                                                                * limitations under the License.
                                                                */
 
-  var __class = (0, _declare2.default)('crm.Views.Activity.AttendeeList', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,
     editActionText: resource.editActionText,

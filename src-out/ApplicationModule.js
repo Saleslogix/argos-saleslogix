@@ -1,4 +1,4 @@
-define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/ApplicationModule', 'argos/Calendar', 'argos/List', 'argos/Views/Signature', 'argos/SearchWidget', 'argos/Views/FileSelect', './Views/AddAccountContact', './Views/AreaCategoryIssueLookup', './Views/ExchangeRateLookup', './Views/MainToolbar', './Views/UpdateToolbar', './Views/LeftDrawer', './Views/RightDrawer', './Views/Offline/Detail', './Views/Offline/List', './Views/Login', './Views/LogOff', './Views/Settings', './Views/Configure', './Views/Help', './Views/NameEdit', './Views/PickList', './Views/SelectList', './Views/SpeedSearchList', './Views/TextEdit', './Views/Account/List', './Views/Account/Detail', './Views/Account/Edit', './Views/Address/List', './Views/Address/Edit', './Views/Activity/AttendeeList', './Views/Activity/List', './Views/Activity/MyDay', './Views/Activity/MyList', './Views/Activity/Detail', './Views/Activity/Edit', './Views/Activity/Complete', './Views/Activity/TypesList', './Views/Activity/Recurring', './Views/Calendar/CalendarView', './Views/Calendar/DayView', './Views/Calendar/MonthView', './Views/Calendar/WeekView', './Views/Charts/GenericBar', './Views/Charts/GenericLine', './Views/Charts/GenericPie', './Views/Competitor/List', './Views/Contact/List', './Views/Contact/Detail', './Views/Contact/Edit', './Views/Contract/List', './Views/ErrorLog/List', './Views/ErrorLog/Detail', './Views/Event/List', './Views/Event/Detail', './Views/Event/Edit', './Views/Groups/Selector', './Views/Lead/List', './Views/Lead/Detail', './Views/Lead/Edit', './Views/LeadSource/List', './Views/Opportunity/List', './Views/Opportunity/Detail', './Views/Opportunity/Edit', './Views/Opportunity/QuickEdit', './Views/OpportunityContact/List', './Views/OpportunityContact/Detail', './Views/OpportunityContact/Edit', './Views/OpportunityProduct/List', './Views/OpportunityProduct/Detail', './Views/OpportunityProduct/Edit', './Views/Owner/List', './Views/Product/List', './Views/ProductProgram/List', './Views/Ticket/List', './Views/Ticket/Detail', './Views/Ticket/Edit', './Views/Ticket/UrgencyLookup', './Views/TicketActivity/List', './Views/TicketActivity/Detail', './Views/TicketActivity/Edit', './Views/TicketActivity/RateLookup', './Views/TicketActivityItem/List', './Views/TicketActivityItem/Detail', './Views/History/List', './Views/History/ListOffline', './Views/History/Detail', './Views/History/Edit', './Views/History/EditOffline', './Views/User/CalendarAccessList', './Views/User/List', './Views/Attachment/ViewAttachment', './Views/Attachment/List', './Views/Attachment/AddAttachment', './Views/Attachment/MyAttachmentList', './Views/RecentlyViewed/List', './Views/Briefcase/List', './Views/OfflineOptions/Edit', './Views/LanguageOptions/Edit', 'argos/I18n', './Models/Names', 'argos/Models/Types', 'argos/RelatedViewManager', 'argos/RelatedViewWidget', './Views/History/RelatedView', './Views/OfflineOptions/UsageWidget', './Views/LanguageOptions/UsageWidget', './Fields/AddressField', './Fields/MultiCurrencyField', './Fields/NameField', './Fields/PicklistField', './Fields/RecurrencesField', './Views/RelatedContextWidget', './Views/RelatedEditWidget', './Action', './Format', './Template', './Validator', './Environment', './Utility', './Models/Account/Offline', './Models/Account/SData', './Models/ActivityAttendee/Offline', './Models/ActivityAttendee/SData', './Models/Activity/Offline', './Models/Activity/SData', './Models/Contact/Offline', './Models/Contact/SData', './Models/Integration/SData', './Models/Lead/Offline', './Models/Lead/SData', './Models/LeadAddress/Offline', './Models/LeadAddress/SData', './Models/Opportunity/Offline', './Models/Opportunity/SData', './Models/OpportunityContact/Offline', './Models/OpportunityContact/SData', './Models/UserActivity/Offline', './Models/UserActivity/SData', './Models/Address/Offline', './Models/Address/SData', './Models/History/Offline', './Models/History/SData', './Models/Ticket/Offline', './Models/Ticket/SData', './Models/TicketActivity/Offline', './Models/TicketActivity/SData', './Models/Authentication/Offline'], function (module, exports, _declare, _lang, _ApplicationModule, _Calendar, _List, _Signature, _SearchWidget, _FileSelect, _AddAccountContact, _AreaCategoryIssueLookup, _ExchangeRateLookup, _MainToolbar, _UpdateToolbar, _LeftDrawer, _RightDrawer, _Detail, _List3, _Login, _LogOff, _Settings, _Configure, _Help, _NameEdit, _PickList, _SelectList, _SpeedSearchList, _TextEdit, _List5, _Detail3, _Edit, _List7, _Edit3, _AttendeeList, _List9, _MyDay, _MyList, _Detail5, _Edit5, _Complete, _TypesList, _Recurring, _CalendarView, _DayView, _MonthView, _WeekView, _GenericBar, _GenericLine, _GenericPie, _List11, _List13, _Detail7, _Edit7, _List15, _List17, _Detail9, _List19, _Detail11, _Edit9, _Selector, _List21, _Detail13, _Edit11, _List23, _List25, _Detail15, _Edit13, _QuickEdit, _List27, _Detail17, _Edit15, _List29, _Detail19, _Edit17, _List31, _List33, _List35, _List37, _Detail21, _Edit19, _UrgencyLookup, _List39, _Detail23, _Edit21, _RateLookup, _List41, _Detail25, _List43, _ListOffline, _Detail27, _Edit23, _EditOffline, _CalendarAccessList, _List45, _ViewAttachment, _List47, _AddAttachment, _MyAttachmentList, _List49, _List51, _Edit25, _Edit27, _I18n, _Names, _Types) {
+define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/ApplicationModule', 'argos/Calendar', 'argos/List', 'argos/Views/Signature', 'argos/SearchWidget', 'argos/Views/FileSelect', './Views/AddAccountContact', './Views/AreaCategoryIssueLookup', './Views/ExchangeRateLookup', './Views/MainToolbar', './Views/UpdateToolbar', './Views/LeftDrawer', './Views/RightDrawer', './Views/Offline/Detail', './Views/Offline/List', './Views/Login', './Views/LogOff', './Views/Settings', './Views/Configure', './Views/Help', './Views/NameEdit', './Views/PickList', './Views/SelectList', './Views/SpeedSearchList', './Views/TextEdit', './Views/Account/List', './Views/Account/Detail', './Views/Account/Edit', './Views/Address/List', './Views/Address/Edit', './Views/ActivityAttendee/List', './Views/Activity/List', './Views/Activity/MyDay', './Views/Activity/MyList', './Views/Activity/Detail', './Views/Activity/Edit', './Views/Activity/Complete', './Views/Activity/TypesList', './Views/Activity/Recurring', './Views/Calendar/CalendarView', './Views/Calendar/DayView', './Views/Calendar/MonthView', './Views/Calendar/WeekView', './Views/Charts/GenericBar', './Views/Charts/GenericLine', './Views/Charts/GenericPie', './Views/Competitor/List', './Views/Contact/List', './Views/Contact/Detail', './Views/Contact/Edit', './Views/Contract/List', './Views/ErrorLog/List', './Views/ErrorLog/Detail', './Views/Event/List', './Views/Event/Detail', './Views/Event/Edit', './Views/Groups/Selector', './Views/Lead/List', './Views/Lead/Detail', './Views/Lead/Edit', './Views/LeadSource/List', './Views/Opportunity/List', './Views/Opportunity/Detail', './Views/Opportunity/Edit', './Views/Opportunity/QuickEdit', './Views/OpportunityContact/List', './Views/OpportunityContact/Detail', './Views/OpportunityContact/Edit', './Views/OpportunityProduct/List', './Views/OpportunityProduct/Detail', './Views/OpportunityProduct/Edit', './Views/Owner/List', './Views/Product/List', './Views/ProductProgram/List', './Views/Ticket/List', './Views/Ticket/Detail', './Views/Ticket/Edit', './Views/Ticket/UrgencyLookup', './Views/TicketActivity/List', './Views/TicketActivity/Detail', './Views/TicketActivity/Edit', './Views/TicketActivity/RateLookup', './Views/TicketActivityItem/List', './Views/TicketActivityItem/Detail', './Views/History/List', './Views/History/ListOffline', './Views/History/Detail', './Views/History/Edit', './Views/History/EditOffline', './Views/User/CalendarAccessList', './Views/User/List', './Views/Attachment/ViewAttachment', './Views/Attachment/List', './Views/Attachment/AddAttachment', './Views/Attachment/MyAttachmentList', './Views/RecentlyViewed/List', './Views/Briefcase/List', './Views/OfflineOptions/Edit', './Views/LanguageOptions/Edit', 'argos/I18n', './Models/Names', 'argos/Models/Types', 'argos/RelatedViewManager', 'argos/RelatedViewWidget', './Views/History/RelatedView', './Views/OfflineOptions/UsageWidget', './Views/LanguageOptions/UsageWidget', './Fields/AddressField', './Fields/MultiCurrencyField', './Fields/NameField', './Fields/PicklistField', './Fields/RecurrencesField', './Views/RelatedContextWidget', './Views/RelatedEditWidget', './Action', './Format', './Template', './Validator', './Environment', './Utility', './Models/Account/Offline', './Models/Account/SData', './Models/ActivityAttendee/Offline', './Models/ActivityAttendee/SData', './Models/Activity/Offline', './Models/Activity/SData', './Models/Contact/Offline', './Models/Contact/SData', './Models/Integration/SData', './Models/Lead/Offline', './Models/Lead/SData', './Models/LeadAddress/Offline', './Models/LeadAddress/SData', './Models/Opportunity/Offline', './Models/Opportunity/SData', './Models/OpportunityContact/Offline', './Models/OpportunityContact/SData', './Models/UserActivity/Offline', './Models/UserActivity/SData', './Models/Address/Offline', './Models/Address/SData', './Models/History/Offline', './Models/History/SData', './Models/Ticket/Offline', './Models/Ticket/SData', './Models/TicketActivity/Offline', './Models/TicketActivity/SData', './Models/Authentication/Offline'], function (module, exports, _declare, _lang, _ApplicationModule, _Calendar, _List, _Signature, _SearchWidget, _FileSelect, _AddAccountContact, _AreaCategoryIssueLookup, _ExchangeRateLookup, _MainToolbar, _UpdateToolbar, _LeftDrawer, _RightDrawer, _Detail, _List3, _Login, _LogOff, _Settings, _Configure, _Help, _NameEdit, _PickList, _SelectList, _SpeedSearchList, _TextEdit, _List5, _Detail3, _Edit, _List7, _Edit3, _List9, _List11, _MyDay, _MyList, _Detail5, _Edit5, _Complete, _TypesList, _Recurring, _CalendarView, _DayView, _MonthView, _WeekView, _GenericBar, _GenericLine, _GenericPie, _List13, _List15, _Detail7, _Edit7, _List17, _List19, _Detail9, _List21, _Detail11, _Edit9, _Selector, _List23, _Detail13, _Edit11, _List25, _List27, _Detail15, _Edit13, _QuickEdit, _List29, _Detail17, _Edit15, _List31, _Detail19, _Edit17, _List33, _List35, _List37, _List39, _Detail21, _Edit19, _UrgencyLookup, _List41, _Detail23, _Edit21, _RateLookup, _List43, _Detail25, _List45, _ListOffline, _Detail27, _Edit23, _EditOffline, _CalendarAccessList, _List47, _ViewAttachment, _List49, _AddAttachment, _MyAttachmentList, _List51, _List53, _Edit25, _Edit27, _I18n, _Names, _Types) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -67,9 +67,9 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _Edit4 = _interopRequireDefault(_Edit3);
 
-  var _AttendeeList2 = _interopRequireDefault(_AttendeeList);
-
   var _List10 = _interopRequireDefault(_List9);
+
+  var _List12 = _interopRequireDefault(_List11);
 
   var _MyDay2 = _interopRequireDefault(_MyDay);
 
@@ -99,21 +99,21 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _GenericPie2 = _interopRequireDefault(_GenericPie);
 
-  var _List12 = _interopRequireDefault(_List11);
-
   var _List14 = _interopRequireDefault(_List13);
+
+  var _List16 = _interopRequireDefault(_List15);
 
   var _Detail8 = _interopRequireDefault(_Detail7);
 
   var _Edit8 = _interopRequireDefault(_Edit7);
 
-  var _List16 = _interopRequireDefault(_List15);
-
   var _List18 = _interopRequireDefault(_List17);
+
+  var _List20 = _interopRequireDefault(_List19);
 
   var _Detail10 = _interopRequireDefault(_Detail9);
 
-  var _List20 = _interopRequireDefault(_List19);
+  var _List22 = _interopRequireDefault(_List21);
 
   var _Detail12 = _interopRequireDefault(_Detail11);
 
@@ -121,15 +121,15 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _Selector2 = _interopRequireDefault(_Selector);
 
-  var _List22 = _interopRequireDefault(_List21);
+  var _List24 = _interopRequireDefault(_List23);
 
   var _Detail14 = _interopRequireDefault(_Detail13);
 
   var _Edit12 = _interopRequireDefault(_Edit11);
 
-  var _List24 = _interopRequireDefault(_List23);
-
   var _List26 = _interopRequireDefault(_List25);
+
+  var _List28 = _interopRequireDefault(_List27);
 
   var _Detail16 = _interopRequireDefault(_Detail15);
 
@@ -137,19 +137,17 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _QuickEdit2 = _interopRequireDefault(_QuickEdit);
 
-  var _List28 = _interopRequireDefault(_List27);
+  var _List30 = _interopRequireDefault(_List29);
 
   var _Detail18 = _interopRequireDefault(_Detail17);
 
   var _Edit16 = _interopRequireDefault(_Edit15);
 
-  var _List30 = _interopRequireDefault(_List29);
+  var _List32 = _interopRequireDefault(_List31);
 
   var _Detail20 = _interopRequireDefault(_Detail19);
 
   var _Edit18 = _interopRequireDefault(_Edit17);
-
-  var _List32 = _interopRequireDefault(_List31);
 
   var _List34 = _interopRequireDefault(_List33);
 
@@ -157,13 +155,15 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _List38 = _interopRequireDefault(_List37);
 
+  var _List40 = _interopRequireDefault(_List39);
+
   var _Detail22 = _interopRequireDefault(_Detail21);
 
   var _Edit20 = _interopRequireDefault(_Edit19);
 
   var _UrgencyLookup2 = _interopRequireDefault(_UrgencyLookup);
 
-  var _List40 = _interopRequireDefault(_List39);
+  var _List42 = _interopRequireDefault(_List41);
 
   var _Detail24 = _interopRequireDefault(_Detail23);
 
@@ -171,11 +171,11 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _RateLookup2 = _interopRequireDefault(_RateLookup);
 
-  var _List42 = _interopRequireDefault(_List41);
+  var _List44 = _interopRequireDefault(_List43);
 
   var _Detail26 = _interopRequireDefault(_Detail25);
 
-  var _List44 = _interopRequireDefault(_List43);
+  var _List46 = _interopRequireDefault(_List45);
 
   var _ListOffline2 = _interopRequireDefault(_ListOffline);
 
@@ -187,19 +187,19 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _CalendarAccessList2 = _interopRequireDefault(_CalendarAccessList);
 
-  var _List46 = _interopRequireDefault(_List45);
+  var _List48 = _interopRequireDefault(_List47);
 
   var _ViewAttachment2 = _interopRequireDefault(_ViewAttachment);
 
-  var _List48 = _interopRequireDefault(_List47);
+  var _List50 = _interopRequireDefault(_List49);
 
   var _AddAttachment2 = _interopRequireDefault(_AddAttachment);
 
   var _MyAttachmentList2 = _interopRequireDefault(_MyAttachmentList);
 
-  var _List50 = _interopRequireDefault(_List49);
-
   var _List52 = _interopRequireDefault(_List51);
+
+  var _List54 = _interopRequireDefault(_List53);
 
   var _Edit26 = _interopRequireDefault(_Edit25);
 
@@ -271,16 +271,16 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         expose: false,
         canRedirectTo: true
       }));
-      this.registerView(new _List50.default({
+      this.registerView(new _List52.default({
         expose: true,
         canRedirectTo: true
       }));
-      this.registerView(new _List50.default({
+      this.registerView(new _List52.default({
         id: 'recently_viewed_list_offline',
         expose: false,
         canRedirectTo: true
       }));
-      this.registerView(new _List52.default({
+      this.registerView(new _List54.default({
         expose: true,
         canRedirectTo: true
       }));
@@ -342,7 +342,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         expose: false
       }));
 
-      this.registerView(new _List12.default({
+      this.registerView(new _List14.default({
         id: 'competitor_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -350,14 +350,14 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List14.default({
+      this.registerView(new _List16.default({
         canRedirectTo: true
       }));
       this.registerView(new _Detail8.default({
         canRedirectTo: true
       }));
       this.registerView(new _Edit8.default());
-      this.registerView(new _List14.default({
+      this.registerView(new _List16.default({
         id: 'contact_related',
         expose: false,
         groupsEnabled: false,
@@ -366,7 +366,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List16.default({
+      this.registerView(new _List18.default({
         id: 'contract_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -374,7 +374,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List18.default({
+      this.registerView(new _List20.default({
         canRedirectTo: true
       }));
       this.registerView(new _Detail10.default({
@@ -382,11 +382,11 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       }));
 
       this.registerView(new _Edit10.default());
-      this.registerView(new _List20.default({
+      this.registerView(new _List22.default({
         expose: false
       }));
       this.registerView(new _Detail12.default());
-      this.registerView(new _List20.default({
+      this.registerView(new _List22.default({
         id: 'event_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -398,13 +398,13 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
       this.registerView(new _Edit14.default());
       this.registerView(new _QuickEdit2.default());
-      this.registerView(new _List26.default({
+      this.registerView(new _List28.default({
         canRedirectTo: true
       }));
       this.registerView(new _Detail16.default({
         canRedirectTo: true
       }));
-      this.registerView(new _List26.default({
+      this.registerView(new _List28.default({
         id: 'opportunity_related',
         expose: false,
         groupsEnabled: false,
@@ -414,9 +414,9 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       }));
 
       this.registerView(new _Edit16.default());
-      this.registerView(new _List28.default());
+      this.registerView(new _List30.default());
       this.registerView(new _Detail18.default());
-      this.registerView(new _List28.default({
+      this.registerView(new _List30.default({
         id: 'opportunitycontact_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -424,7 +424,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List30.default({
+      this.registerView(new _List32.default({
         id: 'opportunityproduct_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -443,13 +443,13 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       }));
 
       this.registerView(new _Edit12.default());
-      this.registerView(new _List22.default({
+      this.registerView(new _List24.default({
         canRedirectTo: true
       }));
       this.registerView(new _Detail14.default({
         canRedirectTo: true
       }));
-      this.registerView(new _List22.default({
+      this.registerView(new _List24.default({
         id: 'lead_related',
         expose: false,
         groupsEnabled: false,
@@ -458,14 +458,14 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List38.default({
+      this.registerView(new _List40.default({
         canRedirectTo: true
       }));
       this.registerView(new _Detail22.default({
         canRedirectTo: true
       }));
       this.registerView(new _Edit20.default());
-      this.registerView(new _List38.default({
+      this.registerView(new _List40.default({
         id: 'ticket_related',
         expose: false,
         groupsEnabled: false,
@@ -474,11 +474,11 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List40.default());
+      this.registerView(new _List42.default());
       this.registerView(new _Detail24.default());
       this.registerView(new _Edit22.default());
       this.registerView(new _RateLookup2.default());
-      this.registerView(new _List40.default({
+      this.registerView(new _List42.default({
         id: 'ticketactivity_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -486,9 +486,9 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List42.default());
+      this.registerView(new _List44.default());
       this.registerView(new _Detail26.default());
-      this.registerView(new _List42.default({
+      this.registerView(new _List44.default({
         id: 'ticketactivityitem_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -496,7 +496,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _AttendeeList2.default({
+      this.registerView(new _List10.default({
         id: 'activity_attendee_related'
       }));
 
@@ -506,7 +506,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _Edit6.default());
       this.registerView(new _Complete2.default());
       this.registerView(new _TypesList2.default());
-      this.registerView(new _List10.default({
+      this.registerView(new _List12.default({
         id: 'activity_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -519,11 +519,11 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _Recurring2.default());
 
       this.registerView(new _Detail28.default());
-      this.registerView(new _List44.default());
+      this.registerView(new _List46.default());
       this.registerView(new _ListOffline2.default());
       this.registerView(new _Edit24.default());
       this.registerView(new _EditOffline2.default());
-      this.registerView(new _List44.default({
+      this.registerView(new _List46.default({
         id: 'history_related',
         expose: false,
         groupsEnabled: false,
@@ -536,15 +536,15 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         expose: false
       }));
 
-      this.registerView(new _List46.default({
-        expose: false
-      }));
-
-      this.registerView(new _List32.default({
+      this.registerView(new _List48.default({
         expose: false
       }));
 
       this.registerView(new _List34.default({
+        expose: false
+      }));
+
+      this.registerView(new _List36.default({
         id: 'product_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -552,7 +552,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List36.default({
+      this.registerView(new _List38.default({
         id: 'productprogram_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
@@ -560,7 +560,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }));
 
-      this.registerView(new _List24.default({
+      this.registerView(new _List26.default({
         expose: false
       }));
 
@@ -571,49 +571,49 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _ViewAttachment2.default());
       this.registerView(new _AddAttachment2.default());
       this.registerView(new _MyAttachmentList2.default());
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'account_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'contact_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'lead_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'ticket_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'opportunity_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'activity_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
-      this.registerView(new _List48.default({
+      this.registerView(new _List50.default({
         id: 'history_attachment_related',
         expose: false,
         defaultSearchTerm: function defaultSearchTerm() {

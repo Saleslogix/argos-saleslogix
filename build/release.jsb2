@@ -754,8 +754,8 @@
           "text": "Base.js",
           "path": "../src-out/Models/Activity/"
         }, {
-          "text": "AttendeeList.js",
-          "path": "../src-out/Views/Activity/"
+          "text": "List.js",
+          "path": "../src-out/Views/ActivityAttendee/"
         }, {
           "text": "index.js",
           "path": "../src-out/polyfills/"

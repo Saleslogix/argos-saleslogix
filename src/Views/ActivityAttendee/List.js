@@ -23,7 +23,7 @@ import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 
 const resource = getResource('activityAttendeeList');
 
-const __class = declare('crm.Views.Activity.AttendeeList', [List], {
+const __class = declare('crm.Views.ActivityAttendee.List', [List], {
   // Localization
   titleText: resource.titleText,
   editActionText: resource.editActionText,
