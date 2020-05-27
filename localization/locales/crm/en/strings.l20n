@@ -251,10 +251,27 @@
 <activityAttendeeDetail ""
   titleText: "Activity Attendee"
   entityText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
 >
 
 <activityAttendeeEdit ""
   titleText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+  attendeeText: "attendee"
 >
 
 <activityList ""

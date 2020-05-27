@@ -1,11 +1,9 @@
-define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/declare', '../../Validator', 'argos/Edit', 'argos/I18n', '../../Models/Names'], function (module, exports, _declare, _Validator, _Edit, _I18n, _Names) {
+define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/declare', 'argos/Edit', 'argos/I18n', '../../Models/Names'], function (module, exports, _declare, _Edit, _I18n, _Names) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
 
   var _declare2 = _interopRequireDefault(_declare);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
 
   var _Edit2 = _interopRequireDefault(_Edit);
 
@@ -19,9 +17,6 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
     };
   }
 
-  var resource = (0, _I18n2.default)('activityAttendeeEdit'); // eslint-disable-line
-
-  // eslint-disable-line
   /* Copyright 2020 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,8 +32,19 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
+  var resource = (0, _I18n2.default)('activityAttendeeEdit');
+
   var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.Edit', [_Edit2.default], {
     // Localization
+    nameText: resource.nameText,
+    accountText: resource.accountText,
+    typeText: resource.typeText,
+    primaryText: resource.primaryText,
+    roleText: resource.roleText,
+    phoneText: resource.phoneText,
+    emailText: resource.emailText,
+    timeZoneText: resource.timeZoneText,
+    attendeeText: resource.attendeeText,
 
     // View Properties
     entityName: 'ActivityAttendee',
@@ -47,53 +53,53 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
 
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
-        label: 'name',
+        label: this.nameText,
         name: 'Name',
         property: 'Name',
         type: 'text',
         readonly: true
       }, {
-        label: 'account',
+        label: this.accountText,
         name: 'AccountName',
         property: 'AccountName',
         type: 'text',
         readonly: true
       }, {
-        label: 'type',
+        label: this.typeText,
         name: 'EntityType',
         property: 'EntityType',
         type: 'text',
         readonly: true
       }, {
-        label: 'primary',
+        label: this.primaryText,
         name: 'IsPrimary',
         Property: 'IsPrimary',
         type: 'boolean'
       }, {
-        label: 'attendee',
+        label: this.attendeeText,
         name: 'IsAttendee',
         Property: 'IsAttendee',
         type: 'boolean'
       }, {
-        label: 'role',
+        label: this.roleText,
         name: 'RoleName',
         Property: 'RoleName',
         type: 'picklist',
         picklist: 'Attendee Role'
       }, {
-        label: 'phone',
+        label: this.phoneText,
         name: 'PhoneNumber',
         property: 'PhoneNumber',
         type: 'phone',
         readonly: true
       }, {
-        label: 'email',
+        label: this.emailText,
         name: 'Email',
         property: 'Email',
         type: 'text',
         readonly: true
       }, {
-        label: 'time zone',
+        label: this.timeZoneText,
         name: 'TimeZone',
         property: 'TimeZone',
         type: 'text',

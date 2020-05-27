@@ -24,6 +24,14 @@ const __class = declare('crm.Views.ActivityAttendee.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   entityText: resource.entityText,
+  nameText: resource.nameText,
+  accountText: resource.accountText,
+  typeText: resource.typeText,
+  primaryText: resource.primaryText,
+  roleText: resource.roleText,
+  phoneText: resource.phoneText,
+  emailText: resource.emailText,
+  timeZoneText: resource.timeZoneText,
 
   // View Properties
   id: 'activity_attendee_detail',
@@ -35,35 +43,35 @@ const __class = declare('crm.Views.ActivityAttendee.Detail', [Detail], {
       title: this.detailsText,
       name: 'DetailsSection',
       children: [{
-        label: 'name',
+        label: this.nameText,
         name: 'Name',
         property: 'Name',
       }, {
-        label: 'account',
+        label: this.accountText,
         name: 'AccountName',
         property: 'AccountName',
       }, {
-        label: 'type',
+        label: this.typeText,
         name: 'EntityType',
         property: 'EntityType',
       }, {
-        label: 'primary',
+        label: this.primaryText,
         name: 'IsPrimary',
         property: 'IsPrimary',
       }, {
-        label: 'role',
+        label: this.roleText,
         name: 'RoleName',
         property: 'RoleName',
       }, {
-        label: 'phone',
+        label: this.phoneText,
         name: 'PhoneNumber',
         property: 'PhoneNumber',
       }, {
-        label: 'email',
+        label: this.emailText,
         name: 'Email',
         property: 'Email',
       }, {
-        label: 'time zone',
+        label: this.timeZoneText,
         name: 'TimeZone',
         property: 'TimeZone',
       }],

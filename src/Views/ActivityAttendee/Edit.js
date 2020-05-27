@@ -14,15 +14,23 @@
  */
 
 import declare from 'dojo/_base/declare';
-import validator from '../../Validator'; // eslint-disable-line
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 import MODEL_NAMES from '../../Models/Names';
 
-const resource = getResource('activityAttendeeEdit');// eslint-disable-line
+const resource = getResource('activityAttendeeEdit');
 
 const __class = declare('crm.Views.ActivityAttendee.Edit', [Edit], {
   // Localization
+  nameText: resource.nameText,
+  accountText: resource.accountText,
+  typeText: resource.typeText,
+  primaryText: resource.primaryText,
+  roleText: resource.roleText,
+  phoneText: resource.phoneText,
+  emailText: resource.emailText,
+  timeZoneText: resource.timeZoneText,
+  attendeeText: resource.attendeeText,
 
   // View Properties
   entityName: 'ActivityAttendee',
@@ -31,53 +39,53 @@ const __class = declare('crm.Views.ActivityAttendee.Edit', [Edit], {
 
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
-      label: 'name',
+      label: this.nameText,
       name: 'Name',
       property: 'Name',
       type: 'text',
       readonly: true,
     }, {
-      label: 'account',
+      label: this.accountText,
       name: 'AccountName',
       property: 'AccountName',
       type: 'text',
       readonly: true,
     }, {
-      label: 'type',
+      label: this.typeText,
       name: 'EntityType',
       property: 'EntityType',
       type: 'text',
       readonly: true,
     }, {
-      label: 'primary',
+      label: this.primaryText,
       name: 'IsPrimary',
       Property: 'IsPrimary',
       type: 'boolean',
     }, {
-      label: 'attendee',
+      label: this.attendeeText,
       name: 'IsAttendee',
       Property: 'IsAttendee',
       type: 'boolean',
     }, {
-      label: 'role',
+      label: this.roleText,
       name: 'RoleName',
       Property: 'RoleName',
       type: 'picklist',
       picklist: 'Attendee Role',
     }, {
-      label: 'phone',
+      label: this.phoneText,
       name: 'PhoneNumber',
       property: 'PhoneNumber',
       type: 'phone',
       readonly: true,
     }, {
-      label: 'email',
+      label: this.emailText,
       name: 'Email',
       property: 'Email',
       type: 'text',
       readonly: true,
     }, {
-      label: 'time zone',
+      label: this.timeZoneText,
       name: 'TimeZone',
       property: 'TimeZone',
       type: 'text',
