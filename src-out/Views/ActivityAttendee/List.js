@@ -41,11 +41,11 @@ define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/decl
   var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,
-    editActionText: resource.editActionText,
     callPhoneActionText: resource.callPhoneActionText,
+    deleteText: resource.deleteText,
+    confirmDeleteText: resource.confirmDeleteText,
 
     // Templates
-    // TODO: Format
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.AccountName %}</p>', '<p class="micro-text">{%: $.EntityType %}</p>', '<p class="micro-text">{%: $.RoleName %}</p>', '<span class="hyperlink" data-action="callPhone" data-key="{%: $.$key %}">{%: $$.formatPhone($.PhoneNumber) %}</span>', '<p class="micro-text">{%: $.Email %}</p>', '<p class="micro-text">{%: $.TimeZone %}</p>']),
 
     // View Properties
@@ -77,18 +77,33 @@ define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/decl
 
       return this._model && this._model.getEntityDescription(entry) || entry.Name;
     },
+    deleteAttendee: function deleteAttendee(_, selection) {
+      var _this = this;
+
+      App.modal.createSimpleDialog({
+        title: 'alert',
+        content: this.confirmDeleteText,
+        getContent: function getContent() {}
+      }).then(function () {
+        var entry = selection && selection.data;
+        var model = _this.getModel();
+        model.deleteEntry(entry.$key).then(function () {
+          _this.forceRefresh();
+        });
+      });
+    },
     createActionLayout: function createActionLayout() {
       return this.actions || (this.actions = [{
-        id: 'edit',
-        cls: 'edit',
-        label: this.editActionText,
-        action: 'navigateToEditView'
-      }, {
         id: 'callPhone',
         cls: 'phone',
         label: this.callPhoneActionText,
         enabled: _Action2.default.hasProperty.bindDelegate(this, 'PhoneNumber'),
         fn: _Action2.default.callPhone.bindDelegate(this, 'PhoneNumber', _ActivityTypeText2.default.atPhoneCall)
+      }, {
+        id: 'deleteAttendee',
+        cls: 'delete',
+        label: this.deleteText,
+        fn: this.deleteAttendee.bind(this)
       }]);
     }
   });

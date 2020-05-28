@@ -244,8 +244,9 @@
 
 <activityAttendeeList ""
   titleText: "Activity Attendees"
-  editActionText: "Edit"
   callPhoneActionText: "Call Phone"
+  deleteText: "Delete"
+  confirmDeleteText: "Are you sure you want to remove this attendee?"
 >
 
 <activityAttendeeDetail ""

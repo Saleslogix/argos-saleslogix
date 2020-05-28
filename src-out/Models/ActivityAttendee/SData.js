@@ -52,6 +52,23 @@ define('crm/Models/ActivityAttendee/SData', ['module', 'exports', 'dojo/_base/de
         querySelect: ['EntityType', 'EntityId', 'Name', 'Description', 'Notes', 'AccountId', 'AccountName', 'Id', 'RoleName', 'PhoneNumber', 'Email', 'TimeZone', 'IsPrimary', 'IsAttendee', 'ActivityId', 'EntityId', 'AccountId'],
         queryInclude: ['$permissions']
       }];
+    },
+    deleteEntry: function getEntry(entityId) {
+      var _this = this;
+
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setContractName('dynamic').setResourceKind(this.resourceKind).setResourceSelector('"' + entityId + '"');
+
+      return new Promise(function (resolve, reject) {
+        request.delete({}, {
+          success: function success(entry) {
+            resolve(entry);
+          },
+          failure: function failure(e) {
+            reject(e);
+          },
+          scope: _this
+        });
+      });
     }
   });
 

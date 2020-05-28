@@ -26,11 +26,11 @@ const resource = getResource('activityAttendeeList');
 const __class = declare('crm.Views.ActivityAttendee.List', [List], {
   // Localization
   titleText: resource.titleText,
-  editActionText: resource.editActionText,
   callPhoneActionText: resource.callPhoneActionText,
+  deleteText: resource.deleteText,
+  confirmDeleteText: resource.confirmDeleteText,
 
   // Templates
-  // TODO: Format
   itemTemplate: new Simplate([
     '<p class="micro-text">{%: $.AccountName %}</p>',
     '<p class="micro-text">{%: $.EntityType %}</p>',
@@ -69,18 +69,31 @@ const __class = declare('crm.Views.ActivityAttendee.List', [List], {
 
     return (this._model && this._model.getEntityDescription(entry)) || entry.Name;
   },
+  deleteAttendee: function deleteAttendee(_, selection) {
+    App.modal.createSimpleDialog({
+      title: 'alert',
+      content: this.confirmDeleteText,
+      getContent: () => { },
+    }).then(() => {
+      const entry = selection && selection.data;
+      const model = this.getModel();
+      model.deleteEntry(entry.$key).then(() => {
+        this.forceRefresh();
+      });
+    });
+  },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{
-      id: 'edit',
-      cls: 'edit',
-      label: this.editActionText,
-      action: 'navigateToEditView',
-    }, {
       id: 'callPhone',
       cls: 'phone',
       label: this.callPhoneActionText,
       enabled: action.hasProperty.bindDelegate(this, 'PhoneNumber'),
       fn: action.callPhone.bindDelegate(this, 'PhoneNumber', ActivityTypeText.atPhoneCall),
+    }, {
+      id: 'deleteAttendee',
+      cls: 'delete',
+      label: this.deleteText,
+      fn: this.deleteAttendee.bind(this),
     }]);
   },
 });
