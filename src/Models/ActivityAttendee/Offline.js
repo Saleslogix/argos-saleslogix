@@ -1,4 +1,4 @@
-/* Copyright 2017 Infor
+/* Copyright 2020 Infor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,16 @@
  * limitations under the License.
  */
 
-export default {
-  ACCOUNT: 'Account',
-  AUTHENTICATION: 'Authentication',
-  ACTIVITY: 'Activity',
-  ACTIVITYATTENDEE: 'ActivityAttendee',
-  CONTACT: 'Contact',
-  INTEGRATION: 'Integration',
-  LEAD: 'Lead',
-  LEADADDRESS: 'LeadAddress',
-  OPPORTUNITY: 'Opportunity',
-  OPPORTUNITYCONTACT: 'OpportunityContact',
-  TICKET: 'Ticket',
-  TICKETACTIVITY: 'TicketActivity',
-  USERACTIVITY: 'UserActivity',
-  ADDRESS: 'Address',
-  HISTORY: 'History',
-};
+import declare from 'dojo/_base/declare';
+import Base from './Base';
+import _OfflineModelBase from 'argos/Models/_OfflineModelBase';
+import Manager from 'argos/Models/Manager';
+import MODEL_TYPES from 'argos/Models/Types';
+import MODEL_NAMES from '../Names';
+
+const __class = declare('crm.Models.ActivityAttendee.Offline', [Base, _OfflineModelBase], {
+  id: 'activity_attendee_offline_model',
+});
+
+Manager.register(MODEL_NAMES.ACTIVITYATTENDEE, MODEL_TYPES.OFFLINE, __class);
+export default __class;

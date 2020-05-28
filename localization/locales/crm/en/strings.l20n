@@ -179,6 +179,8 @@
   confirmEditRecurrenceText: "Edit all Occurrences? Cancel to edit single Occurrence."
   relatedAttachmentText: "Attachments"
   relatedAttachmentTitleText: "Activity Attachments"
+  relatedAttendeeText: "Attendees"
+  relatedAttendeeTitleText: "Activity Attendees"
   relatedItemsText: "Related Items"
   phoneText: "phone"
   moreDetailsText: "More Details"
@@ -238,6 +240,47 @@
   fourHoursText: "4 hours"
   dayText: "1 day"
   updateUserActErrorText: "An error occurred updating user activities."
+>
+
+<activityAttendeeList ""
+  titleText: "Activity Attendees"
+  callPhoneActionText: "Call Phone"
+  deleteText: "Delete"
+  confirmDeleteText: "Are you sure you want to remove this attendee?"
+>
+
+<activityAttendeeDetail ""
+  titleText: "Activity Attendee"
+  entityText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+>
+
+<activityAttendeeEdit ""
+  titleText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+  attendeeText: "attendee"
+>
+
+<activityAttendeeTypesList ""
+  titleText: "Add Attendee"
+  contactText: "Contact"
+  leadText: "Lead"
+  cancelText: "Cancel"
+  addText: "Add"
 >
 
 <activityList ""
@@ -1416,6 +1459,11 @@
 <leadModel ""
   entityDisplayName: "Lead"
   entityDisplayNamePlural : "Leads"
+>
+
+<activityAttendeeModel ""
+  entityDisplayName: "Activity Attendee"
+  entityDisplayNamePlural : "Activity Attendees"
 >
 
 <activityModel ""

@@ -67,6 +67,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
   relatedAttachmentText: resource.relatedAttachmentText,
   relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  relatedAttendeeText: resource.relatedAttendeeText,
+  relatedAttendeeTitleText: resource.relatedAttendeeTitleText,
   relatedItemsText: resource.relatedItemsText,
   phoneText: resource.phoneText,
   entityText: resource.entityText,
@@ -428,6 +430,12 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       list: true,
       name: 'RelatedItemsSection',
       children: [{
+        name: 'AttendeeRelated',
+        label: this.relatedAttendeeText,
+        where: this.formatRelatedQuery.bindDelegate(this, 'Activity.Id eq "${0}"', 'activityId'), // must be lower case because of feed
+        view: 'activity_attendee_related',
+        title: this.relatedAttendeeTitleText,
+      }, {
         name: 'AttachmentRelated',
         label: this.relatedAttachmentText,
         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'), // must be lower case because of feed
