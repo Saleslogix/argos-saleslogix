@@ -274,6 +274,14 @@
   attendeeText: "attendee"
 >
 
+<activityAttendeeTypesList ""
+  titleText: "Add Attendee"
+  contactText: "Contact"
+  leadText: "Lead"
+  cancelText: "Cancel"
+  addText: "Add"
+>
+
 <activityList ""
   titleText: "Activities"
   allDayText: "Timeless"

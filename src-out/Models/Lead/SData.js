@@ -42,7 +42,7 @@ define('crm/Models/Lead/SData', ['module', 'exports', 'dojo/_base/declare', './B
       return [{
         name: 'list',
         queryOrderBy: 'LastNameUpper,FirstName',
-        querySelect: ['Company', 'LeadNameLastFirst', 'WebAddress', 'Email', 'WorkPhone', 'Mobile', 'TollFree', 'Title', 'ModifyDate']
+        querySelect: ['Company', 'LeadNameLastFirst', 'WebAddress', 'Email', 'WorkPhone', 'Mobile', 'TollFree', 'Title', 'ModifyDate', 'Address/TimeZone']
       }, {
         name: 'detail',
         querySelect: ['Address/*', 'BusinessDescription', 'Company', 'CreateDate', 'CreateUser', 'Email', 'FirstName', 'FullAddress', 'Industry', 'Interests', 'LastName', 'LeadNameLastFirst', 'LeadNameFirstLast', 'LeadSource/Description', 'MiddleName', 'Mobile', 'Notes', 'Owner/OwnerDescription', 'Prefix', 'SICCode', 'Suffix', 'Title', 'TollFree', 'WebAddress', 'WorkPhone'],

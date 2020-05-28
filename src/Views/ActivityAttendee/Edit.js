@@ -37,6 +37,33 @@ const __class = declare('crm.Views.ActivityAttendee.Edit', [Edit], {
   modelName: MODEL_NAMES.ACTIVITYATTENDEE,
   id: 'activity_attendee_edit',
 
+  beforeTransitionTo: function beforeTransitionTo() {
+    // We need to process the options that came from our attendee typeslist view if inserting.
+    if (this.options.insert) {
+      this.refreshRequired = false;// Indicate to _EditBase we don't want to refresh or set any loading flags
+      this.inherited(beforeTransitionTo, arguments);
+      this.inserting = true;
+      const { activityEntity, entity, entityType } = this.options;
+
+      this.fields.Name.setValue(entity.$descriptor);
+      this.fields.AccountName.setValue(entity.Company || entity.AccountName);
+      this.fields.EntityType.setValue(entityType);
+      this.fields.IsPrimary.setValue(false);
+      this.fields.IsAttendee.setValue(true);
+      this.fields.PhoneNumber.setValue(entity.WorkPhone);
+      this.fields.Email.setValue(entity.Email);
+      this.fields['Activity.$key'].setValue(activityEntity.$key);
+      this.fields.EntityId.setValue(entity.$key);
+      if (entity.Address && entity.Address.TimeZone) {
+        this.fields.TimeZone.setValue(entity.Address.TimeZone);
+      }
+    } else {
+      this.inherited(beforeTransitionTo, arguments);
+    }
+  },
+  includeIfInserting: function includeIfInserting() {
+    return this.options.insert;
+  },
   createLayout: function createLayout() {
     return this.layout || (this.layout = [{
       label: this.nameText,
@@ -72,6 +99,7 @@ const __class = declare('crm.Views.ActivityAttendee.Edit', [Edit], {
       Property: 'RoleName',
       type: 'picklist',
       picklist: 'Attendee Role',
+      emptyText: '',
     }, {
       label: this.phoneText,
       name: 'PhoneNumber',
@@ -90,6 +118,16 @@ const __class = declare('crm.Views.ActivityAttendee.Edit', [Edit], {
       property: 'TimeZone',
       type: 'text',
       readonly: true,
+    }, {
+      name: 'Activity.$key',
+      property: 'Activity.$key',
+      type: 'hidden',
+      include: this.includeIfInserting,
+    }, {
+      name: 'EntityId',
+      property: 'EntityId',
+      type: 'hidden',
+      include: this.includeIfInserting,
     }]);
   },
 });

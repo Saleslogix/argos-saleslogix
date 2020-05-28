@@ -250,6 +250,9 @@
           "text": "TextEdit.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "TypesList.js",
+          "path": "../src-out/Views/ActivityAttendee/"
+        }, {
           "text": "List.js",
           "path": "../src-out/Views/Competitor/"
         }, {

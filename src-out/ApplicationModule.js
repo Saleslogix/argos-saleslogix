@@ -1,4 +1,4 @@
-define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/ApplicationModule', 'argos/Calendar', 'argos/List', 'argos/Views/Signature', 'argos/SearchWidget', 'argos/Views/FileSelect', './Views/AddAccountContact', './Views/AreaCategoryIssueLookup', './Views/ExchangeRateLookup', './Views/MainToolbar', './Views/UpdateToolbar', './Views/LeftDrawer', './Views/RightDrawer', './Views/Offline/Detail', './Views/Offline/List', './Views/Login', './Views/LogOff', './Views/Settings', './Views/Configure', './Views/Help', './Views/NameEdit', './Views/PickList', './Views/SelectList', './Views/SpeedSearchList', './Views/TextEdit', './Views/Account/List', './Views/Account/Detail', './Views/Account/Edit', './Views/Address/List', './Views/Address/Edit', './Views/ActivityAttendee/List', './Views/ActivityAttendee/Detail', './Views/ActivityAttendee/Edit', './Views/Activity/List', './Views/Activity/MyDay', './Views/Activity/MyList', './Views/Activity/Detail', './Views/Activity/Edit', './Views/Activity/Complete', './Views/Activity/TypesList', './Views/Activity/Recurring', './Views/Calendar/CalendarView', './Views/Calendar/DayView', './Views/Calendar/MonthView', './Views/Calendar/WeekView', './Views/Charts/GenericBar', './Views/Charts/GenericLine', './Views/Charts/GenericPie', './Views/Competitor/List', './Views/Contact/List', './Views/Contact/Detail', './Views/Contact/Edit', './Views/Contract/List', './Views/ErrorLog/List', './Views/ErrorLog/Detail', './Views/Event/List', './Views/Event/Detail', './Views/Event/Edit', './Views/Groups/Selector', './Views/Lead/List', './Views/Lead/Detail', './Views/Lead/Edit', './Views/LeadSource/List', './Views/Opportunity/List', './Views/Opportunity/Detail', './Views/Opportunity/Edit', './Views/Opportunity/QuickEdit', './Views/OpportunityContact/List', './Views/OpportunityContact/Detail', './Views/OpportunityContact/Edit', './Views/OpportunityProduct/List', './Views/OpportunityProduct/Detail', './Views/OpportunityProduct/Edit', './Views/Owner/List', './Views/Product/List', './Views/ProductProgram/List', './Views/Ticket/List', './Views/Ticket/Detail', './Views/Ticket/Edit', './Views/Ticket/UrgencyLookup', './Views/TicketActivity/List', './Views/TicketActivity/Detail', './Views/TicketActivity/Edit', './Views/TicketActivity/RateLookup', './Views/TicketActivityItem/List', './Views/TicketActivityItem/Detail', './Views/History/List', './Views/History/ListOffline', './Views/History/Detail', './Views/History/Edit', './Views/History/EditOffline', './Views/User/CalendarAccessList', './Views/User/List', './Views/Attachment/ViewAttachment', './Views/Attachment/List', './Views/Attachment/AddAttachment', './Views/Attachment/MyAttachmentList', './Views/RecentlyViewed/List', './Views/Briefcase/List', './Views/OfflineOptions/Edit', './Views/LanguageOptions/Edit', 'argos/I18n', './Models/Names', 'argos/Models/Types', 'argos/RelatedViewManager', 'argos/RelatedViewWidget', './Views/History/RelatedView', './Views/OfflineOptions/UsageWidget', './Views/LanguageOptions/UsageWidget', './Fields/AddressField', './Fields/MultiCurrencyField', './Fields/NameField', './Fields/PicklistField', './Fields/RecurrencesField', './Views/RelatedContextWidget', './Views/RelatedEditWidget', './Action', './Format', './Template', './Validator', './Environment', './Utility', './Models/Account/Offline', './Models/Account/SData', './Models/ActivityAttendee/Offline', './Models/ActivityAttendee/SData', './Models/Activity/Offline', './Models/Activity/SData', './Models/Contact/Offline', './Models/Contact/SData', './Models/Integration/SData', './Models/Lead/Offline', './Models/Lead/SData', './Models/LeadAddress/Offline', './Models/LeadAddress/SData', './Models/Opportunity/Offline', './Models/Opportunity/SData', './Models/OpportunityContact/Offline', './Models/OpportunityContact/SData', './Models/UserActivity/Offline', './Models/UserActivity/SData', './Models/Address/Offline', './Models/Address/SData', './Models/History/Offline', './Models/History/SData', './Models/Ticket/Offline', './Models/Ticket/SData', './Models/TicketActivity/Offline', './Models/TicketActivity/SData', './Models/Authentication/Offline'], function (module, exports, _declare, _lang, _ApplicationModule, _Calendar, _List, _Signature, _SearchWidget, _FileSelect, _AddAccountContact, _AreaCategoryIssueLookup, _ExchangeRateLookup, _MainToolbar, _UpdateToolbar, _LeftDrawer, _RightDrawer, _Detail, _List3, _Login, _LogOff, _Settings, _Configure, _Help, _NameEdit, _PickList, _SelectList, _SpeedSearchList, _TextEdit, _List5, _Detail3, _Edit, _List7, _Edit3, _List9, _Detail5, _Edit5, _List11, _MyDay, _MyList, _Detail7, _Edit7, _Complete, _TypesList, _Recurring, _CalendarView, _DayView, _MonthView, _WeekView, _GenericBar, _GenericLine, _GenericPie, _List13, _List15, _Detail9, _Edit9, _List17, _List19, _Detail11, _List21, _Detail13, _Edit11, _Selector, _List23, _Detail15, _Edit13, _List25, _List27, _Detail17, _Edit15, _QuickEdit, _List29, _Detail19, _Edit17, _List31, _Detail21, _Edit19, _List33, _List35, _List37, _List39, _Detail23, _Edit21, _UrgencyLookup, _List41, _Detail25, _Edit23, _RateLookup, _List43, _Detail27, _List45, _ListOffline, _Detail29, _Edit25, _EditOffline, _CalendarAccessList, _List47, _ViewAttachment, _List49, _AddAttachment, _MyAttachmentList, _List51, _List53, _Edit27, _Edit29, _I18n, _Names, _Types) {
+define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/ApplicationModule', 'argos/Calendar', 'argos/List', 'argos/Views/Signature', 'argos/SearchWidget', 'argos/Views/FileSelect', './Views/AddAccountContact', './Views/AreaCategoryIssueLookup', './Views/ExchangeRateLookup', './Views/MainToolbar', './Views/UpdateToolbar', './Views/LeftDrawer', './Views/RightDrawer', './Views/Offline/Detail', './Views/Offline/List', './Views/Login', './Views/LogOff', './Views/Settings', './Views/Configure', './Views/Help', './Views/NameEdit', './Views/PickList', './Views/SelectList', './Views/SpeedSearchList', './Views/TextEdit', './Views/Account/List', './Views/Account/Detail', './Views/Account/Edit', './Views/Address/List', './Views/Address/Edit', './Views/ActivityAttendee/List', './Views/ActivityAttendee/Detail', './Views/ActivityAttendee/Edit', './Views/ActivityAttendee/TypesList', './Views/Activity/List', './Views/Activity/MyDay', './Views/Activity/MyList', './Views/Activity/Detail', './Views/Activity/Edit', './Views/Activity/Complete', './Views/Activity/TypesList', './Views/Activity/Recurring', './Views/Calendar/CalendarView', './Views/Calendar/DayView', './Views/Calendar/MonthView', './Views/Calendar/WeekView', './Views/Charts/GenericBar', './Views/Charts/GenericLine', './Views/Charts/GenericPie', './Views/Competitor/List', './Views/Contact/List', './Views/Contact/Detail', './Views/Contact/Edit', './Views/Contract/List', './Views/ErrorLog/List', './Views/ErrorLog/Detail', './Views/Event/List', './Views/Event/Detail', './Views/Event/Edit', './Views/Groups/Selector', './Views/Lead/List', './Views/Lead/Detail', './Views/Lead/Edit', './Views/LeadSource/List', './Views/Opportunity/List', './Views/Opportunity/Detail', './Views/Opportunity/Edit', './Views/Opportunity/QuickEdit', './Views/OpportunityContact/List', './Views/OpportunityContact/Detail', './Views/OpportunityContact/Edit', './Views/OpportunityProduct/List', './Views/OpportunityProduct/Detail', './Views/OpportunityProduct/Edit', './Views/Owner/List', './Views/Product/List', './Views/ProductProgram/List', './Views/Ticket/List', './Views/Ticket/Detail', './Views/Ticket/Edit', './Views/Ticket/UrgencyLookup', './Views/TicketActivity/List', './Views/TicketActivity/Detail', './Views/TicketActivity/Edit', './Views/TicketActivity/RateLookup', './Views/TicketActivityItem/List', './Views/TicketActivityItem/Detail', './Views/History/List', './Views/History/ListOffline', './Views/History/Detail', './Views/History/Edit', './Views/History/EditOffline', './Views/User/CalendarAccessList', './Views/User/List', './Views/Attachment/ViewAttachment', './Views/Attachment/List', './Views/Attachment/AddAttachment', './Views/Attachment/MyAttachmentList', './Views/RecentlyViewed/List', './Views/Briefcase/List', './Views/OfflineOptions/Edit', './Views/LanguageOptions/Edit', 'argos/I18n', './Models/Names', 'argos/Models/Types', 'argos/RelatedViewManager', 'argos/RelatedViewWidget', './Views/History/RelatedView', './Views/OfflineOptions/UsageWidget', './Views/LanguageOptions/UsageWidget', './Fields/AddressField', './Fields/MultiCurrencyField', './Fields/NameField', './Fields/PicklistField', './Fields/RecurrencesField', './Views/RelatedContextWidget', './Views/RelatedEditWidget', './Action', './Format', './Template', './Validator', './Environment', './Utility', './Models/Account/Offline', './Models/Account/SData', './Models/ActivityAttendee/Offline', './Models/ActivityAttendee/SData', './Models/Activity/Offline', './Models/Activity/SData', './Models/Contact/Offline', './Models/Contact/SData', './Models/Integration/SData', './Models/Lead/Offline', './Models/Lead/SData', './Models/LeadAddress/Offline', './Models/LeadAddress/SData', './Models/Opportunity/Offline', './Models/Opportunity/SData', './Models/OpportunityContact/Offline', './Models/OpportunityContact/SData', './Models/UserActivity/Offline', './Models/UserActivity/SData', './Models/Address/Offline', './Models/Address/SData', './Models/History/Offline', './Models/History/SData', './Models/Ticket/Offline', './Models/Ticket/SData', './Models/TicketActivity/Offline', './Models/TicketActivity/SData', './Models/Authentication/Offline'], function (module, exports, _declare, _lang, _ApplicationModule, _Calendar, _List, _Signature, _SearchWidget, _FileSelect, _AddAccountContact, _AreaCategoryIssueLookup, _ExchangeRateLookup, _MainToolbar, _UpdateToolbar, _LeftDrawer, _RightDrawer, _Detail, _List3, _Login, _LogOff, _Settings, _Configure, _Help, _NameEdit, _PickList, _SelectList, _SpeedSearchList, _TextEdit, _List5, _Detail3, _Edit, _List7, _Edit3, _List9, _Detail5, _Edit5, _TypesList, _List11, _MyDay, _MyList, _Detail7, _Edit7, _Complete, _TypesList3, _Recurring, _CalendarView, _DayView, _MonthView, _WeekView, _GenericBar, _GenericLine, _GenericPie, _List13, _List15, _Detail9, _Edit9, _List17, _List19, _Detail11, _List21, _Detail13, _Edit11, _Selector, _List23, _Detail15, _Edit13, _List25, _List27, _Detail17, _Edit15, _QuickEdit, _List29, _Detail19, _Edit17, _List31, _Detail21, _Edit19, _List33, _List35, _List37, _List39, _Detail23, _Edit21, _UrgencyLookup, _List41, _Detail25, _Edit23, _RateLookup, _List43, _Detail27, _List45, _ListOffline, _Detail29, _Edit25, _EditOffline, _CalendarAccessList, _List47, _ViewAttachment, _List49, _AddAttachment, _MyAttachmentList, _List51, _List53, _Edit27, _Edit29, _I18n, _Names, _Types) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -73,6 +73,8 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _Edit6 = _interopRequireDefault(_Edit5);
 
+  var _TypesList2 = _interopRequireDefault(_TypesList);
+
   var _List12 = _interopRequireDefault(_List11);
 
   var _MyDay2 = _interopRequireDefault(_MyDay);
@@ -85,7 +87,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
   var _Complete2 = _interopRequireDefault(_Complete);
 
-  var _TypesList2 = _interopRequireDefault(_TypesList);
+  var _TypesList4 = _interopRequireDefault(_TypesList3);
 
   var _Recurring2 = _interopRequireDefault(_Recurring);
 
@@ -221,6 +223,13 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
     };
   }
 
+  var resource = (0, _I18n2.default)('applicationModule');
+
+  /**
+   * @class
+   * @alias module:crm/ApplicationModule
+   * @extends module:argos/ApplicationModule
+   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -239,13 +248,6 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
   /**
   * @module crm/ApplicationModule
   */
-  var resource = (0, _I18n2.default)('applicationModule');
-
-  /**
-   * @class
-   * @alias module:crm/ApplicationModule
-   * @extends module:argos/ApplicationModule
-   */
   var __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends module:crm/ApplicationModule.prototype */{
     searchText: resource.searchText,
     loadViews: function loadViews() {
@@ -505,13 +507,14 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       }));
       this.registerView(new _Detail6.default());
       this.registerView(new _Edit6.default());
+      this.registerView(new _TypesList2.default());
 
       this.registerView(new _Detail8.default({
         canRedirectTo: true
       }));
       this.registerView(new _Edit8.default());
       this.registerView(new _Complete2.default());
-      this.registerView(new _TypesList2.default());
+      this.registerView(new _TypesList4.default());
       this.registerView(new _List12.default({
         id: 'activity_related',
         expose: false,

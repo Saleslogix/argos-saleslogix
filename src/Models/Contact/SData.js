@@ -35,6 +35,7 @@ const __class = declare('crm.Models.Contact.SData', [Base, _SDataModelBase], {
         'Title',
         'LastHistoryDate',
         'ModifyDate',
+        'Address/TimeZone',
       ],
     }, {
       name: 'detail',
