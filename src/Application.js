@@ -109,7 +109,7 @@ class Application extends SDKApplication {
     };
     this.mobileVersion = {
       major: 4,
-      minor: 1,
+      minor: 2,
       revision: 0,
     };
     this.versionInfoText = resource.versionInfoText;
