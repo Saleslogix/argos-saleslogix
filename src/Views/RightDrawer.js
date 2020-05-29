@@ -53,11 +53,6 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   },
   initSoho: function initSoho() {
     this.inherited(initSoho, arguments);
-    this.accordion.element.on('selected', (evt, header) => {
-      // Fix up the event target to the element with our data-action attribute.
-      evt.target = $('a', header).get(0);
-      this._initiateActionFromEvent(evt);
-    });
   },
   setLayout: function setLayout(layout) {
     this.layout = layout;

@@ -135,7 +135,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
           App.viewSettingsModal.close();
         }
       }.bind(this),
-      kpiClicked: function kpiClicked(params) {
+      kpiClicked: function kpiClicked(params, evt) {
         const metrics = App.getMetricsByResourceKind(this.resourceKind);
         let results;
 

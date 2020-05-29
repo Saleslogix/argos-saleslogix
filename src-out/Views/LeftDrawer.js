@@ -75,14 +75,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
     searchView: 'speedsearch_list',
 
     initSoho: function initSoho() {
-      var _this = this;
-
       this.inherited(initSoho, arguments);
-      this.accordion.element.on('selected', function (evt, header) {
-        // Fix up the event target to the element with our data-action attribute.
-        evt.target = $('a', header).get(0);
-        _this._initiateActionFromEvent(evt);
-      });
     },
     shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
       var menu = App.applicationmenu;
