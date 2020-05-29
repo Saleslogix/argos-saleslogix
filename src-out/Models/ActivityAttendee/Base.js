@@ -41,6 +41,7 @@ define('crm/Models/ActivityAttendee/Base', ['module', 'exports', 'dojo/_base/dec
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
     modelName: _Names2.default.ACTIVITYATTENDEE,
     iconClass: 'user',
+    listViewId: 'activity_attendee_related',
     createPicklists: function createPicklists() {
       return this.picklists || (this.picklists = [{
         name: 'Attendee Role',
