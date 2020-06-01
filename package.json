@@ -27,7 +27,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
-    "eslint": "^7.0.0",
+    "eslint": "^7.1.0",
     "grunt": "^1.1.0",
     "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.5",
     "grunt-contrib-clean": "^2.0.0",
@@ -40,7 +40,7 @@
     "hapi": "^18.1.0",
     "inert": "^5.1.3",
     "jsdoc": "^3.6.4",
-    "less": "^3.11.1",
+    "less": "^3.11.2",
     "less-loader": "^6.1.0",
     "spdy": "^4.0.2"
   },
