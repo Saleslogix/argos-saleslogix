@@ -9,9 +9,6 @@
 		"fileIncludes": [{
             "text": "en.js",
             "path": "../localization/"
-        },{
-            "text": "en-US.js",
-            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
     },
     {
@@ -32,9 +29,6 @@
 		"fileIncludes": [{
             "text": "de.js",
             "path": "../localization/"
-        },{
-            "text": "de-DE.js",
-            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
     },
     {
@@ -55,9 +49,6 @@
 		"fileIncludes": [{
             "text": "fr.js",
             "path": "../localization/"
-        },{
-            "text": "fr-FR.js",
-            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
     },
     {
@@ -78,9 +69,6 @@
 		"fileIncludes": [{
             "text": "ru.js",
             "path": "../localization/"
-        },{
-            "text": "ru-RU.js",
-            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
     },
     {
@@ -101,9 +89,6 @@
 		"fileIncludes": [{
             "text": "it.js",
             "path": "../localization/"
-        },{
-            "text": "it-IT.js",
-            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
     },
     {
@@ -124,9 +109,6 @@
         "fileIncludes": [{
             "text": "en-GB.js",
             "path": "../localization/"
-        },{
-            "text": "en-GB.js",
-            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
     },
     {
