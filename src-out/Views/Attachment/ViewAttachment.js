@@ -216,11 +216,11 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       var box = _domGeometry2.default.getMarginBox(this.domNode);
       this.pdfDoc.getPage(pageNumber).then(function (page) {
         var scale = _this2.pdfScale;
-        var viewport = page.getViewport(scale);
+        var viewport = page.getViewport({ scale: scale });
         var canvas = document.getElementById('pdfViewer');
         var context = canvas.getContext('2d');
         var desiredWidth = box.w;
-        viewport = page.getViewport(desiredWidth / viewport.width);
+        viewport = page.getViewport({ scale: desiredWidth / viewport.width });
         canvas.height = viewport.height < box.h ? box.h : viewport.height;
         canvas.width = viewport.width;
 

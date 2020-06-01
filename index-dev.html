@@ -154,6 +154,7 @@
           locale: language ||  'en',
           extraLocale: [regionLocale || 'en-us']
       };
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = "../../argos-sdk/libraries/pdfjs/pdf.worker.min.js";
   </script>
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js"></script>
   <script type="text/javascript">

@@ -273,11 +273,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     const box = domGeo.getMarginBox(this.domNode);
     this.pdfDoc.getPage(pageNumber).then((page) => {
       const scale = this.pdfScale;
-      let viewport = page.getViewport(scale);
+      let viewport = page.getViewport({ scale });
       const canvas = document.getElementById('pdfViewer');
       const context = canvas.getContext('2d');
       const desiredWidth = box.w;
-      viewport = page.getViewport(desiredWidth / viewport.width);
+      viewport = page.getViewport({ scale: desiredWidth / viewport.width });
       canvas.height = viewport.height < box.h ? box.h : viewport.height;
       canvas.width = viewport.width;
 
