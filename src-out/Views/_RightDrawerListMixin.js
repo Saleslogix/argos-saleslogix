@@ -154,7 +154,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
             App.viewSettingsModal.close();
           }
         }.bind(this),
-        kpiClicked: function kpiClicked(params, evt) {
+        kpiClicked: function kpiClicked(params) {
           var metrics = App.getMetricsByResourceKind(this.resourceKind);
           var results = void 0;
 

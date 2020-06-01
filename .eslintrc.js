@@ -27,7 +27,6 @@ module.exports = {
     "require": false,
     "moment": false,
     "Chart": false,
-    "Rx": false,
     "$": false,
     "Soho": false,
     "d3": false,

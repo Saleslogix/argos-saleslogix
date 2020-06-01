@@ -99,7 +99,6 @@ define('spec/Views/Account/List.spec', [
       spyOn(view.rowTemplate, 'apply')
         .and.callThrough();
 
-      view.init(new Rx.ReplaySubject());
       view.placeAt(document.body, 'first');
       view._started = true;
       view._placeAt = null;
