@@ -4,10 +4,6 @@ define('configuration/development.default', [
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
 ], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
-  // Toggle console logs for PouchDB
-  // PouchDB.debug.enable('*');
-  PouchDB.debug.disable();
-
   return {
     modules: [
       new ApplicationModule(),
