@@ -35,12 +35,6 @@ define('configuration/production.default', [
         json: true,
       },
     },
-    /**
-     * @property {Boolean} enableUpdateNotification
-     * Turn on to notify users the mobile application has been updated. Uses HTML5 applilcation manifest update events to trigger.
-     * The cache manifest the client gets from the server is kept in memory cache and is lost when the application pool resets, so users could potentially see that there is an update even though there is not.
-     */
-    enableUpdateNotification: true,
 
     /**
      * @property {Boolean} enableMultiCurrency

@@ -22,7 +22,6 @@ define('configuration/development.default', [
         json: true,
       },
     },
-    enableUpdateNotification: true,
     enableMultiCurrency: false,
     enableGroups: true,
     enableHashTags: true,

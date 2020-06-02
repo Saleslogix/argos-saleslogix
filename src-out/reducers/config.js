@@ -10,7 +10,6 @@ define('crm/reducers/config', ['exports', '../actions/config'], function (export
     connections: null,
     endpoint: '',
     maxUploadFileSize: 40000000,
-    enableUpdateNotification: false,
     enableMultiCurrency: false,
     enableGroups: true,
     enableHashTags: true,

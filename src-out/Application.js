@@ -158,7 +158,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         connections: null,
         defaultLocale: 'en',
-        enableUpdateNotification: false,
         enableMultiCurrency: false,
         multiCurrency: false, // Backwards compatibility
         enableGroups: true,
@@ -263,6 +262,13 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         };
       }
     }, {
+      key: 'initServiceWorker',
+      value: function initServiceWorker() {
+        if (this.enableOfflineSupport) {
+          _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initServiceWorker', this).call(this);
+        }
+      }
+    }, {
       key: 'initPreferences',
       value: function initPreferences() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initPreferences', this).call(this);
@@ -291,16 +297,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       key: 'initConnects',
       value: function initConnects() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initConnects', this).apply(this, arguments);
-
-        if (window.applicationCache) {
-          $(window.applicationCache).on('updateready', this._checkForUpdate.bind(this));
-        }
       }
     }, {
       key: 'destroy',
       value: function destroy() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'destroy', this).call(this);
-        $(window.applicationCache).off('updateready', this._checkForUpdate.bind(this));
       }
     }, {
       key: 'isOnFirstView',
@@ -341,18 +342,9 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: '_checkForUpdate',
-      value: function _checkForUpdate() {
-        var applicationCache = window.applicationCache;
-        if (applicationCache && this.enableUpdateNotification) {
-          if (applicationCache.status === applicationCache.UPDATEREADY) {
-            this._notifyUpdateAvailable();
-          }
-        }
-      }
-    }, {
       key: '_notifyUpdateAvailable',
       value: function _notifyUpdateAvailable() {
+        // TODO: Part of cache manifest, remove or rework for service worker?
         if (this.bars.updatebar) {
           this.bars.updatebar.show();
         }
@@ -480,10 +472,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         } else {
           // todo: always navigate to home when offline? data may not be available for restored state.
           this.navigateToHomeView();
-        }
-
-        if (this.enableUpdateNotification) {
-          this._checkForUpdate();
         }
       }
     }, {

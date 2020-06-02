@@ -8,10 +8,6 @@ module.exports = function gruntCopy(grunt) {
         dest: '',
       }],
     },
-    manifest: {
-      src: './manifest.appcache',
-      dest: './deploy/manifest.appcache',
-    },
     model: {
       expand: true,
       src: 'bundle/**',

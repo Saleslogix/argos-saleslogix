@@ -43,7 +43,6 @@ class Application extends SDKApplication {
   constructor(options = {
     connections: null,
     defaultLocale: 'en',
-    enableUpdateNotification: false,
     enableMultiCurrency: false,
     multiCurrency: false, // Backwards compatibility
     enableGroups: true,
@@ -183,6 +182,12 @@ class Application extends SDKApplication {
     };
   }
 
+  initServiceWorker() {
+    if (this.enableOfflineSupport) {
+      super.initServiceWorker();
+    }
+  }
+
   initPreferences() {
     super.initPreferences();
     this._saveDefaultPreferences();
@@ -206,15 +211,10 @@ class Application extends SDKApplication {
 
   initConnects() {
     super.initConnects(...arguments);
-
-    if (window.applicationCache) {
-      $(window.applicationCache).on('updateready', this._checkForUpdate.bind(this));
-    }
   }
 
   destroy() {
     super.destroy();
-    $(window.applicationCache).off('updateready', this._checkForUpdate.bind(this));
   }
 
   isOnFirstView() {
@@ -251,16 +251,8 @@ class Application extends SDKApplication {
     }
   }
 
-  _checkForUpdate() {
-    const applicationCache = window.applicationCache;
-    if (applicationCache && this.enableUpdateNotification) {
-      if (applicationCache.status === applicationCache.UPDATEREADY) {
-        this._notifyUpdateAvailable();
-      }
-    }
-  }
-
   _notifyUpdateAvailable() {
+    // TODO: Part of cache manifest, remove or rework for service worker?
     if (this.bars.updatebar) {
       this.bars.updatebar.show();
     }
@@ -383,10 +375,6 @@ class Application extends SDKApplication {
     } else {
       // todo: always navigate to home when offline? data may not be available for restored state.
       this.navigateToHomeView();
-    }
-
-    if (this.enableUpdateNotification) {
-      this._checkForUpdate();
     }
   }
   onAuthenticateUserSuccess(credentials, callback, scope, result) {

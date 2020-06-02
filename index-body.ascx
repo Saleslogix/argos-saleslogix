@@ -24,6 +24,10 @@
         });
         require(['crm/polyfills/index', 'crm/Bootstrap'], function (polyfills, bootstrap) {
             bootstrap({
+                serviceWorkerPath: './serviceworker.js',
+                serviceWorkerRegistrationOptions: {
+                    scope: '/',
+                },
                 supportedLocales: supportedLocales,
                 defaultLocale: 'en',
                 currentLocale: currentLocale,

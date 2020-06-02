@@ -33,7 +33,9 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
    */
 
   function bootstrap(_ref) {
-    var supportedLocales = _ref.supportedLocales,
+    var serviceWorkerPath = _ref.serviceWorkerPath,
+        serviceWorkerRegistrationOptions = _ref.serviceWorkerRegistrationOptions,
+        supportedLocales = _ref.supportedLocales,
         defaultLocale = _ref.defaultLocale,
         currentLocale = _ref.currentLocale,
         parentLocale = _ref.parentLocale,
@@ -176,6 +178,8 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
               }
             }
             var instance = new Application(appConfig);
+            instance.serviceWorkerPath = serviceWorkerPath;
+            instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
             instance.context.localization = {
               localeContext: ctx,
               defaultLocaleContext: defaultCtx,

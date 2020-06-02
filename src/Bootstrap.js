@@ -20,6 +20,8 @@ import LanguageService from 'argos/LanguageService';
  * @module crm/Bootstrap
  */
 export default function bootstrap({
+  serviceWorkerPath,
+  serviceWorkerRegistrationOptions,
   supportedLocales,
   defaultLocale,
   currentLocale,
@@ -157,6 +159,8 @@ export default function bootstrap({
             }
           }
           const instance = new Application(appConfig);
+          instance.serviceWorkerPath = serviceWorkerPath;
+          instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
           instance.context.localization = {
             localeContext: ctx,
             defaultLocaleContext: defaultCtx,
