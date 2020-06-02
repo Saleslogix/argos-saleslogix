@@ -49,6 +49,8 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
         localeFiles = _ref.localeFiles,
         regionalFiles = _ref.regionalFiles,
         isRegionMetric = _ref.isRegionMetric,
+        _ref$cacheFiles = _ref.cacheFiles,
+        cacheFiles = _ref$cacheFiles === undefined ? [] : _ref$cacheFiles,
         rootElement = _ref.rootElement;
 
     function mapFiles(files, ctx, defaultCtx) {
@@ -192,7 +194,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
             instance.mingleAuthResults = mingleAuthResults;
             instance.activate();
             instance.init(rootElement);
-            instance.registerCacheUrls(localeFiles.concat(regionalFiles));
+            instance.registerCacheUrls(cacheFiles.concat(localeFiles).concat(regionalFiles));
             instance.run();
             completed = true;
           });

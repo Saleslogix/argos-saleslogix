@@ -36,6 +36,7 @@ export default function bootstrap({
   localeFiles,
   regionalFiles,
   isRegionMetric,
+  cacheFiles = [],
   rootElement,
 }) {
   function mapFiles(files, ctx, defaultCtx) {
@@ -173,7 +174,9 @@ export default function bootstrap({
           instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
           instance.init(rootElement);
-          instance.registerCacheUrls(localeFiles.concat(regionalFiles));
+          instance.registerCacheUrls(cacheFiles
+            .concat(localeFiles)
+            .concat(regionalFiles));
           instance.run();
           completed = true;
         });
