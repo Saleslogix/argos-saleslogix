@@ -173,6 +173,7 @@ export default function bootstrap({
           instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
           instance.init(rootElement);
+          instance.registerCacheUrls(localeFiles.concat(regionalFiles));
           instance.run();
           completed = true;
         });

@@ -184,19 +184,27 @@ class Application extends SDKApplication {
   }
 
   initServiceWorker() {
-    if (this.enableOfflineSupport || this.enableServiceWorker) {
+    if (this.isServiceWorkerEnabled()) {
       super.initServiceWorker();
     }
   }
 
+  isServiceWorkerEnabled() {
+    return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+  }
+
   registerCacheUrl(url) {
-    return this.sendServiceWorkerMessage({ command: 'add', url });
+    if (this.isServiceWorkerEnabled()) {
+      return this.sendServiceWorkerMessage({ command: 'add', url });
+    }
   }
 
   registerCacheUrls(urls) {
-    return Promise.all(
-      urls.map(url => this.sendServiceWorkerMessage({ command: 'add', url }))
-    );
+    if (this.isServiceWorkerEnabled()) {
+      return Promise.all(
+        urls.map(url => this.sendServiceWorkerMessage({ command: 'add', url }))
+      );
+    }
   }
 
   initPreferences() {

@@ -265,23 +265,32 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'initServiceWorker',
       value: function initServiceWorker() {
-        if (this.enableOfflineSupport || this.enableServiceWorker) {
+        if (this.isServiceWorkerEnabled()) {
           _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initServiceWorker', this).call(this);
         }
       }
     }, {
+      key: 'isServiceWorkerEnabled',
+      value: function isServiceWorkerEnabled() {
+        return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+      }
+    }, {
       key: 'registerCacheUrl',
       value: function registerCacheUrl(url) {
-        return this.sendServiceWorkerMessage({ command: 'add', url: url });
+        if (this.isServiceWorkerEnabled()) {
+          return this.sendServiceWorkerMessage({ command: 'add', url: url });
+        }
       }
     }, {
       key: 'registerCacheUrls',
       value: function registerCacheUrls(urls) {
         var _this2 = this;
 
-        return Promise.all(urls.map(function (url) {
-          return _this2.sendServiceWorkerMessage({ command: 'add', url: url });
-        }));
+        if (this.isServiceWorkerEnabled()) {
+          return Promise.all(urls.map(function (url) {
+            return _this2.sendServiceWorkerMessage({ command: 'add', url: url });
+          }));
+        }
       }
     }, {
       key: 'initPreferences',

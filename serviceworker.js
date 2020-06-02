@@ -3,7 +3,7 @@ const CURRENT_CACHE = 'argos-saleslogix-cache-v' + CACHE_VERSION; // eslint-disa
 
 self.addEventListener('install', (event) => { // eslint-disable-line
   // Perform install steps
-  // TODO: Add static assets here?
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener('activate', (event) => {
@@ -24,9 +24,9 @@ self.addEventListener('activate', (event) => {
       if (self.registration.navigationPreload) {
         return self.registration.navigationPreload.enable();
       }
-    })()
+    })(),
+    self.clients.claim()
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
