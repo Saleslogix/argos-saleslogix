@@ -250,6 +250,11 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
   */
   var __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends module:crm/ApplicationModule.prototype */{
     searchText: resource.searchText,
+    loadCache: function loadCache() {
+      var app = this.application;
+      app.registerCacheUrl('./content/images/logo.png');
+      app.registerCacheUrl('./content/images/blank.gif');
+    },
     loadViews: function loadViews() {
       this.inherited(loadViews, arguments);
 

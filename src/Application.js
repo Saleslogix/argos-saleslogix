@@ -189,6 +189,10 @@ class Application extends SDKApplication {
     }
   }
 
+  registerCacheUrl(url) {
+    return this.sendServiceWorkerMessage({ command: 'add', url });
+  }
+
   initPreferences() {
     super.initPreferences();
     this._saveDefaultPreferences();

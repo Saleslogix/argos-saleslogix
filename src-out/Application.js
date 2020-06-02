@@ -270,6 +270,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
+      key: 'registerCacheUrl',
+      value: function registerCacheUrl(url) {
+        return this.sendServiceWorkerMessage({ command: 'add', url: url });
+      }
+    }, {
       key: 'initPreferences',
       value: function initPreferences() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initPreferences', this).call(this);

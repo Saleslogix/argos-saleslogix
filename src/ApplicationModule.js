@@ -179,6 +179,11 @@ const resource = getResource('applicationModule');
  */
 const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends module:crm/ApplicationModule.prototype */{
   searchText: resource.searchText,
+  loadCache: function loadCache() {
+    const app = this.application;
+    app.registerCacheUrl('./content/images/logo.png');
+    app.registerCacheUrl('./content/images/blank.gif');
+  },
   loadViews: function loadViews() {
     this.inherited(loadViews, arguments);
 
