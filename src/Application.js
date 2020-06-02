@@ -193,6 +193,12 @@ class Application extends SDKApplication {
     return this.sendServiceWorkerMessage({ command: 'add', url });
   }
 
+  registerCacheUrls(urls) {
+    return Promise.all(
+      urls.map(url => this.sendServiceWorkerMessage({ command: 'add', url }))
+    );
+  }
+
   initPreferences() {
     super.initPreferences();
     this._saveDefaultPreferences();

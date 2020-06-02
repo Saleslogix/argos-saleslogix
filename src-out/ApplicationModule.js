@@ -252,8 +252,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
     searchText: resource.searchText,
     loadCache: function loadCache() {
       var app = this.application;
-      app.registerCacheUrl('./content/images/logo.png');
-      app.registerCacheUrl('./content/images/blank.gif');
+      app.registerCacheUrls(['./content/images/logo.png', './content/images/blank.gif']);
     },
     loadViews: function loadViews() {
       this.inherited(loadViews, arguments);
