@@ -28,6 +28,7 @@ define('configuration/development.default', [
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    enableServiceWorker: false,
     enableMingle: false,
     warehouseDiscovery: 'auto',
     mingleSettings: {

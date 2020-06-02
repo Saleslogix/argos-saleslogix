@@ -50,6 +50,7 @@ class Application extends SDKApplication {
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    enableServiceWorker: false,
     enableRememberMe: true,
     warehouseDiscovery: 'auto',
     enableMingle: false,
@@ -183,7 +184,7 @@ class Application extends SDKApplication {
   }
 
   initServiceWorker() {
-    if (this.enableOfflineSupport) {
+    if (this.enableOfflineSupport || this.enableServiceWorker) {
       super.initServiceWorker();
     }
   }

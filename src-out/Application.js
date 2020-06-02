@@ -165,6 +165,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         maxUploadFileSize: 40000000,
         enableConcurrencyCheck: false,
         enableOfflineSupport: false,
+        enableServiceWorker: false,
         enableRememberMe: true,
         warehouseDiscovery: 'auto',
         enableMingle: false,
@@ -264,7 +265,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'initServiceWorker',
       value: function initServiceWorker() {
-        if (this.enableOfflineSupport) {
+        if (this.enableOfflineSupport || this.enableServiceWorker) {
           _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initServiceWorker', this).call(this);
         }
       }
