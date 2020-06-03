@@ -194,7 +194,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
             instance.mingleAuthResults = mingleAuthResults;
             instance.activate();
             instance.init(rootElement);
-            instance.registerCacheUrls(cacheFiles.concat(localeFiles).concat(regionalFiles));
+            instance.registerCacheUrls(cacheFiles);
             instance.run();
             completed = true;
           });

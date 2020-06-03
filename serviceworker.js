@@ -38,7 +38,12 @@ self.addEventListener('fetch', (event) => {
         }
         return fetch(event.request);
       }
-      )
+      ).catch(() => {
+        if (!event.request.url.includes('ping.gif'))
+        {
+          return caches.match('index.aspx');
+        }
+      })
   );
 });
 
@@ -63,7 +68,6 @@ self.addEventListener('message', (event) => {
 
     throw new Error('Message was not understood.');
   }).catch((err) => {
-    console.error(err); // eslint-disable-line
     event.ports[0].postMessage({ error: err.toString() });
   });
 

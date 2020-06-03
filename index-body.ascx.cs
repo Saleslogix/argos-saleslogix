@@ -91,6 +91,26 @@ public partial class Index_html : System.Web.UI.UserControl
         }
     }
 
+    private string _filesToCache;
+    protected string FilesToCache
+    {
+        get
+        {
+            if (_filesToCache == null) {
+                IEnumerable<FileItem> [] listings = {
+                    Enumerate(@"content"),
+                    Enumerate(@"localization"),
+                    Enumerate(@"help"),
+                    Enumerate(@"configuration"),
+                    Enumerate(@".", (file) => file.Name == "index.aspx")
+                };
+                _filesToCache = Serialize(listings.SelectMany(listing => listing).Select(item => item.Path));
+            }
+
+            return _filesToCache;
+        }
+    }
+
     protected string Languages
     {
         get
