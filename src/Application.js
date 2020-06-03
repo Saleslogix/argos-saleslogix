@@ -201,9 +201,7 @@ class Application extends SDKApplication {
 
   registerCacheUrls(urls) {
     if (this.isServiceWorkerEnabled()) {
-      return Promise.all(
-        urls.map(url => this.sendServiceWorkerMessage({ command: 'add', url }))
-      );
+      return this.sendServiceWorkerMessage({ command: 'addall', urls });
     }
   }
 

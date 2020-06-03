@@ -67,6 +67,32 @@ self.addEventListener('message', (event) => {
       });
     }
 
+    if (event.data.command === 'addall') {
+      const urls = event.data.urls;
+      if (!Array.isArray(urls)) {
+        throw new Error('Add all command must have a urls array');
+      }
+
+      // Attempt to fetch the first resource from the cache to see if it exists..
+      return cache.match(urls[0]).then((match) => {
+        // Resource exists, assume we added them all
+        if (match) {
+          event.ports[0].postMessage({
+            results: 'skipped',
+          });
+
+          return;
+        }
+
+        return cache.addAll(urls).then(() => {
+          event.ports[0].postMessage({
+            results: 'added',
+            length: urls.length,
+          });
+        });
+      });
+    }
+
     throw new Error('Message was not understood.');
   }).catch((err) => {
     event.ports[0].postMessage({ error: err.toString() });
