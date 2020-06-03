@@ -280,6 +280,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         if (this.isServiceWorkerEnabled()) {
           return this.sendServiceWorkerMessage({ command: 'add', url: url });
         }
+
+        return Promise.resolve(true);
       }
     }, {
       key: 'registerCacheUrls',
@@ -287,6 +289,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         if (this.isServiceWorkerEnabled()) {
           return this.sendServiceWorkerMessage({ command: 'addall', urls: urls });
         }
+
+        return Promise.resolve(true);
       }
     }, {
       key: 'initPreferences',

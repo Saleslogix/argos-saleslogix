@@ -197,12 +197,16 @@ class Application extends SDKApplication {
     if (this.isServiceWorkerEnabled()) {
       return this.sendServiceWorkerMessage({ command: 'add', url });
     }
+
+    return Promise.resolve(true);
   }
 
   registerCacheUrls(urls) {
     if (this.isServiceWorkerEnabled()) {
       return this.sendServiceWorkerMessage({ command: 'addall', urls });
     }
+
+    return Promise.resolve(true);
   }
 
   initPreferences() {
