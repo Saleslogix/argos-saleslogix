@@ -39,10 +39,11 @@ self.addEventListener('fetch', (event) => {
         return fetch(event.request);
       }
       ).catch(() => {
-        if (!event.request.url.includes('ping.gif'))
-        {
-          return caches.match('index.aspx');
+        if (event.request.url.includes('ping.gif')) {
+          return Promise.resolve(new Response(null, { status: 408, statusText: 'timeout' }));
         }
+
+        return caches.match('index.aspx');
       })
   );
 });
