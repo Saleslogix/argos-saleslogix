@@ -251,8 +251,13 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
   var __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends module:crm/ApplicationModule.prototype */{
     searchText: resource.searchText,
     loadCache: function loadCache() {
-      var app = this.application;
-      app.registerCacheUrls(['./content/images/logo.png', './content/images/blank.gif']);
+      /* index.aspx will cache everything under content/, help/, and localization/ automatically.
+      * Add additional caches here if you need
+      const app = this.application;
+      app.registerCacheUrls([
+        './folder1/file1.demo',
+      ]);
+      */
     },
     loadViews: function loadViews() {
       this.inherited(loadViews, arguments);

@@ -180,11 +180,13 @@ const resource = getResource('applicationModule');
 const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends module:crm/ApplicationModule.prototype */{
   searchText: resource.searchText,
   loadCache: function loadCache() {
+    /* index.aspx will cache everything under content/, help/, and localization/ automatically.
+    * Add additional caches here if you need
     const app = this.application;
     app.registerCacheUrls([
-      './content/images/logo.png',
-      './content/images/blank.gif',
+      './folder1/file1.demo',
     ]);
+    */
   },
   loadViews: function loadViews() {
     this.inherited(loadViews, arguments);
