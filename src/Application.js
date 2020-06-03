@@ -119,6 +119,8 @@ class Application extends SDKApplication {
     this.offlineText = resource.offlineText;
     this.onlineText = resource.onlineText;
     this.mingleAuthErrorText = resource.mingleAuthErrorText;
+    this.fileCacheText = resource.fileCacheText;
+    this.fileCacheTitle = resource.fileCacheTitle;
     this.homeViewId = 'myactivity_list';
     this.offlineHomeViewId = 'recently_viewed_list_offline';
     this.loginViewId = 'login';
@@ -203,7 +205,13 @@ class Application extends SDKApplication {
 
   registerCacheUrls(urls) {
     if (this.isServiceWorkerEnabled()) {
-      return this.sendServiceWorkerMessage({ command: 'addall', urls });
+      return this.sendServiceWorkerMessage({ command: 'addall', urls }).then((data) => {
+        if (data.results === 'added') {
+          this.toast.add({ message: this.fileCacheText, title: this.fileCacheTitle, toastTime: 20000 });
+        }
+
+        return data;
+      });
     }
 
     return Promise.resolve(true);

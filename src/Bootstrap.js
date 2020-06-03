@@ -174,14 +174,9 @@ export default function bootstrap({
           instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
           instance.init(rootElement);
-          instance.registerCacheUrls(cacheFiles).then(() => {
-            instance.run();
-            completed = true;
-          }, () => {
-            console.error('Error caching files.'); // eslint-disable-line
-            instance.run();
-            completed = true;
-          });
+          instance.registerCacheUrls(cacheFiles);
+          instance.run();
+          completed = true;
         });
       };
 
