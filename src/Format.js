@@ -17,7 +17,6 @@
  * @module crm/Format
  */
 import lang from 'dojo/_base/lang';
-import dojoNumber from 'dojo/number';
 import string from 'dojo/string';
 import format from 'argos/Format';
 import getResource from 'argos/I18n';
@@ -125,20 +124,20 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends m
       // Billion
       numParse = numParse / 1000000000;
       results = string.substitute(resource.billionText, {
-        val: dojoNumber.format(numParse, { places: 1 }),
+        val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 }),
       });
     } else if (absVal >= 1000000) {
       numParse = numParse / 1000000;
       results = string.substitute(resource.millionText, {
-        val: dojoNumber.format(numParse, { places: 1 }),
+        val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 }),
       });
     } else if (absVal >= 1000) {
       numParse = numParse / 1000;
       results = string.substitute(resource.thousandText, {
-        val: dojoNumber.format(numParse, { places: 1 }),
+        val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 }),
       });
     } else {
-      results = dojoNumber.round(numParse, 2).toString();
+      results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 2 }).toString();
     }
 
     return results;

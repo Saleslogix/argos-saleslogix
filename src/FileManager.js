@@ -18,7 +18,6 @@
 */
 import lang from 'dojo/_base/lang';
 import declare from 'dojo/_base/declare';
-import dNumber from 'dojo/number';
 import getResource from 'argos/I18n';
 
 const resource = getResource('fileManager');
@@ -234,7 +233,7 @@ const __class = declare('crm.FileManager', null, /** @lends module:crm/FileManag
     if (size < 1024) {
       return '1 KB';
     }
-    return `${dNumber.format(Math.round(size / 1024))} KB`;
+    return `${Soho.Locale.formatNumber(Math.round(size / 1024))} KB`;
   },
   /**
    * Loads a remote file.

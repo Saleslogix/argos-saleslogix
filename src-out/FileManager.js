@@ -1,4 +1,4 @@
-define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/declare', 'dojo/number', 'argos/I18n'], function (module, exports, _lang, _declare, _number, _I18n) {
+define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/declare', 'argos/I18n'], function (module, exports, _lang, _declare, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -6,8 +6,6 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
   var _lang2 = _interopRequireDefault(_lang);
 
   var _declare2 = _interopRequireDefault(_declare);
-
-  var _number2 = _interopRequireDefault(_number);
 
   var _I18n2 = _interopRequireDefault(_I18n);
 
@@ -17,25 +15,25 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
+  var resource = (0, _I18n2.default)('fileManager'); /* Copyright 2017 Infor
+                                                      *
+                                                      * Licensed under the Apache License, Version 2.0 (the "License");
+                                                      * you may not use this file except in compliance with the License.
+                                                      * You may obtain a copy of the License at
+                                                      *
+                                                      *    http://www.apache.org/licenses/LICENSE-2.0
+                                                      *
+                                                      * Unless required by applicable law or agreed to in writing, software
+                                                      * distributed under the License is distributed on an "AS IS" BASIS,
+                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                      * See the License for the specific language governing permissions and
+                                                      * limitations under the License.
+                                                      */
 
   /**
   * @module crm/FileManager
   */
-  var resource = (0, _I18n2.default)('fileManager');
+
 
   var __class = (0, _declare2.default)('crm.FileManager', null, /** @lends module:crm/FileManager.prototype */{
     unableToUploadText: resource.unableToUploadText,
@@ -246,7 +244,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       if (size < 1024) {
         return '1 KB';
       }
-      return _number2.default.format(Math.round(size / 1024)) + ' KB';
+      return Soho.Locale.formatNumber(Math.round(size / 1024)) + ' KB';
     },
     /**
      * Loads a remote file.
