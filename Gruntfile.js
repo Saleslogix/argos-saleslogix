@@ -44,9 +44,6 @@ module.exports = function(grunt) {
         bundleName: "Mobile 4.2 ZH-CN",
         includes: [
           {
-            src: './index-nocache.aspx',
-            dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix/index-nocache.aspx'
-          }, {
             src: './index.aspx',
             dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix/index.aspx'
         }],
@@ -55,9 +52,6 @@ module.exports = function(grunt) {
         bundleName: "Mobile 4.2 ZH-TW",
         includes: [
           {
-            src: './index-nocache.aspx',
-            dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix/index-nocache.aspx'
-          }, {
             src: './index.aspx',
             dest: './deploy/bundle/model/Portal/SlxMobile/SourceFiles/products/argos-saleslogix/index.aspx'
         }],

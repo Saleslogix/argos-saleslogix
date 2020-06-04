@@ -15,7 +15,8 @@
         parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
         defaultRegionLocale = regionLocale || 'en',
         currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
-        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
+        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        cacheFiles = <%= FilesToCache %>;
     (function () {
 
         // Shim, sohoxi will use define.amd and require it.
@@ -24,6 +25,9 @@
         });
         require(['crm/polyfills/index', 'crm/Bootstrap'], function (polyfills, bootstrap) {
             bootstrap({
+                serviceWorkerPath: './serviceworker.js',
+                serviceWorkerRegistrationOptions: null,
+                cacheFiles: cacheFiles,
                 supportedLocales: supportedLocales,
                 defaultLocale: 'en',
                 currentLocale: currentLocale,

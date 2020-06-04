@@ -33,7 +33,9 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
    */
 
   function bootstrap(_ref) {
-    var supportedLocales = _ref.supportedLocales,
+    var serviceWorkerPath = _ref.serviceWorkerPath,
+        serviceWorkerRegistrationOptions = _ref.serviceWorkerRegistrationOptions,
+        supportedLocales = _ref.supportedLocales,
         defaultLocale = _ref.defaultLocale,
         currentLocale = _ref.currentLocale,
         parentLocale = _ref.parentLocale,
@@ -47,6 +49,8 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
         localeFiles = _ref.localeFiles,
         regionalFiles = _ref.regionalFiles,
         isRegionMetric = _ref.isRegionMetric,
+        _ref$cacheFiles = _ref.cacheFiles,
+        cacheFiles = _ref$cacheFiles === undefined ? [] : _ref$cacheFiles,
         rootElement = _ref.rootElement;
 
     function mapFiles(files, ctx, defaultCtx) {
@@ -176,6 +180,8 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
               }
             }
             var instance = new Application(appConfig);
+            instance.serviceWorkerPath = serviceWorkerPath;
+            instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
             instance.context.localization = {
               localeContext: ctx,
               defaultLocaleContext: defaultCtx,
@@ -188,6 +194,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
             instance.mingleAuthResults = mingleAuthResults;
             instance.activate();
             instance.init(rootElement);
+            instance.registerCacheUrls(cacheFiles);
             instance.run();
             completed = true;
           });

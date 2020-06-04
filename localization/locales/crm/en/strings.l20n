@@ -1338,6 +1338,8 @@
   pleaseWaitText: "Please wait."
   offlineText: "Your internet connection is no longer working."
   onlineText: "Your connection is working."
+  fileCacheText: "Application is now ready for offline use"
+  fileCacheTitle: "Offline Caching"
   connectionToastTitleText: "Connection Status"
   offlineOptionsText: "Offline Options"
   offlineInitDataText: "Initializing Offline Data"

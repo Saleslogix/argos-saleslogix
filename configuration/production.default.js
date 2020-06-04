@@ -35,12 +35,6 @@ define('configuration/production.default', [
         json: true,
       },
     },
-    /**
-     * @property {Boolean} enableUpdateNotification
-     * Turn on to notify users the mobile application has been updated. Uses HTML5 applilcation manifest update events to trigger.
-     * The cache manifest the client gets from the server is kept in memory cache and is lost when the application pool resets, so users could potentially see that there is an update even though there is not.
-     */
-    enableUpdateNotification: true,
 
     /**
      * @property {Boolean} enableMultiCurrency
@@ -78,6 +72,13 @@ define('configuration/production.default', [
      * Enables offline support for briefcasing data offline, that can be viewed when the connection is lost.
      */
     enableOfflineSupport: false,
+
+    /**
+     * @property {Boolean} enableServiceWorker
+     * Enables use of a web service worker to cache offline files. This is a replacement for the old cache manifest.
+     * If offline support is true, this setting will be ignored and a service worker will be used.
+     */
+    enableServiceWorker: true,
 
     /**
      * @property {Boolean} enableMingle

@@ -158,7 +158,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         connections: null,
         defaultLocale: 'en',
-        enableUpdateNotification: false,
         enableMultiCurrency: false,
         multiCurrency: false, // Backwards compatibility
         enableGroups: true,
@@ -166,6 +165,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         maxUploadFileSize: 40000000,
         enableConcurrencyCheck: false,
         enableOfflineSupport: false,
+        enableServiceWorker: false,
         enableRememberMe: true,
         warehouseDiscovery: 'auto',
         enableMingle: false,
@@ -209,6 +209,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       _this.offlineText = resource.offlineText;
       _this.onlineText = resource.onlineText;
       _this.mingleAuthErrorText = resource.mingleAuthErrorText;
+      _this.fileCacheText = resource.fileCacheText;
+      _this.fileCacheTitle = resource.fileCacheTitle;
       _this.homeViewId = 'myactivity_list';
       _this.offlineHomeViewId = 'recently_viewed_list_offline';
       _this.loginViewId = 'login';
@@ -263,6 +265,57 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         };
       }
     }, {
+      key: 'initServiceWorker',
+      value: function initServiceWorker() {
+        if (this.isServiceWorkerEnabled()) {
+          _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initServiceWorker', this).call(this);
+        }
+      }
+    }, {
+      key: 'isServiceWorkerEnabled',
+      value: function isServiceWorkerEnabled() {
+        return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+      }
+    }, {
+      key: 'registerCacheUrl',
+      value: function registerCacheUrl(url) {
+        if (this.isServiceWorkerEnabled()) {
+          return this.sendServiceWorkerMessage({ command: 'add', url: url });
+        }
+
+        return Promise.resolve(true);
+      }
+    }, {
+      key: 'registerCacheUrls',
+      value: function registerCacheUrls(urls) {
+        var _this2 = this;
+
+        if (this.isServiceWorkerEnabled()) {
+          return this.sendServiceWorkerMessage({ command: 'addall', urls: urls }).then(function (data) {
+            if (data.results === 'added' || data.results === 'skipped') {
+              _this2.toast.add({ message: _this2.fileCacheText, title: _this2.fileCacheTitle, toastTime: 20000 });
+            }
+
+            return data;
+          });
+        }
+
+        return Promise.resolve(true);
+      }
+    }, {
+      key: 'clearServiceWorkerCaches',
+      value: function clearServiceWorkerCaches() {
+        if (this.isServiceWorkerEnabled()) {
+          return caches.keys().then(function (keys) {
+            return Promise.all(keys.map(function (key) {
+              return caches.delete(key);
+            }));
+          });
+        }
+
+        return Promise.resolve(true);
+      }
+    }, {
       key: 'initPreferences',
       value: function initPreferences() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initPreferences', this).call(this);
@@ -291,16 +344,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       key: 'initConnects',
       value: function initConnects() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initConnects', this).apply(this, arguments);
-
-        if (window.applicationCache) {
-          $(window.applicationCache).on('updateready', this._checkForUpdate.bind(this));
-        }
       }
     }, {
       key: 'destroy',
       value: function destroy() {
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'destroy', this).call(this);
-        $(window.applicationCache).off('updateready', this._checkForUpdate.bind(this));
       }
     }, {
       key: 'isOnFirstView',
@@ -341,18 +389,9 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: '_checkForUpdate',
-      value: function _checkForUpdate() {
-        var applicationCache = window.applicationCache;
-        if (applicationCache && this.enableUpdateNotification) {
-          if (applicationCache.status === applicationCache.UPDATEREADY) {
-            this._notifyUpdateAvailable();
-          }
-        }
-      }
-    }, {
       key: '_notifyUpdateAvailable',
       value: function _notifyUpdateAvailable() {
+        // TODO: Part of cache manifest, remove or rework for service worker?
         if (this.bars.updatebar) {
           this.bars.updatebar.show();
         }
@@ -481,15 +520,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           // todo: always navigate to home when offline? data may not be available for restored state.
           this.navigateToHomeView();
         }
-
-        if (this.enableUpdateNotification) {
-          this._checkForUpdate();
-        }
       }
     }, {
       key: 'onAuthenticateUserSuccess',
       value: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
-        var _this2 = this;
+        var _this3 = this;
 
         var user = {
           $key: result.response.userId.trim(),
@@ -504,7 +539,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         if (this.context.securedActions) {
           this.context.userSecurity = {};
           this.context.securedActions.forEach(function (item) {
-            _this2.context.userSecurity[item] = true;
+            _this3.context.userSecurity[item] = true;
           });
         } else {
           // downgrade server version as only 8.0 has `securedActions` as part of the
@@ -716,16 +751,16 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onHandleAuthenticationSuccess',
       value: function onHandleAuthenticationSuccess() {
-        var _this3 = this;
+        var _this4 = this;
 
         this.isAuthenticated = true;
         this.setPrimaryTitle(this.loadingText);
         this.showHeader();
         this.initAppState().then(function () {
-          _this3.onInitAppStateSuccess();
+          _this4.onInitAppStateSuccess();
         }, function (err) {
-          _this3.hideHeader();
-          _this3.onInitAppStateFailed(err);
+          _this4.hideHeader();
+          _this4.onInitAppStateFailed(err);
         });
       }
     }, {
@@ -760,21 +795,21 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onInitAppStateSuccess',
       value: function onInitAppStateSuccess() {
-        var _this4 = this;
+        var _this5 = this;
 
         this.setDefaultMetricPreferences();
         this.showApplicationMenuOnLarge();
         if (this.enableOfflineSupport) {
           this.initOfflineData().then(function () {
-            _this4.hasState = true;
-            _this4.navigateToInitialView();
+            _this5.hasState = true;
+            _this5.navigateToInitialView();
           }, function (error) {
-            _this4.hasState = true;
-            _this4.enableOfflineSupport = false;
+            _this5.hasState = true;
+            _this5.enableOfflineSupport = false;
             var message = resource.offlineInitErrorText;
             _ErrorManager2.default.addSimpleError(message, error);
             _ErrorManager2.default.showErrorDialog(null, message, function () {
-              _this4.navigateToInitialView();
+              _this5.navigateToInitialView();
             });
           });
         } else {
@@ -785,15 +820,15 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onInitAppStateFailed',
       value: function onInitAppStateFailed(error) {
-        var _this5 = this;
+        var _this6 = this;
 
         var message = resource.appStateInitErrorText;
         this.hideApplicationMenu();
         _ErrorManager2.default.addSimpleError(message, error);
         _ErrorManager2.default.showErrorDialog(null, message, function () {
-          _this5._clearNavigationState();
-          _this5.removeCredentials();
-          _this5.navigateToLoginView();
+          _this6._clearNavigationState();
+          _this6.removeCredentials();
+          _this6.navigateToLoginView();
         });
       }
     }, {
@@ -911,7 +946,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'requestUserDetails',
       value: function requestUserDetails() {
-        var _this6 = this;
+        var _this7 = this;
 
         var key = this.context.user.$key;
         var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector('"' + key + '"').setQueryArg('select', this.userDetailsQuerySelect.join(','));
@@ -927,14 +962,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             failure: function failure(e) {
               reject(e);
             },
-            scope: _this6
+            scope: _this7
           });
         });
       }
     }, {
       key: 'requestUserOptions',
       value: function requestUserOptions() {
-        var _this7 = this;
+        var _this8 = this;
 
         var batch = new Sage.SData.Client.SDataBatchRequest(this.getService()).setContractName('system').setResourceKind('useroptions').setQueryArg('select', 'name,value,defaultValue').using(function using() {
           var service = this.getService();
@@ -977,7 +1012,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               reject();
               _ErrorManager2.default.addError(response, o, {}, 'failure');
             },
-            scope: _this7
+            scope: _this8
           });
         });
       }
@@ -1014,14 +1049,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'requestSystemOptions',
       value: function requestSystemOptions() {
-        var _this9 = this;
+        var _this10 = this;
 
         var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('system').setResourceKind('systemoptions').setQueryArg('select', 'name,value');
 
         return new Promise(function (resolve, reject) {
           request.read({
             success: function succes(feed) {
-              var _this8 = this;
+              var _this9 = this;
 
               var systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
@@ -1029,7 +1064,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                 var name = item.name,
                     value = item.value;
 
-                if (value && name && _this8.systemOptionsToRequest.indexOf(name) > -1) {
+                if (value && name && _this9.systemOptionsToRequest.indexOf(name) > -1) {
                   systemOptions[name] = value;
                 }
               }, this);
@@ -1050,14 +1085,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               _ErrorManager2.default.addError(response, o, {}, 'failure');
               reject();
             },
-            scope: _this9
+            scope: _this10
           });
         });
       }
     }, {
       key: 'requestExchangeRates',
       value: function requestExchangeRates() {
-        var _this10 = this;
+        var _this11 = this;
 
         var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('dynamic').setResourceKind('exchangeRates').setQueryArg('select', 'Rate');
 
@@ -1081,7 +1116,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               reject();
               _ErrorManager2.default.addError(response, o, {}, 'failure');
             },
-            scope: _this10
+            scope: _this11
           });
         });
       }
@@ -1116,10 +1151,10 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getExposedViews',
       value: function getExposedViews() {
-        var _this11 = this;
+        var _this12 = this;
 
         return Object.keys(this.views).filter(function (id) {
-          var view = _this11.getViewDetailOnly(id);
+          var view = _this12.getViewDetailOnly(id);
           return view && view.id !== 'home' && view.expose;
         });
       }
@@ -1147,7 +1182,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'requestIntegrationSettings',
       value: function requestIntegrationSettings(integration) {
-        var _this12 = this;
+        var _this13 = this;
 
         if (!this.context.integrationSettings) {
           this.context.integrationSettings = {};
@@ -1176,7 +1211,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               if (key) {
                 integrationSettings['' + key] = value;
               }
-              _this12.context.integrationSettings['' + integration] = integrationSettings;
+              _this13.context.integrationSettings['' + integration] = integrationSettings;
             });
           },
           failure: function failure(response, o) {
@@ -1401,40 +1436,40 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'initOfflineData',
       value: function initOfflineData() {
-        var _this13 = this;
+        var _this14 = this;
 
         return new Promise(function (resolve, reject) {
-          var model = _this13.ModelManager.getModel(_Names2.default.AUTHENTICATION, _Types2.default.OFFLINE);
+          var model = _this14.ModelManager.getModel(_Names2.default.AUTHENTICATION, _Types2.default.OFFLINE);
           if (model) {
             var indicator = new _BusyIndicator2.default({
               id: 'busyIndicator__offlineData',
               label: resource.offlineInitDataText
             });
-            _this13.modal.disableClose = true;
-            _this13.modal.showToolbar = false;
-            _this13.modal.add(indicator);
+            _this14.modal.disableClose = true;
+            _this14.modal.showToolbar = false;
+            _this14.modal.add(indicator);
             indicator.start();
 
-            model.initAuthentication(_this13.context.user.$key).then(function (result) {
+            model.initAuthentication(_this14.context.user.$key).then(function (result) {
               if (result.hasUserChanged || !result.hasAuthenticatedToday) {
                 _Manager2.default.clearAllData().then(function () {
                   model.updateEntry(result.entry);
                   indicator.complete(true);
-                  _this13.modal.disableClose = false;
-                  _this13.modal.hide();
+                  _this14.modal.disableClose = false;
+                  _this14.modal.hide();
                   resolve();
                 }, function (err) {
                   indicator.complete(true);
-                  _this13.modal.disableClose = false;
-                  _this13.modal.hide();
+                  _this14.modal.disableClose = false;
+                  _this14.modal.hide();
                   reject(err);
                 });
               } else {
                 result.entry.ModifyDate = moment().toDate();
                 model.updateEntry(result.entry);
                 indicator.complete(true);
-                _this13.modal.disableClose = false;
-                _this13.modal.hide();
+                _this14.modal.disableClose = false;
+                _this14.modal.hide();
                 resolve(); // Do nothing since this not the first time athuenticating.
               }
             }, function (err) {

@@ -227,6 +227,8 @@
       });
       require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
         bootstrap({
+          serviceWorkerPath: './serviceworker.js',
+          serviceWorkerRegistrationOptions: null,
           supportedLocales: supportedLocales,
           defaultLocale: defaultLocale,
           currentLocale: currentLocale,
@@ -255,6 +257,8 @@
             './localization/locales/crm/en/regional.l20n',
             './localization/locales/icboe/en/regional.l20n',
             '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+          ],
+          cacheFiles: [
           ],
           rootElement: document.getElementById('rootNode')
         });

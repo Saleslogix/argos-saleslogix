@@ -63,8 +63,6 @@ define('spec/Application.spec', [
           .toBe('http://slocalhost:8000/sdata/slx/dynamic/-/');
         expect(instance.connections.crm.json)
           .toBe(true);
-        expect(instance.enableUpdateNotification)
-          .toBe(true);
         expect(instance.multiCurrency)
           .toBe(false);
       });

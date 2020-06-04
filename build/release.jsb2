@@ -1494,6 +1494,11 @@
   ],
   "resources": [
     {
+      "src": "../",
+      "dest": ".",
+      "filters": "serviceworker\\.js"
+    },
+    {
       "src": "../localization/locales",
       "dest": "localization/locales",
       "filters": ".*(\\.l20n)"

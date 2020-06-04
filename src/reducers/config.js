@@ -20,7 +20,6 @@ const initialConfigState = {
   connections: null,
   endpoint: '',
   maxUploadFileSize: 40000000,
-  enableUpdateNotification: false,
   enableMultiCurrency: false,
   enableGroups: true,
   enableHashTags: true,
