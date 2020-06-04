@@ -292,11 +292,24 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
 
         if (this.isServiceWorkerEnabled()) {
           return this.sendServiceWorkerMessage({ command: 'addall', urls: urls }).then(function (data) {
-            if (data.results === 'added') {
+            if (data.results === 'added' || data.results === 'skipped') {
               _this2.toast.add({ message: _this2.fileCacheText, title: _this2.fileCacheTitle, toastTime: 20000 });
             }
 
             return data;
+          });
+        }
+
+        return Promise.resolve(true);
+      }
+    }, {
+      key: 'clearServiceWorkerCaches',
+      value: function clearServiceWorkerCaches() {
+        if (this.isServiceWorkerEnabled()) {
+          return caches.keys().then(function (keys) {
+            return Promise.all(keys.map(function (key) {
+              return caches.delete(key);
+            }));
           });
         }
 

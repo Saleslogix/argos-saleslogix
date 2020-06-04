@@ -122,12 +122,14 @@ const __class = declare('crm.Views.Settings', [List], {
         window.localStorage.clear();
       }
 
-      connect.publish('/app/refresh', [{
-        resourceKind: 'localStorage',
-      }]);
+      App.clearServiceWorkerCaches().then(() => {
+        connect.publish('/app/refresh', [{
+          resourceKind: 'localStorage',
+        }]);
 
-      alert(this.localStorageClearedText); // eslint-disable-line
-      window.location.reload(); // reloaded because of the clock setting
+        alert(this.localStorageClearedText); // eslint-disable-line
+        window.location.reload(); // reloaded because of the clock setting
+      });
     }
   },
   clearAuthentication: function clearAuthentication() {

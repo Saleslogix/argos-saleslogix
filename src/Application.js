@@ -206,11 +206,23 @@ class Application extends SDKApplication {
   registerCacheUrls(urls) {
     if (this.isServiceWorkerEnabled()) {
       return this.sendServiceWorkerMessage({ command: 'addall', urls }).then((data) => {
-        if (data.results === 'added') {
+        if (data.results === 'added' || data.results === 'skipped') {
           this.toast.add({ message: this.fileCacheText, title: this.fileCacheTitle, toastTime: 20000 });
         }
 
         return data;
+      });
+    }
+
+    return Promise.resolve(true);
+  }
+
+  clearServiceWorkerCaches() {
+    if (this.isServiceWorkerEnabled()) {
+      return caches.keys().then((keys) => {
+        return Promise.all(
+          keys.map(key => caches.delete(key))
+        );
       });
     }
 
