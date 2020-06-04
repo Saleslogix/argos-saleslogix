@@ -6,9 +6,6 @@
 <script type="text/javascript">
     var languages = <%= Languages %>;
 
-    // set path for soho cultures
-    Soho.Locale.culturesPath = 'content/javascript/cultures/';
-
     var supportedLocales = <%= SupportedLocales %>,
         defaultLocale = language || 'en',
         currentLocale = language || '<%= CurrentCulture.Name.ToLower() %>',

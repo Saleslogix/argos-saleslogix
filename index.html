@@ -79,6 +79,7 @@
     <!-- Soho Configuration -->
     <script type="application/javascript">
       var SohoConfig = {
+        culturesPath: 'content/javascript/cultures/',
         personalize: {
           noInit: true
         }
@@ -120,10 +121,6 @@
   <body>
     <div id="rootNode"></div>
     <script type="text/javascript">
-
-      // set path for soho cultures
-      Soho.Locale.culturesPath = 'content/javascript/cultures/';
-
       var language, regionLocale;
       if (window.localStorage) {
         language = window.localStorage.getItem('language');

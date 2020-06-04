@@ -84,6 +84,7 @@
   <!-- Soho Configuration -->
   <script type="application/javascript">
     var SohoConfig = {
+      culturesPath: '../../argos-sdk/libraries/soho/js/cultures/',
       personalize: {
         noInit: true
       }
@@ -193,10 +194,6 @@
 <body>
   <div id="rootNode"></div>
   <script type="text/javascript">
-
-    // set path for soho cultures
-    Soho.Locale.culturesPath = '../../argos-sdk/libraries/soho/js/cultures/';
-
     var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Português (Brasil)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
 
     var supportedLocales = [
