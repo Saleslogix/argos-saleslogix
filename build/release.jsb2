@@ -1366,10 +1366,6 @@
           "path": "../../../argos-sdk/libraries/dojo/dojo/"
         },
         {
-          "text": "number.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo/"
-        },
-        {
           "text": "touch.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo/"
         },
