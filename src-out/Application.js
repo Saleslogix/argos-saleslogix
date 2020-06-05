@@ -623,8 +623,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'reload',
       value: function reload() {
-        // this.ReUI.disableLocationCheck();
-        this.hash('');
+        window.location.hash = '';
         window.location.reload();
       }
     }, {

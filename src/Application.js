@@ -513,8 +513,7 @@ class Application extends SDKApplication {
     return !!userSecurity[security];
   }
   reload() {
-    // this.ReUI.disableLocationCheck();
-    this.hash('');
+    window.location.hash = '';
     window.location.reload();
   }
   resetModuleAppStatePromises() {
