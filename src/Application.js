@@ -860,7 +860,7 @@ class Application extends SDKApplication {
     const custom = this.buildCustomizedMoment();
     const currentLang = moment.locale();
 
-    moment.locale(currentLang, custom);
+    moment.updateLocale(currentLang, custom);
     this.moment = moment().locale(currentLang, custom);
   }
   /*

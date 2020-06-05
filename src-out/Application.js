@@ -1021,7 +1021,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         var custom = this.buildCustomizedMoment();
         var currentLang = moment.locale();
 
-        moment.locale(currentLang, custom);
+        moment.updateLocale(currentLang, custom);
         this.moment = moment().locale(currentLang, custom);
       }
     }, {
