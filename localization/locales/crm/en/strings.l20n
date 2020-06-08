@@ -1249,6 +1249,7 @@
   offlineText: "Offline"
   connectionText: "Connection: ${connectionStatus}"
   aboutText: "About"
+  currentUserText: "Current User :"
 >
 
 <login ""

@@ -59,6 +59,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
     offlineText: resource.offlineText,
     connectionText: resource.connectionText,
     aboutText: resource.aboutText,
+    currentUserText: resource.currentUserText,
 
     // View Properties
     id: 'left_drawer',
@@ -239,7 +240,8 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
     showAbout: function showAbout() {
       $('body').about({
         appName: 'Infor CRM',
-        version: App.getVersionInfo()
+        version: App.getVersionInfo(),
+        content: '<p>' + this.currentUserText + ' ' + App.context.user.$descriptor + '</p>'
       });
     },
     createStore: function createStore() {

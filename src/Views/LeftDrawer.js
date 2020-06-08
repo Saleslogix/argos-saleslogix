@@ -48,6 +48,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   offlineText: resource.offlineText,
   connectionText: resource.connectionText,
   aboutText: resource.aboutText,
+  currentUserText: resource.currentUserText,
 
   // View Properties
   id: 'left_drawer',
@@ -236,6 +237,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     $('body').about({
       appName: 'Infor CRM',
       version: App.getVersionInfo(),
+      content: `<p>${this.currentUserText} ${App.context.user.$descriptor}</p>`,
     });
   },
   createStore: function createStore() {
