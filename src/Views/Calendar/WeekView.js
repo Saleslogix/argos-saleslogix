@@ -142,7 +142,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   eventMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
     '<button class="button" data-action="activateEventMore">',
-    '<span data-dojo-attach-point="eventRemainingContentNode">{%= $$.eventMoreText %}</span>',
+    '<span data-dojo-attach-point="eventRemainingContentNode"></span>',
     '</button>',
     '</div>',
   ]),

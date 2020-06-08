@@ -94,7 +94,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     eventItemTemplate: new Simplate(['<p class="listview-heading p-description">{%: $.Description %} ({%: $.Type %})</p>', '<p class="micro-text">{%! $$.eventNameTemplate %}</p>']),
     nameTemplate: new Simplate(['{% if ($.ContactName) { %}', '{%: $.ContactName %} / {%: $.AccountName %}', '{% } else if ($.AccountName) { %}', '{%: $.AccountName %}', '{% } else { %}', '{%: $.LeadName %}', '{% } %}']),
     eventNameTemplate: new Simplate(['{%: moment($.StartDate).format($$.eventDateFormatText) %}', '&nbsp;-&nbsp;', '{%: moment($.EndDate).format($$.eventDateFormatText) %}']),
-    eventMoreTemplate: new Simplate(['<div class="list-more" data-dojo-attach-point="eventMoreNode">', '<button class="button" data-action="activateEventMore">', '<span data-dojo-attach-point="eventRemainingContentNode">{%= $$.eventMoreText %}</span>', '</button>', '</div>']),
+    eventMoreTemplate: new Simplate(['<div class="list-more" data-dojo-attach-point="eventMoreNode">', '<button class="button" data-action="activateEventMore">', '<span data-dojo-attach-point="eventRemainingContentNode"></span>', '</button>', '</div>']),
     noDataTemplate: new Simplate(['<div class="no-data"><p>{%= $.noDataText %}</p></div>']),
     eventRemainingContentNode: null,
     eventContentNode: null,
