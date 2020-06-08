@@ -1,6 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="index-body.ascx.cs" Inherits="Index_html" %>
 <%@ Import Namespace="System.Globalization" %>
 
+<noscript>
+    <p>JavaScript is required for this application.</p>
+</noscript>
+
 <div id="rootNode"></div>
 
 <script type="text/javascript">
