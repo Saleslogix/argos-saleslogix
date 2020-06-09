@@ -1,4 +1,4 @@
-define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'dojo/dom-geometry', 'dojo/dom-attr', 'dojo/has', 'argos/_PullToRefreshMixin', 'argos/Utility', 'argos/I18n'], function (module, exports, _declare, _lang, _connect, _domGeometry, _domAttr, _has, _PullToRefreshMixin2, _Utility, _I18n) {
+define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/dom-geometry', 'dojo/dom-attr', 'dojo/has', 'argos/_PullToRefreshMixin', 'argos/Utility', 'argos/I18n'], function (module, exports, _declare, _lang, _domGeometry, _domAttr, _has, _PullToRefreshMixin2, _Utility, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -6,8 +6,6 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
   var _declare2 = _interopRequireDefault(_declare);
 
   var _lang2 = _interopRequireDefault(_lang);
-
-  var _connect2 = _interopRequireDefault(_connect);
 
   var _domGeometry2 = _interopRequireDefault(_domGeometry);
 
@@ -27,25 +25,25 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     };
   }
 
-  var resource = (0, _I18n2.default)('chartMixin'); /* Copyright 2017 Infor
-                                                     *
-                                                     * Licensed under the Apache License, Version 2.0 (the "License");
-                                                     * you may not use this file except in compliance with the License.
-                                                     * You may obtain a copy of the License at
-                                                     *
-                                                     *    http://www.apache.org/licenses/LICENSE-2.0
-                                                     *
-                                                     * Unless required by applicable law or agreed to in writing, software
-                                                     * distributed under the License is distributed on an "AS IS" BASIS,
-                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                     * See the License for the specific language governing permissions and
-                                                     * limitations under the License.
-                                                     */
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
 
   /**
    * @module crm/Views/Charts/_ChartMixin
    */
-
+  var resource = (0, _I18n2.default)('chartMixin');
 
   _lang2.default.setObject('Chart.defaults.global', {
     // Boolean - Whether to animate the chart
@@ -188,9 +186,6 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
    *
    */
   var __class = (0, _declare2.default)('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin3.default], /** @lends module:crm/Views/Charts/_ChartMixin.prototype */{
-    _orientationHandle: null,
-    _menuOpenHandle: null,
-    _menuCloseHandle: null,
     _feedData: null,
 
     /**
@@ -243,21 +238,21 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
         }
       }, this.RENDER_DELAY);
 
-      this._orientationHandle = _connect2.default.subscribe('/app/setOrientation', this, _renderFn);
-      this._menuOpenHandle = _connect2.default.subscribe('/app/menuopen', this, _renderFn);
-      this._menuCloseHandle = _connect2.default.subscribe('/app/menuclose', this, _renderFn);
-      $(window).on('resize', _renderFn);
+      $(window).on('applicationmenuopen.chart', _renderFn);
+      $(window).on('applicationmenuclose.chart', _renderFn);
+      $(window).on('resize.chart', _renderFn);
     },
     onTransitionAway: function onTransitionAway() {
-      _connect2.default.unsubscribe(this._orientationHandle);
-      _connect2.default.unsubscribe(this._menuOpenHandle);
-      _connect2.default.unsubscribe(this._menuCloseHandle);
       this._feedData = null;
       this.parent = null;
 
       if (this.chart && this.chart.destroy) {
         this.chart.destroy();
       }
+
+      $(window).off('resize.chart');
+      $(window).off('applicationmenuclose.chart');
+      $(window).off('applicationmenuopen.chart');
     },
     _setCanvasWidth: function _setCanvasWidth() {
       var box = _domGeometry2.default.getMarginBox(this.domNode);

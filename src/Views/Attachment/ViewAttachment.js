@@ -15,7 +15,6 @@
 
 import declare from 'dojo/_base/declare';
 import domGeo from 'dojo/dom-geometry';
-import connect from 'dojo/_base/connect';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import has from 'dojo/has';
@@ -60,7 +59,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   pdfCurrentPage: 0,
   pdfIsLoading: false,
   pdfScale: 1,
-  RENDER_DELAY: has('ios') < 8 ? 500 : 16 || 500, // Work around IOS7 orientation change issues
+  RENDER_DELAY: has('ios') < 8 ? 500 : 32 || 500, // Work around IOS7 orientation change issues
   notSupportedTemplate: new Simplate([
     '<h2>{%= $$.notSupportedText %}</h2>',
   ]),
@@ -148,21 +147,17 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '{% } %}',
     '</div>',
   ]),
-
   downloadingTemplate: new Simplate([
     '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
   ]),
-  onTransitionTo: function onTransitionTo() {
-    if (this._orientationHandle) {
-      return;
+  renderPdf: function getRenderFunction() {
+    if (this.pdfDoc && !this.pdfIsLoading) {
+      this.pdfScale = 1;
+      this.renderPdfPage(this.pdfCurrentPage);
     }
-    const _renderFn = Utility.debounce(() => {
-      if (this.pdfDoc && !this.pdfIsLoading) {
-        this.pdfScale = 1;
-        this.renderPdfPage(this.pdfCurrentPage);
-      }
-    }, this.RENDER_DELAY);
-    this._orientationHandle = connect.subscribe('/app/setOrientation', this, _renderFn);
+  },
+  onTransitionTo: function onTransitionTo() {
+    const _renderFn = Utility.debounce(() => this.renderPdf(), this.RENDER_DELAY);
     $(window).on('resize.attachment', _renderFn);
     $(window).on('applicationmenuclose.attachment', _renderFn);
     $(window).on('applicationmenuopen.attachment', _renderFn);
@@ -171,8 +166,6 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     $(window).off('resize.attachment');
     $(window).off('applicationmenuclose.attachment');
     $(window).off('applicationmenuopen.attachment');
-    connect.unsubscribe(this._orientationHandle);
-    this._orientationHandle = null;
   },
   show: function show(options) {
     this.inherited(show, arguments);
