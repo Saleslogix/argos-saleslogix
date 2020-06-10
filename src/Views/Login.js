@@ -16,7 +16,6 @@
 import declare from 'dojo/_base/declare';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
-import { setEndPoint } from '../actions/config';
 
 const resource = getResource('login');
 
@@ -48,7 +47,6 @@ const __class = declare('crm.Views.Login', [Edit], {
   copyrightText: resource.copyrightText,
   logOnText: resource.logOnText,
   passText: resource.passText,
-  urlText: resource.urlText,
   rememberText: resource.rememberText,
   titleText: resource.titleText,
   userText: resource.userText,
@@ -81,13 +79,9 @@ const __class = declare('crm.Views.Login', [Edit], {
   },
   show: function show() {
     this.inherited(show, arguments);
+
     if (!this.connectionState) {
       this._disable();
-    }
-
-    const state = this.appStore.getState();
-    if (state && state.app && state.app.config.endpoint) {
-      this.fields['url-display'].setValue(state.app.config.endpoint);
     }
 
     if (App.enableRememberMe !== true) {
@@ -98,14 +92,12 @@ const __class = declare('crm.Views.Login', [Edit], {
   _disable: function _disable() {
     this.fields['username-display'].disable();
     this.fields['password-display'].disable();
-    this.fields['url-display'].disable();
     this.fields.remember.disable();
     this.loginButton.disabled = true;
   },
   _enable: function _enable() {
     this.fields['username-display'].enable();
     this.fields['password-display'].enable();
-    this.fields['url-display'].enable();
     this.fields.remember.enable();
     this.loginButton.disabled = false;
   },
@@ -151,11 +143,6 @@ const __class = declare('crm.Views.Login', [Edit], {
       inputType: 'password',
       required: true,
     }, {
-      name: 'url-display',
-      label: this.urlText,
-      type: 'text',
-      required: true,
-    }, {
       name: 'remember',
       label: this.rememberText,
       type: 'boolean',
@@ -166,16 +153,15 @@ const __class = declare('crm.Views.Login', [Edit], {
       return;
     }
 
-    const values = this.getValues();
+    const values = this.getValues(true);
 
     const credentials = {
       username: values['username-display'],
       password: values['password-display'],
-      endpoint: values['url-display'],
       remember: values.remember,
     };
 
-    if (credentials.username && credentials.endpoint) {
+    if (credentials.username) {
       this.validateCredentials(credentials);
     }
   },
@@ -207,8 +193,6 @@ const __class = declare('crm.Views.Login', [Edit], {
   validateCredentials: function validateCredentials(credentials) {
     this.disable();
 
-    const endpoint = credentials.endpoint;
-    this.appStore.dispatch(setEndPoint(endpoint));
     App.authenticateUser(credentials, {
       success: function success() {
         // Need to remove Login view from pagejs stack

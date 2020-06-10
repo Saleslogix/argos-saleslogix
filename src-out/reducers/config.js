@@ -15,6 +15,7 @@ define('crm/reducers/config', ['exports', '../actions/config'], function (export
     enableHashTags: true,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    enableServiceWorker: false,
     warehouseDiscovery: 'auto',
     enableMingle: false,
     mingleSettings: null,

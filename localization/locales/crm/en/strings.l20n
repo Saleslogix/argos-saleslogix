@@ -1255,7 +1255,6 @@
 <login ""
   logOnText: "Sign in"
   passText: "Password"
-  urlText: "SData Endpoint"
   rememberText: "Remember me"
   titleText: "Sign in"
   userText: "User ID"

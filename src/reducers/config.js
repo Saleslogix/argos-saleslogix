@@ -25,6 +25,7 @@ const initialConfigState = {
   enableHashTags: true,
   enableConcurrencyCheck: false,
   enableOfflineSupport: false,
+  enableServiceWorker: false,
   warehouseDiscovery: 'auto',
   enableMingle: false,
   mingleSettings: null,

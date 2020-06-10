@@ -28,7 +28,7 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
 import { app } from './reducers/index';
-import { setConfig, setEndPoint } from './actions/config';
+import { setConfig } from './actions/config';
 import { setUser } from './actions/user';
 import PicklistService from './PicklistService';
 
@@ -407,7 +407,6 @@ class Application extends SDKApplication {
     super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      this.loadEndpoint();
       if (this.isMingleEnabled()) {
         this.handleMingleAuthentication();
       } else {
@@ -450,7 +449,6 @@ class Application extends SDKApplication {
           window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
             username: credentials.username,
             password: credentials.password || '',
-            endpoint: credentials.endpoint,
           })));
         }
       } catch (e) {} //eslint-disable-line
@@ -558,36 +556,6 @@ class Application extends SDKApplication {
 
     return credentials;
   }
-  loadEndpoint() {
-    try {
-      if (window.localStorage) {
-        let results = window.localStorage.getItem('endpoint');
-        if (!results) {
-          const service = this.getService();
-          if (!this.isMingleEnabled()) {
-            service.uri.setHost(window.location.hostname)
-              .setScheme(window.location.protocol.replace(':', ''))
-              .setPort(window.location.port);
-          }
-
-          results = service.uri.build();
-        }
-
-        this.store.dispatch(setEndPoint(results));
-      }
-    } catch (e) {} // eslint-disable-line
-  }
-  saveEndpoint(url = '') {
-    if (!url) {
-      return;
-    }
-
-    try {
-      if (window.localStorage) {
-        window.localStorage.setItem('endpoint', url);
-      }
-    } catch (e) {} // eslint-disable-line
-  }
   removeCredentials() {
     try {
       if (window.localStorage) {
@@ -689,30 +657,6 @@ class Application extends SDKApplication {
     if (!state || state === this.previousState) {
       return;
     }
-
-    const currentEndpoint = state.app.config.endpoint;
-    const previousEndpoint = this.previousState.app.config.endpoint;
-    if (currentEndpoint !== previousEndpoint) {
-      this.updateServiceUrl(state);
-      this.saveEndpoint(currentEndpoint);
-    }
-  }
-  updateServiceUrl(state) {
-    if (this.isMingleEnabled()) { // See TODO below, as to why we are bailing here
-      return;
-    }
-
-    const service = this.getService();
-    service.setUri(Object.assign({}, state.app.config.connections, {
-      url: state.app.config.endpoint, // TODO: Setting the URL here will break mingle instances that use custom virtual directories
-    }));
-
-    // Fixes cases where the user sets and invalid contract name in the url.
-    // We have a lot of requests throughout the application that do not specify
-    // a contractName and depend on the default contractName of "dynamic"
-    // in the service.
-    service.setContractName('dynamic');
-    service.setApplicationName('slx');
   }
   _clearNavigationState() {
     try {

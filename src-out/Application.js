@@ -510,7 +510,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'run', this).apply(this, arguments);
 
         if (this.isOnline() || !this.enableCaching) {
-          this.loadEndpoint();
           if (this.isMingleEnabled()) {
             this.handleMingleAuthentication();
           } else {
@@ -556,8 +555,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             if (window.localStorage) {
               window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
                 username: credentials.username,
-                password: credentials.password || '',
-                endpoint: credentials.endpoint
+                password: credentials.password || ''
               })));
             }
           } catch (e) {} //eslint-disable-line
@@ -671,40 +669,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         } catch (e) {} //eslint-disable-line
 
         return credentials;
-      }
-    }, {
-      key: 'loadEndpoint',
-      value: function loadEndpoint() {
-        try {
-          if (window.localStorage) {
-            var results = window.localStorage.getItem('endpoint');
-            if (!results) {
-              var service = this.getService();
-              if (!this.isMingleEnabled()) {
-                service.uri.setHost(window.location.hostname).setScheme(window.location.protocol.replace(':', '')).setPort(window.location.port);
-              }
-
-              results = service.uri.build();
-            }
-
-            this.store.dispatch((0, _config.setEndPoint)(results));
-          }
-        } catch (e) {} // eslint-disable-line
-      }
-    }, {
-      key: 'saveEndpoint',
-      value: function saveEndpoint() {
-        var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-        if (!url) {
-          return;
-        }
-
-        try {
-          if (window.localStorage) {
-            window.localStorage.setItem('endpoint', url);
-          }
-        } catch (e) {} // eslint-disable-line
       }
     }, {
       key: 'removeCredentials',
@@ -837,33 +801,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         if (!state || state === this.previousState) {
           return;
         }
-
-        var currentEndpoint = state.app.config.endpoint;
-        var previousEndpoint = this.previousState.app.config.endpoint;
-        if (currentEndpoint !== previousEndpoint) {
-          this.updateServiceUrl(state);
-          this.saveEndpoint(currentEndpoint);
-        }
-      }
-    }, {
-      key: 'updateServiceUrl',
-      value: function updateServiceUrl(state) {
-        if (this.isMingleEnabled()) {
-          // See TODO below, as to why we are bailing here
-          return;
-        }
-
-        var service = this.getService();
-        service.setUri(Object.assign({}, state.app.config.connections, {
-          url: state.app.config.endpoint // TODO: Setting the URL here will break mingle instances that use custom virtual directories
-        }));
-
-        // Fixes cases where the user sets and invalid contract name in the url.
-        // We have a lot of requests throughout the application that do not specify
-        // a contractName and depend on the default contractName of "dynamic"
-        // in the service.
-        service.setContractName('dynamic');
-        service.setApplicationName('slx');
       }
     }, {
       key: '_clearNavigationState',
