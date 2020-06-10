@@ -277,22 +277,6 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     getItemDescriptor: function getItemDescriptor(entry) {
       return entry.type;
     },
-    createIndicatorLayout: function createIndicatorLayout() {
-      return this.itemIndicators || (this.itemIndicators = [{
-        id: 'speadSearchIcon',
-        icon: '',
-        location: 'top',
-        onApply: function onApply(entry, parent) {
-          parent.applyActivityIndicator(entry, this);
-        }
-      }]);
-    },
-    applyActivityIndicator: function applyActivityIndicator(entry, indicator) {
-      indicator.isEnabled = true;
-      indicator.showIcon = false;
-      indicator.label = this.indexesText[entry.type];
-      indicator.valueText = this.indexesText[entry.type];
-    },
     _intSearchExpressionNode: function _intSearchExpressionNode() {
       var listNode = $('#' + this.id);
       if (listNode[0]) {
