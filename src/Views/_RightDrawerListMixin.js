@@ -325,7 +325,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
         let layoutSelected = false;
         this.groupTemplateLayouts.forEach((theLayout) => {
           if (!layoutSelected) {
-            layoutSelected = theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`];
+            layoutSelected = theLayout.name === GroupUtility.getSelectedGroupLayoutTemplate(this.entityName);
           }
           layoutSection.children.push({
             name: theLayout.name,
@@ -334,7 +334,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
             dataProps: {
               name: theLayout.name,
               title: theLayout.displayName,
-              enabled: theLayout.name === App.preferences[`groups-selected-template-name${this.entityName}`],
+              enabled: theLayout.name === GroupUtility.getSelectedGroupLayoutTemplate(this.entityName),
             },
           });
         });
