@@ -346,7 +346,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
           var layoutSelected = false;
           this.groupTemplateLayouts.forEach(function (theLayout) {
             if (!layoutSelected) {
-              layoutSelected = theLayout.name === App.preferences['groups-selected-template-name' + _this2.entityName];
+              layoutSelected = theLayout.name === _GroupUtility2.default.getSelectedGroupLayoutTemplate(_this2.entityName);
             }
             layoutSection.children.push({
               name: theLayout.name,
@@ -355,7 +355,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
               dataProps: {
                 name: theLayout.name,
                 title: theLayout.displayName,
-                enabled: theLayout.name === App.preferences['groups-selected-template-name' + _this2.entityName]
+                enabled: theLayout.name === _GroupUtility2.default.getSelectedGroupLayoutTemplate(_this2.entityName)
               }
             });
           });
