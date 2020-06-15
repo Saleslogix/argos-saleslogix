@@ -24,7 +24,7 @@ describe('User', () => {
       const aboutMenuHandle = await page.$('#left_drawer a[data-action="showAbout"]');
       await aboutMenuHandle.click();
 
-      const aboutDialogHandle = await page.$('#about-modal-text .additional-content > p');
+      const aboutDialogHandle = await page.waitForSelector('#about-modal-text .additional-content > p');
       expect(await aboutDialogHandle.innerText()).to.have.string(userDescriptorResults);
       await page.close();
     });
