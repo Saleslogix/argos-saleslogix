@@ -44,7 +44,7 @@
     "less": "^3.11.3",
     "less-loader": "^6.1.0",
     "mocha": "^8.0.1",
-    "puppeteer": "^3.3.0",
+    "playwright": "^1.1.1",
     "spdy": "^4.0.2"
   },
   "dependencies": {}

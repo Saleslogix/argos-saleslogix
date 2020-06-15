@@ -1,12 +1,12 @@
 /* eslint-env node, mocha */
-const puppeteer = require('puppeteer');
+const { chromium } = require('playwright');
 
 exports.mochaHooks = {
   async beforeAll() {
     // run before all tests begin
-    global.browser = await puppeteer.launch({
+    global.browser = await chromium.launch({
       headless: false,
-      slowMo: 250,
+      slowMo: 0,
     });
   },
 

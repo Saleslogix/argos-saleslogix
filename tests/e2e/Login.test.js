@@ -4,7 +4,7 @@ const assert = require('assert');
 describe('login', () => {
   it('should load', async () => {
     const page = await global.browser.newPage();
-    await page.goto('http://localhost:8000/products/argos-saleslogix/index-dev.html', { waitUntil: 'networkidle2' });
+    await page.goto('http://localhost:8000/products/argos-saleslogix/index-dev.html', { waitUntil: 'networkidle' });
 
     // Ensure page title matches
     const title = await page.title();
@@ -14,10 +14,10 @@ describe('login', () => {
     const response = await page.waitForResponse(res => res.url().indexOf('ping.gif') >= 0);
     assert.ok(response.ok());
 
-    await page.type('#login input[name="username-display"]', 'admin', { delay: 100 });
+    await page.type('#login input[name="username-display"]', 'admin');
 
     await page.click('#login button[data-action="authenticate"]');
 
-    await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    await page.waitForNavigation({ waitUntil: 'networkidle' });
   });
 });
