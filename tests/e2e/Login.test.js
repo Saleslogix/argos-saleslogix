@@ -1,5 +1,6 @@
-/* eslint-env node, mocha */
-const assert = require('assert');
+/* eslint-env node, mocha, chai */
+/* eslint-disable no-unused-expressions */
+const { expect } = require('chai');
 
 describe('login', () => {
   it('should load', async () => {
@@ -8,16 +9,15 @@ describe('login', () => {
 
     // Ensure page title matches
     const title = await page.title();
-    assert.strictEqual(title, 'Infor CRM', 'titles should match');
+    expect(title).to.equal('Infor CRM');
 
     // Wait for our ping event to go through and determine if we are online/offline
     const response = await page.waitForResponse(res => res.url().indexOf('ping.gif') >= 0);
-    assert.ok(response.ok());
+    expect(response.ok()).to.be.true;
 
     await page.type('#login input[name="username-display"]', 'admin');
-
     await page.click('#login button[data-action="authenticate"]');
-
-    await page.waitForNavigation({ waitUntil: 'networkidle' });
+    const authResponse = await page.waitForNavigation({ timeout: 60000, waitUntil: 'networkidle' });
+    expect(authResponse).to.be.null;
   });
 });
