@@ -15,7 +15,7 @@
     "lint-fix": "eslint --fix ./src",
     "watch": "yarn run build:watch",
     "doc": "jsdoc --configure ./src-docs/conf.json",
-    "e2e": "mocha --timeout 100000 --globals page,browser --require ./tests/e2e/hooks.js --recursive ./tests/e2e"
+    "e2e": "mocha --async-only --allow-uncaught --timeout 100000 --globals page,browser --require ./tests/e2e/hooks.js --recursive ./tests/e2e"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
