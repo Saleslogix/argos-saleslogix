@@ -26,5 +26,7 @@ module.exports = {
     expect(getCurrentUser.ok(), 'getCurrentUser response failed. Probably the wrong username/password').to.be.true;
     const appStatePromises = await page.waitForNavigation({ waitUntil: 'networkidle' });
     expect(appStatePromises).to.be.null;
+
+    return page;
   },
 };
