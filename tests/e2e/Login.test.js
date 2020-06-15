@@ -17,9 +17,11 @@ describe('User', () => {
   describe('INFORCRM-9620: Mobile UI - Logged in user info not displayed in mobile client', () => {
     it('should display user info in the about dialog', async () => {
       const page = await common.auth('admin'); // TODO: Pull user from config
+
+      // Evaluate some js in the console to get the current user from App.context
       const userDescriptorResults = await page.evaluate('App.context.user.$descriptor');
 
-      const otherHandle = await page.$('#left_drawer > div > div.accordion.panel > div[data-tag="footer"]');
+      const otherHandle = await page.$('#left_drawer div.accordion.panel > div[data-tag="footer"]');
       await otherHandle.click();
       const aboutMenuHandle = await page.$('#left_drawer a[data-action="showAbout"]');
       await aboutMenuHandle.click();
