@@ -5,6 +5,7 @@ const { expect } = require('chai');
 module.exports = {
   auth: async (username, password) => {
     const page = await global.browser.newPage();
+    // TODO: URL needs to be configurable
     await page.goto('http://localhost:8000/products/argos-saleslogix/index-dev.html', { waitUntil: 'networkidle' });
 
     // Ensure page title matches
