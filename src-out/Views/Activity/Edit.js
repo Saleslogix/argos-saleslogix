@@ -847,6 +847,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         });
       }
 
+      if (this.options && this.options.activityType === 'atPersonal') {
+        this.fields.Category.disable();
+      } else {
+        this.fields.Category.enable();
+      }
+
       this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
       this.resetRecurrence(values);
       this.onStartDateChange(this.fields.StartDate.getValue(), this.fields.StartDate);
