@@ -838,6 +838,12 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       });
     }
 
+    if (this.options && this.options.activityType === 'atPersonal') {
+      this.fields.Category.disable();
+    } else {
+      this.fields.Category.enable();
+    }
+
     this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
     this.resetRecurrence(values);
     this.onStartDateChange(this.fields.StartDate.getValue(), this.fields.StartDate);
