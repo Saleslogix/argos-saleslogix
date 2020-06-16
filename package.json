@@ -14,7 +14,8 @@
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
     "watch": "yarn run build:watch",
-    "doc": "jsdoc --configure ./src-docs/conf.json"
+    "doc": "jsdoc --configure ./src-docs/conf.json",
+    "e2e": "mocha --async-only --allow-uncaught --timeout 100000 --globals page,browser --require ./tests/e2e/hooks.js --recursive ./tests/e2e"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -27,6 +28,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
+    "chai": "^4.2.0",
     "eslint": "^7.2.0",
     "grunt": "^1.1.0",
     "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.5",
@@ -42,6 +44,8 @@
     "jsdoc": "^3.6.4",
     "less": "^3.11.3",
     "less-loader": "^6.1.0",
+    "mocha": "^8.0.1",
+    "playwright": "^1.1.1",
     "spdy": "^4.0.2"
   },
   "dependencies": {}
