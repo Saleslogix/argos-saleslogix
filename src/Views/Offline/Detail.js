@@ -29,6 +29,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   offlineText: resource.offlineText,
   idProperty: 'id',
   offlineDoc: null,
+  enableDetailHeader: true,
   detailHeaderTemplate: new Simplate([
     '<div class="detail-header">',
     '{%: $.value %}',

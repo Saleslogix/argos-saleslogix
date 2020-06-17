@@ -46,6 +46,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
     offlineText: resource.offlineText,
     idProperty: 'id',
     offlineDoc: null,
+    enableDetailHeader: true,
     detailHeaderTemplate: new Simplate(['<div class="detail-header">', '{%: $.value %}', '</div>', '<div class="detail-sub-header">', '{%: $.offlineDate %}', '</div>']),
     relatedTemplate: new Simplate(['<li class="relatedviewitem {%= $.cls %}">', '<a data-action="activateRelatedList" data-view="{%= $.view %}" data-name="{%: $.name %}" data-context="{%: $.context %}" {% if ($.disabled) { %}data-disable-action="true"{% } %} class="{% if ($.disabled) { %}disabled{% } %}">', '{% if ($.icon) { %}', '<img src="{%= $.icon %}" alt="icon" class="icon" />', '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}" alt="icon"></div>', '{% } %}', '<span class="related-item-label">', '<div class="busy-xs badge"', '<div class="busy-indicator-container" aria-live="polite">', '<div class="busy-indicator active">', '<div class="bar one"></div>', '<div class="bar two"></div>', '<div class="bar three"></div>', '<div class="bar four"></div>', '<div class="bar five"></div>', '</div>', '</div>', '</div>', '{%: $.label %}</span>', '</a>', '</li>']),
     show: function show(options) {
