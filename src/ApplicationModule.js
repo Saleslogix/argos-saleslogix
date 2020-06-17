@@ -442,6 +442,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
 
     this.registerView(new ActivityAttendeeList({
       id: 'activity_attendee_related',
+      expose: false,
     }));
     this.registerView(new ActivityAttendeeDetail());
     this.registerView(new ActivityAttendeeEdit());

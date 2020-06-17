@@ -512,7 +512,8 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       }));
 
       this.registerView(new _List10.default({
-        id: 'activity_attendee_related'
+        id: 'activity_attendee_related',
+        expose: false
       }));
       this.registerView(new _Detail6.default());
       this.registerView(new _Edit6.default());
