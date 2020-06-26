@@ -1,25 +1,18 @@
-define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', 'argos/Models/_ModelBase', '../Names', './ActivityTypeText', './ActivityTypeIcon', 'argos/I18n'], function (module, exports, _declare, _ModelBase2, _Names, _ActivityTypeText, _ActivityTypeIcon, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Models/Activity/Base", ["exports", "dojo/_base/declare", "argos/Models/_ModelBase", "../Names", "./ActivityTypeText", "./ActivityTypeIcon", "argos/I18n"], function (_exports, _declare, _ModelBase2, _Names, _ActivityTypeText, _ActivityTypeIcon, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ModelBase2 = _interopRequireDefault(_ModelBase2);
+  _Names = _interopRequireDefault(_Names);
+  _ActivityTypeText = _interopRequireDefault(_ActivityTypeText);
+  _ActivityTypeIcon = _interopRequireDefault(_ActivityTypeIcon);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _ModelBase3 = _interopRequireDefault(_ModelBase2);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _ActivityTypeText2 = _interopRequireDefault(_ActivityTypeText);
-
-  var _ActivityTypeIcon2 = _interopRequireDefault(_ActivityTypeIcon);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,18 +28,17 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityModel');
+  var attendeeResource = (0, _I18n["default"])('activityAttendeeModel');
+  var accountResource = (0, _I18n["default"])('accountModel');
+  var contactResource = (0, _I18n["default"])('contactModel');
+  var oppResource = (0, _I18n["default"])('opportunityModel');
+  var ticketResource = (0, _I18n["default"])('ticketModel');
+  var leadResource = (0, _I18n["default"])('leadModel');
+  var activityTypeResource = (0, _I18n["default"])('activityTypeText');
 
-  var resource = (0, _I18n2.default)('activityModel');
-  var attendeeResource = (0, _I18n2.default)('activityAttendeeModel');
-  var accountResource = (0, _I18n2.default)('accountModel');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var oppResource = (0, _I18n2.default)('opportunityModel');
-  var ticketResource = (0, _I18n2.default)('ticketModel');
-  var leadResource = (0, _I18n2.default)('leadModel');
-  var activityTypeResource = (0, _I18n2.default)('activityTypeText');
-
-  var __class = (0, _declare2.default)('crm.Models.Activity.Base', [_ModelBase3.default], {
-    modelName: _Names2.default.ACTIVITY,
+  var __class = (0, _declare["default"])('crm.Models.Activity.Base', [_ModelBase2["default"]], {
+    modelName: _Names["default"].ACTIVITY,
     entityName: 'Activity',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
@@ -54,7 +46,6 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
     resourceKind: 'activities',
     contractName: 'system',
     recurringActivityIdSeparator: ';',
-
     activityTypeText: {
       atToDo: activityTypeResource.atToDoText,
       atPhoneCall: activityTypeResource.atPhoneCallText,
@@ -65,7 +56,6 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
       atNote: activityTypeResource.atNoteText,
       atEMail: activityTypeResource.atEMailText
     },
-
     createPicklists: function createPicklists() {
       return this.picklists || (this.picklists = [{
         name: 'Priorities',
@@ -114,33 +104,40 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
     },
     getIconClass: function getIconClass(entry) {
       var cls = this.iconClass;
+
       if (entry && entry.Type) {
-        cls = _ActivityTypeIcon2.default[entry.Type];
+        cls = _ActivityTypeIcon["default"][entry.Type];
+
         if (cls) {
-          cls = '' + cls;
+          cls = "".concat(cls);
         }
       }
+
       return cls;
     },
     getEntityDescription: function getEntityDescription(entry) {
       if (entry) {
         var type = entry.Type || '';
-        var titleText = this.activityTypeText[type] ? this.activityTypeText[type] + ' - ' + entry.Description : entry.$descriptor;
+        var titleText = this.activityTypeText[type] ? "".concat(this.activityTypeText[type], " - ").concat(entry.Description) : entry.$descriptor;
         return titleText;
       }
+
       return '';
     },
     getTypeText: function getTypeText(entry) {
       var name = '';
+
       if (entry && entry.Type) {
-        name = _ActivityTypeText2.default[entry.Type];
+        name = _ActivityTypeText["default"][entry.Type];
       }
+
       return name;
     },
     isActivityRecurring: function isActivityRecurring(entry) {
       return entry && (entry.Recurring || entry.RecurrenceState === 'rstOccurrence');
     }
   });
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

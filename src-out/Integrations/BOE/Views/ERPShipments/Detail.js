@@ -1,44 +1,37 @@
-define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', '../../Models/Names', '../../Utility', 'argos/I18n'], function (module, exports, _declare, _lang, _Format, _Detail, _Names, _Utility, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPShipments/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "../../Models/Names", "../../Utility", "argos/I18n"], function (_exports, _declare, _lang, _Format, _Detail, _Names, _Utility, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _Utility = _interopRequireDefault(_Utility);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('erpShipmentsDetail');
 
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('erpShipmentsDetail'); /* Copyright 2017 Infor
-                                                             *
-                                                             * Licensed under the Apache License, Version 2.0 (the "License");
-                                                             * you may not use this file except in compliance with the License.
-                                                             * You may obtain a copy of the License at
-                                                             *
-                                                             *    http://www.apache.org/licenses/LICENSE-2.0
-                                                             *
-                                                             * Unless required by applicable law or agreed to in writing, software
-                                                             * distributed under the License is distributed on an "AS IS" BASIS,
-                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                             * See the License for the specific language governing permissions and
-                                                             * limitations under the License.
-                                                             */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipments.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPShipments.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -65,10 +58,9 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
     documentDateText: resource.documentDateText,
     // View Properties
     id: 'erpshipments_detail',
-    modelName: _Names2.default.ERPSHIPMENT,
+    modelName: _Names["default"].ERPSHIPMENT,
     resourceKind: 'erpShipments',
     enableOffline: true,
-
     createLayout: function createLayout() {
       var _this = this;
 
@@ -96,28 +88,28 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           property: 'DatePromised',
           label: this.datePromisedText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'ActualShipDate',
           property: 'ErpActualShipDate',
           label: this.actualShipDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'ActualDeliveryDate',
           property: 'ErpActualDeliveryDate',
           label: this.actualDeliveryDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'ErpDocumentDate',
           property: 'ErpDocumentDate',
           label: this.documentDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'Carrier',
@@ -132,7 +124,7 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           property: 'ErpStatusDate',
           label: this.erpStatusDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'WarehouseLocation',
@@ -142,6 +134,7 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -149,7 +142,7 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           property: 'ErpPartialShipAllowed',
           label: this.partialShipAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'GrossWeight',
@@ -157,30 +150,31 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           label: this.grossWeightText,
           renderer: function renderer(val) {
             if (this.entry.ErpGrossWeightUnit && val) {
-              return _Format2.default.multiCurrency.call(null, val, this.entry.ErpGrossWeightUnit);
+              return _Format["default"].multiCurrency.call(null, val, this.entry.ErpGrossWeightUnit);
             }
-            return _Format2.default.currency.call(null, val);
+
+            return _Format["default"].currency.call(null, val);
           }
         }, {
           name: 'DeclaredValue',
           property: 'ErpDeclaredValue',
           label: this.declaredValueText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.CurrencyCode);
           }
         }, {
           name: 'ShipmentTotalBaseAmount',
           property: 'ShipmentTotalBaseAmount',
           label: this.shipmentTotalBaseAmountText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
           }
         }, {
           name: 'ShipmentTotalAmount',
           property: 'ShipmentTotalAmount',
           label: this.shipmentTotalAmountText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.CurrencyCode);
           }
         }, {
           name: 'PaymentTerm',
@@ -198,7 +192,7 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           label: this.shipToAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }]
@@ -210,7 +204,7 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           name: 'ShipmentLines',
           label: this.shipmentLinesText,
           where: function where(entry) {
-            return 'ErpShipment.Id eq "' + entry.$key + '"';
+            return "ErpShipment.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'shipment_lines_related'
         }]
@@ -218,7 +212,8 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPShipments.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPShipments.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

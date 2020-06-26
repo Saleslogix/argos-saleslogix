@@ -1,47 +1,45 @@
-define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'argos/I18n'], function (module, exports, _lang, _string, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Recurrence", ["exports", "dojo/_base/lang", "dojo/string", "argos/I18n"], function (_exports, _lang, _string, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _string2 = _interopRequireDefault(_string);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('recurrence'); /* Copyright 2017 Infor
-                                                     *
-                                                     * Licensed under the Apache License, Version 2.0 (the "License");
-                                                     * you may not use this file except in compliance with the License.
-                                                     * You may obtain a copy of the License at
-                                                     *
-                                                     *    http://www.apache.org/licenses/LICENSE-2.0
-                                                     *
-                                                     * Unless required by applicable law or agreed to in writing, software
-                                                     * distributed under the License is distributed on an "AS IS" BASIS,
-                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                     * See the License for the specific language governing permissions and
-                                                     * limitations under the License.
-                                                     */
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
 
   /**
    * @module crm/Recurrence
    */
-
-  var dtFormatResource = (0, _I18n2.default)('recurrenceDateTimeFormat');
-
+  var resource = (0, _I18n["default"])('recurrence');
+  var dtFormatResource = (0, _I18n["default"])('recurrenceDateTimeFormat');
   /**
    * @class
    * @alias module:crm/Recurrence
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Recurrence', /** @lends module:crm/Recurrence */{
+
+  var __class = _lang["default"].setObject('crm.Recurrence',
+  /** @lends module:crm/Recurrence */
+  {
     // Localization
     neverText: resource.neverText,
     dailyText: resource.dailyText,
@@ -80,8 +78,8 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
     daySeparator: resource.daySeparator,
     weekDaysText: [resource.sunday, resource.monday, resource.tuesday, resource.wednesday, resource.thursday, resource.friday, resource.saturday],
     ordText: [resource.day, resource.first, resource.second, resource.third, resource.fourth, resource.last],
-
-    interval: 1, // repeat every interval days/weeks/months/years
+    interval: 1,
+    // repeat every interval days/weeks/months/years
     defaultIterations: [// by RecurPeriod, -1 for After Completed. Configurable.
     7, // days
     -1, 8, // weeks
@@ -94,11 +92,13 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
     1048576, // wed
     2097152, // thu
     4194304, // fri
-    8388608],
+    8388608 // sat
+    ],
     simplifiedOptions: [{
       label: 'neverText',
       Recurring: false,
-      RecurPeriod: -1, // not recurring
+      RecurPeriod: -1,
+      // not recurring
       basePeriodSpec: 0,
       RecurPeriodSpec: 0,
       RecurIterations: 0,
@@ -109,14 +109,16 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
       RecurPeriod: 0,
       basePeriodSpec: 0,
       RecurPeriodSpec: 0,
-      RecurIterations: 7, // override from this.defaultIterations
+      RecurIterations: 7,
+      // override from this.defaultIterations
       RecurrenceState: 'rstMaster'
     }, {
       label: 'weeklyText',
       Recurring: true,
       RecurPeriod: 2,
       basePeriodSpec: 0,
-      weekdays: [0, 0, 0, 0, 0, 0, 0], // none selected by default
+      weekdays: [0, 0, 0, 0, 0, 0, 0],
+      // none selected by default
       RecurPeriodSpec: 0,
       RecurIterations: 8,
       RecurrenceState: 'rstMaster',
@@ -138,10 +140,8 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
       RecurIterations: 5,
       RecurrenceState: 'rstMaster'
     }],
-
     createSimplifiedOptions: function createSimplifiedOptions(startDate) {
       this.recalculateSimplifiedPeriodSpec(startDate);
-
       var list = [];
       var currentDate = startDate || new Date();
       var wrapped = moment(currentDate);
@@ -157,8 +157,9 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
 
           if (this[this.simplifiedOptions[recurOption].label]) {
             list.push({
-              $key: recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
-              $descriptor: _string2.default.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
+              $key: recurOption,
+              // this.simplifiedOptions[recurOption].RecurPeriod,
+              $descriptor: _string["default"].substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
               recurrence: this.simplifiedOptions[recurOption]
             });
           }
@@ -174,17 +175,21 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
         case 0:
         case 1:
           return this.dailyText;
+
         case 2:
         case 3:
           return this.weeklyText;
+
         case 4:
         case 5:
         case 6:
           return this.monthlyText;
+
         case 7:
         case 8:
         case 9:
           return this.yearlyText;
+
         default:
           return this.neverText;
       }
@@ -203,6 +208,7 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
     getWeekdays: function getWeekdays(rps, names) {
       // pass a RecurPeriodSpec (as long as RecurPeriod corresponds to a Spec with weekdays)
       var weekdays = [];
+
       for (var i = 0; i < this._weekDayValues.length; i++) {
         if (names) {
           if (rps & this._weekDayValues[i]) {
@@ -237,9 +243,9 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
     getRecurPeriodSpec: function getRecurPeriodSpec(recurPeriod, startDate, weekdays, inter) {
       var spec = 0;
       var interval = inter || this.interval;
-      var weekDay = void 0;
-      var nthWeek = void 0;
-      var monthNum = void 0;
+      var weekDay;
+      var nthWeek;
+      var monthNum;
 
       if (!startDate) {
         return null;
@@ -249,42 +255,51 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
         case 0:
           // daily
           break;
+
         case 1:
           // daily occurances *after completion*
           //
           break;
+
         case 2:
           // weekly
           for (var i = 0; i < weekdays.length; i++) {
             spec += weekdays[i] ? this._weekDayValues[i] : 0;
           }
+
           if (spec === 0) {
             spec += this._weekDayValues[startDate.getDay()];
           }
 
           break;
+
         case 3:
           // weekly occurances *after completion*
           spec = 1048576;
           break;
+
         case 4:
           // monthly on day ##
           spec = 1048576;
           break;
+
         case 5:
           // monthly on #ord #weekday
           weekDay = startDate.getDay() + 1;
           nthWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
           spec = weekDay * 524288 + (nthWeek - 1) * 65536;
           break;
+
         case 6:
           // monthly occurances *after completion*
           spec = 1048576;
           break;
+
         case 7:
           // yearly on #month #day
           spec = 38797312;
           break;
+
         case 8:
           // yearly on #ord #weekday of #month
           spec = 18546688;
@@ -293,10 +308,12 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
           nthWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
           spec = monthNum * 4194304 + weekDay * 524288 + (nthWeek - 1) * 65536;
           break;
+
         case 9:
           // yearly occurances *after completion*
           spec = 38797312;
           break;
+
         default:
           // Not recurring, happens only once
           interval = 0;
@@ -314,59 +331,71 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
       var weekday = momentCurrentDate.format(this.weekdayFormatText);
       var weekdays = this.getWeekdays(recurPeriodSpec, true);
       var month = momentCurrentDate.localeData().months(momentCurrentDate);
-
       var timeFormatted = momentCurrentDate.format(this.timeFormatText);
 
       if (App && App.is24HourClock()) {
         timeFormatted = momentCurrentDate.format(this.timeFormatText24);
-      }
+      } // eslint-disable-next-line guard-for-in
 
-      // eslint-disable-next-line guard-for-in
+
       for (var key in weekdays) {
         if (weekdays[key] && parseInt(key, 10) < weekdays.length - 1) {
-          weekdays[key] = _string2.default.substitute(this.daySeparator, [weekdays[key]]);
+          weekdays[key] = _string["default"].substitute(this.daySeparator, [weekdays[key]]);
         }
+
         weekdaysString += weekdays[key];
       }
 
-      return [interval, timeFormatted, momentCurrentDate.format(this.dateFormatText), this.calcEndDate(currentDate, entry).format(this.endDateFormatText), weekdaysString, month, _string2.default.substitute(this.ordText[parseInt((day - 1) / 7, 10) + 1], [weekday]), day];
+      return [interval, timeFormatted, momentCurrentDate.format(this.dateFormatText), this.calcEndDate(currentDate, entry).format(this.endDateFormatText), weekdaysString, month, _string["default"].substitute(this.ordText[parseInt((day - 1) / 7, 10) + 1], [weekday]), day];
     },
     buildSummaryText: function buildSummaryText(entry, textOptions) {
       var rp = parseInt(entry.RecurPeriod, 10);
+
       switch (rp) {
         case -1:
           // occurs only once
           return this.singleActivitySummary;
+
         case 0:
           // daily
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.dailySummary, textOptions) : _string2.default.substitute(this.dailyEverySummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.dailySummary, textOptions) : _string["default"].substitute(this.dailyEverySummary, textOptions);
+
         case 1:
           // daily after completion
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.dailyAfterCompletionSummary, textOptions) : _string2.default.substitute(this.dailyEveryAfterCompletionSummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.dailyAfterCompletionSummary, textOptions) : _string["default"].substitute(this.dailyEveryAfterCompletionSummary, textOptions);
+
         case 2:
           // weekly
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.weeklySummary, textOptions) : _string2.default.substitute(this.weeklyEverySummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.weeklySummary, textOptions) : _string["default"].substitute(this.weeklyEverySummary, textOptions);
+
         case 3:
           // weekly after completion
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.weeklyAfterCompletionSummary, textOptions) : _string2.default.substitute(this.weeklyEveryAfterCompletionSummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.weeklyAfterCompletionSummary, textOptions) : _string["default"].substitute(this.weeklyEveryAfterCompletionSummary, textOptions);
+
         case 4:
           // monthly on day
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.monthlySummary, textOptions) : _string2.default.substitute(this.monthlyEverySummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.monthlySummary, textOptions) : _string["default"].substitute(this.monthlyEverySummary, textOptions);
+
         case 5:
           // monthly on day ordinal
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.monthlyOrdSummary, textOptions) : _string2.default.substitute(this.monthlyEveryOrdSummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.monthlyOrdSummary, textOptions) : _string["default"].substitute(this.monthlyEveryOrdSummary, textOptions);
+
         case 6:
           // monthly after completion
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.monthlyAfterCompletionSummary, textOptions) : _string2.default.substitute(this.monthlyEveryAfterCompletionSummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.monthlyAfterCompletionSummary, textOptions) : _string["default"].substitute(this.monthlyEveryAfterCompletionSummary, textOptions);
+
         case 7:
           // yearly on day of the month
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.yearlySummary, textOptions) : _string2.default.substitute(this.yearlyEverySummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.yearlySummary, textOptions) : _string["default"].substitute(this.yearlyEverySummary, textOptions);
+
         case 8:
           // yearly on day ordinal
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.yearlyOrdSummary, textOptions) : _string2.default.substitute(this.yearlyEveryOrdSummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.yearlyOrdSummary, textOptions) : _string["default"].substitute(this.yearlyEveryOrdSummary, textOptions);
+
         case 9:
           // Yearly after completion
-          return textOptions[0] <= 1 ? _string2.default.substitute(this.yearlyAfterCompletionSummary, textOptions) : _string2.default.substitute(this.yearlyEveryAfterCompletionSummary, textOptions);
+          return textOptions[0] <= 1 ? _string["default"].substitute(this.yearlyAfterCompletionSummary, textOptions) : _string["default"].substitute(this.yearlyEveryAfterCompletionSummary, textOptions);
+
         default:
           return '';
       }
@@ -376,45 +405,53 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
         if (entry.RecurrenceState === 'rsNotRecurring' && entry.StartDate) {
           return this.singleActivitySummary;
         }
+
         return '';
       }
+
       var textOptions = this.createTextOptions(entry);
       return this.buildSummaryText(entry, textOptions);
     },
     calcEndDate: function calcEndDate(date, entry) {
       var interval = entry.RecurPeriodSpec % 65536;
-      var weekDay = void 0;
-      var nthWeek = void 0;
+      var weekDay;
+      var nthWeek;
       var tempDate = moment.isMoment(date) ? date.clone() : new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
-
       tempDate = moment(tempDate);
+
       switch (parseInt(entry.RecurPeriod, 10)) {
         case 0:
           tempDate.add(interval * (entry.RecurIterations - 1), 'days');
           break;
+
         case 2:
           tempDate.add(interval * (entry.RecurIterations - 1), 'weeks');
           break;
+
         case 4:
           tempDate.add(interval * (entry.RecurIterations - 1), 'months');
           break;
+
         case 5:
           weekDay = tempDate.day();
           nthWeek = parseInt((tempDate.date() / 7).toString(), 10) + 1;
           tempDate.add(interval * (entry.RecurIterations - 1), 'months');
           tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
           break;
+
         case 7:
           tempDate.add(interval * (entry.RecurIterations - 1), 'years');
           break;
+
         case 8:
           weekDay = tempDate.day();
           nthWeek = parseInt((tempDate.date() / 7).toString(), 10) + 1;
           tempDate.add(interval * (entry.RecurIterations - 1), 'years');
           tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
           break;
-        default:
-        // RecurPeriod 1, 3, 6 & 9 are iterations after completion. No end date.
+
+        default: // RecurPeriod 1, 3, 6 & 9 are iterations after completion. No end date.
+
       }
 
       return tempDate;
@@ -427,56 +464,65 @@ define('crm/Recurrence', ['module', 'exports', 'dojo/_base/lang', 'dojo/string',
       if (nthWeek === 5) {
         // "last" - count backwards...
         tempDate.endOf('month');
+
         for (var i = 0; i < 7; i++) {
           if (tempDate.day() === weekDay) {
             break;
           }
+
           tempDate.subtract(1, 'days');
         }
       } else {
         // count from the beginning...
-        tempDate.startOf('month');
-        // get to the first day that matches...
+        tempDate.startOf('month'); // get to the first day that matches...
+
         for (var _i = 0; _i < 7; _i++) {
           if (tempDate.day() === weekDay) {
             break;
           }
+
           tempDate.add(1, 'days');
-        }
-        // then add correct number of weeks (first week - add 0 etc.)
+        } // then add correct number of weeks (first week - add 0 etc.)
+
+
         tempDate.add(nthWeek - 1, 'weeks');
       }
+
       return tempDate;
     },
     calcRecurIterations: function calcRecurIterations(endDate, startDate, interval, recurPeriod) {
       // calculate number of occurances based on start and end dates
       var days = (endDate - startDate) / (1000 * 60 * 60 * 24);
       var years = endDate.getFullYear() - startDate.getFullYear();
-      var result = void 0;
+      var result;
 
       switch (parseInt(recurPeriod, 10)) {
         case 8:
         case 7:
           result = years;
           break;
+
         case 5:
         case 4:
           result = endDate.getMonth() - startDate.getMonth() + years * 12;
           break;
+
         case 2:
           result = days / 7;
           break;
+
         case 0:
           result = days;
           break;
-        default:
-        // no cases should fall here
+
+        default: // no cases should fall here
+
       }
 
       return Math.floor(result / interval + 1);
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,17 +1,14 @@
-define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'], function (module, exports, _lang, _Utility) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Utility", ["exports", "dojo/_base/lang", "argos/Utility"], function (_exports, _lang, _Utility) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _Utility = _interopRequireDefault(_Utility);
 
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,7 +36,10 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
    * @static
    *
    */
-  var __class = _lang2.default.setObject('crm.Utility', _lang2.default.mixin({}, _Utility2.default, /** @lends module:crm/Utility */{
+
+  var __class = _lang["default"].setObject('crm.Utility', _lang["default"].mixin({}, _Utility["default"],
+  /** @lends module:crm/Utility */
+  {
     base64ArrayBuffer: commonutil.base64ArrayBuffer,
 
     /** Gets the extension for a file.
@@ -49,6 +49,7 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
      * Returns the file extension, if fileName is null or undefined, returns the string '.'
      */
     getFileExtension: commonutil.getFileExtension,
+
     /** Parses the activity ID
      * @param {String} activityId
      * A string with the activity id seperated by a semi-colon
@@ -59,6 +60,6 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
     stripQueryArgs: commonutil.stripQueryArgs
   }));
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

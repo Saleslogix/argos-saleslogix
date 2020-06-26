@@ -1,13 +1,16 @@
-define('crm/Bootstrap.localization', ['exports'], function (exports) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Bootstrap.localization", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.makeRequest = makeRequest;
-  exports.l20nLoadFunc = l20nLoadFunc;
-  exports.l20nNoFetchFunc = l20nNoFetchFunc;
-  exports.l20nLinkFunc = l20nLinkFunc;
-  exports.l20nAddResourceFunc = l20nAddResourceFunc;
-  exports.bootstrapLocalization = bootstrapLocalization;
+  _exports.makeRequest = makeRequest;
+  _exports.l20nLoadFunc = l20nLoadFunc;
+  _exports.l20nNoFetchFunc = l20nNoFetchFunc;
+  _exports.l20nLinkFunc = l20nLinkFunc;
+  _exports.l20nAddResourceFunc = l20nAddResourceFunc;
+  _exports.bootstrapLocalization = bootstrapLocalization;
+
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,11 +29,9 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
   /**
    * @module crm/Bootstrap/localization
    */
-
   function makeRequest(url) {
     return new Promise(function (resolve, reject) {
       var http = new XMLHttpRequest();
-
       http.open('GET', url);
       http.addEventListener('load', function (response) {
         resolve(response.target.response);
@@ -79,7 +80,6 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
       });
     });
   }
-
   /**
    * Bootstrap localization
    * This function handles the bootstrapping of localization for
@@ -87,18 +87,19 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
    * fetchFunc - Takes an array of processed locale files, returns a promise
    * processFunc - Takes the results from fetchFunc along with the current context and defaultContext
    */
+
+
   function bootstrapLocalization(_ref) {
     var supportedLocales = _ref.supportedLocales,
         defaultLocale = _ref.defaultLocale,
         currentLocale = _ref.currentLocale,
         localeFiles = _ref.localeFiles,
         _ref$fetchFunc = _ref.fetchFunc,
-        fetchFunc = _ref$fetchFunc === undefined ? l20nNoFetchFunc : _ref$fetchFunc,
+        fetchFunc = _ref$fetchFunc === void 0 ? l20nNoFetchFunc : _ref$fetchFunc,
         _ref$processFunc = _ref.processFunc,
-        processFunc = _ref$processFunc === undefined ? l20nLinkFunc : _ref$processFunc,
+        processFunc = _ref$processFunc === void 0 ? l20nLinkFunc : _ref$processFunc,
         _ref$asGlobal = _ref.asGlobal,
-        asGlobal = _ref$asGlobal === undefined ? false : _ref$asGlobal;
-
+        asGlobal = _ref$asGlobal === void 0 ? false : _ref$asGlobal;
     var promise = new Promise(function (resolve) {
       // The L20n context (ctx) should only call linkResource once per file.
       // We need to:
@@ -108,9 +109,8 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
       var processedLocaleFiles = localeFiles.map(function (path) {
         var trimmed = path;
         supportedLocales.forEach(function (locale) {
-          trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
+          trimmed = trimmed.replace(new RegExp("/".concat(locale, "/")), '/');
         });
-
         var index = trimmed.lastIndexOf('/');
         var basePath = trimmed.substring(0, index);
         var file = trimmed.substring(index + 1, trimmed.length);
@@ -127,21 +127,16 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
 
         return p.concat(c);
       }, []);
-
       fetchFunc(processedLocaleFiles).then(function (files) {
         var ctx = window.L20n.getContext();
         var defaultCtx = window.L20n.getContext();
-
         processFunc(files, ctx, defaultCtx);
-
         ctx.registerLocales(defaultLocale, supportedLocales);
         ctx.requestLocales(currentLocale);
         defaultCtx.registerLocales(defaultLocale);
         defaultCtx.requestLocales(defaultLocale);
-
         window.localeContext = ctx;
         window.defaultLocaleContext = defaultCtx;
-
         Promise.all([new Promise(function (res) {
           ctx.ready(function () {
             return res(true);
@@ -155,9 +150,11 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
         });
       });
     });
+
     if (asGlobal) {
       window[asGlobal] = promise;
     }
+
     return promise;
   }
 });

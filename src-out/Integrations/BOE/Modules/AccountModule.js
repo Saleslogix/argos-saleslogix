@@ -1,53 +1,32 @@
-define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_Module', 'crm/Views/Account/Detail', 'argos/Dialogs/BusyIndicator', '../Views/ERPBillTos/List', '../Views/ERPContactAssociations/List', '../Views/ERPInvoices/List', '../Views/ERPReceivables/List', '../Views/ERPShipments/List', '../Views/ERPShipTos/List', '../Promote', '../Views/Quotes/List', '../Views/Returns/List', '../Views/SalesOrders/List', '../Views/SyncResults/List', '../Views/ERPAccountPersons/List', '../Utility', '../../../Format', 'argos/I18n', '../Models/ErpAccountPerson/Offline', '../Models/ErpAccountPerson/SData', '../Views/Account/SalesDashboardWidget', '../Views/Account/NewDashboardWidget', '../Views/Account/OpenDashboardWidget', '../Views/Account/ActivityDashboardWidget'], function (module, exports, _declare, _lang, _Module2, _Detail, _BusyIndicator, _List, _List3, _List5, _List7, _List9, _List11, _Promote, _List13, _List15, _List17, _List19, _List21, _Utility, _Format, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Modules/AccountModule", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./_Module", "crm/Views/Account/Detail", "argos/Dialogs/BusyIndicator", "../Views/ERPBillTos/List", "../Views/ERPContactAssociations/List", "../Views/ERPInvoices/List", "../Views/ERPReceivables/List", "../Views/ERPShipments/List", "../Views/ERPShipTos/List", "../Promote", "../Views/Quotes/List", "../Views/Returns/List", "../Views/SalesOrders/List", "../Views/SyncResults/List", "../Views/ERPAccountPersons/List", "../Utility", "../../../Format", "../Models/ErpAccountPerson/Offline", "../Models/ErpAccountPerson/SData", "../Views/Account/SalesDashboardWidget", "../Views/Account/NewDashboardWidget", "../Views/Account/OpenDashboardWidget", "../Views/Account/ActivityDashboardWidget", "argos/I18n"], function (_exports, _declare, _lang, _Module2, _Detail, _BusyIndicator, _List, _List2, _List3, _List4, _List5, _List6, _Promote, _List7, _List8, _List9, _List10, _List11, _Utility, _Format, _Offline, _SData, _SalesDashboardWidget, _NewDashboardWidget, _OpenDashboardWidget, _ActivityDashboardWidget, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Module2 = _interopRequireDefault(_Module2);
+  _Detail = _interopRequireDefault(_Detail);
+  _BusyIndicator = _interopRequireDefault(_BusyIndicator);
+  _List = _interopRequireDefault(_List);
+  _List2 = _interopRequireDefault(_List2);
+  _List3 = _interopRequireDefault(_List3);
+  _List4 = _interopRequireDefault(_List4);
+  _List5 = _interopRequireDefault(_List5);
+  _List6 = _interopRequireDefault(_List6);
+  _Promote = _interopRequireDefault(_Promote);
+  _List7 = _interopRequireDefault(_List7);
+  _List8 = _interopRequireDefault(_List8);
+  _List9 = _interopRequireDefault(_List9);
+  _List10 = _interopRequireDefault(_List10);
+  _List11 = _interopRequireDefault(_List11);
+  _Utility = _interopRequireDefault(_Utility);
+  _Format = _interopRequireDefault(_Format);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Module3 = _interopRequireDefault(_Module2);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _BusyIndicator2 = _interopRequireDefault(_BusyIndicator);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _List4 = _interopRequireDefault(_List3);
-
-  var _List6 = _interopRequireDefault(_List5);
-
-  var _List8 = _interopRequireDefault(_List7);
-
-  var _List10 = _interopRequireDefault(_List9);
-
-  var _List12 = _interopRequireDefault(_List11);
-
-  var _Promote2 = _interopRequireDefault(_Promote);
-
-  var _List14 = _interopRequireDefault(_List13);
-
-  var _List16 = _interopRequireDefault(_List15);
-
-  var _List18 = _interopRequireDefault(_List17);
-
-  var _List20 = _interopRequireDefault(_List19);
-
-  var _List22 = _interopRequireDefault(_List21);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -63,10 +42,9 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('accountModule');
 
-  var resource = (0, _I18n2.default)('accountModule');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.AccountModule', [_Module3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Modules.AccountModule', [_Module2["default"]], {
     // Localization
     erpStatusText: resource.erpStatusText,
     erpCustomerText: resource.erpCustomerText,
@@ -103,7 +81,6 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
     erpNewSalesOrdersText: resource.erpNewSalesOrdersText,
     erpNewQuotesText: resource.erpNewQuotesText,
     erpOpenQuotesText: resource.erpOpenQuotesText,
-
     // Picklist Codes
     openCode: 'Open',
     approvedCode: 'Approved',
@@ -112,15 +89,13 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
     partialPaidCode: 'PartialPaid',
     closedCode: 'Closed',
     disputeCode: 'Dispute',
-
     init: function init() {
       App.picklistService.registerPicklistToView('SyncStatus', 'account_detail');
       App.picklistService.registerPicklistToView('ErpAccountStatus', 'account_detail');
     },
     loadViews: function loadViews() {
       var am = this.applicationModule;
-
-      am.registerView(new _List6.default({
+      am.registerView(new _List3["default"]({
         id: 'account_erpinvoice_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -129,8 +104,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List6.default({
+      am.registerView(new _List3["default"]({
         id: 'account_revenueerpinvoice_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -141,8 +115,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List6.default({
+      am.registerView(new _List3["default"]({
         id: 'account_costerpinvoice_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -153,8 +126,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List6.default({
+      am.registerView(new _List3["default"]({
         id: 'account_lateinvoice_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -165,8 +137,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List6.default({
+      am.registerView(new _List3["default"]({
         id: 'account_newerpinvoice_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -177,8 +148,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List10.default({
+      am.registerView(new _List5["default"]({
         id: 'account_erpshipments_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -187,8 +157,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List10.default({
+      am.registerView(new _List5["default"]({
         id: 'account_newerpshipments_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -199,8 +168,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List16.default({
+      am.registerView(new _List8["default"]({
         id: 'account_returns_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -209,8 +177,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List8.default({
+      am.registerView(new _List4["default"]({
         id: 'account_erpreceivables_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -219,8 +186,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List8.default({
+      am.registerView(new _List4["default"]({
         id: 'account_newerpreceivables_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -231,8 +197,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List14.default({
+      am.registerView(new _List7["default"]({
         id: 'account_quotes_related',
         title: this.quotesText,
         groupsEnabled: false,
@@ -240,8 +205,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryOrderBy: 'CreateDate asc'
       }));
-
-      am.registerView(new _List14.default({
+      am.registerView(new _List7["default"]({
         id: 'account_openquotes_related',
         title: this.erpOpenQuotesText,
         groupsEnabled: false,
@@ -249,8 +213,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryOrderBy: 'CreateDate asc'
       }));
-
-      am.registerView(new _List14.default({
+      am.registerView(new _List7["default"]({
         id: 'account_newquotes_related',
         title: this.erpNewQuotesText,
         groupsEnabled: false,
@@ -258,8 +221,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryOrderBy: 'CreateDate asc'
       }));
-
-      am.registerView(new _List18.default({
+      am.registerView(new _List9["default"]({
         id: 'account_salesorders_related',
         title: this.ordersText,
         groupsEnabled: false,
@@ -267,8 +229,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryOrderBy: 'CreateDate asc'
       }));
-
-      am.registerView(new _List18.default({
+      am.registerView(new _List9["default"]({
         id: 'account_opensalesorders_related',
         title: this.erpOpenSalesOrdersText,
         groupsEnabled: false,
@@ -276,8 +237,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryOrderBy: 'CreateDate asc'
       }));
-
-      am.registerView(new _List18.default({
+      am.registerView(new _List9["default"]({
         id: 'account_latesalesorders_related',
         title: this.erpSalesOrdersText,
         groupsEnabled: false,
@@ -285,8 +245,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryOrderBy: 'CreateDate asc'
       }));
-
-      am.registerView(new _List18.default({
+      am.registerView(new _List9["default"]({
         id: 'account_neworders_related',
         title: this.erpNewSalesOrdersText,
         groupsEnabled: false,
@@ -294,22 +253,19 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         expose: false,
         queryWhere: ''
       }));
-
-      am.registerView(new _List2.default({
+      am.registerView(new _List["default"]({
         id: 'account_billto_related',
         groupsEnabled: false,
         hasSettings: false,
         expose: false
       }));
-
-      am.registerView(new _List12.default({
+      am.registerView(new _List6["default"]({
         id: 'account_shipto_related',
         groupsEnabled: false,
         hasSettings: false,
         expose: false
       }));
-
-      am.registerView(new _List4.default({
+      am.registerView(new _List2["default"]({
         id: 'account_contactassociations_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -318,8 +274,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List20.default({
+      am.registerView(new _List10["default"]({
         id: 'account_syncresults_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -328,8 +283,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           return this.tools;
         }
       }));
-
-      am.registerView(new _List22.default({
+      am.registerView(new _List11["default"]({
         id: 'account_salesperson_related',
         groupsEnabled: false,
         hasSettings: false,
@@ -341,13 +295,11 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
     },
     loadCustomizations: function loadCustomizations() {
       var am = this.applicationModule;
-      var Busy = _BusyIndicator2.default;
-
-      // Row names to match in the detail and more detail sections.
+      var Busy = _BusyIndicator["default"]; // Row names to match in the detail and more detail sections.
       // These are the last item in the section.
+
       var detailRowMatch = 'AccountManager.UserInfo';
       var moreDetailRowMatch = 'Owner.OwnerDescription';
-
       am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
         at: function at() {
           return true;
@@ -373,10 +325,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpLogicalId'
       });
 
-      _lang2.default.extend(crm.Views.Account.List, {
+      _lang["default"].extend(crm.Views.Account.List, {
         formatSearchQuery: function formatSearchQuery(searchQuery) {
           var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-          return 'AccountNameUpper like "' + q + '%" or upper(ErpExtId) like "' + q + '%"';
+          return "AccountNameUpper like \"".concat(q, "%\" or upper(ErpExtId) like \"").concat(q, "%\"");
         }
       });
 
@@ -474,7 +426,6 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           property: 'SyncStatus'
         }
       });
-
       am.registerCustomization('models/relationships', 'account_offline_model', {
         at: function at(relationship) {
           return relationship.name === 'Tickets';
@@ -483,28 +434,28 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         where: 'after',
         value: [{
           name: 'ContactAssociation',
-          displayName: (0, _I18n2.default)('erpContactAssociationModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('erpContactAssociationModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'ERPContactAccount',
           relatedProperty: 'Account',
           relatedPropertyType: 'object'
         }, {
           name: 'Quote',
-          displayName: (0, _I18n2.default)('quoteModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('quoteModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'Quote',
           relatedProperty: 'Account',
           relatedPropertyType: 'object'
         }, {
           name: 'SalesOrder',
-          displayName: (0, _I18n2.default)('salesOrderModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('salesOrderModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'SalesOrder',
           relatedProperty: 'Account',
           relatedPropertyType: 'object'
         }, {
           name: 'SyncHistory',
-          displayName: (0, _I18n2.default)('syncResultModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('syncResultModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'SyncResult',
           relatedProperty: 'EntityId',
@@ -519,36 +470,36 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         where: 'after',
         value: [{
           name: 'ContactAssociation',
-          displayName: (0, _I18n2.default)('erpContactAssociationModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('erpContactAssociationModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'ERPContactAccount',
           relatedProperty: 'Account',
           relatedPropertyType: 'object'
         }, {
           name: 'Quote',
-          displayName: (0, _I18n2.default)('quoteModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('quoteModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'Quote',
           relatedProperty: 'Account',
           relatedPropertyType: 'object'
         }, {
           name: 'SalesOrder',
-          displayName: (0, _I18n2.default)('salesOrderModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('salesOrderModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'SalesOrder',
           relatedProperty: 'Account',
           relatedPropertyType: 'object'
         }, {
           name: 'SyncHistory',
-          displayName: (0, _I18n2.default)('syncResultModel').entityDisplayNamePlural,
+          displayName: (0, _I18n["default"])('syncResultModel').entityDisplayNamePlural,
           type: 'OneToMany',
           relatedEntity: 'SyncResult',
           relatedProperty: 'EntityId',
           where: 'EntityType eq "Account"'
         }]
-      });
-      // Add promoteAccount function to detail
-      _lang2.default.extend(crm.Views.Account.Detail, {
+      }); // Add promoteAccount function to detail
+
+      _lang["default"].extend(crm.Views.Account.Detail, {
         promoteIcon: 'upload',
         successfulLinkText: 'Linked Successfully',
         linkingText: 'Linking ${account} to ${backOffice}',
@@ -561,16 +512,20 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         },
         selectedTab: function selectedTab(params) {
           var key = params.key;
+
           if (!this.dashboardLoaded && key === 'DashboardSection') {
             this._loadDashboards();
+
             this.dashboardLoaded = true;
           }
         },
         _loadDashboards: function _loadDashboards() {
           var layout = this._createCustomizedLayout(this.createLayout());
+
           for (var key in layout) {
             if (layout.hasOwnProperty(key)) {
               var item = layout[key];
+
               if (item.name === 'DashboardSection') {
                 for (var i in item.children) {
                   if (item.children[i]) {
@@ -583,10 +538,12 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         },
         _loadDashboard: function _loadDashboard(dashboardLayout) {
           var rvm = this.getRelatedViewManager(dashboardLayout.relatedView);
+
           if (rvm) {
             for (var key in rvm.relatedViews) {
               if (rvm.relatedViews.hasOwnProperty(key)) {
                 var dashboard = rvm.relatedViews[key];
+
                 if (dashboard) {
                   dashboard.onToggleView(true);
                 }
@@ -599,6 +556,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
 
           var promise = new Promise(function (resolve) {
             _this.showBusy();
+
             var entry = {
               $name: 'CanPromoteAccount',
               request: {
@@ -606,12 +564,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
               }
             };
             var request = new Sage.SData.Client.SDataServiceOperationRequest(_this.getService()).setResourceKind('accounts').setContractName('dynamic').setOperationName('CanPromoteAccount');
-
             var canPromote = {
               value: false,
               result: ''
             };
-
             request.execute(entry, {
               async: false,
               success: function success(result) {
@@ -632,8 +588,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           var _this2 = this;
 
           var canPromotePromise = this._canPromote();
+
           canPromotePromise.then(function (val) {
             _this2.hideBusy();
+
             if (!val.value) {
               App.modal.createSimpleDialog({
                 title: 'alert',
@@ -644,7 +602,8 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
               });
               return;
             }
-            var promote = new _Promote2.default();
+
+            var promote = new _Promote["default"]();
             promote.promoteToBackOffice(_this2.entry, 'Account', _this2);
           });
         },
@@ -667,15 +626,20 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hideBusy: function hideBusy() {
           if (this._busyIndicator) {
             this._busyIndicator.complete();
+
             App.modal.disableClose = false;
             App.modal.hide();
           }
         },
         showBusy: function showBusy() {
           if (!this._busyIndicator || this._busyIndicator._destroyed) {
-            this._busyIndicator = new Busy({ id: this.id + '-busyIndicator' });
+            this._busyIndicator = new Busy({
+              id: "".concat(this.id, "-busyIndicator")
+            });
           }
+
           this._busyIndicator.start();
+
           App.modal.disableClose = true;
           App.modal.showToolbar = false;
           App.modal.add(this._busyIndicator);
@@ -686,8 +650,9 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
       var originalInit = crm.Views.Account.Edit.prototype.init;
       var originalProcessEntry = crm.Views.Account.Edit.prototype.processEntry;
       var originalOnRefreshInsert = crm.Views.Account.Edit.prototype.onRefreshInsert;
-      var icboeUtility = _Utility2.default;
-      _lang2.default.extend(crm.Views.Account.Edit, {
+      var icboeUtility = _Utility["default"];
+
+      _lang["default"].extend(crm.Views.Account.Edit, {
         _busyIndicator: null,
         init: function init() {
           originalInit.apply(this, arguments);
@@ -704,11 +669,13 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         },
         processEntry: function processEntry(entry) {
           originalProcessEntry.apply(this, arguments);
+
           if (entry && entry.ErpExtId) {
             this.disableBackOfficeData();
           } else {
             this.enableBackOfficeData();
           }
+
           return entry;
         },
         processData: function processData() {
@@ -730,10 +697,12 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           this.fields.BackOffice.setValue(field.currentSelection);
           this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
           var accountingField = this.fields.BackOfficeAccountingEntity;
-          accountingField.where = 'BackOffice.Id eq "' + field.currentSelection.$key + '"';
+          accountingField.where = "BackOffice.Id eq \"".concat(field.currentSelection.$key, "\"");
           var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+
           if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
             var entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
+
             if (entry) {
               accountingField.setSelection(entry);
               this.onBackOfficeAccountingEntityChange(accountingField.getValue(), accountingField);
@@ -751,24 +720,30 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hideBusy: function hideBusy() {
           if (this._busyIndicator) {
             this._busyIndicator.complete();
+
             App.modal.disableClose = false;
             App.modal.hide();
           }
         },
         showBusy: function showBusy() {
           if (!this._busyIndicator || this._busyIndicator._destroyed) {
-            this._busyIndicator = new Busy({ id: this.id + '-busyIndicator' });
+            this._busyIndicator = new Busy({
+              id: "".concat(this.id, "-busyIndicator")
+            });
           }
+
           this._busyIndicator.start();
+
           App.modal.disableClose = true;
           App.modal.showToolbar = false;
           App.modal.add(this._busyIndicator);
         }
       });
-
       /*
        * Edit View
        */
+
+
       am.registerCustomization('edit', 'account_edit', {
         at: function at(row) {
           return row.name === 'BusinessDescription';
@@ -804,10 +779,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           emptyText: ''
         }]
       });
-
       /*
        * Quick Actions
        */
+
       am.registerCustomization('detail', 'account_detail', {
         at: function at(row) {
           return row.name === 'AddNoteAction';
@@ -837,10 +812,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           security: 'Entities/SalesOrder/Add'
         }]
       });
-
       /*
        * Details
        */
+
       am.registerCustomization('detail', 'account_detail', {
         at: function at(row) {
           return row.name === detailRowMatch;
@@ -852,20 +827,20 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           property: 'ErpStatus',
           label: this.erpStatusText,
           renderer: function renderer(val) {
-            return _Detail2.default.prototype.formatPicklist.call(this, 'ErpAccountStatus')(val);
+            return _Detail["default"].prototype.formatPicklist.call(this, 'ErpAccountStatus')(val);
           }
         }, {
           name: 'ErpStatusDate',
           property: 'ErpStatusDate',
           label: this.erpStatusDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           label: this.syncStatusText,
           property: 'SyncStatus',
           renderer: function renderer(val) {
-            return _Detail2.default.prototype.formatPicklist.call(this, 'SyncStatus')(val);
+            return _Detail["default"].prototype.formatPicklist.call(this, 'SyncStatus')(val);
           }
         }, {
           label: this.erpCustomerText,
@@ -878,10 +853,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           property: 'ErpAccountingEntityId'
         }]
       });
-
       /*
        * More Details
        */
+
       am.registerCustomization('detail', 'account_detail', {
         at: function at(row) {
           return row.name === moreDetailRowMatch;
@@ -893,10 +868,10 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           property: 'ErpPaymentTerm'
         }
       });
-
       /*
        * Related Items
        */
+
       am.registerCustomization('detail', 'account_detail', {
         at: function at(row) {
           return row.name === 'RelatedItemsSection';
@@ -912,82 +887,83 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
             name: 'Quotes',
             label: this.quotesText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_quotes_related'
           }, {
             name: 'SalesOrders',
             label: this.ordersText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_salesorders_related'
           }, {
             name: 'Shipments',
             label: this.erpShipmentsText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_erpshipments_related'
           }, {
             name: 'ERPInvoicesRelated',
             label: this.erpInvoicesText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_erpinvoice_related'
           }, {
             name: 'ERPReceivablesRelated',
             label: this.erpReceivablesText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_erpreceivables_related'
           }, {
             name: 'ERPReturnsRelated',
             label: this.erpReturnsText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_returns_related'
           }, {
             name: 'BillTo',
             label: this.erpBillToText,
             where: function where(entry) {
-              return 'ErpBillToAccounts.Account.Id eq "' + entry.$key + '"';
+              return "ErpBillToAccounts.Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_billto_related'
           }, {
             name: 'ShipTo',
             label: this.erpShipToText,
             where: function where(entry) {
-              return 'ErpShipToAccounts.Account.Id eq "' + entry.$key + '"';
+              return "ErpShipToAccounts.Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_shipto_related'
           }, {
             name: 'ContactAssociations',
             label: this.erpContactAssociationText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_contactassociations_related'
           }, {
             name: 'SalesPersons',
             label: this.erpSalesPersonText,
             where: function where(entry) {
-              return 'Account.Id eq "' + entry.$key + '"';
+              return "Account.Id eq \"".concat(entry.$key, "\"");
             },
             view: 'account_salesperson_related'
           }, {
             name: 'SyncHistory',
             label: this.syncHistoryText,
             where: function where(entry) {
-              return 'EntityType eq "Account" and EntityId eq "' + entry.$key + '"';
+              return "EntityType eq \"Account\" and EntityId eq \"".concat(entry.$key, "\"");
             },
             view: 'account_syncresults_related'
           }]
         }
       });
+
       if (App.enableDashboards) {
         am.registerCustomization('detail', 'account_detail', {
           at: function at(row) {
@@ -1026,7 +1002,8 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
     loadToolbars: function loadToolbars() {}
   });
 
-  _lang2.default.setObject('icboe.Modules.AccountModule', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Modules.AccountModule', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

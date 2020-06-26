@@ -1,29 +1,20 @@
-define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/Convert', 'argos/RelatedViewManager', '../../DashboardWidget', 'argos/I18n', 'crm/Format', 'crm/Aggregate'], function (module, exports, _declare, _lang, _Convert, _RelatedViewManager, _DashboardWidget, _I18n, _Format, _Aggregate) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/Account/OpenDashboardWidget", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/Convert", "argos/RelatedViewManager", "../../DashboardWidget", "argos/I18n", "crm/Format", "crm/Aggregate"], function (_exports, _declare, _lang, _Convert, _RelatedViewManager, _DashboardWidget, _I18n, _Format, _Aggregate) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Convert = _interopRequireDefault(_Convert);
+  _RelatedViewManager = _interopRequireDefault(_RelatedViewManager);
+  _DashboardWidget = _interopRequireDefault(_DashboardWidget);
+  _I18n = _interopRequireDefault(_I18n);
+  _Format = _interopRequireDefault(_Format);
+  _Aggregate = _interopRequireDefault(_Aggregate);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _RelatedViewManager2 = _interopRequireDefault(_RelatedViewManager);
-
-  var _DashboardWidget2 = _interopRequireDefault(_DashboardWidget);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Aggregate2 = _interopRequireDefault(_Aggregate);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,10 +30,9 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('openDashboardWidget');
 
-  var resource = (0, _I18n2.default)('openDashboardWidget');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.OpenDashboardWidget', [_DashboardWidget2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.Account.OpenDashboardWidget', [_DashboardWidget["default"]], {
     // Localization
     openSalesOrdersText: resource.openSalesOrdersText,
     openQuotesText: resource.openQuotesText,
@@ -57,7 +47,6 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     quotesTotalingText: resource.quotesTotalingText,
     ordersTotalingText: resource.ordersTotalingText,
     invoicesTotalingText: resource.invoicesTotalingText,
-
     // crm status for SalesOrder
     openOrderText: resource.openOrderText,
     salesOrderText: resource.salesOrderText,
@@ -76,7 +65,6 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     color: '#313236',
     selectedColor: '#50535a',
     dayValue: 0,
-
     // Codes used for the status of the entity
     newCode: 'New',
     openCode: 'Open',
@@ -88,12 +76,11 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     disputeCode: 'Dispute',
     holdCode: 'Hold',
     pendingCode: 'Pending',
-
     // Values for the metrics
     values: [{
       name: 'quotes',
       aggregate: 'sum',
-      aggregateModule: _Aggregate2.default,
+      aggregateModule: _Aggregate["default"],
       value: null,
       queryIndex: 0,
       count: true,
@@ -101,7 +88,7 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     }, {
       name: 'invoices',
       aggregate: 'sum',
-      aggregateModule: _Aggregate2.default,
+      aggregateModule: _Aggregate["default"],
       value: null,
       queryIndex: 1,
       count: true,
@@ -109,17 +96,16 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     }, {
       name: 'salesOrders',
       aggregate: 'sum',
-      aggregateModule: _Aggregate2.default,
+      aggregateModule: _Aggregate["default"],
       value: null,
       queryIndex: 2,
       count: true,
       dateDependent: false
     }],
-
     resourceKind: 'accounts',
     querySelect: ['AccountName'],
     getWhere: function getWhere() {
-      return 'Id eq \'' + this.parentEntry.$key + '\'';
+      return "Id eq '".concat(this.parentEntry.$key, "'");
     },
     // Creates the range widgets, value can have valueUnit to apply next to the number
     createRangeLayout: function createRangeLayout() {
@@ -143,51 +129,48 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     },
     createMetricLayout: function createMetricLayout(entry) {
       this.setQueryArgs(entry);
-
       var metricLayout = [{
         navTo: 'account_openquotes_related',
         formatter: 'bigNumber',
-        formatterModule: _Format2.default,
+        formatterModule: _Format["default"],
         title: this.agingQuotesText,
         countTitle: this.quotesTotalingText,
         valueNeeded: 'quotes'
       }, {
         navTo: 'account_lateinvoice_related',
         formatter: 'bigNumber',
-        formatterModule: _Format2.default,
+        formatterModule: _Format["default"],
         title: this.agingInvoicesText,
         countTitle: this.invoicesTotalingText,
         valueNeeded: 'invoices'
       }, {
         navTo: 'account_opensalesorders_related',
         formatter: 'bigNumber',
-        formatterModule: _Format2.default,
+        formatterModule: _Format["default"],
         title: this.agingSalesOrdersText,
         countTitle: this.ordersTotalingText,
         valueNeeded: 'salesOrders'
       }];
-
       return metricLayout;
     },
     setQueryArgs: function setQueryArgs(entry) {
       this.queryArgs = [];
-
       this.queryArgs.push(['quotes', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + '(' + '(' + '(ErpExtId ne null) and ' + ('(ErpStatus eq "' + this.openCode + '"') + (' or ErpStatus eq "' + this.pendingCode + '"') + (' or ErpStatus eq "' + this.approvedCode + '"') + (') and (' + this.pastDays('DocumentDate') + ')') + ')' + ' or ' + '(' + '(ErpExtId eq null) and ' + ('(Status eq "' + this.newText + '"') + (' or Status eq "' + this.openText + '"') + (' or Status eq "' + this.approvedText + '"') + (' or Status eq "' + this.pendingText + '"') + (' or Status eq "' + this.awardedText + '"') + (') and (' + this.pastDays('StartDate') + ')') + ')' + ')',
+        _activeFilter: "Account.Id eq \"".concat(entry.$key, "\" and ") + '(' + '(' + '(ErpExtId ne null) and ' + "(ErpStatus eq \"".concat(this.openCode, "\"") + " or ErpStatus eq \"".concat(this.pendingCode, "\"") + " or ErpStatus eq \"".concat(this.approvedCode, "\"") + ") and (".concat(this.pastDays('DocumentDate'), ")") + ')' + ' or ' + '(' + '(ErpExtId eq null) and ' + "(Status eq \"".concat(this.newText, "\"") + " or Status eq \"".concat(this.openText, "\"") + " or Status eq \"".concat(this.approvedText, "\"") + " or Status eq \"".concat(this.pendingText, "\"") + " or Status eq \"".concat(this.awardedText, "\"") + ") and (".concat(this.pastDays('StartDate'), ")") + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }], ['erpInvoices', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + '(' + ('(ErpStatus eq "' + this.openCode + '"') + (' or ErpStatus eq "' + this.partialPaidCode + '"') + (' or ErpStatus eq "' + this.disputeCode + '"') + ')' + (') and ' + this.pastDays('ErpDocumentDate')),
+        _activeFilter: "Account.Id eq \"".concat(entry.$key, "\" and ") + '(' + "(ErpStatus eq \"".concat(this.openCode, "\"") + " or ErpStatus eq \"".concat(this.partialPaidCode, "\"") + " or ErpStatus eq \"".concat(this.disputeCode, "\"") + ')' + ") and ".concat(this.pastDays('ErpDocumentDate')),
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal'
       }], ['salesOrders', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + '(' + '(' + '(ErpExtId ne null) and ' + '(' + ('(ERPSalesOrder.ERPStatus eq "' + this.openCode + '"') + (' or ERPSalesOrder.ERPStatus eq "' + this.holdCode + '"') + (' or ERPSalesOrder.ERPStatus eq "' + this.partialShipCode + '"') + (' or ERPSalesOrder.ERPStatus eq "' + this.approvedCode + '"') + (') and ' + this.pastDays('ErpDocumentDate') // ' and ' +
+        _activeFilter: "Account.Id eq \"".concat(entry.$key, "\" and ") + '(' + '(' + '(ErpExtId ne null) and ' + '(' + "(ERPSalesOrder.ERPStatus eq \"".concat(this.openCode, "\"") + " or ERPSalesOrder.ERPStatus eq \"".concat(this.holdCode, "\"") + " or ERPSalesOrder.ERPStatus eq \"".concat(this.partialShipCode, "\"") + " or ERPSalesOrder.ERPStatus eq \"".concat(this.approvedCode, "\"") + ") and ".concat(this.pastDays('ErpDocumentDate') // ' and ' +
         // '(SalesOrderItems.ErpStatus eq "' + this.openCode + '"' + // This does not work since it creates a cartesion duplicate result for each line
         //    ' or SalesOrderItems.ErpStatus eq "' + this.partialShipCode + '"' +
         //    ' or SalesOrderItems.ErpStatus eq "' + this.holdCode + '"' +
         //  ') and ' +
         //  this.pastDays('SalesOrderItems.ErpRequiredDeliveryDate') +
-        + ')') + ') or ' + '((ErpExtId eq null) and ' + ('(Status eq "' + this.openOrderText + '"') + (' or Status eq "' + this.salesOrderText + '"') + (' or Status eq "' + this.salesHoldText + '"') + (' or Status eq "' + this.creditHoldText + '"') + (' or Status eq "' + this.adminHoldText + '"') + (' or Status eq "' + this.holdText + '"') + (' or Status eq "' + this.orderedText + '"') + (' or Status eq "' + this.partiallyShippedText + '"') + (' or Status eq "' + this.pendingText + '"') + (') and (' + this.pastDays('OrderDate') + ')') + ')' + ')',
+        , ")") + ') or ' + '((ErpExtId eq null) and ' + "(Status eq \"".concat(this.openOrderText, "\"") + " or Status eq \"".concat(this.salesOrderText, "\"") + " or Status eq \"".concat(this.salesHoldText, "\"") + " or Status eq \"".concat(this.creditHoldText, "\"") + " or Status eq \"".concat(this.adminHoldText, "\"") + " or Status eq \"".concat(this.holdText, "\"") + " or Status eq \"".concat(this.orderedText, "\"") + " or Status eq \"".concat(this.partiallyShippedText, "\"") + " or Status eq \"".concat(this.pendingText, "\"") + ") and (".concat(this.pastDays('OrderDate'), ")") + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }]);
@@ -200,15 +183,18 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
       if (this.dayValue === 0) {
         return '1 eq 1';
       }
-      var pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
-      var query = '(' + property + ' lt @' + _Convert2.default.toIsoStringFromDate(pastDay.toDate()) + '@ or (' + property + ' lt @' + pastDay.format('YYYY-MM-DDT00:00:00[Z]') + '@))';
+      var pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
+      var query = "(".concat(property, " lt @").concat(_Convert["default"].toIsoStringFromDate(pastDay.toDate()), "@ or (").concat(property, " lt @").concat(pastDay.format('YYYY-MM-DDT00:00:00[Z]'), "@))");
       return query;
     }
   });
-  var rvm = new _RelatedViewManager2.default();
+
+  var rvm = new _RelatedViewManager["default"]();
   rvm.registerType('account_open_dashboard_widget', __class);
-  _lang2.default.setObject('icboe.Views.Account.OpenDashboardWidget', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  _lang["default"].setObject('icboe.Views.Account.OpenDashboardWidget', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

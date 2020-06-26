@@ -1,17 +1,14 @@
-define('crm/Integrations/BOE/Modules/_Module', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang'], function (module, exports, _declare, _lang) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Modules/_Module", ["exports", "dojo/_base/declare", "dojo/_base/lang"], function (_exports, _declare, _lang) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -27,8 +24,7 @@ define('crm/Integrations/BOE/Modules/_Module', ['module', 'exports', 'dojo/_base
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules._Module', null, {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Modules._Module', null, {
     applicationModule: null,
     defaultViews: null,
     constructor: function constructor(applicationModule) {
@@ -43,6 +39,7 @@ define('crm/Integrations/BOE/Modules/_Module', ['module', 'exports', 'dojo/_base
       if (this.defaultViews && views) {
         this.defaultViews.forEach(function (defaultView) {
           var idx = views.indexOf(defaultView);
+
           if (idx === -1) {
             views.push(defaultView);
           }
@@ -51,7 +48,8 @@ define('crm/Integrations/BOE/Modules/_Module', ['module', 'exports', 'dojo/_base
     }
   });
 
-  _lang2.default.setObject('icboe.Modules._Module', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Modules._Module', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

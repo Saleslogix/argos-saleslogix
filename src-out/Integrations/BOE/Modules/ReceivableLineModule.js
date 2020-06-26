@@ -1,21 +1,16 @@
-define('crm/Integrations/BOE/Modules/ReceivableLineModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_Module', '../Views/ERPReceivableItems/Detail', '../Models/ErpReceivableItem/Offline', '../Models/ErpReceivableItem/SData'], function (module, exports, _declare, _lang, _Module2, _Detail) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Modules/ReceivableLineModule", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./_Module", "../Views/ERPReceivableItems/Detail", "../Models/ErpReceivableItem/Offline", "../Models/ErpReceivableItem/SData"], function (_exports, _declare, _lang, _Module2, _Detail, _Offline, _SData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Module2 = _interopRequireDefault(_Module2);
+  _Detail = _interopRequireDefault(_Detail);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Module3 = _interopRequireDefault(_Module2);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,18 +26,18 @@ define('crm/Integrations/BOE/Modules/ReceivableLineModule', ['module', 'exports'
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReceivableLineModule', [_Module3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Modules.ReceivableLineModule', [_Module2["default"]], {
     init: function init() {},
     loadViews: function loadViews() {
       var am = this.applicationModule;
-      am.registerView(new _Detail2.default());
+      am.registerView(new _Detail["default"]());
     },
     loadCustomizations: function loadCustomizations() {},
     loadToolbars: function loadToolbars() {}
   });
 
-  _lang2.default.setObject('icboe.Modules.ReceivableLineModule', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Modules.ReceivableLineModule', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

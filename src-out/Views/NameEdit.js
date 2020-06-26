@@ -1,21 +1,16 @@
-define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Validator', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Validator, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/NameEdit", ["exports", "dojo/_base/declare", "../Validator", "argos/Edit", "argos/I18n"], function (_exports, _declare, _Validator, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Validator = _interopRequireDefault(_Validator);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,10 +26,9 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('nameEdit');
 
-  var resource = (0, _I18n2.default)('nameEdit');
-
-  var __class = (0, _declare2.default)('crm.Views.NameEdit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.NameEdit', [_Edit["default"]], {
     // Localization
     titleText: resource.titleText,
     firstNameText: resource.firstNameText,
@@ -44,10 +38,8 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
     prefixTitleText: resource.prefixTitleText,
     suffixText: resource.suffixText,
     suffixTitleText: resource.suffixTitleText,
-
     // View Properties
     id: 'name_edit',
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         emptyText: '',
@@ -64,6 +56,7 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
               storageMode: 'text'
             };
           }
+
           return {
             filterByLanguage: false,
             language: ' ',
@@ -81,21 +74,21 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
         label: this.firstNameText,
         type: 'text',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'MiddleName',
         property: 'MiddleName',
         label: this.middleNameText,
         type: 'text',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'LastName',
         property: 'LastName',
         label: this.lastNameText,
         type: 'text',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         emptyText: '',
         label: this.suffixText,
@@ -111,6 +104,7 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
               storageMode: 'text'
             };
           }
+
           return {
             filterByLanguage: false,
             language: ' ',
@@ -126,6 +120,6 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,33 +1,22 @@
-define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', 'argos/Dialogs/BusyIndicator', '../../Models/Names', 'argos/I18n', '../../PricingAvailabilityService', '../../Promote', '../../Utility'], function (module, exports, _declare, _lang, _Format, _Detail, _BusyIndicator, _Names, _I18n, _PricingAvailabilityService, _Promote, _Utility) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/Quotes/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "argos/Dialogs/BusyIndicator", "../../Models/Names", "argos/I18n", "../../PricingAvailabilityService", "../../Promote", "../../Utility"], function (_exports, _declare, _lang, _Format, _Detail, _BusyIndicator, _Names, _I18n, _PricingAvailabilityService, _Promote, _Utility) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _BusyIndicator = _interopRequireDefault(_BusyIndicator);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
+  _Promote = _interopRequireDefault(_Promote);
+  _Utility = _interopRequireDefault(_Utility);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _BusyIndicator2 = _interopRequireDefault(_BusyIndicator);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  var _Promote2 = _interopRequireDefault(_Promote);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,15 +32,13 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('quoteDetail');
 
-  var resource = (0, _I18n2.default)('quoteDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Quotes.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.Quotes.Detail', [_Detail["default"]], {
     // View Properties
     id: 'quote_detail',
     editView: 'quote_edit',
     locationType: '',
-
     titleText: resource.titleText,
     actionsText: resource.actionsText,
     relatedItemsText: resource.relatedItemsText,
@@ -107,15 +94,14 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
     erpStatusDateText: resource.erpStatusDateText,
     refreshPricingText: resource.refreshPricingText,
     pricingUnavailableText: resource.pricingUnavailableText,
-
     resourceKind: 'quotes',
-    modelName: _Names2.default.QUOTE,
+    modelName: _Names["default"].QUOTE,
     _busyIndicator: null,
     enableOffline: true,
-
     onTransitionTo: function onTransitionTo() {
       this.inherited(onTransitionTo, arguments);
       App.bars.tbar.disableTool('edit');
+
       if (!this.locationType) {
         this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] && App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
       }
@@ -125,6 +111,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
 
       var promise = new Promise(function (resolve) {
         _this.showBusy();
+
         var entry = {
           $name: 'CanPromoteQuote',
           request: {
@@ -132,12 +119,10 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           }
         };
         var request = new Sage.SData.Client.SDataServiceOperationRequest(_this.getService()).setResourceKind('quotes').setContractName('dynamic').setOperationName('CanPromoteQuote');
-
         var canPromote = {
           value: false,
           result: ''
         };
-
         request.execute(entry, {
           success: function success(result) {
             canPromote.value = result.response.Result;
@@ -151,7 +136,6 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           scope: _this
         });
       });
-
       return promise;
     },
     _convertToSalesOrder: function _convertToSalesOrder() {
@@ -164,24 +148,25 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           QuoteId: this.entry.$key
         }
       };
-
       var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('quotes').setContractName('dynamic').setOperationName('ConvertQuoteToOrder');
-
       request.execute(convertQuoteEntry, {
         success: function success(result) {
           _this2.hideBusy();
+
           _this2.refreshRequired = true;
           var view = App.getView('salesorder_detail');
           var options = {
             key: result.response.Result,
             fromContext: _this2
           };
+
           if (view) {
             view.show(options);
           }
         },
         failure: function failure(err) {
           _this2.hideBusy();
+
           var options = {
             title: 'alert',
             content: err.statusText,
@@ -197,10 +182,9 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       return this.entry.IsClosed;
     },
     processEntry: function processEntry() {
-      this.inherited(processEntry, arguments);
-
-      // INFORCRM-16828 - Since we are manually taking over the disable/enable of
+      this.inherited(processEntry, arguments); // INFORCRM-16828 - Since we are manually taking over the disable/enable of
       // the edit, check the security before we might potentially re-enable it.
+
       if (!App.hasAccessTo(this.editView)) {
         return;
       }
@@ -226,15 +210,21 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         });
         return;
       }
+
       var view = App.getView('quote_line_edit');
+
       if (view) {
         var quoteItemView = App.getView('quote_lines_related');
         var count = 0;
+
         if (quoteItemView) {
-          quoteItemView.getListCount({ where: 'Quote.$key eq "' + this.entry.$key + '"' }).then(function (result) {
+          quoteItemView.getListCount({
+            where: "Quote.$key eq \"".concat(this.entry.$key, "\"")
+          }).then(function (result) {
             count = result;
           });
         }
+
         var options = {
           insert: true,
           context: {
@@ -245,9 +235,11 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         this.refreshRequired = true;
         view.show(options);
       } // TODO: direct to line items list view and allow multi-select. On save will attach items to quote product and update the quote.
+
     },
     hideBusy: function hideBusy() {
       this._busyIndicator.complete();
+
       App.modal.disableClose = false;
       App.modal.hide();
     },
@@ -255,6 +247,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       if (!this.entry.$key) {
         return;
       }
+
       if (!this.entry.Account.ErpExtId) {
         var options = {
           title: 'warning',
@@ -269,6 +262,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
     },
     handlePricingSuccess: function handlePricingSuccess(result) {
       this._refreshClicked();
+
       return result;
     },
     onGetOrderTotal: function onGetOrderTotal() {
@@ -282,7 +276,8 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         } else {
           this.options.context.Quote = this.entry;
         }
-        _PricingAvailabilityService2.default.getQuotePricing(this.entry).then(function (result) {
+
+        _PricingAvailabilityService["default"].getQuotePricing(this.entry).then(function (result) {
           _this4.handlePricingSuccess(result);
         });
       }
@@ -300,6 +295,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           App.modal.createSimpleDialog(options);
           return;
         }
+
         if (!this.options.context) {
           this.options.context = {
             Quote: this.entry
@@ -307,7 +303,8 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         } else {
           this.options.context.Quote = this.entry;
         }
-        _PricingAvailabilityService2.default.quoteRePrice(this.entry).then(function (result) {
+
+        _PricingAvailabilityService["default"].quoteRePrice(this.entry).then(function (result) {
           _this5.handlePricingSuccess(result);
         });
       }
@@ -316,8 +313,10 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       var _this6 = this;
 
       var canPromotePromise = this._canPromote();
+
       canPromotePromise.then(function (val) {
         _this6.hideBusy();
+
         if (!val.value) {
           App.modal.createSimpleDialog({
             title: 'alert',
@@ -328,21 +327,26 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           });
           return;
         }
-        var promote = new _Promote2.default();
+
+        var promote = new _Promote["default"]();
         promote.promoteToBackOffice(_this6.entry, 'Quote', _this6);
       });
     },
     showBusy: function showBusy() {
       if (!this._busyIndicator || this._busyIndicator._destroyed) {
-        this._busyIndicator = new _BusyIndicator2.default({ id: this.id + '-busyIndicator' });
+        this._busyIndicator = new _BusyIndicator["default"]({
+          id: "".concat(this.id, "-busyIndicator")
+        });
       }
+
       this._busyIndicator.start();
+
       App.modal.disableClose = true;
       App.modal.showToolbar = false;
       App.modal.add(this._busyIndicator);
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       var _this7 = this;
@@ -435,6 +439,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -445,6 +450,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -452,35 +458,35 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           property: 'CreateDate',
           label: this.dateCreatedText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'StartDate',
           property: 'StartDate',
           label: this.startDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'EndDate',
           property: 'EndDate',
           label: this.endDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'ExpectedDeliveryDate',
           property: 'ExpectedDeliveryDate',
           label: this.expectedDeliveryDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'DocumentDate',
           property: 'DocumentDate',
           label: this.documentDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'Status',
@@ -490,6 +496,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -507,35 +514,35 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           property: 'StatusDate',
           label: this.erpStatusDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'SubTotal',
           property: 'Total',
           label: this.baseSubTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this7.entry.BaseCurrencyCode);
           }
         }, {
           name: 'GrandTotal',
           property: 'GrandTotal',
           label: this.baseGrandTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this7.entry.BaseCurrencyCode);
           }
         }, {
           name: 'DocSubTotal',
           property: 'DocTotal',
           label: this.subTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this7.entry.CurrencyCode);
           }
         }, {
           name: 'DocGrandTotal',
           property: 'DocGrandTotal',
           label: this.grandTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this7.entry.CurrencyCode);
           }
         }, {
           name: 'Comments',
@@ -553,7 +560,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           label: this.billToAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }, {
@@ -562,7 +569,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           label: this.billingAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }, {
@@ -577,7 +584,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           label: this.shipToAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }, {
@@ -588,10 +595,12 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
             if (this.locationType === 'Warehouse') {
               return false;
             }
+
             if (data) {
               if (data.Address && data.Address.FullAddress) {
-                return _Format2.default.address(data.Address);
+                return _Format["default"].address(data.Address);
               }
+
               return data.Description;
             }
           }
@@ -603,10 +612,12 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
             if (this.locationType && this.locationType !== 'Warehouse') {
               return false;
             }
+
             if (data) {
               if (data.Address && data.Address.FullAddress) {
-                return _Format2.default.address(data.Address);
+                return _Format["default"].address(data.Address);
               }
+
               return data.Description;
             }
           }
@@ -616,7 +627,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           label: this.shippingAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }, {
@@ -627,6 +638,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
             if (data) {
               return data;
             }
+
             return '';
           }
         }, {
@@ -634,21 +646,21 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           property: 'DropShip',
           label: this.dropShipAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ShipEarly',
           property: 'ShipEarly',
           label: this.shipEarlyAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'PartialShip',
           property: 'PartialShip',
           label: this.partialShipAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }]
       }, {
@@ -659,28 +671,28 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           name: 'QuoteLines',
           label: this.quoteLinesText,
           where: function where(entry) {
-            return 'Quote.$key eq "' + entry.$key + '"';
+            return "Quote.$key eq \"".concat(entry.$key, "\"");
           },
           view: 'quote_lines_related'
         }, {
           name: 'Attachments',
           label: this.attachmentsText,
           where: function where(entry) {
-            return 'quoteId eq "' + entry.$key + '"';
+            return "quoteId eq \"".concat(entry.$key, "\"");
           },
           view: 'quote_attachments_related'
         }, {
           name: 'QuotePersons',
           label: this.salesPersonsText,
           where: function where(entry) {
-            return 'Quote.Id eq "' + entry.$key + '"';
+            return "Quote.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'quotepersons_related'
         }, {
           name: 'SyncHistory',
           label: this.syncHistoryText,
           where: function where(entry) {
-            return 'EntityType eq "Quote" and EntityId eq "' + entry.$key + '"';
+            return "EntityType eq \"Quote\" and EntityId eq \"".concat(entry.$key, "\"");
           },
           view: 'quote_syncresult_related'
         }]
@@ -688,7 +700,8 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
     }
   });
 
-  _lang2.default.setObject('icboe.Views.Quotes.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.Quotes.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

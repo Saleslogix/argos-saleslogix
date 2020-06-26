@@ -1,73 +1,37 @@
-define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'crm/Format', 'argos/Detail', '../../Models/Names', 'argos/I18n', '../../Utility', '../../PricingAvailabilityService'], function (module, exports, _declare, _lang, _connect, _Format, _Detail, _Names, _I18n, _Utility, _PricingAvailabilityService) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/SalesOrderItems/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/connect", "crm/Format", "argos/Detail", "../../Models/Names", "argos/I18n", "../../Utility", "../../PricingAvailabilityService"], function (_exports, _declare, _lang, _connect, _Format, _Detail, _Names, _I18n, _Utility, _PricingAvailabilityService) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _connect = _interopRequireDefault(_connect);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
+  _Utility = _interopRequireDefault(_Utility);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-  var _connect2 = _interopRequireDefault(_connect);
+  function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-  var _Detail2 = _interopRequireDefault(_Detail);
+  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-  var _Names2 = _interopRequireDefault(_Names);
+  function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-  var _I18n2 = _interopRequireDefault(_I18n);
+  function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-  var _Utility2 = _interopRequireDefault(_Utility);
+  var resource = (0, _I18n["default"])('salesOrderItemsDetail');
 
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
-
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
-
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
-
-      return _arr;
-    }
-
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
-
-  var resource = (0, _I18n2.default)('salesOrderItemsDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     lineText: resource.lineText,
@@ -105,9 +69,8 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
     id: 'salesorder_item_detail',
     editView: 'salesorder_item_edit',
     resourceKind: 'salesorderitems',
-    modelName: _Names2.default.SALESORDERITEM,
+    modelName: _Names["default"].SALESORDERITEM,
     enableOffline: true,
-
     createEntryForDelete: function createEntryForDelete(e) {
       var entry = {
         $key: e.$key,
@@ -118,6 +81,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
     },
     processEntry: function processEntry() {
       this.inherited(processEntry, arguments);
+
       if (this.options && this.options.fromContext && this.options.fromContext.readOnly) {
         if (App.bars && App.bars.tbar) {
           App.bars.tbar.disableTool('removeOrderLine');
@@ -135,10 +99,11 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
         getContent: function getContent() {}
       }).then(function () {
         var entry = _this.createEntryForDelete(_this.entry);
+
         var request = _this.store._createEntryRequest(_this.entry.$key, {});
 
         if (request) {
-          request.delete(entry, {
+          request["delete"](entry, {
             success: _this.onDeleteSuccess,
             failure: _this.onRequestDataFailure,
             scope: _this
@@ -148,16 +113,16 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
     },
     onDeleteSuccess: function onDeleteSuccess() {
       var views = [App.getView('salesorder_items_related'), App.getView('salesorder_detail'), App.getView('salesorder_list')];
-
       views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
         }
       }, this);
 
-      _connect2.default.publish('/app/refresh', [{
+      _connect["default"].publish('/app/refresh', [{
         resourceKind: this.resourceKind
       }]);
+
       ReUI.back();
     },
     refreshRequiredFor: function refreshRequiredFor(options) {
@@ -171,7 +136,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
       if (this.tools) {
         return this.tools;
       }
+
       var tools = this.inherited(createToolLayout, arguments);
+
       if (tools && tools.tbar) {
         tools.tbar.push({
           id: 'removeOrderLine',
@@ -181,12 +148,13 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           security: 'Entities/SalesOrder/Delete'
         });
       }
+
       return tools;
     },
     onAvailability: function onAvailability() {
       var _this2 = this;
 
-      _PricingAvailabilityService2.default.getOrderItemAvailability(this.entry).then(function (result) {
+      _PricingAvailabilityService["default"].getOrderItemAvailability(this.entry).then(function (result) {
         var _result = _slicedToArray(result, 1),
             warehouse = _result[0];
 
@@ -194,9 +162,13 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
             AvailableQuantity = warehouse.AvailableQuantity;
 
         if (ErrorCode) {
-          App.modal.createSimpleAlert({ title: ErrorCode });
+          App.modal.createSimpleAlert({
+            title: ErrorCode
+          });
         } else if (AvailableQuantity) {
-          App.modal.createSimpleAlert({ title: _this2.availableQuantityText + AvailableQuantity });
+          App.modal.createSimpleAlert({
+            title: _this2.availableQuantityText + AvailableQuantity
+          });
         }
       });
     },
@@ -215,7 +187,8 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           name: 'CheckAvailability',
           property: 'SlxLocation.Name',
           label: this.checkWarehouseAvailabilityText,
-          iconClass: 'redo', // TODO: look for a better icon
+          iconClass: 'redo',
+          // TODO: look for a better icon
           action: 'onAvailability',
           disabled: function disabled() {
             return App.warehouseDiscovery === 'auto';
@@ -253,7 +226,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           label: this.priceText,
           renderer: function renderer(value) {
             var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'Discount',
@@ -261,7 +234,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           label: this.discountText,
           renderer: function renderer(value) {
             var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'CalculatedPrice',
@@ -269,21 +242,21 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           label: this.baseAdjustedPriceText,
           renderer: function renderer(value) {
             var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocCalculatedPrice',
           property: 'DocCalculatedPrice',
           label: this.adjustedPriceText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
           }
         }, {
           name: 'Quantity',
           property: 'Quantity',
           label: this.quantityText,
           renderer: function renderer(val) {
-            return _Format2.default.fixedLocale(val, 2);
+            return _Format["default"].fixedLocale(val, 2);
           }
         }, {
           name: 'UnitOfMeasure',
@@ -293,6 +266,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
             if (val && val.Name) {
               return val.Name;
             }
+
             return null;
           }
         }, {
@@ -301,21 +275,21 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           property: 'ExtendedPrice',
           renderer: function renderer(value) {
             var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocExtendedPrice',
           property: 'DocExtendedPrice',
           label: this.extendedAmountText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
           }
         }, {
           name: 'DocTotalAmount',
           property: 'DocTotalAmount',
           label: this.totalAmountText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
           }
         }, {
           name: 'ErpStatus',
@@ -330,56 +304,56 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           property: 'ErpShippedQuantity',
           label: this.shippedQuantityText,
           renderer: function renderer(val) {
-            return _Format2.default.fixedLocale(val, 2);
+            return _Format["default"].fixedLocale(val, 2);
           }
         }, {
           name: 'ErpOpenQuantity',
           property: 'ErpOpenQuantity',
           label: this.openQuantityText,
           renderer: function renderer(val) {
-            return _Format2.default.fixedLocale(val, 2);
+            return _Format["default"].fixedLocale(val, 2);
           }
         }, {
           name: 'ErpBackOrdered',
           property: 'ErpBackOrdered',
           label: this.backOrderedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpDropShip',
           property: 'ErpDropShip',
           label: this.dropShipText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpPartialShipAllowed',
           property: 'ErpPartialShipAllowed',
           label: this.partialShipAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpFixedPriceItem',
           property: 'ErpFixedPriceItem',
           label: this.fixedPriceItemText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpRushRequest',
           property: 'ErpRushRequest',
           label: this.rushRequestText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpSubstituteItem',
           property: 'ErpSubstituteItem',
           label: this.substituteItemText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }]
       }, {
@@ -391,7 +365,8 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
     }
   });
 
-  _lang2.default.setObject('icboe.Views.SalesOrderItems.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.SalesOrderItems.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

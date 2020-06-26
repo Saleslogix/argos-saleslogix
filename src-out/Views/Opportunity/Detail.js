@@ -1,25 +1,18 @@
-define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', 'argos/Detail', '../../Format', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _string, _Detail, _Format, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Opportunity/Detail", ["exports", "dojo/_base/declare", "dojo/string", "argos/Detail", "../../Format", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _string, _Detail, _Format, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Detail = _interopRequireDefault(_Detail);
+  _Format = _interopRequireDefault(_Format);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,11 +28,10 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('opportunityDetail');
+  var dtFormatResource = (0, _I18n["default"])('opportunityDetailDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('opportunityDetail');
-  var dtFormatResource = (0, _I18n2.default)('opportunityDetailDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Opportunity.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Opportunity.Detail', [_Detail["default"]], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -78,20 +70,19 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
     exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
     exchangeRateDateFormatText24: dtFormatResource.exchangeRateDateFormatText24,
     entityText: resource.entityText,
-
     // View Properties
     id: 'opportunity_detail',
     editView: 'opportunity_edit',
     noteEditView: 'history_edit',
     enableOffline: true,
     resourceKind: 'opportunities',
-    modelName: _Names2.default.OPPORTUNITY,
-
+    modelName: _Names["default"].OPPORTUNITY,
     scheduleActivity: function scheduleActivity() {
       App.navigateToActivityInsertView();
     },
     addNote: function addNote() {
       var view = App.getView(this.noteEditView);
+
       if (view) {
         view.show({
           template: {},
@@ -114,17 +105,15 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
         seconds: 5
       });
       var values = this.inherited(getValues, arguments);
-
       values = values || {};
       values.EstimatedClose = timelessStartDate;
-
       return values;
     },
     formatAccountRelatedQuery: function formatAccountRelatedQuery(fmt) {
-      return _string2.default.substitute(fmt, [this.entry.Account.$key]);
+      return _string["default"].substitute(fmt, [this.entry.Account.$key]);
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       var quickActions = {
@@ -146,7 +135,6 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           action: 'addNote'
         }]
       };
-
       var multiCurrency = {
         title: this.multiCurrencyText,
         name: 'MultiCurrencySection',
@@ -162,7 +150,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           label: this.multiCurrencyDateText,
           name: 'ExchangeRateDate',
           property: 'ExchangeRateDate',
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText, false)
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText, false)
         }, {
           label: this.multiCurrencyLockedText,
           name: 'ExchangeRateLocked',
@@ -195,15 +183,16 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
             if (App.hasMultiCurrency()) {
               var exhangeRate = App.getBaseExchangeRate();
               var convertedValue = val * exhangeRate.rate;
-              return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
+              return _Format["default"].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
-            return _Format2.default.currency.call(null, val);
+
+            return _Format["default"].currency.call(null, val);
           }.bindDelegate(this)
         }, {
           label: this.estCloseText,
           name: 'EstimatedClose',
           property: 'EstimatedClose',
-          renderer: _Format2.default.date.bindDelegate(this, null, true)
+          renderer: _Format["default"].date.bindDelegate(this, null, true)
         }, {
           label: this.typeText,
           name: 'Type',
@@ -224,14 +213,13 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           label: this.acctMgrText,
           name: 'AccountManager.UserInfo',
           property: 'AccountManager.UserInfo',
-          renderer: _Format2.default.nameLF
+          renderer: _Format["default"].nameLF
         }, {
           label: this.importSourceText,
           name: 'LeadSource.Description',
           property: 'LeadSource.Description'
         }]
       };
-
       var relatedItems = {
         list: true,
         title: this.relatedItemsText,
@@ -262,12 +250,12 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
         }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'opportunityId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'opportunityId eq "${0}"'),
+          // must be lower case because of feed
           view: 'opportunity_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
       };
-
       var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
@@ -286,7 +274,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
             if (App.hasMultiCurrency()) {
               var exhangeRate = App.getMyExchangeRate();
               var convertedValue = val * exhangeRate.rate;
-              return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
+              return _Format["default"].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
             return '-';
@@ -297,13 +285,12 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           property: 'SalesPotentialOpportunity',
           renderer: function renderSalesPotentialOpportunity(val) {
             if (App.hasMultiCurrency()) {
-              return _Format2.default.multiCurrency.call(null, val.SalesPotential * val.ExchangeRate, val.ExchangeRateCode);
+              return _Format["default"].multiCurrency.call(null, val.SalesPotential * val.ExchangeRate, val.ExchangeRateCode);
             }
 
             return '-';
           }
         });
-
         layout.push(multiCurrency);
       }
 
@@ -312,6 +299,6 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

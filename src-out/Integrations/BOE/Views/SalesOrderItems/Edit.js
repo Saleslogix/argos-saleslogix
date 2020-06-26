@@ -1,33 +1,22 @@
-define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Utility', 'argos/Edit', 'argos/I18n', '../../PricingAvailabilityService', 'crm/Validator', '../../Models/Names', 'argos/Models/Types'], function (module, exports, _declare, _lang, _string, _Utility, _Edit, _I18n, _PricingAvailabilityService, _Validator, _Names, _Types) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/SalesOrderItems/Edit", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/string", "argos/Utility", "argos/Edit", "argos/I18n", "../../PricingAvailabilityService", "crm/Validator", "../../Models/Names", "argos/Models/Types"], function (_exports, _declare, _lang, _string, _Utility, _Edit, _I18n, _PricingAvailabilityService, _Validator, _Names, _Types) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
+  _Validator = _interopRequireDefault(_Validator);
+  _Names = _interopRequireDefault(_Names);
+  _Types = _interopRequireDefault(_Types);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,10 +32,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('salesOrderItemEdit');
 
-  var resource = (0, _I18n2.default)('salesOrderItemEdit');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [_Edit["default"]], {
     // View Properties
     id: 'salesorder_item_edit',
     detailView: 'salesorder_item_detail',
@@ -68,10 +56,10 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
     lineText: resource.lineText,
     warehouseText: resource.warehouseText,
     accountLinked: false,
-
     init: function init() {
       this.inherited(init, arguments);
       this.fields.ErpLineNumber.disable();
+
       if (App.warehouseDiscovery === 'auto') {
         this.fields.SlxLocation.disable();
       }
@@ -95,10 +83,12 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
+
       if (this.options && this.options.context) {
         if (this.options.context.SalesOrder) {
           this.fields.SalesOrder.setSelection(this.options.context.SalesOrder);
           this.fields.SalesOrder.disable();
+
           if (this.options.context.SalesOrder.Account) {
             this.accountLinked = this.options.context.SalesOrder.Account.ErpExtId === true;
           }
@@ -106,21 +96,25 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           this.fields.SalesOrder.enable();
         }
       }
+
       this.setProductDependentFields();
     },
     setProductDependentFields: function setProductDependentFields(product) {
       var _this = this;
 
       var dependants = this.getProductDependants();
+
       if (product) {
         dependants.forEach(function (f) {
           _this.fields[f].enable();
+
           _this.fields[f].dependsOn = 'Product';
-          _this.fields[f].where = 'Product.Id eq "' + product.$key + '"';
+          _this.fields[f].where = "Product.Id eq \"".concat(product.$key, "\"");
         });
       } else {
         dependants.forEach(function (f) {
           _this.fields[f].disable();
+
           _this.fields[f].dependsOn = null;
           _this.fields[f].where = null;
         });
@@ -131,6 +125,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
     },
     onInsert: function onInsert(values) {
       this._applyLogicValues(values);
+
       this.inherited(onInsert, arguments);
     },
     onRefresh: function onRefresh() {
@@ -145,6 +140,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       var _this2 = this;
 
       var salesOrder = null;
+
       if (this.options && this.options.context && this.options.context.SalesOrder) {
         salesOrder = this.options.context.SalesOrder;
       } else {
@@ -152,10 +148,12 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           salesOrder = this.fields.SalesOrder.getValue();
         }
       }
+
       if (salesOrder && salesOrder.$key && !this.isProcessingPricingRequest) {
         this.isProcessingPricingRequest = true;
         this.enablePricingControls(false);
-        _PricingAvailabilityService2.default.getOrderItemPricing(this.entry, salesOrder, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
+
+        _PricingAvailabilityService["default"].getOrderItemPricing(this.entry, salesOrder, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
           _this2.onProductPricingSuccess(results);
         }, function (error) {
           _this2.onProductPricingFailed(error);
@@ -167,10 +165,13 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
 
       this.processProductPricing(result).then(function () {
         _this3.reCalculate();
+
         _this3.isProcessingPricingRequest = false;
+
         _this3.enablePricingControls(true);
       }, function () {
         _this3.isProcessingPricingRequest = false;
+
         _this3.enablePricingControls(true);
       });
     },
@@ -189,12 +190,14 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       var product = this.fields.Product.getValue();
       var promise = new Promise(function (resolve, reject) {
         if (!_this4._uomModel) {
-          _this4._uomModel = App.ModelManager.getModel(_Names2.default.UNITOFMEASURE, _Types2.default.SDATA);
+          _this4._uomModel = App.ModelManager.getModel(_Names["default"].UNITOFMEASURE, _Types["default"].SDATA);
         }
+
         if (_this4._uomModel && product) {
           if (curremtUom && curremtUom.Name !== uomCode || !curremtUom) {
             _this4._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then(function (uom) {
               _this4.fields.UnitOfMeasure.setValue(uom);
+
               resolve(true);
             }, function (error) {
               reject(error);
@@ -216,18 +219,22 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           if (pricingData.DocCalculatedPrice) {
             _this5.fields.DocCalculatedPrice.setValue(pricingData.DocCalculatedPrice.value);
           }
+
           if (pricingData.DocExtendedPrice) {
             _this5.fields.DocExtendedPrice.setValue(pricingData.DocExtendedPrice.value);
           }
+
           if (pricingData.DocTotalAmount) {
             _this5.fields.DocTotalAmount.setValue(pricingData.DocTotalAmount.value);
           }
+
           if (pricingData.SlxLocationId) {
             _this5.fields.SlxLocation.setValue({
               $key: pricingData.SlxLocationId.value,
               Name: pricingData.SlxLocationCode.value
             });
           }
+
           if (pricingData.UnitOfMeasure) {
             _this5.setUomFromCode(pricingData.UnitOfMeasure.value).then(function () {
               resolve(true);
@@ -253,6 +260,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       if (isNaN(value)) {
         this.fields.Quantity.setValueNoTrigger(0);
       }
+
       if (this.isAdHocProduct(this.fields.Product.getValue())) {
         this.reCalculate();
       } else {
@@ -277,6 +285,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       if (product.LineType === 'FreeText') {
         return true;
       }
+
       return false;
     },
     reCalculate: function reCalculate() {
@@ -285,19 +294,20 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       this.fields.ExtendedPrice.setValue(quantity * price);
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
-      return _string2.default.substitute(theFormat, [_Utility2.default.getValue(dependentValue, property || '$key')]);
+      return _string["default"].substitute(theFormat, [_Utility["default"].getValue(dependentValue, property || '$key')]);
     },
     onUpdateCompleted: function onUpdateCompleted() {
       this._refreshRelatedViews();
+
       this.inherited(onUpdateCompleted, arguments);
     },
     onInsertCompleted: function onInsertCompleted() {
       this._refreshRelatedViews();
+
       this.inherited(onInsertCompleted, arguments);
     },
     _refreshRelatedViews: function _refreshRelatedViews() {
       var views = [App.getView('salesorder_item_detail'), App.getView('salesorder_items_list')];
-
       views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
@@ -335,8 +345,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           required: true,
           where: function where() {
             if (_this6.fields.SalesOrder.currentSelection && _this6.fields.SalesOrder.currentSelection.ErpLogicalId || _this6.options && _this6.options.context && _this6.options.context.SalesOrder && _this6.options.context.SalesOrder.ErpLogicalId) {
-              return 'ErpLogicalId eq "' + (_this6.fields.SalesOrder.currentSelection.ErpLogicalId || _this6.options.context.SalesOrder.ErpLogicalId) + '"';
+              return "ErpLogicalId eq \"".concat(_this6.fields.SalesOrder.currentSelection.ErpLogicalId || _this6.options.context.SalesOrder.ErpLogicalId, "\"");
             }
+
             return null;
           }
         }, {
@@ -348,9 +359,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           name: 'Quantity',
           property: 'Quantity',
           type: 'decimal',
-          default: 1,
+          "default": 1,
           notificationTrigger: 'blur',
-          validator: _Validator2.default.exists
+          validator: _Validator["default"].exists
         }, {
           label: this.unitOfMeasureText,
           name: 'UnitOfMeasure',
@@ -373,42 +384,44 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           name: 'Price',
           property: 'Price',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.baseAdjustedPriceText,
           name: 'CalculatedPrice',
           property: 'CalculatedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.docAdjustedPriceText,
           name: 'DocCalculatedPrice',
           property: 'DocCalculatedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.baseExtendedPriceText,
           name: 'ExtendedPrice',
           property: 'ExtendedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.docExtendedPriceText,
           name: 'DocExtendedPrice',
           property: 'DocExtendedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.docTotalAmountText,
           name: 'DocTotalAmount',
           property: 'DocTotalAmount',
           type: 'decimal',
-          default: 0.00
-        }] }]);
+          "default": 0.00
+        }]
+      }]);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.SalesOrderItems.Edit', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.SalesOrderItems.Edit', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

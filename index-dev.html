@@ -229,7 +229,7 @@
         return window.$;
       });
       require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
-        bootstrap({
+        bootstrap.default({
           serviceWorkerPath: './serviceworker.js',
           serviceWorkerRegistrationOptions: null,
           supportedLocales: supportedLocales,

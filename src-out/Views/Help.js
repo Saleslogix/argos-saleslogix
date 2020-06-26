@@ -1,21 +1,16 @@
-define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_DetailBase', 'argos/ErrorManager', 'argos/I18n'], function (module, exports, _declare, _DetailBase2, _ErrorManager, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Help", ["exports", "dojo/_base/declare", "argos/_DetailBase", "argos/ErrorManager", "argos/I18n"], function (_exports, _declare, _DetailBase2, _ErrorManager, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _DetailBase2 = _interopRequireDefault(_DetailBase2);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _DetailBase3 = _interopRequireDefault(_DetailBase2);
-
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,19 +26,16 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('help');
 
-  var resource = (0, _I18n2.default)('help');
-
-  var __class = (0, _declare2.default)('crm.Views.Help', [_DetailBase3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Help', [_DetailBase2["default"]], {
     // Templates
     errorTemplate: new Simplate(['<div data-dojo-attach-point="errorNode">', '<h2>{%: $.errorText %}</h2>', '<ul>', '<li>{%: $.errorMessageText %}</li>', '</ul>', '</div>']),
-
     // Localization
     titleText: resource.titleText,
     errorText: resource.errorText,
     errorMessageText: resource.errorMessageText,
     sectionTitleText: resource.sectionTitleText,
-
     // View Properties
     id: 'help',
     expose: false,
@@ -57,18 +49,17 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
     },
     resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
       var cultureName = App.context.localization.locale || 'en';
-      var localizedUrl = baseUrl + '/' + cultureName + '/' + fileName;
+      var localizedUrl = "".concat(baseUrl, "/").concat(cultureName, "/").concat(fileName);
       return localizedUrl;
     },
     resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
       var languageSpec = App.context.localization.locale || 'en';
       var languageGen = languageSpec.indexOf('-') !== -1 ? languageSpec.split('-')[0] : languageSpec;
-      var localizedUrl = baseUrl + '/' + languageGen + '/' + fileName;
+      var localizedUrl = "".concat(baseUrl, "/").concat(languageGen, "/").concat(fileName);
       return localizedUrl;
     },
     _sanitizeUrl: function _sanitizeUrl() {
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
       // Remove trailing slashes
       return url.replace(/[\/|\\]*$/, ''); // eslint-disable-line
     },
@@ -76,15 +67,17 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
       this.processEntry({});
     },
     processEntry: function processEntry() {
-      this.inherited(processEntry, arguments);
-      // Processing the layout should be done now
+      this.inherited(processEntry, arguments); // Processing the layout should be done now
+
       var self = this;
       Promise.all(this.promises).then(function (results) {
         results.forEach(function (result) {
           self.processContent(result.response, result.domNode);
         });
       }, function (e) {
-        self.processContent({ responseText: self.errorTemplate.apply(self) }, e.domNode);
+        self.processContent({
+          responseText: self.errorTemplate.apply(self)
+        }, e.domNode);
       });
       this.promises = [];
     },
@@ -97,15 +90,19 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
       var baseUrl = _ref.baseUrl,
           fileName = _ref.fileName,
           defaultUrl = _ref.defaultUrl;
-
       var req = Sage.SData.Client.Ajax.request;
+
       var cleanBaseUrl = this._sanitizeUrl(baseUrl);
+
       return new Promise(function (resolve, reject) {
         req({
           url: _this.resolveLocalizedUrl(cleanBaseUrl, fileName),
           cache: true,
           success: function success(response) {
-            return resolve({ response: response, domNode: domNode });
+            return resolve({
+              response: response,
+              domNode: domNode
+            });
           },
           failure: function failure() {
             // First failure, try to get the parent locale
@@ -113,7 +110,10 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
               url: _this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
               cache: true,
               success: function success(response) {
-                return resolve({ response: response, domNode: domNode });
+                return resolve({
+                  response: response,
+                  domNode: domNode
+                });
               },
               failure: function failure() {
                 // Second failure, use the default url
@@ -121,13 +121,21 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
                   url: defaultUrl,
                   cache: true,
                   success: function success(response) {
-                    return resolve({ response: response, domNode: domNode });
+                    return resolve({
+                      response: response,
+                      domNode: domNode
+                    });
                   },
                   failure: function failure(response, o) {
                     // The default help failed. Log the error, as something is
                     // probably wrong with the layout.
-                    _ErrorManager2.default.addError(response, o, _this.options, 'failure');
-                    reject({ response: response, o: o, domNode: domNode });
+                    _ErrorManager["default"].addError(response, o, _this.options, 'failure');
+
+                    reject({
+                      response: response,
+                      o: o,
+                      domNode: domNode
+                    });
                   }
                 });
               }
@@ -145,7 +153,6 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
       }
 
       var layout = [];
-
       layout.push({
         title: this.sectionTitleText,
         name: 'HelpSection',
@@ -158,12 +165,11 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
           cls: 'crmhelp'
         }]
       });
-
       this.layout = layout;
       return layout;
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

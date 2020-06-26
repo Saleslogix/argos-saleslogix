@@ -1,25 +1,18 @@
-define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare', '../../Validator', '../../Template', 'argos/Utility', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Validator, _Template, _Utility, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Opportunity/Edit", ["exports", "dojo/_base/declare", "../../Validator", "../../Template", "argos/Utility", "argos/Edit", "argos/I18n"], function (_exports, _declare, _Validator, _Template, _Utility, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Validator = _interopRequireDefault(_Validator);
+  _Template = _interopRequireDefault(_Template);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,11 +28,10 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('opportunityEdit');
+  var dtFormatResource = (0, _I18n["default"])('opportunityEditDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('opportunityEdit');
-  var dtFormatResource = (0, _I18n2.default)('opportunityEditDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Opportunity.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Opportunity.Edit', [_Edit["default"]], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -65,7 +57,6 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
     exchangeRateDateFormatText: dtFormatResource.exchangeRateDateFormatText,
     exchangeRateDateFormatText24: dtFormatResource.exchangeRateDateFormatText24,
     subTypePickListResellerText: resource.subTypePickListResellerText,
-
     // View Properties
     entityName: 'Opportunity',
     id: 'opportunity_edit',
@@ -85,10 +76,8 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
     },
     applyContext: function applyContext(templateEntry) {
       var found = App.queryNavigationContext(function (o) {
-        return (/^(accounts|contacts)$/.test(o.resourceKind) && o.key
-        );
+        return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
       });
-
       var lookup = {
         accounts: this.applyAccountContext,
         contacts: this.applyContactContext
@@ -123,6 +112,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
     },
     setValues: function setValues(values) {
       this.inherited(setValues, arguments);
+
       if (App.hasMultiCurrency()) {
         if (values && values.ExchangeRateCode) {
           this.fields.ExchangeRateCode.setValue({
@@ -162,22 +152,21 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
     applyAccountContext: function applyAccountContext(context) {
       var view = App.getView(context.id);
       var entry = view && view.entry;
-
       this.fields.Account.setValue(entry);
-      this.fields.AccountManager.setValue(_Utility2.default.getValue(entry, 'AccountManager'));
-      this.fields.Owner.setValue(_Utility2.default.getValue(entry, 'Owner'));
+      this.fields.AccountManager.setValue(_Utility["default"].getValue(entry, 'AccountManager'));
+      this.fields.Owner.setValue(_Utility["default"].getValue(entry, 'Owner'));
     },
     applyContactContext: function applyContactContext(context) {
       var view = App.getView(context.id);
       var entry = view && view.entry;
-
-      this.fields.Account.setValue(_Utility2.default.getValue(entry, 'Account'));
-      this.fields.AccountManager.setValue(_Utility2.default.getValue(entry, 'AccountManager'));
-      this.fields.Owner.setValue(_Utility2.default.getValue(entry, 'Owner'));
+      this.fields.Account.setValue(_Utility["default"].getValue(entry, 'Account'));
+      this.fields.AccountManager.setValue(_Utility["default"].getValue(entry, 'AccountManager'));
+      this.fields.Owner.setValue(_Utility["default"].getValue(entry, 'Owner'));
       this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
     },
     onExchangeRateCodeChange: function onExchangeRateCodeChange(value, field) {
       var selection = field.getSelection();
+
       if (selection && selection.Rate) {
         this.fields.ExchangeRate.setValue(selection.Rate);
         this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
@@ -198,12 +187,11 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
     },
     onAccountChange: function onAccountChange(value, field) {
-      var selection = field.getSelection();
-
-      // todo: match behavior in web client; if the account manager (AM) is explicitly set, it should stay, otherwise
+      var selection = field.getSelection(); // todo: match behavior in web client; if the account manager (AM) is explicitly set, it should stay, otherwise
       // it should be set to the AM for the selected account (and change each time).
+
       if (selection && this.insert) {
-        this.fields.AccountManager.setValue(_Utility2.default.getValue(selection, 'AccountManager'));
+        this.fields.AccountManager.setValue(_Utility["default"].getValue(selection, 'AccountManager'));
       }
     },
     createLayout: function createLayout() {
@@ -216,7 +204,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           property: 'Description',
           type: 'text',
           maxTextLength: 64,
-          validator: [_Validator2.default.notEmpty, _Validator2.default.exceedsMaxTextLength],
+          validator: [_Validator["default"].notEmpty, _Validator["default"].exceedsMaxTextLength],
           autoFocus: true
         }, {
           label: this.accountText,
@@ -224,7 +212,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           property: 'Account',
           textProperty: 'AccountName',
           type: 'lookup',
-          validator: _Validator2.default.exists,
+          validator: _Validator["default"].exists,
           view: 'account_related',
           viewMixin: {
             hasSettings: false
@@ -234,7 +222,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           name: 'AccountManager',
           property: 'AccountManager',
           textProperty: 'UserInfo',
-          textTemplate: _Template2.default.nameLF,
+          textTemplate: _Template["default"].nameLF,
           type: 'lookup',
           view: 'user_list'
         }, {
@@ -244,7 +232,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           textProperty: 'AccountName',
           type: 'lookup',
           view: 'account_related',
-          where: 'upper(SubType) eq "' + this.subTypePickListResellerText + '"',
+          where: "upper(SubType) eq \"".concat(this.subTypePickListResellerText, "\""),
           viewMixin: {
             hasSettings: false,
             onTransitionTo: function onTransitionTo(self) {
@@ -258,7 +246,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           property: 'EstimatedClose',
           type: 'date',
           timeless: true,
-          validator: _Validator2.default.exists
+          validator: _Validator["default"].exists
         }, {
           label: this.potentialText,
           name: 'SalesPotential',
@@ -266,7 +254,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           precision: 2,
           type: 'multiCurrency',
           validationTrigger: 'keyup',
-          validator: _Validator2.default.isCurrency
+          validator: _Validator["default"].isCurrency
         }, {
           label: this.typeText,
           name: 'Type',
@@ -275,7 +263,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           title: this.opportunityTypeTitleText,
           type: 'picklist',
           maxTextLength: 64,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           label: this.statusText,
           name: 'Status',
@@ -298,7 +286,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           keyProperty: '$key',
           textProperty: 'OwnerDescription',
           type: 'lookup',
-          validator: _Validator2.default.exists,
+          validator: _Validator["default"].exists,
           view: 'owner_list'
         }, {
           label: this.probabilityText,
@@ -307,14 +295,13 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           picklist: 'Opportunity Probability',
           title: this.probabilityTitleText,
           type: 'picklist',
-          validator: [_Validator2.default.isInt32, _Validator2.default.isInteger]
+          validator: [_Validator["default"].isInt32, _Validator["default"].isInteger]
         }, {
           name: 'Contacts.$resources[0].Contact.$key',
           property: 'Contacts.$resources[0].Contact.$key',
           type: 'hidden'
         }]
       };
-
       var multiCurrency = {
         title: this.multiCurrencyText,
         name: 'OpportunityMultiCurrencyEdit',
@@ -323,7 +310,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           name: 'ExchangeRate',
           property: 'ExchangeRate',
           type: 'text',
-          validator: _Validator2.default.isDecimal
+          validator: _Validator["default"].isDecimal
         }, {
           label: this.multiCurrencyCodeText,
           name: 'ExchangeRateCode',
@@ -344,9 +331,9 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           timeless: false,
           dateFormatText: App.is24HourClock() ? this.exchangeRateDateFormatText24 : this.exchangeRateDateFormatText,
           disabled: true // TODO: Create an SDK issue for this (NOT WORKING!!!)
+
         }]
       };
-
       var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
@@ -363,6 +350,6 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/Views/ERPReceivableItems/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _Format, _Detail, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPReceivableItems/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _Format, _Detail, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,10 +28,9 @@ define('crm/Integrations/BOE/Views/ERPReceivableItems/Detail', ['module', 'expor
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('erpReceivableItemsDetail');
 
-  var resource = (0, _I18n2.default)('erpReceivableItemsDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivableItems.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPReceivableItems.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     lineNumberText: resource.lineNumberText,
@@ -49,14 +41,12 @@ define('crm/Integrations/BOE/Views/ERPReceivableItems/Detail', ['module', 'expor
     extPriceText: resource.extPriceText,
     lineTotalText: resource.lineTotalText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'erpreceivableitems_detail',
     // security: 'Entities/ERPReceivableItems/View',
-    modelName: _Names2.default.ERPRECEIVABLEITEM,
+    modelName: _Names["default"].ERPRECEIVABLEITEM,
     resourceKind: 'erpReceivableItems',
     enableOffline: true,
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.detailsText,
@@ -101,15 +91,18 @@ define('crm/Integrations/BOE/Views/ERPReceivableItems/Detail', ['module', 'expor
     formatMultiCurrency: function formatMultiCurrency(val) {
       if (App.hasMultiCurrency() && val) {
         if (this.entry.ErpReceivable.CurrencyCode) {
-          return _Format2.default.multiCurrency.call(null, val, this.entry.ErpReceivable.CurrencyCode);
+          return _Format["default"].multiCurrency.call(null, val, this.entry.ErpReceivable.CurrencyCode);
         }
-        return _Format2.default.currency.call(null, val);
+
+        return _Format["default"].currency.call(null, val);
       }
-      return _Format2.default.currency.call(null, val);
+
+      return _Format["default"].currency.call(null, val);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPReceivableItems.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPReceivableItems.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

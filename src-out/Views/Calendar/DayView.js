@@ -1,46 +1,26 @@
-define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', 'argos/ErrorManager', 'argos/Convert', 'argos/List', 'argos/_LegacySDataListMixin', 'argos/I18n', '../../Models/Activity/ActivityTypeIcon'], function (module, exports, _declare, _string, _ErrorManager, _Convert, _List, _LegacySDataListMixin2, _I18n, _ActivityTypeIcon) {
-  Object.defineProperty(exports, "__esModule", {
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+define("crm/Views/Calendar/DayView", ["exports", "dojo/_base/declare", "dojo/string", "argos/ErrorManager", "argos/Convert", "argos/List", "argos/_LegacySDataListMixin", "argos/I18n", "../../Models/Activity/ActivityTypeIcon"], function (_exports, _declare, _string, _ErrorManager, _Convert, _List, _LegacySDataListMixin2, _I18n, activityTypeIcons) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _Convert = _interopRequireDefault(_Convert);
+  _List = _interopRequireDefault(_List);
+  _LegacySDataListMixin2 = _interopRequireDefault(_LegacySDataListMixin2);
+  _I18n = _interopRequireDefault(_I18n);
+  activityTypeIcons = _interopRequireWildcard(activityTypeIcons);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-  var _string2 = _interopRequireDefault(_string);
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _LegacySDataListMixin3 = _interopRequireDefault(_LegacySDataListMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var activityTypeIcons = _interopRequireWildcard(_ActivityTypeIcon);
-
-  function _interopRequireWildcard(obj) {
-    if (obj && obj.__esModule) {
-      return obj;
-    } else {
-      var newObj = {};
-
-      if (obj != null) {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-        }
-      }
-
-      newObj.default = obj;
-      return newObj;
-    }
-  }
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -56,11 +36,10 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('calendarDayView');
+  var dtFormatResource = (0, _I18n["default"])('calendarDayViewDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('calendarDayView');
-  var dtFormatResource = (0, _I18n2.default)('calendarDayViewDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Calendar.DayView', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Calendar.DayView', [_List["default"], _LegacySDataListMixin2["default"]], {
     // Localization
     titleText: resource.titleText,
     eventDateFormatText: dtFormatResource.eventDateFormatText,
@@ -76,11 +55,9 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     activityHeaderText: resource.activityHeaderText,
     eventMoreText: resource.eventMoreText,
     toggleCollapseText: resource.toggleCollapseText,
-
     enablePullToRefresh: false,
     toggleCollapseClass: 'fa fa-chevron-down',
     toggleExpandClass: 'fa fa-chevron-right',
-
     // Templates
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '<div data-dojo-attach-point="searchNode"></div>', '{%! $.navigationTemplate %}', '<div style="clear:both"></div>', '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">', '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>', '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>', '{%! $.eventMoreTemplate %}', '</div>', '<h2>{%= $.activityHeaderText %}</h2>', '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>', '{%! $.moreTemplate %}', '</div>']),
     rowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">', '<table class="calendar-entry-table"><tr>', '<td class="entry-table-icon">', '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityTypeIcon[$.Type] %}">', '</button>', '</td>', '<td class="entry-table-time">{%! $$.timeTemplate %}</td>', '<td class="entry-table-description">{%! $$.itemTemplate %}</td>', '</tr></table>', '</li>']),
@@ -114,12 +91,10 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
         type: 'innerHTML'
       }
     },
-
     // View Properties
     id: 'calendar_daylist',
     cls: 'activities-for-day',
     iconClass: 'fa fa-calendar fa-lg',
-
     datePickerView: 'generic_calendar',
     monthView: 'calendar_monthlist',
     weekView: 'calendar_weeklist',
@@ -134,15 +109,14 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     eventFeed: null,
     eventPageSize: 3,
     eventQuerySelect: ['StartDate', 'EndDate', 'Description', 'Type'],
-    activityTypeIcon: activityTypeIcons.default,
+    activityTypeIcon: activityTypeIcons["default"],
     resourceKind: 'activities',
     pageSize: 1000,
     expose: false,
-
     continuousScrolling: false,
-
     _onRefresh: function _onRefresh(o) {
       this.inherited(_onRefresh, arguments);
+
       if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
         this.refreshRequired = true;
       }
@@ -153,10 +127,10 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     },
     toggleGroup: function toggleGroup(params) {
       var node = params.$source;
+
       if (node && node.parentNode) {
         $(node).toggleClass('collapsed');
         $(node.parentNode).toggleClass('collapsed-event');
-
         var button = this.collapseButton;
 
         if (button) {
@@ -167,13 +141,11 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     },
     refresh: function refresh() {
       this.clear();
-
       this.options = this.options || {};
       this.options.where = this.formatQueryForActivities();
       this.feed = null;
       this.eventFeed = null;
       this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
-
       this.requestData();
       this.requestEventData();
     },
@@ -187,8 +159,9 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       });
     },
     onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
-      alert(_string2.default.substitute(this.requestErrorText, [response, o])); // eslint-disable-line
-      _ErrorManager2.default.addError(response, o, this.options, 'failure');
+      alert(_string["default"].substitute(this.requestErrorText, [response, o])); // eslint-disable-line
+
+      _ErrorManager["default"].addError(response, o, this.options, 'failure');
     },
     onRequestEventDataAborted: function onRequestEventDataAborted() {
       this.options = false; // force a refresh
@@ -203,10 +176,11 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       return request;
     },
     getEventQuery: function getEventQuery() {
-      return _string2.default.substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()), _Convert2.default.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())]);
+      return _string["default"].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, _Convert["default"].toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()), _Convert["default"].toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())]);
     },
     activateEventMore: function activateEventMore() {
       var view = App.getView('event_related');
+
       if (view) {
         var where = this.getEventQuery();
         view.show({
@@ -230,6 +204,7 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
         this.hideEventList();
         return false;
       }
+
       this.showEventList();
 
       for (var i = 0; i < feedLength; i++) {
@@ -253,17 +228,17 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       var r = feed.$resources;
       var feedLength = r.length;
       var o = [];
-
       this.feed = feed;
+
       for (var i = 0; i < feedLength; i++) {
         var row = r[i];
         row.isEvent = false;
         this.entries[row.$key] = row;
         o.push(this.rowTemplate.apply(row, this));
-      }
-
-      // If we fetched a page that has no data due to un-reliable counts,
+      } // If we fetched a page that has no data due to un-reliable counts,
       // check if we fetched anything in the previous pages before assuming there is no data.
+
+
       if (feedLength === 0 && Object.keys(this.entries).length === 0) {
         this.set('listContent', this.noDataTemplate.apply(this));
         return false;
@@ -291,7 +266,6 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
 
       var theOptions = options || {};
       theOptions.where = this.formatQueryForActivities();
-
       this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
       this.inherited(arguments, [theOptions]);
     },
@@ -338,16 +312,13 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     },
     formatQueryForActivities: function formatQueryForActivities() {
       var queryWhere = ['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join('');
-
       var startDate = this.currentDate.clone().startOf('day').toDate();
       var endDate = this.currentDate.clone().endOf('day').toDate();
-
-      return _string2.default.substitute(queryWhere, [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(startDate), _Convert2.default.toIsoStringFromDate(endDate), this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'), this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      return _string["default"].substitute(queryWhere, [App.context.user && App.context.user.$key, _Convert["default"].toIsoStringFromDate(startDate), _Convert["default"].toIsoStringFromDate(endDate), this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'), this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     selectEntry: function selectEntry(params) {
       var row = $(params.$source).closest('[data-key]')[0];
       var key = row ? row.getAttribute('data-key') : false;
-
       this.navigateToDetailView(key);
     },
     selectDate: function selectDate() {
@@ -371,6 +342,7 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
         }
       };
       var view = App.getView(this.datePickerView);
+
       if (view) {
         view.show(options);
       }
@@ -399,8 +371,8 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     },
     navigateToInsertView: function navigateToInsertView() {
       var view = App.getView(this.insertView || this.editView);
-
       this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || moment().startOf('day');
+
       if (view) {
         view.show({
           negateHistory: true,
@@ -414,8 +386,8 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       var entry = this.entries[key];
       var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
       var view = App.getView(detailView);
-
       var theDescriptor = entry.isEvent ? descriptor : entry.Description;
+
       if (view) {
         view.show({
           title: theDescriptor,
@@ -425,6 +397,6 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,29 +1,20 @@
-define('crm/Integrations/BOE/Modules/QuoteLineModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_Module', '../Views/Products/List', '../Views/Locations/PricingAvailabilityList', '../Views/QuoteLines/Edit', '../Views/Quotes/List', '../Views/UnitsOfMeasure/List', '../Models/QuoteItem/Offline', '../Models/QuoteItem/SData'], function (module, exports, _declare, _lang, _Module2, _List, _PricingAvailabilityList, _Edit, _List3, _List5) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Modules/QuoteLineModule", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./_Module", "../Views/Products/List", "../Views/Locations/PricingAvailabilityList", "../Views/QuoteLines/Edit", "../Views/Quotes/List", "../Views/UnitsOfMeasure/List", "../Models/QuoteItem/Offline", "../Models/QuoteItem/SData"], function (_exports, _declare, _lang, _Module2, _List, _PricingAvailabilityList, _Edit, _List2, _List3, _Offline, _SData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Module2 = _interopRequireDefault(_Module2);
+  _List = _interopRequireDefault(_List);
+  _PricingAvailabilityList = _interopRequireDefault(_PricingAvailabilityList);
+  _Edit = _interopRequireDefault(_Edit);
+  _List2 = _interopRequireDefault(_List2);
+  _List3 = _interopRequireDefault(_List3);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Module3 = _interopRequireDefault(_Module2);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _PricingAvailabilityList2 = _interopRequireDefault(_PricingAvailabilityList);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _List4 = _interopRequireDefault(_List3);
-
-  var _List6 = _interopRequireDefault(_List5);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,33 +30,27 @@ define('crm/Integrations/BOE/Modules/QuoteLineModule', ['module', 'exports', 'do
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module2["default"]], {
     init: function init() {},
     loadViews: function loadViews() {
       var am = this.applicationModule;
-
-      am.registerView(new _List4.default({
+      am.registerView(new _List2["default"]({
         expose: false,
         id: 'quoteline_quote_list'
       }));
-
-      am.registerView(new _Edit2.default());
-
-      am.registerView(new _List2.default({
+      am.registerView(new _Edit["default"]());
+      am.registerView(new _List["default"]({
         id: 'quoteline_product_related',
         expose: false
       }));
-
-      am.registerView(new _PricingAvailabilityList2.default({
+      am.registerView(new _PricingAvailabilityList["default"]({
         id: 'quoteline_pricingAvailabilityLocations',
         entityType: 'QuoteItem',
         requestType: 'QuoteItemAvailable',
         parentEntity: 'Quote',
         singleSelectAction: 'complete'
       }));
-
-      am.registerView(new _List6.default({
+      am.registerView(new _List3["default"]({
         id: 'quoteline_unitofmeasure_list',
         hasSettings: false
       }));
@@ -74,7 +59,8 @@ define('crm/Integrations/BOE/Modules/QuoteLineModule', ['module', 'exports', 'do
     loadToolbars: function loadToolbars() {}
   });
 
-  _lang2.default.setObject('icboe.Modules.QuoteLineModule', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Modules.QuoteLineModule', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

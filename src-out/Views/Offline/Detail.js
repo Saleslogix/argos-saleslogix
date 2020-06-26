@@ -1,29 +1,20 @@
-define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', 'argos/_DetailBase', '../../Format', 'argos/_RelatedViewWidgetDetailMixin', 'argos/Models/Types', 'dojo/_base/lang', 'argos/I18n', 'dojo/string'], function (module, exports, _declare, _DetailBase2, _Format, _RelatedViewWidgetDetailMixin, _Types, _lang, _I18n, _string) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Offline/Detail", ["exports", "dojo/_base/declare", "argos/_DetailBase", "../../Format", "argos/_RelatedViewWidgetDetailMixin", "argos/Models/Types", "dojo/_base/lang", "argos/I18n", "dojo/string"], function (_exports, _declare, _DetailBase2, _Format, _RelatedViewWidgetDetailMixin, _Types, _lang, _I18n, _string) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _DetailBase2 = _interopRequireDefault(_DetailBase2);
+  _Format = _interopRequireDefault(_Format);
+  _RelatedViewWidgetDetailMixin = _interopRequireDefault(_RelatedViewWidgetDetailMixin);
+  _Types = _interopRequireDefault(_Types);
+  _lang = _interopRequireDefault(_lang);
+  _I18n = _interopRequireDefault(_I18n);
+  _string = _interopRequireDefault(_string);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _DetailBase3 = _interopRequireDefault(_DetailBase2);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _RelatedViewWidgetDetailMixin2 = _interopRequireDefault(_RelatedViewWidgetDetailMixin);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,8 +30,9 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  var resource = (0, _I18n2.default)('offlineDetail');
-  exports.default = (0, _declare2.default)('crm.Views.Offline.Detail', [_DetailBase3.default, _RelatedViewWidgetDetailMixin2.default], {
+  var resource = (0, _I18n["default"])('offlineDetail');
+
+  var _default = (0, _declare["default"])('crm.Views.Offline.Detail', [_DetailBase2["default"], _RelatedViewWidgetDetailMixin["default"]], {
     id: 'offline_detail',
     titleText: resource.titleText,
     offlineText: resource.offlineText,
@@ -51,6 +43,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
     relatedTemplate: new Simplate(['<li class="relatedviewitem {%= $.cls %}">', '<a data-action="activateRelatedList" data-view="{%= $.view %}" data-name="{%: $.name %}" data-context="{%: $.context %}" {% if ($.disabled) { %}data-disable-action="true"{% } %} class="{% if ($.disabled) { %}disabled{% } %}">', '{% if ($.icon) { %}', '<img src="{%= $.icon %}" alt="icon" class="icon" />', '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}" alt="icon"></div>', '{% } %}', '<span class="related-item-label">', '<div class="busy-xs badge"', '<div class="busy-indicator-container" aria-live="polite">', '<div class="busy-indicator active">', '<div class="bar one"></div>', '<div class="bar two"></div>', '<div class="bar three"></div>', '<div class="bar four"></div>', '<div class="bar five"></div>', '</div>', '</div>', '</div>', '{%: $.label %}</span>', '</a>', '</li>']),
     show: function show(options) {
       this._initOfflineView(options);
+
       this.inherited(show, arguments);
     },
     _initOfflineView: function _initOfflineView(options) {
@@ -62,11 +55,13 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
         source: null
       };
       this.refreshRequired = true;
-      _lang2.default.mixin(this.offlineContext, options.offlineContext);
-      this._model = App.ModelManager.getModel(this.offlineContext.entityName, _Types2.default.OFFLINE);
+
+      _lang["default"].mixin(this.offlineContext, options.offlineContext);
+
+      this._model = App.ModelManager.getModel(this.offlineContext.entityName, _Types["default"].OFFLINE);
 
       if (!this.offlineContext.viewId) {
-        this.offlineContext.viewId = this._model.detailViewId ? this._model.detailViewId : this._model.entityName.toLowerCase() + '_detail';
+        this.offlineContext.viewId = this._model.detailViewId ? this._model.detailViewId : "".concat(this._model.entityName.toLowerCase(), "_detail");
       }
 
       this._entityView = this.getEntityView();
@@ -76,18 +71,22 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       App.setToolBarMode(false);
     },
     getEntityView: function getEntityView() {
-      var newViewId = this.id + '_' + this.offlineContext.viewId;
+      var newViewId = "".concat(this.id, "_").concat(this.offlineContext.viewId);
       var view = App.getView(this.offlineContext.viewId);
 
       if (this._entityView) {
         this._entityView.destroy();
+
         this._entityView = null;
       }
 
       if (view) {
         var ViewCtor = view.constructor;
-        this._entityView = new ViewCtor({ id: newViewId });
+        this._entityView = new ViewCtor({
+          id: newViewId
+        });
       }
+
       return this._entityView;
     },
     _applyStateToGetOptions: function _applyStateToGetOptions() {},
@@ -96,23 +95,31 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       return options && (options.id || options.key);
     },
     placeDetailHeader: function placeDetailHeader() {
-      var value = void 0;
+      var value;
       var offlineDate = '';
+
       if (this._model && this._model.entityDisplayName) {
-        value = _string2.default.substitute(this.informationText, [this._model.entityDisplayName]);
+        value = _string["default"].substitute(this.informationText, [this._model.entityDisplayName]);
       } else {
-        value = _string2.default.substitute(this.informationText, [this.entityText]);
+        value = _string["default"].substitute(this.informationText, [this.entityText]);
       }
-      value = value + ' - ' + this.offlineText;
+
+      value = "".concat(value, " - ").concat(this.offlineText);
+
       if (this.entry.$offlineDate) {
-        offlineDate = _Format2.default.relativeDate(this.entry.$offlineDate);
+        offlineDate = _Format["default"].relativeDate(this.entry.$offlineDate);
       }
-      $(this.tabContainer).before(this.detailHeaderTemplate.apply({ value: value, offlineDate: offlineDate }, this));
+
+      $(this.tabContainer).before(this.detailHeaderTemplate.apply({
+        value: value,
+        offlineDate: offlineDate
+      }, this));
     },
     createLayout: function createLayout() {
       var view = this._entityView;
       var original = App.getView(this.offlineContext.viewId);
       var layout = [];
+
       if (view && original) {
         view.entry = this.entry;
         original.entry = this.entry;
@@ -130,7 +137,6 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
 
         return enableOffline;
       });
-
       this.disableSections(layout);
       this.applyRelatedSections(layout);
       return layout;
@@ -139,7 +145,6 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       var _this = this;
 
       var sections = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
       sections.forEach(function (section) {
         _this.disableSection(section);
       });
@@ -148,7 +153,6 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       var _this2 = this;
 
       var section = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
       section.children.forEach(function (property) {
         _this2.disableProperty(section, property);
       });
@@ -157,17 +161,18 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       if (property.enableOffline) {
         return;
       }
+
       property.disabled = true;
     },
     applyRelatedSections: function applyRelatedSections() {
       var _this3 = this;
 
       var sections = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
       this._relatedItems = {};
       sections.forEach(function (section) {
         if (section.name === 'RelatedItemsSection') {
           section.children = [];
+
           _this3.addRelatedLayout(section);
         }
       });
@@ -178,14 +183,15 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       var rels = this._model.relationships || [];
       rels.forEach(function (rel) {
         if (rel && rel.relatedEntity) {
-          var relatedModel = App.ModelManager.getModel(rel.relatedEntity, _Types2.default.OFFLINE);
-          var viewId = void 0;
+          var relatedModel = App.ModelManager.getModel(rel.relatedEntity, _Types["default"].OFFLINE);
+          var viewId;
+
           if (rel.viewId) {
             viewId = rel.viewId;
           } else if (relatedModel && relatedModel.listViewId) {
             viewId = relatedModel.listViewId;
           } else {
-            viewId = rel.relatedEntity.toLowerCase() + '_related';
+            viewId = "".concat(rel.relatedEntity.toLowerCase(), "_related");
           }
 
           var item = {
@@ -195,7 +201,6 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
             view: viewId,
             relationship: rel
           };
-
           _this4._relatedItems[item.name] = item;
           section.children.push(item);
         }
@@ -208,7 +213,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       if (labelNode && relationship) {
         this._model.getRelatedCount(relationship, this.entry).then(function (count) {
           $('.busy-xs', labelNode).remove();
-          var html = '<span class="info badge">' + count + '</span>';
+          var html = "<span class=\"info badge\">".concat(count, "</span>");
           $(labelNode).before(html);
         }, function (err) {
           console.warn('Error getting related item count: ' + err); //eslint-disable-line
@@ -231,7 +236,9 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
     navigateToRelatedListView: function navigateToRelatedListView(params) {
       var rel = this._relatedItems[params.name];
       var view = App.getView('offline_list');
+
       var queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
+
       var options = {
         title: rel.label,
         offlineContext: {
@@ -242,9 +249,11 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
           related: rel,
           source: this,
           queryExpression: queryExpression
-        } };
+        }
+      };
       options.fromContext = this;
       options.selectedEntry = this.entry;
+
       if (view && options) {
         view.show(options);
       }
@@ -257,6 +266,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
 
       if (relView) {
         var model = relView.getModel();
+
         if (model) {
           var options = {
             descriptor: params.descriptor,
@@ -278,18 +288,19 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     getRelatedDetailView: function getRelatedDetailView(entityName) {
-      var viewId = 'offline_detail_' + entityName;
+      var viewId = "offline_detail_".concat(entityName);
       var view = this.app.getView(viewId);
 
       if (view) {
         return view;
       }
 
-      this.app.registerView(new this.constructor({ id: viewId }));
+      this.app.registerView(new this.constructor({
+        id: viewId
+      }));
       view = this.app.getView(viewId);
       return view;
     },
-
     hasAction: function hasAction(actionName) {
       var currentHasAction = this.inherited(hasAction, arguments);
       return currentHasAction || typeof this._entityView[actionName] === 'function';
@@ -297,16 +308,16 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
     invokeAction: function invokeAction(actionName, parameters, evt, el) {
       // A list of data-actions for the offline detail view (not the _entityView)
       // Note: If any data-actions are added in the templates above, add them here as well!
-      var currentActions = ['activateRelatedList'];
+      var currentActions = ['activateRelatedList']; // Apply the current view actions in our current context
 
-      // Apply the current view actions in our current context
       if (currentActions.includes(actionName)) {
         return this.inherited(invokeAction, arguments);
-      }
+      } // Switch context to the _entityView, so data-actions in those views will have the correct "this"
 
-      // Switch context to the _entityView, so data-actions in those views will have the correct "this"
+
       return this._entityView[actionName].apply(this._entityView, [parameters, evt, el]);
     }
   });
-  module.exports = exports['default'];
+
+  _exports["default"] = _default;
 });

@@ -1,39 +1,25 @@
-define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', 'argos/Utility', 'argos/Convert', 'argos/Detail', 'argos/I18n', 'dojo/Deferred', '../../Template', '../../Format', '../../Environment', '../../Recurrence', '../../Utility', '../../Models/Names', '../../Models/Activity/ActivityTypePicklists'], function (module, exports, _declare, _string, _Utility, _Convert, _Detail, _I18n, _Deferred, _Template, _Format, _Environment, _Recurrence, _Utility3, _Names, _ActivityTypePicklists) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Activity/Detail", ["exports", "dojo/_base/declare", "dojo/string", "argos/Utility", "argos/Convert", "argos/Detail", "argos/I18n", "dojo/Deferred", "../../Template", "../../Format", "../../Environment", "../../Recurrence", "../../Utility", "../../Models/Names", "../../Models/Activity/ActivityTypePicklists"], function (_exports, _declare, _string, _Utility, _Convert, _Detail, _I18n, _Deferred, _Template, _Format, _Environment, _Recurrence, _Utility2, _Names, _ActivityTypePicklists) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Utility = _interopRequireDefault(_Utility);
+  _Convert = _interopRequireDefault(_Convert);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
+  _Deferred = _interopRequireDefault(_Deferred);
+  _Template = _interopRequireDefault(_Template);
+  _Format = _interopRequireDefault(_Format);
+  _Environment = _interopRequireDefault(_Environment);
+  _Recurrence = _interopRequireDefault(_Recurrence);
+  _Utility2 = _interopRequireDefault(_Utility2);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Deferred2 = _interopRequireDefault(_Deferred);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Environment2 = _interopRequireDefault(_Environment);
-
-  var _Recurrence2 = _interopRequireDefault(_Recurrence);
-
-  var _Utility4 = _interopRequireDefault(_Utility3);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -49,11 +35,10 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityDetail');
+  var dtFormatResource = (0, _I18n["default"])('activityDetailDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('activityDetail');
-  var dtFormatResource = (0, _I18n2.default)('activityDetailDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Activity.Detail', [_Detail["default"]], {
     // Localization
     actionsText: resource.actionsText,
     completeActivityText: resource.completeActivityText,
@@ -101,17 +86,16 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       atLiterature: resource.literatureText,
       atPersonal: resource.personalText
     },
-
     // View Properties
     id: 'activity_detail',
     completeView: 'activity_complete',
     editView: 'activity_edit',
-    security: null, // 'Entities/Activity/View',
+    security: null,
+    // 'Entities/Activity/View',
     enableOffline: true,
     resourceKind: 'activities',
-    modelName: _Names2.default.ACTIVITY,
+    modelName: _Names["default"].ACTIVITY,
     recurringActivityIdSeparator: ';',
-
     formatActivityType: function formatActivityType(val) {
       return this.activityTypeText[val] || val;
     },
@@ -138,6 +122,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
                 if (_this.entry.Leader) {
                   occurance.Leader = _this.entry.Leader;
                 }
+
                 _this.onEditActivity(occurance);
               }
             });
@@ -146,18 +131,18 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     getOccurance: function getOccurance(entry) {
-      var def = new _Deferred2.default();
-      var key = entry.$key;
-      // Check to ensure we have a composite key (meaning we have the occurance, not the master)
+      var def = new _Deferred["default"]();
+      var key = entry.$key; // Check to ensure we have a composite key (meaning we have the occurance, not the master)
+
       if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
         // Fetch the occurance, and continue on to the complete screen
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', 'id eq \'' + key + '\'').setCount(1);
-
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', "id eq '".concat(key, "'")).setCount(1);
         request.read({
           success: function success(feed) {
             if (feed && feed.$resources && feed.$resources.length > 0) {
               def.resolve(feed.$resources[0]);
             }
+
             def.reject();
           },
           scope: this
@@ -165,10 +150,12 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       } else {
         def.reject();
       }
+
       return def.promise;
     },
     onEditActivity: function onEditActivity(entry) {
       var view = App.getView(this.editView);
+
       if (view) {
         view.show({
           entry: entry
@@ -179,7 +166,8 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       var view = App.getView(this.completeView);
 
       if (view) {
-        _Environment2.default.refreshActivityLists();
+        _Environment["default"].refreshActivityLists();
+
         var options = {
           title: completionTitle,
           template: {}
@@ -202,13 +190,11 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
     },
     completeOccurrence: function completeOccurrence() {
       var entry = this.entry;
-      var key = entry.$key;
+      var key = entry.$key; // Check to ensure we have a composite key (meaning we have the occurance, not the master)
 
-      // Check to ensure we have a composite key (meaning we have the occurance, not the master)
       if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
         // Fetch the occurance, and continue on to the complete screen
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', 'id eq \'' + key + '\'').setCount(1);
-
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', "id eq '".concat(key, "'")).setCount(1);
         request.read({
           success: this.processOccurance,
           scope: this
@@ -222,6 +208,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
         if (this.entry.Leader) {
           feed.$resources[0].Leader = this.entry.Leader;
         }
+
         this.entry = feed.$resources[0];
         this.navigateToCompleteView(this.completeOccurrenceText);
       }
@@ -233,31 +220,33 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       return entry && (entry.Recurring || entry.RecurrenceState === 'rstOccurrence');
     },
     isActivityRecurringSeries: function isActivityRecurringSeries(entry) {
-      return this.isActivityRecurring(entry) && !_Recurrence2.default.isAfterCompletion(entry.RecurPeriod);
+      return this.isActivityRecurring(entry) && !_Recurrence["default"].isAfterCompletion(entry.RecurPeriod);
     },
     isActivityForLead: function isActivityForLead(entry) {
       return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     isActivityTimeless: function isActivityTimeless(entry) {
-      return entry && _Convert2.default.toBoolean(entry.Timeless);
+      return entry && _Convert["default"].toBoolean(entry.Timeless);
     },
     doesActivityHaveReminder: function doesActivityHaveReminder(entry) {
-      return _Convert2.default.toBoolean(entry && entry.Alarm);
+      return _Convert["default"].toBoolean(entry && entry.Alarm);
     },
     checkCanComplete: function checkCanComplete(entry) {
       return !(entry && entry.AllowComplete);
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
-      var toReturn = void 0;
+      var toReturn;
+
       if (property === 'activityId') {
-        toReturn = _string2.default.substitute(fmt, [_Utility4.default.getRealActivityId(entry.$key)]);
+        toReturn = _string["default"].substitute(fmt, [_Utility2["default"].getRealActivityId(entry.$key)]);
       } else {
         var theProperty = property || '$key';
-        toReturn = _string2.default.substitute(fmt, [_Utility2.default.getValue(entry, theProperty, '')]);
+        toReturn = _string["default"].substitute(fmt, [_Utility["default"].getValue(entry, theProperty, '')]);
       }
+
       return toReturn;
     },
     createLayout: function createLayout() {
@@ -291,7 +280,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           iconClass: 'checkbox',
           action: 'completeOccurrence',
           disabled: this.checkCanComplete.bind(this),
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.startDateFormatText24 : this.startDateFormatText, false),
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.startDateFormatText24 : this.startDateFormatText, false),
           include: this.isActivityRecurringSeries.bind(this)
         }, {
           name: 'completeSeriesAction',
@@ -309,7 +298,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           name: 'Description',
           property: 'Description',
           label: this.regardingText,
-          renderer: _Format2.default.picklist(this.app.picklistService, null, null, (0, _ActivityTypePicklists.getPicklistByActivityType)(this.entry.Type, 'Description'))
+          renderer: _Format["default"].picklist(this.app.picklistService, null, null, (0, _ActivityTypePicklists.getPicklistByActivityType)(this.entry.Type, 'Description'))
         }, {
           name: 'LongNotes',
           property: 'LongNotes',
@@ -326,7 +315,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           name: 'PhoneNumber',
           property: 'PhoneNumber',
           label: this.phoneText,
-          renderer: _Format2.default.phone.bindDelegate(this, true)
+          renderer: _Format["default"].phone.bindDelegate(this, true)
         }, {
           name: 'Type',
           property: 'Type',
@@ -336,7 +325,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           name: 'Category',
           property: 'Category',
           label: this.categoryText,
-          renderer: _Format2.default.picklist(this.app.picklistService, null, null, (0, _ActivityTypePicklists.getPicklistByActivityType)(this.entry.Type, 'Category'))
+          renderer: _Format["default"].picklist(this.app.picklistService, null, null, (0, _ActivityTypePicklists.getPicklistByActivityType)(this.entry.Type, 'Category'))
         }, {
           name: 'Location',
           property: 'Location',
@@ -350,7 +339,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           name: 'Leader',
           property: 'Leader.UserInfo',
           label: this.leaderText,
-          template: _Template2.default.nameLF
+          template: _Template["default"].nameLF
         }, {
           name: 'AccountName',
           property: 'AccountName',
@@ -392,13 +381,13 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           name: 'StartDate',
           property: 'StartDate',
           label: this.startTimeText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.startDateFormatText24 : this.startDateFormatText, false),
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.startDateFormatText24 : this.startDateFormatText, false),
           exclude: this.isActivityTimeless.bind(this)
         }, {
           name: 'StartDateTimeless',
           property: 'StartDate',
           label: this.allDayText,
-          renderer: _Format2.default.date.bindDelegate(this, this.timelessDateFormatText, true),
+          renderer: _Format["default"].date.bindDelegate(this, this.timelessDateFormatText, true),
           include: this.isActivityTimeless.bind(this)
         }, {
           name: 'Timeless',
@@ -410,33 +399,33 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
           name: 'Duration',
           property: 'Duration',
           label: this.durationText,
-          renderer: _Format2.default.timespan,
+          renderer: _Format["default"].timespan,
           exclude: this.isActivityTimeless.bind(this)
         }, {
           name: 'Alarm',
           property: 'Alarm',
           label: this.alarmText,
-          renderer: _Format2.default.yesNo,
+          renderer: _Format["default"].yesNo,
           exclude: this.doesActivityHaveReminder.bind(this)
         }, {
           name: 'AlarmTime',
           property: 'AlarmTime',
           label: this.alarmTimeText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.alarmDateFormatText24 : this.alarmDateFormatText, null, true),
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.alarmDateFormatText24 : this.alarmDateFormatText, null, true),
           include: this.doesActivityHaveReminder.bind(this)
         }, {
           name: 'Rollover',
           property: 'Rollover',
           label: this.rolloverText,
           include: this.isActivityTimeless.bind(this),
-          renderer: _Format2.default.yesNo
+          renderer: _Format["default"].yesNo
         }, {
           name: 'RecurrenceUI',
           property: 'recurrence',
           label: this.recurrenceText,
           include: this.isActivityRecurring.bind(this),
           renderer: function renderRecurrence(value) {
-            return _Recurrence2.default.toString(value);
+            return _Recurrence["default"].toString(value);
           }
         }]
       }, {
@@ -446,13 +435,15 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
         children: [{
           name: 'AttendeeRelated',
           label: this.relatedAttendeeText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'Activity.Id eq "${0}"', 'activityId'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'Activity.Id eq "${0}"', 'activityId'),
+          // must be lower case because of feed
           view: 'activity_attendee_related',
           title: this.relatedAttendeeTitleText
         }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),
+          // must be lower case because of feed
           view: 'activity_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
@@ -464,6 +455,6 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

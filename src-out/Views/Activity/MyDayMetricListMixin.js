@@ -1,21 +1,16 @@
-define('crm/Views/Activity/MyDayMetricListMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './MyDayMetricWidget', '../_MetricListMixin'], function (module, exports, _declare, _lang, _MyDayMetricWidget, _MetricListMixin2) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Activity/MyDayMetricListMixin", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./MyDayMetricWidget", "../_MetricListMixin"], function (_exports, _declare, _lang, _MyDayMetricWidget, _MetricListMixin2) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _MyDayMetricWidget = _interopRequireDefault(_MyDayMetricWidget);
+  _MetricListMixin2 = _interopRequireDefault(_MetricListMixin2);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _MyDayMetricWidget2 = _interopRequireDefault(_MyDayMetricWidget);
-
-  var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,10 +26,8 @@ define('crm/Views/Activity/MyDayMetricListMixin', ['module', 'exports', 'dojo/_b
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.MyDayMetricListMixin', [_MetricListMixin3.default], {
-
-    metricWidgetCtor: _MyDayMetricWidget2.default,
+  var __class = (0, _declare["default"])('crm.Views.Activity.MyDayMetricListMixin', [_MetricListMixin2["default"]], {
+    metricWidgetCtor: _MyDayMetricWidget["default"],
     _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
       var options = widgetOptions;
       options.parent = this;
@@ -43,7 +36,6 @@ define('crm/Views/Activity/MyDayMetricListMixin', ['module', 'exports', 'dojo/_b
     createMetricWidgetsLayout: function createMetricWidgetsLayout() {
       var metrics = [];
       var filtered = [];
-
       metrics = App.getMetricsByResourceKind('userActivities');
 
       if (metrics.length > 0) {
@@ -52,9 +44,10 @@ define('crm/Views/Activity/MyDayMetricListMixin', ['module', 'exports', 'dojo/_b
         });
       }
 
-      return _lang2.default.clone(filtered);
+      return _lang["default"].clone(filtered);
     }
   });
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

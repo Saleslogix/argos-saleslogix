@@ -1,25 +1,18 @@
-define('crm/Integrations/Contour/Models/Place/Offline', ['module', 'exports', 'dojo/_base/declare', './Base', 'argos/Models/_OfflineModelBase', 'argos/Models/Manager', 'argos/Models/Types', '../Names'], function (module, exports, _declare, _Base, _OfflineModelBase2, _Manager, _Types, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/Contour/Models/Place/Offline", ["exports", "dojo/_base/declare", "./Base", "argos/Models/_OfflineModelBase", "argos/Models/Manager", "argos/Models/Types", "../Names"], function (_exports, _declare, _Base, _OfflineModelBase2, _Manager, _Types, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Base = _interopRequireDefault(_Base);
+  _OfflineModelBase2 = _interopRequireDefault(_OfflineModelBase2);
+  _Manager = _interopRequireDefault(_Manager);
+  _Types = _interopRequireDefault(_Types);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Base2 = _interopRequireDefault(_Base);
-
-  var _OfflineModelBase3 = _interopRequireDefault(_OfflineModelBase2);
-
-  var _Manager2 = _interopRequireDefault(_Manager);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,12 +28,12 @@ define('crm/Integrations/Contour/Models/Place/Offline', ['module', 'exports', 'd
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.Contour.Models.Place.Offline', [_Base["default"], _OfflineModelBase2["default"]], {
     id: 'place_offline_model'
   });
 
-  _Manager2.default.register(_Names2.default.PLACE, _Types2.default.OFFLINE, __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _Manager["default"].register(_Names["default"].PLACE, _Types["default"].OFFLINE, __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

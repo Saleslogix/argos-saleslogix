@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/Views/SyncResults/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/List', 'crm/Format', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _List, _Format, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/SyncResults/List", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/List", "crm/Format", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _List, _Format, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _List = _interopRequireDefault(_List);
+  _Format = _interopRequireDefault(_Format);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,15 +28,13 @@ define('crm/Integrations/BOE/Views/SyncResults/List', ['module', 'exports', 'doj
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('syncResultsList');
+  var dtFormatResource = (0, _I18n["default"])('syncResultsListDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('syncResultsList');
-  var dtFormatResource = (0, _I18n2.default)('syncResultsListDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SyncResults.List', [_List2.default], {
-    formatter: _Format2.default,
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.SyncResults.List', [_List["default"]], {
+    formatter: _Format["default"],
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading"><label class="group-label">{%: $$.directionText %}: </label>{%: $.RunName %}</p>', '<p class="micro-text"><label class="group-label">{%: $$.statusText %}: </label>{%: $.HttpStatus %}</p>', '{% if ($.ErrorMessage) { %}', '<p class="micro-text"><label class="group-label">{%: $$.errorMessageText %}: </label>{%: $.ErrorMessage %}</p>', '{% } %}', '{% if ($.SyncedFrom) { %}', '<p class="micro-text"><label class="group-label">{%: $$.sentFromText %}: </label>{%: $.SyncedFrom.Name %}</p>', '{% } %}', '{% if ($.SyncedTo) { %}', '<p class="micro-text"><label class="group-label">{%: $$.processedByText %}: </label>{%: $.SyncedTo.Name %}</p>', '{% } %}', '<p class="micro-text"><label class="group-label">{%: $$.loggedText %}: </label>{%: $$.formatter.date($.Stamp, $$.dateFormatText) %}</p>']),
-
     // Localization
     titleText: resource.titleText,
     directionText: resource.directionText,
@@ -54,33 +45,30 @@ define('crm/Integrations/BOE/Views/SyncResults/List', ['module', 'exports', 'doj
     statusText: resource.statusText,
     errorMessageText: resource.errorMessageText,
     dateFormatText: dtFormatResource.dateFormatText,
-
     // View Properties
     id: 'syncresult_list',
     detailView: '',
-    modelName: _Names2.default.SYNCRESULT,
+    modelName: _Names["default"].SYNCRESULT,
     resourceKind: 'syncResults',
     enableActions: false,
     groupsEnabled: false,
     hasSettings: false,
     expose: false,
-
     // Card layout
     itemIconClass: '',
-
     // Metrics
     entityName: 'SyncResult',
-
     createToolLayout: function createToolLayout() {
       return this.tools || (this.tools = {});
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(HttpStatus) like "' + q + '%"';
+      return "upper(HttpStatus) like \"".concat(q, "%\"");
     }
   });
 
-  _lang2.default.setObject('icboe.Views.SyncResults.List', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.SyncResults.List', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

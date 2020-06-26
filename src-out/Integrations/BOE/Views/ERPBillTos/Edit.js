@@ -1,29 +1,20 @@
-define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'argos/Edit', '../../Models/Names', 'crm/Format', 'crm/Validator', 'argos/I18n'], function (module, exports, _declare, _lang, _connect, _Edit, _Names, _Format, _Validator, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPBillTos/Edit", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/connect", "argos/Edit", "../../Models/Names", "crm/Format", "crm/Validator", "argos/I18n"], function (_exports, _declare, _lang, _connect, _Edit, _Names, _Format, _Validator, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _connect = _interopRequireDefault(_connect);
+  _Edit = _interopRequireDefault(_Edit);
+  _Names = _interopRequireDefault(_Names);
+  _Format = _interopRequireDefault(_Format);
+  _Validator = _interopRequireDefault(_Validator);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _connect2 = _interopRequireDefault(_connect);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,10 +30,9 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('erpBillTosEdit');
 
-  var resource = (0, _I18n2.default)('erpBillTosEdit');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPBillTos.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPBillTos.Edit', [_Edit["default"]], {
     // View Properties
     id: 'erpbillto_edit',
     detailView: 'erpbillto_detail',
@@ -64,13 +54,12 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
     addressText: resource.addressText,
     faxText: resource.faxText,
     ownerText: resource.ownerText,
-    modelName: _Names2.default.ERPBILLTO,
+    modelName: _Names["default"].ERPBILLTO,
     associationMapping: {
       accounts: 'erpbilltoaccounts_edit'
     },
     associationView: null,
     associationContext: null,
-
     init: function init() {
       this.inherited(init, arguments);
     },
@@ -78,6 +67,7 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
       this.inherited(applyContext, arguments);
 
       var found = this._getNavContext();
+
       var context = found && found.options && found.options.source || found;
       var lookup = {
         accounts: this.applyAccountContext,
@@ -92,10 +82,12 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
         if (!entry || !entry.$key) {
           return;
         }
+
         lookup[context.resourceKind].call(this, entry, App.context.user.DefaultOwner);
         this.associationContext = entry;
         this.associationView = this.associationMapping[context.resourceKind];
       }
+
       this.fields.Owner.disable();
     },
     applyAccountContext: function applyAccountContext(account, defaultOwner) {
@@ -109,8 +101,10 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
         this.fields.PaymentTerm.disable();
         this.fields.PaymentMethod.disable();
       }
+
       this.fields.ErpAccountingEntityId.setValue(account.ErpAccountingEntityId);
       this.fields.Owner.setValue(account.Owner ? account.Owner : defaultOwner);
+
       if (account.Address !== null) {
         this.fields.Address.setValue(account.Address);
         this.fields.Name.setValue(account.AccountName);
@@ -120,20 +114,24 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
       this.fields.ErpLogicalId.setValue(quote.ErpLogicalId);
       this.fields.ErpAccountingEntityId.setValue(quote.ErpAccountingEntityId);
       this.fields.Owner.setValue(quote.Account.Owner ? quote.Account.Owner : defaultOwner);
+
       if (quote.Account.Address !== null) {
         this.fields.Address.setValue(quote.Account.Address);
         this.fields.Name.setValue(quote.Account.AccountName);
       }
+
       return;
     },
     applyOrderContext: function applyOrderContext(order, defaultOwner) {
       this.fields.ErpLogicalId.setValue(order.ErpLogicalId);
       this.fields.ErpAccountingEntityId.setValue(order.ErpAccountingEntityId);
       this.fields.Owner.setValue(order.Account.Owner ? order.Account.Owner : defaultOwner);
+
       if (order.Account.Address !== null) {
         this.fields.Address.setValue(order.Account.Address);
         this.fields.Name.setValue(order.Account.AccountName);
       }
+
       return;
     },
     onAddComplete: function onAddComplete(entry, result) {
@@ -145,13 +143,15 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
       }
 
       var message = this._buildRefreshMessage(entry, result);
-      _connect2.default.publish('/app/refresh', [message]);
+
+      _connect["default"].publish('/app/refresh', [message]);
 
       this.onInsertCompleted(result);
     },
     onInsertCompleted: function onInsertCompleted(results) {
       if (this.associationView) {
         var view = App.getView(this.associationView);
+
         if (view) {
           view.inserting = true;
           view.options = {
@@ -165,6 +165,7 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           view.onRefreshInsert();
         }
       }
+
       this.associationView = null;
       this.associationContext = null;
     },
@@ -198,7 +199,7 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           property: 'MainPhone',
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'Email',
           property: 'Email',
@@ -216,7 +217,7 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           dependsOn: 'ErpLogicalId',
           storageMode: 'code',
           where: function where(logicalId) {
-            return 'filter eq "' + logicalId + '"';
+            return "filter eq \"".concat(logicalId, "\"");
           }
         }, {
           label: this.statusText,
@@ -237,7 +238,7 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           storageMode: 'code',
           dependsOn: 'ErpLogicalId',
           where: function where(logicalId) {
-            return 'filter eq "' + logicalId + '"';
+            return "filter eq \"".concat(logicalId, "\"");
           }
         }, {
           label: this.paymentMethodText,
@@ -250,11 +251,11 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           storageMode: 'code',
           dependsOn: 'ErpLogicalId',
           where: function where(logicalId) {
-            return 'filter eq "' + logicalId + '"';
+            return "filter eq \"".concat(logicalId, "\"");
           }
         }, {
           emptyText: '',
-          formatValue: _Format2.default.address.bindDelegate(this, [true], true),
+          formatValue: _Format["default"].address.bindDelegate(this, [true], true),
           label: this.addressText,
           name: 'Address',
           property: 'Address',
@@ -266,7 +267,7 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           property: 'Fax',
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'ErpLogicalId',
           property: 'ErpLogicalId',
@@ -282,11 +283,13 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           textProperty: 'OwnerDescription',
           type: 'lookup',
           view: 'owner_list'
-        }] }]);
+        }]
+      }]);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPBillTos.Edit', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPBillTos.Edit', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

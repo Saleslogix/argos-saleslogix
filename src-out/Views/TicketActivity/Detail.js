@@ -1,25 +1,18 @@
-define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/declare', '../../Format', '../../Template', 'argos/Detail', 'argos/I18n', '../../Models/Names'], function (module, exports, _declare, _Format, _Template, _Detail, _I18n, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/TicketActivity/Detail", ["exports", "dojo/_base/declare", "../../Format", "../../Template", "argos/Detail", "argos/I18n", "../../Models/Names"], function (_exports, _declare, _Format, _Template, _Detail, _I18n, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Template = _interopRequireDefault(_Template);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,10 +28,9 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('ticketActivityDetail');
 
-  var resource = (0, _I18n2.default)('ticketActivityDetail');
-
-  var __class = (0, _declare2.default)('crm.Views.TicketActivity.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.TicketActivity.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     accountText: resource.accountText,
@@ -62,19 +54,16 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
     completeTicketText: resource.completeTicketText,
     relatedItemsText: resource.relatedItemsText,
     relatedTicketActivityItemText: resource.relatedTicketActivityItemText,
-
     // View Properties
     id: 'ticketactivity_detail',
     editView: 'ticketactivity_edit',
-
     querySelect: [],
-    modelName: _Names2.default.TICKETACTIVITY,
+    modelName: _Names["default"].TICKETACTIVITY,
     resourceKind: 'ticketActivities',
-
     formatPicklist: function formatPicklist(property) {
       // TODO: This should be changed on the entity level...
       // Special case since this is for some reason stored as $key value on the entity
-      return _Format2.default.picklist(this.app.picklistService, this._model, property, undefined, undefined, {
+      return _Format["default"].picklist(this.app.picklistService, this._model, property, undefined, undefined, {
         display: 2,
         storage: 1
       });
@@ -93,10 +82,8 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
     },
     setNodeText: function setNodeText(node, value) {
       $(node).removeClass('content-loading');
-
       $('span', node).text(value);
     },
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.detailsText,
@@ -129,7 +116,7 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
           name: 'User.UserInfo',
           property: 'User.UserInfo',
           label: this.userText,
-          tpl: _Template2.default.nameLF
+          tpl: _Template["default"].nameLF
         }, {
           label: this.typeText,
           name: 'ActivityTypeCode',
@@ -144,17 +131,17 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
           label: this.assignedDateText,
           name: 'AssignedDate',
           property: 'AssignedDate',
-          renderer: _Format2.default.date
+          renderer: _Format["default"].date
         }, {
           label: this.completedDateText,
           name: 'CompletedDate',
           property: 'CompletedDate',
-          renderer: _Format2.default.date
+          renderer: _Format["default"].date
         }, {
           label: this.followUpText,
           name: 'FollowUp',
           property: 'FollowUp',
-          renderer: _Format2.default.yesNo
+          renderer: _Format["default"].yesNo
         }, {
           label: this.unitsText,
           name: 'Units',
@@ -163,7 +150,7 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
           label: this.elapsedUnitsText,
           name: 'ElapsedUnits',
           property: 'ElapsedUnits',
-          renderer: _Format2.default.fixedLocale
+          renderer: _Format["default"].fixedLocale
         }, {
           label: this.rateTypeDescriptionText,
           name: 'RateTypeDescription.RateTypeCode',
@@ -172,22 +159,22 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
           label: this.rateText,
           name: 'Rate',
           property: 'Rate',
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         }, {
           label: this.totalLaborText,
           name: 'TotalLabor',
           property: 'TotalLabor',
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         }, {
           label: this.totalPartsText,
           name: 'TotalParts',
           property: 'TotalParts',
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         }, {
           label: this.totalFeeText,
           name: 'TotalFee',
           property: 'TotalFee',
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         }]
       }, {
         list: true,
@@ -203,6 +190,6 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

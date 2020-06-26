@@ -1,30 +1,16 @@
-define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', '../_RightDrawerBaseMixin'], function (module, exports, _declare, _lang, _RightDrawerBaseMixin2) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Offline/_RightDrawerListMixin", ["exports", "dojo/_base/declare", "dojo/_base/lang", "../_RightDrawerBaseMixin"], function (_exports, _declare, _lang, _RightDrawerBaseMixin2) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _RightDrawerBaseMixin2 = _interopRequireDefault(_RightDrawerBaseMixin2);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _RightDrawerBaseMixin3 = _interopRequireDefault(_RightDrawerBaseMixin2);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var mixinName = 'crm.Views.Offline._RightDrawerListMixin';
-
-  /**
-   * @class
-   * @mixin
-   * @alias module:crm/Views/Offline/_RightDrawerListMixin
-   * @classdesc Offline specific mixin for right drawer functionality.
-   * @mixes module:crm/Views/_RightDrawerBaseMixin
-   *
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,12 +29,23 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
   /**
    * @module crm/Views/Offline/_RightDrawerListMixin
    */
-  var __class = (0, _declare2.default)('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/Offline/_RightDrawerListMixin.prototype */{
+  var mixinName = 'crm.Views.Offline._RightDrawerListMixin';
+  /**
+   * @class
+   * @mixin
+   * @alias module:crm/Views/Offline/_RightDrawerListMixin
+   * @classdesc Offline specific mixin for right drawer functionality.
+   * @mixes module:crm/Views/_RightDrawerBaseMixin
+   *
+   */
+
+  var __class = (0, _declare["default"])('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin2["default"]],
+  /** @lends module:crm/Views/Offline/_RightDrawerListMixin.prototype */
+  {
     // Localization
     entitySectionText: 'Entity',
     kpiSectionText: 'KPI',
     hasSettings: true,
-
     // Dirty flags to refresh the mainview and/or widgets
     _hasChangedEntityPrefs: false,
     _hasChangedKPIPrefs: false,
@@ -77,24 +74,30 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
       var _this = this;
 
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
-        _lang2.default.mixin(drawer, this._createActions());
+        _lang["default"].mixin(drawer, this._createActions());
+
         drawer.setLayout(this.createRightDrawerLayout());
-        drawer.getGroupForEntry = _lang2.default.hitch(this, function getGroupForRightDrawerEntry(entry) {
+        drawer.getGroupForEntry = _lang["default"].hitch(this, function getGroupForRightDrawerEntry(entry) {
           return this.getGroupForRightDrawerEntry(entry);
         });
-
         App.viewSettingsModal.element.on('close', function () {
           if (_this._hasChangedEntityPrefs) {
             _this.clear();
+
             _this.refreshRequired = true;
+
             _this.refresh();
+
             _this.rebuildWidgets();
+
             _this._hasChangedEntityPrefs = false;
           }
 
           if (_this._hasChangedKPIPrefs && _this.rebuildWidgets) {
             _this.rebuildWidgets();
+
             _this._hasChangedKPIPrefs = false;
           }
         });
@@ -102,9 +105,12 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
     },
     unloadRightDrawer: function unloadRightDrawer() {
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
         drawer.setLayout([]);
+
         drawer.getGroupForEntry = function noop() {};
+
         App.viewSettingsModal.element.off('close');
       }
     },
@@ -117,7 +123,6 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
       var actions = {
         entityFilterClicked: function onentityFilterClicked(params) {
           var prefs = App.preferences && App.preferences.offlineEntityFilters;
-
           var results = prefs.filter(function (pref) {
             return pref.name === params.entityname;
           });
@@ -132,7 +137,7 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
         }.bind(this),
         kpiClicked: function kpiClicked(params) {
           var metrics = App.getMetricsByResourceKind(this.resourceKind);
-          var results = void 0;
+          var results;
 
           if (metrics.length > 0) {
             results = metrics.filter(function (metric) {
@@ -145,16 +150,14 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedKPIPrefs = true;
-
             $(params.$source).attr('data-enabled', (!enabled).toString());
           }
         }.bind(this)
       };
-
       return actions;
     },
     getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
-      var mixin = _lang2.default.getObject(mixinName);
+      var mixin = _lang["default"].getObject(mixinName);
 
       if (entry.dataProps && entry.dataProps.entityname) {
         return {
@@ -180,7 +183,6 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
             return pref.name === entityName;
           });
           var enabled = entityPref[0].enabled;
-
           return {
             name: entityName,
             action: 'entityFilterClicked',
@@ -192,18 +194,15 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
           };
         })
       };
-
       layout.push(entitySection);
-
       var metrics = App.getMetricsByResourceKind(this.resourceKind);
-
       var kpiSection = {
         id: 'kpi',
         children: metrics.filter(function (m) {
           return m.title;
         }).map(function (metric, i) {
           return {
-            name: 'KPI' + i,
+            name: "KPI".concat(i),
             action: 'kpiClicked',
             title: metric.title,
             dataProps: {
@@ -213,12 +212,11 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
           };
         })
       };
-
       layout.push(kpiSection);
       return layout;
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

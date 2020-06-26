@@ -1,40 +1,35 @@
-define('crm/Views/Ticket/Detail', ['module', 'exports', 'dojo/_base/declare', '../../Format', '../../Models/Names', 'argos/Detail', 'argos/I18n'], function (module, exports, _declare, _Format, _Names, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Ticket/Detail", ["exports", "dojo/_base/declare", "../../Format", "../../Models/Names", "argos/Detail", "argos/I18n"], function (_exports, _declare, _Format, _Names, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Names = _interopRequireDefault(_Names);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('ticketDetail');
 
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('ticketDetail'); /* Copyright 2017 Infor
-                                                       *
-                                                       * Licensed under the Apache License, Version 2.0 (the "License");
-                                                       * you may not use this file except in compliance with the License.
-                                                       * You may obtain a copy of the License at
-                                                       *
-                                                       *    http://www.apache.org/licenses/LICENSE-2.0
-                                                       *
-                                                       * Unless required by applicable law or agreed to in writing, software
-                                                       * distributed under the License is distributed on an "AS IS" BASIS,
-                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                       * See the License for the specific language governing permissions and
-                                                       * limitations under the License.
-                                                       */
-
-  var __class = (0, _declare2.default)('crm.Views.Ticket.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Ticket.Detail', [_Detail["default"]], {
     // Localization
     accountText: resource.accountText,
     areaText: resource.areaText,
@@ -65,24 +60,21 @@ define('crm/Views/Ticket/Detail', ['module', 'exports', 'dojo/_base/declare', '.
     relatedTicketActivitiesText: resource.relatedTicketActivitiesText,
     loadingText: resource.loadingText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'ticket_detail',
     editView: 'ticket_edit',
     enableOffline: true,
     resourceKind: 'tickets',
-    modelName: _Names2.default.TICKET,
-
+    modelName: _Names["default"].TICKET,
     scheduleActivity: function scheduleActivity() {
       App.navigateToActivityInsertView();
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property, undefined, undefined, {
-        display: _Format2.default.PicklistDataDisplayType.TEXT,
-        storage: _Format2.default.PicklistStorageType.ID
+      return _Format["default"].picklist(this.app.picklistService, this._model, property, undefined, undefined, {
+        display: _Format["default"].PicklistDataDisplayType.TEXT,
+        storage: _Format["default"].PicklistStorageType.ID
       });
     },
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         list: true,
@@ -125,7 +117,7 @@ define('crm/Views/Ticket/Detail', ['module', 'exports', 'dojo/_base/declare', '.
           label: this.needByText,
           name: 'NeededByDate',
           property: 'NeededByDate',
-          renderer: _Format2.default.date
+          renderer: _Format["default"].date
         }, {
           label: this.areaText,
           name: 'Area',
@@ -168,7 +160,7 @@ define('crm/Views/Ticket/Detail', ['module', 'exports', 'dojo/_base/declare', '.
           label: this.assignedDateText,
           name: 'AssignedDate',
           property: 'AssignedDate',
-          renderer: _Format2.default.date
+          renderer: _Format["default"].date
         }, {
           label: this.resolutionText,
           name: 'TicketSolution.Notes',
@@ -195,7 +187,8 @@ define('crm/Views/Ticket/Detail', ['module', 'exports', 'dojo/_base/declare', '.
         }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'ticketId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'ticketId eq "${0}"'),
+          // must be lower case because of feed
           view: 'ticket_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
@@ -203,6 +196,6 @@ define('crm/Views/Ticket/Detail', ['module', 'exports', 'dojo/_base/declare', '.
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,25 +1,18 @@
-define('crm/Views/OpportunityContact/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', 'argos/Detail', 'argos/I18n', 'crm/Format', '../../Models/Names'], function (module, exports, _declare, _string, _Detail, _I18n, _Format, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/OpportunityContact/Detail", ["exports", "dojo/_base/declare", "dojo/string", "argos/Detail", "argos/I18n", "crm/Format", "../../Models/Names"], function (_exports, _declare, _string, _Detail, _I18n, _Format, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
+  _Format = _interopRequireDefault(_Format);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,10 +28,11 @@ define('crm/Views/OpportunityContact/Detail', ['module', 'exports', 'dojo/_base/
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('opportunityContactDetail');
 
-  var resource = (0, _I18n2.default)('opportunityContactDetail');
-
-  var __class = (0, _declare2.default)('crm.Views.OpportunityContact.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.OpportunityContact.Detail', [_Detail["default"]
+  /* , _LegacySDataDetailMixin */
+  ], {
     // Localization
     titleText: resource.titleText,
     accountText: resource.accountText,
@@ -54,25 +48,25 @@ define('crm/Views/OpportunityContact/Detail', ['module', 'exports', 'dojo/_base/
     confirmDeleteText: resource.confirmDeleteText,
     contactText: resource.contactText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'opportunitycontact_detail',
     editView: 'opportunitycontact_edit',
     security: 'Entities/Contact/View',
     querySelect: [],
     resourceKind: 'opportunityContacts',
-    modelName: _Names2.default.OPPORTUNITYCONTACT,
-
+    modelName: _Names["default"].OPPORTUNITYCONTACT,
     removeContact: function removeContact() {
-      var confirmMessage = _string2.default.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+      var confirmMessage = _string["default"].substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+
       if (!confirm(confirmMessage)) {
         // eslint-disable-line
         return;
       }
+
       this.removeEntry();
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createToolLayout: function createToolLayout() {
       return this.tools || (this.tools = {
@@ -143,6 +137,6 @@ define('crm/Views/OpportunityContact/Detail', ['module', 'exports', 'dojo/_base/
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

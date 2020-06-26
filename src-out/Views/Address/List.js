@@ -1,21 +1,16 @@
-define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '../../Format', 'argos/List', 'argos/I18n'], function (module, exports, _declare, _Format, _List, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Address/List", ["exports", "dojo/_base/declare", "../../Format", "argos/List", "argos/I18n"], function (_exports, _declare, _Format, _List, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _List = _interopRequireDefault(_List);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,31 +26,28 @@ define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '..
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('addressList');
 
-  var resource = (0, _I18n2.default)('addressList');
-
-  var __class = (0, _declare2.default)('crm.Views.Address.List', [_List2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Address.List', [_List["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>', '<p class="micro-text">{%= $$.format.address($, true) %}</p>']),
-
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     detailView: null,
     id: 'address_list',
-    security: null, // 'Entities/Address/View',
+    security: null,
+    // 'Entities/Address/View',
     insertSecurity: 'Entities/Address/Add',
     insertView: 'address_edit',
     resourceKind: 'addresses',
     allowSelection: true,
     enableActions: true,
-    format: _Format2.default,
+    format: _Format["default"],
     isCardView: false,
-
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return '(upper(Description) like "' + q + '%" or upper(City) like "' + q + '%")';
+      return "(upper(Description) like \"".concat(q, "%\" or upper(City) like \"").concat(q, "%\")");
     },
     // Disable Add/Insert on toolbar
     createToolLayout: function createToolLayout() {
@@ -68,11 +60,11 @@ define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '..
       var key = row ? $(row).attr('data-key') : false;
 
       if (this._selectionModel && key) {
-        App.showMapForAddress(_Format2.default.address(this.entries[key], true, ' '));
+        App.showMapForAddress(_Format["default"].address(this.entries[key], true, ' '));
       }
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

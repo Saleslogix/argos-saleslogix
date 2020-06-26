@@ -1,21 +1,31 @@
-define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/ErrorManager', 'argos/Store/SData'], function (module, exports, _lang, _ErrorManager, _SData) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/PicklistService", ["exports", "dojo/_base/lang", "argos/ErrorManager", "argos/Store/SData"], function (_exports, _lang, _ErrorManager, _SData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _SData = _interopRequireDefault(_SData);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _SData2 = _interopRequireDefault(_SData);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var __class = _lang2.default.setObject('crm.Integrations.BOE.PicklistService', {
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var __class = _lang["default"].setObject('crm.Integrations.BOE.PicklistService', {
     _picklists: {},
     _viewMapping: {},
     _store: null,
@@ -30,11 +40,13 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
     },
     getPicklistByName: function getPicklistByName(name) {
       var iterableKeys = Object.keys(this._picklists);
+
       for (var i = 0; i < iterableKeys.length; i++) {
         if (this._picklists[iterableKeys[i]].name === name) {
           return this._picklists[iterableKeys[i]];
         }
       }
+
       return false;
     },
     getPicklistItemByCode: function getPicklistItemByCode(picklistName, itemCode) {
@@ -47,18 +59,22 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
           }
         }
       }
+
       return false;
     },
     getPicklistItemTextByCode: function getPicklistItemByCode(picklistName, itemCode) {
       var picklistItem = this.getPicklistItemByCode(picklistName, itemCode);
+
       if (itemCode && picklistItem) {
         return picklistItem.text;
       }
+
       return null;
     },
     getViewPicklists: function getViewPicklists(viewId) {
       var picklistIds = this._viewMapping[viewId];
       var picklists = [];
+
       if (picklistIds && picklistIds.length) {
         for (var i = 0; i < picklistIds.length; i++) {
           if (this._picklists[picklistIds[i]]) {
@@ -67,8 +83,10 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
             console.warn('Picklist "' + picklistIds[i] + '" has not been registered'); // eslint-disable-line
           }
         }
+
         return picklists;
       }
+
       return null;
     },
     registerPicklist: function registerPicklist(key, picklist) {
@@ -80,11 +98,13 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
       if (!this._viewMapping[viewId]) {
         this._viewMapping[viewId] = [];
       }
+
       if (!this._viewMapping[viewId][key]) {
         this._viewMapping[viewId].push(key);
       } else {
         console.log('Picklist already exists for view "' + viewId + '"'); // eslint-disable-line
       }
+
       this.registerPicklist(key, true);
     },
     // Will request the registered picklists in this._picklists
@@ -94,9 +114,11 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
       var promise = new Promise(function (resolve, reject) {
         var iterableKeys = Object.keys(_this._picklists);
         var promises = [];
+
         for (var i = 0; i < iterableKeys.length; i++) {
           promises.push(_this.requestPicklist(iterableKeys[i]));
         }
+
         Promise.all(promises).then(function () {
           resolve(true);
         }, function (response) {
@@ -110,19 +132,23 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
 
       var promise = new Promise(function (resolve, reject) {
         var store = _this2.getStore();
+
         var queryOptions = {
-          where: 'name eq \'' + name + '\''
+          where: "name eq '".concat(name, "'")
         };
         store.query(null, queryOptions).then(function (data) {
           var picklist = null;
+
           if (data && data[0] && data[0].items) {
             picklist = data[0];
             picklist.items = picklist.items.$resources;
             _this2._picklists[picklist.name] = picklist;
           }
+
           resolve(picklist);
         }, function (response, o) {
-          _ErrorManager2.default.addError(response, o, options, 'failure');
+          _ErrorManager["default"].addError(response, o, options, 'failure');
+
           reject(response);
         });
       });
@@ -131,8 +157,9 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
     getStore: function getStore() {
       if (!this._store) {
         var options = this.getStoreOptions();
-        this._store = new _SData2.default(options);
+        this._store = new _SData["default"](options);
       }
+
       return this._store;
     },
     getStoreOptions: function getStoreOptions() {
@@ -148,22 +175,10 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
       };
       return options;
     }
-  }); /* Copyright 2017 Infor
-       *
-       * Licensed under the Apache License, Version 2.0 (the "License");
-       * you may not use this file except in compliance with the License.
-       * You may obtain a copy of the License at
-       *
-       *    http://www.apache.org/licenses/LICENSE-2.0
-       *
-       * Unless required by applicable law or agreed to in writing, software
-       * distributed under the License is distributed on an "AS IS" BASIS,
-       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-       * See the License for the specific language governing permissions and
-       * limitations under the License.
-       */
+  });
 
-  _lang2.default.setObject('icboe.PicklistService', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.PicklistService', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

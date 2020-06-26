@@ -1,21 +1,16 @@
-define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare', 'argos/List', 'argos/_LegacySDataListMixin', 'argos/I18n'], function (module, exports, _declare, _List, _LegacySDataListMixin2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/ExchangeRateLookup", ["exports", "dojo/_base/declare", "argos/List", "argos/_LegacySDataListMixin", "argos/I18n"], function (_exports, _declare, _List, _LegacySDataListMixin2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _List = _interopRequireDefault(_List);
+  _LegacySDataListMixin2 = _interopRequireDefault(_LegacySDataListMixin2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _LegacySDataListMixin3 = _interopRequireDefault(_LegacySDataListMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,21 +26,17 @@ define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('exchangeRateLookup');
 
-  var resource = (0, _I18n2.default)('exchangeRateLookup');
-
-  var __class = (0, _declare2.default)('crm.Views.ExchangeRateLookup', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.ExchangeRateLookup', [_List["default"], _LegacySDataListMixin2["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$key %} ({%: $.Rate %})</p>']),
-
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     expose: false,
     enableSearch: false,
     id: 'exchangerate_lookup',
-
     requestData: function requestData() {
       this.processFeed();
     },
@@ -65,7 +56,6 @@ define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare
       }
 
       feed.$resources = list;
-
       this.inherited(arguments, [feed]);
     },
     hasMoreData: function hasMoreData() {
@@ -77,6 +67,6 @@ define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare
     formatSearchQuery: function formatSearchQuery() {}
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

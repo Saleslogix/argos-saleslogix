@@ -1,21 +1,16 @@
-define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_RightDrawerBaseMixin', 'argos/I18n'], function (module, exports, _declare, _lang, _RightDrawerBaseMixin2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/_SpeedSearchRightDrawerListMixin", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./_RightDrawerBaseMixin", "argos/I18n"], function (_exports, _declare, _lang, _RightDrawerBaseMixin2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _RightDrawerBaseMixin2 = _interopRequireDefault(_RightDrawerBaseMixin2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _RightDrawerBaseMixin3 = _interopRequireDefault(_RightDrawerBaseMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,8 +30,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
   /**
    * @module crm/Views/_SpeedSearchRightDrawerListMixin
    */
-  var resource = (0, _I18n2.default)('speedSearchRightDrawerListMixin');
-
+  var resource = (0, _I18n["default"])('speedSearchRightDrawerListMixin');
   /**
    * @class
    * @alias module:crm/Views/_SpeedSearchRightDrawerListMixin
@@ -44,13 +38,15 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
    * @mixes module:crm/Views/_RightDrawerBaseMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_SpeedSearchRightDrawerListMixin.prototype */{
+
+  var __class = (0, _declare["default"])('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin2["default"]],
+  /** @lends module:crm/Views/_SpeedSearchRightDrawerListMixin.prototype */
+  {
     // Localization
     indexSectionText: resource.indexSectionText,
-
-    _hasChangedIndexPrefs: false, // Dirty flag so we know when to reload the widgets
+    _hasChangedIndexPrefs: false,
+    // Dirty flag so we know when to reload the widgets
     hasSettings: true,
-
     onShow: function onShow() {
       this.setDefaultIndexPreferences();
     },
@@ -68,6 +64,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
       var _this = this;
 
       var defaults = [];
+
       if (this.indexes) {
         this.indexes.forEach(function (index) {
           defaults.push({
@@ -76,16 +73,19 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
           });
         });
       }
+
       return defaults;
     },
     setupRightDrawer: function setupRightDrawer() {
       var _this2 = this;
 
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
-        _lang2.default.mixin(drawer, this._createActions());
+        _lang["default"].mixin(drawer, this._createActions());
+
         drawer.setLayout(this.createRightDrawerLayout());
-        drawer.getGroupForEntry = _lang2.default.hitch(this, function getGroupForRightDrawerEntry(entry) {
+        drawer.getGroupForEntry = _lang["default"].hitch(this, function getGroupForRightDrawerEntry(entry) {
           return this.getGroupForRightDrawerEntry(entry);
         });
 
@@ -93,6 +93,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
           App.viewSettingsModal.element.on('close', function () {
             if (_this2._hasChangedIndexPrefs) {
               _this2.rebuildWidgets();
+
               _this2._hasChangedIndexPrefs = false;
             }
           });
@@ -101,9 +102,12 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
     },
     unloadRightDrawer: function unloadRightDrawer() {
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
         drawer.setLayout([]);
+
         drawer.getGroupForEntry = function snapperOff() {};
+
         App.viewSettingsModal.element.off('close');
       }
     },
@@ -114,13 +118,13 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
       var actions = {
-        indexClicked: _lang2.default.hitch(this, function onIndexClicked(params) {
+        indexClicked: _lang["default"].hitch(this, function onIndexClicked(params) {
           var prefs = App.preferences && App.preferences.speedSearchIndexes;
-
           var results = prefs.filter(function (pref) {
             return pref.indexName === params.indexname; // the index name is lower cased.
           });
           this.activateIndex(params.indexname);
+
           if (results.length > 0) {
             var enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
@@ -130,7 +134,6 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
           }
         })
       };
-
       return actions;
     },
     getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
@@ -145,12 +148,12 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
       var _this3 = this;
 
       var layout = [];
-
       var indexSection = {
         id: 'actions',
         children: []
       };
       var prefs = App.preferences && App.preferences.speedSearchIndexes;
+
       if (this.indexes) {
         for (var i in this.indexes) {
           if (this.indexes.hasOwnProperty(i)) {
@@ -161,6 +164,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
                 return pref.indexName === index.indexName;
               });
               index = _this3.indexes[i];
+
               if (index.hasOwnProperty('indexName')) {
                 indexSection.children.push({
                   name: index.indexName,
@@ -182,6 +186,6 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

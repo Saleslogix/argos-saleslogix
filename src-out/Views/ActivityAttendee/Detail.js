@@ -1,21 +1,16 @@
-define('crm/Views/ActivityAttendee/Detail', ['module', 'exports', 'dojo/_base/declare', 'argos/Detail', 'argos/I18n', '../../Models/Names'], function (module, exports, _declare, _Detail, _I18n, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/ActivityAttendee/Detail", ["exports", "dojo/_base/declare", "argos/Detail", "argos/I18n", "../../Models/Names"], function (_exports, _declare, _Detail, _I18n, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2020 Infor
    *
@@ -31,10 +26,9 @@ define('crm/Views/ActivityAttendee/Detail', ['module', 'exports', 'dojo/_base/de
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityAttendeeDetail');
 
-  var resource = (0, _I18n2.default)('activityAttendeeDetail');
-
-  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.ActivityAttendee.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     entityText: resource.entityText,
@@ -46,12 +40,10 @@ define('crm/Views/ActivityAttendee/Detail', ['module', 'exports', 'dojo/_base/de
     phoneText: resource.phoneText,
     emailText: resource.emailText,
     timeZoneText: resource.timeZoneText,
-
     // View Properties
     id: 'activity_attendee_detail',
     editView: 'activity_attendee_edit',
-    modelName: _Names2.default.ACTIVITYATTENDEE,
-
+    modelName: _Names["default"].ACTIVITYATTENDEE,
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.detailsText,
@@ -93,6 +85,6 @@ define('crm/Views/ActivityAttendee/Detail', ['module', 'exports', 'dojo/_base/de
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

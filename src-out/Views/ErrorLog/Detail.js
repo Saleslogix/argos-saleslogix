@@ -1,25 +1,18 @@
-define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/json', 'crm/Format', 'argos/ErrorManager', 'argos/Detail', 'argos/I18n'], function (module, exports, _declare, _json, _Format, _ErrorManager, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/ErrorLog/Detail", ["exports", "dojo/_base/declare", "dojo/_base/json", "crm/Format", "argos/ErrorManager", "argos/Detail", "argos/I18n"], function (_exports, _declare, _json, _Format, _ErrorManager, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _json = _interopRequireDefault(_json);
+  _Format = _interopRequireDefault(_Format);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _json2 = _interopRequireDefault(_json);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,11 +28,10 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('errorLogDetail');
+  var dtFormatResource = (0, _I18n["default"])('errorLogDetailDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('errorLogDetail');
-  var dtFormatResource = (0, _I18n2.default)('errorLogDetailDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.ErrorLog.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.ErrorLog.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     detailsText: resource.detailsText,
@@ -53,52 +45,42 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
     emailSubjectText: resource.emailSubjectText,
     copiedSuccessText: resource.copiedSuccessText,
     emailText: resource.emailText,
-
     // Templates
     longDetailProperty: new Simplate(['<div class="row note-text-row" data-property="{%= $.name %}">', '<label>{%: $.label %}</label>', '<pre>', '{%= $.value %}', '</pre>', '</div>']),
-
     // View Properties
     id: 'errorlog_detail',
-
     // Email address to be placed in the "To:" field when sending a report via a mobile device
     defaultToAddress: null,
-
     init: function init() {
       this.inherited(init, arguments);
     },
-
     createToolLayout: function createToolLayout() {
       var tools = {
         tbar: []
       };
-
       tools.tbar.push({
         id: 'generateEmail',
         title: this.emailText,
         action: 'constructReport',
         svg: 'mail'
       });
-
       return this.tools || tools;
     },
-
     constructReport: function constructReport() {
-      var body = '\r\n\r\n\r\n-----------------\r\n' + _json2.default.toJson(this.entry, true);
+      var body = "\r\n\r\n\r\n-----------------\r\n".concat(_json["default"].toJson(this.entry, true));
       this.sendEmailReport(body);
     },
-
     sendEmailReport: function sendEmailReport(body) {
       var email = this.defaultToAddress || '';
       var subject = encodeURIComponent(this.emailSubjectText);
       var theBody = encodeURIComponent(body);
       App.initiateEmail(email, subject, theBody);
     },
-
     requestData: function requestData() {
-      var errorItem = _ErrorManager2.default.getError('$key', this.options.key);
+      var errorItem = _ErrorManager["default"].getError('$key', this.options.key);
+
       this.processEntry(errorItem);
     },
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.detailsText,
@@ -107,7 +89,7 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
           label: this.errorDateText,
           name: 'Date',
           property: 'Date',
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.errorDateFormatText24 : this.errorDateFormatText)
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.errorDateFormatText24 : this.errorDateFormatText)
         }, {
           label: this.statusTextText,
           name: 'Description',
@@ -121,6 +103,6 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

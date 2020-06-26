@@ -1,44 +1,37 @@
-define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/declare', 'argos/Models/_OfflineModelBase', 'argos/Models/Manager', 'argos/Models/Types', 'dojo/Deferred', 'argos/Convert', 'argos/I18n'], function (module, exports, _declare, _OfflineModelBase2, _Manager, _Types, _Deferred, _Convert, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Models/Authentication/Offline", ["exports", "dojo/_base/declare", "argos/Models/_OfflineModelBase", "argos/Models/Manager", "argos/Models/Types", "dojo/Deferred", "argos/Convert", "argos/I18n"], function (_exports, _declare, _OfflineModelBase2, _Manager, _Types, _Deferred, _Convert, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _OfflineModelBase2 = _interopRequireDefault(_OfflineModelBase2);
+  _Manager = _interopRequireDefault(_Manager);
+  _Types = _interopRequireDefault(_Types);
+  _Deferred = _interopRequireDefault(_Deferred);
+  _Convert = _interopRequireDefault(_Convert);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _OfflineModelBase3 = _interopRequireDefault(_OfflineModelBase2);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('autenticationModel');
 
-  var _Manager2 = _interopRequireDefault(_Manager);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Deferred2 = _interopRequireDefault(_Deferred);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('autenticationModel'); /* Copyright 2017 Infor
-                                                             *
-                                                             * Licensed under the Apache License, Version 2.0 (the "License");
-                                                             * you may not use this file except in compliance with the License.
-                                                             * You may obtain a copy of the License at
-                                                             *
-                                                             *    http://www.apache.org/licenses/LICENSE-2.0
-                                                             *
-                                                             * Unless required by applicable law or agreed to in writing, software
-                                                             * distributed under the License is distributed on an "AS IS" BASIS,
-                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                             * See the License for the specific language governing permissions and
-                                                             * limitations under the License.
-                                                             */
-
-  var __class = (0, _declare2.default)('crm.Models.Autentication.Offline', [_OfflineModelBase3.default], {
+  var __class = (0, _declare["default"])('crm.Models.Autentication.Offline', [_OfflineModelBase2["default"]], {
     id: 'auth_offline_model',
     entityName: 'Authentication',
     modelName: 'Authentication',
@@ -47,6 +40,7 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
     isSystem: true,
     createEntry: function createEntity(userId) {
       var entity = {}; // need to dynamicly create Properties;
+
       entity.$key = 'Auth_00000000000';
       entity.$descriptor = resource.entityDisplayName;
       entity.CreateDate = moment().toDate();
@@ -57,7 +51,7 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
     initAuthentication: function initAuthentication(userId) {
       var _this = this;
 
-      var def = new _Deferred2.default();
+      var def = new _Deferred["default"]();
       var result = {
         entry: null,
         hasUserChanged: false,
@@ -73,13 +67,17 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
             result.hasAuthenticatedToday = false;
             entry.UserId = userId;
           }
+
           entry.ModifyDate = moment().toDate();
           result.entry = entry;
         }
+
         def.resolve(result);
       }, function () {
         var newEntry = _this.createEntry(userId);
+
         _this.insertEntry(newEntry);
+
         result.hasUserChanged = true;
         result.hasAuthenticatedToday = false;
         result.entry = newEntry;
@@ -90,16 +88,19 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
     _hasAuthenticatedToday: function _hasAuthenticatedToday(entry) {
       if (entry.ModifyDate) {
         var currentDate = moment();
-        var authDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
+        var authDate = moment(_Convert["default"].toDateFromString(entry.ModifyDate));
+
         if (authDate.isAfter(currentDate.startOf('day')) && authDate.isBefore(moment().endOf('day'))) {
           return true;
         }
       }
+
       return false;
     }
   });
 
-  _Manager2.default.register('Authentication', _Types2.default.OFFLINE, __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _Manager["default"].register('Authentication', _Types["default"].OFFLINE, __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

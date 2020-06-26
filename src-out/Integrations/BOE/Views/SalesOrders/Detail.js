@@ -1,33 +1,22 @@
-define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', 'argos/Dialogs/BusyIndicator', '../../Models/Names', 'argos/I18n', '../../PricingAvailabilityService', '../../Promote', '../../Utility'], function (module, exports, _declare, _lang, _Format, _Detail, _BusyIndicator, _Names, _I18n, _PricingAvailabilityService, _Promote, _Utility) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/SalesOrders/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "argos/Dialogs/BusyIndicator", "../../Models/Names", "argos/I18n", "../../PricingAvailabilityService", "../../Promote", "../../Utility"], function (_exports, _declare, _lang, _Format, _Detail, _BusyIndicator, _Names, _I18n, _PricingAvailabilityService, _Promote, _Utility) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _BusyIndicator = _interopRequireDefault(_BusyIndicator);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
+  _Promote = _interopRequireDefault(_Promote);
+  _Utility = _interopRequireDefault(_Utility);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _BusyIndicator2 = _interopRequireDefault(_BusyIndicator);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  var _Promote2 = _interopRequireDefault(_Promote);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,10 +32,9 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('salesOrdersDetail');
 
-  var resource = (0, _I18n2.default)('salesOrdersDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.SalesOrders.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -102,19 +90,18 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
     erpStatusText: resource.erpStatusText,
     refreshPricingText: resource.refreshPricingText,
     pricingUnavailableText: resource.pricingUnavailableText,
-
     // View Properties
     id: 'salesorder_detail',
     editView: 'salesorder_edit',
     resourceKind: 'salesOrders',
-    modelName: _Names2.default.SALESORDER,
+    modelName: _Names["default"].SALESORDER,
     enableOffline: true,
     _busyIndicator: null,
     locationType: '',
-
     onTransitionTo: function onTransitionTo() {
       this.inherited(onTransitionTo, arguments);
       App.bars.tbar.disableTool('edit');
+
       if (!this.locationType) {
         this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] && App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
       }
@@ -124,6 +111,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
 
       var promise = new Promise(function (resolve) {
         _this.showBusy();
+
         var entry = {
           $name: 'CanPromoteSalesOrder',
           request: {
@@ -131,12 +119,10 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           }
         };
         var request = new Sage.SData.Client.SDataServiceOperationRequest(_this.getService()).setResourceKind('salesOrders').setContractName('dynamic').setOperationName('CanPromoteSalesOrder');
-
         var canPromote = {
           value: false,
           result: ''
         };
-
         request.execute(entry, {
           success: function success(result) {
             canPromote.value = result.response.Result;
@@ -167,7 +153,9 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
         });
         return;
       }
+
       var view = App.getView('salesorder_item_edit');
+
       if (view) {
         var options = {
           insert: true,
@@ -181,6 +169,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
     },
     handlePricingSuccess: function handlePricingSuccess(result) {
       this._refreshClicked();
+
       return result;
     },
     onGetOrderTotal: function onGetOrderTotal() {
@@ -194,7 +183,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
         } else {
           this.options.context.SalesOrder = this.entry;
         }
-        _PricingAvailabilityService2.default.getOrderPricing(this.entry).then(function (result) {
+
+        _PricingAvailabilityService["default"].getOrderPricing(this.entry).then(function (result) {
           _this3.handlePricingSuccess(result);
         });
       }
@@ -212,6 +202,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           App.modal.createSimpleDialog(options);
           return;
         }
+
         if (!this.options.context) {
           this.options.context = {
             SalesOrder: this.entry
@@ -219,7 +210,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
         } else {
           this.options.context.SalesOrder = this.entry;
         }
-        _PricingAvailabilityService2.default.salesOrderRePrice(this.entry).then(function (result) {
+
+        _PricingAvailabilityService["default"].salesOrderRePrice(this.entry).then(function (result) {
           _this4.handlePricingSuccess(result);
         });
       }
@@ -228,8 +220,10 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
       var _this5 = this;
 
       var canPromotePromise = this._canPromote();
+
       canPromotePromise.then(function (val) {
         _this5.hideBusy();
+
         if (!val.value) {
           App.modal.createSimpleDialog({
             title: 'alert',
@@ -240,7 +234,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           });
           return;
         }
-        var promote = new _Promote2.default();
+
+        var promote = new _Promote["default"]();
         promote.promoteToBackOffice(_this5.entry, 'SalesOrder', _this5);
       });
     },
@@ -262,22 +257,25 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
     },
     hideBusy: function hideBusy() {
       this._busyIndicator.complete();
+
       App.modal.disableClose = false;
       App.modal.hide();
     },
     showBusy: function showBusy() {
       if (!this._busyIndicator || this._busyIndicator._destroyed) {
-        this._busyIndicator = new _BusyIndicator2.default({
-          id: this.id + '-busyIndicator'
+        this._busyIndicator = new _BusyIndicator["default"]({
+          id: "".concat(this.id, "-busyIndicator")
         });
       }
+
       this._busyIndicator.start();
+
       App.modal.disableClose = true;
       App.modal.showToolbar = false;
       App.modal.add(this._busyIndicator);
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       var _this6 = this;
@@ -333,7 +331,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           property: 'ErpDocumentDate',
           label: this.documentDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'CustomerPurchaseOrderNumber',
@@ -372,6 +370,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -382,6 +381,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -389,7 +389,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           property: 'DueDate',
           label: this.dueDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'Status',
@@ -399,6 +399,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
             if (val) {
               return val;
             }
+
             return '';
           }
         }, {
@@ -416,7 +417,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           property: 'ErpStatusDate',
           label: this.erpStatusDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'CurrencyCode',
@@ -427,42 +428,42 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           property: 'OrderTotal',
           label: this.baseSubTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this6.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this6.entry.BaseCurrencyCode);
           }
         }, {
           name: 'GrandTotal',
           property: 'GrandTotal',
           label: this.baseGrandTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this6.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this6.entry.BaseCurrencyCode);
           }
         }, {
           name: 'DocSubTotal',
           property: 'DocOrderTotal',
           label: this.subTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this6.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this6.entry.CurrencyCode);
           }
         }, {
           name: 'DocGrandTotal',
           property: 'DocGrandTotal',
           label: this.grandTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this6.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this6.entry.CurrencyCode);
           }
         }, {
           name: 'CreateDate',
           property: 'CreateDate',
           label: this.dateCreatedText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'OrderDate',
           property: 'OrderDate',
           label: this.orderDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'Carrier',
@@ -472,6 +473,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
             if (data) {
               return data;
             }
+
             return '';
           }
         }, {
@@ -494,7 +496,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           label: this.billToAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }, {
@@ -509,7 +511,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           label: this.shipToAddressText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }, {
@@ -517,42 +519,42 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           property: 'ErpBackOrdered',
           label: this.backOrderedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpDropShip',
           property: 'ErpDropShip',
           label: this.dropShipAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpShipEarly',
           property: 'ErpShipEarly',
           label: this.shipEarlyAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpInvoiceImmediately',
           property: 'ErpInvoiceImmediately',
           label: this.invoiceImmediatelyText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpPartialShipAllowed',
           property: 'ErpPartialShipAllowed',
           label: this.partialShipAllowedText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'ErpTaxExempt',
           property: 'ErpTaxExempt',
           label: this.taxExemptText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'Location',
@@ -562,10 +564,12 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
             if (this.locationType === 'Warehouse') {
               return false;
             }
+
             if (data) {
               if (data.Address && data.Address.FullAddress) {
-                return _Format2.default.address(data.Address);
+                return _Format["default"].address(data.Address);
               }
+
               return data.Description;
             }
           }
@@ -577,10 +581,12 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
             if (this.locationType && this.locationType !== 'Warehouse') {
               return false;
             }
+
             if (data) {
               if (data.Address && data.Address.FullAddress) {
-                return _Format2.default.address(data.Address);
+                return _Format["default"].address(data.Address);
               }
+
               return data.Description;
             }
           }
@@ -590,7 +596,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           label: this.payFromText,
           renderer: function renderer(data) {
             if (data) {
-              return _Format2.default.address(data);
+              return _Format["default"].address(data);
             }
           }
         }]
@@ -602,42 +608,42 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           name: 'OrderItems',
           label: this.orderItemsText,
           where: function where(entry) {
-            return 'SalesOrder.Id eq "' + entry.$key + '"';
+            return "SalesOrder.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'salesorder_items_related'
         }, {
           name: 'ERPInvoiceItemsRelated',
           label: this.invoiceItemsText,
           where: function where(entry) {
-            return 'SalesOrder.Id eq "' + entry.$key + '"';
+            return "SalesOrder.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'salesorder_invoice_items_related'
         }, {
           name: 'ERPShipmentItemsRelated',
           label: this.shipmentItemsText,
           where: function where(entry) {
-            return 'SalesOrder.Id eq "' + entry.$key + '"';
+            return "SalesOrder.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'salesorder_shipment_items_related'
         }, {
           name: 'Attachments',
           label: this.attachmentsText,
           where: function where(entry) {
-            return 'salesOrderId eq "' + entry.$key + '"';
+            return "salesOrderId eq \"".concat(entry.$key, "\"");
           },
           view: 'salesorder_attachments_related'
         }, {
           name: 'SyncHistory',
           label: this.syncHistoryText,
           where: function where(entry) {
-            return 'EntityType eq "SalesOrder" and EntityId eq "' + entry.$key + '"';
+            return "EntityType eq \"SalesOrder\" and EntityId eq \"".concat(entry.$key, "\"");
           },
           view: 'order_syncresult_related'
         }, {
           name: 'SalesPersons',
           label: this.salesPersonsText,
           where: function where(entry) {
-            return 'SalesOrder.Id eq "' + entry.$key + '"';
+            return "SalesOrder.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'salesorder_salesperson_related'
         }]
@@ -645,7 +651,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
     }
   });
 
-  _lang2.default.setObject('icboe.Views.SalesOrders.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.SalesOrders.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

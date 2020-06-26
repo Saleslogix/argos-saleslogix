@@ -1,44 +1,37 @@
-define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', '../../Action', '../../Format', '../../Models/Names', 'argos/Detail', 'argos/I18n'], function (module, exports, _declare, _string, _Action, _Format, _Names, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Lead/Detail", ["exports", "dojo/_base/declare", "dojo/string", "../../Action", "../../Format", "../../Models/Names", "argos/Detail", "argos/I18n"], function (_exports, _declare, _string, _Action, _Format, _Names, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Action = _interopRequireDefault(_Action);
+  _Format = _interopRequireDefault(_Format);
+  _Names = _interopRequireDefault(_Names);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _string2 = _interopRequireDefault(_string);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('leadDetail');
 
-  var _Action2 = _interopRequireDefault(_Action);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('leadDetail'); /* Copyright 2017 Infor
-                                                     *
-                                                     * Licensed under the Apache License, Version 2.0 (the "License");
-                                                     * you may not use this file except in compliance with the License.
-                                                     * You may obtain a copy of the License at
-                                                     *
-                                                     *    http://www.apache.org/licenses/LICENSE-2.0
-                                                     *
-                                                     * Unless required by applicable law or agreed to in writing, software
-                                                     * distributed under the License is distributed on an "AS IS" BASIS,
-                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                     * See the License for the specific language governing permissions and
-                                                     * limitations under the License.
-                                                     */
-
-  var __class = (0, _declare2.default)('crm.Views.Lead.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Lead.Detail', [_Detail["default"]], {
     // Localization
     accountText: resource.accountText,
     addressText: resource.addressText,
@@ -74,7 +67,6 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
     calledText: resource.calledText,
     emailedText: resource.emailedText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'lead_detail',
     editView: 'lead_edit',
@@ -82,11 +74,11 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
     noteEditView: 'history_edit',
     enableOffline: true,
     resourceKind: 'leads',
-    modelName: _Names2.default.LEAD,
-
+    modelName: _Names["default"].LEAD,
     navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
       this.refreshRequired = true;
-      _Action2.default.navigateToHistoryInsert(entry);
+
+      _Action["default"].navigateToHistoryInsert(entry);
     },
     recordCallToHistory: function recordCallToHistory(phoneNumber) {
       var entry = {
@@ -95,13 +87,12 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
         AccountName: this.entry.Company,
         LeadId: this.entry.$key,
         LeadName: this.entry.LeadNameLastFirst,
-        Description: _string2.default.substitute(this.calledText, [this.entry.LeadNameFirstLast]),
+        Description: _string["default"].substitute(this.calledText, [this.entry.LeadNameFirstLast]),
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.UserName,
         Duration: 15,
         CompletedDate: new Date()
       };
-
       this.navigateToHistoryInsert('atPhoneCall', entry);
       App.initiateCall(phoneNumber);
     },
@@ -112,13 +103,12 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
         AccountName: this.entry.Company,
         LeadId: this.entry.$key,
         LeadName: this.entry.LeadNameLastFirst,
-        Description: _string2.default.substitute(this.emailedText, [this.entry.LeadNameLastFirst]),
+        Description: _string["default"].substitute(this.emailedText, [this.entry.LeadNameLastFirst]),
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.UserName,
         Duration: 15,
         CompletedDate: new Date()
       };
-
       this.navigateToHistoryInsert('atEMail', entry);
       App.initiateEmail(email);
     },
@@ -135,16 +125,17 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
       return !value;
     },
     viewAddress: function viewAddress() {
-      App.showMapForAddress(_Format2.default.address(this.entry.Address, true, ' '));
+      App.showMapForAddress(_Format["default"].address(this.entry.Address, true, ' '));
     },
     checkAddress: function checkAddress(entry, value) {
-      return !_Format2.default.address(value, true, '');
+      return !_Format["default"].address(value, true, '');
     },
     scheduleActivity: function scheduleActivity() {
       App.navigateToActivityInsertView();
     },
     addNote: function addNote() {
       var view = App.getView(this.noteEditView);
+
       if (view) {
         view.show({
           template: {},
@@ -153,7 +144,7 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
       }
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -168,7 +159,7 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
           action: 'callWorkPhone',
           iconClass: 'phone',
           disabled: this.checkWorkPhone,
-          renderer: _Format2.default.phone.bindDelegate(this, false)
+          renderer: _Format["default"].phone.bindDelegate(this, false)
         }, {
           name: 'CheckEmailAction',
           property: 'Email',
@@ -195,7 +186,7 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
           action: 'viewAddress',
           iconClass: 'map-pin',
           disabled: this.checkAddress,
-          renderer: _Format2.default.address.bindDelegate(this, true, ' ')
+          renderer: _Format["default"].address.bindDelegate(this, true, ' ')
         }]
       }, {
         title: this.detailsText,
@@ -217,17 +208,17 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
           label: this.workText,
           name: 'WorkPhone',
           property: 'WorkPhone',
-          renderer: _Format2.default.phone
+          renderer: _Format["default"].phone
         }, {
           label: this.mobileText,
           name: 'Mobile',
           property: 'Mobile',
-          renderer: _Format2.default.phone
+          renderer: _Format["default"].phone
         }, {
           label: this.tollFreeText,
           name: 'TollFree',
           property: 'TollFree',
-          renderer: _Format2.default.phone
+          renderer: _Format["default"].phone
         }, {
           label: this.leadSourceText,
           name: 'LeadSource.Description',
@@ -236,7 +227,7 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
           label: this.webText,
           name: 'WebAddress',
           property: 'WebAddress',
-          renderer: _Format2.default.link
+          renderer: _Format["default"].link
         }, {
           label: this.interestsText,
           name: 'Interests',
@@ -280,7 +271,8 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
         }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'leadId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'leadId eq "${0}"'),
+          // must be lower case because of feed
           view: 'lead_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
@@ -288,6 +280,6 @@ define('crm/Views/Lead/Detail', ['module', 'exports', 'dojo/_base/declare', 'doj
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

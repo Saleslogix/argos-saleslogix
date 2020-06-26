@@ -1,8 +1,12 @@
-define('crm/Models/Activity/ActivityTypePicklists', ['exports'], function (exports) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Models/Activity/ActivityTypePicklists", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.getPicklistByActivityType = getPicklistByActivityType;
+  _exports.getPicklistByActivityType = getPicklistByActivityType;
+  _exports["default"] = _exports.ActivityTypePicklists = void 0;
+
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +21,7 @@ define('crm/Models/Activity/ActivityTypePicklists', ['exports'], function (expor
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var ActivityTypePicklists = exports.ActivityTypePicklists = {
+  var ActivityTypePicklists = {
     atAppointment: {
       Category: 'Meeting Category Codes',
       Description: 'Meeting Regarding',
@@ -47,10 +50,12 @@ define('crm/Models/Activity/ActivityTypePicklists', ['exports'], function (expor
       Description: 'E-mail Regarding'
     }
   };
+  _exports.ActivityTypePicklists = ActivityTypePicklists;
 
   function getPicklistByActivityType(type, which) {
     return ActivityTypePicklists[type] && ActivityTypePicklists[type][which];
   }
 
-  exports.default = ActivityTypePicklists;
+  var _default = ActivityTypePicklists;
+  _exports["default"] = _default;
 });

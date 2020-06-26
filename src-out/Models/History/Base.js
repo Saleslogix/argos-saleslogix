@@ -1,21 +1,16 @@
-define('crm/Models/History/Base', ['module', 'exports', 'dojo/_base/declare', 'argos/Models/_ModelBase', '../Names', 'argos/I18n'], function (module, exports, _declare, _ModelBase2, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Models/History/Base", ["exports", "dojo/_base/declare", "argos/Models/_ModelBase", "../Names", "argos/I18n"], function (_exports, _declare, _ModelBase2, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ModelBase2 = _interopRequireDefault(_ModelBase2);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _ModelBase3 = _interopRequireDefault(_ModelBase2);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,17 +26,15 @@ define('crm/Models/History/Base', ['module', 'exports', 'dojo/_base/declare', 'a
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('historyModel');
 
-  var resource = (0, _I18n2.default)('historyModel');
-
-  var __class = (0, _declare2.default)('crm.Models.History.Base', [_ModelBase3.default], {
+  var __class = (0, _declare["default"])('crm.Models.History.Base', [_ModelBase2["default"]], {
     resourceKind: 'history',
     entityName: 'History',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
-    modelName: _Names2.default.HISTORY,
+    modelName: _Names["default"].HISTORY,
     iconClass: 'bullet-list',
-
     createPicklists: function createPicklists() {
       return this.picklists || (this.picklists = [{
         name: 'Note Regarding',
@@ -49,6 +42,7 @@ define('crm/Models/History/Base', ['module', 'exports', 'dojo/_base/declare', 'a
       }]);
     }
   });
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

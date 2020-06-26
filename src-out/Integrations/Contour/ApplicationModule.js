@@ -1,29 +1,20 @@
-define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Application', 'argos/ApplicationModule', './Views/PxSearch/AccountPxSearch', './Views/PxSearch/LocationPicker', 'argos/I18n', './Models/Place/Offline', './Models/Place/SData'], function (module, exports, _declare, _lang, _string, _Application, _ApplicationModule, _AccountPxSearch, _LocationPicker, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/Contour/ApplicationModule", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/string", "argos/Application", "argos/ApplicationModule", "./Views/PxSearch/AccountPxSearch", "./Views/PxSearch/LocationPicker", "argos/I18n", "./Models/Place/Offline", "./Models/Place/SData"], function (_exports, _declare, _lang, _string, _Application, _ApplicationModule, _AccountPxSearch, _LocationPicker, _I18n, _Offline, _SData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Application = _interopRequireDefault(_Application);
+  _ApplicationModule = _interopRequireDefault(_ApplicationModule);
+  _AccountPxSearch = _interopRequireDefault(_AccountPxSearch);
+  _LocationPicker = _interopRequireDefault(_LocationPicker);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Application2 = _interopRequireDefault(_Application);
-
-  var _ApplicationModule2 = _interopRequireDefault(_ApplicationModule);
-
-  var _AccountPxSearch2 = _interopRequireDefault(_AccountPxSearch);
-
-  var _LocationPicker2 = _interopRequireDefault(_LocationPicker);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,14 +30,12 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('proxAppModule');
 
-  var resource = (0, _I18n2.default)('proxAppModule');
-
-  var __class = (0, _declare2.default)('crm.Integrations.Contour.ApplicationModule', [_ApplicationModule2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.Contour.ApplicationModule', [_ApplicationModule["default"]], {
     // Localization strings
     viewAccountsNearbyText: resource.viewAccountsNearbyText,
     helpTitleText: resource.helpTitleText,
-
     isIntegrationEnabled: function isIntegrationEnabled() {
       var results = this.application.context.integrations.filter(function (integration) {
         return integration.Name === 'Contour';
@@ -56,36 +45,37 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
     loadViewsDynamic: function loadViews() {
       if (!this.isIntegrationEnabled()) {
         return;
-      }
+      } // Register new proximity search views
 
-      // Register new proximity search views
-      this.registerView(new _AccountPxSearch2.default({
+
+      this.registerView(new _AccountPxSearch["default"]({
         canRedirectTo: true
       }));
-      this.registerView(new _LocationPicker2.default({
+      this.registerView(new _LocationPicker["default"]({
         canRedirectTo: true
       }));
     },
     loadCustomizationsDynamic: function loadCustomizations() {
       if (!this.isIntegrationEnabled()) {
         return;
-      }
-
-      // We want to add these views to the default set of home screen views.
+      } // We want to add these views to the default set of home screen views.
       // Save the original getDefaultviews() function.
-      var originalDefViews = _Application2.default.prototype.getDefaultViews;
-      _lang2.default.extend(_Application2.default, {
+
+
+      var originalDefViews = _Application["default"].prototype.getDefaultViews;
+
+      _lang["default"].extend(_Application["default"], {
         getDefaultViews: function getDefaultViews() {
           // Get view array from original function, or default to empty array
-          var views = originalDefViews.apply(this, arguments) || [];
-          // Add custom view(s)
+          var views = originalDefViews.apply(this, arguments) || []; // Add custom view(s)
+
           views.push('pxSearch_Accounts');
           views.push('pxSearch_locations');
           return views;
         }
-      });
+      }); // Add the new help
 
-      // Add the new help
+
       var onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
       this.registerCustomization('detail', 'help', {
         at: function at(row) {
@@ -106,7 +96,6 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
           }]
         }
       });
-
       this.registerAccountMods();
     },
     registerAccountMods: function registerAccountMods() {
@@ -115,7 +104,6 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
         at: function at(row) {
           return row.name === 'AddNoteAction';
         },
-
         type: 'insert',
         value: {
           name: 'ViewNearbyAction',
@@ -124,30 +112,32 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
           iconClass: 'spreadsheet',
           action: 'viewNearby'
         }
-      });
-      // extend the view's class
-      _lang2.default.extend(crm.Views.Account.Detail, {
+      }); // extend the view's class
+
+      _lang["default"].extend(crm.Views.Account.Detail, {
         addressNotGeocodedErrorText: resource.addressNotGeocodedErrorText,
         accountsNearText: resource.accountsNearText,
         querySelect: crm.Views.Account.Detail.prototype.querySelect.concat(['Address/GeocodeFailed', 'Address/GeocodeLatitude', 'Address/GeocodeLongitude', 'Address/GeocodeProvider']),
         viewNearby: function viewNearby() {
           if (this.entry.Address.GeocodeFailed !== null && this.entry.Address.GeocodeFailed === true || this.entry.Address.GeocodeProvider === null || this.entry.Address.GeocodeLatitude === null || this.entry.Address.GeocodeLongitude === null) {
             alert(this.addressNotGeocodedErrorText); // eslint-disable-line
+
             return;
           }
+
           var geocode = this.entry.Address;
           var view = App.getView('pxSearch_Accounts');
           view.refreshRequired = true;
           view.lat = geocode.GeocodeLatitude;
           view.lon = geocode.GeocodeLongitude;
           view.show({
-            title: _string2.default.substitute(this.accountsNearText, [this.entry.AccountName])
+            title: _string["default"].substitute(this.accountsNearText, [this.entry.AccountName])
           }, {});
         }
       });
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

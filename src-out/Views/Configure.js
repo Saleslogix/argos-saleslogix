@@ -1,21 +1,16 @@
-define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/store/Memory', 'argos/_ConfigureBase', 'argos/I18n'], function (module, exports, _declare, _Memory, _ConfigureBase2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Configure", ["exports", "dojo/_base/declare", "dojo/store/Memory", "argos/_ConfigureBase", "argos/I18n"], function (_exports, _declare, _Memory, _ConfigureBase2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Memory = _interopRequireDefault(_Memory);
+  _ConfigureBase2 = _interopRequireDefault(_ConfigureBase2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Memory2 = _interopRequireDefault(_Memory);
-
-  var _ConfigureBase3 = _interopRequireDefault(_ConfigureBase2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,29 +26,24 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('configure');
 
-  var resource = (0, _I18n2.default)('configure');
-
-  var __class = (0, _declare2.default)('crm.Views.Configure', [_ConfigureBase3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Configure', [_ConfigureBase2["default"]], {
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     id: 'configure',
     idProperty: '$key',
     labelProperty: '$descriptor',
-
     onSave: function onSave() {
       App.preferences.home = App.preferences.home || {};
       App.preferences.configure = App.preferences.configure || {};
-
       App.preferences.configure.order = this.getOrderedKeys();
       App.preferences.home.visible = this.getSelectedKeys();
-
       App.persistPreferences();
-
       ReUI.back();
       var view = App.getView('left_drawer');
+
       if (view) {
         view.refresh();
       }
@@ -61,9 +51,8 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
     createStore: function createStore() {
       var exposed = App.getExposedViews();
       var order = this.getSavedOrderedKeys();
-      var list = [];
+      var list = []; // De-dup id's
 
-      // De-dup id's
       var all = order.concat(exposed);
       var reduced = all.reduce(function (previous, current) {
         if (previous.indexOf(current) === -1) {
@@ -71,14 +60,12 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
         }
 
         return previous;
-      }, []);
+      }, []); // The order array could have had stale id's, filter out valid views here
 
-      // The order array could have had stale id's, filter out valid views here
       reduced = reduced.filter(function (key) {
         var view = App.getView(key);
         return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
       });
-
       list = reduced.map(function (key) {
         var view = App.getView(key);
         return {
@@ -87,8 +74,8 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
           icon: view.icon
         };
       });
-
-      return (0, _Memory2.default)({ // eslint-disable-line
+      return (0, _Memory["default"])({
+        // eslint-disable-line
         data: list
       });
     },
@@ -100,6 +87,6 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,15 +1,32 @@
-define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/declare'], function (module, exports, _declare) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/_RightDrawerBaseMixin", ["exports", "dojo/_base/declare"], function (_exports, _declare) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+
+  /**
+   * @module crm/Views/_RightDrawerBaseMixin
+   */
 
   /**
    * @class
@@ -26,15 +43,17 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
    *   2. unloadRightDrawer
    * @since 3.0
    */
-  var __class = (0, _declare2.default)('crm.Views._RightDrawerBaseMixin', null, /** @lends module:crm/Views/_RightDrawerBaseMixin.prototype */{
+  var __class = (0, _declare["default"])('crm.Views._RightDrawerBaseMixin', null,
+  /** @lends module:crm/Views/_RightDrawerBaseMixin.prototype */
+  {
     drawerLoaded: false,
+
     /**
      * @property {Boolean}
      * Add a flag so the view can opt-out of the right drawer if the mixin is used (_related views)
      */
     // hasSettings: false,
     toolsAdded: false,
-
     setupRightDrawer: function setupRightDrawer() {},
     loadRightDrawer: function loadRightDrawer() {
       // TODO: onTransitionAway is not called for "my schedule" nor is it called once local storage has group settings after first load
@@ -47,9 +66,9 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
 
       this.setupRightDrawer();
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
-        drawer.refresh();
-        // this.drawerLoaded = true;
+        drawer.refresh(); // this.drawerLoaded = true;
       }
     },
     show: function show(options) {
@@ -66,10 +85,13 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
       var theTools = tools || {
         tbar: []
       };
+
       if (!this.toolsAdded) {
         this._addTools(theTools);
+
         this.toolsAdded = true;
       }
+
       this.inherited(onToolLayoutCreated, arguments);
     },
     _addTools: function _addTools(tools) {
@@ -91,30 +113,14 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
       }
 
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
         this.unloadRightDrawer();
-        drawer.clear();
-        // this.drawerLoaded = false;
+        drawer.clear(); // this.drawerLoaded = false;
       }
     }
-  }); /* Copyright 2017 Infor
-       *
-       * Licensed under the Apache License, Version 2.0 (the "License");
-       * you may not use this file except in compliance with the License.
-       * You may obtain a copy of the License at
-       *
-       *    http://www.apache.org/licenses/LICENSE-2.0
-       *
-       * Unless required by applicable law or agreed to in writing, software
-       * distributed under the License is distributed on an "AS IS" BASIS,
-       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-       * See the License for the specific language governing permissions and
-       * limitations under the License.
-       */
+  });
 
-  /**
-   * @module crm/Views/_RightDrawerBaseMixin
-   */
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

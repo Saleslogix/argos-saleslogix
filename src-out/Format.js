@@ -1,21 +1,16 @@
-define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'argos/Format', 'argos/I18n'], function (module, exports, _lang, _string, _Format, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Format", ["exports", "dojo/_base/lang", "dojo/string", "argos/Format", "argos/I18n"], function (_exports, _lang, _string, _Format, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Format = _interopRequireDefault(_Format);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -36,26 +31,30 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
    * @module crm/Format
    */
   var f = ICRMCommonSDK.format;
-  var resource = (0, _I18n2.default)('crmFormat');
-
+  var resource = (0, _I18n["default"])('crmFormat');
   /**
    * @class
    * @alias module:crm/Format
    * @extends module:argos/Format
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Format', _lang2.default.mixin({}, _Format2.default, /** @lends module:crm/Format */{
+
+  var __class = _lang["default"].setObject('crm.Format', _lang["default"].mixin({}, _Format["default"],
+  /** @lends module:crm/Format */
+  {
     /**
      * Address Culture Formats as defined by crm.Format.address
      * http://msdn.microsoft.com/en-us/library/cc195167.aspx
      */
     addressCultureFormats: f.addressCultureFormats,
+
     /**
      * Country name to culture identification
      * http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
      */
     countryCultures: f.countryCultures,
     addressItems: f.addressItems,
+
     /**
     Converts the given value using the provided format, joining with the separator character
     If no format given, will use predefined format for the addresses Country (or en-US as final fallback)
@@ -99,22 +98,24 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     property, // Property to reference for fetching the picklist off the model
     picklistName) {
       var languageCode = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : App.getCurrentLocale();
-      var picklistOptions = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : { // Override for picklistOptions on storage and display modes
+      var picklistOptions = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {
+        // Override for picklistOptions on storage and display modes
         storage: f.PicklistStorageType.CODE,
         display: f.PicklistDataDisplayType.TEXT
       };
-
       var name = picklistName;
+
       if (!name) {
         if (!service || !model || !property) {
           return function (val) {
             return val;
           };
         }
+
         name = model.getPicklistNameByProperty(property);
       }
-      var picklist = service.getPicklistByName(name, languageCode);
 
+      var picklist = service.getPicklistByName(name, languageCode);
       return function (val) {
         return f.picklist(val, Object.assign({}, picklistOptions, picklist));
       };
@@ -133,24 +134,37 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       }
 
       var results = numParse.toString();
+
       if (absVal >= 1000000000) {
         // Billion
         numParse = numParse / 1000000000;
-        results = _string2.default.substitute(resource.billionText, {
-          val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
+        results = _string["default"].substitute(resource.billionText, {
+          val: Soho.Locale.formatNumber(numParse, {
+            round: true,
+            minimumFractionDigits: 1
+          })
         });
       } else if (absVal >= 1000000) {
         numParse = numParse / 1000000;
-        results = _string2.default.substitute(resource.millionText, {
-          val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
+        results = _string["default"].substitute(resource.millionText, {
+          val: Soho.Locale.formatNumber(numParse, {
+            round: true,
+            minimumFractionDigits: 1
+          })
         });
       } else if (absVal >= 1000) {
         numParse = numParse / 1000;
-        results = _string2.default.substitute(resource.thousandText, {
-          val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
+        results = _string["default"].substitute(resource.thousandText, {
+          val: Soho.Locale.formatNumber(numParse, {
+            round: true,
+            minimumFractionDigits: 1
+          })
         });
       } else {
-        results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 2 }).toString();
+        results = Soho.Locale.formatNumber(numParse, {
+          round: true,
+          minimumFractionDigits: 2
+        }).toString();
       }
 
       return results;
@@ -174,6 +188,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     userActivityStatus: function userActivityStatus(val) {
       return crm.Format.userActivityFormatText[val];
     },
+
     /**
      * Takes a string input and converts name to First amd Last initials
      * `Lee Hogan` -> `LH`
@@ -181,6 +196,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
      * @returns {String}
      */
     formatUserInitial: f.formatUserInitial,
+
     /**
      * Takes a string input and the user name to First amd Last name
      * `Hogan, Lee` -> `Lee Hogan`
@@ -188,6 +204,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
      * @returns {String}
      */
     formatByUser: f.formatByUser,
+
     /**
      * Takes a string input and the user name to First amd Last name
      * `Hogan, Lee` -> `Lee Hogan`
@@ -200,7 +217,6 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     },
     time: function time(rawValue) {
       var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'days';
-
       var val = rawValue;
 
       if (typeof rawValue !== 'number') {
@@ -208,28 +224,34 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       }
 
       var numParse = crm.Format.fixedLocale(val, 2);
-      switch (type) {// eslint-disable-line
+
+      switch (type) {
+        // eslint-disable-line
         case 'days':
-          return _string2.default.substitute(resource.daysText, {
+          return _string["default"].substitute(resource.daysText, {
             val: numParse
           });
+
         case 'weeks':
-          return _string2.default.substitute(resource.weeksText, {
+          return _string["default"].substitute(resource.weeksText, {
             val: numParse
           });
+
         case 'months':
-          return _string2.default.substitute(resource.monthsText, {
+          return _string["default"].substitute(resource.monthsText, {
             val: numParse
           });
+
         case 'years':
-          return _string2.default.substitute(resource.yearsText, {
+          return _string["default"].substitute(resource.yearsText, {
             val: numParse
           });
       }
+
       return rawValue;
     }
   }));
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

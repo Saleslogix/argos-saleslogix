@@ -1,33 +1,22 @@
-define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Utility', 'argos/Edit', 'argos/I18n', '../../PricingAvailabilityService', 'crm/Validator', '../../Models/Names', 'argos/Models/Types'], function (module, exports, _declare, _lang, _string, _Utility, _Edit, _I18n, _PricingAvailabilityService, _Validator, _Names, _Types) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/QuoteLines/Edit", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/string", "argos/Utility", "argos/Edit", "argos/I18n", "../../PricingAvailabilityService", "crm/Validator", "../../Models/Names", "argos/Models/Types"], function (_exports, _declare, _lang, _string, _Utility, _Edit, _I18n, _PricingAvailabilityService, _Validator, _Names, _Types) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
+  _Validator = _interopRequireDefault(_Validator);
+  _Names = _interopRequireDefault(_Names);
+  _Types = _interopRequireDefault(_Types);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,17 +32,16 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('quoteItemEdit');
 
-  var resource = (0, _I18n2.default)('quoteItemEdit');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.QuoteLines.Edit', [_Edit["default"]], {
     // View Properties
     id: 'quote_line_edit',
     detailView: 'quote_line_detail',
     insertSecurity: 'Entities/Quote/Add',
     updateSecurity: 'Entities/Quote/Edit',
     resourceKind: 'quoteItems',
-    modelName: _Names2.default.QUOTEITEM,
+    modelName: _Names["default"].QUOTEITEM,
     titleText: resource.titleText,
     productText: resource.productText,
     quantityText: resource.quantityText,
@@ -91,10 +79,12 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
+
       if (this.options && this.options.context) {
         if (this.options.context.Quote) {
           this.fields.Quote.setSelection(this.options.context.Quote);
           this.fields.Quote.disable();
+
           if (this.options.context.Quote.Account) {
             this.accountLinked = this.options.context.Quote.Account.ErpExtId ? true : false;
           }
@@ -102,6 +92,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           this.fields.Quote.enable();
         }
       }
+
       this.setProductDependentFields();
     },
     getProductDependants: function getProductDependants() {
@@ -111,15 +102,18 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       var _this = this;
 
       var dependants = this.getProductDependants();
+
       if (product) {
         dependants.forEach(function (f) {
           _this.fields[f].enable();
+
           _this.fields[f].dependsOn = 'Product';
-          _this.fields[f].where = 'Product.Id eq "' + product.$key + '"';
+          _this.fields[f].where = "Product.Id eq \"".concat(product.$key, "\"");
         });
       } else {
         dependants.forEach(function (f) {
           _this.fields[f].disable();
+
           _this.fields[f].dependsOn = null;
           _this.fields[f].where = null;
         });
@@ -127,6 +121,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
     },
     onInsert: function onInsert(values) {
       this._applyLogicValues(values);
+
       this.inherited(onInsert, arguments);
     },
     onRefresh: function onRefresh() {
@@ -141,6 +136,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       var _this2 = this;
 
       var quote = null;
+
       if (this.options && this.options.context && this.options.context.Quote) {
         quote = this.options.context.Quote;
       } else {
@@ -148,10 +144,12 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           quote = this.fields.Quote.getValue();
         }
       }
+
       if (quote && quote.$key && !this.isProcessingPricingRequest) {
         this.isProcessingPricingRequest = true;
         this.enablePricingControls(false);
-        _PricingAvailabilityService2.default.getQuoteItemPricing(this.entry, quote, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
+
+        _PricingAvailabilityService["default"].getQuoteItemPricing(this.entry, quote, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
           _this2.onProductPricingSuccess(results);
         }, function (error) {
           _this2.onProductPricingFailed(error);
@@ -163,10 +161,13 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
 
       this.processProductPricing(result).then(function () {
         _this3.reCalculate();
+
         _this3.isProcessingPricingRequest = false;
+
         _this3.enablePricingControls(true);
       }, function () {
         _this3.isProcessingPricingRequest = false;
+
         _this3.enablePricingControls(true);
       });
     },
@@ -185,12 +186,14 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       var product = this.fields.Product.getValue();
       var promise = new Promise(function (resolve, reject) {
         if (!_this4._uomModel) {
-          _this4._uomModel = App.ModelManager.getModel(_Names2.default.UNITOFMEASURE, _Types2.default.SDATA);
+          _this4._uomModel = App.ModelManager.getModel(_Names["default"].UNITOFMEASURE, _Types["default"].SDATA);
         }
+
         if (_this4._uomModel && product) {
           if (curremtUom && curremtUom.Name !== uomCode || !curremtUom) {
             _this4._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then(function (uom) {
               _this4.fields.UnitOfMeasure.setValue(uom);
+
               resolve(true);
             }, function (error) {
               reject(error);
@@ -212,18 +215,22 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           if (pricingData.DocCalculatedPrice) {
             _this5.fields.DocCalculatedPrice.setValue(pricingData.DocCalculatedPrice.value);
           }
+
           if (pricingData.DocExtendedPrice) {
             _this5.fields.DocExtendedPrice.setValue(pricingData.DocExtendedPrice.value);
           }
+
           if (pricingData.DocTotalAmount) {
             _this5.fields.DocTotalAmount.setValue(pricingData.DocTotalAmount.value);
           }
+
           if (pricingData.SlxLocationId) {
             _this5.fields.SlxLocation.setValue({
               $key: pricingData.SlxLocationId.value,
               Name: pricingData.SlxLocationCode.value
             });
           }
+
           if (pricingData.UnitOfMeasure) {
             _this5.setUomFromCode(pricingData.UnitOfMeasure.value).then(function () {
               resolve(true);
@@ -240,7 +247,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       return promise;
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
-      return _string2.default.substitute(theFormat, [_Utility2.default.getValue(dependentValue, property || '$key')]);
+      return _string["default"].substitute(theFormat, [_Utility["default"].getValue(dependentValue, property || '$key')]);
     },
     onProductChange: function onProductChange(value, field) {
       this.setProductDependentFields(field.currentSelection);
@@ -252,6 +259,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       if (isNaN(value)) {
         this.fields.Quantity.setValueNoTrigger(0);
       }
+
       if (this.isAdHocProduct(this.fields.Product.getValue())) {
         this.reCalculate();
       } else {
@@ -284,6 +292,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       if (product.LineType === 'FreeText') {
         return true;
       }
+
       return false;
     },
     reCalculate: function reCalculate() {
@@ -293,15 +302,16 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
     },
     onUpdateCompleted: function onUpdateCompleted() {
       this._refreshRelatedViews();
+
       this.inherited(onUpdateCompleted, arguments);
     },
     onInsertCompleted: function onInsertCompleted() {
       this._refreshRelatedViews();
+
       this.inherited(onInsertCompleted, arguments);
     },
     _refreshRelatedViews: function _refreshRelatedViews() {
       var views = [App.getView('quote_line_detail'), App.getView('quote_lines_list')];
-
       views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
@@ -337,15 +347,17 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           view: 'quoteline_product_related',
           autoFocus: true,
           required: true,
-          validator: _Validator2.default.exists,
+          validator: _Validator["default"].exists,
           where: function where() {
             var logicalIdFromSelection = _this6.fields.Quote.currentSelection && _this6.fields.Quote.currentSelection.ErpLogicalId;
             var logicalIdFromOptions = _this6.options && _this6.options.context && _this6.options.context.Quote && _this6.options.context.Quote.ErpLogicalId;
             var logicalIdFromEntry = _this6.entry && _this6.entry.Quote && _this6.entry.Quote.ErpLogicalId;
             var logicalId = logicalIdFromSelection || logicalIdFromOptions || logicalIdFromEntry;
+
             if (logicalId) {
-              return 'ErpLogicalId eq "' + logicalId + '"';
+              return "ErpLogicalId eq \"".concat(logicalId, "\"");
             }
+
             return null;
           }
         }, {
@@ -357,9 +369,9 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           name: 'Quantity',
           property: 'Quantity',
           type: 'decimal',
-          default: 1,
+          "default": 1,
           notificationTrigger: 'blur',
-          validator: _Validator2.default.exists
+          validator: _Validator["default"].exists
         }, {
           label: this.unitOfMeasureText,
           name: 'UnitOfMeasure',
@@ -382,42 +394,44 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           name: 'Price',
           property: 'Price',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.baseAdjustedPriceText,
           name: 'CalculatedPrice',
           property: 'CalculatedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.docAdjustedPriceText,
           name: 'DocCalculatedPrice',
           property: 'DocCalculatedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.baseExtendedPriceText,
           name: 'ExtendedPrice',
           property: 'ExtendedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.docExtendedPriceText,
           name: 'DocExtendedPrice',
           property: 'DocExtendedPrice',
           type: 'decimal',
-          default: 0.00
+          "default": 0.00
         }, {
           label: this.docTotalAmountText,
           name: 'DocTotalAmount',
           property: 'DocTotalAmount',
           type: 'decimal',
-          default: 0.00
-        }] }]);
+          "default": 0.00
+        }]
+      }]);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.QuoteLines.Edit', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.QuoteLines.Edit', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

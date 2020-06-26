@@ -1,37 +1,24 @@
-define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Utility', 'argos/Edit', 'argos/Models/Adapter', 'crm/Validator', '../../Models/Names', 'crm/Models/Names', 'argos/Dialogs/BusyIndicator', 'argos/I18n', '../../Utility'], function (module, exports, _declare, _lang, _string, _Utility, _Edit, _Adapter, _Validator, _Names, _Names3, _BusyIndicator, _I18n, _Utility3) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/SalesOrders/Edit", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/string", "argos/Utility", "argos/Edit", "argos/Models/Adapter", "crm/Validator", "../../Models/Names", "crm/Models/Names", "argos/Dialogs/BusyIndicator", "argos/I18n", "../../Utility"], function (_exports, _declare, _lang, _string, _Utility, _Edit, _Adapter, _Validator, _Names, _Names2, _BusyIndicator, _I18n, _Utility2) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _Adapter = _interopRequireDefault(_Adapter);
+  _Validator = _interopRequireDefault(_Validator);
+  _Names = _interopRequireDefault(_Names);
+  _Names2 = _interopRequireDefault(_Names2);
+  _BusyIndicator = _interopRequireDefault(_BusyIndicator);
+  _I18n = _interopRequireDefault(_I18n);
+  _Utility2 = _interopRequireDefault(_Utility2);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _Adapter2 = _interopRequireDefault(_Adapter);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Names4 = _interopRequireDefault(_Names3);
-
-  var _BusyIndicator2 = _interopRequireDefault(_BusyIndicator);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Utility4 = _interopRequireDefault(_Utility3);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -47,12 +34,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('salesOrderEdit');
+  var contactResource = (0, _I18n["default"])('contactModel');
+  var dtFormatResource = (0, _I18n["default"])('salesOrderEditDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('salesOrderEdit');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var dtFormatResource = (0, _I18n2.default)('salesOrderEditDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.SalesOrders.Edit', [_Edit["default"]], {
     // View Properties
     id: 'salesorder_edit',
     detailView: 'salesorder_detail',
@@ -63,10 +49,9 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     warehouseCode: 'Warehouse',
     officeCode: 'Office',
     siteCode: 'Site',
-    modelName: _Names2.default.SALESORDER,
+    modelName: _Names["default"].SALESORDER,
     _busyIndicator: null,
     locationType: '',
-
     // Localization
     titleText: resource.titleText,
     orderNumberText: resource.orderNumberText,
@@ -105,10 +90,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     locationText: resource.locationText,
     locationsTitleText: resource.locationsTitleText,
     carrierText: resource.carrierText,
-
     init: function init() {
       this.inherited(init, arguments);
-
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
       this.connect(this.fields.RequestedBy, 'onChange', this.onContactChange);
       this.connect(this.fields.Opportunity, 'onChange', this.onOpportunityChange);
@@ -118,9 +101,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       this.connect(this.fields.BackOfficeAccountingEntity, 'onChange', this.onBackOfficeAccountingEntityChange);
       this.connect(this.fields.Location, 'onChange', this.onLocationChange);
       this.connect(this.fields.Warehouse, 'onChange', this.onWarehouseChange);
+
       if (!this.locationType) {
         this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] && App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
       }
+
       if (this.locationType === 'Warehouse') {
         this.fields.Location.hide();
         this.fields.Warehouse.show();
@@ -141,9 +126,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     },
     beforeTransitionTo: function beforeTransitionTo() {
       this.inherited(beforeTransitionTo, arguments);
+
       if (!this.fields.AccountManager.isDisabled) {
         this.fields.AccountManager.disable();
       }
+
       if (this.fields.BillTo.isDisabled && this.fields.ShipTo.isDisabled) {
         this.fields.BillTo.enable();
         this.fields.ShipTo.enable();
@@ -163,11 +150,13 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           $key: values.ErpBillTo.$key
         };
       }
+
       if (values.ErpShipTo) {
         values.ErpShipTo = {
           $key: values.ErpShipTo.$key
         };
       }
+
       return values;
     },
     processEntry: function processEntry(entry) {
@@ -176,40 +165,50 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       if (entry && entry.Account) {
         ['RequestedBy', 'Opportunity'].forEach(function (f) {
           _this.fields[f].dependsOn = 'Account';
-          _this.fields[f].where = 'Account.Id eq "' + (entry.Account.AccountId || entry.Account.$key || entry.Account.key) + '"';
+          _this.fields[f].where = "Account.Id eq \"".concat(entry.Account.AccountId || entry.Account.$key || entry.Account.key, "\"");
+
           if (f === 'Opportunity') {
-            _this.fields[f].where = _this.fields[f].where + ' and Status eq "' + _this.opportunityOpenCode + '"';
+            _this.fields[f].where = "".concat(_this.fields[f].where, " and Status eq \"").concat(_this.opportunityOpenCode, "\"");
           }
         });
       }
+
       var warehouseField = this.fields.Warehouse;
       var locationField = this.fields.Location;
+
       if (entry && entry.ErpLogicalId) {
         warehouseField.enable();
         warehouseField.dependsOn = 'ErpLogicalId';
+
         warehouseField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and LocationType eq "' + _this.warehouseCode + '"';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and LocationType eq \"").concat(_this.warehouseCode, "\"");
         };
+
         locationField.enable();
         locationField.dependsOn = 'ErpLogicalId';
+
         locationField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and (LocationType eq "' + _this.officeCode + '" or LocationType eq "' + _this.siteCode + '")';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and (LocationType eq \"").concat(_this.officeCode, "\" or LocationType eq \"").concat(_this.siteCode, "\")");
         };
       } else {
         warehouseField.disable();
         locationField.disable();
       }
+
       if (entry.WarehouseLocation) {
         warehouseField.setValue(entry.WarehouseLocation);
       }
+
       if (entry.Location) {
         locationField.setValue(entry.Location);
       }
+
       if (entry && entry.ErpExtId) {
         this.disableBackOfficeData();
       } else {
         this.enableBackOfficeData();
       }
+
       return entry;
     },
     setValues: function setValues() {
@@ -217,6 +216,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
 
       if (!this.fields.CurrencyCode.getValue()) {
         var account = this.fields.Account.currentSelection;
+
         if (account && account.CurrencyCode) {
           this.fields.CurrencyCode.setValue(account.CurrencyCode);
         } else {
@@ -243,14 +243,16 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       var mappedLookups = ['BackOffice', 'BackOfficeAccountingEntity'];
       var mappedProperties = ['LogicalId', 'AcctEntityExtId'];
       var fields = ['ErpLogicalId', 'ErpAccountingEntityId'];
-      _Utility4.default.setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(function () {
+
+      _Utility2["default"].setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(function () {
         _this3.hideBusy();
       });
     },
     getPrimaryContact: function getPrimaryContact(entry) {
       var _this4 = this;
 
-      var accountModel = _Adapter2.default.getModel(_Names4.default.ACCOUNT);
+      var accountModel = _Adapter["default"].getModel(_Names2["default"].ACCOUNT);
+
       var relationship = {
         name: 'Contacts',
         displayName: contactResource.entityDisplayNamePlural,
@@ -263,6 +265,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       accountModel.getRelatedRequest(entry, relationship).then(function (result) {
         if (result && result.entities && result.entities.length) {
           var contactField = _this4.fields.RequestedBy;
+
           if (!contactField.currentSelection || contactField.currentSelection.Account && contactField.currentSelection.Account.$key !== entry.$key) {
             contactField.setSelection(result.entities[0]);
           }
@@ -276,25 +279,30 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       ['RequestedBy', 'Opportunity'].forEach(function (f) {
         if (value) {
           _this5.fields[f].dependsOn = 'Account';
-          _this5.fields[f].where = 'Account.Id eq "' + (value.AccountId || value.$key || value.key) + '"';
+          _this5.fields[f].where = "Account.Id eq \"".concat(value.AccountId || value.$key || value.key, "\"");
         }
       });
+
       if (entry) {
         this.fields.CurrencyCode.setValue(entry.CurrencyCode ? entry.CurrencyCode : App.getBaseExchangeRate().code);
+
         if (this.fields.BillTo.isDisabled && this.fields.ShipTo.isDisabled) {
           this.fields.BillTo.enable();
           this.fields.ShipTo.enable();
         }
+
         if (entry.AccountManager) {
           var accountManagerField = this.fields.AccountManager;
           accountManagerField.setSelection({
             $key: entry.AccountManager.$key
           });
         }
+
         field.setValue(field.currentSelection);
         this.showBusy();
         this.getPrimaryContact(entry);
-        _Utility4.default.setFieldsFromIds(['BackOffice', 'BackOfficeAccountingEntity'], ['LogicalId', 'AcctEntityExtId'], ['ErpLogicalId', 'ErpAccountingEntityId'], this, entry).then(function () {
+
+        _Utility2["default"].setFieldsFromIds(['BackOffice', 'BackOfficeAccountingEntity'], ['LogicalId', 'AcctEntityExtId'], ['ErpLogicalId', 'ErpAccountingEntityId'], this, entry).then(function () {
           _this5.hideBusy();
         });
       }
@@ -312,29 +320,37 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       this.fields.BackOffice.setValue(field.currentSelection);
       this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
       var accountingField = this.fields.BackOfficeAccountingEntity;
-      accountingField.where = 'BackOffice.Id eq "' + field.currentSelection.$key + '"';
+      accountingField.where = "BackOffice.Id eq \"".concat(field.currentSelection.$key, "\"");
       var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+
       if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
         var entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
+
         if (entry) {
           accountingField.setSelection(entry);
           this.onBackOfficeAccountingEntityChange(accountingField.getValue(), accountingField);
         }
       }
+
       var warehouseField = this.fields.Warehouse;
+
       if (warehouseField.isDisabled) {
         warehouseField.enable();
         warehouseField.dependsOn = 'ErpLogicalId';
+
         warehouseField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and LocationType eq "' + _this6.warehouseCode + '"';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and LocationType eq \"").concat(_this6.warehouseCode, "\"");
         };
       }
+
       var locationField = this.fields.Location;
+
       if (locationField.isDisabled) {
         locationField.enable();
         locationField.dependsOn = 'ErpLogicalId';
+
         locationField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and (LocationType eq "' + _this6.officeCode + '" or LocationType eq "' + _this6.siteCode + '")';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and (LocationType eq \"").concat(_this6.officeCode, "\" or LocationType eq \"").concat(_this6.siteCode, "\")");
         };
       }
     },
@@ -352,6 +368,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       if (field.currentSelection.ErpExtId) {
         this.fields.ErpLocation.setValue(field.currentSelection.ErpExtId);
       }
+
       this.fields.Location.setValue(field.currentSelection);
     },
     onOpportunityChange: function onOpportunityChange(value, field) {
@@ -366,11 +383,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
+
       var found = this._getNavContext();
 
       var accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
-
       var context = found && found.options && found.options.source || found;
       var lookup = {
         accounts: this.applyAccountContext,
@@ -386,6 +403,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
         this.fields.BillTo.disable();
         this.fields.ShipTo.disable();
       }
+
       if (!this.fields.BackOffice.currentSelection) {
         this.fields.Location.disable();
         this.fields.Warehouse.disable();
@@ -442,21 +460,26 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     hideBusy: function hideBusy() {
       if (this._busyIndicator) {
         this._busyIndicator.complete();
+
         App.modal.disableClose = false;
         App.modal.hide();
       }
     },
     showBusy: function showBusy() {
       if (!this._busyIndicator || this._busyIndicator._destroyed) {
-        this._busyIndicator = new _BusyIndicator2.default({ id: this.id + '-busyIndicator' });
+        this._busyIndicator = new _BusyIndicator["default"]({
+          id: "".concat(this.id, "-busyIndicator")
+        });
       }
+
       this._busyIndicator.start();
+
       App.modal.disableClose = true;
       App.modal.showToolbar = false;
       App.modal.add(this._busyIndicator);
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
-      return _string2.default.substitute(theFormat, [_Utility2.default.getValue(dependentValue, property || '$key')]);
+      return _string["default"].substitute(theFormat, [_Utility["default"].getValue(dependentValue, property || '$key')]);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -472,7 +495,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           view: 'account_related',
           autoFocus: true,
           required: true,
-          validator: _Validator2.default.exists
+          validator: _Validator["default"].exists
         }, {
           label: this.opportunityText,
           name: 'Opportunity',
@@ -519,7 +542,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           keyProperty: 'code',
           required: true,
           requireSelection: true,
-          validator: _Validator2.default.picklistExists
+          validator: _Validator["default"].picklistExists
         }, {
           label: this.dueDateText,
           name: 'DueDate',
@@ -530,14 +553,15 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           showRelativeDateTime: false,
           dateFormatText: this.dateFormat,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.isDateInRange]
+          validator: [_Validator["default"].isDateInRange]
         }, {
           label: this.customerPOText,
           name: 'CustomerPONumber',
           property: 'CustomerPurchaseOrderNumber',
           type: 'text'
         }, {
-          label: this.commentsText, // TODO: Make on save, append 'Created by <user> on <datetime>' to comment
+          label: this.commentsText,
+          // TODO: Make on save, append 'Created by <user> on <datetime>' to comment
           noteProperty: false,
           name: 'Comments',
           property: 'Comments',
@@ -613,7 +637,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           valueTextProperty: 'CarrierName',
           view: 'salesorder_carriers',
           where: function where(value) {
-            return 'ErpLogicalId eq "' + value + '"';
+            return "ErpLogicalId eq \"".concat(value, "\"");
           }
         }, {
           label: this.backOrderedText,
@@ -671,11 +695,13 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           type: 'lookup',
           emptyText: '',
           valueTextProperty: 'Name'
-        }] }]);
+        }]
+      }]);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.SalesOrders.Edit', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.SalesOrders.Edit', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

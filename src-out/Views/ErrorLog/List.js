@@ -1,25 +1,18 @@
-define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/store/Memory', 'argos/Convert', 'argos/ErrorManager', 'argos/_ListBase', 'argos/I18n'], function (module, exports, _declare, _Memory, _Convert, _ErrorManager, _ListBase, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/ErrorLog/List", ["exports", "dojo/_base/declare", "dojo/store/Memory", "argos/Convert", "argos/ErrorManager", "argos/_ListBase", "argos/I18n"], function (_exports, _declare, _Memory, _Convert, _ErrorManager, _ListBase, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Memory = _interopRequireDefault(_Memory);
+  _Convert = _interopRequireDefault(_Convert);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _ListBase = _interopRequireDefault(_ListBase);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Memory2 = _interopRequireDefault(_Memory);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _ListBase2 = _interopRequireDefault(_ListBase);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,19 +28,16 @@ define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'd
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('errorLogList');
+  var dtFormatResource = (0, _I18n["default"])('errorLogListDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('errorLogList');
-  var dtFormatResource = (0, _I18n2.default)('errorLogListDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.ErrorLog.List', [_ListBase2.default], {
+  var __class = (0, _declare["default"])('crm.Views.ErrorLog.List', [_ListBase["default"]], {
     // Localization
     titleText: resource.titleText,
     errorDateFormatText: dtFormatResource.errorDateFormatText,
     errorDateFormatText24: dtFormatResource.errorDateFormatText24,
-
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: crm.Format.date($.Date, (App.is24HourClock()) ? $$.errorDateFormatText24 : $$.errorDateFormatText) %}</p>']),
-
     // View Properties
     id: 'errorlog_list',
     enableSearch: false,
@@ -57,28 +47,29 @@ define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'd
     detailView: 'errorlog_detail',
     idProperty: '$key',
     labelProperty: 'Description',
-
     _onRefresh: function _onRefresh(o) {
       this.inherited(_onRefresh, arguments);
+
       if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
         this.refreshRequired = true;
       }
     },
     createStore: function createStore() {
-      var errorItems = _ErrorManager2.default.getAllErrors();
+      var errorItems = _ErrorManager["default"].getAllErrors();
 
       errorItems.sort(function (a, b) {
         a.errorDateStamp = a.errorDateStamp || a.Date;
         b.errorDateStamp = b.errorDateStamp || b.Date;
         a.Date = a.errorDateStamp;
         b.Date = b.errorDateStamp;
-        var A = _Convert2.default.toDateFromString(a.errorDateStamp);
-        var B = _Convert2.default.toDateFromString(b.errorDateStamp);
+
+        var A = _Convert["default"].toDateFromString(a.errorDateStamp);
+
+        var B = _Convert["default"].toDateFromString(b.errorDateStamp);
 
         return A.valueOf() > B.valueOf();
       });
-
-      return new _Memory2.default({
+      return new _Memory["default"]({
         data: errorItems,
         idProperty: this.idProperty
       });
@@ -90,6 +81,6 @@ define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'd
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

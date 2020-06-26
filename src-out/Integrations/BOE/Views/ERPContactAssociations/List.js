@@ -1,29 +1,20 @@
-define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/List', 'crm/Views/_RightDrawerListMixin', 'crm/Views/_MetricListMixin', 'crm/Views/_GroupListMixin', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _List, _RightDrawerListMixin2, _MetricListMixin2, _GroupListMixin2, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPContactAssociations/List", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/List", "crm/Views/_RightDrawerListMixin", "crm/Views/_MetricListMixin", "crm/Views/_GroupListMixin", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _List, _RightDrawerListMixin2, _MetricListMixin2, _GroupListMixin2, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _List = _interopRequireDefault(_List);
+  _RightDrawerListMixin2 = _interopRequireDefault(_RightDrawerListMixin2);
+  _MetricListMixin2 = _interopRequireDefault(_MetricListMixin2);
+  _GroupListMixin2 = _interopRequireDefault(_GroupListMixin2);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
-
-  var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
-
-  var _GroupListMixin3 = _interopRequireDefault(_GroupListMixin2);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,29 +30,24 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('erpContactAssociationsList');
 
-  var resource = (0, _I18n2.default)('erpContactAssociationsList');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPContactAssociations.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPContactAssociations.List', [_List["default"], _RightDrawerListMixin2["default"], _MetricListMixin2["default"], _GroupListMixin2["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Contact.NameLF %}</p>', '<p class="micro-text">{%: $.Account.AccountName %}</p>']),
-
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     id: 'erpcontactassociations_list',
     detailView: 'contact_detail',
     allowSelection: true,
     enableActions: false,
-    modelName: _Names2.default.ERPCONTACTASSOCIATION,
+    modelName: _Names["default"].ERPCONTACTASSOCIATION,
     resourceKind: 'erpContactAccounts',
     security: 'Entities/Contact/View',
     insertSecurity: 'Entities/Contact/Add',
-
     // Card layout
     itemIconClass: 'spreadsheet',
-
     // Groups
     enableDynamicGroupLayout: true,
     groupsEnabled: true,
@@ -78,14 +64,15 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
       var contact = this.entries[key].Contact;
       var view = this.app.getView(this.detailView);
       var options = {
-        descriptor: contact.NameLF, // keep for backwards compat
+        descriptor: contact.NameLF,
+        // keep for backwards compat
         title: contact.NameLF,
         key: contact.$key,
         fromContext: this
       };
 
       if (additionalOptions) {
-        options = _lang2.default.mixin(options, additionalOptions);
+        options = _lang["default"].mixin(options, additionalOptions);
       }
 
       if (view) {
@@ -94,11 +81,12 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(Contact.NameLF) like "%' + q + '%" or upper(Account.AccountName) like "%' + q + '%"';
+      return "upper(Contact.NameLF) like \"%".concat(q, "%\" or upper(Account.AccountName) like \"%").concat(q, "%\"");
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPContactAssociations.List', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPContactAssociations.List', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

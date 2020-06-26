@@ -1,44 +1,37 @@
-define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'crm/Format', 'crm/Template', 'crm/Validator', 'argos/Edit', 'argos/Utility', 'argos/I18n'], function (module, exports, _declare, _Format, _Template, _Validator, _Edit, _Utility, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Contact/Edit", ["exports", "dojo/_base/declare", "crm/Format", "crm/Template", "crm/Validator", "argos/Edit", "argos/Utility", "argos/I18n"], function (_exports, _declare, _Format, _Template, _Validator, _Edit, _Utility, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Template = _interopRequireDefault(_Template);
+  _Validator = _interopRequireDefault(_Validator);
+  _Edit = _interopRequireDefault(_Edit);
+  _Utility = _interopRequireDefault(_Utility);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('contactEdit');
 
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('contactEdit'); /* Copyright 2017 Infor
-                                                      *
-                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                      * you may not use this file except in compliance with the License.
-                                                      * You may obtain a copy of the License at
-                                                      *
-                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                      *
-                                                      * Unless required by applicable law or agreed to in writing, software
-                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                      * See the License for the specific language governing permissions and
-                                                      * limitations under the License.
-                                                      */
-
-  var __class = (0, _declare2.default)('crm.Views.Contact.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Contact.Edit', [_Edit["default"]], {
     // Localization
     titleText: resource.titleText,
     nameText: resource.nameText,
@@ -56,7 +49,6 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     addressTitleText: resource.addressTitleText,
     ownerText: resource.ownerText,
     cuisinePreferenceText: resource.cuisinePreferenceText,
-
     // View Properties
     entityName: 'Contact',
     id: 'contact_edit',
@@ -65,13 +57,13 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     querySelect: ['Account/AccountName', 'AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'CuisinePreference', 'CreateDate', 'CreateUser', 'Email', 'Fax', 'FirstName', 'HomePhone', 'LastName', 'MiddleName', 'Mobile', 'Name', 'NameLF', 'Owner/OwnerDescription', 'Prefix', 'Suffix', 'Title', 'WebAddress', 'WorkPhone'],
     queryInclude: ['$permissions'],
     resourceKind: 'contacts',
-
     startup: function startup() {
       this.inherited(startup, arguments);
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
     },
     beforeTransitionTo: function beforeTransitionTo() {
       this.inherited(beforeTransitionTo, arguments);
+
       if (this.options.insert) {
         this.fields.Account.enable();
       } else {
@@ -82,20 +74,18 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
       if (value && value.text) {
         this.fields.AccountName.setValue(value.text);
       }
+
       this.requestAccount(value.key);
     },
     applyContext: function applyContext() {
       var found = App.queryNavigationContext(function (o) {
         var ob = o.options && o.options.source || o;
-        return (/^(accounts|opportunities)$/.test(ob.resourceKind) && ob.key
-        );
+        return /^(accounts|opportunities)$/.test(ob.resourceKind) && ob.key;
       });
-
       var lookup = {
         accounts: this.applyAccountContext,
         opportunities: this.applyOpportunityContext
       };
-
       this.fields.AccountManager.setValue(App.context.user);
       this.fields.Owner.setValue(App.context.defaultOwner);
 
@@ -114,8 +104,7 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
       this.processAccount(entry);
     },
     requestAccount: function requestAccount(accountId) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector('\'' + accountId + '\'').setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
-
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector("'".concat(accountId, "'")).setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
       request.allowCacheUse = true;
       request.read({
         success: this.processAccount,
@@ -126,27 +115,37 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     requestAccountFailure: function requestAccountFailure() {},
     processAccount: function processAccount(entry) {
       var account = entry;
-      var accountName = _Utility2.default.getValue(entry, 'AccountName');
-      var webAddress = _Utility2.default.getValue(entry, 'WebAddress');
-      var mainPhone = _Utility2.default.getValue(entry, 'MainPhone');
-      var address = _Utility2.default.getValue(entry, 'Address');
-      var fax = _Utility2.default.getValue(entry, 'Fax');
+
+      var accountName = _Utility["default"].getValue(entry, 'AccountName');
+
+      var webAddress = _Utility["default"].getValue(entry, 'WebAddress');
+
+      var mainPhone = _Utility["default"].getValue(entry, 'MainPhone');
+
+      var address = _Utility["default"].getValue(entry, 'Address');
+
+      var fax = _Utility["default"].getValue(entry, 'Fax');
 
       if (account) {
         this.fields.Account.setValue(account);
       }
+
       if (accountName) {
         this.fields.AccountName.setValue(accountName);
       }
+
       if (webAddress) {
         this.fields.WebAddress.setValue(webAddress);
       }
+
       if (mainPhone) {
         this.fields.WorkPhone.setValue(mainPhone);
       }
+
       if (address) {
         this.fields.Address.setValue(this.cleanAddressEntry(address));
       }
+
       if (fax) {
         this.fields.Fax.setValue(fax);
       }
@@ -154,32 +153,45 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     applyOpportunityContext: function applyOpportunityContext(context) {
       var view = App.getView(context.id);
       var entry = view && view.entry;
-      var opportunityId = _Utility2.default.getValue(entry, '$key');
-      var account = _Utility2.default.getValue(entry, 'Account');
-      var accountName = _Utility2.default.getValue(entry, 'Account.AccountName');
-      var webAddress = _Utility2.default.getValue(entry, 'Account.WebAddress');
-      var mainPhone = _Utility2.default.getValue(entry, 'Account.MainPhone');
-      var address = _Utility2.default.getValue(entry, 'Account.Address');
-      var fax = _Utility2.default.getValue(entry, 'Account.Fax');
+
+      var opportunityId = _Utility["default"].getValue(entry, '$key');
+
+      var account = _Utility["default"].getValue(entry, 'Account');
+
+      var accountName = _Utility["default"].getValue(entry, 'Account.AccountName');
+
+      var webAddress = _Utility["default"].getValue(entry, 'Account.WebAddress');
+
+      var mainPhone = _Utility["default"].getValue(entry, 'Account.MainPhone');
+
+      var address = _Utility["default"].getValue(entry, 'Account.Address');
+
+      var fax = _Utility["default"].getValue(entry, 'Account.Fax');
 
       if (opportunityId) {
         this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
       }
+
       if (account) {
         this.fields.Account.setValue(account);
       }
+
       if (accountName) {
         this.fields.AccountName.setValue(accountName);
       }
+
       if (webAddress) {
         this.fields.WebAddress.setValue(webAddress);
       }
+
       if (mainPhone) {
         this.fields.WorkPhone.setValue(mainPhone);
       }
+
       if (address) {
         this.fields.Address.setValue(this.cleanAddressEntry(address));
       }
+
       if (fax) {
         this.fields.Fax.setValue(fax);
       }
@@ -205,19 +217,21 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
             }
           }
         }
+
         return clean;
       }
+
       return null;
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         applyTo: '.',
-        formatValue: _Format2.default.nameLF,
+        formatValue: _Format["default"].nameLF,
         label: this.nameText,
         name: 'ContactName',
         property: 'ContactName',
         type: 'name',
-        validator: _Validator2.default.name,
+        validator: _Validator["default"].name,
         view: 'name_edit'
       }, {
         label: this.accountNameText,
@@ -225,7 +239,7 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
         property: 'Account',
         textProperty: 'AccountName',
         type: 'lookup',
-        validator: _Validator2.default.exists,
+        validator: _Validator["default"].exists,
         view: 'account_related'
       }, {
         name: 'AccountName',
@@ -238,14 +252,14 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
         type: 'text',
         inputType: 'url',
         maxTextLength: 128,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'WorkPhone',
         property: 'WorkPhone',
         label: this.workText,
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'Email',
         property: 'Email',
@@ -260,7 +274,7 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
         title: this.titleTitleText,
         type: 'picklist'
       }, {
-        formatValue: _Format2.default.address.bindDelegate(this, true),
+        formatValue: _Format["default"].address.bindDelegate(this, true),
         label: this.addressText,
         name: 'Address',
         property: 'Address',
@@ -272,27 +286,27 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
         label: this.homePhoneText,
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'Mobile',
         property: 'Mobile',
         label: this.mobileText,
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'Fax',
         property: 'Fax',
         label: this.faxText,
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.acctMgrText,
         name: 'AccountManager',
         property: 'AccountManager',
         textProperty: 'UserInfo',
-        textTemplate: _Template2.default.nameLF,
+        textTemplate: _Template["default"].nameLF,
         type: 'lookup',
         view: 'user_list'
       }, {
@@ -318,6 +332,6 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

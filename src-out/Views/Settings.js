@@ -1,21 +1,16 @@
-define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'argos/List', 'argos/I18n'], function (module, exports, _declare, _connect, _List, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Settings", ["exports", "dojo/_base/declare", "dojo/_base/connect", "argos/List", "argos/I18n"], function (_exports, _declare, _connect, _List, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _connect = _interopRequireDefault(_connect);
+  _List = _interopRequireDefault(_List);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _connect2 = _interopRequireDefault(_connect);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,12 +26,11 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('settings');
 
-  var resource = (0, _I18n2.default)('settings');
-
-  var __class = (0, _declare2.default)('crm.Views.Settings', [_List2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Settings', [_List["default"]], {
     // Templates
-    itemIconTemplate: new Simplate(['<button type="button" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="btn-actions list-item-selector button visible">\n      <span class="audible">{%: $$.actionsText %}</span>\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xlink:href="#icon-{%= $$.getItemIconClass($) %}"></use>\n      </svg>\n    </button>']),
+    itemIconTemplate: new Simplate(["<button type=\"button\" data-action=\"{%= $.action %}\" {% if ($.view) { %}data-view=\"{%= $.view %}\"{% } %} class=\"btn-actions list-item-selector button visible\">\n      <span class=\"audible\">{%: $$.actionsText %}</span>\n      <svg class=\"icon\" focusable=\"false\" aria-hidden=\"true\" role=\"presentation\">\n        <use xlink:href=\"#icon-{%= $$.getItemIconClass($) %}\"></use>\n      </svg>\n    </button>"]),
     itemTemplate: new Simplate(['<h4 data-action="{%= $.action %}" class="list-item-content ', '{% if ($.icon) { %}', 'list-item-content', '{% } %} ">', '{%: $.title %}</h4>']),
     liRowTemplate: new Simplate(['<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>', '{%! $$.itemIconTemplate %}', '{%! $$.itemTemplate %}', '</li>']),
     isCardView: false,
@@ -55,14 +49,14 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
     confirmClearLocalStorageMessage: resource.confirmClearLocalStorageMessage,
     languageSettingText: resource.languageSettingText,
     actionsText: resource.actionsText,
-
     // View Properties
     id: 'settings',
     expose: false,
     enableSearch: false,
     enablePullToRefresh: false,
     selectionOnly: true,
-    allowSelection: true, // adds list-show-selectors class to listview for displaying icons
+    allowSelection: true,
+    // adds list-show-selectors class to listview for displaying icons
     actionItems: null,
     actionOrder: ['clearAuthentication', 'clearLocalStorage', 'viewErrorLogs', 'viewOfflineOptions', 'use24HourClock', 'viewLanguageOptions'],
     createActionsList: function createActionsList() {
@@ -101,6 +95,7 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
     },
     viewErrorLogs: function viewErrorLogs() {
       var view = App.getView('errorlog_list');
+
       if (view) {
         view.show();
       }
@@ -115,11 +110,12 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
         }
 
         App.clearServiceWorkerCaches().then(function () {
-          _connect2.default.publish('/app/refresh', [{
+          _connect["default"].publish('/app/refresh', [{
             resourceKind: 'localStorage'
           }]);
 
           alert(_this.localStorageClearedText); // eslint-disable-line
+
           window.location.reload(); // reloaded because of the clock setting
         });
       }
@@ -133,18 +129,21 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
     },
     viewOfflineOptions: function viewOfflineOptions() {
       var view = App.getView('offline_options_edit');
+
       if (view) {
         view.show();
       }
     },
     viewLanguageOptions: function viewLanguageOptions() {
       var view = App.getView('language_options_edit');
+
       if (view) {
         view.show();
       }
     },
     use24HourClock: function use24HourClock() {
       var message = App.is24HourClock() ? this.confirm12HourClockMessage : this.confirm24HourClockMessage;
+
       if (confirm(message)) {
         // eslint-disable-line
         if (App.is24HourClock()) {
@@ -152,6 +151,7 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
         } else {
           window.localStorage.setItem('use24HourClock', JSON.stringify(true));
         }
+
         window.location.reload();
       }
     },
@@ -163,6 +163,7 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
 
       for (var i = 0; i < this.actionOrder.length; i++) {
         var action = this.actionItems[this.actionOrder[i]];
+
         if (action) {
           list.push({
             action: this.actionOrder[i],
@@ -172,8 +173,8 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
           });
         }
       }
-      this.set('listContent', '');
 
+      this.set('listContent', '');
       this.processData(list);
     },
     init: function init() {
@@ -187,6 +188,6 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

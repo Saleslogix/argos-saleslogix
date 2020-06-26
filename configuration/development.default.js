@@ -6,11 +6,11 @@ define('configuration/development.default', [
 ], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
   return {
     modules: [
-      new ApplicationModule(),
-      new BOEApplicationModule({
+      new ApplicationModule.default(),
+      new BOEApplicationModule.default({
         enableDashboards: true,
       }),
-      new ContourApplicationModule(),
+      new ContourApplicationModule.default(),
     ],
     connections: {
       'crm': {

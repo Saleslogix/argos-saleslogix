@@ -1,8 +1,12 @@
-define('crm/actions/speedsearch', ['exports'], function (exports) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/actions/speedsearch", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.setSearchTerm = setSearchTerm;
+  _exports.setSearchTerm = setSearchTerm;
+  _exports.SET_SEARCHTERM = void 0;
+
   /* Copyright 2020 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +21,8 @@ define('crm/actions/speedsearch', ['exports'], function (exports) {
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
   // action Types
-  var SET_SEARCHTERM = exports.SET_SEARCHTERM = 'SET_SEARCHTERM';
-
+  var SET_SEARCHTERM = 'SET_SEARCHTERM';
   /*
   
   See: https://github.com/acdlite/flux-standard-action
@@ -37,8 +39,10 @@ define('crm/actions/speedsearch', ['exports'], function (exports) {
   An action MUST NOT
   + include properties other than type, payload, error, and meta.
   */
-
   // creators
+
+  _exports.SET_SEARCHTERM = SET_SEARCHTERM;
+
   function setSearchTerm(searchTerm) {
     return {
       type: SET_SEARCHTERM,

@@ -1,37 +1,24 @@
-define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', 'argos/Utility', 'argos/Edit', 'argos/I18n', 'argos/Models/Adapter', 'argos/Dialogs/BusyIndicator', 'crm/Validator', 'crm/Models/Names', '../../Models/Names', '../../Utility'], function (module, exports, _declare, _lang, _string, _Utility, _Edit, _I18n, _Adapter, _BusyIndicator, _Validator, _Names, _Names3, _Utility3) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/Quotes/Edit", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/string", "argos/Utility", "argos/Edit", "argos/I18n", "argos/Models/Adapter", "argos/Dialogs/BusyIndicator", "crm/Validator", "crm/Models/Names", "../../Models/Names", "../../Utility"], function (_exports, _declare, _lang, _string, _Utility, _Edit, _I18n, _Adapter, _BusyIndicator, _Validator, _Names, _Names2, _Utility2) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
+  _Adapter = _interopRequireDefault(_Adapter);
+  _BusyIndicator = _interopRequireDefault(_BusyIndicator);
+  _Validator = _interopRequireDefault(_Validator);
+  _Names = _interopRequireDefault(_Names);
+  _Names2 = _interopRequireDefault(_Names2);
+  _Utility2 = _interopRequireDefault(_Utility2);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Adapter2 = _interopRequireDefault(_Adapter);
-
-  var _BusyIndicator2 = _interopRequireDefault(_BusyIndicator);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Names4 = _interopRequireDefault(_Names3);
-
-  var _Utility4 = _interopRequireDefault(_Utility3);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -47,12 +34,11 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('quoteEdit');
+  var contactResource = (0, _I18n["default"])('contactModel');
+  var dtFormatResource = (0, _I18n["default"])('quoteEditDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('quoteEdit');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var dtFormatResource = (0, _I18n2.default)('quoteEditDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Quotes.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.Quotes.Edit', [_Edit["default"]], {
     // Localization
     titleText: resource.titleText,
     quoteNumberText: resource.quoteNumberText,
@@ -93,7 +79,6 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
     locationText: resource.locationText,
     locationsTitleText: resource.locationsTitleText,
     carrierText: resource.carrierText,
-
     // View Properties
     id: 'quote_edit',
     detailView: 'quote_detail',
@@ -104,13 +89,11 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
     warehouseCode: 'Warehouse',
     officeCode: 'Office',
     siteCode: 'Site',
-    modelName: _Names4.default.QUOTE,
+    modelName: _Names2["default"].QUOTE,
     _busyIndicator: null,
     locationType: '',
-
     init: function init() {
       this.inherited(init, arguments);
-
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
       this.connect(this.fields.RequestedBy, 'onChange', this.onContactChange);
       this.connect(this.fields.Opportunity, 'onChange', this.onOpportunityChange);
@@ -120,9 +103,11 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       this.connect(this.fields.BackOfficeAccountingEntity, 'onChange', this.onBackOfficeAccountingEntityChange);
       this.connect(this.fields.Location, 'onChange', this.onLocationChange);
       this.connect(this.fields.Warehouse, 'onChange', this.onWarehouseChange);
+
       if (!this.locationType) {
         this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] && App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
       }
+
       if (this.locationType === 'Warehouse') {
         this.fields.Location.hide();
         this.fields.Warehouse.show();
@@ -144,6 +129,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       this.showBusy();
       this.inherited(processData, arguments);
       this.getEntriesFromIds();
+
       if (this.isQuoteClosed()) {
         App.bars.tbar.disableTool('save');
       } else {
@@ -153,9 +139,11 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
     beforeTransitionTo: function beforeTransitionTo() {
       this.inherited(beforeTransitionTo, arguments);
       this.hideUnpromotedFields();
+
       if (!this.fields.AccountManager.isDisabled) {
         this.fields.AccountManager.disable();
       }
+
       if (this.fields.BillTo.isDisabled && this.fields.ShipTo.isDisabled) {
         this.fields.BillTo.enable();
         this.fields.ShipTo.enable();
@@ -175,54 +163,67 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           $key: values.BillTo.$key
         };
       }
+
       if (values.ShipTo) {
         values.ShipTo = {
           $key: values.ShipTo.$key
         };
       }
+
       return values;
     },
     processEntry: function processEntry(entry) {
       var _this = this;
 
       this.inherited(processEntry, arguments);
+
       if (entry && entry.Account) {
         ['RequestedBy', 'Opportunity'].forEach(function (f) {
           _this.fields[f].dependsOn = 'Account';
-          _this.fields[f].where = 'Account.Id eq "' + (entry.Account.AccountId || entry.Account.$key || entry.Account.key) + '"';
+          _this.fields[f].where = "Account.Id eq \"".concat(entry.Account.AccountId || entry.Account.$key || entry.Account.key, "\"");
+
           if (f === 'Opportunity') {
-            _this.fields[f].where = _this.fields[f].where + ' and Status eq "' + _this.opportunityOpenCode + '"';
+            _this.fields[f].where = "".concat(_this.fields[f].where, " and Status eq \"").concat(_this.opportunityOpenCode, "\"");
           }
         });
       }
+
       var warehouseField = this.fields.Warehouse;
       var locationField = this.fields.Location;
+
       if (entry && entry.ErpLogicalId) {
         warehouseField.enable();
         warehouseField.dependsOn = 'ErpLogicalId';
+
         warehouseField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and LocationType eq "' + _this.warehouseCode + '"';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and LocationType eq \"").concat(_this.warehouseCode, "\"");
         };
+
         locationField.enable();
         locationField.dependsOn = 'ErpLogicalId';
+
         locationField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and (LocationType eq "' + _this.officeCode + '" or LocationType eq "' + _this.siteCode + '")';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and (LocationType eq \"").concat(_this.officeCode, "\" or LocationType eq \"").concat(_this.siteCode, "\")");
         };
       } else {
         warehouseField.disable();
         locationField.disable();
       }
+
       if (entry.Warehouse) {
         warehouseField.setValue(entry.Warehouse);
       }
+
       if (entry.Location) {
         locationField.setValue(entry.Location);
       }
+
       if (entry && entry.ErpExtId) {
         this.disableBackOfficeData();
       } else {
         this.enableBackOfficeData();
       }
+
       return entry;
     },
     setValues: function setValues() {
@@ -230,6 +231,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
 
       if (!this.fields.CurrencyCode.getValue()) {
         var account = this.fields.Account.currentSelection;
+
         if (account && account.CurrencyCode) {
           this.fields.CurrencyCode.setValue(account.CurrencyCode);
         } else {
@@ -256,14 +258,16 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       var mappedLookups = ['BackOffice', 'BackOfficeAccountingEntity'];
       var mappedProperties = ['LogicalId', 'AcctEntityExtId'];
       var fields = ['ErpLogicalId', 'ErpAccountingEntityId'];
-      _Utility4.default.setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(function () {
+
+      _Utility2["default"].setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(function () {
         _this3.hideBusy();
       });
     },
     getPrimaryContact: function getPrimaryContact(entry) {
       var _this4 = this;
 
-      var accountModel = _Adapter2.default.getModel(_Names2.default.ACCOUNT);
+      var accountModel = _Adapter["default"].getModel(_Names["default"].ACCOUNT);
+
       var relationship = {
         name: 'Contacts',
         displayName: contactResource.entityDisplayNamePlural,
@@ -276,8 +280,10 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       accountModel.getRelatedRequest(entry, relationship).then(function (result) {
         if (result && result.entities && result.entities.length) {
           var contactField = _this4.fields.RequestedBy;
+
           if (!contactField.currentSelection || contactField.currentSelection.Account && contactField.currentSelection.Account.$key !== entry.$key) {
             contactField.setSelection(result.entities[0]);
+
             if (_this4.fields.Account.currentSelection && !_this4.fields.Account.currentSelection.ErpExtId) {
               _this4.populateUnpromotedFields(contactField.currentSelection);
             }
@@ -304,33 +310,40 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       ['RequestedBy', 'Opportunity'].forEach(function (f) {
         if (value) {
           _this5.fields[f].dependsOn = 'Account';
-          _this5.fields[f].where = 'Account.Id eq "' + (value.AccountId || value.$key || value.key) + '"';
+          _this5.fields[f].where = "Account.Id eq \"".concat(value.AccountId || value.$key || value.key, "\"");
+
           if (f === 'Opportunity') {
-            _this5.fields[f].where = _this5.fields[f].where + ' and Status eq "' + _this5.opportunityOpenCode + '"';
+            _this5.fields[f].where = "".concat(_this5.fields[f].where, " and Status eq \"").concat(_this5.opportunityOpenCode, "\"");
           }
         }
       });
+
       if (entry) {
         this.fields.CurrencyCode.setValue(entry.CurrencyCode ? entry.CurrencyCode : App.getBaseExchangeRate().code);
+
         if (this.fields.BillTo.isDisabled() && this.fields.ShipTo.isDisabled()) {
           this.fields.BillTo.enable();
           this.fields.ShipTo.enable();
         }
+
         if (entry.ErpExtId) {
           this.showPromotedFields();
         } else {
           this.hidePromotedFields();
         }
+
         if (entry.AccountManager) {
           var accountManagerField = this.fields.AccountManager;
           accountManagerField.setSelection({
             $key: entry.AccountManager.$key
           });
         }
+
         field.setValue(field.currentSelection);
         this.showBusy();
         this.getPrimaryContact(entry);
-        _Utility4.default.setFieldsFromIds(['BackOffice', 'BackOfficeAccountingEntity'], ['LogicalId', 'AcctEntityExtId'], ['ErpLogicalId', 'ErpAccountingEntityId'], this, entry).then(function () {
+
+        _Utility2["default"].setFieldsFromIds(['BackOffice', 'BackOfficeAccountingEntity'], ['LogicalId', 'AcctEntityExtId'], ['ErpLogicalId', 'ErpAccountingEntityId'], this, entry).then(function () {
           _this5.hideBusy();
         });
       }
@@ -348,29 +361,37 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       this.fields.BackOffice.setValue(field.currentSelection);
       this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
       var accountingField = this.fields.BackOfficeAccountingEntity;
-      accountingField.where = 'BackOffice.Id eq "' + field.currentSelection.$key + '"';
+      accountingField.where = "BackOffice.Id eq \"".concat(field.currentSelection.$key, "\"");
       var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+
       if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
         var entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
+
         if (entry) {
           accountingField.setSelection(entry);
           this.onBackOfficeAccountingEntityChange(accountingField.getValue(), accountingField);
         }
       }
+
       var warehouseField = this.fields.Warehouse;
+
       if (warehouseField.isDisabled) {
         warehouseField.enable();
         warehouseField.dependsOn = 'ErpLogicalId';
+
         warehouseField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and LocationType eq "' + _this6.warehouseCode + '"';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and LocationType eq \"").concat(_this6.warehouseCode, "\"");
         };
       }
+
       var locationField = this.fields.Location;
+
       if (locationField.isDisabled) {
         locationField.enable();
         locationField.dependsOn = 'ErpLogicalId';
+
         locationField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and (LocationType eq "' + _this6.officeCode + '" or LocationType eq "' + _this6.siteCode + '")';
+          return "ErpLogicalId eq \"".concat(logicalId, "\" and (LocationType eq \"").concat(_this6.officeCode, "\" or LocationType eq \"").concat(_this6.siteCode, "\")");
         };
       }
     },
@@ -388,6 +409,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       if (field.currentSelection.ErpExtId) {
         this.fields.ErpLocation.setValue(field.currentSelection.ErpExtId);
       }
+
       this.fields.Location.setValue(field.currentSelection);
     },
     onOpportunityChange: function onOpportunityChange(value, field) {
@@ -402,11 +424,11 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
+
       var found = this._getNavContext();
 
       var accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
-
       var context = found && found.options && found.options.source || found;
       var lookup = {
         accounts: this.applyAccountContext,
@@ -422,6 +444,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
         this.fields.BillTo.disable();
         this.fields.ShipTo.disable();
       }
+
       if (!this.fields.BackOffice.currentSelection) {
         this.fields.Location.disable();
         this.fields.Warehouse.disable();
@@ -478,15 +501,20 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
     hideBusy: function hideBusy() {
       if (this._busyIndicator) {
         this._busyIndicator.complete();
+
         App.modal.disableClose = false;
         App.modal.hide();
       }
     },
     showBusy: function showBusy() {
       if (!this._busyIndicator || this._busyIndicator._destroyed) {
-        this._busyIndicator = new _BusyIndicator2.default({ id: this.id + '-busyIndicator' });
+        this._busyIndicator = new _BusyIndicator["default"]({
+          id: "".concat(this.id, "-busyIndicator")
+        });
       }
+
       this._busyIndicator.start();
+
       App.modal.disableClose = true;
       App.modal.showToolbar = false;
       App.modal.add(this._busyIndicator);
@@ -500,7 +528,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       this.fields.ShippingContact.show();
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
-      return _string2.default.substitute(theFormat, [_Utility2.default.getValue(dependentValue, property || '$key')]);
+      return _string["default"].substitute(theFormat, [_Utility["default"].getValue(dependentValue, property || '$key')]);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -524,7 +552,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           emptyText: '',
           valueTextProperty: 'Description',
           view: 'opportunity_related',
-          where: 'Status eq "' + this.opportunityOpenCode + '"'
+          where: "Status eq \"".concat(this.opportunityOpenCode, "\"")
         }, {
           label: this.backOfficeText,
           name: 'BackOffice',
@@ -571,7 +599,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           showRelativeDateTime: false,
           dateFormatText: this.dateFormat,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.isDateInRange]
+          validator: [_Validator["default"].isDateInRange]
         }, {
           label: this.endDateText,
           name: 'EndDate',
@@ -582,7 +610,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           showRelativeDateTime: false,
           dateFormatText: this.dateFormat,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.isDateInRange]
+          validator: [_Validator["default"].isDateInRange]
         }, {
           label: this.expectedDeliveryDateText,
           name: 'ExpectedDeliveryDate',
@@ -593,14 +621,15 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           showRelativeDateTime: false,
           dateFormatText: this.dateFormat,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.isDateInRange]
+          validator: [_Validator["default"].isDateInRange]
         }, {
           label: this.customerRFQText,
           name: 'CustomerRFQNumber',
           property: 'CustomerRFQNumber',
           type: 'text'
         }, {
-          label: this.commentsText, // TODO: Make on save, append 'Created by <user> on <datetime>' to comment
+          label: this.commentsText,
+          // TODO: Make on save, append 'Created by <user> on <datetime>' to comment
           noteProperty: false,
           name: 'Comments',
           property: 'Comments',
@@ -682,7 +711,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           valueTextProperty: 'CarrierName',
           view: 'quote_carriers',
           where: function where(value) {
-            return 'ErpLogicalId eq "' + value + '"';
+            return "ErpLogicalId eq \"".concat(value, "\"");
           }
         }, {
           dependsOn: 'Account',
@@ -722,12 +751,15 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           type: 'lookup',
           emptyText: '',
           valueTextProperty: 'Name'
-        }] }]);
+        }]
+      }]);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.Quotes.Edit', __class);
-  _lang2.default.setObject('icboe.Views.Quotes.Edit', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.Quotes.Edit', __class);
+
+  _lang["default"].setObject('icboe.Views.Quotes.Edit', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,21 +1,16 @@
-define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base/declare', 'argos/List', 'dojo/store/Memory', 'argos/I18n'], function (module, exports, _declare, _List, _Memory, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/ActivityAttendee/TypesList", ["exports", "dojo/_base/declare", "argos/List", "dojo/store/Memory", "argos/I18n"], function (_exports, _declare, _List, _Memory, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _List = _interopRequireDefault(_List);
+  _Memory = _interopRequireDefault(_Memory);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _Memory2 = _interopRequireDefault(_Memory);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2020 Infor
    *
@@ -31,12 +26,11 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityAttendeeTypesList');
 
-  var resource = (0, _I18n2.default)('activityAttendeeTypesList');
-
-  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.TypesList', [_List2.default], {
+  var __class = (0, _declare["default"])('crm.Views.ActivityAttendee.TypesList', [_List["default"]], {
     // Templates
-    liRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">', '{% if ($.icon) { %}', '<button type="button" class="btn-icon hide-focus list-item-selector visible">\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>\n      </svg>\n    </button>', '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}"></div>', '{% } %}', '{%! $$.itemTemplate %}', '</li>']),
+    liRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">', '{% if ($.icon) { %}', "<button type=\"button\" class=\"btn-icon hide-focus list-item-selector visible\">\n      <svg class=\"icon\" focusable=\"false\" aria-hidden=\"true\" role=\"presentation\">\n          <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#icon-{%: $.icon || \"\" %}\"></use>\n      </svg>\n    </button>", '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}"></div>', '{% } %}', '{%! $$.itemTemplate %}', '</li>']),
     itemTemplate: new Simplate(['<h4 class="', '{% if ($.icon) { %}', 'list-item-content', '{% } %} ">', '{%: $.$descriptor %}</h4>']),
     isCardView: false,
     // Localization
@@ -58,12 +52,14 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
     id: 'activity_attendee_types_list',
     editView: 'activity_attendee_edit',
     selectedAttendeeType: '',
-
-    allowSelection: true, // adds list-show-selectors class to listview for displaying icons
+    allowSelection: true,
+    // adds list-show-selectors class to listview for displaying icons
     activateEntry: function activateEntry(params) {
       this.selectedAttendeeType = params.key;
+
       if (this.selectedAttendeeType) {
         var view = App.getView(this.attendeeTypeLookup[this.selectedAttendeeType]);
+
         if (view) {
           view.show({
             title: this.attendeeTypeText[this.selectedAttendeeType],
@@ -102,8 +98,8 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
 
       if (view && selectionModel) {
         var selections = selectionModel.getSelections();
+        var entry;
 
-        var entry = void 0;
         for (var selectionKey in selections) {
           if (selections.hasOwnProperty(selectionKey)) {
             entry = selections[selectionKey].data;
@@ -126,12 +122,14 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
       });
     },
     refreshRequiredFor: function refreshRequiredFor(options) {
-      var toReturn = void 0;
+      var toReturn;
+
       if (this.options) {
         toReturn = options;
       } else {
         toReturn = true;
       }
+
       return toReturn;
     },
     hasMoreData: function hasMoreData() {
@@ -148,7 +146,7 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
         });
       }
 
-      var store = new _Memory2.default({
+      var store = new _Memory["default"]({
         data: list
       });
       return store;
@@ -168,6 +166,6 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

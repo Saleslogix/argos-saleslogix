@@ -1,33 +1,22 @@
-define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declare', 'argos/_ListBase', './_RightDrawerListMixin', '../_MetricListMixin', './TotalMetricWidget', 'dojo/_base/lang', '../../Format', 'argos/Models/Types', '../Offline/Detail', 'argos/I18n'], function (module, exports, _declare, _ListBase2, _RightDrawerListMixin2, _MetricListMixin2, _TotalMetricWidget, _lang, _Format, _Types, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/RecentlyViewed/List", ["exports", "dojo/_base/declare", "argos/_ListBase", "./_RightDrawerListMixin", "../_MetricListMixin", "./TotalMetricWidget", "dojo/_base/lang", "../../Format", "argos/Models/Types", "../Offline/Detail", "argos/I18n"], function (_exports, _declare, _ListBase2, _RightDrawerListMixin2, _MetricListMixin2, _TotalMetricWidget, _lang, _Format, _Types, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ListBase2 = _interopRequireDefault(_ListBase2);
+  _RightDrawerListMixin2 = _interopRequireDefault(_RightDrawerListMixin2);
+  _MetricListMixin2 = _interopRequireDefault(_MetricListMixin2);
+  _TotalMetricWidget = _interopRequireDefault(_TotalMetricWidget);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Types = _interopRequireDefault(_Types);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _ListBase3 = _interopRequireDefault(_ListBase2);
-
-  var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
-
-  var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
-
-  var _TotalMetricWidget2 = _interopRequireDefault(_TotalMetricWidget);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,17 +32,16 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('recentlyViewedList');
+  var accountResource = (0, _I18n["default"])('accountModel');
+  var contactResource = (0, _I18n["default"])('contactModel');
+  var activityResource = (0, _I18n["default"])('activityModel');
+  var historyResource = (0, _I18n["default"])('historyModel');
+  var oppResource = (0, _I18n["default"])('opportunityModel');
+  var ticketResource = (0, _I18n["default"])('ticketModel');
+  var leadResource = (0, _I18n["default"])('leadModel');
 
-  var resource = (0, _I18n2.default)('recentlyViewedList');
-  var accountResource = (0, _I18n2.default)('accountModel');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var activityResource = (0, _I18n2.default)('activityModel');
-  var historyResource = (0, _I18n2.default)('historyModel');
-  var oppResource = (0, _I18n2.default)('opportunityModel');
-  var ticketResource = (0, _I18n2.default)('ticketModel');
-  var leadResource = (0, _I18n2.default)('leadModel');
-
-  exports.default = (0, _declare2.default)('crm.Views.RecentlyViewed.List', [_ListBase3.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
+  var _default = (0, _declare["default"])('crm.Views.RecentlyViewed.List', [_ListBase2["default"], _RightDrawerListMixin2["default"], _MetricListMixin2["default"]], {
     id: 'recently_viewed_list',
     idProperty: 'id',
     detailView: 'offline_detail',
@@ -63,15 +51,14 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
     resourceKind: 'offline',
     entityName: 'RecentlyViewed',
     titleText: resource.titleText,
-    metricWidgetCtor: _TotalMetricWidget2.default,
+    metricWidgetCtor: _TotalMetricWidget["default"],
     pageSize: 1000,
-
     itemTemplate: new Simplate(['<p class="micro-text">{%: $$.getOfflineDate($) %}</p>']),
     refreshRequiredFor: function refreshRequiredFor() {
       return true;
     },
     getModel: function getModel() {
-      var model = App.ModelManager.getModel('RecentlyViewed', _Types2.default.OFFLINE);
+      var model = App.ModelManager.getModel('RecentlyViewed', _Types["default"].OFFLINE);
       return model;
     },
     getTitle: function getTitle(entry) {
@@ -79,8 +66,9 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
     },
     getOfflineDate: function getOfflineDate(entry) {
       if (entry && entry.modifyDate) {
-        return _Format2.default.relativeDate(entry.modifyDate);
+        return _Format["default"].relativeDate(entry.modifyDate);
       }
+
       return '';
     },
     _hasValidOptions: function _hasValidOptions(options) {
@@ -97,6 +85,7 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       queryOptions.include_docs = true;
       queryOptions.descending = true;
       var filters = this.getActiveEntityFilters();
+
       queryOptions.filter = function (entity) {
         // If the user has entity filters stored in preferences, filter based on that
         if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
@@ -107,21 +96,25 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
 
         return true;
       };
+
       return queryOptions;
     },
     createIndicatorLayout: function createIndicatorLayout() {
       return [];
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var iconClass = void 0;
+      var iconClass;
       iconClass = entry.iconClass;
+
       if (!iconClass) {
         iconClass = 'url';
       }
+
       return iconClass;
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
       var entry = this.entries && this.entries[key];
+
       if (App.onLine) {
         this.navigateToOnlineDetailView(entry, additionalOptions);
       } else {
@@ -130,16 +123,16 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
     },
     navigateToOnlineDetailView: function navigateToDetailView(entry, additionalOptions) {
       var view = this.app.getView(entry.viewId);
-
       var options = {
-        descriptor: entry.description, // keep for backwards compat
+        descriptor: entry.description,
+        // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
         fromContext: this
       };
 
       if (additionalOptions) {
-        options = _lang2.default.mixin(options, additionalOptions);
+        options = _lang["default"].mixin(options, additionalOptions);
       }
 
       if (view) {
@@ -149,7 +142,8 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
     navigateToOfflineDetailView: function navigateToOfflineDetailView(entry, additionalOptions) {
       var view = this.getDetailView(entry.entityName);
       var options = {
-        descriptor: entry.description, // keep for backwards compat
+        descriptor: entry.description,
+        // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
         fromContext: this,
@@ -160,8 +154,9 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
           source: entry
         }
       };
+
       if (additionalOptions) {
-        options = _lang2.default.mixin(options, additionalOptions);
+        options = _lang["default"].mixin(options, additionalOptions);
       }
 
       if (view) {
@@ -169,17 +164,17 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       }
     },
     getDetailView: function getDetailView(entityName) {
-      var viewId = this.detailView + '_' + entityName;
+      var viewId = "".concat(this.detailView, "_").concat(entityName);
       var view = this.app.getView(viewId);
 
       if (view) {
         return view;
       }
 
-      this.app.registerView(new _Detail2.default({ id: viewId }));
-
+      this.app.registerView(new _Detail["default"]({
+        id: viewId
+      }));
       view = this.app.getView(viewId);
-
       return view;
     },
     getActiveEntityFilters: function getActiveEntityFilters() {
@@ -193,7 +188,6 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
         return f && f.enabled;
       });
     },
-
     // Localization
     entityText: {
       Contact: contactResource.entityDisplayNamePlural,
@@ -236,5 +230,6 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       return !App.enableOfflineSupport;
     }
   });
-  module.exports = exports['default'];
+
+  _exports["default"] = _default;
 });

@@ -1,40 +1,35 @@
-define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/declare', '../../Validator', '../../SalesProcessUtility', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Validator, _SalesProcessUtility, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Opportunity/QuickEdit", ["exports", "dojo/_base/declare", "../../Validator", "../../SalesProcessUtility", "argos/Edit", "argos/I18n"], function (_exports, _declare, _Validator, _SalesProcessUtility, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Validator = _interopRequireDefault(_Validator);
+  _SalesProcessUtility = _interopRequireDefault(_SalesProcessUtility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Validator2 = _interopRequireDefault(_Validator);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('opportunityQuickEdit');
 
-  var _SalesProcessUtility2 = _interopRequireDefault(_SalesProcessUtility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('opportunityQuickEdit'); /* Copyright 2017 Infor
-                                                               *
-                                                               * Licensed under the Apache License, Version 2.0 (the "License");
-                                                               * you may not use this file except in compliance with the License.
-                                                               * You may obtain a copy of the License at
-                                                               *
-                                                               *    http://www.apache.org/licenses/LICENSE-2.0
-                                                               *
-                                                               * Unless required by applicable law or agreed to in writing, software
-                                                               * distributed under the License is distributed on an "AS IS" BASIS,
-                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                               * See the License for the specific language governing permissions and
-                                                               * limitations under the License.
-                                                               */
-
-  var __class = (0, _declare2.default)('crm.Views.Opportunity.QuickEdit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Opportunity.QuickEdit', [_Edit["default"]], {
     // Localization
     estCloseText: resource.estCloseText,
     detailsText: resource.detailsText,
@@ -48,7 +43,6 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
     probabilityText: resource.probabilityText,
     probabilityTitleText: resource.probabilityTitleText,
     potentialText: resource.potentialText,
-
     // View Properties
     entityName: 'Opportunity',
     id: 'opportunity_quick_edit',
@@ -88,7 +82,7 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
           picklist: 'Opportunity Probability',
           title: this.probabilityTitleText,
           type: 'picklist',
-          validator: [_Validator2.default.isInt32, _Validator2.default.isInteger]
+          validator: [_Validator["default"].isInt32, _Validator["default"].isInteger]
         }, {
           label: this.potentialText,
           name: 'SalesPotential',
@@ -96,17 +90,16 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
           precision: 2,
           type: 'multiCurrency',
           validationTrigger: 'keyup',
-          validator: _Validator2.default.isCurrency
+          validator: _Validator["default"].isCurrency
         }, {
           label: this.estCloseText,
           name: 'EstimatedClose',
           property: 'EstimatedClose',
           type: 'date',
           timeless: true,
-          validator: _Validator2.default.exists
+          validator: _Validator["default"].exists
         }]
       };
-
       var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
@@ -133,21 +126,26 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
       }
 
       field.disable();
-      _SalesProcessUtility2.default.getSalesProcessByEntityId(opportunityId).then(function (salesProcess) {
+
+      _SalesProcessUtility["default"].getSalesProcessByEntityId(opportunityId).then(function (salesProcess) {
         if (salesProcess) {
           field.disable();
           label = _this.salesProcessText + salesProcess.$descriptor;
+
           _this.setStageLabel(label);
         } else {
           field.enable();
         }
       });
+
       this.setStageLabel(label);
     },
     setStageLabel: function setStageLabel(label) {
       var field = this.fields.Stage;
+
       if (field && field.domNode) {
         var node = $('[for="Stage"]', field.domNode);
+
         if (node && node.length > 0) {
           $(node[0]).attr('innerHTML', label); // TODO: SDK's _Field should provide a label setter
         }
@@ -155,23 +153,28 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
     },
     enableProbability: function enableProbability(entry) {
       var field = this.fields.CloseProbability;
+
       if (!field) {
         return;
       }
+
       field.enable();
+
       if (this.isClosed(entry)) {
         field.disable();
       }
     },
     isClosed: function isClosed(entry) {
       var status = entry.Status;
+
       if (status === this.statusClosedWonText || status === this.statusClosedLostText) {
         return true;
       }
+
       return false;
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,46 +1,38 @@
-define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', '../../Environment', '../../Validator', 'argos/Utility', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _string, _Environment, _Validator, _Utility, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/History/Edit", ["exports", "dojo/_base/declare", "dojo/string", "../../Environment", "../../Validator", "argos/Utility", "argos/Edit", "argos/I18n"], function (_exports, _declare, _string, _Environment, _Validator, _Utility, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Environment = _interopRequireDefault(_Environment);
+  _Validator = _interopRequireDefault(_Validator);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _string2 = _interopRequireDefault(_string);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('historyEdit');
+  var dtFormatResource = (0, _I18n["default"])('historyEditDateTimeFormat');
 
-  var _Environment2 = _interopRequireDefault(_Environment);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('historyEdit'); /* Copyright 2017 Infor
-                                                      *
-                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                      * you may not use this file except in compliance with the License.
-                                                      * You may obtain a copy of the License at
-                                                      *
-                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                      *
-                                                      * Unless required by applicable law or agreed to in writing, software
-                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                      * See the License for the specific language governing permissions and
-                                                      * limitations under the License.
-                                                      */
-
-  var dtFormatResource = (0, _I18n2.default)('historyEditDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.History.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.History.Edit', [_Edit["default"]], {
     // Localization
     accountText: resource.accountText,
     noteDescriptionTitleText: resource.noteDescriptionTitleText,
@@ -68,17 +60,17 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
     entityName: 'History',
     resourceKind: 'history',
-    insertSecurity: null, // 'Entities/History/Add',
-    updateSecurity: null, // 'Entities/History/Edit',
+    insertSecurity: null,
+    // 'Entities/History/Add',
+    updateSecurity: null,
+    // 'Entities/History/Edit',
     querySelect: ['AccountId', 'AccountName', 'Category', 'ModifyDate', 'CompletedDate', 'ContactId', 'ContactName', 'CompletedUser', 'Description', 'Duration', 'Notes', 'LongNotes', 'OpportunityId', 'OpportunityName', 'Priority', 'StartDate', 'TicketId', 'TicketNumber', 'LeadId', 'LeadName', 'Timeless', 'Type', 'UserName', 'UserId'],
     queryInclude: ['$permissions'],
     existsRE: /^[\w]{12}$/,
     init: function init() {
       this.inherited(init, arguments);
-
       this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
       this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
-
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
       this.connect(this.fields.Contact, 'onChange', this.onAccountDependentChange);
       this.connect(this.fields.Opportunity, 'onChange', this.onAccountDependentChange);
@@ -90,7 +82,9 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     isInLeadContext: function isInLeadContext() {
       var insert = this.options && this.options.insert;
       var entry = this.options && this.options.entry;
+
       var context = this._getNavContext();
+
       var isLeadContext = false;
 
       if (context && context.resourceKind === 'leads') {
@@ -101,12 +95,10 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       return !!lead;
     },
     beforeTransitionTo: function beforeTransitionTo() {
-      this.inherited(beforeTransitionTo, arguments);
-
-      // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+      this.inherited(beforeTransitionTo, arguments); // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
       // the value for the 'IsLead' field will be set later, based on the value derived here.
-
       // todo: there is an issue when refreshing the edit view as options.isLead is persisted in the navigation state.
+
       if (this.options.isForLead !== undefined) {
         return;
       }
@@ -121,6 +113,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     },
     setOfflineNoteData: function setOfflineNoteData() {
       var entry = this.options && this.options.selectedEntry;
+
       if (!entry) {
         return;
       }
@@ -133,6 +126,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     _buildRefreshMessage: function _buildRefreshMessage() {
       var base = this.inherited(_buildRefreshMessage, arguments);
       var entry = this.options && this.options.selectedEntry;
+
       if (entry && this.options.fromOffline) {
         base.UID = entry.UID;
       }
@@ -152,7 +146,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
+        this.fields.AccountName.setValue(_Utility["default"].getValue(selection, 'Company'));
       }
     },
     onAccountChange: function onAccountChange(value) {
@@ -160,7 +154,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       ['Contact', 'Opportunity', 'Ticket'].forEach(function (f) {
         if (value) {
           fields[f].dependsOn = 'Account';
-          fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
+          fields[f].where = "Account.Id eq \"".concat(value.AccountId || value.key, "\"");
 
           if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
@@ -190,7 +184,6 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           _this.fields[item].hide();
         }
       }, this);
-
       this.fieldsForLeads.forEach(function (item) {
         if (_this.fields[item]) {
           _this.fields[item].show();
@@ -205,7 +198,6 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           _this2.fields[item].hide();
         }
       }, this);
-
       this.fieldsForStandard.forEach(function (item) {
         if (_this2.fields[item]) {
           _this2.fields[item].show();
@@ -213,7 +205,8 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       }, this);
     },
     onInsertSuccess: function onInsertSuccess() {
-      _Environment2.default.refreshStaleDetailViews();
+      _Environment["default"].refreshStaleDetailViews();
+
       this.inherited(onInsertSuccess, arguments);
     },
     applyContext: function applyContext() {
@@ -237,7 +230,6 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     },
     setUserContext: function setUserContext() {
       var user = App.context && App.context.user;
-
       this.fields.Type.setValue('atNote');
       this.fields.UserId.setValue(user && user.$key);
       this.fields.UserName.setValue(user && user.$descriptor);
@@ -245,8 +237,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     _getNavContext: function _getNavContext() {
       var found = App.queryNavigationContext(function (o) {
         var context = o.options && o.options.source || o;
-        return (/^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key
-        );
+        return /^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key;
       });
       found = found && found.options && found.options.source || found;
       return found;
@@ -273,25 +264,20 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         LeadId: entry.$key,
         LeadName: entry.$descriptor
       };
-
       leadField.setValue(leadValue);
       this.onLeadChange(leadValue, leadField);
-
       this.fields.AccountName.setValue(entry.Company);
-
       var isLeadField = this.fields.IsLead;
       isLeadField.setValue(context.resourceKind === 'leads');
       this.onIsLeadChange(isLeadField.getValue(), isLeadField);
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
       var opportunityField = this.fields.Opportunity;
-      var accountEntry = void 0;
-
+      var accountEntry;
       opportunityField.setValue({
         OpportunityId: context.key,
         OpportunityName: context.descriptor
       });
-
       this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
       if (context.entry && context.entry.Account) {
@@ -309,18 +295,16 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           AccountName: accountEntry.AccountName
         });
         this.onAccountChange(accountField.getValue(), accountField);
-      }
+      } // todo: find a good way to get the primary contact and apply
 
-      // todo: find a good way to get the primary contact and apply
     },
     applyContactContext: function applyContactContext(context) {
       var contactField = this.fields.Contact;
-      var accountEntry = void 0;
+      var accountEntry;
       contactField.setValue({
         ContactId: context.key,
         ContactName: context.descriptor
       });
-
       this.onAccountDependentChange(contactField.getValue(), contactField);
 
       if (context.entry && context.entry.Account) {
@@ -342,8 +326,8 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     },
     applyTicketContext: function applyTicketContext(context) {
       var ticketField = this.fields.Ticket;
-      var accountEntry = void 0;
-      var contactEntry = void 0;
+      var accountEntry;
+      var contactEntry;
       ticketField.setValue({
         TicketId: context.key,
         TicketNumber: context.descriptor
@@ -389,13 +373,18 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     setValues: function setValues(values) {
       this.inherited(setValues, arguments);
       var isLeadField = this.fields.IsLead;
+
       if (this.isInLeadContext()) {
         isLeadField.setValue(true);
         this.onIsLeadChange(true, isLeadField);
         var field = this.fields.Lead;
-        var value = _Utility2.default.getValue(values, field.applyTo, {});
+
+        var value = _Utility["default"].getValue(values, field.applyTo, {});
+
         field.setValue(value, !this.inserting);
-        var leadCompany = _Utility2.default.getValue(values, 'AccountName');
+
+        var leadCompany = _Utility["default"].getValue(values, 'AccountName');
+
         if (leadCompany) {
           this.fields.AccountName.setValue(leadCompany);
         }
@@ -403,14 +392,15 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         isLeadField.setValue(false);
       }
 
-      var longNotes = _Utility2.default.getValue(values, 'LongNotes');
+      var longNotes = _Utility["default"].getValue(values, 'LongNotes');
+
       if (longNotes) {
         this.fields.Text.setValue(longNotes);
       }
 
       var insert = this.options && this.options.insert;
-      this.context = this._getNavContext();
-      // entry may have been passed as full entry, reapply context logic to extract properties
+      this.context = this._getNavContext(); // entry may have been passed as full entry, reapply context logic to extract properties
+
       if (insert && this.context && this.context.resourceKind) {
         var lookup = {
           accounts: this.applyAccountContext,
@@ -421,8 +411,10 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         };
         lookup[this.context.resourceKind].call(this, this.context);
       }
+
       this.enableFields();
       var denyEdit = !this.currentUserCanEdit();
+
       if (denyEdit) {
         this.disableFields();
       }
@@ -444,20 +436,26 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     currentUserCanEdit: function currentUserCanEdit() {
       var entry = this.options.entry || this.entry;
       var insert = this.options && this.options.insert;
+
       if (!insert) {
         if (App.context.user.$key === 'ADMIN') {
           return true;
         }
+
         return entry && entry.UserId === App.context.user.$key;
       }
+
       return true;
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
       var theProperty = property || '$key';
-      var propertyValue = _Utility2.default.getValue(dependentValue, theProperty);
+
+      var propertyValue = _Utility["default"].getValue(dependentValue, theProperty);
+
       if (propertyValue) {
-        return _string2.default.substitute(format, [propertyValue]);
+        return _string["default"].substitute(format, [propertyValue]);
       }
+
       return '';
     },
     getValues: function getValues() {
@@ -465,7 +463,6 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
 
       if (this.fields.Text.isDirty()) {
         var text = this.fields.Text.getValue();
-
         values = values || {};
         values.LongNotes = text;
         values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
@@ -519,7 +516,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           showTimePicker: true,
           dateFormatText: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
+          validator: [_Validator["default"].exists, _Validator["default"].isDateInRange]
         }, {
           dependsOn: 'Type',
           label: this.regardingText,
@@ -530,7 +527,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           title: this.noteDescriptionTitleText,
           type: 'picklist',
           maxTextLength: 64,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }]
       }, {
         title: this.relatedItemsText,
@@ -556,9 +553,11 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           validator: {
             fn: function validateAccount(value, field) {
               var insert = field.owner.options && field.owner.options.insert;
+
               if (insert && !value) {
                 return true;
               }
+
               return false;
             }.bindDelegate(this),
             message: this.validationText
@@ -613,7 +612,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           valueKeyProperty: 'LeadId',
           valueTextProperty: 'LeadName',
           view: 'lead_related',
-          validator: _Validator2.default.exists
+          validator: _Validator["default"].exists
         }, {
           label: this.companyText,
           name: 'AccountName',
@@ -627,9 +626,11 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           validator: {
             fn: function validateUserId(value, field) {
               var canEdit = field.owner.currentUserCanEdit();
+
               if (!canEdit) {
                 return true;
               }
+
               return false;
             }.bindDelegate(this),
             message: this.validationCanEditText
@@ -639,6 +640,6 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

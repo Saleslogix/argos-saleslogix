@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/List', 'crm/Format', 'argos/Convert', 'argos/I18n'], function (module, exports, _declare, _lang, _List, _Format, _Convert, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/Locations/PricingAvailabilityList", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/List", "crm/Format", "argos/Convert", "argos/I18n"], function (_exports, _declare, _lang, _List, _Format, _Convert, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _List = _interopRequireDefault(_List);
+  _Format = _interopRequireDefault(_Format);
+  _Convert = _interopRequireDefault(_Convert);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,19 +28,16 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('locationsPricingAvailabilityList');
 
-  var resource = (0, _I18n2.default)('locationsPricingAvailabilityList');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [_List2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [_List["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text"><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</p>', '<p class="listview-heading"><label class="group-label">{%: $$.availableToPromiseDateText %}: </label>{%: $$.formatATPDate($.ATPDate) %}</p>', '<p class="listview-heading"><label class="group-label">{%: $$.availableText %}: </label>{%: $.AvailableQuantity %}</p>', '<p class="micro-text">{%: $.UnitOfMeasure %}</p>']),
-
     // Localization
     titleText: resource.titleText,
     warehouseText: resource.warehouseText,
     availableText: resource.availableText,
     availableToPromiseDateText: resource.availableToPromiseDateText,
-
     // View Properties
     id: 'locations_pricingAvailabilityList',
     detailView: '',
@@ -65,10 +55,8 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
     pageSize: 500,
     singleSelect: true,
     singleSelectAction: 'complete',
-
     // Card layout
     itemIconClass: '',
-
     createToolLayout: function createToolLayout() {
       return this.tools || (this.tools = {
         tbar: [{
@@ -82,13 +70,16 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
           svg: 'cancel',
           fn: ReUI.back,
           scope: ReUI
-        }] });
+        }]
+      });
     },
     show: function show() {
       this.inherited(show, arguments);
+
       if (!this.options) {
         this.options = {};
       }
+
       this.options.singleSelect = true;
       this.options.singleSelectAction = 'complete';
     },
@@ -101,6 +92,7 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
     getSelectedWarehouse: function getSelectedWarehouse() {
       var selections = this.get('selectionModel').getSelections();
       var selection = null;
+
       if (this.options.singleSelect) {
         for (var selectionKey in selections) {
           if (selections.hasOwnProperty(selectionKey)) {
@@ -109,6 +101,7 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
           }
         }
       }
+
       return selection;
     },
     processWarehouse: function processWarehouse(warehouse) {
@@ -131,25 +124,32 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
       var _this = this;
 
       this.getAvailability().then(function (entries) {
-        _this._onQueryComplete({ total: entries.length ? entries.length : 0 }, entries);
+        _this._onQueryComplete({
+          total: entries.length ? entries.length : 0
+        }, entries);
       }, function () {
-        _this._onQueryComplete({ total: 0 }, []);
+        _this._onQueryComplete({
+          total: 0
+        }, []);
       });
     },
     formatATPDate: function formatATPDate(atpDate) {
       var value = '';
-      if (_Convert2.default.isDateString(atpDate)) {
-        value = _Convert2.default.toDateFromString(atpDate);
-        return _Format2.default.date(value);
+
+      if (_Convert["default"].isDateString(atpDate)) {
+        value = _Convert["default"].toDateFromString(atpDate);
+        return _Format["default"].date(value);
       }
+
       return value;
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return 'upper(Description) like "' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
+      return "upper(Description) like \"".concat(this.escapeSearchQuery(searchQuery.toUpperCase()), "%\"");
     }
   });
 
-  _lang2.default.setObject('icboe.Views.Locations.PricingAvailabilityList', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.Locations.PricingAvailabilityList', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

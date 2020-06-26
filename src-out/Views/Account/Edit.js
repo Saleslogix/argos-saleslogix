@@ -1,44 +1,37 @@
-define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', '../../Validator', '../../Format', '../../Template', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _string, _Validator, _Format, _Template, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Account/Edit", ["exports", "dojo/_base/declare", "dojo/string", "../../Validator", "../../Format", "../../Template", "argos/Edit", "argos/I18n"], function (_exports, _declare, _string, _Validator, _Format, _Template, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Validator = _interopRequireDefault(_Validator);
+  _Format = _interopRequireDefault(_Format);
+  _Template = _interopRequireDefault(_Template);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _string2 = _interopRequireDefault(_string);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('accountEdit');
 
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('accountEdit'); /* Copyright 2017 Infor
-                                                      *
-                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                      * you may not use this file except in compliance with the License.
-                                                      * You may obtain a copy of the License at
-                                                      *
-                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                      *
-                                                      * Unless required by applicable law or agreed to in writing, software
-                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                      * See the License for the specific language governing permissions and
-                                                      * limitations under the License.
-                                                      */
-
-  var __class = (0, _declare2.default)('crm.Views.Account.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Account.Edit', [_Edit["default"]], {
     // Localization
     accountStatusTitleText: resource.accountStatusTitleText,
     accountSubTypeTitleText: resource.accountSubTypeTitleText,
@@ -60,7 +53,6 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     titleText: resource.titleText,
     typeText: resource.typeText,
     webText: resource.webText,
-
     // View Properties
     entityName: 'Account',
     id: 'account_edit',
@@ -69,16 +61,13 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     querySelect: ['AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address/*', 'BusinessDescription', 'Description', 'Fax', 'Industry', 'LeadSource/Description', 'MainPhone', 'Notes', 'Owner/OwnerDescription', 'Status', 'SubType', 'Type', 'User/UserInfo/UserName', 'WebAddress'],
     queryInclude: ['$permissions'],
     resourceKind: 'accounts',
-
     formatDependentPicklist: function formatDependentPicklist(dependentValue, nformat) {
-      return _string2.default.substitute(nformat, [dependentValue]);
+      return _string["default"].substitute(nformat, [dependentValue]);
     },
     applyContext: function applyContext(templateEntry) {
       this.inherited(applyContext, arguments);
-
       this.fields.AccountManager.setValue(App.context.user);
       this.fields.Owner.setValue(App.context.defaultOwner);
-
       this.fields.Type.setValue(templateEntry.Type);
       this.fields.Status.setValue(templateEntry.Status);
     },
@@ -88,27 +77,27 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         name: 'AccountName',
         property: 'AccountName',
         type: 'text',
-        validator: _Validator2.default.notEmpty,
+        validator: _Validator["default"].notEmpty,
         autoFocus: true
       }, {
         label: this.webText,
         name: 'WebAddress',
         property: 'WebAddress',
-        renderer: _Format2.default.link,
+        renderer: _Format["default"].link,
         type: 'text',
         inputType: 'url',
         maxTextLength: 128,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.phoneText,
         name: 'MainPhone',
         property: 'MainPhone',
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         emptyText: '',
-        formatValue: _Format2.default.address.bindDelegate(this, [true], true),
+        formatValue: _Format["default"].address.bindDelegate(this, [true], true),
         label: this.fullAddressText,
         name: 'Address',
         property: 'Address',
@@ -120,7 +109,7 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         property: 'Fax',
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.typeText,
         name: 'Type',
@@ -139,7 +128,7 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         title: this.accountSubTypeTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.statusText,
         name: 'Status',
@@ -157,7 +146,7 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         title: this.industryTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.businessDescriptionText,
         name: 'BusinessDescription',
@@ -171,7 +160,7 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         name: 'AccountManager',
         property: 'AccountManager',
         textProperty: 'UserInfo',
-        textTemplate: _Template2.default.nameLF,
+        textTemplate: _Template["default"].nameLF,
         type: 'lookup',
         view: 'user_list'
       }, {
@@ -192,6 +181,6 @@ define('crm/Views/Account/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

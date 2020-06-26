@@ -1,29 +1,20 @@
-define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/dom-geometry', 'dojo/dom-attr', 'dojo/has', 'argos/_PullToRefreshMixin', 'argos/Utility', 'argos/I18n'], function (module, exports, _declare, _lang, _domGeometry, _domAttr, _has, _PullToRefreshMixin2, _Utility, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Charts/_ChartMixin", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/dom-geometry", "dojo/dom-attr", "dojo/has", "argos/_PullToRefreshMixin", "argos/Utility", "argos/I18n"], function (_exports, _declare, _lang, _domGeometry, _domAttr, _has, _PullToRefreshMixin2, _Utility, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _domGeometry = _interopRequireDefault(_domGeometry);
+  _domAttr = _interopRequireDefault(_domAttr);
+  _has = _interopRequireDefault(_has);
+  _PullToRefreshMixin2 = _interopRequireDefault(_PullToRefreshMixin2);
+  _Utility = _interopRequireDefault(_Utility);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _domGeometry2 = _interopRequireDefault(_domGeometry);
-
-  var _domAttr2 = _interopRequireDefault(_domAttr);
-
-  var _has2 = _interopRequireDefault(_has);
-
-  var _PullToRefreshMixin3 = _interopRequireDefault(_PullToRefreshMixin2);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,24 +34,19 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
   /**
    * @module crm/Views/Charts/_ChartMixin
    */
-  var resource = (0, _I18n2.default)('chartMixin');
+  var resource = (0, _I18n["default"])('chartMixin');
 
-  _lang2.default.setObject('Chart.defaults.global', {
+  _lang["default"].setObject('Chart.defaults.global', {
     // Boolean - Whether to animate the chart
     animation: false,
-
     // Number - Number of animation steps
     animationSteps: 60,
-
     // String - Animation easing effect
     animationEasing: 'easeOutQuart',
-
     // Boolean - If we should show the scale at all
     showScale: true,
-
     // Boolean - If we want to override with a hard coded scale
     scaleOverride: false,
-
     // ** Required if scaleOverride is true **
     // Number - The number of steps in a hard coded scale
     scaleSteps: null,
@@ -68,96 +54,68 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     scaleStepWidth: null,
     // Number - The scale starting value
     scaleStartValue: null,
-
     // String - Colour of the scale line
     scaleLineColor: 'rgba(0,0,0,.1)',
-
     // Number - Pixel width of the scale line
     scaleLineWidth: 1,
-
     // Boolean - Whether to show labels on the scale
     scaleShowLabels: true,
-
     // Interpolated JS string - can access value
     scaleLabel: '<%=value%>',
-
     // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
     scaleIntegersOnly: true,
-
     // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
     scaleBeginAtZero: false,
-
     // String - Scale label font declaration for the scale label
     scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
     // Number - Scale label font size in pixels
     scaleFontSize: 12,
-
     // String - Scale label font weight style
     scaleFontStyle: 'normal',
-
     // String - Scale label font colour
     scaleFontColor: '#666',
-
     // Boolean - whether or not the chart should be responsive and resize when the browser does.
     responsive: false,
-
     // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
     maintainAspectRatio: true,
-
     // Boolean - Determines whether to draw tooltips on the canvas or not
     showTooltips: true,
-
     // Array - Array of string names to attach tooltip events
     tooltipEvents: ['touchstart', 'click'],
-
     // String - Tooltip background colour
     tooltipFillColor: 'rgba(0,0,0,0.8)',
-
     // String - Tooltip label font declaration for the scale label
     tooltipFontFamily: "'Helvetica', 'Arial', Sans-serif",
-
     // Number - Tooltip label font size in pixels
     tooltipFontSize: 14,
-
     // String - Tooltip font weight style
     tooltipFontStyle: 'normal',
-
     // String - Tooltip label font colour
     tooltipFontColor: '#fff',
-
     // String - Tooltip title font declaration for the scale label
     tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
     // Number - Tooltip title font size in pixels
     tooltipTitleFontSize: 14,
-
     // String - Tooltip title font weight style
     tooltipTitleFontStyle: 'bold',
-
     // String - Tooltip title font colour
     tooltipTitleFontColor: '#fff',
-
     // Number - pixel width of padding around tooltip text
     tooltipYPadding: 6,
-
     // Number - pixel width of padding around tooltip text
     tooltipXPadding: 6,
-
     // Number - Size of the caret on the tooltip
     tooltipCaretSize: 8,
-
     // Number - Pixel radius of the tooltip border
     tooltipCornerRadius: 6,
-
     // Number - Pixel offset from point x to tooltip edge
     tooltipXOffset: 10,
-
     // tooltipTemplate can be a function as well (not in the docs, see Chart.Core.js in their repo)
     tooltipTemplate: function tooltipTemplate(valuesObject) {
       // Use the formatter on the chart view, otherwise default to label: value
       var view = App.getPrimaryActiveView();
-      var results = void 0;
+      var results;
+
       if (view && view.formatter) {
         results = view.formatter(valuesObject.value);
       } else {
@@ -168,14 +126,11 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     },
     // String - Template string for single tooltips
     multiTooltipTemplate: '<%= value %>',
-
     // Function - Will fire on animation progression.
     onAnimationProgress: function onAnimationProgress() {},
-
     // Function - Will fire on animation completion.
     onAnimationComplete: function onAnimationComplete() {}
   });
-
   /**
    * @class
    * @alias module:crm/Views/Charts/_ChartMixin
@@ -185,25 +140,28 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
    * @classdesc Base mixin for creating chart views.
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin3.default], /** @lends module:crm/Views/Charts/_ChartMixin.prototype */{
+
+
+  var __class = (0, _declare["default"])('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin2["default"]],
+  /** @lends module:crm/Views/Charts/_ChartMixin.prototype */
+  {
     _feedData: null,
 
     /**
      * @property {Number} RENDER_DELAY
      * Number The re-render delay in milliseconds when the user changes device orientation.
      */
-    RENDER_DELAY: (0, _has2.default)('ios') < 8 ? 500 : 16, // Work around IOS7 orientation change issues
+    RENDER_DELAY: (0, _has["default"])('ios') < 8 ? 500 : 16,
+    // Work around IOS7 orientation change issues
 
     /**
      * @property {Object} parent
      * Reference to the metric widget that opened this view.
      */
     parent: null,
-
     formatter: function formatter(val) {
       return val;
     },
-
     PAGE_SIZE: 100,
 
     /**
@@ -222,7 +180,6 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
      * Overrides View widgetTemplate
      */
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">', '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">', '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>', '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>', '</div>', '</div>']),
-
     postCreate: function postCreate() {
       this.initPullToRefresh(this.scrollerNode);
     },
@@ -232,7 +189,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       // Render fn is debounced to prevent too many calls as a user resizes, or
       // if it fires multiple times (onresize fires on desktop browsers with /app/setOrientation)
       // Some browsers do not fire window onResize for orientation changes.
-      var _renderFn = _Utility2.default.debounce(function () {
+      var _renderFn = _Utility["default"].debounce(function () {
         if (_this._feedData) {
           _this.createChart(_this._feedData);
         }
@@ -255,7 +212,8 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       $(window).off('applicationmenuopen.chart');
     },
     _setCanvasWidth: function _setCanvasWidth() {
-      var box = _domGeometry2.default.getMarginBox(this.domNode);
+      var box = _domGeometry["default"].getMarginBox(this.domNode);
+
       if (this.contentNode) {
         this.contentNode.width = box.w;
       }
@@ -270,16 +228,14 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       }
 
       context.clearRect(0, 0, node.width, node.height);
-
       var text = resource.loadingText;
-
       context.fillStyle = this.loadingFont;
-      context.font = globalConfig.tooltipFontSize + 'px ' + globalConfig.tooltipFontFamily;
+      context.font = "".concat(globalConfig.tooltipFontSize, "px ").concat(globalConfig.tooltipFontFamily); // Center the text
 
-      // Center the text
       var offset = Math.floor(context.measureText(text).width / 2);
       var x = Math.floor(node.width / 2) - offset;
       var y = 20; // padding
+
       context.fillText(text, x, y, node.width);
     },
     createChart: function createChart(feedData) {
@@ -288,11 +244,9 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     getTag: function getTag() {
       return this.options && this.options.returnTo;
     },
-
     getSearchExpression: function getSearchExpression() {
       return this.options && this.options.currentSearchExpression;
     },
-
     showSearchExpression: function showSearchExpression() {
       var app = this.app || window.App;
       app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
@@ -319,8 +273,11 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
 
       var src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
       var segment = parseInt(src.dataset.segment, 10);
+
       if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
-        this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */);
+        this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false
+        /* re-draw flag */
+        );
       }
     },
 
@@ -334,7 +291,8 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       }
 
       var html = this.chart.generateLegend();
-      _domAttr2.default.set(this.legendNode, {
+
+      _domAttr["default"].set(this.legendNode, {
         innerHTML: html
       });
     },
@@ -344,10 +302,10 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
      * Charts in 3.3 no longer use the search expression node.
      */
     getSearchExpressionHeight: function getSearchExpressionHeight() {
-      var box = _domGeometry2.default.getMarginBox(this.searchExpressionNode);
+      var box = _domGeometry["default"].getMarginBox(this.searchExpressionNode);
+
       return box.h;
     },
-
     onPullToRefreshComplete: function onPullToRefreshComplete() {
       this.requestData();
     },
@@ -357,6 +315,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     _getStoreAttr: function _getStoreAttr() {
       return this.createStore();
     },
+
     /**
      * Return a store that is consumed by requestData.
      * @since 3.3
@@ -374,11 +333,13 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       var _this2 = this;
 
       var store = this.get('store');
+
       if (this.chart && this.chart.destroy) {
         this.chart.destroy();
       }
 
       this._setCanvasWidth();
+
       this._drawLoading();
 
       if (store) {
@@ -394,6 +355,6 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

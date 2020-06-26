@@ -1,25 +1,18 @@
-define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', './Base', 'argos/Models/_SDataModelBase', 'argos/Models/Manager', 'argos/Models/Types', '../Names'], function (module, exports, _declare, _Base, _SDataModelBase2, _Manager, _Types, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Models/Contact/SData", ["exports", "dojo/_base/declare", "./Base", "argos/Models/_SDataModelBase", "argos/Models/Manager", "argos/Models/Types", "../Names"], function (_exports, _declare, _Base, _SDataModelBase2, _Manager, _Types, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Base = _interopRequireDefault(_Base);
+  _SDataModelBase2 = _interopRequireDefault(_SDataModelBase2);
+  _Manager = _interopRequireDefault(_Manager);
+  _Types = _interopRequireDefault(_Types);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Base2 = _interopRequireDefault(_Base);
-
-  var _SDataModelBase3 = _interopRequireDefault(_SDataModelBase2);
-
-  var _Manager2 = _interopRequireDefault(_Manager);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,8 +28,7 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Models.Contact.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare["default"])('crm.Models.Contact.SData', [_Base["default"], _SDataModelBase2["default"]], {
     id: 'contact_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -53,7 +45,9 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
         queryInclude: ['$permissions']
       }];
     },
-    getEntry: function getEntry() /* options */{
+    getEntry: function getEntry()
+    /* options */
+    {
       var results$ = this.inherited(getEntry, arguments);
       return results$.then(function (entry) {
         return new Promise(function (resolve) {
@@ -74,7 +68,8 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
     }
   });
 
-  _Manager2.default.register(_Names2.default.CONTACT, _Types2.default.SDATA, __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _Manager["default"].register(_Names["default"].CONTACT, _Types["default"].SDATA, __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

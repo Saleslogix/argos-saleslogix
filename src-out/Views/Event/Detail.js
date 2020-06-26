@@ -1,21 +1,16 @@
-define('crm/Views/Event/Detail', ['module', 'exports', 'dojo/_base/declare', '../../Format', 'argos/Detail', 'argos/I18n'], function (module, exports, _declare, _Format, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Event/Detail", ["exports", "dojo/_base/declare", "../../Format", "argos/Detail", "argos/I18n"], function (_exports, _declare, _Format, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,11 +26,10 @@ define('crm/Views/Event/Detail', ['module', 'exports', 'dojo/_base/declare', '..
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('eventDetail');
+  var dtFormatResource = (0, _I18n["default"])('eventDetailDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('eventDetail');
-  var dtFormatResource = (0, _I18n2.default)('eventDetailDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Event.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Event.Detail', [_Detail["default"]], {
     // Localization
     actionsText: resource.actionsText,
     startTimeText: resource.startTimeText,
@@ -56,14 +50,13 @@ define('crm/Views/Event/Detail', ['module', 'exports', 'dojo/_base/declare', '..
       atLiterature: resource.literature,
       atPersonal: resource.personal
     },
-
     // View Properties
     id: 'event_detail',
     editView: 'event_edit',
-    security: null, // 'Entities/Event/View',
+    security: null,
+    // 'Entities/Event/View',
     querySelect: ['Description', 'EndDate', 'StartDate', 'UserId', 'Type'],
     resourceKind: 'events',
-
     formatEventType: function formatEventType(val) {
       return this.eventTypeText[val] || val;
     },
@@ -91,17 +84,17 @@ define('crm/Views/Event/Detail', ['module', 'exports', 'dojo/_base/declare', '..
           name: 'StartDate',
           property: 'StartDate',
           label: this.startTimeText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.startDateFormatText24 : this.startDateFormatText)
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.startDateFormatText24 : this.startDateFormatText)
         }, {
           name: 'EndDate',
           property: 'EndDate',
           label: this.endTimeText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.endDateFormatText24 : this.endDateFormatText)
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.endDateFormatText24 : this.endDateFormatText)
         }]
       }]);
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

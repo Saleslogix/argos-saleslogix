@@ -1,21 +1,16 @@
-define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'argos/Utility', 'argos/I18n'], function (module, exports, _lang, _string, _Utility, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Action", ["exports", "dojo/_base/lang", "dojo/string", "argos/Utility", "argos/I18n"], function (_exports, _lang, _string, _Utility, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Utility = _interopRequireDefault(_Utility);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,19 +30,21 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
   /**
    * @module crm/Action
    */
-  var resource = (0, _I18n2.default)('action');
-
+  var resource = (0, _I18n["default"])('action');
   /**
    * @class
    * @alias module:crm/Action
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Action', /** @lends module:crm/Action */{
+
+  var __class = _lang["default"].setObject('crm.Action',
+  /** @lends module:crm/Action */
+  {
     calledText: resource.calledText,
     emailedText: resource.emailedText,
-
     navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete, title) {
       var view = App.getView('history_edit');
+
       if (view) {
         view.show({
           title: title,
@@ -66,7 +63,8 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         Duration: 15,
         CompletedDate: new Date()
       };
-      _lang2.default.mixin(entry, o);
+
+      _lang["default"].mixin(entry, o);
 
       this.navigateToHistoryInsert(entry, complete, title);
     },
@@ -82,12 +80,13 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         key: selection.data.$key
       });
 
-      _lang2.default.mixin(selection.data, {
+      _lang["default"].mixin(selection.data, {
         Type: 'atPhoneCall',
-        Description: _string2.default.substitute(crm.Action.calledText, [selection.data.$descriptor])
+        Description: _string["default"].substitute(crm.Action.calledText, [selection.data.$descriptor])
       });
 
-      var value = _Utility2.default.getValue(selection.data, phoneProperty, '');
+      var value = _Utility["default"].getValue(selection.data, phoneProperty, '');
+
       crm.Action.recordToHistory(function () {
         if (!actionInitiated) {
           App.initiateCall(value);
@@ -106,12 +105,13 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         key: selection.data.$key
       });
 
-      _lang2.default.mixin(selection.data, {
+      _lang["default"].mixin(selection.data, {
         Type: 'atEmail',
-        Description: _string2.default.substitute(crm.Action.emailedText, [selection.data.$descriptor])
+        Description: _string["default"].substitute(crm.Action.emailedText, [selection.data.$descriptor])
       });
 
-      var value = _Utility2.default.getValue(selection.data, emailProperty, '');
+      var value = _Utility["default"].getValue(selection.data, emailProperty, '');
+
       crm.Action.recordToHistory(function () {
         App.initiateEmail(value);
       }, selection.data);
@@ -120,13 +120,11 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       var entry = selection.data;
       var key = selection.data.$key;
       var desc = selection.data.$descriptor;
-
       this.setSource({
         entry: entry,
         descriptor: desc,
         key: key
       });
-
       var view = App.getView('history_edit');
 
       if (view) {
@@ -145,10 +143,9 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     },
     navigateToEntity: function navigateToEntity(action, selection, o) {
       var options = {
-        key: _Utility2.default.getValue(selection.data, o.keyProperty),
-        descriptor: _Utility2.default.getValue(selection.data, o.textProperty)
+        key: _Utility["default"].getValue(selection.data, o.keyProperty),
+        descriptor: _Utility["default"].getValue(selection.data, o.textProperty)
       };
-
       var view = App.getView(o.view);
 
       if (view && options.key) {
@@ -156,7 +153,7 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       }
     },
     hasProperty: function hasProperty(action, selection, property) {
-      return _Utility2.default.getValue(selection.data, property);
+      return _Utility["default"].getValue(selection.data, property);
     },
     addAttachment: function addAttachment(action, selection) {
       this.setSource({
@@ -164,7 +161,6 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         descriptor: selection.data.$descriptor,
         key: selection.data.$key
       });
-
       var view = App.getView('attachment_Add');
 
       if (view) {
@@ -175,6 +171,6 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

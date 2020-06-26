@@ -1,40 +1,35 @@
-define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../../Format', '../../Validator', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Format, _Validator, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Lead/Edit", ["exports", "dojo/_base/declare", "../../Format", "../../Validator", "argos/Edit", "argos/I18n"], function (_exports, _declare, _Format, _Validator, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Validator = _interopRequireDefault(_Validator);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('leadEdit');
 
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('leadEdit'); /* Copyright 2017 Infor
-                                                   *
-                                                   * Licensed under the Apache License, Version 2.0 (the "License");
-                                                   * you may not use this file except in compliance with the License.
-                                                   * You may obtain a copy of the License at
-                                                   *
-                                                   *    http://www.apache.org/licenses/LICENSE-2.0
-                                                   *
-                                                   * Unless required by applicable law or agreed to in writing, software
-                                                   * distributed under the License is distributed on an "AS IS" BASIS,
-                                                   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                   * See the License for the specific language governing permissions and
-                                                   * limitations under the License.
-                                                   */
-
-  var __class = (0, _declare2.default)('crm.Views.Lead.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Lead.Edit', [_Edit["default"]], {
     // Localization
     accountText: resource.accountText,
     addressText: resource.addressText,
@@ -60,7 +55,6 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
     webText: resource.webText,
     workText: resource.workText,
     mobileText: resource.mobileText,
-
     // View Properties
     entityName: 'Lead',
     id: 'lead_edit',
@@ -69,16 +63,15 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
     querySelect: ['BusinessDescription', 'Company', 'Email', 'FirstName', 'Address/*', 'Industry', 'Interests', 'LastName', 'LeadNameLastFirst', 'LeadSource/Description', 'MiddleName', 'Mobile', 'Notes', 'Prefix', 'SICCode', 'Suffix', 'Title', 'TollFree', 'WebAddress', 'WorkPhone', 'Owner/OwnerDescription'],
     queryInclude: ['$permissions'],
     resourceKind: 'leads',
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         applyTo: '',
-        formatValue: _Format2.default.nameLF,
+        formatValue: _Format["default"].nameLF,
         label: this.leadNameLastFirstText,
         name: 'LeadNameLastFirst',
         property: 'LeadNameLastFirst',
         type: 'name',
-        validator: _Validator2.default.name,
+        validator: _Validator["default"].name,
         view: 'name_edit'
       }, {
         label: this.companyText,
@@ -86,7 +79,7 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
         property: 'Company',
         type: 'text',
         maxTextLength: 128,
-        validator: [_Validator2.default.exceedsMaxTextLength, _Validator2.default.exists]
+        validator: [_Validator["default"].exceedsMaxTextLength, _Validator["default"].exists]
       }, {
         label: this.webText,
         name: 'WebAddress',
@@ -94,28 +87,28 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
         type: 'text',
         inputType: 'url',
         maxTextLength: 128,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.workText,
         name: 'WorkPhone',
         property: 'WorkPhone',
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.mobileText,
         name: 'Mobile',
         property: 'Mobile',
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.tollFreeText,
         name: 'TollFree',
         property: 'TollFree',
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.emailText,
         name: 'Email',
@@ -131,10 +124,10 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
         type: 'picklist',
         orderBy: 'text asc',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         emptyText: '',
-        formatValue: _Format2.default.address.bindDelegate(this, true),
+        formatValue: _Format["default"].address.bindDelegate(this, true),
         label: this.addressText,
         name: 'Address',
         property: 'Address',
@@ -147,14 +140,14 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
         view: 'leadsource_list',
         textProperty: 'Description',
         type: 'lookup',
-        validator: _Validator2.default.exists
+        validator: _Validator["default"].exists
       }, {
         label: this.interestsText,
         name: 'Interests',
         property: 'Interests',
         type: 'text',
         maxTextLength: 128,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.industryText,
         name: 'Industry',
@@ -163,14 +156,14 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
         title: this.industryTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.sicCodeText,
         name: 'SICCode',
         property: 'SICCode',
         type: 'text',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.businessText,
         name: 'BusinessDescription',
@@ -198,6 +191,6 @@ define('crm/Views/Lead/Edit', ['module', 'exports', 'dojo/_base/declare', '../..
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

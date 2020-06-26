@@ -1,21 +1,16 @@
-define('crm/Views/TicketActivityItem/Detail', ['module', 'exports', 'dojo/_base/declare', '../../Format', 'argos/Detail', 'argos/I18n'], function (module, exports, _declare, _Format, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/TicketActivityItem/Detail", ["exports", "dojo/_base/declare", "../../Format", "argos/Detail", "argos/I18n"], function (_exports, _declare, _Format, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,10 +26,9 @@ define('crm/Views/TicketActivityItem/Detail', ['module', 'exports', 'dojo/_base/
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('ticketActivityItemDetail');
 
-  var resource = (0, _I18n2.default)('ticketActivityItemDetail');
-
-  var __class = (0, _declare2.default)('crm.Views.TicketActivityItem.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.TicketActivityItem.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     productNameText: resource.productNameText,
@@ -43,13 +37,10 @@ define('crm/Views/TicketActivityItem/Detail', ['module', 'exports', 'dojo/_base/
     itemAmountText: resource.itemAmountText,
     itemDescriptionText: resource.itemDescriptionText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'ticketactivityitem_detail',
-
     querySelect: ['Product/Name', 'Product/ActualId', 'AccountProduct/SerialNumber', 'ItemDescription', 'ItemAmount', 'TicketActivity/$key'],
     resourceKind: 'ticketActivityItems',
-
     createToolLayout: function createToolLayout() {
       return this.tools || (this.tools = {
         tbar: []
@@ -75,7 +66,7 @@ define('crm/Views/TicketActivityItem/Detail', ['module', 'exports', 'dojo/_base/
           name: 'ItemAmount',
           property: 'ItemAmount',
           label: this.itemAmountText,
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         }, {
           name: 'ItemDescription',
           property: 'ItemDescription',
@@ -85,6 +76,6 @@ define('crm/Views/TicketActivityItem/Detail', ['module', 'exports', 'dojo/_base/
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

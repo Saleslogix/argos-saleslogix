@@ -1,24 +1,15 @@
-define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang', '../../Aggregate'], function (module, exports, _lang, _Aggregate) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Aggregate", ["exports", "dojo/_base/lang", "../../Aggregate"], function (_exports, _lang, _Aggregate) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _Aggregate = _interopRequireDefault(_Aggregate);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Aggregate2 = _interopRequireDefault(_Aggregate);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  /**
-   * @class
-   * @alias module:/crm/Integrations/BOE/Aggregate
-   * @classdesc Aggregate functions. Currently used in metric widgets.
-   * @static
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +28,16 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
   /**
   * @module crm/Integrations/BOE/Aggregate
   */
-  var __class = _lang2.default.setObject('crm.Integrations.BOE.Aggregate', /** @lends module:crm/Integrations/BOE/Aggregate */{
+
+  /**
+   * @class
+   * @alias module:/crm/Integrations/BOE/Aggregate
+   * @classdesc Aggregate functions. Currently used in metric widgets.
+   * @static
+   */
+  var __class = _lang["default"].setObject('crm.Integrations.BOE.Aggregate',
+  /** @lends module:crm/Integrations/BOE/Aggregate */
+  {
     /**
      * Calculate Profit
      * @param {Array} data arrays of revenue and cost
@@ -47,12 +47,14 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
       var revenue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var cost = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-      var totalRevenue = _Aggregate2.default.sum(revenue);
-      var totalCost = _Aggregate2.default.sum(cost);
-      var profit = totalRevenue - totalCost;
+      var totalRevenue = _Aggregate["default"].sum(revenue);
 
+      var totalCost = _Aggregate["default"].sum(cost);
+
+      var profit = totalRevenue - totalCost;
       return profit;
     },
+
     /**
      * Calculate Margin
      * @param {Array} data arrays of revenue and cost
@@ -61,10 +63,12 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
     calcMargin: function calcMargin() {
       var revenue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var cost = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
       var profitTotal = icboe.Aggregate.calcProfit(revenue, cost);
-      var revenueTotal = _Aggregate2.default.sum(revenue);
-      var margin = void 0;
+
+      var revenueTotal = _Aggregate["default"].sum(revenue);
+
+      var margin;
+
       if (revenueTotal !== 0) {
         margin = profitTotal / revenueTotal;
       } else {
@@ -73,15 +77,18 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
 
       return margin;
     },
+
     /**
      * Calculate YoY Revenue
      * @param {Array} data array of revenue in the past year and revenue between a set of years
      * @return {Number}
      */
     calcYoYRevenue: function calcYoYRevenue(pastYear, between) {
-      var revenuePastYear = _Aggregate2.default.sum(pastYear);
-      var revenueBetween = _Aggregate2.default.sum(between);
-      var revenueYoY = void 0;
+      var revenuePastYear = _Aggregate["default"].sum(pastYear);
+
+      var revenueBetween = _Aggregate["default"].sum(between);
+
+      var revenueYoY;
 
       if (revenueBetween !== 0) {
         revenueYoY = (revenuePastYear - revenueBetween) / revenueBetween;
@@ -91,6 +98,7 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
 
       return revenueYoY;
     },
+
     /**
      * Calculate YoY Profit
      * @param {Array} data arrays of revenue in the past year, cost in the past year, revenue between two years, and cost between two years
@@ -99,7 +107,7 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
     calcYoYProfit: function calcYoYProfit(revenuePastYear, costPastYear, revenueBetween, costBetween) {
       var profitPastYear = icboe.Aggregate.calcProfit(revenuePastYear, costPastYear);
       var profitBetween = icboe.Aggregate.calcProfit(revenueBetween, costBetween);
-      var profitYoY = void 0;
+      var profitYoY;
 
       if (profitBetween !== 0) {
         profitYoY = (profitPastYear - profitBetween) / profitBetween;
@@ -109,6 +117,7 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
 
       return profitYoY;
     },
+
     /**
      * Calculate YoY Margin
      * @param {Array} data arrays of revenue in the past year, cost in the past year, revenue between two years, and cost between two years
@@ -117,15 +126,17 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
     calcYoYMargin: function calcYoYMargin(revenuePastYear, costPastYear, revenueBetween, costBetween) {
       var marginPastYear = icboe.Aggregate.calcMargin(revenuePastYear, costPastYear);
       var marginBetween = icboe.Aggregate.calcMargin(revenueBetween, costBetween);
-      var marginYoY = void 0;
+      var marginYoY;
 
       if (marginBetween !== 0) {
         marginYoY = (marginPastYear - marginBetween) / marginBetween;
       } else {
         marginYoY = 0;
       }
+
       return marginYoY;
     },
+
     /**
       * Change Color
       * @deprecated
@@ -157,7 +168,9 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
       }
     }
   });
-  _lang2.default.setObject('icboe.Aggregate', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  _lang["default"].setObject('icboe.Aggregate', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

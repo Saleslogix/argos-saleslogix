@@ -1,29 +1,20 @@
-define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './Base', 'argos/Models/_SDataModelBase', 'argos/Models/Manager', 'argos/Models/Types', '../Names', '../../PricingAvailabilityService'], function (module, exports, _declare, _lang, _Base, _SDataModelBase2, _Manager, _Types, _Names, _PricingAvailabilityService) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Models/SalesOrderItem/SData", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./Base", "argos/Models/_SDataModelBase", "argos/Models/Manager", "argos/Models/Types", "../Names", "../../PricingAvailabilityService"], function (_exports, _declare, _lang, _Base, _SDataModelBase2, _Manager, _Types, _Names, _PricingAvailabilityService) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Base = _interopRequireDefault(_Base);
+  _SDataModelBase2 = _interopRequireDefault(_SDataModelBase2);
+  _Manager = _interopRequireDefault(_Manager);
+  _Types = _interopRequireDefault(_Types);
+  _Names = _interopRequireDefault(_Names);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Base2 = _interopRequireDefault(_Base);
-
-  var _SDataModelBase3 = _interopRequireDefault(_SDataModelBase2);
-
-  var _Manager2 = _interopRequireDefault(_Manager);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,8 +30,7 @@ define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports',
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.SalesOrderItem.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Models.SalesOrderItem.SData', [_Base["default"], _SDataModelBase2["default"]], {
     id: 'salesorderitem_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -61,14 +51,18 @@ define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports',
       var _this = this;
 
       var promise = new Promise(function (resolve) {
-        _PricingAvailabilityService2.default.updateOrderItemWarehouse(orderItem, warehouse.SlxLocation, warehouse.SlxLocationID, warehouse.ATPDate).then(function () {
+        _PricingAvailabilityService["default"].updateOrderItemWarehouse(orderItem, warehouse.SlxLocation, warehouse.SlxLocationID, warehouse.ATPDate).then(function () {
           orderItem.SlxLocation = {
             $key: warehouse.SlxLocationID,
             description: warehouse.SlxLocation
           };
-          _PricingAvailabilityService2.default.getOrderItemPricing(orderItem).then(function (pricingData) {
+
+          _PricingAvailabilityService["default"].getOrderItemPricing(orderItem).then(function (pricingData) {
             var entry = _this.createPricingEntryForUpdate(orderItem, pricingData);
-            _this.updateEntry(entry, { overwrite: true }).then(function (result) {
+
+            _this.updateEntry(entry, {
+              overwrite: true
+            }).then(function (result) {
               resolve(result);
             });
           });
@@ -79,23 +73,29 @@ define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports',
     createPricingEntryForUpdate: function createPricingEntryForUpdate(orderItem, pricingData) {
       var entry = {};
       entry.$key = orderItem.$key;
+
       if (pricingData) {
         if (pricingData.DocCalculatedPrice) {
           entry.DocCalculatedPrice = pricingData.DocCalculatedPrice.value;
         }
+
         if (pricingData.DocExtendedPrice) {
           entry.DocExtendedPrice = pricingData.DocExtendedPrice.value;
         }
+
         if (pricingData.DocTotalAmount) {
           entry.DocTotalAmount = pricingData.DocTotalAmount.value;
         }
       }
+
       return entry;
     }
   });
 
-  _Manager2.default.register(_Names2.default.SALESORDERITEM, _Types2.default.SDATA, __class);
-  _lang2.default.setObject('icboe.Models.SalesOrderItem.SData', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _Manager["default"].register(_Names["default"].SALESORDERITEM, _Types["default"].SDATA, __class);
+
+  _lang["default"].setObject('icboe.Models.SalesOrderItem.SData', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

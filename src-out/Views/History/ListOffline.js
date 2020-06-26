@@ -1,25 +1,18 @@
-define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declare', 'argos/_ListBase', 'argos/Models/Types', 'argos/I18n', '../../Models/Names', '../../Format'], function (module, exports, _declare, _ListBase2, _Types, _I18n, _Names, _Format) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/History/ListOffline", ["exports", "dojo/_base/declare", "argos/_ListBase", "argos/Models/Types", "argos/I18n", "../../Models/Names", "../../Format"], function (_exports, _declare, _ListBase2, _Types, _I18n, _Names, _Format) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ListBase2 = _interopRequireDefault(_ListBase2);
+  _Types = _interopRequireDefault(_Types);
+  _I18n = _interopRequireDefault(_I18n);
+  _Names = _interopRequireDefault(_Names);
+  _Format = _interopRequireDefault(_Format);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _ListBase3 = _interopRequireDefault(_ListBase2);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,17 +28,14 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('historyListOffline');
+  var dateResource = (0, _I18n["default"])('historyListOfflineFormat');
 
-  var resource = (0, _I18n2.default)('historyListOffline');
-  var dateResource = (0, _I18n2.default)('historyListOfflineFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Account.ListOffline', [_ListBase3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Account.ListOffline', [_ListBase2["default"]], {
     // Localization
     titleText: resource.titleText,
-
     // Templates
-    itemTemplate: new Simplate(['\n    <p>{%: $.Text %}</p>\n  ']),
-
+    itemTemplate: new Simplate(["\n    <p>{%: $.Text %}</p>\n  "]),
     // View Properties
     detailView: 'history_detail_offline',
     id: 'history_list_offline',
@@ -55,7 +45,7 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
     entityName: 'History',
     pageSize: 100,
     resourceKind: 'history',
-    modelName: _Names2.default.HISTORY,
+    modelName: _Names["default"].HISTORY,
     enableOfflineSupport: true,
     enableOnlineSupport: true,
     enableSearch: false,
@@ -74,13 +64,13 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
     },
     getTitle: function getTitle(entry) {
       if (App.is24HourClock()) {
-        return '' + _Format2.default.date(entry.$offlineDate, dateResource.dateFormatText24);
+        return "".concat(_Format["default"].date(entry.$offlineDate, dateResource.dateFormatText24));
       }
 
-      return '' + _Format2.default.date(entry.$offlineDate, dateResource.dateFormatText);
+      return "".concat(_Format["default"].date(entry.$offlineDate, dateResource.dateFormatText));
     },
     getModel: function getModel() {
-      var model = App.ModelManager.getModel(_Names2.default.HISTORY, _Types2.default.OFFLINE);
+      var model = App.ModelManager.getModel(_Names["default"].HISTORY, _Types["default"].OFFLINE);
       return model;
     },
     createActionLayout: function createActionLayout() {
@@ -131,11 +121,13 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
       var _this2 = this;
 
       this.inherited(_onRefresh, arguments);
+
       if (typeof args === 'undefined' || args === null) {
         return;
       }
 
       var entry = args.data;
+
       if (typeof entry === 'undefined' || entry == null) {
         return;
       }
@@ -145,9 +137,9 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
         this.removeEntry(entry).then(function () {
           _this2.forceRefresh();
         });
-      }
+      } // Edit will pass response message from pouch that the data was saved: { ok: true, ... }
 
-      // Edit will pass response message from pouch that the data was saved: { ok: true, ... }
+
       if (entry.ok === true) {
         this.refreshRequired = true;
       }
@@ -158,6 +150,6 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

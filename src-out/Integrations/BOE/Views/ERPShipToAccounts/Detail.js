@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _Format, _Detail, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPShipToAccounts/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _Format, _Detail, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,10 +28,9 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('erpShipToAccountsDetail');
 
-  var resource = (0, _I18n2.default)('erpShipToAccountsDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -64,7 +56,6 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
     shipToText: resource.shipToText,
     billToText: resource.billToText,
     salesPersonText: resource.salesPersonText,
-
     // Picklist Codes
     openCode: 'Open',
     newCode: 'New',
@@ -79,13 +70,11 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
     allocatedCode: 'Allocated',
     stagedCode: 'Staged',
     loadedCode: 'Loaded',
-
     // View Properties
     id: 'erpshiptoaccount_detail',
-    modelName: _Names2.default.ERPSHIPTOACCOUNT,
+    modelName: _Names["default"].ERPSHIPTOACCOUNT,
     resourceKind: 'erpShipToAccounts',
     enableOffline: true,
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.actionsText,
@@ -106,7 +95,7 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           label: this.addressText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.address(val);
+              return _Format["default"].address(val);
             }
           }
         }, {
@@ -119,7 +108,7 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           label: this.mainPhoneText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.phone(val);
+              return _Format["default"].phone(val);
             }
           }
         }, {
@@ -132,7 +121,7 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           label: this.emailText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.mail(val);
+              return _Format["default"].mail(val);
             }
           }
         }, {
@@ -148,8 +137,7 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
         title: this.relatedItemsText,
         list: true,
         name: 'RelatedItemsSection',
-        children: [
-        // {
+        children: [// {
         // name: 'ShipToAccounts',
         // label: this.accountsText,
         // where: function(entry) {
@@ -161,18 +149,17 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           name: 'OpenQuotesList',
           label: this.openQuotesText,
           where: function where(entry) {
-            return 'ShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.newCode + '")';
+            return "ShipTo.ErpShipToAccounts.Id eq \"".concat(entry.$key, "\" and (Status eq \"").concat(this.openCode, "\" or Status eq \"").concat(this.newCode, "\")");
           },
           view: 'erpshiptoaccount_quotes_related'
         }, {
           name: 'SalesOrders',
           label: this.salesOrdersText,
           where: function where(entry) {
-            return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.approvedCode + '" or Status eq "' + this.workingCode + '" or Status eq "' + this.partialShipCode + '")';
+            return "ErpShipTo.ErpShipToAccounts.Id eq \"".concat(entry.$key, "\" and (Status eq \"").concat(this.openCode, "\" or Status eq \"").concat(this.approvedCode, "\" or Status eq \"").concat(this.workingCode, "\" or Status eq \"").concat(this.partialShipCode, "\")");
           },
           view: 'erpshiptoaccount_salesorders_related'
-        },
-        // {
+        }, // {
         // name: 'OpenInvoices',
         // label: this.invoicesText,
         // where: function(entry) {
@@ -184,11 +171,10 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           name: 'Shipments',
           label: this.shipmentsText,
           where: function where(entry) {
-            return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialShipCode + '" or ErpStatus eq "' + this.releasedCode + '" or ErpStatus eq "' + this.allocatedCode + '" or ErpStatus eq "' + this.stagedCode + '" or ErpStatus eq "' + this.loadedCode + '")';
+            return "ErpShipTo.ErpShipToAccounts.Id eq \"".concat(entry.$key, "\" and (ErpStatus eq \"").concat(this.openCode, "\" or ErpStatus eq \"").concat(this.partialShipCode, "\" or ErpStatus eq \"").concat(this.releasedCode, "\" or ErpStatus eq \"").concat(this.allocatedCode, "\" or ErpStatus eq \"").concat(this.stagedCode, "\" or ErpStatus eq \"").concat(this.loadedCode, "\")");
           },
           view: 'erpshiptoaccount_shipments_related'
-        },
-        // {
+        }, // {
         // name: 'Receivables',
         // label: this.receivablesText,
         // where: function(entry) {
@@ -200,22 +186,39 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           name: 'Returns',
           label: this.returnsText,
           where: function where(entry) {
-            return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+            return "ErpShipTo.ErpShipToAccounts.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'erpshiptoaccount_returns_related'
         }, {
           name: 'ContactAssociations',
           label: this.contactAssociationText,
           where: function where(entry) {
-            return 'Account.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+            return "Account.ErpShipToAccounts.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'erpshiptoaccount_contactassociations_related'
-        }]
+        } // , {
+        // name: 'Bill-To',
+        // label: this.billToText,
+        // where: function(entry) {
+        // return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
+        // },
+        // view: 'erpshiptoaccount_billto_related'
+        // },
+        // {
+        // name: 'SalesPerson',
+        // label: this.salesPersonText,
+        // where: function(entry) {
+        // return 'SalesOrder.ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+        // },
+        // view: 'erpshiptoaccount_salesperson_related'
+        // }
+        ]
       }]);
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPShipToAccounts.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPShipToAccounts.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

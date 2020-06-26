@@ -1,39 +1,35 @@
-define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Login", ["exports", "dojo/_base/declare", "argos/Edit", "argos/I18n"], function (_exports, _declare, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Edit2 = _interopRequireDefault(_Edit);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('login');
 
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('login'); /* Copyright 2017 Infor
-                                                *
-                                                * Licensed under the Apache License, Version 2.0 (the "License");
-                                                * you may not use this file except in compliance with the License.
-                                                * You may obtain a copy of the License at
-                                                *
-                                                *    http://www.apache.org/licenses/LICENSE-2.0
-                                                *
-                                                * Unless required by applicable law or agreed to in writing, software
-                                                * distributed under the License is distributed on an "AS IS" BASIS,
-                                                * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                * See the License for the specific language governing permissions and
-                                                * limitations under the License.
-                                                */
-
-  var __class = (0, _declare2.default)('crm.Views.Login', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Login', [_Edit["default"]], {
     // Templates
-    widgetTemplate: new Simplate(['\n      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">\n        <div class="wrapper">\n          <section class="signin" role="main">\n            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">\n              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>\n            </svg>\n            <h1>Infor CRM</h1>\n            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">\n            </div>\n            <div class="login-button-container">\n              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>\n            </div>\n          </section>\n        </div>\n      </div>\n    ']),
-
+    widgetTemplate: new Simplate(["\n      <div id=\"{%= $.id %}\" data-title=\"{%: $.titleText %}\" class=\"view\">\n        <div class=\"wrapper\">\n          <section class=\"signin\" role=\"main\">\n            <svg viewBox=\"0 0 34 34\" class=\"icon icon-logo\" focusable=\"false\" aria-hidden=\"true\" role=\"presentation\" aria-label=\"Infor Logo\">\n              <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#icon-logo\"></use>\n            </svg>\n            <h1>Infor CRM</h1>\n            <div class=\"panel-content\" data-dojo-attach-event=\"onkeypress: _onKeyPress, onkeyup: _onKeyUp\" data-dojo-attach-point=\"contentNode\">\n            </div>\n            <div class=\"login-button-container\">\n              <button data-dojo-attach-point=\"loginButton\" class=\"btn-primary hide-focus\" data-action=\"authenticate\">{%: $.logOnText %}</button>\n            </div>\n          </section>\n        </div>\n      </div>\n    "]),
     id: 'login',
     busy: false,
     multiColumnView: false,
@@ -53,7 +49,6 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       status: {}
     },
     ENTER_KEY: 13,
-
     _onKeyPress: function _onKeyPress(evt) {
       if (evt.charOrCode === this.ENTER_KEY) {
         this.authenticate();
@@ -61,6 +56,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     },
     _onKeyUp: function _onKeyUp() {
       var username = this.fields['username-display'].getValue();
+
       if (username && username.length > 0) {
         $(this.domNode).addClass('login-active');
       } else {
@@ -97,6 +93,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     },
     _updateConnectionState: function _updateConnectionState(online) {
       this.inherited(_updateConnectionState, arguments);
+
       if (online) {
         this._enable();
       } else {
@@ -148,7 +145,6 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       }
 
       var values = this.getValues(true);
-
       var credentials = {
         username: values['username-display'],
         password: values['password-display'],
@@ -161,7 +157,6 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     },
     createErrorHandlers: function createErrorHandlers() {
       this.errorText.status[this.HTTP_STATUS.FORBIDDEN] = this.invalidUserText;
-
       this.errorHandlers = [{
         name: 'NoResponse',
         test: function testNoResponse(error) {
@@ -169,6 +164,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         },
         handle: function handleNoResponse(error, next) {
           alert(this.missingUserText); // eslint-disable-line
+
           next();
         }
       }, {
@@ -178,29 +174,31 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         },
         handle: function handleError(error, next) {
           alert(this.getErrorMessage(error)); // eslint-disable-line
+
           next();
         }
       }];
-
       return this.errorHandlers;
     },
     validateCredentials: function validateCredentials(credentials) {
       this.disable();
-
       App.authenticateUser(credentials, {
         success: function success() {
           // Need to remove Login view from pagejs stack
           page.len--;
+
           if (this.fields.remember.getValue() !== true) {
             this.fields['username-display'].setValue('');
             this.fields['password-display'].setValue('');
           }
-          this.enable();
 
+          this.enable();
           var attr = this.domNode.attributes.getNamedItem('selected');
+
           if (attr) {
             attr.value = 'false';
           }
+
           App.onHandleAuthenticationSuccess();
         },
         failure: function failure(result) {
@@ -219,6 +217,6 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

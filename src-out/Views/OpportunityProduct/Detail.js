@@ -1,44 +1,37 @@
-define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', 'dojo/_base/connect', '../../Format', 'argos/Detail', 'argos/_LegacySDataDetailMixin', 'argos/I18n'], function (module, exports, _declare, _string, _connect, _Format, _Detail, _LegacySDataDetailMixin2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/OpportunityProduct/Detail", ["exports", "dojo/_base/declare", "dojo/string", "dojo/_base/connect", "../../Format", "argos/Detail", "argos/_LegacySDataDetailMixin", "argos/I18n"], function (_exports, _declare, _string, _connect, _Format, _Detail, _LegacySDataDetailMixin2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _connect = _interopRequireDefault(_connect);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _LegacySDataDetailMixin2 = _interopRequireDefault(_LegacySDataDetailMixin2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _string2 = _interopRequireDefault(_string);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('opportunityProductDetail');
 
-  var _connect2 = _interopRequireDefault(_connect);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _LegacySDataDetailMixin3 = _interopRequireDefault(_LegacySDataDetailMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('opportunityProductDetail'); /* Copyright 2017 Infor
-                                                                   *
-                                                                   * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                   * you may not use this file except in compliance with the License.
-                                                                   * You may obtain a copy of the License at
-                                                                   *
-                                                                   *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                   *
-                                                                   * Unless required by applicable law or agreed to in writing, software
-                                                                   * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                   * See the License for the specific language governing permissions and
-                                                                   * limitations under the License.
-                                                                   */
-
-  var __class = (0, _declare2.default)('crm.Views.OpportunityProduct.Detail', [_Detail2.default, _LegacySDataDetailMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.OpportunityProduct.Detail', [_Detail["default"], _LegacySDataDetailMixin2["default"]], {
     // Localization
     detailsText: resource.detailsText,
     opportunityText: resource.opportunityText,
@@ -59,15 +52,12 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
     confirmDeleteText: resource.confirmDeleteText,
     removeOppProductTitleText: resource.removeOppProductTitleText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'opportunityproduct_detail',
     editView: 'opportunityproduct_edit',
-
     security: 'Entities/Opportunity/View',
     querySelect: ['Opportunity/Description', 'Product/Description', 'Product/Family', 'Product/Name', 'Product/Price', 'Product/Program', 'Product/FixedCost', 'AdjustedPrice', 'CalculatedPrice', 'Discount', 'ExtendedPrice', 'Price', 'Program', 'Quantity'],
     resourceKind: 'opportunityProducts',
-
     createEntryForDelete: function createEntryForDelete(e) {
       var entry = {
         $key: e.$key,
@@ -77,7 +67,7 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
       return entry;
     },
     removeOpportunityProduct: function removeOpportunityProduct() {
-      var confirmMessage = _string2.default.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+      var confirmMessage = _string["default"].substitute(this.confirmDeleteText, [this.entry.Product.Name]);
 
       if (!confirm(confirmMessage)) {
         // eslint-disable-line
@@ -88,7 +78,7 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
       var request = this.createRequest();
 
       if (request) {
-        request.delete(entry, {
+        request["delete"](entry, {
           success: this.onDeleteSuccess,
           failure: this.onRequestDataFailure,
           scope: this
@@ -97,16 +87,16 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
     },
     onDeleteSuccess: function onDeleteSuccess() {
       var views = [App.getView('opportunityproduct_related'), App.getView('opportunity_detail'), App.getView('opportunity_list')];
-
       views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
         }
       });
 
-      _connect2.default.publish('/app/refresh', [{
+      _connect["default"].publish('/app/refresh', [{
         resourceKind: this.resourceKind
       }]);
+
       ReUI.back();
     },
     createToolLayout: function createToolLayout() {
@@ -159,16 +149,16 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
             if (App.hasMultiCurrency()) {
               var exhangeRate = App.getBaseExchangeRate();
               var convertedValue = val * exhangeRate.rate;
-              return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
+              return _Format["default"].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
-            return _Format2.default.currency.call(null, val);
+            return _Format["default"].currency.call(null, val);
           }.bindDelegate(this)
         }, {
           label: this.discountText,
           name: 'Discount',
           property: 'Discount',
-          renderer: _Format2.default.percent
+          renderer: _Format["default"].percent
         }, {
           label: this.quantityText,
           name: 'Quantity',
@@ -181,13 +171,13 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
           label: this.adjustedPriceText,
           name: 'CalculatedPrice',
           property: 'CalculatedPrice',
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         });
         details.children.push({
           label: this.extendedPriceText,
           name: 'ExtendedPrice',
           property: 'ExtendedPrice',
-          renderer: _Format2.default.currency
+          renderer: _Format["default"].currency
         });
       }
 
@@ -202,14 +192,13 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
             if (App.hasMultiCurrency()) {
               var exchangeRate = App.getBaseExchangeRate();
               var convertedValue = val * exchangeRate.rate;
-              return _Format2.default.multiCurrency.call(null, convertedValue, exchangeRate.code);
+              return _Format["default"].multiCurrency.call(null, convertedValue, exchangeRate.code);
             }
 
-            return _Format2.default.currency.call(null, val);
+            return _Format["default"].currency.call(null, val);
           }.bindDelegate(this)
         }]
       };
-
       var adjustedPrice = {
         title: this.adjustedPriceSectionText,
         name: 'OpportunityProductAdjustedPriceDetail',
@@ -221,10 +210,10 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
             if (App.hasMultiCurrency()) {
               var exhangeRate = App.getBaseExchangeRate();
               var convertedValue = val * exhangeRate.rate;
-              return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
+              return _Format["default"].multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
-            return _Format2.default.currency.call(null, val);
+            return _Format["default"].currency.call(null, val);
           }.bindDelegate(this)
         }, {
           label: this.myAdjustedPriceText,
@@ -233,11 +222,10 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
           renderer: function renderMyCalculatedPrice(val) {
             var exhangeRate = App.getMyExchangeRate();
             var convertedValue = val * exhangeRate.rate;
-            return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
+            return _Format["default"].multiCurrency.call(null, convertedValue, exhangeRate.code);
           }.bindDelegate(this)
         }]
       };
-
       layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
@@ -250,10 +238,11 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
         layout.push(adjustedPrice);
         layout.push(extendedPrice);
       }
+
       return layout;
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

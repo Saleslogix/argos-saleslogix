@@ -1,45 +1,37 @@
-define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', '../../Models/Names', '../../Utility', 'argos/I18n'], function (module, exports, _declare, _lang, _Format, _Detail, _Names, _Utility, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPInvoices/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "../../Models/Names", "../../Utility", "argos/I18n"], function (_exports, _declare, _lang, _Format, _Detail, _Names, _Utility, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _Utility = _interopRequireDefault(_Utility);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('erpInvoicesDetail');
 
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('erpInvoicesDetail'); /* Copyright 2017 Infor
-                                                            *
-                                                            * Licensed under the Apache License, Version 2.0 (the "License");
-                                                            * you may not use this file except in compliance with the License.
-                                                            * You may obtain a copy of the License at
-                                                            *
-                                                            *    http://www.apache.org/licenses/LICENSE-2.0
-                                                            *
-                                                            * Unless required by applicable law or agreed to in writing, software
-                                                            * distributed under the License is distributed on an "AS IS" BASIS,
-                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                            * See the License for the specific language governing permissions and
-                                                            * limitations under the License.
-                                                            */
-
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvoices.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPInvoices.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     accountText: resource.accountText,
@@ -66,20 +58,18 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
     salesPersonsText: resource.salesPersonsText,
     entityText: resource.entityText,
     documentDateText: resource.documentDateText,
-
     // View Properties
     id: 'invoice_detail',
-    modelName: _Names2.default.ERPINVOICE,
+    modelName: _Names["default"].ERPINVOICE,
     resourceKind: 'erpInvoices',
     enableOffline: true,
-
     callMainPhone: function callMainPhone() {
-      this.recordCallToHistory(_lang2.default.hitch(this, function initiateCall() {
+      this.recordCallToHistory(_lang["default"].hitch(this, function initiateCall() {
         App.initiateCall(this.entry.MainPhone);
       }));
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       var _this = this;
@@ -113,28 +103,28 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           name: 'ErpExtendedBaseAmount',
           property: 'ErpExtendedBaseAmount',
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
           }
         }, {
           label: this.extendedAmountText,
           name: 'ErpExtendedAmount',
           property: 'ErpExtendedAmount',
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.CurrencyCode);
           }
         }, {
           label: this.totalBaseAmountText,
           name: 'ErpTotalBaseAmount',
           property: 'ErpTotalBaseAmount',
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
           }
         }, {
           label: this.totalAmountText,
           name: 'GrandTotal',
           property: 'GrandTotal',
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this.entry.CurrencyCode);
           }
         }, {
           name: 'ErpStatus',
@@ -145,13 +135,13 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           name: 'ErpStatusDate',
           property: 'ErpStatusDate',
           label: this.statusDateText,
-          renderer: _Format2.default.date.bindDelegate(this, null, true)
+          renderer: _Format["default"].date.bindDelegate(this, null, true)
         }, {
           name: 'ErpDocumentDate',
           property: 'ErpDocumentDate',
           label: this.documentDateText,
           renderer: function renderer(data) {
-            return _Format2.default.date(data);
+            return _Format["default"].date(data);
           }
         }, {
           name: 'ErpPaymentTermId',
@@ -177,7 +167,7 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           label: this.addressText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.address(val);
+              return _Format["default"].address(val);
             }
           }
         }]
@@ -200,7 +190,7 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           label: this.addressText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.address(val);
+              return _Format["default"].address(val);
             }
           }
         }]
@@ -223,7 +213,8 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPInvoices.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPInvoices.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

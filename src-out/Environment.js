@@ -1,21 +1,14 @@
-define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/sniff'], function (module, exports, _lang) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Environment", ["exports", "dojo/_base/lang", "dojo/_base/sniff"], function (_exports, _lang, _sniff) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  /**
-   * @class
-   * @alias module:crm/Environment
-   * @static
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +27,15 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
   /**
   * @module crm/Environment
   */
-  var __class = _lang2.default.setObject('crm.Environment', /** @lends module:crm/Environment */{
+
+  /**
+   * @class
+   * @alias module:crm/Environment
+   * @static
+   */
+  var __class = _lang["default"].setObject('crm.Environment',
+  /** @lends module:crm/Environment */
+  {
     /**
      * @param {string} number
      */
@@ -43,18 +44,19 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
       // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
       // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
       setTimeout(function () {
-        window.location.href = 'tel:' + number;
+        window.location.href = "tel:".concat(number);
       }, 500);
     },
     initiateEmail: function initiateEmail(email, subject, body) {
       setTimeout(function () {
-        var mailtoUri = subject ? 'mailto:' + email + '?subject=' + subject + '&body=' + (body || '') : 'mailto:' + email;
+        var mailtoUri = subject ? "mailto:".concat(email, "?subject=").concat(subject, "&body=").concat(body || '') : "mailto:".concat(email);
         window.location.href = mailtoUri;
       }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
     },
     showMapForAddress: function showMapForAddress(address) {
-      var href = window.location.protocol + '//maps.google.com/maps?output=embed&q=' + address;
+      var href = "".concat(window.location.protocol, "//maps.google.com/maps?output=embed&q=").concat(address);
       var view = App.getView('link_view');
+
       if (view) {
         view.show({
           link: href,
@@ -83,6 +85,7 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
       if (views && views.length > 0) {
         views.forEach(function (viewId) {
           var view = App.getView(viewId);
+
           if (view) {
             view.refreshRequired = true;
           }
@@ -91,6 +94,6 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

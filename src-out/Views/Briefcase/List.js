@@ -1,48 +1,39 @@
-define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', 'argos/_ListBase', 'dojo/_base/lang', '../../Format', 'argos/Models/Types', 'argos/Offline/Manager', '../Offline/Detail', 'argos/Offline/_ListOfflineMixin', 'argos/I18n'], function (module, exports, _declare, _ListBase2, _lang, _Format, _Types, _Manager, _Detail, _ListOfflineMixin2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Briefcase/List", ["exports", "dojo/_base/declare", "argos/_ListBase", "dojo/_base/lang", "../../Format", "argos/Models/Types", "argos/Offline/Manager", "../Offline/Detail", "argos/Offline/_ListOfflineMixin", "argos/I18n"], function (_exports, _declare, _ListBase2, _lang, _Format, _Types, _Manager, _Detail, _ListOfflineMixin2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ListBase2 = _interopRequireDefault(_ListBase2);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Types = _interopRequireDefault(_Types);
+  _Manager = _interopRequireDefault(_Manager);
+  _Detail = _interopRequireDefault(_Detail);
+  _ListOfflineMixin2 = _interopRequireDefault(_ListOfflineMixin2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _ListBase3 = _interopRequireDefault(_ListBase2);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('briefcaseList');
 
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Manager2 = _interopRequireDefault(_Manager);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _ListOfflineMixin3 = _interopRequireDefault(_ListOfflineMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('briefcaseList'); /* Copyright 2017 Infor
-                                                        *
-                                                        * Licensed under the Apache License, Version 2.0 (the "License");
-                                                        * you may not use this file except in compliance with the License.
-                                                        * You may obtain a copy of the License at
-                                                        *
-                                                        *    http://www.apache.org/licenses/LICENSE-2.0
-                                                        *
-                                                        * Unless required by applicable law or agreed to in writing, software
-                                                        * distributed under the License is distributed on an "AS IS" BASIS,
-                                                        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                        * See the License for the specific language governing permissions and
-                                                        * limitations under the License.
-                                                        */
-
-  exports.default = (0, _declare2.default)('crm.Views.Briefcase', [_ListBase3.default, _ListOfflineMixin3.default], {
+  var _default = (0, _declare["default"])('crm.Views.Briefcase', [_ListBase2["default"], _ListOfflineMixin2["default"]], {
     id: 'briefcase_list',
     idProperty: 'id',
     detailView: 'offline_detail',
@@ -60,7 +51,7 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return true;
     },
     getModel: function getModel() {
-      var model = App.ModelManager.getModel('Briefcase', _Types2.default.OFFLINE);
+      var model = App.ModelManager.getModel('Briefcase', _Types["default"].OFFLINE);
       return model;
     },
     getTitle: function getTitle(entry) {
@@ -68,8 +59,9 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
     },
     getOfflineDate: function getOfflineDate(entry) {
       if (entry && entry.modifyDate) {
-        return _Format2.default.relativeDate(entry.modifyDate);
+        return _Format["default"].relativeDate(entry.modifyDate);
       }
+
       return '';
     },
     _hasValidOptions: function _hasValidOptions(options) {
@@ -91,11 +83,13 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return [];
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var iconClass = void 0;
+      var iconClass;
       iconClass = entry.iconClass;
+
       if (!iconClass) {
         iconClass = 'url';
       }
+
       return iconClass;
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
@@ -104,16 +98,16 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
     },
     navigateToOnlineDetailView: function navigateToDetailView(entry, additionalOptions) {
       var view = this.app.getView(entry.viewId);
-
       var options = {
-        descriptor: entry.description, // keep for backwards compat
+        descriptor: entry.description,
+        // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
         fromContext: this
       };
 
       if (additionalOptions) {
-        options = _lang2.default.mixin(options, additionalOptions);
+        options = _lang["default"].mixin(options, additionalOptions);
       }
 
       if (view) {
@@ -123,7 +117,8 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
     navigateToOfflineDetailView: function navigateToOfflineDetailView(entry, additionalOptions) {
       var view = this.getDetailView(entry.entityName);
       var options = {
-        descriptor: entry.description, // keep for backwards compat
+        descriptor: entry.description,
+        // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
         fromContext: this,
@@ -134,8 +129,9 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
           source: entry
         }
       };
+
       if (additionalOptions) {
-        options = _lang2.default.mixin(options, additionalOptions);
+        options = _lang["default"].mixin(options, additionalOptions);
       }
 
       if (view) {
@@ -143,14 +139,16 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     getDetailView: function getDetailView(entityName) {
-      var viewId = this.detailView + '_' + entityName;
+      var viewId = "".concat(this.detailView, "_").concat(entityName);
       var view = this.app.getView(viewId);
 
       if (view) {
         return view;
       }
 
-      this.app.registerView(new _Detail2.default({ id: viewId }));
+      this.app.registerView(new _Detail["default"]({
+        id: viewId
+      }));
       view = this.app.getView(viewId);
       return view;
     },
@@ -192,9 +190,12 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
 
       // eslint-disable-line
       var briefcaseId = selection.tag.attributes['data-key'].value;
-      _Manager2.default.removeBriefcase(briefcaseId).then(function () {
+
+      _Manager["default"].removeBriefcase(briefcaseId).then(function () {
         _this.clear();
+
         _this.refreshRequired = true;
+
         _this.refresh();
       }, function (error) {
         console.error(error); // eslint-disable-line
@@ -204,6 +205,7 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       // eslint-disable-line
       var briefcaseId = selection.tag.attributes['data-key'].value;
       var briefcase = this.entries[briefcaseId];
+
       if (briefcase) {
         this.briefCaseItem(briefcase);
       }
@@ -229,5 +231,6 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return !App.enableOfflineSupport;
     }
   });
-  module.exports = exports['default'];
+
+  _exports["default"] = _default;
 });

@@ -1,33 +1,22 @@
-define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '../../Action', 'argos/Utility', 'argos/List', '../_GroupListMixin', '../_MetricListMixin', '../_RightDrawerListMixin', '../../Models/Names', '../../Models/Activity/ActivityTypeText', 'argos/I18n'], function (module, exports, _declare, _Action, _Utility, _List, _GroupListMixin2, _MetricListMixin2, _RightDrawerListMixin2, _Names, _ActivityTypeText, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Account/List", ["exports", "dojo/_base/declare", "../../Action", "argos/Utility", "argos/List", "../_GroupListMixin", "../_MetricListMixin", "../_RightDrawerListMixin", "../../Models/Names", "../../Models/Activity/ActivityTypeText", "argos/I18n"], function (_exports, _declare, _Action, _Utility, _List, _GroupListMixin2, _MetricListMixin2, _RightDrawerListMixin2, _Names, _ActivityTypeText, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Action = _interopRequireDefault(_Action);
+  _Utility = _interopRequireDefault(_Utility);
+  _List = _interopRequireDefault(_List);
+  _GroupListMixin2 = _interopRequireDefault(_GroupListMixin2);
+  _MetricListMixin2 = _interopRequireDefault(_MetricListMixin2);
+  _RightDrawerListMixin2 = _interopRequireDefault(_RightDrawerListMixin2);
+  _Names = _interopRequireDefault(_Names);
+  _ActivityTypeText = _interopRequireDefault(_ActivityTypeText);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Action2 = _interopRequireDefault(_Action);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _GroupListMixin3 = _interopRequireDefault(_GroupListMixin2);
-
-  var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
-
-  var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _ActivityTypeText2 = _interopRequireDefault(_ActivityTypeText);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -43,21 +32,18 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('accountList');
 
-  var resource = (0, _I18n2.default)('accountList');
-
-  var __class = (0, _declare2.default)('crm.Views.Account.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Account.List', [_List["default"], _RightDrawerListMixin2["default"], _MetricListMixin2["default"], _GroupListMixin2["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.Industry %}</p>', '<p class="micro-text">', '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}', '</p>', '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}', '{% if ($.Owner && $.Owner.OwnerDescription) { %} | {%: $.Owner.OwnerDescription %}{% } %}</p>', '<p class="micro-text">{%: $.WebAddress %}</p>', '{% if ($.MainPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
     '</p>', '{% } %}', '{% if ($.Fax) { %}', '<p class="micro-text">', '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}', // TODO: Avoid global
     '</p>', '{% } %}']),
     groupsEnabled: true,
     enableDynamicGroupLayout: true,
-
     joinFields: function joinFields(sep, fields) {
-      return _Utility2.default.joinFields(sep, fields);
+      return _Utility["default"].joinFields(sep, fields);
     },
-
     // Localization
     titleText: resource.titleText,
     activitiesText: resource.titleText,
@@ -72,10 +58,10 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
     phoneAbbreviationText: resource.phoneAbbreviationText,
     faxAbbreviationText: resource.faxAbbreviationText,
     offlineText: resource.offlineText,
-
     // View Properties
     detailView: 'account_detail',
-    itemIconClass: 'spreadsheet', // todo: replace with appropriate icon
+    itemIconClass: 'spreadsheet',
+    // todo: replace with appropriate icon
     id: 'account_list',
     security: 'Entities/Account/View',
     insertView: 'account_edit',
@@ -85,8 +71,7 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
     enableActions: true,
     offlineIds: null,
     resourceKind: 'accounts',
-    modelName: _Names2.default.ACCOUNT,
-
+    modelName: _Names["default"].ACCOUNT,
     callMain: function callMain(params) {
       this.invokeActionItemBy(function (a) {
         return a.id === 'callMain';
@@ -103,8 +88,8 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
         id: 'callMain',
         cls: 'phone',
         label: this.callMainActionText,
-        enabled: _Action2.default.hasProperty.bindDelegate(this, 'MainPhone'),
-        fn: _Action2.default.callPhone.bindDelegate(this, 'MainPhone', _ActivityTypeText2.default.atPhoneCall)
+        enabled: _Action["default"].hasProperty.bindDelegate(this, 'MainPhone'),
+        fn: _Action["default"].callPhone.bindDelegate(this, 'MainPhone', _ActivityTypeText["default"].atPhoneCall)
       }, {
         id: 'viewContacts',
         label: this.viewContactsActionText,
@@ -113,25 +98,25 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
         id: 'addNote',
         cls: 'quick-edit',
         label: this.addNoteActionText,
-        fn: _Action2.default.addNote.bindDelegate(this)
+        fn: _Action["default"].addNote.bindDelegate(this)
       }, {
         id: 'addActivity',
         cls: 'calendar',
         label: this.addActivityActionText,
-        fn: _Action2.default.addActivity.bindDelegate(this)
+        fn: _Action["default"].addActivity.bindDelegate(this)
       }, {
         id: 'addAttachment',
         cls: 'attach',
         label: this.addAttachmentActionText,
-        fn: _Action2.default.addAttachment.bindDelegate(this)
+        fn: _Action["default"].addAttachment.bindDelegate(this)
       }]);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'AccountNameUpper like "' + q + '%"';
+      return "AccountNameUpper like \"".concat(q, "%\"");
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

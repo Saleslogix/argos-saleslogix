@@ -1,46 +1,26 @@
-define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', 'argos/ErrorManager', 'argos/Convert', 'argos/List', 'argos/_LegacySDataListMixin', 'argos/I18n', '../../Models/Activity/ActivityTypeIcon'], function (module, exports, _declare, _string, _ErrorManager, _Convert, _List, _LegacySDataListMixin2, _I18n, _ActivityTypeIcon) {
-  Object.defineProperty(exports, "__esModule", {
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+define("crm/Views/Calendar/WeekView", ["exports", "dojo/_base/declare", "dojo/string", "argos/ErrorManager", "argos/Convert", "argos/List", "argos/_LegacySDataListMixin", "argos/I18n", "../../Models/Activity/ActivityTypeIcon"], function (_exports, _declare, _string, _ErrorManager, _Convert, _List, _LegacySDataListMixin2, _I18n, activityTypeIcons) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _Convert = _interopRequireDefault(_Convert);
+  _List = _interopRequireDefault(_List);
+  _LegacySDataListMixin2 = _interopRequireDefault(_LegacySDataListMixin2);
+  _I18n = _interopRequireDefault(_I18n);
+  activityTypeIcons = _interopRequireWildcard(activityTypeIcons);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-  var _string2 = _interopRequireDefault(_string);
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _LegacySDataListMixin3 = _interopRequireDefault(_LegacySDataListMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var activityTypeIcons = _interopRequireWildcard(_ActivityTypeIcon);
-
-  function _interopRequireWildcard(obj) {
-    if (obj && obj.__esModule) {
-      return obj;
-    } else {
-      var newObj = {};
-
-      if (obj != null) {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-        }
-      }
-
-      newObj.default = obj;
-      return newObj;
-    }
-  }
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -56,11 +36,10 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('calendarWeekView');
+  var dtFormatResource = (0, _I18n["default"])('calendarWeekViewDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('calendarWeekView');
-  var dtFormatResource = (0, _I18n2.default)('calendarWeekViewDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Calendar.WeekView', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Calendar.WeekView', [_List["default"], _LegacySDataListMixin2["default"]], {
     // Localization
     titleText: resource.titleText,
     weekTitleFormatText: dtFormatResource.weekTitleFormatText,
@@ -77,11 +56,9 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     eventHeaderText: resource.eventHeaderText,
     eventMoreText: resource.eventMoreText,
     toggleCollapseText: resource.toggleCollapseText,
-
     toggleCollapseClass: 'fa fa-chevron-down',
     toggleExpandClass: 'fa fa-chevron-right',
     enablePullToRefresh: false,
-
     // Templates
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '<div data-dojo-attach-point="searchNode"></div>', '{%! $.navigationTemplate %}', '<div style="clear:both"></div>', '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">', '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>', '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>', '{%! $.eventMoreTemplate %}', '</div>', '<div class="list-content" data-dojo-attach-point="contentNode"></div>', '{%! $.moreTemplate %}', '</div>']),
     navigationTemplate: new Simplate(['<div class="split-buttons">', '<button data-tool="today" data-action="getThisWeekActivities" class="button">{%: $.todayText %}</button>', '<button data-tool="selectdate" data-action="selectDate" class="button fa fa-calendar"><span></span></button>', '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>', '<button data-tool="week" class="button current">{%: $.weekText %}</button>', '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>', '</div>', '<div class="nav-bar">', '<button data-tool="next" data-action="getNextWeekActivities" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>', '<button data-tool="prev" data-action="getPrevWeekActivities" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>', '<h4 class="date-text" data-dojo-attach-point="dateNode"></h4>', '</div>']),
@@ -120,7 +97,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
         type: 'innerHTML'
       }
     },
-
     // View Properties
     id: 'calendar_weeklist',
     cls: 'list activities-for-week',
@@ -138,20 +114,19 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     weekEndDate: null,
     todayDate: null,
     continuousScrolling: false,
-
     queryWhere: null,
     queryOrderBy: 'StartDate desc',
     querySelect: ['Description', 'StartDate', 'Type', 'AccountName', 'ContactName', 'LeadId', 'LeadName', 'UserId', 'Timeless'],
     eventQuerySelect: ['StartDate', 'EndDate', 'Description', 'Type'],
-    activityTypeIcon: activityTypeIcons.default,
-
+    activityTypeIcon: activityTypeIcons["default"],
     contractName: 'system',
-    pageSize: 105, // gives 15 activities per day
+    pageSize: 105,
+    // gives 15 activities per day
     eventPageSize: 5,
     resourceKind: 'activities',
-
     _onRefresh: function _onRefresh(o) {
       this.inherited(_onRefresh, arguments);
+
       if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
         this.refreshRequired = true;
       }
@@ -163,10 +138,10 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     },
     toggleGroup: function toggleGroup(params) {
       var node = params.$source;
+
       if (node && node.parentNode) {
         $(node).toggleClass('collapsed');
         $(node.parentNode).toggleClass('collapsed-event');
-
         var button = this.collapseButton;
 
         if (button) {
@@ -207,30 +182,27 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       var setDate = this.currentDate || this.todayDate;
       this.weekStartDate = this.getStartDay(setDate);
       this.weekEndDate = this.getEndDay(setDate);
-      this.queryWhere = _string2.default.substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join(''), [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(this.weekStartDate.toDate()), _Convert2.default.toIsoStringFromDate(this.weekEndDate.toDate()), this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      this.queryWhere = _string["default"].substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join(''), [App.context.user && App.context.user.$key, _Convert["default"].toIsoStringFromDate(this.weekStartDate.toDate()), _Convert["default"].toIsoStringFromDate(this.weekEndDate.toDate()), this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     setWeekTitle: function setWeekTitle() {
       var start = this.getStartDay(this.currentDate);
       var end = this.getEndDay(this.currentDate);
-
-      this.set('dateContent', start.format(this.weekTitleFormatText) + '-' + end.format(this.weekTitleFormatText));
+      this.set('dateContent', "".concat(start.format(this.weekTitleFormatText), "-").concat(end.format(this.weekTitleFormatText)));
     },
     isInCurrentWeek: function isInCurrentWeek(date) {
       return date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf();
     },
     processFeed: function processFeed(feed) {
       this.feed = feed;
-
       var todayNode = this.addTodayDom();
       var entryGroups = this.entryGroups;
       var feedLength = feed.$resources.length;
       var entryOrder = [];
       var dateCompareString = 'YYYY-MM-DD';
       var o = [];
-      this.set('listContent', '');
-
-      // If we fetched a page that has no data due to un-reliable counts,
+      this.set('listContent', ''); // If we fetched a page that has no data due to un-reliable counts,
       // check if we fetched anything in the previous pages before assuming there is no data.
+
       if (feedLength === 0 && Object.keys(this.entries).length === 0) {
         $(this.contentNode).append(this.noDataTemplate.apply(this));
       } else if (feed.$resources) {
@@ -240,24 +212,29 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
 
         for (var i = 0; i < feed.$resources.length; i++) {
           var currentEntry = feed.$resources[i];
-          var startDate = _Convert2.default.toDateFromString(currentEntry.StartDate);
+
+          var startDate = _Convert["default"].toDateFromString(currentEntry.StartDate);
+
           if (currentEntry.Timeless) {
             startDate = this.dateToUTC(startDate);
           }
+
           currentEntry.StartDate = startDate;
           currentEntry.isEvent = false;
           this.entries[currentEntry.$key] = currentEntry;
-
           var currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
           var currentGroup = entryGroups[currentDateCompareKey];
+
           if (currentGroup) {
             if (currentEntry.Timeless) {
               currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
             } else {
               currentGroup.push(this.rowTemplate.apply(currentEntry, this));
             }
+
             continue;
           }
+
           currentGroup = [this.groupTemplate.apply(currentEntry, this)];
           currentGroup.push(this.rowTemplate.apply(currentEntry, this));
           entryGroups[currentDateCompareKey] = currentGroup;
@@ -278,8 +255,8 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
 
           return 0;
         });
-
         var entryOrderLength = entryOrder.length;
+
         for (var _i = 0; _i < entryOrderLength; _i++) {
           o.push(entryGroups[entryOrder[_i].format(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
         }
@@ -292,6 +269,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.set('remainingContent', ''); // Feed does not return reliable data, don't show remaining
 
       $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
+
       this._loadPreviousSelections();
     },
     addTodayDom: function addTodayDom() {
@@ -303,7 +281,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
         StartDate: this.todayDate.toDate(),
         headerClass: 'currentDate'
       };
-
       return this.groupTemplate.apply(todayEntry, this);
     },
     dateToUTC: function dateToUTC(date) {
@@ -319,8 +296,9 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       });
     },
     onRequestEventDataFailure: function onRequestEventDataFailure(response, o) {
-      alert(_string2.default.substitute(this.requestErrorText, [response, o])); // eslint-disable-line
-      _ErrorManager2.default.addError(response, o, this.options, 'failure');
+      alert(_string["default"].substitute(this.requestErrorText, [response, o])); // eslint-disable-line
+
+      _ErrorManager["default"].addError(response, o, this.options, 'failure');
     },
     onRequestEventDataAborted: function onRequestEventDataAborted() {
       this.options = false; // force a refresh
@@ -337,7 +315,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     getEventQuery: function getEventQuery() {
       var startDate = this.weekStartDate;
       var endDate = this.weekEndDate;
-      return _string2.default.substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
+      return _string["default"].substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     hideEventList: function hideEventList() {
       $(this.eventContainerNode).addClass('event-hidden');
@@ -359,15 +337,15 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       for (var i = 0; i < feedLength; i++) {
         var event = feed.$resources[i];
         event.isEvent = true;
-        event.StartDate = moment(_Convert2.default.toDateFromString(event.StartDate));
-        event.EndDate = moment(_Convert2.default.toDateFromString(event.EndDate));
+        event.StartDate = moment(_Convert["default"].toDateFromString(event.StartDate));
+        event.EndDate = moment(_Convert["default"].toDateFromString(event.EndDate));
         this.entries[event.$key] = event;
         o.push(this.eventRowTemplate.apply(event, this));
       }
 
       if (feed.$totalResults > feedLength) {
         $(this.eventContainerNode).addClass('list-has-more');
-        this.set('eventRemainingContent', _string2.default.substitute(this.eventMoreText, [feed.$totalResults - feedLength]));
+        this.set('eventRemainingContent', _string["default"].substitute(this.eventMoreText, [feed.$totalResults - feedLength]));
       } else {
         $(this.eventContainerNode).removeClass('list-has-more');
         $(this.eventRemainingContentNode).empty();
@@ -382,7 +360,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.weekEndDate = this.getEndDay(startDate);
       this.setWeekTitle();
       this.setWeekQuery();
-
       this.clear();
       this.requestData();
       this.requestEventData();
@@ -403,6 +380,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     activateEventMore: function activateEventMore() {
       var view = App.getView('event_related');
       var where = this.getEventQuery();
+
       if (view) {
         view.show({
           where: where
@@ -418,7 +396,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     selectEntry: function selectEntry(params) {
       var row = $(params.$source).closest('[data-key]')[0];
       var key = row ? row.getAttribute('data-key') : false;
-
       this.navigateToDetailView(key);
     },
     selectDate: function selectDate() {
@@ -442,6 +419,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
         }
       };
       var view = App.getView(this.datePickerView);
+
       if (view) {
         view.show(options);
       }
@@ -468,8 +446,8 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     },
     navigateToInsertView: function navigateToInsertView() {
       var view = App.getView(this.insertView || this.editView);
-
       this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || moment().startOf('day');
+
       if (view) {
         view.show({
           negateHistory: true,
@@ -483,7 +461,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       var entry = this.entries[key];
       var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
       var view = App.getView(detailView);
-
       var theDescriptor = entry.isEvent ? descriptor : entry.Description;
 
       if (view) {
@@ -495,6 +472,6 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

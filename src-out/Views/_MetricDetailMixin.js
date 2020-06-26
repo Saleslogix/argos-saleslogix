@@ -1,26 +1,15 @@
-define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare', './MetricWidget'], function (module, exports, _declare, _MetricWidget) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/_MetricDetailMixin", ["exports", "dojo/_base/declare", "./MetricWidget"], function (_exports, _declare, _MetricWidget) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _MetricWidget = _interopRequireDefault(_MetricWidget);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _MetricWidget2 = _interopRequireDefault(_MetricWidget);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  /**
-   * @class
-   * @alias module:crm/Views/_MetricDetailMixin
-   * @mixin
-   * @classdesc Mixin for adding KPI widgets to detail views.
-   * @since 3.0
-   *
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,12 +28,22 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
   /**
    * @module crm/Views/_MetricDetailMixin
    */
-  var __class = (0, _declare2.default)('crm.Views._MetricDetailMixin', null, /** @lends module:crm/Views/_MetricDetailMixin.prototype */{
+
+  /**
+   * @class
+   * @alias module:crm/Views/_MetricDetailMixin
+   * @mixin
+   * @classdesc Mixin for adding KPI widgets to detail views.
+   * @since 3.0
+   *
+   */
+  var __class = (0, _declare["default"])('crm.Views._MetricDetailMixin', null,
+  /** @lends module:crm/Views/_MetricDetailMixin.prototype */
+  {
     // Metrics
     metricNode: null,
     metricWidgets: null,
     entityName: '',
-
     postMixInProperties: function postMixInProperties() {
       this.widgetTemplate = new Simplate(['<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '{%! $.loadingTemplate %}', '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>', '<div class="panel-content" data-dojo-attach-point="contentNode"></div>', '</div>']);
     },
@@ -67,15 +66,15 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
       var _this = this;
 
       this.destroyWidgets();
-      this.metricWidgets = [];
+      this.metricWidgets = []; // Create metrics widgets and place them in the metricNode
 
-      // Create metrics widgets and place them in the metricNode
       var widgetOptions = this.createMetricWidgetsLayout(entry) || [];
       widgetOptions.forEach(function (options) {
         if (_this.hasValidOptions(options)) {
-          var widget = new _MetricWidget2.default(options);
+          var widget = new _MetricWidget["default"](options);
           widget.placeAt(_this.metricNode, 'last');
           widget.requestData();
+
           _this.metricWidgets.push(widget);
         }
       }, this);
@@ -85,6 +84,6 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

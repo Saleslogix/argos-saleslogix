@@ -1,50 +1,28 @@
-define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '../../Format', 'argos/Convert', '../../Action', 'argos/List', '../_RightDrawerListMixin', '../_MetricListMixin', 'argos/I18n', '../../Models/Activity/ActivityTypeIcon', '../../Models/Names'], function (module, exports, _declare, _Format, _Convert, _Action, _List, _RightDrawerListMixin2, _MetricListMixin2, _I18n, _ActivityTypeIcon, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+define("crm/Views/History/List", ["exports", "dojo/_base/declare", "../../Format", "argos/Convert", "../../Action", "argos/List", "../_RightDrawerListMixin", "../_MetricListMixin", "argos/I18n", "../../Models/Activity/ActivityTypeIcon", "../../Models/Names"], function (_exports, _declare, _Format, _Convert, _Action, _List, _RightDrawerListMixin2, _MetricListMixin2, _I18n, activityTypeIcons, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Convert = _interopRequireDefault(_Convert);
+  _Action = _interopRequireDefault(_Action);
+  _List = _interopRequireDefault(_List);
+  _RightDrawerListMixin2 = _interopRequireDefault(_RightDrawerListMixin2);
+  _MetricListMixin2 = _interopRequireDefault(_MetricListMixin2);
+  _I18n = _interopRequireDefault(_I18n);
+  activityTypeIcons = _interopRequireWildcard(activityTypeIcons);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-  var _Convert2 = _interopRequireDefault(_Convert);
-
-  var _Action2 = _interopRequireDefault(_Action);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
-
-  var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var activityTypeIcons = _interopRequireWildcard(_ActivityTypeIcon);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireWildcard(obj) {
-    if (obj && obj.__esModule) {
-      return obj;
-    } else {
-      var newObj = {};
-
-      if (obj != null) {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-        }
-      }
-
-      newObj.default = obj;
-      return newObj;
-    }
-  }
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -60,18 +38,16 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('historyList');
+  var activityTypeResource = (0, _I18n["default"])('activityTypeText');
+  var hashTagResource = (0, _I18n["default"])('historyListHashTags');
+  var dtFormatResource = (0, _I18n["default"])('historyListDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('historyList');
-  var activityTypeResource = (0, _I18n2.default)('activityTypeText');
-  var hashTagResource = (0, _I18n2.default)('historyListHashTags');
-  var dtFormatResource = (0, _I18n2.default)('historyListDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.History.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
-    format: _Format2.default,
+  var __class = (0, _declare["default"])('crm.Views.History.List', [_List["default"], _RightDrawerListMixin2["default"], _MetricListMixin2["default"]], {
+    format: _Format["default"],
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">', '{% if ($.Type === "atNote") { %}', '{%: $$.formatDate($.ModifyDate) %}', '{% } else { %}', '{%: $$.formatDate($.CompletedDate) %}', '{% } %}', '</p>', '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>', '{% if($.Description) { %}', '<p class="micro-text">{%= $$.regardingText + $$.formatPicklist("Description")($.Description) %}</p>', '{% } %}', '<div class="note-text-item">', '<div class="note-text-wrap">', '{%: $.Notes %}', '</div>', '</div>']),
     nameTemplate: new Simplate(['{% if ($.LeadName && $.AccountName) { %}', '{%: $.LeadName %} | {%: $.AccountName %}', '{% } else if ($.LeadName) { %}', '{%: $.LeadName %}', '{% } else if ($.ContactName && $.AccountName) { %}', '{%: $.ContactName %} | {%: $.AccountName %}', '{% } else if ($.ContactName) { %}', '{%: $.ContactName %}', '{% } else { %}', '{%: $.AccountName %}', '{% } %}']),
-
     // Localization
     hourMinuteFormatText: dtFormatResource.hourMinuteFormatText,
     hourMinuteFormatText24: dtFormatResource.hourMinuteFormatText24,
@@ -101,12 +77,12 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       personal: hashTagResource.personalHash,
       email: hashTagResource.emailHash
     },
-
     // View Properties
     detailView: 'history_detail',
     itemIconClass: 'folder',
     id: 'history_list',
-    security: null, // 'Entities/History/View',
+    security: null,
+    // 'Entities/History/View',
     existsRE: /^[\w]{12}$/,
     insertView: 'history_edit',
     queryOrderBy: null,
@@ -116,7 +92,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     entityName: 'History',
     hashTagQueries: {
       'my-history': function myHistory() {
-        return 'UserId eq "' + App.context.user.$key + '"';
+        return "UserId eq \"".concat(App.context.user.$key, "\"");
       },
       note: 'Type eq "atNote"',
       phonecall: 'Type eq "atPhoneCall"',
@@ -124,17 +100,16 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       personal: 'Type eq "atPersonal"',
       email: 'Type eq "atEMail"'
     },
-    activityTypeIcon: activityTypeIcons.default,
+    activityTypeIcon: activityTypeIcons["default"],
     allowSelection: true,
     enableActions: true,
-    modelName: _Names2.default.HISTORY,
-
+    modelName: _Names["default"].HISTORY,
     createActionLayout: function createActionLayout() {
       return this.actions || (this.actions = [{
         id: 'viewAccount',
         label: this.viewAccountActionText,
-        enabled: _Action2.default.hasProperty.bindDelegate(this, 'AccountId'),
-        fn: _Action2.default.navigateToEntity.bindDelegate(this, {
+        enabled: _Action["default"].hasProperty.bindDelegate(this, 'AccountId'),
+        fn: _Action["default"].navigateToEntity.bindDelegate(this, {
           view: 'account_detail',
           keyProperty: 'AccountId',
           textProperty: 'AccountName'
@@ -142,8 +117,8 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       }, {
         id: 'viewOpportunity',
         label: this.viewOpportunityActionText,
-        enabled: _Action2.default.hasProperty.bindDelegate(this, 'OpportunityId'),
-        fn: _Action2.default.navigateToEntity.bindDelegate(this, {
+        enabled: _Action["default"].hasProperty.bindDelegate(this, 'OpportunityId'),
+        fn: _Action["default"].navigateToEntity.bindDelegate(this, {
           view: 'opportunity_detail',
           keyProperty: 'OpportunityId',
           textProperty: 'OpportunityName'
@@ -157,7 +132,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
         id: 'addAttachment',
         cls: 'attach',
         label: this.addAttachmentActionText,
-        fn: _Action2.default.addAttachment.bindDelegate(this)
+        fn: _Action["default"].addAttachment.bindDelegate(this)
       }]);
     },
     hasContactOrLead: function hasContactOrLead(theAction, selection) {
@@ -165,8 +140,8 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     },
     navigateToContactOrLead: function navigateToContactOrLead(theAction, selection) {
       var entity = this.resolveContactOrLeadEntity(selection.data);
-      var viewId = void 0;
-      var options = void 0;
+      var viewId;
+      var options;
 
       switch (entity) {
         case 'Contact':
@@ -176,6 +151,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
             descriptor: selection.data.ContactName
           };
           break;
+
         case 'Lead':
           viewId = 'lead_detail';
           options = {
@@ -183,6 +159,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
             descriptor: selection.data.LeadName
           };
           break;
+
         default:
       }
 
@@ -199,13 +176,14 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
         if (exists.test(entry.LeadId)) {
           return 'Lead';
         }
+
         if (exists.test(entry.ContactId)) {
           return 'Contact';
         }
       }
     },
     formatDate: function formatDate(date) {
-      var startDate = moment(_Convert2.default.toDateFromString(date));
+      var startDate = moment(_Convert["default"].toDateFromString(date));
       var nextDate = startDate.clone().add({
         hours: 24
       });
@@ -215,13 +193,13 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
         fmt = App.is24HourClock() ? this.hourMinuteFormatText24 : this.hourMinuteFormatText;
       }
 
-      return _Format2.default.date(startDate.toDate(), fmt);
+      return _Format["default"].date(startDate.toDate(), fmt);
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return 'upper(Description) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
+      return "upper(Description) like \"%".concat(this.escapeSearchQuery(searchQuery.toUpperCase()), "%\"");
     },
     createIndicatorLayout: function createIndicatorLayout() {
       return this.itemIndicators || (this.itemIndicators = [{
@@ -235,12 +213,12 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     },
     hasBeenTouched: function hasBeenTouched(entry) {
       if (entry.ModifyDate) {
-        var modifiedDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
+        var modifiedDate = moment(_Convert["default"].toDateFromString(entry.ModifyDate));
         var currentDate = moment().endOf('day');
         var weekAgo = moment().subtract(1, 'weeks');
-
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
+
       return false;
     },
     getItemIconClass: function getItemIconClass(entry) {
@@ -253,9 +231,11 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     },
     _getItemIconClass: function _getItemIconClass(type) {
       var cls = this.activityTypeIcon[type];
+
       if (!cls) {
         cls = this.itemIconClass;
       }
+
       return cls;
     },
     init: function init() {
@@ -263,6 +243,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     },
     activateEntry: function activateEntry(params) {
       var entry = this.entries[params.key];
+
       if (entry) {
         var activityParams = params;
         activityParams.descriptor = this.getTitle(entry);
@@ -273,6 +254,6 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,41 +1,39 @@
-define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/declare', 'argos/I18n'], function (module, exports, _lang, _declare, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/FileManager", ["exports", "dojo/_base/lang", "dojo/_base/declare", "argos/I18n"], function (_exports, _lang, _declare, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _declare = _interopRequireDefault(_declare);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('fileManager'); /* Copyright 2017 Infor
-                                                      *
-                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                      * you may not use this file except in compliance with the License.
-                                                      * You may obtain a copy of the License at
-                                                      *
-                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                      *
-                                                      * Unless required by applicable law or agreed to in writing, software
-                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                      * See the License for the specific language governing permissions and
-                                                      * limitations under the License.
-                                                      */
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
 
   /**
   * @module crm/FileManager
   */
+  var resource = (0, _I18n["default"])('fileManager');
 
-
-  var __class = (0, _declare2.default)('crm.FileManager', null, /** @lends module:crm/FileManager.prototype */{
+  var __class = (0, _declare["default"])('crm.FileManager', null,
+  /** @lends module:crm/FileManager.prototype */
+  {
     unableToUploadText: resource.unableToUploadText,
     unknownSizeText: resource.unknownSizeText,
     unknownErrorText: resource.unknownErrorText,
@@ -60,6 +58,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       this._files = [];
       this.fileUploadOptions.maxFileSize = App.maxUploadFileSize;
     },
+
     /**
      * Checks the {@link crm.Application}'s maxFileSize to determine
      * if the file size being added exeeds this limit.
@@ -84,6 +83,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
 
       return true;
     },
+
     /**
      * Uploads a file to a URL.
      * @param {File} file
@@ -103,8 +103,10 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     uploadFileHTML5: function uploadFileHTML5(file, url, progress, complete, error, scope, asPut) {
       if (!this.isFileSizeAllowed([file])) {
         this._onUnableToUploadError(this.largeFileWarningText, error);
+
         return;
       }
+
       if (App.supportsFileAPI()) {
         this._uploadFileHTML5_asBinary(file, url, progress, complete, error, scope, asPut);
       } else {
@@ -117,6 +119,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       var request = new XMLHttpRequest();
       var service = App.getService();
       window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
+
       if (!url) {
         // assume Attachment SData url
         url = 'slxdata.ashx/slx/system/-/attachments/file'; // TODO: Remove this assumption from SDK
@@ -132,21 +135,23 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
 
         if (App.isMingleEnabled()) {
           var accessToken = App.mingleAuthResults.access_token;
-          request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-          request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
+          request.setRequestHeader('Authorization', "Bearer ".concat(accessToken));
+          request.setRequestHeader('X-Authorization', "Bearer ".concat(accessToken));
         }
       }
 
       var reader = new FileReader();
-      reader.onload = _lang2.default.hitch(this, function readerOnLoad(evt) {
+      reader.onload = _lang["default"].hitch(this, function readerOnLoad(evt) {
         var unknownErrorText = this.unknownErrorText;
         var blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
-        var bb = void 0;
-        var usingBlobBuilder = void 0;
-        var blobData = void 0;
+
+        var bb;
+        var usingBlobBuilder;
+        var blobData;
 
         try {
           bb = new Blob(); // This will throw an exception if it is not supported (android)
+
           bb = [];
         } catch (e) {
           bb = new window.BlobBuilder();
@@ -154,19 +159,28 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
         }
 
         var binary = evt.target.result;
-        var boundary = '---------------------------' + new Date().getTime();
+        var boundary = "---------------------------".concat(new Date().getTime());
         var dashdash = '--';
         var crlf = '\r\n';
 
         this._append(bb, dashdash + boundary + crlf);
+
         this._append(bb, 'Content-Disposition: attachment; ');
+
         this._append(bb, 'name="file_"; ');
-        this._append(bb, 'filename*="' + encodeURI(file.name) + '" ');
+
+        this._append(bb, "filename*=\"".concat(encodeURI(file.name), "\" "));
+
         this._append(bb, crlf);
-        this._append(bb, 'Content-Type: ' + file.type);
+
+        this._append(bb, "Content-Type: ".concat(file.type));
+
         this._append(bb, crlf + crlf);
+
         this._append(bb, binary);
+
         this._append(bb, crlf);
+
         this._append(bb, dashdash + boundary + dashdash + crlf);
 
         if (complete) {
@@ -190,23 +204,22 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
           });
         }
 
-        request.setRequestHeader('Content-Type', 'multipart/attachment; boundary=' + boundary);
+        request.setRequestHeader('Content-Type', "multipart/attachment; boundary=".concat(boundary));
 
         if (usingBlobBuilder) {
           blobData = bb.getBlob(file.type);
         } else {
           blobData = new Blob(bb);
-        }
-
-        // Read the blob back as an ArrayBuffer to work around this android issue:
+        } // Read the blob back as an ArrayBuffer to work around this android issue:
         // https://code.google.com/p/android/issues/detail?id=39882
+
+
         blobReader.onload = function blobReaderOnLoad(e) {
           request.send(e.target.result);
         };
 
         blobReader.readAsArrayBuffer(blobData);
       });
-
       reader.readAsArrayBuffer(file);
     },
     _append: function _append(arrayOrBlobBuilder, data) {
@@ -218,15 +231,18 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     },
     _onUnableToUploadError: function _onUnableToUploadError(_msg, onError) {
       var msg = _msg;
+
       if (!msg) {
         msg = this.unableToUploadText;
       }
+
       if (onError) {
         onError([msg]);
       } else {
         console.warn([msg]); // eslint-disable-line
       }
     },
+
     /**
      * Formats the file size formatted in KB.
      * @param {Number} size
@@ -235,17 +251,22 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     formatFileSize: function formatFileSize(_size) {
       var size = _size;
       size = parseInt(size, 10);
+
       if (size === 0) {
         return '0 KB';
       }
+
       if (!size || size < 0) {
         return this.unknownSizeText;
       }
+
       if (size < 1024) {
         return '1 KB';
       }
-      return Soho.Locale.formatNumber(Math.round(size / 1024)) + ' KB';
+
+      return "".concat(Soho.Locale.formatNumber(Math.round(size / 1024)), " KB");
     },
+
     /**
      * Loads a remote file.
      * @param {String} fileUrl
@@ -261,6 +282,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       if (responseType) {
         request.responseType = responseType;
       }
+
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
       if (service) {
@@ -270,8 +292,8 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
 
         if (App.isMingleEnabled()) {
           var accessToken = App.mingleAuthResults.access_token;
-          request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-          request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
+          request.setRequestHeader('Authorization', "Bearer ".concat(accessToken));
+          request.setRequestHeader('X-Authorization', "Bearer ".concat(accessToken));
         }
       }
 
@@ -286,6 +308,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
           contentType: contentType,
           fileName: fileName
         };
+
         if (onSuccess) {
           onSuccess(responseInfo);
         }
@@ -294,6 +317,6 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

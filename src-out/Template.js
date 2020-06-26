@@ -1,22 +1,14 @@
-define('crm/Template', ['module', 'exports', 'dojo/_base/lang', 'argos/Format'], function (module, exports, _lang) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Template", ["exports", "dojo/_base/lang", "argos/Format"], function (_exports, _lang, _Format) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  /**
-   * @class
-   * @alias module:crm/Template
-   * @classdesc Helper class that contains re-usuable {@link Simplate} templates.
-   * @static
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,7 +27,16 @@ define('crm/Template', ['module', 'exports', 'dojo/_base/lang', 'argos/Format'],
   /**
    * @module crm/Template
    */
-  var __class = _lang2.default.setObject('crm.Template', /** @lends module:crm/Template */{
+
+  /**
+   * @class
+   * @alias module:crm/Template
+   * @classdesc Helper class that contains re-usuable {@link Simplate} templates.
+   * @static
+   */
+  var __class = _lang["default"].setObject('crm.Template',
+  /** @lends module:crm/Template */
+  {
     /**
      * @property {Simplate} nameLF
      * Template for lastname, firstname
@@ -63,6 +64,6 @@ define('crm/Template', ['module', 'exports', 'dojo/_base/lang', 'argos/Format'],
     '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">', '<label>{%: $.label %}</label>', '<pre>', '{%= F.encode($.value) %}', '</pre>', '</div>'])
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

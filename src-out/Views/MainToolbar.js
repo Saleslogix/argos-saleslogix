@@ -1,21 +1,16 @@
-define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'dojo/has', 'argos/MainToolbar', 'argos/I18n'], function (module, exports, _declare, _has, _MainToolbar, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/MainToolbar", ["exports", "dojo/_base/declare", "dojo/has", "argos/MainToolbar", "argos/I18n"], function (_exports, _declare, _has, _MainToolbar, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _has = _interopRequireDefault(_has);
+  _MainToolbar = _interopRequireDefault(_MainToolbar);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _has2 = _interopRequireDefault(_has);
-
-  var _MainToolbar2 = _interopRequireDefault(_MainToolbar);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,14 +26,12 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('mainToolbar');
 
-  var resource = (0, _I18n2.default)('mainToolbar');
-
-  var __class = (0, _declare2.default)('crm.Views.MainToolbar', [_MainToolbar2.default], {
+  var __class = (0, _declare["default"])('crm.Views.MainToolbar', [_MainToolbar["default"]], {
     backTooltipText: resource.backTooltipText,
-
     showTools: function showTools(tools) {
-      var isOnEdit = void 0;
+      var isOnEdit;
       var isOnFirstView = App.isOnFirstView();
 
       if (tools) {
@@ -53,7 +46,8 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
         tools = tools || []; // eslint-disable-line
 
         if (!isOnEdit && !isOnFirstView) {
-          tools = tools.concat([{ //eslint-disable-line
+          tools = tools.concat([{
+            //eslint-disable-line
             id: 'back',
             svg: 'previous-page',
             side: 'left',
@@ -77,7 +71,8 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
 
       if (view) {
         var scrollerNode = view.get('scroller');
-        if ((0, _has2.default)('android')) {
+
+        if ((0, _has["default"])('android')) {
           // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
           $(scrollerNode).css('overflow', 'hidden');
           scrollerNode.scrollTop = 0;
@@ -89,6 +84,6 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

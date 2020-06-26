@@ -1,25 +1,18 @@
-define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', '../../Format', '../../Validator', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _string, _Format, _Validator, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Address/Edit", ["exports", "dojo/_base/declare", "dojo/string", "../../Format", "../../Validator", "argos/Edit", "argos/I18n"], function (_exports, _declare, _string, _Format, _Validator, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Format = _interopRequireDefault(_Format);
+  _Validator = _interopRequireDefault(_Validator);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,10 +28,9 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('addressEdit');
 
-  var resource = (0, _I18n2.default)('addressEdit');
-
-  var __class = (0, _declare2.default)('crm.Views.Address.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Address.Edit', [_Edit["default"]], {
     // Localization
     address1Text: resource.address1Text,
     address2Text: resource.address2Text,
@@ -56,6 +48,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     stateText: resource.stateText,
     stateTitleText: resource.stateTitleText,
     titleText: resource.titleText,
+
     /*
      * Each locale key contains an array of field names to be hidden
      * Set to null to skip and leave all fields visible
@@ -68,18 +61,17 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       'it-IT': null,
       'ru-RU': ['State']
     },
-
     // View Properties
     id: 'address_edit',
-
     init: function init() {
       this.inherited(init, arguments);
       this.connect(this.fields.Country, 'onChange', this.onCountryChange);
     },
     onCountryChange: function onCountryChange(value) {
-      var locale = _Format2.default.countryCultures[value] || 'en-US';
+      var locale = _Format["default"].countryCultures[value] || 'en-US';
       this.hideFieldsForLocale(locale);
     },
+
     /*
      * Hides from view the field names defined in localeFieldHidden for the given locale
      * Doing so enables a user to enter an address
@@ -87,19 +79,21 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
      */
     hideFieldsForLocale: function hideFieldsForLocale(locale) {
       var fieldsToHide = this.localeFieldHidden[locale];
+
       if (!fieldsToHide) {
         return;
       }
 
       for (var i = 0; i < fieldsToHide.length; i++) {
         var field = this.fields[fieldsToHide[i]];
+
         if (field) {
           field.hide();
         }
       }
     },
     formatDependentPicklist: function formatDependentPicklist(theFormat) {
-      return _string2.default.substitute(theFormat, [this.options.entityName]);
+      return _string["default"].substitute(theFormat, [this.options.entityName]);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -115,7 +109,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         title: this.descriptionTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: [_Validator2.default.exists, _Validator2.default.exceedsMaxTextLength]
+        validator: [_Validator["default"].exists, _Validator["default"].exceedsMaxTextLength]
       }, {
         name: 'IsPrimary',
         property: 'IsPrimary',
@@ -132,21 +126,21 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         label: this.address1Text,
         type: 'text',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'Address2',
         property: 'Address2',
         label: this.address2Text,
         type: 'text',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'Address3',
         property: 'Address3',
         label: this.address3Text,
         type: 'text',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.cityText,
         name: 'City',
@@ -156,7 +150,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         title: this.cityTitleText,
         type: 'picklist',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.stateText,
         name: 'State',
@@ -166,14 +160,14 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         title: this.stateTitleText,
         type: 'picklist',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         name: 'PostalCode',
         property: 'PostalCode',
         label: this.postalCodeText,
         type: 'text',
         maxTextLength: 24,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.countryText,
         name: 'Country',
@@ -183,18 +177,18 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         title: this.countryTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.salutationText,
         name: 'Salutation',
         property: 'Salutation',
         type: 'text',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }]);
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

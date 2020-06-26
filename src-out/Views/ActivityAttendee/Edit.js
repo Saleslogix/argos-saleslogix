@@ -1,21 +1,16 @@
-define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/declare', 'argos/Edit', 'argos/I18n', '../../Models/Names'], function (module, exports, _declare, _Edit, _I18n, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/ActivityAttendee/Edit", ["exports", "dojo/_base/declare", "argos/Edit", "argos/I18n", "../../Models/Names"], function (_exports, _declare, _Edit, _I18n, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2020 Infor
    *
@@ -31,10 +26,9 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityAttendeeEdit');
 
-  var resource = (0, _I18n2.default)('activityAttendeeEdit');
-
-  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.ActivityAttendee.Edit', [_Edit["default"]], {
     // Localization
     nameText: resource.nameText,
     accountText: resource.accountText,
@@ -45,24 +39,21 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
     emailText: resource.emailText,
     timeZoneText: resource.timeZoneText,
     attendeeText: resource.attendeeText,
-
     // View Properties
     entityName: 'ActivityAttendee',
-    modelName: _Names2.default.ACTIVITYATTENDEE,
+    modelName: _Names["default"].ACTIVITYATTENDEE,
     id: 'activity_attendee_edit',
-
     beforeTransitionTo: function beforeTransitionTo() {
       // We need to process the options that came from our attendee typeslist view if inserting.
       if (this.options.insert) {
         this.refreshRequired = false; // Indicate to _EditBase we don't want to refresh or set any loading flags
+
         this.inherited(beforeTransitionTo, arguments);
         this.inserting = true;
-        var _options = this.options,
-            activityEntity = _options.activityEntity,
-            entity = _options.entity,
-            entityType = _options.entityType;
-
-
+        var _this$options = this.options,
+            activityEntity = _this$options.activityEntity,
+            entity = _this$options.entity,
+            entityType = _this$options.entityType;
         this.fields.Name.setValue(entity.$descriptor);
         this.fields.AccountName.setValue(entity.Company || entity.AccountName);
         this.fields.EntityType.setValue(entityType);
@@ -72,6 +63,7 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
         this.fields.Email.setValue(entity.Email);
         this.fields['Activity.$key'].setValue(activityEntity.$key);
         this.fields.EntityId.setValue(entity.$key);
+
         if (entity.Address && entity.Address.TimeZone) {
           this.fields.TimeZone.setValue(entity.Address.TimeZone);
         }
@@ -150,6 +142,6 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

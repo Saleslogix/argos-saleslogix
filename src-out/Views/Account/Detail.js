@@ -1,29 +1,20 @@
-define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/string', '../../Action', '../../Format', '../../Template', '../../Models/Names', 'argos/Detail', 'argos/I18n'], function (module, exports, _declare, _string, _Action, _Format, _Template, _Names, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Account/Detail", ["exports", "dojo/_base/declare", "dojo/string", "../../Action", "../../Format", "../../Template", "../../Models/Names", "argos/Detail", "argos/I18n"], function (_exports, _declare, _string, _Action, _Format, _Template, _Names, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _string = _interopRequireDefault(_string);
+  _Action = _interopRequireDefault(_Action);
+  _Format = _interopRequireDefault(_Format);
+  _Template = _interopRequireDefault(_Template);
+  _Names = _interopRequireDefault(_Names);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Action2 = _interopRequireDefault(_Action);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,10 +30,9 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('accountDetail');
 
-  var resource = (0, _I18n2.default)('accountDetail');
-
-  var __class = (0, _declare2.default)('crm.Views.Account.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Account.Detail', [_Detail["default"]], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -77,7 +67,6 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
     calledText: resource.calledText,
     entityText: resource.entityText,
     addTicketText: resource.addTicketText,
-
     // View Properties
     id: 'account_detail',
     editView: 'account_edit',
@@ -85,23 +74,21 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
     noteEditView: 'history_edit',
     enableOffline: true,
     resourceKind: 'accounts',
-    modelName: _Names2.default.ACCOUNT,
-
+    modelName: _Names["default"].ACCOUNT,
     navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
-      _Action2.default.navigateToHistoryInsert(entry);
+      _Action["default"].navigateToHistoryInsert(entry);
     },
     recordCallToHistory: function recordCallToHistory(phoneNumber) {
       var entry = {
         Type: 'atPhoneCall',
         AccountId: this.entry.$key,
         AccountName: this.entry.AccountName,
-        Description: _string2.default.substitute(this.calledText, [this.entry.AccountName]),
+        Description: _string["default"].substitute(this.calledText, [this.entry.AccountName]),
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.UserName,
         Duration: 15,
         CompletedDate: new Date()
       };
-
       this.navigateToHistoryInsert('atPhoneCall', entry);
       App.initiateCall(phoneNumber);
     },
@@ -113,6 +100,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
     },
     addNote: function addNote() {
       var view = App.getView(this.noteEditView);
+
       if (view) {
         view.show({
           template: {},
@@ -122,6 +110,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
     },
     addTicket: function addNote() {
       var view = App.getView('ticket_edit');
+
       if (view) {
         view.show({
           template: {},
@@ -130,7 +119,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -168,7 +157,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'MainPhone',
           property: 'MainPhone',
           label: this.phoneText,
-          renderer: _Format2.default.phone.bindDelegate(this, false),
+          renderer: _Format["default"].phone.bindDelegate(this, false),
           action: 'callMainPhone'
         }, {
           name: 'Status',
@@ -179,22 +168,22 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'AccountManager.UserInfo',
           property: 'AccountManager.UserInfo',
           label: this.acctMgrText,
-          tpl: _Template2.default.nameLF
+          tpl: _Template["default"].nameLF
         }, {
           name: 'WebAddress',
           property: 'WebAddress',
           label: this.webText,
-          renderer: _Format2.default.link
+          renderer: _Format["default"].link
         }, {
           name: 'Address',
           property: 'Address',
           label: this.addressText,
-          renderer: _Format2.default.address.bindDelegate(this, false)
+          renderer: _Format["default"].address.bindDelegate(this, false)
         }, {
           name: 'Fax',
           property: 'Fax',
           label: this.faxText,
-          renderer: _Format2.default.phone.bindDelegate(this, true)
+          renderer: _Format["default"].phone.bindDelegate(this, true)
         }, {
           name: 'Type',
           property: 'Type',
@@ -204,7 +193,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'SubType',
           property: 'SubType',
           label: this.subTypeText,
-          renderer: _Format2.default.picklist(this.app.picklistService, null, null, 'Account ' + this.entry.Type)
+          renderer: _Format["default"].picklist(this.app.picklistService, null, null, "Account ".concat(this.entry.Type))
         }, {
           name: 'Industry',
           property: 'Industry',
@@ -262,7 +251,8 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
         }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'accountId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'accountId eq "${0}"'),
+          // must be lower case because of feed
           view: 'account_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
@@ -270,6 +260,6 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

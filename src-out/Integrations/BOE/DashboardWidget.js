@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/RelatedViewManager', '../../Views/MetricWidget', './DateRangeWidget', './_DashboardWidgetBase'], function (module, exports, _declare, _lang, _RelatedViewManager, _MetricWidget, _DateRangeWidget, _DashboardWidgetBase2) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/DashboardWidget", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/RelatedViewManager", "../../Views/MetricWidget", "./DateRangeWidget", "./_DashboardWidgetBase"], function (_exports, _declare, _lang, _RelatedViewManager, _MetricWidget, _DateRangeWidget, _DashboardWidgetBase2) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _RelatedViewManager = _interopRequireDefault(_RelatedViewManager);
+  _MetricWidget = _interopRequireDefault(_MetricWidget);
+  _DateRangeWidget = _interopRequireDefault(_DateRangeWidget);
+  _DashboardWidgetBase2 = _interopRequireDefault(_DashboardWidgetBase2);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _RelatedViewManager2 = _interopRequireDefault(_RelatedViewManager);
-
-  var _MetricWidget2 = _interopRequireDefault(_MetricWidget);
-
-  var _DateRangeWidget2 = _interopRequireDefault(_DateRangeWidget);
-
-  var _DashboardWidgetBase3 = _interopRequireDefault(_DashboardWidgetBase2);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,8 +28,7 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.DashboardWidget', [_DashboardWidgetBase3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.DashboardWidget', [_DashboardWidgetBase2["default"]], {
     buildView: function buildView(entry) {
       this.destroyWidgets();
       this.metricWidgets = [];
@@ -56,20 +48,25 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
           // Check if widget has a navigate to view option
           if (options.navTo) {
             var obj = _this.values.filter(_this.checkForValue, options)[0];
+
             options.navToReportView = _this.navToReportView;
             options.chartType = 'noChart';
+
             if (!(obj.queryIndex instanceof Array)) {
               // Get the active filter from the query args array and pass it as an option to the widget to be consumed by the navToReportView function
               options.activeFilter = _this.queryArgs[obj.queryIndex][1]._activeFilter;
             }
           }
-          var widget = new _MetricWidget2.default(options);
+
+          var widget = new _MetricWidget["default"](options);
           var itemNode = $(_this.metricItemTemplate.apply(options, _this));
           frag.appendChild(itemNode.get(0));
           $(itemNode).append($(widget)[0].domNode);
+
           _this.registerWidget(widget);
         }
       });
+
       if (frag.childNodes.length) {
         $(this.metricsNode).append(frag);
       }
@@ -77,26 +74,30 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
     createRangeWidgets: function createRangeWidgets() {
       var _this2 = this;
 
-      var rangeFrag = document.createDocumentFragment();
-      // Check if range widgets are desired, if so create and place in rangeNode
+      var rangeFrag = document.createDocumentFragment(); // Check if range widgets are desired, if so create and place in rangeNode
+
       if (this.createRangeLayout) {
         var rangeOptions = this.createRangeLayout() || [];
         rangeOptions.forEach(function (options) {
           options.changeRange = _this2.changeRange;
           options.parent = _this2;
-          var widget = new _DateRangeWidget2.default(options);
+          var widget = new _DateRangeWidget["default"](options);
           var itemNode = $(_this2.rangeItemTemplate.apply(options, _this2)).get(0);
+
           if (options.value === _this2.dayValue) {
             _this2.selectedRange = itemNode;
           }
+
           rangeFrag.appendChild(itemNode);
           $(itemNode).append($(widget)[0].domNode);
         });
       }
+
       if (rangeFrag.childNodes.length) {
         if (!this.selectedRange) {
           this.selectedRange = rangeFrag.childNodes[0];
         }
+
         this.selectedRange.style['background-color'] = this.getSelectedColor();
         $(this.rangeNode).append(rangeFrag);
       }
@@ -111,9 +112,11 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
     }
   });
 
-  var rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager["default"]();
   rvm.registerType('dashboard_widget', __class);
-  _lang2.default.setObject('crm.Views.DashboardWidget', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  _lang["default"].setObject('crm.Views.DashboardWidget', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

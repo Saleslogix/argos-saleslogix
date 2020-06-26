@@ -1,44 +1,37 @@
-define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', '../../Format', '../../Validator', 'argos/ErrorManager', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _lang, _Format, _Validator, _ErrorManager, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Ticket/Edit", ["exports", "dojo/_base/declare", "dojo/_base/lang", "../../Format", "../../Validator", "argos/ErrorManager", "argos/Edit", "argos/I18n"], function (_exports, _declare, _lang, _Format, _Validator, _ErrorManager, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Validator = _interopRequireDefault(_Validator);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('ticketEdit');
 
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('ticketEdit'); /* Copyright 2017 Infor
-                                                     *
-                                                     * Licensed under the Apache License, Version 2.0 (the "License");
-                                                     * you may not use this file except in compliance with the License.
-                                                     * You may obtain a copy of the License at
-                                                     *
-                                                     *    http://www.apache.org/licenses/LICENSE-2.0
-                                                     *
-                                                     * Unless required by applicable law or agreed to in writing, software
-                                                     * distributed under the License is distributed on an "AS IS" BASIS,
-                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                     * See the License for the specific language governing permissions and
-                                                     * limitations under the License.
-                                                     */
-
-  var __class = (0, _declare2.default)('crm.Views.Ticket.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Ticket.Edit', [_Edit["default"]], {
     // Localization
     accountText: resource.accountText,
     areaText: resource.areaText,
@@ -70,7 +63,6 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     ticketUrgencyTitleText: resource.ticketUrgencyTitleText,
     titleText: resource.titleText,
     urgencyText: resource.urgencyText,
-
     // View Properties
     entityName: 'Ticket',
     id: 'ticket_edit',
@@ -79,10 +71,8 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     querySelect: ['Account/AccountName', 'Account/MainPhone', 'Area', 'AssignedDate', 'AssignedTo/OwnerDescription', 'Category', 'Contact/NameLF', 'Contact/WorkPhone', 'Contract/ReferenceNumber', 'Issue', 'NeededByDate', 'Notes', 'ViaCode', 'StatusCode', 'UrgencyCode', 'Subject', 'TicketNumber', 'TicketProblem/Notes', 'TicketSolution/Notes', 'Urgency/Description', 'Urgency/UrgencyCode', 'CompletedBy/OwnerDescription'],
     queryInclude: ['$permissions'],
     resourceKind: 'tickets',
-
     init: function init() {
       this.inherited(init, arguments);
-
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
       this.connect(this.fields.Contact, 'onChange', this.onContactChange);
       this.connect(this.fields.Urgency, 'onChange', this.onUrgencyChange);
@@ -113,18 +103,16 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     },
     createPicklistRequest: function createPicklistRequest(name) {
       var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
-
       var uri = request.getUri();
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate(name);
-
       request.allowCacheUse = true;
       return request;
     },
     requestCodeData: function requestCodeData(picklistName, code, field, entry, name) {
       var request = this.createPicklistRequest(picklistName);
       request.read({
-        success: _lang2.default.hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
+        success: _lang["default"].hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
         failure: this.onRequestCodeDataFailure,
         scope: this
       });
@@ -136,7 +124,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       field.setText(value);
     },
     onRequestCodeDataFailure: function onRequestCodeDataFailure(response, o) {
-      _ErrorManager2.default.addError(response, o, this.options, 'failure');
+      _ErrorManager["default"].addError(response, o, this.options, 'failure');
     },
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
       var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
@@ -150,7 +138,6 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
 
       return currentValue;
     },
-
     setValues: function setValues(entry) {
       this.inherited(setValues, arguments);
 
@@ -164,6 +151,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     },
     onUrgencyChange: function onUrgencyChange(value, field) {
       var selection = field.getSelection();
+
       if (selection) {
         this.fields.UrgencyCode.setValue(selection.UrgencyCode);
       }
@@ -183,8 +171,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       var selection = field.getSelection();
 
       if (selection && selection.$key) {
-        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector('\'' + selection.$key + '\'').setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
-
+        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector("'".concat(selection.$key, "'")).setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
         request.readFeed({
           success: function success(feed) {
             if (feed && feed.$resources) {
@@ -206,15 +193,12 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     formatAccountQuery: function formatAccountQuery() {
       var value = this.fields.Account.getValue();
       var key = value && value.$key;
-
-      return key ? 'Account.id eq "' + key + '"' : false;
+      return key ? "Account.id eq \"".concat(key, "\"") : false;
     },
     applyContext: function applyContext() {
       var found = App.queryNavigationContext(function (o) {
-        return (/^(accounts|contacts)$/.test(o.resourceKind) && o.key
-        );
+        return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
       });
-
       var lookup = {
         accounts: this.applyAccountContext,
         contacts: this.applyContactContext
@@ -227,7 +211,6 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     applyAccountContext: function applyAccountContext(context) {
       var view = App.getView(context.id);
       var entry = view && view.entry;
-
       var accountField = this.fields.Account;
       accountField.setValue(entry);
       this.onAccountChange(entry, accountField);
@@ -235,22 +218,22 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     applyContactContext: function applyContactContext(context) {
       var view = App.getView(context.id);
       var entry = view && view.entry;
-
       var accountField = this.fields.Account;
       accountField.setValue(entry.Account);
       this.onAccountChange(entry.Account, accountField);
-
       this.fields.Contact.setValue(entry);
     },
     formatCategoryQuery: function formatCategoryQuery(value) {
       return {
         Area: value // dependent value
+
       };
     },
     formatIssueQuery: function formatIssueQuery(value) {
       return {
         Area: this.fields.Area.getValue(),
         Category: value // dependent value
+
       };
     },
     includeIfValueExists: function includeIfValueExists(value) {
@@ -264,7 +247,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
         textProperty: 'AccountName',
         type: 'lookup',
         requireSelection: true,
-        validator: _Validator2.default.exists,
+        validator: _Validator["default"].exists,
         view: 'account_related'
       }, {
         label: this.contactText,
@@ -273,7 +256,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
         textProperty: 'NameLF',
         type: 'lookup',
         requireSelection: true,
-        validator: _Validator2.default.exists,
+        validator: _Validator["default"].exists,
         view: 'contact_related',
         where: this.formatAccountQuery.bindDelegate(this)
       }, {
@@ -354,13 +337,13 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
         label: this.needByText,
         name: 'NeededByDate',
         property: 'NeededByDate',
-        renderer: _Format2.default.date,
+        renderer: _Format["default"].date,
         type: 'date'
       }, {
         label: this.assignedDateText,
         name: 'AssignedDate',
         property: 'AssignedDate',
-        renderer: _Format2.default.date,
+        renderer: _Format["default"].date,
         type: 'date'
       }, {
         label: this.assignedToText,
@@ -410,6 +393,6 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,72 +1,63 @@
-define('crm/Integrations/BOE/Views/BackOffices/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/List', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _List, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/BackOffices/List", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/List", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _List, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _List = _interopRequireDefault(_List);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('backOfficesList');
 
-  var _List2 = _interopRequireDefault(_List);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('backOfficesList'); /* Copyright 2017 Infor
-                                                          *
-                                                          * Licensed under the Apache License, Version 2.0 (the "License");
-                                                          * you may not use this file except in compliance with the License.
-                                                          * You may obtain a copy of the License at
-                                                          *
-                                                          *    http://www.apache.org/licenses/LICENSE-2.0
-                                                          *
-                                                          * Unless required by applicable law or agreed to in writing, software
-                                                          * distributed under the License is distributed on an "AS IS" BASIS,
-                                                          * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                          * See the License for the specific language governing permissions and
-                                                          * limitations under the License.
-                                                          */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.BackOffices.List', [_List2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.BackOffices.List', [_List["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.BackOfficeName %}</p>', '<p class="micro-text">{%: $.LogicalId %}</p>']),
-
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     id: 'backoffices_list',
     detailView: '',
-    modelName: _Names2.default.BACKOFFICE,
+    modelName: _Names["default"].BACKOFFICE,
     resourceKind: 'backOffices',
     enableActions: false,
     expose: false,
     security: 'Entities/BackOffice/View',
     insertSecurity: 'Entities/BackOffice/Add',
-
     // Card layout
     itemIconClass: '',
-
     // Metrics
     entityName: 'BackOffice',
-
     createToolLayout: function createToolLayout() {
       return this.tools || (this.tools = {});
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(BackOfficeName) like "' + q + '%" or upper(LogicalId) like "' + q + '%"';
+      return "upper(BackOfficeName) like \"".concat(q, "%\" or upper(LogicalId) like \"").concat(q, "%\"");
     }
   });
 
-  _lang2.default.setObject('icboe.Views.BackOffices.List', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.BackOffices.List', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

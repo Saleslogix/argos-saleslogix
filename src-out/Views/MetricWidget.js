@@ -1,33 +1,22 @@
-define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/Deferred', 'dojo/when', 'dijit/_Widget', 'argos/_Templated', 'argos/Store/SData', 'argos/I18n', 'crm/Format', 'crm/Aggregate'], function (module, exports, _declare, _lang, _Deferred, _when, _Widget2, _Templated2, _SData, _I18n, _Format, _Aggregate) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/MetricWidget", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/Deferred", "dojo/when", "dijit/_Widget", "argos/_Templated", "argos/Store/SData", "argos/I18n", "crm/Format", "crm/Aggregate"], function (_exports, _declare, _lang, _Deferred, _when, _Widget2, _Templated2, _SData, _I18n, _Format, _Aggregate) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Deferred = _interopRequireDefault(_Deferred);
+  _when = _interopRequireDefault(_when);
+  _Widget2 = _interopRequireDefault(_Widget2);
+  _Templated2 = _interopRequireDefault(_Templated2);
+  _SData = _interopRequireDefault(_SData);
+  _I18n = _interopRequireDefault(_I18n);
+  _Format = _interopRequireDefault(_Format);
+  _Aggregate = _interopRequireDefault(_Aggregate);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Deferred2 = _interopRequireDefault(_Deferred);
-
-  var _when2 = _interopRequireDefault(_when);
-
-  var _Widget3 = _interopRequireDefault(_Widget2);
-
-  var _Templated3 = _interopRequireDefault(_Templated2);
-
-  var _SData2 = _interopRequireDefault(_SData);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Aggregate2 = _interopRequireDefault(_Aggregate);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -47,13 +36,15 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
   /**
    * @module crm/Views/MetricWidget
    */
-  var resource = (0, _I18n2.default)('metricWidget');
-
+  var resource = (0, _I18n["default"])('metricWidget');
   /**
    * @class
    * @alias module:crm/Views/MetricWidget
    */
-  var __class = (0, _declare2.default)('crm.Views.MetricWidget', [_Widget3.default, _Templated3.default], /** @lends module:crm/Views/MetricWidget.prototype */{
+
+  var __class = (0, _declare["default"])('crm.Views.MetricWidget', [_Widget2["default"], _Templated2["default"]],
+  /** @lends module:crm/Views/MetricWidget.prototype */
+  {
     /**
      * @property {Simplate}
      * Simple that defines the HTML Markup
@@ -76,12 +67,10 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
      * HTML markup for the loading text and icon
      */
     loadingTemplate: new Simplate(['<div class="metric-title list-loading busy-sm">', '<span class="list-loading-indicator">', '<div class="busy-indicator-container" aria-live="polite">', '<div class="busy-indicator active">', '<div class="bar one"></div>', '<div class="bar two"></div>', '<div class="bar three"></div>', '<div class="bar four"></div>', '<div class="bar five"></div>', '</div>', '<span>{%: $.loadingText %}</span>', '</div>', '</span>', '</div>']),
-
     // Localization
     title: '',
     loadingText: resource.loadingText,
     errorText: resource.errorText,
-
     // Store Options
     querySelect: null,
     queryName: null,
@@ -94,15 +83,12 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
     applicationName: null,
     position: 0,
     pageSize: 100,
-
     store: null,
-
     _data: null,
     value: null,
     requestDataDeferred: null,
     metricDetailNode: null,
     currentSearchExpression: '',
-
     // Chart Properties
     chartType: null,
     chartTypeMapping: {
@@ -110,9 +96,8 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
       bar: 'chart_generic_bar',
       line: 'chart_generic_line'
     },
-
-    formatModule: _Format2.default,
-    formatter: _Format2.default.bigNumber,
+    formatModule: _Format["default"],
+    formatter: _Format["default"].bigNumber,
 
     /**
      * Calculates the value shown in the metric widget button.
@@ -121,14 +106,12 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
      */
     valueFn: function valueFn() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
       return data.reduce(function (p, c) {
         return p + c.value;
       }, 0);
     },
-
     // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-    aggregateModule: _Aggregate2.default,
+    aggregateModule: _Aggregate["default"],
     aggregate: null,
 
     /**
@@ -144,11 +127,13 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
       }
 
       this._data = [];
-      this.requestDataDeferred = new _Deferred2.default();
+      this.requestDataDeferred = new _Deferred["default"]();
+
       this._getData();
 
       this.requestDataDeferred.then(function (results) {
         var data = results;
+
         if (!data) {
           throw new Error('An error occurred loading the KPI widget data.');
         }
@@ -157,12 +142,14 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
         _this.formatter = _this.formatModule[_this.formatter];
 
         var value = _this.value = _this.valueFn.call(_this, data);
+
         $(_this.metricDetailNode).replaceWith(_this.itemTemplate.apply({
           value: value
         }, _this));
       }, function (err) {
         // Error
         console.error(err); // eslint-disable-line
+
         $(_this.metricDetailNode).replaceWith(_this.errorTemplate.apply({}, _this));
       });
     },
@@ -194,24 +181,27 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
     },
     _getData: function _getData() {
       var queryOptions = this._buildQueryOptions();
+
       var queryExpression = this._buildQueryExpression();
+
       var store = this.get('store');
       var queryResults = store.query(queryExpression, queryOptions);
-      (0, _when2.default)(queryResults, _lang2.default.hitch(this, this._onQuerySuccess, queryResults), _lang2.default.hitch(this, this._onQueryError));
+      (0, _when["default"])(queryResults, _lang["default"].hitch(this, this._onQuerySuccess, queryResults), _lang["default"].hitch(this, this._onQueryError));
     },
     _onQuerySuccess: function _onQuerySuccess(queryResults) {
       var _this2 = this;
 
-      (0, _when2.default)(queryResults.total, function (total) {
-        queryResults.forEach(_lang2.default.hitch(_this2, _this2._processItem));
-
+      (0, _when["default"])(queryResults.total, function (total) {
+        queryResults.forEach(_lang["default"].hitch(_this2, _this2._processItem));
         var left = -1;
+
         if (total > -1) {
           left = total - (_this2.position + _this2.pageSize);
         }
 
         if (left > 0) {
           _this2.position = _this2.position + _this2.pageSize;
+
           _this2._getData();
         } else {
           // Signal complete
@@ -226,7 +216,7 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
       this.requestDataDeferred.reject(error);
     },
     createStore: function createStore() {
-      var store = new _SData2.default({
+      var store = new _SData["default"]({
         request: this.request,
         service: App.services.crm,
         resourceKind: this.resourceKind,
@@ -240,7 +230,6 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
         applicationName: this.applicationName,
         scope: this
       });
-
       return store;
     },
     _getStoreAttr: function _getStoreAttr() {
@@ -248,6 +237,6 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

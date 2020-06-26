@@ -1,38 +1,26 @@
-define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare', '../../Format', '../../Validator', 'argos/Edit', '../../Recurrence', 'argos/I18n', 'dojo/string'], function (module, exports, _declare, _Format, _Validator, _Edit, _Recurrence, _I18n, _string) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Activity/Recurring", ["exports", "dojo/_base/declare", "../../Format", "../../Validator", "argos/Edit", "../../Recurrence", "argos/I18n", "dojo/string"], function (_exports, _declare, _Format, _Validator, _Edit, _Recurrence, _I18n, _string) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Validator = _interopRequireDefault(_Validator);
+  _Edit = _interopRequireDefault(_Edit);
+  _Recurrence = _interopRequireDefault(_Recurrence);
+  _I18n = _interopRequireDefault(_I18n);
+  _string = _interopRequireDefault(_string);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-  var _Validator2 = _interopRequireDefault(_Validator);
+  var resource = (0, _I18n["default"])('activityRecurring');
+  var dtFormatResource = (0, _I18n["default"])('activityEditDateTimeFormat');
 
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _Recurrence2 = _interopRequireDefault(_Recurrence);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  };
-
-  var resource = (0, _I18n2.default)('activityRecurring');
-  var dtFormatResource = (0, _I18n2.default)('activityEditDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.Recurring', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Activity.Recurring', [_Edit["default"]], {
     // Localization
     startingText: resource.startingText,
     endingText: resource.endingText,
@@ -65,25 +53,27 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     dailyFrequencyAfterCompletion: resource.dailyFrequencyAfterCompletion,
     dailyFrequency: resource.dailyFrequency,
     startingTimelessFormatText: dtFormatResource.startingTimelessFormatText,
-
     // View Properties
     monthNames: moment.monthsShort,
-
     id: 'recurrence_edit',
-
     init: function init() {
       this.inherited(init, arguments);
       this.connect(this.fields.AfterCompletion, 'onChange', this.onAfterCompletionChange);
       this.connect(this.fields.Interval, 'onChange', this.onIntervalChange);
       this.connect(this.fields.RecurIterations, 'onChange', this.onRecurIterationsChange);
-      this.connect(this.fields.EndDate, 'onChange', this.onEndDateChange);
-      // these affect the StartDate:
+      this.connect(this.fields.EndDate, 'onChange', this.onEndDateChange); // these affect the StartDate:
+
       this.connect(this.fields.Scale, 'onChange', this.onScaleChange);
       this.connect(this.fields.Day, 'onChange', this.onDayChange); // Day of the month
+
       this.connect(this.fields.Weekdays, 'onChange', this.onStartDateChange); // One or more days on Weekly options
+
       this.connect(this.fields.OrdWeekday, 'onChange', this.onStartDateChange); // Single day of week
+
       this.connect(this.fields.OrdWeek, 'onChange', this.onStartDateChange); // 1st..last week of month, or on Day #
+
       this.connect(this.fields.OrdMonth, 'onChange', this.onStartDateChange); // Month of year
+
       this.fields.EndDate.disable();
     },
     resetUI: function resetUI() {
@@ -93,47 +83,58 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
       var interval = this.fields.RecurPeriodSpec.getValue() % 65536;
       var showthese = 'Interval,AfterCompletion,';
 
-      if (!_Recurrence2.default.isAfterCompletion(rp)) {
+      if (!_Recurrence["default"].isAfterCompletion(rp)) {
         showthese += 'RecurIterations,EndDate,';
       }
 
       this.fields.RecurrenceState.setValue('rstMaster'); // undone when Once panel selected
-
       // determine which fields to hide according to panel
+
       switch (rp) {
-        case 0:
-        // daily
+        case 0: // daily
+
         case 1:
           // eslint-disable-line
           break;
+
         case 2:
           // weekly
           showthese += 'Weekdays,';
           this.formatWeekdays(this.entry.Weekdays);
           break;
+
         case 3:
           break;
+
         case 4:
           // monthly
           showthese += 'Day,OrdWeek';
+
           if (this.entry && this.entry.StartDate) {
             this.fields.OrdWeek.data = this.createOrdData(this.formatSingleWeekday(this.entry.StartDate.getDay()));
           }
+
           break;
+
         case 5:
           showthese += 'OrdWeek,OrdWeekday,';
           break;
+
         case 6:
           break;
+
         case 7:
           // yearly
           showthese += 'Day,OrdWeek,OrdMonth';
           break;
+
         case 8:
           showthese += 'OrdWeek,OrdWeekday,OrdMonth,';
           break;
+
         case 9:
           break;
+
         default:
           // once
           showthese = '';
@@ -145,22 +146,22 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
         } else {
           this.fields[i].hide();
         }
-      }
-      // always show these:
+      } // always show these:
+
+
       if (rp >= 0) {
         this.fields.Scale.show();
       }
-      this.fields.Summary.show();
 
-      // refresh some field values
+      this.fields.Summary.show(); // refresh some field values
+
       this.fields.RecurPeriod.setValue(rp);
-      this.fields.RecurPeriodSpec.setValue(_Recurrence2.default.getRecurPeriodSpec(rp, startDate, this.entry.Weekdays, interval));
-
+      this.fields.RecurPeriodSpec.setValue(_Recurrence["default"].getRecurPeriodSpec(rp, startDate, this.entry.Weekdays, interval));
       this.summarize();
     },
     summarize: function summarize() {
-      this.fields.Summary.setValue(_Recurrence2.default.toString(this.getRecurrence()));
-      this.fields.Scale.setValue(_Recurrence2.default.getPanel(parseInt(this.fields.RecurPeriod.getValue(), 10), true));
+      this.fields.Summary.setValue(_Recurrence["default"].toString(this.getRecurrence()));
+      this.fields.Scale.setValue(_Recurrence["default"].getPanel(parseInt(this.fields.RecurPeriod.getValue(), 10), true));
     },
     onAfterCompletionChange: function onAfterCompletionChange(value) {
       var rp = parseInt(this.fields.RecurPeriod.getValue(), 10);
@@ -178,7 +179,8 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
         } else {
           rp -= 1;
         }
-        this.fields.RecurIterations.setValue(this.entry.RecurIterations > 0 ? this.entry.RecurIterations : _Recurrence2.default.defaultIterations[rp]);
+
+        this.fields.RecurIterations.setValue(this.entry.RecurIterations > 0 ? this.entry.RecurIterations : _Recurrence["default"].defaultIterations[rp]);
       }
 
       this.fields.RecurPeriod.setValue(rp);
@@ -187,11 +189,11 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     onIntervalChange: function onIntervalChange(value, field) {
       var currentSpec = parseInt(this.fields.RecurPeriodSpec.getValue(), 10);
       var interval = currentSpec % 65536;
-
       var theValue = parseInt(value, 10);
+
       if (theValue && theValue > 0) {
         this.fields.RecurPeriodSpec.setValue(currentSpec - interval + parseInt(theValue, 10));
-        this.fields.EndDate.setValue(_Recurrence2.default.calcEndDate(this.fields.StartDate.getValue(), this.getRecurrence()).toDate());
+        this.fields.EndDate.setValue(_Recurrence["default"].calcEndDate(this.fields.StartDate.getValue(), this.getRecurrence()).toDate());
       } else {
         // Invalid input, reset to current Interval
         field.setValue(interval);
@@ -201,9 +203,11 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     },
     onRecurIterationsChange: function onRecurIterationsChange(value) {
       var theValue = parseInt(value, 10);
+
       if (theValue && theValue > 0) {
         this.entry.RecurIterations = value;
-        var newEndDate = _Recurrence2.default.calcEndDate(this.fields.StartDate.getValue(), this.getRecurrence()).toDate();
+
+        var newEndDate = _Recurrence["default"].calcEndDate(this.fields.StartDate.getValue(), this.getRecurrence()).toDate();
 
         if (newEndDate !== this.fields.EndDate.getValue()) {
           this.fields.EndDate.setValue(newEndDate);
@@ -217,7 +221,7 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     },
     onEndDateChange: function onEndDateChange(value) {
       if (value >= this.fields.StartDate.getValue()) {
-        var iterations = _Recurrence2.default.calcRecurIterations(value, this.fields.StartDate.getValue(), this.fields.Interval.getValue(), this.fields.RecurPeriod.getValue());
+        var iterations = _Recurrence["default"].calcRecurIterations(value, this.fields.StartDate.getValue(), this.fields.Interval.getValue(), this.fields.RecurPeriod.getValue());
 
         if (iterations !== parseInt(this.fields.RecurIterations.getValue(), 10)) {
           this.fields.RecurIterations.setValue(iterations);
@@ -240,16 +244,18 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
         if (value > 0) {
           startDate.setDate(maxValue);
         }
+
         field.setValue(startDate.getDate());
       }
 
-      this.fields.StartDate.setValue(startDate);
-      // weekday(s)/ordWeek/EndDate may need adjusting
+      this.fields.StartDate.setValue(startDate); // weekday(s)/ordWeek/EndDate may need adjusting
+
       this.onStartDateChange(value, field);
     },
     onStartDateChange: function onStartDateChange(value, field) {
       // when field alters StartDate, other fields need to be adjusted
-      var weekdays = _Recurrence2.default.getWeekdays(parseInt(this.fields.RecurPeriodSpec.getValue(), 10));
+      var weekdays = _Recurrence["default"].getWeekdays(parseInt(this.fields.RecurPeriodSpec.getValue(), 10));
+
       var panel = parseInt(this.fields.RecurPeriod.getValue(), 10);
       var theValue = parseInt(value.key || value, 10);
       var startDate = this.fields.StartDate.getValue();
@@ -266,12 +272,15 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
           }
 
           break;
+
         case 'OrdWeekday':
           weekday = theValue;
           break;
+
         case 'OrdWeek':
           if (theValue) {
             ordWeek = theValue;
+
             if (panel === 4 || panel === 7) {
               this.fields.RecurPeriod.setValue(panel + 1);
               this.resetUI();
@@ -280,26 +289,29 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
             this.fields.RecurPeriod.setValue(panel - 1);
             this.resetUI();
           }
+
           break;
+
         case 'OrdMonth':
           startDate.setMonth(theValue);
           weekday = startDate.getDay();
           ordWeek = parseInt(((startDate.getDate() - 1) / 7).toString(), 10) + 1;
           break;
+
         default:
       }
 
-      startDate = _Recurrence2.default.calcDateOfNthWeekday(startDate, weekday, ordWeek).toDate();
+      startDate = _Recurrence["default"].calcDateOfNthWeekday(startDate, weekday, ordWeek).toDate();
       this.fields.StartDate.setValue(startDate);
-      this.fields.EndDate.setValue(_Recurrence2.default.calcEndDate(startDate, this.getRecurrence()).toDate());
+      this.fields.EndDate.setValue(_Recurrence["default"].calcEndDate(startDate, this.getRecurrence()).toDate());
       this.fields.Day.setValue(startDate.getDate());
       this.fields.OrdWeekday.setValue(startDate.getDay());
-
       var weekData = this.createOrdData(this.formatSingleWeekday(startDate.getDay()));
       this.fields.OrdWeek.data = weekData;
       this.summarize();
       var key = this.fields.OrdWeek.getValue();
-      if ((typeof key === 'undefined' ? 'undefined' : _typeof(key)) === 'object') {
+
+      if (_typeof(key) === 'object') {
         key = key.$key;
         this.fields.OrdWeek.setValue(weekData.$resources[key]);
       } else if (!isNaN(parseInt(key, 10))) {
@@ -318,43 +330,50 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
           if (recurPeriod < 2) {
             return;
           }
+
           recurPeriod = 0 + afterCompletion;
           break;
+
         case 1:
           // weeks
           if (recurPeriod > 1 && recurPeriod < 4) {
             return;
           }
+
           recurPeriod = 2 + afterCompletion;
           break;
+
         case 2:
           // months
           if (recurPeriod > 3 && recurPeriod < 7) {
             return;
           }
+
           recurPeriod = 4 + afterCompletion + afterCompletion;
           break;
+
         case 3:
           // years
           if (recurPeriod > 6) {
             return;
           }
+
           recurPeriod = 7 + afterCompletion + afterCompletion;
           break;
+
         default:
       }
+
       this.fields.RecurPeriod.setValue(recurPeriod);
-      this.fields.RecurIterations.setValue(_Recurrence2.default.defaultIterations[recurPeriod]);
-      this.fields.RecurPeriodSpec.setValue(_Recurrence2.default.getRecurPeriodSpec(recurPeriod, startDate, [], interval));
-      this.fields.Weekdays.setValue(_Recurrence2.default.getWeekdays(this.fields.RecurPeriodSpec.getValue()));
+      this.fields.RecurIterations.setValue(_Recurrence["default"].defaultIterations[recurPeriod]);
+      this.fields.RecurPeriodSpec.setValue(_Recurrence["default"].getRecurPeriodSpec(recurPeriod, startDate, [], interval));
+      this.fields.Weekdays.setValue(_Recurrence["default"].getWeekdays(this.fields.RecurPeriodSpec.getValue()));
       this.fields.Day.setValue(startDate.getDate());
       this.fields.OrdMonth.setValue(startDate.getMonth() + 1);
       this.fields.OrdWeek.setValue(0);
-      this.fields.EndDate.setValue(_Recurrence2.default.calcEndDate(startDate, this.getRecurrence()).toDate());
-
+      this.fields.EndDate.setValue(_Recurrence["default"].calcEndDate(startDate, this.getRecurrence()).toDate());
       this.resetUI();
     },
-
     formatWeekdays: function formatWeekdays(selections) {
       var values = [];
       var weekdays = [0, 0, 0, 0, 0, 0, 0];
@@ -365,8 +384,8 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
           weekdays[key] = 1;
         }
       }
-      this.fields.RecurPeriodSpec.setValue(_Recurrence2.default.getRecurPeriodSpec(parseInt(this.fields.RecurPeriod.getValue(), 10), this.fields.StartDate.getValue(), weekdays, parseInt(this.fields.Interval.getValue(), 10)));
 
+      this.fields.RecurPeriodSpec.setValue(_Recurrence["default"].getRecurPeriodSpec(parseInt(this.fields.RecurPeriod.getValue(), 10), this.fields.StartDate.getValue(), weekdays, parseInt(this.fields.Interval.getValue(), 10)));
       this.entry.Weekdays = weekdays;
       return values.join(', ');
     },
@@ -388,17 +407,20 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
       if (selection.$descriptor) {
         return selection.$descriptor;
       }
-      return _Recurrence2.default.ordText[parseInt(selection, 10)];
+
+      return _Recurrence["default"].ordText[parseInt(selection, 10)];
     },
     preselectWeekdays: function preselectWeekdays() {
       var previousSelections = [];
-      var weekdays = _Recurrence2.default.getWeekdays(this.fields.RecurPeriodSpec.getValue());
+
+      var weekdays = _Recurrence["default"].getWeekdays(this.fields.RecurPeriodSpec.getValue());
 
       for (var i = 0; i < weekdays.length; i++) {
         if (weekdays[i]) {
           previousSelections.push(i);
         }
       }
+
       return previousSelections;
     },
     createScaleData: function createScaleData() {
@@ -419,14 +441,12 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     },
     createWeekdaysData: function createWeekdaysData() {
       var list = [];
-
       this.weekDaysText.forEach(function (name, idx) {
         list.push({
           $key: idx,
           $descriptor: name
         });
       });
-
       return {
         $resources: list
       };
@@ -445,14 +465,13 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     },
     createOrdData: function createOrdData() {
       var day = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
       var list = [];
 
-      for (var ord in _Recurrence2.default.ordText) {
-        if (_Recurrence2.default.ordText.hasOwnProperty(ord)) {
+      for (var ord in _Recurrence["default"].ordText) {
+        if (_Recurrence["default"].ordText.hasOwnProperty(ord)) {
           list.push({
             $key: ord,
-            $descriptor: _string2.default.substitute(_Recurrence2.default.ordText[ord], [day])
+            $descriptor: _string["default"].substitute(_Recurrence["default"].ordText[ord], [day])
           });
         }
       }
@@ -462,27 +481,28 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
       };
     },
     setValues: function setValues(values) {
-      this.inherited(setValues, arguments);
+      this.inherited(setValues, arguments); // calculate some values from the ones provided
 
-      // calculate some values from the ones provided
       this.entry = values;
       this.entry.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
-      this.entry.EndDate = _Recurrence2.default.calcEndDate(values.StartDate, values).toDate();
+
+      this.entry.EndDate = _Recurrence["default"].calcEndDate(values.StartDate, values).toDate();
       this.entry.Recurring = typeof values.Recurring === 'string' ? /^true$/i.test(values.Recurring) : values.Recurring;
-      var ord = _Recurrence2.default.getOrd(this.entry);
+
+      var ord = _Recurrence["default"].getOrd(this.entry);
+
       this.entry.Interval = values.RecurPeriodSpec % 65536;
-      this.entry.AfterCompletion = _Recurrence2.default.isAfterCompletion(values.RecurPeriod);
+      this.entry.AfterCompletion = _Recurrence["default"].isAfterCompletion(values.RecurPeriod);
       this.entry.Day = this.entry.StartDate.getDate();
-      this.entry.Weekdays = _Recurrence2.default.getWeekdays(values.RecurPeriodSpec);
+      this.entry.Weekdays = _Recurrence["default"].getWeekdays(values.RecurPeriodSpec);
       this.entry.OrdWeek = ord.week;
       this.entry.OrdWeekday = ord.weekday;
-      this.entry.OrdMonth = ord.month;
+      this.entry.OrdMonth = ord.month; // Even hidden and falsy fields need their values set (not from parent)
 
-      // Even hidden and falsy fields need their values set (not from parent)
       for (var name in this.fields) {
         if (this.fields.hasOwnProperty(name)) {
-          var field = this.fields[name];
-          // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
+          var field = this.fields[name]; // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
+
           if (typeof this.entry[name] !== 'undefined') {
             field.setValue(this.entry[name]);
           }
@@ -493,10 +513,8 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
     },
     getValues: function getValues() {
       var o = this.getRecurrence();
-
       o.Recurring = o.RecurPeriod >= 0;
-      o.EndDate = _Recurrence2.default.calcEndDate(o.StartDate, o).toDate();
-
+      o.EndDate = _Recurrence["default"].calcEndDate(o.StartDate, o).toDate();
       return o;
     },
     getRecurrence: function getRecurrence() {
@@ -630,7 +648,7 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
         name: 'Recurring',
         property: 'Recurring',
         include: true,
-        formatValue: _Format2.default.bool
+        formatValue: _Format["default"].bool
       }, {
         label: this.endingText,
         name: 'EndDate',
@@ -640,11 +658,11 @@ define('crm/Views/Activity/Recurring', ['module', 'exports', 'dojo/_base/declare
         showTimePicker: false,
         dateFormatText: this.startingTimelessFormatText,
         minValue: new Date(1900, 0, 1),
-        validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
+        validator: [_Validator["default"].exists, _Validator["default"].isDateInRange]
       }]);
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

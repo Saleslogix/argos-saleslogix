@@ -1,165 +1,83 @@
-define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics', 'argos/ErrorManager', './Environment', 'argos/Application', 'argos/Offline/Manager', 'argos/Models/Types', './Models/Names', 'argos/Dialogs/BusyIndicator', 'argos/I18n', './MingleUtility', './reducers/index', './actions/config', './actions/user', './PicklistService'], function (module, exports, _string, _DefaultMetrics, _ErrorManager, _Environment, _Application, _Manager, _Types, _Names, _BusyIndicator, _I18n, _MingleUtility, _index, _config, _user, _PicklistService) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Application", ["exports", "dojo/string", "./DefaultMetrics", "argos/ErrorManager", "./Environment", "argos/Application", "argos/Offline/Manager", "argos/Models/Types", "./Models/Names", "argos/Dialogs/BusyIndicator", "argos/I18n", "./MingleUtility", "./reducers/index", "./actions/config", "./actions/user", "./PicklistService"], function (_exports, _string, _DefaultMetrics, _ErrorManager, _Environment, _Application, _Manager, _Types, _Names, _BusyIndicator, _I18n, _MingleUtility, _index, _config, _user, _PicklistService) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _string = _interopRequireDefault(_string);
+  _DefaultMetrics = _interopRequireDefault(_DefaultMetrics);
+  _ErrorManager = _interopRequireDefault(_ErrorManager);
+  _Environment = _interopRequireDefault(_Environment);
+  _Application = _interopRequireDefault(_Application);
+  _Manager = _interopRequireDefault(_Manager);
+  _Types = _interopRequireDefault(_Types);
+  _Names = _interopRequireDefault(_Names);
+  _BusyIndicator = _interopRequireDefault(_BusyIndicator);
+  _I18n = _interopRequireDefault(_I18n);
+  _MingleUtility = _interopRequireDefault(_MingleUtility);
+  _PicklistService = _interopRequireDefault(_PicklistService);
 
-  var _string2 = _interopRequireDefault(_string);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _DefaultMetrics2 = _interopRequireDefault(_DefaultMetrics);
+  function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-  var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
+  function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-  var _Environment2 = _interopRequireDefault(_Environment);
+  function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-  var _Application2 = _interopRequireDefault(_Application);
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-  var _Manager2 = _interopRequireDefault(_Manager);
+  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-  var _Types2 = _interopRequireDefault(_Types);
+  function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-  var _Names2 = _interopRequireDefault(_Names);
+  function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-  var _BusyIndicator2 = _interopRequireDefault(_BusyIndicator);
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var _I18n2 = _interopRequireDefault(_I18n);
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  var _MingleUtility2 = _interopRequireDefault(_MingleUtility);
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  var _PicklistService2 = _interopRequireDefault(_PicklistService);
+  function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
+  function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
+  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-      return _arr;
-    }
+  function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
+  function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
+  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-  var _createClass = function () {
-    function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
+  function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-    return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
-      return Constructor;
-    };
-  }();
-
-  function _possibleConstructorReturn(self, call) {
-    if (!self) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-  }
-
-  var _get = function get(object, property, receiver) {
-    if (object === null) object = Function.prototype;
-    var desc = Object.getOwnPropertyDescriptor(object, property);
-
-    if (desc === undefined) {
-      var parent = Object.getPrototypeOf(object);
-
-      if (parent === null) {
-        return undefined;
-      } else {
-        return get(parent, property, receiver);
-      }
-    } else if ("value" in desc) {
-      return desc.value;
-    } else {
-      var getter = desc.get;
-
-      if (getter === undefined) {
-        return undefined;
-      }
-
-      return getter.call(receiver);
-    }
-  };
-
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-  }
-
-  var resource = (0, _I18n2.default)('application');
-
+  var resource = (0, _I18n["default"])('application');
   /**
    * @alias module:crm/Application
    * @extends module:argos/Application
    */
 
-  var Application = function (_SDKApplication) {
+  var Application = /*#__PURE__*/function (_SDKApplication) {
     _inherits(Application, _SDKApplication);
 
+    var _super = _createSuper(Application);
+
     function Application() {
+      var _this;
+
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         connections: null,
         defaultLocale: 'en',
         enableMultiCurrency: false,
-        multiCurrency: false, // Backwards compatibility
+        multiCurrency: false,
+        // Backwards compatibility
         enableGroups: true,
         enableHashTags: true,
         maxUploadFileSize: 40000000,
@@ -169,15 +87,15 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         enableRememberMe: true,
         warehouseDiscovery: 'auto',
         enableMingle: false,
-        mingleEnabled: false, // Backwards compatibility
+        mingleEnabled: false,
+        // Backwards compatibility
         mingleSettings: null,
         mingleRedirectUrl: ''
       };
 
       _classCallCheck(this, Application);
 
-      var _this = _possibleConstructorReturn(this, (Application.__proto__ || Object.getPrototypeOf(Application)).call(this));
-
+      _this = _super.call(this);
       _this.navigationState = null;
       _this.rememberNavigationState = true;
       _this.speedSearch = {
@@ -218,32 +136,33 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       _this.UID = null;
       _this.isAuthenticated = false;
       _this.hasState = false;
-      _this.defaultViews = ['myday_list', 'calendar_view', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list', 'recently_viewed_list', 'briefcase_list'];
+      _this.defaultViews = ['myday_list', 'calendar_view', 'history_list', 'account_list', 'contact_list', 'lead_list', 'opportunity_list', 'ticket_list', 'myattachment_list', 'recently_viewed_list', 'briefcase_list']; // Settings
 
-      // Settings
-      Object.assign(_this, options); // TODO: Remove
-
+      Object.assign(_assertThisInitialized(_this), options); // TODO: Remove
       // Save this config temporarily until we have a working store (init).
+
       _this._config = options;
       return _this;
     }
 
     _createClass(Application, [{
-      key: 'init',
+      key: "init",
       value: function init() {
         // Must exist here for backwards compatibility for BOE Module
-        this.picklistService = _PicklistService2.default;
-
+        this.picklistService = _PicklistService["default"];
         this._cachingService = new ICRMServicesSDK.CachingService(localStorage);
         this.picklistService.init(this.getService(), this._cachingService);
 
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'init', this).apply(this, arguments);
-        // Dispatch the temp config we saved in the constructor
+        _get(_getPrototypeOf(Application.prototype), "init", this).apply(this, arguments); // Dispatch the temp config we saved in the constructor
+
+
         this.store.dispatch((0, _config.setConfig)(this._config));
         this._config = null;
+
         this._loadNavigationState();
 
         var accessToken = null;
+
         if (this.isMingleEnabled()) {
           accessToken = this.mingleAuthResults.access_token;
         }
@@ -251,49 +170,60 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         this.UID = new Date().getTime();
         var original = Sage.SData.Client.SDataService.prototype.executeRequest;
         var self = this;
+
         Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
           if (accessToken) {
-            request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-            request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
+            request.setRequestHeader('Authorization', "Bearer ".concat(accessToken));
+            request.setRequestHeader('X-Authorization', "Bearer ".concat(accessToken));
           }
 
           request.setRequestHeader('X-Application-Name', self.appName);
           var version = self.mobileVersion;
           var id = self.UID;
-          request.setRequestHeader('X-Application-Version', version.major + '.' + version.minor + '.' + version.revision + ';' + id);
+          request.setRequestHeader('X-Application-Version', "".concat(version.major, ".").concat(version.minor, ".").concat(version.revision, ";").concat(id));
           return original.apply(this, arguments);
         };
       }
     }, {
-      key: 'initServiceWorker',
+      key: "initServiceWorker",
       value: function initServiceWorker() {
         if (this.isServiceWorkerEnabled()) {
-          _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initServiceWorker', this).call(this);
+          _get(_getPrototypeOf(Application.prototype), "initServiceWorker", this).call(this);
         }
       }
     }, {
-      key: 'isServiceWorkerEnabled',
+      key: "isServiceWorkerEnabled",
       value: function isServiceWorkerEnabled() {
         return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
       }
     }, {
-      key: 'registerCacheUrl',
+      key: "registerCacheUrl",
       value: function registerCacheUrl(url) {
         if (this.isServiceWorkerEnabled()) {
-          return this.sendServiceWorkerMessage({ command: 'add', url: url });
+          return this.sendServiceWorkerMessage({
+            command: 'add',
+            url: url
+          });
         }
 
         return Promise.resolve(true);
       }
     }, {
-      key: 'registerCacheUrls',
+      key: "registerCacheUrls",
       value: function registerCacheUrls(urls) {
         var _this2 = this;
 
         if (this.isServiceWorkerEnabled()) {
-          return this.sendServiceWorkerMessage({ command: 'addall', urls: urls }).then(function (data) {
+          return this.sendServiceWorkerMessage({
+            command: 'addall',
+            urls: urls
+          }).then(function (data) {
             if (data.results === 'added' || data.results === 'skipped') {
-              _this2.toast.add({ message: _this2.fileCacheText, title: _this2.fileCacheTitle, toastTime: 20000 });
+              _this2.toast.add({
+                message: _this2.fileCacheText,
+                title: _this2.fileCacheTitle,
+                toastTime: 20000
+              });
             }
 
             return data;
@@ -303,12 +233,12 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return Promise.resolve(true);
       }
     }, {
-      key: 'clearServiceWorkerCaches',
+      key: "clearServiceWorkerCaches",
       value: function clearServiceWorkerCaches() {
         if (this.isServiceWorkerEnabled()) {
           return caches.keys().then(function (keys) {
             return Promise.all(keys.map(function (key) {
-              return caches.delete(key);
+              return caches["delete"](key);
             }));
           });
         }
@@ -316,42 +246,44 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return Promise.resolve(true);
       }
     }, {
-      key: 'initPreferences',
+      key: "initPreferences",
       value: function initPreferences() {
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initPreferences', this).call(this);
+        _get(_getPrototypeOf(Application.prototype), "initPreferences", this).call(this);
+
         this._saveDefaultPreferences();
       }
     }, {
-      key: 'isMingleEnabled',
+      key: "isMingleEnabled",
       value: function isMingleEnabled() {
         return this.enableMingle || this.mingleEnabled;
       }
     }, {
-      key: 'getReducer',
+      key: "getReducer",
       value: function getReducer() {
-        var sdk = _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'getReducer', this).apply(this, arguments);
+        var sdk = _get(_getPrototypeOf(Application.prototype), "getReducer", this).apply(this, arguments);
+
         return Redux.combineReducers({
           sdk: sdk,
           app: _index.app
         });
       }
     }, {
-      key: 'getInitialState',
+      key: "getInitialState",
       value: function getInitialState() {
         return {};
       }
     }, {
-      key: 'initConnects',
+      key: "initConnects",
       value: function initConnects() {
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'initConnects', this).apply(this, arguments);
+        _get(_getPrototypeOf(Application.prototype), "initConnects", this).apply(this, arguments);
       }
     }, {
-      key: 'destroy',
+      key: "destroy",
       value: function destroy() {
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'destroy', this).call(this);
+        _get(_getPrototypeOf(Application.prototype), "destroy", this).call(this);
       }
     }, {
-      key: 'isOnFirstView',
+      key: "isOnFirstView",
       value: function isOnFirstView() {
         var history = this.context.history;
         var length = history.length;
@@ -370,26 +302,26 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return isFirstView;
       }
     }, {
-      key: 'onSetOrientation',
-      value: function onSetOrientation() {
-        // TODO: Close main nav like we did with left drawer?
+      key: "onSetOrientation",
+      value: function onSetOrientation() {// TODO: Close main nav like we did with left drawer?
       }
     }, {
-      key: '_viewTransitionTo',
+      key: "_viewTransitionTo",
       value: function _viewTransitionTo() {
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), '_viewTransitionTo', this).apply(this, arguments);
-        this._checkSaveNavigationState();
-        // TODO: Close main nav like we did with left drawer?
+        _get(_getPrototypeOf(Application.prototype), "_viewTransitionTo", this).apply(this, arguments);
+
+        this._checkSaveNavigationState(); // TODO: Close main nav like we did with left drawer?
+
       }
     }, {
-      key: '_checkSaveNavigationState',
+      key: "_checkSaveNavigationState",
       value: function _checkSaveNavigationState() {
         if (this.rememberNavigationState !== false) {
           this._saveNavigationState();
         }
       }
     }, {
-      key: '_notifyUpdateAvailable',
+      key: "_notifyUpdateAvailable",
       value: function _notifyUpdateAvailable() {
         // TODO: Part of cache manifest, remove or rework for service worker?
         if (this.bars.updatebar) {
@@ -397,16 +329,17 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: '_saveNavigationState',
+      key: "_saveNavigationState",
       value: function _saveNavigationState() {
         try {
           if (window.localStorage) {
             window.localStorage.setItem('navigationState', JSON.stringify(ReUI.context.history));
           }
         } catch (e) {} // eslint-disable-line
+
       }
     }, {
-      key: 'hasMultiCurrency',
+      key: "hasMultiCurrency",
       value: function hasMultiCurrency() {
         // Check if the configuration specified multiCurrency, this will override the dynamic check.
         // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
@@ -418,7 +351,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return false;
       }
     }, {
-      key: 'canLockOpportunityRate',
+      key: "canLockOpportunityRate",
       value: function canLockOpportunityRate() {
         if (this.context && this.context.systemOptions && this.context.systemOptions.LockOpportunityRate === 'True') {
           return true;
@@ -427,7 +360,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return false;
       }
     }, {
-      key: 'canChangeOpportunityRate',
+      key: "canChangeOpportunityRate",
       value: function canChangeOpportunityRate() {
         if (this.context && this.context.systemOptions && this.context.systemOptions.ChangeOpportunityRate === 'True') {
           return true;
@@ -436,7 +369,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return false;
       }
     }, {
-      key: 'getMyExchangeRate',
+      key: "getMyExchangeRate",
       value: function getMyExchangeRate() {
         var results = {
           code: '',
@@ -455,7 +388,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return results;
       }
     }, {
-      key: 'getBaseExchangeRate',
+      key: "getBaseExchangeRate",
       value: function getBaseExchangeRate() {
         var results = {
           code: '',
@@ -474,18 +407,15 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return results;
       }
     }, {
-      key: 'getCurrentOpportunityExchangeRate',
+      key: "getCurrentOpportunityExchangeRate",
       value: function getCurrentOpportunityExchangeRate() {
         var results = {
           code: '',
           rate: 1
         };
-
         var found = this.queryNavigationContext(function (o) {
-          return (/^(opportunities)$/.test(o.resourceKind) && o.key
-          );
+          return /^(opportunities)$/.test(o.resourceKind) && o.key;
         });
-
         found = found && found.options;
 
         if (found) {
@@ -500,14 +430,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return results;
       }
     }, {
-      key: 'getCurrentLocale',
+      key: "getCurrentLocale",
       value: function getCurrentLocale() {
         return this.context.localization && this.context.localization.locale || this.defaultLocale;
       }
     }, {
-      key: 'run',
+      key: "run",
       value: function run() {
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'run', this).apply(this, arguments);
+        _get(_getPrototypeOf(Application.prototype), "run", this).apply(this, arguments);
 
         if (this.isOnline() || !this.enableCaching) {
           if (this.isMingleEnabled()) {
@@ -521,7 +451,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'onAuthenticateUserSuccess',
+      key: "onAuthenticateUserSuccess",
       value: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
         var _this3 = this;
 
@@ -530,7 +460,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           $descriptor: result.response.prettyName,
           UserName: result.response.userName
         };
-
         this.context.user = user;
         this.context.roles = result.response.roles;
         this.context.securedActions = result.response.securedActions;
@@ -559,6 +488,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               })));
             }
           } catch (e) {} //eslint-disable-line
+
         }
 
         if (callback) {
@@ -568,9 +498,10 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'onAuthenticateUserFailure',
+      key: "onAuthenticateUserFailure",
       value: function onAuthenticateUserFailure(callback, scope, response) {
         var service = this.getService();
+
         if (service) {
           service.setUserName(false).setPassword(false);
         }
@@ -582,15 +513,15 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'authenticateUser',
+      key: "authenticateUser",
       value: function authenticateUser(credentials, options) {
         var service = this.getService();
+
         if (credentials) {
           service.setUserName(credentials.username).setPassword(credentials.password || '');
         }
 
         var request = new Sage.SData.Client.SDataServiceOperationRequest(service).setContractName('system').setOperationName('getCurrentUser');
-
         request.execute({}, {
           success: this.onAuthenticateUserSuccess.bind(this, credentials, options.success, options.scope),
           failure: this.onAuthenticateUserFailure.bind(this, options.failure, options.scope),
@@ -598,7 +529,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         });
       }
     }, {
-      key: 'hasAccessTo',
+      key: "hasAccessTo",
       value: function hasAccessTo(security) {
         if (!security) {
           return true;
@@ -619,23 +550,25 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return !!userSecurity[security];
       }
     }, {
-      key: 'reload',
+      key: "reload",
       value: function reload() {
         window.location.hash = '';
         window.location.reload();
       }
     }, {
-      key: 'resetModuleAppStatePromises',
+      key: "resetModuleAppStatePromises",
       value: function resetModuleAppStatePromises() {
         this.clearAppStatePromises();
+
         for (var i = 0; i < this.modules.length; i++) {
           this.modules[i].loadAppStatePromises(this);
         }
       }
     }, {
-      key: 'logOut',
+      key: "logOut",
       value: function logOut() {
         this.removeCredentials();
+
         this._clearNavigationState();
 
         var service = this.getService();
@@ -643,7 +576,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         this.context = {
           history: []
         };
-
         this.resetModuleAppStatePromises();
 
         if (service) {
@@ -657,9 +589,10 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'getCredentials',
+      key: "getCredentials",
       value: function getCredentials() {
         var credentials = null;
+
         try {
           if (window.localStorage) {
             var stored = window.localStorage.getItem('credentials');
@@ -668,19 +601,21 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           }
         } catch (e) {} //eslint-disable-line
 
+
         return credentials;
       }
     }, {
-      key: 'removeCredentials',
+      key: "removeCredentials",
       value: function removeCredentials() {
         try {
           if (window.localStorage) {
             window.localStorage.removeItem('credentials');
           }
         } catch (e) {} //eslint-disable-line
+
       }
     }, {
-      key: 'handleAuthentication',
+      key: "handleAuthentication",
       value: function handleAuthentication() {
         var credentials = this.getCredentials();
 
@@ -697,7 +632,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'handleMingleAuthentication',
+      key: "handleMingleAuthentication",
       value: function handleMingleAuthentication() {
         if (this.mingleAuthResults && this.mingleAuthResults.error === 'access_denied') {
           this.setPrimaryTitle(this.mingleAuthErrorText);
@@ -712,7 +647,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'onHandleAuthenticationSuccess',
+      key: "onHandleAuthenticationSuccess",
       value: function onHandleAuthenticationSuccess() {
         var _this4 = this;
 
@@ -723,55 +658,60 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           _this4.onInitAppStateSuccess();
         }, function (err) {
           _this4.hideHeader();
+
           _this4.onInitAppStateFailed(err);
         });
       }
     }, {
-      key: 'showHeader',
+      key: "showHeader",
       value: function showHeader() {
         var header = $('.header', this.getContainerNode());
         header.show();
       }
     }, {
-      key: 'hideHeader',
+      key: "hideHeader",
       value: function hideHeader() {
         var header = $('.header', this.getContainerNode());
         header.hide();
       }
     }, {
-      key: 'onHandleAuthenticationFailed',
+      key: "onHandleAuthenticationFailed",
       value: function onHandleAuthenticationFailed() {
         this.removeCredentials();
         this.navigateToLoginView();
       }
     }, {
-      key: 'onMingleHandleAuthenticationFailed',
+      key: "onMingleHandleAuthenticationFailed",
       value: function onMingleHandleAuthenticationFailed() {
         this.removeCredentials();
         this.setPrimaryTitle(this.mingleAuthErrorText);
       }
     }, {
-      key: 'onHandleAuthenticationAborted',
+      key: "onHandleAuthenticationAborted",
       value: function onHandleAuthenticationAborted() {
         this.navigateToLoginView();
       }
     }, {
-      key: 'onInitAppStateSuccess',
+      key: "onInitAppStateSuccess",
       value: function onInitAppStateSuccess() {
         var _this5 = this;
 
         this.setDefaultMetricPreferences();
         this.showApplicationMenuOnLarge();
+
         if (this.enableOfflineSupport) {
           this.initOfflineData().then(function () {
             _this5.hasState = true;
+
             _this5.navigateToInitialView();
           }, function (error) {
             _this5.hasState = true;
             _this5.enableOfflineSupport = false;
             var message = resource.offlineInitErrorText;
-            _ErrorManager2.default.addSimpleError(message, error);
-            _ErrorManager2.default.showErrorDialog(null, message, function () {
+
+            _ErrorManager["default"].addSimpleError(message, error);
+
+            _ErrorManager["default"].showErrorDialog(null, message, function () {
               _this5.navigateToInitialView();
             });
           });
@@ -781,29 +721,34 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'onInitAppStateFailed',
+      key: "onInitAppStateFailed",
       value: function onInitAppStateFailed(error) {
         var _this6 = this;
 
         var message = resource.appStateInitErrorText;
         this.hideApplicationMenu();
-        _ErrorManager2.default.addSimpleError(message, error);
-        _ErrorManager2.default.showErrorDialog(null, message, function () {
+
+        _ErrorManager["default"].addSimpleError(message, error);
+
+        _ErrorManager["default"].showErrorDialog(null, message, function () {
           _this6._clearNavigationState();
+
           _this6.removeCredentials();
+
           _this6.navigateToLoginView();
         });
       }
     }, {
-      key: 'onStateChange',
+      key: "onStateChange",
       value: function onStateChange(state) {
-        _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'onStateChange', this).call(this, state);
+        _get(_getPrototypeOf(Application.prototype), "onStateChange", this).call(this, state);
+
         if (!state || state === this.previousState) {
           return;
         }
       }
     }, {
-      key: '_clearNavigationState',
+      key: "_clearNavigationState",
       value: function _clearNavigationState() {
         try {
           this.initialNavigationState = null;
@@ -812,25 +757,26 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             window.localStorage.removeItem('navigationState');
           }
         } catch (e) {} //eslint-disable-line
+
       }
     }, {
-      key: '_loadNavigationState',
+      key: "_loadNavigationState",
       value: function _loadNavigationState() {
         try {
           if (window.localStorage) {
             this.navigationState = window.localStorage.getItem('navigationState');
           }
         } catch (e) {} // eslint-disable-line
+
       }
     }, {
-      key: '_saveDefaultPreferences',
+      key: "_saveDefaultPreferences",
       value: function _saveDefaultPreferences() {
         if (this.preferences) {
           return;
         }
 
         var views = this.getDefaultViews();
-
         this.preferences = {
           home: {
             visible: views
@@ -841,7 +787,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         };
       }
     }, {
-      key: 'getMetricsByResourceKind',
+      key: "getMetricsByResourceKind",
       value: function getMetricsByResourceKind(resourceKind) {
         var results = [];
         var prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
@@ -859,34 +805,33 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return results;
       }
     }, {
-      key: 'setDefaultMetricPreferences',
+      key: "setDefaultMetricPreferences",
       value: function setDefaultMetricPreferences() {
         if (!this.preferences.metrics) {
-          var defaults = new _DefaultMetrics2.default();
+          var defaults = new _DefaultMetrics["default"]();
           this.preferences.metrics = defaults.getDefinitions();
           this.persistPreferences();
         }
       }
     }, {
-      key: 'clearMetricPreferences',
+      key: "clearMetricPreferences",
       value: function clearMetricPreferences() {
         this.preferences.metrics = null;
         this.persistPreferences();
       }
     }, {
-      key: 'clearQuickActionPreferences',
+      key: "clearQuickActionPreferences",
       value: function clearQuickActionPreferences() {
         this.preferences.quickActions = null;
         this.persistPreferences();
       }
     }, {
-      key: 'requestUserDetails',
+      key: "requestUserDetails",
       value: function requestUserDetails() {
         var _this7 = this;
 
         var key = this.context.user.$key;
-        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector('"' + key + '"').setQueryArg('select', this.userDetailsQuerySelect.join(','));
-
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector("\"".concat(key, "\"")).setQueryArg('select', this.userDetailsQuerySelect.join(','));
         return new Promise(function (resolve, reject) {
           request.read({
             success: function success(entry) {
@@ -903,7 +848,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         });
       }
     }, {
-      key: 'requestUserOptions',
+      key: "requestUserOptions",
       value: function requestUserOptions() {
         var _this8 = this;
 
@@ -913,17 +858,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             new Sage.SData.Client.SDataSingleResourceRequest(service).setContractName('system').setResourceKind('useroptions').setResourceKey(item).read();
           });
         }, this);
-
         return new Promise(function (resolve, reject) {
           batch.commit({
             success: function success(feed) {
               var userOptions = this.context.userOptions = this.context.userOptions || {};
-
               feed.$resources.forEach(function (item) {
                 var key = item && item.$descriptor;
                 var value = item.value;
                 var defaultValue = item.defaultValue;
-
 
                 if (typeof value === 'undefined' || value === null) {
                   value = defaultValue;
@@ -933,7 +875,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                   userOptions[key] = value;
                 }
               });
-
               var insertSecCode = userOptions['General:InsertSecCodeID'];
               var currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
 
@@ -946,23 +887,31 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             },
             failure: function failure(response, o) {
               reject();
-              _ErrorManager2.default.addError(response, o, {}, 'failure');
+
+              _ErrorManager["default"].addError(response, o, {}, 'failure');
             },
             scope: _this8
           });
         });
       }
+      /*
+       * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
+       */
+
     }, {
-      key: 'loadCustomizedMoment',
+      key: "loadCustomizedMoment",
       value: function loadCustomizedMoment() {
         var custom = this.buildCustomizedMoment();
         var currentLang = moment.locale();
-
         moment.updateLocale(currentLang, custom);
         this.moment = moment().locale(currentLang, custom);
       }
+      /*
+       * Builds an object that will get passed into moment.locale()
+       */
+
     }, {
-      key: 'buildCustomizedMoment',
+      key: "buildCustomizedMoment",
       value: function buildCustomizedMoment() {
         if (!this.context.userOptions) {
           return null;
@@ -983,28 +932,25 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return results;
       }
     }, {
-      key: 'requestSystemOptions',
+      key: "requestSystemOptions",
       value: function requestSystemOptions() {
-        var _this10 = this;
+        var _this9 = this;
 
         var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('system').setResourceKind('systemoptions').setQueryArg('select', 'name,value');
-
         return new Promise(function (resolve, reject) {
           request.read({
             success: function succes(feed) {
-              var _this9 = this;
+              var _this10 = this;
 
               var systemOptions = this.context.systemOptions = this.context.systemOptions || {};
-
               feed.$resources.forEach(function (item) {
                 var name = item.name,
                     value = item.value;
 
-                if (value && name && _this9.systemOptionsToRequest.indexOf(name) > -1) {
+                if (value && name && _this10.systemOptionsToRequest.indexOf(name) > -1) {
                   systemOptions[name] = value;
                 }
               }, this);
-
               var multiCurrency = systemOptions.MultiCurrency;
 
               if (multiCurrency && multiCurrency === 'True') {
@@ -1018,25 +964,24 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               }
             },
             failure: function failure(response, o) {
-              _ErrorManager2.default.addError(response, o, {}, 'failure');
+              _ErrorManager["default"].addError(response, o, {}, 'failure');
+
               reject();
             },
-            scope: _this10
+            scope: _this9
           });
         });
       }
     }, {
-      key: 'requestExchangeRates',
+      key: "requestExchangeRates",
       value: function requestExchangeRates() {
         var _this11 = this;
 
         var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('dynamic').setResourceKind('exchangeRates').setQueryArg('select', 'Rate');
-
         return new Promise(function (resolve, reject) {
           request.read({
             success: function success(feed) {
               var exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
-
               feed.$resources.forEach(function (item) {
                 var key = item && item.$descriptor;
                 var value = item && item.Rate;
@@ -1045,22 +990,21 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                   exchangeRates[key] = value;
                 }
               });
-
               resolve(feed);
             },
             failure: function failure(response, o) {
               reject();
-              _ErrorManager2.default.addError(response, o, {}, 'failure');
+
+              _ErrorManager["default"].addError(response, o, {}, 'failure');
             },
             scope: _this11
           });
         });
       }
     }, {
-      key: 'requestOwnerDescription',
+      key: "requestOwnerDescription",
       value: function requestOwnerDescription(key) {
-        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('owners').setResourceSelector('"' + key + '"').setQueryArg('select', 'OwnerDescription');
-
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('owners').setResourceSelector("\"".concat(key, "\"")).setQueryArg('select', 'OwnerDescription');
         request.read({
           success: this.onRequestOwnerDescriptionSuccess,
           failure: this.onRequestOwnerDescriptionFailure,
@@ -1068,34 +1012,35 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         });
       }
     }, {
-      key: 'onRequestOwnerDescriptionSuccess',
+      key: "onRequestOwnerDescriptionSuccess",
       value: function onRequestOwnerDescriptionSuccess(entry) {
         if (entry) {
           this.context.defaultOwner = entry;
         }
       }
     }, {
-      key: 'onRequestOwnerDescriptionFailure',
+      key: "onRequestOwnerDescriptionFailure",
       value: function onRequestOwnerDescriptionFailure(response, o) {
-        _ErrorManager2.default.addError(response, o, {}, 'failure');
+        _ErrorManager["default"].addError(response, o, {}, 'failure');
       }
     }, {
-      key: 'getDefaultViews',
+      key: "getDefaultViews",
       value: function getDefaultViews() {
         return this.defaultViews;
       }
     }, {
-      key: 'getExposedViews',
+      key: "getExposedViews",
       value: function getExposedViews() {
         var _this12 = this;
 
         return Object.keys(this.views).filter(function (id) {
           var view = _this12.getViewDetailOnly(id);
+
           return view && view.id !== 'home' && view.expose;
         });
       }
     }, {
-      key: 'cleanRestoredHistory',
+      key: "cleanRestoredHistory",
       value: function cleanRestoredHistory(restoredHistory) {
         var result = [];
         var hasRoot = false;
@@ -1116,13 +1061,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return hasRoot && result;
       }
     }, {
-      key: 'requestIntegrationSettings',
+      key: "requestIntegrationSettings",
       value: function requestIntegrationSettings(integration) {
         var _this13 = this;
 
         if (!this.context.integrationSettings) {
           this.context.integrationSettings = {};
         }
+
         var request = new Sage.SData.Client.SDataBaseRequest(App.getService());
         var pageSize = this.pageSize;
         var startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
@@ -1132,7 +1078,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         request.uri.setPathSegment(3, 'customsettings');
         request.uri.setQueryArg('format', 'JSON');
         request.uri.setQueryArg('select', 'Description,DataValue,DataType');
-        request.uri.setQueryArg('where', 'Category eq "' + integration + '"');
+        request.uri.setQueryArg('where', "Category eq \"".concat(integration, "\""));
         request.uri.setStartIndex(startIndex);
         request.uri.setCount(pageSize);
         request.service.readFeed(request, {
@@ -1141,25 +1087,29 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             feed.$resources.forEach(function (item) {
               var key = item && item.$descriptor;
               var value = item && item.DataValue;
+
               if (typeof value === 'undefined' || value === null) {
                 value = '';
               }
+
               if (key) {
-                integrationSettings['' + key] = value;
+                integrationSettings["".concat(key)] = value;
               }
-              _this13.context.integrationSettings['' + integration] = integrationSettings;
+
+              _this13.context.integrationSettings["".concat(integration)] = integrationSettings;
             });
           },
           failure: function failure(response, o) {
-            _ErrorManager2.default.addError(response, o, '', 'failure');
+            _ErrorManager["default"].addError(response, o, '', 'failure');
           }
         });
       }
     }, {
-      key: 'navigateToInitialView',
+      key: "navigateToInitialView",
       value: function navigateToInitialView() {
         this.showLeftDrawer();
         this.showHeader();
+
         try {
           var restoredState = this.navigationState;
           var restoredHistory = restoredState && JSON.parse(restoredState);
@@ -1176,29 +1126,31 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             }
 
             ReUI.context.transitioning = false;
-
             var last = cleanedHistory[cleanedHistory.length - 1];
             var view = this.getView(last.page);
             var options = last.data && last.data.options;
-
             view.show(options);
           } else {
             this.navigateToHomeView();
           }
         } catch (e) {
           this._clearNavigationState();
+
           this.navigateToHomeView();
         }
       }
     }, {
-      key: 'setupRedirectHash',
+      key: "setupRedirectHash",
       value: function setupRedirectHash() {
         var isMingleRefresh = false;
+
         if (this._hasValidRedirect()) {
           if (this.isMingleEnabled()) {
             var vars = this.redirectHash.split('&');
+
             for (var i = 0; i < vars.length; i++) {
               var pair = vars[i].split('=');
+
               if (pair[0] === 'state') {
                 if (pair[1] === 'mingleRefresh') {
                   // show default view
@@ -1206,18 +1158,22 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                 } else {
                   this.redirectHash = decodeURIComponent(pair[1]);
                 }
+
                 break;
               }
             }
           }
+
           if (isMingleRefresh) {
             var view = this.getView(App.getDefaultViews()[0]);
+
             if (view) {
               view.show();
             }
           } else {
             // Split by "/redirectTo/"
             var split = this.redirectHash.split(/\/redirectTo\//gi);
+
             if (split.length === 2) {
               this.redirectHash = split[1];
             }
@@ -1225,15 +1181,17 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'onConnectionChange',
+      key: "onConnectionChange",
       value: function onConnectionChange(online) {
         var view = this.getView('left_drawer');
+
         if (!this.enableOfflineSupport) {
           return;
         }
 
         if (this.isMingleEnabled() && online && this.requiresMingleRefresh) {
-          _MingleUtility2.default.refreshAccessToken(this);
+          _MingleUtility["default"].refreshAccessToken(this);
+
           return;
         }
 
@@ -1242,39 +1200,47 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
 
         if (online) {
-          this.toast.add({ message: this.onlineText, title: this.connectionToastTitleText });
+          this.toast.add({
+            message: this.onlineText,
+            title: this.connectionToastTitleText
+          });
+
           if (this.context && this.context.user) {
             this.navigateToInitialView();
           } else {
             this.navigateToLoginView();
           }
         } else {
-          this.toast.add({ message: this.offlineText, title: this.connectionToastTitleText });
+          this.toast.add({
+            message: this.offlineText,
+            title: this.connectionToastTitleText
+          });
           this.navigateToInitialView();
         }
 
         this.setToolBarMode(online);
       }
     }, {
-      key: 'navigateToLoginView',
+      key: "navigateToLoginView",
       value: function navigateToLoginView() {
         this.setupRedirectHash();
-
         var view = this.getView(this.loginViewId);
+
         if (view) {
           view.show();
         }
       }
     }, {
-      key: '_hasValidRedirect',
+      key: "_hasValidRedirect",
       value: function _hasValidRedirect() {
         var hashValue = decodeURIComponent(this.redirectHash);
         return hashValue !== '' && hashValue.indexOf('/redirectTo/') > 0;
       }
     }, {
-      key: 'showLeftDrawer',
+      key: "showLeftDrawer",
       value: function showLeftDrawer() {
         var view = this.getView('left_drawer');
+
         if (view) {
           view.show();
         }
@@ -1282,29 +1248,31 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         return this;
       }
     }, {
-      key: 'showRightDrawer',
+      key: "showRightDrawer",
       value: function showRightDrawer() {
         return this;
       }
     }, {
-      key: 'navigateToHomeView',
+      key: "navigateToHomeView",
       value: function navigateToHomeView() {
         this.setupRedirectHash();
         this.showLeftDrawer();
-
         var visible = this.preferences && this.preferences.home && this.preferences.home.visible;
+
         if (visible && visible.length > 0) {
           this.homeViewId = visible[0];
-        }
+        } // Default view will be the home view, overwritten below if a redirect hash is supplied
 
-        // Default view will be the home view, overwritten below if a redirect hash is supplied
+
         var view = this.getView(this.homeViewId);
 
         if (this.redirectHash) {
           var split = this.redirectHash.split(';');
+
           if (split.length === 1) {
             split = this.redirectHash.split(':');
           }
+
           if (split.length > 0) {
             var _split = split,
                 _split2 = _slicedToArray(_split, 2),
@@ -1312,12 +1280,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                 key = _split2[1];
 
             var redirectView = this.getView(viewId);
+
             if (redirectView) {
               if (!redirectView.canRedirectTo) {
                 // The user will go to the default view instead
                 view = this.getView(this.homeViewId);
               } else {
                 view = redirectView;
+
                 if (key) {
                   redirectView.show({
                     key: key
@@ -1326,6 +1296,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               }
             }
           }
+
           this.redirectHash = '';
         }
 
@@ -1338,66 +1309,74 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         }
       }
     }, {
-      key: 'navigateToActivityInsertView',
+      key: "navigateToActivityInsertView",
       value: function navigateToActivityInsertView() {
         var view = this.getView('activity_types_list');
+
         if (view) {
           view.show();
         }
       }
     }, {
-      key: 'initiateCall',
+      key: "initiateCall",
       value: function initiateCall() {
         // shortcut for environment call
-        _Environment2.default.initiateCall.apply(this, arguments);
+        _Environment["default"].initiateCall.apply(this, arguments);
       }
     }, {
-      key: 'initiateEmail',
+      key: "initiateEmail",
       value: function initiateEmail() {
         // shortcut for environment call
-        _Environment2.default.initiateEmail.apply(this, arguments);
+        _Environment["default"].initiateEmail.apply(this, arguments);
       }
     }, {
-      key: 'showMapForAddress',
+      key: "showMapForAddress",
       value: function showMapForAddress() {
         // shortcut for environment call
-        _Environment2.default.showMapForAddress.apply(this, arguments);
+        _Environment["default"].showMapForAddress.apply(this, arguments);
       }
     }, {
-      key: 'getVersionInfo',
+      key: "getVersionInfo",
       value: function getVersionInfo() {
-        var info = _string2.default.substitute(this.versionInfoText, [this.mobileVersion.major, this.mobileVersion.minor, this.mobileVersion.revision, this.serverVersion.major]);
+        var info = _string["default"].substitute(this.versionInfoText, [this.mobileVersion.major, this.mobileVersion.minor, this.mobileVersion.revision, this.serverVersion.major]);
+
         return info;
       }
     }, {
-      key: 'initOfflineData',
+      key: "initOfflineData",
       value: function initOfflineData() {
         var _this14 = this;
 
         return new Promise(function (resolve, reject) {
-          var model = _this14.ModelManager.getModel(_Names2.default.AUTHENTICATION, _Types2.default.OFFLINE);
+          var model = _this14.ModelManager.getModel(_Names["default"].AUTHENTICATION, _Types["default"].OFFLINE);
+
           if (model) {
-            var indicator = new _BusyIndicator2.default({
+            var indicator = new _BusyIndicator["default"]({
               id: 'busyIndicator__offlineData',
               label: resource.offlineInitDataText
             });
             _this14.modal.disableClose = true;
             _this14.modal.showToolbar = false;
-            _this14.modal.add(indicator);
-            indicator.start();
 
+            _this14.modal.add(indicator);
+
+            indicator.start();
             model.initAuthentication(_this14.context.user.$key).then(function (result) {
               if (result.hasUserChanged || !result.hasAuthenticatedToday) {
-                _Manager2.default.clearAllData().then(function () {
+                _Manager["default"].clearAllData().then(function () {
                   model.updateEntry(result.entry);
                   indicator.complete(true);
                   _this14.modal.disableClose = false;
+
                   _this14.modal.hide();
+
                   resolve();
                 }, function (err) {
                   indicator.complete(true);
                   _this14.modal.disableClose = false;
+
                   _this14.modal.hide();
+
                   reject(err);
                 });
               } else {
@@ -1405,7 +1384,9 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                 model.updateEntry(result.entry);
                 indicator.complete(true);
                 _this14.modal.disableClose = false;
+
                 _this14.modal.hide();
+
                 resolve(); // Do nothing since this not the first time athuenticating.
               }
             }, function (err) {
@@ -1419,8 +1400,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }]);
 
     return Application;
-  }(_Application2.default);
+  }(_Application["default"]);
 
-  exports.default = Application;
-  module.exports = exports['default'];
+  var _default = Application;
+  _exports["default"] = _default;
 });

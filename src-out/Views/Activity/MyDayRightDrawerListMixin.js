@@ -1,21 +1,16 @@
-define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', '../_RightDrawerBaseMixin', 'argos/I18n'], function (module, exports, _declare, _lang, _RightDrawerBaseMixin2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Activity/MyDayRightDrawerListMixin", ["exports", "dojo/_base/declare", "dojo/_base/lang", "../_RightDrawerBaseMixin", "argos/I18n"], function (_exports, _declare, _lang, _RightDrawerBaseMixin2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _RightDrawerBaseMixin2 = _interopRequireDefault(_RightDrawerBaseMixin2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _RightDrawerBaseMixin3 = _interopRequireDefault(_RightDrawerBaseMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,14 +26,12 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityMyDayRightDrawerList');
 
-  var resource = (0, _I18n2.default)('activityMyDayRightDrawerList');
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin2["default"]], {
     // Localization
     kpiSectionText: resource.kpiSectionText,
     filterSectionText: resource.filterSectionText,
-
     // Dirty flags to refresh the mainview and/or widgets
     _hasChangedKPIPrefs: false,
     _hasChangedKFilterPrefs: false,
@@ -62,9 +55,11 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
       var filters = this.getFilters();
       var filterPrefs = Object.keys(filters).map(function (name) {
         var enabled = false;
+
         if (_this._currentFilterName === name) {
           enabled = false;
         }
+
         return {
           name: name,
           enabled: enabled
@@ -74,18 +69,20 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
     },
     setupRightDrawer: function setupRightDrawer() {
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
-        _lang2.default.mixin(drawer, this._createActions());
+        _lang["default"].mixin(drawer, this._createActions());
+
         drawer.setLayout(this.createRightDrawerLayout());
-        drawer.getGroupForEntry = _lang2.default.hitch(this, function getGroupForRightDrawerEntry(entry) {
+        drawer.getGroupForEntry = _lang["default"].hitch(this, function getGroupForRightDrawerEntry(entry) {
           return this.getGroupForRightDrawerEntry(entry);
         });
-
         App.viewSettingsModal.element.on('close', this.onSnapperClose.bind(this));
       }
     },
     refreshRightDrawer: function refreshRightDrawer() {
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
         drawer.clear();
         drawer.layout = null;
@@ -110,9 +107,12 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
     },
     unloadRightDrawer: function unloadRightDrawer() {
       var drawer = App.getView('right_drawer');
+
       if (drawer) {
         drawer.setLayout([]);
+
         drawer.getGroupForEntry = function snapperOff() {};
+
         App.viewSettingsModal.element.off('close');
       }
     },
@@ -126,11 +126,13 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
         filterClicked: function onFilterClicked(params) {
           var prefs = App.preferences && App.preferences.myDayFilters;
           var filterPref = [];
+
           if (prefs.length) {
             filterPref = prefs.filter(function (pref) {
               return pref.name === params.filtername;
             });
           }
+
           if (filterPref.length > 0) {
             var enabled = !!filterPref[0].enabled;
             filterPref[0].enabled = !enabled;
@@ -140,13 +142,14 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
               }
             });
             this.setCurrentFilter(null);
+
             if (filterPref[0].enabled) {
               this.setCurrentFilter(filterPref[0].name);
             }
+
             App.persistPreferences();
             this._hasChangedFilterPrefs = true;
             $(params.$source).attr('data-enabled', (!enabled).toString());
-
             this.onSnapperClose();
             App.viewSettingsModal.close();
             this.refreshRightDrawer();
@@ -154,7 +157,7 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
         }.bind(this),
         kpiClicked: function kpiClicked(params) {
           var metrics = this.getMetrics();
-          var results = void 0;
+          var results;
 
           if (metrics.length > 0) {
             results = metrics.filter(function (metric) {
@@ -167,12 +170,10 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedKPIPrefs = true;
-
             $(params.$source).attr('data-enabled', (!enabled).toString());
           }
         }.bind(this)
       };
-
       return actions;
     },
     getMetrics: function getMetrics() {
@@ -185,6 +186,7 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
           title: resource.filterSectionText
         };
       }
+
       return {
         tag: 'kpi',
         title: resource.kpiSectionText
@@ -202,7 +204,6 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
             return pref.name === filterName;
           });
           var enabled = filterPref[0].enabled;
-
           return {
             name: filterName,
             action: 'filterClicked',
@@ -221,7 +222,7 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
           return m.title;
         }).map(function (metric, i) {
           return {
-            name: 'KPI' + i,
+            name: "KPI".concat(i),
             action: 'kpiClicked',
             title: metric.title,
             dataProps: {
@@ -231,12 +232,11 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
           };
         })
       };
-
       layout.push(kpiSection);
       return layout;
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

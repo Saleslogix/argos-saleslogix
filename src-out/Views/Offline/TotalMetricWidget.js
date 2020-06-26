@@ -1,19 +1,30 @@
-define('crm/Views/Offline/TotalMetricWidget', ['module', 'exports', '../MetricWidget', 'dojo/_base/declare'], function (module, exports, _MetricWidget, _declare) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Offline/TotalMetricWidget", ["exports", "../MetricWidget", "dojo/_base/declare"], function (_exports, _MetricWidget, _declare) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _MetricWidget = _interopRequireDefault(_MetricWidget);
+  _declare = _interopRequireDefault(_declare);
 
-  var _MetricWidget2 = _interopRequireDefault(_MetricWidget);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  exports.default = (0, _declare2.default)('crm.Views.Offline.TotalMetricWidget', [_MetricWidget2.default], {
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var _default = (0, _declare["default"])('crm.Views.Offline.TotalMetricWidget', [_MetricWidget["default"]], {
     navToReportView: function navToReportView() {},
     _buildQueryOptions: function _buildQueryOptions() {
       return {};
@@ -41,5 +52,6 @@ define('crm/Views/Offline/TotalMetricWidget', ['module', 'exports', '../MetricWi
       this._model = App.modelManager.getModel('');
     }
   });
-  module.exports = exports['default'];
+
+  _exports["default"] = _default;
 });

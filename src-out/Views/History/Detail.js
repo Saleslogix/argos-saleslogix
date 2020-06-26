@@ -1,25 +1,18 @@
-define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '../../Format', '../../Template', 'argos/Detail', 'argos/I18n', '../../Models/Names'], function (module, exports, _declare, _Format, _Template, _Detail, _I18n, _Names) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/History/Detail", ["exports", "dojo/_base/declare", "../../Format", "../../Template", "argos/Detail", "argos/I18n", "../../Models/Names"], function (_exports, _declare, _Format, _Template, _Detail, _I18n, _Names) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Template = _interopRequireDefault(_Template);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,14 +28,12 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('historyDetail');
+  var dtFormatResource = (0, _I18n["default"])('historyDetailDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('historyDetail');
-  var dtFormatResource = (0, _I18n2.default)('historyDetailDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.History.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.History.Detail', [_Detail["default"]], {
     // Templates
-    createUserTemplate: _Template2.default.nameLF,
-
+    createUserTemplate: _Template["default"].nameLF,
     // Localization
     categoryText: resource.categoryText,
     completedText: resource.completedText,
@@ -84,9 +75,9 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
     dateFormatText: dtFormatResource.dateFormatText,
     dateFormatText24: dtFormatResource.dateFormatText24,
     resourceKind: 'history',
-    modelName: _Names2.default.HISTORY,
-    security: null, // 'Entities/History/View',
-
+    modelName: _Names["default"].HISTORY,
+    security: null,
+    // 'Entities/History/View',
     formatActivityType: function formatActivityType(val) {
       return this.activityTypeText[val] || val;
     },
@@ -103,7 +94,7 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
       return entry && (entry.LongNotes || entry.Notes);
     },
     formatPicklist: function formatPicklist(property) {
-      return _Format2.default.picklist(this.app.picklistService, this._model, property);
+      return _Format["default"].picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
@@ -115,7 +106,7 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
           encode: false,
           label: this.longNotesText,
           provider: this.provideText.bindDelegate(this),
-          use: _Template2.default.noteDetailProperty
+          use: _Template["default"].noteDetailProperty
         }]
       }, {
         title: this.detailsText,
@@ -124,19 +115,19 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'StartDate',
           property: 'StartDate',
           label: this.scheduledText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.dateFormatText24 : this.dateFormatText),
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.dateFormatText24 : this.dateFormatText),
           exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
         }, {
           name: 'CompletedDate',
           property: 'CompletedDate',
           label: this.completedText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.dateFormatText24 : this.dateFormatText),
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.dateFormatText24 : this.dateFormatText),
           exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
         }, {
           name: 'ModifyDate',
           property: 'ModifyDate',
           label: this.modifiedText,
-          renderer: _Format2.default.date.bindDelegate(this, App.is24HourClock() ? this.dateFormatText24 : this.dateFormatText),
+          renderer: _Format["default"].date.bindDelegate(this, App.is24HourClock() ? this.dateFormatText24 : this.dateFormatText),
           include: this.isHistoryOfType.bindDelegate(this, 'atNote')
         }, {
           name: 'Description',
@@ -147,7 +138,7 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'CompletedUser',
           property: 'CompletedUser.UserInfo',
           label: this.completedByText,
-          template: _Template2.default.nameLF
+          template: _Template["default"].nameLF
         }, {
           name: 'AccountName',
           property: 'AccountName',
@@ -201,7 +192,8 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
         children: [{
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'),
+          // must be lower case because of feed
           view: 'history_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
@@ -209,6 +201,6 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

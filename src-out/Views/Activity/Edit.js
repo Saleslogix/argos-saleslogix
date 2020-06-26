@@ -1,35 +1,23 @@
-define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', 'argos/Utility', 'argos/Edit', '../../Recurrence', 'argos/Format', 'argos/I18n', '../../Models/Names', '../../Models/Activity/ActivityTypePicklists'], function (module, exports, _declare, _connect, _string, _Environment, _Validator, _Utility, _Edit, _Recurrence, _Format, _I18n, _Names, _ActivityTypePicklists) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Activity/Edit", ["exports", "dojo/_base/declare", "dojo/_base/connect", "dojo/string", "../../Environment", "../../Validator", "argos/Utility", "argos/Edit", "../../Recurrence", "argos/Format", "argos/I18n", "../../Models/Names", "../../Models/Activity/ActivityTypePicklists"], function (_exports, _declare, _connect, _string, _Environment, _Validator, _Utility, _Edit, _Recurrence, _Format, _I18n, _Names, _ActivityTypePicklists) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _connect = _interopRequireDefault(_connect);
+  _string = _interopRequireDefault(_string);
+  _Environment = _interopRequireDefault(_Environment);
+  _Validator = _interopRequireDefault(_Validator);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _Recurrence = _interopRequireDefault(_Recurrence);
+  _Format = _interopRequireDefault(_Format);
+  _I18n = _interopRequireDefault(_I18n);
+  _Names = _interopRequireDefault(_Names);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _connect2 = _interopRequireDefault(_connect);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Environment2 = _interopRequireDefault(_Environment);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _Recurrence2 = _interopRequireDefault(_Recurrence);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -45,11 +33,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('activityEdit');
+  var dtFormatResource = (0, _I18n["default"])('activityEditDateTimeFormat');
 
-  var resource = (0, _I18n2.default)('activityEdit');
-  var dtFormatResource = (0, _I18n2.default)('activityEditDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Activity.Edit', [_Edit["default"]], {
     // Localization
     activityCategoryTitleText: resource.activityCategoryTitleText,
     activityDescriptionTitleText: resource.activityDescriptionTitleText,
@@ -114,12 +101,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
      * The number of minutes that should be rounded to as a default start when creating a new activity
      */
     ROUND_MINUTES: 15,
-
     // View Properties
     id: 'activity_edit',
     detailView: 'activity_detail',
     fieldsForLeads: ['AccountName', 'Lead'],
     fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
+
     /*
      * @deprecated Use ActivityTypePicklists from Modes/Activity/ActivityTypePicklists instead
      */
@@ -154,31 +141,28 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       atPhoneCall: 'ActivityPhoneOptions',
       atAppointment: 'ActivityMeetingOptions'
     },
-
     entityName: 'Activity',
-    modelName: _Names2.default.ACTIVITY,
-    insertSecurity: null, // 'Entities/Activity/Add',
-    updateSecurity: null, // 'Entities/Activity/Edit',
+    modelName: _Names["default"].ACTIVITY,
+    insertSecurity: null,
+    // 'Entities/Activity/Add',
+    updateSecurity: null,
+    // 'Entities/Activity/Edit',
     contractName: 'system',
     resourceKind: 'activities',
     recurrence: null,
     _previousRecurrence: null,
-
     init: function init() {
       this.inherited(init, arguments);
-
       this.recurrence = {
         RecurIterations: '0',
         RecurPeriod: '-1',
         RecurPeriodSpec: '0'
       };
-
       this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
       this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
       this.connect(this.fields.Leader, 'onChange', this.onLeaderChange);
       this.connect(this.fields.Timeless, 'onChange', this.onTimelessChange);
       this.connect(this.fields.Alarm, 'onChange', this.onAlarmChange);
-
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
       this.connect(this.fields.Contact, 'onChange', this.onContactChange);
       this.connect(this.fields.Opportunity, 'onChange', this.onOpportunityChange);
@@ -188,17 +172,18 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.connect(this.fields.Recurrence, 'onChange', this.onRecurrenceChange);
     },
     onAddComplete: function onAddComplete() {
-      _Environment2.default.refreshActivityLists();
+      _Environment["default"].refreshActivityLists();
+
       this.inherited(onAddComplete, arguments);
     },
     onPutComplete: function onPutComplete(entry, updatedEntry) {
       var view = App.getView(this.detailView);
       var originalKey = this.options.entry && this.options.entry.$key || updatedEntry.$key;
-
       this.enable();
 
-      _Environment2.default.refreshActivityLists();
-      _connect2.default.publish('/app/refresh', [{
+      _Environment["default"].refreshActivityLists();
+
+      _connect["default"].publish('/app/refresh', [{
         resourceKind: this.resourceKind,
         key: updatedEntry.$key,
         data: updatedEntry
@@ -217,6 +202,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     },
     convertEntry: function convertEntry() {
       var entry = this.inherited(convertEntry, arguments);
+
       if (!this.options.entry) {
         if (entry && entry.Leader.$key) {
           this.requestLeader(entry.Leader.$key);
@@ -226,8 +212,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return entry;
     },
     requestLeader: function requestLeader(userId) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector('\'' + userId + '\'').setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
-
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector("'".concat(userId, "'")).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
       request.read({
         success: this.processLeader,
         failure: this.requestLeaderFailure,
@@ -251,13 +236,14 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     isActivityRecurring: function isActivityRecurring() {
-      return (/rstMaster/.test(this.fields.RecurrenceState.getValue())
-      );
+      return /rstMaster/.test(this.fields.RecurrenceState.getValue());
     },
     isInLeadContext: function isInLeadContext() {
       var insert = this.options && this.options.insert;
       var entry = this.options && this.options.entry;
+
       var context = this._getNavContext();
+
       var isLeadContext = false;
 
       if (context.resourceKind === 'leads') {
@@ -265,14 +251,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
 
       var lead = insert && isLeadContext || this.isActivityForLead(entry);
-
       return !!lead;
     },
     beforeTransitionTo: function beforeTransitionTo() {
-      this.inherited(beforeTransitionTo, arguments);
-
-      // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+      this.inherited(beforeTransitionTo, arguments); // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
       // the value for the 'IsLead' field will be set later, based on the value derived here.
+
       if (this.options.isForLead !== undefined) {
         return;
       }
@@ -316,7 +300,6 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
           _this.fields[item].hide();
         }
       }, this);
-
       this.fieldsForLeads.forEach(function (item) {
         if (_this.fields[item]) {
           _this.fields[item].show();
@@ -331,7 +314,6 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
           _this2.fields[item].hide();
         }
       }, this);
-
       this.fieldsForStandard.forEach(function (item) {
         if (_this2.fields[item]) {
           _this2.fields[item].show();
@@ -355,6 +337,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         startDateField.dateFormatText = this.startingTimelessFormatText;
         startDateField.showTimePicker = false;
         startDateField.timeless = true;
+
         var startDate = this._getNewStartDate(startDateField.getValue(), true);
 
         if (startDate) {
@@ -367,6 +350,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         startDateField.dateFormatText = App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText;
         startDateField.showTimePicker = true;
         startDateField.timeless = false;
+
         var _startDate = this._getNewStartDate(startDateField.getValue(), false);
 
         if (_startDate) {
@@ -385,10 +369,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
+        this.fields.AccountName.setValue(_Utility["default"].getValue(selection, 'Company'));
       }
 
       var entry = field.currentSelection;
+
       if (entry.WorkPhone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
@@ -397,20 +382,18 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     onLeaderChange: function onLeaderChange(value, field) {
       var user = field.getValue();
       var resourceId = '';
-
-      var key = user.$key;
-
-      // The key is a composite key on activityresourceviews endpoint.
+      var key = user.$key; // The key is a composite key on activityresourceviews endpoint.
       // The format is 'ResourceId-AccessId'.
       // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
       // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
+
       if (key) {
         key = key.split('-');
         resourceId = key[0];
-        if (resourceId) {
-          this.fields.UserId.setValue(resourceId);
 
-          // Set back to a single $key so the PUT request payload is not messed up
+        if (resourceId) {
+          this.fields.UserId.setValue(resourceId); // Set back to a single $key so the PUT request payload is not messed up
+
           this.fields.Leader.setValue({
             $key: resourceId,
             $descriptor: user.$descriptor
@@ -423,13 +406,13 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       ['Contact', 'Opportunity', 'Ticket'].forEach(function (f) {
         if (value) {
           fields[f].dependsOn = 'Account';
-          fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
+          fields[f].where = "Account.Id eq \"".concat(value.AccountId || value.key, "\"");
 
           if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
-          }
+          } // No way to determine if the field is part of the changed account, clear it
 
-          // No way to determine if the field is part of the changed account, clear it
+
           if (!fields[f].currentSelection) {
             fields[f].setValue(null);
           }
@@ -444,6 +427,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
 
       var entry = field.currentSelection;
+
       if (entry && entry.MainPhone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.MainPhone);
@@ -471,6 +455,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.onAccountDependentChange(value, field);
       var entry = field.currentSelection;
       var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+
       if (phone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
@@ -487,22 +472,22 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     onStartDateChange: function onStartDateChange(value) {
-      this.recurrence.StartDate = value;
-      // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
-      this.recurrence.RecurPeriodSpec = _Recurrence2.default.getRecurPeriodSpec(this.recurrence.RecurPeriod, this.recurrence.StartDate, this.recurrence.RecurPeriodSpec - this.recurrence.RecurPeriodSpec % 65536, // weekdays
+      this.recurrence.StartDate = value; // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
+
+      this.recurrence.RecurPeriodSpec = _Recurrence["default"].getRecurPeriodSpec(this.recurrence.RecurPeriod, this.recurrence.StartDate, this.recurrence.RecurPeriodSpec - this.recurrence.RecurPeriodSpec % 65536, // weekdays
       this.recurrence.RecurPeriodSpec % 65536 // interval
       );
       this.resetRecurrence(this.recurrence);
 
-      _Recurrence2.default.createSimplifiedOptions(value);
+      _Recurrence["default"].createSimplifiedOptions(value);
 
       var repeats = this.recurrence.RecurrenceState === 'rstMaster';
-      this.fields.RecurrenceUI.setValue(_Recurrence2.default.getPanel(repeats && this.recurrence.RecurPeriod));
+      this.fields.RecurrenceUI.setValue(_Recurrence["default"].getPanel(repeats && this.recurrence.RecurPeriod));
     },
     onRecurrenceUIChange: function onRecurrenceUIChange(value, field) {
       var key = field.currentValue && field.currentValue.key;
-      var opt = _Recurrence2.default.simplifiedOptions[key];
-      // preserve #iterations (and EndDate) if matching recurrence
+      var opt = _Recurrence["default"].simplifiedOptions[key]; // preserve #iterations (and EndDate) if matching recurrence
+
       if (this._previousRecurrence === key) {
         opt.RecurIterations = this.recurrence.RecurIterations;
       }
@@ -513,6 +498,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     onRecurrenceChange: function onRecurrenceChange(value) {
       // did the StartDate change on the recurrence_edit screen?
       var startDate = argos.Convert.toDateFromString(value.StartDate); // TODO: Avoid global
+
       var currentDate = this.fields.StartDate.getValue();
 
       if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
@@ -544,11 +530,9 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         this.recurrence.RecurIterations = o.RecurIterations;
       }
 
-      this.recurrence.EndDate = _Recurrence2.default.calcEndDate(this.recurrence.StartDate, this.recurrence);
-
-      this.fields.RecurrenceUI.setValue(_Recurrence2.default.getPanel(this.recurrence.RecurPeriod));
+      this.recurrence.EndDate = _Recurrence["default"].calcEndDate(this.recurrence.StartDate, this.recurrence);
+      this.fields.RecurrenceUI.setValue(_Recurrence["default"].getPanel(this.recurrence.RecurPeriod));
       this.fields.Recurrence.setValue(this.recurrence);
-
       this.fields.Recurring.setValue(this.recurrence.Recurring);
       this.fields.RecurPeriod.setValue(this.recurrence.RecurPeriod);
       this.fields.RecurPeriodSpec.setValue(this.recurrence.Recurring ? this.recurrence.RecurPeriodSpec : 0);
@@ -562,7 +546,6 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         this.fields.Recurrence.disable();
       }
     },
-
     formatPicklistForType: function formatPicklistForType(type, which) {
       return (0, _ActivityTypePicklists.getPicklistByActivityType)(type, which);
     },
@@ -571,7 +554,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         return recurrence;
       }
 
-      return _Recurrence2.default.toString(recurrence, true);
+      return _Recurrence["default"].toString(recurrence, true);
     },
     _getCalculatedStartTime: function _getCalculatedStartTime(selectedDate) {
       var now = moment();
@@ -579,18 +562,17 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       if (!moment.isMoment(selectedDate)) {
         thisSelectedDate = moment(selectedDate);
-      }
-
-      // Take the start of the selected date, add the *current* time to it,
+      } // Take the start of the selected date, add the *current* time to it,
       // and round it up to the nearest ROUND_MINUTES
       // Examples:
       // 11:24 -> 11:30
       // 11:12 -> 11:15
       // 11:31 -> 11:45
+
+
       var startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
         minutes: Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES + this.ROUND_MINUTES
       });
-
       return startDate;
     },
     applyUserActivityContext: function applyUserActivityContext(optionsDate) {
@@ -600,11 +582,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.inherited(applyContext, arguments);
 
       var startDate = this._getCalculatedStartTime(moment());
+
       var activityType = this.options && this.options.activityType;
       var activityGroup = this.groupOptionsByType[activityType] || '';
-      var activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
-      var alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true;
-      var alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
+      var activityDuration = App.context.userOptions && App.context.userOptions["".concat(activityGroup, ":Duration")] || 15;
+      var alarmEnabled = App.context.userOptions && App.context.userOptions["".concat(activityGroup, ":AlarmEnabled")] || true;
+      var alarmDuration = App.context.userOptions && App.context.userOptions["".concat(activityGroup, ":AlarmLead")] || 15;
 
       if (this.options && this.options.currentDate) {
         startDate = this.applyUserActivityContext(moment(this.options.currentDate));
@@ -615,11 +598,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.fields.Duration.setValue(activityDuration);
       this.fields.Alarm.setValue(alarmEnabled);
       this.fields.Reminder.setValue(alarmDuration);
-
       var user = App.context.user;
+
       if (user) {
         this.fields.UserId.setValue(user.$key);
-
         var leaderField = this.fields.Leader;
         leaderField.setValue(user);
         this.onLeaderChange(user, leaderField);
@@ -629,7 +611,6 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       var accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
-
       var context = found && found.options && found.options.source || found;
       var lookup = {
         accounts: this.applyAccountContext,
@@ -680,19 +661,16 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
 
       var contactField = this.fields.Contact;
-
       contactField.setSelection(entry);
       contactField.setValue({
         ContactId: entry.$key,
         ContactName: entry.$descriptor
       });
-
       this.onAccountDependentChange(contactField.getValue(), contactField);
-
       var accountField = this.fields.Account;
       accountField.setValue({
-        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
-        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+        AccountId: _Utility["default"].getValue(entry, 'Account.$key'),
+        AccountName: _Utility["default"].getValue(entry, 'Account.AccountName')
       });
 
       if (entry.WorkPhone) {
@@ -715,21 +693,19 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         TicketNumber: entry.$descriptor
       });
       this.onAccountDependentChange(ticketField.getValue(), ticketField);
-
       var contactField = this.fields.Contact;
       contactField.setValue({
-        ContactId: _Utility2.default.getValue(entry, 'Contact.$key'),
-        ContactName: _Utility2.default.getValue(entry, 'Contact.NameLF')
+        ContactId: _Utility["default"].getValue(entry, 'Contact.$key'),
+        ContactName: _Utility["default"].getValue(entry, 'Contact.NameLF')
       });
       this.onAccountDependentChange(contactField.getValue(), contactField);
-
       var accountField = this.fields.Account;
       accountField.setValue({
-        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
-        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+        AccountId: _Utility["default"].getValue(entry, 'Account.$key'),
+        AccountName: _Utility["default"].getValue(entry, 'Account.AccountName')
       });
-
       var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+
       if (phone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
@@ -749,13 +725,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         OpportunityId: entry.$key,
         OpportunityName: entry.$descriptor
       });
-
       this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
-
       var accountField = this.fields.Account;
       accountField.setValue({
-        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
-        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+        AccountId: _Utility["default"].getValue(entry, 'Account.$key'),
+        AccountName: _Utility["default"].getValue(entry, 'Account.AccountName')
       });
 
       if (entry.Account && entry.Account.MainPhone) {
@@ -778,9 +752,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         LeadName: entry.$descriptor
       });
       this.onLeadChange(leadField.getValue(), leadField);
-
       this.fields.AccountName.setValue(entry.Company);
-
       var isLeadField = this.fields.IsLead;
       isLeadField.setValue(context.resourceKind === 'leads');
       this.onIsLeadChange(isLeadField.getValue(), isLeadField);
@@ -795,15 +767,13 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         var startTime = this.isDateTimeless(values.StartDate) ? moment(values.StartDate).add({
           minutes: values.StartDate.getTimezoneOffset()
         }).toDate().getTime() : values.StartDate.getTime();
-
         var span = startTime - values.AlarmTime.getTime(); // ms
-        var reminder = span / (1000 * 60);
 
-        values.Reminder = _Format2.default.fixed(reminder, 0);
+        var reminder = span / (1000 * 60);
+        values.Reminder = _Format["default"].fixed(reminder, 0);
       }
 
       this.inherited(setValues, arguments);
-
       this.enableFields();
 
       if (values.Timeless) {
@@ -839,11 +809,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       if (allowSetAlarm) {
         this.enableFields(function (f) {
           if (values.Alarm) {
-            return (/^Alarm|Reminder$/.test(f.name)
-            );
+            return /^Alarm|Reminder$/.test(f.name);
           }
-          return (/^Alarm$/.test(f.name)
-          );
+
+          return /^Alarm$/.test(f.name);
         });
       }
 
@@ -854,8 +823,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
 
       this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
+
       this.resetRecurrence(values);
       this.onStartDateChange(this.fields.StartDate.getValue(), this.fields.StartDate);
+
       if (this.isActivityRecurring) {
         this.fields.EndDate.hide();
       }
@@ -864,12 +835,15 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       if (!date) {
         return false;
       }
+
       if (date.getUTCHours() !== 0) {
         return false;
       }
+
       if (date.getUTCMinutes() !== 0) {
         return false;
       }
+
       if (date.getUTCSeconds() !== 5) {
         return false;
       }
@@ -880,12 +854,15 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       if (!date) {
         return false;
       }
+
       if (date.getHours() !== 0) {
         return false;
       }
+
       if (date.getMinutes() !== 0) {
         return false;
       }
+
       if (date.getSeconds() !== 5) {
         return false;
       }
@@ -898,17 +875,18 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       var reminderIn = this.fields.Reminder.getValue();
       var timeless = this.fields.Timeless.getValue();
       var startDate = this.fields.StartDate.getValue();
-      var values = this.inherited(getValues, arguments);
+      var values = this.inherited(getValues, arguments); // Fix timeless if necessary (The date picker won't add 5 seconds)
 
-      // Fix timeless if necessary (The date picker won't add 5 seconds)
       if (timeless) {
         values.StartDate = startDate = this._getNewStartDate(startDate, true);
-      }
+      } // if StartDate is dirty, always update AlarmTime
 
-      // if StartDate is dirty, always update AlarmTime
+
       if (startDate && (isStartDateDirty || isReminderDirty)) {
         values = values || {};
+
         var alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
+
         values.AlarmTime = alarmTime;
       }
 
@@ -952,10 +930,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       };
     },
     createRecurringData: function createRecurringData() {
-      return _Recurrence2.default.createSimplifiedOptions(this.fields.StartDate.getValue());
+      return _Recurrence["default"].createSimplifiedOptions(this.fields.StartDate.getValue());
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
-      return _string2.default.substitute(theFormat, [_Utility2.default.getValue(dependentValue, property || '$key')]);
+      return _string["default"].substitute(theFormat, [_Utility["default"].getValue(dependentValue, property || '$key')]);
     },
     _getNewStartDate: function _getNewStartDate(orginalStartDate, timeless) {
       if (!orginalStartDate) {
@@ -975,13 +953,19 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       } else {
         if (isTimeLessDate) {
           var currentTime = moment();
+
           var _wrapped = moment(startDate);
+
           _wrapped.subtract({
             minutes: _wrapped.utcOffset()
           });
+
           _wrapped.hours(currentTime.hours());
+
           _wrapped.minutes(currentTime.minutes());
+
           _wrapped.seconds(0);
+
           startDate = _wrapped.toDate();
         }
       }
@@ -989,7 +973,8 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return startDate;
     },
     _getNewAlarmTime: function _getNewAlarmTime(startDate, timeless, reminderIn) {
-      var alarmTime = void 0;
+      var alarmTime;
+
       if (!startDate) {
         return null;
       }
@@ -1031,7 +1016,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         orderBy: 'text asc',
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength,
+        validator: _Validator["default"].exceedsMaxTextLength,
         autoFocus: true
       }, {
         label: this.longNotesText,
@@ -1047,7 +1032,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         label: this.locationText,
         type: 'text',
         maxTextLength: 255,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.priorityText,
         name: 'Priority',
@@ -1056,7 +1041,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         title: this.priorityTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         dependsOn: 'Type',
         label: this.categoryText,
@@ -1067,7 +1052,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         title: this.activityCategoryTitleText,
         type: 'picklist',
         maxTextLength: 64,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.startingText,
         name: 'StartDate',
@@ -1078,7 +1063,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         showRelativeDateTime: true,
         dateFormatText: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
         minValue: new Date(1900, 0, 1),
-        validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
+        validator: [_Validator["default"].exists, _Validator["default"].isDateInRange]
       }, {
         type: 'date',
         name: 'EndDate',
@@ -1264,11 +1249,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         label: this.phoneText,
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }]);
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,22 +1,15 @@
-define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/LanguageService'], function (module, exports, _MingleUtility, _LanguageService) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Bootstrap", ["exports", "./MingleUtility", "argos/LanguageService"], function (_exports, _MingleUtility, _LanguageService) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.default = bootstrap;
+  _exports["default"] = bootstrap;
+  _MingleUtility = _interopRequireDefault(_MingleUtility);
+  _LanguageService = _interopRequireDefault(_LanguageService);
 
-  var _MingleUtility2 = _interopRequireDefault(_MingleUtility);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _LanguageService2 = _interopRequireDefault(_LanguageService);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  /**
-   * @module crm/Bootstrap
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +25,9 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
    * limitations under the License.
    */
 
+  /**
+   * @module crm/Bootstrap
+   */
   function bootstrap(_ref) {
     var serviceWorkerPath = _ref.serviceWorkerPath,
         serviceWorkerRegistrationOptions = _ref.serviceWorkerRegistrationOptions,
@@ -50,16 +46,15 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
         regionalFiles = _ref.regionalFiles,
         isRegionMetric = _ref.isRegionMetric,
         _ref$cacheFiles = _ref.cacheFiles,
-        cacheFiles = _ref$cacheFiles === undefined ? [] : _ref$cacheFiles,
+        cacheFiles = _ref$cacheFiles === void 0 ? [] : _ref$cacheFiles,
         rootElement = _ref.rootElement;
 
     function mapFiles(files, ctx, defaultCtx) {
       return files.map(function (path) {
         var trimmed = path;
         supportedLocales.forEach(function (locale) {
-          trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
+          trimmed = trimmed.replace(new RegExp("/".concat(locale, "/")), '/');
         });
-
         var index = trimmed.lastIndexOf('/');
         var basePath = trimmed.substring(0, index);
         var file = trimmed.substring(index + 1, trimmed.length);
@@ -83,10 +78,10 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
         });
       });
     }
-    var languageService = new _LanguageService2.default();
+
+    var languageService = new _LanguageService["default"]();
     var ctx = window.L20n.getContext();
     var defaultCtx = window.L20n.getContext();
-
     var ctxRegional = window.L20n.getContext();
     var defaultCtxRegional = window.L20n.getContext();
     var localesLong = {
@@ -103,39 +98,36 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
       ja: 'ja-JP',
       nl: 'nl-NL',
       th: 'th-TH'
-    };
-    // The L20n context (ctx) should only call linkResource once per file.
+    }; // The L20n context (ctx) should only call linkResource once per file.
     // We need to:
     //    * Strip out the locale from the path string (map)
     //    * Remove duplicates (reduce)
     //    * link each resource against a locale (forEach)
+
     mapFiles(localeFiles, ctx, defaultCtx);
     mapFiles(regionalFiles, ctxRegional, defaultCtxRegional);
-
     ctx.registerLocales(defaultLocale, supportedLocales);
     ctx.requestLocales(currentLocale);
     defaultCtx.registerLocales(defaultLocale);
     defaultCtx.requestLocales(defaultLocale);
-
     ctxRegional.registerLocales(defaultRegionLocale, supportedLocales);
     ctxRegional.requestLocales(currentRegionLocale);
     defaultCtxRegional.registerLocales(defaultRegionLocale);
     defaultCtxRegional.requestLocales(defaultRegionLocale);
-
     window.localeContext = ctx;
     window.defaultLocaleContext = defaultCtx;
     window.regionalContext = ctxRegional;
-    window.defaultregionalContext = defaultCtxRegional;
+    window.defaultregionalContext = defaultCtxRegional; // Set the window locale for the Soho Library
 
-    // Set the window locale for the Soho Library
     var normalizedLocale = languageService.bestAvailableLocale(supportedLocales, currentLocale) || currentLocale;
     var normalizedRegionLocale = languageService.bestAvailableLocale(supportedLocales, currentRegionLocale) || currentRegionLocale;
+
     if (localesLong[normalizedLocale]) {
       Soho.Locale.set(localesLong[normalizedLocale]);
     }
+
     languageService.setLanguage(normalizedLocale || currentLocale || parentLocale || defaultLocale);
     languageService.setRegion(normalizedRegionLocale || currentRegionLocale || parentRegionLocale || defaultRegionLocale);
-
     Promise.all([new Promise(function (resolve) {
       ctxRegional.ready(function () {
         return resolve(true);
@@ -155,31 +147,35 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
     })]).then(function () {
       window.require([application].concat(configuration), function (Application, appConfig) {
         var completed = false;
-        var mingleAuthResults = void 0;
+        var mingleAuthResults;
 
         if (appConfig.mingleEnabled || appConfig.enableMingle) {
-          mingleAuthResults = _MingleUtility2.default.populateAccessToken(appConfig);
+          mingleAuthResults = _MingleUtility["default"].populateAccessToken(appConfig);
+
           if (!mingleAuthResults) {
             return;
           }
         }
+
         var req = function req(requires) {
           require(requires.concat('dojo/domReady!'), function () {
             if (completed) {
               return;
             }
 
-            var results = moment.locale(parentRegionLocale);
-
-            // moment will return the set culture if successful, otherwise it returns the currently set culture.
+            var results = moment.locale(parentRegionLocale); // moment will return the set culture if successful, otherwise it returns the currently set culture.
             // Check to see if the culture set failed, and attept to use the specific culture instead
+
             if (results !== parentRegionLocale.toLocaleLowerCase()) {
               results = moment.locale(currentRegionLocale);
+
               if (results !== currentRegionLocale.toLocaleLowerCase()) {
-                console.error('Failed to set the culture for moment.js, culture set to ' + results); // eslint-disable-line
+                console.error("Failed to set the culture for moment.js, culture set to ".concat(results)); // eslint-disable-line
               }
             }
-            var instance = new Application(appConfig);
+
+            var instance = new Application["default"](appConfig); // eslint-disable-line
+
             instance.serviceWorkerPath = serviceWorkerPath;
             instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
             instance.context.localization = {
@@ -202,6 +198,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
 
         require.on('error', function () {
           console.log('Error loading localization, falling back to "en"'); // eslint-disable-line
+
           req(legacyLocalizationFallback);
         });
 
@@ -209,5 +206,4 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
       });
     });
   }
-  module.exports = exports['default'];
 });

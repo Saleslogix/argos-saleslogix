@@ -1,21 +1,16 @@
-define('crm/Models/TicketActivity/Base', ['module', 'exports', 'dojo/_base/declare', 'argos/Models/_ModelBase', '../Names', 'argos/I18n'], function (module, exports, _declare, _ModelBase2, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Models/TicketActivity/Base", ["exports", "dojo/_base/declare", "argos/Models/_ModelBase", "../Names", "argos/I18n"], function (_exports, _declare, _ModelBase2, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ModelBase2 = _interopRequireDefault(_ModelBase2);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _ModelBase3 = _interopRequireDefault(_ModelBase2);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,18 +26,16 @@ define('crm/Models/TicketActivity/Base', ['module', 'exports', 'dojo/_base/decla
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('ticketActivityModel');
 
-  var resource = (0, _I18n2.default)('ticketActivityModel');
-
-  var __class = (0, _declare2.default)('crm.Models.TicketActivity.Base', [_ModelBase3.default], {
+  var __class = (0, _declare["default"])('crm.Models.TicketActivity.Base', [_ModelBase2["default"]], {
     entityName: 'TicketActivity',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
     iconClass: 'bullet-list',
     resourceKind: 'ticketActivities',
     security: 'Entities/Ticket/View',
-    modelName: _Names2.default.TICKETACTIVITY,
-
+    modelName: _Names["default"].TICKETACTIVITY,
     createPicklists: function createPicklists() {
       return this.picklists || (this.picklists = [{
         name: 'Ticket Activity',
@@ -56,8 +49,8 @@ define('crm/Models/TicketActivity/Base', ['module', 'exports', 'dojo/_base/decla
       var rel = this.relationships || (this.relationships = []);
       return rel;
     }
-
   });
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

@@ -1,44 +1,37 @@
-define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'argos/_ListBase', '../../Format', 'dojo/_base/lang', 'argos/Models/Types', './Detail', 'argos/I18n'], function (module, exports, _declare, _ListBase2, _Format, _lang, _Types, _Detail, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Offline/List", ["exports", "dojo/_base/declare", "argos/_ListBase", "../../Format", "dojo/_base/lang", "argos/Models/Types", "./Detail", "argos/I18n"], function (_exports, _declare, _ListBase2, _Format, _lang, _Types, _Detail, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _ListBase2 = _interopRequireDefault(_ListBase2);
+  _Format = _interopRequireDefault(_Format);
+  _lang = _interopRequireDefault(_lang);
+  _Types = _interopRequireDefault(_Types);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _ListBase3 = _interopRequireDefault(_ListBase2);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('offlineList');
 
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('offlineList'); /* Copyright 2017 Infor
-                                                      *
-                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                      * you may not use this file except in compliance with the License.
-                                                      * You may obtain a copy of the License at
-                                                      *
-                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                      *
-                                                      * Unless required by applicable law or agreed to in writing, software
-                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                      * See the License for the specific language governing permissions and
-                                                      * limitations under the License.
-                                                      */
-
-  exports.default = (0, _declare2.default)('crm.Views.Offline.List', [_ListBase3.default], {
+  var _default = (0, _declare["default"])('crm.Views.Offline.List', [_ListBase2["default"]], {
     id: 'offline_list',
     detailView: 'offline_detail',
     enableSearch: false,
@@ -55,20 +48,24 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
     },
     getOfflineDate: function getOfflineDate(entry) {
       if (entry && entry.$offlineDate) {
-        return _Format2.default.relativeDate(entry.$offlineDate);
+        return _Format["default"].relativeDate(entry.$offlineDate);
       }
+
       return '';
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var iconClass = void 0;
+      var iconClass;
       iconClass = this._model.getIconClass(entry);
+
       if (!iconClass) {
         iconClass = 'url';
       }
+
       return iconClass;
     },
     show: function show(options) {
       this._initOfflineView(options);
+
       this.inherited(show, arguments);
     },
     _initOfflineView: function _initOfflineView(options) {
@@ -81,11 +78,15 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
         source: null
       };
       this.refreshRequired = true;
-      _lang2.default.mixin(this.offlineContext, options.offlineContext);
-      this._model = App.ModelManager.getModel(this.offlineContext.entityName, _Types2.default.OFFLINE);
+
+      _lang["default"].mixin(this.offlineContext, options.offlineContext);
+
+      this._model = App.ModelManager.getModel(this.offlineContext.entityName, _Types["default"].OFFLINE);
       this._entityView = this.getEntityView();
+
       if (this._entityView && this._entityView._clearGroupMode && this._entityView.groupsMode) {
         this._entityView._clearGroupMode(); // For list views that are left in group mode we need to reset to use the card template.
+
       }
     },
     onTransitionTo: function onTransitionTo() {
@@ -104,7 +105,9 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
     },
     createToolLayout: function createToolLayout() {
       this.toolsAdded = false;
-      return { tbar: [] };
+      return {
+        tbar: []
+      };
     },
     createIndicatorLayout: function createIndicatorLayout() {
       return this.itemIndicators || (this.itemIndicators = [{
@@ -119,24 +122,29 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
       }]);
     },
     getEntityView: function getEntityView() {
-      var newViewId = this.id + '_' + this.offlineContext.viewId;
+      var newViewId = "".concat(this.id, "_").concat(this.offlineContext.viewId);
       var view = App.getView(this.offlineContext.viewId);
 
       if (this._entityView) {
         this._entityView.destroy();
+
         this._entityView = null;
       }
 
       if (view) {
         var ViewCtor = view.constructor;
-        this._entityView = new ViewCtor({ id: newViewId });
+        this._entityView = new ViewCtor({
+          id: newViewId
+        });
       }
+
       return this._entityView;
     },
     createItemRowNode: function createItemRowNode(entry) {
       if (this._entityView) {
         return this._entityView.createItemRowNode(entry);
       }
+
       return this.inherited(createItemRowNode, arguments);
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
@@ -147,7 +155,8 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
       var desc = this.getDescription(entry);
       var view = this.getDetailView();
       var options = {
-        descriptor: entry.description || desc, // keep for backwards compat
+        descriptor: entry.description || desc,
+        // keep for backwards compat
         title: entry.description || desc,
         key: key,
         fromContext: this,
@@ -159,31 +168,35 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
           source: entry
         }
       };
-      if (additionalOptions) {
-        options = _lang2.default.mixin(options, additionalOptions);
-      }
 
-      // Ensure we have a valid offline detail view and the
+      if (additionalOptions) {
+        options = _lang["default"].mixin(options, additionalOptions);
+      } // Ensure we have a valid offline detail view and the
       // entity has a detail view that it can use for layout.
+
+
       var modelDetailView = this._model.detailViewId;
-      var impliedDetailView = this._model.entityName.toLowerCase() + '_detail';
+      var impliedDetailView = "".concat(this._model.entityName.toLowerCase(), "_detail");
+
       if (view && App.getView(modelDetailView || impliedDetailView)) {
         view.show(options);
       }
     },
     getDetailView: function getDetailView() {
-      var viewId = this.detailView + '_' + this._model.entityName;
+      var viewId = "".concat(this.detailView, "_").concat(this._model.entityName);
       var view = this.app.getView(viewId);
 
       if (view) {
         return view;
       }
 
-      this.app.registerView(new _Detail2.default({ id: viewId }));
+      this.app.registerView(new _Detail["default"]({
+        id: viewId
+      }));
       view = this.app.getView(viewId);
       return view;
     }
-
   });
-  module.exports = exports['default'];
+
+  _exports["default"] = _default;
 });

@@ -1,73 +1,37 @@
-define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/_base/connect', 'crm/Format', 'argos/Detail', '../../Models/Names', 'argos/I18n', '../../Utility', '../../PricingAvailabilityService'], function (module, exports, _declare, _lang, _connect, _Format, _Detail, _Names, _I18n, _Utility, _PricingAvailabilityService) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/QuoteLines/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/connect", "crm/Format", "argos/Detail", "../../Models/Names", "argos/I18n", "../../Utility", "../../PricingAvailabilityService"], function (_exports, _declare, _lang, _connect, _Format, _Detail, _Names, _I18n, _Utility, _PricingAvailabilityService) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _connect = _interopRequireDefault(_connect);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
+  _Utility = _interopRequireDefault(_Utility);
+  _PricingAvailabilityService = _interopRequireDefault(_PricingAvailabilityService);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-  var _connect2 = _interopRequireDefault(_connect);
+  function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-  var _Format2 = _interopRequireDefault(_Format);
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-  var _Detail2 = _interopRequireDefault(_Detail);
+  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-  var _Names2 = _interopRequireDefault(_Names);
+  function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-  var _I18n2 = _interopRequireDefault(_I18n);
+  function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-  var _Utility2 = _interopRequireDefault(_Utility);
+  var resource = (0, _I18n["default"])('quoteItemsDetail');
 
-  var _PricingAvailabilityService2 = _interopRequireDefault(_PricingAvailabilityService);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
-
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
-
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
-
-      return _arr;
-    }
-
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
-
-  var resource = (0, _I18n2.default)('quoteItemsDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.QuoteLines.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     lineText: resource.lineText,
@@ -101,10 +65,9 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
     id: 'quote_line_detail',
     editView: 'quote_line_edit',
     resourceKind: 'quoteItems',
-    modelName: _Names2.default.QUOTEITEM,
+    modelName: _Names["default"].QUOTEITEM,
     entityName: 'QuoteItem',
     enableOffline: true,
-
     createEntryForDelete: function createEntryForDelete(e) {
       var entry = {
         $key: e.$key,
@@ -115,6 +78,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
     },
     processEntry: function processEntry() {
       this.inherited(processEntry, arguments);
+
       if (this.options && this.options.fromContext && this.options.fromContext.readOnly) {
         if (App.bars && App.bars.tbar) {
           App.bars.tbar.disableTool('removeQuoteLine');
@@ -132,10 +96,11 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
         getContent: function getContent() {}
       }).then(function () {
         var entry = _this.createEntryForDelete(_this.entry);
+
         var request = _this.store._createEntryRequest(_this.entry.$key, {});
 
         if (request) {
-          request.delete(entry, {
+          request["delete"](entry, {
             success: _this.onDeleteSuccess,
             failure: _this.onRequestDataFailure,
             scope: _this
@@ -146,7 +111,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
     onAvailability: function onAvailability() {
       var _this2 = this;
 
-      _PricingAvailabilityService2.default.getQuoteItemAvailability(this.entry).then(function (result) {
+      _PricingAvailabilityService["default"].getQuoteItemAvailability(this.entry).then(function (result) {
         var _result = _slicedToArray(result, 1),
             warehouse = _result[0];
 
@@ -154,24 +119,28 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
             AvailableQuantity = warehouse.AvailableQuantity;
 
         if (ErrorCode) {
-          App.modal.createSimpleAlert({ title: ErrorCode });
+          App.modal.createSimpleAlert({
+            title: ErrorCode
+          });
         } else if (AvailableQuantity) {
-          App.modal.createSimpleAlert({ title: _this2.availableQuantityText + AvailableQuantity });
+          App.modal.createSimpleAlert({
+            title: _this2.availableQuantityText + AvailableQuantity
+          });
         }
       });
     },
     onDeleteSuccess: function onDeleteSuccess() {
       var views = [App.getView('quote_lines_related'), App.getView('quote_detail'), App.getView('quote_list')];
-
       views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
         }
       }, this);
 
-      _connect2.default.publish('/app/refresh', [{
+      _connect["default"].publish('/app/refresh', [{
         resourceKind: this.resourceKind
       }]);
+
       ReUI.back();
     },
     refreshRequiredFor: function refreshRequiredFor(options) {
@@ -185,7 +154,9 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
       if (this.tools) {
         return this.tools;
       }
+
       var tools = this.inherited(createToolLayout, arguments);
+
       if (tools && tools.tbar) {
         tools.tbar.push({
           id: 'removeQuoteLine',
@@ -195,6 +166,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           security: 'Entities/Quote/Delete'
         });
       }
+
       return tools;
     },
     createLayout: function createLayout() {
@@ -212,7 +184,8 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           name: 'CheckAvailability',
           property: 'SlxLocation.Name',
           label: this.checkWarehouseAvailabilityText,
-          iconClass: 'redo', // check for a better icon
+          iconClass: 'redo',
+          // check for a better icon
           action: 'onAvailability',
           disabled: function disabled() {
             return App.warehouseDiscovery === 'auto';
@@ -250,7 +223,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           label: this.priceText,
           renderer: function renderer(value) {
             var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'Discount',
@@ -258,7 +231,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           label: this.discountText,
           renderer: function renderer(value) {
             var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'CalculatedPrice',
@@ -266,21 +239,21 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           label: this.baseAdjustedPriceText,
           renderer: function renderer(value) {
             var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocCalculatedPrice',
           property: 'DocCalculatedPrice',
           label: this.adjustedPriceText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
           }
         }, {
           name: 'Quantity',
           property: 'Quantity',
           label: this.quantityText,
           renderer: function renderer(val) {
-            return _Format2.default.fixedLocale(val, 2);
+            return _Format["default"].fixedLocale(val, 2);
           }
         }, {
           name: 'UnitOfMeasure',
@@ -290,6 +263,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
             if (val && val.Name) {
               return val.Name;
             }
+
             return null;
           }
         }, {
@@ -298,21 +272,21 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           property: 'ExtendedPrice',
           renderer: function renderer(value) {
             var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
-            return _Utility2.default.formatMultiCurrency(value, code);
+            return _Utility["default"].formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocExtendedPrice',
           property: 'DocExtendedPrice',
           label: this.extendedAmountText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
           }
         }, {
           name: 'DocTotalAmount',
           property: 'DocTotalAmount',
           label: this.totalAmountText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
           }
         }, {
           name: 'Status',
@@ -327,28 +301,28 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           property: 'OpenQuantity',
           label: this.openQuantityText,
           renderer: function renderer(val) {
-            return _Format2.default.fixedLocale(val, 2);
+            return _Format["default"].fixedLocale(val, 2);
           }
         }, {
           name: 'DropShip',
           property: 'DropShip',
           label: this.dropShipText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }, {
           name: 'FixedPrice',
           property: 'FixedPrice',
           label: this.fixedPriceText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
+            return _Utility["default"].formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
           }
         }, {
           name: 'RushRequest',
           property: 'RushRequest',
           label: this.rushRequestText,
           renderer: function renderer(data) {
-            return _Format2.default.yesNo(data);
+            return _Format["default"].yesNo(data);
           }
         }]
       }, {
@@ -360,7 +334,8 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
     }
   });
 
-  _lang2.default.setObject('icboe.Views.QuoteLines.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.QuoteLines.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

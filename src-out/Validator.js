@@ -1,17 +1,14 @@
-define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], function (module, exports, _lang, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Validator", ["exports", "dojo/_base/lang", "argos/I18n"], function (_exports, _lang, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,8 +28,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
   /**
    * @module crm/Validator
    */
-  var resource = (0, _I18n2.default)('validators');
-
+  var resource = (0, _I18n["default"])('validators');
   /**
    * @class
    * @alias module:crm/Validator
@@ -58,7 +54,10 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
    *       }
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Validator', /** @lends module:crm/Validator */{
+
+  var __class = _lang["default"].setObject('crm.Validator',
+  /** @lends module:crm/Validator */
+  {
     /**
      * @property {Object} exists
      * Validator that ensures the field contains a value.
@@ -69,7 +68,6 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
       },
       message: resource.existsText
     },
-
     picklistExists: {
       fn: function picklistExists(value) {
         if (!value) {
@@ -94,10 +92,12 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
         if (value) {
           return !/.+/.test(value.FirstName || '') || !/.+/.test(value.LastName || '');
         }
+
         return true;
       },
       message: resource.nameText
     },
+
     /**
      * @property {Object}
      * Validator that ensures a field is not empty.
@@ -106,6 +106,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
       test: /.+/,
       message: resource.notEmptyText
     },
+
     /**
      * @deprecated
      * @property {Object}
@@ -115,6 +116,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
       test: /\w+/,
       message: resource.hasText
     },
+
     /**
      * @property {Object}
      * Validator that ensures a field is a valid number.
@@ -139,7 +141,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
      */
     isCurrency: {
       fn: function isCurrency(value) {
-        return !new RegExp('^[\\d]+(\\.\\d{1,' + (Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2') + '})?$').test(value);
+        return !new RegExp("^[\\d]+(\\.\\d{1,".concat(Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2', "})?$")).test(value);
       },
       message: resource.isCurrencyText
     },
@@ -153,6 +155,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
         if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647)) {
           return true;
         }
+
         return false;
       },
       message: resource.int32Text
@@ -168,6 +171,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
         if (value && field && field.maxTextLength && value.length > field.maxTextLength) {
           return true;
         }
+
         return false;
       },
       message: resource.maxLengthText
@@ -183,9 +187,8 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
     isDateInRange: {
       fn: function isDateInRange(value, field) {
         var minValue = field.minValue;
-        var maxValue = field.maxValue;
+        var maxValue = field.maxValue; // if value is empty or not a date, ignore comparison
 
-        // if value is empty or not a date, ignore comparison
         if (!value || !(value instanceof Date)) {
           return false;
         }
@@ -250,6 +253,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
       },
       message: resource.isLessThanText
     },
+
     /**
      * @property {Object}
      * @deprecated
@@ -259,6 +263,6 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
     isPhoneNumber: {}
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

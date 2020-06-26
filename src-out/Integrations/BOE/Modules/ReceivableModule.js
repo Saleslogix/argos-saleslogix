@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/Modules/ReceivableModule', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', './_Module', '../Views/ERPReceivables/Detail', '../Views/ERPReceivables/List', '../Views/ERPReceivableItems/List', '../Models/ErpReceivable/Offline', '../Models/ErpReceivable/SData'], function (module, exports, _declare, _lang, _Module2, _Detail, _List, _List3) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Modules/ReceivableModule", ["exports", "dojo/_base/declare", "dojo/_base/lang", "./_Module", "../Views/ERPReceivables/Detail", "../Views/ERPReceivables/List", "../Views/ERPReceivableItems/List", "../Models/ErpReceivable/Offline", "../Models/ErpReceivable/SData"], function (_exports, _declare, _lang, _Module2, _Detail, _List, _List2, _Offline, _SData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Module2 = _interopRequireDefault(_Module2);
+  _Detail = _interopRequireDefault(_Detail);
+  _List = _interopRequireDefault(_List);
+  _List2 = _interopRequireDefault(_List2);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Module3 = _interopRequireDefault(_Module2);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _List4 = _interopRequireDefault(_List3);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,47 +28,40 @@ define('crm/Integrations/BOE/Modules/ReceivableModule', ['module', 'exports', 'd
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReceivableModule', [_Module3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Modules.ReceivableModule', [_Module2["default"]], {
     defaultViews: ['erpreceivables_list'],
     init: function init() {},
     loadViews: function loadViews() {
       var am = this.applicationModule;
-
-      am.registerView(new _Detail2.default());
-      am.registerView(new _List2.default({
+      am.registerView(new _Detail["default"]());
+      am.registerView(new _List["default"]({
         expose: true
       }));
-
-      am.registerView(new _List4.default({
+      am.registerView(new _List2["default"]({
         id: 'erpreceivable_items_related',
         expose: false
       }));
     },
     loadCustomizations: function loadCustomizations() {
       var am = this.applicationModule;
-
       am.registerCustomization('detail/tools', 'erpreceivables_detail', {
         at: function at(tool) {
           return tool.id === 'edit';
         },
         type: 'remove'
       });
-
       am.registerCustomization('list/tools', 'erpreceivables_list', {
         at: function at(tool) {
           return tool.id === 'new';
         },
         type: 'remove'
       });
-
       am.registerCustomization('list/tools', 'erpreceivable_items_related', {
         at: function at(tool) {
           return tool.id === 'new';
         },
         type: 'remove'
       });
-
       am.registerCustomization('detail/tools', 'erpreceivable_items_detail', {
         at: function at(tool) {
           return tool.id === 'edit';
@@ -86,7 +72,8 @@ define('crm/Integrations/BOE/Modules/ReceivableModule', ['module', 'exports', 'd
     loadToolbars: function loadToolbars() {}
   });
 
-  _lang2.default.setObject('icboe.Modules.ReceivableModule', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Modules.ReceivableModule', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

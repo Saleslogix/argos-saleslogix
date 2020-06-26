@@ -1,25 +1,18 @@
-define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'crm/Format', 'argos/Detail', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _Format, _Detail, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPBillToAccounts/Detail", ["exports", "dojo/_base/declare", "dojo/_base/lang", "crm/Format", "argos/Detail", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _Format, _Detail, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _Format = _interopRequireDefault(_Format);
+  _Detail = _interopRequireDefault(_Detail);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -35,10 +28,9 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('erpBillToAccountsDetail');
 
-  var resource = (0, _I18n2.default)('erpBillToAccountsDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPBillToAccounts.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPBillToAccounts.Detail', [_Detail["default"]], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -59,7 +51,6 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
     receivablesText: resource.receivablesText,
     returnsText: resource.returnsText,
     entityText: resource.entityText,
-
     // Picklist Codes
     openCode: 'Open',
     newCode: 'New',
@@ -69,13 +60,11 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
     partialPaidCode: 'PartialPaid',
     closedCode: 'Closed',
     disputeCode: 'Dispute',
-
     // View Properties
     id: 'erpbilltoaccounts_detail',
-    modelName: _Names2.default.ERPBILLTOACCOUNT,
+    modelName: _Names["default"].ERPBILLTOACCOUNT,
     resourceKind: 'erpBillToAccounts',
     enableOffline: true,
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.actionsText,
@@ -96,7 +85,7 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
           label: this.addressText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.address(val);
+              return _Format["default"].address(val);
             }
           }
         }, {
@@ -109,7 +98,7 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
           label: this.mainPhoneText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.phone(val);
+              return _Format["default"].phone(val);
             }
           }
         }, {
@@ -122,7 +111,7 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
           label: this.emailText,
           renderer: function renderer(val) {
             if (val) {
-              return _Format2.default.mail(val);
+              return _Format["default"].mail(val);
             }
           }
         }, {
@@ -138,42 +127,42 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
           name: 'Accounts',
           label: this.accountsText,
           where: function where(entry) {
-            return 'ErpBillToAccounts.Id eq "' + entry.$key + '"';
+            return "ErpBillToAccounts.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'billtoaccount_accounts_related'
         }, {
           name: 'OpenQuotesList',
           label: this.openQuotesText,
           where: function where(entry) {
-            return 'BillTo.ErpBillToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.newCode + '")';
+            return "BillTo.ErpBillToAccounts.Id eq \"".concat(entry.$key, "\" and (Status eq \"").concat(this.openCode, "\" or Status eq \"").concat(this.newCode, "\")");
           },
           view: 'billtoaccount_openquotes_related'
         }, {
           name: 'SalesOrders',
           label: this.salesOrdersText,
           where: function where(entry) {
-            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.approvedCode + '" or Status eq "' + this.workingCode + '" or Status eq "' + this.partialShipCode + '")';
+            return "ErpBillTo.ErpBillToAccounts.Id eq \"".concat(entry.$key, "\" and (Status eq \"").concat(this.openCode, "\" or Status eq \"").concat(this.approvedCode, "\" or Status eq \"").concat(this.workingCode, "\" or Status eq \"").concat(this.partialShipCode, "\")");
           },
           view: 'billtoaccount_salesorders_related'
         }, {
           name: 'OpenInvoices',
           label: this.invoicesText,
           where: function where(entry) {
-            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialPaidCode + '" or ErpStatus eq "' + this.disputeCode + '")';
+            return "ErpBillTo.ErpBillToAccounts.Id eq \"".concat(entry.$key, "\" and (ErpStatus eq \"").concat(this.openCode, "\" or ErpStatus eq \"").concat(this.partialPaidCode, "\" or ErpStatus eq \"").concat(this.disputeCode, "\")");
           },
           view: 'billtoaccount_openinvoices_related'
         }, {
           name: 'Receivables',
           label: this.receivablesText,
           where: function where(entry) {
-            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
+            return "ErpBillTo.ErpBillToAccounts.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'billtoaccount_receivables_related'
         }, {
           name: 'Returns',
           label: this.returnsText,
           where: function where(entry) {
-            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
+            return "ErpBillTo.ErpBillToAccounts.Id eq \"".concat(entry.$key, "\"");
           },
           view: 'billtoaccount_returns_related'
         }]
@@ -181,7 +170,8 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPBillToAccounts.Detail', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPBillToAccounts.Detail', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

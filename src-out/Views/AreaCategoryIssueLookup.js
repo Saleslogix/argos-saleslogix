@@ -1,21 +1,16 @@
-define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/declare', 'argos/List', 'argos/_LegacySDataListMixin', 'argos/I18n'], function (module, exports, _declare, _List, _LegacySDataListMixin2, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/AreaCategoryIssueLookup", ["exports", "dojo/_base/declare", "argos/List", "argos/_LegacySDataListMixin", "argos/I18n"], function (_exports, _declare, _List, _LegacySDataListMixin2, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _List = _interopRequireDefault(_List);
+  _LegacySDataListMixin2 = _interopRequireDefault(_LegacySDataListMixin2);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _LegacySDataListMixin3 = _interopRequireDefault(_LegacySDataListMixin2);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,16 +26,13 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('areaCategoryIssueLookup');
 
-  var resource = (0, _I18n2.default)('areaCategoryIssueLookup');
-
-  var __class = (0, _declare2.default)('crm.Views.AreaCategoryIssueLookup', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Views.AreaCategoryIssueLookup', [_List["default"], _LegacySDataListMixin2["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>']),
-
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     pageSize: 200,
     expose: false,
@@ -51,12 +43,9 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
     querySelect: ['Area', 'Category', 'Issue'],
     resourceKind: 'areaCategoryIssues',
     isCardView: false,
-
     show: function show(options) {
       this.active = options.where;
-
       options.where = false;
-
       this.inherited(arguments, [options]);
     },
     requestData: function requestData() {
@@ -68,8 +57,8 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
       }
     },
     processFeed: function processFeed(feed) {
-      var theFeed = feed;
-      // assume order is preserved
+      var theFeed = feed; // assume order is preserved
+
       if (theFeed) {
         this.createCacheFrom(feed);
       }
@@ -79,12 +68,12 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
       if (use && this.active && this.active.Area) {
         use = use[this.active.Area];
       }
+
       if (use && this.active && this.active.Category) {
         use = use[this.active.Category];
       }
 
       theFeed = this.buildFeedFrom(use);
-
       this.inherited(arguments, [theFeed]);
     },
     createCacheFrom: function createCacheFrom(feed) {
@@ -95,7 +84,6 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
         var entry = feed.$resources[i];
         var area = this.cache[entry.Area] || (this.cache[entry.Area] = {});
         var category = area[entry.Category] || (area[entry.Category] = {});
-
         category[entry.Issue] = true;
       }
     },
@@ -124,6 +112,6 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
     formatSearchQuery: function formatSearchQuery() {}
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

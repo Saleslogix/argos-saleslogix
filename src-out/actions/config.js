@@ -1,9 +1,13 @@
-define('crm/actions/config', ['exports'], function (exports) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/actions/config", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.setConfig = setConfig;
-  exports.setEndPoint = setEndPoint;
+  _exports.setConfig = setConfig;
+  _exports.setEndPoint = setEndPoint;
+  _exports.SET_ENDPOINT = _exports.SET_CONFIG = void 0;
+
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +22,10 @@ define('crm/actions/config', ['exports'], function (exports) {
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
   // action Types
-  var SET_CONFIG = exports.SET_CONFIG = 'SET_CONFIG';
-  var SET_ENDPOINT = exports.SET_ENDPOINT = 'SET_ENDPOINT';
-
+  var SET_CONFIG = 'SET_CONFIG';
+  _exports.SET_CONFIG = SET_CONFIG;
+  var SET_ENDPOINT = 'SET_ENDPOINT';
   /*
   
   See: https://github.com/acdlite/flux-standard-action
@@ -39,8 +42,10 @@ define('crm/actions/config', ['exports'], function (exports) {
   An action MUST NOT
   + include properties other than type, payload, error, and meta.
   */
-
   // creators
+
+  _exports.SET_ENDPOINT = SET_ENDPOINT;
+
   function setConfig(config) {
     return {
       type: SET_CONFIG,

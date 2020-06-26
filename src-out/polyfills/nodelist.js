@@ -1,8 +1,11 @@
-define("crm/polyfills/nodelist", ["exports"], function (exports) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/polyfills/nodelist", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.nodelist = nodelist;
+  _exports.nodelist = nodelist;
+
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +20,6 @@ define("crm/polyfills/nodelist", ["exports"], function (exports) {
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
   // Polyfill for nodelist support on IE
   // https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
   function nodelist() {
@@ -25,6 +27,7 @@ define("crm/polyfills/nodelist", ["exports"], function (exports) {
       NodeList.prototype.forEach = function (callback, argument) {
         // eslint-disable-line
         argument = argument || window;
+
         for (var i = 0; i < this.length; i++) {
           callback.call(argument, this[i], i, this);
         }

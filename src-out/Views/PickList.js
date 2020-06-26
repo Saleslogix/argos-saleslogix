@@ -1,17 +1,14 @@
-define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/List'], function (module, exports, _declare, _List) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/PickList", ["exports", "dojo/_base/declare", "argos/List"], function (_exports, _declare, _List) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _List = _interopRequireDefault(_List);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -27,11 +24,9 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
-  var __class = (0, _declare2.default)('crm.Views.PickList', [_List2.default], {
+  var __class = (0, _declare["default"])('crm.Views.PickList', [_List["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.text %}</p>']),
-
     // View Properties
     id: 'pick_list',
     expose: false,
@@ -42,7 +37,6 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
     languageCode: null,
     autoClearSelection: false,
     isCardView: false,
-
     _onQueryComplete: function _onQueryComplete(queryResults, entries) {
       var _this = this;
 
@@ -53,6 +47,7 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
         });
         queryResults.total = entries.length;
       }
+
       this.inherited(_onQueryComplete, arguments);
     },
     activateEntry: function activateEntry(params) {
@@ -74,6 +69,7 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
     },
     onTransitionAway: function onTransitionAway() {
       this.inherited(onTransitionAway, arguments);
+
       if (this.searchWidget) {
         this.searchWidget.clear();
         this.query = false;
@@ -82,6 +78,7 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
     },
     show: function show(options) {
       this.set('title', options && options.title || this.title);
+
       if (!options.singleSelect) {
         if (options.keyProperty) {
           this.idProperty = options.keyProperty;
@@ -99,25 +96,26 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
 
       var picklistOptions = this.getPicklistOptions();
       picklistOptions.language = picklistOptions.language || this.getLanguageCode();
-      this.languageCode = picklistOptions.language && picklistOptions.language.trim() || this.languageCode;
+      this.languageCode = picklistOptions.language && picklistOptions.language.trim() || this.languageCode; // Search, query like normal (with filtering from queryComplete)
 
-      // Search, query like normal (with filtering from queryComplete)
       if (this.query) {
         return this.inherited(requestData, arguments);
       }
 
       return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions).then(function (result) {
-        return _this2._onQueryComplete({ total: result && result.items.length }, result && result.items);
+        return _this2._onQueryComplete({
+          total: result && result.items.length
+        }, result && result.items);
       }, function (err) {
         return _this2._onQueryError(null, err);
       });
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(text) like "' + q + '%"';
+      return "upper(text) like \"".concat(q, "%\"");
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

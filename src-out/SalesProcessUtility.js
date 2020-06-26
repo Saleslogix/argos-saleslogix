@@ -1,27 +1,17 @@
-define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo/when', 'dojo/_base/Deferred', 'argos/Store/SData'], function (module, exports, _lang, _when, _Deferred, _SData) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/SalesProcessUtility", ["exports", "dojo/_base/lang", "dojo/when", "dojo/_base/Deferred", "argos/Store/SData"], function (_exports, _lang, _when, _Deferred, _SData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _lang = _interopRequireDefault(_lang);
+  _when = _interopRequireDefault(_when);
+  _Deferred = _interopRequireDefault(_Deferred);
+  _SData = _interopRequireDefault(_SData);
 
-  var _lang2 = _interopRequireDefault(_lang);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _when2 = _interopRequireDefault(_when);
-
-  var _Deferred2 = _interopRequireDefault(_Deferred);
-
-  var _SData2 = _interopRequireDefault(_SData);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  /**
-   * @class
-   * @alias module:crm/SalesProcessUtility
-   * @static
-   */
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +30,15 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
   /**
    * @module crm/SalesProcessUtility
    */
-  var __class = _lang2.default.setObject('crm.SalesProcessUtility', /** @lends module:crm/SalesProcessUtility */{
+
+  /**
+   * @class
+   * @alias module:crm/SalesProcessUtility
+   * @static
+   */
+  var __class = _lang["default"].setObject('crm.SalesProcessUtility',
+  /** @lends module:crm/SalesProcessUtility */
+  {
     store: null,
     service: null,
     contractName: 'dynamic',
@@ -50,16 +48,16 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
     queryOrderBy: '',
     queryWhere: '',
     maxItems: 100,
-
     getStore: function getStore() {
       if (!this.store) {
         this.store = this.createStore();
       }
+
       return this.store;
     },
     createStore: function createStore() {
       var options = this.getStoreOptions();
-      var store = new _SData2.default(options);
+      var store = new _SData["default"](options);
       return store;
     },
     getStoreOptions: function getStoreOptions() {
@@ -77,6 +75,7 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
       };
       return options;
     },
+
     /**
      * Returns an promise with sales process entry.
      * @param {Object} options Options for creating the request
@@ -84,17 +83,19 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
      *
      */
     getSalesProcessByEntityId: function getSalesProcessByEntityId(entityId) {
-      var deferred = new _Deferred2.default();
+      var deferred = new _Deferred["default"]();
       var store = this.getStore();
       var options = {
-        where: 'EntityId eq "' + entityId + '"'
+        where: "EntityId eq \"".concat(entityId, "\"")
       };
       var queryResults = store.query(null, options);
-      (0, _when2.default)(queryResults, function (feed) {
+      (0, _when["default"])(queryResults, function (feed) {
         var salesProcess = null;
+
         if (feed && feed.length > 0) {
           salesProcess = feed[0];
         }
+
         deferred.resolve(salesProcess);
       }, function (err) {
         deferred.reject(err);
@@ -102,6 +103,7 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
       return deferred.promise;
     }
   });
-  exports.default = __class;
-  module.exports = exports['default'];
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

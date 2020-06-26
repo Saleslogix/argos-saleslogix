@@ -1,29 +1,20 @@
-define('crm/Integrations/BOE/Views/ERPShipToAccounts/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'argos/List', 'crm/Views/_RightDrawerListMixin', 'crm/Views/_MetricListMixin', 'crm/Views/_GroupListMixin', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _lang, _List, _RightDrawerListMixin2, _MetricListMixin2, _GroupListMixin2, _Names, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Integrations/BOE/Views/ERPShipToAccounts/List", ["exports", "dojo/_base/declare", "dojo/_base/lang", "argos/List", "crm/Views/_RightDrawerListMixin", "crm/Views/_MetricListMixin", "crm/Views/_GroupListMixin", "../../Models/Names", "argos/I18n"], function (_exports, _declare, _lang, _List, _RightDrawerListMixin2, _MetricListMixin2, _GroupListMixin2, _Names, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _List = _interopRequireDefault(_List);
+  _RightDrawerListMixin2 = _interopRequireDefault(_RightDrawerListMixin2);
+  _MetricListMixin2 = _interopRequireDefault(_MetricListMixin2);
+  _GroupListMixin2 = _interopRequireDefault(_GroupListMixin2);
+  _Names = _interopRequireDefault(_Names);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _lang2 = _interopRequireDefault(_lang);
-
-  var _List2 = _interopRequireDefault(_List);
-
-  var _RightDrawerListMixin3 = _interopRequireDefault(_RightDrawerListMixin2);
-
-  var _MetricListMixin3 = _interopRequireDefault(_MetricListMixin2);
-
-  var _GroupListMixin3 = _interopRequireDefault(_GroupListMixin2);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,41 +30,36 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/List', ['module', 'exports'
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('erpShipToAccountsList');
 
-  var resource = (0, _I18n2.default)('erpShipToAccountsList');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare["default"])('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [_List["default"], _RightDrawerListMixin2["default"], _MetricListMixin2["default"], _GroupListMixin2["default"]], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.ErpShipTo.Name %}</p>', '<p class="micro-text address">{%: $.ErpShipTo.Address.FullAddress %}</p>']),
-
     // Localization
     titleText: resource.titleText,
-
     // View Properties
     id: 'erpshiptoaccount_list',
     detailView: 'erpshiptoaccount_detail',
     insertView: 'erpshiptoaccount_edit',
-    modelName: _Names2.default.ERPSHIPTOACCOUNT,
+    modelName: _Names["default"].ERPSHIPTOACCOUNT,
     resourceKind: 'erpShipToAccounts',
     allowSelection: true,
     enableActions: true,
     expose: false,
     security: 'Entities/ErpShipTo/View',
     insertSecurity: 'Entities/ErpShipTo/Add',
-
     // Groups
     enableDynamicGroupLayout: false,
     groupsEnabled: false,
-
     // Card layout
     itemIconClass: 'warehouse',
-
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return 'upper(ErpShipTo.Name) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
+      return "upper(ErpShipTo.Name) like \"%".concat(this.escapeSearchQuery(searchQuery.toUpperCase()), "%\"");
     }
   });
 
-  _lang2.default.setObject('icboe.Views.ERPShipToAccounts.List', __class);
-  exports.default = __class;
-  module.exports = exports['default'];
+  _lang["default"].setObject('icboe.Views.ERPShipToAccounts.List', __class);
+
+  var _default = __class;
+  _exports["default"] = _default;
 });

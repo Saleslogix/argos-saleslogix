@@ -1,29 +1,20 @@
-define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '../../Action', '../../Format', '../../Template', '../../Models/Names', 'argos/Detail', 'argos/I18n', 'dojo/string'], function (module, exports, _declare, _Action, _Format, _Template, _Names, _Detail, _I18n, _string) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Contact/Detail", ["exports", "dojo/_base/declare", "../../Action", "../../Format", "../../Template", "../../Models/Names", "argos/Detail", "argos/I18n", "dojo/string"], function (_exports, _declare, _Action, _Format, _Template, _Names, _Detail, _I18n, _string) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Action = _interopRequireDefault(_Action);
+  _Format = _interopRequireDefault(_Format);
+  _Template = _interopRequireDefault(_Template);
+  _Names = _interopRequireDefault(_Names);
+  _Detail = _interopRequireDefault(_Detail);
+  _I18n = _interopRequireDefault(_I18n);
+  _string = _interopRequireDefault(_string);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Action2 = _interopRequireDefault(_Action);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Detail2 = _interopRequireDefault(_Detail);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  var _string2 = _interopRequireDefault(_string);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -39,10 +30,9 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('contactDetail');
 
-  var resource = (0, _I18n2.default)('contactDetail');
-
-  var __class = (0, _declare2.default)('crm.Views.Contact.Detail', [_Detail2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Contact.Detail', [_Detail["default"]], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -78,7 +68,6 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
     sendEmailText: resource.sendEmailText,
     viewAddressText: resource.viewAddressText,
     entityText: resource.entityText,
-
     // View Properties
     id: 'contact_detail',
     editView: 'contact_edit',
@@ -86,11 +75,11 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
     noteEditView: 'history_edit',
     enableOffline: true,
     resourceKind: 'contacts',
-    modelName: _Names2.default.CONTACT,
-
+    modelName: _Names["default"].CONTACT,
     navigateToHistoryInsert: function navigateToHistoryInsert(type, entry) {
       this.refreshRequired = true;
-      _Action2.default.navigateToHistoryInsert(entry);
+
+      _Action["default"].navigateToHistoryInsert(entry);
     },
     recordCallToHistory: function recordCallToHistory(phoneNumber) {
       var entry = {
@@ -100,13 +89,12 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
         ContactId: this.entry.$key,
         AccountName: this.entry.AccountName,
         AccountId: this.entry.Account.$key,
-        Description: _string2.default.substitute(this.calledText, [this.entry.Name]),
+        Description: _string["default"].substitute(this.calledText, [this.entry.Name]),
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.$descriptor,
         Duration: 15,
         CompletedDate: new Date()
       };
-
       this.navigateToHistoryInsert('atPhoneCall', entry);
       App.initiateCall(phoneNumber);
     },
@@ -118,13 +106,12 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
         ContactId: this.entry.$key,
         AccountName: this.entry.AccountName,
         AccountId: this.entry.Account.$key,
-        Description: 'Emailed ' + this.entry.Name,
+        Description: "Emailed ".concat(this.entry.Name),
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.$descriptor,
         Duration: 15,
         CompletedDate: new Date()
       };
-
       this.navigateToHistoryInsert('atEMail', entry);
       App.initiateEmail(email);
     },
@@ -141,16 +128,17 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
       return !value;
     },
     viewAddress: function viewAddress() {
-      App.showMapForAddress(_Format2.default.address(this.entry.Address, true, ' '));
+      App.showMapForAddress(_Format["default"].address(this.entry.Address, true, ' '));
     },
     checkAddress: function checkAddress(entry, value) {
-      return !_Format2.default.address(value, true, '');
+      return !_Format["default"].address(value, true, '');
     },
     scheduleActivity: function scheduleActivity() {
       App.navigateToActivityInsertView();
     },
     addNote: function addNote() {
       var view = App.getView(this.noteEditView);
+
       if (view) {
         view.show({
           template: {},
@@ -171,7 +159,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           action: 'callWorkPhone',
           iconClass: 'phone',
           disabled: this.checkValueExists,
-          renderer: _Format2.default.phone.bindDelegate(this, false)
+          renderer: _Format["default"].phone.bindDelegate(this, false)
         }, {
           name: 'CallMobilePhoneAction',
           property: 'Mobile',
@@ -179,7 +167,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           action: 'callMobilePhone',
           iconClass: 'phone',
           disabled: this.checkValueExists,
-          renderer: _Format2.default.phone.bindDelegate(this, false)
+          renderer: _Format["default"].phone.bindDelegate(this, false)
         }, {
           name: 'ScheduleActivityAction',
           label: this.scheduleActivityText,
@@ -206,7 +194,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           action: 'viewAddress',
           iconClass: 'map-pin',
           disabled: this.checkAddress,
-          renderer: _Format2.default.address.bindDelegate(this, true, ' ')
+          renderer: _Format["default"].address.bindDelegate(this, true, ' ')
         }]
       }, {
         title: this.detailsText,
@@ -226,22 +214,22 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'WorkPhone',
           property: 'WorkPhone',
           label: this.workText,
-          renderer: _Format2.default.phone
+          renderer: _Format["default"].phone
         }, {
           name: 'AccountManager.UserInfo',
           property: 'AccountManager.UserInfo',
           label: this.acctMgrText,
-          tpl: _Template2.default.nameLF
+          tpl: _Template["default"].nameLF
         }, {
           name: 'HomePhone',
           property: 'HomePhone',
           label: this.homeText,
-          renderer: _Format2.default.phone
+          renderer: _Format["default"].phone
         }, {
           name: 'WebAddress',
           property: 'WebAddress',
           label: this.webText,
-          renderer: _Format2.default.link
+          renderer: _Format["default"].link
         }, {
           name: 'Title',
           property: 'Title',
@@ -250,7 +238,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'Fax',
           property: 'Fax',
           label: this.faxText,
-          renderer: _Format2.default.phone
+          renderer: _Format["default"].phone
         }, {
           name: 'Owner.OwnerDescription',
           property: 'Owner.OwnerDescription',
@@ -292,7 +280,8 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
         }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'contactId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'contactId eq "${0}"'),
+          // must be lower case because of feed
           view: 'contact_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
@@ -300,6 +289,6 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

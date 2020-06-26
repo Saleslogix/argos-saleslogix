@@ -159,7 +159,7 @@ export default function bootstrap({
               console.error(`Failed to set the culture for moment.js, culture set to ${results}`); // eslint-disable-line
             }
           }
-          const instance = new Application(appConfig);
+          const instance = new Application.default(appConfig); // eslint-disable-line
           instance.serviceWorkerPath = serviceWorkerPath;
           instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
           instance.context.localization = {

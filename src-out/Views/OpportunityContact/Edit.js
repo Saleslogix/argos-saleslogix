@@ -1,21 +1,16 @@
-define('crm/Views/OpportunityContact/Edit', ['module', 'exports', 'dojo/_base/declare', '../../Format', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Format, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/OpportunityContact/Edit", ["exports", "dojo/_base/declare", "../../Format", "argos/Edit", "argos/I18n"], function (_exports, _declare, _Format, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _Format = _interopRequireDefault(_Format);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
   /* Copyright 2017 Infor
    *
@@ -31,10 +26,9 @@ define('crm/Views/OpportunityContact/Edit', ['module', 'exports', 'dojo/_base/de
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var resource = (0, _I18n["default"])('opportunityContactEdit');
 
-  var resource = (0, _I18n2.default)('opportunityContactEdit');
-
-  var __class = (0, _declare2.default)('crm.Views.OpportunityContact.Edit', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.OpportunityContact.Edit', [_Edit["default"]], {
     // Localization
     titleText: resource.titleText,
     nameText: resource.nameText,
@@ -49,7 +43,6 @@ define('crm/Views/OpportunityContact/Edit', ['module', 'exports', 'dojo/_base/de
     standingTitleText: resource.standingTitleText,
     contactText: resource.contactText,
     competitorPrefText: resource.competitorPrefText,
-
     // View Properties
     entityName: 'OpportunityContact',
     id: 'opportunitycontact_edit',
@@ -58,13 +51,12 @@ define('crm/Views/OpportunityContact/Edit', ['module', 'exports', 'dojo/_base/de
     querySelect: ['Contact/Account/AccountName', 'Contact/NameLF', 'Contact/Title'],
     queryInclude: ['$permissions'],
     resourceKind: 'opportunityContacts',
-
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.contactText,
         name: 'ContactSection',
         children: [{
-          formatValue: _Format2.default.nameLF,
+          formatValue: _Format["default"].nameLF,
           label: this.nameText,
           name: 'ContactName',
           type: 'text',
@@ -136,6 +128,6 @@ define('crm/Views/OpportunityContact/Edit', ['module', 'exports', 'dojo/_base/de
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

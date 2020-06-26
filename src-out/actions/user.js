@@ -1,8 +1,12 @@
-define('crm/actions/user', ['exports'], function (exports) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/actions/user", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  exports.setUser = setUser;
+  _exports.setUser = setUser;
+  _exports.SET_USER = void 0;
+
   /* Copyright 2017 Infor
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +21,8 @@ define('crm/actions/user', ['exports'], function (exports) {
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-
   // action Types
-  var SET_USER = exports.SET_USER = 'SET_USER';
-
+  var SET_USER = 'SET_USER';
   /*
   
   See: https://github.com/acdlite/flux-standard-action
@@ -37,8 +39,10 @@ define('crm/actions/user', ['exports'], function (exports) {
   An action MUST NOT
   + include properties other than type, payload, error, and meta.
   */
-
   // creators
+
+  _exports.SET_USER = SET_USER;
+
   function setUser(entry) {
     return {
       type: SET_USER,

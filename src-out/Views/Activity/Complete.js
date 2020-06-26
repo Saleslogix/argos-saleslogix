@@ -1,52 +1,41 @@
-define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', '../../Models/Activity/ActivityTypePicklists', 'argos/Utility', 'argos/Edit', '../../Models/Names', 'argos/Models/Types', 'argos/I18n'], function (module, exports, _declare, _connect, _string, _Environment, _Validator, _ActivityTypePicklists, _Utility, _Edit, _Names, _Types, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/Activity/Complete", ["exports", "dojo/_base/declare", "dojo/_base/connect", "dojo/string", "../../Environment", "../../Validator", "../../Models/Activity/ActivityTypePicklists", "argos/Utility", "argos/Edit", "../../Models/Names", "argos/Models/Types", "argos/I18n"], function (_exports, _declare, _connect, _string, _Environment, _Validator, _ActivityTypePicklists, _Utility, _Edit, _Names, _Types, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _connect = _interopRequireDefault(_connect);
+  _string = _interopRequireDefault(_string);
+  _Environment = _interopRequireDefault(_Environment);
+  _Validator = _interopRequireDefault(_Validator);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _Names = _interopRequireDefault(_Names);
+  _Types = _interopRequireDefault(_Types);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _connect2 = _interopRequireDefault(_connect);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('activityComplete');
+  var dtFormatResource = (0, _I18n["default"])('activityCompleteDateTimeFormat');
 
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Environment2 = _interopRequireDefault(_Environment);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _Names2 = _interopRequireDefault(_Names);
-
-  var _Types2 = _interopRequireDefault(_Types);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('activityComplete'); /* Copyright 2017 Infor
-                                                           *
-                                                           * Licensed under the Apache License, Version 2.0 (the "License");
-                                                           * you may not use this file except in compliance with the License.
-                                                           * You may obtain a copy of the License at
-                                                           *
-                                                           *    http://www.apache.org/licenses/LICENSE-2.0
-                                                           *
-                                                           * Unless required by applicable law or agreed to in writing, software
-                                                           * distributed under the License is distributed on an "AS IS" BASIS,
-                                                           * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                           * See the License for the specific language governing permissions and
-                                                           * limitations under the License.
-                                                           */
-
-  var dtFormatResource = (0, _I18n2.default)('activityCompleteDateTimeFormat');
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.Complete', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.Activity.Complete', [_Edit["default"]], {
     // Localization
     activityInfoText: resource.activityInfoText,
     accountText: resource.accountText,
@@ -105,7 +94,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       atToDo: resource.toDoText,
       atPersonal: resource.personalText
     },
-
     // View Properties
     id: 'activity_complete',
     followupView: 'activity_edit',
@@ -146,15 +134,12 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       atPhoneCall: 'ActivityPhoneOptions',
       atAppointment: 'ActivityMeetingOptions'
     },
-
     entityName: 'Activity',
     querySelect: ['AccountId', 'AccountName', 'Alarm', 'AlarmTime', 'Category', 'ContactId', 'ContactName', 'CompletedDate', 'Description', 'Duration', 'Leader/$key', 'LeadId', 'LeadName', 'LongNotes', 'OpportunityId', 'OpportunityName', 'Priority', 'Regarding', 'Result', 'Rollover', 'StartDate', 'TicketId', 'TicketNumber', 'Timeless', 'Type', 'Recurring', 'RecurrenceState', 'AllowAdd', 'AllowEdit', 'AllowDelete', 'AllowComplete'],
     resourceKind: 'activities',
     contractName: 'system',
-
     init: function init() {
       this.inherited(init, arguments);
-
       this.connect(this.fields.Leader, 'onChange', this.onLeaderChange);
       this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
       this.connect(this.fields.Timeless, 'onChange', this.onTimelessChange);
@@ -162,7 +147,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.connect(this.fields.Followup, 'onChange', this.onFollowupChange);
       this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
       this.connect(this.fields.Result, 'onChange', this.onResultChange);
-
       this.connect(this.fields.Account, 'onChange', this.onAccountChange);
       this.connect(this.fields.Contact, 'onChange', this.onContactChange);
       this.connect(this.fields.Opportunity, 'onChange', this.onOpportunityChange);
@@ -170,19 +154,17 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     onResultChange: function onResultChange(value, field) {
       // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
-      field.setValue(value.text);
+      field.setValue(value.text); // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
 
-      // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
       this.fields.ResultCode.setValue(/.{0,8}/ig.exec(value.key));
     },
     isActivityForLead: function isActivityForLead(entry) {
       return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     beforeTransitionTo: function beforeTransitionTo() {
-      this.inherited(beforeTransitionTo, arguments);
-
-      // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+      this.inherited(beforeTransitionTo, arguments); // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
       // the value for the 'IsLead' field will be set later, based on the value derived here.
+
       if (this.options.isForLead !== undefined) {
         return;
       }
@@ -198,7 +180,9 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     isInLeadContext: function isInLeadContext() {
       var insert = this.options && this.options.insert;
       var entry = this.options && this.options.entry;
+
       var context = this._getNavContext();
+
       var isLeadContext = false;
 
       if (context.resourceKind === 'leads') {
@@ -206,7 +190,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       }
 
       var lead = insert && isLeadContext || this.isActivityForLead(entry);
-
       return !!lead;
     },
     toggleSelectField: function toggleSelectField(field, disable) {
@@ -233,7 +216,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           _this.fields[item].hide();
         }
       }, this);
-
       this.fieldsForLeads.forEach(function (item) {
         if (_this.fields[item]) {
           _this.fields[item].show();
@@ -248,7 +230,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           _this2.fields[item].hide();
         }
       }, this);
-
       this.fieldsForStandard.forEach(function (item) {
         if (_this2.fields[item]) {
           _this2.fields[item].show();
@@ -257,7 +238,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     onTimelessChange: function onTimelessChange(value) {
       this.toggleSelectField(this.fields.Duration, value);
-
       var startDateField = this.fields.StartDate;
       var startDate = startDateField.getValue();
 
@@ -265,6 +245,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         startDateField.dateFormatText = this.startingTimelessFormatText;
         startDateField.showTimePicker = false;
         startDateField.timeless = true;
+
         if (!this.isDateTimeless(startDate) && startDate.clone) {
           startDate = startDate.clone().clearTime().add({
             minutes: -1 * startDate.getTimezoneOffset(),
@@ -277,12 +258,14 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         startDateField.dateFormatText = App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText;
         startDateField.showTimePicker = true;
         startDateField.timeless = false;
+
         if (this.isDateTimeless(startDate)) {
           startDate = startDate.clone().add({
             minutes: startDate.getTimezoneOffset() + 1,
             seconds: -5
           });
         }
+
         startDateField.setValue(startDate);
       }
     },
@@ -290,12 +273,15 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       if (!date) {
         return false;
       }
+
       if (date.getUTCHours() !== 0) {
         return false;
       }
+
       if (date.getUTCMinutes() !== 0) {
         return false;
       }
+
       if (date.getUTCSeconds() !== 5) {
         return false;
       }
@@ -309,7 +295,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         var completedDate = startDate.add({
           minutes: duration
         }).toDate();
-
         this.toggleSelectField(this.fields.CompletedDate, true);
         this.fields.CompletedDate.setValue(completedDate);
       } else {
@@ -325,10 +310,11 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
+        this.fields.AccountName.setValue(_Utility["default"].getValue(selection, 'Company'));
       }
 
       var entry = field.currentSelection;
+
       if (entry.WorkPhone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
@@ -344,9 +330,9 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.fields.Followup.setValue('none');
       this.fields.Result.setValue('Complete');
       this.fields.ResultCode.setValue('COM');
-
       this.toggleSelectField(this.fields.CarryOverNotes, true);
       this.toggleSelectField(this.fields.CompletedDate, false);
+
       if (this.isInLeadContext()) {
         var isLeadField = this.fields.IsLead;
         isLeadField.setValue(true);
@@ -358,20 +344,18 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     onLeaderChange: function onLeaderChange(value, field) {
       var user = field.getValue();
       var resourceId = '';
-
-      var key = user.$key;
-
-      // The key is a composite key on activityresourceviews endpoint.
+      var key = user.$key; // The key is a composite key on activityresourceviews endpoint.
       // The format is 'ResourceId-AccessId'.
       // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
       // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
+
       if (key) {
         key = key.split('-');
         resourceId = key[0];
-        if (resourceId) {
-          this.fields.UserId.setValue(resourceId);
 
-          // Set back to a single $key so the PUT request payload is not messed up
+        if (resourceId) {
+          this.fields.UserId.setValue(resourceId); // Set back to a single $key so the PUT request payload is not messed up
+
           this.fields.Leader.setValue({
             $key: resourceId,
             $descriptor: value && value.text
@@ -381,6 +365,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     convertEntry: function convertEntry() {
       var entry = this.inherited(convertEntry, arguments);
+
       if (!this.options.entry) {
         if (entry && entry.Leader.$key) {
           this.requestLeader(entry.Leader.$key);
@@ -390,8 +375,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       return entry;
     },
     requestLeader: function requestLeader(userId) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector('\'' + userId + '\'').setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
-
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector("'".concat(userId, "'")).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
       request.read({
         success: this.processLeader,
         failure: this.requestLeaderFailure,
@@ -410,6 +394,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     createDurationData: function createDurationData() {
       var list = [];
+
       for (var duration in this.durationValueText) {
         if (this.durationValueText.hasOwnProperty(duration)) {
           list.push({
@@ -456,9 +441,8 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         StartDate: moment().toDate(),
         TicketId: entry.TicketId,
         TicketNumber: entry.TicketNumber
-      };
+      }; // Return to activity list view after follow up.
 
-      // Return to activity list view after follow up.
       view.show({
         entry: followupEntry,
         insert: true,
@@ -469,26 +453,28 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
+
       var startDate = this._getCalculatedStartTime(moment());
+
       var activityType = this.options && this.options.activityType;
       var activityGroup = this.groupOptionsByType[activityType] || '';
-      var activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
+      var activityDuration = App.context.userOptions && App.context.userOptions["".concat(activityGroup, ":Duration")] || 15;
       this.fields.StartDate.setValue(startDate.toDate());
       this.fields.Type.setValue(activityType);
       this.fields.Duration.setValue(activityDuration);
       var user = App.context.user;
+
       if (user) {
         this.fields.UserId.setValue(user.$key);
-
         var leaderField = this.fields.Leader;
         leaderField.setValue(user);
         this.onLeaderChange(user, leaderField);
       }
 
       var found = this._getNavContext();
+
       var accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
-
       var context = found && found.options && found.options.source || found;
       var lookup = {
         accounts: this.applyAccountContext,
@@ -508,18 +494,17 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
 
       if (!moment.isMoment(selectedDate)) {
         thisSelectedDate = moment(selectedDate);
-      }
-
-      // Take the start of the selected date, add the *current* time to it,
+      } // Take the start of the selected date, add the *current* time to it,
       // and round it up to the nearest ROUND_MINUTES
       // Examples:
       // 11:24 -> 11:30
       // 11:12 -> 11:15
       // 11:31 -> 11:45
+
+
       var startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
         minutes: Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES + this.ROUND_MINUTES
       });
-
       return startDate;
     },
     applyAccountContext: function applyAccountContext(context) {
@@ -547,19 +532,16 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       }
 
       var contactField = this.fields.Contact;
-
       contactField.setSelection(entry);
       contactField.setValue({
         ContactId: entry.$key,
         ContactName: entry.$descriptor
       });
-
       this.onAccountDependentChange(contactField.getValue(), contactField);
-
       var accountField = this.fields.Account;
       accountField.setValue({
-        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
-        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+        AccountId: _Utility["default"].getValue(entry, 'Account.$key'),
+        AccountName: _Utility["default"].getValue(entry, 'Account.AccountName')
       });
 
       if (entry.WorkPhone) {
@@ -582,21 +564,19 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         TicketNumber: entry.$descriptor
       });
       this.onAccountDependentChange(ticketField.getValue(), ticketField);
-
       var contactField = this.fields.Contact;
       contactField.setValue({
-        ContactId: _Utility2.default.getValue(entry, 'Contact.$key'),
-        ContactName: _Utility2.default.getValue(entry, 'Contact.NameLF')
+        ContactId: _Utility["default"].getValue(entry, 'Contact.$key'),
+        ContactName: _Utility["default"].getValue(entry, 'Contact.NameLF')
       });
       this.onAccountDependentChange(contactField.getValue(), contactField);
-
       var accountField = this.fields.Account;
       accountField.setValue({
-        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
-        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+        AccountId: _Utility["default"].getValue(entry, 'Account.$key'),
+        AccountName: _Utility["default"].getValue(entry, 'Account.AccountName')
       });
-
       var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+
       if (phone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
@@ -616,13 +596,11 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         OpportunityId: entry.$key,
         OpportunityName: entry.$descriptor
       });
-
       this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
-
       var accountField = this.fields.Account;
       accountField.setValue({
-        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
-        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+        AccountId: _Utility["default"].getValue(entry, 'Account.$key'),
+        AccountName: _Utility["default"].getValue(entry, 'Account.AccountName')
       });
 
       if (entry.Account && entry.Account.MainPhone) {
@@ -645,9 +623,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         LeadName: entry.$descriptor
       });
       this.onLeadChange(leadField.getValue(), leadField);
-
       this.fields.AccountName.setValue(entry.Company);
-
       var isLeadField = this.fields.IsLead;
       isLeadField.setValue(context.resourceKind === 'leads');
       this.onIsLeadChange(isLeadField.getValue(), isLeadField);
@@ -662,13 +638,13 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       ['Contact', 'Opportunity', 'Ticket'].forEach(function (f) {
         if (value) {
           fields[f].dependsOn = 'Account';
-          fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
+          fields[f].where = "Account.Id eq \"".concat(value.AccountId || value.key, "\"");
 
           if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
-          }
+          } // No way to determine if the field is part of the changed account, clear it
 
-          // No way to determine if the field is part of the changed account, clear it
+
           if (!fields[f].currentSelection) {
             fields[f].setValue(null);
           }
@@ -683,6 +659,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       }
 
       var entry = field.currentSelection;
+
       if (entry && entry.MainPhone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.MainPhone);
@@ -710,6 +687,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.onAccountDependentChange(value, field);
       var entry = field.currentSelection;
       var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+
       if (phone) {
         var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
@@ -726,7 +704,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       }
     },
     completeActivity: function completeActivity(entry, callback) {
-      var activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
+      var activityModel = App.ModelManager.getModel(_Names["default"].ACTIVITY, _Types["default"].SDATA);
       entry.Leader = this.fields.Leader.getValue();
       entry.Result = this.fields.Result.getValue();
       entry.ResultCode = this.fields.ResultCode.getValue();
@@ -734,8 +712,9 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
 
       var success = function refreshStale(scope, theCallback, theEntry) {
         return function refreshStaleViews() {
-          _Environment2.default.refreshStaleDetailViews();
-          _connect2.default.publish('/app/refresh', [{
+          _Environment["default"].refreshStaleDetailViews();
+
+          _connect["default"].publish('/app/refresh', [{
             resourceKind: 'history'
           }]);
 
@@ -753,9 +732,11 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     onPutComplete: function onPutComplete(entry) {
       this._completedBasedOn = null;
+
       if (entry.$key.split(this.recurringActivityIdSeparator).length === 2) {
         this._completedBasedOn = entry;
       }
+
       this.inherited(onPutComplete, arguments);
     },
     onUpdateCompleted: function onUpdateCompleted(entry) {
@@ -769,8 +750,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, format, property) {
       var theProperty = property || '$key';
-
-      return _string2.default.substitute(format, [_Utility2.default.getValue(dependentValue, theProperty)]);
+      return _string["default"].substitute(format, [_Utility["default"].getValue(dependentValue, theProperty)]);
     },
     _getNavContext: function _getNavContext() {
       var navContext = App.queryNavigationContext(function (o) {
@@ -803,7 +783,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           orderBy: 'text asc',
           type: 'picklist',
           maxTextLength: 64,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           label: this.longNotesText,
           noteProperty: false,
@@ -820,7 +800,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           showTimePicker: true,
           dateFormatText: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
+          validator: [_Validator["default"].exists, _Validator["default"].isDateInRange]
         }, {
           label: this.durationText,
           title: this.durationTitleText,
@@ -834,6 +814,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
               if (field.isDisabled()) {
                 return false;
               }
+
               if (!/^\d+$/.test(val)) {
                 return true;
               }
@@ -864,19 +845,20 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           showTimePicker: true,
           dateFormatText: this.completedFormatText,
           minValue: new Date(1900, 0, 1),
-          validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
+          validator: [_Validator["default"].exists, _Validator["default"].isDateInRange]
         }, {
           dependsOn: 'Type',
           label: this.resultText,
           name: 'Result',
           property: 'Result',
-          storageMode: 'code', // The onResultChange changes the value back to text
+          storageMode: 'code',
+          // The onResultChange changes the value back to text
           picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
           title: this.resultTitleText,
           orderBy: 'text asc',
           type: 'picklist',
           maxTextLength: 64,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'ResultCode',
           property: 'ResultCode',
@@ -913,7 +895,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           title: this.priorityTitleText,
           type: 'picklist',
           maxTextLength: 64,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           dependsOn: 'Type',
           label: this.categoryText,
@@ -924,7 +906,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           title: this.categoryTitleText,
           type: 'picklist',
           maxTextLength: 64,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           type: 'hidden',
           name: 'UserId',
@@ -1012,12 +994,12 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           label: this.phoneText,
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }]
       }]);
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });

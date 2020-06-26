@@ -1,48 +1,39 @@
-define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/lang', 'dojo/string', '../Format', '../Validator', '../Template', 'argos/Utility', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _lang, _string, _Format, _Validator, _Template, _Utility, _Edit, _I18n) {
-  Object.defineProperty(exports, "__esModule", {
+define("crm/Views/AddAccountContact", ["exports", "dojo/_base/declare", "dojo/_base/lang", "dojo/string", "../Format", "../Validator", "../Template", "argos/Utility", "argos/Edit", "argos/I18n"], function (_exports, _declare, _lang, _string, _Format, _Validator, _Template, _Utility, _Edit, _I18n) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
     value: true
   });
+  _exports["default"] = void 0;
+  _declare = _interopRequireDefault(_declare);
+  _lang = _interopRequireDefault(_lang);
+  _string = _interopRequireDefault(_string);
+  _Format = _interopRequireDefault(_Format);
+  _Validator = _interopRequireDefault(_Validator);
+  _Template = _interopRequireDefault(_Template);
+  _Utility = _interopRequireDefault(_Utility);
+  _Edit = _interopRequireDefault(_Edit);
+  _I18n = _interopRequireDefault(_I18n);
 
-  var _declare2 = _interopRequireDefault(_declare);
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var _lang2 = _interopRequireDefault(_lang);
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var resource = (0, _I18n["default"])('addAccountContact');
 
-  var _string2 = _interopRequireDefault(_string);
-
-  var _Format2 = _interopRequireDefault(_Format);
-
-  var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Template2 = _interopRequireDefault(_Template);
-
-  var _Utility2 = _interopRequireDefault(_Utility);
-
-  var _Edit2 = _interopRequireDefault(_Edit);
-
-  var _I18n2 = _interopRequireDefault(_I18n);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var resource = (0, _I18n2.default)('addAccountContact'); /* Copyright 2017 Infor
-                                                            *
-                                                            * Licensed under the Apache License, Version 2.0 (the "License");
-                                                            * you may not use this file except in compliance with the License.
-                                                            * You may obtain a copy of the License at
-                                                            *
-                                                            *    http://www.apache.org/licenses/LICENSE-2.0
-                                                            *
-                                                            * Unless required by applicable law or agreed to in writing, software
-                                                            * distributed under the License is distributed on an "AS IS" BASIS,
-                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                            * See the License for the specific language governing permissions and
-                                                            * limitations under the License.
-                                                            */
-
-  var __class = (0, _declare2.default)('crm.Views.AddAccountContact', [_Edit2.default], {
+  var __class = (0, _declare["default"])('crm.Views.AddAccountContact', [_Edit["default"]], {
     // Localization
     accountNameText: resource.accountNameText,
     accountStatusTitleText: resource.accountStatusTitleText,
@@ -72,7 +63,6 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
     phoneText: resource.phoneText,
     workText: resource.workText,
     industryTitleText: resource.industryTitleText,
-
     // View Properties
     id: 'add_account_contact',
     resourceKind: 'accounts',
@@ -82,26 +72,29 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
     querySelect: ['AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'AccountName', 'Address', 'BusinessDescription', 'Contact/AccountName', 'Contact/Address', 'Contact/Email', 'Contact/Fax', 'Contact/FirstName', 'Contact/HomePhone', 'Contact/LastName', 'Contact/Mobile', 'Contact/Title', 'Contact/WebAddress', 'Contact/WorkPhone', 'Fax', 'Industry', 'Owner/OwnerDescription', 'Status', 'SubType', 'Type'],
     init: function init() {
       this.inherited(init, arguments);
-
       this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
     },
     getValues: function getValues() {
       var values = this.inherited(getValues, arguments);
 
-      _Utility2.default.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
-      _Utility2.default.setValue(values, 'Contacts.$resources[0].AccountName', values.AccountName);
+      _Utility["default"].setValue(values, 'Contacts.$resources[0].$name', 'Contact');
+
+      _Utility["default"].setValue(values, 'Contacts.$resources[0].AccountName', values.AccountName);
 
       return values;
     },
     formatDependentPicklist: function formatDependentPicklist(dependentValue, fmt) {
       var dependValue = dependentValue;
-      if (!_lang2.default.isArray(dependValue)) {
+
+      if (!_lang["default"].isArray(dependValue)) {
         dependValue = [dependValue];
       }
-      return _string2.default.substitute(fmt, [dependValue]);
+
+      return _string["default"].substitute(fmt, [dependValue]);
     },
     onInsertCompleted: function onInsertCompleted(entry) {
       var view = App.getView('account_detail');
+
       if (view) {
         view.show({
           descriptor: entry.$descriptor,
@@ -114,9 +107,9 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
       }
     },
     onContactAddressChange: function onContactAddressChange(value) {
-      var address = void 0;
-      var address1 = void 0;
-      // Copy contact address down into the account address if the account address is not set
+      var address;
+      var address1; // Copy contact address down into the account address if the account address is not set
+
       if (this.fields.Address) {
         address = this.fields.Address.getValue();
         address1 = address && address.Address1;
@@ -128,10 +121,8 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
     },
     applyContext: function applyContext(templateEntry) {
       this.inherited(applyContext, arguments);
-
       this.fields.AccountManager.setValue(App.context.user);
       this.fields.Owner.setValue(App.context.defaultOwner);
-
       this.fields.Type.setValue(templateEntry.Type);
       this.fields.Status.setValue(templateEntry.Status);
     },
@@ -146,25 +137,26 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
           }]
         };
       }
+
       this.inherited(convertEntry, arguments);
       return entry;
     },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         emptyText: '',
-        formatValue: _Format2.default.nameLF,
+        formatValue: _Format["default"].nameLF,
         label: this.nameText,
         name: 'Contacts.$resources[0]',
         property: 'Contacts.$resources[0]',
         type: 'name',
-        validator: _Validator2.default.name,
+        validator: _Validator["default"].name,
         view: 'name_edit'
       }, {
         label: this.accountNameText,
         name: 'AccountName',
         property: 'AccountName',
         type: 'text',
-        validator: _Validator2.default.notEmpty
+        validator: _Validator["default"].notEmpty
       }, {
         label: this.emailText,
         name: 'Contacts.$resources[0].Email',
@@ -178,14 +170,14 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
         type: 'text',
         inputType: 'url',
         maxTextLength: 128,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         label: this.phoneText,
         name: 'MainPhone',
         property: 'MainPhone',
         type: 'phone',
         maxTextLength: 32,
-        validator: _Validator2.default.exceedsMaxTextLength
+        validator: _Validator["default"].exceedsMaxTextLength
       }, {
         title: this.detailsContactText,
         name: 'ContactInfoSection',
@@ -203,31 +195,31 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
           property: 'Contacts.$resources[0].HomePhone',
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'Contacts.$resources[0].Mobile',
           property: 'Contacts.$resources[0].Mobile',
           label: this.mobileText,
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'Contacts.$resources[0].WorkPhone',
           property: 'Contacts.$resources[0].WorkPhone',
           label: this.workText,
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'Contacts.$resources[0].Fax',
           property: 'Contacts.$resources[0].Fax',
           label: this.faxText,
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           emptyText: '',
-          formatValue: _Format2.default.address.bindDelegate(this, true, true),
+          formatValue: _Format["default"].address.bindDelegate(this, true, true),
           label: this.addressText,
           name: 'Contacts.$resources[0].Address',
           property: 'Contacts.$resources[0].Address',
@@ -244,7 +236,7 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
           label: this.faxText,
           type: 'phone',
           maxTextLength: 32,
-          validator: _Validator2.default.exceedsMaxTextLength
+          validator: _Validator["default"].exceedsMaxTextLength
         }, {
           name: 'Type',
           property: 'Type',
@@ -285,7 +277,7 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
           name: 'AccountManager',
           property: 'AccountManager',
           textProperty: 'UserInfo',
-          textTemplate: _Template2.default.nameLF,
+          textTemplate: _Template["default"].nameLF,
           type: 'lookup',
           view: 'user_list'
         }, {
@@ -297,7 +289,7 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
           view: 'owner_list'
         }, {
           emptyText: '',
-          formatValue: _Format2.default.address.bindDelegate(this, true, true),
+          formatValue: _Format["default"].address.bindDelegate(this, true, true),
           label: this.addressText,
           name: 'Address',
           property: 'Address',
@@ -309,6 +301,6 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
     }
   });
 
-  exports.default = __class;
-  module.exports = exports['default'];
+  var _default = __class;
+  _exports["default"] = _default;
 });
