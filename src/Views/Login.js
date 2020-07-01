@@ -19,27 +19,35 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('login');
 
-const __class = declare('crm.Views.Login', [Edit], {
-  // Templates
-  widgetTemplate: new Simplate([`
-      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">
-        <div class="wrapper">
-          <section class="signin" role="main">
-            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
-            </svg>
-            <h1>Infor CRM</h1>
-            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
-            </div>
-            <div class="login-button-container">
-              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>
-            </div>
-          </section>
+function LoginView(props) { // eslint-disable-line
+  return (
+    <div className="wrapper">
+      <section className="signin" role="main">
+        <SVGIcon iconName="icon-logo" label="Infor Logo" />
+        <h1>Infor CRM</h1>
+        <div className="panel-content" onKeyPress={props.onKeyPress} onKeyUp={props.onKeyUp} data-dojo-attach-point="contentNode" />
+        <div className="login-button-container">
+          <button data-dojo-attach-point="loginButton" data-action="authenticate" className="btn-primary hide-focus">
+            {resource.logOnText}
+          </button>
         </div>
-      </div>
-    `,
-  ]),
+      </section>
+    </div>
+  );
+}
 
+function SVGIcon(props) { // eslint-disable-line
+  const iconClass = `icon ${props.iconName}`;
+  const xlinkHref = `#${props.iconName}`;
+  return (
+    <svg className={iconClass} focusable="false" aria-hidden="true" role="presentation" aria-label={props.label}>
+      <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref={xlinkHref}>
+      </use>
+    </svg>
+  );
+}
+
+const __class = declare('crm.Views.Login', [Edit], {
   id: 'login',
   busy: false,
   multiColumnView: false,
@@ -60,8 +68,25 @@ const __class = declare('crm.Views.Login', [Edit], {
   },
   ENTER_KEY: 13,
 
+  // Override the buildRender for dijit Widgets. We will render a react component into this.domNode and
+  // completely take over the rendering process
+  // Base classes are still modifying some content like this.contentNode, etc, which is dangerous since React will be
+  // unaware of those changes.
+  buildRendering: function buildRendering() {
+    this.domNode = document.createElement('div');
+    this.domNode.setAttribute('class', 'view');
+    this.domNode.setAttribute('id', this.id);
+    ReactDOM.render(<LoginView onKeyPress={this._onKeyPress.bind(this)} onKeyUp={this._onKeyUp.bind(this)} />, this.domNode);
+
+    // Setup attachpoints manually since we are not using _Templated
+    // Move the logic for enable/disable into the react component and we can remove the loginButton attachpoint altogether.
+    this.loginButton = $('.login-button-container > button', this.domNode).get(0);
+
+    // _EditBase will dump the layout fields into this.contentNode, so it must exist on this class
+    this.contentNode = $('.panel-content', this.domNode).get(0);
+  },
   _onKeyPress: function _onKeyPress(evt) {
-    if (evt.charOrCode === this.ENTER_KEY) {
+    if (evt.charCode === this.ENTER_KEY) {
       this.authenticate();
     }
   },
@@ -131,6 +156,10 @@ const __class = declare('crm.Views.Login', [Edit], {
     };
   },
   createLayout: function createLayout() {
+    // _EditBase will inject these into this.contentNode
+    // It would be cool if we could support this with JSX somehow,
+    // perhaps by returning an array of child props here or some other special
+    // child prop collection?
     return this.layout || (this.layout = [{
       name: 'username-display',
       label: this.userText,

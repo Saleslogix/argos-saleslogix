@@ -30,10 +30,46 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
                                                 * limitations under the License.
                                                 */
 
-  var __class = (0, _declare2.default)('crm.Views.Login', [_Edit2.default], {
-    // Templates
-    widgetTemplate: new Simplate(['\n      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">\n        <div class="wrapper">\n          <section class="signin" role="main">\n            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">\n              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>\n            </svg>\n            <h1>Infor CRM</h1>\n            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">\n            </div>\n            <div class="login-button-container">\n              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>\n            </div>\n          </section>\n        </div>\n      </div>\n    ']),
+  function LoginView(props) {
+    // eslint-disable-line
+    return React.createElement(
+      'div',
+      { className: 'wrapper' },
+      React.createElement(
+        'section',
+        { className: 'signin', role: 'main' },
+        React.createElement(SVGIcon, { iconName: 'icon-logo', label: 'Infor Logo' }),
+        React.createElement(
+          'h1',
+          null,
+          'Infor CRM'
+        ),
+        React.createElement('div', { className: 'panel-content', onKeyPress: props.onKeyPress, onKeyUp: props.onKeyUp, 'data-dojo-attach-point': 'contentNode' }),
+        React.createElement(
+          'div',
+          { className: 'login-button-container' },
+          React.createElement(
+            'button',
+            { 'data-dojo-attach-point': 'loginButton', 'data-action': 'authenticate', className: 'btn-primary hide-focus' },
+            resource.logOnText
+          )
+        )
+      )
+    );
+  }
 
+  function SVGIcon(props) {
+    // eslint-disable-line
+    var iconClass = 'icon ' + props.iconName;
+    var xlinkHref = '#' + props.iconName;
+    return React.createElement(
+      'svg',
+      { className: iconClass, focusable: 'false', 'aria-hidden': 'true', role: 'presentation', 'aria-label': props.label },
+      React.createElement('use', { xmlnsXlink: 'http://www.w3.org/1999/xlink', xlinkHref: xlinkHref })
+    );
+  }
+
+  var __class = (0, _declare2.default)('crm.Views.Login', [_Edit2.default], {
     id: 'login',
     busy: false,
     multiColumnView: false,
@@ -54,8 +90,25 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     },
     ENTER_KEY: 13,
 
+    // Override the buildRender for dijit Widgets. We will render a react component into this.domNode and
+    // completely take over the rendering process
+    // Base classes are still modifying some content like this.contentNode, etc, which is dangerous since React will be
+    // unaware of those changes.
+    buildRendering: function buildRendering() {
+      this.domNode = document.createElement('div');
+      this.domNode.setAttribute('class', 'view');
+      this.domNode.setAttribute('id', this.id);
+      ReactDOM.render(React.createElement(LoginView, { onKeyPress: this._onKeyPress.bind(this), onKeyUp: this._onKeyUp.bind(this) }), this.domNode);
+
+      // Setup attachpoints manually since we are not using _Templated
+      // Move the logic for enable/disable into the react component and we can remove the loginButton attachpoint altogether.
+      this.loginButton = $('.login-button-container > button', this.domNode).get(0);
+
+      // _EditBase will dump the layout fields into this.contentNode, so it must exist on this class
+      this.contentNode = $('.panel-content', this.domNode).get(0);
+    },
     _onKeyPress: function _onKeyPress(evt) {
-      if (evt.charOrCode === this.ENTER_KEY) {
+      if (evt.charCode === this.ENTER_KEY) {
         this.authenticate();
       }
     },
@@ -125,6 +178,10 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       };
     },
     createLayout: function createLayout() {
+      // _EditBase will inject these into this.contentNode
+      // It would be cool if we could support this with JSX somehow,
+      // perhaps by returning an array of child props here or some other special
+      // child prop collection?
       return this.layout || (this.layout = [{
         name: 'username-display',
         label: this.userText,

@@ -35,6 +35,8 @@ module.exports = {
     ICRMCustomizationSDK: false,
     ICRMCommonSDK: false,
     ICRMServicesSDK: false,
+    ReactDOM: false,
+    React: false,
   },
   rules: {
     /**
