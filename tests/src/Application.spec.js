@@ -60,10 +60,10 @@ define('spec/Application.spec', [
         expect(instance.connections.crm.offline)
           .toBe(true);
         expect(instance.connections.crm.url)
-          .toBe('http://slocalhost:8000/sdata/slx/dynamic/-/');
+          .toBe('http://localhost:8000/sdata/slx/dynamic/-/');
         expect(instance.connections.crm.json)
           .toBe(true);
-        expect(instance.multiCurrency)
+        expect(instance.hasMultiCurrency())
           .toBe(false);
       });
     });

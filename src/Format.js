@@ -108,8 +108,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends m
   PicklistDataDisplayType: f.PicklistDataDisplayType,
   PicklistStorageType: f.PicklistStorageType,
   currency: function currency(_val) {
-    return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
-      Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+    return f.currency(_val, Soho.Locale.currentLocale.data.numbers.decimal,
+      Soho.Locale.currentLocale.data.numbers.group);
   },
   bigNumber: function bigNumber(val) {
     let numParse = typeof val !== 'number' ? parseFloat(val) : val;
@@ -137,7 +137,7 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends m
         val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 }),
       });
     } else {
-      results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 2 }).toString();
+      results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 0, maximumFractionDigits: 0 }).toString();
     }
 
     return results;
@@ -147,8 +147,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends m
     return moment(val).fromNow();
   },
   multiCurrency: function multiCurrency(_val, code) {
-    return f.multiCurrency(_val, code, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
-      Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+    return f.multiCurrency(_val, code, Soho.Locale.currentLocale.data.numbers.decimal,
+      Soho.Locale.currentLocale.data.numbers.group);
   },
   nameLF: f.nameLF,
   mail: f.mail,
@@ -184,8 +184,8 @@ const __class = lang.setObject('crm.Format', lang.mixin({}, format, /** @lends m
    */
   resolveFirstLast: f.resolveFirstLast,
   fixedLocale: function fixedLocale(val, d) {
-    return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator,
-      Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+    return f.fixedLocale(val, d, Soho.Locale.currentLocale.data.numbers.group,
+      Soho.Locale.currentLocale.data.numbers.decimal);
   },
   time: function time(rawValue, type = 'days') {
     let val = rawValue;

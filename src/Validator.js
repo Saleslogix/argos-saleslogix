@@ -127,7 +127,7 @@ const __class = lang.setObject('crm.Validator', /** @lends module:crm/Validator 
    */
   isCurrency: {
     fn: function isCurrency(value) {
-      return !(new RegExp(`^[\\d]+(\\.\\d{1,${Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'}})?$`).test(value));
+      return !(new RegExp('^[\\d]+(\\.\\d{1,2})?$').test(value));
     },
     message: resource.isCurrencyText,
   },

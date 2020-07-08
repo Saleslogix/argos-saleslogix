@@ -122,7 +122,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     PicklistDataDisplayType: f.PicklistDataDisplayType,
     PicklistStorageType: f.PicklistStorageType,
     currency: function currency(_val) {
-      return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator, Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+      return f.currency(_val, Soho.Locale.currentLocale.data.numbers.decimal, Soho.Locale.currentLocale.data.numbers.group);
     },
     bigNumber: function bigNumber(val) {
       var numParse = typeof val !== 'number' ? parseFloat(val) : val;
@@ -150,7 +150,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
           val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
         });
       } else {
-        results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 2 }).toString();
+        results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 0, maximumFractionDigits: 0 }).toString();
       }
 
       return results;
@@ -160,7 +160,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       return moment(val).fromNow();
     },
     multiCurrency: function multiCurrency(_val, code) {
-      return f.multiCurrency(_val, code, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator, Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+      return f.multiCurrency(_val, code, Soho.Locale.currentLocale.data.numbers.decimal, Soho.Locale.currentLocale.data.numbers.group);
     },
     nameLF: f.nameLF,
     mail: f.mail,
@@ -196,7 +196,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
      */
     resolveFirstLast: f.resolveFirstLast,
     fixedLocale: function fixedLocale(val, d) {
-      return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator, Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+      return f.fixedLocale(val, d, Soho.Locale.currentLocale.data.numbers.group, Soho.Locale.currentLocale.data.numbers.decimal);
     },
     time: function time(rawValue) {
       var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'days';
