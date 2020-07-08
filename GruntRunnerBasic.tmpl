@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -12,6 +11,17 @@
     <script src="<%= script %>"></script>
     <% }) %>
   <% }; %>
+
+  <!-- Soho Configuration -->
+  <script type="application/javascript">
+    var SohoConfig = {
+      culturesPath: '../../argos-sdk/libraries/soho/js/cultures/',
+      minifyCultures: false,
+      personalize: {
+        noInit: true
+      }
+    };
+  </script>
 
   <!-- SData Client Library -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
