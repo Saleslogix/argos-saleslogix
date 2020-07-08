@@ -2,6 +2,12 @@
 define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
   // Verify the the argos-saleslogix version of these work OK - SDK really contains the phone formatter.
   describe('Mobile/SalesLogix/Format', function() {
+    beforeAll(function(done) {
+      Soho.Locale.set('en-US').done(function() {
+        done();
+      });
+    });
+
     describe('address', function() {
       var addressFeed = {
         Salutation: 'ATTN: Qa Testers',
@@ -233,36 +239,24 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
           .toEqual('foo');
       });
 
-      it('should should round using toFixed (round up)', function(done) {
-        Soho.Locale.set('en-US').done(function() {
-          expect(Format.currency(12.558))
-          .toEqual('12.56');
-          done();
-        });
+      it('should should round using toFixed (round up)', function() {
+        expect(Format.currency(12.558))
+        .toEqual('12.56');
       });
 
-      it('should should round using toFixed (round down)', function(done) {
-        Soho.Locale.set('en-US').done(function() {
-          expect(Format.currency(12.554))
+      it('should should round using toFixed (round down)', function() {
+        expect(Format.currency(12.554))
           .toEqual('12.55');
-          done();
-        });
       });
 
-      it('should should round using toFixed', function(done) {
-        Soho.Locale.set('en-US').done(function() {
-          expect(Format.currency(12.555))
-            .toEqual('12.55');
-          done();
-        });
+      it('should should round using toFixed', function() {
+        expect(Format.currency(12.555))
+          .toEqual('12.55');
       });
 
-      it('should group larger numbers', function(done) {
-        Soho.Locale.set('en-US').done(function() {
-          expect(Format.currency(1294.55))
-            .toEqual('1,294.55');
-          done();
-        });
+      it('should group larger numbers', function() {
+        expect(Format.currency(1294.55))
+          .toEqual('1,294.55');
       });
 
       it('should use two significant digits', function() {
@@ -274,14 +268,9 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
     });
 
     describe('multiCurrency', function() {
-      it('should format with code', function(done) {
-        Soho.Locale.set('en-US').done(function() {
+      it('should format with code', function() {
           expect(Format.multiCurrency(12.55, 'USD'))
-          .toEqual('12.55 USD');
-
-          done();
-        });
-
+            .toEqual('12.55 USD');
       });
     });
 
