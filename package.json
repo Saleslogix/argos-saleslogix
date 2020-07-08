@@ -6,7 +6,7 @@
     "url": "https://github.com/Saleslogix/argos-saleslogix"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "grunt --force test",
     "less": "grunt less",
     "start": "node --max-http-header-size=81920 scripts/server.js",
     "build": "babel src --out-dir src-out",
