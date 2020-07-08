@@ -29,9 +29,9 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "chai": "^4.2.0",
-    "eslint": "^7.2.0",
+    "eslint": "^7.4.0",
     "express": "^4.17.1",
-    "grunt": "^1.1.0",
+    "grunt": "^1.2.1",
     "grunt-argos-deps": "git+https://git@github.com/Saleslogix/grunt-argos-deps.git#v0.1.5",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-connect": "^2.1.0",
@@ -42,9 +42,9 @@
     "http-proxy": "^1.18.1",
     "jsdoc": "^3.6.4",
     "less": "^3.11.3",
-    "less-loader": "^6.1.0",
+    "less-loader": "^6.2.0",
     "mocha": "^8.0.1",
-    "playwright": "^1.1.1",
+    "playwright": "^1.2.0",
     "serve-index": "^1.9.1"
   },
   "dependencies": {}

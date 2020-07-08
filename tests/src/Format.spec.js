@@ -233,14 +233,20 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
           .toEqual('foo');
       });
 
-      it('should should round using toFixed (round up)', function() {
-        expect(Format.currency(12.558))
+      it('should should round using toFixed (round up)', function(done) {
+        Soho.Locale.set('en-US').done(function() {
+          expect(Format.currency(12.558))
           .toEqual('12.56');
+          done();
+        });
       });
 
-      it('should should round using toFixed (round down)', function() {
-        expect(Format.currency(12.554))
+      it('should should round using toFixed (round down)', function(done) {
+        Soho.Locale.set('en-US').done(function() {
+          expect(Format.currency(12.554))
           .toEqual('12.55');
+          done();
+        });
       });
 
       it('should should round using toFixed', function() {
