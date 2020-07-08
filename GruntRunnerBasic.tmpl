@@ -41,6 +41,9 @@
   <!-- SohoXi -->
   <script type="text/javascript" src="../../argos-sdk/libraries/soho/js/sohoxi.js"></script>
 
+  <!-- Redux -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/redux/redux.min.js"></script>
+
   <!-- ICRM Common, depends on moment -->
   <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
   <script type="text/javascript" src="../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
@@ -85,11 +88,11 @@
   <script type="text/javascript">
   function buildContext() {
     var filePaths = {
-      '../localization/locales/crm': [
+      'localization/locales/crm': [
         'strings.l20n',
         'regional.l20n'
       ],
-      '../../../argos-sdk/localization/locales/argos': [
+      '../../argos-sdk/localization/locales/argos': [
         'strings.l20n',
         'regional.l20n'
       ]
@@ -113,6 +116,7 @@
     ctx.requestLocales(currentLocale);
     window.localeContext = ctx;
     window.defaultLocaleContext = ctx;
+    window.regionalContext = ctx;
     return ctx;
   }
   <% with (scripts) { %>
