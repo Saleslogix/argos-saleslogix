@@ -60,4 +60,3 @@ npm-debug.log
 \argos-sdk\tools\l20n-grammar
 \argos-sdk\graph.png
 \argos-sdk\libraries\jasmine\
-\argos-sdk\libraries\jasmine-2.0.0\
