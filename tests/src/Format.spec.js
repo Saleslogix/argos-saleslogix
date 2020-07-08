@@ -249,14 +249,20 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
         });
       });
 
-      it('should should round using toFixed', function() {
-        expect(Format.currency(12.555))
-          .toEqual('12.55');
+      it('should should round using toFixed', function(done) {
+        Soho.Locale.set('en-US').done(function() {
+          expect(Format.currency(12.555))
+            .toEqual('12.55');
+          done();
+        });
       });
 
-      it('should group larger numbers', function() {
-        expect(Format.currency(1294.55))
-          .toEqual('1,294.55');
+      it('should group larger numbers', function(done) {
+        Soho.Locale.set('en-US').done(function() {
+          expect(Format.currency(1294.55))
+            .toEqual('1,294.55');
+          done();
+        });
       });
 
       it('should use two significant digits', function() {

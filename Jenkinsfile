@@ -8,6 +8,10 @@ node('windows && nodejs') {
         deleteDir()
       }
 
+      dir('.grunt') {
+        deleteDir()
+      }
+
       try {
         bat 'yarn'
         bat 'yarn run lint'
@@ -34,6 +38,10 @@ node('windows && nodejs') {
       }
 
       dir('deploy') {
+        deleteDir()
+      }
+
+      dir('.grunt') {
         deleteDir()
       }
 
