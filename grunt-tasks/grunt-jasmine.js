@@ -7,6 +7,12 @@ module.exports = function gruntJasmine(grunt) {
         host: 'http://127.0.0.1:8001/products/argos-saleslogix/',
         template: 'GruntRunnerBasic.tmpl',
         summary: true,
+        sandboxArgs: {
+          args: [
+            '--aggressive-cache-discard',
+          ],
+          dumpio: true,
+        },
       },
     },
   });

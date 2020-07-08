@@ -7,7 +7,7 @@
   <% }); %>
 
   <% with (scripts) { %>
-    <% [].concat(polyfills, jasmine, vendor, helpers).forEach(function(script){ %>
+    <% [].concat(polyfills, jasmine, vendor, helpers, boot).forEach(function(script){ %>
     <script src="<%= script %>"></script>
     <% }) %>
   <% }; %>
@@ -142,8 +142,7 @@
   });
 
   require([
-    '<%= boot %>',
-    '<%= reporters[0] %>'
+    '<%= [].concat(scripts.reporters).join("','") %>'
   ]);
   <% }; %>
   </script>
