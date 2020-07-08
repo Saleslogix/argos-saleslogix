@@ -262,9 +262,14 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
     });
 
     describe('multiCurrency', function() {
-      it('should format with code', function() {
-        expect(Format.multiCurrency(12.55, 'USD'))
+      it('should format with code', function(done) {
+        Soho.Locale.set('en-US').done(function() {
+          expect(Format.multiCurrency(12.55, 'USD'))
           .toEqual('12.55 USD');
+
+          done();
+        });
+
       });
     });
 
