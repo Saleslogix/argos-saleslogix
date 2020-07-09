@@ -38,6 +38,9 @@ const app = express();
 app.use((req, res, next) => {
   if (req.path.startsWith('/sdata')) {
     proxy.web(req, res);
+    proxy.on('error', (err) => {
+      console.error(err);
+    });
   } else {
     next();
   }
