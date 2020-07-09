@@ -53,6 +53,7 @@ const __class = declare('crm.Views.Login', [Edit], {
   invalidUserText: resource.invalidUserText,
   missingUserText: resource.missingUserText,
   requestAbortedText: resource.requestAbortedText,
+  passwordExpiredText: resource.passwordExpiredText,
   logoText: resource.logoText,
   errorText: {
     general: resource.logOnError,
@@ -176,6 +177,25 @@ const __class = declare('crm.Views.Login', [Edit], {
       handle: function handleNoResponse(error, next) {
         alert(this.missingUserText);// eslint-disable-line
         next();
+      },
+    }, {
+      name: 'PasswordExpired',
+      test: function testExpiredPassword(error) {
+        const xhr = error && error.xhr;
+        if (!xhr) {
+          return false;
+        }
+
+        try {
+          const json = JSON.parse(xhr.responseText)[0];
+          const stackTrace = json.stackTrace || '';
+          return stackTrace.indexOf('Sage.SalesLogix.User.Rules.IsValidPassword') > -1;
+        } catch (_) {
+          return false;
+        }
+      },
+      handle: function handleExpiredPassword() {
+        alert(this.passwordExpiredText);// eslint-disable-line
       },
     }, {
       name: 'GeneralError',

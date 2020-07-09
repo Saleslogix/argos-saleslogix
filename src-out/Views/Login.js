@@ -47,6 +47,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     invalidUserText: resource.invalidUserText,
     missingUserText: resource.missingUserText,
     requestAbortedText: resource.requestAbortedText,
+    passwordExpiredText: resource.passwordExpiredText,
     logoText: resource.logoText,
     errorText: {
       general: resource.logOnError,
@@ -170,6 +171,25 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         handle: function handleNoResponse(error, next) {
           alert(this.missingUserText); // eslint-disable-line
           next();
+        }
+      }, {
+        name: 'PasswordExpired',
+        test: function testExpiredPassword(error) {
+          var xhr = error && error.xhr;
+          if (!xhr) {
+            return false;
+          }
+
+          try {
+            var json = JSON.parse(xhr.responseText)[0];
+            var stackTrace = json.stackTrace || '';
+            return stackTrace.indexOf('Sage.SalesLogix.User.Rules.IsValidPassword') > -1;
+          } catch (_) {
+            return false;
+          }
+        },
+        handle: function handleExpiredPassword() {
+          alert(this.passwordExpiredText); // eslint-disable-line
         }
       }, {
         name: 'GeneralError',

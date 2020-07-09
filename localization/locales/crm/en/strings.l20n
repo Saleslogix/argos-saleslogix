@@ -1258,6 +1258,7 @@
   rememberText: "Remember me"
   titleText: "Sign in"
   userText: "User ID"
+  passwordExpiredText: "Password has expired. Please use the web client to change your password."
   invalidUserText: "The user name or password is invalid."
   missingUserText: "The user record was not found."
   requestAbortedText: "The request was aborted."
