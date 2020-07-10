@@ -79,5 +79,42 @@ describe('Detail', () => {
       await page.close();
     });
   });
+
+  describe('INFORCRM-24295,INFORCRM-15532: Fix links in embedded maps', () => {
+    it('should allow links in embedded iframe maps', async () => {
+      const page = await common.auth(config.crm.users.admin.userId, config.crm.users.admin.password);
+
+      // Expand the goto section in the left nav
+      const goToHandle = await page.$('#left_drawer div.accordion.panel > div[data-tag="view"]');
+      await goToHandle.click();
+
+      // Click accounts
+      const accountListHandle = await page.$('#left_drawer a[data-view="account_list"]');
+      await accountListHandle.click();
+
+      const cardHandle = await page.waitForSelector('#account_list div[data-action="activateEntry"]');
+      await cardHandle.click();
+
+      const addressHandle = await page.waitForSelector('#account_detail div[data-property="Address"] .hyperlink');
+      await addressHandle.click();
+
+      const iframeHandle = await page.waitForSelector('#link_view > iframe');
+      const frame = await iframeHandle.contentFrame();
+      await frame.waitForLoadState('networkidle');
+
+      /* Current broken https://github.com/microsoft/playwright/issues/1821
+      const directionsHandle = await frame.$('div[jsaction="placeCard.directions"] > a');
+      await directionsHandle.click();
+      */
+      // Hack around the bug above, will probably break on different browsers, font sizes, style changes, etc
+      await page.click('#link_view', { position: { x: 570, y: 110 } }); // click anywhere to collapse directions
+      await page.click('#link_view', { position: { x: 50, y: 20 } }); // click on view larger map in upper left
+
+      const directionsPage = await page.waitForEvent('popup');
+      expect(directionsPage.url()).to.match(/google\.com/);
+
+      await page.close();
+    });
+  });
 });
 
