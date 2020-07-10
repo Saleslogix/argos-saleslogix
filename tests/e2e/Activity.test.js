@@ -18,6 +18,7 @@
 const { expect } = require('chai');
 const common = require('./common');
 const config = require('./config');
+const debug = require('debug')('e2e'); // eslint-disable-line
 
 describe('Activities', () => {
   describe('INFORCRM-23677: Users can set a Category on a Personal Activity', () => {
@@ -44,8 +45,10 @@ describe('Activities', () => {
       // Check if the category field on the insert form is disabled
       // The attribute will exist with an empty string for a value
       const categoryFieldSelector = '#activity_edit div[data-field="Category"] input[data-dojo-attach-point="inputNode"]';
-      let categoryFieldHandle = await page.waitForSelector(categoryFieldSelector);
+      const categoryFieldSelectorDisabled = `${categoryFieldSelector}[disabled]`;
+      let categoryFieldHandle = await page.waitForSelector(categoryFieldSelectorDisabled);
       let disabledAttr = await categoryFieldHandle.getAttribute('disabled');
+
       expect(disabledAttr).to.equal('');
 
       // Go back to my schedule, and click new on the toolbar again
@@ -59,7 +62,7 @@ describe('Activities', () => {
 
       // Check if the category picklist is enabled
       // The disabled attribute should not exist on the field's input node
-      categoryFieldHandle = await page.waitForSelector(categoryFieldSelector);
+      categoryFieldHandle = await page.waitForSelector(`${categoryFieldSelector}:not([disabled])`);
       disabledAttr = await categoryFieldHandle.getAttribute('disabled');
       expect(disabledAttr).to.equal(null);
 
