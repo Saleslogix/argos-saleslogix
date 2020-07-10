@@ -18,6 +18,7 @@
 const { expect } = require('chai');
 const common = require('./common');
 const config = require('./config');
+const debug = require('debug')('e2e');
 
 describe('User', () => {
   describe('LoginView', () => {
@@ -43,6 +44,35 @@ describe('User', () => {
 
       const aboutDialogHandle = await page.waitForSelector('#about-modal-text .additional-content > p');
       expect(await aboutDialogHandle.innerText()).to.have.string(userDescriptorResults);
+      await page.close();
+    });
+  });
+
+  describe('INFORCRM-24641: Password expiry message for Mobile is not very informative', () => {
+    it('should display a password expired message', async () => {
+      const page = await global.browser.newPage();
+      await page.goto(config.crm.index, { waitUntil: 'networkidle' });
+
+      // Wait for our ping event to go through and determine if we are online/offline
+      const response = await page.waitForResponse(res => res.url().indexOf('ping.gif') >= 0);
+      expect(response.ok()).to.be.true;
+
+      // We will stub out the getCurrentUser request and assume it returns back a 500 error with an error payload that contains a stackTrace element
+      await page.route(/getCurrentUser/, (route) => {
+        debug('Overriding getCurrentUser');
+        route.fulfill({
+          status: 500,
+          contentType: 'application/json',
+          body: '[{ "stackTrace": "Validation execption at: Sage.SalesLogix.User.Rules.IsValidPassword();"}]',
+        });
+      });
+
+      await page.type('#login input[name="username-display"]', config.crm.users.admin.userId);
+      await page.click('#login button[data-action="authenticate"]');
+
+      const expireAlert = await page.waitForEvent('dialog');
+      expect(expireAlert.message()).to.equal('Password has expired. Please use the web client to change your password.');
+
       await page.close();
     });
   });

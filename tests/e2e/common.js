@@ -21,7 +21,6 @@ const config = require('./config');
 module.exports = {
   auth: async (username, password) => {
     const page = await global.browser.newPage();
-    // TODO: URL needs to be configurable
     await page.goto(config.crm.index, { waitUntil: 'networkidle' });
 
     // Ensure page title matches
