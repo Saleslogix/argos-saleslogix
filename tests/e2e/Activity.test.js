@@ -17,11 +17,13 @@
 /* eslint-disable no-unused-expressions */
 const { expect } = require('chai');
 const common = require('./common');
+const config = require('./config');
+const debug = require('debug')('e2e'); // eslint-disable-line
 
 describe('Activities', () => {
   describe('INFORCRM-23677: Users can set a Category on a Personal Activity', () => {
     it('should not allow the user to set category on personal activities', async () => {
-      const page = await common.auth('admin'); // TODO: Pull user from config
+      const page = await common.auth(config.crm.users.admin.userId, config.crm.users.admin.password);
 
       // Expand the goto section in the left nav
       const goToHandle = await page.$('#left_drawer div.accordion.panel > div[data-tag="view"]');
@@ -43,8 +45,10 @@ describe('Activities', () => {
       // Check if the category field on the insert form is disabled
       // The attribute will exist with an empty string for a value
       const categoryFieldSelector = '#activity_edit div[data-field="Category"] input[data-dojo-attach-point="inputNode"]';
-      let categoryFieldHandle = await page.waitForSelector(categoryFieldSelector);
+      const categoryFieldSelectorDisabled = `${categoryFieldSelector}[disabled]`;
+      let categoryFieldHandle = await page.waitForSelector(categoryFieldSelectorDisabled);
       let disabledAttr = await categoryFieldHandle.getAttribute('disabled');
+
       expect(disabledAttr).to.equal('');
 
       // Go back to my schedule, and click new on the toolbar again
@@ -58,7 +62,7 @@ describe('Activities', () => {
 
       // Check if the category picklist is enabled
       // The disabled attribute should not exist on the field's input node
-      categoryFieldHandle = await page.waitForSelector(categoryFieldSelector);
+      categoryFieldHandle = await page.waitForSelector(`${categoryFieldSelector}:not([disabled])`);
       disabledAttr = await categoryFieldHandle.getAttribute('disabled');
       expect(disabledAttr).to.equal(null);
 

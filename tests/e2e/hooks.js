@@ -15,14 +15,15 @@
 
 /* eslint-env node, mocha */
 const { chromium } = require('playwright');
+const config = require('./config');
+const debug = require('debug')('e2e');
+debug('Loading hooks.');
 
 exports.mochaHooks = {
   async beforeAll() {
     // run before all tests begin
-    global.browser = await chromium.launch({
-      headless: true,
-      slowMo: 0,
-    });
+    debug('hooks beforeAll() invoked');
+    global.browser = await chromium.launch(config.playwright.launch);
   },
 
   async beforeEach() {
