@@ -15,7 +15,8 @@
     "lint-fix": "eslint --fix ./src",
     "watch": "yarn run build:watch",
     "doc": "jsdoc --configure ./src-docs/conf.json",
-    "e2e": "mocha --async-only --allow-uncaught --timeout 100000 --globals page,browser --require ./tests/e2e/hooks.js --recursive ./tests/e2e"
+    "e2e": "mocha --async-only --allow-uncaught --timeout 100000 --globals page,browser --require ./tests/e2e/hooks.js --recursive ./tests/e2e",
+    "e2e:debug": "@powershell -Command $env:DEBUG='e2e';yarn run e2e"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -29,6 +30,8 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "chai": "^4.2.0",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
     "eslint": "^7.4.0",
     "express": "^4.17.1",
     "grunt": "^1.2.1",

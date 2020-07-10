@@ -17,11 +17,12 @@
 /* eslint-disable no-unused-expressions */
 const { expect } = require('chai');
 const common = require('./common');
+const config = require('./config');
 
 describe('Activities', () => {
   describe('INFORCRM-23677: Users can set a Category on a Personal Activity', () => {
     it('should not allow the user to set category on personal activities', async () => {
-      const page = await common.auth('admin'); // TODO: Pull user from config
+      const page = await common.auth(config.crm.users.admin.userId, config.crm.users.admin.password);
 
       // Expand the goto section in the left nav
       const goToHandle = await page.$('#left_drawer div.accordion.panel > div[data-tag="view"]');
