@@ -27,6 +27,10 @@ function getConfig() {
           userId: process.env.ADMIN_USER,
           password: process.env.ADMIN_PW,
         },
+        loup: {
+          userId: process.env.LOUP_USER,
+          password: process.env.LOUP_PW,
+        },
       },
     },
     playwright: {

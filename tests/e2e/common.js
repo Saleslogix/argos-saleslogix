@@ -17,10 +17,11 @@
 /* eslint-disable no-unused-expressions */
 const { expect } = require('chai');
 const config = require('./config');
+const debug = require('debug')('e2e');
 
 module.exports = {
-  auth: async (username, password) => {
-    const page = await global.browser.newPage();
+  auth: async (username, password, existingPage = null) => {
+    const page = existingPage || await global.browser.newPage();
     await page.goto(config.crm.index, { waitUntil: 'networkidle' });
 
     // Ensure page title matches
@@ -43,5 +44,11 @@ module.exports = {
     expect(appStatePromises).to.be.null;
 
     return page;
+  },
+  openListSettings: async (page, listViewId) => {
+    debug(`Opening list settings for list view: #${listViewId}`);
+    const settingsMenuButtonHandle = await page.waitForSelector(`#${listViewId}[selected="selected"] button[data-action="openSettings"]`);
+    await settingsMenuButtonHandle.click();
+    await page.waitForSelector('#right_drawer');
   },
 };

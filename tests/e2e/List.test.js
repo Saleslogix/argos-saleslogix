@@ -41,8 +41,7 @@ describe('List', () => {
       const actionsNodePopupHandle = await page.waitForSelector('#account_list ul[data-dojo-attach-point="actionsNode"]');
 
       // Click settings menu
-      const settingsMenuButtonHandle = await page.waitForSelector('#account_list[selected="selected"] button[data-action="openSettings"]');
-      await settingsMenuButtonHandle.click();
+      await common.openListSettings(page, 'account_list');
 
       // The bounding box will be null if it is no longer visible, which is what we wanted this JIRA to solve!
       const boundingBox = await actionsNodePopupHandle.boundingBox();
