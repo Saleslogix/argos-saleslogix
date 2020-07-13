@@ -26,8 +26,7 @@ describe('List', () => {
       const page = await common.auth(config.crm.users.admin.userId, config.crm.users.admin.password);
 
       // Expand the goto section in the left nav
-      const goToHandle = await page.$('#left_drawer div.accordion.panel > div[data-tag="view"]');
-      await goToHandle.click();
+      await common.expandLeftDrawerGoToMenuHeader(page);
 
       // Click accounts
       const accountListHandle = await page.$('#left_drawer a[data-view="account_list"]');

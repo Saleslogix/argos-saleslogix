@@ -27,9 +27,7 @@ describe('Groups', () => {
 
       debug('Authorized as admin, opening accounts list.');
       // Expand the goto section in the left nav
-      const gotoSelector = '#left_drawer div.accordion.panel > div[data-tag="view"]';
-      let goToHandle = await page.$(gotoSelector);
-      await goToHandle.click();
+      await common.expandLeftDrawerGoToMenuHeader(page);
 
       // Click accounts
       const accountListSelector = '#left_drawer a[data-view="account_list"]';
@@ -69,8 +67,7 @@ describe('Groups', () => {
 
       // Ensure loup doesn't have this new "Customers" favorite
       await common.auth(config.crm.users.loup.userId, config.crm.users.loup.password, page);
-      goToHandle = await page.$(gotoSelector);
-      await goToHandle.click();
+      await common.expandLeftDrawerGoToMenuHeader(page);
       accountListHandle = await page.$(accountListSelector);
       await accountListHandle.click();
 
