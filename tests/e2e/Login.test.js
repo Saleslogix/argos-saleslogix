@@ -37,9 +37,10 @@ describe('User', () => {
       // Evaluate some js in the console to get the current user from App.context
       const userDescriptorResults = await page.evaluate('App.context.user.$descriptor');
 
-      const otherHandle = await page.$('#left_drawer div.accordion.panel > div[data-tag="footer"]');
+      const otherHandle = await page.waitForSelector('#left_drawer div.accordion.panel > div[data-tag="footer"]');
       await otherHandle.click();
-      const aboutMenuHandle = await page.$('#left_drawer a[data-action="showAbout"]');
+      await page.waitForTimeout(1000); // let animation finish
+      const aboutMenuHandle = await page.waitForSelector('#left_drawer a[data-action="showAbout"]');
       await aboutMenuHandle.click();
 
       const aboutDialogHandle = await page.waitForSelector('#about-modal-text .additional-content > p');
