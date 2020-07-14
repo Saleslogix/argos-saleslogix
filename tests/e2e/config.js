@@ -24,11 +24,11 @@ function getConfig() {
       index: process.env.MAIN_INDEX || '',
       users: {
         admin: {
-          userId: process.env.ADMIN_USER,
+          userId: process.env.ADMIN_USER || 'admin',
           password: process.env.ADMIN_PW,
         },
         loup: {
-          userId: process.env.LOUP_USER,
+          userId: process.env.LOUP_USER || 'loup',
           password: process.env.LOUP_PW,
         },
       },
