@@ -6,7 +6,7 @@ The e2e test framework is a replacement for the selenium based automation framew
 ## Getting started
   - Copy the .env.example file to .env and adjust the values for your environment
   - You can also set environment variables for each key/value pair in the .env file
-      - The values set in your environment variables will NOT be overwritten
+      - The values set in your environment variables will NOT be overwritten by the .env file!
   - Run `yarn run e2e` to execute the tests
   - Run `yarn run e2e:debug` to show additional debug information (see the [debug](https://www.npmjs.com/package/debug) package for more information). This is a Powershell, windows only command.
 
