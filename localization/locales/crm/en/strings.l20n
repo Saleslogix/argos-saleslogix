@@ -1469,6 +1469,11 @@
   entityDisplayNamePlural : "Activity Attendees"
 >
 
+<historyAttendeeModel ""
+  entityDisplayName: "Activity Attendee"
+  entityDisplayNamePlural : "Activity Attendees"
+>
+
 <activityModel ""
   entityDisplayName: "Activity"
   entityDisplayNamePlural : "Activities"
