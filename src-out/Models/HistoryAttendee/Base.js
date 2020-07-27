@@ -41,7 +41,7 @@ define('crm/Models/HistoryAttendee/Base', ['module', 'exports', 'dojo/_base/decl
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
     modelName: _Names2.default.HISTORYATTENDEE,
     iconClass: 'user',
-    listViewId: 'history_attendee_related' // TODO
+    listViewId: 'history_attendee_related'
   });
   exports.default = __class;
   module.exports = exports['default'];

@@ -249,9 +249,27 @@
   confirmDeleteText: "Are you sure you want to remove this attendee?"
 >
 
+<historyAttendeeList ""
+  titleText: "History Attendees"
+  callPhoneActionText: "Call Phone"
+>
+
 <activityAttendeeDetail ""
   titleText: "Activity Attendee"
   entityText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+>
+
+<historyAttendeeDetail ""
+  titleText: "History Attendee"
+  entityText: "History Attendee"
   nameText: "name"
   accountText: "account"
   typeText: "type"
@@ -639,6 +657,7 @@
   ticketNumberText: "ticket"
   moreDetailsText: "More Details"
   relatedItemsText: "Related Items"
+  relatedAttendeeText: "Attendees"
   relatedAttachmentText: "Attachments"
   relatedAttachmentTitleText: "History Attachments"
   modifiedText: "modified"

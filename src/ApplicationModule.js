@@ -112,6 +112,8 @@ import HistoryListOffline from './Views/History/ListOffline';
 import HistoryDetail from './Views/History/Detail';
 import HistoryEdit from './Views/History/Edit';
 import HistoryEditOffline from './Views/History/EditOffline';
+import HistoryAttendeeList from './Views/HistoryAttendee/List';
+import HistoryAttendeeDetail from './Views/HistoryAttendee/Detail';
 import './Views/History/RelatedView';
 import CalendarAccessList from './Views/User/CalendarAccessList';
 import UserList from './Views/User/List';
@@ -164,6 +166,8 @@ import './Models/Address/Offline';
 import './Models/Address/SData';
 import './Models/History/Offline';
 import './Models/History/SData';
+import './Models/HistoryAttendee/Offline';
+import './Models/HistoryAttendee/SData';
 import './Models/Ticket/Offline';
 import './Models/Ticket/SData';
 import './Models/TicketActivity/Offline';
@@ -479,6 +483,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
         return '';
       },
     }));
+    this.registerView(new HistoryAttendeeList({
+      id: 'history_attendee_related',
+      expose: false,
+    }));
+    this.registerView(new HistoryAttendeeDetail());
 
     this.registerView(new CalendarAccessList({
       expose: false,

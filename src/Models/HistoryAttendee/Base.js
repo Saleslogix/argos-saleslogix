@@ -27,6 +27,6 @@ const __class = declare('crm.Models.HistoryAttendee.Base', [_ModelBase], {
   entityDisplayNamePlural: resource.entityDisplayNamePlural,
   modelName: MODEL_NAMES.HISTORYATTENDEE,
   iconClass: 'user',
-  listViewId: 'history_attendee_related', // TODO
+  listViewId: 'history_attendee_related',
 });
 export default __class;
