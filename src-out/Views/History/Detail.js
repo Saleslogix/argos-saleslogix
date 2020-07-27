@@ -63,6 +63,7 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
     opportunityText: resource.opportunityText,
     ticketNumberText: resource.ticketNumberText,
     relatedItemsText: resource.relatedItemsText,
+    relatedAttendeeText: resource.relatedAttendeeText,
     relatedAttachmentText: resource.relatedAttachmentText,
     relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
     modifiedText: resource.modifiedText,
@@ -199,9 +200,15 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
         list: true,
         name: 'RelatedItemsSection',
         children: [{
+          name: 'AttendeeRelated',
+          label: this.relatedAttendeeText,
+          where: this.formatRelatedQuery.bindDelegate(this, 'HistoryId eq "${0}"'),
+          view: 'history_attendee_related',
+          title: this.relatedAttendeeTitleText
+        }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
-          where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'), // must be lower case because of feed
+          where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'),
           view: 'history_attachment_related',
           title: this.relatedAttachmentTitleText
         }]
