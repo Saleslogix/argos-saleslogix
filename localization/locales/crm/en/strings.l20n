@@ -1489,8 +1489,8 @@
 >
 
 <historyAttendeeModel ""
-  entityDisplayName: "Activity Attendee"
-  entityDisplayNamePlural : "Activity Attendees"
+  entityDisplayName: "History Attendee"
+  entityDisplayNamePlural : "History Attendees"
 >
 
 <activityModel ""
