@@ -303,7 +303,14 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'ContactName',
         property: 'ContactName',
-        exclude: this.isActivityForLead.bind(this),
+        include: function includeContactName(entry) {
+          // Only show contact if we have a different lead and contact name
+          if (entry.ContactName === entry.LeadName) {
+            return false;
+          }
+
+          return true;
+        },
         label: this.contactText,
         view: 'contact_detail',
         key: 'ContactId',

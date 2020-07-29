@@ -79,7 +79,6 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     eventHeaderText: resource.eventHeaderText,
     countMoreText: resource.countMoreText,
     toggleCollapseText: resource.toggleCollapseText,
-    withFromText: resource.withFromText,
     withText: resource.withText,
     unspecifiedText: resource.unspecifiedText,
     forText: resource.forText,
@@ -100,7 +99,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     activityHeaderTemplate: new Simplate(['<div class="activityEntry__header">', '<div class="header__content">', '<p class="listview-heading">{%: $.Description %}</p>', '<p class="listview-subheading">{%! $$.activityNameTemplate %}</p>', '</div>', '<div class="header__timeStamp">', '<span class="timeStamp__time listview-subheading">', '{% if ($.Timeless) { %}', '{%= $$.allDayText %}', '{% } else if ($$.activityTypeIcon[$.Type]) { %}', '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}', '{% } else { %}', '{%! $$.eventTimeTemplate %}', '{% } %}', '</span>', '</div>', '</div>']),
     activityContentTemplate: new Simplate(['<div class="activityEntry__content">', '{% if ($.Notes) { %}', '{%: $$.Utility.trimText($.Notes, $$.trimTo) %}', '{% } %}', '</div>']),
     activityFooterTemplate: new Simplate(['<div class="activityEntry__footer">', '</div>']),
-    activityNameTemplate: new Simplate(['{% if ($.ContactName) { %}', '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName }) %}', '{% } else if ($.AccountName) { %}', '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}', '{% } else if ($.LeadName) { %}', '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}', '{% } else if ($$.activityTypeIcon[$.Type]) { %}', '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}', '{% } else { %}', '{%= $$.string.substitute($$.forText, { reason: $.Type }) %}', '{% } %}']),
+    activityNameTemplate: new Simplate(['{% if ($.ContactName) { %}', '{%= $$.string.substitute($$.withText, { object: $.ContactName }) %}', '{% } else if ($.LeadName) { %}', '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}', '{% } else if ($$.activityTypeIcon[$.Type]) { %}', '{%= $$.string.substitute($$.withText, { object: $$.unspecifiedText }) %}', '{% } else { %}', '{%= $$.string.substitute($$.forText, { reason: $.Type }) %}', '{% } %}']),
     activityMoreTemplate: new Simplate(['<div class="list-more" data-dojo-attach-point="activityMoreNode">', '<button class="button" data-action="activateActivityMore">', '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>', '</button>', '</div>']),
     eventRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">', '{%! $$.eventIconTemplate %}', '{%! $$.activityHeaderTemplate %}', '{%! $$.activityFooterTemplate %}', '</li>']),
     eventTimeTemplate: new Simplate(['{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}', '&nbsp;-&nbsp;', '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}']),
@@ -366,11 +365,6 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
         }
       }
       this.inherited(onToolLayoutCreated, arguments);
-    },
-    parseName: function parseName() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      return name.split(' ').splice(-1)[0];
     },
     process: function process(store, entries, isEvent) {
       var _this2 = this;

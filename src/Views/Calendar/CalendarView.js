@@ -42,7 +42,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventHeaderText: resource.eventHeaderText,
   countMoreText: resource.countMoreText,
   toggleCollapseText: resource.toggleCollapseText,
-  withFromText: resource.withFromText,
   withText: resource.withText,
   unspecifiedText: resource.unspecifiedText,
   forText: resource.forText,
@@ -123,9 +122,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
-    '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName }) %}',
-    '{% } else if ($.AccountName) { %}',
-    '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
+    '{%= $$.string.substitute($$.withText, { object: $.ContactName }) %}',
     '{% } else if ($.LeadName) { %}',
     '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
     '{% } else if ($$.activityTypeIcon[$.Type]) { %}',
@@ -474,9 +471,6 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       }
     }
     this.inherited(onToolLayoutCreated, arguments);
-  },
-  parseName: function parseName(name = {}) {
-    return name.split(' ').splice(-1)[0];
   },
   process: function process(store, entries, isEvent) {
     if (entries.length > 0) {
