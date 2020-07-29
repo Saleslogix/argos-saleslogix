@@ -425,7 +425,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
           fields[f].dependsOn = 'Account';
           fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
 
-          if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
+          if (fields[f].currentSelection && fields[f].currentSelection.Account && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
           }
 
@@ -1208,7 +1208,8 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         valueKeyProperty: 'ContactId',
         valueTextProperty: 'ContactName',
         view: 'contact_related',
-        where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+        where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId'),
+        requireSelection: false
       }, {
         dependsOn: 'Account',
         label: this.opportunityText,
