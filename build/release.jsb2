@@ -229,6 +229,9 @@
           "text": "RightDrawer.js",
           "path": "../src-out/Views/"
         }, {
+          "text": "Login.js",
+          "path": "../src-out/Views/"
+        }, {
           "text": "LogOff.js",
           "path": "../src-out/Views/"
         }, {
@@ -397,9 +400,6 @@
           "text": "config.js",
           "path": "../src-out/reducers/"
         }, {
-          "text": "Login.js",
-          "path": "../src-out/Views/"
-        }, {
           "text": "speedsearch.js",
           "path": "../src-out/reducers/"
         }, {
@@ -423,6 +423,9 @@
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/History/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Models/HistoryAttendee/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Models/Integration/"
@@ -453,6 +456,9 @@
         }, {
           "text": "EditOffline.js",
           "path": "../src-out/Views/History/"
+        }, {
+          "text": "Detail.js",
+          "path": "../src-out/Views/HistoryAttendee/"
         }, {
           "text": "Bootstrap.js",
           "path": "../src-out/"
@@ -766,6 +772,9 @@
           "text": "List.js",
           "path": "../src-out/Views/ActivityAttendee/"
         }, {
+          "text": "List.js",
+          "path": "../src-out/Views/HistoryAttendee/"
+        }, {
           "text": "index.js",
           "path": "../src-out/polyfills/"
         }, {
@@ -840,6 +849,12 @@
         }, {
           "text": "SData.js",
           "path": "../src-out/Models/History/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Models/HistoryAttendee/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/HistoryAttendee/"
         }, {
           "text": "SData.js",
           "path": "../src-out/Models/Integration/"
