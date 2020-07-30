@@ -249,6 +249,11 @@
   confirmDeleteText: "Are you sure you want to remove this attendee?"
 >
 
+<activityAssociationList ""
+  titleText: "Activity Associations"
+  primaryText: "Primary?"
+>
+
 <historyAttendeeList ""
   titleText: "History Attendees"
   callPhoneActionText: "Call Phone"
@@ -1380,6 +1385,11 @@
   retrievingPicklistsText: "Retrieving Picklists"
 >
 
+<activityAssociationModule ""
+  relatedAssociationText: "Associations"
+  relatedAssociationTitleText: "Activity Associations"
+>
+
 <defaultMetrics ""
   totalRevenue: "Total Revenue"
   averageTime: "Avg Time as Customer"
@@ -1485,6 +1495,11 @@
 <activityAttendeeModel ""
   entityDisplayName: "Activity Attendee"
   entityDisplayNamePlural : "Activity Attendees"
+>
+
+<activityAssociationModel ""
+  entityDisplayName: "Activity Association"
+  entityDisplayNamePlural : "Activity Associations"
 >
 
 <historyAttendeeModel ""

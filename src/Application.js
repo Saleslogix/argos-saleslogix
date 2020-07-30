@@ -643,6 +643,7 @@ class Application extends SDKApplication {
     }
   }
   onInitAppStateFailed(error) {
+    console.error(error); // eslint-disable-line
     const message = resource.appStateInitErrorText;
     this.hideApplicationMenu();
     ErrorManager.addSimpleError(message, error);

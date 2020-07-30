@@ -349,6 +349,9 @@
           "text": "Bootstrap.localization.js",
           "path": "../src-out/"
         }, {
+          "text": "Names.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/"
+        }, {
           "text": "DateRangeWidget.js",
           "path": "../src-out/Integrations/BOE/"
         }, {
@@ -576,6 +579,12 @@
         }, {
           "text": "AttachmentManager.js",
           "path": "../src-out/"
+        }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/ActivityAssociation/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Views/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"
@@ -935,6 +944,12 @@
           "path": "../src-out/Views/Attachment/"
         }, {
           "text": "Offline.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/ActivityAssociation/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/ActivityAssociation/"
+        }, {
+          "text": "Offline.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"
         }, {
           "text": "SData.js",
@@ -1242,6 +1257,9 @@
         }, {
           "text": "List.js",
           "path": "../src-out/Views/RecentlyViewed/"
+        }, {
+          "text": "ApplicationModule.js",
+          "path": "../src-out/Integrations/ActivityAssociations/"
         }, {
           "text": "ContactAssociationModule.js",
           "path": "../src-out/Integrations/BOE/Modules/"
