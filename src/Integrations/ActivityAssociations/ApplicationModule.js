@@ -16,9 +16,12 @@
 import declare from 'dojo/_base/declare';
 import ApplicationModule from 'argos/ApplicationModule';
 import getResource from 'argos/I18n';
-import AssociationList from './Views/List';
+import ActivityAssociationList from './Views/ActivityAssociation/List';
+import HistoryAssociationList from './Views/HistoryAssociation/List';
 import './Models/ActivityAssociation/Offline';
 import './Models/ActivityAssociation/SData';
+import './Models/HistoryAssociation/Offline';
+import './Models/HistoryAssociation/SData';
 
 const resource = getResource('activityAssociationModule');
 
@@ -31,49 +34,17 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
       return;
     }
 
-    this.registerView(new AssociationList({
+    this.registerView(new ActivityAssociationList({
       id: 'activity_association_related',
+    }));
+    this.registerView(new HistoryAssociationList({
+      id: 'history_association_related',
     }));
   },
   loadCustomizationsDynamic: function loadCustomizations() {
     if (!this.hasNewActivityAssociations()) {
       return;
     }
-
-    this.registerCustomization('detail', 'activity_detail', {
-      at(row) {
-        return row.name === 'AccountName';
-      },
-      type: 'remove',
-    });
-
-    this.registerCustomization('detail', 'activity_detail', {
-      at(row) {
-        return row.name === 'ContactName';
-      },
-      type: 'remove',
-    });
-
-    this.registerCustomization('detail', 'activity_detail', {
-      at(row) {
-        return row.name === 'OpportunityName';
-      },
-      type: 'remove',
-    });
-
-    this.registerCustomization('detail', 'activity_detail', {
-      at(row) {
-        return row.name === 'TicketNumber';
-      },
-      type: 'remove',
-    });
-
-    this.registerCustomization('detail', 'activity_detail', {
-      at(row) {
-        return row.name === 'LeadName';
-      },
-      type: 'remove',
-    });
 
     this.registerCustomization('detail', 'activity_detail', {
       at(row) {
@@ -88,6 +59,22 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
         },
         view: 'activity_association_related',
         title: resource.relatedAssociationTitleText,
+      },
+    });
+
+    this.registerCustomization('detail', 'history_detail', {
+      at(row) {
+        return row.name === 'AttendeeRelated';
+      },
+      type: 'insert',
+      value: {
+        name: 'AssociationRelated',
+        label: resource.relatedAssociationText,
+        where: (entry) => {
+          return `HistoryId eq "${entry.$key}"`;
+        },
+        view: 'history_association_related',
+        title: resource.relatedHistoryAssociationTitleText,
       },
     });
   },

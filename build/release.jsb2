@@ -583,8 +583,14 @@
           "text": "Base.js",
           "path": "../src-out/Integrations/ActivityAssociations/Models/ActivityAssociation/"
         }, {
+          "text": "Base.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/HistoryAssociation/"
+        }, {
           "text": "List.js",
-          "path": "../src-out/Integrations/ActivityAssociations/Views/"
+          "path": "../src-out/Integrations/ActivityAssociations/Views/ActivityAssociation/"
+        }, {
+          "text": "List.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Views/HistoryAssociation/"
         }, {
           "text": "Base.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"
@@ -948,6 +954,12 @@
         }, {
           "text": "SData.js",
           "path": "../src-out/Integrations/ActivityAssociations/Models/ActivityAssociation/"
+        }, {
+          "text": "Offline.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/HistoryAssociation/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Integrations/ActivityAssociations/Models/HistoryAssociation/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Integrations/BOE/Models/BackOffice/"

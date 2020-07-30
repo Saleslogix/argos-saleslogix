@@ -1,4 +1,4 @@
-define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'argos/ApplicationModule', 'argos/I18n', './Views/List', './Models/ActivityAssociation/Offline', './Models/ActivityAssociation/SData'], function (module, exports, _declare, _ApplicationModule, _I18n, _List) {
+define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'argos/ApplicationModule', 'argos/I18n', './Views/ActivityAssociation/List', './Views/HistoryAssociation/List', './Models/ActivityAssociation/Offline', './Models/ActivityAssociation/SData', './Models/HistoryAssociation/Offline', './Models/HistoryAssociation/SData'], function (module, exports, _declare, _ApplicationModule, _I18n, _List, _List3) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -11,28 +11,28 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
 
   var _List2 = _interopRequireDefault(_List);
 
+  var _List4 = _interopRequireDefault(_List3);
+
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
       default: obj
     };
   }
 
-  /* Copyright 2020 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
-
-  var resource = (0, _I18n2.default)('activityAssociationModule');
+  var resource = (0, _I18n2.default)('activityAssociationModule'); /* Copyright 2020 Infor
+                                                                    *
+                                                                    * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                    * you may not use this file except in compliance with the License.
+                                                                    * You may obtain a copy of the License at
+                                                                    *
+                                                                    *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                    *
+                                                                    * Unless required by applicable law or agreed to in writing, software
+                                                                    * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                    * See the License for the specific language governing permissions and
+                                                                    * limitations under the License.
+                                                                    */
 
   var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.ApplicationModule', [_ApplicationModule2.default], {
     hasNewActivityAssociations: function hasNewActivityAssociations() {
@@ -46,51 +46,14 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       this.registerView(new _List2.default({
         id: 'activity_association_related'
       }));
+      this.registerView(new _List4.default({
+        id: 'history_association_related'
+      }));
     },
     loadCustomizationsDynamic: function loadCustomizations() {
       if (!this.hasNewActivityAssociations()) {
         return;
       }
-
-      this.registerCustomization('detail', 'activity_detail', {
-        at: function at(row) {
-          return row.name === 'AccountName';
-        },
-
-        type: 'remove'
-      });
-
-      this.registerCustomization('detail', 'activity_detail', {
-        at: function at(row) {
-          return row.name === 'ContactName';
-        },
-
-        type: 'remove'
-      });
-
-      this.registerCustomization('detail', 'activity_detail', {
-        at: function at(row) {
-          return row.name === 'OpportunityName';
-        },
-
-        type: 'remove'
-      });
-
-      this.registerCustomization('detail', 'activity_detail', {
-        at: function at(row) {
-          return row.name === 'TicketNumber';
-        },
-
-        type: 'remove'
-      });
-
-      this.registerCustomization('detail', 'activity_detail', {
-        at: function at(row) {
-          return row.name === 'LeadName';
-        },
-
-        type: 'remove'
-      });
 
       this.registerCustomization('detail', 'activity_detail', {
         at: function at(row) {
@@ -106,6 +69,23 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
           },
           view: 'activity_association_related',
           title: resource.relatedAssociationTitleText
+        }
+      });
+
+      this.registerCustomization('detail', 'history_detail', {
+        at: function at(row) {
+          return row.name === 'AttendeeRelated';
+        },
+
+        type: 'insert',
+        value: {
+          name: 'AssociationRelated',
+          label: resource.relatedAssociationText,
+          where: function where(entry) {
+            return 'HistoryId eq "' + entry.$key + '"';
+          },
+          view: 'history_association_related',
+          title: resource.relatedHistoryAssociationTitleText
         }
       });
     },

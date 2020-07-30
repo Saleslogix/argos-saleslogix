@@ -254,6 +254,11 @@
   primaryText: "Primary?"
 >
 
+<historyAssociationList ""
+  titleText: "History Associations"
+  primaryText: "Primary?"
+>
+
 <historyAttendeeList ""
   titleText: "History Attendees"
   callPhoneActionText: "Call Phone"
@@ -1388,6 +1393,7 @@
 <activityAssociationModule ""
   relatedAssociationText: "Associations"
   relatedAssociationTitleText: "Activity Associations"
+  relatedHistoryAssociationTitleText: "History Associations"
 >
 
 <defaultMetrics ""
@@ -1500,6 +1506,11 @@
 <activityAssociationModel ""
   entityDisplayName: "Activity Association"
   entityDisplayNamePlural : "Activity Associations"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "History Association"
+  entityDisplayNamePlural : "History Associations"
 >
 
 <historyAttendeeModel ""

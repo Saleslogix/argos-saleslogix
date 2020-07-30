@@ -15,12 +15,12 @@
 
 import declare from 'dojo/_base/declare';
 import List from 'argos/List';
-import MODEL_NAMES from '../Models/Names';
+import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityAssociationList');
 
-const __class = declare('crm.Integrations.ActivityAssociations.Views.List', [List], {
+const __class = declare('crm.Integrations.ActivityAssociations.Views.ActivityAssociation.List', [List], {
   // Localization
   titleText: resource.titleText,
   primaryText: resource.primaryText,
@@ -49,6 +49,11 @@ const __class = declare('crm.Integrations.ActivityAssociations.Views.List', [Lis
     }
 
     return (this._model && this._model.getEntityDescription(entry)) || entry.EntityName;
+  },
+  createToolLayout: function createToolLayout() {
+    return this.tools || (this.tools = {
+      tbar: [],
+    });
   },
 });
 

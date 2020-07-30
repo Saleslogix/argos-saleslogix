@@ -3,7 +3,8 @@ define('crm/Integrations/ActivityAssociations/Models/Names', ['module', 'exports
     value: true
   });
   exports.default = {
-    ACTIVITYASSOCIATION: 'ActivityAssociation'
+    ACTIVITYASSOCIATION: 'ActivityAssociation',
+    HISTORYASSOCIATION: 'HistoryAssociation'
   };
   module.exports = exports['default'];
 });

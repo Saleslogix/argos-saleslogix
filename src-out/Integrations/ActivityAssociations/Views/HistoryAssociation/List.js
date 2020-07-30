@@ -1,4 +1,4 @@
-define('crm/Integrations/ActivityAssociations/Views/List', ['module', 'exports', 'dojo/_base/declare', 'argos/List', '../Models/Names', 'argos/I18n'], function (module, exports, _declare, _List, _Names, _I18n) {
+define('crm/Integrations/ActivityAssociations/Views/HistoryAssociation/List', ['module', 'exports', 'dojo/_base/declare', 'argos/List', '../../Models/Names', 'argos/I18n'], function (module, exports, _declare, _List, _Names, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -32,9 +32,9 @@ define('crm/Integrations/ActivityAssociations/Views/List', ['module', 'exports',
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityAssociationList');
+  var resource = (0, _I18n2.default)('historyAssociationList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Views.List', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Views.HistoryAssociation.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,
     primaryText: resource.primaryText,
@@ -43,13 +43,12 @@ define('crm/Integrations/ActivityAssociations/Views/List', ['module', 'exports',
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.EntityType %} | {%: $.EntityName %}</p>', '<p class="micro-text">{%: $$.primaryText %} {%: $.IsPrimary %}</p>']),
 
     // View Properties
-    id: 'activity_association_list',
+    id: 'history_association_list',
     security: null,
-    detailView: 'activity_association_detail',
     enableActions: true,
     pageSize: 105,
-    resourceKind: 'activityAssociations',
-    modelName: _Names2.default.ACTIVITYASSOCIATION,
+    resourceKind: 'historyAssociations',
+    modelName: _Names2.default.HISTORYASSOCIATION,
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
       return 'upper(EntityName) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
@@ -60,6 +59,11 @@ define('crm/Integrations/ActivityAssociations/Views/List', ['module', 'exports',
       }
 
       return this._model && this._model.getEntityDescription(entry) || entry.EntityName;
+    },
+    createToolLayout: function createToolLayout() {
+      return this.tools || (this.tools = {
+        tbar: []
+      });
     }
   });
 
