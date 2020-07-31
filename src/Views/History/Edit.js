@@ -286,8 +286,10 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     this.fields.AccountName.setValue(entry.Company);
 
     const isLeadField = this.fields.IsLead;
-    isLeadField.setValue(context.resourceKind === 'leads');
-    this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    if (isLeadField) {
+      isLeadField.setValue(context.resourceKind === 'leads');
+      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    }
   },
   applyOpportunityContext: function applyOpportunityContext(context) {
     const opportunityField = this.fields.Opportunity;
@@ -396,8 +398,11 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     this.inherited(setValues, arguments);
     const isLeadField = this.fields.IsLead;
     if (this.isInLeadContext()) {
-      isLeadField.setValue(true);
-      this.onIsLeadChange(true, isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(true);
+        this.onIsLeadChange(true, isLeadField);
+      }
+
       const field = this.fields.Lead;
       const value = utility.getValue(values, field.applyTo, {});
       field.setValue(value, !this.inserting);
@@ -405,7 +410,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       if (leadCompany) {
         this.fields.AccountName.setValue(leadCompany);
       }
-    } else {
+    } else if (isLeadField) {
       isLeadField.setValue(false);
     }
 
@@ -477,7 +482,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
     }
 
-    if (this.fields.IsLead.getValue() === false) {
+    if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
       values.LeadId = null;
       values.LeadName = null;
     }

@@ -785,6 +785,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       value: function onInitAppStateFailed(error) {
         var _this6 = this;
 
+        console.error(error); // eslint-disable-line
         var message = resource.appStateInitErrorText;
         this.hideApplicationMenu();
         _ErrorManager2.default.addSimpleError(message, error);

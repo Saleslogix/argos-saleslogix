@@ -365,7 +365,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   onLeadChange: function onLeadChange(value, field) {
     const selection = field.getSelection();
 
-    if (selection && this.insert) {
+    if (selection && this.options && this.options.insert) {
       this.fields.AccountName.setValue(utility.getValue(selection, 'Company'));
     }
 
@@ -770,8 +770,10 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     this.fields.AccountName.setValue(entry.Company);
 
     const isLeadField = this.fields.IsLead;
-    isLeadField.setValue(context.resourceKind === 'leads');
-    this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    if (isLeadField) {
+      isLeadField.setValue(context.resourceKind === 'leads');
+      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    }
 
     if (entry.WorkPhone) {
       const phoneField = this.fields.PhoneNumber;
@@ -813,8 +815,11 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (this.isInLeadContext()) {
       const isLeadField = this.fields.IsLead;
-      isLeadField.setValue(true);
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(true);
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
+
       this.fields.Lead.setValue(values, true);
       this.fields.AccountName.setValue(values.AccountName);
     }
@@ -903,7 +908,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       values.AlarmTime = alarmTime;
     }
 
-    if (this.fields.IsLead.getValue() === false) {
+    if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
       values.LeadId = null;
       values.LeadName = null;
     }
@@ -1212,7 +1217,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       where: this.formatDependentQuery.bindDelegate(
         this, 'Account.Id eq "${0}"', 'AccountId'
       ),
-      requireSelection: false,
     }, {
       dependsOn: 'Account',
       label: this.opportunityText,

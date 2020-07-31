@@ -7,12 +7,14 @@
  */
 define('configuration/production.default', [
   'crm/ApplicationModule',
+  'crm/Integrations/ActivityAssociations/ApplicationModule',
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
-], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
+], function cb(ApplicationModule, ActivityAssociationsModule, BOEApplicationModule, ContourApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
+      new ActivityAssociationsModule(),
       new BOEApplicationModule({
         enableDashboards: true,
       }),
