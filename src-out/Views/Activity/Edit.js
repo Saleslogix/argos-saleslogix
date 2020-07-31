@@ -1213,8 +1213,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         valueKeyProperty: 'ContactId',
         valueTextProperty: 'ContactName',
         view: 'contact_related',
-        where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId'),
-        requireSelection: false
+        where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
       }, {
         dependsOn: 'Account',
         label: this.opportunityText,

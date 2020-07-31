@@ -47,7 +47,7 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
     }
 
     this.registerCustomization('detail', 'activity_detail', {
-      at(row) {
+      at: function at(row) {
         return row.name === 'AttendeeRelated';
       },
       type: 'insert',
@@ -63,7 +63,7 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
     });
 
     this.registerCustomization('detail', 'history_detail', {
-      at(row) {
+      at: function at(row) {
         return row.name === 'AttendeeRelated';
       },
       type: 'insert',
@@ -82,16 +82,15 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
     crm.Views.Activity.Edit.prototype.fieldsForLeads = [];
     crm.Views.Activity.Edit.prototype.fieldsForStandard = [];
     crm.Views.Activity.Edit.prototype.onLeadChange = () => {};
+    const companyEditAt = row => row.name === 'AccountName' && row.type === 'text';
     this.registerCustomization('edit', 'activity_edit', {
-      at(row) {
+      at: function at(row) {
         return row.name === 'IsLead';
       },
       type: 'remove',
     });
     this.registerCustomization('edit', 'activity_edit', {
-      at(row) {
-        return row.name === 'AccountName' && row.type === 'text';
-      },
+      at: companyEditAt,
       type: 'modify',
       value: {
         name: 'AccountName',
@@ -99,6 +98,58 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
         type: 'hidden',
         include: false,
       },
+    });
+
+    // Remove "for lead" toggle on history edit, along with company, always show lead lookup
+    crm.Views.History.Edit.prototype.fieldsForLeads = [];
+    crm.Views.History.Edit.prototype.fieldsForStandard = [];
+    crm.Views.History.Edit.prototype.onLeadChange = () => {};
+    this.registerCustomization('edit', 'history_edit', {
+      at: function at(row) {
+        return row.name === 'IsLead';
+      },
+      type: 'remove',
+    });
+    this.registerCustomization('edit', 'history_edit', {
+      at: companyEditAt,
+      type: 'modify',
+      value: {
+        name: 'AccountName',
+        property: 'AccountName',
+        type: 'hidden',
+        include: false,
+      },
+    });
+
+    // Remove the "company" field, which is the second AccountName binding
+    const companyAt = row => row.name === 'AccountName' && typeof row.view === 'undefined';
+    this.registerCustomization('detail', 'activity_detail', {
+      at: companyAt,
+      type: 'remove',
+    });
+
+    this.registerCustomization('detail', 'history_detail', {
+      at: companyAt,
+      type: 'remove',
+    });
+
+    const removeExcludedProperty = ['AccountName', 'ContactName', 'OpportunityName', 'TicketNumber'];
+    removeExcludedProperty.forEach((prop) => {
+      const at = row => row.name === prop;
+      this.registerCustomization('detail', 'activity_detail', {
+        at,
+        type: 'modify',
+        value: {
+          exclude: null,
+        },
+      });
+      this.registerCustomization('detail', 'history_detail', {
+        at,
+        type: 'modify',
+        value: {
+          exclude: null,
+        },
+      });
     });
   },
   loadAppStatePromises: function loadAppStatePromises() {

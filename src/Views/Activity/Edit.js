@@ -1217,7 +1217,6 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       where: this.formatDependentQuery.bindDelegate(
         this, 'Account.Id eq "${0}"', 'AccountId'
       ),
-      requireSelection: false,
     }, {
       dependsOn: 'Account',
       label: this.opportunityText,

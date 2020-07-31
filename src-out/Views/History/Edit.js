@@ -280,8 +280,10 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       this.fields.AccountName.setValue(entry.Company);
 
       var isLeadField = this.fields.IsLead;
-      isLeadField.setValue(context.resourceKind === 'leads');
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(context.resourceKind === 'leads');
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
       var opportunityField = this.fields.Opportunity;
@@ -390,8 +392,11 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       this.inherited(setValues, arguments);
       var isLeadField = this.fields.IsLead;
       if (this.isInLeadContext()) {
-        isLeadField.setValue(true);
-        this.onIsLeadChange(true, isLeadField);
+        if (isLeadField) {
+          isLeadField.setValue(true);
+          this.onIsLeadChange(true, isLeadField);
+        }
+
         var field = this.fields.Lead;
         var value = _Utility2.default.getValue(values, field.applyTo, {});
         field.setValue(value, !this.inserting);
@@ -399,7 +404,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         if (leadCompany) {
           this.fields.AccountName.setValue(leadCompany);
         }
-      } else {
+      } else if (isLeadField) {
         isLeadField.setValue(false);
       }
 
@@ -471,7 +476,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
       }
 
-      if (this.fields.IsLead.getValue() === false) {
+      if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
         values.LeadId = null;
         values.LeadName = null;
       }
