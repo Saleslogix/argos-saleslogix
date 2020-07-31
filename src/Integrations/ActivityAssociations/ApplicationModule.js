@@ -77,6 +77,29 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
         title: resource.relatedHistoryAssociationTitleText,
       },
     });
+
+    // Remove "for lead" toggle on activity edit, along with company, always show lead lookup
+    crm.Views.Activity.Edit.prototype.fieldsForLeads = [];
+    crm.Views.Activity.Edit.prototype.fieldsForStandard = [];
+    crm.Views.Activity.Edit.prototype.onLeadChange = () => {};
+    this.registerCustomization('edit', 'activity_edit', {
+      at(row) {
+        return row.name === 'IsLead';
+      },
+      type: 'remove',
+    });
+    this.registerCustomization('edit', 'activity_edit', {
+      at(row) {
+        return row.name === 'AccountName' && row.type === 'text';
+      },
+      type: 'modify',
+      value: {
+        name: 'AccountName',
+        property: 'AccountName',
+        type: 'hidden',
+        include: false,
+      },
+    });
   },
   loadAppStatePromises: function loadAppStatePromises() {
     const app = this.application;

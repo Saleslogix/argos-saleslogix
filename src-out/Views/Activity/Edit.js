@@ -384,7 +384,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     onLeadChange: function onLeadChange(value, field) {
       var selection = field.getSelection();
 
-      if (selection && this.insert) {
+      if (selection && this.options && this.options.insert) {
         this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
       }
 
@@ -782,8 +782,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.fields.AccountName.setValue(entry.Company);
 
       var isLeadField = this.fields.IsLead;
-      isLeadField.setValue(context.resourceKind === 'leads');
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(context.resourceKind === 'leads');
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
 
       if (entry.WorkPhone) {
         var phoneField = this.fields.PhoneNumber;
@@ -822,8 +824,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       if (this.isInLeadContext()) {
         var isLeadField = this.fields.IsLead;
-        isLeadField.setValue(true);
-        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        if (isLeadField) {
+          isLeadField.setValue(true);
+          this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        }
+
         this.fields.Lead.setValue(values, true);
         this.fields.AccountName.setValue(values.AccountName);
       }
@@ -912,7 +917,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         values.AlarmTime = alarmTime;
       }
 
-      if (this.fields.IsLead.getValue() === false) {
+      if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
         values.LeadId = null;
         values.LeadName = null;
       }
