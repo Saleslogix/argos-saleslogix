@@ -100,6 +100,27 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
       },
     });
 
+    // Remove "for lead" toggle on activity complete, along with company, always show lead lookup
+    crm.Views.Activity.Complete.prototype.fieldsForLeads = [];
+    crm.Views.Activity.Complete.prototype.fieldsForStandard = [];
+    crm.Views.Activity.Complete.prototype.onLeadChange = () => {};
+    this.registerCustomization('edit', 'activity_complete', {
+      at: function at(row) {
+        return row.name === 'IsLead';
+      },
+      type: 'remove',
+    });
+    this.registerCustomization('edit', 'activity_complete', {
+      at: companyEditAt,
+      type: 'modify',
+      value: {
+        name: 'AccountName',
+        property: 'AccountName',
+        type: 'hidden',
+        include: false,
+      },
+    });
+
     // Remove "for lead" toggle on history edit, along with company, always show lead lookup
     crm.Views.History.Edit.prototype.fieldsForLeads = [];
     crm.Views.History.Edit.prototype.fieldsForStandard = [];

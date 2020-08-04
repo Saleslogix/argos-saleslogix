@@ -349,8 +349,11 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.toggleSelectField(this.fields.CompletedDate, false);
       if (this.isInLeadContext()) {
         var isLeadField = this.fields.IsLead;
-        isLeadField.setValue(true);
-        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        if (isLeadField) {
+          isLeadField.setValue(true);
+          this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        }
+
         this.fields.Lead.setValue(values, true);
         this.fields.AccountName.setValue(values.AccountName);
       }
@@ -649,8 +652,10 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.fields.AccountName.setValue(entry.Company);
 
       var isLeadField = this.fields.IsLead;
-      isLeadField.setValue(context.resourceKind === 'leads');
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(context.resourceKind === 'leads');
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
 
       if (entry.WorkPhone) {
         var phoneField = this.fields.PhoneNumber;

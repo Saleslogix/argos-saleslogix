@@ -363,8 +363,11 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     this.toggleSelectField(this.fields.CompletedDate, false);
     if (this.isInLeadContext()) {
       const isLeadField = this.fields.IsLead;
-      isLeadField.setValue(true);
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(true);
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
+
       this.fields.Lead.setValue(values, true);
       this.fields.AccountName.setValue(values.AccountName);
     }
@@ -673,8 +676,10 @@ const __class = declare('crm.Views.Activity.Complete', [Edit], {
     this.fields.AccountName.setValue(entry.Company);
 
     const isLeadField = this.fields.IsLead;
-    isLeadField.setValue(context.resourceKind === 'leads');
-    this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    if (isLeadField) {
+      isLeadField.setValue(context.resourceKind === 'leads');
+      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    }
 
     if (entry.WorkPhone) {
       const phoneField = this.fields.PhoneNumber;
