@@ -14,6 +14,7 @@
  */
 
 import declare from 'dojo/_base/declare';
+import connect from 'dojo/_base/connect';
 import List from 'argos/List';
 import MODEL_NAMES from '../../Models/Names';
 import getResource from 'argos/I18n';
@@ -24,6 +25,8 @@ const __class = declare('crm.Integrations.ActivityAssociations.Views.ActivityAss
   // Localization
   titleText: resource.titleText,
   primaryText: resource.primaryText,
+  deleteText: resource.deleteText,
+  confirmDeleteText: resource.confirmDeleteText,
 
   // Templates
   itemTemplate: new Simplate([
@@ -54,6 +57,30 @@ const __class = declare('crm.Integrations.ActivityAssociations.Views.ActivityAss
     return this.tools || (this.tools = {
       tbar: [],
     });
+  },
+  deleteAssociation: function deleteAssociation(_, selection) {
+    App.modal.createSimpleDialog({
+      title: 'alert',
+      content: this.confirmDeleteText,
+      getContent: () => { },
+    }).then(() => {
+      const entry = selection && selection.data;
+      const model = this.getModel();
+      model.deleteEntry(entry.$key).then(() => {
+        connect.publish('/app/refresh', [{
+          resourceKind: this.resourceKind,
+        }]);
+        this.forceRefresh();
+      });
+    });
+  },
+  createActionLayout: function createActionLayout() {
+    return this.actions || (this.actions = [{
+      id: 'deleteAssociation',
+      cls: 'delete',
+      label: this.deleteText,
+      fn: this.deleteAssociation.bind(this),
+    }]);
   },
 });
 

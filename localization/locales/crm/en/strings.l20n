@@ -252,6 +252,8 @@
 <activityAssociationList ""
   titleText: "Activity Associations"
   primaryText: "Primary?"
+  deleteText: "Delete"
+  confirmDeleteText: "Are you sure you want to remove this association?"
 >
 
 <historyAssociationList ""
