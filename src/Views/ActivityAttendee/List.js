@@ -14,6 +14,7 @@
  */
 
 import declare from 'dojo/_base/declare';
+import connect from 'dojo/_base/connect';
 import List from 'argos/List';
 import MODEL_NAMES from '../../Models/Names';
 import action from '../../Action';
@@ -78,6 +79,9 @@ const __class = declare('crm.Views.ActivityAttendee.List', [List], {
       const entry = selection && selection.data;
       const model = this.getModel();
       model.deleteEntry(entry.$key).then(() => {
+        connect.publish('/app/refresh', [{
+          resourceKind: this.resourceKind,
+        }]);
         this.forceRefresh();
       });
     });

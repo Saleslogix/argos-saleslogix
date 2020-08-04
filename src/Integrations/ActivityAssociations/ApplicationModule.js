@@ -36,9 +36,11 @@ const __class = declare('crm.Integrations.ActivityAssociations.ApplicationModule
 
     this.registerView(new ActivityAssociationList({
       id: 'activity_association_related',
+      expose: false,
     }));
     this.registerView(new HistoryAssociationList({
       id: 'history_association_related',
+      expose: false,
     }));
   },
   loadCustomizationsDynamic: function loadCustomizations() {

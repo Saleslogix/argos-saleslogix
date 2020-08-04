@@ -52,6 +52,23 @@ define('crm/Integrations/ActivityAssociations/Models/ActivityAssociation/SData',
         querySelect: ['EntityType', 'EntityId', 'EntityName', 'IsPrimary', 'ActivityId'],
         queryInclude: ['$permissions']
       }];
+    },
+    deleteEntry: function getEntry(entityId) {
+      var _this = this;
+
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setContractName('dynamic').setResourceKind(this.resourceKind).setResourceSelector('"' + entityId + '"');
+
+      return new Promise(function (resolve, reject) {
+        request.delete({}, {
+          success: function success(entry) {
+            resolve(entry);
+          },
+          failure: function failure(e) {
+            reject(e);
+          },
+          scope: _this
+        });
+      });
     }
   });
 

@@ -59,6 +59,24 @@ const __class = declare('crm.Integrations.ActivityAssociations.Models.ActivityAs
       ],
     }];
   },
+  deleteEntry: function getEntry(entityId) {
+    const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService())
+      .setContractName('dynamic')
+      .setResourceKind(this.resourceKind)
+      .setResourceSelector(`"${entityId}"`);
+
+    return new Promise((resolve, reject) => {
+      request.delete({}, {
+        success: function success(entry) {
+          resolve(entry);
+        },
+        failure: function failure(e) {
+          reject(e);
+        },
+        scope: this,
+      });
+    });
+  },
 });
 
 Manager.register(MODEL_NAMES.ACTIVITYASSOCIATION, MODEL_TYPES.SDATA, __class);

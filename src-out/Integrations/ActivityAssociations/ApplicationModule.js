@@ -44,10 +44,12 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       }
 
       this.registerView(new _List2.default({
-        id: 'activity_association_related'
+        id: 'activity_association_related',
+        expose: false
       }));
       this.registerView(new _List4.default({
-        id: 'history_association_related'
+        id: 'history_association_related',
+        expose: false
       }));
     },
     loadCustomizationsDynamic: function loadCustomizations() {
