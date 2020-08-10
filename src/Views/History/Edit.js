@@ -50,6 +50,17 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   id: 'history_edit',
   fieldsForLeads: ['AccountName', 'Lead'],
   fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
+  // Fields that will get disabled when editing
+  restrictedFields: [
+    'StartDate',
+    'IsLead',
+    'Account',
+    'AccountName',
+    'Contact',
+    'Opportunity',
+    'Ticket',
+    'Lead',
+  ],
   entityName: 'History',
   resourceKind: 'history',
   insertSecurity: null, // 'Entities/History/Add',
@@ -129,6 +140,27 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     } else {
       this.showFieldsForStandard();
     }
+  },
+  _setRestrictedFieldState: function _setRestrictedFieldState() {
+    if (this.inserting) {
+      this.restrictedFields.forEach(f => this._enableField(this.fields[f]));
+    } else {
+      this.restrictedFields.forEach(f => this._disableField(this.fields[f]));
+    }
+  },
+  _disableField: function _disableField(field) {
+    if (!field) {
+      return;
+    }
+
+    field.disable();
+  },
+  _enableField: function _enableField(field) {
+    if (!field) {
+      return;
+    }
+
+    field.enable();
   },
   setOfflineNoteData: function setOfflineNoteData() {
     const entry = this.options && this.options.selectedEntry;
@@ -437,6 +469,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (denyEdit) {
       this.disableFields();
     }
+
+    this._setRestrictedFieldState();
   },
   disableFields: function disableFields(predicate) {
     for (const name in this.fields) {
