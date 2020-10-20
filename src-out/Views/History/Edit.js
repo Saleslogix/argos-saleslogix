@@ -648,8 +648,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           applyTo: this._lookupApplyTo,
           valueKeyProperty: 'LeadId',
           valueTextProperty: 'LeadName',
-          view: 'lead_related',
-          validator: _Validator2.default.exists
+          view: 'lead_related'
         }, {
           label: this.companyText,
           name: 'AccountName',

@@ -667,7 +667,6 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
         valueKeyProperty: 'LeadId',
         valueTextProperty: 'LeadName',
         view: 'lead_related',
-        validator: validator.exists,
       }, {
         label: this.companyText,
         name: 'AccountName',
