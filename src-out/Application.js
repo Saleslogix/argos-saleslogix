@@ -199,7 +199,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       };
       _this.mobileVersion = {
         major: 4,
-        minor: 2,
+        minor: 3,
         revision: 0
       };
       _this.versionInfoText = resource.versionInfoText;
