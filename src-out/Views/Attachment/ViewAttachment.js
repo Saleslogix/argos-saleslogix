@@ -274,6 +274,7 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       var _this4 = this;
 
       var am = new _AttachmentManager2.default();
+      var CHROME_DATA_URI_LIMIT = 2097152;
       var description = void 0;
       var isFile = void 0;
       var fileType = void 0;
@@ -361,6 +362,10 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
 
               am.getAttachmentFile(_attachmentid, 'arraybuffer', function (responseInfo) {
                 var rData = _Utility2.default.base64ArrayBuffer(responseInfo.response);
+                if (rData.length >= CHROME_DATA_URI_LIMIT) {
+                  window.saveAs(new Blob([new Uint8Array(responseInfo.response, 0, responseInfo.response.length)]), responseInfo.fileName);
+                  return;
+                }
                 var dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
                 $(_tpl).addClass('display-none');
                 var iframe = document.getElementById('attachment-Iframe');
