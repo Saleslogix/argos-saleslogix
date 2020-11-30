@@ -327,6 +327,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   },
   _loadAttachmentView: function _loadAttachmentView(entry) {
     const am = new AttachmentManager();
+    const CHROME_DATA_URI_LIMIT = 2097152;
     let description;
     let isFile;
     let fileType;
@@ -413,6 +414,10 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
 
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
+              if (rData.length >= CHROME_DATA_URI_LIMIT) {
+                window.saveAs(new Blob([new Uint8Array(responseInfo.response, 0, responseInfo.response.length)]), responseInfo.fileName);
+                return;
+              }
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
               $(tpl).addClass('display-none');
               const iframe = document.getElementById('attachment-Iframe');
