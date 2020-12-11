@@ -74,12 +74,22 @@ define('crm/Views/LanguageOptions/UsageWidget', ['module', 'exports', 'dojo/_bas
       this.initUI(language || 'en', region || 'en');
     },
     initUI: function initUI(lang, region) {
-      var locales = [];
-      for (var key in window.languages) {
-        if (window.languages.hasOwnProperty(key)) {
-          locales.push({ value: key, text: window.languages[key], key: key });
-        }
-      }
+      var dropDownMap = function dropDownMap(key) {
+        return {
+          value: key,
+          text: window.languages[key],
+          key: key
+        };
+      };
+
+      var locales = Object.keys(window.languages).filter(function (key) {
+        return window.localeContext.supportedLocales.indexOf(key) > -1;
+      }).map(dropDownMap);
+
+      var regions = Object.keys(window.languages).filter(function (key) {
+        return window.regionalContext.supportedLocales.indexOf(key) > -1;
+      }).map(dropDownMap);
+
       if (!this._languageDropdown) {
         this._languageDropdown = new _Dropdown2.default({
           id: 'language-dropdown',
@@ -107,7 +117,7 @@ define('crm/Views/LanguageOptions/UsageWidget', ['module', 'exports', 'dojo/_bas
           label: this.regionText
         });
         this._regionDropdown.createList({
-          items: locales
+          items: regions
         });
         $(this._regionThanNode).append(this._regionDropdown.domNode);
         this._regionDropdown.setValue(region);
