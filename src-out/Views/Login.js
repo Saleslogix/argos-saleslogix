@@ -1,4 +1,4 @@
-define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edit', 'argos/I18n', '../actions/config'], function (module, exports, _declare, _Edit, _I18n, _config) {
+define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edit', 'argos/I18n'], function (module, exports, _declare, _Edit, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -15,26 +15,24 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
-
-  var resource = (0, _I18n2.default)('login');
+  var resource = (0, _I18n2.default)('login'); /* Copyright 2017 Infor
+                                                *
+                                                * Licensed under the Apache License, Version 2.0 (the "License");
+                                                * you may not use this file except in compliance with the License.
+                                                * You may obtain a copy of the License at
+                                                *
+                                                *    http://www.apache.org/licenses/LICENSE-2.0
+                                                *
+                                                * Unless required by applicable law or agreed to in writing, software
+                                                * distributed under the License is distributed on an "AS IS" BASIS,
+                                                * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                * See the License for the specific language governing permissions and
+                                                * limitations under the License.
+                                                */
 
   var __class = (0, _declare2.default)('crm.Views.Login', [_Edit2.default], {
     // Templates
-    widgetTemplate: new Simplate(['\n      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">\n        <div class="wrapper">\n          <section class="signin" role="main">\n            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">\n              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>\n            </svg>\n            <h1>Infor CRM</h1>\n            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">\n            </div>\n            <div>\n              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>\n            </div>\n          </section>\n        </div>\n      </div>\n    ']),
+    widgetTemplate: new Simplate(['\n      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">\n        <div class="wrapper">\n          <section class="signin" role="main">\n            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">\n              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>\n            </svg>\n            <h1>Infor CRM</h1>\n            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">\n            </div>\n            <div class="login-button-container">\n              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>\n            </div>\n          </section>\n        </div>\n      </div>\n    ']),
 
     id: 'login',
     busy: false,
@@ -43,13 +41,13 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     copyrightText: resource.copyrightText,
     logOnText: resource.logOnText,
     passText: resource.passText,
-    urlText: resource.urlText,
     rememberText: resource.rememberText,
     titleText: resource.titleText,
     userText: resource.userText,
     invalidUserText: resource.invalidUserText,
     missingUserText: resource.missingUserText,
     requestAbortedText: resource.requestAbortedText,
+    passwordExpiredText: resource.passwordExpiredText,
     logoText: resource.logoText,
     errorText: {
       general: resource.logOnError,
@@ -76,13 +74,9 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     },
     show: function show() {
       this.inherited(show, arguments);
+
       if (!this.connectionState) {
         this._disable();
-      }
-
-      var state = this.appStore.getState();
-      if (state && state.app && state.app.config.endpoint) {
-        this.fields['url-display'].setValue(state.app.config.endpoint);
       }
 
       if (App.enableRememberMe !== true) {
@@ -93,14 +87,12 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     _disable: function _disable() {
       this.fields['username-display'].disable();
       this.fields['password-display'].disable();
-      this.fields['url-display'].disable();
       this.fields.remember.disable();
       this.loginButton.disabled = true;
     },
     _enable: function _enable() {
       this.fields['username-display'].enable();
       this.fields['password-display'].enable();
-      this.fields['url-display'].enable();
       this.fields.remember.enable();
       this.loginButton.disabled = false;
     },
@@ -146,11 +138,6 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         inputType: 'password',
         required: true
       }, {
-        name: 'url-display',
-        label: this.urlText,
-        type: 'text',
-        required: true
-      }, {
         name: 'remember',
         label: this.rememberText,
         type: 'boolean'
@@ -161,16 +148,15 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         return;
       }
 
-      var values = this.getValues();
+      var values = this.getValues(true);
 
       var credentials = {
         username: values['username-display'],
         password: values['password-display'],
-        endpoint: values['url-display'],
         remember: values.remember
       };
 
-      if (credentials.username && credentials.endpoint) {
+      if (credentials.username) {
         this.validateCredentials(credentials);
       }
     },
@@ -185,6 +171,25 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         handle: function handleNoResponse(error, next) {
           alert(this.missingUserText); // eslint-disable-line
           next();
+        }
+      }, {
+        name: 'PasswordExpired',
+        test: function testExpiredPassword(error) {
+          var xhr = error && error.xhr;
+          if (!xhr) {
+            return false;
+          }
+
+          try {
+            var json = JSON.parse(xhr.responseText)[0];
+            var stackTrace = json.stackTrace || '';
+            return stackTrace.indexOf('Sage.SalesLogix.User.Rules.IsValidPassword') > -1;
+          } catch (_) {
+            return false;
+          }
+        },
+        handle: function handleExpiredPassword() {
+          alert(this.passwordExpiredText); // eslint-disable-line
         }
       }, {
         name: 'GeneralError',
@@ -202,8 +207,6 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     validateCredentials: function validateCredentials(credentials) {
       this.disable();
 
-      var endpoint = credentials.endpoint;
-      this.appStore.dispatch((0, _config.setEndPoint)(endpoint));
       App.authenticateUser(credentials, {
         success: function success() {
           // Need to remove Login view from pagejs stack

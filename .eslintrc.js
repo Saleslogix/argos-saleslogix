@@ -1,41 +1,40 @@
 module.exports = {
   env: {
     es6: true,
-    browser: true
+    browser: true,
   },
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
       modules: true,
       jsx: true,
-    }
+    },
   },
-  "globals": {
-    "Sage": false,
-    "App": false,
-    "argos": false,
-    "crm": false,
-    "icboe": false,
-    "Mobile": false,
-    "Simplate": false,
-    "ReUI": false,
-    "module": false,
-    "Base64": false,
-    "define": false,
-    "require": false,
-    "moment": false,
-    "Chart": false,
-    "Rx": false,
-    "$": false,
-    "Soho": false,
-    "d3": false,
-    "Redux": false,
-    "page": false,
-    "ICRMCustomizationSDK": false,
-    "ICRMCommonSDK": false,
-    "ICRMServicesSDK": false
+  globals: {
+    Sage: false,
+    App: false,
+    argos: false,
+    crm: false,
+    icboe: false,
+    Mobile: false,
+    Simplate: false,
+    ReUI: false,
+    module: false,
+    Base64: false,
+    define: false,
+    require: false,
+    moment: false,
+    Chart: false,
+    $: false,
+    Soho: false,
+    d3: false,
+    Redux: false,
+    page: false,
+    ICRMCustomizationSDK: false,
+    ICRMCommonSDK: false,
+    ICRMServicesSDK: false,
   },
   rules: {
     /**
@@ -70,12 +69,12 @@ module.exports = {
 
     // require default case in switch statements
     'default-case': ['error', {
-      commentPattern: '^no default$'
+      commentPattern: '^no default$',
     }],
 
     // encourages use of dot notation whenever possible
     'dot-notation': ['error', {
-      allowKeywords: true
+      allowKeywords: true,
     }],
 
     // enforces consistent newlines before or after dots
@@ -113,7 +112,7 @@ module.exports = {
         'arrowFunctions',
         'functions',
         'methods',
-      ]
+      ],
     }],
 
     // disallow empty destructuring patterns
@@ -145,7 +144,7 @@ module.exports = {
     // disallow reassignments of native objects or read-only globals
     // http://eslint.org/docs/rules/no-global-assign
     'no-global-assign': ['error', {
-      exceptions: []
+      exceptions: [],
     }],
     // deprecated in favor of no-global-assign
     'no-native-reassign': 'off',
@@ -175,7 +174,7 @@ module.exports = {
     // disallow use of labels for anything other then loops and switches
     'no-labels': ['error', {
       allowLoop: false,
-      allowSwitch: false
+      allowSwitch: false,
     }],
 
     // disallow unnecessary nested blocks
@@ -218,8 +217,8 @@ module.exports = {
     // disallow reassignment of function parameters
     // disallow parameter object manipulation
     // rule: http://eslint.org/docs/rules/no-param-reassign.html
-    'no-param-reassign': ['off', {// Overriding Airbnb
-      props: true
+    'no-param-reassign': ['off', { // Overriding Airbnb
+      props: true,
     }],
 
     // disallow usage of __proto__ property
@@ -233,7 +232,7 @@ module.exports = {
     'no-restricted-properties': ['error', {
       object: 'arguments',
       property: 'callee',
-      message: 'arguments.callee is deprecated,'
+      message: 'arguments.callee is deprecated,',
     }, {
       property: '__defineGetter__',
       message: 'Please use Object.defineProperty instead.',
@@ -293,7 +292,7 @@ module.exports = {
     // disallow usage of configurable warning terms in comments: e.g. todo
     'no-warning-comments': ['off', {
       terms: ['todo', 'fixme', 'xxx'],
-      location: 'start'
+      location: 'start',
     }],
 
     // disallow use of the with statement
@@ -425,7 +424,7 @@ module.exports = {
     // ensure that the results of typeof are compared against a valid string
     // http://eslint.org/docs/rules/valid-typeof
     'valid-typeof': ['error', {
-      'requireStringLiterals': true
+      requireStringLiterals: true,
     }],
 
     /**
@@ -436,7 +435,7 @@ module.exports = {
     // enforces no braces where they can be omitted
     // http://eslint.org/docs/rules/arrow-body-style
     // TODO: enable requireReturnForObjectLiteral?
-    'arrow-body-style': ['off', 'always'],// Overriding Airbnb
+    'arrow-body-style': ['off', 'always'], // Overriding Airbnb
 
     // require parens in arrow function arguments
     // http://eslint.org/docs/rules/arrow-parens
@@ -448,7 +447,7 @@ module.exports = {
     // http://eslint.org/docs/rules/arrow-spacing
     'arrow-spacing': ['error', {
       before: true,
-      after: true
+      after: true,
     }],
 
     // verify super() callings in constructors
@@ -458,7 +457,7 @@ module.exports = {
     // http://eslint.org/docs/rules/generator-star-spacing
     'generator-star-spacing': ['error', {
       before: false,
-      after: true
+      after: true,
     }],
 
     // disallow modifying variables of class declarations
@@ -603,18 +602,18 @@ module.exports = {
 
     // enforce one true brace style
     'brace-style': ['error', '1tbs', {
-      allowSingleLine: true
+      allowSingleLine: true,
     }],
 
     // require camel case names
     camelcase: ['error', {
-      properties: 'never'
+      properties: 'never',
     }],
 
     // enforce spacing before and after comma
     'comma-spacing': ['error', {
       before: false,
-      after: true
+      after: true,
     }],
 
     // enforce one true comma style
@@ -657,7 +656,7 @@ module.exports = {
     indent: ['error', 2, {
       SwitchCase: 1,
       VariableDeclarator: 1,
-      outerIIFEBody: 1
+      outerIIFEBody: 1,
     }],
 
     // specify whether double or single quotes should be used in JSX attributes
@@ -667,7 +666,7 @@ module.exports = {
     // enforces spacing between keys and values in object literal properties
     'key-spacing': ['error', {
       beforeColon: false,
-      afterColon: true
+      afterColon: true,
     }],
 
     // require a space before & after certain keywords
@@ -676,15 +675,15 @@ module.exports = {
       after: true,
       overrides: {
         return: {
-          after: true
+          after: true,
         },
         throw: {
-          after: true
+          after: true,
         },
         case: {
-          after: true
-        }
-      }
+          after: true,
+        },
+      },
     }],
 
     // enforce position of line comments
@@ -727,7 +726,7 @@ module.exports = {
     'max-lines': ['off', {
       max: 300,
       skipBlankLines: true,
-      skipComments: true
+      skipComments: true,
     }],
 
     // specify the maximum depth callbacks can be nested
@@ -742,7 +741,7 @@ module.exports = {
     // restrict the number of statements per line
     // http://eslint.org/docs/rules/max-statements-per-line
     'max-statements-per-line': ['off', {
-      max: 1
+      max: 1,
     }],
 
     // require multiline ternary
@@ -772,7 +771,7 @@ module.exports = {
     // more readable and easy to maintain
     // http://eslint.org/docs/rules/newline-per-chained-call
     'newline-per-chained-call': ['error', {
-      ignoreChainWithDepth: 4
+      ignoreChainWithDepth: 4,
     }],
 
     // disallow use of the Array constructor
@@ -803,7 +802,7 @@ module.exports = {
     // disallow multiple empty lines and only one newline at the end
     'no-multiple-empty-lines': ['error', {
       max: 2,
-      maxEOF: 1
+      maxEOF: 1,
     }],
 
     // disallow negated conditions
@@ -824,7 +823,7 @@ module.exports = {
     // http://eslint.org/docs/rules/no-restricted-syntax
     'no-restricted-syntax': [
       'error',
-      //'ForInStatement', // Overriding Airbnb
+      // 'ForInStatement', // Overriding Airbnb
       'LabeledStatement',
       'WithStatement',
     ],
@@ -848,7 +847,7 @@ module.exports = {
     // also, prefer `a || b` over `a ? a : b`
     // http://eslint.org/docs/rules/no-unneeded-ternary
     'no-unneeded-ternary': ['off', { // Overriding Airbnb
-      defaultAssignment: false
+      defaultAssignment: false,
     }],
 
     // disallow whitespace before properties
@@ -864,12 +863,12 @@ module.exports = {
     'object-curly-newline': ['off', {
       ObjectExpression: {
         minProperties: 0,
-        multiline: true
+        multiline: true,
       },
       ObjectPattern: {
         minProperties: 0,
-        multiline: true
-      }
+        multiline: true,
+      },
     }],
 
     // enforce "same line" or "multiple line" on object properties.
@@ -900,12 +899,12 @@ module.exports = {
     'quote-props': ['error', 'as-needed', {
       keywords: false,
       unnecessary: true,
-      numbers: false
+      numbers: false,
     }],
 
     // specify whether double or single quotes should be used
     quotes: ['error', 'single', {
-      avoidEscape: true
+      avoidEscape: true,
     }],
 
     // do not require jsdoc
@@ -918,13 +917,13 @@ module.exports = {
     // enforce spacing before and after semicolons
     'semi-spacing': ['error', {
       before: false,
-      after: true
+      after: true,
     }],
 
     // requires object keys to be sorted
     'sort-keys': ['off', 'asc', {
       caseSensitive: false,
-      natural: true
+      natural: true,
     }],
 
     // sort variables within the same declaration block
@@ -937,7 +936,7 @@ module.exports = {
     // http://eslint.org/docs/rules/space-before-function-paren
     'space-before-function-paren': ['error', {
       anonymous: 'always',
-      named: 'never'
+      named: 'never',
     }],
 
     // require or disallow spaces inside parentheses
@@ -957,7 +956,7 @@ module.exports = {
     // require or disallow a space immediately following the // or /* in a comment
     'spaced-comment': ['error', 'always', {
       exceptions: ['-', '+'],
-      markers: ['=', '!'] // space here to support sprockets directives
+      markers: ['=', '!'], // space here to support sprockets directives
     }],
 
     // require or disallow the Unicode Byte Order Mark
@@ -1008,10 +1007,10 @@ module.exports = {
     // disallow declaration of variables that are not used in the code
     'no-unused-vars': ['error', {
       vars: 'local',
-      args: 'after-used'
+      args: 'after-used',
     }],
 
     // disallow use of variables before they are defined
-    'no-use-before-define': 'error'
-  }
+    'no-use-before-define': 'error',
+  },
 };

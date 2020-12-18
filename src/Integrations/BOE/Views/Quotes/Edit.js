@@ -108,6 +108,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     } else if (this.locationType !== 'Warehouse') {
       this.fields.Location.show();
       this.fields.Warehouse.hide();
+      this.fields.Warehouse.required = false;
+      this.fields.Warehouse.validator = undefined;
     }
   },
   insert: function insert() {
@@ -187,6 +189,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
       };
     } else {
       warehouseField.disable();
+      warehouseField.required = false;
+      warehouseField.validator = undefined;
       locationField.disable();
     }
     if (entry.Warehouse) {
@@ -328,7 +332,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
     const accountingField = this.fields.BackOfficeAccountingEntity;
     accountingField.where = `BackOffice.Id eq "${field.currentSelection.$key}"`;
-    const accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+    const accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
     if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
       const entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
       if (entry) {
@@ -615,6 +619,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
         valueTextProperty: 'Description',
         view: 'quote_warehouse_list',
         title: this.warehouseLocationText,
+        required: true,
+        validator: validator.exists,
       }, {
         label: this.requestedByText,
         name: 'RequestedBy',

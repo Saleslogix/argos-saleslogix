@@ -1,4 +1,4 @@
-define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', '../../Template', 'argos/Utility', 'argos/Edit', '../../Models/Names', 'argos/Models/Types', 'argos/I18n'], function (module, exports, _declare, _connect, _string, _Environment, _Validator, _Template, _Utility, _Edit, _Names, _Types, _I18n) {
+define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', 'dojo/string', '../../Environment', '../../Validator', '../../Models/Activity/ActivityTypePicklists', 'argos/Utility', 'argos/Edit', '../../Models/Names', 'argos/Models/Types', 'argos/I18n'], function (module, exports, _declare, _connect, _string, _Environment, _Validator, _ActivityTypePicklists, _Utility, _Edit, _Names, _Types, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -12,8 +12,6 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
   var _Environment2 = _interopRequireDefault(_Environment);
 
   var _Validator2 = _interopRequireDefault(_Validator);
-
-  var _Template2 = _interopRequireDefault(_Template);
 
   var _Utility2 = _interopRequireDefault(_Utility);
 
@@ -57,6 +55,10 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
     ticketNumberText: resource.ticketNumberText,
     companyText: resource.companyText,
     leadText: resource.leadText,
+    isLeadText: resource.isLeadText,
+    yesText: resource.yesText,
+    noText: resource.noText,
+    phoneText: resource.phoneText,
     asScheduledText: resource.asScheduledText,
     categoryText: resource.categoryText,
     categoryTitleText: resource.categoryTitleText,
@@ -138,6 +140,12 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         Description: 'E-mail Regarding'
       }
     },
+    groupOptionsByType: {
+      atToDo: 'ActivityToDoOptions',
+      atPersonal: 'ActivityPersonalOptions',
+      atPhoneCall: 'ActivityPhoneOptions',
+      atAppointment: 'ActivityMeetingOptions'
+    },
 
     entityName: 'Activity',
     querySelect: ['AccountId', 'AccountName', 'Alarm', 'AlarmTime', 'Category', 'ContactId', 'ContactName', 'CompletedDate', 'Description', 'Duration', 'Leader/$key', 'LeadId', 'LeadName', 'LongNotes', 'OpportunityId', 'OpportunityName', 'Priority', 'Regarding', 'Result', 'Rollover', 'StartDate', 'TicketId', 'TicketNumber', 'Timeless', 'Type', 'Recurring', 'RecurrenceState', 'AllowAdd', 'AllowEdit', 'AllowDelete', 'AllowComplete'],
@@ -148,11 +156,17 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       this.inherited(init, arguments);
 
       this.connect(this.fields.Leader, 'onChange', this.onLeaderChange);
+      this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
       this.connect(this.fields.Timeless, 'onChange', this.onTimelessChange);
       this.connect(this.fields.AsScheduled, 'onChange', this.onAsScheduledChange);
       this.connect(this.fields.Followup, 'onChange', this.onFollowupChange);
       this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
       this.connect(this.fields.Result, 'onChange', this.onResultChange);
+
+      this.connect(this.fields.Account, 'onChange', this.onAccountChange);
+      this.connect(this.fields.Contact, 'onChange', this.onContactChange);
+      this.connect(this.fields.Opportunity, 'onChange', this.onOpportunityChange);
+      this.connect(this.fields.Ticket, 'onChange', this.onTicketChange);
     },
     onResultChange: function onResultChange(value, field) {
       // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
@@ -165,30 +179,35 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       return entry && /^[\w]{12}$/.test(entry.LeadId);
     },
     beforeTransitionTo: function beforeTransitionTo() {
-      var _this = this;
-
       this.inherited(beforeTransitionTo, arguments);
 
-      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function hideFields(item) {
-        if (this.fields[item]) {
-          this.fields[item].hide();
-        }
-      }, this);
-
-      var entry = this.options && this.options.entry;
-      if (this.isActivityForLead(entry)) {
-        this.fieldsForLeads.forEach(function (item) {
-          if (_this.fields[item]) {
-            _this.fields[item].show();
-          }
-        }, this);
-      } else {
-        this.fieldsForStandard.forEach(function (item) {
-          if (_this.fields[item]) {
-            _this.fields[item].show();
-          }
-        }, this);
+      // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+      // the value for the 'IsLead' field will be set later, based on the value derived here.
+      if (this.options.isForLead !== undefined) {
+        return;
       }
+
+      this.options.isForLead = this.isInLeadContext();
+
+      if (this.options.isForLead) {
+        this.showFieldsForLead();
+      } else {
+        this.showFieldsForStandard();
+      }
+    },
+    isInLeadContext: function isInLeadContext() {
+      var insert = this.options && this.options.insert;
+      var entry = this.options && this.options.entry;
+      var context = this._getNavContext();
+      var isLeadContext = false;
+
+      if (context.resourceKind === 'leads') {
+        isLeadContext = true;
+      }
+
+      var lead = insert && isLeadContext || this.isActivityForLead(entry);
+
+      return !!lead;
     },
     toggleSelectField: function toggleSelectField(field, disable) {
       if (disable) {
@@ -196,6 +215,45 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       } else {
         field.enable();
       }
+    },
+    onIsLeadChange: function onIsLeadChange(value) {
+      this.options.isForLead = value;
+
+      if (this.options.isForLead) {
+        this.showFieldsForLead();
+      } else {
+        this.showFieldsForStandard();
+      }
+    },
+    showFieldsForLead: function showFieldsForLead() {
+      var _this = this;
+
+      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function (item) {
+        if (_this.fields[item]) {
+          _this.fields[item].hide();
+        }
+      }, this);
+
+      this.fieldsForLeads.forEach(function (item) {
+        if (_this.fields[item]) {
+          _this.fields[item].show();
+        }
+      }, this);
+    },
+    showFieldsForStandard: function showFieldsForStandard() {
+      var _this2 = this;
+
+      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function (item) {
+        if (_this2.fields[item]) {
+          _this2.fields[item].hide();
+        }
+      }, this);
+
+      this.fieldsForStandard.forEach(function (item) {
+        if (_this2.fields[item]) {
+          _this2.fields[item].show();
+        }
+      }, this);
     },
     onTimelessChange: function onTimelessChange(value) {
       this.toggleSelectField(this.fields.Duration, value);
@@ -213,6 +271,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
             seconds: 5
           });
         }
+
         startDateField.setValue(startDate);
       } else {
         startDateField.dateFormatText = App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText;
@@ -266,13 +325,19 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
       var selection = field.getSelection();
 
       if (selection && this.insert) {
-        this.fields.Company.setValue(_Utility2.default.getValue(selection, 'Company'));
+        this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
+      }
+
+      var entry = field.currentSelection;
+      if (entry.WorkPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.WorkPhone);
       }
     },
     formatPicklistForType: function formatPicklistForType(type, which) {
-      return this.picklistsByType[type] && this.picklistsByType[type][which];
+      return (0, _ActivityTypePicklists.getPicklistByActivityType)(type, which);
     },
-    setValues: function setValues() {
+    setValues: function setValues(values) {
       this.inherited(setValues, arguments);
       this.fields.CarryOverNotes.setValue(true);
       this.fields.CompletedDate.setValue(new Date());
@@ -282,10 +347,66 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
 
       this.toggleSelectField(this.fields.CarryOverNotes, true);
       this.toggleSelectField(this.fields.CompletedDate, false);
+      if (this.isInLeadContext()) {
+        var isLeadField = this.fields.IsLead;
+        if (isLeadField) {
+          isLeadField.setValue(true);
+          this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        }
+
+        this.fields.Lead.setValue(values, true);
+        this.fields.AccountName.setValue(values.AccountName);
+      }
     },
     onLeaderChange: function onLeaderChange(value, field) {
-      var userId = field.getValue();
-      this.fields.UserId.setValue(userId && userId.$key);
+      var user = field.getValue();
+      var resourceId = '';
+
+      var key = user.$key;
+
+      // The key is a composite key on activityresourceviews endpoint.
+      // The format is 'ResourceId-AccessId'.
+      // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
+      // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
+      if (key) {
+        key = key.split('-');
+        resourceId = key[0];
+        if (resourceId) {
+          this.fields.UserId.setValue(resourceId);
+
+          // Set back to a single $key so the PUT request payload is not messed up
+          this.fields.Leader.setValue({
+            $key: resourceId,
+            $descriptor: value && value.text
+          });
+        }
+      }
+    },
+    convertEntry: function convertEntry() {
+      var entry = this.inherited(convertEntry, arguments);
+      if (!this.options.entry) {
+        if (entry && entry.Leader.$key) {
+          this.requestLeader(entry.Leader.$key);
+        }
+      }
+
+      return entry;
+    },
+    requestLeader: function requestLeader(userId) {
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector('\'' + userId + '\'').setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+
+      request.read({
+        success: this.processLeader,
+        failure: this.requestLeaderFailure,
+        scope: this
+      });
+    },
+    requestLeaderFailure: function requestLeaderFailure() {},
+    processLeader: function processLeader(leader) {
+      if (leader) {
+        this.entry.Leader = leader;
+        this.fields.Leader.setValue(leader);
+      }
     },
     formatFollowupText: function formatFollowupText(val, key, text) {
       return this.followupValueText[key] || text;
@@ -349,6 +470,266 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
         returnTo: -1
       });
     },
+    applyContext: function applyContext() {
+      this.inherited(applyContext, arguments);
+      var startDate = this._getCalculatedStartTime(moment());
+      var activityType = this.options && this.options.activityType;
+      var activityGroup = this.groupOptionsByType[activityType] || '';
+      var activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
+      this.fields.StartDate.setValue(startDate.toDate());
+      this.fields.Type.setValue(activityType);
+      this.fields.Duration.setValue(activityDuration);
+      var user = App.context.user;
+      if (user) {
+        this.fields.UserId.setValue(user.$key);
+
+        var leaderField = this.fields.Leader;
+        leaderField.setValue(user);
+        this.onLeaderChange(user, leaderField);
+      }
+
+      var found = this._getNavContext();
+      var accountField = this.fields.Account;
+      this.onAccountChange(accountField.getValue(), accountField);
+
+      var context = found && found.options && found.options.source || found;
+      var lookup = {
+        accounts: this.applyAccountContext,
+        contacts: this.applyContactContext,
+        opportunities: this.applyOpportunityContext,
+        tickets: this.applyTicketContext,
+        leads: this.applyLeadContext
+      };
+
+      if (context && lookup[context.resourceKind]) {
+        lookup[context.resourceKind].call(this, context);
+      }
+    },
+    _getCalculatedStartTime: function _getCalculatedStartTime(selectedDate) {
+      var now = moment();
+      var thisSelectedDate = selectedDate;
+
+      if (!moment.isMoment(selectedDate)) {
+        thisSelectedDate = moment(selectedDate);
+      }
+
+      // Take the start of the selected date, add the *current* time to it,
+      // and round it up to the nearest ROUND_MINUTES
+      // Examples:
+      // 11:24 -> 11:30
+      // 11:12 -> 11:15
+      // 11:31 -> 11:45
+      var startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
+        minutes: Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES + this.ROUND_MINUTES
+      });
+
+      return startDate;
+    },
+    applyAccountContext: function applyAccountContext(context) {
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry || context;
+
+      if (!entry || !entry.$key) {
+        return;
+      }
+
+      var accountField = this.fields.Account;
+      accountField.setSelection(entry);
+      accountField.setValue({
+        AccountId: entry.$key,
+        AccountName: entry.$descriptor
+      });
+      this.onAccountChange(accountField.getValue(), accountField);
+    },
+    applyContactContext: function applyContactContext(context) {
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry || context;
+
+      if (!entry || !entry.$key) {
+        return;
+      }
+
+      var contactField = this.fields.Contact;
+
+      contactField.setSelection(entry);
+      contactField.setValue({
+        ContactId: entry.$key,
+        ContactName: entry.$descriptor
+      });
+
+      this.onAccountDependentChange(contactField.getValue(), contactField);
+
+      var accountField = this.fields.Account;
+      accountField.setValue({
+        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
+        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+      });
+
+      if (entry.WorkPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.WorkPhone);
+      }
+    },
+    applyTicketContext: function applyTicketContext(context) {
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
+
+      if (!entry || !entry.$key) {
+        return;
+      }
+
+      var ticketField = this.fields.Ticket;
+      ticketField.setSelection(entry);
+      ticketField.setValue({
+        TicketId: entry.$key,
+        TicketNumber: entry.$descriptor
+      });
+      this.onAccountDependentChange(ticketField.getValue(), ticketField);
+
+      var contactField = this.fields.Contact;
+      contactField.setValue({
+        ContactId: _Utility2.default.getValue(entry, 'Contact.$key'),
+        ContactName: _Utility2.default.getValue(entry, 'Contact.NameLF')
+      });
+      this.onAccountDependentChange(contactField.getValue(), contactField);
+
+      var accountField = this.fields.Account;
+      accountField.setValue({
+        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
+        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+      });
+
+      var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+      if (phone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(phone);
+      }
+    },
+    applyOpportunityContext: function applyOpportunityContext(context) {
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
+
+      if (!entry || !entry.$key) {
+        return;
+      }
+
+      var opportunityField = this.fields.Opportunity;
+      opportunityField.setSelection(entry);
+      opportunityField.setValue({
+        OpportunityId: entry.$key,
+        OpportunityName: entry.$descriptor
+      });
+
+      this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
+
+      var accountField = this.fields.Account;
+      accountField.setValue({
+        AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
+        AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
+      });
+
+      if (entry.Account && entry.Account.MainPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.Account.MainPhone);
+      }
+    },
+    applyLeadContext: function applyLeadContext(context) {
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
+
+      if (!entry || !entry.$key) {
+        return;
+      }
+
+      var leadField = this.fields.Lead;
+      leadField.setSelection(entry);
+      leadField.setValue({
+        LeadId: entry.$key,
+        LeadName: entry.$descriptor
+      });
+      this.onLeadChange(leadField.getValue(), leadField);
+
+      this.fields.AccountName.setValue(entry.Company);
+
+      var isLeadField = this.fields.IsLead;
+      if (isLeadField) {
+        isLeadField.setValue(context.resourceKind === 'leads');
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
+
+      if (entry.WorkPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.WorkPhone);
+      }
+    },
+    onAccountChange: function onAccountChange(value, field) {
+      var fields = this.fields;
+      ['Contact', 'Opportunity', 'Ticket'].forEach(function (f) {
+        if (value) {
+          fields[f].dependsOn = 'Account';
+          fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
+
+          if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
+            fields[f].setValue(false);
+          }
+
+          // No way to determine if the field is part of the changed account, clear it
+          if (!fields[f].currentSelection) {
+            fields[f].setValue(null);
+          }
+        } else {
+          fields[f].dependsOn = null;
+          fields[f].where = 'Account.AccountName ne null';
+        }
+      });
+
+      if (value === null || typeof value === 'undefined') {
+        return;
+      }
+
+      var entry = field.currentSelection;
+      if (entry && entry.MainPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.MainPhone);
+      }
+    },
+    onContactChange: function onContactChange(value, field) {
+      this.onAccountDependentChange(value, field);
+      var entry = field.currentSelection;
+
+      if (entry && entry.WorkPhone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(entry.WorkPhone);
+      }
+    },
+    onOpportunityChange: function onOpportunityChange(value, field) {
+      this.onAccountDependentChange(value, field);
+      var entry = field.currentSelection;
+
+      if (entry && entry.Account && entry.Account.MainPhone) {
+        var phoneField = this.fieldsPhoneNumber;
+        phoneField.setValue(entry.Account.MainPhone);
+      }
+    },
+    onTicketChange: function onTicketChange(value, field) {
+      this.onAccountDependentChange(value, field);
+      var entry = field.currentSelection;
+      var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+      if (phone) {
+        var phoneField = this.fields.PhoneNumber;
+        phoneField.setValue(phone);
+      }
+    },
+    onAccountDependentChange: function onAccountDependentChange(value, field) {
+      if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
+        var accountField = this.fields.Account;
+        accountField.setValue({
+          AccountId: field.currentSelection.Account.$key,
+          AccountName: field.currentSelection.Account.AccountName
+        });
+        this.onAccountChange(accountField.getValue(), accountField);
+      }
+    },
     completeActivity: function completeActivity(entry, callback) {
       var activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
       entry.Leader = this.fields.Leader.getValue();
@@ -396,6 +777,18 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
 
       return _string2.default.substitute(format, [_Utility2.default.getValue(dependentValue, theProperty)]);
     },
+    _getNavContext: function _getNavContext() {
+      var navContext = App.queryNavigationContext(function (o) {
+        var context = o.options && o.options.source || o;
+
+        if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
+          return true;
+        }
+
+        return false;
+      });
+      return navContext;
+    },
     createLayout: function createLayout() {
       return this.layout || (this.layout = [{
         title: this.activityInfoText,
@@ -430,7 +823,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           property: 'StartDate',
           type: 'date',
           showTimePicker: true,
-          formatString: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
+          dateFormatText: App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText,
           minValue: new Date(1900, 0, 1),
           validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
         }, {
@@ -474,7 +867,7 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           property: 'CompletedDate',
           type: 'date',
           showTimePicker: true,
-          formatString: this.completedFormatText,
+          dateFormatText: this.completedFormatText,
           minValue: new Date(1900, 0, 1),
           validator: [_Validator2.default.exists, _Validator2.default.isDateInRange]
         }, {
@@ -547,10 +940,16 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           property: 'Leader',
           include: false,
           type: 'lookup',
-          textProperty: 'UserInfo',
-          textTemplate: _Template2.default.nameLF,
           requireSelection: true,
-          view: 'user_list'
+          view: 'calendar_access_list'
+        }, {
+          label: this.isLeadText,
+          name: 'IsLead',
+          property: 'IsLead',
+          include: false,
+          type: 'boolean',
+          onText: this.yesText,
+          offText: this.noText
         }, {
           label: this.accountText,
           name: 'Account',
@@ -612,6 +1011,13 @@ define('crm/Views/Activity/Complete', ['module', 'exports', 'dojo/_base/declare'
           name: 'AccountName',
           property: 'AccountName',
           type: 'text'
+        }, {
+          name: 'PhoneNumber',
+          property: 'PhoneNumber',
+          label: this.phoneText,
+          type: 'phone',
+          maxTextLength: 32,
+          validator: _Validator2.default.exceedsMaxTextLength
         }]
       }]);
     }

@@ -384,7 +384,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     onLeadChange: function onLeadChange(value, field) {
       var selection = field.getSelection();
 
-      if (selection && this.insert) {
+      if (selection && this.options && this.options.insert) {
         this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
       }
 
@@ -425,7 +425,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
           fields[f].dependsOn = 'Account';
           fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
 
-          if (fields[f].currentSelection && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
+          if (fields[f].currentSelection && fields[f].currentSelection.Account && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
           }
 
@@ -782,8 +782,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.fields.AccountName.setValue(entry.Company);
 
       var isLeadField = this.fields.IsLead;
-      isLeadField.setValue(context.resourceKind === 'leads');
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(context.resourceKind === 'leads');
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
 
       if (entry.WorkPhone) {
         var phoneField = this.fields.PhoneNumber;
@@ -822,8 +824,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       if (this.isInLeadContext()) {
         var isLeadField = this.fields.IsLead;
-        isLeadField.setValue(true);
-        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        if (isLeadField) {
+          isLeadField.setValue(true);
+          this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        }
+
         this.fields.Lead.setValue(values, true);
         this.fields.AccountName.setValue(values.AccountName);
       }
@@ -845,6 +850,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
           return (/^Alarm$/.test(f.name)
           );
         });
+      }
+
+      if (this.options && this.options.activityType === 'atPersonal') {
+        this.fields.Category.disable();
+      } else {
+        this.fields.Category.enable();
       }
 
       this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
@@ -906,7 +917,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         values.AlarmTime = alarmTime;
       }
 
-      if (this.fields.IsLead.getValue() === false) {
+      if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
         values.LeadId = null;
         values.LeadName = null;
       }

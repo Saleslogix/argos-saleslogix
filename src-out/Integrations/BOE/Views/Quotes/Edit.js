@@ -129,6 +129,8 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       } else if (this.locationType !== 'Warehouse') {
         this.fields.Location.show();
         this.fields.Warehouse.hide();
+        this.fields.Warehouse.required = false;
+        this.fields.Warehouse.validator = undefined;
       }
     },
     insert: function insert() {
@@ -210,6 +212,8 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
         };
       } else {
         warehouseField.disable();
+        warehouseField.required = false;
+        warehouseField.validator = undefined;
         locationField.disable();
       }
       if (entry.Warehouse) {
@@ -349,7 +353,7 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
       this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
       var accountingField = this.fields.BackOfficeAccountingEntity;
       accountingField.where = 'BackOffice.Id eq "' + field.currentSelection.$key + '"';
-      var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+      var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
       if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
         var entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
         if (entry) {
@@ -629,7 +633,9 @@ define('crm/Integrations/BOE/Views/Quotes/Edit', ['module', 'exports', 'dojo/_ba
           emptyText: '',
           valueTextProperty: 'Description',
           view: 'quote_warehouse_list',
-          title: this.warehouseLocationText
+          title: this.warehouseLocationText,
+          required: true,
+          validator: _Validator2.default.exists
         }, {
           label: this.requestedByText,
           name: 'RequestedBy',

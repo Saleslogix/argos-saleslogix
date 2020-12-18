@@ -30,6 +30,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   quotesText: resource.quotesText,
   ordersText: resource.ordersText,
   opportunityRefreshPricingText: resource.opportunityRefreshPricingText,
+  warehouseText: resource.warehouseText,
 
   init: function init() {
   },
@@ -55,6 +56,20 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
 
+    am.registerCustomization('models/detail/querySelect', 'opportunity_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'Location/*',
+    });
+
+    am.registerCustomization('models/edit/querySelect', 'opportunity_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'Location/*',
+    });
+
     lang.extend(crm.Views.Opportunity.Detail, {
       _onAddQuoteClick: function _onAddQuoteClick() {
         const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService());
@@ -75,7 +90,11 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
               key: data.response.Result,
             });
           },
-          failure: () => {
+          failure: (xhr) => {
+            const response = JSON.parse(xhr.responseText);
+            if (response && response.length && response[0].message) {
+              alert(response[0].message); // eslint-disable-line
+            }
           },
         });
       },
@@ -99,7 +118,11 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
               key: data.response.Result,
             });
           },
-          failure: () => {
+          failure: (xhr) => {
+            const response = JSON.parse(xhr.responseText);
+            if (response && response.length && response[0].message) {
+              alert(response[0].message); // eslint-disable-line
+            }
           },
         });
       },
@@ -152,6 +175,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
       where: 'after',
       value: [{
         name: 'RefreshPricing',
+        property: 'Description',
         label: this.opportunityRefreshPricingText,
         iconClass: 'finance',
         action: 'opportunityRePrice',
@@ -164,7 +188,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           }
 
 
-          return boeSettings['Local CRM Pricing Opportunity'] !== 'True';
+          return boeSettings['Local CRM Pricing Opportunity'] === 'True';
         },
       }],
     });
@@ -198,6 +222,38 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           },
           view: 'opportunity_salesorders_related',
         }],
+      },
+    });
+
+    // Show location/warehouse name on detail
+    am.registerCustomization('detail', 'opportunity_detail', {
+      at: function at(row) {
+        return row.name === 'LeadSource.Description';
+      },
+      type: 'insert',
+      where: 'after',
+      value: {
+        label: this.warehouseText,
+        name: 'Location.Name',
+        property: 'Location.Name',
+      },
+    });
+
+    // Add warehouse to opportunity edit (SlxLocation)
+    am.registerCustomization('edit', 'opportunity_edit', {
+      at: function at(row) {
+        return row.name === 'CloseProbability';
+      },
+      type: 'insert',
+      where: 'after',
+      value: {
+        label: this.warehouseText,
+        name: 'Location',
+        property: 'Location',
+        textProperty: 'Name',
+        type: 'lookup',
+        view: 'locations_list',
+        where: "ErpStatus eq 'Open' and LocationType eq 'Warehouse'",
       },
     });
   },

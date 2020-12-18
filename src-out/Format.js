@@ -1,11 +1,9 @@
-define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'dojo/string', 'argos/Format', 'argos/I18n'], function (module, exports, _lang, _number, _string, _Format, _I18n) {
+define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'argos/Format', 'argos/I18n'], function (module, exports, _lang, _string, _Format, _I18n) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
 
   var _lang2 = _interopRequireDefault(_lang);
-
-  var _number2 = _interopRequireDefault(_number);
 
   var _string2 = _interopRequireDefault(_string);
 
@@ -19,25 +17,25 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'do
     };
   }
 
-  var f = ICRMCommonSDK.format; /* Copyright 2017 Infor
-                                 *
-                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                 * you may not use this file except in compliance with the License.
-                                 * You may obtain a copy of the License at
-                                 *
-                                 *    http://www.apache.org/licenses/LICENSE-2.0
-                                 *
-                                 * Unless required by applicable law or agreed to in writing, software
-                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                 * See the License for the specific language governing permissions and
-                                 * limitations under the License.
-                                 */
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
 
   /**
    * @module crm/Format
    */
-
+  var f = ICRMCommonSDK.format;
   var resource = (0, _I18n2.default)('crmFormat');
 
   /**
@@ -124,7 +122,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'do
     PicklistDataDisplayType: f.PicklistDataDisplayType,
     PicklistStorageType: f.PicklistStorageType,
     currency: function currency(_val) {
-      return f.currency(_val, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator, Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+      return f.currency(_val, Soho.Locale.currentLocale.data.numbers.decimal, Soho.Locale.currentLocale.data.numbers.group);
     },
     bigNumber: function bigNumber(val) {
       var numParse = typeof val !== 'number' ? parseFloat(val) : val;
@@ -139,20 +137,20 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'do
         // Billion
         numParse = numParse / 1000000000;
         results = _string2.default.substitute(resource.billionText, {
-          val: _number2.default.format(numParse, { places: 1 })
+          val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
         });
       } else if (absVal >= 1000000) {
         numParse = numParse / 1000000;
         results = _string2.default.substitute(resource.millionText, {
-          val: _number2.default.format(numParse, { places: 1 })
+          val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
         });
       } else if (absVal >= 1000) {
         numParse = numParse / 1000;
         results = _string2.default.substitute(resource.thousandText, {
-          val: _number2.default.format(numParse, { places: 1 })
+          val: Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 1 })
         });
       } else {
-        results = _number2.default.round(numParse, 2).toString();
+        results = Soho.Locale.formatNumber(numParse, { round: true, minimumFractionDigits: 0, maximumFractionDigits: 0 }).toString();
       }
 
       return results;
@@ -162,7 +160,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'do
       return moment(val).fromNow();
     },
     multiCurrency: function multiCurrency(_val, code) {
-      return f.multiCurrency(_val, code, Mobile.CultureInfo.numberFormat.currencyDecimalSeparator, Mobile.CultureInfo.numberFormat.currencyGroupSeparator);
+      return f.multiCurrency(_val, code, Soho.Locale.currentLocale.data.numbers.decimal, Soho.Locale.currentLocale.data.numbers.group);
     },
     nameLF: f.nameLF,
     mail: f.mail,
@@ -198,7 +196,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/number', 'do
      */
     resolveFirstLast: f.resolveFirstLast,
     fixedLocale: function fixedLocale(val, d) {
-      return f.fixedLocale(val, d, Mobile.CultureInfo.numberFormat.numberGroupSeparator, Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+      return f.fixedLocale(val, d, Soho.Locale.currentLocale.data.numbers.group, Soho.Locale.currentLocale.data.numbers.decimal);
     },
     time: function time(rawValue) {
       var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'days';

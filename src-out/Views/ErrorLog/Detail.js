@@ -52,6 +52,7 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
     errorText: resource.errorText,
     emailSubjectText: resource.emailSubjectText,
     copiedSuccessText: resource.copiedSuccessText,
+    emailText: resource.emailText,
 
     // Templates
     longDetailProperty: new Simplate(['<div class="row note-text-row" data-property="{%= $.name %}">', '<label>{%: $.label %}</label>', '<pre>', '{%= $.value %}', '</pre>', '</div>']),
@@ -73,6 +74,7 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
 
       tools.tbar.push({
         id: 'generateEmail',
+        title: this.emailText,
         action: 'constructReport',
         svg: 'mail'
       });

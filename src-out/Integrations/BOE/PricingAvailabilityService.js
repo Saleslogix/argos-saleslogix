@@ -292,7 +292,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
           itemEntityName: 'QuoteItem',
           entityName: 'Quote',
           serviceName: 'QuoteOrderLineTotal',
-          secondaryServiceName: 'QuoteTotal'
+          secondaryServiceName: 'QuoteOrderTotal'
         }
       };
       return this.executeRequest(options);

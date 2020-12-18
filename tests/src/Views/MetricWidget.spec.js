@@ -10,16 +10,21 @@ define('spec/Views/MetricWidget.spec', [
   feed,
   MetricWidget
 ) {
-  var data = json.parse(feed);
+
+  const data = JSON.parse(feed);
 
   describe('Mobile/SalesLogix/Views/MetricWidget', function() {
     it('should query a store when requesting data', function() {
       var store, widget;
       store = new MemoryStore({
-        data: data.$resources
+        data: data.$resources,
+        aggregate: 'sum',
+        formatter: 'bigNumber',
       });
       widget = new MetricWidget({
-        store: store
+        store: store,
+        aggregate: 'sum',
+        formatter: 'bigNumber',
       });
 
       spyOn(widget.store, 'query')
@@ -32,10 +37,14 @@ define('spec/Views/MetricWidget.spec', [
     describe('should render an itemTemplate when requesting data completes', function() {
       beforeEach(function(done) {
         this.store = new MemoryStore({
-          data: data.$resources
+          data: data.$resources,
+          aggregate: 'sum',
+          formatter: 'bigNumber',
         });
         this.widget = new MetricWidget({
-          store: this.store
+          store: this.store,
+          aggregate: 'sum',
+          formatter: 'bigNumber',
         });
 
         spyOn(this.widget.itemTemplate, 'apply')

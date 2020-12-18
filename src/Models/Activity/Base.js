@@ -21,6 +21,7 @@ import ACTIVITY_TYPE_ICON from './ActivityTypeIcon';
 import getResource from 'argos/I18n';
 
 const resource = getResource('activityModel');
+const attendeeResource = getResource('activityAttendeeModel');
 const accountResource = getResource('accountModel');
 const contactResource = getResource('contactModel');
 const oppResource = getResource('opportunityModel');
@@ -86,6 +87,12 @@ const __class = declare('crm.Models.Activity.Base', [_ModelBase], {
       type: 'ManyToOne',
       parentProperty: 'LeadId',
       relatedEntity: 'Lead',
+    }, {
+      name: 'ActivityAttendees',
+      displayName: attendeeResource.entityDisplayName,
+      type: 'OneToMany',
+      relatedEntity: 'ActivityAttendee',
+      relatedProperty: 'ActivityId',
     }]);
     return rel;
   },

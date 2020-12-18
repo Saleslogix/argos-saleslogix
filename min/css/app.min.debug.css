@@ -15,6 +15,10 @@
 #login .accordion-content {
   padding-left: 0px;
 }
+#login .login-button-container {
+  padding-right: 20px;
+  /* soho fix */
+}
 #right_drawer {
   min-width: 200px;
 }

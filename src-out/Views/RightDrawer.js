@@ -38,14 +38,7 @@ define('crm/Views/RightDrawer', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.connect(App, 'onRegistered', this._onRegistered);
     },
     initSoho: function initSoho() {
-      var _this = this;
-
       this.inherited(initSoho, arguments);
-      this.accordion.element.on('selected', function (evt, header) {
-        // Fix up the event target to the element with our data-action attribute.
-        evt.target = $('a', header).get(0);
-        _this._initiateActionFromEvent(evt);
-      });
     },
     setLayout: function setLayout(layout) {
       this.layout = layout;

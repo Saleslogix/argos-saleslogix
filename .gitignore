@@ -25,6 +25,7 @@ ipch/
 obj/
 [Dd]ebug*/
 [Rr]elease*/
+.env
 
 # tooling
 _ReSharper*/

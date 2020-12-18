@@ -1,4 +1,4 @@
-define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/declare', 'dojo/dom-geometry', 'dojo/_base/connect', '../../AttachmentManager', '../../Utility', 'dojo/has', 'argos/Detail', 'argos/_LegacySDataDetailMixin', 'argos/I18n', 'argos/ErrorManager'], function (module, exports, _declare, _domGeometry, _connect, _AttachmentManager, _Utility, _has, _Detail, _LegacySDataDetailMixin2, _I18n, _ErrorManager) {
+define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/declare', 'dojo/dom-geometry', '../../AttachmentManager', '../../Utility', 'dojo/has', 'argos/Detail', 'argos/_LegacySDataDetailMixin', 'argos/I18n', 'argos/ErrorManager'], function (module, exports, _declare, _domGeometry, _AttachmentManager, _Utility, _has, _Detail, _LegacySDataDetailMixin2, _I18n, _ErrorManager) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -6,8 +6,6 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
   var _declare2 = _interopRequireDefault(_declare);
 
   var _domGeometry2 = _interopRequireDefault(_domGeometry);
-
-  var _connect2 = _interopRequireDefault(_connect);
 
   var _AttachmentManager2 = _interopRequireDefault(_AttachmentManager);
 
@@ -29,22 +27,21 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
+  var resource = (0, _I18n2.default)('attachmentView'); /* Copyright 2017 Infor
+                                                         *
+                                                         * Licensed under the Apache License, Version 2.0 (the "License");
+                                                         * you may not use this file except in compliance with the License.
+                                                         * You may obtain a copy of the License at
+                                                         *
+                                                         *    http://www.apache.org/licenses/LICENSE-2.0
+                                                         *
+                                                         * Unless required by applicable law or agreed to in writing, software
+                                                         * distributed under the License is distributed on an "AS IS" BASIS,
+                                                         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                         * See the License for the specific language governing permissions and
+                                                         * limitations under the License.
+                                                         */
 
-  var resource = (0, _I18n2.default)('attachmentView');
   var dtFormatResource = (0, _I18n2.default)('attachmentViewDateTimeFormat');
 
   var __class = (0, _declare2.default)('crm.Views.Attachment.ViewAttachment', [_Detail2.default, _LegacySDataDetailMixin3.default], {
@@ -80,7 +77,7 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
     pdfCurrentPage: 0,
     pdfIsLoading: false,
     pdfScale: 1,
-    RENDER_DELAY: (0, _has2.default)('ios') < 8 ? 500 : 16 || 500, // Work around IOS7 orientation change issues
+    RENDER_DELAY: (0, _has2.default)('ios') < 8 ? 500 : 32 || 500, // Work around IOS7 orientation change issues
     notSupportedTemplate: new Simplate(['<h2>{%= $$.notSupportedText %}</h2>']),
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '{%! $.loadingTemplate %}', '<div class="panel-content" data-dojo-attach-point="contentNode"></div>', '<div class="attachment-viewer-content" data-dojo-attach-point="attachmentViewerNode"></div>', '</div>']),
     attachmentLoadingTemplate: new Simplate(['<div class="list-loading-indicator">{%= $.loadingText %}</div>']),
@@ -89,21 +86,19 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
     '<canvas id="pdfViewer">', '</canvas>', '</div>']),
     attachmentViewImageTemplate: new Simplate(['<div class="attachment-viewer-label" style="white-space:nowrap;">', '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>', '</div>', '<div class="attachment-viewer-area">', '<table>', '<tr valign="middle">', '<td id="imagePlaceholder" align="center">', '</td>', '</tr>', '</table>', '</div>']),
     attachmentViewNotSupportedTemplate: new Simplate(['<div class="attachment-viewer-label">', '<label>{%= $$.attachmentNotSupportedText %}</label>', '</div>', '<div class="attachment-viewer-not-supported">', '<p class="listview-heading"><span>{%: $.description %}&nbsp;</span></p>', '<p class="micro-text"><span>({%: crm.Format.date($.attachDate, (App.is24HourClock()) ? $$.attachmentDateFormatText24 : $$.attachmentDateFormatText) %})&nbsp;</span>', '<span>{%: crm.Format.fileSize($.fileSize) %} </span></p>', '<p class="micro-text"><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></p>', '{% if($.user) { %}', '<p class="micro-text"><span>{%: $.user.$descriptor  %}</span></p>', '{% } %}', '</div>']),
-
     downloadingTemplate: new Simplate(['<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>']),
+    renderPdf: function getRenderFunction() {
+      if (this.pdfDoc && !this.pdfIsLoading) {
+        this.pdfScale = 1;
+        this.renderPdfPage(this.pdfCurrentPage);
+      }
+    },
     onTransitionTo: function onTransitionTo() {
       var _this = this;
 
-      if (this._orientationHandle) {
-        return;
-      }
       var _renderFn = _Utility2.default.debounce(function () {
-        if (_this.pdfDoc && !_this.pdfIsLoading) {
-          _this.pdfScale = 1;
-          _this.renderPdfPage(_this.pdfCurrentPage);
-        }
+        return _this.renderPdf();
       }, this.RENDER_DELAY);
-      this._orientationHandle = _connect2.default.subscribe('/app/setOrientation', this, _renderFn);
       $(window).on('resize.attachment', _renderFn);
       $(window).on('applicationmenuclose.attachment', _renderFn);
       $(window).on('applicationmenuopen.attachment', _renderFn);
@@ -112,8 +107,6 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       $(window).off('resize.attachment');
       $(window).off('applicationmenuclose.attachment');
       $(window).off('applicationmenuopen.attachment');
-      _connect2.default.unsubscribe(this._orientationHandle);
-      this._orientationHandle = null;
     },
     show: function show(options) {
       this.inherited(show, arguments);
@@ -216,11 +209,11 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       var box = _domGeometry2.default.getMarginBox(this.domNode);
       this.pdfDoc.getPage(pageNumber).then(function (page) {
         var scale = _this2.pdfScale;
-        var viewport = page.getViewport(scale);
+        var viewport = page.getViewport({ scale: scale });
         var canvas = document.getElementById('pdfViewer');
         var context = canvas.getContext('2d');
         var desiredWidth = box.w;
-        viewport = page.getViewport(desiredWidth / viewport.width);
+        viewport = page.getViewport({ scale: desiredWidth / viewport.width });
         canvas.height = viewport.height < box.h ? box.h : viewport.height;
         canvas.width = viewport.width;
 
@@ -281,6 +274,7 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       var _this4 = this;
 
       var am = new _AttachmentManager2.default();
+      var CHROME_DATA_URI_LIMIT = 2097152;
       var description = void 0;
       var isFile = void 0;
       var fileType = void 0;
@@ -368,6 +362,10 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
 
               am.getAttachmentFile(_attachmentid, 'arraybuffer', function (responseInfo) {
                 var rData = _Utility2.default.base64ArrayBuffer(responseInfo.response);
+                if (rData.length >= CHROME_DATA_URI_LIMIT) {
+                  window.saveAs(new Blob([new Uint8Array(responseInfo.response, 0, responseInfo.response.length)]), responseInfo.fileName);
+                  return;
+                }
                 var dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
                 $(_tpl).addClass('display-none');
                 var iframe = document.getElementById('attachment-Iframe');

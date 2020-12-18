@@ -20,6 +20,8 @@ import LanguageService from 'argos/LanguageService';
  * @module crm/Bootstrap
  */
 export default function bootstrap({
+  serviceWorkerPath,
+  serviceWorkerRegistrationOptions,
   supportedLocales,
   defaultLocale,
   currentLocale,
@@ -34,6 +36,7 @@ export default function bootstrap({
   localeFiles,
   regionalFiles,
   isRegionMetric,
+  cacheFiles = [],
   rootElement,
 }) {
   function mapFiles(files, ctx, defaultCtx) {
@@ -157,6 +160,8 @@ export default function bootstrap({
             }
           }
           const instance = new Application(appConfig);
+          instance.serviceWorkerPath = serviceWorkerPath;
+          instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
           instance.context.localization = {
             localeContext: ctx,
             defaultLocaleContext: defaultCtx,
@@ -169,6 +174,7 @@ export default function bootstrap({
           instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
           instance.init(rootElement);
+          instance.registerCacheUrls(cacheFiles);
           instance.run();
           completed = true;
         });

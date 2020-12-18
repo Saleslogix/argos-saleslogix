@@ -206,9 +206,6 @@ const __class = declare('crm.Views.Contact.Detail', [Detail], {
         label: this.accountText,
         view: 'account_detail',
         key: 'Account.$key',
-        tpl: new Simplate([
-          '<span data-action="fooBar">foo: {%: $ %}</span>',
-        ]),
       }, {
         name: 'WorkPhone',
         property: 'WorkPhone',

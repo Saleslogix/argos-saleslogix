@@ -21,22 +21,26 @@ define('crm/Models/Activity/ActivityTypePicklists', ['exports'], function (expor
   var ActivityTypePicklists = exports.ActivityTypePicklists = {
     atAppointment: {
       Category: 'Meeting Category Codes',
-      Description: 'Meeting Regarding'
+      Description: 'Meeting Regarding',
+      Result: 'Meeting Result Codes'
     },
     atLiterature: {
       Description: 'Lit Request Regarding'
     },
     atPersonal: {
       Category: 'Meeting Category Codes',
-      Description: 'Personal Activity Regarding'
+      Description: 'Personal Activity Regarding',
+      Result: 'Personal Activity Result Codes'
     },
     atPhoneCall: {
       Category: 'Phone Call Category Codes',
-      Description: 'Phone Call Regarding'
+      Description: 'Phone Call Regarding',
+      Result: 'Phone Call Result Codes'
     },
     atToDo: {
       Category: 'To Do Category Codes',
-      Description: 'To Do Regarding'
+      Description: 'To Do Regarding',
+      Result: 'To Do Result Codes'
     },
     atEMail: {
       Category: 'E-mail Category Codes',

@@ -275,7 +275,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     }
 
     for (let i = 0; i < data.$resources.length; i++) {
-      this.queryTypeEl.options[i] = new Option(data.$resources[i].text, data.$resources[i].text, true, false);
+      this.queryTypeEl.options[i] = new Option(data.$resources[i].text, data.$resources[i].code, true, false);
       if (this.queryTypeEl.options[i].value === 'Customer') {
         this.queryTypeEl.options[i].selected = 'True';
       }

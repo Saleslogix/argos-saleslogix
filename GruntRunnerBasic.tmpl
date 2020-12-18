@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -8,10 +7,21 @@
   <% }); %>
 
   <% with (scripts) { %>
-    <% [].concat(polyfills, jasmine, vendor, helpers).forEach(function(script){ %>
+    <% [].concat(polyfills, jasmine, vendor, helpers, boot).forEach(function(script){ %>
     <script src="<%= script %>"></script>
     <% }) %>
   <% }; %>
+
+  <!-- Soho Configuration -->
+  <script type="application/javascript">
+    var SohoConfig = {
+      culturesPath: '../../argos-sdk/libraries/soho/js/cultures/',
+      minifyCultures: false,
+      personalize: {
+        noInit: true
+      }
+    };
+  </script>
 
   <!-- SData Client Library -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
@@ -21,13 +31,10 @@
   <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
   <!-- Deep Diff -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff.min.js"></script>
 
    <!-- PouchDB -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-6.3.4.js"></script>
-
-  <!-- Rx.js -->
-  <script src="../../argos-sdk/libraries/rxjs/rx.lite.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-7.1.1.js"></script>
 
   <!-- Babel -->
   <script type="text/javascript" src="../../argos-sdk/libraries/babel-polyfill/polyfill.js"></script>
@@ -35,14 +42,20 @@
   <!-- moment -->
   <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
 
+  <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
+  <script type="application/l20n">{}</script>
+
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
   <!-- jQuery -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/soho/js/jquery-3.4.1.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/soho/js/jquery-3.5.1.js"></script>
 
   <!-- SohoXi -->
   <script type="text/javascript" src="../../argos-sdk/libraries/soho/js/sohoxi.js"></script>
+
+  <!-- Redux -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/redux/redux.min.js"></script>
 
   <!-- ICRM Common, depends on moment -->
   <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
@@ -51,9 +64,6 @@
 
   <!-- page.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
-
-  <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
-  <script type="application/l20n">{}</script>
 
   <!-- Dojo -->
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true"></script>
@@ -88,11 +98,11 @@
   <script type="text/javascript">
   function buildContext() {
     var filePaths = {
-      '../localization/locales/crm': [
+      'localization/locales/crm': [
         'strings.l20n',
         'regional.l20n'
       ],
-      '../../../argos-sdk/localization/locales/argos': [
+      '../../argos-sdk/localization/locales/argos': [
         'strings.l20n',
         'regional.l20n'
       ]
@@ -116,24 +126,23 @@
     ctx.requestLocales(currentLocale);
     window.localeContext = ctx;
     window.defaultLocaleContext = ctx;
+    window.regionalContext = ctx;
     return ctx;
   }
   <% with (scripts) { %>
   var ctx = buildContext();
   ctx.ready(function() {
+    // Shim, sohoxi will use define.amd and require it.
+    define('jquery', function() {
+      return window.$;
+    });
     require([
       'spec/all'
     ]);
   });
 
-  // Shim, sohoxi will use define.amd and require it.
-  define('jquery', function() {
-    return window.$;
-  });
   require([
-    '<%= boot %>',
-    '<%= reporters[0] %>',
-    '<%= reporters[1] %>'
+    '<%= [].concat(scripts.reporters).join("','") %>'
   ]);
   <% }; %>
   </script>

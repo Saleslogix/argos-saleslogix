@@ -66,6 +66,8 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
     id: 'history_edit',
     fieldsForLeads: ['AccountName', 'Lead'],
     fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
+    // Fields that will get disabled when editing
+    restrictedFields: ['StartDate', 'IsLead', 'Account', 'AccountName', 'Contact', 'Opportunity', 'Ticket', 'Lead'],
     entityName: 'History',
     resourceKind: 'history',
     insertSecurity: null, // 'Entities/History/Add',
@@ -118,6 +120,33 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       } else {
         this.showFieldsForStandard();
       }
+    },
+    _setRestrictedFieldState: function _setRestrictedFieldState() {
+      var _this = this;
+
+      if (this.inserting) {
+        this.restrictedFields.forEach(function (f) {
+          return _this._enableField(_this.fields[f]);
+        });
+      } else {
+        this.restrictedFields.forEach(function (f) {
+          return _this._disableField(_this.fields[f]);
+        });
+      }
+    },
+    _disableField: function _disableField(field) {
+      if (!field) {
+        return;
+      }
+
+      field.disable();
+    },
+    _enableField: function _enableField(field) {
+      if (!field) {
+        return;
+      }
+
+      field.enable();
     },
     setOfflineNoteData: function setOfflineNoteData() {
       var entry = this.options && this.options.selectedEntry;
@@ -183,32 +212,32 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       }
     },
     showFieldsForLead: function showFieldsForLead() {
-      var _this = this;
-
-      this.fieldsForStandard.concat(this.fieldsForStandard).forEach(function (item) {
-        if (_this.fields[item]) {
-          _this.fields[item].hide();
-        }
-      }, this);
-
-      this.fieldsForLeads.forEach(function (item) {
-        if (_this.fields[item]) {
-          _this.fields[item].show();
-        }
-      }, this);
-    },
-    showFieldsForStandard: function showFieldsForStandard() {
       var _this2 = this;
 
-      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function (item) {
+      this.fieldsForStandard.concat(this.fieldsForStandard).forEach(function (item) {
         if (_this2.fields[item]) {
           _this2.fields[item].hide();
         }
       }, this);
 
-      this.fieldsForStandard.forEach(function (item) {
+      this.fieldsForLeads.forEach(function (item) {
         if (_this2.fields[item]) {
           _this2.fields[item].show();
+        }
+      }, this);
+    },
+    showFieldsForStandard: function showFieldsForStandard() {
+      var _this3 = this;
+
+      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function (item) {
+        if (_this3.fields[item]) {
+          _this3.fields[item].hide();
+        }
+      }, this);
+
+      this.fieldsForStandard.forEach(function (item) {
+        if (_this3.fields[item]) {
+          _this3.fields[item].show();
         }
       }, this);
     },
@@ -280,8 +309,10 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       this.fields.AccountName.setValue(entry.Company);
 
       var isLeadField = this.fields.IsLead;
-      isLeadField.setValue(context.resourceKind === 'leads');
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(context.resourceKind === 'leads');
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
       var opportunityField = this.fields.Opportunity;
@@ -390,8 +421,11 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       this.inherited(setValues, arguments);
       var isLeadField = this.fields.IsLead;
       if (this.isInLeadContext()) {
-        isLeadField.setValue(true);
-        this.onIsLeadChange(true, isLeadField);
+        if (isLeadField) {
+          isLeadField.setValue(true);
+          this.onIsLeadChange(true, isLeadField);
+        }
+
         var field = this.fields.Lead;
         var value = _Utility2.default.getValue(values, field.applyTo, {});
         field.setValue(value, !this.inserting);
@@ -399,7 +433,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         if (leadCompany) {
           this.fields.AccountName.setValue(leadCompany);
         }
-      } else {
+      } else if (isLeadField) {
         isLeadField.setValue(false);
       }
 
@@ -426,6 +460,8 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       if (denyEdit) {
         this.disableFields();
       }
+
+      this._setRestrictedFieldState();
     },
     disableFields: function disableFields(predicate) {
       for (var name in this.fields) {
@@ -471,7 +507,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
         values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
       }
 
-      if (this.fields.IsLead.getValue() === false) {
+      if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
         values.LeadId = null;
         values.LeadName = null;
       }
@@ -612,8 +648,7 @@ define('crm/Views/History/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
           applyTo: this._lookupApplyTo,
           valueKeyProperty: 'LeadId',
           valueTextProperty: 'LeadName',
-          view: 'lead_related',
-          validator: _Validator2.default.exists
+          view: 'lead_related'
         }, {
           label: this.companyText,
           name: 'AccountName',

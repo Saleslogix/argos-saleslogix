@@ -118,6 +118,10 @@
   followUpText: "follow-up"
   followUpTitleText: "Follow-up type"
   leaderText: "leader"
+  isLeadText: "for lead"
+  yesText: "YES"
+  noText: "NO"
+  phoneText: "phone"
   longNotesText: "notes"
   longNotesTitleText: "Notes"
   otherInfoText: "Other Info"
@@ -175,6 +179,8 @@
   confirmEditRecurrenceText: "Edit all Occurrences? Cancel to edit single Occurrence."
   relatedAttachmentText: "Attachments"
   relatedAttachmentTitleText: "Activity Attachments"
+  relatedAttendeeText: "Attendees"
+  relatedAttendeeTitleText: "Activity Attendees"
   relatedItemsText: "Related Items"
   phoneText: "phone"
   moreDetailsText: "More Details"
@@ -234,6 +240,77 @@
   fourHoursText: "4 hours"
   dayText: "1 day"
   updateUserActErrorText: "An error occurred updating user activities."
+>
+
+<activityAttendeeList ""
+  titleText: "Activity Attendees"
+  callPhoneActionText: "Call Phone"
+  deleteText: "Delete"
+  confirmDeleteText: "Are you sure you want to remove this attendee?"
+>
+
+<activityAssociationList ""
+  titleText: "Activity Associations"
+  primaryText: "Primary?"
+  deleteText: "Delete"
+  confirmDeleteText: "Are you sure you want to remove this association?"
+>
+
+<historyAssociationList ""
+  titleText: "History Associations"
+  primaryText: "Primary?"
+>
+
+<historyAttendeeList ""
+  titleText: "History Attendees"
+  callPhoneActionText: "Call Phone"
+>
+
+<activityAttendeeDetail ""
+  titleText: "Activity Attendee"
+  entityText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+>
+
+<historyAttendeeDetail ""
+  titleText: "History Attendee"
+  entityText: "History Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+>
+
+<activityAttendeeEdit ""
+  titleText: "Activity Attendee"
+  nameText: "name"
+  accountText: "account"
+  typeText: "type"
+  primaryText: "primary"
+  roleText: "role"
+  phoneText: "phone"
+  emailText: "email"
+  timeZoneText: "time zone"
+  attendeeText: "attendee"
+>
+
+<activityAttendeeTypesList ""
+  titleText: "Add Attendee"
+  contactText: "Contact"
+  leadText: "Lead"
+  cancelText: "Cancel"
+  addText: "Add"
 >
 
 <activityList ""
@@ -381,9 +458,8 @@
   eventHeaderText: "Events"
   countMoreText: "View More"
   toggleCollapseText: "toggle collapse"
-  withFromText: "Attendee: ${contactName} from ${accountName}"
-  withText: "Attendee(s): ${object}"
-  unspecifiedText: "unspecified"
+  withText: "Attendee: ${object}"
+  unspecifiedText: "none"
   forText: "for ${reason}"
   dayText: "Day"
   weekText: "Week"
@@ -531,6 +607,7 @@
   errorText: "error"
   emailSubjectText: "Error received in Infor CRM Mobile Client"
   copiedSuccessText: "Copied to clipboard"
+  emailText: "Email"
 >
 
 <errorLogList ""
@@ -591,6 +668,7 @@
   ticketNumberText: "ticket"
   moreDetailsText: "More Details"
   relatedItemsText: "Related Items"
+  relatedAttendeeText: "Attendees"
   relatedAttachmentText: "Attachments"
   relatedAttachmentTitleText: "History Attachments"
   modifiedText: "modified"
@@ -886,6 +964,7 @@
   activitiesText: "Activities"
   notesText: "Notes"
   scheduleText: "Schedule"
+  cancelText: "Cancel"
 >
 
 <opportunityProductDetail ""
@@ -1200,15 +1279,16 @@
   offlineText: "Offline"
   connectionText: "Connection: ${connectionStatus}"
   aboutText: "About"
+  currentUserText: "Current User :"
 >
 
 <login ""
   logOnText: "Sign in"
   passText: "Password"
-  urlText: "SData Endpoint"
   rememberText: "Remember me"
   titleText: "Sign in"
   userText: "User ID"
+  passwordExpiredText: "Password has expired. Please use the web client to change your password."
   invalidUserText: "The user name or password is invalid."
   missingUserText: "The user record was not found."
   requestAbortedText: "The request was aborted."
@@ -1289,6 +1369,8 @@
   pleaseWaitText: "Please wait."
   offlineText: "Your internet connection is no longer working."
   onlineText: "Your connection is working."
+  fileCacheText: "Application is now ready for offline use"
+  fileCacheTitle: "Offline Caching"
   connectionToastTitleText: "Connection Status"
   offlineOptionsText: "Offline Options"
   offlineInitDataText: "Initializing Offline Data"
@@ -1309,6 +1391,12 @@
   customSettingsText: "Custom Mobile Settings"
   picklistsText: "Picklists"
   retrievingPicklistsText: "Retrieving Picklists"
+>
+
+<activityAssociationModule ""
+  relatedAssociationText: "Associations"
+  relatedAssociationTitleText: "Activity Associations"
+  relatedHistoryAssociationTitleText: "History Associations"
 >
 
 <defaultMetrics ""
@@ -1411,6 +1499,26 @@
 <leadModel ""
   entityDisplayName: "Lead"
   entityDisplayNamePlural : "Leads"
+>
+
+<activityAttendeeModel ""
+  entityDisplayName: "Activity Attendee"
+  entityDisplayNamePlural : "Activity Attendees"
+>
+
+<activityAssociationModel ""
+  entityDisplayName: "Activity Association"
+  entityDisplayNamePlural : "Activity Associations"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "History Association"
+  entityDisplayNamePlural : "History Associations"
+>
+
+<historyAttendeeModel ""
+  entityDisplayName: "History Attendee"
+  entityDisplayNamePlural : "History Attendees"
 >
 
 <activityModel ""

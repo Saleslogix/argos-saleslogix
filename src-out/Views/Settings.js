@@ -106,18 +106,22 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
       }
     },
     clearLocalStorage: function clearLocalStorage() {
+      var _this = this;
+
       if (confirm(this.confirmClearLocalStorageMessage)) {
         // eslint-disable-line
         if (window.localStorage) {
           window.localStorage.clear();
         }
 
-        _connect2.default.publish('/app/refresh', [{
-          resourceKind: 'localStorage'
-        }]);
+        App.clearServiceWorkerCaches().then(function () {
+          _connect2.default.publish('/app/refresh', [{
+            resourceKind: 'localStorage'
+          }]);
 
-        alert(this.localStorageClearedText); // eslint-disable-line
-        window.location.reload(); // reloaded because of the clock setting
+          alert(_this.localStorageClearedText); // eslint-disable-line
+          window.location.reload(); // reloaded because of the clock setting
+        });
       }
     },
     clearAuthentication: function clearAuthentication() {

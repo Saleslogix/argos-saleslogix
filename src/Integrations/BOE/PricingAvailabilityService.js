@@ -275,7 +275,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
         itemEntityName: 'QuoteItem',
         entityName: 'Quote',
         serviceName: 'QuoteOrderLineTotal',
-        secondaryServiceName: 'QuoteTotal',
+        secondaryServiceName: 'QuoteOrderTotal',
       },
     };
     return this.executeRequest(options);

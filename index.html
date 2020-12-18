@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="gtie9 modern" manifest="manifest.appcache">
+<html lang="en" class="gtie9 modern">
 <!--<![endif]-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -79,6 +79,8 @@
     <!-- Soho Configuration -->
     <script type="application/javascript">
       var SohoConfig = {
+        culturesPath: 'content/javascript/cultures/',
+        minifyCultures: true,
         personalize: {
           noInit: true
         }
@@ -118,12 +120,12 @@
   </head>
 
   <body>
+    <noscript>
+      <p>JavaScript is required for this application.</p>
+    </noscript>
+
     <div id="rootNode"></div>
     <script type="text/javascript">
-
-      // set path for soho cultures
-      Soho.Locale.culturesPath = 'content/javascript/cultures/';
-
       var language, regionLocale;
       if (window.localStorage) {
         language = window.localStorage.getItem('language');

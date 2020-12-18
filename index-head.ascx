@@ -71,6 +71,8 @@
 <!-- Soho Configuration -->
 <script type="application/javascript">
     var SohoConfig = {
+      culturesPath: 'content/javascript/cultures/',
+      minifyCultures: true,
       personalize: {
         noInit: true
       }

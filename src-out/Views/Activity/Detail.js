@@ -89,6 +89,8 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
     confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
     relatedAttachmentText: resource.relatedAttachmentText,
     relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+    relatedAttendeeText: resource.relatedAttendeeText,
+    relatedAttendeeTitleText: resource.relatedAttendeeTitleText,
     relatedItemsText: resource.relatedItemsText,
     phoneText: resource.phoneText,
     entityText: resource.entityText,
@@ -315,7 +317,14 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
         }, {
           name: 'ContactName',
           property: 'ContactName',
-          exclude: this.isActivityForLead.bind(this),
+          include: function includeContactName(entry) {
+            // Only show contact if we have a different lead and contact name
+            if (entry.ContactName === entry.LeadName) {
+              return false;
+            }
+
+            return true;
+          },
           label: this.contactText,
           view: 'contact_detail',
           key: 'ContactId',
@@ -442,6 +451,12 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
         list: true,
         name: 'RelatedItemsSection',
         children: [{
+          name: 'AttendeeRelated',
+          label: this.relatedAttendeeText,
+          where: this.formatRelatedQuery.bindDelegate(this, 'Activity.Id eq "${0}"', 'activityId'), // must be lower case because of feed
+          view: 'activity_attendee_related',
+          title: this.relatedAttendeeTitleText
+        }, {
           name: 'AttachmentRelated',
           label: this.relatedAttachmentText,
           where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'), // must be lower case because of feed

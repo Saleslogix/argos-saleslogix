@@ -7,12 +7,14 @@
  */
 define('configuration/production.default', [
   'crm/ApplicationModule',
+  'crm/Integrations/ActivityAssociations/ApplicationModule',
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
-], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
+], function cb(ApplicationModule, ActivityAssociationsModule, BOEApplicationModule, ContourApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
+      new ActivityAssociationsModule(),
       new BOEApplicationModule({
         enableDashboards: true,
       }),
@@ -35,12 +37,6 @@ define('configuration/production.default', [
         json: true,
       },
     },
-    /**
-     * @property {Boolean} enableUpdateNotification
-     * Turn on to notify users the mobile application has been updated. Uses HTML5 applilcation manifest update events to trigger.
-     * The cache manifest the client gets from the server is kept in memory cache and is lost when the application pool resets, so users could potentially see that there is an update even though there is not.
-     */
-    enableUpdateNotification: true,
 
     /**
      * @property {Boolean} enableMultiCurrency
@@ -80,6 +76,13 @@ define('configuration/production.default', [
     enableOfflineSupport: false,
 
     /**
+     * @property {Boolean} enableServiceWorker
+     * Enables use of a web service worker to cache offline files. This is a replacement for the old cache manifest.
+     * If offline support is true, this setting will be ignored and a service worker will be used.
+     */
+    enableServiceWorker: true,
+
+    /**
      * @property {Boolean} enableMingle
      * Enables mingle SSO support
      */
@@ -114,6 +117,18 @@ define('configuration/production.default', [
      * @property enableRememberMe
      * Turn on/off the UI for "Remember Me" on the login view.
      */
-    enableRememberMe: true
+    enableRememberMe: true,
+
+    /**
+     * @property speedSearch
+     * Speedsearch service call settings
+     */
+    speedSearch: {
+      includeStemming: true,
+      includePhonic: true,
+      includeThesaurus: false,
+      useFrequentFilter: false,
+      searchType: 1,
+    }
   };
 });

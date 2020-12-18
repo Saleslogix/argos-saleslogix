@@ -82,6 +82,8 @@
     <!-- Soho Configuration -->
     <script type="application/javascript">
       var SohoConfig = {
+        culturesPath: 'content/javascript/cultures/',
+        minifyCultures: true,
         personalize: {
           noInit: true
         }
@@ -137,8 +139,6 @@
   <div id="rootNode"></div>
 <script type="text/javascript">
     var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Español (internacional)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語 (日本)","nl":"Nederlands (Nederland)","pt-BR":"Português (Brasil)","ru":"Русский (Россия)","th":"ไทย (ประเทศไทย)","zh-CN":"简体中文","zh-TW":"繁體中文"};
-    // set path for soho cultures
-    Soho.Locale.culturesPath = 'content/javascript/cultures/';
     var supportedLocales = [
             'en',
             'en-GB',

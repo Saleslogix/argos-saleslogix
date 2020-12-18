@@ -37,6 +37,7 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
    */
 
   var resource = (0, _I18n2.default)('activityModel');
+  var attendeeResource = (0, _I18n2.default)('activityAttendeeModel');
   var accountResource = (0, _I18n2.default)('accountModel');
   var contactResource = (0, _I18n2.default)('contactModel');
   var oppResource = (0, _I18n2.default)('opportunityModel');
@@ -102,6 +103,12 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
         type: 'ManyToOne',
         parentProperty: 'LeadId',
         relatedEntity: 'Lead'
+      }, {
+        name: 'ActivityAttendees',
+        displayName: attendeeResource.entityDisplayName,
+        type: 'OneToMany',
+        relatedEntity: 'ActivityAttendee',
+        relatedProperty: 'ActivityId'
       }]);
       return rel;
     },

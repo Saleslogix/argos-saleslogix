@@ -365,7 +365,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
   onLeadChange: function onLeadChange(value, field) {
     const selection = field.getSelection();
 
-    if (selection && this.insert) {
+    if (selection && this.options && this.options.insert) {
       this.fields.AccountName.setValue(utility.getValue(selection, 'Company'));
     }
 
@@ -406,7 +406,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
         fields[f].dependsOn = 'Account';
         fields[f].where = `Account.Id eq "${value.AccountId || value.key}"`;
 
-        if (fields[f].currentSelection &&
+        if (fields[f].currentSelection && fields[f].currentSelection.Account &&
           fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
           fields[f].setValue(false);
         }
@@ -770,8 +770,10 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
     this.fields.AccountName.setValue(entry.Company);
 
     const isLeadField = this.fields.IsLead;
-    isLeadField.setValue(context.resourceKind === 'leads');
-    this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    if (isLeadField) {
+      isLeadField.setValue(context.resourceKind === 'leads');
+      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    }
 
     if (entry.WorkPhone) {
       const phoneField = this.fields.PhoneNumber;
@@ -813,8 +815,11 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
 
     if (this.isInLeadContext()) {
       const isLeadField = this.fields.IsLead;
-      isLeadField.setValue(true);
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(true);
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
+
       this.fields.Lead.setValue(values, true);
       this.fields.AccountName.setValue(values.AccountName);
     }
@@ -836,6 +841,12 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
         return (/^Alarm$/)
           .test(f.name);
       });
+    }
+
+    if (this.options && this.options.activityType === 'atPersonal') {
+      this.fields.Category.disable();
+    } else {
+      this.fields.Category.enable();
     }
 
     this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
@@ -897,7 +908,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], {
       values.AlarmTime = alarmTime;
     }
 
-    if (this.fields.IsLead.getValue() === false) {
+    if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
       values.LeadId = null;
       values.LeadName = null;
     }

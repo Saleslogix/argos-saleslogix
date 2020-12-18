@@ -29,6 +29,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   offlineText: resource.offlineText,
   idProperty: 'id',
   offlineDoc: null,
+  enableDetailHeader: true,
   detailHeaderTemplate: new Simplate([
     '<div class="detail-header">',
     '{%: $.value %}',
@@ -284,10 +285,24 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     view = this.app.getView(viewId);
     return view;
   },
+
   hasAction: function hasAction(actionName) {
-    return typeof this._entityView[actionName] === 'function';
+    const currentHasAction = this.inherited(hasAction, arguments);
+    return currentHasAction || typeof this._entityView[actionName] === 'function';
   },
   invokeAction: function invokeAction(actionName, parameters, evt, el) {
+    // A list of data-actions for the offline detail view (not the _entityView)
+    // Note: If any data-actions are added in the templates above, add them here as well!
+    const currentActions = [
+      'activateRelatedList',
+    ];
+
+    // Apply the current view actions in our current context
+    if (currentActions.includes(actionName)) {
+      return this.inherited(invokeAction, arguments);
+    }
+
+    // Switch context to the _entityView, so data-actions in those views will have the correct "this"
     return this._entityView[actionName].apply(this._entityView, [parameters, evt, el]);
   },
 });

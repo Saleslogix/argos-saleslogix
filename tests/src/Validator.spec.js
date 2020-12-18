@@ -145,11 +145,8 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'], function(Validato
       });
 
       it('should defualt to 2 decimal digits', function() {
-        var original = Mobile.CultureInfo.numberFormat.currencyDecimalDigts;
-        Mobile.CultureInfo.numberFormat.currencyDecimalDigits = false;
         expect(Validator.isCurrency.fn('10.40'))
           .toEqual(false);
-        Mobile.CultureInfo.numberFormat.currencyDecimalDigts = original;
       });
     });
 

@@ -36,6 +36,7 @@ const __class = declare('crm.Models.Lead.SData', [Base, _SDataModelBase], {
         'TollFree',
         'Title',
         'ModifyDate',
+        'Address/TimeZone',
       ],
     }, {
       name: 'detail',

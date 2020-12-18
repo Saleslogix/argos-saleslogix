@@ -48,6 +48,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   offlineText: resource.offlineText,
   connectionText: resource.connectionText,
   aboutText: resource.aboutText,
+  currentUserText: resource.currentUserText,
 
   // View Properties
   id: 'left_drawer',
@@ -65,11 +66,6 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
 
   initSoho: function initSoho() {
     this.inherited(initSoho, arguments);
-    this.accordion.element.on('selected', (evt, header) => {
-      // Fix up the event target to the element with our data-action attribute.
-      evt.target = $('a', header).get(0);
-      this._initiateActionFromEvent(evt);
-    });
   },
   shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
     const menu = App.applicationmenu;
@@ -241,6 +237,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
     $('body').about({
       appName: 'Infor CRM',
       version: App.getVersionInfo(),
+      content: `<p>${this.currentUserText} ${App.context.user.$descriptor}</p>`,
     });
   },
   createStore: function createStore() {

@@ -17,6 +17,8 @@ export default {
   ACCOUNT: 'Account',
   AUTHENTICATION: 'Authentication',
   ACTIVITY: 'Activity',
+  ACTIVITYATTENDEE: 'ActivityAttendee',
+  HISTORYATTENDEE: 'HistoryAttendee',
   CONTACT: 'Contact',
   INTEGRATION: 'Integration',
   LEAD: 'Lead',
