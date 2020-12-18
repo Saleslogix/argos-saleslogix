@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <BundleManifest id="15636bd9-eb3f-4686-bdc1-617c440c9035">
   <bundleProperties>
-    <name>ICRM Mobile v4.1.0 Action Items</name>
+    <name>ICRM Mobile v4.3.0 Action Items</name>
     <description><![CDATA[]]></description>
     <address><![CDATA[]]></address>
     <company>Infor</company>
     <copyright><![CDATA[]]></copyright>
     <majorVersion>4</majorVersion>
-    <minorVersion>1</minorVersion>
+    <minorVersion>3</minorVersion>
     <revision>0</revision>
     <build>1</build>
     <autoIncrement>false</autoIncrement>
@@ -21,7 +21,7 @@
         <ItemId>15636bd9-eb3f-4686-bdc1-617c440c9035</ItemId>
         <Url>\</Url>
         <BundleItemType>Container</BundleItemType>
-        <Caption>ICRM Mobile v4.1.0 Action Items</Caption>
+        <Caption>ICRM Mobile v4.3.0 Action Items</Caption>
       </BundleManifestItem>
     </bundleItem>
   </bundleItemHierarchy>
@@ -45,7 +45,7 @@
             <Description>EnableGroups</Description>
             <DataType>True / False</DataType>
             <DataValue>True</DataValue>
-            <VersionNumber>8.4</VersionNumber>
+            <VersionNumber>8.5</VersionNumber>
             <Id>ad347f51-747e-429d-bcee-bb55b6655385</Id>
             <DataKey>MobileEnableGroups</DataKey>
           </AddCustomSettingAction>
