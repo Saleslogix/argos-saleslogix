@@ -64,7 +64,7 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     accountTypeText: resource.accountTypeText,
 
     // Templates
-    itemTemplate: new Simplate(['<p class="listview-heading">{%: $.AccountName %}</p>', '<p class="micro-text">{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</p>', '<p class="micro-text">', '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}', '</p>', '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</p>', '{% if ($.MainPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
+    itemTemplate: new Simplate(['<p class="listview-heading">{%: $.AccountName %}</p>', '<p class="micro-text">{%: this.formatDecimal($.Distance) %} {%: this.distanceText() %}</p>', '<p class="micro-text">', '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}', '</p>', '<p class="micro-text">{%: $.AccountManagerLF ? $.AccountManagerLF : "" %} | {%: $.OwnerDescription %}</p>', '{% if ($.MainPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
     '</p>', '{% } %}']),
     itemRowContentTemplate: new Simplate(['<div id="top_item_indicators" class="list-item-indicator-content"></div>', '<div class="list-item-content">{%! $$.itemTemplate %}</div>']),
 
@@ -94,6 +94,8 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     detailView: 'account_detail',
     itemIconClass: 'spreadsheet', // todo: replace with appropriate icon
     id: 'pxSearch_Accounts',
+    idProperty: 'AccountId',
+    labelProperty: 'AccountName',
     security: 'Contour/Map/Account',
     entityName: 'Account',
     allowSelection: true,
@@ -114,13 +116,19 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       var request = new Sage.SData.Client.SDataBaseRequest(this.getService());
       var pageSize = this.pageSize;
       var startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
-      request.uri.setPathSegment(0, 'slx');
-      request.uri.setPathSegment(1, 'dynamic');
+      request.uri.setPathSegment(0, '$app');
+      request.uri.setPathSegment(1, 'mashups');
       request.uri.setPathSegment(2, '-');
-      request.uri.setPathSegment(3, 'accounts');
+      request.uri.setPathSegment(3, 'mashups(\'GetAccountsByGeocode\')');
+      request.uri.setPathSegment(4, '$queries');
+      request.uri.setPathSegment(5, 'execute');
+      request.uri.setQueryArg('_resultName', 'GetAccountsByGeocodeMashup');
+      request.uri.setQueryArg('_Lat', this.lat);
+      request.uri.setQueryArg('_Lon', this.lon);
+      request.uri.setQueryArg('_Distance', this.maxDistance);
+      request.uri.setQueryArg('_AccountType', this.acctType ? this.acctType : 'Customer');
+      request.uri.setQueryArg('_SubType', 'All');
       request.uri.setQueryArg('format', 'JSON');
-      request.uri.setQueryArg('select', 'AccountName,Industry,Type,SubType,AccountManager/UserInfo/UserName,Address/GeocodeLatitude,Address/GeocodeLongitude,Owner/OwnerDescription,WebAddress,MainPhone,Fax');
-      request.uri.setQueryArg('where', 'Type eq "' + (this.acctType ? this.acctType : 'Customer') + '" and ' + this._requestDistanceCalc());
       request.uri.setStartIndex(startIndex);
       request.uri.setCount(pageSize);
       return request;
@@ -150,18 +158,6 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     },
     // custom request data success method to insert our "me" at the front
     onRequestDataSuccess: function onRequestDataSuccess(feed) {
-      var feedResources = feed.$resources;
-      if (feedResources) {
-        for (var i = 0; i < feed.$resources.length; i++) {
-          var entry = feed.$resources[i];
-          entry.Distance = this.distanceCalc(entry.Address.GeocodeLatitude, entry.Address.GeocodeLongitude);
-        }
-
-        // Sort by distance ASC
-        feed.$resources.sort(function (a, b) {
-          return a.Distance > b.Distance ? 1 : -1;
-        });
-      }
       this.processFeed(feed);
       $(this.domNode).removeClass('list-loading');
     },
