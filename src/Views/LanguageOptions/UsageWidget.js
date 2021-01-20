@@ -59,12 +59,26 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     this.initUI(language || 'en', region || 'en');
   },
   initUI: function initUI(lang, region) {
-    const locales = [];
-    for (const key in window.languages) {
-      if (window.languages.hasOwnProperty(key)) {
-        locales.push({ value: key, text: window.languages[key], key });
-      }
-    }
+    const dropDownMap = (key) => {
+      return {
+        value: key,
+        text: window.languages[key],
+        key,
+      };
+    };
+
+    const locales = Object.keys(window.languages)
+      .filter((key) => {
+        return window.localeContext.supportedLocales.indexOf(key) > -1;
+      })
+      .map(dropDownMap);
+
+    const regions = Object.keys(window.languages)
+      .filter((key) => {
+        return window.regionalContext.supportedLocales.indexOf(key) > -1;
+      })
+      .map(dropDownMap);
+
     if (!this._languageDropdown) {
       this._languageDropdown = new Dropdown({
         id: 'language-dropdown',
@@ -92,7 +106,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
         label: this.regionText,
       });
       this._regionDropdown.createList({
-        items: locales,
+        items: regions,
       });
       $(this._regionThanNode).append(this._regionDropdown.domNode);
       this._regionDropdown.setValue(region);
@@ -115,7 +129,7 @@ const __class = declare('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWi
     if (this._languageDropdown) {
       this._languageDropdown.destroy();
     }
-    this.inherited(arguments);
+    this.inherited(destroy, arguments);
   },
   onSave: function onSave() {
     const language = this._languageDropdown.getValue();

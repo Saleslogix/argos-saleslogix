@@ -55,7 +55,7 @@
   <link href="content/images/apple-touch-startup-image-320x480.png" media="(device-width: 320px) and (device-height: 480px)
              and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
 
-  <link rel="stylesheet" id="sohoxi-stylesheet" href="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/css/light-theme.css">
+  <link rel="stylesheet" id="sohoxi-stylesheet" href="../../argos-sdk/libraries/soho/css/theme-soho-light.css">
 
   <!-- less files -->
   <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/crm.less" />
@@ -81,6 +81,17 @@
 
   <script type="text/javascript" src="../../argos-sdk/libraries/less/less.js"></script>
 
+  <!-- Soho Configuration -->
+  <script type="application/javascript">
+    var SohoConfig = {
+      culturesPath: '../../argos-sdk/libraries/soho/js/cultures/',
+      minifyCultures: false,
+      personalize: {
+        noInit: true
+      }
+    };
+  </script>
+
   <!-- SData Client Library -->
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
   <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
@@ -92,10 +103,7 @@
   <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
 
   <!-- Deep Diff -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
-
-  <!-- Rx.js -->
-  <script src="../../argos-sdk/libraries/rxjs/rx.lite.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff.min.js"></script>
 
   <!-- Page.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
@@ -107,25 +115,28 @@
   <script type="text/javascript" src="../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
 
   <!-- PouchDB -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/pouchdb/pouchdb-6.3.4.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/pouchdb/pouchdb-7.1.1.js"></script>
 
   <!-- L20N.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/l20n/l20n.js"></script>
 
   <!-- jQuery -->
-  <script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/jquery-3.1.1.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/soho/js/jquery-3.5.1.js"></script>
 
   <!-- SohoXi -->
-  <script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/sohoxi.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/soho/js/sohoxi.js"></script>
 
   <!-- Chart.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/chartjs/Chart.min.js"></script>
 
   <!-- Redux -->
-  <script type="text/javascript" src="../../argos-sdk/libraries/redux/redux.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/redux/redux.min.js"></script>
 
   <!-- PDF.js -->
   <script type="text/javascript" src="../../argos-sdk/libraries/pdfjs/pdf.min.js"></script>
+
+  <!-- FileSaver -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/FileSaver/FileSaver.js"></script>
 
   <!-- ICRM Common, depends on moment -->
   <script type="text/javascript" src="../../argos-sdk/libraries/icrm/common.bundle.js"></script>
@@ -148,6 +159,7 @@
           locale: language ||  'en',
           extraLocale: [regionLocale || 'en-us']
       };
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = "../../argos-sdk/libraries/pdfjs/pdf.worker.min.js";
   </script>
   <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js"></script>
   <script type="text/javascript">
@@ -184,12 +196,13 @@
 </head>
 
 <body>
+
+  <noscript>
+    <p>JavaScript is required for this application.</p>
+  </noscript>
+
   <div id="rootNode"></div>
   <script type="text/javascript">
-
-    // set path for soho cultures
-    window.Locale.culturesPath = 'https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/cultures/';
-
     var languages = {"de":"Deutsch (Deutschland)","en":"English (United States)","en-GB":"English (United Kingdom)","es":"Spanish","es-ES":"Español (España)","fr":"français (France)","it":"italiano (Italia)","ja":"日本語","nl":"Nederlands","pt":"Inglês (Estados Unidos)","pt-BR":"Português (Brasil)","ru":"русский","th":"ไทย","zh-CN":"文中(简体)","zh-TW":"中文 (繁體)"};
 
     var supportedLocales = [
@@ -220,6 +233,8 @@
       });
       require(['crm/polyfills/index', 'crm/Bootstrap'], function(polyfills, bootstrap) {
         bootstrap({
+          serviceWorkerPath: './serviceworker.js',
+          serviceWorkerRegistrationOptions: null,
           supportedLocales: supportedLocales,
           defaultLocale: defaultLocale,
           currentLocale: currentLocale,
@@ -248,6 +263,8 @@
             './localization/locales/crm/en/regional.l20n',
             './localization/locales/icboe/en/regional.l20n',
             '../../argos-sdk/localization/locales/argos/en/regional.l20n',
+          ],
+          cacheFiles: [
           ],
           rootElement: document.getElementById('rootNode')
         });

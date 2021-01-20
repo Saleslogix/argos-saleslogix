@@ -20,19 +20,11 @@ import SpeedSearchWidget from '../SpeedSearchWidget';
 import List from 'argos/List';
 import _LegacySDataListMixin from 'argos/_LegacySDataListMixin';
 import _SpeedSearchRightDrawerListMixin from './_SpeedSearchRightDrawerListMixin';
+import { setSearchTerm } from '../actions/speedsearch';
 import getResource from 'argos/I18n';
-
 
 const resource = getResource('speedSearchList');
 
-/**
- * @class crm.Views.SpeedSearchList
- *
- *
- * @extends argos.List
- * @mixins crm.Views._SpeedSearchRightDrawerListMixin
- *
- */
 const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin], {
   // Templates
   itemTemplate: new Simplate([
@@ -109,8 +101,11 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   currentPage: null,
 
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.currentPage = 0;
+    if (this.appStore) {
+      this.appStore.dispatch(setSearchTerm(''));
+    }
   },
   _formatFieldName: function _formatFieldName() {},
   getItemIconClass: function getItemIconClass(entry) {
@@ -155,7 +150,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   },
   more: function more() {
     this.currentPage += 1;
-    this.inherited(arguments);
+    this.inherited(more, arguments);
   },
   hasMoreData: function hasMoreData() {
     const total = this.feed.totalCount;
@@ -213,6 +208,7 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
     return request;
   },
   createSearchEntry: function createSearchEntry() {
+    this.appStore.dispatch(setSearchTerm(this.query));
     const entry = {
       request: {
         docTextItem: -1,
@@ -276,22 +272,6 @@ const __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixi
   },
   getItemDescriptor: function getItemDescriptor(entry) {
     return entry.type;
-  },
-  createIndicatorLayout: function createIndicatorLayout() {
-    return this.itemIndicators || (this.itemIndicators = [{
-      id: 'speadSearchIcon',
-      icon: '',
-      location: 'top',
-      onApply: function onApply(entry, parent) {
-        parent.applyActivityIndicator(entry, this);
-      },
-    }]);
-  },
-  applyActivityIndicator: function applyActivityIndicator(entry, indicator) {
-    indicator.isEnabled = true;
-    indicator.showIcon = false;
-    indicator.label = this.indexesText[entry.type];
-    indicator.valueText = this.indexesText[entry.type];
   },
   _intSearchExpressionNode: function _intSearchExpressionNode() {
     const listNode = $(`#${this.id}`);

@@ -22,11 +22,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpShipTosDetail');
 
-/**
- * @class crm.Integrations.BOE.Views.ERPShipTos.Detail
- * @extends argos.Detail
- */
-const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.ERPShipTos.Detail# */{
+const __class = declare('crm.Integrations.BOE.Views.ERPShipTos.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   relatedItemsText: resource.relatedItemsText,

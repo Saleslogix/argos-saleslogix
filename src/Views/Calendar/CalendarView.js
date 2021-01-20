@@ -28,21 +28,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarView');
 const dtFormatResource = getResource('calendarViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.CalendarView
- *
- * @extends argos.List
- * @mixins argos.List
- *
- * @requires argos.List
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Utility
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   // Localization
   titleText: resource.titleText,
@@ -57,12 +42,12 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventHeaderText: resource.eventHeaderText,
   countMoreText: resource.countMoreText,
   toggleCollapseText: resource.toggleCollapseText,
-  withFromText: resource.withFromText,
   withText: resource.withText,
   unspecifiedText: resource.unspecifiedText,
   forText: resource.forText,
   dayText: resource.dayText,
   weekText: resource.weekText,
+  addUnscheduledText: resource.addUnscheduledText,
 
   enablePullToRefresh: true,
   string,
@@ -137,9 +122,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   ]),
   activityNameTemplate: new Simplate([
     '{% if ($.ContactName) { %}',
-    '{%= $$.string.substitute($$.withFromText, { contactName: $$.parseName($.ContactName), accountName: $.AccountName }) %}',
-    '{% } else if ($.AccountName) { %}',
-    '{%= $$.string.substitute($$.withText, { object: $.AccountName }) %}',
+    '{%= $$.string.substitute($$.withText, { object: $.ContactName }) %}',
     '{% } else if ($.LeadName) { %}',
     '{%= $$.string.substitute($$.withText, { object: $.LeadName }) %}',
     '{% } else if ($$.activityTypeIcon[$.Type]) { %}',
@@ -249,7 +232,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   _eventStore: null,
   _showMulti: false,
   _refreshAdded: false,
-
+  _newUnscheduledAdded: false,
 
   queryOrderBy: 'StartDate asc',
   querySelect: [
@@ -286,7 +269,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   eventContractName: 'dynamic',
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
@@ -452,6 +435,28 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
       });
     }
   },
+  createToolLayout: function createToolLayout() {
+    this.inherited(createToolLayout, arguments);
+    if (this.tools && this.tools.tbar && !this._newUnscheduledAdded) {
+      this.tools.tbar.unshift({
+        id: 'newUnscheduled',
+        svg: 'add',
+        title: this.addUnscheduledText,
+        action: 'navigateToNewUnscheduled',
+        security: this.app.getViewSecurity(this.insertView, 'insert'),
+      });
+      this._newUnscheduledAdded = true;
+    }
+
+    return this.tools;
+  },
+  navigateToNewUnscheduled: function navigateToNewUnscheduled() {
+    const additionalOptions = {
+      unscheduled: true,
+    };
+
+    this.navigateToInsertView(additionalOptions);
+  },
   onToolLayoutCreated: function onToolLayoutCreated(tools) {
     if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
       const refreshTool = {
@@ -461,14 +466,11 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
 
       };
       if (tools.tbar) {
-        tools.tbar.push(refreshTool);
+        tools.tbar.unshift(refreshTool);
         this._refreshAdded = true;
       }
     }
-    this.inherited(arguments);
-  },
-  parseName: function parseName(name = {}) {
-    return name.split(' ').splice(-1)[0];
+    this.inherited(onToolLayoutCreated, arguments);
   },
   process: function process(store, entries, isEvent) {
     if (entries.length > 0) {
@@ -541,7 +543,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     });
   },
   render: function render() {
-    this.inherited(arguments);
+    this.inherited(render, arguments);
     this.renderCalendar();
   },
   renderCalendar: function renderCalendar() {
@@ -625,7 +627,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
   },
   show: function show(options) {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
 
     if (options) {
       this.processShowOptions(options);
@@ -635,7 +637,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
     }
   },
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
   },
   toggleMultiSelect: function toggleMultiSelect({ currentTarget }) {
     this._showMulti = !this._showMulti;
@@ -656,7 +658,7 @@ const __class = declare('crm.Views.Calendar.CalendarView', [List], {
   transitionAway: function transitionAway() {
     $(this._calendar._monthDropdown.dropdownSelect).data('dropdown').close();
     $(this._calendar._yearDropdown.dropdownSelect).data('dropdown').close();
-    this.inherited(arguments);
+    this.inherited(transitionAway, arguments);
   },
 });
 

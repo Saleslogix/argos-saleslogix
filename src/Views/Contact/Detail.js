@@ -24,14 +24,6 @@ import string from 'dojo/string';
 
 const resource = getResource('contactDetail');
 
-/**
- * @class crm.Views.Contact.Detail
- *
- * @extends argos.Detail
- *
- * @requires crm.Format
- * @requires crm.Template
- */
 const __class = declare('crm.Views.Contact.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,

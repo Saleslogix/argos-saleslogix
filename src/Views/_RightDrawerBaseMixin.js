@@ -13,25 +13,27 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/_RightDrawerBaseMixin
+ */
 import declare from 'dojo/_base/declare';
 
-// Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
-//
-// Lifecycles:
-// -- Loading of the right menu --
-// 1. Toggle button clicked
-// 2. setupRightDrawer
-// 3. loadRightDrawer
-//
-// -- Unloading of the right menu --
-// 1. onBeforeTransitionAway
-// 2. unloadRightDrawer
 /**
- * @class crm.Views._RightDrawerBaseMixin
- * @classdesc The base mixin for the right drawer.
+ * @class
+ * @alias module:crm/Views/_RightDrawerBaseMixin
+ * @mixin
+ * @classdesc Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
+ *   Lifecycles:
+ *   -- Loading of the right menu --
+ *   1. Toggle button clicked
+ *   2. setupRightDrawer
+ *   3. loadRightDrawer
+ *   -- Unloading of the right menu --
+ *   1. onBeforeTransitionAway
+ *   2. unloadRightDrawer
  * @since 3.0
  */
-const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.Views._RightDrawerBaseMixin# */{
+const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends module:crm/Views/_RightDrawerBaseMixin.prototype */{
   drawerLoaded: false,
   /**
    * @property {Boolean}
@@ -59,7 +61,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.
   },
   show: function show(options) {
     this.ensureToolsCreated(options);
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   ensureToolsCreated: function ensureToolsCreated(options) {
     // Inject tools into options if it exists
@@ -75,7 +77,7 @@ const __class = declare('crm.Views._RightDrawerBaseMixin', null, /** @lends crm.
       this._addTools(theTools);
       this.toolsAdded = true;
     }
-    this.inherited(arguments);
+    this.inherited(onToolLayoutCreated, arguments);
   },
   _addTools: function _addTools(tools) { // eslint-disable-line
     if (!this.hasSettings) {

@@ -251,6 +251,20 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
     };
     return this.executeRequest(options);
   },
+  opportunityRePrice: function opportunityRePrice(opportunity) {
+    const options = {
+      operationName: 'RePriceOpportunity',
+      resourceKind: 'opportunities',
+      requestOptions: {
+        entityId: opportunity.$key,
+        childEntityName: 'Product',
+        itemEntityName: 'OpportunityProduct',
+        entityName: 'Opportunity',
+        serviceName: 'OpportunityOrderLineTotal',
+      },
+    };
+    return this.executeRequest(options);
+  },
   quoteRePrice: function quoteRePrice(quote) {
     const options = {
       operationName: 'RePriceQuote',
@@ -261,7 +275,7 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
         itemEntityName: 'QuoteItem',
         entityName: 'Quote',
         serviceName: 'QuoteOrderLineTotal',
-        secondaryServiceName: 'QuoteTotal',
+        secondaryServiceName: 'QuoteOrderTotal',
       },
     };
     return this.executeRequest(options);

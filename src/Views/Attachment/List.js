@@ -23,30 +23,10 @@ import getResource from 'argos/I18n';
 import string from 'dojo/string';
 import format from '../../Format';
 
-
 const resource = getResource('attachmentList');
 const hashTagResource = getResource('attachmentListHashTags');
 const dtFormatResource = getResource('attachmentListDateTimeFormat');
 
-/**
- * @class crm.Views.Attachments.List
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Views._RightDrawerListMixin
- *
- * @requires moment
- *
- * @requires string
- */
 const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([
@@ -123,11 +103,11 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     if (!App.supportsFileAPI()) {
       this.insertView = null;
     } else {
-      return this.inherited(arguments);
+      return this.inherited(createToolLayout, arguments);
     }
   },
   createRequest: function createRequest() {
-    const request = this.inherited(arguments);
+    const request = this.inherited(createRequest, arguments);
     request.setQueryArg('_includeFile', 'false');
     return request;
   },
@@ -184,7 +164,7 @@ const __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixi
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
+      title: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },

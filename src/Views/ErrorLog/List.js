@@ -23,14 +23,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('errorLogList');
 const dtFormatResource = getResource('errorLogListDateTimeFormat');
 
-/**
- * @class crm.Views.ErrorLog.List
- *
- * @extends argos.List
- *
- * @requires crm.Format
- * @requires argos.ErrorManager
- */
 const __class = declare('crm.Views.ErrorLog.List', [List], {
   // Localization
   titleText: resource.titleText,
@@ -53,7 +45,7 @@ const __class = declare('crm.Views.ErrorLog.List', [List], {
   labelProperty: 'Description',
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
       this.refreshRequired = true;
     }

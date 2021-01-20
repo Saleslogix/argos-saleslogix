@@ -20,14 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('exchangeRateLookup');
 
-/**
- * @class crm.Views.ExchangeRateLookup
- *
- *
- * @extends argos.List
- * @mixins argos._LegacySDataListMixin
- *
- */
 const __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
   // Templates
   itemTemplate: new Simplate([

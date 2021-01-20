@@ -53,11 +53,11 @@ const __class = declare('crm.Views.History.EditOffline', [_EditBase], {
     }]);
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
     $(this.domNode).removeClass('panel-loading');
   },
   onTransitionTo: function onTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(onTransitionTo, arguments);
     if (this.options.insert) {
       const now = Date.now();
       this.fields.UID.setValue(now);

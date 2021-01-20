@@ -23,17 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('contactEdit');
 
-/**
- * @class crm.Views.Contact.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Format
- * @requires crm.Template
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.Contact.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,
@@ -89,11 +78,11 @@ const __class = declare('crm.Views.Contact.Edit', [Edit], {
   resourceKind: 'contacts',
 
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
     if (this.options.insert) {
       this.fields.Account.enable();
     } else {

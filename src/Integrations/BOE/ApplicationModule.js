@@ -65,7 +65,7 @@ import 'argos/TabWidget';
 const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationModule], {
   modules: null,
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     // App.picklistService = PicklistService;
     App.enableDashboards = this.enableDashboards;
@@ -101,7 +101,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       mod.init();
     });
   },
-  initDynamic: function init() {
+  initDynamic: function initDynamic() {
     if (!this.isIntegrationEnabled()) {
       return;
     }
@@ -110,7 +110,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       mod.initDynamic();
     });
 
-    this.inherited(arguments);
+    this.inherited(initDynamic, arguments);
   },
   isIntegrationEnabled: function isIntegrationEnabled() {
     const results = this.application.context.integrations.filter(integration => integration.Name === 'Back Office Extension')[0];
@@ -159,7 +159,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       },
     });
 
-    lang.extend(argos._EditBase, {// TODO: Avoid global
+    lang.extend(argos._EditBase, { // TODO: Avoid global
       onInsertCompleted: function onInsertCompleted(entry) {
         if (this.options && this.options.detailView) {
           const view = App.getView(this.options.detailView);
@@ -202,7 +202,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
       },
     });
 
-    lang.extend(argos.TabWidget, {// TODO: Avoid global
+    lang.extend(argos.TabWidget, { // TODO: Avoid global
       tabListItemTemplate: new Simplate([
         '<li data-key="{%: $.name %}" class="tab" role="presentation" data-action="selectedTab">',
         '<a href="#{%: $$.id %}_{%: $.name %}">{%: ($.title || $.options.title) %}</a>',
@@ -250,7 +250,7 @@ const __class = declare('crm.Integrations.BOE.ApplicationModule', [ApplicationMo
     });
   },
   loadAppStatePromises: function loadAppStatePromises() {
-    this.inherited(arguments);
+    this.inherited(loadAppStatePromises, arguments);
     // this.registerAppStatePromise({
     //   seq: 2,
     //   description: resource.picklistsText,

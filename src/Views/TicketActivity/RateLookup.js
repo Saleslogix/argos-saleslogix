@@ -19,11 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('ticketActivityRateLookup');
 
-/**
- * @class crm.Views.TicketActivity.RateLookup
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
   // Templates
   itemTemplate: new Simplate([

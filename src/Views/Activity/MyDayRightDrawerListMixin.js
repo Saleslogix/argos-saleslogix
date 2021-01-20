@@ -18,16 +18,8 @@ import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('activityMyDayRightDrawerList');
 
-/**
- * @class crm.Views.Activity.MyDayRightDrawerListMixin
- *
- *
- * @mixins crm.Views._RightDrawerBaseMixin
- *
- */
 const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin], {
   // Localization
   kpiSectionText: resource.kpiSectionText,
@@ -111,7 +103,7 @@ const __class = declare('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightD
   },
   _onSearchExpression: function _onSearchExpression() {
     // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-    this.inherited(arguments);
+    this.inherited(_onSearchExpression, arguments);
   },
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.

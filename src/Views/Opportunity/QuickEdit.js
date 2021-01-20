@@ -19,19 +19,8 @@ import salesProcessUtility from '../../SalesProcessUtility';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('opportunityQuickEdit');
 
-/**
- * @class crm.Views.Opportunity.QuickEdit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Validator
- * @requires crm.Template
- */
 const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
   // Localization
   estCloseText: resource.estCloseText,
@@ -69,7 +58,7 @@ const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     '$permissions',
   ],
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   applyContext: function applyContext(templateEntry) {
     this.fields.EstimatedClose.setValue(templateEntry.EstimatedClose);
@@ -131,7 +120,7 @@ const __class = declare('crm.Views.Opportunity.QuickEdit', [Edit], {
     return layout;
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
     this.enableStage(values.$key);
     this.enableProbability(values);
     this.fields.SalesPotential.setCurrencyCode(App.getBaseExchangeRate().code);

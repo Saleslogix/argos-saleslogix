@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/Charts/GenericLine
+ */
 import declare from 'dojo/_base/declare';
 import array from 'dojo/_base/array';
 import domGeo from 'dojo/dom-geometry';
@@ -20,13 +23,14 @@ import View from 'argos/View';
 import _ChartMixin from './_ChartMixin';
 
 /**
- * @class crm.Views.Charts.GenericLine
+ * @class
+ * @alias module:crm/Views/Charts/GenericLine
  *
- * @extends argos.View
- * @mixins crm.Views.Charts._ChartMixin
+ * @extends module:argos/View
+ * @mixes module:crm/Views/Charts/_ChartMixin
  *
  */
-const __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], /** @lends crm.Views.Charts.GenericLine# */{
+const __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], /** @lends module:crm/Views/Charts/GenericLine.prototype */{
   id: 'chart_generic_line',
   titleText: '',
   expose: false,
@@ -55,7 +59,7 @@ const __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], /**
   },
 
   createChart: function createChart(rawData) {
-    this.inherited(arguments);
+    this.inherited(createChart, arguments);
 
     this.showSearchExpression();
 

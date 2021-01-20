@@ -22,13 +22,6 @@ import MODEL_NAMES from '../../Models/Names';
 const resource = getResource('ticketActivityList');
 const dtFormatResource = getResource('ticketActivityListDateTimeFormat');
 
-/**
- * @class crm.Views.TicketActivity.List
- *
- * @extends argos.List
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.TicketActivity.List', [List], {
   format,
   // Templates
@@ -71,11 +64,11 @@ const __class = declare('crm.Views.TicketActivity.List', [List], {
     });
   },
   processData: function processData() {
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
     this._onResize();
   },
   postCreate: function postCreate() {
-    this.inherited(arguments);
+    this.inherited(postCreate, arguments);
     $(window).on('resize', this._onResize.bind(this));
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {

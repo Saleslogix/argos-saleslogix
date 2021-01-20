@@ -24,16 +24,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('historyEdit');
 const dtFormatResource = getResource('historyEditDateTimeFormat');
 
-/**
- * @class crm.Views.History.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Environment
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.History.Edit', [Edit], {
   // Localization
   accountText: resource.accountText,
@@ -60,6 +50,17 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   id: 'history_edit',
   fieldsForLeads: ['AccountName', 'Lead'],
   fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
+  // Fields that will get disabled when editing
+  restrictedFields: [
+    'StartDate',
+    'IsLead',
+    'Account',
+    'AccountName',
+    'Contact',
+    'Opportunity',
+    'Ticket',
+    'Lead',
+  ],
   entityName: 'History',
   resourceKind: 'history',
   insertSecurity: null, // 'Entities/History/Add',
@@ -95,7 +96,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   ],
   existsRE: /^[\w]{12}$/,
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Lead, 'onChange', this.onLeadChange);
     this.connect(this.fields.IsLead, 'onChange', this.onIsLeadChange);
@@ -122,7 +123,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     return !!lead;
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
 
     // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
     // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -140,6 +141,27 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       this.showFieldsForStandard();
     }
   },
+  _setRestrictedFieldState: function _setRestrictedFieldState() {
+    if (this.inserting) {
+      this.restrictedFields.forEach(f => this._enableField(this.fields[f]));
+    } else {
+      this.restrictedFields.forEach(f => this._disableField(this.fields[f]));
+    }
+  },
+  _disableField: function _disableField(field) {
+    if (!field) {
+      return;
+    }
+
+    field.disable();
+  },
+  _enableField: function _enableField(field) {
+    if (!field) {
+      return;
+    }
+
+    field.enable();
+  },
   setOfflineNoteData: function setOfflineNoteData() {
     const entry = this.options && this.options.selectedEntry;
     if (!entry) {
@@ -152,7 +174,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     this.fields.StartDate.setValue(start.toDate());
   },
   _buildRefreshMessage: function _buildRefreshMessage() {
-    const base = this.inherited(arguments);
+    const base = this.inherited(_buildRefreshMessage, arguments);
     const entry = this.options && this.options.selectedEntry;
     if (entry && this.options.fromOffline) {
       base.UID = entry.UID;
@@ -231,7 +253,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
   },
   onInsertSuccess: function onInsertSuccess() {
     environment.refreshStaleDetailViews();
-    this.inherited(arguments);
+    this.inherited(onInsertSuccess, arguments);
   },
   applyContext: function applyContext() {
     const found = this._getNavContext();
@@ -296,8 +318,10 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     this.fields.AccountName.setValue(entry.Company);
 
     const isLeadField = this.fields.IsLead;
-    isLeadField.setValue(context.resourceKind === 'leads');
-    this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    if (isLeadField) {
+      isLeadField.setValue(context.resourceKind === 'leads');
+      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    }
   },
   applyOpportunityContext: function applyOpportunityContext(context) {
     const opportunityField = this.fields.Opportunity;
@@ -399,15 +423,18 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       this.setOfflineNoteData();
       $(this.domNode).removeClass('panel-loading');
     } else {
-      this.inherited(arguments);
+      this.inherited(onRefreshInsert, arguments);
     }
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
     const isLeadField = this.fields.IsLead;
     if (this.isInLeadContext()) {
-      isLeadField.setValue(true);
-      this.onIsLeadChange(true, isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(true);
+        this.onIsLeadChange(true, isLeadField);
+      }
+
       const field = this.fields.Lead;
       const value = utility.getValue(values, field.applyTo, {});
       field.setValue(value, !this.inserting);
@@ -415,7 +442,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       if (leadCompany) {
         this.fields.AccountName.setValue(leadCompany);
       }
-    } else {
+    } else if (isLeadField) {
       isLeadField.setValue(false);
     }
 
@@ -442,6 +469,8 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     if (denyEdit) {
       this.disableFields();
     }
+
+    this._setRestrictedFieldState();
   },
   disableFields: function disableFields(predicate) {
     for (const name in this.fields) {
@@ -477,7 +506,7 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
     return '';
   },
   getValues: function getValues() {
-    let values = this.inherited(arguments);
+    let values = this.inherited(getValues, arguments);
 
     if (this.fields.Text.isDirty()) {
       const text = this.fields.Text.getValue();
@@ -485,6 +514,11 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
       values = values || {};
       values.LongNotes = text;
       values.Notes = text && text.length > 250 ? text.substr(0, 250) : text;
+    }
+
+    if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
+      values.LeadId = null;
+      values.LeadName = null;
     }
 
     return values;
@@ -633,7 +667,6 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
         valueKeyProperty: 'LeadId',
         valueTextProperty: 'LeadName',
         view: 'lead_related',
-        validator: validator.exists,
       }, {
         label: this.companyText,
         name: 'AccountName',

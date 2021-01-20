@@ -23,20 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('activityMyDay');
 
-/**
- * @class crm.Views.Activity.MyDay
- *
- * @requires argos._ListBase
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- * @requires crm.Environment
- * @requires crm.Views.Activity.List
- * @requires crm.Action
- */
 const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMixin, _MetricListMixin], {
 
   // Localization
@@ -52,7 +38,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
   enableOfflineSupport: true,
 
   _onRefresh: function _onRefresh(options) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (options.resourceKind === 'activities') {
       this.refreshRequired = true;
     }
@@ -63,7 +49,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
       this._showOfflineView(options);
       return;
     }
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   _showOfflineView: function _showOfflineView(options) {
     let view = App.getView('myday_offline_list');
@@ -78,7 +64,7 @@ const __class = declare('crm.Views.Activity.MyDay', [MyList, _RightDrawerListMix
     }
   },
   createToolLayout: function createToolLayout() {
-    this.inherited(arguments);
+    this.inherited(createToolLayout, arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
       this.tools.tbar.push({
         id: 'refresh',

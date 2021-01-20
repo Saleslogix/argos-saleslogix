@@ -13,14 +13,6 @@
  * limitations under the License.
  */
 
-/**
- * @class crm.Views.Offline.List
- *
- * @extends argos._ListBase
- * @requires argos._ListBase
- *
- *
- */
 import declare from 'dojo/_base/declare';
 import _ListBase from 'argos/_ListBase';
 import format from '../../Format';
@@ -73,7 +65,7 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
   },
   show: function show(options) {
     this._initOfflineView(options);
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   _initOfflineView: function _initOfflineView(options) {
     this.offlineContext = {
@@ -93,7 +85,7 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
     }
   },
   onTransitionTo: function onTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(onTransitionTo, arguments);
     App.setToolBarMode(false);
   },
   _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
@@ -141,7 +133,7 @@ export default declare('crm.Views.Offline.List', [_ListBase], {
     if (this._entityView) {
       return this._entityView.createItemRowNode(entry);
     }
-    return this.inherited(arguments);
+    return this.inherited(createItemRowNode, arguments);
   },
   navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
     this.navigateToOfflineDetailView(key, descriptor, additionalOptions);

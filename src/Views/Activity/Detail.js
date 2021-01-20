@@ -31,23 +31,6 @@ import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePic
 const resource = getResource('activityDetail');
 const dtFormatResource = getResource('activityDetailDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Detail
- *
- *
- * @extends argos.Detail
- * @mixins argos.Detail
- *
- * @requires argos.Detail
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires crm.Format
- * @requires crm.Template
- * @requires crm.Environment
- * @requires crm.Recurrence
- * @requires crm.Utility
- *
- */
 const __class = declare('crm.Views.Activity.Detail', [Detail], {
   // Localization
   actionsText: resource.actionsText,
@@ -84,6 +67,8 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
   confirmEditRecurrenceText: resource.confirmEditRecurrenceText,
   relatedAttachmentText: resource.relatedAttachmentText,
   relatedAttachmentTitleText: resource.relatedAttachmentTitleText,
+  relatedAttendeeText: resource.relatedAttendeeText,
+  relatedAttendeeTitleText: resource.relatedAttendeeTitleText,
   relatedItemsText: resource.relatedItemsText,
   phoneText: resource.phoneText,
   entityText: resource.entityText,
@@ -318,7 +303,14 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       }, {
         name: 'ContactName',
         property: 'ContactName',
-        exclude: this.isActivityForLead.bind(this),
+        include: function includeContactName(entry) {
+          // Only show contact if we have a different lead and contact name
+          if (entry.ContactName === entry.LeadName) {
+            return false;
+          }
+
+          return true;
+        },
         label: this.contactText,
         view: 'contact_detail',
         key: 'ContactId',
@@ -445,6 +437,12 @@ const __class = declare('crm.Views.Activity.Detail', [Detail], {
       list: true,
       name: 'RelatedItemsSection',
       children: [{
+        name: 'AttendeeRelated',
+        label: this.relatedAttendeeText,
+        where: this.formatRelatedQuery.bindDelegate(this, 'Activity.Id eq "${0}"', 'activityId'), // must be lower case because of feed
+        view: 'activity_attendee_related',
+        title: this.relatedAttendeeTitleText,
+      }, {
         name: 'AttachmentRelated',
         label: this.relatedAttachmentText,
         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'), // must be lower case because of feed

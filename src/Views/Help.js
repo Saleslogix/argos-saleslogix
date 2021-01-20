@@ -17,19 +17,9 @@ import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
-import 'dojo/NodeList-manipulate';
-
 
 const resource = getResource('help');
 
-/**
- * @class crm.Views.Help
- *
- *
- * @extends argos.Detail
- * @mixins argos._LegacySDataDetailMixin
- *
- */
 const __class = declare('crm.Views.Help', [_DetailBase], {
   // Templates
   errorTemplate: new Simplate([
@@ -78,7 +68,7 @@ const __class = declare('crm.Views.Help', [_DetailBase], {
     this.processEntry({});
   },
   processEntry: function processEntry() {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     // Processing the layout should be done now
     const self = this;
     Promise.all(this.promises).then((results) => {

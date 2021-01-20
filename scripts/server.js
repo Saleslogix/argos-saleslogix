@@ -1,101 +1,64 @@
-/* eslint-disable */
-const Hapi = require('hapi');
-const Inert = require('inert');
-const spdy = require('spdy');
+/* eslint-env node */
+/* eslint-disable no-console */
+
 const fs = require('fs');
-const h2o2 = require('h2o2');
+const http = require('http');
+const https = require('https');
+const express = require('express');
+const serveIndex = require('serve-index');
+const httpProxy = require('http-proxy');
 
 let config;
 try {
-    config = require('./config.json');
+  config = require('./config.json');
 } catch (e) {
-    console.warn('WARNING:: Failed loading config.json, falling back to default.config.json. Copy the default.config.json to config.json for your environment.');
-    config = require('./default.config.json');
+  console.warn(
+    'WARNING:: Failed loading config.json, falling back to default.config.json. Copy the default.config.json to config.json for your environment.'
+  );
+  config = require('./default.config.json');
 }
 
-const options = {
-    port: config.port,
-    tls: true,
-    listener: spdy.createServer({
-        key: fs.readFileSync('./scripts/server.key'),
-        cert: fs.readFileSync('./scripts/server.crt'),
-        spdy: {
-            protocols: [ 'h2', 'spdy/3.1', 'http/1.1' ],
-            plain: config.http2 === true ? false : true, // To enable https on localhost, set this to false
-            'x-forwarded-for': true
-        }
-    }),
-    routes: {
-        "cors": {
-            "headers": [
-                "Accept",
-                "Authorization",
-                "Content-Type",
-                "If-None-Match",
-                "Accept-language",
-                "X-Application-Name",
-                "X-Application-Version",
-                "X-Requested-With",
-                "X-Authorization",
-                "X-Authorization-Mode"
-            ]
-        }
-    }
+const proxyConfig = config.proxy || {};
+const proxyOptions = {
+  target: {
+    host: proxyConfig.host,
+    port: proxyConfig.port,
+    protocol: proxyConfig.protocol,
+  },
+  secure: false, // ignore cert errors
+  xfwd: true,
+  ws: false,
+  forward: true,
+  prependPath: true,
 };
 
-const server = new Hapi.Server(options);
+const proxy = httpProxy.createProxyServer(proxyOptions);
+const app = express();
 
-const init = async () => {
-    await server.register(Inert);
-    await server.register(h2o2);
-
-    const proxyConfig = config.proxy || {};
-
-    server.route({
-        method: '*',
-        path: '/sdata/{param*}',
-        handler: {
-            proxy: {
-                host: proxyConfig.host || 'localhost',
-                port: proxyConfig.port || 80,
-                protocol: proxyConfig.protocol || 'http',
-                passThrough: true,
-                xforward: true,
-                localStatePassThrough: true,
-                rejectUnauthorized: false
-            }
-        }
+app.use((req, res, next) => {
+  if (req.path.startsWith('/sdata')) {
+    proxy.web(req, res);
+    proxy.on('error', (err) => {
+      console.error(err);
     });
-
-    server.route({
-        method: '*',
-        path: '/{param*}',
-        config: {
-        cache: {
-            expiresIn: 30 * 1000,
-            privacy: 'private'
-        },
-        },
-        handler: {
-            directory: {
-                path: '../../',
-                index: false,
-                listing: true,
-                redirectToSlash: true
-            }
-        }
-    });
-
-    await server.start();
-    console.log('info', 'Started server at: ', server.info.uri);
-};
-
-
-
-process.on('unhandledRejection', (err) => {
-
-    console.log(err);
-    process.exit(1);
+  } else {
+    next();
+  }
 });
+app.use(express.static('../../', { index: false }));
+app.use(serveIndex('../../'));
 
-init();
+const serverOptions = {
+  key: fs.readFileSync('./scripts/server.key'),
+  cert: fs.readFileSync('./scripts/server.crt'),
+};
+
+const port = Number(config.port);
+
+if (config.https) {
+  console.log(`Secure server started on https://localhost:${port}/`);
+  https.createServer(serverOptions, app).listen(port);
+} else {
+  console.log(`Server started on http://localhost:${port}/`);
+  http.createServer(app).listen(port);
+}

@@ -2,6 +2,12 @@
 define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
   // Verify the the argos-saleslogix version of these work OK - SDK really contains the phone formatter.
   describe('Mobile/SalesLogix/Format', function() {
+    beforeAll(function(done) {
+      Soho.Locale.set('en-US').done(function() {
+        done();
+      });
+    });
+
     describe('address', function() {
       var addressFeed = {
         Salutation: 'ATTN: Qa Testers',
@@ -27,7 +33,7 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
 
       it('should format as html', function() {
         expect(Format.address(addressFeed, false, ';', ''))
-          .toEqual('<a href="javascript:App.showMapForAddress(\'5555%20N%20Gainey%20Center%20Dr%20Suite%20200%20Scottsdale%2C%20AZ%2085032%20USA\');">5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA</a>');
+          .toEqual('<a class="hyperlink" href="javascript:App.showMapForAddress(\'5555%20N%20Gainey%20Center%20Dr%20Suite%20200%20Scottsdale%2C%20AZ%2085032%20USA\');">5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA</a>');
       });
 
       it('should default to locale "en"', function() {
@@ -193,9 +199,9 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
           .toEqual('999');
       });
 
-      it('should round decimal numbers less than 1k to two places', function () {
+      it('should round decimal numbers less than 1k', function () {
         expect(Format.bigNumber(-295.53582358235))
-          .toEqual('-295.54');
+          .toEqual('-296');
       });
     });
 
@@ -235,7 +241,7 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
 
       it('should should round using toFixed (round up)', function() {
         expect(Format.currency(12.558))
-          .toEqual('12.56');
+        .toEqual('12.56');
       });
 
       it('should should round using toFixed (round down)', function() {
@@ -263,8 +269,8 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
 
     describe('multiCurrency', function() {
       it('should format with code', function() {
-        expect(Format.multiCurrency(12.55, 'USD'))
-          .toEqual('12.55 USD');
+          expect(Format.multiCurrency(12.55, 'USD'))
+            .toEqual('12.55 USD');
       });
     });
 
@@ -289,7 +295,7 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
     describe('mail', function() {
       it('should return an html mailto link', function() {
         expect(Format.mail('user@domain.test'))
-          .toEqual('<a href="mailto:user@domain.test">user@domain.test</a>');
+          .toEqual('<a class="hyperlink" href="mailto:user@domain.test">user@domain.test</a>');
       });
 
       it('should not format non string values (number)', function() {
@@ -356,11 +362,8 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'], function(Format) {
           .toMatch(/^.+ago$/);
       });
 
-      it('should throw an error for an invalid date', function() {
-        expect(function() {
-            Format.relativeDate(null)
-          })
-          .toThrow();
+      it('should handle an invalid date', function() {
+        expect(Format.relativeDate(null)).toEqual('Invalid date');
       });
     });
   });

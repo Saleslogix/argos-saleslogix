@@ -12,16 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Integrations.BOE.Views.SalesOrderItems.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- *
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import connect from 'dojo/_base/connect';
@@ -34,7 +24,7 @@ import PricingAvailabilityService from '../../PricingAvailabilityService';
 
 const resource = getResource('salesOrderItemsDetail');
 
-const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], /** @lends crm.Integrations.BOE.Views.SalesOrderItems.Detail# */ {
+const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   lineText: resource.lineText,
@@ -84,7 +74,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     return entry;
   },
   processEntry: function processEntry() {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     if (this.options && this.options.fromContext && this.options.fromContext.readOnly) {
       if (App.bars && App.bars.tbar) {
         App.bars.tbar.disableTool('removeOrderLine');
@@ -140,7 +130,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [De
     if (this.tools) {
       return this.tools;
     }
-    const tools = this.inherited(arguments);
+    const tools = this.inherited(createToolLayout, arguments);
     if (tools && tools.tbar) {
       tools.tbar.push({
         id: 'removeOrderLine',

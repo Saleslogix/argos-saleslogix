@@ -13,14 +13,18 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Aggregate
+ */
 import lang from 'dojo/_base/lang';
 
 /**
- * @class crm.Aggregate
+ * @class
+ * @alias module:crm/Aggregate
  * @classdesc Aggregate functions. Currently used in metric widgets.
- * @singleton
+ * @static
  */
-const __class = lang.setObject('crm.Aggregate', /** @lends crm.Aggregate */{
+const __class = lang.setObject('crm.Aggregate', /** @lends module:crm/Aggregate */{
   /**
    * Average
    * @param {Array} data Array of objects that contain a value property

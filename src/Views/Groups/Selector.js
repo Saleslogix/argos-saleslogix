@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('groupsSelector');
 
-/**
- * @class crm.Views.Groups.Selector
- *
- * @extends argos.List
- * @requires argos.List
- *
- */
 const __class = declare('crm.Views.Groups.Selector', [List], {
   id: 'groups_configure',
   expose: false,

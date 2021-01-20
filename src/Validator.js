@@ -13,16 +13,19 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Validator
+ */
 import lang from 'dojo/_base/lang';
 import getResource from 'argos/I18n';
 
 const resource = getResource('validators');
 
 /**
- * @class crm.Validator
+ * @class
+ * @alias module:crm/Validator
  * @classdesc Validators for use in {@link argos.Edit} forms. To use validators, you add them to your view's layout:
- *
- *      @example
+ * @example
  *       createLayout: function() {
  *           return this.layout || (this.layout = [{
  *                   label: this.accountText,
@@ -41,9 +44,9 @@ const resource = getResource('validators');
  *                   validator: validator.exceedsMaxTextLength
  *               }]);
  *       }
- * @singleton
+ * @static
  */
-const __class = lang.setObject('crm.Validator', /** @lends crm.Validator */{
+const __class = lang.setObject('crm.Validator', /** @lends module:crm/Validator */{
   /**
    * @property {Object} exists
    * Validator that ensures the field contains a value.
@@ -124,7 +127,7 @@ const __class = lang.setObject('crm.Validator', /** @lends crm.Validator */{
    */
   isCurrency: {
     fn: function isCurrency(value) {
-      return !(new RegExp(`^[\\d]+(\\.\\d{1,${Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'}})?$`).test(value));
+      return !(new RegExp('^[\\d]+(\\.\\d{1,2})?$').test(value));
     },
     message: resource.isCurrencyText,
   },

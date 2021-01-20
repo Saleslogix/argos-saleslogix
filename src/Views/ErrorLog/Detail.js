@@ -23,11 +23,7 @@ import getResource from 'argos/I18n';
 const resource = getResource('errorLogDetail');
 const dtFormatResource = getResource('errorLogDetailDateTimeFormat');
 
-/**
- * @class crm.Views.ErrorLog.Detail
- * @extends argos.Detail
- */
-const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Views.ErrorLog.Detail# */{
+const __class = declare('crm.Views.ErrorLog.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,
   detailsText: resource.detailsText,
@@ -40,6 +36,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
   errorText: resource.errorText,
   emailSubjectText: resource.emailSubjectText,
   copiedSuccessText: resource.copiedSuccessText,
+  emailText: resource.emailText,
 
   // Templates
   longDetailProperty: new Simplate([
@@ -54,13 +51,12 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
   // View Properties
   id: 'errorlog_detail',
 
-  /**
-   * Email address to be placed in the "To:" field when sending a report via a mobile device
-   */
+
+  // Email address to be placed in the "To:" field when sending a report via a mobile device
   defaultToAddress: null,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
 
   createToolLayout: function createToolLayout() {
@@ -70,6 +66,7 @@ const __class = declare('crm.Views.ErrorLog.Detail', [Detail], /** @lends crm.Vi
 
     tools.tbar.push({
       id: 'generateEmail',
+      title: this.emailText,
       action: 'constructReport',
       svg: 'mail',
     });

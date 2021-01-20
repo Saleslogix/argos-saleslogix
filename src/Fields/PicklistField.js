@@ -126,7 +126,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
   formatValue: function formatValue(value) {
     let results;
     if (this.singleSelect) {
-      results = this.inherited(arguments);
+      results = this.inherited(formatValue, arguments);
     } else {
       results = this._handleSaleslogixMultiSelectPicklist(value);
     }
@@ -170,7 +170,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
         this.textProperty = 'text';
       }
     }
-    this.inherited(arguments);
+    this.inherited(setValue, arguments);
   },
   createSelections: function createSelections() {
     const value = this.getText();
@@ -185,7 +185,7 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     return selections;
   },
   createNavigationOptions: function createNavigationOptions() {
-    const options = this.inherited(arguments);
+    const options = this.inherited(createNavigationOptions, arguments);
 
     if (this.picklist) {
       this.picklistName = this.picklist;
@@ -210,18 +210,18 @@ const control = declare('crm.Fields.PicklistField', [LookupField], {
     if (!this.singleSelect) {
       options.tools = {
         tbar: [{
-          id: 'complete',
-          title: this.completeText,
-          svg: 'check',
-          fn: this.complete,
-          scope: this,
-        }, {
           id: 'cancel',
           title: this.cancelText,
           svg: 'cancel',
           side: 'left',
           fn: ReUI.back,
           scope: ReUI,
+        }, {
+          id: 'complete',
+          title: this.completeText,
+          svg: 'check',
+          fn: this.complete,
+          scope: this,
         }],
       };
     }

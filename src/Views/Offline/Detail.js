@@ -12,15 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Views.Offline.Detail
- *
- *
- * @extends argos._DetailBase
- * @requires argos._DetailBase
- *
- */
 import declare from 'dojo/_base/declare';
 import _DetailBase from 'argos/_DetailBase';
 import format from '../../Format';
@@ -38,6 +29,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   offlineText: resource.offlineText,
   idProperty: 'id',
   offlineDoc: null,
+  enableDetailHeader: true,
   detailHeaderTemplate: new Simplate([
     '<div class="detail-header">',
     '{%: $.value %}',
@@ -72,7 +64,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
   ]),
   show: function show(options) {
     this._initOfflineView(options);
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   _initOfflineView: function _initOfflineView(options) {
     this.offlineContext = {
@@ -93,7 +85,7 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     this._entityView = this.getEntityView();
   },
   onTransitionTo: function onTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(onTransitionTo, arguments);
     App.setToolBarMode(false);
   },
   getEntityView: function getEntityView() {
@@ -294,4 +286,23 @@ export default declare('crm.Views.Offline.Detail', [_DetailBase, _RelatedWidgetD
     return view;
   },
 
+  hasAction: function hasAction(actionName) {
+    const currentHasAction = this.inherited(hasAction, arguments);
+    return currentHasAction || typeof this._entityView[actionName] === 'function';
+  },
+  invokeAction: function invokeAction(actionName, parameters, evt, el) {
+    // A list of data-actions for the offline detail view (not the _entityView)
+    // Note: If any data-actions are added in the templates above, add them here as well!
+    const currentActions = [
+      'activateRelatedList',
+    ];
+
+    // Apply the current view actions in our current context
+    if (currentActions.includes(actionName)) {
+      return this.inherited(invokeAction, arguments);
+    }
+
+    // Switch context to the _entityView, so data-actions in those views will have the correct "this"
+    return this._entityView[actionName].apply(this._entityView, [parameters, evt, el]);
+  },
 });

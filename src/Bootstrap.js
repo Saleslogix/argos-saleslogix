@@ -16,7 +16,12 @@
 import MingleUtility from './MingleUtility';
 import LanguageService from 'argos/LanguageService';
 
+/**
+ * @module crm/Bootstrap
+ */
 export default function bootstrap({
+  serviceWorkerPath,
+  serviceWorkerRegistrationOptions,
   supportedLocales,
   defaultLocale,
   currentLocale,
@@ -31,6 +36,7 @@ export default function bootstrap({
   localeFiles,
   regionalFiles,
   isRegionMetric,
+  cacheFiles = [],
   rootElement,
 }) {
   function mapFiles(files, ctx, defaultCtx) {
@@ -113,7 +119,7 @@ export default function bootstrap({
   const normalizedLocale = languageService.bestAvailableLocale(supportedLocales, currentLocale) || currentLocale;
   const normalizedRegionLocale = languageService.bestAvailableLocale(supportedLocales, currentRegionLocale) || currentRegionLocale;
   if (localesLong[normalizedLocale]) {
-    window.Locale.set(localesLong[normalizedLocale]);
+    Soho.Locale.set(localesLong[normalizedLocale]);
   }
   languageService.setLanguage(normalizedLocale || currentLocale || parentLocale || defaultLocale);
   languageService.setRegion(normalizedRegionLocale || currentRegionLocale || parentRegionLocale || defaultRegionLocale);
@@ -154,6 +160,8 @@ export default function bootstrap({
             }
           }
           const instance = new Application(appConfig);
+          instance.serviceWorkerPath = serviceWorkerPath;
+          instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
           instance.context.localization = {
             localeContext: ctx,
             defaultLocaleContext: defaultCtx,
@@ -166,6 +174,7 @@ export default function bootstrap({
           instance.mingleAuthResults = mingleAuthResults;
           instance.activate();
           instance.init(rootElement);
+          instance.registerCacheUrls(cacheFiles);
           instance.run();
           completed = true;
         });

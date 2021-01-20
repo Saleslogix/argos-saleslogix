@@ -26,23 +26,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarMonthView');
 const dtFormatResource = getResource('calendarMonthViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.MonthView
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,
@@ -291,19 +274,19 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.dateCounts = [];
   },
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
   },
   clear: function clear() {},
   startup: function startup() {
-    this.inherited(arguments);
+    this.inherited(startup, arguments);
     this.currentDate = moment()
       .startOf('day');
   },
   render: function render() {
-    this.inherited(arguments);
+    this.inherited(render, arguments);
     this.renderCalendar();
   },
   activateActivityMore: function activateActivityMore() {
@@ -790,7 +773,7 @@ const __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListM
     this.set('dateContent', this.currentDate.format(this.monthTitleFormatText));
   },
   show: function show(options) {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
 
     if (options) {
       this.processShowOptions(options);

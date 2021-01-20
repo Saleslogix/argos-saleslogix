@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/ApplicationModule
+*/
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import ApplicationModule from 'argos/ApplicationModule';
@@ -47,6 +50,10 @@ import AccountDetail from './Views/Account/Detail';
 import AccountEdit from './Views/Account/Edit';
 import AddressList from './Views/Address/List';
 import AddressEdit from './Views/Address/Edit';
+import ActivityAttendeeList from './Views/ActivityAttendee/List';
+import ActivityAttendeeDetail from './Views/ActivityAttendee/Detail';
+import ActivityAttendeeEdit from './Views/ActivityAttendee/Edit';
+import ActivityAttendeeTypesList from './Views/ActivityAttendee/TypesList';
 import ActivityList from './Views/Activity/List';
 import MyDayList from './Views/Activity/MyDay';
 import MyActivityList from './Views/Activity/MyList';
@@ -105,6 +112,8 @@ import HistoryListOffline from './Views/History/ListOffline';
 import HistoryDetail from './Views/History/Detail';
 import HistoryEdit from './Views/History/Edit';
 import HistoryEditOffline from './Views/History/EditOffline';
+import HistoryAttendeeList from './Views/HistoryAttendee/List';
+import HistoryAttendeeDetail from './Views/HistoryAttendee/Detail';
 import './Views/History/RelatedView';
 import CalendarAccessList from './Views/User/CalendarAccessList';
 import UserList from './Views/User/List';
@@ -136,6 +145,8 @@ import './Environment';
 import './Utility';
 import './Models/Account/Offline';
 import './Models/Account/SData';
+import './Models/ActivityAttendee/Offline';
+import './Models/ActivityAttendee/SData';
 import './Models/Activity/Offline';
 import './Models/Activity/SData';
 import './Models/Contact/Offline';
@@ -155,6 +166,8 @@ import './Models/Address/Offline';
 import './Models/Address/SData';
 import './Models/History/Offline';
 import './Models/History/SData';
+import './Models/HistoryAttendee/Offline';
+import './Models/HistoryAttendee/SData';
 import './Models/Ticket/Offline';
 import './Models/Ticket/SData';
 import './Models/TicketActivity/Offline';
@@ -164,13 +177,23 @@ import './Models/Authentication/Offline';
 const resource = getResource('applicationModule');
 
 /**
- * @class crm.ApplicationModule
- * @extends argos.ApplicationModule
+ * @class
+ * @alias module:crm/ApplicationModule
+ * @extends module:argos/ApplicationModule
  */
-const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends crm.ApplicationModule# */{
+const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends module:crm/ApplicationModule.prototype */{
   searchText: resource.searchText,
+  loadCache: function loadCache() {
+    /* index.aspx will cache everything under content/, help/, and localization/ automatically.
+    * Add additional caches here if you need
+    const app = this.application;
+    app.registerCacheUrls([
+      './folder1/file1.demo',
+    ]);
+    */
+  },
   loadViews: function loadViews() {
-    this.inherited(arguments);
+    this.inherited(loadViews, arguments);
 
     this.registerView(new Calendar({
       expose: false,
@@ -421,6 +444,14 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
       },
     }));
 
+    this.registerView(new ActivityAttendeeList({
+      id: 'activity_attendee_related',
+      expose: false,
+    }));
+    this.registerView(new ActivityAttendeeDetail());
+    this.registerView(new ActivityAttendeeEdit());
+    this.registerView(new ActivityAttendeeTypesList());
+
     this.registerView(new ActivityDetail({
       canRedirectTo: true,
     }));
@@ -452,6 +483,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
         return '';
       },
     }));
+    this.registerView(new HistoryAttendeeList({
+      id: 'history_attendee_related',
+      expose: false,
+    }));
+    this.registerView(new HistoryAttendeeDetail());
 
     this.registerView(new CalendarAccessList({
       expose: false,
@@ -549,7 +585,7 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
     }));
   },
   loadToolbars: function loadToolbars() {
-    this.inherited(arguments);
+    this.inherited(loadToolbars, arguments);
 
     this.registerToolbar(new MainToolbar({
       name: 'tbar',
@@ -604,6 +640,11 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
           const model = this.application.ModelManager.getModel(MODEL_NAMES.INTEGRATION, MODEL_TYPES.SDATA);
           return model.getEntries(null, { contractName: 'dynamic' }).then((results) => {
             this.application.context.integrations = results;
+            if (results) {
+              results.forEach((integration) => {
+                App.requestIntegrationSettings(integration.$descriptor);
+              });
+            }
             return results;
           });
         },

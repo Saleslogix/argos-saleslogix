@@ -25,22 +25,6 @@ import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('contactList');
 
-/**
- * @class crm.Views.Contact.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- *
- * @requires argos.List
- * @requires argos.Format
- * @requires argos.Convert
- * @requires crm.Views._RightDrawerListMixin
- * @requires crm.Views._GroupListMixin
- * @requires crm.Views._MetricListMixin
- * @requires crm.Action
- *
- */
 const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   format,
   // Template
@@ -164,7 +148,7 @@ const __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, 
   },
   formatSearchQuery: function formatSearchQuery(searchQuery) {
     const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-    return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or upper(NameLF) like "%${q}%") or (Account.AccountNameUpper like "%${q}%")`;
+    return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or upper(NameLF) like "%${q}%") or (AccountName like "%${q}%")`;
   },
 });
 

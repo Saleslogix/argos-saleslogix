@@ -1,6 +1,7 @@
 {
   "tags": {
-    "allowUnknownTags": true
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
   },
   "source": {
     "include": [
@@ -10,7 +11,7 @@
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": ""
   },
-  "plugins": [],
+  "plugins": ["plugins/markdown"],
   "templates": {
     "default": {
       "useLongnameInNav": true,

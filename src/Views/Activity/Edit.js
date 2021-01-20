@@ -30,12 +30,7 @@ import { getPicklistByActivityType } from '../../Models/Activity/ActivityTypePic
 const resource = getResource('activityEdit');
 const dtFormatResource = getResource('activityEditDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Edit
- * @extends argos.Edit
- *
- */
-const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.Activity.Edit# */{
+const __class = declare('crm.Views.Activity.Edit', [Edit], {
   // Localization
   activityCategoryTitleText: resource.activityCategoryTitleText,
   activityDescriptionTitleText: resource.activityDescriptionTitleText,
@@ -87,15 +82,16 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   },
   durationValueText: {
     0: resource.noneText,
+    5: resource.fiveMinText,
+    10: resource.tenMinutesText,
     15: resource.quarterHourText,
     30: resource.halfHourText,
     60: resource.hourText,
-    90: resource.hourAndHalfText,
     120: resource.twoHoursText,
+    240: resource.fourHoursText,
   },
 
-  /**
-   * @property {Number}
+  /*
    * The number of minutes that should be rounded to as a default start when creating a new activity
    */
   ROUND_MINUTES: 15,
@@ -105,7 +101,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   detailView: 'activity_detail',
   fieldsForLeads: ['AccountName', 'Lead'],
   fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
-  /**
+  /*
    * @deprecated Use ActivityTypePicklists from Modes/Activity/ActivityTypePicklists instead
    */
   picklistsByType: {
@@ -150,7 +146,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   _previousRecurrence: null,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.recurrence = {
       RecurIterations: '0',
@@ -174,7 +170,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   },
   onAddComplete: function onAddComplete() {
     environment.refreshActivityLists();
-    this.inherited(arguments);
+    this.inherited(onAddComplete, arguments);
   },
   onPutComplete: function onPutComplete(entry, updatedEntry) {
     const view = App.getView(this.detailView);
@@ -201,7 +197,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     }
   },
   convertEntry: function convertEntry() {
-    const entry = this.inherited(arguments);
+    const entry = this.inherited(convertEntry, arguments);
     if (!this.options.entry) {
       if (entry && entry.Leader.$key) {
         this.requestLeader(entry.Leader.$key);
@@ -260,7 +256,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     return !!lead;
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
 
     // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
     // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -369,7 +365,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
   onLeadChange: function onLeadChange(value, field) {
     const selection = field.getSelection();
 
-    if (selection && this.insert) {
+    if (selection && this.options && this.options.insert) {
       this.fields.AccountName.setValue(utility.getValue(selection, 'Company'));
     }
 
@@ -410,7 +406,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
         fields[f].dependsOn = 'Account';
         fields[f].where = `Account.Id eq "${value.AccountId || value.key}"`;
 
-        if (fields[f].currentSelection &&
+        if (fields[f].currentSelection && fields[f].currentSelection.Account &&
           fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
           fields[f].setValue(false);
         }
@@ -589,7 +585,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     return this._getCalculatedStartTime(optionsDate);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     let startDate = this._getCalculatedStartTime(moment());
     const activityType = this.options && this.options.activityType;
@@ -774,8 +770,10 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     this.fields.AccountName.setValue(entry.Company);
 
     const isLeadField = this.fields.IsLead;
-    isLeadField.setValue(context.resourceKind === 'leads');
-    this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    if (isLeadField) {
+      isLeadField.setValue(context.resourceKind === 'leads');
+      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+    }
 
     if (entry.WorkPhone) {
       const phoneField = this.fields.PhoneNumber;
@@ -797,7 +795,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
       values.Reminder = format.fixed(reminder, 0);
     }
 
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     this.enableFields();
 
@@ -817,8 +815,11 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
 
     if (this.isInLeadContext()) {
       const isLeadField = this.fields.IsLead;
-      isLeadField.setValue(true);
-      this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      if (isLeadField) {
+        isLeadField.setValue(true);
+        this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+      }
+
       this.fields.Lead.setValue(values, true);
       this.fields.AccountName.setValue(values.AccountName);
     }
@@ -840,6 +841,12 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
         return (/^Alarm$/)
           .test(f.name);
       });
+    }
+
+    if (this.options && this.options.activityType === 'atPersonal') {
+      this.fields.Category.disable();
+    } else {
+      this.fields.Category.enable();
     }
 
     this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate); // TODO: Avoid global
@@ -887,7 +894,7 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
     const reminderIn = this.fields.Reminder.getValue();
     const timeless = this.fields.Timeless.getValue();
     let startDate = this.fields.StartDate.getValue();
-    let values = this.inherited(arguments);
+    let values = this.inherited(getValues, arguments);
 
     // Fix timeless if necessary (The date picker won't add 5 seconds)
     if (timeless) {
@@ -899,6 +906,11 @@ const __class = declare('crm.Views.Activity.Edit', [Edit], /** @lends crm.Views.
       values = values || {};
       const alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
       values.AlarmTime = alarmTime;
+    }
+
+    if (this.fields.IsLead && this.fields.IsLead.getValue() === false) {
+      values.LeadId = null;
+      values.LeadName = null;
     }
 
     return values;

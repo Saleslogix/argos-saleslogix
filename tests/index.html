@@ -1,13 +1,21 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
   <title>argos-saleslogix test runner</title>
   <!-- jasmine -->
-  <link rel="stylesheet" type="text/css" href="../../../argos-sdk/libraries/jasmine-2.0.0/jasmine.css">
-  <script type="text/javascript" src="../../../argos-sdk/libraries/jasmine-2.0.0/jasmine.js"></script>
-  <script type="text/javascript" src="../../../argos-sdk/libraries/jasmine-2.0.0/jasmine-html.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../argos-sdk/libraries/jasmine/jasmine.css">
+  <script type="text/javascript" src="../../../argos-sdk/libraries/jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/jasmine/jasmine-html.js"></script>
+
+    <!-- Soho Configuration -->
+    <script type="application/javascript">
+      var SohoConfig = {
+        culturesPath: '../../../argos-sdk/libraries/soho/js/cultures/',
+        minifyCultures: false,
+        personalize: {
+          noInit: true
+        }
+      };
+    </script>
 
   <!-- SData Client Library -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
@@ -20,10 +28,7 @@
   <script type="text/javascript" src="../../../argos-sdk/libraries/canvas2image.js"></script>
 
   <!-- Deep Diff -->
-  <script type="text/javascript" src="../../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
-
-  <!-- Rx.js -->
-  <script src="../../../argos-sdk/libraries/rxjs/rx.lite.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/deep-diff/deep-diff.min.js"></script>
 
   <!-- Page.js -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/pagejs-1.6.1/page.js"></script>
@@ -35,71 +40,55 @@
   <script type="text/javascript" src="../../../argos-sdk/libraries/moment/moment-with-locales.js"></script>
 
   <!-- PouchDB -->
-  <script type="text/javascript" src="../../../argos-sdk/libraries/pouchdb/pouchdb-6.3.4.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/pouchdb/pouchdb-7.1.1.js"></script>
 
   <!-- L20N.js -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/l20n/l20n.js"></script>
 
   <!-- jQuery -->
-  <script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/jquery-3.1.1.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/soho/js/jquery-3.5.1.js"></script>
 
   <!-- SohoXi -->
-  <script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/sohoxi.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/soho/js/sohoxi.js"></script>
 
   <!-- Redux -->
-  <script type="text/javascript" src="../../../argos-sdk/libraries/redux/redux.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/redux/redux.min.js"></script>
 
   <!-- ICRM Common, depends on moment -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/icrm/common.bundle.js"></script>
   <script type="text/javascript" src="../../../argos-sdk/libraries/icrm/customization.bundle.js"></script>
   <script type="text/javascript" src="../../../argos-sdk/libraries/icrm/services.bundle.js"></script>
 
+  <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
+  <script type="application/l20n">{}</script>
+
   <!-- Dojo -->
   <script type="text/javascript" src="../../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true"></script>
   <script type="text/javascript">
-    require({
+      require({
       baseUrl: "./",
-      packages: [{
-        name: 'dojo',
-        location: '../../../argos-sdk/libraries/dojo/dojo'
-      }, {
-        name: 'dijit',
-        location: '../../../argos-sdk/libraries/dojo/dijit'
-      }, {
-        name: 'dojox',
-        location: '../../../argos-sdk/libraries/dojo/dojox'
-      }, {
-        name: 'snap',
-        location: '../../../argos-sdk/libraries/snap',
-        main: 'snap'
-      }, {
-        name: 'argos',
-        location: '../../../argos-sdk/src-out'
-      }, {
-        name: 'crm',
-        location: '../src-out'
-      }, {
-        name: 'spec',
-        location: 'src'
-      }, {
-        name: 'localization',
-        location: '../localization'
-      }, {
-        name: 'configuration',
-        location: '../configuration'
-      }],
-      paths: {
-        'configuration': '../configuration',
-        'localization': '../localization'
-      },
-      map: {
-        '*': {
-          'Sage/Platform/Mobile': 'argos',
-          'Mobile/SalesLogix': 'crm',
-          'icboe': 'crm/Integrations/BOE'
+        packages: [
+            { name: 'dojo', location: '../../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'snap', location: '../../../argos-sdk/libraries/snap', main: 'snap' },
+            { name: 'argos', location: '../../../argos-sdk/src-out' },
+            { name: 'crm', location: '../src-out' },
+            { name: 'spec', location: './src' },
+            { name: 'localization', location: '../localization' },
+            { name: 'configuration', location: '../configuration' }
+        ],
+        paths: {
+            'configuration': '../configuration',
+            'localization': '../localization',
+        },
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm',
+                'icboe': 'crm/Integrations/BOE'
+            }
         }
-      }
-    });
+  });
   </script>
 </head>
 
@@ -139,21 +128,19 @@
       return ctx;
     }
     var ctx = buildContext();
-    ctx.ready(function() {
-      // Shim, sohoxi will use define.amd and require it.
-      define('jquery', function() {
-        return window.$;
+    Soho.Locale.set('en-US').done(function() {
+      ctx.ready(function() {
+        // Shim, sohoxi will use define.amd and require it.
+        define('jquery', function() {
+          return window.$;
+        });
+        require([
+          'spec/all'
+        ]);
       });
-      require([
-        'spec/all'
-      ]);
     });
 
-    // Shim, sohoxi will use define.amd and require it.
-    define('jquery', function() {
-      return window.$;
-    });
-    require(['../../../argos-sdk/libraries/jasmine-2.0.0/boot.js']);
+    require(['../../../argos-sdk/libraries/jasmine/boot.js']);
   </script>
 </body>
 

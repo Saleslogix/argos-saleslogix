@@ -19,13 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('updateToolbar');
 
-/**
- * @class crm.Views.UpdateToolbar
- *
- *
- * @extends argos.MainToolbar
- *
- */
 const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
   widgetTemplate: new Simplate([
     '<div class="update-toolbar">',
@@ -47,11 +40,11 @@ const __class = declare('crm.Views.UpdateToolbar', [MainToolbar], {
       scope: this,
     }]);
 
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
 
   showTools: function showTools() {
-    this.inherited(arguments);
+    this.inherited(showTools, arguments);
   },
 
   hide: function hide() {

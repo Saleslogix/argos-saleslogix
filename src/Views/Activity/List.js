@@ -33,22 +33,6 @@ import string from 'dojo/string';
 const resource = getResource('activityList');
 const hashTagResource = getResource('activityListHashTags');
 
-/**
- * @class crm.Views.Activity.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- *
- * @requires argos.List
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires argos.ErrorManager
- * @requires crm.Action
- * @requires crm.Environment
- * @requires crm.Format
- * @requires crm.Views._RightDrawerListMixin
- *
- */
 const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin], {
   // Localization
   allDayText: resource.allDayText,
@@ -62,6 +46,7 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   importantText: resource.importantText,
   recurringText: resource.recurringText,
   titleText: resource.titleText,
+  addUnscheduledText: resource.addUnscheduledText,
   hashTagQueriesText: {
     alarm: hashTagResource.alarmText,
     recurring: hashTagResource.recurringText,
@@ -201,39 +186,60 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
 
     return (this._model && this._model.getEntityDescription(entry)) || entry.$descriptor;
   },
+  createToolLayout: function createToolLayout() {
+    this.inherited(createToolLayout, arguments);
+    if (this.tools && this.tools.tbar) {
+      this.tools.tbar.unshift({
+        id: 'newUnscheduled',
+        svg: 'add',
+        title: this.addUnscheduledText,
+        action: 'navigateToNewUnscheduled',
+        security: this.app.getViewSecurity(this.insertView, 'insert'),
+      });
+    }
+
+    return this.tools;
+  },
+  navigateToNewUnscheduled: function navigateToNewUnscheduled() {
+    const additionalOptions = {
+      unscheduled: true,
+    };
+
+    this.navigateToInsertView(additionalOptions);
+  },
   createIndicatorLayout: function createIndicatorLayout() {
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'alarm',
       cls: 'notification',
-      label: this.alarmText,
+      title: this.alarmText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasAlarm(entry);
       },
     }, {
       id: 'important',
       cls: 'star-filled',
-      label: this.importantText,
+      title: this.importantText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isImportant(entry);
       },
     }, {
       id: 'recurring',
       cls: 'load',
-      label: this.recurringText,
+      title: this.recurringText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isRecurring(entry, this);
       },
     }, {
       id: 'overdue',
       cls: 'error',
-      label: this.overdueText,
+      title: this.overdueText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.isOverdue(entry);
       },
     }, {
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
+      title: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },
@@ -399,9 +405,9 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
     if (entry) {
       const activityParams = params;
       activityParams.descriptor = this._model.getEntityDescription(entry);
-      this.inherited(arguments, [activityParams]);
+      this.inherited(activateEntry, arguments, [activityParams]);
     } else {
-      this.inherited(arguments);
+      this.inherited(activateEntry, arguments);
     }
   },
 });

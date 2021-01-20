@@ -23,16 +23,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('opportunityEdit');
 const dtFormatResource = getResource('opportunityEditDateTimeFormat');
 
-/**
- * @class crm.Views.Opportunity.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Utility
- *
- * @requires crm.Validator
- * @requires crm.Template
- */
 const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
   // Localization
   accountText: resource.accountText,
@@ -91,7 +81,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     '$permissions',
   ],
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
 
     if (App.hasMultiCurrency()) {
@@ -137,7 +127,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     }
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
     if (App.hasMultiCurrency()) {
       if (values && values.ExchangeRateCode) {
         this.fields.ExchangeRateCode.setValue({
@@ -161,7 +151,7 @@ const __class = declare('crm.Views.Opportunity.Edit', [Edit], {
     this.fields.SalesPotential.setCurrencyCode(App.getBaseExchangeRate().code);
   },
   getValues: function getValues() {
-    const values = this.inherited(arguments);
+    const values = this.inherited(getValues, arguments);
 
     if (values) {
       const code = values.ExchangeRateCode;

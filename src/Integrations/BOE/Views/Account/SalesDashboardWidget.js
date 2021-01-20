@@ -27,10 +27,7 @@ import icboeaggregate from 'icboe/Aggregate';
 
 const resource = getResource('salesDashboardWidget');
 
-/**
- * @class crm.Integrations.BOE.Views.Account.SalesDashboardWidget
- */
-const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [DashboardWidget], /** @lends crm.Integrations.BOE.Views.Account.SalesDashboardWidget# */{
+const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [DashboardWidget], {
   // Localization
   recentRevenueText: resource.recentRevenueText,
   recentCostText: resource.recentCostText,
@@ -58,7 +55,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   canceledCode: 'Canceled',
 
   formatModule: format,
-  /**
+  /*
      * Values for the metrics
      * name: valueNeeded by the widget,
      * aggregate: function to aggregate the value,
@@ -147,7 +144,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.SalesDashboardWidget
   createMetricLayout: function createMetricLayout(entry) {
     this.setQueryArgs(entry);
 
-    /**
+    /*
        * Format of metric layout:
        * formatter: value,
        * formatModule: module to load that contains the value,

@@ -21,11 +21,6 @@ import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('opportunityContactList');
 
-/**
- * @class crm.Views.OpportunityContact.List
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.OpportunityContact.List', [List], {
   // Template
   itemTemplate: new Simplate([
@@ -42,6 +37,7 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
   activitiesText: resource.activitiesText,
   notesText: resource.notesText,
   scheduleText: resource.scheduleText,
+  cancelText: resource.cancelText,
 
   // View Properties
   id: 'opportunitycontact_list',
@@ -105,11 +101,13 @@ const __class = declare('crm.Views.OpportunityContact.List', [List], {
         tbar: [{
           id: 'complete',
           fn: this.complete,
-          cls: 'invisible',
+          cls: 'hidden',
           scope: this,
         }, {
           id: 'cancel',
           side: 'left',
+          svg: 'cancel',
+          title: this.cancelText,
           fn: ReUI.back,
           scope: ReUI,
         }],

@@ -3,9 +3,9 @@
 <%@ Register Src="~/index-body.ascx" TagPrefix="uc1" TagName="body" %>
 
 <!DOCTYPE html>
-<!--[if IE 9 ]>    <html lang="en" class="ie9" manifest="index.manifest.ashx"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en-US" class="gtie9 modern" manifest="index.manifest.ashx">
+<html lang="en-US" class="gtie9 modern">
 <!--<![endif]-->
 <head>
     <uc1:head runat="server" id="index_head" />

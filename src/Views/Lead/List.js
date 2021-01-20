@@ -26,19 +26,6 @@ import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('leadList');
 
-/**
- * @class crm.Views.Lead.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._GroupListMixin
- *
- * @requires argos.Format
- * @requires argos.Utility
- *
- * @requires crm.Action
- */
 const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([
@@ -195,7 +182,7 @@ const __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _Me
     if (options) {
       options.selection = this.linkLeadProperties(options.selection);
     }
-    this.inherited(arguments);
+    this.inherited(groupInvokeActionByName, arguments);
   },
 
   formatSearchQuery: function formatSearchQuery(searchQuery) {

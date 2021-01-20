@@ -12,20 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * @class crm.Integrations.BOE.DateRangeWidget
- */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _Widget from 'dijit/_Widget';
 import _Templated from 'argos/_Templated';
 
-const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], /** @lends crm.Integrations.BOE.DateRangeWidget# */{
-  /**
-     * @property {Simplate}
-     * Simple that defines the HTML Markup
-    */
+const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templated], {
   widgetTemplate: new Simplate([
     '<div class="range-widget">',
     '<button data-dojo-attach-event="onclick:changeRange">',
@@ -36,10 +28,9 @@ const __class = declare('crm.Integrations.BOE.DateRangeWidget', [_Widget, _Templ
     '</div>',
   ]),
 
-  /**
-     * @property {Simplate}
-     * HTML markup for the range detail (name/value)
-    */
+  /*
+   * HTML markup for the range detail (name/value)
+   */
   itemTemplate: new Simplate([
     '<span class="range-value">{%: $.value %} {%: $.valueUnit %}</span>',
   ]),

@@ -23,11 +23,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('erpInvoiceItemsList');
 
-/**
- * @class crm.Integrations.BOE.Views.ERPInvoiceItems.List
- * @extends argos.List
- */
-const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin], /** @lends crm.Integrations.BOE.Views.ERPInvoiceItems.List# */{
+const __class = declare('crm.Integrations.BOE.Views.ERPInvoiceItems.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   itemTemplate: new Simplate([
     '<p class="listview-heading"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>',
     '<p class="micro-text"><label class="group-label">{%: $$.invoiceIdText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</p>',

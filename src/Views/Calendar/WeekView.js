@@ -25,23 +25,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 const resource = getResource('calendarWeekView');
 const dtFormatResource = getResource('calendarWeekViewDateTimeFormat');
 
-/**
- * @class crm.Views.Calendar.WeekView
- *
- * @extends argos.List
- * @mixins argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
   // Localization
   titleText: resource.titleText,
@@ -159,7 +142,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   eventMoreTemplate: new Simplate([
     '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
     '<button class="button" data-action="activateEventMore">',
-    '<span data-dojo-attach-point="eventRemainingContentNode">{%= $$.eventMoreText %}</span>',
+    '<span data-dojo-attach-point="eventRemainingContentNode"></span>',
     '</button>',
     '</div>',
   ]),
@@ -236,13 +219,13 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
   resourceKind: 'activities',
 
   _onRefresh: function _onRefresh(o) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (o.resourceKind === 'activities' || o.resourceKind === 'events') {
       this.refreshRequired = true;
     }
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.todayDate = moment().startOf('day');
     this.currentDate = this.todayDate.clone();
   },
@@ -510,7 +493,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
       this.processShowOptions(options);
     }
 
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   processShowOptions: function processShowOptions(options) {
     if (options.currentDate) {
@@ -528,7 +511,7 @@ const __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMi
     }
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.entryGroups = {};
     this.set('eventContent', '');
     this.set('listContent', this.loadingTemplate.apply(this));

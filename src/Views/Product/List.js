@@ -19,13 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('productList');
 
-/**
- * @class crm.Views.Product.List
- *
- * @extends argos.List
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Product.List', [List], {
   // Templates
   itemTemplate: new Simplate([

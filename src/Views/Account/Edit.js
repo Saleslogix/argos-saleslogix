@@ -23,17 +23,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('accountEdit');
 
-/**
- * @class crm.Views.Account.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Views.Account.Edit', [Edit], {
   // Localization
   accountStatusTitleText: resource.accountStatusTitleText,
@@ -90,7 +79,7 @@ const __class = declare('crm.Views.Account.Edit', [Edit], {
     return string.substitute(nformat, [dependentValue]);
   },
   applyContext: function applyContext(templateEntry) {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     this.fields.AccountManager.setValue(App.context.user);
     this.fields.Owner.setValue(App.context.defaultOwner);

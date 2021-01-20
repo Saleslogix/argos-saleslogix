@@ -21,25 +21,9 @@ import recur from '../../Recurrence';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
 
-
 const resource = getResource('activityRecurring');
 const dtFormatResource = getResource('activityEditDateTimeFormat');
 
-/**
- * @class crm.Views.Activity.Recurring
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires argos.Utility
- *
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Recurrence
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   // Localization
   startingText: resource.startingText,
@@ -106,7 +90,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
   id: 'recurrence_edit',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(this.fields.AfterCompletion, 'onChange', this.onAfterCompletionChange);
     this.connect(this.fields.Interval, 'onChange', this.onIntervalChange);
     this.connect(this.fields.RecurIterations, 'onChange', this.onRecurIterationsChange);
@@ -502,7 +486,7 @@ const __class = declare('crm.Views.Activity.Recurring', [Edit], {
     };
   },
   setValues: function setValues(values) {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     // calculate some values from the ones provided
     this.entry = values;

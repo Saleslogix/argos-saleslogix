@@ -109,10 +109,10 @@ const __class = declare('crm.Views.Account.ListOffline', [_ListBase], {
   },
   show: function show() {
     this.refreshRequired = true;
-    this.inherited(arguments);
+    this.inherited(show, arguments);
   },
   _onRefresh: function _onRefresh(args) {
-    this.inherited(arguments);
+    this.inherited(_onRefresh, arguments);
     if (typeof args === 'undefined' || args === null) {
       return;
     }

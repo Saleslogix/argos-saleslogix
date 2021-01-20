@@ -21,16 +21,6 @@ import format from '../../Format';
 
 const resource = getResource('historyRelated');
 
-/**
- * @class crm.Views.History.RelatedView
- *
- * @extends argos.RelatedViewWidget
- *
- * @requires argos.Convert
- *
- * @requires crm.Format
- *
- */
 const __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
   // Localization
   regardingText: resource.regardingText,

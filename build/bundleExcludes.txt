@@ -17,8 +17,6 @@ argos-saleslogix.v12.suo
 .eslintrc.js
 Gruntfile.js
 GruntRunner.tmpl
-src-out\placeholder.txt
-min\css\placeholder.txt
 node_modules
 .idea
 deploy
@@ -56,12 +54,9 @@ npm-debug.log
 \argos-sdk\GruntRunnerBasic.tmpl
 \argos-sdk\.babelrc
 \argos-sdk.csproj.user
-\argos-sdk\src-out\placeholder.txt
-\argos-sdk\min\css\themes\crm\placeholder.txt
 \argos-sdk\npm-debug.log
 \argos-sdk\tools\bundler
 \argos-sdk\tools\argos-localizer
 \argos-sdk\tools\l20n-grammar
 \argos-sdk\graph.png
 \argos-sdk\libraries\jasmine\
-\argos-sdk\libraries\jasmine-2.0.0\

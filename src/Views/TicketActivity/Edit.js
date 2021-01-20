@@ -25,16 +25,6 @@ import MODEL_NAMES from '../../Models/Names';
 const resource = getResource('ticketActivityEdit');
 const dtFormatResource = getResource('ticketActivityEditDateTimeFormat');
 
-/**
- * @class crm.Views.TicketActivity.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.ErrorManager
- *
- * @requires crm.Template
- * @requires crm.Validator
- */
 const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,
@@ -58,7 +48,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   resourceKind: 'ticketActivities',
 
   processTemplateEntry: function processTemplateEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processTemplateEntry, arguments);
 
     if (entry.PublicAccessCode) {
       this.requestCodeData('name eq "Ticket Activity Public Access"', entry.PublicAccessCode, this.fields.PublicAccessCode);
@@ -106,7 +96,7 @@ const __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
   },
 
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     const ticketContext = App.isNavigationFromResourceKind(['tickets']);
     const ticketKey = ticketContext && ticketContext.key;

@@ -30,17 +30,6 @@ const resource = getResource('quoteEdit');
 const contactResource = getResource('contactModel');
 const dtFormatResource = getResource('quoteEditDateTimeFormat');
 
-/**
- * @class crm.Views.Account.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- * @requires crm.Format
- * @requires crm.Validator
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   // Localization
   titleText: resource.titleText,
@@ -95,9 +84,10 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   siteCode: 'Site',
   modelName: MODEL_NAMES.QUOTE,
   _busyIndicator: null,
+  locationType: '',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
 
     this.connect(this.fields.Account, 'onChange', this.onAccountChange);
     this.connect(this.fields.RequestedBy, 'onChange', this.onContactChange);
@@ -108,17 +98,32 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.connect(this.fields.BackOfficeAccountingEntity, 'onChange', this.onBackOfficeAccountingEntityChange);
     this.connect(this.fields.Location, 'onChange', this.onLocationChange);
     this.connect(this.fields.Warehouse, 'onChange', this.onWarehouseChange);
+    if (!this.locationType) {
+      this.locationType = App.context.integrationSettings && App.context.integrationSettings['Back Office Extension'] &&
+        App.context.integrationSettings['Back Office Extension']['Type of Order Location'] || '';
+    }
+    if (this.locationType === 'Warehouse') {
+      this.fields.Location.hide();
+      this.fields.Warehouse.show();
+    } else if (this.locationType !== 'Warehouse') {
+      this.fields.Location.show();
+      this.fields.Warehouse.hide();
+      this.fields.Warehouse.required = false;
+      this.fields.Warehouse.validator = undefined;
+    }
   },
   insert: function insert() {
     this.showUnpromotedFields();
-    this.inherited(arguments);
+    this.fields.Location.show();
+    this.fields.Warehouse.show();
+    this.inherited(insert, arguments);
   },
   isQuoteClosed: function isQuoteClosed() {
     return this.entry && this.entry.IsClosed;
   },
   processData: function processData() {
     this.showBusy();
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
     this.getEntriesFromIds();
     if (this.isQuoteClosed()) {
       App.bars.tbar.disableTool('save');
@@ -127,7 +132,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     }
   },
   beforeTransitionTo: function beforeTransitionTo() {
-    this.inherited(arguments);
+    this.inherited(beforeTransitionTo, arguments);
     this.hideUnpromotedFields();
     if (!this.fields.AccountManager.isDisabled) {
       this.fields.AccountManager.disable();
@@ -159,7 +164,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     return values;
   },
   processEntry: function processEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     if (entry && entry.Account) {
       ['RequestedBy', 'Opportunity'].forEach((f) => {
         this.fields[f].dependsOn = 'Account';
@@ -184,6 +189,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
       };
     } else {
       warehouseField.disable();
+      warehouseField.required = false;
+      warehouseField.validator = undefined;
       locationField.disable();
     }
     if (entry.Warehouse) {
@@ -200,7 +207,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     return entry;
   },
   setValues: function setValues() {
-    this.inherited(arguments);
+    this.inherited(setValues, arguments);
 
     if (!this.fields.CurrencyCode.getValue()) {
       const account = this.fields.Account.currentSelection;
@@ -212,14 +219,14 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     }
   },
   onRefresh: function onRefresh() {
-    this.inherited(arguments);
+    this.inherited(onRefresh, arguments);
     ['RequestedBy', 'Opportunity', 'BackOfficeAccountingEntity', 'Warehouse', 'Location'].forEach((f) => {
       this.fields[f].dependsOn = null;
       this.fields[f].where = null;
     });
   },
   onRefreshInsert: function onRefreshInsert() {
-    this.inherited(arguments);
+    this.inherited(onRefreshInsert, arguments);
     this.enableBackOfficeData();
   },
   getEntriesFromIds: function getEntriesFromIds() {
@@ -325,7 +332,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
     this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
     const accountingField = this.fields.BackOfficeAccountingEntity;
     accountingField.where = `BackOffice.Id eq "${field.currentSelection.$key}"`;
-    const accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+    const accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
     if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
       const entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
       if (entry) {
@@ -374,9 +381,10 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
   },
   onWarehouseChange: function onWarehouseChange(value, field) {
     this.fields.Warehouse.setValue(field.currentSelection);
+    this.fields.Location.setValue(field.currentSelection);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
     const found = this._getNavContext();
 
     const accountField = this.fields.Account;
@@ -611,6 +619,8 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
         valueTextProperty: 'Description',
         view: 'quote_warehouse_list',
         title: this.warehouseLocationText,
+        required: true,
+        validator: validator.exists,
       }, {
         label: this.requestedByText,
         name: 'RequestedBy',
@@ -624,7 +634,7 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Edit', [Edit], {
         name: 'Quote Status',
         property: 'Status',
         type: 'picklist',
-        picklist: 'QuoteStatus',
+        picklist: 'ErpQuoteStatus',
         singleSelect: true,
         titleText: this.statusTitle,
       }, {

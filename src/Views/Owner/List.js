@@ -19,11 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('ownerList');
 
-/**
- * @class crm.Views.Owner.List
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.Owner.List', [List], {
   // Templates
   itemTemplate: new Simplate([
@@ -58,7 +53,7 @@ const __class = declare('crm.Views.Owner.List', [List], {
       }, this);
     }
 
-    this.inherited(arguments);
+    this.inherited(processData, arguments);
   },
   _userEnabled: function _userEnabled(item) {
     // If User is null, it is probably a team

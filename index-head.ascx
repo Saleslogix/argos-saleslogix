@@ -64,16 +64,25 @@
             and (-webkit-device-pixel-ratio: 1)"
         rel="apple-touch-startup-image">
 
-<link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/css/light-theme.min.css" />
+<link type="text/css" rel="stylesheet" id="sohoxi-stylesheet" href="content/css/theme-soho-light.min.css" />
 <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
 <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
+
+<!-- Soho Configuration -->
+<script type="application/javascript">
+    var SohoConfig = {
+      culturesPath: 'content/javascript/cultures/',
+      minifyCultures: true,
+      personalize: {
+        noInit: true
+      }
+    };
+</script>
 
 <!-- Provide an empty resource expected by l20n lib. Argos loads l20n files during bootstrap -->
 <script type="application/l20n">{}</script>
 
 <!-- Global (window) dependencies. Load these before the AMD loader -->
-<script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/sohoxi.min.js"></script>
 <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
 
 <!-- Dojo -->

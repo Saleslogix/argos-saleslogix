@@ -18,11 +18,7 @@ import Memory from 'dojo/store/Memory';
 
 import GroupedList from 'argos/GroupedList';
 
-/**
- * @class crm.Views.RightDrawer
- * @extends argos.GroupedList
- */
-const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.Views.RightDrawer# */{
+const __class = declare('crm.Views.RightDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
   rowTemplate: new Simplate([
@@ -52,16 +48,11 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.V
   },
   getGroupForEntry: function getGroupForEntry() {},
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
   },
   initSoho: function initSoho() {
-    this.inherited(arguments);
-    this.accordion.element.on('selected', (evt, header) => {
-      // Fix up the event target to the element with our data-action attribute.
-      evt.target = $('a', header).get(0);
-      this._initiateActionFromEvent(evt);
-    });
+    this.inherited(initSoho, arguments);
   },
   setLayout: function setLayout(layout) {
     this.layout = layout;
@@ -94,10 +85,10 @@ const __class = declare('crm.Views.RightDrawer', [GroupedList], /** @lends crm.V
     return store;
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.store = null;
   },
-  /**
+  /*
    * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
    */
   refresh: function refresh() {

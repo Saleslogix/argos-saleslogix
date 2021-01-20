@@ -16,17 +16,9 @@
 import declare from 'dojo/_base/declare';
 import Edit from 'argos/Edit';
 import getResource from 'argos/I18n';
-import { setEndPoint } from '../actions/config';
 
 const resource = getResource('login');
 
-/**
- * @class crm.Views.Login
- *
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.Login', [Edit], {
   // Templates
   widgetTemplate: new Simplate([`
@@ -39,7 +31,7 @@ const __class = declare('crm.Views.Login', [Edit], {
             <h1>Infor CRM</h1>
             <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
             </div>
-            <div>
+            <div class="login-button-container">
               <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>
             </div>
           </section>
@@ -55,13 +47,13 @@ const __class = declare('crm.Views.Login', [Edit], {
   copyrightText: resource.copyrightText,
   logOnText: resource.logOnText,
   passText: resource.passText,
-  urlText: resource.urlText,
   rememberText: resource.rememberText,
   titleText: resource.titleText,
   userText: resource.userText,
   invalidUserText: resource.invalidUserText,
   missingUserText: resource.missingUserText,
   requestAbortedText: resource.requestAbortedText,
+  passwordExpiredText: resource.passwordExpiredText,
   logoText: resource.logoText,
   errorText: {
     general: resource.logOnError,
@@ -87,32 +79,31 @@ const __class = declare('crm.Views.Login', [Edit], {
     header.hide();
   },
   show: function show() {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
+
     if (!this.connectionState) {
       this._disable();
     }
 
-    const state = this.appStore.getState();
-    if (state && state.app && state.app.config.endpoint) {
-      this.fields['url-display'].setValue(state.app.config.endpoint);
+    if (App.enableRememberMe !== true) {
+      this.fields.remember.disable();
+      this.fields.remember.hide();
     }
   },
   _disable: function _disable() {
     this.fields['username-display'].disable();
     this.fields['password-display'].disable();
-    this.fields['url-display'].disable();
     this.fields.remember.disable();
     this.loginButton.disabled = true;
   },
   _enable: function _enable() {
     this.fields['username-display'].enable();
     this.fields['password-display'].enable();
-    this.fields['url-display'].enable();
     this.fields.remember.enable();
     this.loginButton.disabled = false;
   },
   _updateConnectionState: function _updateConnectionState(online) {
-    this.inherited(arguments);
+    this.inherited(_updateConnectionState, arguments);
     if (online) {
       this._enable();
     } else {
@@ -153,11 +144,6 @@ const __class = declare('crm.Views.Login', [Edit], {
       inputType: 'password',
       required: true,
     }, {
-      name: 'url-display',
-      label: this.urlText,
-      type: 'text',
-      required: true,
-    }, {
       name: 'remember',
       label: this.rememberText,
       type: 'boolean',
@@ -168,16 +154,15 @@ const __class = declare('crm.Views.Login', [Edit], {
       return;
     }
 
-    const values = this.getValues();
+    const values = this.getValues(true);
 
     const credentials = {
       username: values['username-display'],
       password: values['password-display'],
-      endpoint: values['url-display'],
       remember: values.remember,
     };
 
-    if (credentials.username && credentials.endpoint) {
+    if (credentials.username) {
       this.validateCredentials(credentials);
     }
   },
@@ -192,6 +177,25 @@ const __class = declare('crm.Views.Login', [Edit], {
       handle: function handleNoResponse(error, next) {
         alert(this.missingUserText);// eslint-disable-line
         next();
+      },
+    }, {
+      name: 'PasswordExpired',
+      test: function testExpiredPassword(error) {
+        const xhr = error && error.xhr;
+        if (!xhr) {
+          return false;
+        }
+
+        try {
+          const json = JSON.parse(xhr.responseText)[0];
+          const stackTrace = json.stackTrace || '';
+          return stackTrace.indexOf('Sage.SalesLogix.User.Rules.IsValidPassword') > -1;
+        } catch (_) {
+          return false;
+        }
+      },
+      handle: function handleExpiredPassword() {
+        alert(this.passwordExpiredText);// eslint-disable-line
       },
     }, {
       name: 'GeneralError',
@@ -209,8 +213,6 @@ const __class = declare('crm.Views.Login', [Edit], {
   validateCredentials: function validateCredentials(credentials) {
     this.disable();
 
-    const endpoint = credentials.endpoint;
-    this.appStore.dispatch(setEndPoint(endpoint));
     App.authenticateUser(credentials, {
       success: function success() {
         // Need to remove Login view from pagejs stack

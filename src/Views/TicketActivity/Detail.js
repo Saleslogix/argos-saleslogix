@@ -18,22 +18,10 @@ import format from '../../Format';
 import template from '../../Template';
 import Detail from 'argos/Detail';
 import getResource from 'argos/I18n';
-// import 'dojo/NodeList-manipulate';
 import MODEL_NAMES from '../../Models/Names';
 
 const resource = getResource('ticketActivityDetail');
 
-/**
- * @class crm.Views.TicketActivity.Detail
- *
- * @extends argos.Detail
- *
- * @requires argos.ErrorManager
- * @requires argos.Format
- *
- * @requires crm.Format
- * @requires crm.Template
- */
 const __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
   // Localization
   titleText: resource.titleText,

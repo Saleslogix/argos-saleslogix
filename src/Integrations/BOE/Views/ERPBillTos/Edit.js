@@ -54,10 +54,10 @@ const __class = declare('crm.Integrations.BOE.Views.ERPBillTos.Edit', [Edit], {
   associationContext: null,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
 
     const found = this._getNavContext();
     const context = (found && found.options && found.options.source) || found;

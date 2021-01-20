@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('nameEdit');
 
-/**
- * @class crm.Views.NameEdit
- *
- *
- * @extends argos.Edit
- *
- */
 const __class = declare('crm.Views.NameEdit', [Edit], {
   // Localization
   titleText: resource.titleText,
@@ -64,7 +57,7 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
         };
       },
       languageCodeProperty: 'LocationCode',
-      requireSelection: true,
+      requireSelection: false,
       storageMode: 'text',
       title: this.prefixTitleText,
       type: 'picklist',
@@ -111,7 +104,7 @@ const __class = declare('crm.Views.NameEdit', [Edit], {
         };
       },
       languageCodeProperty: 'LocationCode',
-      requireSelection: true,
+      requireSelection: false,
       storageMode: 'text',
       title: this.suffixTitleText,
       type: 'picklist',

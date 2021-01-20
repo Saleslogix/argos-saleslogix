@@ -240,7 +240,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     this.startup();
     this.initConnects();
     this.titleEl = document.getElementById('pageTitle');
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   loadAccountTypes: function loadAccountTypes() {
     this.queryTypeEl = document.getElementById('queryType');
@@ -271,7 +271,7 @@ const __class = declare('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch
     }
 
     for (let i = 0; i < data.$resources.length; i++) {
-      this.queryTypeEl.options[i] = new Option(data.$resources[i].text, data.$resources[i].text, true, false);
+      this.queryTypeEl.options[i] = new Option(data.$resources[i].text, data.$resources[i].code, true, false);
       if (this.queryTypeEl.options[i].value === 'Customer') {
         this.queryTypeEl.options[i].selected = 'True';
       }

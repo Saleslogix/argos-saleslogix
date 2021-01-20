@@ -106,7 +106,7 @@
 
 <historyListDateTimeFormat ""
   hourMinuteFormatText: "h:mm A"
-  dateFormatText: "DD.MM.YY"
+  dateFormatText: "DD.MM.YYYY"
   hourMinuteFormatText24: "HH:mm"
 >
 

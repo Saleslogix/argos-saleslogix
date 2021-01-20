@@ -27,21 +27,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('accountList');
 
-/**
- * @class crm.Views.Account.List
- *
- * @extends argos.List
- * @requires argos.List
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- *
- * @requires crm.Action
- * @requires crm.Views._GroupListMixin
- * @requires crm.Views._MetricListMixin
- * @requires crm.Views._RightDrawerListMixin
- *
- */
 const __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _GroupListMixin], {
   // Templates
   itemTemplate: new Simplate([

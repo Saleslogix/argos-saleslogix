@@ -169,7 +169,7 @@ const __class = declare('crm.Integrations.BOE.Models.Quotes.SData', [Base, _SDat
     });
   },
   getEntry: function getEntry(key, options) {
-    const results$ = this.inherited(arguments);
+    const results$ = this.inherited(getEntry, arguments);
     const closed$ = this.isClosed(key, options);
     return Promise.all([results$, closed$])
       .then(([entry, closed]) => {

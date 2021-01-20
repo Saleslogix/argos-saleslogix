@@ -21,16 +21,6 @@ import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 
 const resource = getResource('activityTypesList');
 
-/**
- * @class crm.Views.Activity.TypesList
- *
- * @extends argos.List
- * @mixins argos._LegacySDataListMixin
- *
- * @requires argos.List
- * @requires argos._LegacySDataListMixin
- *
- */
 const __class = declare('crm.Views.Activity.TypesList', [List], {
   // Templates
   liRowTemplate: new Simplate([
@@ -80,11 +70,17 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
   id: 'activity_types_list',
   editView: 'activity_edit',
   eventEditView: 'event_edit',
+  unscheduledView: 'activity_complete',
+
   allowSelection: true, // adds list-show-selectors class to listview for displaying icons
   activityTypeIcon: activityTypeIcons.default,
   activateEntry: function activateEntry(params) {
     if (params.key) {
-      const view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
+      let view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
+
+      if (this.options.unscheduled === true) {
+        view = App.getView(this.unscheduledView);
+      }
 
       if (view) {
         const source = this.options && this.options.source;
@@ -96,6 +92,7 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
           title: this.activityTypeText[params.key],
           returnTo: this.options && this.options.returnTo,
           currentDate: this.options && this.options.currentDate,
+          unscheduled: this.options.unscheduled,
         }, {
           returnTo: -1,
         });
@@ -143,10 +140,10 @@ const __class = declare('crm.Views.Activity.TypesList', [List], {
     return store;
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   onTransitionAway: function onTransitionAway() {
-    this.inherited(arguments);
+    this.inherited(onTransitionAway, arguments);
     this.refreshRequired = true;
     this.store = null;
   },

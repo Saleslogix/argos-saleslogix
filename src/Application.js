@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+* @module crm/Application
+*/
 import string from 'dojo/string';
 import DefaultMetrics from './DefaultMetrics';
 import ErrorManager from 'argos/ErrorManager';
@@ -25,7 +28,7 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import getResource from 'argos/I18n';
 import MingleUtility from './MingleUtility';
 import { app } from './reducers/index';
-import { setConfig, setEndPoint } from './actions/config';
+import { setConfig } from './actions/config';
 import { setUser } from './actions/user';
 import PicklistService from './PicklistService';
 
@@ -33,14 +36,13 @@ import PicklistService from './PicklistService';
 const resource = getResource('application');
 
 /**
- * @alias crm.Application
- * @extends argos.Application
+ * @alias module:crm/Application
+ * @extends module:argos/Application
  */
 class Application extends SDKApplication {
   constructor(options = {
     connections: null,
     defaultLocale: 'en',
-    enableUpdateNotification: false,
     enableMultiCurrency: false,
     multiCurrency: false, // Backwards compatibility
     enableGroups: true,
@@ -48,6 +50,8 @@ class Application extends SDKApplication {
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    enableServiceWorker: false,
+    enableRememberMe: true,
     warehouseDiscovery: 'auto',
     enableMingle: false,
     mingleEnabled: false, // Backwards compatibility
@@ -105,7 +109,7 @@ class Application extends SDKApplication {
     };
     this.mobileVersion = {
       major: 4,
-      minor: 0,
+      minor: 3,
       revision: 0,
     };
     this.versionInfoText = resource.versionInfoText;
@@ -115,6 +119,8 @@ class Application extends SDKApplication {
     this.offlineText = resource.offlineText;
     this.onlineText = resource.onlineText;
     this.mingleAuthErrorText = resource.mingleAuthErrorText;
+    this.fileCacheText = resource.fileCacheText;
+    this.fileCacheTitle = resource.fileCacheTitle;
     this.homeViewId = 'myactivity_list';
     this.offlineHomeViewId = 'recently_viewed_list_offline';
     this.loginViewId = 'login';
@@ -179,6 +185,50 @@ class Application extends SDKApplication {
     };
   }
 
+  initServiceWorker() {
+    if (this.isServiceWorkerEnabled()) {
+      super.initServiceWorker();
+    }
+  }
+
+  isServiceWorkerEnabled() {
+    return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+  }
+
+  registerCacheUrl(url) {
+    if (this.isServiceWorkerEnabled()) {
+      return this.sendServiceWorkerMessage({ command: 'add', url });
+    }
+
+    return Promise.resolve(true);
+  }
+
+  registerCacheUrls(urls) {
+    if (this.isServiceWorkerEnabled()) {
+      return this.sendServiceWorkerMessage({ command: 'addall', urls }).then((data) => {
+        if (data.results === 'added' || data.results === 'skipped') {
+          this.toast.add({ message: this.fileCacheText, title: this.fileCacheTitle, toastTime: 20000 });
+        }
+
+        return data;
+      });
+    }
+
+    return Promise.resolve(true);
+  }
+
+  clearServiceWorkerCaches() {
+    if (this.isServiceWorkerEnabled()) {
+      return caches.keys().then((keys) => {
+        return Promise.all(
+          keys.map(key => caches.delete(key))
+        );
+      });
+    }
+
+    return Promise.resolve(true);
+  }
+
   initPreferences() {
     super.initPreferences();
     this._saveDefaultPreferences();
@@ -202,15 +252,10 @@ class Application extends SDKApplication {
 
   initConnects() {
     super.initConnects(...arguments);
-
-    if (window.applicationCache) {
-      $(window.applicationCache).on('updateready', this._checkForUpdate.bind(this));
-    }
   }
 
   destroy() {
     super.destroy();
-    $(window.applicationCache).off('updateready', this._checkForUpdate.bind(this));
   }
 
   isOnFirstView() {
@@ -247,16 +292,8 @@ class Application extends SDKApplication {
     }
   }
 
-  _checkForUpdate() {
-    const applicationCache = window.applicationCache;
-    if (applicationCache && this.enableUpdateNotification) {
-      if (applicationCache.status === applicationCache.UPDATEREADY) {
-        this._notifyUpdateAvailable();
-      }
-    }
-  }
-
   _notifyUpdateAvailable() {
+    // TODO: Part of cache manifest, remove or rework for service worker?
     if (this.bars.updatebar) {
       this.bars.updatebar.show();
     }
@@ -370,7 +407,6 @@ class Application extends SDKApplication {
     super.run(...arguments);
 
     if (this.isOnline() || !this.enableCaching) {
-      this.loadEndpoint();
       if (this.isMingleEnabled()) {
         this.handleMingleAuthentication();
       } else {
@@ -379,10 +415,6 @@ class Application extends SDKApplication {
     } else {
       // todo: always navigate to home when offline? data may not be available for restored state.
       this.navigateToHomeView();
-    }
-
-    if (this.enableUpdateNotification) {
-      this._checkForUpdate();
     }
   }
   onAuthenticateUserSuccess(credentials, callback, scope, result) {
@@ -417,7 +449,6 @@ class Application extends SDKApplication {
           window.localStorage.setItem('credentials', Base64.encode(JSON.stringify({
             username: credentials.username,
             password: credentials.password || '',
-            endpoint: credentials.endpoint,
           })));
         }
       } catch (e) {} //eslint-disable-line
@@ -480,8 +511,7 @@ class Application extends SDKApplication {
     return !!userSecurity[security];
   }
   reload() {
-    // this.ReUI.disableLocationCheck();
-    this.hash('');
+    window.location.hash = '';
     window.location.reload();
   }
   resetModuleAppStatePromises() {
@@ -525,36 +555,6 @@ class Application extends SDKApplication {
     } catch (e) {} //eslint-disable-line
 
     return credentials;
-  }
-  loadEndpoint() {
-    try {
-      if (window.localStorage) {
-        let results = window.localStorage.getItem('endpoint');
-        if (!results) {
-          const service = this.getService();
-          if (!this.isMingleEnabled()) {
-            service.uri.setHost(window.location.hostname)
-              .setScheme(window.location.protocol.replace(':', ''))
-              .setPort(window.location.port);
-          }
-
-          results = service.uri.build();
-        }
-
-        this.store.dispatch(setEndPoint(results));
-      }
-    } catch (e) {} // eslint-disable-line
-  }
-  saveEndpoint(url = '') {
-    if (!url) {
-      return;
-    }
-
-    try {
-      if (window.localStorage) {
-        window.localStorage.setItem('endpoint', url);
-      }
-    } catch (e) {} // eslint-disable-line
   }
   removeCredentials() {
     try {
@@ -643,6 +643,7 @@ class Application extends SDKApplication {
     }
   }
   onInitAppStateFailed(error) {
+    console.error(error); // eslint-disable-line
     const message = resource.appStateInitErrorText;
     this.hideApplicationMenu();
     ErrorManager.addSimpleError(message, error);
@@ -657,30 +658,6 @@ class Application extends SDKApplication {
     if (!state || state === this.previousState) {
       return;
     }
-
-    const currentEndpoint = state.app.config.endpoint;
-    const previousEndpoint = this.previousState.app.config.endpoint;
-    if (currentEndpoint !== previousEndpoint) {
-      this.updateServiceUrl(state);
-      this.saveEndpoint(currentEndpoint);
-    }
-  }
-  updateServiceUrl(state) {
-    if (this.isMingleEnabled()) { // See TODO below, as to why we are bailing here
-      return;
-    }
-
-    const service = this.getService();
-    service.setUri(Object.assign({}, state.app.config.connections, {
-      url: state.app.config.endpoint, // TODO: Setting the URL here will break mingle instances that use custom virtual directories
-    }));
-
-    // Fixes cases where the user sets and invalid contract name in the url.
-    // We have a lot of requests throughout the application that do not specify
-    // a contractName and depend on the default contractName of "dynamic"
-    // in the service.
-    service.setContractName('dynamic');
-    service.setApplicationName('slx');
   }
   _clearNavigationState() {
     try {
@@ -828,7 +805,7 @@ class Application extends SDKApplication {
     const custom = this.buildCustomizedMoment();
     const currentLang = moment.locale();
 
-    moment.locale(currentLang, custom);
+    moment.updateLocale(currentLang, custom);
     this.moment = moment().locale(currentLang, custom);
   }
   /*
@@ -971,7 +948,42 @@ class Application extends SDKApplication {
 
     return hasRoot && result;
   }
-
+  requestIntegrationSettings(integration) {
+    if (!this.context.integrationSettings) {
+      this.context.integrationSettings = {};
+    }
+    const request = new Sage.SData.Client.SDataBaseRequest(App.getService());
+    const pageSize = this.pageSize;
+    const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
+    request.uri.setPathSegment(0, 'slx');
+    request.uri.setPathSegment(1, 'dynamic');
+    request.uri.setPathSegment(2, '-');
+    request.uri.setPathSegment(3, 'customsettings');
+    request.uri.setQueryArg('format', 'JSON');
+    request.uri.setQueryArg('select', 'Description,DataValue,DataType');
+    request.uri.setQueryArg('where', `Category eq "${integration}"`);
+    request.uri.setStartIndex(startIndex);
+    request.uri.setCount(pageSize);
+    request.service.readFeed(request, {
+      success: (feed) => {
+        const integrationSettings = {};
+        feed.$resources.forEach((item) => {
+          const key = item && item.$descriptor;
+          let value = item && item.DataValue;
+          if (typeof value === 'undefined' || value === null) {
+            value = '';
+          }
+          if (key) {
+            integrationSettings[`${key}`] = value;
+          }
+          this.context.integrationSettings[`${integration}`] = integrationSettings;
+        });
+      },
+      failure: (response, o) => {
+        ErrorManager.addError(response, o, '', 'failure');
+      },
+    });
+  }
   navigateToInitialView() {
     this.showLeftDrawer();
     this.showHeader();

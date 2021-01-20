@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/PicklistService
+ */
 import lang from 'dojo/_base/lang';
 import ErrorManager from 'argos/ErrorManager';
 import SData from 'argos/Store/SData';
@@ -21,10 +24,11 @@ const PickListService = ICRMServicesSDK.PickListService;
 const picklistFormat = ICRMCommonSDK.format.picklist;
 
 /**
- * @class crm.PicklistService
- * @singleton
+ * @class
+ * @alias module:crm/PicklistService
+ * @static
  */
-const __class = lang.setObject('crm.PicklistService', /** @lends crm.PicklistService */{
+const __class = lang.setObject('crm.PicklistService', /** @lends module:crm/PicklistService */{
   _picklists: {},
   _currentRequests: new Map(),
 

@@ -19,11 +19,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('userCalendarAccessList');
 
-/**
- * @class crm.Views.User.CalendarAccessList
- *
- * @extends argos.List
- */
 const __class = declare('crm.Views.User.CalendarAccessList', [List], {
   // Templates
   itemTemplate: new Simplate([

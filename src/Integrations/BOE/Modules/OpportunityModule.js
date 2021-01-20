@@ -18,6 +18,7 @@ import lang from 'dojo/_base/lang';
 import _Module from './_Module';
 import QuotesList from '../Views/Quotes/List';
 import SalesOrdersList from '../Views/SalesOrders/List';
+import PricingAvailabilityService from '../PricingAvailabilityService';
 import getResource from 'argos/I18n';
 
 const resource = getResource('opportunityModule');
@@ -28,6 +29,8 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   relatedERPItemsText: resource.relatedERPItemsText,
   quotesText: resource.quotesText,
   ordersText: resource.ordersText,
+  opportunityRefreshPricingText: resource.opportunityRefreshPricingText,
+  warehouseText: resource.warehouseText,
 
   init: function init() {
   },
@@ -53,6 +56,20 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
   loadCustomizations: function loadCustomizations() {
     const am = this.applicationModule;
 
+    am.registerCustomization('models/detail/querySelect', 'opportunity_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'Location/*',
+    });
+
+    am.registerCustomization('models/edit/querySelect', 'opportunity_sdata_model', {
+      at: () => { return true; },
+      type: 'insert',
+      where: 'after',
+      value: 'Location/*',
+    });
+
     lang.extend(crm.Views.Opportunity.Detail, {
       _onAddQuoteClick: function _onAddQuoteClick() {
         const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService());
@@ -73,7 +90,11 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
               key: data.response.Result,
             });
           },
-          failure: () => {
+          failure: (xhr) => {
+            const response = JSON.parse(xhr.responseText);
+            if (response && response.length && response[0].message) {
+              alert(response[0].message); // eslint-disable-line
+            }
           },
         });
       },
@@ -97,8 +118,25 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
               key: data.response.Result,
             });
           },
-          failure: () => {
+          failure: (xhr) => {
+            const response = JSON.parse(xhr.responseText);
+            if (response && response.length && response[0].message) {
+              alert(response[0].message); // eslint-disable-line
+            }
           },
+        });
+      },
+      handlePricingSuccess: function handlePricingSuccess(result) {
+        this._refreshClicked();
+        return result;
+      },
+      opportunityRePrice: function opportunityRePrice() {
+        if (!this.entry) {
+          return;
+        }
+
+        PricingAvailabilityService.opportunityRePrice(this.entry).then((result) => {
+          this.handlePricingSuccess(result);
         });
       },
     });
@@ -126,6 +164,32 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
         iconClass: 'cart',
         action: '_onAddOrderClick',
         security: 'Entities/SalesOrder/Add',
+      }],
+    });
+
+    am.registerCustomization('detail', 'opportunity_detail', {
+      at: function at(row) {
+        return row.name === 'AddNoteAction';
+      },
+      type: 'insert',
+      where: 'after',
+      value: [{
+        name: 'RefreshPricing',
+        property: 'Description',
+        label: this.opportunityRefreshPricingText,
+        iconClass: 'finance',
+        action: 'opportunityRePrice',
+        security: 'Entities/Opportunity/Add',
+        disabled: () => {
+          const boeSettings = App.context.integrationSettings['Back Office Extension'];
+
+          if (boeSettings === null || typeof boeSettings === 'undefined') {
+            return true;
+          }
+
+
+          return boeSettings['Local CRM Pricing Opportunity'] === 'True';
+        },
       }],
     });
 
@@ -158,6 +222,38 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
           },
           view: 'opportunity_salesorders_related',
         }],
+      },
+    });
+
+    // Show location/warehouse name on detail
+    am.registerCustomization('detail', 'opportunity_detail', {
+      at: function at(row) {
+        return row.name === 'LeadSource.Description';
+      },
+      type: 'insert',
+      where: 'after',
+      value: {
+        label: this.warehouseText,
+        name: 'Location.Name',
+        property: 'Location.Name',
+      },
+    });
+
+    // Add warehouse to opportunity edit (SlxLocation)
+    am.registerCustomization('edit', 'opportunity_edit', {
+      at: function at(row) {
+        return row.name === 'CloseProbability';
+      },
+      type: 'insert',
+      where: 'after',
+      value: {
+        label: this.warehouseText,
+        name: 'Location',
+        property: 'Location',
+        textProperty: 'Name',
+        type: 'lookup',
+        view: 'locations_list',
+        where: "ErpStatus eq 'Open' and LocationType eq 'Warehouse'",
       },
     });
   },

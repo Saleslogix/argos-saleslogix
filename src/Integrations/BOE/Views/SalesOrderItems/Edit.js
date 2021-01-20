@@ -26,14 +26,6 @@ import MODEL_TYPES from 'argos/Models/Types';
 
 const resource = getResource('salesOrderItemEdit');
 
-/**
- * @class crm.Views.QuoteLines.Edit
- *
- * @extends argos.Edit
- *
- * @requires argos.Edit
- *
- */
 const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit], {
   // View Properties
   id: 'salesorder_item_edit',
@@ -58,7 +50,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
   accountLinked: false,
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.fields.ErpLineNumber.disable();
     if (App.warehouseDiscovery === 'auto') {
       this.fields.SlxLocation.disable();
@@ -82,7 +74,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
     values.CommodityType = product.CommodityType;
   },
   applyContext: function applyContext() {
-    this.inherited(arguments);
+    this.inherited(applyContext, arguments);
     if (this.options && this.options.context) {
       if (this.options.context.SalesOrder) {
         this.fields.SalesOrder.setSelection(this.options.context.SalesOrder);
@@ -117,10 +109,10 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
   },
   onInsert: function onInsert(values) {
     this._applyLogicValues(values);
-    this.inherited(arguments);
+    this.inherited(onInsert, arguments);
   },
   onRefresh: function onRefresh() {
-    this.inherited(arguments);
+    this.inherited(onRefresh, arguments);
     this.setProductDependentFields();
   },
   processEntry: function processEntry(entry) {
@@ -277,11 +269,11 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [Edit
   },
   onUpdateCompleted: function onUpdateCompleted() {
     this._refreshRelatedViews();
-    this.inherited(arguments);
+    this.inherited(onUpdateCompleted, arguments);
   },
   onInsertCompleted: function onInsertCompleted() {
     this._refreshRelatedViews();
-    this.inherited(arguments);
+    this.inherited(onInsertCompleted, arguments);
   },
   _refreshRelatedViews: function _refreshRelatedViews() {
     const views = [

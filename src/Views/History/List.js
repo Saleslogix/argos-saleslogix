@@ -24,27 +24,11 @@ import getResource from 'argos/I18n';
 import * as activityTypeIcons from '../../Models/Activity/ActivityTypeIcon';
 import MODEL_NAMES from '../../Models/Names';
 
-
 const resource = getResource('historyList');
 const activityTypeResource = getResource('activityTypeText');
 const hashTagResource = getResource('historyListHashTags');
 const dtFormatResource = getResource('historyListDateTimeFormat');
 
-/**
- * @class crm.Views.History.List
- *
- * @extends argos.List
- * @mixins crm.Views._RightDrawerListMixin
- * @mixins crm.Views._MetricListMixin
- * @mixins crm.Views._GroupListMixin
- *
- * @requires argos.Convert
- *
- * @requires crm.Format
- * @requires crm.Action
- *
- * @requires moment
- */
 const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
   format,
   // Templates
@@ -67,16 +51,12 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     '</div>',
   ]),
   nameTemplate: new Simplate([
-    '{% if ($.LeadName && $.AccountName) { %}',
-    '{%: $.LeadName %} | {%: $.AccountName %}',
-    '{% } else if ($.LeadName) { %}',
-    '{%: $.LeadName %}',
-    '{% } else if ($.ContactName && $.AccountName) { %}',
+    '{% if ($.ContactName) { %}',
     '{%: $.ContactName %} | {%: $.AccountName %}',
-    '{% } else if ($.ContactName) { %}',
-    '{%: $.ContactName %}',
-    '{% } else { %}',
+    '{% } else if ($.AccountName) { %}',
     '{%: $.AccountName %}',
+    '{% } else { %}',
+    '{%: $.LeadName %}',
     '{% } %}',
   ]),
 
@@ -235,7 +215,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return this.itemIndicators || (this.itemIndicators = [{
       id: 'touched',
       cls: 'flag',
-      label: this.touchedText,
+      title: this.touchedText,
       onApply: function onApply(entry, parent) {
         this.isEnabled = parent.hasBeenTouched(entry);
       },
@@ -268,7 +248,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
     return cls;
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
   },
   activateEntry: function activateEntry(params) {
     const entry = this.entries[params.key];
@@ -277,7 +257,7 @@ const __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, 
       activityParams.descriptor = this.getTitle(entry);
       this.inherited(arguments, [activityParams]);
     } else {
-      this.inherited(arguments);
+      this.inherited(activateEntry, arguments);
     }
   },
 });

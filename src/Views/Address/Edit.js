@@ -22,12 +22,7 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('addressEdit');
 
-/**
- * @class crm.Views.Address.Edit
- * @extends argos.Edit
- *
- */
-const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.Address.Edit# */{
+const __class = declare('crm.Views.Address.Edit', [Edit], {
   // Localization
   address1Text: resource.address1Text,
   address2Text: resource.address2Text,
@@ -45,7 +40,7 @@ const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.A
   stateText: resource.stateText,
   stateTitleText: resource.stateTitleText,
   titleText: resource.titleText,
-  /**
+  /*
    * Each locale key contains an array of field names to be hidden
    * Set to null to skip and leave all fields visible
    */
@@ -62,14 +57,14 @@ const __class = declare('crm.Views.Address.Edit', [Edit], /** @lends crm.Views.A
   id: 'address_edit',
 
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(this.fields.Country, 'onChange', this.onCountryChange);
   },
   onCountryChange: function onCountryChange(value) {
     const locale = format.countryCultures[value] || 'en-US';
     this.hideFieldsForLocale(locale);
   },
-  /**
+  /*
    * Hides from view the field names defined in localeFieldHidden for the given locale
    * Doing so enables a user to enter an address
    * @param locale Localization string (Ex: 'en-US' or 'de-DE')

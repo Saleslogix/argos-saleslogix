@@ -105,7 +105,7 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrderItems.List', [List
       }
       this.readOnly = entry.IsClosed;
     }
-    this.inherited(arguments);
+    this.inherited(transitionTo, arguments);
   },
   createActionLayout: function createActionLayout() {
     return this.actions || (this.actions = [{

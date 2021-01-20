@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/RecentlyViewed/_RightDrawerListMixin
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
 import _RightDrawerBaseMixin from '../_RightDrawerBaseMixin';
@@ -22,13 +25,13 @@ import getResource from 'argos/I18n';
 const resource = getResource('rightDrawerListMixin');
 
 /**
- * @class crm.Views.RecentlyViewed._RightDrawerListMixin
- *
- *
- * @mixins crm.Views._RightDrawerBaseMixin
+ * @class
+ * @alias module:crm/Views/RecentlyViewed/_RightDrawerListMixin
+ * @mixin
+ * @mixes module:crm/Views/_RightDrawerBaseMixin
  *
  */
-const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin], /** @lends module:crm/Views/RecentlyViewed/_RightDrawerListMixin.prototype */{
 
   // Dirty flags to refresh the mainview and/or widgets
   _hasChangedEntityPrefs: false,
@@ -92,7 +95,7 @@ const __class = declare('crm.Views.RecentlyViewed._RightDrawerListMixin', [_Righ
   },
   _onSearchExpression: function _onSearchExpression() {
     // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-    this.inherited(arguments);
+    this.inherited(_onSearchExpression, arguments);
   },
   _createActions: function _createActions() {
     // These actions will get mixed into the right drawer view.

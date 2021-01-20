@@ -1,13 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="index-body.ascx.cs" Inherits="Index_html" %>
 <%@ Import Namespace="System.Globalization" %>
 
+<noscript>
+    <p>JavaScript is required for this application.</p>
+</noscript>
+
 <div id="rootNode"></div>
 
 <script type="text/javascript">
     var languages = <%= Languages %>;
-
-    // set path for soho cultures
-    window.Locale.culturesPath = 'https://cdn.hookandloop.infor.com/sohoxi/4.3.1/dist/js/cultures/';
 
     var supportedLocales = <%= SupportedLocales %>,
         defaultLocale = language || 'en',
@@ -15,7 +16,8 @@
         parentLocale = language || '<%= CurrentCulture.Parent.Name.ToLower() %>',
         defaultRegionLocale = regionLocale || 'en',
         currentRegionLocale = regionLocale || '<%= CurrentCulture.Name.ToLower() %>',
-        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>';
+        parentRegionLocale = regionLocale || '<%= CurrentCulture.Parent.Name.ToLower() %>',
+        cacheFiles = <%= FilesToCache %>;
     (function () {
 
         // Shim, sohoxi will use define.amd and require it.
@@ -24,6 +26,9 @@
         });
         require(['crm/polyfills/index', 'crm/Bootstrap'], function (polyfills, bootstrap) {
             bootstrap({
+                serviceWorkerPath: './serviceworker.js',
+                serviceWorkerRegistrationOptions: null,
+                cacheFiles: cacheFiles,
                 supportedLocales: supportedLocales,
                 defaultLocale: 'en',
                 currentLocale: currentLocale,

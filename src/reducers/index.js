@@ -15,8 +15,10 @@
 
 import { config } from './config';
 import { user } from './user';
+import { speedsearch } from './speedsearch';
 
 export const app = Redux.combineReducers({
   user,
   config,
+  speedsearch,
 });

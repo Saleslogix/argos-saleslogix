@@ -20,13 +20,6 @@ import MetricWidget from '../../Views/MetricWidget';
 import DateRangeWidget from './DateRangeWidget';
 import _DashboardWidgetBase from './_DashboardWidgetBase';
 
-/**
- * @class crm.Views._DashboardWidgetBase
- *
- *
- * @extends argos._RelatedViewWidgetBase
- *
- */
 const __class = declare('crm.Integrations.BOE.DashboardWidget', [_DashboardWidgetBase], {
   buildView: function buildView(entry) {
     this.destroyWidgets();

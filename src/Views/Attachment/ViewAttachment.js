@@ -15,7 +15,6 @@
 
 import declare from 'dojo/_base/declare';
 import domGeo from 'dojo/dom-geometry';
-import connect from 'dojo/_base/connect';
 import AttachmentManager from '../../AttachmentManager';
 import Utility from '../../Utility';
 import has from 'dojo/has';
@@ -27,22 +26,6 @@ import ErrorManager from 'argos/ErrorManager';
 const resource = getResource('attachmentView');
 const dtFormatResource = getResource('attachmentViewDateTimeFormat');
 
-/**
- * @class crm.Views.Attachment.ViewAttachment
- *
- *
- * @extends argos.Detail
- * @mixins argos.Detail
- * @mixins argos._LegacySDataDetailMixin
- *
- * @requires argos.Detail
- * @requires argos._LegacySDataDetailMixin
- *
- * @requires crm.Format
- * @requires crm.AttachmentManager
- * @requires crm.Utility
- *
- */
 const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
   // Localization
   detailsText: resource.detailsText,
@@ -76,7 +59,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   pdfCurrentPage: 0,
   pdfIsLoading: false,
   pdfScale: 1,
-  RENDER_DELAY: has('ios') < 8 ? 500 : 16 || 500, // Work around IOS7 orientation change issues
+  RENDER_DELAY: has('ios') < 8 ? 500 : 32 || 500, // Work around IOS7 orientation change issues
   notSupportedTemplate: new Simplate([
     '<h2>{%= $$.notSupportedText %}</h2>',
   ]),
@@ -164,21 +147,17 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     '{% } %}',
     '</div>',
   ]),
-
   downloadingTemplate: new Simplate([
     '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
   ]),
-  onTransitionTo: function onTransitionTo() {
-    if (this._orientationHandle) {
-      return;
+  renderPdf: function getRenderFunction() {
+    if (this.pdfDoc && !this.pdfIsLoading) {
+      this.pdfScale = 1;
+      this.renderPdfPage(this.pdfCurrentPage);
     }
-    const _renderFn = Utility.debounce(() => {
-      if (this.pdfDoc && !this.pdfIsLoading) {
-        this.pdfScale = 1;
-        this.renderPdfPage(this.pdfCurrentPage);
-      }
-    }, this.RENDER_DELAY);
-    this._orientationHandle = connect.subscribe('/app/setOrientation', this, _renderFn);
+  },
+  onTransitionTo: function onTransitionTo() {
+    const _renderFn = Utility.debounce(() => this.renderPdf(), this.RENDER_DELAY);
     $(window).on('resize.attachment', _renderFn);
     $(window).on('applicationmenuclose.attachment', _renderFn);
     $(window).on('applicationmenuopen.attachment', _renderFn);
@@ -187,11 +166,9 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     $(window).off('resize.attachment');
     $(window).off('applicationmenuclose.attachment');
     $(window).off('applicationmenuopen.attachment');
-    connect.unsubscribe(this._orientationHandle);
-    this._orientationHandle = null;
   },
   show: function show(options) {
-    this.inherited(arguments);
+    this.inherited(show, arguments);
     this.attachmentViewerNode.innerHTML = '';
     if (!App.supportsFileAPI()) {
       $(this.domNode).empty().append(this.notSupportedTemplate.apply({}, this));
@@ -206,11 +183,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     }
   },
   processEntry: function processEntry(entry) {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
     this._loadAttachmentView(entry);
   },
   createRequest: function createRequest() {
-    const request = this.inherited(arguments);
+    const request = this.inherited(createRequest, arguments);
     request.setQueryArg('_includeFile', 'false');
     return request;
   },
@@ -289,11 +266,11 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
     const box = domGeo.getMarginBox(this.domNode);
     this.pdfDoc.getPage(pageNumber).then((page) => {
       const scale = this.pdfScale;
-      let viewport = page.getViewport(scale);
+      let viewport = page.getViewport({ scale });
       const canvas = document.getElementById('pdfViewer');
       const context = canvas.getContext('2d');
       const desiredWidth = box.w;
-      viewport = page.getViewport(desiredWidth / viewport.width);
+      viewport = page.getViewport({ scale: desiredWidth / viewport.width });
       canvas.height = viewport.height < box.h ? box.h : viewport.height;
       canvas.width = viewport.width;
 
@@ -350,6 +327,7 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
   },
   _loadAttachmentView: function _loadAttachmentView(entry) {
     const am = new AttachmentManager();
+    const CHROME_DATA_URI_LIMIT = 2097152;
     let description;
     let isFile;
     let fileType;
@@ -436,6 +414,10 @@ const __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacyS
 
             am.getAttachmentFile(attachmentid, 'arraybuffer', (responseInfo) => {
               const rData = Utility.base64ArrayBuffer(responseInfo.response);
+              if (rData.length >= CHROME_DATA_URI_LIMIT) {
+                window.saveAs(new Blob([new Uint8Array(responseInfo.response, 0, responseInfo.response.length)]), responseInfo.fileName);
+                return;
+              }
               const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
               $(tpl).addClass('display-none');
               const iframe = document.getElementById('attachment-Iframe');

@@ -22,14 +22,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('home');
 
-/**
- * @deprecated
- * @class crm.Views.Home
- *
- *
- * @extends argos.GroupedList
- *
- */
 var __class = declare('crm.Views.Home', [GroupedList], {
   //Templates
   rowTemplate: new Simplate([
@@ -100,8 +92,8 @@ var __class = declare('crm.Views.Home', [GroupedList], {
       title: this.actionsText
     };
   },
-  init: function() {
-    this.inherited(arguments);
+  init: function init() {
+    this.inherited(init, arguments);
 
     this.connect(App, 'onRegistered', this._onRegistered);
   },
@@ -213,7 +205,7 @@ var __class = declare('crm.Views.Home', [GroupedList], {
       }
     }
 
-    return this.inherited(arguments);
+    return this.inherited(refreshRequiredFor, arguments);
   }
 });
 

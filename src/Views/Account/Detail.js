@@ -24,16 +24,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('accountDetail');
 
-/**
- * @class crm.Views.Account.Detail
- *
- *
- * @extends argos.Detail
- * @requires argos.Detail
- * @requires crm.Format
- * @requires crm.Template
- *
- */
 const __class = declare('crm.Views.Account.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,
@@ -68,6 +58,7 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
   addNoteText: resource.addNoteText,
   calledText: resource.calledText,
   entityText: resource.entityText,
+  addTicketText: resource.addTicketText,
 
   // View Properties
   id: 'account_detail',
@@ -111,6 +102,15 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
       });
     }
   },
+  addTicket: function addNote() {
+    const view = App.getView('ticket_edit');
+    if (view) {
+      view.show({
+        template: {},
+        insert: true,
+      });
+    }
+  },
   formatPicklist: function formatPicklist(property) {
     return format.picklist(this.app.picklistService, this._model, property);
   },
@@ -132,6 +132,12 @@ const __class = declare('crm.Views.Account.Detail', [Detail], {
         label: this.addNoteText,
         iconClass: 'edit',
         action: 'addNote',
+      }, {
+        name: 'AddTicketAction',
+        property: 'AccountName',
+        label: this.addTicketText,
+        iconClass: 'edit',
+        action: 'addTicket',
       }],
     }, {
       title: this.detailsText,

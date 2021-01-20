@@ -1,16 +1,14 @@
 /* eslint-disable */
 define('configuration/development.default', [
   'crm/ApplicationModule',
+  'crm/Integrations/ActivityAssociations/ApplicationModule',
   'crm/Integrations/BOE/ApplicationModule',
   'crm/Integrations/Contour/ApplicationModule',
-], function cb(ApplicationModule, BOEApplicationModule, ContourApplicationModule) {
-  // Toggle console logs for PouchDB
-  // PouchDB.debug.enable('*');
-  PouchDB.debug.disable();
-
+], function cb(ApplicationModule, ActivityAssociationsModule, BOEApplicationModule, ContourApplicationModule) {
   return {
     modules: [
       new ApplicationModule(),
+      new ActivityAssociationsModule(),
       new BOEApplicationModule({
         enableDashboards: true,
       }),
@@ -26,13 +24,13 @@ define('configuration/development.default', [
         json: true,
       },
     },
-    enableUpdateNotification: true,
     enableMultiCurrency: false,
     enableGroups: true,
     enableHashTags: true,
     maxUploadFileSize: 40000000,
     enableConcurrencyCheck: false,
     enableOfflineSupport: false,
+    enableServiceWorker: false,
     enableMingle: false,
     warehouseDiscovery: 'auto',
     mingleSettings: {
@@ -44,6 +42,14 @@ define('configuration/development.default', [
         "pu": "https://mingleinteg01-sso.mingledev.infor.com/ICRMMIG2_TST/as/",
         "oa": "authorization.oauth2", "ot": "token.oauth2", "or": "revoke_token.oauth2", "ev": "M1448056811"
     },
-    mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html'
+    mingleRedirectUrl: 'http://test.infor.com:8000/products/argos-saleslogix/index-dev.html',
+    enableRememberMe: true,
+    speedSearch: {
+      includeStemming: true,
+      includePhonic: true,
+      includeThesaurus: false,
+      useFrequentFilter: false,
+      searchType: 1,
+    }
   };
 });

@@ -17,13 +17,6 @@ import declare from 'dojo/_base/declare';
 import Memory from 'dojo/store/Memory';
 import List from 'argos/List';
 
-/**
- * @class crm.Views.SelectList
- *
- *
- * @extends argos.List
- *
- */
 const __class = declare('crm.Views.SelectList', [List], {
   // Templates
   itemTemplate: new Simplate([
@@ -46,7 +39,7 @@ const __class = declare('crm.Views.SelectList', [List], {
   },
   requestData: function requestData() {
     this.store = null;
-    this.inherited(arguments);
+    this.inherited(requestData, arguments);
   },
   createStore: function createStore() {
     // caller is responsible for passing in a well-structured feed object.

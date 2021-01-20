@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('settings');
 
-/**
- * @class crm.Views.Settings
- *
- *
- * @extends argos.List
- *
- */
 const __class = declare('crm.Views.Settings', [List], {
   // Templates
   itemIconTemplate: new Simplate([
@@ -129,12 +122,14 @@ const __class = declare('crm.Views.Settings', [List], {
         window.localStorage.clear();
       }
 
-      connect.publish('/app/refresh', [{
-        resourceKind: 'localStorage',
-      }]);
+      App.clearServiceWorkerCaches().then(() => {
+        connect.publish('/app/refresh', [{
+          resourceKind: 'localStorage',
+        }]);
 
-      alert(this.localStorageClearedText); // eslint-disable-line
-      window.location.reload(); // reloaded because of the clock setting
+        alert(this.localStorageClearedText); // eslint-disable-line
+        window.location.reload(); // reloaded because of the clock setting
+      });
     }
   },
   clearAuthentication: function clearAuthentication() {
@@ -189,7 +184,7 @@ const __class = declare('crm.Views.Settings', [List], {
     this.processData(list);
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.createActionsList();
   },
   createToolLayout: function createToolLayout() {

@@ -23,13 +23,6 @@ import getResource from 'argos/I18n';
 const resource = getResource('opportunityDetail');
 const dtFormatResource = getResource('opportunityDetailDateTimeFormat');
 
-/**
- * @class crm.Views.Opportunity.Detail
- *
- * @extends argos.Detail
- *
- * @requires crm.Format
- */
 const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
   // Localization
   accountText: resource.accountText,
@@ -91,7 +84,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
     }
   },
   processEntry: function processEntry() {
-    this.inherited(arguments);
+    this.inherited(processEntry, arguments);
 
     if (App.hasMultiCurrency() && this.options && this.entry && this.entry.ExchangeRate) {
       this.options.ExchangeRate = this.entry.ExchangeRate;
@@ -106,7 +99,7 @@ const __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         minutes: -1 * estimatedCloseDate.getTimezoneOffset(),
         seconds: 5,
       });
-    let values = this.inherited(arguments);
+    let values = this.inherited(getValues, arguments);
 
     values = values || {};
     values.EstimatedClose = timelessStartDate;

@@ -159,7 +159,7 @@ const __class = declare('crm.Models.Activity.SData', [Base, _SDataModelBase], {
     return def.promise;
   },
   getEntry: function getEntry(options) {
-    const results$ = this.inherited(arguments);
+    const results$ = this.inherited(getEntry, arguments);
     return results$.then((entry) => {
       const leader$ = this.createRequestPromise(entry.Leader.$key, [
         'UserInfo/FirstName',

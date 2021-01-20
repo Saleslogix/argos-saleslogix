@@ -21,14 +21,9 @@ import string from 'dojo/string';
 import GroupedList from 'argos/GroupedList';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('leftDrawer');
 
-/**
- * @class crm.Views.LeftDrawer
- * @extends argos.GroupedList
- */
-const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Views.LeftDrawer# */{
+const __class = declare('crm.Views.LeftDrawer', [GroupedList], {
   // Templates
   cls: ' contextualContent',
   enablePullToRefresh: false,
@@ -52,6 +47,8 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
   onlineText: resource.onlineText,
   offlineText: resource.offlineText,
   connectionText: resource.connectionText,
+  aboutText: resource.aboutText,
+  currentUserText: resource.currentUserText,
 
   // View Properties
   id: 'left_drawer',
@@ -68,12 +65,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
   searchView: 'speedsearch_list',
 
   initSoho: function initSoho() {
-    this.inherited(arguments);
-    this.accordion.element.on('selected', (evt, header) => {
-      // Fix up the event target to the element with our data-action attribute.
-      evt.target = $('a', header).get(0);
-      this._initiateActionFromEvent(evt);
-    });
+    this.inherited(initSoho, arguments);
   },
   shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
     const menu = App.applicationmenu;
@@ -136,6 +128,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
       'HelpAction',
       'Logout',
       'ConnectionIndicator',
+      'AboutAction',
     ];
 
     if (entry.view) {
@@ -158,7 +151,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
     };
   },
   init: function init() {
-    this.inherited(arguments);
+    this.inherited(init, arguments);
     this.connect(App, 'onRegistered', this._onRegistered);
   },
   createLayout: function createLayout() {
@@ -229,12 +222,23 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
         name: 'ConnectionIndicator',
         title: string.substitute(this.connectionText, { connectionStatus: App.onLine ? this.onlineText : this.offlineText }),
         enableOfflineSupport: true,
+      }, {
+        name: 'AboutAction',
+        title: this.aboutText,
+        action: 'showAbout',
       }],
     };
 
     layout.push(footer);
 
     return layout;
+  },
+  showAbout: function showAbout() {
+    $('body').about({
+      appName: 'Infor CRM',
+      version: App.getVersionInfo(),
+      content: `<p>${this.currentUserText} ${App.context.user.$descriptor}</p>`,
+    });
   },
   createStore: function createStore() {
     const layout = this._createCustomizedLayout(this.createLayout());
@@ -281,7 +285,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
     this.clear();
     $('#application-menu').data('applicationmenu').destroy();
   },
-  /**
+  /*
    * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
    */
   refresh: function refresh() {
@@ -296,7 +300,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
     }
   },
   clear: function clear() {
-    this.inherited(arguments);
+    this.inherited(clear, arguments);
     this.layout = null;
     this.store = null;
   },
@@ -321,7 +325,7 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
       }
     }
 
-    return this.inherited(arguments);
+    return this.inherited(refreshRequiredFor, arguments);
   },
   _onRegistered: function _onRegistered() {
     this.refreshRequired = true;
@@ -348,6 +352,13 @@ const __class = declare('crm.Views.LeftDrawer', [GroupedList], /** @lends crm.Vi
       }, 10);
       this.closeAppMenu();
     }
+  },
+  onStateChange: function onStateChange(state) {
+    if (typeof state === 'undefined') {
+      return;
+    }
+    const { app: { speedsearch: { searchTerm } } } = state;
+    this.searchWidget.set('queryValue', searchTerm);
   },
 });
 

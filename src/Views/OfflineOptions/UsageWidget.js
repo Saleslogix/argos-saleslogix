@@ -25,13 +25,9 @@ import BusyIndicator from 'argos/Dialogs/BusyIndicator';
 import ErrorManager from 'argos/ErrorManager';
 import getResource from 'argos/I18n';
 
-
 const resource = getResource('offlineUsageWidget');
 
-/**
- * @class crm.Views.OfflineOptions.UsageWidget
- */
-const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], /** @lends crm.Views.OfflineOptions.UsageWidget# */{
+const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWidgetBase], {
 
   totalUsageText: resource.totalUsageText,
   countText: resource.countText,
@@ -55,10 +51,10 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     '<span class="label">{%: $$.olderThanText %}</span>',
     '&nbsp;<span data-dojo-attach-point="_olderThanNode" style="display:inline-block"></span>&nbsp;',
     '<div data-dojo-attach-point="_lastClearDateNode"></div>',
-    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></div>',
-    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearBriefcasedData">{%: $$.clearBriefcasedText %}</button></div>',
-    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onClearRecentData">{%: $$.clearRecentText %}</button></div>',
-    '<div><button class="button actionButton" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></div>',
+    '<p><button class="btn-secondary" data-dojo-attach-event="onclick:onClearAllData">{%: $$.clearDataText %}</button></p>',
+    '<p><button class="btn-secondary" data-dojo-attach-event="onclick:onClearBriefcasedData">{%: $$.clearBriefcasedText %}</button></p>',
+    '<p><button class="btn-secondary" data-dojo-attach-event="onclick:onClearRecentData">{%: $$.clearRecentText %}</button></p>',
+    '<p><button class="btn-secondary" data-dojo-attach-event="onclick:onShowUsage">{%: $$.showUsageText %}</button></p>',
     '<div data-dojo-attach-point="usageNode" style="margin-top:2rem;">',
     '</div>',
   ]),
@@ -103,13 +99,11 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     ' {%: $.lastClearedDate %}',
     '</span',
   ]),
-  /**
-   * @property {string}
+  /*
    * SoHo class to be applied on multi column.
    */
   multiColumnClass: 'four',
-  /**
-   * @property {number}
+  /*
    * Number of columns in view
    */
   multiColumnCount: 3,
@@ -317,7 +311,7 @@ const __class = declare('crm.Views.OfflineOptions.UsageWidget', [_RelatedViewWid
     if (this._olderThanDropdown) {
       this._olderThanDropdown.destroy();
     }
-    this.inherited(arguments);
+    this.inherited(destroy, arguments);
   },
   onSave: function onSave() {
     const options = offlineManager.getOptions();

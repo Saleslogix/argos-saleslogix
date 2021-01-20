@@ -13,16 +13,19 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/MingleUtility
+ */
 import lang from 'dojo/_base/lang';
 import 'dojo/sniff';
 import getResource from 'argos/I18n';
 
-
 /**
- * @class crm.MingleUtility
- * @singleton
+ * @class
+ * @alias module:crm/MingleUtility
+ * @static
  */
-const __class = lang.setObject('crm.MingleUtility', {
+const __class = lang.setObject('crm.MingleUtility', /** @lends module:crm/MingleUtility */{
   accessToken: '',
 
   refreshAccessToken(appConfig) {

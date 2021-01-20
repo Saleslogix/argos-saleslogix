@@ -22,18 +22,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('attachmentAdd');
 
-/**
- * @class crm.Views.Attachment.AddAttachment
- *
- * @extends argos.Views.FileSelect
- *
- * @requires argos.Views.FileSelect
- * @requires argos.Format
- *
- * @requires crm.AttachmentManager
- * @requires crm.Environment
- *
- */
 const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   // Localization
   titleText: resource.titleText,
@@ -44,7 +32,7 @@ const __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
   onUploadFiles: function onUploadFiles() {
     const self = this;
     if (this._files && this._files.length > 0) {
-      this.inherited(arguments);
+      this.inherited(onUploadFiles, arguments);
       const fileItems = this.getFileItems();
       const am = new AttachmentManager();
 

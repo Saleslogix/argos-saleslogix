@@ -28,30 +28,9 @@ import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
 import string from 'dojo/string';
 
-
 const resource = getResource('activityMyList');
 const hashTagResource = getResource('activityMyListHashTags');
 
-/**
- * @class crm.Views.Activity.MyList
- *
- * @extends crm.Views.Activity.List
- * @mixins crm.Views.Activity.List
- *
- * @requires argos.List
- * @requires argos.Format
- * @requires argos.Utility
- * @requires argos.Convert
- * @requires argos.ErrorManager
- *
- * @requires crm.Format
- * @requires crm.Environment
- * @requires crm.Views.Activity.List
- * @requires crm.Action
- *
- * @requires moment
- *
- */
 const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOfflineMixin], {
   format,
   // Templates
@@ -203,7 +182,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     yesterday: hashTagResource.hashTagYesterdayText,
   },
   createToolLayout: function createToolLayout() {
-    this.inherited(arguments);
+    this.inherited(createToolLayout, arguments);
     if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
       this.tools.tbar.push({
         id: 'refresh',
@@ -648,9 +627,9 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
     if (entry) {
       const activityParams = params;
       activityParams.descriptor = this._model.getEntityDescription(entry.Activity);
-      this.inherited(arguments, [activityParams]);
+      this.inherited(activateEntry, arguments, [activityParams]);
     } else {
-      this.inherited(arguments);
+      this.inherited(activateEntry, arguments);
     }
   },
 });

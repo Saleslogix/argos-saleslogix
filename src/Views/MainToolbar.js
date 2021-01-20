@@ -20,13 +20,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('mainToolbar');
 
-/**
- * @class crm.Views.MainToolbar
- *
- *
- * @extends argos.MainToolbar
- *
- */
 const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
   backTooltipText: resource.backTooltipText,
 
@@ -57,7 +50,7 @@ const __class = declare('crm.Views.MainToolbar', [MainToolbar], {
       }
     }
 
-    this.inherited(arguments);
+    this.inherited(showTools, arguments);
   },
   navigateBack: function navigateBack() {
     ReUI.back();

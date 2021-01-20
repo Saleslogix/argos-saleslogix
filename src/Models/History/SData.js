@@ -112,7 +112,7 @@ const __class = declare('crm.Models.History.SData', [Base, _SDataModelBase], {
     return def.promise;
   },
   getEntry: function getEntry() {
-    const results$ = this.inherited(arguments);
+    const results$ = this.inherited(getEntry, arguments);
     return results$.then((entry) => {
       return this.requestCompletedUser(entry).then((user) => {
         if (user) {

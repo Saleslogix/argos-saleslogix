@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 
+/**
+ * @module crm/Views/Charts/_ChartMixin
+ */
 import declare from 'dojo/_base/declare';
 import lang from 'dojo/_base/lang';
-import connect from 'dojo/_base/connect';
 import domGeo from 'dojo/dom-geometry';
 import domAttr from 'dojo/dom-attr';
 import has from 'dojo/has';
@@ -25,13 +27,6 @@ import getResource from 'argos/I18n';
 
 const resource = getResource('chartMixin');
 
-/**
- * @class crm.Views.Charts._ChartMixin
- * @mixins argos._PullToRefreshMixin
- *
- * @classdesc Base mixin for creating chart views.
- *
- */
 lang.setObject('Chart.defaults.global', {
   // Boolean - Whether to animate the chart
   animation: false,
@@ -163,10 +158,16 @@ lang.setObject('Chart.defaults.global', {
   onAnimationComplete: function onAnimationComplete() {},
 });
 
-const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /** @lends crm.Views.Charts._ChartMixin# */ {
-  _orientationHandle: null,
-  _menuOpenHandle: null,
-  _menuCloseHandle: null,
+/**
+ * @class
+ * @alias module:crm/Views/Charts/_ChartMixin
+ * @mixin
+ * @mixes module:argos/_PullToRefreshMixin
+ *
+ * @classdesc Base mixin for creating chart views.
+ *
+ */
+const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /** @lends module:crm/Views/Charts/_ChartMixin.prototype */ {
   _feedData: null,
 
   /**
@@ -224,21 +225,21 @@ const __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], /
       }
     }, this.RENDER_DELAY);
 
-    this._orientationHandle = connect.subscribe('/app/setOrientation', this, _renderFn);
-    this._menuOpenHandle = connect.subscribe('/app/menuopen', this, _renderFn);
-    this._menuCloseHandle = connect.subscribe('/app/menuclose', this, _renderFn);
-    $(window).on('resize', _renderFn);
+    $(window).on('applicationmenuopen.chart', _renderFn);
+    $(window).on('applicationmenuclose.chart', _renderFn);
+    $(window).on('resize.chart', _renderFn);
   },
   onTransitionAway: function onTransitionAway() {
-    connect.unsubscribe(this._orientationHandle);
-    connect.unsubscribe(this._menuOpenHandle);
-    connect.unsubscribe(this._menuCloseHandle);
     this._feedData = null;
     this.parent = null;
 
     if (this.chart && this.chart.destroy) {
       this.chart.destroy();
     }
+
+    $(window).off('resize.chart');
+    $(window).off('applicationmenuclose.chart');
+    $(window).off('applicationmenuopen.chart');
   },
   _setCanvasWidth: function _setCanvasWidth() {
     const box = domGeo.getMarginBox(this.domNode);
