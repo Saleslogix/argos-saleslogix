@@ -192,7 +192,12 @@ class Application extends SDKApplication {
   }
 
   isServiceWorkerEnabled() {
-    return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+    try {
+      return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+    } catch (err) {
+      ErrorManager.addSimpleError('Error in isServiceWorkerEnabled()', err);
+      this.showServiceWorkerError();
+    }
   }
 
   registerCacheUrl(url) {

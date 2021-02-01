@@ -7,7 +7,7 @@
 *.css    text
 *.js     text
 *.sql    text
-*.l20n   text diff=astextplain
+*.l20n   text=auto
 
 *.csproj text merge=union
 *.sln    text merge=union eol=crlf
