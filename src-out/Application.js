@@ -274,7 +274,12 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'isServiceWorkerEnabled',
       value: function isServiceWorkerEnabled() {
-        return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+        try {
+          return (this.enableOfflineSupport || this.enableServiceWorker) && 'serviceWorker' in navigator;
+        } catch (err) {
+          _ErrorManager2.default.addSimpleError('Error in isServiceWorkerEnabled()', err);
+          this.showServiceWorkerError();
+        }
       }
     }, {
       key: 'registerCacheUrl',
