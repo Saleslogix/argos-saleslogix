@@ -78,7 +78,8 @@ define('configuration/production.default', [
     /**
      * @property {Boolean} enableServiceWorker
      * Enables use of a web service worker to cache offline files. This is a replacement for the old cache manifest.
-     * If offline support is true, this setting will be ignored and a service worker will be used.
+     * If offline support is true, this setting will be ignored and a service worker will be used. The website
+     * MUST be secure for this to function.
      */
     enableServiceWorker: true,
 
