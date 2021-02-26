@@ -601,16 +601,6 @@ const __class = declare('crm.Views.History.Edit', [Edit], {
         valueKeyProperty: 'AccountId',
         valueTextProperty: 'AccountName',
         view: 'account_related',
-        validator: {
-          fn: (function validateAccount(value, field) {
-            const insert = field.owner.options && field.owner.options.insert;
-            if ((insert) && (!value)) {
-              return true;
-            }
-            return false;
-          }).bindDelegate(this),
-          message: this.validationText,
-        },
       }, {
         dependsOn: 'Account',
         label: this.contactText,
