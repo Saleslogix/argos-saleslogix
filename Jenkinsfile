@@ -111,19 +111,25 @@ void clonesdk(branch, fallback='develop') {
 }
 
 void teams_success(message) {
+  withCredentials([string(credentialsId: 'teams-notification-url', variable: 'TEAMS_URL')]) {
+    def url = env.TEAMS_URL
     office365ConnectorSend(
-        webhookUrl: credentials('teams-notification-url'),
+        webhookUrl: "${url}",
         color: '#93d374',
         message: message,
         status: 'SUCCESS'
     )
+  }
 }
 
 void teams_failure(message) {
+  withCredentials([string(credentialsId: 'teams-notification-url', variable: 'TEAMS_URL')]) {
+    def url = env.TEAMS_URL
     office365ConnectorSend(
-        webhookUrl: credentials('teams-notification-url'),
+        webhookUrl: "${url}",
         color: '#e57260',
         message: message,
         status: 'FAILURE'
     )
+  }
 }
