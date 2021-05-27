@@ -109,3 +109,21 @@ void clonesdk(branch, fallback='develop') {
     }
   }
 }
+
+void teams_success(message) {
+    office365ConnectorSend(
+        webhookUrl: credentials('teams-notification-url'),
+        color: '#93d374',
+        message: message,
+        status: 'SUCCESS'
+    )
+}
+
+void teams_failure(message) {
+    office365ConnectorSend(
+        webhookUrl: credentials('teams-notification-url'),
+        color: '#e57260',
+        message: message,
+        status: 'FAILURE'
+    )
+}
