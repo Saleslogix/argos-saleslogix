@@ -18,7 +18,7 @@ node('windows && nodejs') {
         bat 'build\\release.cmd'
         bat 'yarn run test'
       } catch (err) {
-        slack.failure('Failed building argos-sdk')
+        teams_failure('Failed building argos-sdk')
         throw err
       }
       dir('deploy') {
@@ -33,7 +33,7 @@ node('windows && nodejs') {
       try {
         checkout scm
       } catch (err) {
-        slack.failure('Failed getting argos-saleslogix')
+        teams_failure('Failed getting argos-saleslogix')
         throw err
       }
 
@@ -51,7 +51,7 @@ node('windows && nodejs') {
         bat 'build\\release.cmd'
         bat 'yarn run test'
       } catch (err) {
-        slack.failure('Failed building argos-saleslogix')
+        teams_failure('Failed building argos-saleslogix')
         throw err
       }
 
@@ -70,7 +70,7 @@ node('windows && nodejs') {
               IF %ERRORLEVEL% LEQ 1 EXIT /B 0"""
         }
       } catch (err) {
-        slack.failure('Failed building bundles.')
+        teams_failure('Failed building bundles.')
         throw err
       }
     }
@@ -83,9 +83,9 @@ stage('Copying to IIS') {
   }
 }
 
-stage('Sending Slack notification') {
+stage('Sending Teams notification') {
   node {
-    slack.success('Mobile built successfully')
+    teams_success('Mobile built successfully')
   }
 }
 
@@ -104,7 +104,7 @@ void clonesdk(branch, fallback='develop') {
     try {
       git branch: "$fallback", url: 'https://github.com/Saleslogix/argos-sdk.git'
     } catch(er) {
-      slack.failure('Failed getting argos-sdk')
+      teams_failure('Failed getting argos-sdk')
       throw er
     }
   }
