@@ -1,4 +1,4 @@
-define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', '../_RightDrawerListMixin', 'argos/List', 'argos/Convert', '../../Action', '../../Format', '../../Environment', 'argos/ErrorManager', '../../Models/Names', 'argos/Models/Types', 'argos/I18n', '../../Models/Activity/ActivityTypeIcon', '../../Models/Activity/ActivityTypePicklists', 'dojo/string'], function (module, exports, _declare, _connect, _RightDrawerListMixin2, _List, _Convert, _Action, _Format, _Environment, _ErrorManager, _Names, _Types, _I18n, _ActivityTypeIcon, _ActivityTypePicklists, _string) {
+define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', '../_RightDrawerListMixin', 'argos/List', 'argos/Convert', '../../Action', '../../Format', '../../Environment', '../../Utility', 'argos/ErrorManager', '../../Models/Names', 'argos/Models/Types', 'argos/I18n', '../../Models/Activity/ActivityTypeIcon', '../../Models/Activity/ActivityTypePicklists', 'dojo/string'], function (module, exports, _declare, _connect, _RightDrawerListMixin2, _List, _Convert, _Action, _Format, _Environment, _Utility, _ErrorManager, _Names, _Types, _I18n, _ActivityTypeIcon, _ActivityTypePicklists, _string) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -18,6 +18,8 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
   var _Format2 = _interopRequireDefault(_Format);
 
   var _Environment2 = _interopRequireDefault(_Environment);
+
+  var _Utility2 = _interopRequireDefault(_Utility);
 
   var _ErrorManager2 = _interopRequireDefault(_ErrorManager);
 
@@ -54,27 +56,55 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
     };
   }
 
-  var resource = (0, _I18n2.default)('activityList'); /* Copyright 2017 Infor
-                                                       *
-                                                       * Licensed under the Apache License, Version 2.0 (the "License");
-                                                       * you may not use this file except in compliance with the License.
-                                                       * You may obtain a copy of the License at
-                                                       *
-                                                       *    http://www.apache.org/licenses/LICENSE-2.0
-                                                       *
-                                                       * Unless required by applicable law or agreed to in writing, software
-                                                       * distributed under the License is distributed on an "AS IS" BASIS,
-                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                       * See the License for the specific language governing permissions and
-                                                       * limitations under the License.
-                                                       */
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];
+      var _n = true;
+      var _d = false;
+      var _e = undefined;
 
+      try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);
+
+          if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;
+        _e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"]) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }
+
+      return _arr;
+    }
+
+    return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance");
+      }
+    };
+  }();
+
+  var resource = (0, _I18n2.default)('activityList');
   var hashTagResource = (0, _I18n2.default)('activityListHashTags');
 
   var __class = (0, _declare2.default)('crm.Views.Activity.List', [_List2.default, _RightDrawerListMixin3.default], {
     // Localization
     allDayText: resource.allDayText,
     completeActivityText: resource.completeActivityText,
+    completeRecurringPrompt: resource.completeRecurringPrompt,
+    completeOccurrenceText: resource.completeOccurrenceText,
+    completeSeriesText: resource.completeSeriesText,
+    cancelText: resource.cancelText,
     callText: resource.callText,
     calledText: resource.calledText,
     addAttachmentActionText: resource.addAttachmentActionText,
@@ -308,12 +338,8 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
           if (!entry) {
             return false;
           }
-          var recur = false;
-          if (entry.RecurrenceState === 'rstOccurrence') {
-            recur = true;
-          }
 
-          return entry.Leader.$key === App.context.user.$key && !recur;
+          return entry.Leader.$key === App.context.user.$key;
         },
         fn: function fn(theAction, selection) {
           var entry = selection && selection.data && selection.data;
@@ -372,17 +398,73 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       var _this = this;
 
       var activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
-      if (activityModel) {
+      if (!activityModel) {
+        return;
+      }
+
+      var completeAction = function completeAction() {
         activityModel.completeActivity(entry).then(function () {
           _connect2.default.publish('/app/refresh', [{
             resourceKind: 'history'
           }]);
-
           _this.clear();
           _this.refresh();
         }, function (err) {
-          _this.onRequestFailure(err, _this);
+          _ErrorManager2.default.addError(err, _this, {}, 'failure');
         });
+      };
+
+      if (entry.Recurring || entry.$key.indexOf(';') > -1) {
+        var completeOccurrence = false;
+
+        var dialog = {
+          title: this.completeActivityText,
+          content: this.completeRecurringPrompt
+        };
+
+        var toolbar = [{
+          className: 'button--flat button--flat--split',
+          text: this.completeOccurrenceText,
+          action: function action() {
+            completeOccurrence = true;
+            App.modal.resolveDeferred();
+          }
+        }, {
+          className: 'button--flat button--flat--split',
+          text: this.completeSeriesText,
+          action: function action() {
+            completeOccurrence = false;
+            App.modal.resolveDeferred();
+          }
+        }, {
+          className: 'button--flat button--flat button--flat--full',
+          text: this.cancelText,
+          action: function action() {
+            App.modal.hide();
+          }
+        }];
+
+        App.modal.add(dialog, toolbar).then(function () {
+          // Completing an occurrence, ensure we have a compose key
+          if (completeOccurrence && entry.$key && entry.$key.indexOf(';') === -1) {
+            var startDate = _Convert2.default.toDateFromString(entry.StartDate);
+            var key = _Utility2.default.buildActivityCompositeKey(entry.$key, startDate);
+            entry.$key = key; // mutating the entry, but we will refresh anyways
+          }
+
+          // Completing the series, but we have a composite key, drop it
+          if (!completeOccurrence && entry.$key && entry.$key.indexOf(';') > -1) {
+            var _entry$$key$split = entry.$key.split(';'),
+                _entry$$key$split2 = _slicedToArray(_entry$$key$split, 1),
+                _key = _entry$$key$split2[0];
+
+            entry.$key = _key; // mutating the entry, but we will refresh anyways
+          }
+
+          completeAction();
+        });
+      } else {
+        completeAction();
       }
     },
     onRequestFailure: function onRequestFailure(response, o) {

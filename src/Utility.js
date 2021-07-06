@@ -45,6 +45,33 @@ const __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, /** @lends
   getRealActivityId: commonutil.getRealActivityId,
   trimText: commonutil.trimText,
   stripQueryArgs: commonutil.stripQueryArgs,
+
+  /**
+   * Converts an activity ID to a composite ID the system endpoint uses for occurrences
+   * @param {String} activityId
+   * @param {Date} occurrenceStart
+   * @returns String
+   */
+  buildActivityCompositeKey: function buildActivityCompositeKey(activityId, occurrenceStart) {
+    // This function will build up a composite key like the system adapter endpoint does in it's
+    // ActivityRequestHandler#InternalGenerateKey function. This uses .NET DateTime ticks which do not use a unix epoch. We
+    // are going to calculate the ticks based on the JavaScript date instead.
+    // Source: https://stackoverflow.com/questions/7966559/how-to-convert-javascript-date-object-to-ticks
+    if (!activityId) {
+      return '';
+    }
+
+    if (!occurrenceStart) {
+      return activityId;
+    }
+
+    const epochTicks = 621355968e9; // Number of ticks from 0001 to Unix Epoch that JS uses
+    const ticksPerMillisecond = 10000;
+    const ticksPerSecond = 10000000;
+    const ticks = epochTicks + (occurrenceStart.getTime() * ticksPerMillisecond);
+    const serverTicks = ticks / ticksPerSecond;
+    return `${activityId};${serverTicks}`;
+  },
 }));
 
 export default __class;

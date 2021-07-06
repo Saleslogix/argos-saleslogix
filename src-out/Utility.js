@@ -56,7 +56,34 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
      */
     getRealActivityId: commonutil.getRealActivityId,
     trimText: commonutil.trimText,
-    stripQueryArgs: commonutil.stripQueryArgs
+    stripQueryArgs: commonutil.stripQueryArgs,
+
+    /**
+     * Converts an activity ID to a composite ID the system endpoint uses for occurrences
+     * @param {String} activityId
+     * @param {Date} occurrenceStart
+     * @returns String
+     */
+    buildActivityCompositeKey: function buildActivityCompositeKey(activityId, occurrenceStart) {
+      // This function will build up a composite key like the system adapter endpoint does in it's
+      // ActivityRequestHandler#InternalGenerateKey function. This uses .NET DateTime ticks which do not use a unix epoch. We
+      // are going to calculate the ticks based on the JavaScript date instead.
+      // Source: https://stackoverflow.com/questions/7966559/how-to-convert-javascript-date-object-to-ticks
+      if (!activityId) {
+        return '';
+      }
+
+      if (!occurrenceStart) {
+        return activityId;
+      }
+
+      var epochTicks = 621355968e9; // Number of ticks from 0001 to Unix Epoch that JS uses
+      var ticksPerMillisecond = 10000;
+      var ticksPerSecond = 10000000;
+      var ticks = epochTicks + occurrenceStart.getTime() * ticksPerMillisecond;
+      var serverTicks = ticks / ticksPerSecond;
+      return activityId + ';' + serverTicks;
+    }
   }));
 
   exports.default = __class;

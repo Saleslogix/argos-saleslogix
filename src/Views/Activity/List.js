@@ -21,6 +21,7 @@ import convert from 'argos/Convert';
 import action from '../../Action';
 import format from '../../Format';
 import environment from '../../Environment';
+import util from '../../Utility';
 import ErrorManager from 'argos/ErrorManager';
 import MODEL_NAMES from '../../Models/Names';
 import MODEL_TYPES from 'argos/Models/Types';
@@ -37,6 +38,10 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   // Localization
   allDayText: resource.allDayText,
   completeActivityText: resource.completeActivityText,
+  completeRecurringPrompt: resource.completeRecurringPrompt,
+  completeOccurrenceText: resource.completeOccurrenceText,
+  completeSeriesText: resource.completeSeriesText,
+  cancelText: resource.cancelText,
   callText: resource.callText,
   calledText: resource.calledText,
   addAttachmentActionText: resource.addAttachmentActionText,
@@ -321,12 +326,8 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
         if (!entry) {
           return false;
         }
-        let recur = false;
-        if (entry.RecurrenceState === 'rstOccurrence') {
-          recur = true;
-        }
 
-        return entry.Leader.$key === App.context.user.$key && !recur;
+        return entry.Leader.$key === App.context.user.$key;
       },
       fn: (function fn(theAction, selection) {
         const entry = selection && selection.data && selection.data;
@@ -384,17 +385,71 @@ const __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin]
   },
   completeActivity: function completeActivity(entry) {
     const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
-    if (activityModel) {
+    if (!activityModel) {
+      return;
+    }
+
+    const completeAction = () => {
       activityModel.completeActivity(entry).then(() => {
         connect.publish('/app/refresh', [{
           resourceKind: 'history',
         }]);
-
         this.clear();
         this.refresh();
       }, (err) => {
-        this.onRequestFailure(err, this);
+        ErrorManager.addError(err, this, {}, 'failure');
       });
+    };
+
+    if (entry.Recurring || entry.$key.indexOf(';') > -1) {
+      let completeOccurrence = false;
+
+      const dialog = {
+        title: this.completeActivityText,
+        content: this.completeRecurringPrompt,
+      };
+
+      const toolbar = [{
+        className: 'button--flat button--flat--split',
+        text: this.completeOccurrenceText,
+        action: () => {
+          completeOccurrence = true;
+          App.modal.resolveDeferred();
+        },
+      }, {
+        className: 'button--flat button--flat--split',
+        text: this.completeSeriesText,
+        action: () => {
+          completeOccurrence = false;
+          App.modal.resolveDeferred();
+        },
+      }, {
+        className: 'button--flat button--flat button--flat--full',
+        text: this.cancelText,
+        action: () => {
+          App.modal.hide();
+        },
+      }];
+
+      App.modal.add(dialog, toolbar).then(() => {
+        // Completing an occurrence, ensure we have a compose key
+        if (completeOccurrence && entry.$key && entry.$key.indexOf(';') === -1) {
+          const startDate = convert.toDateFromString(entry.StartDate);
+          const key = util.buildActivityCompositeKey(entry.$key, startDate);
+          entry.$key = key; // mutating the entry, but we will refresh anyways
+        }
+
+        // Completing the series, but we have a composite key, drop it
+        if (!completeOccurrence && entry.$key && entry.$key.indexOf(';') > -1) {
+          const [key] = entry.$key.split(';');
+          entry.$key = key; // mutating the entry, but we will refresh anyways
+        }
+
+
+        completeAction();
+      });
+    } else {
+      completeAction();
     }
   },
   onRequestFailure: function onRequestFailure(response, o) {

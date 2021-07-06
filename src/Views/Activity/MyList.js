@@ -14,7 +14,6 @@
  */
 
 import declare from 'dojo/_base/declare';
-import connect from 'dojo/_base/connect';
 import environment from '../../Environment';
 import ActivityList from './List';
 import convert from 'argos/Convert';
@@ -22,7 +21,6 @@ import ErrorManager from 'argos/ErrorManager';
 import action from '../../Action';
 import format from '../../Format';
 import _ListOfflineMixin from 'argos/Offline/_ListOfflineMixin';
-import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../../Models/Names';
 import ActivityTypeText from '../../Models/Activity/ActivityTypeText';
 import getResource from 'argos/I18n';
@@ -287,9 +285,7 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
           return false;
         }
 
-        const recur = entry.Activity.Recurring;
-
-        return entry.Activity.Leader.$key === App.context.user.$key && !recur;
+        return entry.Activity.Leader.$key === App.context.user.$key;
       },
       fn: (function fn(theAction, selection) {
         const entry = selection && selection.data && selection.data.Activity;
@@ -443,21 +439,6 @@ const __class = declare('crm.Views.Activity.MyList', [ActivityList, _ListOffline
       failure: this.onRequestFailure,
       scope: this,
     });
-  },
-  completeActivity: function completeActivity(entry) {
-    const activityModel = App.ModelManager.getModel(MODEL_NAMES.ACTIVITY, MODEL_TYPES.SDATA);
-    if (activityModel) {
-      activityModel.completeActivity(entry).then(() => {
-        connect.publish('/app/refresh', [{
-          resourceKind: 'history',
-        }]);
-
-        this.clear();
-        this.refresh();
-      }, (err) => {
-        ErrorManager.addError(err, this, {}, 'failure');
-      });
-    }
   },
   onRequestFailure: function onRequestFailure(response, o) {
     ErrorManager.addError(response, o, {}, 'failure');
