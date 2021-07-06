@@ -1,11 +1,9 @@
-define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base/connect', '../../Environment', './List', 'argos/Convert', 'argos/ErrorManager', '../../Action', '../../Format', 'argos/Offline/_ListOfflineMixin', 'argos/Models/Types', '../../Models/Names', '../../Models/Activity/ActivityTypeText', 'argos/I18n', 'dojo/string'], function (module, exports, _declare, _connect, _Environment, _List, _Convert, _ErrorManager, _Action, _Format, _ListOfflineMixin2, _Types, _Names, _ActivityTypeText, _I18n, _string) {
+define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', '../../Environment', './List', 'argos/Convert', 'argos/ErrorManager', '../../Action', '../../Format', 'argos/Offline/_ListOfflineMixin', '../../Models/Names', '../../Models/Activity/ActivityTypeText', 'argos/I18n', 'dojo/string'], function (module, exports, _declare, _Environment, _List, _Convert, _ErrorManager, _Action, _Format, _ListOfflineMixin2, _Names, _ActivityTypeText, _I18n, _string) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
 
   var _declare2 = _interopRequireDefault(_declare);
-
-  var _connect2 = _interopRequireDefault(_connect);
 
   var _Environment2 = _interopRequireDefault(_Environment);
 
@@ -20,8 +18,6 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
   var _Format2 = _interopRequireDefault(_Format);
 
   var _ListOfflineMixin3 = _interopRequireDefault(_ListOfflineMixin2);
-
-  var _Types2 = _interopRequireDefault(_Types);
 
   var _Names2 = _interopRequireDefault(_Names);
 
@@ -242,9 +238,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
             return false;
           }
 
-          var recur = entry.Activity.Recurring;
-
-          return entry.Activity.Leader.$key === App.context.user.$key && !recur;
+          return entry.Activity.Leader.$key === App.context.user.$key;
         },
         fn: function fn(theAction, selection) {
           var entry = selection && selection.data && selection.data.Activity;
@@ -395,23 +389,6 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         failure: this.onRequestFailure,
         scope: this
       });
-    },
-    completeActivity: function completeActivity(entry) {
-      var _this = this;
-
-      var activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
-      if (activityModel) {
-        activityModel.completeActivity(entry).then(function () {
-          _connect2.default.publish('/app/refresh', [{
-            resourceKind: 'history'
-          }]);
-
-          _this.clear();
-          _this.refresh();
-        }, function (err) {
-          _ErrorManager2.default.addError(err, _this, {}, 'failure');
-        });
-      }
     },
     onRequestFailure: function onRequestFailure(response, o) {
       _ErrorManager2.default.addError(response, o, {}, 'failure');
