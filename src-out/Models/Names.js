@@ -18,7 +18,8 @@ define('crm/Models/Names', ['module', 'exports'], function (module, exports) {
     TICKETACTIVITY: 'TicketActivity',
     USERACTIVITY: 'UserActivity',
     ADDRESS: 'Address',
-    HISTORY: 'History'
+    HISTORY: 'History',
+    AREACATEGORYISSUE: 'AreaCategoryIssue'
   };
   module.exports = exports['default'];
 });

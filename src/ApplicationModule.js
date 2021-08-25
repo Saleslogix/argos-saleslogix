@@ -27,7 +27,10 @@ import Signature from 'argos/Views/Signature';
 import SearchWidget from 'argos/SearchWidget';
 import FileSelect from 'argos/Views/FileSelect';
 import AddAccountContact from './Views/AddAccountContact';
-import AreaCategoryIssueLookup from './Views/AreaCategoryIssueLookup';
+import AreaCategoryIssueLookup from './Views/AreaCategoryIssueLookup'; // Legacy
+import AreaLookup from './Views/AreaCategoryIssue/AreaLookup';
+import CategoryLookup from './Views/AreaCategoryIssue/CategoryLookup';
+import IssueLookup from './Views/AreaCategoryIssue/IssueLookup';
 import ExchangeRateLookup from './Views/ExchangeRateLookup';
 import MainToolbar from './Views/MainToolbar';
 import UpdateToolbar from './Views/UpdateToolbar';
@@ -149,6 +152,7 @@ import './Models/ActivityAttendee/Offline';
 import './Models/ActivityAttendee/SData';
 import './Models/Activity/Offline';
 import './Models/Activity/SData';
+import './Models/AreaCategoryIssue/SData';
 import './Models/Contact/Offline';
 import './Models/Contact/SData';
 import './Models/Integration/SData';
@@ -244,6 +248,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
     this.registerView(new SpeedSearchList());
     this.registerView(new AddAccountContact());
     this.registerView(new AreaCategoryIssueLookup());
+    this.registerView(new AreaLookup());
+    this.registerView(new CategoryLookup());
+    this.registerView(new IssueLookup());
     this.registerView(new ExchangeRateLookup());
     this.registerView(new FileSelect());
 
@@ -648,6 +655,9 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
             return results;
           });
         },
+      }, {
+        name: 'distinct_areacategoryissues',
+        fn: () => App.requestAreaCategoryIssueServices(),
       }],
     });
   },

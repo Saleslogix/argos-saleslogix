@@ -727,6 +727,33 @@ class Application extends SDKApplication {
     this.preferences.quickActions = null;
     this.persistPreferences();
   }
+
+  requestAreaCategoryIssueServices() {
+    // In 8.5.0.1 three new business rules were added to AreaCategoryIssue to return distinct
+    // values. Call a get on the $services endpoint for this entity to determine if they are there
+    // or not so we can fall back to older views.
+    this.context.areaCategoryIssueServices = [];
+    const request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+      .setContractName('dynamic')
+      .setResourceKind('areaCategoryIssues')
+      .setResourceProperty('$service');
+
+    return new Promise((resolve) => {
+      request.readFeed({
+        success: function success(data) {
+          if (data && Array.isArray(data.$resources)) {
+            this.context.areaCategoryIssueServices = data.$resources.map(s => s.$descriptor);
+          }
+          resolve(true);
+        },
+        failure: function failure() {
+          resolve(false);
+        },
+        scope: this,
+      });
+    });
+  }
+
   requestUserDetails() {
     const key = this.context.user.$key;
     const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())

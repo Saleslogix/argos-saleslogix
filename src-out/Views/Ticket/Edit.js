@@ -243,11 +243,24 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.fields.Contact.setValue(entry);
     },
     formatCategoryQuery: function formatCategoryQuery(value) {
+      if (this.hasDistinctServices) {
+        return {
+          Area: this.fields.Area.getText()
+        };
+      }
+
       return {
         Area: value // dependent value
       };
     },
     formatIssueQuery: function formatIssueQuery(value) {
+      if (this.hasDistinctServices) {
+        return {
+          Area: this.fields.Area.getText(),
+          Category: this.fields.Category.getText()
+        };
+      }
+
       return {
         Area: this.fields.Area.getValue(),
         Category: value // dependent value
@@ -257,6 +270,17 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       return value;
     },
     createLayout: function createLayout() {
+      var distinctServices = ['GetDistinctAreas', 'GetDistinctAreaCategories', 'GetDistinctAreaCategoryIssues'];
+      var hasDistinctServices = false;
+      if (Array.isArray(App.context.areaCategoryIssueServices)) {
+        // We must have every distinct service availble to use new lookups
+        hasDistinctServices = distinctServices.every(function (s) {
+          return App.context.areaCategoryIssueServices.indexOf(s) >= 0;
+        });
+      }
+
+      this.hasDistinctServices = hasDistinctServices;
+
       return this.layout || (this.layout = [{
         label: this.accountText,
         name: 'Account',
@@ -294,7 +318,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
         requireSelection: true,
         valueKeyProperty: false,
         valueTextProperty: false,
-        view: 'areacategoryissue_lookup'
+        view: hasDistinctServices ? 'areacategoryissue_arealookup' : 'areacategoryissue_lookup'
       }, {
         label: this.categoryText,
         name: 'Category',
@@ -306,7 +330,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
         valueKeyProperty: false,
         valueTextProperty: false,
         where: this.formatCategoryQuery.bindDelegate(this),
-        view: 'areacategoryissue_lookup'
+        view: hasDistinctServices ? 'areacategoryissue_categorylookup' : 'areacategoryissue_lookup'
       }, {
         label: this.issueText,
         name: 'Issue',
@@ -318,7 +342,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
         valueKeyProperty: false,
         valueTextProperty: false,
         where: this.formatIssueQuery.bindDelegate(this),
-        view: 'areacategoryissue_lookup'
+        view: hasDistinctServices ? 'areacategoryissue_issuelookup' : 'areacategoryissue_lookup'
       }, {
         label: this.sourceText,
         name: 'ViaCode',

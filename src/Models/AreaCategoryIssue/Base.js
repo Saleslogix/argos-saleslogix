@@ -1,4 +1,4 @@
-/* Copyright 2017 Infor
+/* Copyright 2021 Infor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,14 @@
  * limitations under the License.
  */
 
-export default {
-  ACCOUNT: 'Account',
-  AUTHENTICATION: 'Authentication',
-  ACTIVITY: 'Activity',
-  ACTIVITYATTENDEE: 'ActivityAttendee',
-  HISTORYATTENDEE: 'HistoryAttendee',
-  CONTACT: 'Contact',
-  INTEGRATION: 'Integration',
-  LEAD: 'Lead',
-  LEADADDRESS: 'LeadAddress',
-  OPPORTUNITY: 'Opportunity',
-  OPPORTUNITYCONTACT: 'OpportunityContact',
-  TICKET: 'Ticket',
-  TICKETACTIVITY: 'TicketActivity',
-  USERACTIVITY: 'UserActivity',
-  ADDRESS: 'Address',
-  HISTORY: 'History',
-  AREACATEGORYISSUE: 'AreaCategoryIssue',
-};
+import declare from 'dojo/_base/declare';
+import _ModelBase from 'argos/Models/_ModelBase';
+import MODEL_NAMES from '../Names';
+
+
+const __class = declare('crm.Models.AreaCategoryIssue.Base', [_ModelBase], {
+  resourceKind: 'areaCategoryIssues',
+  entityName: 'AreaCategoryIssue',
+  modelName: MODEL_NAMES.AREACATEGORYISSUE,
+});
+export default __class;
