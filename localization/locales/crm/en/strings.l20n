@@ -1245,6 +1245,18 @@
   titleText: "Accounts"
 >
 
+<areaCategoryIssue_AreaLookup ""
+  titleText: "Area"
+>
+
+<areaCategoryIssue_CategoryLookup ""
+  titleText: "Category"
+>
+
+<areaCategoryIssue_IssueLookup ""
+  titleText: "Issues"
+>
+
 <configure ""
   titleText: "Configure"
 >

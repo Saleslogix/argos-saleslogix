@@ -260,11 +260,24 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     this.fields.Contact.setValue(entry);
   },
   formatCategoryQuery: function formatCategoryQuery(value) {
+    if (this.hasDistinctServices) {
+      return {
+        Area: this.fields.Area.getText(),
+      };
+    }
+
     return {
       Area: value, // dependent value
     };
   },
   formatIssueQuery: function formatIssueQuery(value) {
+    if (this.hasDistinctServices) {
+      return {
+        Area: this.fields.Area.getText(),
+        Category: this.fields.Category.getText(),
+      };
+    }
+
     return {
       Area: this.fields.Area.getValue(),
       Category: value, // dependent value
@@ -274,6 +287,21 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
     return value;
   },
   createLayout: function createLayout() {
+    const distinctServices = [
+      'GetDistinctAreas',
+      'GetDistinctAreaCategories',
+      'GetDistinctAreaCategoryIssues',
+    ];
+    let hasDistinctServices = false;
+    if (Array.isArray(App.context.areaCategoryIssueServices)) {
+      // We must have every distinct service availble to use new lookups
+      hasDistinctServices = distinctServices.every((s) => {
+        return App.context.areaCategoryIssueServices.indexOf(s) >= 0;
+      });
+    }
+
+    this.hasDistinctServices = hasDistinctServices;
+
     return this.layout || (this.layout = [{
       label: this.accountText,
       name: 'Account',
@@ -311,7 +339,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
       requireSelection: true,
       valueKeyProperty: false,
       valueTextProperty: false,
-      view: 'areacategoryissue_lookup',
+      view: hasDistinctServices ? 'areacategoryissue_arealookup' : 'areacategoryissue_lookup',
     }, {
       label: this.categoryText,
       name: 'Category',
@@ -323,7 +351,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
       valueKeyProperty: false,
       valueTextProperty: false,
       where: this.formatCategoryQuery.bindDelegate(this),
-      view: 'areacategoryissue_lookup',
+      view: hasDistinctServices ? 'areacategoryissue_categorylookup' : 'areacategoryissue_lookup',
     }, {
       label: this.issueText,
       name: 'Issue',
@@ -335,7 +363,7 @@ const __class = declare('crm.Views.Ticket.Edit', [Edit], {
       valueKeyProperty: false,
       valueTextProperty: false,
       where: this.formatIssueQuery.bindDelegate(this),
-      view: 'areacategoryissue_lookup',
+      view: hasDistinctServices ? 'areacategoryissue_issuelookup' : 'areacategoryissue_lookup',
     }, {
       label: this.sourceText,
       name: 'ViaCode',
