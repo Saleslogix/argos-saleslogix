@@ -37,7 +37,9 @@ define('crm/Models/AreaCategoryIssue/SData', ['module', 'exports', 'dojo/_base/d
    */
 
   function assignKeyDescriptor(values) {
-    return values.map(function (v) {
+    return values.filter(function (v) {
+      return typeof v === 'string' && v.length > 0;
+    }).map(function (v) {
       return {
         $key: v,
         $descriptor: v

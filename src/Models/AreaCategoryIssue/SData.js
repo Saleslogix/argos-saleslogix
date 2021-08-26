@@ -21,12 +21,14 @@ import MODEL_TYPES from 'argos/Models/Types';
 import MODEL_NAMES from '../Names';
 
 function assignKeyDescriptor(values) {
-  return values.map((v) => {
-    return {
-      $key: v,
-      $descriptor: v,
-    };
-  });
+  return values
+    .filter(v => typeof v === 'string' && v.length > 0)
+    .map((v) => {
+      return {
+        $key: v,
+        $descriptor: v,
+      };
+    });
 }
 
 const __class = declare('crm.Models.Integration.SData', [Base, _SDataModelBase], {
