@@ -609,7 +609,7 @@
   entityText: "Error Log"
   moreDetailsText: "More Details"
   errorText: "error"
-  emailSubjectText: "Error received in Infor CRM Mobile Client"
+  emailSubjectText: "Error received in Infor CRM SLX Mobile Client"
   copiedSuccessText: "Copied to clipboard"
   emailText: "Email"
 >
@@ -734,7 +734,7 @@
 <historyListOffline ""
   titleText: "Offline Notes"
   widgetTitle: "Offline Note"
-  saveToCRMText: "Save to Infor CRM"
+  saveToCRMText: "Save to Infor CRM SLX"
   deleteNoteText: "Delete"
 >
 
@@ -1269,7 +1269,7 @@
   titleText: "Help"
   errorText: "Error"
   errorMessageText: "Unable to load the help document."
-  sectionTitleText: "Infor CRM Help"
+  sectionTitleText: "Infor CRM SLX Help"
 >
 
 <home ""
@@ -1308,7 +1308,7 @@
   invalidUserText: "The user name or password is invalid."
   missingUserText: "The user record was not found."
   requestAbortedText: "The request was aborted."
-  logoText: "Infor CRM"
+  logoText: "Infor CRM SLX"
   logOnError: "Either the server is not available or you have entered incorrect information for the connection to the endpoint. Try re-entering your endpoint information or contact your System Administrator."
 >
 

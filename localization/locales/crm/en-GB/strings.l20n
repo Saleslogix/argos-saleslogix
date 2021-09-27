@@ -545,7 +545,7 @@
   entityText: "Error Log"
   moreDetailsText: "More Details"
   errorText: "error"
-  emailSubjectText: "Error received in Infor CRM Mobile Client"
+  emailSubjectText: "Error received in Infor CRM SLX Mobile Client"
   copiedSuccessText: "Copied to clipboard"
 >
 
@@ -1188,7 +1188,7 @@
   titleText: "Help"
   errorText: "Error"
   errorMessageText: "Unable to load the help document."
-  sectionTitleText: "Infor CRM Help"
+  sectionTitleText: "Infor CRM SLX Help"
 >
 
 <home ""
@@ -1225,7 +1225,7 @@
   invalidUserText: "The user name or password is invalid."
   missingUserText: "The user record was not found."
   requestAbortedText: "The request was aborted."
-  logoText: "Infor CRM"
+  logoText: "Infor CRM SLX"
 >
 
 <logOff ""

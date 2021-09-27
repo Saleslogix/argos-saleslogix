@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="format-detection" content="telephone=no,email=no,address=no" />
 
-<title>Infor CRM</title>
+<title>Infor CRM SLX</title>
 
 <link rel="icon" type="image/png" href="content/images/icon.png" />
 <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />

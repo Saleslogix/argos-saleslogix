@@ -239,7 +239,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
     },
     showAbout: function showAbout() {
       $('body').about({
-        appName: 'Infor CRM',
+        appName: 'Infor CRM SLX',
         version: App.getVersionInfo(),
         content: '<p>' + this.currentUserText + ' ' + App.context.user.$descriptor + '</p>'
       });
