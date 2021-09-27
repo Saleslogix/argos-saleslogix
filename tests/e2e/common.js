@@ -25,7 +25,7 @@ module.exports.auth = async function auth(username, password, existingPage = nul
 
   // Ensure page title matches
   const title = await page.title();
-  expect(title).to.equal('Infor CRM');
+  expect(title).to.equal('Infor CRM SLX');
 
   // Wait for our ping event to go through and determine if we are online/offline
   const response = await page.waitForResponse(res => res.url().indexOf('ping.gif') >= 0);

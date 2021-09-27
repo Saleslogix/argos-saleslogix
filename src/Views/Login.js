@@ -28,7 +28,7 @@ const __class = declare('crm.Views.Login', [Edit], {
             <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
             </svg>
-            <h1>Infor CRM</h1>
+            <h1>Infor CRM SLX</h1>
             <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
             </div>
             <div class="login-button-container">
