@@ -17,31 +17,22 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
 
-  const viewsByName = {};
-  let viewsByNameCount = 0;
+  var viewsByName = {};
+  var viewsByNameCount = 0;
 
-  const getOrCreateViewFor = function getOrCreateViewFor(name) {
+  var getOrCreateViewFor = function getOrCreateViewFor(name) {
     if (viewsByName[name]) {
       return viewsByName[name];
     }
 
-    const view = new _PickList2.default({
-      id: `pick_list_${viewsByNameCount++}`,
+    var view = new _PickList2.default({
+      id: 'pick_list_' + viewsByNameCount++,
       expose: false,
       picklistName: name
     });
@@ -52,7 +43,7 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
     return App.getView(view.id);
   };
 
-  const control = (0, _declare2.default)('crm.Fields.PicklistField', [_LookupField2.default], {
+  var control = (0, _declare2.default)('crm.Fields.PicklistField', [_LookupField2.default], {
     picklist: false,
     picklistName: false,
     picklistOptions: null,
@@ -94,21 +85,21 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
         return false;
       }
       // Current flag for checking whether the picklist is a code picklist server side is the default language
-      const picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
+      var picklist = App.picklistService.getPicklistByName(this.picklistName, this.languageCode);
       return picklist && picklist.defaultLanguage;
     },
     formatResourcePredicate: function formatResourcePredicate(name) {
-      return `name eq "${name}"`;
+      return 'name eq "' + name + '"';
     },
     _handleSaleslogixMultiSelectPicklist: function _handleSaleslogixMultiSelectPicklist(value, unloadedValues) {
       if (typeof value === 'string') {
         return value;
       }
 
-      let values = [];
-      for (const key in value) {
+      var values = [];
+      for (var key in value) {
         if (value.hasOwnProperty(key)) {
-          const data = value[key].data;
+          var data = value[key].data;
           if (data && data.text) {
             values.push(data.text);
           } else if (typeof data === 'string') {
@@ -124,7 +115,7 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
       return values.join(', ');
     },
     textRenderer: function textRenderer(value, unloadedValues) {
-      let results;
+      var results = void 0;
 
       if (this.singleSelect) {
         if (typeof value === 'string' || typeof value === 'number') {
@@ -139,7 +130,7 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
       return results;
     },
     formatValue: function formatValue(value) {
-      let results;
+      var results = void 0;
       if (this.singleSelect) {
         results = this.inherited(formatValue, arguments);
       } else {
@@ -160,15 +151,15 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
         if (val && !this.picklistName) {
           this.picklistName = this.picklist;
           if (typeof this.picklistName === 'function') {
-            let dependent = this.getDependentValue();
-            if (typeof dependent === 'object') {
+            var dependent = this.getDependentValue();
+            if ((typeof dependent === 'undefined' ? 'undefined' : _typeof(dependent)) === 'object') {
               dependent = dependent.code;
             }
             this.picklistName = this.dependsOn // only pass dependentValue if there is a dependency
             ? this.expandExpression(this.picklist, dependent) : this.expandExpression(this.picklist);
           }
         }
-        let picklistItem = false;
+        var picklistItem = false;
         this.languageCode = this.getLanguageCode();
         if (this.storageMode === 'text') {
           picklistItem = this.app.picklistService.getPicklistItemTextByCode(this.picklistName, val, this.languageCode);
@@ -189,8 +180,8 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
       this.inherited(setValue, arguments);
     },
     createSelections: function createSelections() {
-      const value = this.getText();
-      let selections = [];
+      var value = this.getText();
+      var selections = [];
       if (value) {
         if (value.indexOf(', ') !== -1) {
           selections = value.split(', ');
@@ -201,7 +192,7 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
       return selections;
     },
     createNavigationOptions: function createNavigationOptions() {
-      const options = this.inherited(createNavigationOptions, arguments);
+      var options = this.inherited(createNavigationOptions, arguments);
 
       if (this.picklist) {
         this.picklistName = this.picklist;
@@ -249,11 +240,11 @@ define('crm/Fields/PicklistField', ['module', 'exports', 'dojo/_base/declare', '
         return;
       }
 
-      const options = this.createNavigationOptions();
+      var options = this.createNavigationOptions();
       if (this.isCodePicklist()) {
         this.keyProperty = 'code';
       }
-      const view = App.getView(this.view) || getOrCreateViewFor(this.picklistName, this.languageCode);
+      var view = App.getView(this.view) || getOrCreateViewFor(this.picklistName, this.languageCode);
 
       if (view && options) {
         view.refreshRequired = true;

@@ -15,7 +15,7 @@ define('crm/Fields/MultiCurrencyField', ['module', 'exports', 'dojo/_base/declar
     };
   }
 
-  const control = (0, _declare2.default)('crm.Fields.MultiCurrencyField', [_DecimalField2.default], {
+  var control = (0, _declare2.default)('crm.Fields.MultiCurrencyField', [_DecimalField2.default], {
     attributeMap: {
       inputValue: {
         node: 'inputNode',

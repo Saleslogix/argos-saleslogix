@@ -31,22 +31,22 @@ define('crm/Integrations/BOE/Views/QuoteLines/List', ['module', 'exports', 'dojo
     };
   }
 
-  const resource = (0, _I18n2.default)('quoteItemsList'); /* Copyright 2017 Infor
-                                                           *
-                                                           * Licensed under the Apache License, Version 2.0 (the "License");
-                                                           * you may not use this file except in compliance with the License.
-                                                           * You may obtain a copy of the License at
-                                                           *
-                                                           *    http://www.apache.org/licenses/LICENSE-2.0
-                                                           *
-                                                           * Unless required by applicable law or agreed to in writing, software
-                                                           * distributed under the License is distributed on an "AS IS" BASIS,
-                                                           * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                           * See the License for the specific language governing permissions and
-                                                           * limitations under the License.
-                                                           */
+  var resource = (0, _I18n2.default)('quoteItemsList'); /* Copyright 2017 Infor
+                                                         *
+                                                         * Licensed under the Apache License, Version 2.0 (the "License");
+                                                         * you may not use this file except in compliance with the License.
+                                                         * You may obtain a copy of the License at
+                                                         *
+                                                         *    http://www.apache.org/licenses/LICENSE-2.0
+                                                         *
+                                                         * Unless required by applicable law or agreed to in writing, software
+                                                         * distributed under the License is distributed on an "AS IS" BASIS,
+                                                         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                         * See the License for the specific language governing permissions and
+                                                         * limitations under the License.
+                                                         */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
     formatter: _Format2.default,
     util: _Utility2.default,
     // Localization
@@ -88,7 +88,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/List', ['module', 'exports', 'dojo
     readOnly: false,
 
     transitionTo: function transitionTo() {
-      const entry = this.options && this.options.fromContext && this.options.fromContext.entry;
+      var entry = this.options && this.options.fromContext && this.options.fromContext.entry;
       if (entry && entry.IsClosed) {
         if (App.bars && App.bars.tbar) {
           App.bars.tbar.disableTool('new');
@@ -102,7 +102,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/List', ['module', 'exports', 'dojo
         id: 'assignWarehouse',
         cls: 'warehouse',
         label: this.assignWarehouseText,
-        enabled: (layoutAction, selection) => {
+        enabled: function enabled(layoutAction, selection) {
           return App.warehouseDiscovery === 'auto' && _Action2.default.hasProperty(layoutAction, selection, 'Quote.ErpLogicalId');
         },
         action: 'assignWarehouseAction'
@@ -119,7 +119,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/List', ['module', 'exports', 'dojo
       });
     },
     preNavigateToInsert: function preNavigateToInsert() {
-      let options = {};
+      var options = {};
       if (this.options && this.options.fromContext && this.options.fromContext.entry) {
         options = {
           context: {
@@ -130,19 +130,19 @@ define('crm/Integrations/BOE/Views/QuoteLines/List', ['module', 'exports', 'dojo
       this.navigateToInsertView(options);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `(upper(Description) like "${q}%") or (upper(ProductName) like "${q}%") or (upper(Quote.QuoteNumber) like "${q}%") or (upper(ErpLineNumber) like "${q}%")`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return '(upper(Description) like "' + q + '%") or (upper(ProductName) like "' + q + '%") or (upper(Quote.QuoteNumber) like "' + q + '%") or (upper(ErpLineNumber) like "' + q + '%")';
     },
     assignWarehouseAction: function assignWarehouseAction(theAction, selection) {
-      const quote = this.options.fromContext.entry;
-      const quoteItemKey = selection.tag.attributes['data-key'].value;
-      const quoteItem = this.entries[quoteItemKey];
+      var quote = this.options.fromContext.entry;
+      var quoteItemKey = selection.tag.attributes['data-key'].value;
+      var quoteItem = this.entries[quoteItemKey];
       if (quoteItem) {
-        const view = this.getAvailabilityView();
+        var view = this.getAvailabilityView();
         if (view) {
-          const options = {
-            quoteItem,
-            quote
+          var options = {
+            quoteItem: quoteItem,
+            quote: quote
           };
           this.refreshRequired = true;
           view.show(options);
@@ -150,8 +150,8 @@ define('crm/Integrations/BOE/Views/QuoteLines/List', ['module', 'exports', 'dojo
       }
     },
     getAvailabilityView: function getAvailabilityView() {
-      const viewId = 'locations_quoteItemAvailabilityList';
-      let view = App.getView(viewId);
+      var viewId = 'locations_quoteItemAvailabilityList';
+      var view = App.getView(viewId);
       if (view) {
         return view;
       }

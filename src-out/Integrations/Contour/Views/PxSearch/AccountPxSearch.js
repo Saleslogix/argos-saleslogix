@@ -31,22 +31,22 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     };
   }
 
-  const resource = (0, _I18n2.default)('acctPxSearch'); /* Copyright 2017 Infor
-                                                         *
-                                                         * Licensed under the Apache License, Version 2.0 (the "License");
-                                                         * you may not use this file except in compliance with the License.
-                                                         * You may obtain a copy of the License at
-                                                         *
-                                                         *    http://www.apache.org/licenses/LICENSE-2.0
-                                                         *
-                                                         * Unless required by applicable law or agreed to in writing, software
-                                                         * distributed under the License is distributed on an "AS IS" BASIS,
-                                                         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                         * See the License for the specific language governing permissions and
-                                                         * limitations under the License.
-                                                         */
+  var resource = (0, _I18n2.default)('acctPxSearch'); /* Copyright 2017 Infor
+                                                       *
+                                                       * Licensed under the Apache License, Version 2.0 (the "License");
+                                                       * you may not use this file except in compliance with the License.
+                                                       * You may obtain a copy of the License at
+                                                       *
+                                                       *    http://www.apache.org/licenses/LICENSE-2.0
+                                                       *
+                                                       * Unless required by applicable law or agreed to in writing, software
+                                                       * distributed under the License is distributed on an "AS IS" BASIS,
+                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                       * See the License for the specific language governing permissions and
+                                                       * limitations under the License.
+                                                       */
 
-  const __class = (0, _declare2.default)('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_List2.default, _LegacySDataListMixin2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.Contour.Views.PxSearch.AccountPxSearch', [_List2.default, _LegacySDataListMixin2.default], {
     // Localization strings
     accountsNearMeText: resource.accountsNearMeText,
     addActivityActionText: resource.addActivityActionText,
@@ -68,17 +68,17 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     '</p>', '{% } %}']),
     itemRowContentTemplate: new Simplate(['<div id="top_item_indicators" class="list-item-indicator-content"></div>', '<div class="list-item-content">{%! $$.itemTemplate %}</div>']),
 
-    // Functions
-    formatDecimal(n) {
+    formatDecimal: function formatDecimal(n) {
       return _Format2.default.fixedLocale(n, 2);
     },
-    distanceText() {
+    distanceText: function distanceText() {
       return App.isCurrentRegionMetric() ? this.kilometerAbbrevText : this.mileAbbrevText;
     },
-    distanceCalc(gLat, gLon) {
-      const conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
+    distanceCalc: function distanceCalc(gLat, gLon) {
+      var conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
       return conv * Math.sqrt(Math.pow(69.1 * (gLat - this.lat), 2) + Math.pow(53.0 * (gLon - this.lon), 2));
     },
+
     joinFields: function joinFields(sep, fields) {
       return _Utility2.default.joinFields(sep, fields);
     },
@@ -113,9 +113,9 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     lon: null, // longitude
 
     createRequest: function createRequest() {
-      const request = new Sage.SData.Client.SDataBaseRequest(this.getService());
-      const pageSize = this.pageSize;
-      const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
+      var request = new Sage.SData.Client.SDataBaseRequest(this.getService());
+      var pageSize = this.pageSize;
+      var startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
       request.uri.setPathSegment(0, '$app');
       request.uri.setPathSegment(1, 'mashups');
       request.uri.setPathSegment(2, '-');
@@ -133,16 +133,17 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       request.uri.setCount(pageSize);
       return request;
     },
-    _requestDistanceCalc() {
-      const conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
-      return `((${conv} mul sqrt((((69.1 mul (Address.GeocodeLatitude-(${this.lat})))) mul (69.1 mul (Address.GeocodeLatitude-(${this.lat}))))+((53 mul (Address.GeocodeLongitude-(${this.lon}))) mul (53 mul (Address.GeocodeLongitude-(${this.lon})))))) lt ${this.maxDistance})`;
+    _requestDistanceCalc: function _requestDistanceCalc() {
+      var conv = App.isCurrentRegionMetric() ? 1.609344 : 1;
+      return '((' + conv + ' mul sqrt((((69.1 mul (Address.GeocodeLatitude-(' + this.lat + ')))) mul (69.1 mul (Address.GeocodeLatitude-(' + this.lat + '))))+((53 mul (Address.GeocodeLongitude-(' + this.lon + '))) mul (53 mul (Address.GeocodeLongitude-(' + this.lon + ')))))) lt ' + this.maxDistance + ')';
     },
+
     requestData: function requestData() {
       this.loadAccountTypes();
       $(this.domNode).addClass('list-loading');
 
       if (this.lat && this.lon) {
-        const request = this.createRequest();
+        var request = this.createRequest();
         request.service.readFeed(request, {
           success: this.onRequestDataSuccess,
           failure: this.onRequestDataFailure,
@@ -161,7 +162,7 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       $(this.domNode).removeClass('list-loading');
     },
     processFeed: function processFeed(_feed) {
-      const feed = _feed;
+      var feed = _feed;
       if (!this.feed) {
         this.set('listContent', '');
       }
@@ -171,12 +172,12 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       if (this.feed.$totalResults === 0) {
         this.set('listContent', this.noDataTemplate.apply(this));
       } else if (feed.$resources) {
-        const docfrag = document.createDocumentFragment();
-        for (let i = 0; i < feed.$resources.length; i++) {
-          const entry = feed.$resources[i];
+        var docfrag = document.createDocumentFragment();
+        for (var i = 0; i < feed.$resources.length; i++) {
+          var entry = feed.$resources[i];
           entry.$descriptor = entry.$descriptor || feed.$descriptor;
           this.entries[entry.$key] = entry;
-          const rowNode = $(this.rowTemplate.apply(entry, this)).get(0);
+          var rowNode = $(this.rowTemplate.apply(entry, this)).get(0);
           docfrag.appendChild(rowNode);
           this.onApplyRowTemplate(entry, rowNode);
           if (this.relatedViews.length > 0) {
@@ -190,7 +191,7 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       }
 
       if (typeof this.feed.$totalResults !== 'undefined') {
-        const remaining = this.feed.$totalResults - (this.feed.$startIndex + this.feed.$itemsPerPage - 1);
+        var remaining = this.feed.$totalResults - (this.feed.$startIndex + this.feed.$itemsPerPage - 1);
         this.set('remainingContent', _string2.default.substitute(this.remainingText, [remaining]));
       }
 
@@ -238,16 +239,17 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
     loadAccountTypes: function loadAccountTypes() {
       this.queryTypeEl = document.getElementById('queryType');
       this.queryTypeEl.onchange = _lang2.default.hitch(this, 'onAccountTypeChange'); // this.;
-      const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
-      const uri = request.getUri();
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
+      var uri = request.getUri();
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate('name eq "Account Type"');
       request.allowCacheUse = true;
       request.read({
         success: this.onAccountTypeLoad,
-        failure() {
+        failure: function failure() {
           console.error('failed to load account type'); // eslint-disable-line
         },
+
         scope: this
       });
     },
@@ -261,7 +263,7 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
         return;
       }
 
-      for (let i = 0; i < data.$resources.length; i++) {
+      for (var i = 0; i < data.$resources.length; i++) {
         this.queryTypeEl.options[i] = new Option(data.$resources[i].text, data.$resources[i].code, true, false);
         if (this.queryTypeEl.options[i].value === 'Customer') {
           this.queryTypeEl.options[i].selected = 'True';
@@ -269,7 +271,7 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       }
     },
     formatSearchQuery: function formatSearchQuery(qry) {
-      return `AccountName like "${this.escapeSearchQuery(qry)}%"`;
+      return 'AccountName like "' + this.escapeSearchQuery(qry) + '%"';
     },
     createActionLayout: function createActionLayout() {
       return this.actions || (this.actions = [{
@@ -296,7 +298,7 @@ define('crm/Integrations/Contour/Views/PxSearch/AccountPxSearch', ['module', 'ex
       }]);
     },
     callMain: function callMain(params) {
-      this.invokeActionItemBy(a => {
+      this.invokeActionItemBy(function (a) {
         return a.id === 'callMain';
       }, params.key);
     }

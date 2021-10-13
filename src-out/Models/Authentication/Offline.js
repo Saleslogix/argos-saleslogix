@@ -23,22 +23,22 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
     };
   }
 
-  const resource = (0, _I18n2.default)('autenticationModel'); /* Copyright 2017 Infor
-                                                               *
-                                                               * Licensed under the Apache License, Version 2.0 (the "License");
-                                                               * you may not use this file except in compliance with the License.
-                                                               * You may obtain a copy of the License at
-                                                               *
-                                                               *    http://www.apache.org/licenses/LICENSE-2.0
-                                                               *
-                                                               * Unless required by applicable law or agreed to in writing, software
-                                                               * distributed under the License is distributed on an "AS IS" BASIS,
-                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                               * See the License for the specific language governing permissions and
-                                                               * limitations under the License.
-                                                               */
+  var resource = (0, _I18n2.default)('autenticationModel'); /* Copyright 2017 Infor
+                                                             *
+                                                             * Licensed under the Apache License, Version 2.0 (the "License");
+                                                             * you may not use this file except in compliance with the License.
+                                                             * You may obtain a copy of the License at
+                                                             *
+                                                             *    http://www.apache.org/licenses/LICENSE-2.0
+                                                             *
+                                                             * Unless required by applicable law or agreed to in writing, software
+                                                             * distributed under the License is distributed on an "AS IS" BASIS,
+                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                             * See the License for the specific language governing permissions and
+                                                             * limitations under the License.
+                                                             */
 
-  const __class = (0, _declare2.default)('crm.Models.Autentication.Offline', [_OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Autentication.Offline', [_OfflineModelBase3.default], {
     id: 'auth_offline_model',
     entityName: 'Authentication',
     modelName: 'Authentication',
@@ -46,7 +46,7 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
     isSystem: true,
     createEntry: function createEntity(userId) {
-      const entity = {}; // need to dynamicly create Properties;
+      var entity = {}; // need to dynamicly create Properties;
       entity.$key = 'Auth_00000000000';
       entity.$descriptor = resource.entityDisplayName;
       entity.CreateDate = moment().toDate();
@@ -55,17 +55,19 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
       return entity;
     },
     initAuthentication: function initAuthentication(userId) {
-      const def = new _Deferred2.default();
-      const result = {
+      var _this = this;
+
+      var def = new _Deferred2.default();
+      var result = {
         entry: null,
         hasUserChanged: false,
         hasAuthenticatedToday: false
       };
-      this.getEntry('Auth_00000000000').then(entry => {
+      this.getEntry('Auth_00000000000').then(function (entry) {
         if (entry) {
           if (entry.UserId === userId) {
             result.hasUserChanged = false;
-            result.hasAuthenticatedToday = this._hasAuthenticatedToday(entry);
+            result.hasAuthenticatedToday = _this._hasAuthenticatedToday(entry);
           } else {
             result.hasUserChanged = true;
             result.hasAuthenticatedToday = false;
@@ -75,9 +77,9 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
           result.entry = entry;
         }
         def.resolve(result);
-      }, () => {
-        const newEntry = this.createEntry(userId);
-        this.insertEntry(newEntry);
+      }, function () {
+        var newEntry = _this.createEntry(userId);
+        _this.insertEntry(newEntry);
         result.hasUserChanged = true;
         result.hasAuthenticatedToday = false;
         result.entry = newEntry;
@@ -87,8 +89,8 @@ define('crm/Models/Authentication/Offline', ['module', 'exports', 'dojo/_base/de
     },
     _hasAuthenticatedToday: function _hasAuthenticatedToday(entry) {
       if (entry.ModifyDate) {
-        const currentDate = moment();
-        const authDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
+        var currentDate = moment();
+        var authDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
         if (authDate.isAfter(currentDate.startOf('day')) && authDate.isBefore(moment().endOf('day'))) {
           return true;
         }

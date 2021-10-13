@@ -19,24 +19,28 @@ define('crm/Integrations/BOE/Views/Locations/SalesOrderItemAvailabilityList', ['
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.SalesOrderItemAvailabilityList', [_PricingAvailabilityList2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.SalesOrderItemAvailabilityList', [_PricingAvailabilityList2.default], {
     // View Properties
     id: 'locations_salesOrderItemAvailabilityList',
     modelName: _Names2.default.SALESORDERITEM,
     processWarehouse: function processWarehouse(warehouse) {
-      const promise = new Promise(resolve => {
-        this._model.updateItemWithWarehouse(this.options.orderItem, warehouse).then(result => {
+      var _this = this;
+
+      var promise = new Promise(function (resolve) {
+        _this._model.updateItemWithWarehouse(_this.options.orderItem, warehouse).then(function (result) {
           resolve(result);
         });
       });
       return promise;
     },
     getAvailability: function getAvailabilityy() {
-      const promise = new Promise(resolve => {
-        if (this.options && this.options.orderItem) {
-          _PricingAvailabilityService2.default.getOrderItemAvailability(this.options.orderItem).then(entries => {
+      var _this2 = this;
+
+      var promise = new Promise(function (resolve) {
+        if (_this2.options && _this2.options.orderItem) {
+          _PricingAvailabilityService2.default.getOrderItemAvailability(_this2.options.orderItem).then(function (entries) {
             resolve(entries);
-          }, () => {
+          }, function () {
             resolve([]);
           });
         }

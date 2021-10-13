@@ -32,9 +32,9 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('configure');
+  var resource = (0, _I18n2.default)('configure');
 
-  const __class = (0, _declare2.default)('crm.Views.Configure', [_ConfigureBase3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Configure', [_ConfigureBase3.default], {
     // Localization
     titleText: resource.titleText,
 
@@ -53,19 +53,19 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
       App.persistPreferences();
 
       ReUI.back();
-      const view = App.getView('left_drawer');
+      var view = App.getView('left_drawer');
       if (view) {
         view.refresh();
       }
     },
     createStore: function createStore() {
-      const exposed = App.getExposedViews();
-      const order = this.getSavedOrderedKeys();
-      let list = [];
+      var exposed = App.getExposedViews();
+      var order = this.getSavedOrderedKeys();
+      var list = [];
 
       // De-dup id's
-      const all = order.concat(exposed);
-      let reduced = all.reduce((previous, current) => {
+      var all = order.concat(exposed);
+      var reduced = all.reduce(function (previous, current) {
         if (previous.indexOf(current) === -1) {
           previous.push(current);
         }
@@ -74,13 +74,13 @@ define('crm/Views/Configure', ['module', 'exports', 'dojo/_base/declare', 'dojo/
       }, []);
 
       // The order array could have had stale id's, filter out valid views here
-      reduced = reduced.filter(key => {
-        const view = App.getView(key);
+      reduced = reduced.filter(function (key) {
+        var view = App.getView(key);
         return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
       });
 
-      list = reduced.map(key => {
-        const view = App.getView(key);
+      list = reduced.map(function (key) {
+        var view = App.getView(key);
         return {
           $key: view.id,
           $descriptor: view.titleText,

@@ -32,9 +32,9 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('areaCategoryIssueLookup');
+  var resource = (0, _I18n2.default)('areaCategoryIssueLookup');
 
-  const __class = (0, _declare2.default)('crm.Views.AreaCategoryIssueLookup', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.AreaCategoryIssueLookup', [_List2.default, _LegacySDataListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>']),
 
@@ -68,13 +68,13 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
       }
     },
     processFeed: function processFeed(feed) {
-      let theFeed = feed;
+      var theFeed = feed;
       // assume order is preserved
       if (theFeed) {
         this.createCacheFrom(feed);
       }
 
-      let use = this.cache;
+      var use = this.cache;
 
       if (use && this.active && this.active.Area) {
         use = use[this.active.Area];
@@ -88,21 +88,21 @@ define('crm/Views/AreaCategoryIssueLookup', ['module', 'exports', 'dojo/_base/de
       this.inherited(arguments, [theFeed]);
     },
     createCacheFrom: function createCacheFrom(feed) {
-      const feedLength = feed.$resources.length;
+      var feedLength = feed.$resources.length;
       this.cache = {};
 
-      for (let i = 0; i < feedLength; i += 1) {
-        const entry = feed.$resources[i];
-        const area = this.cache[entry.Area] || (this.cache[entry.Area] = {});
-        const category = area[entry.Category] || (area[entry.Category] = {});
+      for (var i = 0; i < feedLength; i += 1) {
+        var entry = feed.$resources[i];
+        var area = this.cache[entry.Area] || (this.cache[entry.Area] = {});
+        var category = area[entry.Category] || (area[entry.Category] = {});
 
         category[entry.Issue] = true;
       }
     },
     buildFeedFrom: function buildFeedFrom(segment) {
-      const list = [];
+      var list = [];
 
-      for (const n in segment) {
+      for (var n in segment) {
         if (segment.hasOwnProperty(n)) {
           list.push({
             $key: n,

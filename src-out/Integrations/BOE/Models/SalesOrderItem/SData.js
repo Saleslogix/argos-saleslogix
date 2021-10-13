@@ -40,7 +40,7 @@ define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports',
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.SalesOrderItem.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.SalesOrderItem.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'salesorderitem_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -58,15 +58,17 @@ define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports',
       }];
     },
     updateItemWithWarehouse: function updateItemWithWarehouse(orderItem, warehouse) {
-      const promise = new Promise(resolve => {
-        _PricingAvailabilityService2.default.updateOrderItemWarehouse(orderItem, warehouse.SlxLocation, warehouse.SlxLocationID, warehouse.ATPDate).then(() => {
+      var _this = this;
+
+      var promise = new Promise(function (resolve) {
+        _PricingAvailabilityService2.default.updateOrderItemWarehouse(orderItem, warehouse.SlxLocation, warehouse.SlxLocationID, warehouse.ATPDate).then(function () {
           orderItem.SlxLocation = {
             $key: warehouse.SlxLocationID,
             description: warehouse.SlxLocation
           };
-          _PricingAvailabilityService2.default.getOrderItemPricing(orderItem).then(pricingData => {
-            const entry = this.createPricingEntryForUpdate(orderItem, pricingData);
-            this.updateEntry(entry, { overwrite: true }).then(result => {
+          _PricingAvailabilityService2.default.getOrderItemPricing(orderItem).then(function (pricingData) {
+            var entry = _this.createPricingEntryForUpdate(orderItem, pricingData);
+            _this.updateEntry(entry, { overwrite: true }).then(function (result) {
               resolve(result);
             });
           });
@@ -75,7 +77,7 @@ define('crm/Integrations/BOE/Models/SalesOrderItem/SData', ['module', 'exports',
       return promise;
     },
     createPricingEntryForUpdate: function createPricingEntryForUpdate(orderItem, pricingData) {
-      const entry = {};
+      var entry = {};
       entry.$key = orderItem.$key;
       if (pricingData) {
         if (pricingData.DocCalculatedPrice) {

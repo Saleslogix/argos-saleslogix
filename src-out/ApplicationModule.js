@@ -233,7 +233,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
     };
   }
 
-  const resource = (0, _I18n2.default)('applicationModule');
+  var resource = (0, _I18n2.default)('applicationModule');
 
   /**
    * @class
@@ -259,7 +259,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
   /**
   * @module crm/ApplicationModule
   */
-  const __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends module:crm/ApplicationModule.prototype */{
+  var __class = (0, _declare2.default)('crm.ApplicationModule', [_ApplicationModule2.default], /** @lends module:crm/ApplicationModule.prototype */{
     searchText: resource.searchText,
     loadCache: function loadCache() {
       /* index.aspx will cache everything under content/, help/, and localization/ automatically.
@@ -287,7 +287,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
 
       this.registerView(new _LeftDrawer2.default(), $('.application-menu', this.application.getContainerNode()).first().get(0), 'last');
 
-      const modalBody = $('.modal-body', this.application.viewSettingsModal.element);
+      var modalBody = $('.modal-body', this.application.viewSettingsModal.element);
       this.registerView(new _RightDrawer2.default(), modalBody.first().get(0));
 
       this.registerView(new _Detail2.default({
@@ -374,7 +374,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List14.default({
         id: 'competitor_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -390,7 +390,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         id: 'contact_related',
         expose: false,
         groupsEnabled: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -398,7 +398,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List18.default({
         id: 'contract_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -418,7 +418,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List22.default({
         id: 'event_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -437,7 +437,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         id: 'opportunity_related',
         expose: false,
         groupsEnabled: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -448,7 +448,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List30.default({
         id: 'opportunitycontact_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -456,7 +456,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List32.default({
         id: 'opportunityproduct_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -482,7 +482,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         id: 'lead_related',
         expose: false,
         groupsEnabled: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -498,7 +498,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         id: 'ticket_related',
         expose: false,
         groupsEnabled: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -510,7 +510,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List42.default({
         id: 'ticketactivity_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -520,7 +520,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List44.default({
         id: 'ticketactivityitem_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -542,7 +542,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List12.default({
         id: 'activity_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -560,7 +560,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
         id: 'history_related',
         expose: false,
         groupsEnabled: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -585,7 +585,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List36.default({
         id: 'product_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -593,7 +593,7 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List38.default({
         id: 'productprogram_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -612,49 +612,49 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.registerView(new _List52.default({
         id: 'account_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
       this.registerView(new _List52.default({
         id: 'contact_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
       this.registerView(new _List52.default({
         id: 'lead_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
       this.registerView(new _List52.default({
         id: 'ticket_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
       this.registerView(new _List52.default({
         id: 'opportunity_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
       this.registerView(new _List52.default({
         id: 'activity_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
       this.registerView(new _List52.default({
         id: 'history_attachment_related',
         expose: false,
-        defaultSearchTerm: () => {
+        defaultSearchTerm: function defaultSearchTerm() {
           return '';
         }
       }));
@@ -699,30 +699,38 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.loadAppStatePromises();
     },
     loadAppStatePromises: function loadAppStatePromises() {
+      var _this = this;
+
       this.registerAppStatePromise({
         seq: 1,
         description: resource.userContextAndOptionsText,
         items: [{
           name: 'user_detail',
           description: resource.userInformationText,
-          fn: () => App.requestUserDetails()
+          fn: function fn() {
+            return App.requestUserDetails();
+          }
         }, {
           name: 'user_options',
           description: resource.userOptionsText,
-          fn: () => App.requestUserOptions()
+          fn: function fn() {
+            return App.requestUserOptions();
+          }
         }, {
           name: 'system_options',
           description: resource.systemOptionsText,
-          fn: () => App.requestSystemOptions()
+          fn: function fn() {
+            return App.requestSystemOptions();
+          }
         }, {
           name: 'integrations',
           description: resource.integrationsText,
-          fn: () => {
-            const model = this.application.ModelManager.getModel(_Names2.default.INTEGRATION, _Types2.default.SDATA);
-            return model.getEntries(null, { contractName: 'dynamic' }).then(results => {
-              this.application.context.integrations = results;
+          fn: function fn() {
+            var model = _this.application.ModelManager.getModel(_Names2.default.INTEGRATION, _Types2.default.SDATA);
+            return model.getEntries(null, { contractName: 'dynamic' }).then(function (results) {
+              _this.application.context.integrations = results;
               if (results) {
-                results.forEach(integration => {
+                results.forEach(function (integration) {
                   App.requestIntegrationSettings(integration.$descriptor);
                 });
               }
@@ -731,7 +739,9 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
           }
         }, {
           name: 'distinct_areacategoryissues',
-          fn: () => App.requestAreaCategoryIssueServices()
+          fn: function fn() {
+            return App.requestAreaCategoryIssueServices();
+          }
         }]
       });
     }

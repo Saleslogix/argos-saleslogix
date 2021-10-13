@@ -44,9 +44,9 @@ define('crm/Integrations/BOE/Views/ERPReceivables/List', ['module', 'exports', '
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('erpReceivablesList');
+  var resource = (0, _I18n2.default)('erpReceivablesList');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivables.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivables.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     formatter: _Format2.default,
     util: _Utility2.default,
     itemTemplate: new Simplate(['<p class="micro-text"><label class="group-label">{%: $$.receivableIDText %}</label> {%: $.ErpExtId %}</p>', '{% if ($.ErpInvoice && $.ErpInvoice.InvoiceNumber) { %}', '<p class="micro-text"><label class="group-label">{%: $$.invoiceIDText %}</label> {%: $.ErpInvoice.InvoiceNumber %}</p>', '{% } %}', '{% if ($.Account && $.Account.AccountName) { %}', '<p class="micro-text"><label class="group-label">{%: $$.accountNameText %}</label> {%: $.Account.AccountName %}</p>', '{% } %}', '<p class="micro-text"><label class="group-label">{%: $$.receivedBaseAmountText %}</label> ', '{%: $$.util.formatMultiCurrency($.ReceivedBaseAmount, $.BaseCurrencyCode) %}', '</p>', '<p class="micro-text"><label class="group-label">{%: $$.receivedAmountText %}</label> ', '{%: $$.util.formatMultiCurrency($.ReceivedAmount, $.CurrencyCode) %}', '</p>', '<p class="micro-text"><label class="group-label">{%: $$.receivableBaseAmountText %}</label> ', '{%: $$.util.formatMultiCurrency($.ReceivableBaseAmount, $.BaseCurrencyCode) %}', '</p>', '<p class="micro-text"><label class="group-label">{%: $$.receivableAmountText %}</label> ', '{%: $$.util.formatMultiCurrency($.ReceivableAmount, $.CurrencyCode) %}', '</p>', '<p class="micro-text"><label class="group-label">{%: $$.erpStatusText %}</label> {%: $.ErpStatus %}</p>', '<p class="micro-text"><label class="group-label">{%: $$.erpStatusDateText %}</label> {%: $$.formatter.date($.ErpStatusDate) %}</p>', '<p class="micro-text"><label class="group-label">{%: $$.documentDateText %}</label> {%: $$.formatter.date($.ErpDocumentDate) %}</p>']),
@@ -84,8 +84,8 @@ define('crm/Integrations/BOE/Views/ERPReceivables/List', ['module', 'exports', '
     entityName: 'ERPReceivable',
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `upper(ErpExtId) like "%${q}%" or upper(Account.AccountName) like "%${q}%" or upper(ErpInvoice.InvoiceNumber) like "%${q}%"`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return 'upper(ErpExtId) like "%' + q + '%" or upper(Account.AccountName) like "%' + q + '%" or upper(ErpInvoice.InvoiceNumber) like "%' + q + '%"';
     }
   });
 

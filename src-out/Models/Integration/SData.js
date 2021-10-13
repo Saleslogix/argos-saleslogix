@@ -36,7 +36,7 @@ define('crm/Models/Integration/SData', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Models.Integration.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Integration.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'integration_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

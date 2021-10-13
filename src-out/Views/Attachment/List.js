@@ -27,25 +27,25 @@ define('crm/Views/Attachment/List', ['module', 'exports', 'dojo/_base/declare', 
     };
   }
 
-  const resource = (0, _I18n2.default)('attachmentList'); /* Copyright 2017 Infor
-                                                           *
-                                                           * Licensed under the Apache License, Version 2.0 (the "License");
-                                                           * you may not use this file except in compliance with the License.
-                                                           * You may obtain a copy of the License at
-                                                           *
-                                                           *    http://www.apache.org/licenses/LICENSE-2.0
-                                                           *
-                                                           * Unless required by applicable law or agreed to in writing, software
-                                                           * distributed under the License is distributed on an "AS IS" BASIS,
-                                                           * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                           * See the License for the specific language governing permissions and
-                                                           * limitations under the License.
-                                                           */
+  var resource = (0, _I18n2.default)('attachmentList'); /* Copyright 2017 Infor
+                                                         *
+                                                         * Licensed under the Apache License, Version 2.0 (the "License");
+                                                         * you may not use this file except in compliance with the License.
+                                                         * You may obtain a copy of the License at
+                                                         *
+                                                         *    http://www.apache.org/licenses/LICENSE-2.0
+                                                         *
+                                                         * Unless required by applicable law or agreed to in writing, software
+                                                         * distributed under the License is distributed on an "AS IS" BASIS,
+                                                         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                         * See the License for the specific language governing permissions and
+                                                         * limitations under the License.
+                                                         */
 
-  const hashTagResource = (0, _I18n2.default)('attachmentListHashTags');
-  const dtFormatResource = (0, _I18n2.default)('attachmentListDateTimeFormat');
+  var hashTagResource = (0, _I18n2.default)('attachmentListHashTags');
+  var dtFormatResource = (0, _I18n2.default)('attachmentListDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Attachment.List', [_List2.default, _RightDrawerListMixin3.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Attachment.List', [_List2.default, _RightDrawerListMixin3.default, _LegacySDataListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['{% if ($.dataType === "R") { %}', '{%! $$.fileTemplate %}', '{% } else { %}', '{%! $$.urlTemplate %}', '{% } %}']),
     fileTemplate: new Simplate(['{% if ($.attachDate) { %}', '<p class="micro-text"><span>({%: $$.buildUploadedText($.attachDate) %})</span></p>', '{% } %}', '<p class="micro-text"><span>{%: crm.Format.fileSize($.fileSize) %}</span></p>', '<p class="micro-text"><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></p>', '{% if($.user) { %}', '<p class="micro-text"><span>{%: $.user.$descriptor  %}</span></p>', '{% } %}']),
@@ -87,22 +87,22 @@ define('crm/Views/Attachment/List', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     createRequest: function createRequest() {
-      const request = this.inherited(createRequest, arguments);
+      var request = this.inherited(createRequest, arguments);
       request.setQueryArg('_includeFile', 'false');
       return request;
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return `upper(description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
+      return 'upper(description) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
     },
     getLink: function getLink(attachment) {
-      let toReturn;
+      var toReturn = void 0;
       if (attachment.url) {
-        let href = attachment.url || '';
-        href = href.indexOf('http') < 0 ? `http://${href}` : href;
-        toReturn = `<a class="hyperlink" href="${href}" target="_blank" title="${attachment.url}">${attachment.$descriptor}</a>`;
+        var href = attachment.url || '';
+        href = href.indexOf('http') < 0 ? 'http://' + href : href;
+        toReturn = '<a class="hyperlink" href="' + href + '" target="_blank" title="' + attachment.url + '">' + attachment.$descriptor + '</a>';
       } else {
         if (attachment.fileExists) {
-          toReturn = `<a class="hyperlink" href="javascript: Sage.Utility.File.Attachment.getAttachment('${attachment.$key}');" title="${attachment.$descriptor}">${attachment.$descriptor}</a>`;
+          toReturn = '<a class="hyperlink" href="javascript: Sage.Utility.File.Attachment.getAttachment(\'' + attachment.$key + '\');" title="' + attachment.$descriptor + '">' + attachment.$descriptor + '</a>';
         } else {
           toReturn = attachment.$descriptor;
         }
@@ -128,12 +128,12 @@ define('crm/Views/Attachment/List', ['module', 'exports', 'dojo/_base/declare', 
       bmp: 'overlay-line'
     },
     getItemIconClass: function getItemIconClass(entry) {
-      const fileName = entry && entry.fileName;
-      let type = _Utility2.default.getFileExtension(fileName);
-      let cls = this.itemIconClass;
+      var fileName = entry && entry.fileName;
+      var type = _Utility2.default.getFileExtension(fileName);
+      var cls = this.itemIconClass;
       if (type) {
         type = type.substr(1); // Remove the '.' from the ext.
-        const typeCls = this.fileIconByType[type];
+        var typeCls = this.fileIconByType[type];
         if (typeCls) {
           cls = typeCls;
         }
@@ -152,16 +152,16 @@ define('crm/Views/Attachment/List', ['module', 'exports', 'dojo/_base/declare', 
     },
     hasBeenTouched: function hasBeenTouched(entry) {
       if (entry.modifyDate) {
-        const modifiedDate = moment(_Convert2.default.toDateFromString(entry.modifyDate));
-        const currentDate = moment().endOf('day');
-        const weekAgo = moment().subtract(1, 'weeks');
+        var modifiedDate = moment(_Convert2.default.toDateFromString(entry.modifyDate));
+        var currentDate = moment().endOf('day');
+        var weekAgo = moment().subtract(1, 'weeks');
 
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
       return false;
     },
     buildUploadedText: function buildUploadedText(date) {
-      const modifiedDate = moment(date).toDate();
+      var modifiedDate = moment(date).toDate();
       return _string2.default.substitute(this.uploadedOnText, [_Format2.default.date(modifiedDate), _Format2.default.date(modifiedDate, App.is24HourClock() ? this.attachmentTimeFormatText24 : this.attachmentTimeFormatText)]);
     }
   });

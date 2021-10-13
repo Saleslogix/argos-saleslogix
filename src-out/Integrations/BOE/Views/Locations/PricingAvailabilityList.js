@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('locationsPricingAvailabilityList');
+  var resource = (0, _I18n2.default)('locationsPricingAvailabilityList');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.PricingAvailabilityList', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text"><label class="group-label">{%: $$.warehouseText %}: </label>{%: $.SlxLocation %}</p>', '<p class="listview-heading"><label class="group-label">{%: $$.availableToPromiseDateText %}: </label>{%: $$.formatATPDate($.ATPDate) %}</p>', '<p class="listview-heading"><label class="group-label">{%: $$.availableText %}: </label>{%: $.AvailableQuantity %}</p>', '<p class="micro-text">{%: $.UnitOfMeasure %}</p>']),
 
@@ -93,16 +93,16 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
       this.options.singleSelectAction = 'complete';
     },
     onSelectWarehouse: function onSelectWarehouse() {
-      const selection = this.getSelectedWarehouse();
-      this.processWarehouse(selection).then(() => {
+      var selection = this.getSelectedWarehouse();
+      this.processWarehouse(selection).then(function () {
         ReUI.back();
       });
     },
     getSelectedWarehouse: function getSelectedWarehouse() {
-      const selections = this.get('selectionModel').getSelections();
-      let selection = null;
+      var selections = this.get('selectionModel').getSelections();
+      var selection = null;
       if (this.options.singleSelect) {
-        for (const selectionKey in selections) {
+        for (var selectionKey in selections) {
           if (selections.hasOwnProperty(selectionKey)) {
             selection = selections[selectionKey].data;
             break;
@@ -112,13 +112,13 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
       return selection;
     },
     processWarehouse: function processWarehouse(warehouse) {
-      const promise = new Promise(resolve => {
+      var promise = new Promise(function (resolve) {
         resolve(warehouse);
       });
       return promise;
     },
     getAvailability: function getAvailability() {
-      const promise = new Promise(resolve => {
+      var promise = new Promise(function (resolve) {
         resolve([]);
       });
       return promise;
@@ -128,14 +128,16 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
       this.inherited(onTransitionAway, arguments);
     },
     requestData: function requestData() {
-      this.getAvailability().then(entries => {
-        this._onQueryComplete({ total: entries.length ? entries.length : 0 }, entries);
-      }, () => {
-        this._onQueryComplete({ total: 0 }, []);
+      var _this = this;
+
+      this.getAvailability().then(function (entries) {
+        _this._onQueryComplete({ total: entries.length ? entries.length : 0 }, entries);
+      }, function () {
+        _this._onQueryComplete({ total: 0 }, []);
       });
     },
     formatATPDate: function formatATPDate(atpDate) {
-      let value = '';
+      var value = '';
       if (_Convert2.default.isDateString(atpDate)) {
         value = _Convert2.default.toDateFromString(atpDate);
         return _Format2.default.date(value);
@@ -143,7 +145,7 @@ define('crm/Integrations/BOE/Views/Locations/PricingAvailabilityList', ['module'
       return value;
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return `upper(Description) like "${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
+      return 'upper(Description) like "' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
     }
   });
 

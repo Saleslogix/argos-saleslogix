@@ -32,17 +32,17 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('mainToolbar');
+  var resource = (0, _I18n2.default)('mainToolbar');
 
-  const __class = (0, _declare2.default)('crm.Views.MainToolbar', [_MainToolbar2.default], {
+  var __class = (0, _declare2.default)('crm.Views.MainToolbar', [_MainToolbar2.default], {
     backTooltipText: resource.backTooltipText,
 
     showTools: function showTools(tools) {
-      let isOnEdit;
-      const isOnFirstView = App.isOnFirstView();
+      var isOnEdit = void 0;
+      var isOnFirstView = App.isOnFirstView();
 
       if (tools) {
-        for (let i = 0; i < tools.length; i++) {
+        for (var i = 0; i < tools.length; i++) {
           if (tools[i].id === 'cancel') {
             isOnEdit = true;
           }
@@ -73,10 +73,10 @@ define('crm/Views/MainToolbar', ['module', 'exports', 'dojo/_base/declare', 'doj
       App.navigateToHomeView();
     },
     onTitleClick: function onTitleClick() {
-      const view = App.getPrimaryActiveView();
+      var view = App.getPrimaryActiveView();
 
       if (view) {
-        const scrollerNode = view.get('scroller');
+        var scrollerNode = view.get('scroller');
         if ((0, _has2.default)('android')) {
           // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
           $(scrollerNode).css('overflow', 'hidden');

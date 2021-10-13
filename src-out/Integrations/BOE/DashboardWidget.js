@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.DashboardWidget', [_DashboardWidgetBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.DashboardWidget', [_DashboardWidgetBase3.default], {
     buildView: function buildView(entry) {
       this.destroyWidgets();
       this.metricWidgets = [];
@@ -46,26 +46,28 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
       this.getQueryData();
     },
     createMetricWidgets: function createMetricWidgets(entry) {
+      var _this = this;
+
       // Create metrics widgets and place them in the metricsNode
-      const frag = document.createDocumentFragment();
-      const widgetOptions = this.createMetricLayout(entry) || [];
-      widgetOptions.forEach(options => {
-        if (this.hasValidOptions(options)) {
+      var frag = document.createDocumentFragment();
+      var widgetOptions = this.createMetricLayout(entry) || [];
+      widgetOptions.forEach(function (options) {
+        if (_this.hasValidOptions(options)) {
           // Check if widget has a navigate to view option
           if (options.navTo) {
-            const obj = this.values.filter(this.checkForValue, options)[0];
-            options.navToReportView = this.navToReportView;
+            var obj = _this.values.filter(_this.checkForValue, options)[0];
+            options.navToReportView = _this.navToReportView;
             options.chartType = 'noChart';
             if (!(obj.queryIndex instanceof Array)) {
               // Get the active filter from the query args array and pass it as an option to the widget to be consumed by the navToReportView function
-              options.activeFilter = this.queryArgs[obj.queryIndex][1]._activeFilter;
+              options.activeFilter = _this.queryArgs[obj.queryIndex][1]._activeFilter;
             }
           }
-          const widget = new _MetricWidget2.default(options);
-          const itemNode = $(this.metricItemTemplate.apply(options, this));
+          var widget = new _MetricWidget2.default(options);
+          var itemNode = $(_this.metricItemTemplate.apply(options, _this));
           frag.appendChild(itemNode.get(0));
           $(itemNode).append($(widget)[0].domNode);
-          this.registerWidget(widget);
+          _this.registerWidget(widget);
         }
       });
       if (frag.childNodes.length) {
@@ -73,17 +75,19 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
       }
     },
     createRangeWidgets: function createRangeWidgets() {
-      const rangeFrag = document.createDocumentFragment();
+      var _this2 = this;
+
+      var rangeFrag = document.createDocumentFragment();
       // Check if range widgets are desired, if so create and place in rangeNode
       if (this.createRangeLayout) {
-        const rangeOptions = this.createRangeLayout() || [];
-        rangeOptions.forEach(options => {
-          options.changeRange = this.changeRange;
-          options.parent = this;
-          const widget = new _DateRangeWidget2.default(options);
-          const itemNode = $(this.rangeItemTemplate.apply(options, this)).get(0);
-          if (options.value === this.dayValue) {
-            this.selectedRange = itemNode;
+        var rangeOptions = this.createRangeLayout() || [];
+        rangeOptions.forEach(function (options) {
+          options.changeRange = _this2.changeRange;
+          options.parent = _this2;
+          var widget = new _DateRangeWidget2.default(options);
+          var itemNode = $(_this2.rangeItemTemplate.apply(options, _this2)).get(0);
+          if (options.value === _this2.dayValue) {
+            _this2.selectedRange = itemNode;
           }
           rangeFrag.appendChild(itemNode);
           $(itemNode).append($(widget)[0].domNode);
@@ -107,7 +111,7 @@ define('crm/Integrations/BOE/DashboardWidget', ['module', 'exports', 'dojo/_base
     }
   });
 
-  const rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager2.default();
   rvm.registerType('dashboard_widget', __class);
   _lang2.default.setObject('crm.Views.DashboardWidget', __class);
   exports.default = __class;

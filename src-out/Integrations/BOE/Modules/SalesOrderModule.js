@@ -47,14 +47,14 @@ define('crm/Integrations/BOE/Modules/SalesOrderModule', ['module', 'exports', 'd
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.SalesOrderModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.SalesOrderModule', [_Module3.default], {
     defaultViews: ['salesorder_list'],
     init: function init() {
       App.picklistService.registerPicklistToView('SyncStatus', 'salesorder_detail');
       App.picklistService.registerPicklistToView('ErpSalesOrderStatus', 'salesorder_detail');
     },
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerView(new _List18.default({
         expose: true
       }));
@@ -66,28 +66,30 @@ define('crm/Integrations/BOE/Modules/SalesOrderModule', ['module', 'exports', 'd
         hasSettings: false,
         expose: false,
         addLineItems: function addLineItems() {
+          var _this = this;
+
           if (!this.options.selectedEntry.ErpLogicalId) {
             App.modal.createSimpleDialog({
               title: 'alert',
               content: this.accountingEntityRequiredText,
-              getContent: () => {
+              getContent: function getContent() {
                 return;
               }
-            }).then(() => {
-              const orderEdit = App.getView('salesorder_edit');
+            }).then(function () {
+              var orderEdit = App.getView('salesorder_edit');
               if (orderEdit) {
-                const options = {
-                  entry: this.options.selectedEntry,
-                  fromContext: this.options.fromContext
+                var options = {
+                  entry: _this.options.selectedEntry,
+                  fromContext: _this.options.fromContext
                 };
                 orderEdit.show(options);
               }
             });
             return;
           }
-          const view = App.getView('salesorder_item_edit');
+          var view = App.getView('salesorder_item_edit');
           if (view) {
-            const options = {
+            var options = {
               insert: true,
               context: {
                 SalesOrder: this.options.selectedEntry
@@ -190,7 +192,7 @@ define('crm/Integrations/BOE/Modules/SalesOrderModule', ['module', 'exports', 'd
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerCustomization('list/tools', 'salesorder_invoice_items_related', {
         at: function at(tool) {
           return tool.id === 'new';

@@ -32,14 +32,14 @@ define('crm/Integrations/BOE/Modules/ShipmentLineModule', ['module', 'exports', 
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ShipmentLineModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ShipmentLineModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerView(new _Detail2.default());
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerCustomization('detail/tools', 'erpshipment_items_detail', {
         at: function at(tool) {
           return tool.id === 'edit';

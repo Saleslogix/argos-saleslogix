@@ -23,7 +23,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
     };
   }
 
-  const resource = (0, _I18n2.default)('rightDrawerListMixin');
+  var resource = (0, _I18n2.default)('rightDrawerListMixin');
 
   /**
    * @class
@@ -51,7 +51,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
   /**
    * @module crm/Views/_RightDrawerListMixin
    */
-  const __class = (0, _declare2.default)('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_RightDrawerListMixin.prototype */{
+  var __class = (0, _declare2.default)('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_RightDrawerListMixin.prototype */{
     // Localization
     hashTagsSectionText: resource.hashTagsSectionText,
     groupsSectionText: resource.groupsSectionText,
@@ -68,7 +68,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
     hasSettings: true,
 
     setupRightDrawer: function setupRightDrawer() {
-      const drawer = App.getView('right_drawer');
+      var drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.pageSize = this.DRAWER_PAGESIZE;
         this.groupList = _GroupUtility2.default.getGroupPreferences(this.entityName);
@@ -76,7 +76,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       }
     },
     refreshRightDrawer: function refreshRightDrawer() {
-      const drawer = App.getView('right_drawer');
+      var drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.clear();
         drawer.layout = null;
@@ -85,6 +85,8 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       }
     },
     _finishSetup: function _finishSetup(drawer) {
+      var _this = this;
+
       _lang2.default.mixin(drawer, this._createActions());
       drawer.setLayout(this.createRightDrawerLayout());
       drawer.getGroupForEntry = function getGroupForEntry(entry) {
@@ -92,26 +94,26 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       }.bind(this);
 
       if (this.rebuildWidgets) {
-        App.viewSettingsModal.element.on('close', () => {
-          if (this._hasChangedKPIPrefs) {
-            this.destroyWidgets();
+        App.viewSettingsModal.element.on('close', function () {
+          if (_this._hasChangedKPIPrefs) {
+            _this.destroyWidgets();
 
             // HACK: Don't rebuild widgets if a hashtag was clicked,
             // because the widget mixin will rebuild on a data refresh anyways.
             // TODO: Fix multiple calls to rebuildWidets() at the same time.
-            if (!this._hashTagClicked) {
-              this.rebuildWidgets();
+            if (!_this._hashTagClicked) {
+              _this.rebuildWidgets();
             }
-            this._hasChangedKPIPrefs = false;
+            _this._hasChangedKPIPrefs = false;
           }
 
           // Reset state
-          this._hashTagClicked = false;
+          _this._hashTagClicked = false;
         });
       }
     },
     unloadRightDrawer: function unloadRightDrawer() {
-      const drawer = App.getView('right_drawer');
+      var drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.setLayout([]);
         drawer.getGroupForEntry = function getGroupForEntry() {};
@@ -131,9 +133,10 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
     },
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
-      const actions = {
+      var actions = {
         hashTagClicked: function hashTagClicked(params) {
-          const { hashtag } = params;
+          var hashtag = params.hashtag;
+
 
           if (this.groupsMode) {
             this._clearGroupMode();
@@ -144,7 +147,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
             if (hashtag.startsWith('#')) {
               this.setSearchTerm(hashtag);
             } else {
-              this.setSearchTerm(`#${hashtag}`);
+              this.setSearchTerm('#' + hashtag);
             }
 
             this.search();
@@ -152,17 +155,17 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
           }
         }.bind(this),
         kpiClicked: function kpiClicked(params) {
-          const metrics = App.getMetricsByResourceKind(this.resourceKind);
-          let results;
+          var metrics = App.getMetricsByResourceKind(this.resourceKind);
+          var results = void 0;
 
           if (metrics.length > 0) {
-            results = metrics.filter(metric => {
+            results = metrics.filter(function (metric) {
               return metric.title === unescape(params.title);
             });
           }
 
           if (results.length > 0) {
-            const enabled = !!results[0].enabled;
+            var enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedKPIPrefs = true;
@@ -176,13 +179,13 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
         }.bind(this),
         groupClicked: function groupClicked(params) {
           this._startGroupMode();
-          const groupId = params.$key;
+          var groupId = params.$key;
 
-          $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
+          $(params.$source.parentElement.parentElement).find('a').each(function (i, a) {
             $(a).attr('data-enabled', ($(a).attr('data-$key') === groupId).toString());
           });
 
-          const group = this.groupList.filter(item => {
+          var group = this.groupList.filter(function (item) {
             return item.$key === groupId;
           })[0];
 
@@ -194,8 +197,8 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
           App.viewSettingsModal.close();
         }.bind(this),
         layoutSelectedClicked: function layoutSelectedClicked(params) {
-          const name = params.name;
-          $(params.$source.parentElement.parentElement).find('a').each((i, a) => {
+          var name = params.name;
+          $(params.$source.parentElement.parentElement).find('a').each(function (i, a) {
             $(a).attr('data-enabled', ($(a).attr('data-name') === name).toString());
           });
 
@@ -210,40 +213,40 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       return actions;
     },
     _selectGroups: function _selectGroups() {
-      const view = App.getView(this.groupLookupId);
+      var view = App.getView(this.groupLookupId);
       view.family = this.entityName;
       view.set('store', null);
       view.clear();
       view.refreshRequired = true;
 
-      const field = new _LookupField2.default({
+      var field = new _LookupField2.default({
         owner: this,
-        view,
+        view: view,
         singleSelect: false,
-        previousSelections: this.groupList && this.groupList.map(group => {
+        previousSelections: this.groupList && this.groupList.map(function (group) {
           return group.$key;
         })
       });
 
-      const handle = _aspect2.default.after(field, 'complete', function afterComplete() {
-        const self = this;
-        const list = this.owner;
-        const items = [];
+      var handle = _aspect2.default.after(field, 'complete', function afterComplete() {
+        var self = this;
+        var list = this.owner;
+        var items = [];
 
         // We will get an object back where the property names are the keys (groupId's)
         // Extract them out, and save the entry, which is the data property on the extracted object
-        for (const groupId in self.currentValue) {
+        for (var groupId in self.currentValue) {
           if (self.currentValue.hasOwnProperty(groupId)) {
-            const entry = self.currentValue[groupId].data;
+            var entry = self.currentValue[groupId].data;
             if (entry) {
               items.push(entry);
             }
           }
         }
 
-        const hasDefaultGroup = list.hasDefaultGroup;
+        var hasDefaultGroup = list.hasDefaultGroup;
         _GroupUtility2.default.addToGroupPreferences(items, list.entityName, true);
-        const currentGroup = _GroupUtility2.default.getDefaultGroup(list.entityName);
+        var currentGroup = _GroupUtility2.default.getDefaultGroup(list.entityName);
         if (currentGroup) {
           list.setCurrentGroup(currentGroup);
         }
@@ -253,7 +256,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
 
         if (hasDefaultGroup) {
           // We will transition back to the list, pop back open the right drawer so the user is back where they started
-          const processDataHandle = _aspect2.default.after(list, 'processData', function postProcessData() {
+          var processDataHandle = _aspect2.default.after(list, 'processData', function postProcessData() {
             App.viewSettingsModal.close();
             processDataHandle.remove();
             if (this.transitionHandle) {
@@ -302,10 +305,12 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       };
     },
     createRightDrawerLayout: function createRightDrawerLayout() {
-      const layout = [];
+      var _this2 = this;
+
+      var layout = [];
 
       if (this.groupsEnabled) {
-        const groupsSection = {
+        var groupsSection = {
           id: 'actions',
           children: []
         };
@@ -318,9 +323,9 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
           iconCls: 'fa fa-cog fa-fw '
         });
 
-        const defaultGroup = _GroupUtility2.default.getDefaultGroup(this.entityName);
+        var defaultGroup = _GroupUtility2.default.getDefaultGroup(this.entityName);
         if (this.groupList && this.groupList.length > 0) {
-          this.groupList.forEach(group => {
+          this.groupList.forEach(function (group) {
             groupsSection.children.push({
               name: group.name,
               action: 'groupClicked',
@@ -333,15 +338,15 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
             });
           });
         }
-        const layoutSection = {
+        var layoutSection = {
           id: 'actions',
           children: []
         };
         if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
-          let layoutSelected = false;
-          this.groupTemplateLayouts.forEach(theLayout => {
+          var layoutSelected = false;
+          this.groupTemplateLayouts.forEach(function (theLayout) {
             if (!layoutSelected) {
-              layoutSelected = theLayout.name === _GroupUtility2.default.getSelectedGroupLayoutTemplate(this.entityName);
+              layoutSelected = theLayout.name === _GroupUtility2.default.getSelectedGroupLayoutTemplate(_this2.entityName);
             }
             layoutSection.children.push({
               name: theLayout.name,
@@ -350,7 +355,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
               dataProps: {
                 name: theLayout.name,
                 title: theLayout.displayName,
-                enabled: theLayout.name === _GroupUtility2.default.getSelectedGroupLayoutTemplate(this.entityName)
+                enabled: theLayout.name === _GroupUtility2.default.getSelectedGroupLayoutTemplate(_this2.entityName)
               }
             });
           });
@@ -366,15 +371,15 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       }
 
       if (App.enableHashTags) {
-        const hashTagsSection = {
+        var hashTagsSection = {
           id: 'actions',
           children: []
         };
 
         if (this._hasHashTags()) {
-          const len = this.searchWidget.hashTagQueries.length;
-          for (let i = 0; i < len; i++) {
-            const hashTag = this.searchWidget.hashTagQueries[i];
+          var len = this.searchWidget.hashTagQueries.length;
+          for (var i = 0; i < len; i++) {
+            var hashTag = this.searchWidget.hashTagQueries[i];
             hashTagsSection.children.push({
               name: hashTag.key,
               action: 'hashTagClicked',
@@ -390,18 +395,18 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
       }
 
       if (this.createMetricWidgetsLayout) {
-        const metrics = App.getMetricsByResourceKind(this.resourceKind);
+        var metrics = App.getMetricsByResourceKind(this.resourceKind);
 
-        const kpiSection = {
+        var kpiSection = {
           id: 'kpi',
           children: []
         };
 
         if (metrics.length > 0) {
-          metrics.forEach((metric, i) => {
+          metrics.forEach(function (metric, i) {
             if (metric.title) {
               kpiSection.children.push({
-                name: `KPI${i}`,
+                name: 'KPI' + i,
                 action: 'kpiClicked',
                 title: metric.title,
                 dataProps: {

@@ -19,24 +19,24 @@ define('crm/Integrations/BOE/Models/QuotePerson/Base', ['module', 'exports', 'do
     };
   }
 
-  const resource = (0, _I18n2.default)('quotePersonModel'); /* Copyright 2017 Infor
-                                                             *
-                                                             * Licensed under the Apache License, Version 2.0 (the "License");
-                                                             * you may not use this file except in compliance with the License.
-                                                             * You may obtain a copy of the License at
-                                                             *
-                                                             *    http://www.apache.org/licenses/LICENSE-2.0
-                                                             *
-                                                             * Unless required by applicable law or agreed to in writing, software
-                                                             * distributed under the License is distributed on an "AS IS" BASIS,
-                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                             * See the License for the specific language governing permissions and
-                                                             * limitations under the License.
-                                                             */
+  var resource = (0, _I18n2.default)('quotePersonModel'); /* Copyright 2017 Infor
+                                                           *
+                                                           * Licensed under the Apache License, Version 2.0 (the "License");
+                                                           * you may not use this file except in compliance with the License.
+                                                           * You may obtain a copy of the License at
+                                                           *
+                                                           *    http://www.apache.org/licenses/LICENSE-2.0
+                                                           *
+                                                           * Unless required by applicable law or agreed to in writing, software
+                                                           * distributed under the License is distributed on an "AS IS" BASIS,
+                                                           * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                           * See the License for the specific language governing permissions and
+                                                           * limitations under the License.
+                                                           */
 
-  const quoteResource = (0, _I18n2.default)('quoteModel');
+  var quoteResource = (0, _I18n2.default)('quoteModel');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.QuotePerson.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.QuotePerson.Base', [_ModelBase3.default], {
     contractName: 'dynamic',
     resourceKind: 'quotePersons',
     entityName: 'QuotePerson',
@@ -48,7 +48,7 @@ define('crm/Integrations/BOE/Models/QuotePerson/Base', ['module', 'exports', 'do
     listViewId: 'quotePerson_list',
     editViewId: '',
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = [{
+      var rel = this.relationships || (this.relationships = [{
         name: 'Quote',
         displayName: quoteResource.entityDisplayNamePlural,
         type: 'OneToMany',

@@ -23,20 +23,20 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
     };
   }
 
-  const resource = (0, _I18n2.default)('offlineList'); /* Copyright 2017 Infor
-                                                        *
-                                                        * Licensed under the Apache License, Version 2.0 (the "License");
-                                                        * you may not use this file except in compliance with the License.
-                                                        * You may obtain a copy of the License at
-                                                        *
-                                                        *    http://www.apache.org/licenses/LICENSE-2.0
-                                                        *
-                                                        * Unless required by applicable law or agreed to in writing, software
-                                                        * distributed under the License is distributed on an "AS IS" BASIS,
-                                                        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                        * See the License for the specific language governing permissions and
-                                                        * limitations under the License.
-                                                        */
+  var resource = (0, _I18n2.default)('offlineList'); /* Copyright 2017 Infor
+                                                      *
+                                                      * Licensed under the Apache License, Version 2.0 (the "License");
+                                                      * you may not use this file except in compliance with the License.
+                                                      * You may obtain a copy of the License at
+                                                      *
+                                                      *    http://www.apache.org/licenses/LICENSE-2.0
+                                                      *
+                                                      * Unless required by applicable law or agreed to in writing, software
+                                                      * distributed under the License is distributed on an "AS IS" BASIS,
+                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                      * See the License for the specific language governing permissions and
+                                                      * limitations under the License.
+                                                      */
 
   exports.default = (0, _declare2.default)('crm.Views.Offline.List', [_ListBase3.default], {
     id: 'offline_list',
@@ -60,7 +60,7 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
       return '';
     },
     getItemIconClass: function getItemIconClass(entry) {
-      let iconClass;
+      var iconClass = void 0;
       iconClass = this._model.getIconClass(entry);
       if (!iconClass) {
         iconClass = 'url';
@@ -119,8 +119,8 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
       }]);
     },
     getEntityView: function getEntityView() {
-      const newViewId = `${this.id}_${this.offlineContext.viewId}`;
-      const view = App.getView(this.offlineContext.viewId);
+      var newViewId = this.id + '_' + this.offlineContext.viewId;
+      var view = App.getView(this.offlineContext.viewId);
 
       if (this._entityView) {
         this._entityView.destroy();
@@ -128,7 +128,7 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
       }
 
       if (view) {
-        const ViewCtor = view.constructor;
+        var ViewCtor = view.constructor;
         this._entityView = new ViewCtor({ id: newViewId });
       }
       return this._entityView;
@@ -143,13 +143,13 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
       this.navigateToOfflineDetailView(key, descriptor, additionalOptions);
     },
     navigateToOfflineDetailView: function navigateToOfflineDetailView(key, descriptor, additionalOptions) {
-      const entry = this.entries && this.entries[key];
-      const desc = this.getDescription(entry);
-      const view = this.getDetailView();
-      let options = {
+      var entry = this.entries && this.entries[key];
+      var desc = this.getDescription(entry);
+      var view = this.getDetailView();
+      var options = {
         descriptor: entry.description || desc, // keep for backwards compat
         title: entry.description || desc,
-        key,
+        key: key,
         fromContext: this,
         offlineContext: {
           entityId: this._model.getEntityId(entry),
@@ -165,15 +165,15 @@ define('crm/Views/Offline/List', ['module', 'exports', 'dojo/_base/declare', 'ar
 
       // Ensure we have a valid offline detail view and the
       // entity has a detail view that it can use for layout.
-      const modelDetailView = this._model.detailViewId;
-      const impliedDetailView = `${this._model.entityName.toLowerCase()}_detail`;
+      var modelDetailView = this._model.detailViewId;
+      var impliedDetailView = this._model.entityName.toLowerCase() + '_detail';
       if (view && App.getView(modelDetailView || impliedDetailView)) {
         view.show(options);
       }
     },
     getDetailView: function getDetailView() {
-      const viewId = `${this.detailView}_${this._model.entityName}`;
-      let view = this.app.getView(viewId);
+      var viewId = this.detailView + '_' + this._model.entityName;
+      var view = this.app.getView(viewId);
 
       if (view) {
         return view;

@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('erpBillToAccountsDetail');
+  var resource = (0, _I18n2.default)('erpBillToAccountsDetail');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPBillToAccounts.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPBillToAccounts.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -138,42 +138,42 @@ define('crm/Integrations/BOE/Views/ERPBillToAccounts/Detail', ['module', 'export
           name: 'Accounts',
           label: this.accountsText,
           where: function where(entry) {
-            return `ErpBillToAccounts.Id eq "${entry.$key}"`;
+            return 'ErpBillToAccounts.Id eq "' + entry.$key + '"';
           },
           view: 'billtoaccount_accounts_related'
         }, {
           name: 'OpenQuotesList',
           label: this.openQuotesText,
           where: function where(entry) {
-            return `BillTo.ErpBillToAccounts.Id eq "${entry.$key}" and (Status eq "${this.openCode}" or Status eq "${this.newCode}")`;
+            return 'BillTo.ErpBillToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.newCode + '")';
           },
           view: 'billtoaccount_openquotes_related'
         }, {
           name: 'SalesOrders',
           label: this.salesOrdersText,
           where: function where(entry) {
-            return `ErpBillTo.ErpBillToAccounts.Id eq "${entry.$key}" and (Status eq "${this.openCode}" or Status eq "${this.approvedCode}" or Status eq "${this.workingCode}" or Status eq "${this.partialShipCode}")`;
+            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.approvedCode + '" or Status eq "' + this.workingCode + '" or Status eq "' + this.partialShipCode + '")';
           },
           view: 'billtoaccount_salesorders_related'
         }, {
           name: 'OpenInvoices',
           label: this.invoicesText,
           where: function where(entry) {
-            return `ErpBillTo.ErpBillToAccounts.Id eq "${entry.$key}" and (ErpStatus eq "${this.openCode}" or ErpStatus eq "${this.partialPaidCode}" or ErpStatus eq "${this.disputeCode}")`;
+            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialPaidCode + '" or ErpStatus eq "' + this.disputeCode + '")';
           },
           view: 'billtoaccount_openinvoices_related'
         }, {
           name: 'Receivables',
           label: this.receivablesText,
           where: function where(entry) {
-            return `ErpBillTo.ErpBillToAccounts.Id eq "${entry.$key}"`;
+            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
           },
           view: 'billtoaccount_receivables_related'
         }, {
           name: 'Returns',
           label: this.returnsText,
           where: function where(entry) {
-            return `ErpBillTo.ErpBillToAccounts.Id eq "${entry.$key}"`;
+            return 'ErpBillTo.ErpBillToAccounts.Id eq "' + entry.$key + '"';
           },
           view: 'billtoaccount_returns_related'
         }]

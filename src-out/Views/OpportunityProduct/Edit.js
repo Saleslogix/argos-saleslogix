@@ -19,22 +19,22 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
     };
   }
 
-  const resource = (0, _I18n2.default)('opportunityProductEdit'); /* Copyright 2017 Infor
-                                                                   *
-                                                                   * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                   * you may not use this file except in compliance with the License.
-                                                                   * You may obtain a copy of the License at
-                                                                   *
-                                                                   *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                   *
-                                                                   * Unless required by applicable law or agreed to in writing, software
-                                                                   * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                   * See the License for the specific language governing permissions and
-                                                                   * limitations under the License.
-                                                                   */
+  var resource = (0, _I18n2.default)('opportunityProductEdit'); /* Copyright 2017 Infor
+                                                                 *
+                                                                 * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                 * you may not use this file except in compliance with the License.
+                                                                 * You may obtain a copy of the License at
+                                                                 *
+                                                                 *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                 *
+                                                                 * Unless required by applicable law or agreed to in writing, software
+                                                                 * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                 * See the License for the specific language governing permissions and
+                                                                 * limitations under the License.
+                                                                 */
 
-  const __class = (0, _declare2.default)('crm.Views.OpportunityProduct.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.OpportunityProduct.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,
     detailsText: resource.detailsText,
@@ -83,8 +83,8 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
         this.fields.Discount.setValue(values.Discount * 100);
       }
 
-      const myCode = App.getMyExchangeRate().code;
-      const baseCode = App.getBaseExchangeRate().code;
+      var myCode = App.getMyExchangeRate().code;
+      var baseCode = App.getBaseExchangeRate().code;
       this.fields.Price.setCurrencyCode(baseCode);
       this.fields.CalculatedPrice.setCurrencyCode(baseCode);
 
@@ -123,7 +123,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       return App.getMyExchangeRate().rate;
     },
     getValues: function getValues() {
-      const o = this.inherited(getValues, arguments);
+      var o = this.inherited(getValues, arguments);
       o.Program = o.Program.Program;
 
       /*
@@ -140,14 +140,14 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       return o;
     },
     applyContext: function applyContext() {
-      const entry = this.options && this.options.selectedEntry;
+      var entry = this.options && this.options.selectedEntry;
 
       if (entry) {
         this.fields.Opportunity.setValue(entry);
       }
     },
     onProductChange: function onProductChange(value, field) {
-      const selection = field && field.currentSelection;
+      var selection = field && field.currentSelection;
       if (selection) {
         this.fields.ProductId.setValueNoTrigger(value.key);
         this.fields['Product.Family'].setValueNoTrigger(selection.Family);
@@ -165,7 +165,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       }
     },
     onProgramChange: function onProgramChange(value, field) {
-      const selection = field && field.currentSelection;
+      var selection = field && field.currentSelection;
       if (selection) {
         this.fields.Price.setValueNoTrigger(selection.Price);
         this.fields.Discount.clearValue();
@@ -178,39 +178,39 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       }
     },
     onDiscountChange: function onDiscountChange() {
-      const price = parseFloat(this.fields.Price.getValue()) || 0;
-      const discount = this.fields.Discount.getValue();
+      var price = parseFloat(this.fields.Price.getValue()) || 0;
+      var discount = this.fields.Discount.getValue();
 
-      const adjusted = this._calculateAdjustedPrice(price, discount);
+      var adjusted = this._calculateAdjustedPrice(price, discount);
       this.fields.CalculatedPrice.setValueNoTrigger(adjusted);
 
       this._updateAdjustedPrices(adjusted);
       this._updateExtendedPrice();
     },
     onAdjustedPriceChange: function onAdjustedPriceChange() {
-      const price = parseFloat(this.fields.Price.getValue()) || 0;
-      const adjusted = parseFloat(this.fields.CalculatedPrice.getValue()) || 0;
+      var price = parseFloat(this.fields.Price.getValue()) || 0;
+      var adjusted = parseFloat(this.fields.CalculatedPrice.getValue()) || 0;
 
-      const discount = this._calculateDiscount(price, adjusted);
+      var discount = this._calculateDiscount(price, adjusted);
       this.fields.Discount.setValueNoTrigger(discount);
 
       if (App.hasMultiCurrency()) {
-        const myadjusted = this._getMyRate() * adjusted;
+        var myadjusted = this._getMyRate() * adjusted;
         this.fields.CalculatedPriceMine.setValueNoTrigger(myadjusted);
       }
       this._updateExtendedPrice();
     },
     onAdjustedPriceMineChange: function onAdjustedPriceMineChange() {
-      const myadjusted = this.fields.CalculatedPriceMine.getValue();
-      const price = this.fields.Price.getValue() || 0;
+      var myadjusted = this.fields.CalculatedPriceMine.getValue();
+      var price = this.fields.Price.getValue() || 0;
 
-      const myrate = this._getMyRate();
-      const myprice = price * myrate; // get the price in the users exchange rate
+      var myrate = this._getMyRate();
+      var myprice = price * myrate; // get the price in the users exchange rate
 
-      const discount = this._calculateDiscount(myprice, myadjusted);
+      var discount = this._calculateDiscount(myprice, myadjusted);
       this.fields.Discount.setValueNoTrigger(discount);
 
-      const adjusted = this._calculateAdjustedPrice(price, discount);
+      var adjusted = this._calculateAdjustedPrice(price, discount);
       this.fields.CalculatedPrice.setValueNoTrigger(adjusted);
 
       this._updateExtendedPrice();
@@ -222,7 +222,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       this._updateExtendedPrice();
     },
     _calculateDiscount: function _calculateDiscount(price, adjusted) {
-      let discount;
+      var discount = void 0;
       if (price === 0) {
         discount = 0.0;
       } else {
@@ -231,7 +231,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       return discount;
     },
     _calculateAdjustedPrice: function _calculateAdjustedPrice(price, discount) {
-      let adjusted;
+      var adjusted = void 0;
       if (discount === 0) {
         adjusted = price;
       } else {
@@ -240,7 +240,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       return adjusted;
     },
     _updateAdjustedPrices: function _updateAdjustedPrices(adjusted) {
-      let myadjusted;
+      var myadjusted = void 0;
       this.fields.CalculatedPrice.setValueNoTrigger(adjusted);
       if (App.hasMultiCurrency()) {
         myadjusted = this._getMyRate() * adjusted;
@@ -248,9 +248,9 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       }
     },
     _updateExtendedPrice: function _updateExtendedPrice() {
-      const quantity = parseFloat(this.fields.Quantity.getValue()) || 0;
-      const adjusted = parseFloat(this.fields.CalculatedPrice.getValue()) || 0;
-      const extended = adjusted * quantity;
+      var quantity = parseFloat(this.fields.Quantity.getValue()) || 0;
+      var adjusted = parseFloat(this.fields.CalculatedPrice.getValue()) || 0;
+      var extended = adjusted * quantity;
       this.fields.ExtendedPrice.setValueNoTrigger(extended);
     },
     onUpdateCompleted: function onUpdateCompleted() {
@@ -262,16 +262,16 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
       this.inherited(onInsertCompleted, arguments);
     },
     _refreshOpportunityViews: function _refreshOpportunityViews() {
-      const views = [App.getView('opportunityproduct_related'), App.getView('opportunity_detail'), App.getView('opportunity_list')];
+      var views = [App.getView('opportunityproduct_related'), App.getView('opportunity_detail'), App.getView('opportunity_list')];
 
-      views.forEach(view => {
+      views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
         }
       });
     },
     createLayout: function createLayout() {
-      const details = {
+      var details = {
         title: this.detailsText,
         name: 'OpportunityProductDetailsEdit',
         children: [{
@@ -309,8 +309,8 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
           view: 'productprogram_related',
           validator: _Validator2.default.exists,
           where: function where() {
-            const val = this.fields.Product.getValue();
-            return `Product.Name eq "${_Utility2.default.escapeSearchQuery(val.Name)}"`;
+            var val = this.fields.Product.getValue();
+            return 'Product.Name eq "' + _Utility2.default.escapeSearchQuery(val.Name) + '"';
           }.bindDelegate(this)
         }, {
           label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
@@ -350,7 +350,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
         });
       }
 
-      const extendedPrice = {
+      var extendedPrice = {
         title: this.extendedPriceSectionText,
         name: 'OpportunityProductExtendedPriceEdit',
         children: [{
@@ -362,7 +362,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
         }]
       };
 
-      const adjustedPrice = {
+      var adjustedPrice = {
         title: this.adjustedPriceSectionText,
         name: 'OpportunityProductAdjustedPriceEdit',
         children: [{
@@ -380,7 +380,7 @@ define('crm/Views/OpportunityProduct/Edit', ['module', 'exports', 'dojo/_base/de
         }]
       };
 
-      const layout = this.layout || (this.layout = []);
+      var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;

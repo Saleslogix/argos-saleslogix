@@ -15,22 +15,22 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
     };
   }
 
-  const resource = (0, _I18n2.default)('pricingAvailabilityService'); /* Copyright 2017 Infor
-                                                                       *
-                                                                       * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                       * you may not use this file except in compliance with the License.
-                                                                       * You may obtain a copy of the License at
-                                                                       *
-                                                                       *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                       *
-                                                                       * Unless required by applicable law or agreed to in writing, software
-                                                                       * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                       * See the License for the specific language governing permissions and
-                                                                       * limitations under the License.
-                                                                       */
+  var resource = (0, _I18n2.default)('pricingAvailabilityService'); /* Copyright 2017 Infor
+                                                                     *
+                                                                     * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                     * you may not use this file except in compliance with the License.
+                                                                     * You may obtain a copy of the License at
+                                                                     *
+                                                                     *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                     *
+                                                                     * Unless required by applicable law or agreed to in writing, software
+                                                                     * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                     * See the License for the specific language governing permissions and
+                                                                     * limitations under the License.
+                                                                     */
 
-  const __class = _lang2.default.setObject('crm.Integrations.BOE.PricingAvailabilityService', {
+  var __class = _lang2.default.setObject('crm.Integrations.BOE.PricingAvailabilityService', {
 
     busyText: resource.busyText,
     checkOrderItemAvailText: resource.checkOrderItemAvailText,
@@ -40,7 +40,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
 
     _busyIndicator: null,
     createAlertDialog: function createAlertDialog(response) {
-      return App.modal.createSimpleDialog({ title: 'alert', content: response, getContent: () => {
+      return App.modal.createSimpleDialog({ title: 'alert', content: response, getContent: function getContent() {
           return;
         }, leftButton: 'cancel', rightButton: 'confirm' });
     },
@@ -63,20 +63,22 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       App.modal.add(this._busyIndicator);
     },
     validateQuoteTotal: function validateQuoteTotal(quote) {
-      const promise = new Promise((resolve, reject) => {
-        const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('quotes').setOperationName('validateOrderTotal');
+      var _this = this;
 
-        const entry = {
+      var promise = new Promise(function (resolve, reject) {
+        var request = new Sage.SData.Client.SDataServiceOperationRequest(_this.getService()).setResourceKind('quotes').setOperationName('validateOrderTotal');
+
+        var entry = {
           $name: 'ValidateOrderTotal',
           request: {
             QuoteId: quote.$key
           }
         };
         request.execute(entry, {
-          success: () => {
+          success: function success() {
             resolve(true);
           },
-          failure: result => {
+          failure: function failure(result) {
             reject(result); // eslint-disable-line
           }
         });
@@ -84,20 +86,22 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return promise;
     },
     validateOrderTotal: function validateOrderTotal(order) {
-      const promise = new Promise((resolve, reject) => {
-        const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('salesOrders').setOperationName('validateOrderTotal');
+      var _this2 = this;
 
-        const entry = {
+      var promise = new Promise(function (resolve, reject) {
+        var request = new Sage.SData.Client.SDataServiceOperationRequest(_this2.getService()).setResourceKind('salesOrders').setOperationName('validateOrderTotal');
+
+        var entry = {
           $name: 'ValidateOrderTotal',
           request: {
             SalesOrderId: order.$key
           }
         };
         request.execute(entry, {
-          success: () => {
+          success: function success() {
             resolve(true);
           },
-          failure: result => {
+          failure: function failure(result) {
             reject(result); // eslint-disable-line
           }
         });
@@ -106,7 +110,9 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
     },
 
     getOrderPricing: function getOrderPricing(order) {
-      const options = {
+      var _this3 = this;
+
+      var options = {
         resourceKind: 'salesOrders',
         operationName: 'requestPricingAvailability',
         requestOptions: {
@@ -117,21 +123,21 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
         },
         transform: this.transformPricing
       };
-      const promise = new Promise((resolve, reject) => {
-        return this.validateOrderTotal(order).then(() => {
-          this.executeRequest(options).then(pricingData => {
+      var promise = new Promise(function (resolve, reject) {
+        return _this3.validateOrderTotal(order).then(function () {
+          _this3.executeRequest(options).then(function (pricingData) {
             resolve(pricingData);
-          }, error => {
+          }, function (error) {
             reject(error);
           });
-        }, error => {
+        }, function (error) {
           reject(error);
         });
       });
       return promise;
     },
     getOrderItemAvailability: function getOrderItemAvailability(orderItem, order, product, quantity) {
-      const options = {
+      var options = {
         resourceKind: 'salesOrders',
         operationName: 'requestPricingAvailability',
         description: this.checkOrderItemAvailText,
@@ -148,7 +154,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     getOrderItemPricing: function getOrderItemPricing(orderItem, order, product, quantity, slxLocation, unitOfMeasure) {
-      const options = {
+      var options = {
         resourceKind: 'salesOrders',
         operationName: 'requestPricingAvailability',
         description: this.checkOrderItemPriceText,
@@ -168,7 +174,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     updateOrderItemWarehouse: function updateOrderItemWarehouse(orderItem, SlxLocation, SlxLoacationId, ATPDate, quantity) {
-      const options = {
+      var options = {
         operationName: 'UpdateLineItemWithWarehouse',
         resourceKind: 'salesOrders',
         requestOptions: {
@@ -176,14 +182,16 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
           entityId: orderItem.$key,
           SlxLocationExtID: SlxLocation,
           SlxLocationID: SlxLoacationId,
-          ATPDate,
+          ATPDate: ATPDate,
           AvailableQuantity: quantity || 1
         }
       };
       return this.executeRequest(options);
     },
     getQuotePricing: function getQuotePricing(quote) {
-      const options = {
+      var _this4 = this;
+
+      var options = {
         resourceKind: 'quotes',
         operationName: 'requestPricingAvailability',
         requestOptions: {
@@ -194,21 +202,21 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
         },
         transform: this.transformPricing
       };
-      const promise = new Promise((resolve, reject) => {
-        return this.validateQuoteTotal(quote).then(() => {
-          this.executeRequest(options).then(pricingData => {
+      var promise = new Promise(function (resolve, reject) {
+        return _this4.validateQuoteTotal(quote).then(function () {
+          _this4.executeRequest(options).then(function (pricingData) {
             resolve(pricingData);
-          }, error => {
+          }, function (error) {
             reject(error);
           });
-        }, error => {
+        }, function (error) {
           reject(error);
         });
       });
       return promise;
     },
     getQuoteItemPricing: function getQuoteItemPricing(quoteItem, quote, product, quantity, slxLocation, unitOfMeasure) {
-      const options = {
+      var options = {
         resourceKind: 'quotes',
         operationName: 'requestPricingAvailability',
         description: this.checkQuoteItemPriceText,
@@ -228,7 +236,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     getQuoteItemAvailability: function getQuoteItemAvailability(quoteItem, quote, product, quantity, unitOfMeasure) {
-      const options = {
+      var options = {
         resourceKind: 'quotes',
         operationName: 'requestPricingAvailability',
         description: this.checkQuoteItemAvailText,
@@ -246,7 +254,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     updateQuoteItemWarehouse: function updateQuoteItemWarehouse(quoteItem, SlxLocation, SlxLoacationId, ATPDate, quantity) {
-      const options = {
+      var options = {
         operationName: 'UpdateLineItemWithWarehouse',
         resourceKind: 'quotes',
         requestOptions: {
@@ -254,14 +262,14 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
           entityId: quoteItem.$key,
           SlxLocationExtID: SlxLocation,
           SlxLocationID: SlxLoacationId,
-          ATPDate,
+          ATPDate: ATPDate,
           AvailableQuantity: quantity || quoteItem.Quantity || 1
         }
       };
       return this.executeRequest(options);
     },
     opportunityRePrice: function opportunityRePrice(opportunity) {
-      const options = {
+      var options = {
         operationName: 'RePriceOpportunity',
         resourceKind: 'opportunities',
         requestOptions: {
@@ -275,7 +283,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     quoteRePrice: function quoteRePrice(quote) {
-      const options = {
+      var options = {
         operationName: 'RePriceQuote',
         resourceKind: 'quotes',
         requestOptions: {
@@ -290,7 +298,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     salesOrderRePrice: function salesOrderRePrice(saleOrder) {
-      const options = {
+      var options = {
         operationName: 'RePriceOrder',
         resourceKind: 'salesorders',
         requestOptions: {
@@ -305,23 +313,23 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return this.executeRequest(options);
     },
     transformPricing: function transformPricing(results) {
-      const promise = new Promise((resolve, reject) => {
-        const data = {};
+      var promise = new Promise(function (resolve, reject) {
+        var data = {};
         if (results && results.Children && results.Children.length) {
           try {
-            const item = results.Children[0];
-            for (const prop in item.Properties) {
+            var item = results.Children[0];
+            for (var prop in item.Properties) {
               if (!prop) {
                 continue;
               }
-              let propName = prop;
+              var propName = prop;
               if (propName && propName.search('.') !== -1) {
                 propName = propName.split('.')[0];
               }
-              const dataItem = {};
+              var dataItem = {};
               dataItem.propertyName = propName;
-              const toDouble = Number.parseFloat(item.Properties[prop]);
-              const toDecimal = Number.parseInt(item.Properties[prop], 10);
+              var toDouble = Number.parseFloat(item.Properties[prop]);
+              var toDecimal = Number.parseInt(item.Properties[prop], 10);
               if (toDouble) {
                 dataItem.type = 'numeric';
                 dataItem.value = toDouble;
@@ -329,16 +337,16 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
                 dataItem.type = 'numeric';
                 dataItem.value = toDecimal;
               } else {
-                let value = item.Properties[prop];
+                var value = item.Properties[prop];
                 if (value.search('#') !== -1) {
-                  const values = value.split('#');
+                  var values = value.split('#');
                   value = values[1];
-                  data[`${dataItem.propertyName}Code`] = {
-                    propertyName: `${dataItem.propertyName}Code`,
+                  data[dataItem.propertyName + 'Code'] = {
+                    propertyName: dataItem.propertyName + 'Code',
                     type: 'text',
                     value: values[0]
                   };
-                  dataItem.propertyName = `${dataItem.propertyName}Id`;
+                  dataItem.propertyName = dataItem.propertyName + 'Id';
                 }
                 dataItem.type = 'text';
                 dataItem.value = value;
@@ -355,20 +363,20 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return promise;
     },
     transformAvailability: function transformAvailability(result) {
-      const promise = new Promise((resolve, reject) => {
+      var promise = new Promise(function (resolve, reject) {
         try {
-          const warehouses = [];
+          var warehouses = [];
           if (result) {
-            for (let i = 0; i < result.Children.length; i++) {
-              const product = result.Children[i];
-              const entity = {};
-              for (const key in product.Properties) {
+            for (var i = 0; i < result.Children.length; i++) {
+              var product = result.Children[i];
+              var entity = {};
+              for (var key in product.Properties) {
                 if (key !== 'ProductCode') {
                   if (key.indexOf('.') > 0 && key.indexOf('ErpExtId') > 0) {
-                    const propName = key.split('.');
-                    const extId = product.Properties[key].split('#');
+                    var propName = key.split('.');
+                    var extId = product.Properties[key].split('#');
                     entity[propName[0]] = extId[0];
-                    entity[`${propName[0]}ID`] = extId[1];
+                    entity[propName[0] + 'ID'] = extId[1];
                   } else {
                     entity[key] = product.Properties[key];
                   }
@@ -386,9 +394,11 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return promise;
     },
     executeRequest: function executeRequest(options, executeOptions) {
-      const promise = new Promise((resolve, reject) => {
-        this.showBusy(options.description);
-        let entry = {
+      var _this5 = this;
+
+      var promise = new Promise(function (resolve, reject) {
+        _this5.showBusy(options.description);
+        var entry = {
           $name: options.operationName,
           request: {
             options: JSON.stringify(options.requestOptions)
@@ -397,16 +407,16 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
         if (executeOptions) {
           entry = executeOptions;
         }
-        const request = this.getRequest(options);
+        var request = _this5.getRequest(options);
         request.execute(entry, {
-          success: data => {
-            this.hideBusy();
-            let result = '';
+          success: function success(data) {
+            _this5.hideBusy();
+            var result = '';
             try {
               result = data && data.response && data.response.Result ? JSON.parse(data.response.Result) : '';
               if (options.transform) {
-                const _resolve = resolve;
-                options.transform.call(this, result).then(tfdata => {
+                var _resolve = resolve;
+                options.transform.call(_this5, result).then(function (tfdata) {
                   _resolve(tfdata);
                 });
               } else {
@@ -414,15 +424,15 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
               }
             } catch (error) {
               reject(error);
-              this.hideBusy();
-              this.createAlertDialog(error);
+              _this5.hideBusy();
+              _this5.createAlertDialog(error);
               console.log(error); // eslint-disable-line
             }
           },
-          failure: error => {
-            this.hideBusy();
-            const response = JSON.parse(error.response)[0];
-            this.createAlertDialog(response.message);
+          failure: function failure(error) {
+            _this5.hideBusy();
+            var response = JSON.parse(error.response)[0];
+            _this5.createAlertDialog(response.message);
             reject(response);
           }
         });
@@ -430,7 +440,7 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       return promise;
     },
     getRequest: function getRequest(options) {
-      const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind(options.resourceKind).setOperationName(options.operationName);
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind(options.resourceKind).setOperationName(options.operationName);
       return request;
     },
     getService: function getService() {

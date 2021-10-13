@@ -19,12 +19,12 @@ define('crm/Views/Offline/TotalMetricWidget', ['module', 'exports', '../MetricWi
       return {};
     },
     _buildQueryExpression: function _buildQueryExpression() {
-      const filters = this.activeEntityFilters || [];
+      var filters = this.activeEntityFilters || [];
       return {
         map: function map(doc, emit) {
           // If the user has entity filters stored in preferences, filter based on that
           if (App.preferences && App.preferences.offlineEntityFilters) {
-            filters.forEach(f => {
+            filters.forEach(function (f) {
               if (doc.entityName === f.name) {
                 emit(1);
               }

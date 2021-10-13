@@ -36,7 +36,7 @@ define('crm/Integrations/Contour/Models/Place/Offline', ['module', 'exports', 'd
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'place_offline_model'
   });
 

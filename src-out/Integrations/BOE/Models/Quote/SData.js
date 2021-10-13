@@ -25,22 +25,45 @@ define('crm/Integrations/BOE/Models/Quote/SData', ['module', 'exports', 'dojo/_b
     };
   }
 
-  /* Copyright 2017 Infor
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *    http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];
+      var _n = true;
+      var _d = false;
+      var _e = undefined;
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Quotes.SData', [_Base2.default, _SDataModelBase3.default], {
+      try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);
+
+          if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;
+        _e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"]) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }
+
+      return _arr;
+    }
+
+    return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance");
+      }
+    };
+  }();
+
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Quotes.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'quote_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -58,22 +81,23 @@ define('crm/Integrations/BOE/Models/Quote/SData', ['module', 'exports', 'dojo/_b
       }];
     },
     isClosed: function isClosed($key, options) {
-      const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('isClosed');
-      const entry = {
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('isClosed');
+      var entry = {
         $name: 'isClosed',
         request: {
           entity: {
-            $key
+            $key: $key
           }
         }
       };
-      return new Promise((resolve, reject) => {
+      return new Promise(function (resolve, reject) {
         request.execute(entry, {
-          success: data => {
-            const { response: { Result } } = data;
+          success: function success(data) {
+            var Result = data.response.Result;
+
             resolve(Result);
           },
-          failure: (response, o) => {
+          failure: function failure(response, o) {
             _ErrorManager2.default.addError(response, o, options, 'failure');
             reject(response);
           }
@@ -81,9 +105,13 @@ define('crm/Integrations/BOE/Models/Quote/SData', ['module', 'exports', 'dojo/_b
       });
     },
     getEntry: function getEntry(key, options) {
-      const results$ = this.inherited(getEntry, arguments);
-      const closed$ = this.isClosed(key, options);
-      return Promise.all([results$, closed$]).then(([entry, closed]) => {
+      var results$ = this.inherited(getEntry, arguments);
+      var closed$ = this.isClosed(key, options);
+      return Promise.all([results$, closed$]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            entry = _ref2[0],
+            closed = _ref2[1];
+
         entry.IsClosed = closed;
         return entry;
       });

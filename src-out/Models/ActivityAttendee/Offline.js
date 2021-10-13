@@ -36,7 +36,7 @@ define('crm/Models/ActivityAttendee/Offline', ['module', 'exports', 'dojo/_base/
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Models.ActivityAttendee.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.ActivityAttendee.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'activity_attendee_offline_model'
   });
 

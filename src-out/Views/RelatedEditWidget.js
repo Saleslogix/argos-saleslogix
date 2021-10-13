@@ -23,7 +23,7 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase3.default], {
+  var __class = (0, _declare2.default)('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase3.default], {
     cls: 'related-edit-widget',
     owner: null,
     id: 'related-edit-widget',
@@ -33,9 +33,9 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
       this.processEntry(this.parentEntry);
     },
     processEntry: function processEntry(entry) {
-      const Ctor = this.editView ? this.editView : _Edit2.default;
-      const editView = new Ctor({
-        id: `${this.id}_edit`
+      var Ctor = this.editView ? this.editView : _Edit2.default;
+      var editView = new Ctor({
+        id: this.id + '_edit'
       });
       if (editView && !editView._started) {
         editView.sectionBeginTemplate = new Simplate(['<fieldset class="{%= ($.cls || $.options.cls) %}">']);
@@ -44,14 +44,14 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
         editView.onUpdateCompleted = this.onUpdateCompleted.bind(this);
       }
       // Add the toolbar for save
-      const toolBarNode = $(this.toolBarTemplate.apply(entry, this)).get(0);
+      var toolBarNode = $(this.toolBarTemplate.apply(entry, this)).get(0);
       (0, _on2.default)(toolBarNode, 'click', this.onInvokeToolBarAction.bind(this));
       $(this.containerNode).append(toolBarNode);
 
       // Add the edit view to view
       editView.placeAt(this.containerNode, 'last');
 
-      const options = {
+      var options = {
         select: this.getEditSelect(),
         key: entry.$key
       };
@@ -65,9 +65,9 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
       _event2.default.stop(evt);
     },
     getEditLayout: function getEditLayout() {
-      const editLayout = [];
+      var editLayout = [];
       if (this.layout) {
-        this.layout.forEach(item => {
+        this.layout.forEach(function (item) {
           if (!item.readonly) {
             editLayout.push(item);
           }
@@ -76,7 +76,7 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
       return editLayout;
     },
     getEditSelect: function getEditSelect() {
-      let select = null;
+      var select = null;
       if (this.formModel) {
         select = this.formModel.getEditSelect();
       }
@@ -89,12 +89,12 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
       this.inherited(onUpdateCompleted, arguments);
     },
     destroy: function destroy() {
-      this._subscribes.forEach(handle => {
+      this._subscribes.forEach(function (handle) {
         _connect2.default.unsubscribe(handle);
       });
 
       if (this.editViewInstance) {
-        for (const name in this.editViewInstance.fields) {
+        for (var name in this.editViewInstance.fields) {
           if (this.editViewInstance.fields.hasOwnProperty(name)) {
             this.editViewInstance.fields[name].destroy();
           }
@@ -118,7 +118,7 @@ define('crm/Views/RelatedEditWidget', ['module', 'exports', 'dojo/_base/declare'
        * limitations under the License.
        */
 
-  const rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager2.default();
   rvm.registerType('relatedEdit', __class);
   exports.default = __class;
   module.exports = exports['default'];

@@ -36,10 +36,10 @@ define('crm/Integrations/BOE/Views/SyncResults/List', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('syncResultsList');
-  const dtFormatResource = (0, _I18n2.default)('syncResultsListDateTimeFormat');
+  var resource = (0, _I18n2.default)('syncResultsList');
+  var dtFormatResource = (0, _I18n2.default)('syncResultsListDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SyncResults.List', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SyncResults.List', [_List2.default], {
     formatter: _Format2.default,
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading"><label class="group-label">{%: $$.directionText %}: </label>{%: $.RunName %}</p>', '<p class="micro-text"><label class="group-label">{%: $$.statusText %}: </label>{%: $.HttpStatus %}</p>', '{% if ($.ErrorMessage) { %}', '<p class="micro-text"><label class="group-label">{%: $$.errorMessageText %}: </label>{%: $.ErrorMessage %}</p>', '{% } %}', '{% if ($.SyncedFrom) { %}', '<p class="micro-text"><label class="group-label">{%: $$.sentFromText %}: </label>{%: $.SyncedFrom.Name %}</p>', '{% } %}', '{% if ($.SyncedTo) { %}', '<p class="micro-text"><label class="group-label">{%: $$.processedByText %}: </label>{%: $.SyncedTo.Name %}</p>', '{% } %}', '<p class="micro-text"><label class="group-label">{%: $$.loggedText %}: </label>{%: $$.formatter.date($.Stamp, $$.dateFormatText) %}</p>']),
@@ -75,8 +75,8 @@ define('crm/Integrations/BOE/Views/SyncResults/List', ['module', 'exports', 'doj
       return this.tools || (this.tools = {});
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `upper(HttpStatus) like "${q}%"`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return 'upper(HttpStatus) like "' + q + '%"';
     }
   });
 

@@ -36,7 +36,7 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Models.Contact.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Contact.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'contact_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -54,9 +54,9 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
       }];
     },
     getEntry: function getEntry() /* options */{
-      const results$ = this.inherited(getEntry, arguments);
-      return results$.then(entry => {
-        return new Promise(resolve => {
+      var results$ = this.inherited(getEntry, arguments);
+      return results$.then(function (entry) {
+        return new Promise(function (resolve) {
           Promise.all([App.picklistService.requestPicklist('Name Prefix', {
             language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
             filterByLanguage: true
@@ -66,7 +66,7 @@ define('crm/Models/Contact/SData', ['module', 'exports', 'dojo/_base/declare', '
           }), App.picklistService.requestPicklist('Title', {
             language: entry.LocationCode && entry.LocationCode.trim() || App.getCurrentLocale(),
             filterByLanguage: true
-          })]).then(() => {
+          })]).then(function () {
             resolve(entry);
           });
         });

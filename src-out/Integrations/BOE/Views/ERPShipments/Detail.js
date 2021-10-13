@@ -23,22 +23,22 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
     };
   }
 
-  const resource = (0, _I18n2.default)('erpShipmentsDetail'); /* Copyright 2017 Infor
-                                                               *
-                                                               * Licensed under the Apache License, Version 2.0 (the "License");
-                                                               * you may not use this file except in compliance with the License.
-                                                               * You may obtain a copy of the License at
-                                                               *
-                                                               *    http://www.apache.org/licenses/LICENSE-2.0
-                                                               *
-                                                               * Unless required by applicable law or agreed to in writing, software
-                                                               * distributed under the License is distributed on an "AS IS" BASIS,
-                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                               * See the License for the specific language governing permissions and
-                                                               * limitations under the License.
-                                                               */
+  var resource = (0, _I18n2.default)('erpShipmentsDetail'); /* Copyright 2017 Infor
+                                                             *
+                                                             * Licensed under the Apache License, Version 2.0 (the "License");
+                                                             * you may not use this file except in compliance with the License.
+                                                             * You may obtain a copy of the License at
+                                                             *
+                                                             *    http://www.apache.org/licenses/LICENSE-2.0
+                                                             *
+                                                             * Unless required by applicable law or agreed to in writing, software
+                                                             * distributed under the License is distributed on an "AS IS" BASIS,
+                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                             * See the License for the specific language governing permissions and
+                                                             * limitations under the License.
+                                                             */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipments.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipments.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -70,6 +70,8 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
     enableOffline: true,
 
     createLayout: function createLayout() {
+      var _this = this;
+
       return this.layout || (this.layout = [{
         title: this.actionsText,
         list: true,
@@ -163,22 +165,22 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           name: 'DeclaredValue',
           property: 'ErpDeclaredValue',
           label: this.declaredValueText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
           }
         }, {
           name: 'ShipmentTotalBaseAmount',
           property: 'ShipmentTotalBaseAmount',
           label: this.shipmentTotalBaseAmountText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
           }
         }, {
           name: 'ShipmentTotalAmount',
           property: 'ShipmentTotalAmount',
           label: this.shipmentTotalAmountText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
           }
         }, {
           name: 'PaymentTerm',
@@ -208,7 +210,7 @@ define('crm/Integrations/BOE/Views/ERPShipments/Detail', ['module', 'exports', '
           name: 'ShipmentLines',
           label: this.shipmentLinesText,
           where: function where(entry) {
-            return `ErpShipment.Id eq "${entry.$key}"`;
+            return 'ErpShipment.Id eq "' + entry.$key + '"';
           },
           view: 'shipment_lines_related'
         }]

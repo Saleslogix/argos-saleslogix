@@ -32,12 +32,12 @@ define('crm/Models/Lead/Base', ['module', 'exports', 'dojo/_base/declare', 'argo
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('leadModel');
-  const activityResource = (0, _I18n2.default)('activityModel');
-  const historyResource = (0, _I18n2.default)('historyModel');
-  const addressResource = (0, _I18n2.default)('addressModel');
+  var resource = (0, _I18n2.default)('leadModel');
+  var activityResource = (0, _I18n2.default)('activityModel');
+  var historyResource = (0, _I18n2.default)('historyModel');
+  var addressResource = (0, _I18n2.default)('addressModel');
 
-  const __class = (0, _declare2.default)('crm.Models.Lead.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Lead.Base', [_ModelBase3.default], {
     resourceKind: 'leads',
     entityName: 'Lead',
     entityDisplayName: resource.entityDisplayName,
@@ -74,7 +74,7 @@ define('crm/Models/Lead/Base', ['module', 'exports', 'dojo/_base/declare', 'argo
       }]);
     },
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = [{
+      var rel = this.relationships || (this.relationships = [{
         name: 'Addresses',
         displayName: addressResource.entityDisplayNamePlural,
         propertyName: 'Addresses',

@@ -44,9 +44,9 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('leadList');
+  var resource = (0, _I18n2.default)('leadList');
 
-  const __class = (0, _declare2.default)('crm.Views.Lead.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Lead.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">', '{%: $$.joinFields(" | ", [$$.formatPicklist("Title")($.Title), $.Company]) %}', '</p>', '{% if ($.WorkPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callWork" data-key="{%: $.$key %}">{%: argos.Format.phone($.WorkPhone) %}</span>', // TODO: Avoid global
     '</p>', '{% } %}', '{% if ($.Mobile) { %}', '<p class="micro-text">', '{%: $$.mobileAbbreviationText %} <span class="hyperlink" data-action="callMobile" data-key="{%: $.$key %}">{%: argos.Format.phone($.Mobile) %}</span>', // TODO: Avoid global
@@ -57,17 +57,17 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
       return _Utility2.default.joinFields(sep, fields);
     },
     callWork: function callWork(params) {
-      this.invokeActionItemBy(theAction => {
+      this.invokeActionItemBy(function (theAction) {
         return theAction.id === 'callWork';
       }, params.key);
     },
     callMobile: function callMobile(params) {
-      this.invokeActionItemBy(theAction => {
+      this.invokeActionItemBy(function (theAction) {
         return theAction.id === 'callMobile';
       }, params.key);
     },
     sendEmail: function sendEmail(params) {
-      this.invokeActionItemBy(theAction => {
+      this.invokeActionItemBy(function (theAction) {
         return theAction.id === 'sendEmail';
       }, params.key);
     },
@@ -109,6 +109,8 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
     allowSelection: true,
     enableActions: true,
     createActionLayout: function createActionLayout() {
+      var _this = this;
+
       return this.actions || (this.actions = [{
         id: 'edit',
         cls: 'edit',
@@ -120,27 +122,27 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
         cls: 'phone',
         label: this.callWorkActionText,
         enabled: _Action2.default.hasProperty.bindDelegate(this, 'WorkPhone'),
-        fn: (act, selectionIn) => {
-          const selectionOut = this.linkLeadProperties(selectionIn);
-          _Action2.default.callPhone.call(this, act, selectionOut, 'WorkPhone');
+        fn: function fn(act, selectionIn) {
+          var selectionOut = _this.linkLeadProperties(selectionIn);
+          _Action2.default.callPhone.call(_this, act, selectionOut, 'WorkPhone');
         }
       }, {
         id: 'callMobile',
         cls: 'phone',
         label: this.callMobileActionText,
         enabled: _Action2.default.hasProperty.bindDelegate(this, 'Mobile'),
-        fn: (act, selectionIn) => {
-          const selectionOut = this.linkLeadProperties(selectionIn);
-          _Action2.default.callPhone.call(this, act, selectionOut, 'Mobile');
+        fn: function fn(act, selectionIn) {
+          var selectionOut = _this.linkLeadProperties(selectionIn);
+          _Action2.default.callPhone.call(_this, act, selectionOut, 'Mobile');
         }
       }, {
         id: 'sendEmail',
         cls: 'mail',
         label: this.sendEmailActionText,
         enabled: _Action2.default.hasProperty.bindDelegate(this, 'Email'),
-        fn: (act, selectionIn) => {
-          const selectionOut = this.linkLeadProperties(selectionIn);
-          _Action2.default.sendEmail.call(this, act, selectionOut, 'Email');
+        fn: function fn(act, selectionIn) {
+          var selectionOut = _this.linkLeadProperties(selectionIn);
+          _Action2.default.sendEmail.call(_this, act, selectionOut, 'Email');
         }
       }, {
         id: 'addNote',
@@ -160,8 +162,10 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
       }]);
     },
 
-    linkLeadProperties: function linkLeadProperties(selection = {}) {
-      const { data } = selection;
+    linkLeadProperties: function linkLeadProperties() {
+      var selection = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var data = selection.data;
+
 
       if (data) {
         selection.data.LeadId = data.$key;
@@ -179,8 +183,8 @@ define('crm/Views/Lead/List', ['module', 'exports', 'dojo/_base/declare', '../..
     },
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or CompanyUpper like "${q}%" or upper(LeadNameLastFirst) like "%${q}%")`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return '(LastNameUpper like "' + q + '%" or upper(FirstName) like "' + q + '%" or CompanyUpper like "' + q + '%" or upper(LeadNameLastFirst) like "%' + q + '%")';
     }
   });
 

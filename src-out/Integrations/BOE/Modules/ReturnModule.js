@@ -15,7 +15,7 @@ define('crm/Integrations/BOE/Modules/ReturnModule', ['module', 'exports', 'dojo/
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReturnModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReturnModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {},
     loadCustomizations: function loadCustomizations() {},

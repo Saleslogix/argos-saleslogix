@@ -57,10 +57,10 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('calendarDayView');
-  const dtFormatResource = (0, _I18n2.default)('calendarDayViewDateTimeFormat');
+  var resource = (0, _I18n2.default)('calendarDayView');
+  var dtFormatResource = (0, _I18n2.default)('calendarDayViewDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Calendar.DayView', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Calendar.DayView', [_List2.default, _LegacySDataListMixin3.default], {
     // Localization
     titleText: resource.titleText,
     eventDateFormatText: dtFormatResource.eventDateFormatText,
@@ -152,12 +152,12 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       this.currentDate = moment().startOf('day');
     },
     toggleGroup: function toggleGroup(params) {
-      const node = params.$source;
+      var node = params.$source;
       if (node && node.parentNode) {
         $(node).toggleClass('collapsed');
         $(node.parentNode).toggleClass('collapsed-event');
 
-        const button = this.collapseButton;
+        var button = this.collapseButton;
 
         if (button) {
           $(button).toggleClass(this.toggleCollapseClass);
@@ -178,7 +178,7 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       this.requestEventData();
     },
     requestEventData: function requestEventData() {
-      const request = this.createEventRequest();
+      var request = this.createEventRequest();
       request.read({
         success: this.onRequestEventDataSuccess,
         failure: this.onRequestEventDataFailure,
@@ -197,20 +197,20 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       this.processEventFeed(feed);
     },
     createEventRequest: function createEventRequest() {
-      const eventSelect = this.eventQuerySelect;
-      const eventWhere = this.getEventQuery();
-      const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.eventPageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(eventSelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
+      var eventSelect = this.eventQuerySelect;
+      var eventWhere = this.getEventQuery();
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.eventPageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(eventSelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
       return request;
     },
     getEventQuery: function getEventQuery() {
       return _string2.default.substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()), _Convert2.default.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())]);
     },
     activateEventMore: function activateEventMore() {
-      const view = App.getView('event_related');
+      var view = App.getView('event_related');
       if (view) {
-        const where = this.getEventQuery();
+        var where = this.getEventQuery();
         view.show({
-          where
+          where: where
         });
       }
     },
@@ -221,9 +221,9 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       $(this.eventContainerNode).removeClass('event-hidden');
     },
     processEventFeed: function processEventFeed(feed) {
-      const r = feed.$resources;
-      const feedLength = r.length;
-      const o = [];
+      var r = feed.$resources;
+      var feedLength = r.length;
+      var o = [];
       this.eventFeed = feed;
 
       if (feedLength === 0) {
@@ -232,8 +232,8 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       }
       this.showEventList();
 
-      for (let i = 0; i < feedLength; i++) {
-        const row = r[i];
+      for (var i = 0; i < feedLength; i++) {
+        var row = r[i];
         row.isEvent = true;
         this.entries[row.$key] = row;
         o.push(this.eventRowTemplate.apply(row, this));
@@ -250,13 +250,13 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       this.set('eventListContent', o.join(''));
     },
     processFeed: function processFeed(feed) {
-      const r = feed.$resources;
-      const feedLength = r.length;
-      const o = [];
+      var r = feed.$resources;
+      var feedLength = r.length;
+      var o = [];
 
       this.feed = feed;
-      for (let i = 0; i < feedLength; i++) {
-        const row = r[i];
+      for (var i = 0; i < feedLength; i++) {
+        var row = r[i];
         row.isEvent = false;
         this.entries[row.$key] = row;
         o.push(this.rowTemplate.apply(row, this));
@@ -289,7 +289,7 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
         this.processShowOptions(options);
       }
 
-      const theOptions = options || {};
+      var theOptions = options || {};
       theOptions.where = this.formatQueryForActivities();
 
       this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
@@ -337,21 +337,21 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       this.refresh();
     },
     formatQueryForActivities: function formatQueryForActivities() {
-      const queryWhere = ['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join('');
+      var queryWhere = ['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join('');
 
-      const startDate = this.currentDate.clone().startOf('day').toDate();
-      const endDate = this.currentDate.clone().endOf('day').toDate();
+      var startDate = this.currentDate.clone().startOf('day').toDate();
+      var endDate = this.currentDate.clone().endOf('day').toDate();
 
       return _string2.default.substitute(queryWhere, [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(startDate), _Convert2.default.toIsoStringFromDate(endDate), this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'), this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     selectEntry: function selectEntry(params) {
-      const row = $(params.$source).closest('[data-key]')[0];
-      const key = row ? row.getAttribute('data-key') : false;
+      var row = $(params.$source).closest('[data-key]')[0];
+      var key = row ? row.getAttribute('data-key') : false;
 
       this.navigateToDetailView(key);
     },
     selectDate: function selectDate() {
-      const options = {
+      var options = {
         date: this.currentDate,
         showTimePicker: false,
         timeless: false,
@@ -370,35 +370,35 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
           }]
         }
       };
-      const view = App.getView(this.datePickerView);
+      var view = App.getView(this.datePickerView);
       if (view) {
         view.show(options);
       }
     },
     selectDateSuccess: function selectDateSuccess() {
-      const view = App.getPrimaryActiveView();
+      var view = App.getPrimaryActiveView();
       this.currentDate = moment(view.getDateTime()).startOf('day');
       this.refresh();
       ReUI.back();
     },
     navigateToWeekView: function navigateToWeekView() {
-      const view = App.getView(this.weekView);
-      const navDate = this.currentDate ? this.currentDate : moment().startOf('day');
-      const options = {
+      var view = App.getView(this.weekView);
+      var navDate = this.currentDate ? this.currentDate : moment().startOf('day');
+      var options = {
         currentDate: navDate.valueOf()
       };
       view.show(options);
     },
     navigateToMonthView: function navigateToMonthView() {
-      const view = App.getView(this.monthView);
-      const navDate = this.currentDate ? this.currentDate : moment().startOf('day');
-      const options = {
+      var view = App.getView(this.monthView);
+      var navDate = this.currentDate ? this.currentDate : moment().startOf('day');
+      var options = {
         currentDate: navDate.valueOf()
       };
       view.show(options);
     },
     navigateToInsertView: function navigateToInsertView() {
-      const view = App.getView(this.insertView || this.editView);
+      var view = App.getView(this.insertView || this.editView);
 
       this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || moment().startOf('day');
       if (view) {
@@ -411,15 +411,15 @@ define('crm/Views/Calendar/DayView', ['module', 'exports', 'dojo/_base/declare',
       }
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor) {
-      const entry = this.entries[key];
-      const detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
-      const view = App.getView(detailView);
+      var entry = this.entries[key];
+      var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
+      var view = App.getView(detailView);
 
-      const theDescriptor = entry.isEvent ? descriptor : entry.Description;
+      var theDescriptor = entry.isEvent ? descriptor : entry.Description;
       if (view) {
         view.show({
           title: theDescriptor,
-          key
+          key: key
         });
       }
     }

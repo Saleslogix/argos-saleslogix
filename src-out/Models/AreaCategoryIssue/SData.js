@@ -37,7 +37,9 @@ define('crm/Models/AreaCategoryIssue/SData', ['module', 'exports', 'dojo/_base/d
    */
 
   function assignKeyDescriptor(values) {
-    return values.filter(v => typeof v === 'string' && v.length > 0).map(v => {
+    return values.filter(function (v) {
+      return typeof v === 'string' && v.length > 0;
+    }).map(function (v) {
       return {
         $key: v,
         $descriptor: v
@@ -45,64 +47,74 @@ define('crm/Models/AreaCategoryIssue/SData', ['module', 'exports', 'dojo/_base/d
     });
   }
 
-  const __class = (0, _declare2.default)('crm.Models.Integration.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Integration.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'areacategoryissue_sdata_model',
     getDistinctAreas: function getDistinctAreas() {
-      const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('GetDistinctAreas');
-      const entry = {};
-      return new Promise((resolve, reject) => {
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('GetDistinctAreas');
+      var entry = {};
+      return new Promise(function (resolve, reject) {
         request.execute(entry, {
-          success: data => {
-            const { response: { Result } } = data;
+          success: function success(data) {
+            var Result = data.response.Result;
+
             resolve(assignKeyDescriptor(Result));
           },
-          failure: response => {
+          failure: function failure(response) {
             reject(response);
           }
         });
       });
     },
-    getDistinctAreaCategories: function getDistinctAreaCategories(area = '') {
-      const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('GetDistinctAreaCategories');
-      const entry = {
+    getDistinctAreaCategories: function getDistinctAreaCategories() {
+      var area = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('GetDistinctAreaCategories');
+      var entry = {
         request: {
-          area
+          area: area
         }
       };
-      return new Promise((resolve, reject) => {
+      return new Promise(function (resolve, reject) {
         request.execute(entry, {
-          success: data => {
-            const { response: { Result } } = data;
+          success: function success(data) {
+            var Result = data.response.Result;
+
             resolve(assignKeyDescriptor(Result));
           },
-          failure: response => {
+          failure: function failure(response) {
             reject(response);
           }
         });
       });
     },
-    getDistinctAreaCategoryIssues: function getDistinctAreaCategoryIssues(area = '', category = '') {
-      const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('GetDistinctAreaCategoryIssues');
-      const entry = {
+    getDistinctAreaCategoryIssues: function getDistinctAreaCategoryIssues() {
+      var area = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var category = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setOperationName('GetDistinctAreaCategoryIssues');
+      var entry = {
         request: {
-          area,
-          category
+          area: area,
+          category: category
         }
       };
-      return new Promise((resolve, reject) => {
+      return new Promise(function (resolve, reject) {
         request.execute(entry, {
-          success: data => {
-            const { response: { Result } } = data;
+          success: function success(data) {
+            var Result = data.response.Result;
+
             resolve(assignKeyDescriptor(Result));
           },
-          failure: response => {
+          failure: function failure(response) {
             reject(response);
           }
         });
       });
     },
     getEntries: function getEntries(queryExpression, queryOptions) {
-      const { area, category } = queryOptions;
+      var area = queryOptions.area,
+          category = queryOptions.category;
+
       switch (queryExpression) {
         case 'area':
           return this.getDistinctAreas();

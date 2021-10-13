@@ -15,27 +15,27 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     };
   }
 
-  const resource = (0, _I18n2.default)('fileManager'); /* Copyright 2017 Infor
-                                                        *
-                                                        * Licensed under the Apache License, Version 2.0 (the "License");
-                                                        * you may not use this file except in compliance with the License.
-                                                        * You may obtain a copy of the License at
-                                                        *
-                                                        *    http://www.apache.org/licenses/LICENSE-2.0
-                                                        *
-                                                        * Unless required by applicable law or agreed to in writing, software
-                                                        * distributed under the License is distributed on an "AS IS" BASIS,
-                                                        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                        * See the License for the specific language governing permissions and
-                                                        * limitations under the License.
-                                                        */
+  var resource = (0, _I18n2.default)('fileManager'); /* Copyright 2017 Infor
+                                                      *
+                                                      * Licensed under the Apache License, Version 2.0 (the "License");
+                                                      * you may not use this file except in compliance with the License.
+                                                      * You may obtain a copy of the License at
+                                                      *
+                                                      *    http://www.apache.org/licenses/LICENSE-2.0
+                                                      *
+                                                      * Unless required by applicable law or agreed to in writing, software
+                                                      * distributed under the License is distributed on an "AS IS" BASIS,
+                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                      * See the License for the specific language governing permissions and
+                                                      * limitations under the License.
+                                                      */
 
   /**
   * @module crm/FileManager
   */
 
 
-  const __class = (0, _declare2.default)('crm.FileManager', null, /** @lends module:crm/FileManager.prototype */{
+  var __class = (0, _declare2.default)('crm.FileManager', null, /** @lends module:crm/FileManager.prototype */{
     unableToUploadText: resource.unableToUploadText,
     unknownSizeText: resource.unknownSizeText,
     unknownErrorText: resource.unknownErrorText,
@@ -67,10 +67,10 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
      * @returns {Boolean}
      */
     isFileSizeAllowed: function isFileSizeAllowed(files) {
-      let len = 0;
-      const maxfileSize = this.fileUploadOptions.maxFileSize;
+      var len = 0;
+      var maxfileSize = this.fileUploadOptions.maxFileSize;
 
-      for (let i = 0; i < files.length; i++) {
+      for (var i = 0; i < files.length; i++) {
         if (files[i].size === 0) {// eslint-disable-line
           // do nothing.
         } else {
@@ -113,9 +113,9 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
     },
     _uploadFileHTML5_asBinary: function _uploadFileHTML5_asBinary(file, _url, progress, complete, error, scope, asPut) {
       // eslint-disable-line
-      let url = _url;
-      const request = new XMLHttpRequest();
-      const service = App.getService();
+      var url = _url;
+      var request = new XMLHttpRequest();
+      var service = App.getService();
       window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
       if (!url) {
         // assume Attachment SData url
@@ -131,19 +131,19 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
         request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
         if (App.isMingleEnabled()) {
-          const accessToken = App.mingleAuthResults.access_token;
-          request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
-          request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+          var accessToken = App.mingleAuthResults.access_token;
+          request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+          request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
         }
       }
 
-      const reader = new FileReader();
+      var reader = new FileReader();
       reader.onload = _lang2.default.hitch(this, function readerOnLoad(evt) {
-        const unknownErrorText = this.unknownErrorText;
-        const blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
-        let bb;
-        let usingBlobBuilder;
-        let blobData;
+        var unknownErrorText = this.unknownErrorText;
+        var blobReader = new FileReader(); // read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
+        var bb = void 0;
+        var usingBlobBuilder = void 0;
+        var blobData = void 0;
 
         try {
           bb = new Blob(); // This will throw an exception if it is not supported (android)
@@ -153,17 +153,17 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
           usingBlobBuilder = true;
         }
 
-        const binary = evt.target.result;
-        const boundary = `---------------------------${new Date().getTime()}`;
-        const dashdash = '--';
-        const crlf = '\r\n';
+        var binary = evt.target.result;
+        var boundary = '---------------------------' + new Date().getTime();
+        var dashdash = '--';
+        var crlf = '\r\n';
 
         this._append(bb, dashdash + boundary + crlf);
         this._append(bb, 'Content-Disposition: attachment; ');
         this._append(bb, 'name="file_"; ');
-        this._append(bb, `filename*="${encodeURI(file.name)}" `);
+        this._append(bb, 'filename*="' + encodeURI(file.name) + '" ');
         this._append(bb, crlf);
-        this._append(bb, `Content-Type: ${file.type}`);
+        this._append(bb, 'Content-Type: ' + file.type);
         this._append(bb, crlf + crlf);
         this._append(bb, binary);
         this._append(bb, crlf);
@@ -190,7 +190,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
           });
         }
 
-        request.setRequestHeader('Content-Type', `multipart/attachment; boundary=${boundary}`);
+        request.setRequestHeader('Content-Type', 'multipart/attachment; boundary=' + boundary);
 
         if (usingBlobBuilder) {
           blobData = bb.getBlob(file.type);
@@ -217,7 +217,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       }
     },
     _onUnableToUploadError: function _onUnableToUploadError(_msg, onError) {
-      let msg = _msg;
+      var msg = _msg;
       if (!msg) {
         msg = this.unableToUploadText;
       }
@@ -233,7 +233,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
      * @returns {String}
      */
     formatFileSize: function formatFileSize(_size) {
-      let size = _size;
+      var size = _size;
       size = parseInt(size, 10);
       if (size === 0) {
         return '0 KB';
@@ -244,7 +244,7 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       if (size < 1024) {
         return '1 KB';
       }
-      return `${Soho.Locale.formatNumber(Math.round(size / 1024))} KB`;
+      return Soho.Locale.formatNumber(Math.round(size / 1024)) + ' KB';
     },
     /**
      * Loads a remote file.
@@ -254,8 +254,8 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
      * @param {Object} onSuccess.responseInfo
      */
     getFile: function getFile(fileUrl, responseType, onSuccess) {
-      const request = new XMLHttpRequest();
-      const service = App.getService();
+      var request = new XMLHttpRequest();
+      var service = App.getService();
       request.open('GET', fileUrl, true);
 
       if (responseType) {
@@ -269,22 +269,22 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
         request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
         if (App.isMingleEnabled()) {
-          const accessToken = App.mingleAuthResults.access_token;
-          request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
-          request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+          var accessToken = App.mingleAuthResults.access_token;
+          request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+          request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
         }
       }
 
       request.addEventListener('load', function load() {
-        const contentType = this.getResponseHeader('Content-Type');
-        const contentInfo = this.getResponseHeader('Content-Disposition');
-        const fileName = contentInfo.split('=')[1];
-        const responseInfo = {
+        var contentType = this.getResponseHeader('Content-Type');
+        var contentInfo = this.getResponseHeader('Content-Disposition');
+        var fileName = contentInfo.split('=')[1];
+        var responseInfo = {
           request: this,
-          responseType,
+          responseType: responseType,
           response: this.response,
-          contentType,
-          fileName
+          contentType: contentType,
+          fileName: fileName
         };
         if (onSuccess) {
           onSuccess(responseInfo);

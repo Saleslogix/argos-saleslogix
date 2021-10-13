@@ -52,9 +52,9 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('dashboardWidgetBase');
+  var resource = (0, _I18n2.default)('dashboardWidgetBase');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE._DashboardWidgetBase', [_RelatedViewWidgetBase3.default], {
     owner: null,
     id: 'dashboard-widget-base',
     titleText: resource.titleText,
@@ -124,19 +124,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
     dashboardTemplate: new Simplate(['<div class="dashboard-widget">', '{%! $$.dashboardHeaderTemplateStart %}', '<div class="node-container accordion-pane">', '{%! $$.dashboardRangeTemplate %}', '<div data-dojo-attach-point="metricsNode" class="dashboard-metric-list"></div>', '</div>', '</div>', '{%! $$.dashboardHeaderTemplateEnd %}']),
     dashboardIconTemplate: new Simplate(['{% if($.titleText) { %}', '<span class="dashboard-icon round info badge" style="background-color:{%= $$.getColor($) %}" >', '{%: $$.getAbrv($) %}', '</span>', '{% } %}']),
     dashboardHeaderTemplateEnd: new Simplate(['{% if($.titleText || $.categoryText) { %}', '</div>', '{% } %}']),
-    dashboardHeaderTemplateStart: new Simplate(['{% if($.titleText || $.categoryText) { %}', `<div class="dashboard-header accordion" data-dojo-attach-point="dashboardHeaderNode">
-      <div class="accordion-header is-selected">
-        <a href="#" class="dashboard-header-text">
-        {%! $$.dashboardIconTemplate %}
-        {% if($.titleText) { %}
-          <div class="dashboard-title">{%: ($.titleText) %} {%: $$.getFormattedCurrencyCodeForTitle() %}</div>
-        {% } %}
-        {% if($.categoryText) { %}
-         <div class="dashboard-category">{%: ($.categoryText) %}</div>
-        {% } %}
-        </a>
-      </div>
-    `, '{% } %}']),
+    dashboardHeaderTemplateStart: new Simplate(['{% if($.titleText || $.categoryText) { %}', '<div class="dashboard-header accordion" data-dojo-attach-point="dashboardHeaderNode">\n      <div class="accordion-header is-selected">\n        <a href="#" class="dashboard-header-text">\n        {%! $$.dashboardIconTemplate %}\n        {% if($.titleText) { %}\n          <div class="dashboard-title">{%: ($.titleText) %} {%: $$.getFormattedCurrencyCodeForTitle() %}</div>\n        {% } %}\n        {% if($.categoryText) { %}\n         <div class="dashboard-category">{%: ($.categoryText) %}</div>\n        {% } %}\n        </a>\n      </div>\n    ', '{% } %}']),
     dashboardRangeTemplate: new Simplate(['{% if($.createRangeLayout) { %}', '<div data-dojo-attach-point="rangeNode" class="dashboard-range-list"></div>', '{% } %}']),
     rangeItemTemplate: new Simplate(['<div class="dashboard-range-item" style="background-color:{%= $$.getColor($) %}">', '</div>']),
     metricItemTemplate: new Simplate(['<div class="dashboard-metric-item {%: $.cls %}" style="background-color:{%= $$.getMetricColor($) %}">', '</div>']),
@@ -151,7 +139,9 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       return this.parentEntry ? true : false;
     },
     onLoad: function onLoad() {
-      let promise;
+      var _this = this;
+
+      var promise = void 0;
       if (!this.enabled) {
         return promise;
       }
@@ -162,15 +152,15 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       }
       if (this.hasParentEntry()) {
         promise = this.getData();
-        promise.then(data => {
+        promise.then(function (data) {
           if (data && data.length > 0) {
-            this.entry = data[0];
-            this.processEntry(this.entry);
+            _this.entry = data[0];
+            _this.processEntry(_this.entry);
           } else {
-            this.buildNoDataView({ message: 'no data found' });
+            _this.buildNoDataView({ message: 'no data found' });
           }
-        }, data => {
-          this.buildErrorView(data);
+        }, function (data) {
+          _this.buildErrorView(data);
         });
       } else {
         this.buildErrorView({});
@@ -182,16 +172,16 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       this.buildView(entry);
     },
     getData: function getData() {
-      const deferred = new _Deferred2.default();
-      const store = this.getStore();
+      var deferred = new _Deferred2.default();
+      var store = this.getStore();
 
       if (store) {
-        const queryOptions = {};
-        const queryResults = store.query(null, queryOptions);
-        (0, _when2.default)(queryResults, feed => {
+        var queryOptions = {};
+        var queryResults = store.query(null, queryOptions);
+        (0, _when2.default)(queryResults, function (feed) {
           deferred.resolve(feed);
-        }, err => {
-          deferred.reject({ message: `error:${err}` });
+        }, function (err) {
+          deferred.reject({ message: 'error:' + err });
         });
         return deferred.promise;
       }
@@ -199,33 +189,35 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       return deferred.promise;
     },
     getFormattedCurrencyCodeForTitle: function getFormattedCurrencyCodeForTitle() {
-      let result = '';
-      const baseCurrencyCode = _Utility2.default.getBaseCurrencyCode();
+      var result = '';
+      var baseCurrencyCode = _Utility2.default.getBaseCurrencyCode();
 
       if (baseCurrencyCode) {
-        result = `(${baseCurrencyCode})`;
+        result = '(' + baseCurrencyCode + ')';
       }
 
       return result;
     },
     getQueryData: function getQueryData() {
-      const queryOptions = {
+      var _this2 = this;
+
+      var queryOptions = {
         count: this.pageSize,
         start: 0
       };
-      const queryResults = [];
-      const store = this.getQueryStore();
+      var queryResults = [];
+      var store = this.getQueryStore();
 
-      store.forEach(storeInstance => {
+      store.forEach(function (storeInstance) {
         queryResults.push(storeInstance.query(null, queryOptions));
       }, this);
 
       // Maintain the query order in the data from the resolve
-      (0, _all2.default)(queryResults).then(results => {
+      (0, _all2.default)(queryResults).then(function (results) {
         if (results.length > 1) {
-          this.sendValues(results);
+          _this2.sendValues(results);
         } else {
-          this.sendValues(results[0]);
+          _this2.sendValues(results[0]);
         }
       });
     },
@@ -233,11 +225,13 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       this.metricWidgets.push(widget);
     },
     sendValues: function sendValues(results) {
-      this.metricWidgets.forEach(widget => {
-        const obj = this.values.filter(this.checkForValue, widget)[0];
-        let valueFn;
-        let values;
-        const valueIndex = [];
+      var _this3 = this;
+
+      this.metricWidgets.forEach(function (widget) {
+        var obj = _this3.values.filter(_this3.checkForValue, widget)[0];
+        var valueFn = void 0;
+        var values = void 0;
+        var valueIndex = [];
         if (!obj.value) {
           if (obj.aggregate) {
             if (obj.aggregateModule) {
@@ -250,35 +244,37 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
             // Single query, so get the single index value from the results
             valueIndex.push(obj.queryIndex);
             values = results[obj.queryIndex];
-            (0, _when2.default)(valueFn, fn => {
-              this.applyValue(widget, fn, values, valueIndex, obj);
+            (0, _when2.default)(valueFn, function (fn) {
+              _this3.applyValue(widget, fn, values, valueIndex, obj);
             }, function onError(error) {
               this._onQueryError(error, widget);
             });
           } else {
             // Multi query, so pull the indices and add them to a result array to pass to the aggregate function
             values = [];
-            for (let j = 0; j < obj.queryIndex.length; j++) {
+            for (var j = 0; j < obj.queryIndex.length; j++) {
               values.push(results[obj.queryIndex[j]]);
               valueIndex.push(obj.queryIndex[j]);
             }
-            (0, _when2.default)(valueFn, fn => {
-              this.applyValue(widget, fn, values, valueIndex, obj);
+            (0, _when2.default)(valueFn, function (fn) {
+              _this3.applyValue(widget, fn, values, valueIndex, obj);
             }, function onError(error) {
               this._onQueryError(error, widget);
             });
           }
         } else {
-          this.applyValue(widget, null, null, valueIndex, obj);
+          _this3.applyValue(widget, null, null, valueIndex, obj);
         }
       });
     },
     applyValue: function applyValue(widget, valueFn, values, valueIndex, obj) {
-      let formatterFn;
+      var _this4 = this;
+
+      var formatterFn = void 0;
 
       // Sales dashboard widget is using formatModule, but all of the others are using formatterModule. Accept both so overrides happen correctly.
       if (widget.formatterModule && widget.formatter || widget.formatModule && widget.formatter) {
-        const module = widget.formatterModule || widget.formatModule;
+        var module = widget.formatterModule || widget.formatModule;
         formatterFn = module[widget.formatter];
       }
 
@@ -291,7 +287,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       }
 
       // get the formatter
-      (0, _when2.default)(formatterFn, func => {
+      (0, _when2.default)(formatterFn, function (func) {
         if (typeof func === 'function') {
           widget.formatter = func;
         }
@@ -299,11 +295,11 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
 
       // Apply the value to the widget itself by passing obj.value (from the values array) to the value property of the widget
       if (obj.count) {
-        this._getCountValue(widget, obj).then(result => {
+        this._getCountValue(widget, obj).then(function (result) {
           if (result >= 0) {
             obj.countValue = result;
           }
-          this.applyDataToWidget(widget, obj);
+          _this4.applyDataToWidget(widget, obj);
         });
       } else {
         this.applyDataToWidget(widget, obj);
@@ -314,8 +310,8 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
         if (typeof widget.decorator === 'function') {
           widget.decorator(value, widget);
         } else {
-          const decorators = this.getDecorators();
-          const decorator = decorators[widget.decorator];
+          var decorators = this.getDecorators();
+          var decorator = decorators[widget.decorator];
           if (decorator && decorator.fn) {
             decorator.fn.call(decorator, value, widget);
           }
@@ -358,31 +354,31 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       $(widget.metricDetailNode).replaceWith(widget.itemTemplate.apply({ value: error }, widget));
     },
     _getCountValue: function _getCountValue(widget, obj) {
-      const def = new _Deferred2.default();
-      const queryArg = this.queryArgs && this.queryArgs[obj.queryIndex] ? this.queryArgs[obj.queryIndex] : null;
+      var def = new _Deferred2.default();
+      var queryArg = this.queryArgs && this.queryArgs[obj.queryIndex] ? this.queryArgs[obj.queryIndex] : null;
       if (!queryArg) {
         def.resolved(-1);
         return def.promise;
       }
 
-      const queryOptions = {
+      var queryOptions = {
         count: 1,
         start: 0,
         select: ['$key'],
         where: queryArg[1]._activeFilter
       };
 
-      const store = new _SData2.default({
+      var store = new _SData2.default({
         service: App.services.crm,
         contractName: 'dynamic',
         resourceKind: queryArg[0], // resourcekind;
         scope: this
       });
 
-      const queryResults = store.query(null, queryOptions);
-      (0, _when2.default)(queryResults, () => {
+      var queryResults = store.query(null, queryOptions);
+      (0, _when2.default)(queryResults, function () {
         def.resolve(queryResults.total);
-      }, error => {
+      }, function (error) {
         console.warn(error); //eslint-disable-line
         def.reject(error);
       });
@@ -392,14 +388,14 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       $(widget.metricDetailNode).empty();
       if (!data.error) {
         if (data.count && data.countValue >= 0) {
-          $(widget.metricDetailNode).prepend($(`<span class="metric-count">${_string2.default.substitute(data.countTitle ? _Format2.default.encode(data.countTitle) : _Format2.default.encode(widget.countTitle), [_Format2.default.encode(data.countValue)])}</span>`));
+          $(widget.metricDetailNode).prepend($('<span class="metric-count">' + _string2.default.substitute(data.countTitle ? _Format2.default.encode(data.countTitle) : _Format2.default.encode(widget.countTitle), [_Format2.default.encode(data.countValue)]) + '</span>'));
         }
       }
 
       $(widget.metricDetailNode).prepend(widget.itemTemplate.apply({ value: data.value }, widget));
     },
     navToReportView: function navToReportView() {
-      let view;
+      var view = void 0;
 
       if (this.navTo) {
         view = App.getView(this.navTo);
@@ -416,7 +412,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       }
     },
     changeRange: function changeRange() {
-      const view = this.parent;
+      var view = this.parent;
       view.dayValue = this.value;
       // Change the previously selected range color back to what it was and the new selected range color to selected
       view.selectedRange.style['background-color'] = view.getColor();
@@ -426,15 +422,15 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
     },
     buildView: function buildView() {},
     buildNoDataView: function buildNoDataView(entry) {
-      const frag = document.createDocumentFragment();
-      const node = $(this.nodataTemplate.apply(entry, this));
+      var frag = document.createDocumentFragment();
+      var node = $(this.nodataTemplate.apply(entry, this));
       frag.appendChild(node);
       if (frag.childNodes.length > 0) {
         $(this.metricsNode).append(frag);
       }
     },
     getAbrv: function getAbrv() {
-      let abrv = '';
+      var abrv = '';
       abrv = _Format2.default.formatUserInitial(this.titleText);
       return abrv;
     },
@@ -448,7 +444,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       return this.selectedColor;
     },
     getStore: function getStore() {
-      const store = new _SData2.default({
+      var store = new _SData2.default({
         service: this.service,
         contractName: this.contractName,
         resourceKind: this.resourceKind,
@@ -473,7 +469,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
       return this.queryWhere;
     },
     getQueryStore: function getQueryStore() {
-      const store = [];
+      var store = [];
 
       if (!(this.queryArgs instanceof Array) && this.queryArgs) {
         this.queryArgs = [this.queryArgs];
@@ -503,7 +499,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
     rebuildWidgets: function rebuildWidgets() {},
     rebuildValues: function rebuildValues() {
       // TODO: add in functionality to check if value is dependent on datetime (i.e. rangeValue dependent) and force it to update if necessary
-      for (let z = 0; z < this.values.length; z++) {
+      for (var z = 0; z < this.values.length; z++) {
         this.values[z].value = null;
         if (this.values[z].count >= 0) {
           this.values[z].count = true;
@@ -515,9 +511,9 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
      * @params {string, int, int} Property to be searched for, the days ago from the current, and days up to (from current)
      */
     pastDays: function pastDays(property, from, to) {
-      const now = moment();
-      const pastWeekStart = now.clone().subtract(from, 'days').startOf('day');
-      let today;
+      var now = moment();
+      var pastWeekStart = now.clone().subtract(from, 'days').startOf('day');
+      var today = void 0;
 
       if (!to) {
         today = now.clone().endOf('day');
@@ -525,7 +521,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
         today = now.clone().subtract(to, 'days').endOf('day');
       }
 
-      const query = `((${property} between @${_Convert2.default.toIsoStringFromDate(pastWeekStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(today.toDate())}@) or (${property} between @${pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${today.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
+      var query = '((' + property + ' between @' + _Convert2.default.toIsoStringFromDate(pastWeekStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(today.toDate()) + '@) or (' + property + ' between @' + pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + today.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
       return query;
     },
     /*
@@ -533,10 +529,10 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
      * @params {string} Property to be searched for
      */
     pastDaysLt: function pastDaysLt(property) {
-      const now = moment();
-      const pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
+      var now = moment();
+      var pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
-      const query = `(${property} lt @${_Convert2.default.toIsoStringFromDate(pastDay.toDate())}@ or (${property} lt @${pastDay.format('YYYY-MM-DDT00:00:00[Z]')}@))`;
+      var query = '(' + property + ' lt @' + _Convert2.default.toIsoStringFromDate(pastDay.toDate()) + '@ or (' + property + ' lt @' + pastDay.format('YYYY-MM-DDT00:00:00[Z]') + '@))';
       return query;
     },
     hasValidOptions: function hasValidOptions(options) {
@@ -547,7 +543,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
     },
     destroyWidgets: function destroyWidgets() {
       if (this.metricWidgets) {
-        this.metricWidgets.forEach(widget => {
+        this.metricWidgets.forEach(function (widget) {
           widget.destroy();
         });
       }
@@ -564,7 +560,7 @@ define('crm/Integrations/BOE/_DashboardWidgetBase', ['module', 'exports', 'dojo/
     }
   });
 
-  const rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager2.default();
   rvm.registerType('dashboard_widget_base', __class);
   _lang2.default.setObject('crm.Views._DashboardWidgetBase', __class);
   _lang2.default.setObject('icboe._DashboardWidgetBase', __class);

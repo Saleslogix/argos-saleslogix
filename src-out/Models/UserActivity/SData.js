@@ -23,7 +23,7 @@ define('crm/Models/UserActivity/SData', ['module', 'exports', 'dojo/_base/declar
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Models.UserActivity.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.UserActivity.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'useractivity_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -34,12 +34,12 @@ define('crm/Models/UserActivity/SData', ['module', 'exports', 'dojo/_base/declar
       }, {
         name: 'myday',
         queryWhere: function queryWhere() {
-          const now = moment();
-          const todayStart = now.clone().startOf('day');
-          const todayEnd = todayStart.clone().endOf('day');
+          var now = moment();
+          var todayStart = now.clone().startOf('day');
+          var todayEnd = todayStart.clone().endOf('day');
 
-          const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${_Convert2.default.toIsoStringFromDate(todayStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(todayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
-          const userQuery = `(User.Id eq "${App.context.user.$key}" and Status ne "asDeclned" and Activity.Type ne "atLiterature")`;
+          var theQuery = '((Activity.Timeless eq false and Activity.StartDate between @' + _Convert2.default.toIsoStringFromDate(todayStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(todayEnd.toDate()) + '@) or (Activity.Timeless eq true and Activity.StartDate between @' + todayStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + todayEnd.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+          var userQuery = '(User.Id eq "' + App.context.user.$key + '" and Status ne "asDeclned" and Activity.Type ne "atLiterature")';
 
           return [userQuery, theQuery].join(' and ');
         },
@@ -49,7 +49,7 @@ define('crm/Models/UserActivity/SData', ['module', 'exports', 'dojo/_base/declar
       }];
     },
     getMyDayQuery: function getMyDayQuery() {
-      const queryModel = this._getQueryModelByName('myday');
+      var queryModel = this._getQueryModelByName('myday');
       return queryModel && queryModel.queryWhere();
     }
   }); /* Copyright 2017 Infor

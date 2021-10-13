@@ -36,9 +36,9 @@ define('crm/Views/OpportunityContact/Detail', ['module', 'exports', 'dojo/_base/
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('opportunityContactDetail');
+  var resource = (0, _I18n2.default)('opportunityContactDetail');
 
-  const __class = (0, _declare2.default)('crm.Views.OpportunityContact.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Views.OpportunityContact.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     accountText: resource.accountText,
@@ -64,7 +64,7 @@ define('crm/Views/OpportunityContact/Detail', ['module', 'exports', 'dojo/_base/
     modelName: _Names2.default.OPPORTUNITYCONTACT,
 
     removeContact: function removeContact() {
-      const confirmMessage = _string2.default.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+      var confirmMessage = _string2.default.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
       if (!confirm(confirmMessage)) {
         // eslint-disable-line
         return;

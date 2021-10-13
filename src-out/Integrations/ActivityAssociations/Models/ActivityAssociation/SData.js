@@ -36,7 +36,7 @@ define('crm/Integrations/ActivityAssociations/Models/ActivityAssociation/SData',
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.ActivityAssociation.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.ActivityAssociation.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'activity_association_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -54,9 +54,11 @@ define('crm/Integrations/ActivityAssociations/Models/ActivityAssociation/SData',
       }];
     },
     deleteEntry: function getEntry(entityId) {
-      const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setContractName('dynamic').setResourceKind(this.resourceKind).setResourceSelector(`"${entityId}"`);
+      var _this = this;
 
-      return new Promise((resolve, reject) => {
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setContractName('dynamic').setResourceKind(this.resourceKind).setResourceSelector('"' + entityId + '"');
+
+      return new Promise(function (resolve, reject) {
         request.delete({}, {
           success: function success(entry) {
             resolve(entry);
@@ -64,7 +66,7 @@ define('crm/Integrations/ActivityAssociations/Models/ActivityAssociation/SData',
           failure: function failure(e) {
             reject(e);
           },
-          scope: this
+          scope: _this
         });
       });
     }

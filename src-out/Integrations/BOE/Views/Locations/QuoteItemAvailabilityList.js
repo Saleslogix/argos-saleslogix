@@ -19,24 +19,28 @@ define('crm/Integrations/BOE/Views/Locations/QuoteItemAvailabilityList', ['modul
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.QuoteItemAvailabilityList', [_PricingAvailabilityList2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Locations.QuoteItemAvailabilityList', [_PricingAvailabilityList2.default], {
     // View Properties
     id: 'locations_quoteItemAvailabilityList',
     modelName: _Names2.default.QUOTEITEM,
     processWarehouse: function processWarehouse(warehouse) {
-      const promise = new Promise(resolve => {
-        this._model.updateItemWithWarehouse(this.options.quoteItem, warehouse).then(result => {
+      var _this = this;
+
+      var promise = new Promise(function (resolve) {
+        _this._model.updateItemWithWarehouse(_this.options.quoteItem, warehouse).then(function (result) {
           resolve(result);
         });
       });
       return promise;
     },
     getAvailability: function getAvailability() {
-      const promise = new Promise(resolve => {
-        if (this.options && this.options.quoteItem) {
-          _PricingAvailabilityService2.default.getQuoteItemAvailability(this.options.quoteItem).then(entries => {
+      var _this2 = this;
+
+      var promise = new Promise(function (resolve) {
+        if (_this2.options && _this2.options.quoteItem) {
+          _PricingAvailabilityService2.default.getQuoteItemAvailability(_this2.options.quoteItem).then(function (entries) {
             resolve(entries);
-          }, () => {
+          }, function () {
             resolve([]);
           });
         }

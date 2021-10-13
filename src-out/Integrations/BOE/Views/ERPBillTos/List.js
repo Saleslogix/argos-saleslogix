@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPBillTos/List', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('erpBillTosList');
+  var resource = (0, _I18n2.default)('erpBillTosList');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ErpBillTos.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ErpBillTos.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Name %}</p>', '<p class="listview-heading address">{%: $.Address.FullAddress %}</p>']),
 
@@ -69,8 +69,8 @@ define('crm/Integrations/BOE/Views/ERPBillTos/List', ['module', 'exports', 'dojo
     groupsEnabled: true,
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `upper(Name) like "%${q}%"`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return 'upper(Name) like "%' + q + '%"';
     }
   });
 

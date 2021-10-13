@@ -36,7 +36,7 @@ define('crm/Models/Lead/SData', ['module', 'exports', 'dojo/_base/declare', './B
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Models.Lead.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Lead.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'lead_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -50,16 +50,16 @@ define('crm/Models/Lead/SData', ['module', 'exports', 'dojo/_base/declare', './B
       }];
     },
     getEntry: function getEntry() /* options */{
-      const results$ = this.inherited(getEntry, arguments);
-      return results$.then(entry => {
-        return new Promise(resolve => {
+      var results$ = this.inherited(getEntry, arguments);
+      return results$.then(function (entry) {
+        return new Promise(function (resolve) {
           Promise.all([App.picklistService.requestPicklist('Name Prefix', {
             language: ' '
           }), App.picklistService.requestPicklist('Name Suffix', {
             language: ' '
           }), App.picklistService.requestPicklist('Title', {
             language: ' '
-          })]).then(() => {
+          })]).then(function () {
             resolve(entry);
           });
         });

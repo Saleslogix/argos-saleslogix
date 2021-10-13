@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/Models/Product/Offline', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Product.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Product.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'product_offline_model'
   });
 

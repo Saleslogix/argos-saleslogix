@@ -23,18 +23,18 @@ define('crm/Models/Activity/Offline', ['module', 'exports', 'dojo/_base/declare'
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Models.Activity.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Activity.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'activity_offline_model',
     onActivityCompleted: function onActivityCompleted(entry) {
-      const def = new _Deferred2.default();
-      const key = entry.$completedBasedOn ? entry.$completedBasedOn.$key : entry.$key;
+      var def = new _Deferred2.default();
+      var key = entry.$completedBasedOn ? entry.$completedBasedOn.$key : entry.$key;
       this.deleteEntry(key);
       this.removeFromAuxiliaryEntities(key);
       def.resolve();
       return def.promise;
     },
     onEntryUpdated: function onEntryUpdated(entry, orginalEntry) {
-      const def = new _Deferred2.default();
+      var def = new _Deferred2.default();
 
       if (entry && entry.$key && orginalEntry && orginalEntry.$key) {
         if (entry.$key !== orginalEntry.$key) {

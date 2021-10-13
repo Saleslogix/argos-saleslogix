@@ -32,9 +32,9 @@ define('crm/Models/UserActivity/Base', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('userActivityModel');
+  var resource = (0, _I18n2.default)('userActivityModel');
 
-  const __class = (0, _declare2.default)('crm.Models.UserActivity.Base', [_Base2.default], {
+  var __class = (0, _declare2.default)('crm.Models.UserActivity.Base', [_Base2.default], {
     modelName: _Names2.default.USERACTIVITY,
     entityName: 'UserActivity',
     entityDisplayName: resource.entityDisplayName,
@@ -43,7 +43,7 @@ define('crm/Models/UserActivity/Base', ['module', 'exports', 'dojo/_base/declare
     resourceKind: 'userActivities',
     contractName: 'system',
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = []);
+      var rel = this.relationships || (this.relationships = []);
       return rel;
     }
   });

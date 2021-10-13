@@ -32,22 +32,22 @@ define('crm/Views/Activity/MyDayMetricListMixin', ['module', 'exports', 'dojo/_b
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Views.Activity.MyDayMetricListMixin', [_MetricListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Activity.MyDayMetricListMixin', [_MetricListMixin3.default], {
 
     metricWidgetCtor: _MyDayMetricWidget2.default,
     _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
-      const options = widgetOptions;
+      var options = widgetOptions;
       options.parent = this;
       return options;
     },
     createMetricWidgetsLayout: function createMetricWidgetsLayout() {
-      let metrics = [];
-      let filtered = [];
+      var metrics = [];
+      var filtered = [];
 
       metrics = App.getMetricsByResourceKind('userActivities');
 
       if (metrics.length > 0) {
-        filtered = metrics.filter(item => {
+        filtered = metrics.filter(function (item) {
           return item.enabled;
         });
       }

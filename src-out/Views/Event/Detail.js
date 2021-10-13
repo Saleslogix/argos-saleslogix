@@ -32,10 +32,10 @@ define('crm/Views/Event/Detail', ['module', 'exports', 'dojo/_base/declare', '..
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('eventDetail');
-  const dtFormatResource = (0, _I18n2.default)('eventDetailDateTimeFormat');
+  var resource = (0, _I18n2.default)('eventDetail');
+  var dtFormatResource = (0, _I18n2.default)('eventDetailDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Event.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Event.Detail', [_Detail2.default], {
     // Localization
     actionsText: resource.actionsText,
     startTimeText: resource.startTimeText,

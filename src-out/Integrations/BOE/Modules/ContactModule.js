@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('contactModule');
+  var resource = (0, _I18n2.default)('contactModule');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ContactModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ContactModule', [_Module3.default], {
     // Localization
     erpStatusText: resource.erpStatusText,
     erpContactIdText: resource.erpContactIdText,
@@ -56,7 +56,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
 
     init: function init() {},
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerView(new _List2.default({
         id: 'contact_account_related',
@@ -93,14 +93,14 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       // Row names to match in the detail and more detail sections.
       // These are the last item in the section.
-      const detailRowMatch = 'AccountManager.UserInfo';
+      var detailRowMatch = 'AccountManager.UserInfo';
 
       am.registerCustomization('models/detail/querySelect', 'contact_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -108,7 +108,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
         value: 'ErpStatus'
       });
       am.registerCustomization('models/detail/querySelect', 'contact_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -117,7 +117,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
       });
 
       am.registerCustomization('models/relationships', 'contact_offline_model', {
-        at: relationship => {
+        at: function at(relationship) {
           return relationship.name === 'Tickets';
         },
         type: 'insert',
@@ -154,7 +154,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
       });
 
       am.registerCustomization('models/relationships', 'contact_sdata_model', {
-        at: relationship => {
+        at: function at(relationship) {
           return relationship.name === 'Tickets';
         },
         type: 'insert',
@@ -191,7 +191,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
       });
       _lang2.default.extend(crm.Views.Contact.Detail, {
         _onAddQuoteClick: function _onAddQuoteClick() {
-          const view = App.getView('quote_edit');
+          var view = App.getView('quote_edit');
           view.show({
             detailView: 'quote_detail',
             fromContext: this,
@@ -199,7 +199,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
           });
         },
         _onAddOrderClick: function _onAddOrderClick() {
-          const view = App.getView('salesorder_edit');
+          var view = App.getView('salesorder_edit');
           view.show({
             detailView: 'salesorder_detail',
             fromContext: this,
@@ -270,28 +270,28 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
             name: 'AccountAssociations',
             label: this.erpAccountAssociationsText,
             where: function where(entry) {
-              return `Contact.Id eq "${entry.$key}"`;
+              return 'Contact.Id eq "' + entry.$key + '"';
             },
             view: 'contact_account_related'
           }, {
             name: 'Quotes',
             label: this.quotesText,
             where: function where(entry) {
-              return `RequestedBy.Id eq "${entry.$key}"`;
+              return 'RequestedBy.Id eq "' + entry.$key + '"';
             },
             view: 'contact_quotes_related'
           }, {
             name: 'SalesOrders',
             label: this.ordersText,
             where: function where(entry) {
-              return `RequestedBy.Id eq "${entry.$key}"`;
+              return 'RequestedBy.Id eq "' + entry.$key + '"';
             },
             view: 'contact_salesorders_related'
           }, {
             name: 'SyncHistory',
             label: this.syncHistoryText,
-            where: entry => {
-              return `EntityType eq "Contact" and EntityId eq "${entry.$key}"`;
+            where: function where(entry) {
+              return 'EntityType eq "Contact" and EntityId eq "' + entry.$key + '"';
             },
             view: 'contact_syncresults_related'
           }]

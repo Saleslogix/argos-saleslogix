@@ -48,9 +48,9 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('promote');
+  var resource = (0, _I18n2.default)('promote');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Promote', [_Widget3.default, _Templated3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Promote', [_Widget3.default, _Templated3.default], {
     widgetTemplate: new Simplate(['<div class="modal__content" data-dojo-attach-point="promoteNode">', '<div class="modal__header__title">{%: $.promoteTitle %}</div>', '<div class="modal__header__title">{%: $.searchResults %}</div>', '<p class="modal__content__text">{%: $.multiSystemDetected %}</p>', '<div class="modal__header__title">{%: $.createLink %}</div>', '<div class="promote__options">', '<div class="promote__row">', '<label class="promote__row__label">{%: $.backOffice %}</label>', '<div data-dojo-attach-point="backOfficeNode"></div>', '</div>', '<div class="promote__row">', '<label class="promote__row__label">{%: $.accountingEntity %}</label>', '<div data-dojo-attach-point="accountingNode"></div>', '</div>', '</div>', '</div>']),
 
     promoteTitle: resource.promoteTitle,
@@ -81,7 +81,7 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
     _operatingCompanyModel: null,
 
     initBackOfficeModel: function initBackOfficeModel() {
-      const model = this.getModel(_Names2.default.BACKOFFICE);
+      var model = this.getModel(_Names2.default.BACKOFFICE);
       if (model) {
         this._backOfficeModel = model;
         this._backOfficeModel.init();
@@ -89,14 +89,14 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       }
     },
     getBackOfficeEntries: function getBackOfficeEntries() {
-      const query = this._backOfficeModel.getEntries(null, {
+      var query = this._backOfficeModel.getEntries(null, {
         returnQueryResults: true,
         queryModelName: 'list-active'
       });
       (0, _when2.default)(query, this.processBackOfficeEntries.bind(this), this._onQueryFailure.bind(this));
     },
     initAccountingEntitiesModel: function initAccountingEntitiesModel() {
-      const model = this.getModel(_Names2.default.BACKOFFICEACCOUNTINGENTITY);
+      var model = this.getModel(_Names2.default.BACKOFFICEACCOUNTINGENTITY);
       if (model) {
         this._accountingEntityModel = model;
         this._accountingEntityModel.init();
@@ -105,7 +105,7 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
     getAccountingEntitiesEntries: function getAccountingEntitiesEntries(backOfficeKey) {
       if (backOfficeKey) {
         if (this._backOfficeEntries.length) {
-          const query = this._accountingEntityModel.getEntries(`BackOffice.$key eq "${backOfficeKey}"`, {
+          var query = this._accountingEntityModel.getEntries('BackOffice.$key eq "' + backOfficeKey + '"', {
             returnQueryResults: true,
             queryModelName: 'list'
           });
@@ -119,7 +119,7 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       App.modal.createSimpleDialog({ title: 'alert', content: this.noBackOfficesText });
     },
     initIntegrationMappingModel: function initIntegrationMappingModel() {
-      const model = this.getModel(_Names2.default.OPERATINGCOMPANY);
+      var model = this.getModel(_Names2.default.OPERATINGCOMPANY);
       if (model) {
         this._operatingCompanyModel = model;
         this._operatingCompanyModel.init();
@@ -129,73 +129,77 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
      * Returns a new instance of a model for the view.
      */
     getModel: function getModel(modelName) {
-      const model = _Adapter2.default.getModel(modelName);
+      var model = _Adapter2.default.getModel(modelName);
       return model;
     },
     _promote: function _promote(options, scope) {
+      var _this = this;
+
       if (options && scope) {
-        const entry = {
+        var entry = {
           $name: 'PromoteToBackOffice',
           request: options
         };
-        const request = new Sage.SData.Client.SDataServiceOperationRequest(scope.getService()).setResourceKind('backOffices').setContractName('dynamic').setOperationName('PromoteToBackOffice');
+        var request = new Sage.SData.Client.SDataServiceOperationRequest(scope.getService()).setResourceKind('backOffices').setContractName('dynamic').setOperationName('PromoteToBackOffice');
 
         request.execute(entry, {
-          success: () => {
-            const toast = {
-              title: this.promotionRequested,
-              message: this.promotionText,
-              icon: this.promoteIcon
+          success: function success() {
+            var toast = {
+              title: _this.promotionRequested,
+              message: _this.promotionText,
+              icon: _this.promoteIcon
             };
             App.toast.add(toast);
             scope._refreshClicked();
           },
-          failure: err => {
-            App.toast.add({ title: 'Error', message: _string2.default.substitute(this.errorMessage, { reason: err.statusText }) });
+          failure: function failure(err) {
+            App.toast.add({ title: 'Error', message: _string2.default.substitute(_this.errorMessage, { reason: err.statusText }) });
           },
           scope: this
         });
       }
     },
     promoteToBackOffice: function _promoteToBackOffice(entry, entityName, scope) {
+      var _this2 = this;
+
       if (!entry || !entityName || !scope) {
         return;
       }
-      const readyToPromote = this.checkEntryFor(entry, ['ErpLogicalId', 'ErpAccountingEntityId']);
+      var readyToPromote = this.checkEntryFor(entry, ['ErpLogicalId', 'ErpAccountingEntityId']);
       if (readyToPromote) {
         this._promote({
-          entityName,
+          entityName: entityName,
           entityId: entry.$key,
           logicalId: entry.ErpLogicalId,
           accountingEntityId: entry.ErpAccountingEntityId
         }, scope);
         return;
       }
-      this.getAccountingSystem().then(value => {
+      this.getAccountingSystem().then(function (value) {
         if (!value) {
           App.modal.showToolbar = true;
-          const toolbar = [{
+          var toolbar = [{
             action: 'cancel',
             className: 'button--flat button--flat--split',
-            text: this.cancelText
+            text: _this2.cancelText
           }, {
             action: 'resolve',
             className: 'button--flat button--flat--split',
-            text: this.promoteText
+            text: _this2.promoteText
           }];
 
-          App.modal.add(this, toolbar).then(data => {
-            this._promote({
-              entityName,
+          App.modal.add(_this2, toolbar).then(function (data) {
+            _this2._promote({
+              entityName: entityName,
               entityId: entry.$key,
               logicalId: data.ErpLogicalId,
               accountingEntityId: data.ErpAccountingEntityId
             }, scope);
           });
         } else {
-          const data = this.getContent();
-          this._promote({
-            entityName,
+          var data = _this2.getContent();
+          _this2._promote({
+            entityName: entityName,
             entityId: entry.$key,
             logicalId: data.ErpLogicalId,
             accountingEntityId: data.ErpAccountingEntityId
@@ -204,10 +208,12 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       });
     },
     processBackOfficeEntries: function processBackOfficeEntries(entries) {
+      var _this3 = this;
+
       this._backOfficeEntries = entries;
       this._backOfficeSelections = [];
-      this._backOfficeEntries.forEach(entry => {
-        this._backOfficeSelections.push({
+      this._backOfficeEntries.forEach(function (entry) {
+        _this3._backOfficeSelections.push({
           value: entry.$key,
           text: entry.BackOfficeName
         });
@@ -219,10 +225,12 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       }
     },
     processAccountingEntries: function processAccountingEntries(entries) {
+      var _this4 = this;
+
       this._accountingEntitiesEntries = entries;
       this._accountingSelections = [];
-      this._accountingEntitiesEntries.forEach(entry => {
-        this._accountingSelections.push({
+      this._accountingEntitiesEntries.forEach(function (entry) {
+        _this4._accountingSelections.push({
           value: entry.$key,
           text: entry.Name
         });
@@ -252,9 +260,11 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       this.createAlertDialog(err);
       console.error(err); // eslint-disable-line
     },
-    checkEntryFor: function checkEntryFor(entry, properties = []) {
-      let hasAllProperties = true;
-      properties.forEach(property => {
+    checkEntryFor: function checkEntryFor(entry) {
+      var properties = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+      var hasAllProperties = true;
+      properties.forEach(function (property) {
         if (!entry[property]) {
           hasAllProperties = false;
         }
@@ -269,7 +279,7 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       App.modal.disableClose = false;
       App.modal.showToolbar = true;
       App.modal.resolveDeferred(true);
-      return App.modal.createSimpleDialog({ title: 'alert', content: err, getContent: () => {
+      return App.modal.createSimpleDialog({ title: 'alert', content: err, getContent: function getContent() {
           return;
         }, leftButton: 'cancel', rightButton: 'confirm' });
     },
@@ -293,8 +303,8 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
     },
     getAccountingSystem: function getAccountingSystem() {
       if (!this._busy) {
-        this._busy = new _BusyIndicator2.default({ id: `${this.id}__busyIndicator` });
-        this._accountingBusy = new _BusyIndicator2.default({ id: `${this.id}__busyIndicator__accounting`, size: 'small', label: null, containerClass: 'busyField' });
+        this._busy = new _BusyIndicator2.default({ id: this.id + '__busyIndicator' });
+        this._accountingBusy = new _BusyIndicator2.default({ id: this.id + '__busyIndicator__accounting', size: 'small', label: null, containerClass: 'busyField' });
         this._accountingBusy.start();
       }
       this._firstLoad = true;
@@ -309,12 +319,14 @@ define('crm/Integrations/BOE/Promote', ['module', 'exports', 'dojo/_base/declare
       return this._accountingDeferred.promise;
     },
     getContent: function getContent() {
+      var _this5 = this;
+
       return {
-        ErpLogicalId: this._backOfficeEntries.find(value => {
-          return value.$key === this._backOfficeDropdown.getValue();
+        ErpLogicalId: this._backOfficeEntries.find(function (value) {
+          return value.$key === _this5._backOfficeDropdown.getValue();
         }).LogicalId,
-        ErpAccountingEntityId: this._accountingEntitiesEntries.find(value => {
-          return value.$key === this._accountingDropdown.getValue();
+        ErpAccountingEntityId: this._accountingEntitiesEntries.find(function (value) {
+          return value.$key === _this5._accountingDropdown.getValue();
         }).AcctEntityExtId
       };
     },

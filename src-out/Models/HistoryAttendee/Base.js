@@ -32,9 +32,9 @@ define('crm/Models/HistoryAttendee/Base', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('historyAttendeeModel');
+  var resource = (0, _I18n2.default)('historyAttendeeModel');
 
-  const __class = (0, _declare2.default)('crm.Models.HistoryAttendee.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.HistoryAttendee.Base', [_ModelBase3.default], {
     resourceKind: 'historyAttendees',
     entityName: 'HistoryAttendee',
     entityDisplayName: resource.entityDisplayName,

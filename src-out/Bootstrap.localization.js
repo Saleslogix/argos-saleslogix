@@ -28,38 +28,44 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
    */
 
   function makeRequest(url) {
-    return new Promise((resolve, reject) => {
-      const http = new XMLHttpRequest();
+    return new Promise(function (resolve, reject) {
+      var http = new XMLHttpRequest();
 
       http.open('GET', url);
-      http.addEventListener('load', response => {
+      http.addEventListener('load', function (response) {
         resolve(response.target.response);
       });
-      http.addEventListener('error', err => reject(err));
-      http.addEventListener('abort', err => reject(err));
+      http.addEventListener('error', function (err) {
+        return reject(err);
+      });
+      http.addEventListener('abort', function (err) {
+        return reject(err);
+      });
       http.send();
     });
   }
 
   function l20nLoadFunc(localeFiles) {
-    return new Promise(resolve => {
-      const https = localeFiles.map(file => makeRequest(file));
-      Promise.all(https).then(files => {
+    return new Promise(function (resolve) {
+      var https = localeFiles.map(function (file) {
+        return makeRequest(file);
+      });
+      Promise.all(https).then(function (files) {
         resolve(files);
       });
     });
   }
 
   function l20nNoFetchFunc(localeFiles) {
-    return new Promise(resolve => {
+    return new Promise(function (resolve) {
       resolve(localeFiles);
     });
   }
 
   function l20nLinkFunc(files, context, defaultContext) {
-    files.forEach(file => {
-      [context, defaultContext].forEach(ctx => {
-        ctx.linkResource(locale => {
+    files.forEach(function (file) {
+      [context, defaultContext].forEach(function (ctx) {
+        ctx.linkResource(function (locale) {
           return [file.base, locale, file.file].join('/');
         });
       });
@@ -67,8 +73,8 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
   }
 
   function l20nAddResourceFunc(files, context, defaultContext) {
-    files.forEach(file => {
-      [context, defaultContext].forEach(ctx => {
+    files.forEach(function (file) {
+      [context, defaultContext].forEach(function (ctx) {
         ctx.addResource(file);
       });
     });
@@ -81,45 +87,50 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
    * fetchFunc - Takes an array of processed locale files, returns a promise
    * processFunc - Takes the results from fetchFunc along with the current context and defaultContext
    */
-  function bootstrapLocalization({
-    supportedLocales,
-    defaultLocale,
-    currentLocale,
-    localeFiles,
-    fetchFunc = l20nNoFetchFunc,
-    processFunc = l20nLinkFunc,
-    asGlobal = false
-  }) {
-    const promise = new Promise(resolve => {
+  function bootstrapLocalization(_ref) {
+    var supportedLocales = _ref.supportedLocales,
+        defaultLocale = _ref.defaultLocale,
+        currentLocale = _ref.currentLocale,
+        localeFiles = _ref.localeFiles,
+        _ref$fetchFunc = _ref.fetchFunc,
+        fetchFunc = _ref$fetchFunc === undefined ? l20nNoFetchFunc : _ref$fetchFunc,
+        _ref$processFunc = _ref.processFunc,
+        processFunc = _ref$processFunc === undefined ? l20nLinkFunc : _ref$processFunc,
+        _ref$asGlobal = _ref.asGlobal,
+        asGlobal = _ref$asGlobal === undefined ? false : _ref$asGlobal;
+
+    var promise = new Promise(function (resolve) {
       // The L20n context (ctx) should only call linkResource once per file.
       // We need to:
       //    * Strip out the locale from the path string (map)
       //    * Remove duplicates (reduce)
       //    * link each resource against a locale (forEach)
-      const processedLocaleFiles = localeFiles.map(path => {
-        let trimmed = path;
-        supportedLocales.forEach(locale => {
-          trimmed = trimmed.replace(new RegExp(`/${locale}/`), '/');
+      var processedLocaleFiles = localeFiles.map(function (path) {
+        var trimmed = path;
+        supportedLocales.forEach(function (locale) {
+          trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
         });
 
-        const index = trimmed.lastIndexOf('/');
-        const basePath = trimmed.substring(0, index);
-        const file = trimmed.substring(index + 1, trimmed.length);
+        var index = trimmed.lastIndexOf('/');
+        var basePath = trimmed.substring(0, index);
+        var file = trimmed.substring(index + 1, trimmed.length);
         return {
           base: basePath,
-          file
+          file: file
         };
-      }).reduce((p, c) => {
-        if (p.some(pathInfo => pathInfo.base === c.base && pathInfo.file === c.file)) {
+      }).reduce(function (p, c) {
+        if (p.some(function (pathInfo) {
+          return pathInfo.base === c.base && pathInfo.file === c.file;
+        })) {
           return p;
         }
 
         return p.concat(c);
       }, []);
 
-      fetchFunc(processedLocaleFiles).then(files => {
-        const ctx = window.L20n.getContext();
-        const defaultCtx = window.L20n.getContext();
+      fetchFunc(processedLocaleFiles).then(function (files) {
+        var ctx = window.L20n.getContext();
+        var defaultCtx = window.L20n.getContext();
 
         processFunc(files, ctx, defaultCtx);
 
@@ -131,11 +142,15 @@ define('crm/Bootstrap.localization', ['exports'], function (exports) {
         window.localeContext = ctx;
         window.defaultLocaleContext = defaultCtx;
 
-        Promise.all([new Promise(res => {
-          ctx.ready(() => res(true));
-        }), new Promise(res => {
-          defaultCtx.ready(() => res(true));
-        })]).then(() => {
+        Promise.all([new Promise(function (res) {
+          ctx.ready(function () {
+            return res(true);
+          });
+        }), new Promise(function (res) {
+          defaultCtx.ready(function () {
+            return res(true);
+          });
+        })]).then(function () {
           resolve();
         });
       });

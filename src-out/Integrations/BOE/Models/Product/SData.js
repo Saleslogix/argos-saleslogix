@@ -23,7 +23,7 @@ define('crm/Integrations/BOE/Models/Product/SData', ['module', 'exports', 'dojo/
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Product.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Product.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'product_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/Models/UnitOfMeasure/Offline', ['module', 'exports'
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.UnitOfMeasure.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.UnitOfMeasure.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'unitofmeasure_offline_model'
   });
 

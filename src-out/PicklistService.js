@@ -15,33 +15,33 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
     };
   }
 
-  const PickListService = ICRMServicesSDK.PickListService; /* Copyright 2017 Infor
-                                                            *
-                                                            * Licensed under the Apache License, Version 2.0 (the "License");
-                                                            * you may not use this file except in compliance with the License.
-                                                            * You may obtain a copy of the License at
-                                                            *
-                                                            *    http://www.apache.org/licenses/LICENSE-2.0
-                                                            *
-                                                            * Unless required by applicable law or agreed to in writing, software
-                                                            * distributed under the License is distributed on an "AS IS" BASIS,
-                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                            * See the License for the specific language governing permissions and
-                                                            * limitations under the License.
-                                                            */
+  var PickListService = ICRMServicesSDK.PickListService; /* Copyright 2017 Infor
+                                                          *
+                                                          * Licensed under the Apache License, Version 2.0 (the "License");
+                                                          * you may not use this file except in compliance with the License.
+                                                          * You may obtain a copy of the License at
+                                                          *
+                                                          *    http://www.apache.org/licenses/LICENSE-2.0
+                                                          *
+                                                          * Unless required by applicable law or agreed to in writing, software
+                                                          * distributed under the License is distributed on an "AS IS" BASIS,
+                                                          * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                          * See the License for the specific language governing permissions and
+                                                          * limitations under the License.
+                                                          */
 
   /**
    * @module crm/PicklistService
    */
 
-  const picklistFormat = ICRMCommonSDK.format.picklist;
+  var picklistFormat = ICRMCommonSDK.format.picklist;
 
   /**
    * @class
    * @alias module:crm/PicklistService
    * @static
    */
-  const __class = _lang2.default.setObject('crm.PicklistService', /** @lends module:crm/PicklistService */{
+  var __class = _lang2.default.setObject('crm.PicklistService', /** @lends module:crm/PicklistService */{
     _picklists: {},
     _currentRequests: new Map(),
 
@@ -55,26 +55,28 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
     orderBy: 'name',
     where: '',
 
-    init(service, storage) {
+    init: function init(service, storage) {
       this.service = new PickListService(storage, service);
     },
-    getPicklistByKey(key) {
+    getPicklistByKey: function getPicklistByKey(key) {
       return this.getPicklistByName(key);
     },
-    getPicklistByName(name, languageCode) {
+    getPicklistByName: function getPicklistByName(name, languageCode) {
       if (languageCode) {
-        const picklist = this._picklists[`${name}_${languageCode}`];
+        var picklist = this._picklists[name + '_' + languageCode];
         if (picklist) {
           return picklist;
         }
       }
       return this._picklists[name] || false;
     },
-    getPicklistItemByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
-      const picklist = this.getPicklistByName(picklistName, languageCode);
+    getPicklistItemByKey: function getPicklistItemByKey(picklistName, key) {
+      var languageCode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : App.getCurrentLocale();
+
+      var picklist = this.getPicklistByName(picklistName, languageCode);
 
       if (picklist) {
-        for (let i = 0; i < picklist.items.length; i++) {
+        for (var i = 0; i < picklist.items.length; i++) {
           if (picklist.items[i].$key === key) {
             return picklist.items[i];
           }
@@ -82,11 +84,13 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
       }
       return false;
     },
-    getPicklistItemByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
-      const picklist = this.getPicklistByName(picklistName, languageCode);
+    getPicklistItemByCode: function getPicklistItemByCode(picklistName, itemCode) {
+      var languageCode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : App.getCurrentLocale();
+
+      var picklist = this.getPicklistByName(picklistName, languageCode);
 
       if (picklist) {
-        for (let i = 0; i < picklist.items.length; i++) {
+        for (var i = 0; i < picklist.items.length; i++) {
           if (picklist.items[i].code === itemCode) {
             return picklist.items[i];
           }
@@ -94,11 +98,11 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
       }
       return false;
     },
-    getPicklistItemByText(picklistName, text) {
-      const picklist = this.getPicklistByName(picklistName, '');
+    getPicklistItemByText: function getPicklistItemByText(picklistName, text) {
+      var picklist = this.getPicklistByName(picklistName, '');
 
       if (picklist) {
-        for (let i = 0; i < picklist.items.length; i++) {
+        for (var i = 0; i < picklist.items.length; i++) {
           if (picklist.items[i].text === text) {
             return picklist.items[i];
           }
@@ -106,89 +110,109 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
       }
       return false;
     },
-    getPicklistItemTextByCode(picklistName, itemCode, languageCode = App.getCurrentLocale()) {
-      const picklistItem = this.getPicklistItemByCode(picklistName, itemCode, languageCode);
+    getPicklistItemTextByCode: function getPicklistItemTextByCode(picklistName, itemCode) {
+      var languageCode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : App.getCurrentLocale();
+
+      var picklistItem = this.getPicklistItemByCode(picklistName, itemCode, languageCode);
       if (itemCode && picklistItem) {
         return picklistItem.text;
       }
       return null;
     },
-    getPicklistItemTextByKey(picklistName, key, languageCode = App.getCurrentLocale()) {
-      const picklistItem = this.getPicklistItemByKey(picklistName, key, languageCode);
+    getPicklistItemTextByKey: function getPicklistItemTextByKey(picklistName, key) {
+      var languageCode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : App.getCurrentLocale();
+
+      var picklistItem = this.getPicklistItemByKey(picklistName, key, languageCode);
       if (key && picklistItem) {
         return picklistItem.text;
       }
       return null;
     },
-    format(picklistCode /* , storageMode */) {
-      const picklist = this.getPicklistByName(picklistCode);
+    format: function format(picklistCode /* , storageMode */) {
+      var picklist = this.getPicklistByName(picklistCode);
       return picklistFormat(picklist);
     },
-    registerPicklist(code, picklist) {
+    registerPicklist: function registerPicklist(code, picklist) {
       if (!this._picklists[code]) {
         this._picklists[code] = picklist;
       }
     },
-    requestPicklistsFromArray(picklists) {
-      const promise = new Promise((resolve, reject) => {
-        const promises = [];
-        for (let i = 0; i < picklists.length; i++) {
-          promises.push(this.requestPicklist(picklists[i].name, picklists[i].options));
+    requestPicklistsFromArray: function requestPicklistsFromArray(picklists) {
+      var _this = this;
+
+      var promise = new Promise(function (resolve, reject) {
+        var promises = [];
+        for (var i = 0; i < picklists.length; i++) {
+          promises.push(_this.requestPicklist(picklists[i].name, picklists[i].options));
         }
-        Promise.all(promises).then(() => {
+        Promise.all(promises).then(function () {
           resolve(true);
-        }, response => {
+        }, function (response) {
           reject(response);
         });
       });
       return promise;
     },
-    onPicklistSuccess(resolve, languageCode) {
-      return result => {
-        let picklist = null;
+    onPicklistSuccess: function onPicklistSuccess(resolve, languageCode) {
+      var _this2 = this;
+
+      return function (result) {
+        var picklist = null;
         if (result && result.items) {
           picklist = result;
-          picklist.items = picklist.items.$resources.map(item => Object.assign({}, item, { id: item.$key }));
+          picklist.items = picklist.items.$resources.map(function (item) {
+            return Object.assign({}, item, { id: item.$key });
+          });
           if (languageCode) {
-            this._picklists[`${picklist.name}_${languageCode}`] = picklist;
+            _this2._picklists[picklist.name + '_' + languageCode] = picklist;
           } else {
-            this._picklists[picklist.name] = picklist;
+            _this2._picklists[picklist.name] = picklist;
           }
         }
-        this.removeRequest(picklist.name);
+        _this2.removeRequest(picklist.name);
         resolve(picklist);
       };
     },
-    onPicklistError(reject, name) {
-      return (response, o) => {
-        this.removeRequest(name);
+    onPicklistError: function onPicklistError(reject, name) {
+      var _this3 = this;
+
+      return function (response, o) {
+        _this3.removeRequest(name);
         _ErrorManager2.default.addError(response, o, null, 'failure');
         reject(response);
       };
     },
-    requestPicklist(name, queryOptions = {}) {
+    requestPicklist: function requestPicklist(name) {
+      var _this4 = this;
+
+      var queryOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       // Avoid duplicating model requests
       if (this.hasRequest(name)) {
-        return new Promise(resolve => resolve());
+        return new Promise(function (resolve) {
+          return resolve();
+        });
       }
 
-      const pickListServiceOptions = Object.assign({}, {
+      var pickListServiceOptions = Object.assign({}, {
         storageMode: 'code'
       }, queryOptions);
-      const language = this.determineLanguage(pickListServiceOptions, queryOptions);
-      const useCache = typeof queryOptions.useCache === 'boolean' ? queryOptions.useCache : true;
+      var language = this.determineLanguage(pickListServiceOptions, queryOptions);
+      var useCache = typeof queryOptions.useCache === 'boolean' ? queryOptions.useCache : true;
 
-      return new Promise((resolve, reject) => {
-        this.addRequest(name);
-        const first = this.service.getFirstByName(name, this.onPicklistSuccess(resolve, language), this.onPicklistError(reject, name), { pickListServiceOptions, language, useCache });
+      return new Promise(function (resolve, reject) {
+        _this4.addRequest(name);
+        var first = _this4.service.getFirstByName(name, _this4.onPicklistSuccess(resolve, language), _this4.onPicklistError(reject, name), { pickListServiceOptions: pickListServiceOptions, language: language, useCache: useCache });
 
         if (first && first.options) {
-          const request = this.service.setUpRequest(new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false)).setContractName(this.contractName), first.options);
+          var request = _this4.service.setUpRequest(new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false)).setContractName(_this4.contractName), first.options);
           request.read(first.handlers);
         }
-      }).catch(err => console.error(err)); // eslint-disable-line
+      }).catch(function (err) {
+        return console.error(err);
+      }); // eslint-disable-line
     },
-    determineLanguage(serviceOptions, queryOptions) {
+    determineLanguage: function determineLanguage(serviceOptions, queryOptions) {
       if (serviceOptions.filterByLanguage) {
         return queryOptions.language && queryOptions.language.trim() || App.getCurrentLocale();
       }
@@ -199,26 +223,23 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
       }
       return queryOptions.language && queryOptions.language.trim() || App.getCurrentLocale();
     },
-
-    /**
-     * Simple requestMap to optimize requests to avoid overlap from model requests
-     */
-    addRequest(name) {
+    addRequest: function addRequest(name) {
       return this._currentRequests.set(name, true);
     },
-    removeRequest(name) {
+    removeRequest: function removeRequest(name) {
       return this._currentRequests.delete(name);
     },
-    hasRequest(name) {
+    hasRequest: function hasRequest(name) {
       return this._currentRequests.has(name);
     },
 
+
     // Previous functions
     getViewPicklists: function getViewPicklists(viewId) {
-      const picklistIds = this._viewMapping[viewId];
-      const picklists = [];
+      var picklistIds = this._viewMapping[viewId];
+      var picklists = [];
       if (picklistIds && picklistIds.length) {
-        for (let i = 0; i < picklistIds.length; i++) {
+        for (var i = 0; i < picklistIds.length; i++) {
           if (this._picklists[picklistIds[i]]) {
             picklists.push(this._picklists[picklistIds[i]]);
           } else {
@@ -242,13 +263,13 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
     },
     getStore: function getStore() {
       if (!this._store) {
-        const options = this.getStoreOptions();
+        var options = this.getStoreOptions();
         this._store = new _SData2.default(options);
       }
       return this._store;
     },
     getStoreOptions: function getStoreOptions() {
-      const options = {
+      var options = {
         service: App.getService(false),
         contractName: this.contractName,
         resourceKind: this.resourceKind,

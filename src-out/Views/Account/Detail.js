@@ -40,9 +40,9 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('accountDetail');
+  var resource = (0, _I18n2.default)('accountDetail');
 
-  const __class = (0, _declare2.default)('crm.Views.Account.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Account.Detail', [_Detail2.default], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -91,7 +91,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
       _Action2.default.navigateToHistoryInsert(entry);
     },
     recordCallToHistory: function recordCallToHistory(phoneNumber) {
-      const entry = {
+      var entry = {
         Type: 'atPhoneCall',
         AccountId: this.entry.$key,
         AccountName: this.entry.AccountName,
@@ -112,7 +112,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
       App.navigateToActivityInsertView();
     },
     addNote: function addNote() {
-      const view = App.getView(this.noteEditView);
+      var view = App.getView(this.noteEditView);
       if (view) {
         view.show({
           template: {},
@@ -121,7 +121,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     addTicket: function addNote() {
-      const view = App.getView('ticket_edit');
+      var view = App.getView('ticket_edit');
       if (view) {
         view.show({
           template: {},
@@ -204,7 +204,7 @@ define('crm/Views/Account/Detail', ['module', 'exports', 'dojo/_base/declare', '
           name: 'SubType',
           property: 'SubType',
           label: this.subTypeText,
-          renderer: _Format2.default.picklist(this.app.picklistService, null, null, `Account ${this.entry.Type}`)
+          renderer: _Format2.default.picklist(this.app.picklistService, null, null, 'Account ' + this.entry.Type)
         }, {
           name: 'Industry',
           property: 'Industry',

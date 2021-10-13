@@ -46,10 +46,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('activityEdit');
-  const dtFormatResource = (0, _I18n2.default)('activityEditDateTimeFormat');
+  var resource = (0, _I18n2.default)('activityEdit');
+  var dtFormatResource = (0, _I18n2.default)('activityEditDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Activity.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Activity.Edit', [_Edit2.default], {
     // Localization
     activityCategoryTitleText: resource.activityCategoryTitleText,
     activityDescriptionTitleText: resource.activityDescriptionTitleText,
@@ -192,8 +192,8 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.inherited(onAddComplete, arguments);
     },
     onPutComplete: function onPutComplete(entry, updatedEntry) {
-      const view = App.getView(this.detailView);
-      const originalKey = this.options.entry && this.options.entry.$key || updatedEntry.$key;
+      var view = App.getView(this.detailView);
+      var originalKey = this.options.entry && this.options.entry.$key || updatedEntry.$key;
 
       this.enable();
 
@@ -216,7 +216,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     convertEntry: function convertEntry() {
-      const entry = this.inherited(convertEntry, arguments);
+      var entry = this.inherited(convertEntry, arguments);
       if (!this.options.entry) {
         if (entry && entry.Leader.$key) {
           this.requestLeader(entry.Leader.$key);
@@ -226,7 +226,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return entry;
     },
     requestLeader: function requestLeader(userId) {
-      const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector(`'${userId}'`).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection()).setResourceKind('users').setResourceSelector('\'' + userId + '\'').setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
 
       request.read({
         success: this.processLeader,
@@ -255,16 +255,16 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       );
     },
     isInLeadContext: function isInLeadContext() {
-      const insert = this.options && this.options.insert;
-      const entry = this.options && this.options.entry;
-      const context = this._getNavContext();
-      let isLeadContext = false;
+      var insert = this.options && this.options.insert;
+      var entry = this.options && this.options.entry;
+      var context = this._getNavContext();
+      var isLeadContext = false;
 
       if (context.resourceKind === 'leads') {
         isLeadContext = true;
       }
 
-      const lead = insert && isLeadContext || this.isActivityForLead(entry);
+      var lead = insert && isLeadContext || this.isActivityForLead(entry);
 
       return !!lead;
     },
@@ -286,14 +286,14 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     disableFields: function disableFields(predicate) {
-      for (const name in this.fields) {
+      for (var name in this.fields) {
         if (!predicate || predicate(this.fields[name])) {
           this.fields[name].disable();
         }
       }
     },
     enableFields: function enableFields(predicate) {
-      for (const name in this.fields) {
+      for (var name in this.fields) {
         if (!predicate || predicate(this.fields[name])) {
           this.fields[name].enable();
         }
@@ -309,28 +309,32 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     showFieldsForLead: function showFieldsForLead() {
-      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(item => {
-        if (this.fields[item]) {
-          this.fields[item].hide();
+      var _this = this;
+
+      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function (item) {
+        if (_this.fields[item]) {
+          _this.fields[item].hide();
         }
       }, this);
 
-      this.fieldsForLeads.forEach(item => {
-        if (this.fields[item]) {
-          this.fields[item].show();
+      this.fieldsForLeads.forEach(function (item) {
+        if (_this.fields[item]) {
+          _this.fields[item].show();
         }
       }, this);
     },
     showFieldsForStandard: function showFieldsForStandard() {
-      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(item => {
-        if (this.fields[item]) {
-          this.fields[item].hide();
+      var _this2 = this;
+
+      this.fieldsForStandard.concat(this.fieldsForLeads).forEach(function (item) {
+        if (_this2.fields[item]) {
+          _this2.fields[item].hide();
         }
       }, this);
 
-      this.fieldsForStandard.forEach(item => {
-        if (this.fields[item]) {
-          this.fields[item].show();
+      this.fieldsForStandard.forEach(function (item) {
+        if (_this2.fields[item]) {
+          _this2.fields[item].show();
         }
       }, this);
     },
@@ -343,7 +347,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     },
     onTimelessChange: function onTimelessChange(value) {
       this.toggleSelectField(this.fields.Duration, value);
-      const startDateField = this.fields.StartDate;
+      var startDateField = this.fields.StartDate;
 
       if (value) {
         // StartDate timeless
@@ -351,7 +355,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         startDateField.dateFormatText = this.startingTimelessFormatText;
         startDateField.showTimePicker = false;
         startDateField.timeless = true;
-        const startDate = this._getNewStartDate(startDateField.getValue(), true);
+        var startDate = this._getNewStartDate(startDateField.getValue(), true);
 
         if (startDate) {
           startDateField.setValue(startDate);
@@ -363,10 +367,10 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         startDateField.dateFormatText = App.is24HourClock() ? this.startingFormatText24 : this.startingFormatText;
         startDateField.showTimePicker = true;
         startDateField.timeless = false;
-        const startDate = this._getNewStartDate(startDateField.getValue(), false);
+        var _startDate = this._getNewStartDate(startDateField.getValue(), false);
 
-        if (startDate) {
-          startDateField.setValue(startDate);
+        if (_startDate) {
+          startDateField.setValue(_startDate);
         }
       }
     },
@@ -378,23 +382,23 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     onLeadChange: function onLeadChange(value, field) {
-      const selection = field.getSelection();
+      var selection = field.getSelection();
 
       if (selection && this.options && this.options.insert) {
         this.fields.AccountName.setValue(_Utility2.default.getValue(selection, 'Company'));
       }
 
-      const entry = field.currentSelection;
+      var entry = field.currentSelection;
       if (entry.WorkPhone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     onLeaderChange: function onLeaderChange(value, field) {
-      const user = field.getValue();
-      let resourceId = '';
+      var user = field.getValue();
+      var resourceId = '';
 
-      let key = user.$key;
+      var key = user.$key;
 
       // The key is a composite key on activityresourceviews endpoint.
       // The format is 'ResourceId-AccessId'.
@@ -415,11 +419,11 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     onAccountChange: function onAccountChange(value, field) {
-      const fields = this.fields;
-      ['Contact', 'Opportunity', 'Ticket'].forEach(f => {
+      var fields = this.fields;
+      ['Contact', 'Opportunity', 'Ticket'].forEach(function (f) {
         if (value) {
           fields[f].dependsOn = 'Account';
-          fields[f].where = `Account.Id eq "${value.AccountId || value.key}"`;
+          fields[f].where = 'Account.Id eq "' + (value.AccountId || value.key) + '"';
 
           if (fields[f].currentSelection && fields[f].currentSelection.Account && fields[f].currentSelection.Account.$key !== (value.AccountId || value.key)) {
             fields[f].setValue(false);
@@ -439,42 +443,42 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         return;
       }
 
-      const entry = field.currentSelection;
+      var entry = field.currentSelection;
       if (entry && entry.MainPhone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.MainPhone);
       }
     },
     onContactChange: function onContactChange(value, field) {
       this.onAccountDependentChange(value, field);
-      const entry = field.currentSelection;
+      var entry = field.currentSelection;
 
       if (entry && entry.WorkPhone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     onOpportunityChange: function onOpportunityChange(value, field) {
       this.onAccountDependentChange(value, field);
-      const entry = field.currentSelection;
+      var entry = field.currentSelection;
 
       if (entry && entry.Account && entry.Account.MainPhone) {
-        const phoneField = this.fieldsPhoneNumber;
+        var phoneField = this.fieldsPhoneNumber;
         phoneField.setValue(entry.Account.MainPhone);
       }
     },
     onTicketChange: function onTicketChange(value, field) {
       this.onAccountDependentChange(value, field);
-      const entry = field.currentSelection;
-      const phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+      var entry = field.currentSelection;
+      var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
       if (phone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
       }
     },
     onAccountDependentChange: function onAccountDependentChange(value, field) {
       if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
-        const accountField = this.fields.Account;
+        var accountField = this.fields.Account;
         accountField.setValue({
           AccountId: field.currentSelection.Account.$key,
           AccountName: field.currentSelection.Account.AccountName
@@ -492,12 +496,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       _Recurrence2.default.createSimplifiedOptions(value);
 
-      const repeats = this.recurrence.RecurrenceState === 'rstMaster';
+      var repeats = this.recurrence.RecurrenceState === 'rstMaster';
       this.fields.RecurrenceUI.setValue(_Recurrence2.default.getPanel(repeats && this.recurrence.RecurPeriod));
     },
     onRecurrenceUIChange: function onRecurrenceUIChange(value, field) {
-      const key = field.currentValue && field.currentValue.key;
-      const opt = _Recurrence2.default.simplifiedOptions[key];
+      var key = field.currentValue && field.currentValue.key;
+      var opt = _Recurrence2.default.simplifiedOptions[key];
       // preserve #iterations (and EndDate) if matching recurrence
       if (this._previousRecurrence === key) {
         opt.RecurIterations = this.recurrence.RecurIterations;
@@ -508,8 +512,8 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     },
     onRecurrenceChange: function onRecurrenceChange(value) {
       // did the StartDate change on the recurrence_edit screen?
-      const startDate = argos.Convert.toDateFromString(value.StartDate); // TODO: Avoid global
-      const currentDate = this.fields.StartDate.getValue();
+      var startDate = argos.Convert.toDateFromString(value.StartDate); // TODO: Avoid global
+      var currentDate = this.fields.StartDate.getValue();
 
       if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
         this.fields.StartDate.setValue(startDate);
@@ -570,8 +574,8 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return _Recurrence2.default.toString(recurrence, true);
     },
     _getCalculatedStartTime: function _getCalculatedStartTime(selectedDate) {
-      const now = moment();
-      let thisSelectedDate = selectedDate;
+      var now = moment();
+      var thisSelectedDate = selectedDate;
 
       if (!moment.isMoment(selectedDate)) {
         thisSelectedDate = moment(selectedDate);
@@ -583,7 +587,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       // 11:24 -> 11:30
       // 11:12 -> 11:15
       // 11:31 -> 11:45
-      const startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
+      var startDate = thisSelectedDate.clone().startOf('day').hours(now.hours()).add({
         minutes: Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES + this.ROUND_MINUTES
       });
 
@@ -595,12 +599,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
 
-      let startDate = this._getCalculatedStartTime(moment());
-      const activityType = this.options && this.options.activityType;
-      const activityGroup = this.groupOptionsByType[activityType] || '';
-      const activityDuration = App.context.userOptions && App.context.userOptions[`${activityGroup}:Duration`] || 15;
-      const alarmEnabled = App.context.userOptions && App.context.userOptions[`${activityGroup}:AlarmEnabled`] || true;
-      const alarmDuration = App.context.userOptions && App.context.userOptions[`${activityGroup}:AlarmLead`] || 15;
+      var startDate = this._getCalculatedStartTime(moment());
+      var activityType = this.options && this.options.activityType;
+      var activityGroup = this.groupOptionsByType[activityType] || '';
+      var activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15;
+      var alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true;
+      var alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
       if (this.options && this.options.currentDate) {
         startDate = this.applyUserActivityContext(moment(this.options.currentDate));
@@ -612,22 +616,22 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.fields.Alarm.setValue(alarmEnabled);
       this.fields.Reminder.setValue(alarmDuration);
 
-      const user = App.context.user;
+      var user = App.context.user;
       if (user) {
         this.fields.UserId.setValue(user.$key);
 
-        const leaderField = this.fields.Leader;
+        var leaderField = this.fields.Leader;
         leaderField.setValue(user);
         this.onLeaderChange(user, leaderField);
       }
 
-      const found = this._getNavContext();
+      var found = this._getNavContext();
 
-      const accountField = this.fields.Account;
+      var accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
 
-      const context = found && found.options && found.options.source || found;
-      const lookup = {
+      var context = found && found.options && found.options.source || found;
+      var lookup = {
         accounts: this.applyAccountContext,
         contacts: this.applyContactContext,
         opportunities: this.applyOpportunityContext,
@@ -640,8 +644,8 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     _getNavContext: function _getNavContext() {
-      const navContext = App.queryNavigationContext(o => {
-        const context = o.options && o.options.source || o;
+      var navContext = App.queryNavigationContext(function (o) {
+        var context = o.options && o.options.source || o;
 
         if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
           return true;
@@ -652,14 +656,14 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return navContext;
     },
     applyAccountContext: function applyAccountContext(context) {
-      const view = App.getView(context.id);
-      const entry = context.entry || view && view.entry || context;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry || context;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      const accountField = this.fields.Account;
+      var accountField = this.fields.Account;
       accountField.setSelection(entry);
       accountField.setValue({
         AccountId: entry.$key,
@@ -668,14 +672,14 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       this.onAccountChange(accountField.getValue(), accountField);
     },
     applyContactContext: function applyContactContext(context) {
-      const view = App.getView(context.id);
-      const entry = context.entry || view && view.entry || context;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry || context;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      const contactField = this.fields.Contact;
+      var contactField = this.fields.Contact;
 
       contactField.setSelection(entry);
       contactField.setValue({
@@ -685,26 +689,26 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       this.onAccountDependentChange(contactField.getValue(), contactField);
 
-      const accountField = this.fields.Account;
+      var accountField = this.fields.Account;
       accountField.setValue({
         AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
         AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
       });
 
       if (entry.WorkPhone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     applyTicketContext: function applyTicketContext(context) {
-      const view = App.getView(context.id);
-      const entry = context.entry || view && view.entry;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      const ticketField = this.fields.Ticket;
+      var ticketField = this.fields.Ticket;
       ticketField.setSelection(entry);
       ticketField.setValue({
         TicketId: entry.$key,
@@ -712,34 +716,34 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       });
       this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-      const contactField = this.fields.Contact;
+      var contactField = this.fields.Contact;
       contactField.setValue({
         ContactId: _Utility2.default.getValue(entry, 'Contact.$key'),
         ContactName: _Utility2.default.getValue(entry, 'Contact.NameLF')
       });
       this.onAccountDependentChange(contactField.getValue(), contactField);
 
-      const accountField = this.fields.Account;
+      var accountField = this.fields.Account;
       accountField.setValue({
         AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
         AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
       });
 
-      const phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+      var phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
       if (phone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(phone);
       }
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
-      const view = App.getView(context.id);
-      const entry = context.entry || view && view.entry;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      const opportunityField = this.fields.Opportunity;
+      var opportunityField = this.fields.Opportunity;
       opportunityField.setSelection(entry);
       opportunityField.setValue({
         OpportunityId: entry.$key,
@@ -748,26 +752,26 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
-      const accountField = this.fields.Account;
+      var accountField = this.fields.Account;
       accountField.setValue({
         AccountId: _Utility2.default.getValue(entry, 'Account.$key'),
         AccountName: _Utility2.default.getValue(entry, 'Account.AccountName')
       });
 
       if (entry.Account && entry.Account.MainPhone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.Account.MainPhone);
       }
     },
     applyLeadContext: function applyLeadContext(context) {
-      const view = App.getView(context.id);
-      const entry = context.entry || view && view.entry;
+      var view = App.getView(context.id);
+      var entry = context.entry || view && view.entry;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      const leadField = this.fields.Lead;
+      var leadField = this.fields.Lead;
       leadField.setSelection(entry);
       leadField.setValue({
         LeadId: entry.$key,
@@ -777,25 +781,25 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
 
       this.fields.AccountName.setValue(entry.Company);
 
-      const isLeadField = this.fields.IsLead;
+      var isLeadField = this.fields.IsLead;
       if (isLeadField) {
         isLeadField.setValue(context.resourceKind === 'leads');
         this.onIsLeadChange(isLeadField.getValue(), isLeadField);
       }
 
       if (entry.WorkPhone) {
-        const phoneField = this.fields.PhoneNumber;
+        var phoneField = this.fields.PhoneNumber;
         phoneField.setValue(entry.WorkPhone);
       }
     },
     setValues: function setValues(values) {
       if (values.StartDate && values.AlarmTime) {
-        const startTime = this.isDateTimeless(values.StartDate) ? moment(values.StartDate).add({
+        var startTime = this.isDateTimeless(values.StartDate) ? moment(values.StartDate).add({
           minutes: values.StartDate.getTimezoneOffset()
         }).toDate().getTime() : values.StartDate.getTime();
 
-        const span = startTime - values.AlarmTime.getTime(); // ms
-        const reminder = span / (1000 * 60);
+        var span = startTime - values.AlarmTime.getTime(); // ms
+        var reminder = span / (1000 * 60);
 
         values.Reminder = _Format2.default.fixed(reminder, 0);
       }
@@ -819,7 +823,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       }
 
       if (this.isInLeadContext()) {
-        const isLeadField = this.fields.IsLead;
+        var isLeadField = this.fields.IsLead;
         if (isLeadField) {
           isLeadField.setValue(true);
           this.onIsLeadChange(isLeadField.getValue(), isLeadField);
@@ -829,16 +833,16 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         this.fields.AccountName.setValue(values.AccountName);
       }
 
-      const entry = this.options.entry || this.entry;
-      const denyEdit = !this.options.insert && !this.currentUserCanEdit(entry);
-      const allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
+      var entry = this.options.entry || this.entry;
+      var denyEdit = !this.options.insert && !this.currentUserCanEdit(entry);
+      var allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
       if (denyEdit) {
         this.disableFields();
       }
 
       if (allowSetAlarm) {
-        this.enableFields(f => {
+        this.enableFields(function (f) {
           if (values.Alarm) {
             return (/^Alarm|Reminder$/.test(f.name)
             );
@@ -894,12 +898,12 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return true;
     },
     getValues: function getValues() {
-      const isStartDateDirty = this.fields.StartDate.isDirty();
-      const isReminderDirty = this.fields.Reminder.isDirty();
-      const reminderIn = this.fields.Reminder.getValue();
-      const timeless = this.fields.Timeless.getValue();
-      let startDate = this.fields.StartDate.getValue();
-      let values = this.inherited(getValues, arguments);
+      var isStartDateDirty = this.fields.StartDate.isDirty();
+      var isReminderDirty = this.fields.Reminder.isDirty();
+      var reminderIn = this.fields.Reminder.getValue();
+      var timeless = this.fields.Timeless.getValue();
+      var startDate = this.fields.StartDate.getValue();
+      var values = this.inherited(getValues, arguments);
 
       // Fix timeless if necessary (The date picker won't add 5 seconds)
       if (timeless) {
@@ -909,7 +913,7 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       // if StartDate is dirty, always update AlarmTime
       if (startDate && (isStartDateDirty || isReminderDirty)) {
         values = values || {};
-        const alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
+        var alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
         values.AlarmTime = alarmTime;
       }
 
@@ -921,9 +925,9 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       return values;
     },
     createReminderData: function createReminderData() {
-      const list = [];
+      var list = [];
 
-      for (const duration in this.reminderValueText) {
+      for (var duration in this.reminderValueText) {
         if (this.reminderValueText.hasOwnProperty(duration)) {
           list.push({
             $key: duration,
@@ -937,9 +941,9 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
       };
     },
     createDurationData: function createDurationData() {
-      const list = [];
+      var list = [];
 
-      for (const duration in this.durationValueText) {
+      for (var duration in this.durationValueText) {
         if (this.durationValueText.hasOwnProperty(duration)) {
           list.push({
             $key: duration,
@@ -963,40 +967,40 @@ define('crm/Views/Activity/Edit', ['module', 'exports', 'dojo/_base/declare', 'd
         return null;
       }
 
-      let startDate = orginalStartDate;
-      const isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
+      var startDate = orginalStartDate;
+      var isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
 
       if (timeless) {
         if (!isTimeLessDate) {
-          let wrapped = moment(startDate);
+          var wrapped = moment(startDate);
           wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
           wrapped.add('seconds', 5);
           startDate = wrapped.toDate();
         }
       } else {
         if (isTimeLessDate) {
-          const currentTime = moment();
-          const wrapped = moment(startDate);
-          wrapped.subtract({
-            minutes: wrapped.utcOffset()
+          var currentTime = moment();
+          var _wrapped = moment(startDate);
+          _wrapped.subtract({
+            minutes: _wrapped.utcOffset()
           });
-          wrapped.hours(currentTime.hours());
-          wrapped.minutes(currentTime.minutes());
-          wrapped.seconds(0);
-          startDate = wrapped.toDate();
+          _wrapped.hours(currentTime.hours());
+          _wrapped.minutes(currentTime.minutes());
+          _wrapped.seconds(0);
+          startDate = _wrapped.toDate();
         }
       }
 
       return startDate;
     },
     _getNewAlarmTime: function _getNewAlarmTime(startDate, timeless, reminderIn) {
-      let alarmTime;
+      var alarmTime = void 0;
       if (!startDate) {
         return null;
       }
 
       if (timeless) {
-        const wrapped = moment(startDate);
+        var wrapped = moment(startDate);
         wrapped.subtract({
           minutes: wrapped.utcOffset()
         });

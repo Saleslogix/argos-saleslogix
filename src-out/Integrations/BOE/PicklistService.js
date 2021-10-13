@@ -15,7 +15,7 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
     };
   }
 
-  const __class = _lang2.default.setObject('crm.Integrations.BOE.PicklistService', {
+  var __class = _lang2.default.setObject('crm.Integrations.BOE.PicklistService', {
     _picklists: {},
     _viewMapping: {},
     _store: null,
@@ -29,8 +29,8 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
       return this._picklists[key];
     },
     getPicklistByName: function getPicklistByName(name) {
-      const iterableKeys = Object.keys(this._picklists);
-      for (let i = 0; i < iterableKeys.length; i++) {
+      var iterableKeys = Object.keys(this._picklists);
+      for (var i = 0; i < iterableKeys.length; i++) {
         if (this._picklists[iterableKeys[i]].name === name) {
           return this._picklists[iterableKeys[i]];
         }
@@ -38,10 +38,10 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
       return false;
     },
     getPicklistItemByCode: function getPicklistItemByCode(picklistName, itemCode) {
-      const picklist = this.getPicklistByName(picklistName);
+      var picklist = this.getPicklistByName(picklistName);
 
       if (picklist) {
-        for (let i = 0; i < picklist.items.length; i++) {
+        for (var i = 0; i < picklist.items.length; i++) {
           if (picklist.items[i].code === itemCode) {
             return picklist.items[i];
           }
@@ -50,17 +50,17 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
       return false;
     },
     getPicklistItemTextByCode: function getPicklistItemByCode(picklistName, itemCode) {
-      const picklistItem = this.getPicklistItemByCode(picklistName, itemCode);
+      var picklistItem = this.getPicklistItemByCode(picklistName, itemCode);
       if (itemCode && picklistItem) {
         return picklistItem.text;
       }
       return null;
     },
     getViewPicklists: function getViewPicklists(viewId) {
-      const picklistIds = this._viewMapping[viewId];
-      const picklists = [];
+      var picklistIds = this._viewMapping[viewId];
+      var picklists = [];
       if (picklistIds && picklistIds.length) {
-        for (let i = 0; i < picklistIds.length; i++) {
+        for (var i = 0; i < picklistIds.length; i++) {
           if (this._picklists[picklistIds[i]]) {
             picklists.push(this._picklists[picklistIds[i]]);
           } else {
@@ -89,35 +89,39 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
     },
     // Will request the registered picklists in this._picklists
     requestPicklists: function requestPicklists() {
-      const promise = new Promise((resolve, reject) => {
-        const iterableKeys = Object.keys(this._picklists);
-        const promises = [];
-        for (let i = 0; i < iterableKeys.length; i++) {
-          promises.push(this.requestPicklist(iterableKeys[i]));
+      var _this = this;
+
+      var promise = new Promise(function (resolve, reject) {
+        var iterableKeys = Object.keys(_this._picklists);
+        var promises = [];
+        for (var i = 0; i < iterableKeys.length; i++) {
+          promises.push(_this.requestPicklist(iterableKeys[i]));
         }
-        Promise.all(promises).then(() => {
+        Promise.all(promises).then(function () {
           resolve(true);
-        }, response => {
+        }, function (response) {
           reject(response);
         });
       });
       return promise;
     },
     requestPicklist: function requestPicklist(name, options) {
-      const promise = new Promise((resolve, reject) => {
-        const store = this.getStore();
-        const queryOptions = {
-          where: `name eq '${name}'`
+      var _this2 = this;
+
+      var promise = new Promise(function (resolve, reject) {
+        var store = _this2.getStore();
+        var queryOptions = {
+          where: 'name eq \'' + name + '\''
         };
-        store.query(null, queryOptions).then(data => {
-          let picklist = null;
+        store.query(null, queryOptions).then(function (data) {
+          var picklist = null;
           if (data && data[0] && data[0].items) {
             picklist = data[0];
             picklist.items = picklist.items.$resources;
-            this._picklists[picklist.name] = picklist;
+            _this2._picklists[picklist.name] = picklist;
           }
           resolve(picklist);
-        }, (response, o) => {
+        }, function (response, o) {
           _ErrorManager2.default.addError(response, o, options, 'failure');
           reject(response);
         });
@@ -126,13 +130,13 @@ define('crm/Integrations/BOE/PicklistService', ['module', 'exports', 'dojo/_base
     },
     getStore: function getStore() {
       if (!this._store) {
-        const options = this.getStoreOptions();
+        var options = this.getStoreOptions();
         this._store = new _SData2.default(options);
       }
       return this._store;
     },
     getStoreOptions: function getStoreOptions() {
-      const options = {
+      var options = {
         service: App.getService(false),
         contractName: this.contractName,
         resourceKind: this.resourceKind,

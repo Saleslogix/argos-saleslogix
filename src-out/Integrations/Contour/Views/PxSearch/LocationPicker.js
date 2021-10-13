@@ -36,15 +36,13 @@ define('crm/Integrations/Contour/Views/PxSearch/LocationPicker', ['module', 'exp
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('locPicker');
+  var resource = (0, _I18n2.default)('locPicker');
 
-  const __class = (0, _declare2.default)('crm.Integrations.Contour.Views.PxSearch.LocationPicker', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.Contour.Views.PxSearch.LocationPicker', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Name %}</p>']),
     // overriding the stock rowTemplate with our custom key and descriptor
-    liRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%: $.$key %}" data-descriptor="{%: $.$descriptor %}" data-lat="{%: $.Address.GeocodeLatitude %}" data-lon="{%: $.Address.GeocodeLongitude %}">', '<button data-action="selectEntry" class="list-item-selector btn-icon hide-focus">', `<svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-        <use xlink:href="#icon-{%= $$.icon || $$.selectIcon %}" />
-      </svg>`, '</button>', '<div class="list-item-content">{%! $$.itemTemplate %}</div>', '</li>']),
+    liRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%: $.$key %}" data-descriptor="{%: $.$descriptor %}" data-lat="{%: $.Address.GeocodeLatitude %}" data-lon="{%: $.Address.GeocodeLongitude %}">', '<button data-action="selectEntry" class="list-item-selector btn-icon hide-focus">', '<svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xlink:href="#icon-{%= $$.icon || $$.selectIcon %}" />\n      </svg>', '</button>', '<div class="list-item-content">{%! $$.itemTemplate %}</div>', '</li>']),
     isCardView: false,
 
     // Localization
@@ -75,25 +73,27 @@ define('crm/Integrations/Contour/Views/PxSearch/LocationPicker', ['module', 'exp
       this.inherited(startup, arguments);
       this._getUserInfoAddresses();
     },
-    _getUserInfoAddresses() {
+    _getUserInfoAddresses: function _getUserInfoAddresses() {
+      var _this = this;
+
       if (App.context.user) {
-        const querySelect = ['UserInfo/Address/GeocodeProvider', 'UserInfo/Address/GeocodeLatitude', 'UserInfo/Address/GeocodeLongitude', 'UserInfo/Address/GeocodeFailed', 'UserInfo/HomeAddress/GeocodeProvider', 'UserInfo/HomeAddress/GeocodeLatitude', 'UserInfo/HomeAddress/GeocodeLongitude', 'UserInfo/HomeAddress/GeocodeFailed'];
-        const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setResourceKind('users').setResourceSelector(`'${App.context.user.$key}'`).setQueryArg('select', querySelect.join(','));
+        var querySelect = ['UserInfo/Address/GeocodeProvider', 'UserInfo/Address/GeocodeLatitude', 'UserInfo/Address/GeocodeLongitude', 'UserInfo/Address/GeocodeFailed', 'UserInfo/HomeAddress/GeocodeProvider', 'UserInfo/HomeAddress/GeocodeLatitude', 'UserInfo/HomeAddress/GeocodeLongitude', 'UserInfo/HomeAddress/GeocodeFailed'];
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setResourceKind('users').setResourceSelector('\'' + App.context.user.$key + '\'').setQueryArg('select', querySelect.join(','));
 
         request.read({
-          success: data => {
+          success: function success(data) {
             if (data.UserInfo.Address && data.UserInfo.Address.GeocodeFailed === false) {
-              this._myWork = this._createPlaceEntry(this.myOfficeText, data.UserInfo.Address);
+              _this._myWork = _this._createPlaceEntry(_this.myOfficeText, data.UserInfo.Address);
             }
             if (data.UserInfo.HomeAddress && data.UserInfo.HomeAddress.GeocodeFailed === false) {
-              this._myHome = this._createPlaceEntry(this.myHouseText, data.UserInfo.HomeAddress);
+              _this._myHome = _this._createPlaceEntry(_this.myHouseText, data.UserInfo.HomeAddress);
             }
           }
         });
       }
     },
-    _createPlaceEntry(name, address) {
-      const plc = {};
+    _createPlaceEntry: function _createPlaceEntry(name, address) {
+      var plc = {};
       plc.Address = address;
       plc.$descriptor = plc.Name = name;
       plc.$httpStatus = 200;
@@ -101,7 +101,7 @@ define('crm/Integrations/Contour/Views/PxSearch/LocationPicker', ['module', 'exp
       plc.ThisUserOnly = true;
       return plc;
     },
-    processData(entries) {
+    processData: function processData(entries) {
       // Inject the current user's addresses
       if (this._myHome) {
         entries.unshift(this._myHome);
@@ -114,17 +114,17 @@ define('crm/Integrations/Contour/Views/PxSearch/LocationPicker', ['module', 'exp
         return;
       }
 
-      const count = entries.length;
+      var count = entries.length;
 
       if (count > 0) {
-        const docfrag = document.createDocumentFragment();
-        for (let i = 0; i < count; i++) {
-          const entry = this._processEntry(entries[i]);
+        var docfrag = document.createDocumentFragment();
+        for (var i = 0; i < count; i++) {
+          var entry = this._processEntry(entries[i]);
           // If key comes back with nothing, check that the store is properly
           // setup with an idProperty
           this.entries[this.getIdentity(entry)] = entry;
 
-          const rowNode = this.createItemRowNode(entry);
+          var rowNode = this.createItemRowNode(entry);
 
           docfrag.appendChild(rowNode);
           this.onApplyRowTemplate(entry, rowNode);
@@ -135,9 +135,8 @@ define('crm/Integrations/Contour/Views/PxSearch/LocationPicker', ['module', 'exp
         }
       }
     },
-    // custom activateEntry method since we aren't actually opening a detail view
-    activateEntry(params) {
-      const view = App.getView('pxSearch_Accounts');
+    activateEntry: function activateEntry(params) {
+      var view = App.getView('pxSearch_Accounts');
       if (params.key === 'Me') {
         view.show();
       } else {
@@ -148,9 +147,10 @@ define('crm/Integrations/Contour/Views/PxSearch/LocationPicker', ['module', 'exp
         }, {});
       }
     },
+
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery);
-      return `(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "${App.context.user.$key}")) and Name like "%${q}%"`;
+      var q = this.escapeSearchQuery(searchQuery);
+      return '(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "' + App.context.user.$key + '")) and Name like "%' + q + '%"';
     }
   });
 

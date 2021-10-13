@@ -50,10 +50,10 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('activityDetail');
-  const dtFormatResource = (0, _I18n2.default)('activityDetailDateTimeFormat');
+  var resource = (0, _I18n2.default)('activityDetail');
+  var dtFormatResource = (0, _I18n2.default)('activityDetailDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Activity.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Activity.Detail', [_Detail2.default], {
     // Localization
     actionsText: resource.actionsText,
     completeActivityText: resource.completeActivityText,
@@ -116,6 +116,8 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       return this.activityTypeText[val] || val;
     },
     navigateToEditView: function navigateToEditView() {
+      var _this = this;
+
       if (!this.isActivityRecurringSeries(this.entry)) {
         // normal activity
         this.onEditActivity(this.entry);
@@ -131,12 +133,12 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
             this.onEditActivity(this.entry);
           } else {
             // we need to resolve occurance
-            this.getOccurance(this.entry).then(occurance => {
+            this.getOccurance(this.entry).then(function (occurance) {
               if (occurance) {
-                if (this.entry.Leader) {
-                  occurance.Leader = this.entry.Leader;
+                if (_this.entry.Leader) {
+                  occurance.Leader = _this.entry.Leader;
                 }
-                this.onEditActivity(occurance);
+                _this.onEditActivity(occurance);
               }
             });
           }
@@ -144,12 +146,12 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     getOccurance: function getOccurance(entry) {
-      const def = new _Deferred2.default();
-      const key = entry.$key;
+      var def = new _Deferred2.default();
+      var key = entry.$key;
       // Check to ensure we have a composite key (meaning we have the occurance, not the master)
       if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
         // Fetch the occurance, and continue on to the complete screen
-        const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', `id eq '${key}'`).setCount(1);
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', 'id eq \'' + key + '\'').setCount(1);
 
         request.read({
           success: function success(feed) {
@@ -166,19 +168,19 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       return def.promise;
     },
     onEditActivity: function onEditActivity(entry) {
-      const view = App.getView(this.editView);
+      var view = App.getView(this.editView);
       if (view) {
         view.show({
-          entry
+          entry: entry
         });
       }
     },
     navigateToCompleteView: function navigateToCompleteView(completionTitle, isSeries) {
-      const view = App.getView(this.completeView);
+      var view = App.getView(this.completeView);
 
       if (view) {
         _Environment2.default.refreshActivityLists();
-        const options = {
+        var options = {
           title: completionTitle,
           template: {}
         };
@@ -199,13 +201,13 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       this.navigateToCompleteView(this.completeActivityText);
     },
     completeOccurrence: function completeOccurrence() {
-      const entry = this.entry;
-      const key = entry.$key;
+      var entry = this.entry;
+      var key = entry.$key;
 
       // Check to ensure we have a composite key (meaning we have the occurance, not the master)
       if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
         // Fetch the occurance, and continue on to the complete screen
-        const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', `id eq '${key}'`).setCount(1);
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setResourceKind('activities').setContractName('system').setQueryArg('where', 'id eq \'' + key + '\'').setCount(1);
 
         request.read({
           success: this.processOccurance,
@@ -249,11 +251,11 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
     formatRelatedQuery: function formatRelatedQuery(entry, fmt, property) {
-      let toReturn;
+      var toReturn = void 0;
       if (property === 'activityId') {
         toReturn = _string2.default.substitute(fmt, [_Utility4.default.getRealActivityId(entry.$key)]);
       } else {
-        const theProperty = property || '$key';
+        var theProperty = property || '$key';
         toReturn = _string2.default.substitute(fmt, [_Utility2.default.getValue(entry, theProperty, '')]);
       }
       return toReturn;
@@ -464,7 +466,7 @@ define('crm/Views/Activity/Detail', ['module', 'exports', 'dojo/_base/declare', 
       }]);
     },
     getOfflineIcon: function getOfflineIcon() {
-      const model = this.getModel();
+      var model = this.getModel();
       return model.getIconClass(this.entry);
     }
   });

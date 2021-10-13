@@ -32,50 +32,50 @@ define('crm/Views/RelatedContextWidget', ['module', 'exports', 'dojo/_base/decla
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase3.default], {
+  var __class = (0, _declare2.default)('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase3.default], {
 
     cls: 'related-context-widget',
     contextCls: null,
     contextWrapperTemplate: new Simplate(['<div class="context-snapshot {%: $$.contextCls %}"></div>']),
     onInit: function onInit() {
-      const self = this;
+      var self = this;
       this.onLoad();
       if (this.owner) {
-        _aspect2.default.after(this.owner, 'show', () => {
+        _aspect2.default.after(this.owner, 'show', function () {
           self.onRefreshView();
         });
       }
     },
     onLoad: function onLoad() {
-      const snapShot = this.getContextSnapShot();
+      var snapShot = this.getContextSnapShot();
       if (snapShot) {
         this.processSnapShot(snapShot);
       }
     },
     getContextSnapShot: function getContextSnapShot() {
-      let snapShot;
+      var snapShot = void 0;
       if (this.owner && this.owner.options && this.owner.options.fromContext) {
-        const ctx = this.owner.options.fromContext;
+        var ctx = this.owner.options.fromContext;
         snapShot = ctx.getContextSnapShot(this.owner.options);
       }
       return snapShot;
     },
     processSnapShot: function processSnapShot(snapShot) {
       if (this.containerNode && snapShot) {
-        const wrapper = $(this.contextWrapperTemplate.apply(this));
+        var wrapper = $(this.contextWrapperTemplate.apply(this));
         $(wrapper).append(snapShot);
         $(this.containerNode).append(wrapper);
       }
     },
     onRefreshView: function onRefreshView() {
       if (this.containerNode) {
-        const node = $('<div></div>');
+        var node = $('<div></div>');
         $(this.containerNode).empty().append(node);
         this.onLoad();
       }
     }
   });
-  const rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager2.default();
   rvm.registerType('relatedContext', __class);
   exports.default = __class;
   module.exports = exports['default'];

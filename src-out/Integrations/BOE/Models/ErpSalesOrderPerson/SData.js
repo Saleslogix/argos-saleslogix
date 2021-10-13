@@ -23,7 +23,7 @@ define('crm/Integrations/BOE/Models/ErpSalesOrderPerson/SData', ['module', 'expo
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpSalesOrderPerson.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpSalesOrderPerson.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'erpsalesorderperson_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

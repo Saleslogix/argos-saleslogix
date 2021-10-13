@@ -27,29 +27,29 @@ define('crm/Views/Ticket/List', ['module', 'exports', 'dojo/_base/declare', '../
     };
   }
 
-  const resource = (0, _I18n2.default)('ticketList'); /* Copyright 2017 Infor
-                                                       *
-                                                       * Licensed under the Apache License, Version 2.0 (the "License");
-                                                       * you may not use this file except in compliance with the License.
-                                                       * You may obtain a copy of the License at
-                                                       *
-                                                       *    http://www.apache.org/licenses/LICENSE-2.0
-                                                       *
-                                                       * Unless required by applicable law or agreed to in writing, software
-                                                       * distributed under the License is distributed on an "AS IS" BASIS,
-                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                       * See the License for the specific language governing permissions and
-                                                       * limitations under the License.
-                                                       */
+  var resource = (0, _I18n2.default)('ticketList'); /* Copyright 2017 Infor
+                                                     *
+                                                     * Licensed under the Apache License, Version 2.0 (the "License");
+                                                     * you may not use this file except in compliance with the License.
+                                                     * You may obtain a copy of the License at
+                                                     *
+                                                     *    http://www.apache.org/licenses/LICENSE-2.0
+                                                     *
+                                                     * Unless required by applicable law or agreed to in writing, software
+                                                     * distributed under the License is distributed on an "AS IS" BASIS,
+                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                     * See the License for the specific language governing permissions and
+                                                     * limitations under the License.
+                                                     */
 
-  const __class = (0, _declare2.default)('crm.Views.Ticket.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Ticket.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     format: _Format2.default,
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.Subject %}</p>', '{% if(($.Account) && (!$.Contact)) { %}', '<p class="micro-text">{%: $$.viewContactActionText + ": " + $.Account.AccountName %}</p>', '{% } %}', '{% if(($.Account) && ($.Contact)) { %}', '<p class="micro-text">{%: $$.viewContactActionText + ": " + $.Contact.NameLF + " | " + $.Account.AccountName %}</p>', '{% } %}', '<p class="micro-text"> {%: $.AssignedTo ? ($$.assignedToText + $.AssignedTo.OwnerDescription) : this.notAssignedText %}</p>', '{% if($.Urgency) { %}', '<p class="micro-text">{%: $$.urgencyText + $.Urgency.Description %}</p>', '{% } %}', '{% if($.Area) { %}', '<p class="micro-text">{%: $$._areaCategoryIssueText($) %}</p>', '{% } %}', '{% if($.CreateDate) { %}', '<p class="micro-text">{%: $$.createdOnText %}  {%: $$.format.relativeDate($.CreateDate) %}</p>', '{% } %}', '{% if($.ModifyDate) { %}', '<p class="micro-text">{%: $$.modifiedText %}  {%: $$.format.relativeDate($.ModifyDate) %}</p>', '{% } %}', '{% if($.NeededByDate) { %}', '<p class="micro-text">{%: $$.neededByText %}  {%: $$.format.relativeDate($.NeededByDate) %}</p>', '{% } %}']),
 
     _areaCategoryIssueText: function _areaCategoryIssueText(feedItem) {
-      const results = [feedItem.Area, feedItem.Category, feedItem.Issue];
-      return results.filter(item => {
+      var results = [feedItem.Area, feedItem.Category, feedItem.Issue];
+      return results.filter(function (item) {
         return item !== '' && typeof item !== 'undefined' && item !== null;
       }).join(' > ');
     },
@@ -130,8 +130,8 @@ define('crm/Views/Ticket/List', ['module', 'exports', 'dojo/_base/declare', '../
     },
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `TicketNumber like "${q}%" or AlternateKeySuffix like "${q}%" or upper(Subject) like "${q}%" or Account.AccountNameUpper like "${q}%"`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return 'TicketNumber like "' + q + '%" or AlternateKeySuffix like "' + q + '%" or upper(Subject) like "' + q + '%" or Account.AccountNameUpper like "' + q + '%"';
     }
   });
 

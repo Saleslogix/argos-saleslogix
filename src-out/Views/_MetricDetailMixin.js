@@ -39,7 +39,7 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
   /**
    * @module crm/Views/_MetricDetailMixin
    */
-  const __class = (0, _declare2.default)('crm.Views._MetricDetailMixin', null, /** @lends module:crm/Views/_MetricDetailMixin.prototype */{
+  var __class = (0, _declare2.default)('crm.Views._MetricDetailMixin', null, /** @lends module:crm/Views/_MetricDetailMixin.prototype */{
     // Metrics
     metricNode: null,
     metricWidgets: null,
@@ -53,7 +53,7 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
     },
     destroyWidgets: function destroyWidgets() {
       if (this.metricWidgets) {
-        this.metricWidgets.forEach(widget => {
+        this.metricWidgets.forEach(function (widget) {
           widget.destroy();
         });
       }
@@ -64,17 +64,19 @@ define('crm/Views/_MetricDetailMixin', ['module', 'exports', 'dojo/_base/declare
     },
     createMetricWidgetsLayout: function createMetricWidgetsLayout() {},
     rebuildWidgets: function rebuildWidgets(entry) {
+      var _this = this;
+
       this.destroyWidgets();
       this.metricWidgets = [];
 
       // Create metrics widgets and place them in the metricNode
-      const widgetOptions = this.createMetricWidgetsLayout(entry) || [];
-      widgetOptions.forEach(options => {
-        if (this.hasValidOptions(options)) {
-          const widget = new _MetricWidget2.default(options);
-          widget.placeAt(this.metricNode, 'last');
+      var widgetOptions = this.createMetricWidgetsLayout(entry) || [];
+      widgetOptions.forEach(function (options) {
+        if (_this.hasValidOptions(options)) {
+          var widget = new _MetricWidget2.default(options);
+          widget.placeAt(_this.metricNode, 'last');
           widget.requestData();
-          this.metricWidgets.push(widget);
+          _this.metricWidgets.push(widget);
         }
       }, this);
     },

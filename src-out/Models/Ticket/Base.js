@@ -32,13 +32,13 @@ define('crm/Models/Ticket/Base', ['module', 'exports', 'dojo/_base/declare', 'ar
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('ticketModel');
-  const accountResource = (0, _I18n2.default)('accountModel');
-  const contactResource = (0, _I18n2.default)('contactModel');
-  const activityResource = (0, _I18n2.default)('activityModel');
-  const historyResource = (0, _I18n2.default)('historyModel');
+  var resource = (0, _I18n2.default)('ticketModel');
+  var accountResource = (0, _I18n2.default)('accountModel');
+  var contactResource = (0, _I18n2.default)('contactModel');
+  var activityResource = (0, _I18n2.default)('activityModel');
+  var historyResource = (0, _I18n2.default)('historyModel');
 
-  const __class = (0, _declare2.default)('crm.Models.Ticket.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Ticket.Base', [_ModelBase3.default], {
     entityName: 'Ticket',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
@@ -57,7 +57,7 @@ define('crm/Models/Ticket/Base', ['module', 'exports', 'dojo/_base/declare', 'ar
       }]);
     },
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = [{
+      var rel = this.relationships || (this.relationships = [{
         name: 'Account',
         displayName: accountResource.entityDisplayName,
         type: 'ManyToOne',

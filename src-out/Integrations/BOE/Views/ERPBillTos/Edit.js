@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('erpBillTosEdit');
+  var resource = (0, _I18n2.default)('erpBillTosEdit');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPBillTos.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPBillTos.Edit', [_Edit2.default], {
     // View Properties
     id: 'erpbillto_edit',
     detailView: 'erpbillto_detail',
@@ -77,17 +77,17 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
 
-      const found = this._getNavContext();
-      const context = found && found.options && found.options.source || found;
-      const lookup = {
+      var found = this._getNavContext();
+      var context = found && found.options && found.options.source || found;
+      var lookup = {
         accounts: this.applyAccountContext,
         quotes: this.applyQuoteContext,
         salesOrders: this.applyOrderContext
       };
 
       if (context && lookup[context.resourceKind]) {
-        const view = App.getView(context.id);
-        const entry = context.entry || view && view.entry || context;
+        var view = App.getView(context.id);
+        var entry = context.entry || view && view.entry || context;
 
         if (!entry || !entry.$key) {
           return;
@@ -144,14 +144,14 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
         App.bars.tbar.enableTool('save');
       }
 
-      const message = this._buildRefreshMessage(entry, result);
+      var message = this._buildRefreshMessage(entry, result);
       _connect2.default.publish('/app/refresh', [message]);
 
       this.onInsertCompleted(result);
     },
     onInsertCompleted: function onInsertCompleted(results) {
       if (this.associationView) {
-        const view = App.getView(this.associationView);
+        var view = App.getView(this.associationView);
         if (view) {
           view.inserting = true;
           view.options = {
@@ -169,8 +169,8 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
       this.associationContext = null;
     },
     _getNavContext: function _getNavContext() {
-      const navContext = App.queryNavigationContext(o => {
-        const context = o.options && o.options.source || o;
+      var navContext = App.queryNavigationContext(function (o) {
+        var context = o.options && o.options.source || o;
 
         if (/^(accounts|quotes|salesOrders)$/.test(context.resourceKind) && context.key) {
           return true;
@@ -215,8 +215,8 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           requireSelection: false,
           dependsOn: 'ErpLogicalId',
           storageMode: 'code',
-          where: logicalId => {
-            return `filter eq "${logicalId}"`;
+          where: function where(logicalId) {
+            return 'filter eq "' + logicalId + '"';
           }
         }, {
           label: this.statusText,
@@ -236,8 +236,8 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           type: 'picklist',
           storageMode: 'code',
           dependsOn: 'ErpLogicalId',
-          where: logicalId => {
-            return `filter eq "${logicalId}"`;
+          where: function where(logicalId) {
+            return 'filter eq "' + logicalId + '"';
           }
         }, {
           label: this.paymentMethodText,
@@ -249,8 +249,8 @@ define('crm/Integrations/BOE/Views/ERPBillTos/Edit', ['module', 'exports', 'dojo
           type: 'picklist',
           storageMode: 'code',
           dependsOn: 'ErpLogicalId',
-          where: logicalId => {
-            return `filter eq "${logicalId}"`;
+          where: function where(logicalId) {
+            return 'filter eq "' + logicalId + '"';
           }
         }, {
           emptyText: '',

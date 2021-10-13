@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPShipmentItems/List', ['module', 'exports',
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('erpShipmentItemsList');
+  var resource = (0, _I18n2.default)('erpShipmentItemsList');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipmentItems.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipmentItems.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
     formatter: _Format2.default,
 
     // Templates
@@ -68,8 +68,8 @@ define('crm/Integrations/BOE/Views/ERPShipmentItems/List', ['module', 'exports',
     itemIconClass: 'warehouse',
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `upper(ErpLineNumber) like "${q}%" or upper(SalesOrder.SalesOrderNumber) like "${q}%" or upper(ProductName) like "${q}%"`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return 'upper(ErpLineNumber) like "' + q + '%" or upper(SalesOrder.SalesOrderNumber) like "' + q + '%" or upper(ProductName) like "' + q + '%"';
     }
   });
 

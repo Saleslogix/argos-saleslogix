@@ -44,9 +44,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('salesOrderItemEdit');
+  var resource = (0, _I18n2.default)('salesOrderItemEdit');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Edit', [_Edit2.default], {
     // View Properties
     id: 'salesorder_item_edit',
     detailView: 'salesorder_item_detail',
@@ -87,7 +87,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       this.connect(this.fields.Quantity, 'onChange', this.onQuantityChange);
     },
     _applyLogicValues: function _applyLogicValues(values) {
-      const product = this.fields.Product.getSelection();
+      var product = this.fields.Product.getSelection();
       values.ProductName = product.Name;
       values.Family = product.Family;
       values.ActualID = product.ActualId;
@@ -109,18 +109,20 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       this.setProductDependentFields();
     },
     setProductDependentFields: function setProductDependentFields(product) {
-      const dependants = this.getProductDependants();
+      var _this = this;
+
+      var dependants = this.getProductDependants();
       if (product) {
-        dependants.forEach(f => {
-          this.fields[f].enable();
-          this.fields[f].dependsOn = 'Product';
-          this.fields[f].where = `Product.Id eq "${product.$key}"`;
+        dependants.forEach(function (f) {
+          _this.fields[f].enable();
+          _this.fields[f].dependsOn = 'Product';
+          _this.fields[f].where = 'Product.Id eq "' + product.$key + '"';
         });
       } else {
-        dependants.forEach(f => {
-          this.fields[f].disable();
-          this.fields[f].dependsOn = null;
-          this.fields[f].where = null;
+        dependants.forEach(function (f) {
+          _this.fields[f].disable();
+          _this.fields[f].dependsOn = null;
+          _this.fields[f].where = null;
         });
       }
     },
@@ -140,7 +142,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       return entry;
     },
     requestProductPricing: function requestProductPricing(product, quantity, slxLocation, unitOfMeasure) {
-      let salesOrder = null;
+      var _this2 = this;
+
+      var salesOrder = null;
       if (this.options && this.options.context && this.options.context.SalesOrder) {
         salesOrder = this.options.context.SalesOrder;
       } else {
@@ -151,21 +155,23 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       if (salesOrder && salesOrder.$key && !this.isProcessingPricingRequest) {
         this.isProcessingPricingRequest = true;
         this.enablePricingControls(false);
-        _PricingAvailabilityService2.default.getOrderItemPricing(this.entry, salesOrder, product, quantity, slxLocation, unitOfMeasure).then(results => {
-          this.onProductPricingSuccess(results);
-        }, error => {
-          this.onProductPricingFailed(error);
+        _PricingAvailabilityService2.default.getOrderItemPricing(this.entry, salesOrder, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
+          _this2.onProductPricingSuccess(results);
+        }, function (error) {
+          _this2.onProductPricingFailed(error);
         });
       }
     },
     onProductPricingSuccess: function onProductPricingSuccess(result) {
-      this.processProductPricing(result).then(() => {
-        this.reCalculate();
-        this.isProcessingPricingRequest = false;
-        this.enablePricingControls(true);
-      }, () => {
-        this.isProcessingPricingRequest = false;
-        this.enablePricingControls(true);
+      var _this3 = this;
+
+      this.processProductPricing(result).then(function () {
+        _this3.reCalculate();
+        _this3.isProcessingPricingRequest = false;
+        _this3.enablePricingControls(true);
+      }, function () {
+        _this3.isProcessingPricingRequest = false;
+        _this3.enablePricingControls(true);
       });
     },
     onProductPricingFailed: function onProductPricingFailed(result) {
@@ -177,18 +183,20 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       });
     },
     setUomFromCode: function setUomFromCode(uomCode) {
-      const curremtUom = this.fields.UnitOfMeasure.getValue();
-      const product = this.fields.Product.getValue();
-      const promise = new Promise((resolve, reject) => {
-        if (!this._uomModel) {
-          this._uomModel = App.ModelManager.getModel(_Names2.default.UNITOFMEASURE, _Types2.default.SDATA);
+      var _this4 = this;
+
+      var curremtUom = this.fields.UnitOfMeasure.getValue();
+      var product = this.fields.Product.getValue();
+      var promise = new Promise(function (resolve, reject) {
+        if (!_this4._uomModel) {
+          _this4._uomModel = App.ModelManager.getModel(_Names2.default.UNITOFMEASURE, _Types2.default.SDATA);
         }
-        if (this._uomModel && product) {
+        if (_this4._uomModel && product) {
           if (curremtUom && curremtUom.Name !== uomCode || !curremtUom) {
-            this._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then(uom => {
-              this.fields.UnitOfMeasure.setValue(uom);
+            _this4._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then(function (uom) {
+              _this4.fields.UnitOfMeasure.setValue(uom);
               resolve(true);
-            }, error => {
+            }, function (error) {
               reject(error);
             });
           } else {
@@ -201,27 +209,29 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       return promise;
     },
     processProductPricing: function processProductPricing(pricingData) {
-      const promise = new Promise((resolve, reject) => {
+      var _this5 = this;
+
+      var promise = new Promise(function (resolve, reject) {
         if (pricingData) {
           if (pricingData.DocCalculatedPrice) {
-            this.fields.DocCalculatedPrice.setValue(pricingData.DocCalculatedPrice.value);
+            _this5.fields.DocCalculatedPrice.setValue(pricingData.DocCalculatedPrice.value);
           }
           if (pricingData.DocExtendedPrice) {
-            this.fields.DocExtendedPrice.setValue(pricingData.DocExtendedPrice.value);
+            _this5.fields.DocExtendedPrice.setValue(pricingData.DocExtendedPrice.value);
           }
           if (pricingData.DocTotalAmount) {
-            this.fields.DocTotalAmount.setValue(pricingData.DocTotalAmount.value);
+            _this5.fields.DocTotalAmount.setValue(pricingData.DocTotalAmount.value);
           }
           if (pricingData.SlxLocationId) {
-            this.fields.SlxLocation.setValue({
+            _this5.fields.SlxLocation.setValue({
               $key: pricingData.SlxLocationId.value,
               Name: pricingData.SlxLocationCode.value
             });
           }
           if (pricingData.UnitOfMeasure) {
-            this.setUomFromCode(pricingData.UnitOfMeasure.value).then(() => {
+            _this5.setUomFromCode(pricingData.UnitOfMeasure.value).then(function () {
               resolve(true);
-            }, error => {
+            }, function (error) {
               reject(error);
             });
           } else {
@@ -270,8 +280,8 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       return false;
     },
     reCalculate: function reCalculate() {
-      const price = this.fields.CalculatedPrice.getValue();
-      const quantity = this.fields.Quantity.getValue();
+      var price = this.fields.CalculatedPrice.getValue();
+      var quantity = this.fields.Quantity.getValue();
       this.fields.ExtendedPrice.setValue(quantity * price);
     },
     formatDependentQuery: function formatDependentQuery(dependentValue, theFormat, property) {
@@ -286,15 +296,17 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
       this.inherited(onInsertCompleted, arguments);
     },
     _refreshRelatedViews: function _refreshRelatedViews() {
-      const views = [App.getView('salesorder_item_detail'), App.getView('salesorder_items_list')];
+      var views = [App.getView('salesorder_item_detail'), App.getView('salesorder_items_list')];
 
-      views.forEach(view => {
+      views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
         }
       });
     },
     createLayout: function createLayout() {
+      var _this6 = this;
+
       return this.layout || (this.layout = [{
         title: this.detailsText,
         name: 'DetailsSection',
@@ -321,9 +333,9 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
           view: 'salesorder_product_related',
           autoFocus: true,
           required: true,
-          where: () => {
-            if (this.fields.SalesOrder.currentSelection && this.fields.SalesOrder.currentSelection.ErpLogicalId || this.options && this.options.context && this.options.context.SalesOrder && this.options.context.SalesOrder.ErpLogicalId) {
-              return `ErpLogicalId eq "${this.fields.SalesOrder.currentSelection.ErpLogicalId || this.options.context.SalesOrder.ErpLogicalId}"`;
+          where: function where() {
+            if (_this6.fields.SalesOrder.currentSelection && _this6.fields.SalesOrder.currentSelection.ErpLogicalId || _this6.options && _this6.options.context && _this6.options.context.SalesOrder && _this6.options.context.SalesOrder.ErpLogicalId) {
+              return 'ErpLogicalId eq "' + (_this6.fields.SalesOrder.currentSelection.ErpLogicalId || _this6.options.context.SalesOrder.ErpLogicalId) + '"';
             }
             return null;
           }

@@ -23,22 +23,22 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     };
   }
 
-  const resource = (0, _I18n2.default)('contactEdit'); /* Copyright 2017 Infor
-                                                        *
-                                                        * Licensed under the Apache License, Version 2.0 (the "License");
-                                                        * you may not use this file except in compliance with the License.
-                                                        * You may obtain a copy of the License at
-                                                        *
-                                                        *    http://www.apache.org/licenses/LICENSE-2.0
-                                                        *
-                                                        * Unless required by applicable law or agreed to in writing, software
-                                                        * distributed under the License is distributed on an "AS IS" BASIS,
-                                                        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                        * See the License for the specific language governing permissions and
-                                                        * limitations under the License.
-                                                        */
+  var resource = (0, _I18n2.default)('contactEdit'); /* Copyright 2017 Infor
+                                                      *
+                                                      * Licensed under the Apache License, Version 2.0 (the "License");
+                                                      * you may not use this file except in compliance with the License.
+                                                      * You may obtain a copy of the License at
+                                                      *
+                                                      *    http://www.apache.org/licenses/LICENSE-2.0
+                                                      *
+                                                      * Unless required by applicable law or agreed to in writing, software
+                                                      * distributed under the License is distributed on an "AS IS" BASIS,
+                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                      * See the License for the specific language governing permissions and
+                                                      * limitations under the License.
+                                                      */
 
-  const __class = (0, _declare2.default)('crm.Views.Contact.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Contact.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,
     nameText: resource.nameText,
@@ -85,13 +85,13 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
       this.requestAccount(value.key);
     },
     applyContext: function applyContext() {
-      const found = App.queryNavigationContext(o => {
-        const ob = o.options && o.options.source || o;
+      var found = App.queryNavigationContext(function (o) {
+        var ob = o.options && o.options.source || o;
         return (/^(accounts|opportunities)$/.test(ob.resourceKind) && ob.key
         );
       });
 
-      const lookup = {
+      var lookup = {
         accounts: this.applyAccountContext,
         opportunities: this.applyOpportunityContext
       };
@@ -104,8 +104,8 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
       }
     },
     applyAccountContext: function applyAccountContext(context) {
-      const view = App.getView(context.id);
-      const entry = view && view.entry;
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
 
       if (!entry && context.options && context.options.source && context.options.source.entry) {
         this.requestAccount(context.options.source.entry.$key);
@@ -114,7 +114,7 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
       this.processAccount(entry);
     },
     requestAccount: function requestAccount(accountId) {
-      const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector(`'${accountId}'`).setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
+      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setResourceKind('accounts').setResourceSelector('\'' + accountId + '\'').setQueryArg('select', ['AccountName', 'Address/*', 'Fax', 'MainPhone', 'WebAddress'].join(','));
 
       request.allowCacheUse = true;
       request.read({
@@ -125,12 +125,12 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     },
     requestAccountFailure: function requestAccountFailure() {},
     processAccount: function processAccount(entry) {
-      const account = entry;
-      const accountName = _Utility2.default.getValue(entry, 'AccountName');
-      const webAddress = _Utility2.default.getValue(entry, 'WebAddress');
-      const mainPhone = _Utility2.default.getValue(entry, 'MainPhone');
-      const address = _Utility2.default.getValue(entry, 'Address');
-      const fax = _Utility2.default.getValue(entry, 'Fax');
+      var account = entry;
+      var accountName = _Utility2.default.getValue(entry, 'AccountName');
+      var webAddress = _Utility2.default.getValue(entry, 'WebAddress');
+      var mainPhone = _Utility2.default.getValue(entry, 'MainPhone');
+      var address = _Utility2.default.getValue(entry, 'Address');
+      var fax = _Utility2.default.getValue(entry, 'Fax');
 
       if (account) {
         this.fields.Account.setValue(account);
@@ -152,15 +152,15 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
       }
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
-      const view = App.getView(context.id);
-      const entry = view && view.entry;
-      const opportunityId = _Utility2.default.getValue(entry, '$key');
-      const account = _Utility2.default.getValue(entry, 'Account');
-      const accountName = _Utility2.default.getValue(entry, 'Account.AccountName');
-      const webAddress = _Utility2.default.getValue(entry, 'Account.WebAddress');
-      const mainPhone = _Utility2.default.getValue(entry, 'Account.MainPhone');
-      const address = _Utility2.default.getValue(entry, 'Account.Address');
-      const fax = _Utility2.default.getValue(entry, 'Account.Fax');
+      var view = App.getView(context.id);
+      var entry = view && view.entry;
+      var opportunityId = _Utility2.default.getValue(entry, '$key');
+      var account = _Utility2.default.getValue(entry, 'Account');
+      var accountName = _Utility2.default.getValue(entry, 'Account.AccountName');
+      var webAddress = _Utility2.default.getValue(entry, 'Account.WebAddress');
+      var mainPhone = _Utility2.default.getValue(entry, 'Account.MainPhone');
+      var address = _Utility2.default.getValue(entry, 'Account.Address');
+      var fax = _Utility2.default.getValue(entry, 'Account.Fax');
 
       if (opportunityId) {
         this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
@@ -186,8 +186,8 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
     },
     cleanAddressEntry: function cleanAddressEntry(address) {
       if (address) {
-        const clean = {};
-        const skip = {
+        var clean = {};
+        var skip = {
           $key: true,
           $lookup: true,
           $url: true,
@@ -198,7 +198,7 @@ define('crm/Views/Contact/Edit', ['module', 'exports', 'dojo/_base/declare', 'cr
           CreateUser: true
         };
 
-        for (const name in address) {
+        for (var name in address) {
           if (address.hasOwnProperty(name)) {
             if (!skip[name]) {
               clean[name] = address[name];

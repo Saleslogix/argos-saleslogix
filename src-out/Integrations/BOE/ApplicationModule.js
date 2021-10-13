@@ -89,7 +89,7 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.ApplicationModule', [_ApplicationModule2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.ApplicationModule', [_ApplicationModule2.default], {
     modules: null,
     init: function init() {
       this.inherited(init, arguments);
@@ -98,7 +98,7 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
       App.enableDashboards = this.enableDashboards;
       this.modules = [new _AccountAssociationModule2.default(this), new _AccountModule2.default(this), new _BillToAccountModule2.default(this), new _BillToModule2.default(this), new _ContactModule2.default(this), new _ContactAssociationModule2.default(this), new _HelpModule2.default(this), new _InvoiceLineModule2.default(this), new _InvoiceModule2.default(this), new _OpportunityModule2.default(this), new _PayFromModule2.default(this), new _ProductModule2.default(this), new _QuoteModule2.default(this), new _QuotePersonModule2.default(this), new _QuoteLineModule2.default(this), new _ReceivableLineModule2.default(this), new _ReceivableModule2.default(this), new _ReturnLineModule2.default(this), new _ReturnModule2.default(this), new _SalesOrderItemModule2.default(this), new _SalesOrderModule2.default(this), new _ShipmentLineModule2.default(this), new _ShipmentModule2.default(this), new _ShipToAccountModule2.default(this), new _ShipToModule2.default(this)];
 
-      this.modules.forEach(mod => {
+      this.modules.forEach(function (mod) {
         mod.init();
       });
     },
@@ -107,14 +107,16 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
         return;
       }
 
-      this.modules.forEach(mod => {
+      this.modules.forEach(function (mod) {
         mod.initDynamic();
       });
 
       this.inherited(initDynamic, arguments);
     },
     isIntegrationEnabled: function isIntegrationEnabled() {
-      const results = this.application.context.integrations.filter(integration => integration.Name === 'Back Office Extension')[0];
+      var results = this.application.context.integrations.filter(function (integration) {
+        return integration.Name === 'Back Office Extension';
+      })[0];
       return results && results.Enabled;
     },
     loadViewsDynamic: function loadViewsDynamic() {
@@ -122,7 +124,7 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
         return;
       }
 
-      this.modules.forEach(module => {
+      this.modules.forEach(function (module) {
         module.loadViews();
       });
     },
@@ -131,15 +133,15 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
         return;
       }
 
-      this.modules.forEach(module => {
+      this.modules.forEach(function (module) {
         module.loadCustomizations();
       });
       this.registerDefaultViews();
 
       _lang2.default.extend(argos._ListBase, { // TODO: Avoid global
         navigateToInsertView: function navigateToInsertView(additionalOptions) {
-          const view = this.app.getView(this.insertView || this.editView);
-          let options = {
+          var view = this.app.getView(this.insertView || this.editView);
+          var options = {
             detailView: this.detailView,
             returnTo: this.id,
             insert: true
@@ -163,7 +165,7 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
       _lang2.default.extend(argos._EditBase, { // TODO: Avoid global
         onInsertCompleted: function onInsertCompleted(entry) {
           if (this.options && this.options.detailView) {
-            const view = App.getView(this.options.detailView);
+            var view = App.getView(this.options.detailView);
             if (view) {
               view.show({
                 key: entry.$key,
@@ -174,10 +176,10 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
               });
             }
           } else if (this.options && this.options.returnTo) {
-            const returnTo = this.options.returnTo;
-            const view = App.getView(returnTo);
-            if (view) {
-              view.show();
+            var returnTo = this.options.returnTo;
+            var _view = App.getView(returnTo);
+            if (_view) {
+              _view.show();
             } else {
               window.location.hash = returnTo;
             }
@@ -194,7 +196,7 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
         },
         getValueStyle: function getValueStyle() {
           if (this.valueColor) {
-            return `style=color:${this.valueColor}`;
+            return 'style=color:' + this.valueColor;
           }
           return '';
         }
@@ -205,8 +207,8 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
       });
 
       // Recently viewed support
-      const originalMappings = _List2.default.prototype.entityMappings;
-      const originalText = _List2.default.prototype.entityText;
+      var originalMappings = _List2.default.prototype.entityMappings;
+      var originalText = _List2.default.prototype.entityText;
 
       _List2.default.prototype.entityText = Object.assign({}, originalText, {
         ERPShipment: (0, _I18n2.default)('erpShipmentModel').entityDisplayNamePlural,
@@ -239,7 +241,7 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
         return;
       }
 
-      this.modules.forEach(module => {
+      this.modules.forEach(function (module) {
         module.loadToolbars();
       });
     },
@@ -258,12 +260,12 @@ define('crm/Integrations/BOE/ApplicationModule', ['module', 'exports', 'dojo/_ba
       // });
     },
     registerDefaultViews: function registerDefaultViews() {
-      const self = this;
-      const originalGetDefaultViews = _Application2.default.prototype.getDefaultViews;
+      var self = this;
+      var originalGetDefaultViews = _Application2.default.prototype.getDefaultViews;
       _lang2.default.extend(_Application2.default, {
         getDefaultViews: function getDefaultViews() {
-          const views = originalGetDefaultViews.apply(this, arguments) || [];
-          self.modules.forEach(module => {
+          var views = originalGetDefaultViews.apply(this, arguments) || [];
+          self.modules.forEach(function (module) {
             module.registerDefaultViews(views);
           });
           return views;

@@ -32,17 +32,17 @@ define('crm/Integrations/BOE/Modules/HelpModule', ['module', 'exports', 'dojo/_b
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('helpModule');
+  var resource = (0, _I18n2.default)('helpModule');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.HelpModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.HelpModule', [_Module3.default], {
     sectionTitleText: resource.sectionTitleText,
     init: function init() {},
     loadViews: function loadViews() {},
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
-      const onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
+      var am = this.applicationModule;
+      var onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
       am.registerCustomization('detail', 'help', {
-        at: row => {
+        at: function at(row) {
           return row.name === 'HelpSection';
         },
         type: 'insert',

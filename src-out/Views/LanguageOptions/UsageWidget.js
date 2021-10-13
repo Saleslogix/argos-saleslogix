@@ -40,9 +40,9 @@ define('crm/Views/LanguageOptions/UsageWidget', ['module', 'exports', 'dojo/_bas
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('languageUsageWidget');
+  var resource = (0, _I18n2.default)('languageUsageWidget');
 
-  const __class = (0, _declare2.default)('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWidgetBase3.default], {
+  var __class = (0, _declare2.default)('crm.Views.LanguageOptions.UsageWidget', [_RelatedViewWidgetBase3.default], {
     // Localization
     regionText: resource.regionText,
     languageText: resource.languageText,
@@ -54,37 +54,39 @@ define('crm/Views/LanguageOptions/UsageWidget', ['module', 'exports', 'dojo/_bas
     cls: 'related-language-usage-widget',
     relatedContentTemplate: new Simplate(['<div class="language-usage">', '<span data-dojo-attach-point="_languageNode" ></span>', '<span data-dojo-attach-point="_regionThanNode" ></span>', '</div>']),
     onInit: function onInit() {
+      var _this = this;
+
       this.languageService = new _LanguageService2.default();
       this.onLoad();
       if (this.owner) {
-        _aspect2.default.after(this.owner, 'show', () => {
-          this.onRefreshView();
+        _aspect2.default.after(this.owner, 'show', function () {
+          _this.onRefreshView();
         });
 
-        _aspect2.default.after(this.owner, 'save', () => {
-          this.onSave();
+        _aspect2.default.after(this.owner, 'save', function () {
+          _this.onSave();
         });
       }
     },
     onLoad: function onLoad() {
-      const language = this.languageService.getLanguage('language');
-      const region = this.languageService.getRegion('region');
+      var language = this.languageService.getLanguage('language');
+      var region = this.languageService.getRegion('region');
       this.initUI(language || 'en', region || 'en');
     },
     initUI: function initUI(lang, region) {
-      const dropDownMap = key => {
+      var dropDownMap = function dropDownMap(key) {
         return {
           value: key,
           text: window.languages[key],
-          key
+          key: key
         };
       };
 
-      const locales = Object.keys(window.languages).filter(key => {
+      var locales = Object.keys(window.languages).filter(function (key) {
         return window.localeContext.supportedLocales.indexOf(key) > -1;
       }).map(dropDownMap);
 
-      const regions = Object.keys(window.languages).filter(key => {
+      var regions = Object.keys(window.languages).filter(function (key) {
         return window.regionalContext.supportedLocales.indexOf(key) > -1;
       }).map(dropDownMap);
 
@@ -141,8 +143,8 @@ define('crm/Views/LanguageOptions/UsageWidget', ['module', 'exports', 'dojo/_bas
       this.inherited(destroy, arguments);
     },
     onSave: function onSave() {
-      const language = this._languageDropdown.getValue();
-      const region = this._regionDropdown.getValue();
+      var language = this._languageDropdown.getValue();
+      var region = this._regionDropdown.getValue();
 
       try {
         this.languageService.setLanguage(language);
@@ -159,7 +161,7 @@ define('crm/Views/LanguageOptions/UsageWidget', ['module', 'exports', 'dojo/_bas
       }
     }
   });
-  const rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager2.default();
   rvm.registerType('languageUsageWidget', __class);
   exports.default = __class;
   module.exports = exports['default'];

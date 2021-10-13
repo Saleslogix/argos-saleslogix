@@ -35,10 +35,10 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
   /**
   * @module crm/GroupUtility
   */
-  const dtFormatResource = (0, _I18n2.default)('groupUtilityDateTimeFormat');
+  var dtFormatResource = (0, _I18n2.default)('groupUtilityDateTimeFormat');
 
   function _createGroupRequest(o) {
-    const defaultOptions = {
+    var defaultOptions = {
       connection: App.getService(false),
       groupId: '',
       resourceKind: 'groups',
@@ -47,15 +47,15 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       queryArgs: null
     };
 
-    const options = _lang2.default.mixin(defaultOptions, o);
+    var options = _lang2.default.mixin(defaultOptions, o);
 
-    const request = new Sage.SData.Client.SDataNamedQueryRequest(options.connection);
+    var request = new Sage.SData.Client.SDataNamedQueryRequest(options.connection);
     request.setQueryName(options.queryName);
     request.setResourceKind(options.resourceKind);
     request.setContractName(options.contractName);
-    request.getUri().setCollectionPredicate(`'${options.groupId}'`);
+    request.getUri().setCollectionPredicate('\'' + options.groupId + '\'');
 
-    for (const arg in options.queryArgs) {
+    for (var arg in options.queryArgs) {
       if (options.queryArgs.hasOwnProperty(arg)) {
         request.setQueryArg(arg, options.queryArgs[arg]);
       }
@@ -69,7 +69,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
    * @alias module:crm/GroupUtility
    * @singleton
    */
-  const __class = _lang2.default.setObject('crm.GroupUtility', /** @lends module:crm/GroupUtility */{
+  var __class = _lang2.default.setObject('crm.GroupUtility', /** @lends module:crm/GroupUtility */{
     groupDateFormatText: dtFormatResource.groupDateFormatText,
     groupDateFormatText24: dtFormatResource.groupDateFormatText24,
     /**
@@ -81,7 +81,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
      *
      */
     createGroupRequest: function createGroupRequest(options) {
-      const defaults = {
+      var defaults = {
         queryName: 'execute',
         queryArgs: {
           language: App.getCurrentLocale()
@@ -100,7 +100,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
      *
      */
     createGroupMetricRequest: function createGroupMetricRequest(options) {
-      const defaults = {
+      var defaults = {
         queryName: 'executeMetric',
         queryArgs: {
           language: App.getCurrentLocale()
@@ -182,7 +182,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       },
       formatter: function formatDate(value, formatString, formatOptions) {
         if (typeof value === 'string') {
-          const dateValue = moment(value);
+          var dateValue = moment(value);
           if (dateValue.isValid()) {
             if (formatOptions && formatOptions.useRelative) {
               return _Format2.default.relativeDate(dateValue);
@@ -200,13 +200,13 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
         return layoutItem.format === 'Boolean';
       },
       formatter: function formatBoolean(value) {
-        const truthy = ['T', 't', 'Y', '1', '+'];
+        var truthy = ['T', 't', 'Y', '1', '+'];
 
         return truthy.indexOf(value) === -1 ? _Format4.default.noText : _Format4.default.yesText;
       }
     }],
     transformDateFormatString: function transformDateFormatString(gf, defaultFormat) {
-      let groupFormat = gf;
+      var groupFormat = gf;
       if (groupFormat) {
         groupFormat = groupFormat.replace('MM', 'M');
         groupFormat = groupFormat.replace('mm', 'M');
@@ -253,25 +253,25 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       }
     },
     getFormatterByLayout: function getFormatterByLayout(layoutItem) {
-      let results;
+      var results = void 0;
       if (layoutItem.format && layoutItem.format !== 'None') {
-        results = this.groupFormatters.filter(formatter => {
+        results = this.groupFormatters.filter(function (formatter) {
           return formatter.name === layoutItem.format;
         });
         if (results.length === 0) {
-          results = this.groupFormatters.filter(formatter => {
+          results = this.groupFormatters.filter(function (formatter) {
             return formatter.name === 'None';
           });
         }
       } else {
-        let fieldFormatType = this.formatTypeByField[layoutItem.fieldType];
+        var fieldFormatType = this.formatTypeByField[layoutItem.fieldType];
         if (!fieldFormatType) {
           fieldFormatType = {
             name: 'None',
             formatString: ''
           };
         }
-        results = this.groupFormatters.filter(formatter => {
+        results = this.groupFormatters.filter(function (formatter) {
           return formatter.name === fieldFormatType.name;
         });
       }
@@ -286,7 +286,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
         });
       }
 
-      const fieldFormatter = {
+      var fieldFormatter = {
         name: results[0].name,
         options: results[0].options,
         formatter: results[0].formatter.bind(this)
@@ -300,24 +300,26 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       return fieldFormatter;
     },
     getLayout: function getLayout(group) {
-      let i = 0;
-      const layout = group.layout.filter(item => {
+      var _this = this;
+
+      var i = 0;
+      var layout = group.layout.filter(function (item) {
         item.index = i++;
-        return this.groupFilters.every(filter => {
+        return _this.groupFilters.every(function (filter) {
           return filter(item);
         });
       }, this);
       return layout;
     },
     getColumnNames: function getColumnNames(layout) {
-      const extraSelectColumns = [];
-      const columns = layout.map(item => {
+      var extraSelectColumns = [];
+      var columns = layout.map(function (item) {
         if (item.format === 'PickList Item') {
-          extraSelectColumns.push(`${item.alias}TEXT`);
+          extraSelectColumns.push(item.alias + 'TEXT');
         }
 
         if (item.format === 'User' || item.format === 'Owner') {
-          extraSelectColumns.push(`${item.alias}NAME`);
+          extraSelectColumns.push(item.alias + 'NAME');
         }
 
         return item.alias;
@@ -325,32 +327,32 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       return columns.concat(extraSelectColumns);
     },
     setDefaultGroupPreference: function setDefaultGroupPreference(entityName, groupName) {
-      App.preferences[`default-group-${entityName}-userId-${App.context.user.$key}`] = groupName;
+      App.preferences['default-group-' + entityName + '-userId-' + App.context.user.$key] = groupName;
       App.persistPreferences();
     },
     getDefaultGroupPreference: function getDefaultGroupPreference(entityName) {
-      let defaultGroupName = App.preferences[`default-group-${entityName}-userId-${App.context.user.$key}`];
+      var defaultGroupName = App.preferences['default-group-' + entityName + '-userId-' + App.context.user.$key];
       if (!defaultGroupName) {
         defaultGroupName = this.getDefaultGroupUserPreference(entityName);
       }
       return defaultGroupName;
     },
     getDefaultGroupUserPreference: function getDefaultGroupUserPreference(entityName) {
-      let defaultGroupName = App.context.userOptions[`DefaultGroup:${entityName.toUpperCase()}`];
+      var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
       if (defaultGroupName) {
         defaultGroupName = defaultGroupName.split(':')[1];
       }
       return defaultGroupName;
     },
     getDefaultGroup: function getDefaultGroup(entityName) {
-      const groupList = App.preferences[`groups-${entityName}-userId-${App.context.user.$key}`];
-      let defaultGroup = null;
-      let defaultGroupName = null;
+      var groupList = App.preferences['groups-' + entityName + '-userId-' + App.context.user.$key];
+      var defaultGroup = null;
+      var defaultGroupName = null;
 
       defaultGroupName = this.getDefaultGroupPreference(entityName);
 
       if (groupList && groupList.length > 0) {
-        groupList.forEach(group => {
+        groupList.forEach(function (group) {
           if (group.name === defaultGroupName) {
             defaultGroup = group;
           }
@@ -363,13 +365,13 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       }
     },
     addToGroupPreferences: function addToGroupPreferences(items, entityName, overwrite) {
-      let found;
-      let groupList = this.getGroupPreferences(entityName);
+      var found = void 0;
+      var groupList = this.getGroupPreferences(entityName);
       if (!overwrite && groupList && groupList.length > 0) {
         if (items && items.length > 0) {
-          items.forEach(item => {
+          items.forEach(function (item) {
             found = -1;
-            groupList.forEach((group, i) => {
+            groupList.forEach(function (group, i) {
               if (group.$key === item.$key) {
                 found = i;
               }
@@ -386,14 +388,14 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
         groupList = items;
       }
 
-      App.preferences[`groups-${entityName}-userId-${App.context.user.$key}`] = groupList;
+      App.preferences['groups-' + entityName + '-userId-' + App.context.user.$key] = groupList;
       App.persistPreferences();
     },
     removeGroupPreferences: function removeGroupPreferences(itemKey, entityName) {
-      let found = -1;
-      const groupList = this.getGroupPreferences(entityName);
+      var found = -1;
+      var groupList = this.getGroupPreferences(entityName);
       if (groupList && groupList.length > 0) {
-        groupList.forEach((group, i) => {
+        groupList.forEach(function (group, i) {
           if (group.$key === itemKey) {
             found = i;
           }
@@ -402,12 +404,12 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
 
       if (found > -1) {
         groupList.splice(found, 1);
-        App.preferences[`groups-${entityName}-userId-${App.context.user.$key}`] = groupList;
+        App.preferences['groups-' + entityName + '-userId-' + App.context.user.$key] = groupList;
         App.persistPreferences();
       }
     },
     getGroupPreferences: function getGroupPreferences(entityName) {
-      const groupList = App.preferences[`groups-${entityName}-userId-${App.context.user.$key}`];
+      var groupList = App.preferences['groups-' + entityName + '-userId-' + App.context.user.$key];
       return groupList;
     },
     groupFieldNames: [{
@@ -416,7 +418,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
         return layoutItem.format === 'PickList Item';
       },
       fieldName: function pickListFieldName(layoutItem) {
-        return `${layoutItem.alias.toUpperCase()}TEXT`;
+        return layoutItem.alias.toUpperCase() + 'TEXT';
       }
     }, {
       name: 'OwnerOrUser',
@@ -424,7 +426,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
         return layoutItem.format === 'Owner' || layoutItem.format === 'User';
       },
       fieldName: function ownerOrUserFieldName(layoutItem) {
-        return `${layoutItem.alias.toUpperCase()}NAME`;
+        return layoutItem.alias.toUpperCase() + 'NAME';
       }
     }],
     getFieldNameByLayout: function getFieldNameByLayout(layoutItem) {
@@ -432,7 +434,7 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       // This is usually just the layout item's alias in upper case, however there are some exceptions:
       // Picklist layout items need to select the alias + 'TEXT',
       // Owner and user items need to select the alias + 'NAME'
-      const results = this.groupFieldNames.filter(name => {
+      var results = this.groupFieldNames.filter(function (name) {
         return name.test(layoutItem);
       });
 
@@ -447,10 +449,10 @@ define('crm/GroupUtility', ['module', 'exports', 'dojo/_base/lang', './Format', 
       return results[0].fieldName(layoutItem);
     },
     getSelectedGroupLayoutTemplate: function getSelectedGroupLayoutTemplate(entityName) {
-      return App.preferences[`groups-selected-template-name-${entityName}-userId-${App.context.user.$key}`];
+      return App.preferences['groups-selected-template-name-' + entityName + '-userId-' + App.context.user.$key];
     },
     setSelectedGroupLayoutTemplate: function setSelectedGroupLayoutTemplate(entityName, name) {
-      App.preferences[`groups-selected-template-name-${entityName}-userId-${App.context.user.$key}`] = name;
+      App.preferences['groups-selected-template-name-' + entityName + '-userId-' + App.context.user.$key] = name;
       App.persistPreferences();
     }
   });

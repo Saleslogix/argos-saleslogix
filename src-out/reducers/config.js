@@ -6,7 +6,7 @@ define('crm/reducers/config', ['exports', '../actions/config'], function (export
 
 
   // TODO: Refactor the settings passed into the app to use these instead.
-  const initialConfigState = {
+  var initialConfigState = {
     connections: null,
     endpoint: '',
     maxUploadFileSize: 40000000,
@@ -35,8 +35,14 @@ define('crm/reducers/config', ['exports', '../actions/config'], function (export
       * limitations under the License.
       */
 
-  function config(state = initialConfigState, action) {
-    const { type, payload, error, meta } = action; // eslint-disable-line
+  function config() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialConfigState;
+    var action = arguments[1];
+    var type = action.type,
+        payload = action.payload,
+        error = action.error,
+        meta = action.meta;
+    // eslint-disable-line
     switch (type) {
       case _config.SET_CONFIG:
         return Object.assign({}, state, payload.config);

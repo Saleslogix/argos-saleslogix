@@ -25,22 +25,22 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     };
   }
 
-  const resource = (0, _I18n2.default)('speedSearchList'); /* Copyright 2017 Infor
-                                                            *
-                                                            * Licensed under the Apache License, Version 2.0 (the "License");
-                                                            * you may not use this file except in compliance with the License.
-                                                            * You may obtain a copy of the License at
-                                                            *
-                                                            *    http://www.apache.org/licenses/LICENSE-2.0
-                                                            *
-                                                            * Unless required by applicable law or agreed to in writing, software
-                                                            * distributed under the License is distributed on an "AS IS" BASIS,
-                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                            * See the License for the specific language governing permissions and
-                                                            * limitations under the License.
-                                                            */
+  var resource = (0, _I18n2.default)('speedSearchList'); /* Copyright 2017 Infor
+                                                          *
+                                                          * Licensed under the Apache License, Version 2.0 (the "License");
+                                                          * you may not use this file except in compliance with the License.
+                                                          * You may obtain a copy of the License at
+                                                          *
+                                                          *    http://www.apache.org/licenses/LICENSE-2.0
+                                                          *
+                                                          * Unless required by applicable law or agreed to in writing, software
+                                                          * distributed under the License is distributed on an "AS IS" BASIS,
+                                                          * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                          * See the License for the specific language governing permissions and
+                                                          * limitations under the License.
+                                                          */
 
-  const __class = (0, _declare2.default)('crm.Views.SpeedSearchList', [_List2.default, _LegacySDataListMixin3.default, _SpeedSearchRightDrawerListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.SpeedSearchList', [_List2.default, _LegacySDataListMixin3.default, _SpeedSearchRightDrawerListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text"><strong>{%: $.$heading %}</strong></p>', '{%! $$.fieldTemplate %}']),
 
@@ -115,9 +115,9 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     },
     _formatFieldName: function _formatFieldName() {},
     getItemIconClass: function getItemIconClass(entry) {
-      const type = entry && entry.type;
-      const typeCls = this.itemIconByType[type];
-      let cls = this.itemIconClass;
+      var type = entry && entry.type;
+      var typeCls = this.itemIconByType[type];
+      var cls = this.itemIconClass;
       if (typeCls) {
         cls = typeCls;
       }
@@ -125,7 +125,7 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       return cls;
     },
     extractTypeFromItem: function extractTypeFromItem(item) {
-      for (let i = 0; i < this.types.length; i++) {
+      for (var i = 0; i < this.types.length; i++) {
         if (item.source.indexOf(this.types[i]) !== -1) {
           return this.types[i];
         }
@@ -134,8 +134,8 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       return null;
     },
     extractDescriptorFromItem: function extractDescriptorFromItem(item) {
-      let descriptor = item && item.uiDisplayName;
-      let rest;
+      var descriptor = item && item.uiDisplayName;
+      var rest = void 0;
 
       if (descriptor) {
         descriptor = descriptor.split(':');
@@ -146,12 +146,12 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     },
     extractKeyFromItem: function extractKeyFromItem(item) {
       // Extract the entityId from the display name, which is the last 12 characters
-      const displayName = item.displayName;
+      var displayName = item.displayName;
       if (!displayName) {
         return '';
       }
 
-      const len = displayName.length;
+      var len = displayName.length;
       return displayName.substring(len - 12);
     },
     more: function more() {
@@ -159,12 +159,12 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       this.inherited(more, arguments);
     },
     hasMoreData: function hasMoreData() {
-      const total = this.feed.totalCount;
-      const count = (this.currentPage + 1) * this.pageSize;
+      var total = this.feed.totalCount;
+      var count = (this.currentPage + 1) * this.pageSize;
       return count < total;
     },
     processFeed: function processFeed(_feed) {
-      let feed = _feed;
+      var feed = _feed;
       if (!this.feed) {
         this.set('listContent', '');
       }
@@ -178,10 +178,10 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       if (feed.totalCount === 0) {
         this.set('listContent', this.noDataTemplate.apply(this));
       } else if (feed.items) {
-        const docfrag = document.createDocumentFragment();
+        var docfrag = document.createDocumentFragment();
 
-        for (let i = 0; i < feed.items.length; i++) {
-          const entry = feed.items[i];
+        for (var i = 0; i < feed.items.length; i++) {
+          var entry = feed.items[i];
           entry.type = this.extractTypeFromItem(entry);
           entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
           entry.$key = this.extractKeyFromItem(entry);
@@ -190,7 +190,7 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
           entry.fields = entry.fields.filter(filter);
 
           this.entries[entry.$key] = entry;
-          const rowNode = $(this.rowTemplate.apply(entry, this));
+          var rowNode = $(this.rowTemplate.apply(entry, this));
           docfrag.appendChild(rowNode.get(0));
           this.onApplyRowTemplate(entry, rowNode);
         }
@@ -201,19 +201,19 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       }
 
       if (typeof feed.totalCount !== 'undefined') {
-        const remaining = this.feed.totalCount - (this.currentPage + 1) * this.pageSize;
+        var remaining = this.feed.totalCount - (this.currentPage + 1) * this.pageSize;
         this.set('remainingContent', _string2.default.substitute(this.remainingText, [remaining]));
       }
 
       $(this.domNode).toggleClass('list-has-more', this.hasMoreData());
     },
     createRequest: function createRequest() {
-      const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setContractName('system').setOperationName('executeSearch');
+      var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setContractName('system').setOperationName('executeSearch');
       return request;
     },
     createSearchEntry: function createSearchEntry() {
       this.appStore.dispatch((0, _speedsearch.setSearchTerm)(this.query));
-      const entry = {
+      var entry = {
         request: {
           docTextItem: -1,
           searchText: this.query,
@@ -234,10 +234,10 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       return entry;
     },
     getActiveIndexes: function getActiveIndexes() {
-      const results = [];
-      const self = this;
-      this.activeIndexes.forEach(indexName => {
-        self.indexes.forEach(index => {
+      var results = [];
+      var self = this;
+      this.activeIndexes.forEach(function (indexName) {
+        self.indexes.forEach(function (index) {
           if (index.indexName === indexName) {
             results.push(index);
           }
@@ -249,8 +249,8 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
     requestData: function requestData() {
       $(this.domNode).addClass('list-loading');
 
-      const request = this.createRequest();
-      const entry = this.createSearchEntry();
+      var request = this.createRequest();
+      var entry = this.createSearchEntry();
 
       request.execute(entry, {
         success: _lang2.default.hitch(this, this.onRequestDataSuccess),
@@ -258,11 +258,11 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       });
     },
     navigateToDetailView: function navigateToDetailView(key, type) {
-      const view = App.getView(`${type.toLowerCase()}_detail`);
+      var view = App.getView(type.toLowerCase() + '_detail');
 
       if (view) {
         view.show({
-          key
+          key: key
         });
       }
     },
@@ -278,23 +278,23 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       return entry.type;
     },
     _intSearchExpressionNode: function _intSearchExpressionNode() {
-      const listNode = $(`#${this.id}`);
+      var listNode = $('#' + this.id);
       if (listNode[0]) {
-        const html = this.searchExpressionTemplate.apply(this);
+        var html = this.searchExpressionTemplate.apply(this);
         $(listNode[0]).prepend(html);
       }
     },
     _isIndexActive: function _isIndexActive(indexName) {
-      let indexFound = false;
+      var indexFound = false;
       if (this.activeIndexes.indexOf(indexName) > -1) {
         indexFound = true;
       }
       return indexFound;
     },
     selectIndex: function selectIndex(e) {
-      const button = e.$source;
-      const indexName = $(button).attr('data-index');
-      const activated = this.activateIndex(indexName);
+      var button = e.$source;
+      var indexName = $(button).attr('data-index');
+      var activated = this.activateIndex(indexName);
       if (activated) {
         $(button).addClass('card-layout-speed-search-index-selected');
       } else {
@@ -302,15 +302,15 @@ define('crm/Views/SpeedSearchList', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     activateIndex: function activateIndex(indexName) {
-      const tempActiveIndex = [];
-      let indexFound = false;
-      let activated = false;
+      var tempActiveIndex = [];
+      var indexFound = false;
+      var activated = false;
 
       if (this.activeIndexes.indexOf(indexName) > -1) {
         indexFound = true;
       }
       if (indexFound) {
-        this.activeIndexes.forEach(aIndexName => {
+        this.activeIndexes.forEach(function (aIndexName) {
           if (aIndexName !== indexName) {
             tempActiveIndex.push(aIndexName);
           }

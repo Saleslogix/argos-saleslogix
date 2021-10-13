@@ -36,10 +36,10 @@ define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'd
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('errorLogList');
-  const dtFormatResource = (0, _I18n2.default)('errorLogListDateTimeFormat');
+  var resource = (0, _I18n2.default)('errorLogList');
+  var dtFormatResource = (0, _I18n2.default)('errorLogListDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.ErrorLog.List', [_ListBase2.default], {
+  var __class = (0, _declare2.default)('crm.Views.ErrorLog.List', [_ListBase2.default], {
     // Localization
     titleText: resource.titleText,
     errorDateFormatText: dtFormatResource.errorDateFormatText,
@@ -65,15 +65,15 @@ define('crm/Views/ErrorLog/List', ['module', 'exports', 'dojo/_base/declare', 'd
       }
     },
     createStore: function createStore() {
-      const errorItems = _ErrorManager2.default.getAllErrors();
+      var errorItems = _ErrorManager2.default.getAllErrors();
 
-      errorItems.sort((a, b) => {
+      errorItems.sort(function (a, b) {
         a.errorDateStamp = a.errorDateStamp || a.Date;
         b.errorDateStamp = b.errorDateStamp || b.Date;
         a.Date = a.errorDateStamp;
         b.Date = b.errorDateStamp;
-        const A = _Convert2.default.toDateFromString(a.errorDateStamp);
-        const B = _Convert2.default.toDateFromString(b.errorDateStamp);
+        var A = _Convert2.default.toDateFromString(a.errorDateStamp);
+        var B = _Convert2.default.toDateFromString(b.errorDateStamp);
 
         return A.valueOf() > B.valueOf();
       });

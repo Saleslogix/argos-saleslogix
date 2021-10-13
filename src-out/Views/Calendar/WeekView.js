@@ -57,10 +57,10 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('calendarWeekView');
-  const dtFormatResource = (0, _I18n2.default)('calendarWeekViewDateTimeFormat');
+  var resource = (0, _I18n2.default)('calendarWeekView');
+  var dtFormatResource = (0, _I18n2.default)('calendarWeekViewDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Calendar.WeekView', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Calendar.WeekView', [_List2.default, _LegacySDataListMixin3.default], {
     // Localization
     titleText: resource.titleText,
     weekTitleFormatText: dtFormatResource.weekTitleFormatText,
@@ -162,12 +162,12 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.currentDate = this.todayDate.clone();
     },
     toggleGroup: function toggleGroup(params) {
-      const node = params.$source;
+      var node = params.$source;
       if (node && node.parentNode) {
         $(node).toggleClass('collapsed');
         $(node.parentNode).toggleClass('collapsed-event');
 
-        const button = this.collapseButton;
+        var button = this.collapseButton;
 
         if (button) {
           $(button).toggleClass(this.toggleCollapseClass);
@@ -204,16 +204,16 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.refresh();
     },
     setWeekQuery: function setWeekQuery() {
-      const setDate = this.currentDate || this.todayDate;
+      var setDate = this.currentDate || this.todayDate;
       this.weekStartDate = this.getStartDay(setDate);
       this.weekEndDate = this.getEndDay(setDate);
       this.queryWhere = _string2.default.substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate between @${3}@ and @${4}@))'].join(''), [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(this.weekStartDate.toDate()), _Convert2.default.toIsoStringFromDate(this.weekEndDate.toDate()), this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'), this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     setWeekTitle: function setWeekTitle() {
-      const start = this.getStartDay(this.currentDate);
-      const end = this.getEndDay(this.currentDate);
+      var start = this.getStartDay(this.currentDate);
+      var end = this.getEndDay(this.currentDate);
 
-      this.set('dateContent', `${start.format(this.weekTitleFormatText)}-${end.format(this.weekTitleFormatText)}`);
+      this.set('dateContent', start.format(this.weekTitleFormatText) + '-' + end.format(this.weekTitleFormatText));
     },
     isInCurrentWeek: function isInCurrentWeek(date) {
       return date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf();
@@ -221,12 +221,12 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
     processFeed: function processFeed(feed) {
       this.feed = feed;
 
-      const todayNode = this.addTodayDom();
-      const entryGroups = this.entryGroups;
-      const feedLength = feed.$resources.length;
-      const entryOrder = [];
-      const dateCompareString = 'YYYY-MM-DD';
-      const o = [];
+      var todayNode = this.addTodayDom();
+      var entryGroups = this.entryGroups;
+      var feedLength = feed.$resources.length;
+      var entryOrder = [];
+      var dateCompareString = 'YYYY-MM-DD';
+      var o = [];
       this.set('listContent', '');
 
       // If we fetched a page that has no data due to un-reliable counts,
@@ -238,9 +238,9 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
           entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];
         }
 
-        for (let i = 0; i < feed.$resources.length; i++) {
-          const currentEntry = feed.$resources[i];
-          let startDate = _Convert2.default.toDateFromString(currentEntry.StartDate);
+        for (var i = 0; i < feed.$resources.length; i++) {
+          var currentEntry = feed.$resources[i];
+          var startDate = _Convert2.default.toDateFromString(currentEntry.StartDate);
           if (currentEntry.Timeless) {
             startDate = this.dateToUTC(startDate);
           }
@@ -248,8 +248,8 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
           currentEntry.isEvent = false;
           this.entries[currentEntry.$key] = currentEntry;
 
-          const currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
-          let currentGroup = entryGroups[currentDateCompareKey];
+          var currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
+          var currentGroup = entryGroups[currentDateCompareKey];
           if (currentGroup) {
             if (currentEntry.Timeless) {
               currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
@@ -263,13 +263,13 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
           entryGroups[currentDateCompareKey] = currentGroup;
         }
 
-        for (const entryGroup in entryGroups) {
+        for (var entryGroup in entryGroups) {
           if (entryGroups.hasOwnProperty(entryGroup)) {
             entryOrder.push(moment(entryGroup, dateCompareString));
           }
         }
 
-        entryOrder.sort((a, b) => {
+        entryOrder.sort(function (a, b) {
           if (a.valueOf() < b.valueOf()) {
             return 1;
           } else if (a.valueOf() > b.valueOf()) {
@@ -279,9 +279,9 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
           return 0;
         });
 
-        const entryOrderLength = entryOrder.length;
-        for (let i = 0; i < entryOrderLength; i++) {
-          o.push(entryGroups[entryOrder[i].format(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
+        var entryOrderLength = entryOrder.length;
+        for (var _i = 0; _i < entryOrderLength; _i++) {
+          o.push(entryGroups[entryOrder[_i].format(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
         }
 
         if (o.length > 0) {
@@ -299,7 +299,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
         return null;
       }
 
-      const todayEntry = {
+      var todayEntry = {
         StartDate: this.todayDate.toDate(),
         headerClass: 'currentDate'
       };
@@ -310,7 +310,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     },
     requestEventData: function requestEventData() {
-      const request = this.createEventRequest();
+      var request = this.createEventRequest();
       request.read({
         success: this.onRequestEventDataSuccess,
         failure: this.onRequestEventDataFailure,
@@ -329,14 +329,14 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.processEventFeed(feed);
     },
     createEventRequest: function createEventRequest() {
-      const querySelect = this.eventQuerySelect;
-      const queryWhere = this.getEventQuery();
-      const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.eventPageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+      var querySelect = this.eventQuerySelect;
+      var queryWhere = this.getEventQuery();
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setCount(this.eventPageSize).setStartIndex(1).setResourceKind('events').setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(',')).setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
       return request;
     },
     getEventQuery: function getEventQuery() {
-      const startDate = this.weekStartDate;
-      const endDate = this.weekEndDate;
+      var startDate = this.weekStartDate;
+      var endDate = this.weekEndDate;
       return _string2.default.substitute(['UserId eq "${0}" and (', '(StartDate gt @${1}@ or EndDate gt @${1}@) and ', 'StartDate lt @${2}@', ')'].join(''), [App.context.user && App.context.user.$key, startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     hideEventList: function hideEventList() {
@@ -346,8 +346,8 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       $(this.eventContainerNode).removeClass('event-hidden');
     },
     processEventFeed: function processEventFeed(feed) {
-      const o = [];
-      const feedLength = feed.$resources.length;
+      var o = [];
+      var feedLength = feed.$resources.length;
 
       if (feedLength === 0) {
         this.hideEventList();
@@ -356,8 +356,8 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
 
       this.showEventList();
 
-      for (let i = 0; i < feedLength; i++) {
-        const event = feed.$resources[i];
+      for (var i = 0; i < feedLength; i++) {
+        var event = feed.$resources[i];
         event.isEvent = true;
         event.StartDate = moment(_Convert2.default.toDateFromString(event.StartDate));
         event.EndDate = moment(_Convert2.default.toDateFromString(event.EndDate));
@@ -376,7 +376,7 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.set('eventListContent', o.join(''));
     },
     refresh: function refresh() {
-      const startDate = this.currentDate.clone();
+      var startDate = this.currentDate.clone();
       this.currentDate = startDate.clone();
       this.weekStartDate = this.getStartDay(startDate);
       this.weekEndDate = this.getEndDay(startDate);
@@ -401,11 +401,11 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       }
     },
     activateEventMore: function activateEventMore() {
-      const view = App.getView('event_related');
-      const where = this.getEventQuery();
+      var view = App.getView('event_related');
+      var where = this.getEventQuery();
       if (view) {
         view.show({
-          where
+          where: where
         });
       }
     },
@@ -416,13 +416,13 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       this.set('listContent', this.loadingTemplate.apply(this));
     },
     selectEntry: function selectEntry(params) {
-      const row = $(params.$source).closest('[data-key]')[0];
-      const key = row ? row.getAttribute('data-key') : false;
+      var row = $(params.$source).closest('[data-key]')[0];
+      var key = row ? row.getAttribute('data-key') : false;
 
       this.navigateToDetailView(key);
     },
     selectDate: function selectDate() {
-      const options = {
+      var options = {
         date: this.currentDate.toDate(),
         showTimePicker: false,
         timeless: false,
@@ -441,33 +441,33 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
           }]
         }
       };
-      const view = App.getView(this.datePickerView);
+      var view = App.getView(this.datePickerView);
       if (view) {
         view.show(options);
       }
     },
     selectDateSuccess: function selectDateSuccess() {
-      const view = App.getPrimaryActiveView();
+      var view = App.getPrimaryActiveView();
       this.currentDate = moment(view.getDateTime()).startOf('day');
       this.refresh();
       ReUI.back();
     },
     navigateToDayView: function navigateToDayView() {
-      const view = App.getView(this.activityListView);
-      const options = {
+      var view = App.getView(this.activityListView);
+      var options = {
         currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()
       };
       view.show(options);
     },
     navigateToMonthView: function navigateToMonthView() {
-      const view = App.getView(this.monthView);
-      const options = {
+      var view = App.getView(this.monthView);
+      var options = {
         currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()
       };
       view.show(options);
     },
     navigateToInsertView: function navigateToInsertView() {
-      const view = App.getView(this.insertView || this.editView);
+      var view = App.getView(this.insertView || this.editView);
 
       this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || moment().startOf('day');
       if (view) {
@@ -480,16 +480,16 @@ define('crm/Views/Calendar/WeekView', ['module', 'exports', 'dojo/_base/declare'
       }
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor) {
-      const entry = this.entries[key];
-      const detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
-      const view = App.getView(detailView);
+      var entry = this.entries[key];
+      var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
+      var view = App.getView(detailView);
 
-      const theDescriptor = entry.isEvent ? descriptor : entry.Description;
+      var theDescriptor = entry.isEvent ? descriptor : entry.Description;
 
       if (view) {
         view.show({
           title: theDescriptor,
-          key
+          key: key
         });
       }
     }

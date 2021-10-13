@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('openDashboardWidget');
+  var resource = (0, _I18n2.default)('openDashboardWidget');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.OpenDashboardWidget', [_DashboardWidget2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.OpenDashboardWidget', [_DashboardWidget2.default], {
     // Localization
     openSalesOrdersText: resource.openSalesOrdersText,
     openQuotesText: resource.openQuotesText,
@@ -119,11 +119,11 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     resourceKind: 'accounts',
     querySelect: ['AccountName'],
     getWhere: function getWhere() {
-      return `Id eq '${this.parentEntry.$key}'`;
+      return 'Id eq \'' + this.parentEntry.$key + '\'';
     },
     // Creates the range widgets, value can have valueUnit to apply next to the number
     createRangeLayout: function createRangeLayout() {
-      const rangeLayout = [{
+      var rangeLayout = [{
         value: 0,
         valueUnit: '+'
       }, {
@@ -144,7 +144,7 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     createMetricLayout: function createMetricLayout(entry) {
       this.setQueryArgs(entry);
 
-      const metricLayout = [{
+      var metricLayout = [{
         navTo: 'account_openquotes_related',
         formatter: 'bigNumber',
         formatterModule: _Format2.default,
@@ -173,21 +173,21 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
       this.queryArgs = [];
 
       this.queryArgs.push(['quotes', {
-        _activeFilter: `Account.Id eq "${entry.$key}" and ` + '(' + '(' + '(ErpExtId ne null) and ' + `(ErpStatus eq "${this.openCode}"` + ` or ErpStatus eq "${this.pendingCode}"` + ` or ErpStatus eq "${this.approvedCode}"` + `) and (${this.pastDays('DocumentDate')})` + ')' + ' or ' + '(' + '(ErpExtId eq null) and ' + `(Status eq "${this.newText}"` + ` or Status eq "${this.openText}"` + ` or Status eq "${this.approvedText}"` + ` or Status eq "${this.pendingText}"` + ` or Status eq "${this.awardedText}"` + `) and (${this.pastDays('StartDate')})` + ')' + ')',
+        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + '(' + '(' + '(ErpExtId ne null) and ' + ('(ErpStatus eq "' + this.openCode + '"') + (' or ErpStatus eq "' + this.pendingCode + '"') + (' or ErpStatus eq "' + this.approvedCode + '"') + (') and (' + this.pastDays('DocumentDate') + ')') + ')' + ' or ' + '(' + '(ErpExtId eq null) and ' + ('(Status eq "' + this.newText + '"') + (' or Status eq "' + this.openText + '"') + (' or Status eq "' + this.approvedText + '"') + (' or Status eq "' + this.pendingText + '"') + (' or Status eq "' + this.awardedText + '"') + (') and (' + this.pastDays('StartDate') + ')') + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }], ['erpInvoices', {
-        _activeFilter: `Account.Id eq "${entry.$key}" and ` + '(' + `(ErpStatus eq "${this.openCode}"` + ` or ErpStatus eq "${this.partialPaidCode}"` + ` or ErpStatus eq "${this.disputeCode}"` + ')' + `) and ${this.pastDays('ErpDocumentDate')}`,
+        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + '(' + ('(ErpStatus eq "' + this.openCode + '"') + (' or ErpStatus eq "' + this.partialPaidCode + '"') + (' or ErpStatus eq "' + this.disputeCode + '"') + ')' + (') and ' + this.pastDays('ErpDocumentDate')),
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal'
       }], ['salesOrders', {
-        _activeFilter: `Account.Id eq "${entry.$key}" and ` + '(' + '(' + '(ErpExtId ne null) and ' + '(' + `(ERPSalesOrder.ERPStatus eq "${this.openCode}"` + ` or ERPSalesOrder.ERPStatus eq "${this.holdCode}"` + ` or ERPSalesOrder.ERPStatus eq "${this.partialShipCode}"` + ` or ERPSalesOrder.ERPStatus eq "${this.approvedCode}"` + `) and ${this.pastDays('ErpDocumentDate') // ' and ' +
+        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + '(' + '(' + '(ErpExtId ne null) and ' + '(' + ('(ERPSalesOrder.ERPStatus eq "' + this.openCode + '"') + (' or ERPSalesOrder.ERPStatus eq "' + this.holdCode + '"') + (' or ERPSalesOrder.ERPStatus eq "' + this.partialShipCode + '"') + (' or ERPSalesOrder.ERPStatus eq "' + this.approvedCode + '"') + (') and ' + this.pastDays('ErpDocumentDate') // ' and ' +
         // '(SalesOrderItems.ErpStatus eq "' + this.openCode + '"' + // This does not work since it creates a cartesion duplicate result for each line
         //    ' or SalesOrderItems.ErpStatus eq "' + this.partialShipCode + '"' +
         //    ' or SalesOrderItems.ErpStatus eq "' + this.holdCode + '"' +
         //  ') and ' +
         //  this.pastDays('SalesOrderItems.ErpRequiredDeliveryDate') +
-        })` + ') or ' + '((ErpExtId eq null) and ' + `(Status eq "${this.openOrderText}"` + ` or Status eq "${this.salesOrderText}"` + ` or Status eq "${this.salesHoldText}"` + ` or Status eq "${this.creditHoldText}"` + ` or Status eq "${this.adminHoldText}"` + ` or Status eq "${this.holdText}"` + ` or Status eq "${this.orderedText}"` + ` or Status eq "${this.partiallyShippedText}"` + ` or Status eq "${this.pendingText}"` + `) and (${this.pastDays('OrderDate')})` + ')' + ')',
+        + ')') + ') or ' + '((ErpExtId eq null) and ' + ('(Status eq "' + this.openOrderText + '"') + (' or Status eq "' + this.salesOrderText + '"') + (' or Status eq "' + this.salesHoldText + '"') + (' or Status eq "' + this.creditHoldText + '"') + (' or Status eq "' + this.adminHoldText + '"') + (' or Status eq "' + this.holdText + '"') + (' or Status eq "' + this.orderedText + '"') + (' or Status eq "' + this.partiallyShippedText + '"') + (' or Status eq "' + this.pendingText + '"') + (') and (' + this.pastDays('OrderDate') + ')') + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }]);
@@ -195,18 +195,18 @@ define('crm/Integrations/BOE/Views/Account/OpenDashboardWidget', ['module', 'exp
     },
     setCountTitles: function setCountTitles() {},
     pastDays: function pastDays(property) {
-      const now = moment();
+      var now = moment();
 
       if (this.dayValue === 0) {
         return '1 eq 1';
       }
-      const pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
+      var pastDay = now.clone().subtract(this.dayValue, 'days').startOf('day');
 
-      const query = `(${property} lt @${_Convert2.default.toIsoStringFromDate(pastDay.toDate())}@ or (${property} lt @${pastDay.format('YYYY-MM-DDT00:00:00[Z]')}@))`;
+      var query = '(' + property + ' lt @' + _Convert2.default.toIsoStringFromDate(pastDay.toDate()) + '@ or (' + property + ' lt @' + pastDay.format('YYYY-MM-DDT00:00:00[Z]') + '@))';
       return query;
     }
   });
-  const rvm = new _RelatedViewManager2.default();
+  var rvm = new _RelatedViewManager2.default();
   rvm.registerType('account_open_dashboard_widget', __class);
   _lang2.default.setObject('icboe.Views.Account.OpenDashboardWidget', __class);
   exports.default = __class;

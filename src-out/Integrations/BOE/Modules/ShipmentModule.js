@@ -36,11 +36,11 @@ define('crm/Integrations/BOE/Modules/ShipmentModule', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ShipmentModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ShipmentModule', [_Module3.default], {
     defaultViews: ['erpshipments_list'],
     init: function init() {},
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerView(new _Detail2.default());
       am.registerView(new _List2.default());
@@ -52,7 +52,7 @@ define('crm/Integrations/BOE/Modules/ShipmentModule', ['module', 'exports', 'doj
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerCustomization('list/tools', 'erpshipments_list', {
         at: function at(tool) {
           return tool.id === 'new';

@@ -36,17 +36,15 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('historyListOffline');
-  const dateResource = (0, _I18n2.default)('historyListOfflineFormat');
+  var resource = (0, _I18n2.default)('historyListOffline');
+  var dateResource = (0, _I18n2.default)('historyListOfflineFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Account.ListOffline', [_ListBase3.default], {
+  var __class = (0, _declare2.default)('crm.Views.Account.ListOffline', [_ListBase3.default], {
     // Localization
     titleText: resource.titleText,
 
     // Templates
-    itemTemplate: new Simplate([`
-    <p>{%: $.Text %}</p>
-  `]),
+    itemTemplate: new Simplate(['\n    <p>{%: $.Text %}</p>\n  ']),
 
     // View Properties
     detailView: 'history_detail_offline',
@@ -65,7 +63,7 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
     labelProperty: 'Text',
     enableActions: true,
     _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
-      queryOptions.filter = entity => {
+      queryOptions.filter = function (entity) {
         return entity && typeof entity.Text === 'string';
       };
 
@@ -76,13 +74,13 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
     },
     getTitle: function getTitle(entry) {
       if (App.is24HourClock()) {
-        return `${_Format2.default.date(entry.$offlineDate, dateResource.dateFormatText24)}`;
+        return '' + _Format2.default.date(entry.$offlineDate, dateResource.dateFormatText24);
       }
 
-      return `${_Format2.default.date(entry.$offlineDate, dateResource.dateFormatText)}`;
+      return '' + _Format2.default.date(entry.$offlineDate, dateResource.dateFormatText);
     },
     getModel: function getModel() {
-      const model = App.ModelManager.getModel(_Names2.default.HISTORY, _Types2.default.OFFLINE);
+      var model = App.ModelManager.getModel(_Names2.default.HISTORY, _Types2.default.OFFLINE);
       return model;
     },
     createActionLayout: function createActionLayout() {
@@ -103,10 +101,10 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
       }]);
     },
     navigateToEditView: function navigateToEditView(action, selection) {
-      const view = this.app.getView(this.editView);
-      const key = selection.data[this.idProperty];
-      const options = {
-        key,
+      var view = this.app.getView(this.editView);
+      var key = selection.data[this.idProperty];
+      var options = {
+        key: key,
         selectedEntry: selection.data,
         fromContext: this,
         insert: true,
@@ -118,9 +116,11 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
       }
     },
     deleteNote: function deleteNote(action, selection) {
-      const selectedEntry = selection && selection.data;
-      this.removeEntry(selectedEntry).then(() => {
-        this.forceRefresh();
+      var _this = this;
+
+      var selectedEntry = selection && selection.data;
+      this.removeEntry(selectedEntry).then(function () {
+        _this.forceRefresh();
       });
     },
     show: function show() {
@@ -128,20 +128,22 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
       this.inherited(show, arguments);
     },
     _onRefresh: function _onRefresh(args) {
+      var _this2 = this;
+
       this.inherited(_onRefresh, arguments);
       if (typeof args === 'undefined' || args === null) {
         return;
       }
 
-      const entry = args.data;
+      var entry = args.data;
       if (typeof entry === 'undefined' || entry == null) {
         return;
       }
 
       if (args.resourceKind === 'history' && typeof args.id === 'undefined' && typeof args.key === 'undefined') {
         entry.UID = args.UID;
-        this.removeEntry(entry).then(() => {
-          this.forceRefresh();
+        this.removeEntry(entry).then(function () {
+          _this2.forceRefresh();
         });
       }
 
@@ -151,7 +153,7 @@ define('crm/Views/History/ListOffline', ['module', 'exports', 'dojo/_base/declar
       }
     },
     removeEntry: function removeEntry(entry) {
-      const model = this.getModel();
+      var model = this.getModel();
       return model.deleteEntry(entry);
     }
   });

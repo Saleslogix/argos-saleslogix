@@ -40,10 +40,10 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('ticketActivityEdit');
-  const dtFormatResource = (0, _I18n2.default)('ticketActivityEditDateTimeFormat');
+  var resource = (0, _I18n2.default)('ticketActivityEdit');
+  var dtFormatResource = (0, _I18n2.default)('ticketActivityEditDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.TicketActivity.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.TicketActivity.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,
     activityTypeText: resource.activityTypeText,
@@ -73,9 +73,9 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
       }
     },
     createPicklistRequest: function createPicklistRequest(name) {
-      const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
+      var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
 
-      const uri = request.getUri();
+      var uri = request.getUri();
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate(name);
 
@@ -83,7 +83,7 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
       return request;
     },
     requestCodeData: function requestCodeData(picklistName, code, field) {
-      const request = this.createPicklistRequest(picklistName);
+      var request = this.createPicklistRequest(picklistName);
       request.read({
         success: _lang2.default.hitch(this, this.onRequestCodeDataSuccess, code, field),
         failure: this.onRequestCodeDataFailure,
@@ -91,7 +91,7 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
       });
     },
     onRequestCodeDataSuccess: function onRequestCodeDataSuccess(code, field, feed) {
-      const value = this.processCodeDataFeed(feed, code);
+      var value = this.processCodeDataFeed(feed, code);
       field.setValue(code);
       field.setText(value);
     },
@@ -99,10 +99,10 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
       _ErrorManager2.default.addError(response, o, this.options, 'failure');
     },
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-      const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-      const textProperty = options && options.textProperty ? options.textProperty : 'text';
+      var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+      var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-      for (let i = 0; i < feed.$resources.length; i++) {
+      for (var i = 0; i < feed.$resources.length; i++) {
         if (feed.$resources[i][keyProperty] === currentValue) {
           return feed.$resources[i][textProperty];
         }
@@ -114,10 +114,10 @@ define('crm/Views/TicketActivity/Edit', ['module', 'exports', 'dojo/_base/declar
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
 
-      const ticketContext = App.isNavigationFromResourceKind(['tickets']);
-      const ticketKey = ticketContext && ticketContext.key;
-      const user = App.context.user;
-      const userField = this.fields.User;
+      var ticketContext = App.isNavigationFromResourceKind(['tickets']);
+      var ticketKey = ticketContext && ticketContext.key;
+      var user = App.context.user;
+      var userField = this.fields.User;
 
       if (ticketKey) {
         this.fields.TicketId.setValue(ticketKey);

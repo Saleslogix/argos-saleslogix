@@ -32,20 +32,10 @@ define('crm/Fields/AddressField', ['module', 'exports', 'dojo/_base/declare', 'a
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('addressField');
+  var resource = (0, _I18n2.default)('addressField');
 
-  const control = (0, _declare2.default)('crm.Fields.AddressField', [_EditorField2.default], {
-    widgetTemplate: new Simplate([`<label for="{%= $.name %}">{%: $.label %}</label>
-    <div class="field field-control-wrapper">
-      <button
-        class="button simpleSubHeaderButton field-control-trigger"
-        aria-label="{%: $.lookupLabelText %}">
-        <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
-        </svg>
-      </button>
-      <label data-dojo-attach-point="inputNode"></label>
-    </div>`]),
+  var control = (0, _declare2.default)('crm.Fields.AddressField', [_EditorField2.default], {
+    widgetTemplate: new Simplate(['<label for="{%= $.name %}">{%: $.label %}</label>\n    <div class="field field-control-wrapper">\n      <button\n        class="button simpleSubHeaderButton field-control-trigger"\n        aria-label="{%: $.lookupLabelText %}">\n        <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>\n        </svg>\n      </button>\n      <label data-dojo-attach-point="inputNode"></label>\n    </div>']),
     iconClass: 'quick-edit',
 
     attributeMap: {

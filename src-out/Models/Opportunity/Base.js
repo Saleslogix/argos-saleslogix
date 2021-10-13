@@ -32,12 +32,12 @@ define('crm/Models/Opportunity/Base', ['module', 'exports', 'dojo/_base/declare'
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('opportunityModel');
-  const accountResource = (0, _I18n2.default)('accountModel');
-  const activityResource = (0, _I18n2.default)('activityModel');
-  const historyResource = (0, _I18n2.default)('historyModel');
+  var resource = (0, _I18n2.default)('opportunityModel');
+  var accountResource = (0, _I18n2.default)('accountModel');
+  var activityResource = (0, _I18n2.default)('activityModel');
+  var historyResource = (0, _I18n2.default)('historyModel');
 
-  const __class = (0, _declare2.default)('crm.Models.Opportunity.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Opportunity.Base', [_ModelBase3.default], {
     entityName: 'Opportunity',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
@@ -59,7 +59,7 @@ define('crm/Models/Opportunity/Base', ['module', 'exports', 'dojo/_base/declare'
       }]);
     },
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = [{
+      var rel = this.relationships || (this.relationships = [{
         name: 'Account',
         displayName: accountResource.entityDisplayName,
         type: 'ManyToOne',

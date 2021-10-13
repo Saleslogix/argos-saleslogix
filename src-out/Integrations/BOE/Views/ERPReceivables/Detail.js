@@ -23,22 +23,22 @@ define('crm/Integrations/BOE/Views/ERPReceivables/Detail', ['module', 'exports',
     };
   }
 
-  const resource = (0, _I18n2.default)('erpReceivablesDetail'); /* Copyright 2017 Infor
-                                                                 *
-                                                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                 * you may not use this file except in compliance with the License.
-                                                                 * You may obtain a copy of the License at
-                                                                 *
-                                                                 *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                 *
-                                                                 * Unless required by applicable law or agreed to in writing, software
-                                                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                 * See the License for the specific language governing permissions and
-                                                                 * limitations under the License.
-                                                                 */
+  var resource = (0, _I18n2.default)('erpReceivablesDetail'); /* Copyright 2017 Infor
+                                                               *
+                                                               * Licensed under the Apache License, Version 2.0 (the "License");
+                                                               * you may not use this file except in compliance with the License.
+                                                               * You may obtain a copy of the License at
+                                                               *
+                                                               *    http://www.apache.org/licenses/LICENSE-2.0
+                                                               *
+                                                               * Unless required by applicable law or agreed to in writing, software
+                                                               * distributed under the License is distributed on an "AS IS" BASIS,
+                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                               * See the License for the specific language governing permissions and
+                                                               * limitations under the License.
+                                                               */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivables.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivables.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     receivablesIdText: resource.receivablesIdText,
@@ -68,10 +68,12 @@ define('crm/Integrations/BOE/Views/ERPReceivables/Detail', ['module', 'exports',
     enableOffline: true,
     _sdataProps: ['$key', '$url', '$uuid', '$lookup'],
     _hasNonEmptyAddress: function _hasNonEmptyAddress(address) {
-      let keys;
+      var _this = this;
+
+      var keys = void 0;
       if (address) {
-        keys = Object.keys(address).filter(key => {
-          return this._sdataProps.indexOf(key) === -1;
+        keys = Object.keys(address).filter(function (key) {
+          return _this._sdataProps.indexOf(key) === -1;
         });
       }
 
@@ -83,6 +85,8 @@ define('crm/Integrations/BOE/Views/ERPReceivables/Detail', ['module', 'exports',
       }
     },
     createLayout: function createLayout() {
+      var _this2 = this;
+
       return this.layout || (this.layout = [{
         title: this.detailsText,
         name: 'DetailsSection',
@@ -106,29 +110,29 @@ define('crm/Integrations/BOE/Views/ERPReceivables/Detail', ['module', 'exports',
           name: 'ReceivableBaseAmount',
           property: 'ReceivableBaseAmount',
           label: this.receivableBaseAmountText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this2.entry.BaseCurrencyCode);
           }
         }, {
           name: 'ReceivableAmount',
           property: 'ReceivableAmount',
           label: this.receivableAmountText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this2.entry.CurrencyCode);
           }
         }, {
           name: 'ReceivedBaseAmount',
           property: 'ReceivedBaseAmount',
           label: this.receivedBaseAmountText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this2.entry.BaseCurrencyCode);
           }
         }, {
           name: 'ReceivedAmount',
           property: 'ReceivedAmount',
           label: this.receivedAmountText,
-          renderer: value => {
-            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this2.entry.CurrencyCode);
           }
         }, {
           name: 'ErpStatus',
@@ -186,7 +190,7 @@ define('crm/Integrations/BOE/Views/ERPReceivables/Detail', ['module', 'exports',
           name: 'ERPReceivableItems',
           label: this.receivableItemsText,
           where: function where(entry) {
-            return `ErpReceivable.Id eq "${entry.$key}"`;
+            return 'ErpReceivable.Id eq "' + entry.$key + '"';
           },
           view: 'erpreceivable_items_related'
         }]

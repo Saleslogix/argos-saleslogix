@@ -15,40 +15,24 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
     };
   }
 
-  const resource = (0, _I18n2.default)('login'); /* Copyright 2017 Infor
-                                                  *
-                                                  * Licensed under the Apache License, Version 2.0 (the "License");
-                                                  * you may not use this file except in compliance with the License.
-                                                  * You may obtain a copy of the License at
-                                                  *
-                                                  *    http://www.apache.org/licenses/LICENSE-2.0
-                                                  *
-                                                  * Unless required by applicable law or agreed to in writing, software
-                                                  * distributed under the License is distributed on an "AS IS" BASIS,
-                                                  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                  * See the License for the specific language governing permissions and
-                                                  * limitations under the License.
-                                                  */
+  var resource = (0, _I18n2.default)('login'); /* Copyright 2017 Infor
+                                                *
+                                                * Licensed under the Apache License, Version 2.0 (the "License");
+                                                * you may not use this file except in compliance with the License.
+                                                * You may obtain a copy of the License at
+                                                *
+                                                *    http://www.apache.org/licenses/LICENSE-2.0
+                                                *
+                                                * Unless required by applicable law or agreed to in writing, software
+                                                * distributed under the License is distributed on an "AS IS" BASIS,
+                                                * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                * See the License for the specific language governing permissions and
+                                                * limitations under the License.
+                                                */
 
-  const __class = (0, _declare2.default)('crm.Views.Login', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Login', [_Edit2.default], {
     // Templates
-    widgetTemplate: new Simplate([`
-      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">
-        <div class="wrapper">
-          <section class="signin" role="main">
-            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
-            </svg>
-            <h1>Infor CRM SLX</h1>
-            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">
-            </div>
-            <div class="login-button-container">
-              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>
-            </div>
-          </section>
-        </div>
-      </div>
-    `]),
+    widgetTemplate: new Simplate(['\n      <div id="{%= $.id %}" data-title="{%: $.titleText %}" class="view">\n        <div class="wrapper">\n          <section class="signin" role="main">\n            <svg viewBox="0 0 34 34" class="icon icon-logo" focusable="false" aria-hidden="true" role="presentation" aria-label="Infor Logo">\n              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>\n            </svg>\n            <h1>Infor CRM SLX</h1>\n            <div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode">\n            </div>\n            <div class="login-button-container">\n              <button data-dojo-attach-point="loginButton" class="btn-primary hide-focus" data-action="authenticate">{%: $.logOnText %}</button>\n            </div>\n          </section>\n        </div>\n      </div>\n    ']),
 
     id: 'login',
     busy: false,
@@ -77,7 +61,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       }
     },
     _onKeyUp: function _onKeyUp() {
-      const username = this.fields['username-display'].getValue();
+      var username = this.fields['username-display'].getValue();
       if (username && username.length > 0) {
         $(this.domNode).addClass('login-active');
       } else {
@@ -85,7 +69,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       }
     },
     initSoho: function initSoho() {
-      const header = $('.header', App.getContainerNode());
+      var header = $('.header', App.getContainerNode());
       header.hide();
     },
     show: function show() {
@@ -121,7 +105,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       }
     },
     onShow: function onShow() {
-      const credentials = App.getCredentials();
+      var credentials = App.getCredentials();
 
       if (credentials) {
         App.authenticateUser(credentials, {
@@ -164,9 +148,9 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         return;
       }
 
-      const values = this.getValues(true);
+      var values = this.getValues(true);
 
-      const credentials = {
+      var credentials = {
         username: values['username-display'],
         password: values['password-display'],
         remember: values.remember
@@ -191,14 +175,14 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
       }, {
         name: 'PasswordExpired',
         test: function testExpiredPassword(error) {
-          const xhr = error && error.xhr;
+          var xhr = error && error.xhr;
           if (!xhr) {
             return false;
           }
 
           try {
-            const json = JSON.parse(xhr.responseText)[0];
-            const stackTrace = json.stackTrace || '';
+            var json = JSON.parse(xhr.responseText)[0];
+            var stackTrace = json.stackTrace || '';
             return stackTrace.indexOf('Sage.SalesLogix.User.Rules.IsValidPassword') > -1;
           } catch (_) {
             return false;
@@ -233,7 +217,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
           }
           this.enable();
 
-          const attr = this.domNode.attributes.getNamedItem('selected');
+          var attr = this.domNode.attributes.getNamedItem('selected');
           if (attr) {
             attr.value = 'false';
           }
@@ -241,7 +225,7 @@ define('crm/Views/Login', ['module', 'exports', 'dojo/_base/declare', 'argos/Edi
         },
         failure: function failure(result) {
           this.enable();
-          const error = new Error();
+          var error = new Error();
           error.status = result && result.response && result.response.status;
           error.xhr = result && result.response;
           this.handleError(error);

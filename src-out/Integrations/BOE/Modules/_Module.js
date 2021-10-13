@@ -28,7 +28,7 @@ define('crm/Integrations/BOE/Modules/_Module', ['module', 'exports', 'dojo/_base
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules._Module', null, {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules._Module', null, {
     applicationModule: null,
     defaultViews: null,
     constructor: function constructor(applicationModule) {
@@ -41,8 +41,8 @@ define('crm/Integrations/BOE/Modules/_Module', ['module', 'exports', 'dojo/_base
     loadToolbars: function loadToolbars() {},
     registerDefaultViews: function registerDefaultViews(views) {
       if (this.defaultViews && views) {
-        this.defaultViews.forEach(defaultView => {
-          const idx = views.indexOf(defaultView);
+        this.defaultViews.forEach(function (defaultView) {
+          var idx = views.indexOf(defaultView);
           if (idx === -1) {
             views.push(defaultView);
           }

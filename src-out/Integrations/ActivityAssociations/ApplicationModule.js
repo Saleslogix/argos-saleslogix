@@ -19,22 +19,22 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
     };
   }
 
-  const resource = (0, _I18n2.default)('activityAssociationModule'); /* Copyright 2020 Infor
-                                                                      *
-                                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                      * you may not use this file except in compliance with the License.
-                                                                      * You may obtain a copy of the License at
-                                                                      *
-                                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                      *
-                                                                      * Unless required by applicable law or agreed to in writing, software
-                                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                      * See the License for the specific language governing permissions and
-                                                                      * limitations under the License.
-                                                                      */
+  var resource = (0, _I18n2.default)('activityAssociationModule'); /* Copyright 2020 Infor
+                                                                    *
+                                                                    * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                    * you may not use this file except in compliance with the License.
+                                                                    * You may obtain a copy of the License at
+                                                                    *
+                                                                    *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                    *
+                                                                    * Unless required by applicable law or agreed to in writing, software
+                                                                    * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                    * See the License for the specific language governing permissions and
+                                                                    * limitations under the License.
+                                                                    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.ApplicationModule', [_ApplicationModule2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.ApplicationModule', [_ApplicationModule2.default], {
     hasNewActivityAssociations: function hasNewActivityAssociations() {
       return this.application.context.enableActivityAssociations === true;
     },
@@ -53,6 +53,8 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       }));
     },
     loadCustomizationsDynamic: function loadCustomizations() {
+      var _this = this;
+
       if (!this.hasNewActivityAssociations()) {
         return;
       }
@@ -65,8 +67,8 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
         value: {
           name: 'AssociationRelated',
           label: resource.relatedAssociationText,
-          where: entry => {
-            return `ActivityId eq "${entry.$key}"`;
+          where: function where(entry) {
+            return 'ActivityId eq "' + entry.$key + '"';
           },
           view: 'activity_association_related',
           title: resource.relatedAssociationTitleText
@@ -81,8 +83,8 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
         value: {
           name: 'AssociationRelated',
           label: resource.relatedAssociationText,
-          where: entry => {
-            return `HistoryId eq "${entry.$key}"`;
+          where: function where(entry) {
+            return 'HistoryId eq "' + entry.$key + '"';
           },
           view: 'history_association_related',
           title: resource.relatedHistoryAssociationTitleText
@@ -92,8 +94,10 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       // Remove "for lead" toggle on activity edit, along with company, always show lead lookup
       crm.Views.Activity.Edit.prototype.fieldsForLeads = [];
       crm.Views.Activity.Edit.prototype.fieldsForStandard = [];
-      crm.Views.Activity.Edit.prototype.onLeadChange = () => {};
-      const companyEditAt = row => row.name === 'AccountName' && row.type === 'text';
+      crm.Views.Activity.Edit.prototype.onLeadChange = function () {};
+      var companyEditAt = function companyEditAt(row) {
+        return row.name === 'AccountName' && row.type === 'text';
+      };
       this.registerCustomization('edit', 'activity_edit', {
         at: function at(row) {
           return row.name === 'IsLead';
@@ -114,7 +118,7 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       // Remove "for lead" toggle on activity complete, along with company, always show lead lookup
       crm.Views.Activity.Complete.prototype.fieldsForLeads = [];
       crm.Views.Activity.Complete.prototype.fieldsForStandard = [];
-      crm.Views.Activity.Complete.prototype.onLeadChange = () => {};
+      crm.Views.Activity.Complete.prototype.onLeadChange = function () {};
       this.registerCustomization('edit', 'activity_complete', {
         at: function at(row) {
           return row.name === 'IsLead';
@@ -135,7 +139,7 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       // Remove "for lead" toggle on history edit, along with company, always show lead lookup
       crm.Views.History.Edit.prototype.fieldsForLeads = [];
       crm.Views.History.Edit.prototype.fieldsForStandard = [];
-      crm.Views.History.Edit.prototype.onLeadChange = () => {};
+      crm.Views.History.Edit.prototype.onLeadChange = function () {};
       this.registerCustomization('edit', 'history_edit', {
         at: function at(row) {
           return row.name === 'IsLead';
@@ -154,7 +158,9 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       });
 
       // Remove the "company" field, which is the second AccountName binding
-      const companyAt = row => row.name === 'AccountName' && typeof row.view === 'undefined';
+      var companyAt = function companyAt(row) {
+        return row.name === 'AccountName' && typeof row.view === 'undefined';
+      };
       this.registerCustomization('detail', 'activity_detail', {
         at: companyAt,
         type: 'remove'
@@ -165,18 +171,20 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
         type: 'remove'
       });
 
-      const removeExcludedProperty = ['AccountName', 'ContactName', 'OpportunityName', 'TicketNumber'];
-      removeExcludedProperty.forEach(prop => {
-        const at = row => row.name === prop;
-        this.registerCustomization('detail', 'activity_detail', {
-          at,
+      var removeExcludedProperty = ['AccountName', 'ContactName', 'OpportunityName', 'TicketNumber'];
+      removeExcludedProperty.forEach(function (prop) {
+        var at = function at(row) {
+          return row.name === prop;
+        };
+        _this.registerCustomization('detail', 'activity_detail', {
+          at: at,
           type: 'modify',
           value: {
             exclude: null
           }
         });
-        this.registerCustomization('detail', 'history_detail', {
-          at,
+        _this.registerCustomization('detail', 'history_detail', {
+          at: at,
           type: 'modify',
           value: {
             exclude: null
@@ -185,19 +193,19 @@ define('crm/Integrations/ActivityAssociations/ApplicationModule', ['module', 'ex
       });
     },
     loadAppStatePromises: function loadAppStatePromises() {
-      const app = this.application;
-      this.registerAppStatePromise(() => {
-        return new Promise(resolve => {
+      var app = this.application;
+      this.registerAppStatePromise(function () {
+        return new Promise(function (resolve) {
           // We are going to query the new activityAssociation endpoint to see if it 404 errors.
           // This will tell us what the server supports for activity associations, which started in 8.4.0.4
-          const request = new Sage.SData.Client.SDataResourceCollectionRequest(app.getService()).setContractName('dynamic').setResourceKind('activityAssociations').setQueryArg('select', '$key').setQueryArg('count', 1);
+          var request = new Sage.SData.Client.SDataResourceCollectionRequest(app.getService()).setContractName('dynamic').setResourceKind('activityAssociations').setQueryArg('select', '$key').setQueryArg('count', 1);
 
           request.read({
-            success: () => {
+            success: function success() {
               resolve(true);
               app.context.enableActivityAssociations = true;
             },
-            failure: () => {
+            failure: function failure() {
               resolve(false);
               app.context.enableActivityAssociations = false;
             }

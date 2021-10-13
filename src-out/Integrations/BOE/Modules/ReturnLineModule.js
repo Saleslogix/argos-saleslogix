@@ -15,7 +15,7 @@ define('crm/Integrations/BOE/Modules/ReturnLineModule', ['module', 'exports', 'd
     };
   }
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReturnLineModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReturnLineModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {},
     loadCustomizations: function loadCustomizations() {},

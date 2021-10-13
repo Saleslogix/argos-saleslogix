@@ -27,7 +27,7 @@ define('crm/Views/Charts/GenericPie', ['module', 'exports', 'dojo/_base/declare'
    * @mixes module:crm/Views/Charts/_ChartMixin
    *
    */
-  const __class = (0, _declare2.default)('crm.Views.Charts.GenericPie', [_View2.default, _ChartMixin3.default], /** @lends module:crm/Views/Charts/GenericPie.prototype */{
+  var __class = (0, _declare2.default)('crm.Views.Charts.GenericPie', [_View2.default, _ChartMixin3.default], /** @lends module:crm/Views/Charts/GenericPie.prototype */{
     id: 'chart_generic_pie',
     titleText: '',
     expose: false,
@@ -54,16 +54,18 @@ define('crm/Views/Charts/GenericPie', ['module', 'exports', 'dojo/_base/declare'
     },
 
     createChart: function createChart(rawData) {
+      var _this = this;
+
       this.inherited(createChart, arguments);
 
-      const defaultRenderAs = 'Doughnut';
+      var defaultRenderAs = 'Doughnut';
 
       this.showSearchExpression();
 
-      const data = _array2.default.map(rawData, (item, idx) => {
+      var data = _array2.default.map(rawData, function (item, idx) {
         return {
           value: Math.round(item.value),
-          color: this._getItemColor(idx),
+          color: _this._getItemColor(idx),
           highlight: '',
           label: item.name
         };
@@ -73,13 +75,13 @@ define('crm/Views/Charts/GenericPie', ['module', 'exports', 'dojo/_base/declare'
         this.chart.destroy();
       }
 
-      const box = _domGeometry2.default.getMarginBox(this.domNode);
+      var box = _domGeometry2.default.getMarginBox(this.domNode);
       this.contentNode.width = box.w;
       this.contentNode.height = box.h;
 
-      const ctx = this.contentNode.getContext('2d');
+      var ctx = this.contentNode.getContext('2d');
 
-      const chart = new window.Chart(ctx);
+      var chart = new window.Chart(ctx);
 
       // Ensure the chart has the ability to render this type
       this.renderAs = window.Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
@@ -88,9 +90,9 @@ define('crm/Views/Charts/GenericPie', ['module', 'exports', 'dojo/_base/declare'
       this.showLegend();
     },
     _getItemColor: function _getItemColor(index) {
-      const len = this.seriesColors.length;
-      const n = Math.floor(index / len);
-      let theIndex = index;
+      var len = this.seriesColors.length;
+      var n = Math.floor(index / len);
+      var theIndex = index;
 
       // if n is 0, the index will fall within the seriesColor array,
       // otherwise we will need to re-scale the index to fall within that array.

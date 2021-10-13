@@ -36,7 +36,7 @@ define('crm/Integrations/ActivityAssociations/Models/HistoryAssociation/SData', 
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.HistoryAssociation.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.HistoryAssociation.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'history_association_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

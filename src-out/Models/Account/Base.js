@@ -32,15 +32,15 @@ define('crm/Models/Account/Base', ['module', 'exports', 'dojo/_base/declare', 'a
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('accountModel');
-  const contactResource = (0, _I18n2.default)('contactModel');
-  const activityResource = (0, _I18n2.default)('activityModel');
-  const historyResource = (0, _I18n2.default)('historyModel');
-  const oppResource = (0, _I18n2.default)('opportunityModel');
-  const addressResource = (0, _I18n2.default)('addressModel');
-  const ticketResource = (0, _I18n2.default)('ticketModel');
+  var resource = (0, _I18n2.default)('accountModel');
+  var contactResource = (0, _I18n2.default)('contactModel');
+  var activityResource = (0, _I18n2.default)('activityModel');
+  var historyResource = (0, _I18n2.default)('historyModel');
+  var oppResource = (0, _I18n2.default)('opportunityModel');
+  var addressResource = (0, _I18n2.default)('addressModel');
+  var ticketResource = (0, _I18n2.default)('ticketModel');
 
-  const __class = (0, _declare2.default)('crm.Models.Account.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Account.Base', [_ModelBase3.default], {
     resourceKind: 'accounts',
     entityName: 'Account',
     entityDisplayName: resource.entityDisplayName,
@@ -63,7 +63,7 @@ define('crm/Models/Account/Base', ['module', 'exports', 'dojo/_base/declare', 'a
       }]);
     },
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = [{
+      var rel = this.relationships || (this.relationships = [{
         name: 'Addresses',
         displayName: addressResource.entityDisplayNamePlural,
         type: 'OneToMany',

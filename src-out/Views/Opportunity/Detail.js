@@ -36,10 +36,10 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('opportunityDetail');
-  const dtFormatResource = (0, _I18n2.default)('opportunityDetailDateTimeFormat');
+  var resource = (0, _I18n2.default)('opportunityDetail');
+  var dtFormatResource = (0, _I18n2.default)('opportunityDetailDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Opportunity.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Opportunity.Detail', [_Detail2.default], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -91,7 +91,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
       App.navigateToActivityInsertView();
     },
     addNote: function addNote() {
-      const view = App.getView(this.noteEditView);
+      var view = App.getView(this.noteEditView);
       if (view) {
         view.show({
           template: {},
@@ -108,12 +108,12 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
       }
     },
     getValues: function getValues() {
-      const estimatedCloseDate = this.fields.EstimatedClose.getValue();
-      const timelessStartDate = estimatedCloseDate.clone().clearTime().add({
+      var estimatedCloseDate = this.fields.EstimatedClose.getValue();
+      var timelessStartDate = estimatedCloseDate.clone().clearTime().add({
         minutes: -1 * estimatedCloseDate.getTimezoneOffset(),
         seconds: 5
       });
-      let values = this.inherited(getValues, arguments);
+      var values = this.inherited(getValues, arguments);
 
       values = values || {};
       values.EstimatedClose = timelessStartDate;
@@ -127,7 +127,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
-      const quickActions = {
+      var quickActions = {
         list: true,
         title: this.actionsText,
         cls: 'action-list',
@@ -147,7 +147,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
         }]
       };
 
-      const multiCurrency = {
+      var multiCurrency = {
         title: this.multiCurrencyText,
         name: 'MultiCurrencySection',
         children: [{
@@ -169,7 +169,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           property: 'ExchangeRateLocked'
         }]
       };
-      const details = {
+      var details = {
         title: this.detailsText,
         name: 'DetailsSection',
         children: [{
@@ -193,8 +193,8 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           property: 'SalesPotential',
           renderer: function renderSalesPotential(val) {
             if (App.hasMultiCurrency()) {
-              const exhangeRate = App.getBaseExchangeRate();
-              const convertedValue = val * exhangeRate.rate;
+              var exhangeRate = App.getBaseExchangeRate();
+              var convertedValue = val * exhangeRate.rate;
               return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
             return _Format2.default.currency.call(null, val);
@@ -232,7 +232,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
         }]
       };
 
-      const relatedItems = {
+      var relatedItems = {
         list: true,
         title: this.relatedItemsText,
         name: 'RelatedItemsSection',
@@ -268,7 +268,7 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
         }]
       };
 
-      const layout = this.layout || (this.layout = []);
+      var layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;
@@ -284,8 +284,8 @@ define('crm/Views/Opportunity/Detail', ['module', 'exports', 'dojo/_base/declare
           property: 'SalesPotential',
           renderer: function renderMySalesPotential(val) {
             if (App.hasMultiCurrency()) {
-              const exhangeRate = App.getMyExchangeRate();
-              const convertedValue = val * exhangeRate.rate;
+              var exhangeRate = App.getMyExchangeRate();
+              var convertedValue = val * exhangeRate.rate;
               return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 

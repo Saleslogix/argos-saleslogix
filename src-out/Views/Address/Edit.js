@@ -36,9 +36,9 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('addressEdit');
+  var resource = (0, _I18n2.default)('addressEdit');
 
-  const __class = (0, _declare2.default)('crm.Views.Address.Edit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Address.Edit', [_Edit2.default], {
     // Localization
     address1Text: resource.address1Text,
     address2Text: resource.address2Text,
@@ -77,7 +77,7 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
       this.connect(this.fields.Country, 'onChange', this.onCountryChange);
     },
     onCountryChange: function onCountryChange(value) {
-      const locale = _Format2.default.countryCultures[value] || 'en-US';
+      var locale = _Format2.default.countryCultures[value] || 'en-US';
       this.hideFieldsForLocale(locale);
     },
     /*
@@ -86,13 +86,13 @@ define('crm/Views/Address/Edit', ['module', 'exports', 'dojo/_base/declare', 'do
      * @param locale Localization string (Ex: 'en-US' or 'de-DE')
      */
     hideFieldsForLocale: function hideFieldsForLocale(locale) {
-      const fieldsToHide = this.localeFieldHidden[locale];
+      var fieldsToHide = this.localeFieldHidden[locale];
       if (!fieldsToHide) {
         return;
       }
 
-      for (let i = 0; i < fieldsToHide.length; i++) {
-        const field = this.fields[fieldsToHide[i]];
+      for (var i = 0; i < fieldsToHide.length; i++) {
+        var field = this.fields[fieldsToHide[i]];
         if (field) {
           field.hide();
         }

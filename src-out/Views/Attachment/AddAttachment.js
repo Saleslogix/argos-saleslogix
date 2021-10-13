@@ -36,9 +36,9 @@ define('crm/Views/Attachment/AddAttachment', ['module', 'exports', 'dojo/_base/d
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('attachmentAdd');
+  var resource = (0, _I18n2.default)('attachmentAdd');
 
-  const __class = (0, _declare2.default)('crm.Views.Attachment.AddAttachment', [_FileSelect2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Attachment.AddAttachment', [_FileSelect2.default], {
     // Localization
     titleText: resource.titleText,
 
@@ -46,11 +46,11 @@ define('crm/Views/Attachment/AddAttachment', ['module', 'exports', 'dojo/_base/d
     id: 'attachment_Add',
 
     onUploadFiles: function onUploadFiles() {
-      const self = this;
+      var self = this;
       if (this._files && this._files.length > 0) {
         this.inherited(onUploadFiles, arguments);
-        const fileItems = this.getFileItems();
-        const am = new _AttachmentManager2.default();
+        var fileItems = this.getFileItems();
+        var am = new _AttachmentManager2.default();
 
         am.onSuccessUpdate = function onSuccessUpdate() {
           _Environment2.default.refreshAttachmentViews();
@@ -64,7 +64,7 @@ define('crm/Views/Attachment/AddAttachment', ['module', 'exports', 'dojo/_base/d
         };
 
         am.onUpdateProgress = function onUpdateProgress(percent) {
-          const msg = _Format2.default.percent(percent / 100);
+          var msg = _Format2.default.percent(percent / 100);
           self.onUpdateProgress(msg);
         };
 

@@ -36,11 +36,11 @@ define('crm/Integrations/BOE/Modules/ReceivableModule', ['module', 'exports', 'd
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReceivableModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReceivableModule', [_Module3.default], {
     defaultViews: ['erpreceivables_list'],
     init: function init() {},
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerView(new _Detail2.default());
       am.registerView(new _List2.default({
@@ -53,7 +53,7 @@ define('crm/Integrations/BOE/Modules/ReceivableModule', ['module', 'exports', 'd
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerCustomization('detail/tools', 'erpreceivables_detail', {
         at: function at(tool) {

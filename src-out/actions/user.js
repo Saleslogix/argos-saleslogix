@@ -19,7 +19,7 @@ define('crm/actions/user', ['exports'], function (exports) {
    */
 
   // action Types
-  const SET_USER = exports.SET_USER = 'SET_USER';
+  var SET_USER = exports.SET_USER = 'SET_USER';
 
   /*
   
@@ -43,7 +43,7 @@ define('crm/actions/user', ['exports'], function (exports) {
     return {
       type: SET_USER,
       payload: {
-        entry
+        entry: entry
       }
     };
   }

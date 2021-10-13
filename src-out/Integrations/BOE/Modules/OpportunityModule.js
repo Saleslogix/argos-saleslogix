@@ -23,22 +23,22 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
     };
   }
 
-  const resource = (0, _I18n2.default)('opportunityModule'); /* Copyright 2017 Infor
-                                                              *
-                                                              * Licensed under the Apache License, Version 2.0 (the "License");
-                                                              * you may not use this file except in compliance with the License.
-                                                              * You may obtain a copy of the License at
-                                                              *
-                                                              *    http://www.apache.org/licenses/LICENSE-2.0
-                                                              *
-                                                              * Unless required by applicable law or agreed to in writing, software
-                                                              * distributed under the License is distributed on an "AS IS" BASIS,
-                                                              * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                              * See the License for the specific language governing permissions and
-                                                              * limitations under the License.
-                                                              */
+  var resource = (0, _I18n2.default)('opportunityModule'); /* Copyright 2017 Infor
+                                                            *
+                                                            * Licensed under the Apache License, Version 2.0 (the "License");
+                                                            * you may not use this file except in compliance with the License.
+                                                            * You may obtain a copy of the License at
+                                                            *
+                                                            *    http://www.apache.org/licenses/LICENSE-2.0
+                                                            *
+                                                            * Unless required by applicable law or agreed to in writing, software
+                                                            * distributed under the License is distributed on an "AS IS" BASIS,
+                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                            * See the License for the specific language governing permissions and
+                                                            * limitations under the License.
+                                                            */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.OpportunityModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.OpportunityModule', [_Module3.default], {
     addQuoteText: resource.addQuoteText,
     addOrderText: resource.addOrderText,
     relatedERPItemsText: resource.relatedERPItemsText,
@@ -49,7 +49,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
 
     init: function init() {},
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerView(new _List2.default({
         id: 'opportunity_quotes_related',
@@ -68,10 +68,10 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerCustomization('models/detail/querySelect', 'opportunity_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -80,7 +80,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
       });
 
       am.registerCustomization('models/edit/querySelect', 'opportunity_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -90,10 +90,10 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
 
       _lang2.default.extend(crm.Views.Opportunity.Detail, {
         _onAddQuoteClick: function _onAddQuoteClick() {
-          const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService());
+          var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService());
           request.setResourceKind('Opportunities');
           request.setOperationName('CreateQuoteFromOpportunity');
-          const entry = {
+          var entry = {
             $name: 'CreateQuoteFromOpportunity',
             request: {
               entity: {
@@ -102,14 +102,14 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
             }
           };
           request.execute(entry, {
-            success: data => {
-              const view = App.getView('quote_detail');
+            success: function success(data) {
+              var view = App.getView('quote_detail');
               view.show({
                 key: data.response.Result
               });
             },
-            failure: xhr => {
-              const response = JSON.parse(xhr.responseText);
+            failure: function failure(xhr) {
+              var response = JSON.parse(xhr.responseText);
               if (response && response.length && response[0].message) {
                 alert(response[0].message); // eslint-disable-line
               }
@@ -117,11 +117,11 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
           });
         },
         _onAddOrderClick: function _onAddOrderClick() {
-          const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService());
+          var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService());
           request.setResourceKind('Opportunities');
           request.setOperationName('CreateSalesOrderFromOpportunity');
 
-          const entry = {
+          var entry = {
             $name: 'CreateSalesOrderFromOpportunity',
             request: {
               entity: {
@@ -130,14 +130,14 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
             }
           };
           request.execute(entry, {
-            success: data => {
-              const view = App.getView('salesorder_detail');
+            success: function success(data) {
+              var view = App.getView('salesorder_detail');
               view.show({
                 key: data.response.Result
               });
             },
-            failure: xhr => {
-              const response = JSON.parse(xhr.responseText);
+            failure: function failure(xhr) {
+              var response = JSON.parse(xhr.responseText);
               if (response && response.length && response[0].message) {
                 alert(response[0].message); // eslint-disable-line
               }
@@ -149,12 +149,14 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
           return result;
         },
         opportunityRePrice: function opportunityRePrice() {
+          var _this = this;
+
           if (!this.entry) {
             return;
           }
 
-          _PricingAvailabilityService2.default.opportunityRePrice(this.entry).then(result => {
-            this.handlePricingSuccess(result);
+          _PricingAvailabilityService2.default.opportunityRePrice(this.entry).then(function (result) {
+            _this.handlePricingSuccess(result);
           });
         }
       });
@@ -198,8 +200,8 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
           iconClass: 'finance',
           action: 'opportunityRePrice',
           security: 'Entities/Opportunity/Add',
-          disabled: () => {
-            const boeSettings = App.context.integrationSettings['Back Office Extension'];
+          disabled: function disabled() {
+            var boeSettings = App.context.integrationSettings['Back Office Extension'];
 
             if (boeSettings === null || typeof boeSettings === 'undefined') {
               return true;
@@ -228,14 +230,14 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
             name: 'Quotes',
             label: this.quotesText,
             where: function where(entry) {
-              return `Opportunity.Id eq "${entry.$key}"`;
+              return 'Opportunity.Id eq "' + entry.$key + '"';
             },
             view: 'opportunity_quotes_related'
           }, {
             name: 'SalesOrders',
             label: this.ordersText,
             where: function where(entry) {
-              return `Opportunity.Id eq "${entry.$key}"`;
+              return 'Opportunity.Id eq "' + entry.$key + '"';
             },
             view: 'opportunity_salesorders_related'
           }]

@@ -22,7 +22,7 @@ define('crm/Views/_MetricListMixin', ['module', 'exports', 'dojo/_base/declare',
    * @classdesc Mixin for adding KPI widgets to list views.
    * @since 3.0
    */
-  const __class = (0, _declare2.default)('crm.Views._MetricListMixin', null, /** @lends module:crm/Views/_MetricListMixin.prototype */{
+  var __class = (0, _declare2.default)('crm.Views._MetricListMixin', null, /** @lends module:crm/Views/_MetricListMixin.prototype */{
     // Metrics
     metricTemplate: new Simplate(['<div class="metric-list">', '</div>']),
     metricWrapper: new Simplate(['<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>']),
@@ -35,19 +35,21 @@ define('crm/Views/_MetricListMixin', ['module', 'exports', 'dojo/_base/declare',
     rebuildingWidgets: false,
 
     createMetricWidgetsLayout: function createMetricWidgetsLayout() {
-      const metrics = App.getMetricsByResourceKind(this.resourceKind);
-      return metrics.filter(item => item.enabled);
+      var metrics = App.getMetricsByResourceKind(this.resourceKind);
+      return metrics.filter(function (item) {
+        return item.enabled;
+      });
     },
     postCreate: function postCreate() {
       this.inherited(postCreate, arguments);
-      const metricList = $(this.metricTemplate.apply(this)).get(0);
+      var metricList = $(this.metricTemplate.apply(this)).get(0);
       this.metricNode = $(this.metricWrapper.apply(this)).get(0);
       $(metricList).append(this.metricNode);
       $(this.scrollerNode).prepend(metricList);
     },
     destroyWidgets: function destroyWidgets() {
       if (this.metricWidgets) {
-        this.metricWidgets.forEach(widget => {
+        this.metricWidgets.forEach(function (widget) {
           widget.destroy();
         });
       }
@@ -89,13 +91,17 @@ define('crm/Views/_MetricListMixin', ['module', 'exports', 'dojo/_base/declare',
       return options;
     },
     _instantiateMetricWidget: function _instantiateMetricWidget(options) {
-      return new Promise(resolve => {
-        const Ctor = this.metricWidgetCtor || _MetricWidget2.default;
-        const instance = new Ctor(this._applyStateToWidgetOptions(options));
+      var _this = this;
+
+      return new Promise(function (resolve) {
+        var Ctor = _this.metricWidgetCtor || _MetricWidget2.default;
+        var instance = new Ctor(_this._applyStateToWidgetOptions(options));
         resolve(instance);
       });
     },
     rebuildWidgets: function rebuildWidgets() {
+      var _this2 = this;
+
       if (this.metricWidgetsBuilt || this.rebuildingWidgets) {
         return;
       }
@@ -107,28 +113,30 @@ define('crm/Views/_MetricListMixin', ['module', 'exports', 'dojo/_base/declare',
       }
 
       // Create metrics widgets and place them in the metricNode
-      const widgetOptions = this.createMetricWidgetsLayout() || [];
-      const widgets = widgetOptions.filter(options => this._hasValidOptions(options)).map(options => {
-        const clonedOptions = Object.assign({}, options);
-        return this._instantiateMetricWidget(clonedOptions).then(widget => {
-          widget.placeAt(this.metricNode, 'last');
+      var widgetOptions = this.createMetricWidgetsLayout() || [];
+      var widgets = widgetOptions.filter(function (options) {
+        return _this2._hasValidOptions(options);
+      }).map(function (options) {
+        var clonedOptions = Object.assign({}, options);
+        return _this2._instantiateMetricWidget(clonedOptions).then(function (widget) {
+          widget.placeAt(_this2.metricNode, 'last');
           widget.requestData();
           return widget;
         });
       });
 
-      Promise.all(widgets).then(results => {
-        this.metricWidgets = results;
-        this.metricWidgetsBuilt = true;
-        this.rebuildingWidgets = false;
+      Promise.all(widgets).then(function (results) {
+        _this2.metricWidgets = results;
+        _this2.metricWidgetsBuilt = true;
+        _this2.rebuildingWidgets = false;
       });
     },
     _getCurrentQuery: function _getCurrentQuery(options) {
       // Get the current query from the search box, and any context query located in options.where
-      const query = this.query;
-      const where = this.options && this.options.where;
-      const optionsQuery = options && options.queryArgs && options.queryArgs.activeFilter;
-      return [query, where, optionsQuery].filter(item => {
+      var query = this.query;
+      var where = this.options && this.options.where;
+      var optionsQuery = options && options.queryArgs && options.queryArgs.activeFilter;
+      return [query, where, optionsQuery].filter(function (item) {
         return !!item;
       }).join(' and ');
     },

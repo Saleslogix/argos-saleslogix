@@ -48,24 +48,24 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     };
   }
 
-  const resource = (0, _I18n2.default)('calendarView'); /* Copyright 2017 Infor
-                                                         *
-                                                         * Licensed under the Apache License, Version 2.0 (the "License");
-                                                         * you may not use this file except in compliance with the License.
-                                                         * You may obtain a copy of the License at
-                                                         *
-                                                         *    http://www.apache.org/licenses/LICENSE-2.0
-                                                         *
-                                                         * Unless required by applicable law or agreed to in writing, software
-                                                         * distributed under the License is distributed on an "AS IS" BASIS,
-                                                         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                         * See the License for the specific language governing permissions and
-                                                         * limitations under the License.
-                                                         */
+  var resource = (0, _I18n2.default)('calendarView'); /* Copyright 2017 Infor
+                                                       *
+                                                       * Licensed under the Apache License, Version 2.0 (the "License");
+                                                       * you may not use this file except in compliance with the License.
+                                                       * You may obtain a copy of the License at
+                                                       *
+                                                       *    http://www.apache.org/licenses/LICENSE-2.0
+                                                       *
+                                                       * Unless required by applicable law or agreed to in writing, software
+                                                       * distributed under the License is distributed on an "AS IS" BASIS,
+                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                       * See the License for the specific language governing permissions and
+                                                       * limitations under the License.
+                                                       */
 
-  const dtFormatResource = (0, _I18n2.default)('calendarViewDateTimeFormat');
+  var dtFormatResource = (0, _I18n2.default)('calendarViewDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.Calendar.CalendarView', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Calendar.CalendarView', [_List2.default], {
     // Localization
     titleText: resource.titleText,
     monthTitleFormatText: dtFormatResource.monthTitleFormatText,
@@ -95,11 +95,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     // Templates
     widgetTemplate: new Simplate(['<div id="{%= $.id %}" data-title="{%= $.titleText %}" class="overthrow panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>', '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">', '<div class="panel-content">', '<div class="calendarContainer" data-dojo-attach-point="calendarNode"></div>', '<div class="event-content event-hidden listview" data-dojo-attach-point="eventContainerNode">', '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>', '{%! $.eventMoreTemplate %}', '</div>', '<div class="activity-content listview" data-dojo-attach-point="activityContainerNode">', '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>', '{%! $.activityMoreTemplate %}', '</div>', '<div style="clear:both"></div>', '</div>', '</div>', '</div>']),
     activityRowTemplate: new Simplate(['<li class="activityEntry" data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">', '{%! $$.activityIconTemplate %}', '{%! $$.activityHeaderTemplate %}', '{%! $$.activityContentTemplate %}', '{%! $$.activityFooterTemplate %}', '</li>']),
-    activityIconTemplate: new Simplate(['<div class="activityEntry__icon">', `<button type="button" class="btn-icon hide-focus">
-      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon[$.Type] %}"></use>
-      </svg>
-    </button></div>`]),
+    activityIconTemplate: new Simplate(['<div class="activityEntry__icon">', '<button type="button" class="btn-icon hide-focus">\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon[$.Type] %}"></use>\n      </svg>\n    </button></div>']),
     activityHeaderTemplate: new Simplate(['<div class="activityEntry__header">', '<div class="header__content">', '<p class="listview-heading">{%: $.Description %}</p>', '<p class="listview-subheading">{%! $$.activityNameTemplate %}</p>', '</div>', '<div class="header__timeStamp">', '<span class="timeStamp__time listview-subheading">', '{% if ($.Timeless) { %}', '{%= $$.allDayText %}', '{% } else if ($$.activityTypeIcon[$.Type]) { %}', '{%: crm.Format.date($.StartDate, (App.is24HourClock()) ? $$.startTimeFormatText24 : $$.startTimeFormatText) %}', '{% } else { %}', '{%! $$.eventTimeTemplate %}', '{% } %}', '</span>', '</div>', '</div>']),
     activityContentTemplate: new Simplate(['<div class="activityEntry__content">', '{% if ($.Notes) { %}', '{%: $$.Utility.trimText($.Notes, $$.trimTo) %}', '{% } %}', '</div>']),
     activityFooterTemplate: new Simplate(['<div class="activityEntry__footer">', '</div>']),
@@ -107,21 +103,10 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     activityMoreTemplate: new Simplate(['<div class="list-more" data-dojo-attach-point="activityMoreNode">', '<button class="button" data-action="activateActivityMore">', '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>', '</button>', '</div>']),
     eventRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">', '{%! $$.eventIconTemplate %}', '{%! $$.activityHeaderTemplate %}', '{%! $$.activityFooterTemplate %}', '</li>']),
     eventTimeTemplate: new Simplate(['{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}', '&nbsp;-&nbsp;', '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}']),
-    eventIconTemplate: new Simplate(['<div class="activityEntry__icon">', `<button type="button" class="btn-icon hide-focus">
-      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon.event %}"></use>
-      </svg>
-    </button>`, '</div>']),
+    eventIconTemplate: new Simplate(['<div class="activityEntry__icon">', '<button type="button" class="btn-icon hide-focus">\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%= $$.activityTypeIcon.event %}"></use>\n      </svg>\n    </button>', '</div>']),
     eventMoreTemplate: new Simplate(['<div class="list-more" data-dojo-attach-point="eventMoreNode">', '<button class="button" data-action="activateEventMore">', '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>', '</button>', '</div>']),
     headerRowTemplate: new Simplate(['<li data-descriptor="{%: $.day %}">', '<div class="dayHeader">', '<h4 class="header__title">{%: $.day %}</h4>', '</div>', '</li>']),
-    weekSelectTemplate: new Simplate([`<div class="switch">
-        <input
-          type="checkbox"
-          name="weekToggleNode"
-          id="weekToggleNode"
-          class="switch" />
-        <label class="toggleWeekOrDay" for="weekToggleNode">{%= $.dayText %}</label>
-      </div>`]),
+    weekSelectTemplate: new Simplate(['<div class="switch">\n        <input\n          type="checkbox"\n          name="weekToggleNode"\n          id="weekToggleNode"\n          class="switch" />\n        <label class="toggleWeekOrDay" for="weekToggleNode">{%= $.dayText %}</label>\n      </div>']),
     attributeMap: {
       calendarContent: {
         node: 'contentNode',
@@ -193,12 +178,12 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     },
     changeDayActivities: function changeDayActivities() {
       $(this.activityContainerNode).removeClass('list-loading');
-      let multiDays = [];
-      let entries;
+      var multiDays = [];
+      var entries = void 0;
 
       if (this._showMulti) {
-        const dateIterator = this.currentDate.clone().startOf('week');
-        for (let i = 0; i < this.multiSelect; i++) {
+        var dateIterator = this.currentDate.clone().startOf('week');
+        for (var i = 0; i < this.multiSelect; i++) {
           entries = this.monthActivities[dateIterator.format('YYYY-MM-DD')];
           if (entries) {
             multiDays = multiDays.concat(entries);
@@ -219,24 +204,27 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
 
       return;
     },
-    createActivityRows: function createActivityRows(entries = [], day) {
-      const count = entries.length;
+    createActivityRows: function createActivityRows() {
+      var entries = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var day = arguments[1];
+
+      var count = entries.length;
       if (count > 0) {
-        const activityDocfrag = document.createDocumentFragment();
-        const eventDocfrag = document.createDocumentFragment();
+        var activityDocfrag = document.createDocumentFragment();
+        var eventDocfrag = document.createDocumentFragment();
         if (this._showMulti) {
-          const headerNode = $(this.headerRowTemplate.apply({ day }, this)).get(0);
+          var headerNode = $(this.headerRowTemplate.apply({ day: day }, this)).get(0);
           // Create the day header for whatever type comes first (activity or event)
-          const first = this.entries[entries[0]];
+          var first = this.entries[entries[0]];
           if (this.activityTypeIcon[first.Type]) {
             activityDocfrag.appendChild(headerNode);
           } else {
             eventDocfrag.appendChild(headerNode);
           }
         }
-        for (let i = 0; i < count; i++) {
-          const entry = this.entries[entries[i]];
-          let rowNode;
+        for (var i = 0; i < count; i++) {
+          var entry = this.entries[entries[i]];
+          var rowNode = void 0;
           if (this.activityTypeIcon[entry.Type]) {
             try {
               rowNode = $(this.activityRowTemplate.apply(entry, this)).get(0);
@@ -272,8 +260,8 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       if (this._eventStore) {
         return this._eventStore;
       }
-      const temp = this.get('store');
-      const store = Object.assign({}, temp);
+      var temp = this.get('store');
+      var store = Object.assign({}, temp);
       Object.setPrototypeOf(store, Object.getPrototypeOf(temp));
       store.select = this.eventQuerySelect;
       store.resourceKind = this.eventResourceKind;
@@ -284,46 +272,48 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       return store;
     },
     formatQueryActivity: function formatQueryActivity(value) {
-      const startDate = value.clone().startOf('month');
-      const endDate = value.clone().endOf('month');
+      var startDate = value.clone().startOf('month');
+      var endDate = value.clone().endOf('month');
       return _string2.default.substitute(['UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (', '(Timeless eq false and StartDate', ' between @${1}@ and @${2}@) or ', '(Timeless eq true and StartDate', ' between @${3}@ and @${4}@))'].join(''), [App.context.user && App.context.user.$key, _Convert2.default.toIsoStringFromDate(startDate.toDate()), _Convert2.default.toIsoStringFromDate(endDate.toDate()), startDate.format('YYYY-MM-DDT00:00:00[Z]'), endDate.format('YYYY-MM-DDT23:59:59[Z]')]);
     },
     formatQueryEvent: function formatQueryEvent(value) {
-      const user = App.context.user && App.context.user.$key;
-      const start = _Convert2.default.toIsoStringFromDate(value.clone().startOf('month').toDate());
-      const end = _Convert2.default.toIsoStringFromDate(value.clone().endOf('month').toDate());
-      return `UserId eq "${user}" and ((StartDate gt @${start}@ or EndDate gt @${start}@) and StartDate lt @${end}@)`;
+      var user = App.context.user && App.context.user.$key;
+      var start = _Convert2.default.toIsoStringFromDate(value.clone().startOf('month').toDate());
+      var end = _Convert2.default.toIsoStringFromDate(value.clone().endOf('month').toDate());
+      return 'UserId eq "' + user + '" and ((StartDate gt @' + start + '@ or EndDate gt @' + start + '@) and StartDate lt @' + end + '@)';
     },
     highlightActivities: function highlightActivities() {
-      this._calendar.weeksNode.childNodes.forEach(week => {
-        week.childNodes.forEach(day => {
-          if (!this.monthActivities[$(day).attr('data-date')]) {
-            this._calendar.removeActive(day);
+      var _this = this;
+
+      this._calendar.weeksNode.childNodes.forEach(function (week) {
+        week.childNodes.forEach(function (day) {
+          if (!_this.monthActivities[$(day).attr('data-date')]) {
+            _this._calendar.removeActive(day);
             return;
           }
-          if (!this._calendar.isActive(day)) {
-            day.subValue = this.monthActivities[$(day).attr('data-date')];
-            this._calendar.setActiveDay(day);
+          if (!_this._calendar.isActive(day)) {
+            day.subValue = _this.monthActivities[$(day).attr('data-date')];
+            _this._calendar.setActiveDay(day);
           }
         });
       });
       return this;
     },
     navigateToDetailView: function navigateToDetailView(key, _descriptor) {
-      let descriptor = _descriptor;
-      const entry = this.entries[key];
-      const detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
-      const view = App.getView(detailView);
+      var descriptor = _descriptor;
+      var entry = this.entries[key];
+      var detailView = entry.isEvent ? this.eventDetailView : this.activityDetailView;
+      var view = App.getView(detailView);
       descriptor = entry.isEvent ? descriptor : entry.Description;
       if (view) {
         view.show({
           title: descriptor,
-          key
+          key: key
         });
       }
     },
     navigateToInsertView: function navigateToInsertView() {
-      const view = App.getView(this.insertView || this.editView);
+      var view = App.getView(this.insertView || this.editView);
 
       if (!this.options) {
         this.options = {};
@@ -355,7 +345,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       return this.tools;
     },
     navigateToNewUnscheduled: function navigateToNewUnscheduled() {
-      const additionalOptions = {
+      var additionalOptions = {
         unscheduled: true
       };
 
@@ -363,7 +353,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     },
     onToolLayoutCreated: function onToolLayoutCreated(tools) {
       if (tools && !this._refreshAdded && !window.App.supportsTouch()) {
-        const refreshTool = {
+        var refreshTool = {
           id: 'refresh',
           svg: 'refresh',
           action: 'refresh'
@@ -377,25 +367,27 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       this.inherited(onToolLayoutCreated, arguments);
     },
     process: function process(store, entries, isEvent) {
+      var _this2 = this;
+
       if (entries.length > 0) {
-        entries.forEach(entryPreProcess => {
-          const entry = this._processEntry(entryPreProcess);
+        entries.forEach(function (entryPreProcess) {
+          var entry = _this2._processEntry(entryPreProcess);
           // If key comes back with nothing, check that the store is properly
           // setup with an idProperty
           entry.isEvent = isEvent;
-          const entryKey = store.getIdentity(entry);
-          this.entries[entryKey] = entry;
-          const startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
+          var entryKey = store.getIdentity(entry);
+          _this2.entries[entryKey] = entry;
+          var startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
           if (entry.Timeless) {
             startDate.subtract({
               minutes: startDate.utcOffset()
             });
           }
-          const date = startDate.format('YYYY-MM-DD');
-          if (this.monthActivities[date]) {
-            this.monthActivities[date].push(entryKey);
+          var date = startDate.format('YYYY-MM-DD');
+          if (_this2.monthActivities[date]) {
+            _this2.monthActivities[date].push(entryKey);
           } else {
-            this.monthActivities[date] = [entryKey];
+            _this2.monthActivities[date] = [entryKey];
           }
         });
       }
@@ -405,7 +397,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
         return;
       }
 
-      const store = this.get('store');
+      var store = this.get('store');
 
       this.process(store, entries, false);
     },
@@ -413,7 +405,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       if (!entries) {
         return;
       }
-      const store = this.createEventStore();
+      var store = this.createEventStore();
 
       this.process(store, entries, true);
     },
@@ -428,6 +420,8 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       this.refreshData();
     },
     refreshData: function refreshData() {
+      var _this3 = this;
+
       this._dataLoaded = false;
       this._eventStore = null;
       $(this.activityContainerNode).addClass('list-loading');
@@ -438,12 +432,12 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       this.monthActivities = [];
       this.activityQuery = this.formatQueryActivity(this.currentDate);
       this.eventQuery = this.formatQueryEvent(this.currentDate);
-      Promise.all([this.requestData(), this.requestEventData()]).then(() => {
-        $(this.activityContentNode).empty();
-        $(this.eventContentNode).empty();
-        this.highlightActivities();
-        this.changeDayActivities();
-        this._dataLoaded = true;
+      Promise.all([this.requestData(), this.requestEventData()]).then(function () {
+        $(_this3.activityContentNode).empty();
+        $(_this3.eventContentNode).empty();
+        _this3.highlightActivities();
+        _this3.changeDayActivities();
+        _this3._dataLoaded = true;
       });
     },
     render: function render() {
@@ -454,7 +448,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       if (!this._calendar) {
         this._calendar = new _Calendar2.default({ id: 'calendar-view__calendar', noClearButton: true });
         $(this.calendarNode).append(this._calendar.domNode);
-        const toggle = $(this.weekSelectTemplate.apply(this)).get(0);
+        var toggle = $(this.weekSelectTemplate.apply(this)).get(0);
         $(this._calendar.footerNode).append(toggle);
         (0, _on2.default)($(toggle).children()[0], 'click', this.toggleMultiSelect.bind(this));
         this._calendar.onChangeDay = this.onChangeDay.bind(this);
@@ -474,18 +468,18 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       this.selectDay();
     },
     requestData: function requestData() {
-      const store = this.get('store');
+      var store = this.get('store');
       if (store) {
         // attempt to use a dojo store
-        const queryOptions = {
+        var queryOptions = {
           count: this.pageSize,
           start: this.position
         };
 
         this._applyStateToQueryOptions(queryOptions);
 
-        const queryExpression = this._buildQueryExpression(this.activityQuery) || null;
-        const queryResults = store.query(queryExpression, queryOptions);
+        var queryExpression = this._buildQueryExpression(this.activityQuery) || null;
+        var queryResults = store.query(queryExpression, queryOptions);
 
         (0, _when2.default)(queryResults, this.processData.bind(this), this._onQueryError.bind(this, queryOptions));
 
@@ -495,18 +489,18 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       console.warn('Error requesting data, no store was defined. Did you mean to mixin _SDataListMixin to your list view?'); // eslint-disable-line
     },
     requestEventData: function requestEventData() {
-      const store = this.createEventStore();
+      var store = this.createEventStore();
       if (store) {
         // attempt to use a dojo store
-        const queryOptions = {
+        var queryOptions = {
           count: this.pageSize,
           start: this.position
         };
 
         this._applyStateToQueryOptions(queryOptions);
 
-        const queryExpression = this._buildQueryExpression(this.eventQuery) || null;
-        const queryResults = store.query(queryExpression, queryOptions);
+        var queryExpression = this._buildQueryExpression(this.eventQuery) || null;
+        var queryResults = store.query(queryExpression, queryOptions);
 
         (0, _when2.default)(queryResults, this.processEventData.bind(this), this._onQueryError.bind(this, queryOptions));
 
@@ -516,7 +510,7 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       console.warn('Error requesting data, no store was defined. Did you mean to mixin _SDataListMixin to your list view?'); // eslint-disable-line
     },
     selectDay: function selectDay() {
-      const selected = this._calendar.getSelectedDateMoment();
+      var selected = this._calendar.getSelectedDateMoment();
       if (this.currentDate && this._dataLoaded) {
         $(this.activityContentNode).empty();
         $(this.eventContentNode).empty();
@@ -539,7 +533,9 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
     startup: function startup() {
       this.inherited(startup, arguments);
     },
-    toggleMultiSelect: function toggleMultiSelect({ currentTarget }) {
+    toggleMultiSelect: function toggleMultiSelect(_ref) {
+      var currentTarget = _ref.currentTarget;
+
       this._showMulti = !this._showMulti;
       if (this._showMulti) {
         $(currentTarget).next().html(this.weekText);
@@ -552,7 +548,9 @@ define('crm/Views/Calendar/CalendarView', ['module', 'exports', 'argos/Convert',
       $(this.eventContentNode).empty();
       this.changeDayActivities();
     },
-    _buildQueryExpression: function _buildQueryExpression(queryParam = {}) {
+    _buildQueryExpression: function _buildQueryExpression() {
+      var queryParam = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
       return _lang2.default.mixin(queryParam || {}, this.options && (this.options.query || this.options.where));
     },
     transitionAway: function transitionAway() {

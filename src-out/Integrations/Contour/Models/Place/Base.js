@@ -32,10 +32,10 @@ define('crm/Integrations/Contour/Models/Place/Base', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('placeModel'); // eslint-disable-line
-  const addressResource = (0, _I18n2.default)('addressModel');
+  var resource = (0, _I18n2.default)('placeModel'); // eslint-disable-line
+  var addressResource = (0, _I18n2.default)('addressModel');
 
-  const __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.Base', [_ModelBase3.default], {
     resourceKind: 'places',
     entityName: 'Place',
     entityDisplayName: resource.entityDisplayName,
@@ -43,7 +43,7 @@ define('crm/Integrations/Contour/Models/Place/Base', ['module', 'exports', 'dojo
     modelName: _Names2.default.PLACE,
     listViewId: 'pxSearch_locations',
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = [{
+      var rel = this.relationships || (this.relationships = [{
         name: 'Addresses',
         displayName: addressResource.entityDisplayNamePlural,
         type: 'OneToMany',

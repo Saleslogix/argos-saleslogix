@@ -32,9 +32,9 @@ define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('exchangeRateLookup');
+  var resource = (0, _I18n2.default)('exchangeRateLookup');
 
-  const __class = (0, _declare2.default)('crm.Views.ExchangeRateLookup', [_List2.default, _LegacySDataListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Views.ExchangeRateLookup', [_List2.default, _LegacySDataListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$key %} ({%: $.Rate %})</p>']),
 
@@ -50,11 +50,11 @@ define('crm/Views/ExchangeRateLookup', ['module', 'exports', 'dojo/_base/declare
       this.processFeed();
     },
     processFeed: function processFeed() {
-      const rates = App.context && App.context.exchangeRates;
-      const list = [];
-      const feed = {};
+      var rates = App.context && App.context.exchangeRates;
+      var list = [];
+      var feed = {};
 
-      for (const prop in rates) {
+      for (var prop in rates) {
         if (rates.hasOwnProperty(prop)) {
           list.push({
             $key: prop,

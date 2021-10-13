@@ -19,22 +19,22 @@ define('crm/Integrations/ActivityAssociations/Views/ActivityAssociation/List', [
     };
   }
 
-  const resource = (0, _I18n2.default)('activityAssociationList'); /* Copyright 2020 Infor
-                                                                    *
-                                                                    * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                    * you may not use this file except in compliance with the License.
-                                                                    * You may obtain a copy of the License at
-                                                                    *
-                                                                    *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                    *
-                                                                    * Unless required by applicable law or agreed to in writing, software
-                                                                    * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                    * See the License for the specific language governing permissions and
-                                                                    * limitations under the License.
-                                                                    */
+  var resource = (0, _I18n2.default)('activityAssociationList'); /* Copyright 2020 Infor
+                                                                  *
+                                                                  * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                  * you may not use this file except in compliance with the License.
+                                                                  * You may obtain a copy of the License at
+                                                                  *
+                                                                  *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                  *
+                                                                  * Unless required by applicable law or agreed to in writing, software
+                                                                  * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                  * See the License for the specific language governing permissions and
+                                                                  * limitations under the License.
+                                                                  */
 
-  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Views.ActivityAssociation.List', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Views.ActivityAssociation.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,
     primaryText: resource.primaryText,
@@ -54,7 +54,7 @@ define('crm/Integrations/ActivityAssociations/Views/ActivityAssociation/List', [
     modelName: _Names2.default.ACTIVITYASSOCIATION,
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return `upper(EntityName) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
+      return 'upper(EntityName) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
     },
     getTitle: function getTitle(entry) {
       if (!entry) {
@@ -69,18 +69,20 @@ define('crm/Integrations/ActivityAssociations/Views/ActivityAssociation/List', [
       });
     },
     deleteAssociation: function deleteAssociation(_, selection) {
+      var _this = this;
+
       App.modal.createSimpleDialog({
         title: 'alert',
         content: this.confirmDeleteText,
-        getContent: () => {}
-      }).then(() => {
-        const entry = selection && selection.data;
-        const model = this.getModel();
-        model.deleteEntry(entry.$key).then(() => {
+        getContent: function getContent() {}
+      }).then(function () {
+        var entry = selection && selection.data;
+        var model = _this.getModel();
+        model.deleteEntry(entry.$key).then(function () {
           _connect2.default.publish('/app/refresh', [{
-            resourceKind: this.resourceKind
+            resourceKind: _this.resourceKind
           }]);
-          this.forceRefresh();
+          _this.forceRefresh();
         });
       });
     },

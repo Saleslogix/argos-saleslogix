@@ -36,10 +36,10 @@ define('crm/Views/History/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('historyDetail');
-  const dtFormatResource = (0, _I18n2.default)('historyDetailDateTimeFormat');
+  var resource = (0, _I18n2.default)('historyDetail');
+  var dtFormatResource = (0, _I18n2.default)('historyDetailDateTimeFormat');
 
-  const __class = (0, _declare2.default)('crm.Views.History.Detail', [_Detail2.default], {
+  var __class = (0, _declare2.default)('crm.Views.History.Detail', [_Detail2.default], {
     // Templates
     createUserTemplate: _Template2.default.nameLF,
 

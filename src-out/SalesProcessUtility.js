@@ -40,7 +40,7 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
   /**
    * @module crm/SalesProcessUtility
    */
-  const __class = _lang2.default.setObject('crm.SalesProcessUtility', /** @lends module:crm/SalesProcessUtility */{
+  var __class = _lang2.default.setObject('crm.SalesProcessUtility', /** @lends module:crm/SalesProcessUtility */{
     store: null,
     service: null,
     contractName: 'dynamic',
@@ -58,12 +58,12 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
       return this.store;
     },
     createStore: function createStore() {
-      const options = this.getStoreOptions();
-      const store = new _SData2.default(options);
+      var options = this.getStoreOptions();
+      var store = new _SData2.default(options);
       return store;
     },
     getStoreOptions: function getStoreOptions() {
-      const options = {
+      var options = {
         service: App.getService(false),
         contractName: this.contractName,
         resourceKind: this.resourceKind,
@@ -84,19 +84,19 @@ define('crm/SalesProcessUtility', ['module', 'exports', 'dojo/_base/lang', 'dojo
      *
      */
     getSalesProcessByEntityId: function getSalesProcessByEntityId(entityId) {
-      const deferred = new _Deferred2.default();
-      const store = this.getStore();
-      const options = {
-        where: `EntityId eq "${entityId}"`
+      var deferred = new _Deferred2.default();
+      var store = this.getStore();
+      var options = {
+        where: 'EntityId eq "' + entityId + '"'
       };
-      const queryResults = store.query(null, options);
-      (0, _when2.default)(queryResults, feed => {
-        let salesProcess = null;
+      var queryResults = store.query(null, options);
+      (0, _when2.default)(queryResults, function (feed) {
+        var salesProcess = null;
         if (feed && feed.length > 0) {
           salesProcess = feed[0];
         }
         deferred.resolve(salesProcess);
-      }, err => {
+      }, function (err) {
         deferred.reject(err);
       });
       return deferred.promise;

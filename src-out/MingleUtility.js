@@ -18,28 +18,30 @@ define('crm/MingleUtility', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n
    * @alias module:crm/MingleUtility
    * @static
    */
-  const __class = _lang2.default.setObject('crm.MingleUtility', /** @lends module:crm/MingleUtility */{
+  var __class = _lang2.default.setObject('crm.MingleUtility', /** @lends module:crm/MingleUtility */{
     accessToken: '',
 
-    refreshAccessToken(appConfig) {
+    refreshAccessToken: function refreshAccessToken(appConfig) {
       if (!App.isOnline()) {
         App.requiresMingleRefresh = true;
         return;
       }
 
-      const hash = 'mingleRefresh'; // location.hash.substring(2);
-      let state = '';
+      var hash = 'mingleRefresh'; // location.hash.substring(2);
+      var state = '';
       if (hash) {
-        state = `/redirectTo/${hash}`;
+        state = '/redirectTo/' + hash;
       }
       this.redirectToMingle(appConfig, state);
     },
-    populateAccessToken(appConfig) {
-      const hash = location.hash.substring(1);
-      let result;
+    populateAccessToken: function populateAccessToken(appConfig) {
+      var _this = this;
+
+      var hash = location.hash.substring(1);
+      var result = void 0;
       if (hash) {
-        result = hash.split('&').reduce((values, item) => {
-          const parts = item.split('=');
+        result = hash.split('&').reduce(function (values, item) {
+          var parts = item.split('=');
           values[parts[0]] = parts[1];
           return values;
         }, {});
@@ -48,11 +50,11 @@ define('crm/MingleUtility', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n
           this.accessToken = result.access_token;
           if (result.expires_in) {
             // result.expires_in = '420'; // Refresh Test
-            setTimeout(() => {
-              const resource = (0, _I18n2.default)('mingle');
+            setTimeout(function () {
+              var resource = (0, _I18n2.default)('mingle');
               App.toast.add({ message: resource.refreshText, title: resource.refreshTitle, toastTime: 300 * 1000, showProgressBar: true });
-              setTimeout(() => {
-                this.refreshAccessToken(appConfig);
+              setTimeout(function () {
+                _this.refreshAccessToken(appConfig);
               }, 300 * 1000);
               // Show message to user before 5 minutes of refresh (300 seconds)
             }, (result.expires_in - 300) * 1000);
@@ -68,12 +70,12 @@ define('crm/MingleUtility', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n
 
       this.redirectToMingle(appConfig, hash);
     },
-    redirectToMingle(appConfig, state) {
-      const authorizationUrl = appConfig.mingleSettings.pu + appConfig.mingleSettings.oa;
-      const redirectURI = appConfig.mingleRedirectUrl;
-      const clientId = appConfig.mingleSettings.ci;
-      const responseType = 'token';
-      const url = `${authorizationUrl}?` + `client_id=${encodeURI(clientId)}&` + `redirect_uri=${encodeURI(redirectURI)}&` + `response_type=${encodeURI(responseType)}&` + `state=${encodeURI(state)}&` + 'include_granted_scopes=false';
+    redirectToMingle: function redirectToMingle(appConfig, state) {
+      var authorizationUrl = appConfig.mingleSettings.pu + appConfig.mingleSettings.oa;
+      var redirectURI = appConfig.mingleRedirectUrl;
+      var clientId = appConfig.mingleSettings.ci;
+      var responseType = 'token';
+      var url = authorizationUrl + '?' + ('client_id=' + encodeURI(clientId) + '&') + ('redirect_uri=' + encodeURI(redirectURI) + '&') + ('response_type=' + encodeURI(responseType) + '&') + ('state=' + encodeURI(state) + '&') + 'include_granted_scopes=false';
       window.location = url;
     }
   }); /* Copyright 2017 Infor

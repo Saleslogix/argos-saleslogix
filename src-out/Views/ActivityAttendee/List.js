@@ -40,9 +40,9 @@ define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('activityAttendeeList');
+  var resource = (0, _I18n2.default)('activityAttendeeList');
 
-  const __class = (0, _declare2.default)('crm.Views.ActivityAttendee.List', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,
     callPhoneActionText: resource.callPhoneActionText,
@@ -64,7 +64,7 @@ define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/decl
     modelName: _Names2.default.ACTIVITYATTENDEE,
 
     callPhone: function callPhone(params) {
-      this.invokeActionItemBy(a => {
+      this.invokeActionItemBy(function (a) {
         return a.id === 'callPhone';
       }, params.key);
     },
@@ -72,7 +72,7 @@ define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/decl
       return _Format2.default.phone(phone);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return `upper(Name) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
+      return 'upper(Name) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
     },
     getTitle: function getTitle(entry) {
       if (!entry) {
@@ -82,18 +82,20 @@ define('crm/Views/ActivityAttendee/List', ['module', 'exports', 'dojo/_base/decl
       return this._model && this._model.getEntityDescription(entry) || entry.Name;
     },
     deleteAttendee: function deleteAttendee(_, selection) {
+      var _this = this;
+
       App.modal.createSimpleDialog({
         title: 'alert',
         content: this.confirmDeleteText,
-        getContent: () => {}
-      }).then(() => {
-        const entry = selection && selection.data;
-        const model = this.getModel();
-        model.deleteEntry(entry.$key).then(() => {
+        getContent: function getContent() {}
+      }).then(function () {
+        var entry = selection && selection.data;
+        var model = _this.getModel();
+        model.deleteEntry(entry.$key).then(function () {
           _connect2.default.publish('/app/refresh', [{
-            resourceKind: this.resourceKind
+            resourceKind: _this.resourceKind
           }]);
-          this.forceRefresh();
+          _this.forceRefresh();
         });
       });
     },

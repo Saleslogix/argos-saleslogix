@@ -23,22 +23,22 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
     };
   }
 
-  const resource = (0, _I18n2.default)('leftDrawer'); /* Copyright 2017 Infor
-                                                       *
-                                                       * Licensed under the Apache License, Version 2.0 (the "License");
-                                                       * you may not use this file except in compliance with the License.
-                                                       * You may obtain a copy of the License at
-                                                       *
-                                                       *    http://www.apache.org/licenses/LICENSE-2.0
-                                                       *
-                                                       * Unless required by applicable law or agreed to in writing, software
-                                                       * distributed under the License is distributed on an "AS IS" BASIS,
-                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                       * See the License for the specific language governing permissions and
-                                                       * limitations under the License.
-                                                       */
+  var resource = (0, _I18n2.default)('leftDrawer'); /* Copyright 2017 Infor
+                                                     *
+                                                     * Licensed under the Apache License, Version 2.0 (the "License");
+                                                     * you may not use this file except in compliance with the License.
+                                                     * You may obtain a copy of the License at
+                                                     *
+                                                     *    http://www.apache.org/licenses/LICENSE-2.0
+                                                     *
+                                                     * Unless required by applicable law or agreed to in writing, software
+                                                     * distributed under the License is distributed on an "AS IS" BASIS,
+                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                     * See the License for the specific language governing permissions and
+                                                     * limitations under the License.
+                                                     */
 
-  const __class = (0, _declare2.default)('crm.Views.LeftDrawer', [_GroupedList2.default], {
+  var __class = (0, _declare2.default)('crm.Views.LeftDrawer', [_GroupedList2.default], {
     // Templates
     cls: ' contextualContent',
     enablePullToRefresh: false,
@@ -79,18 +79,18 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       this.inherited(initSoho, arguments);
     },
     shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
-      const menu = App.applicationmenu;
+      var menu = App.applicationmenu;
       return !menu.isLargerThanBreakpoint();
     },
     closeAppMenu: function closeAppMenu() {
-      const menu = App.applicationmenu;
+      var menu = App.applicationmenu;
 
       if (menu && this.shouldCloseAppMenuOnAction()) {
         menu.closeMenu();
       }
     },
     logOut: function logOut() {
-      const sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
+      var sure = window.confirm(this.logOutConfirmText); // eslint-disable-line
       if (sure) {
         this.destroy();
         App.hideApplicationMenu();
@@ -99,7 +99,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       }
     },
     loadAndNavigateToView: function loadAndNavigateToView(params) {
-      const view = App.getView(params && params.view);
+      var view = App.getView(params && params.view);
       this.navigateToView(view);
     },
     navigateToView: function navigateToView(view) {
@@ -109,7 +109,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       }
     },
     addAccountContact: function addAccountContact() {
-      const view = App.getView('add_account_contact');
+      var view = App.getView('add_account_contact');
       if (view) {
         view.show({
           insert: true
@@ -118,22 +118,22 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       }
     },
     navigateToConfigurationView: function navigateToConfigurationView() {
-      const view = App.getView(this.configurationView);
+      var view = App.getView(this.configurationView);
       this.navigateToView(view);
     },
     navigateToSettingsView: function navigateToSettingsView() {
-      const view = App.getView(this.settingsView);
+      var view = App.getView(this.settingsView);
       this.navigateToView(view);
     },
     navigateToHelpView: function navigateToHelpView() {
-      const view = App.getView(this.helpView);
+      var view = App.getView(this.helpView);
       this.navigateToView(view);
     },
     hasMoreData: function hasMoreData() {
       return false;
     },
     getGroupForEntry: function getGroupForEntry(entry) {
-      const footerItems = ['ConfigureMenu', 'SettingsAction', 'HelpAction', 'Logout', 'ConnectionIndicator', 'AboutAction'];
+      var footerItems = ['ConfigureMenu', 'SettingsAction', 'HelpAction', 'Logout', 'ConnectionIndicator', 'AboutAction'];
 
       if (entry.view) {
         return {
@@ -163,9 +163,9 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
         return this.layout;
       }
 
-      const layout = [];
+      var layout = [];
 
-      const quickActions = {
+      var quickActions = {
         id: 'actions',
         children: [{
           name: 'AddAccountContactAction',
@@ -177,14 +177,14 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
 
       layout.push(quickActions);
 
-      const goTo = {
+      var goTo = {
         id: 'views',
         children: []
       };
 
-      const configured = _lang2.default.getObject('preferences.home.visible', false, window.App);
-      for (let i = 0; configured && i < configured.length; i++) {
-        const view = App.getView(configured[i]);
+      var configured = _lang2.default.getObject('preferences.home.visible', false, window.App);
+      for (var i = 0; configured && i < configured.length; i++) {
+        var view = App.getView(configured[i]);
         if (view) {
           goTo.children.push({
             action: 'loadAndNavigateToView',
@@ -200,7 +200,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
 
       layout.push(goTo);
 
-      const footer = {
+      var footer = {
         id: 'footer',
         children: [{
           name: 'ConfigureMenu',
@@ -241,21 +241,21 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       $('body').about({
         appName: 'Infor CRM SLX',
         version: App.getVersionInfo(),
-        content: `<p>${this.currentUserText} ${App.context.user.$descriptor}</p>`
+        content: '<p>' + this.currentUserText + ' ' + App.context.user.$descriptor + '</p>'
       });
     },
     createStore: function createStore() {
-      const layout = this._createCustomizedLayout(this.createLayout());
-      const list = [];
-      let total = 0;
-      let section;
+      var layout = this._createCustomizedLayout(this.createLayout());
+      var list = [];
+      var total = 0;
+      var section = void 0;
 
-      for (let i = 0; i < layout.length; i++) {
+      for (var i = 0; i < layout.length; i++) {
         section = layout[i].children;
 
-        for (let j = 0; j < section.length; j++) {
+        for (var j = 0; j < section.length; j++) {
           total = total + 1;
-          const row = section[j];
+          var row = section[j];
           row.$key = total;
 
           if (row.disabled) {
@@ -279,7 +279,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
         }
       }
 
-      const store = new _Memory2.default({
+      var store = new _Memory2.default({
         data: list
       });
       store.idProperty = '$key';
@@ -316,14 +316,14 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       this.refresh();
     },
     refreshRequiredFor: function refreshRequiredFor() {
-      const visible = _lang2.default.getObject('preferences.home.visible', false, App) || [];
-      const shown = this.feed && this.feed.$resources;
+      var visible = _lang2.default.getObject('preferences.home.visible', false, App) || [];
+      var shown = this.feed && this.feed.$resources;
 
       if (!visible || !shown || visible.length !== shown.length) {
         return true;
       }
 
-      for (let i = 0; i < visible.length; i++) {
+      for (var i = 0; i < visible.length; i++) {
         if (visible[i] !== shown[i].$key) {
           return true;
         }
@@ -335,8 +335,8 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       this.refreshRequired = true;
     },
     _onSearchExpression: function _onSearchExpression(expression) {
-      const view = App.getView(this.searchView);
-      const current = App.getPrimaryActiveView();
+      var view = App.getView(this.searchView);
+      var current = App.getPrimaryActiveView();
 
       if (view) {
         // If the speedsearch list is not our current view, show it first
@@ -348,7 +348,7 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
 
         // Set the search term on the list and call search.
         // This will keep the search terms on each widget in sync.
-        setTimeout(() => {
+        setTimeout(function () {
           view.setSearchTerm(expression);
           if (current && current.id === view.id) {
             view.search();
@@ -361,7 +361,8 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
       if (typeof state === 'undefined') {
         return;
       }
-      const { app: { speedsearch: { searchTerm } } } = state;
+      var searchTerm = state.app.speedsearch.searchTerm;
+
       this.searchWidget.set('queryValue', searchTerm);
     }
   });

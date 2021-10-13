@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/List', ['module', 'exports'
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('erpShipToAccountsList');
+  var resource = (0, _I18n2.default)('erpShipToAccountsList');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipToAccounts.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.ErpShipTo.Name %}</p>', '<p class="micro-text address">{%: $.ErpShipTo.Address.FullAddress %}</p>']),
 
@@ -69,7 +69,7 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/List', ['module', 'exports'
     itemIconClass: 'warehouse',
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return `upper(ErpShipTo.Name) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
+      return 'upper(ErpShipTo.Name) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
     }
   });
 

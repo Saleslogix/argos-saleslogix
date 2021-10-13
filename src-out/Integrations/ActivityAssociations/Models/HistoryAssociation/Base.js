@@ -32,9 +32,9 @@ define('crm/Integrations/ActivityAssociations/Models/HistoryAssociation/Base', [
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('historyAssociationModel'); // eslint-disable-line
+  var resource = (0, _I18n2.default)('historyAssociationModel'); // eslint-disable-line
 
-  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.HistoryAssociation.Base', [_ModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.HistoryAssociation.Base', [_ModelBase3.default], {
     resourceKind: 'historyAssociations',
     entityName: 'HistoryAssociation',
     entityDisplayName: resource.entityDisplayName,
@@ -42,7 +42,7 @@ define('crm/Integrations/ActivityAssociations/Models/HistoryAssociation/Base', [
     modelName: _Names2.default.ACTIVITYASSOCIATION,
     listViewId: 'history_association_list',
     createRelationships: function createRelationships() {
-      const rel = this.relationships || (this.relationships = []);
+      var rel = this.relationships || (this.relationships = []);
       return rel;
     }
   });

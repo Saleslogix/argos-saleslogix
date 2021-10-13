@@ -32,9 +32,9 @@ define('crm/Fields/RecurrencesField', ['module', 'exports', 'dojo/_base/declare'
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('recurrencesField');
+  var resource = (0, _I18n2.default)('recurrencesField');
 
-  const control = (0, _declare2.default)('crm.Fields.RecurrencesField', [_EditorField2.default], {
+  var control = (0, _declare2.default)('crm.Fields.RecurrencesField', [_EditorField2.default], {
     // Localization
     titleText: resource.titleText,
     emptyText: resource.emptyText,
@@ -45,12 +45,7 @@ define('crm/Fields/RecurrencesField', ['module', 'exports', 'dojo/_base/declare'
       }
     },
 
-    widgetTemplate: new Simplate(['<label for="{%= $.name %}">{%: $.label %}</label>', '<div class="field field-control-wrapper">', `<button class="button simpleSubHeaderButton field-control-trigger {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}">
-      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>
-      </svg>
-      <span>{%: $.lookupText %}</span>
-    </button>`, '<div data-dojo-attach-point="inputNode" class="note-text"></div>', '</div>']),
+    widgetTemplate: new Simplate(['<label for="{%= $.name %}">{%: $.label %}</label>', '<div class="field field-control-wrapper">', '<button class="button simpleSubHeaderButton field-control-trigger {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}">\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.iconClass %}"></use>\n      </svg>\n      <span>{%: $.lookupText %}</span>\n    </button>', '<div data-dojo-attach-point="inputNode" class="note-text"></div>', '</div>']),
     iconClass: 'more',
 
     setText: function setText(text) {

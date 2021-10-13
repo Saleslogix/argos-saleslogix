@@ -27,23 +27,47 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
     };
   }
 
-  const resource = (0, _I18n2.default)('salesOrderItemsDetail'); /* Copyright 2017 Infor
-                                                                  *
-                                                                  * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                  * you may not use this file except in compliance with the License.
-                                                                  * You may obtain a copy of the License at
-                                                                  *
-                                                                  *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                  *
-                                                                  * Unless required by applicable law or agreed to in writing, software
-                                                                  * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                  * See the License for the specific language governing permissions and
-                                                                  * limitations under the License.
-                                                                  */
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];
+      var _n = true;
+      var _d = false;
+      var _e = undefined;
 
+      try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [_Detail2.default], {
+          if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;
+        _e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"]) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }
+
+      return _arr;
+    }
+
+    return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance");
+      }
+    };
+  }();
+
+  var resource = (0, _I18n2.default)('salesOrderItemsDetail');
+
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrderItems.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     lineText: resource.lineText,
@@ -85,7 +109,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
     enableOffline: true,
 
     createEntryForDelete: function createEntryForDelete(e) {
-      const entry = {
+      var entry = {
         $key: e.$key,
         $etag: e.$etag,
         $name: e.$name
@@ -102,28 +126,30 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
       }
     },
     removeOrderLine: function removeOrderLine() {
+      var _this = this;
+
       // TODO: [INFORCRM-7712] Implement this in the model (model needs remove call)
       App.modal.createSimpleDialog({
         title: 'alert',
         content: this.confirmDeleteText,
-        getContent: () => {}
-      }).then(() => {
-        const entry = this.createEntryForDelete(this.entry);
-        const request = this.store._createEntryRequest(this.entry.$key, {});
+        getContent: function getContent() {}
+      }).then(function () {
+        var entry = _this.createEntryForDelete(_this.entry);
+        var request = _this.store._createEntryRequest(_this.entry.$key, {});
 
         if (request) {
           request.delete(entry, {
-            success: this.onDeleteSuccess,
-            failure: this.onRequestDataFailure,
-            scope: this
+            success: _this.onDeleteSuccess,
+            failure: _this.onRequestDataFailure,
+            scope: _this
           });
         }
       });
     },
     onDeleteSuccess: function onDeleteSuccess() {
-      const views = [App.getView('salesorder_items_related'), App.getView('salesorder_detail'), App.getView('salesorder_list')];
+      var views = [App.getView('salesorder_items_related'), App.getView('salesorder_detail'), App.getView('salesorder_list')];
 
-      views.forEach(view => {
+      views.forEach(function (view) {
         if (view) {
           view.refreshRequired = true;
         }
@@ -145,7 +171,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
       if (this.tools) {
         return this.tools;
       }
-      const tools = this.inherited(createToolLayout, arguments);
+      var tools = this.inherited(createToolLayout, arguments);
       if (tools && tools.tbar) {
         tools.tbar.push({
           id: 'removeOrderLine',
@@ -158,18 +184,27 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
       return tools;
     },
     onAvailability: function onAvailability() {
-      _PricingAvailabilityService2.default.getOrderItemAvailability(this.entry).then(result => {
-        const [warehouse] = result;
-        const { ErrorCode, AvailableQuantity } = warehouse;
+      var _this2 = this;
+
+      _PricingAvailabilityService2.default.getOrderItemAvailability(this.entry).then(function (result) {
+        var _result = _slicedToArray(result, 1),
+            warehouse = _result[0];
+
+        var ErrorCode = warehouse.ErrorCode,
+            AvailableQuantity = warehouse.AvailableQuantity;
+
         if (ErrorCode) {
           App.modal.createSimpleAlert({ title: ErrorCode });
         } else if (AvailableQuantity) {
-          App.modal.createSimpleAlert({ title: this.availableQuantityText + AvailableQuantity });
+          App.modal.createSimpleAlert({ title: _this2.availableQuantityText + AvailableQuantity });
         }
       });
     },
     createLayout: function createLayout() {
-      const { code: baseCurrencyCode } = App.getBaseExchangeRate();
+      var _this3 = this;
+
+      var _App$getBaseExchangeR = App.getBaseExchangeRate(),
+          baseCurrencyCode = _App$getBaseExchangeR.code;
 
       return this.layout || (this.layout = [{
         title: this.actionsText,
@@ -182,7 +217,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           label: this.checkWarehouseAvailabilityText,
           iconClass: 'redo', // TODO: look for a better icon
           action: 'onAvailability',
-          disabled: () => {
+          disabled: function disabled() {
             return App.warehouseDiscovery === 'auto';
           },
           security: 'Entities/SalesOrder/Add'
@@ -216,31 +251,33 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           name: 'Price',
           property: 'Price',
           label: this.priceText,
-          renderer: value => {
-            const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          renderer: function renderer(value) {
+            var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'Discount',
           property: 'Discount',
           label: this.discountText,
-          renderer: value => {
-            const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          renderer: function renderer(value) {
+            var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'CalculatedPrice',
           property: 'CalculatedPrice',
           label: this.baseAdjustedPriceText,
-          renderer: value => {
-            const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          renderer: function renderer(value) {
+            var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocCalculatedPrice',
           property: 'DocCalculatedPrice',
           label: this.adjustedPriceText,
-          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode)
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
+          }
         }, {
           name: 'Quantity',
           property: 'Quantity',
@@ -262,20 +299,24 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Detail', ['module', 'exports'
           label: this.baseExtendedAmountText,
           name: 'ExtendedPrice',
           property: 'ExtendedPrice',
-          renderer: value => {
-            const code = this.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
+          renderer: function renderer(value) {
+            var code = _this3.entry.SalesOrder.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocExtendedPrice',
           property: 'DocExtendedPrice',
           label: this.extendedAmountText,
-          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode)
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
+          }
         }, {
           name: 'DocTotalAmount',
           property: 'DocTotalAmount',
           label: this.totalAmountText,
-          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.SalesOrder.CurrencyCode)
+          renderer: function renderer(value) {
+            return _Utility2.default.formatMultiCurrency(value, _this3.entry.SalesOrder.CurrencyCode);
+          }
         }, {
           name: 'ErpStatus',
           property: 'ErpStatus',

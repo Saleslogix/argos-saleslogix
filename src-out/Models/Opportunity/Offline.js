@@ -36,7 +36,7 @@ define('crm/Models/Opportunity/Offline', ['module', 'exports', 'dojo/_base/decla
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Models.Opportunity.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Opportunity.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'opportunity_offline_model'
   });
 

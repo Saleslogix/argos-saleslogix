@@ -32,9 +32,9 @@ define('crm/Integrations/ActivityAssociations/Views/HistoryAssociation/List', ['
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('historyAssociationList');
+  var resource = (0, _I18n2.default)('historyAssociationList');
 
-  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Views.HistoryAssociation.List', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Views.HistoryAssociation.List', [_List2.default], {
     // Localization
     titleText: resource.titleText,
     primaryText: resource.primaryText,
@@ -51,7 +51,7 @@ define('crm/Integrations/ActivityAssociations/Views/HistoryAssociation/List', ['
     modelName: _Names2.default.HISTORYASSOCIATION,
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return `upper(EntityName) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
+      return 'upper(EntityName) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
     },
     getTitle: function getTitle(entry) {
       if (!entry) {

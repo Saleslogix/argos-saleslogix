@@ -31,7 +31,7 @@ define('crm/Integrations/BOE/DateRangeWidget', ['module', 'exports', 'dojo/_base
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.DateRangeWidget', [_Widget3.default, _Templated3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.DateRangeWidget', [_Widget3.default, _Templated3.default], {
     widgetTemplate: new Simplate(['<div class="range-widget">', '<button data-dojo-attach-event="onclick:changeRange">', '<div data-dojo-attach-point="rangeDetailNode" class="range-detail">', '{%! $.itemTemplate %}', '</div>', '</button>', '</div>']),
 
     /*

@@ -52,12 +52,12 @@ define('crm/Integrations/BOE/Modules/BillToModule', ['module', 'exports', 'dojo/
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.BillToModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.BillToModule', [_Module3.default], {
     init: function init() {
       App.picklistService.registerPicklistToView('SyncStatus', 'erpbillto_detail');
     },
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerView(new _List4.default());
       am.registerView(new _Detail2.default());
       am.registerView(new _Edit2.default());
@@ -123,7 +123,7 @@ define('crm/Integrations/BOE/Modules/BillToModule', ['module', 'exports', 'dojo/
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
       am.registerCustomization('detail/tools', 'erpbillto_detail', {
         at: function at(tool) {
           return tool.id === 'edit';
@@ -131,25 +131,25 @@ define('crm/Integrations/BOE/Modules/BillToModule', ['module', 'exports', 'dojo/
         type: 'remove'
       });
       am.registerCustomization('list/tools', 'billto_accounts_related', {
-        at: tool => {
+        at: function at(tool) {
           return tool.id === 'new';
         },
         type: 'remove'
       });
       am.registerCustomization('list/tools', 'billto_receivables_related', {
-        at: tool => {
+        at: function at(tool) {
           return tool.id === 'new';
         },
         type: 'remove'
       });
       am.registerCustomization('list/tools', 'billto_invoices_related', {
-        at: tool => {
+        at: function at(tool) {
           return tool.id === 'new';
         },
         type: 'remove'
       });
       am.registerCustomization('list/tools', 'billto_returns_related', {
-        at: tool => {
+        at: function at(tool) {
           return tool.id === 'new';
         },
         type: 'remove'

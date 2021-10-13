@@ -64,9 +64,9 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('accountModule');
+  var resource = (0, _I18n2.default)('accountModule');
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.AccountModule', [_Module3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.AccountModule', [_Module3.default], {
     // Localization
     erpStatusText: resource.erpStatusText,
     erpCustomerText: resource.erpCustomerText,
@@ -118,7 +118,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
       App.picklistService.registerPicklistToView('ErpAccountStatus', 'account_detail');
     },
     loadViews: function loadViews() {
-      const am = this.applicationModule;
+      var am = this.applicationModule;
 
       am.registerView(new _List6.default({
         id: 'account_erpinvoice_related',
@@ -340,16 +340,16 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      const am = this.applicationModule;
-      const Busy = _BusyIndicator2.default;
+      var am = this.applicationModule;
+      var Busy = _BusyIndicator2.default;
 
       // Row names to match in the detail and more detail sections.
       // These are the last item in the section.
-      const detailRowMatch = 'AccountManager.UserInfo';
-      const moreDetailRowMatch = 'Owner.OwnerDescription';
+      var detailRowMatch = 'AccountManager.UserInfo';
+      var moreDetailRowMatch = 'Owner.OwnerDescription';
 
       am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -357,7 +357,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpExtId'
       });
       am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -365,7 +365,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpAccountingEntityId'
       });
       am.registerCustomization('models/list/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -375,13 +375,13 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
 
       _lang2.default.extend(crm.Views.Account.List, {
         formatSearchQuery: function formatSearchQuery(searchQuery) {
-          const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-          return `AccountNameUpper like "${q}%" or upper(ErpExtId) like "${q}%"`;
+          var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+          return 'AccountNameUpper like "' + q + '%" or upper(ErpExtId) like "' + q + '%"';
         }
       });
 
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -389,7 +389,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpExtId'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -397,7 +397,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpStatus'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -405,7 +405,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpStatusDate'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -413,7 +413,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpPaymentTerm'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -421,7 +421,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'SyncStatus'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -429,7 +429,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpAccountingEntityId'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -437,7 +437,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpLogicalId'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -445,7 +445,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'PromotedToAccounting'
       });
       am.registerCustomization('models/detail/querySelect', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -453,7 +453,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         value: 'ErpBillToAccounts/*'
       });
       am.registerCustomization('models/picklists', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -464,7 +464,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         }
       });
       am.registerCustomization('models/picklists', 'account_sdata_model', {
-        at: () => {
+        at: function at() {
           return true;
         },
         type: 'insert',
@@ -476,7 +476,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
       });
 
       am.registerCustomization('models/relationships', 'account_offline_model', {
-        at: relationship => {
+        at: function at(relationship) {
           return relationship.name === 'Tickets';
         },
         type: 'insert',
@@ -512,7 +512,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         }]
       });
       am.registerCustomization('models/relationships', 'account_sdata_model', {
-        at: relationship => {
+        at: function at(relationship) {
           return relationship.name === 'Tickets';
         },
         type: 'insert',
@@ -560,19 +560,19 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           this.orginalProcessEntry(entry);
         },
         selectedTab: function selectedTab(params) {
-          const key = params.key;
+          var key = params.key;
           if (!this.dashboardLoaded && key === 'DashboardSection') {
             this._loadDashboards();
             this.dashboardLoaded = true;
           }
         },
         _loadDashboards: function _loadDashboards() {
-          const layout = this._createCustomizedLayout(this.createLayout());
-          for (const key in layout) {
+          var layout = this._createCustomizedLayout(this.createLayout());
+          for (var key in layout) {
             if (layout.hasOwnProperty(key)) {
-              const item = layout[key];
+              var item = layout[key];
               if (item.name === 'DashboardSection') {
-                for (const i in item.children) {
+                for (var i in item.children) {
                   if (item.children[i]) {
                     this._loadDashboard(item.children[i]);
                   }
@@ -582,11 +582,11 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           }
         },
         _loadDashboard: function _loadDashboard(dashboardLayout) {
-          const rvm = this.getRelatedViewManager(dashboardLayout.relatedView);
+          var rvm = this.getRelatedViewManager(dashboardLayout.relatedView);
           if (rvm) {
-            for (const key in rvm.relatedViews) {
+            for (var key in rvm.relatedViews) {
               if (rvm.relatedViews.hasOwnProperty(key)) {
-                const dashboard = rvm.relatedViews[key];
+                var dashboard = rvm.relatedViews[key];
                 if (dashboard) {
                   dashboard.onToggleView(true);
                 }
@@ -595,57 +595,61 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           }
         },
         _canPromote: function _canPromote() {
-          const promise = new Promise(resolve => {
-            this.showBusy();
-            const entry = {
+          var _this = this;
+
+          var promise = new Promise(function (resolve) {
+            _this.showBusy();
+            var entry = {
               $name: 'CanPromoteAccount',
               request: {
-                accountId: this.entry.$key
+                accountId: _this.entry.$key
               }
             };
-            const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('accounts').setContractName('dynamic').setOperationName('CanPromoteAccount');
+            var request = new Sage.SData.Client.SDataServiceOperationRequest(_this.getService()).setResourceKind('accounts').setContractName('dynamic').setOperationName('CanPromoteAccount');
 
-            const canPromote = {
+            var canPromote = {
               value: false,
               result: ''
             };
 
             request.execute(entry, {
               async: false,
-              success: result => {
+              success: function success(result) {
                 canPromote.value = result.response.Result;
                 resolve(canPromote);
               },
-              failure: err => {
-                const response = JSON.parse(err.response)[0];
+              failure: function failure(err) {
+                var response = JSON.parse(err.response)[0];
                 canPromote.result = response.message;
                 resolve(canPromote);
               },
-              scope: this
+              scope: _this
             });
           });
           return promise;
         },
         _onPromoteAccountClick: function _onPromoteAccountClick() {
-          const canPromotePromise = this._canPromote();
-          canPromotePromise.then(val => {
-            this.hideBusy();
+          var _this2 = this;
+
+          var canPromotePromise = this._canPromote();
+          canPromotePromise.then(function (val) {
+            _this2.hideBusy();
             if (!val.value) {
               App.modal.createSimpleDialog({
                 title: 'alert',
                 content: val.result,
-                getContent: () => {
+                getContent: function getContent() {
                   return;
                 }
               });
               return;
             }
-            const promote = new _Promote2.default();
-            promote.promoteToBackOffice(this.entry, 'Account', this);
+            var promote = new _Promote2.default();
+            promote.promoteToBackOffice(_this2.entry, 'Account', _this2);
           });
         },
         _onAddQuoteClick: function _onAddQuoteClick() {
-          const view = App.getView('quote_edit');
+          var view = App.getView('quote_edit');
           view.show({
             fromContext: this,
             detailView: 'quote_detail',
@@ -653,7 +657,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           });
         },
         _onAddOrderClick: function _onAddOrderClick() {
-          const view = App.getView('salesorder_edit');
+          var view = App.getView('salesorder_edit');
           view.show({
             fromContext: this,
             detailView: 'salesorder_detail',
@@ -669,7 +673,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         },
         showBusy: function showBusy() {
           if (!this._busyIndicator || this._busyIndicator._destroyed) {
-            this._busyIndicator = new Busy({ id: `${this.id}-busyIndicator` });
+            this._busyIndicator = new Busy({ id: this.id + '-busyIndicator' });
           }
           this._busyIndicator.start();
           App.modal.disableClose = true;
@@ -678,11 +682,11 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         }
       });
 
-      const originalProcessData = crm.Views.Account.Edit.prototype.processData;
-      const originalInit = crm.Views.Account.Edit.prototype.init;
-      const originalProcessEntry = crm.Views.Account.Edit.prototype.processEntry;
-      const originalOnRefreshInsert = crm.Views.Account.Edit.prototype.onRefreshInsert;
-      const icboeUtility = _Utility2.default;
+      var originalProcessData = crm.Views.Account.Edit.prototype.processData;
+      var originalInit = crm.Views.Account.Edit.prototype.init;
+      var originalProcessEntry = crm.Views.Account.Edit.prototype.processEntry;
+      var originalOnRefreshInsert = crm.Views.Account.Edit.prototype.onRefreshInsert;
+      var icboeUtility = _Utility2.default;
       _lang2.default.extend(crm.Views.Account.Edit, {
         _busyIndicator: null,
         init: function init() {
@@ -713,21 +717,23 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
           this.getEntriesFromIds();
         },
         getEntriesFromIds: function getEntriesFromIds() {
-          const mappedLookups = ['BackOffice', 'BackOfficeAccountingEntity'];
-          const mappedProperties = ['LogicalId', 'AcctEntityExtId'];
-          const fields = ['ErpLogicalId', 'ErpAccountingEntityId'];
-          icboeUtility.setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(() => {
-            this.hideBusy();
+          var _this3 = this;
+
+          var mappedLookups = ['BackOffice', 'BackOfficeAccountingEntity'];
+          var mappedProperties = ['LogicalId', 'AcctEntityExtId'];
+          var fields = ['ErpLogicalId', 'ErpAccountingEntityId'];
+          icboeUtility.setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(function () {
+            _this3.hideBusy();
           });
         },
         onBackOfficeChange: function onBackOfficeChange(value, field) {
           this.fields.BackOffice.setValue(field.currentSelection);
           this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
-          const accountingField = this.fields.BackOfficeAccountingEntity;
-          accountingField.where = `BackOffice.Id eq "${field.currentSelection.$key}"`;
-          const accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+          var accountingField = this.fields.BackOfficeAccountingEntity;
+          accountingField.where = 'BackOffice.Id eq "' + field.currentSelection.$key + '"';
+          var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
           if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
-            const entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
+            var entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
             if (entry) {
               accountingField.setSelection(entry);
               this.onBackOfficeAccountingEntityChange(accountingField.getValue(), accountingField);
@@ -751,7 +757,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         },
         showBusy: function showBusy() {
           if (!this._busyIndicator || this._busyIndicator._destroyed) {
-            this._busyIndicator = new Busy({ id: `${this.id}-busyIndicator` });
+            this._busyIndicator = new Busy({ id: this.id + '-busyIndicator' });
           }
           this._busyIndicator.start();
           App.modal.disableClose = true;
@@ -764,7 +770,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
        * Edit View
        */
       am.registerCustomization('edit', 'account_edit', {
-        at: row => {
+        at: function at(row) {
           return row.name === 'BusinessDescription';
         },
         type: 'insert',
@@ -906,77 +912,77 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
             name: 'Quotes',
             label: this.quotesText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_quotes_related'
           }, {
             name: 'SalesOrders',
             label: this.ordersText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_salesorders_related'
           }, {
             name: 'Shipments',
             label: this.erpShipmentsText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_erpshipments_related'
           }, {
             name: 'ERPInvoicesRelated',
             label: this.erpInvoicesText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_erpinvoice_related'
           }, {
             name: 'ERPReceivablesRelated',
             label: this.erpReceivablesText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_erpreceivables_related'
           }, {
             name: 'ERPReturnsRelated',
             label: this.erpReturnsText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_returns_related'
           }, {
             name: 'BillTo',
             label: this.erpBillToText,
             where: function where(entry) {
-              return `ErpBillToAccounts.Account.Id eq "${entry.$key}"`;
+              return 'ErpBillToAccounts.Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_billto_related'
           }, {
             name: 'ShipTo',
             label: this.erpShipToText,
             where: function where(entry) {
-              return `ErpShipToAccounts.Account.Id eq "${entry.$key}"`;
+              return 'ErpShipToAccounts.Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_shipto_related'
           }, {
             name: 'ContactAssociations',
             label: this.erpContactAssociationText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_contactassociations_related'
           }, {
             name: 'SalesPersons',
             label: this.erpSalesPersonText,
             where: function where(entry) {
-              return `Account.Id eq "${entry.$key}"`;
+              return 'Account.Id eq "' + entry.$key + '"';
             },
             view: 'account_salesperson_related'
           }, {
             name: 'SyncHistory',
             label: this.syncHistoryText,
-            where: entry => {
-              return `EntityType eq "Account" and EntityId eq "${entry.$key}"`;
+            where: function where(entry) {
+              return 'EntityType eq "Account" and EntityId eq "' + entry.$key + '"';
             },
             view: 'account_syncresults_related'
           }]

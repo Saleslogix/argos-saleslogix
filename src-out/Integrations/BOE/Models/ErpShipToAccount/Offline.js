@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/Models/ErpShipToAccount/Offline', ['module', 'expor
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipToAccount.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipToAccount.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'erpshiptoaccount_offline_model'
   });
 

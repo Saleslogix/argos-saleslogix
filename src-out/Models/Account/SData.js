@@ -36,7 +36,7 @@ define('crm/Models/Account/SData', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  const __class = (0, _declare2.default)('crm.Models.Account.SData', [_Base2.default, _SDataModelBase3.default], {
+  var __class = (0, _declare2.default)('crm.Models.Account.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'account_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -50,10 +50,10 @@ define('crm/Models/Account/SData', ['module', 'exports', 'dojo/_base/declare', '
       }];
     },
     getEntry: function getEntry() /* options */{
-      const results$ = this.inherited(getEntry, arguments);
-      return results$.then(entry => {
-        return new Promise(resolve => {
-          App.picklistService.requestPicklist(`Account ${entry.Type}`).then(() => {
+      var results$ = this.inherited(getEntry, arguments);
+      return results$.then(function (entry) {
+        return new Promise(function (resolve) {
+          App.picklistService.requestPicklist('Account ' + entry.Type).then(function () {
             resolve(entry);
           });
         });

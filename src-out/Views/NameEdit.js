@@ -32,9 +32,9 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('nameEdit');
+  var resource = (0, _I18n2.default)('nameEdit');
 
-  const __class = (0, _declare2.default)('crm.Views.NameEdit', [_Edit2.default], {
+  var __class = (0, _declare2.default)('crm.Views.NameEdit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,
     firstNameText: resource.firstNameText,
@@ -55,7 +55,7 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
         name: 'Prefix',
         property: 'Prefix',
         picklist: 'Name Prefix',
-        picklistOptions: entry => {
+        picklistOptions: function picklistOptions(entry) {
           // Checks if entry is a Contact
           if (entry.hasOwnProperty('NameLF')) {
             return {
@@ -102,7 +102,7 @@ define('crm/Views/NameEdit', ['module', 'exports', 'dojo/_base/declare', '../Val
         name: 'Suffix',
         property: 'Suffix',
         picklist: 'Name Suffix',
-        picklistOptions: entry => {
+        picklistOptions: function picklistOptions(entry) {
           // Checks if entry is a Contact
           if (entry.hasOwnProperty('NameLF')) {
             return {

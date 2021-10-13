@@ -32,9 +32,9 @@ define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '..
    * limitations under the License.
    */
 
-  const resource = (0, _I18n2.default)('addressList');
+  var resource = (0, _I18n2.default)('addressList');
 
-  const __class = (0, _declare2.default)('crm.Views.Address.List', [_List2.default], {
+  var __class = (0, _declare2.default)('crm.Views.Address.List', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>', '<p class="micro-text">{%= $$.format.address($, true) %}</p>']),
 
@@ -54,8 +54,8 @@ define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '..
     isCardView: false,
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return `(upper(Description) like "${q}%" or upper(City) like "${q}%")`;
+      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return '(upper(Description) like "' + q + '%" or upper(City) like "' + q + '%")';
     },
     // Disable Add/Insert on toolbar
     createToolLayout: function createToolLayout() {
@@ -64,8 +64,8 @@ define('crm/Views/Address/List', ['module', 'exports', 'dojo/_base/declare', '..
       });
     },
     selectEntry: function selectEntry(params) {
-      const row = $(params.$source).closest('[data-key]')[0];
-      const key = row ? $(row).attr('data-key') : false;
+      var row = $(params.$source).closest('[data-key]')[0];
+      var key = row ? $(row).attr('data-key') : false;
 
       if (this._selectionModel && key) {
         App.showMapForAddress(_Format2.default.address(this.entries[key], true, ' '));
