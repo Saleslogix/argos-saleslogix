@@ -15,7 +15,7 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
     };
   }
 
-  var mixinName = 'crm.Views.Offline._RightDrawerListMixin';
+  const mixinName = 'crm.Views.Offline._RightDrawerListMixin';
 
   /**
    * @class
@@ -43,7 +43,7 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
   /**
    * @module crm/Views/Offline/_RightDrawerListMixin
    */
-  var __class = (0, _declare2.default)('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/Offline/_RightDrawerListMixin.prototype */{
+  const __class = (0, _declare2.default)('crm.Views.Offline._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/Offline/_RightDrawerListMixin.prototype */{
     // Localization
     entitySectionText: 'Entity',
     kpiSectionText: 'KPI',
@@ -60,23 +60,21 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
     },
     setDefaultEntityPreferences: function setDefaultEntityPreferences() {
       if (!App.preferences.offlineEntityFilters) {
-        var defaults = this.getDefaultEntityPreferences();
+        const defaults = this.getDefaultEntityPreferences();
         App.preferences.offlineEntityFilters = defaults;
         App.persistPreferences();
       }
     },
     getDefaultEntityPreferences: function getDefaultEntityPreferences() {
-      return Object.keys(this.entityMappings).map(function (name) {
+      return Object.keys(this.entityMappings).map(name => {
         return {
-          name: name,
+          name,
           enabled: true
         };
       });
     },
     setupRightDrawer: function setupRightDrawer() {
-      var _this = this;
-
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         _lang2.default.mixin(drawer, this._createActions());
         drawer.setLayout(this.createRightDrawerLayout());
@@ -84,24 +82,24 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
           return this.getGroupForRightDrawerEntry(entry);
         });
 
-        App.viewSettingsModal.element.on('close', function () {
-          if (_this._hasChangedEntityPrefs) {
-            _this.clear();
-            _this.refreshRequired = true;
-            _this.refresh();
-            _this.rebuildWidgets();
-            _this._hasChangedEntityPrefs = false;
+        App.viewSettingsModal.element.on('close', () => {
+          if (this._hasChangedEntityPrefs) {
+            this.clear();
+            this.refreshRequired = true;
+            this.refresh();
+            this.rebuildWidgets();
+            this._hasChangedEntityPrefs = false;
           }
 
-          if (_this._hasChangedKPIPrefs && _this.rebuildWidgets) {
-            _this.rebuildWidgets();
-            _this._hasChangedKPIPrefs = false;
+          if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
+            this.rebuildWidgets();
+            this._hasChangedKPIPrefs = false;
           }
         });
       }
     },
     unloadRightDrawer: function unloadRightDrawer() {
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.setLayout([]);
         drawer.getGroupForEntry = function noop() {};
@@ -114,16 +112,16 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
     },
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
-      var actions = {
+      const actions = {
         entityFilterClicked: function onentityFilterClicked(params) {
-          var prefs = App.preferences && App.preferences.offlineEntityFilters;
+          const prefs = App.preferences && App.preferences.offlineEntityFilters;
 
-          var results = prefs.filter(function (pref) {
+          const results = prefs.filter(pref => {
             return pref.name === params.entityname;
           });
 
           if (results.length > 0) {
-            var enabled = !!results[0].enabled;
+            const enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedEntityPrefs = true;
@@ -131,17 +129,17 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
           }
         }.bind(this),
         kpiClicked: function kpiClicked(params) {
-          var metrics = App.getMetricsByResourceKind(this.resourceKind);
-          var results = void 0;
+          const metrics = App.getMetricsByResourceKind(this.resourceKind);
+          let results;
 
           if (metrics.length > 0) {
-            results = metrics.filter(function (metric) {
+            results = metrics.filter(metric => {
               return metric.title === params.title;
             });
           }
 
           if (results.length > 0) {
-            var enabled = !!results[0].enabled;
+            const enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedKPIPrefs = true;
@@ -154,7 +152,7 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
       return actions;
     },
     getGroupForRightDrawerEntry: function getGroupForRightDrawerEntry(entry) {
-      var mixin = _lang2.default.getObject(mixinName);
+      const mixin = _lang2.default.getObject(mixinName);
 
       if (entry.dataProps && entry.dataProps.entityname) {
         return {
@@ -169,22 +167,21 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
       };
     },
     createRightDrawerLayout: function createRightDrawerLayout() {
-      var _this2 = this;
-
-      var layout = [];
-      var entitySection = {
+      const layout = [];
+      const entitySection = {
         id: 'actions',
-        children: Object.keys(this.entityMappings).map(function (entityName) {
-          var prefs = App.preferences && App.preferences.offlineEntityFilters;
-          var entityPref = prefs.filter(function (pref) {
+        children: Object.keys(this.entityMappings).map(entityName => {
+          const prefs = App.preferences && App.preferences.offlineEntityFilters;
+          const entityPref = prefs.filter(pref => {
             return pref.name === entityName;
           });
-          var enabled = entityPref[0].enabled;
-
+          const {
+            enabled
+          } = entityPref[0];
           return {
             name: entityName,
             action: 'entityFilterClicked',
-            title: _this2.entityText[entityName] || entityName,
+            title: this.entityText[entityName] || entityName,
             dataProps: {
               entityname: entityName,
               enabled: !!enabled
@@ -195,15 +192,13 @@ define('crm/Views/Offline/_RightDrawerListMixin', ['module', 'exports', 'dojo/_b
 
       layout.push(entitySection);
 
-      var metrics = App.getMetricsByResourceKind(this.resourceKind);
+      const metrics = App.getMetricsByResourceKind(this.resourceKind);
 
-      var kpiSection = {
+      const kpiSection = {
         id: 'kpi',
-        children: metrics.filter(function (m) {
-          return m.title;
-        }).map(function (metric, i) {
+        children: metrics.filter(m => m.title).map((metric, i) => {
           return {
-            name: 'KPI' + i,
+            name: `KPI${i}`,
             action: 'kpiClicked',
             title: metric.title,
             dataProps: {

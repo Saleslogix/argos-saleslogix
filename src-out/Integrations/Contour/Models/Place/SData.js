@@ -36,13 +36,13 @@ define('crm/Integrations/Contour/Models/Place/SData', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.Contour.Models.Place.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'place_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
         name: 'list',
         queryOrderBy: 'Name',
-        queryWhere: '(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "' + App.context.user.$key + '"))',
+        queryWhere: `(ThisUserOnly eq "F" or (ThisUserOnly eq "T" and UserId eq "${App.context.user.$key}"))`,
         querySelect: ['Name', 'ModifyDate', 'ThisUserOnly', 'Address/Address1', 'Address/Address2', 'Address/City', 'Address/State', 'Address/PostalCode', 'Address/Country', 'Address/CountryCode', 'Address/GeocodeProvider', 'Address/GeocodeLatitude', 'Address/GeocodeLongitude', 'Address/GeocodeFailed']
       }];
     }

@@ -36,10 +36,10 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('errorLogDetail');
-  var dtFormatResource = (0, _I18n2.default)('errorLogDetailDateTimeFormat');
+  const resource = (0, _I18n2.default)('errorLogDetail');
+  const dtFormatResource = (0, _I18n2.default)('errorLogDetailDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Views.ErrorLog.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Views.ErrorLog.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     detailsText: resource.detailsText,
@@ -68,7 +68,7 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
     },
 
     createToolLayout: function createToolLayout() {
-      var tools = {
+      const tools = {
         tbar: []
       };
 
@@ -83,19 +83,19 @@ define('crm/Views/ErrorLog/Detail', ['module', 'exports', 'dojo/_base/declare', 
     },
 
     constructReport: function constructReport() {
-      var body = '\r\n\r\n\r\n-----------------\r\n' + _json2.default.toJson(this.entry, true);
+      const body = `\r\n\r\n\r\n-----------------\r\n${_json2.default.toJson(this.entry, true)}`;
       this.sendEmailReport(body);
     },
 
     sendEmailReport: function sendEmailReport(body) {
-      var email = this.defaultToAddress || '';
-      var subject = encodeURIComponent(this.emailSubjectText);
-      var theBody = encodeURIComponent(body);
+      const email = this.defaultToAddress || '';
+      const subject = encodeURIComponent(this.emailSubjectText);
+      const theBody = encodeURIComponent(body);
       App.initiateEmail(email, subject, theBody);
     },
 
     requestData: function requestData() {
-      var errorItem = _ErrorManager2.default.getError('$key', this.options.key);
+      const errorItem = _ErrorManager2.default.getError('$key', this.options.key);
       this.processEntry(errorItem);
     },
 

@@ -35,7 +35,7 @@ define('crm/Template', ['module', 'exports', 'dojo/_base/lang', 'argos/Format'],
   /**
    * @module crm/Template
    */
-  var __class = _lang2.default.setObject('crm.Template', /** @lends module:crm/Template */{
+  const __class = _lang2.default.setObject('crm.Template', /** @lends module:crm/Template */{
     /**
      * @property {Simplate} nameLF
      * Template for lastname, firstname

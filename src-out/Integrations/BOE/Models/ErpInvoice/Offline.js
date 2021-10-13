@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/Models/ErpInvoice/Offline', ['module', 'exports', '
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpInvoice.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpInvoice.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'erpinvoice_offline_model'
   });
 

@@ -32,11 +32,15 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityAttendeeTypesList');
+  const resource = (0, _I18n2.default)('activityAttendeeTypesList');
 
-  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.TypesList', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.ActivityAttendee.TypesList', [_List2.default], {
     // Templates
-    liRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">', '{% if ($.icon) { %}', '<button type="button" class="btn-icon hide-focus list-item-selector visible">\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>\n      </svg>\n    </button>', '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}"></div>', '{% } %}', '{%! $$.itemTemplate %}', '</li>']),
+    liRowTemplate: new Simplate(['<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">', '{% if ($.icon) { %}', `<button type="button" class="btn-icon hide-focus list-item-selector visible">
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{%: $.icon || "" %}"></use>
+      </svg>
+    </button>`, '{% } else if ($.iconClass) { %}', '<div class="{%= $.iconClass %}"></div>', '{% } %}', '{%! $$.itemTemplate %}', '</li>']),
     itemTemplate: new Simplate(['<h4 class="', '{% if ($.icon) { %}', 'list-item-content', '{% } %} ">', '{%: $.$descriptor %}</h4>']),
     isCardView: false,
     // Localization
@@ -63,7 +67,7 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
     activateEntry: function activateEntry(params) {
       this.selectedAttendeeType = params.key;
       if (this.selectedAttendeeType) {
-        var view = App.getView(this.attendeeTypeLookup[this.selectedAttendeeType]);
+        const view = App.getView(this.attendeeTypeLookup[this.selectedAttendeeType]);
         if (view) {
           view.show({
             title: this.attendeeTypeText[this.selectedAttendeeType],
@@ -97,14 +101,14 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
       }
     },
     onSelectContactOrLead: function onSelectContactOrLead() {
-      var view = App.getPrimaryActiveView();
-      var selectionModel = view.get('selectionModel');
+      const view = App.getPrimaryActiveView();
+      const selectionModel = view.get('selectionModel');
 
       if (view && selectionModel) {
-        var selections = selectionModel.getSelections();
+        const selections = selectionModel.getSelections();
 
-        var entry = void 0;
-        for (var selectionKey in selections) {
+        let entry;
+        for (const selectionKey in selections) {
           if (selections.hasOwnProperty(selectionKey)) {
             entry = selections[selectionKey].data;
             break;
@@ -115,7 +119,7 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
       }
     },
     navigateToEditView: function navigateToEditView(entry) {
-      var view = App.getView(this.editView);
+      const view = App.getView(this.editView);
       view.show({
         insert: true,
         entityType: this.selectedAttendeeType,
@@ -126,7 +130,7 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
       });
     },
     refreshRequiredFor: function refreshRequiredFor(options) {
-      var toReturn = void 0;
+      let toReturn;
       if (this.options) {
         toReturn = options;
       } else {
@@ -138,9 +142,9 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
       return false;
     },
     createStore: function createStore() {
-      var list = [];
+      const list = [];
 
-      for (var i = 0; i < this.attendeeTypeOrder.length; i++) {
+      for (let i = 0; i < this.attendeeTypeOrder.length; i++) {
         list.push({
           $key: this.attendeeTypeOrder[i],
           $descriptor: this.attendeeTypeText[this.attendeeTypeOrder[i]],
@@ -148,7 +152,7 @@ define('crm/Views/ActivityAttendee/TypesList', ['module', 'exports', 'dojo/_base
         });
       }
 
-      var store = new _Memory2.default({
+      const store = new _Memory2.default({
         data: list
       });
       return store;

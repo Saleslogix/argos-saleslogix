@@ -40,7 +40,7 @@ define('crm/Integrations/BOE/Models/QuoteItem/SData', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.QuoteItem.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.QuoteItem.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'quoteitem_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -58,17 +58,15 @@ define('crm/Integrations/BOE/Models/QuoteItem/SData', ['module', 'exports', 'doj
       }];
     },
     updateItemWithWarehouse: function updateItemWithWarehouse(quoteItem, warehouse) {
-      var _this = this;
-
-      var promise = new Promise(function (resolve) {
-        _PricingAvailabilityService2.default.updateQuoteItemWarehouse(quoteItem, warehouse.SlxLocation, warehouse.SlxLocationID, warehouse.ATPDate).then(function () {
+      const promise = new Promise(resolve => {
+        _PricingAvailabilityService2.default.updateQuoteItemWarehouse(quoteItem, warehouse.SlxLocation, warehouse.SlxLocationID, warehouse.ATPDate).then(() => {
           quoteItem.SlxLocation = {
             $key: warehouse.SlxLocationID,
             description: warehouse.SlxLocation
           };
-          _PricingAvailabilityService2.default.getQuoteItemPricing(quoteItem).then(function (pricingData) {
-            var entry = _this.createPricingEntryForUpdate(quoteItem, pricingData);
-            _this.updateEntry(entry, { overwrite: true }).then(function (result) {
+          _PricingAvailabilityService2.default.getQuoteItemPricing(quoteItem).then(pricingData => {
+            const entry = this.createPricingEntryForUpdate(quoteItem, pricingData);
+            this.updateEntry(entry, { overwrite: true }).then(result => {
               resolve(result);
             });
           });
@@ -77,7 +75,7 @@ define('crm/Integrations/BOE/Models/QuoteItem/SData', ['module', 'exports', 'doj
       return promise;
     },
     createPricingEntryForUpdate: function createPricingEntryForUpdate(quoteItem, pricingData) {
-      var entry = {};
+      const entry = {};
       entry.$key = quoteItem.$key;
       if (pricingData) {
         if (pricingData.DocCalculatedPrice) {

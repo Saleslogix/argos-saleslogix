@@ -35,32 +35,32 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
   /**
    * @module crm/Action
    */
-  var resource = (0, _I18n2.default)('action');
+  const resource = (0, _I18n2.default)('action');
 
   /**
    * @class
    * @alias module:crm/Action
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Action', /** @lends module:crm/Action */{
+  const __class = _lang2.default.setObject('crm.Action', /** @lends module:crm/Action */{
     calledText: resource.calledText,
     emailedText: resource.emailedText,
 
     navigateToHistoryInsert: function navigateToHistoryInsert(entry, complete, title) {
-      var view = App.getView('history_edit');
+      const view = App.getView('history_edit');
       if (view) {
         view.show({
-          title: title,
+          title,
           template: {},
-          entry: entry,
+          entry,
           insert: true
         }, {
-          complete: complete
+          complete
         });
       }
     },
     recordToHistory: function recordToHistory(complete, o, title) {
-      var entry = {
+      const entry = {
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.$descriptor,
         Duration: 15,
@@ -75,7 +75,7 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         return;
       }
 
-      var actionInitiated = false;
+      let actionInitiated = false;
       this.setSource({
         entry: selection.data,
         descriptor: selection.data.$descriptor,
@@ -87,8 +87,8 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         Description: _string2.default.substitute(crm.Action.calledText, [selection.data.$descriptor])
       });
 
-      var value = _Utility2.default.getValue(selection.data, phoneProperty, '');
-      crm.Action.recordToHistory(function () {
+      const value = _Utility2.default.getValue(selection.data, phoneProperty, '');
+      crm.Action.recordToHistory(() => {
         if (!actionInitiated) {
           App.initiateCall(value);
           actionInitiated = true;
@@ -111,23 +111,23 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         Description: _string2.default.substitute(crm.Action.emailedText, [selection.data.$descriptor])
       });
 
-      var value = _Utility2.default.getValue(selection.data, emailProperty, '');
-      crm.Action.recordToHistory(function () {
+      const value = _Utility2.default.getValue(selection.data, emailProperty, '');
+      crm.Action.recordToHistory(() => {
         App.initiateEmail(value);
       }, selection.data);
     },
     addNote: function addNote(action, selection) {
-      var entry = selection.data;
-      var key = selection.data.$key;
-      var desc = selection.data.$descriptor;
+      const entry = selection.data;
+      const key = selection.data.$key;
+      const desc = selection.data.$descriptor;
 
       this.setSource({
-        entry: entry,
+        entry,
         descriptor: desc,
-        key: key
+        key
       });
 
-      var view = App.getView('history_edit');
+      const view = App.getView('history_edit');
 
       if (view) {
         view.show({
@@ -144,12 +144,12 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       App.navigateToActivityInsertView();
     },
     navigateToEntity: function navigateToEntity(action, selection, o) {
-      var options = {
+      const options = {
         key: _Utility2.default.getValue(selection.data, o.keyProperty),
         descriptor: _Utility2.default.getValue(selection.data, o.textProperty)
       };
 
-      var view = App.getView(o.view);
+      const view = App.getView(o.view);
 
       if (view && options.key) {
         view.show(options);
@@ -165,7 +165,7 @@ define('crm/Action', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
         key: selection.data.$key
       });
 
-      var view = App.getView('attachment_Add');
+      const view = App.getView('attachment_Add');
 
       if (view) {
         view.show({

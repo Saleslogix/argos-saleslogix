@@ -44,14 +44,14 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('recentlyViewedList');
-  var accountResource = (0, _I18n2.default)('accountModel');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var activityResource = (0, _I18n2.default)('activityModel');
-  var historyResource = (0, _I18n2.default)('historyModel');
-  var oppResource = (0, _I18n2.default)('opportunityModel');
-  var ticketResource = (0, _I18n2.default)('ticketModel');
-  var leadResource = (0, _I18n2.default)('leadModel');
+  const resource = (0, _I18n2.default)('recentlyViewedList');
+  const accountResource = (0, _I18n2.default)('accountModel');
+  const contactResource = (0, _I18n2.default)('contactModel');
+  const activityResource = (0, _I18n2.default)('activityModel');
+  const historyResource = (0, _I18n2.default)('historyModel');
+  const oppResource = (0, _I18n2.default)('opportunityModel');
+  const ticketResource = (0, _I18n2.default)('ticketModel');
+  const leadResource = (0, _I18n2.default)('leadModel');
 
   exports.default = (0, _declare2.default)('crm.Views.RecentlyViewed.List', [_ListBase3.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
     id: 'recently_viewed_list',
@@ -71,7 +71,7 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       return true;
     },
     getModel: function getModel() {
-      var model = App.ModelManager.getModel('RecentlyViewed', _Types2.default.OFFLINE);
+      const model = App.ModelManager.getModel('RecentlyViewed', _Types2.default.OFFLINE);
       return model;
     },
     getTitle: function getTitle(entry) {
@@ -87,7 +87,7 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       return options;
     },
     _applyStateToWidgetOptions: function _applyStateToWidgetOptions(widgetOptions) {
-      var options = widgetOptions;
+      const options = widgetOptions;
       options.activeEntityFilters = this.getActiveEntityFilters();
       return options;
     },
@@ -96,13 +96,11 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       delete queryOptions.start;
       queryOptions.include_docs = true;
       queryOptions.descending = true;
-      var filters = this.getActiveEntityFilters();
-      queryOptions.filter = function (entity) {
+      const filters = this.getActiveEntityFilters();
+      queryOptions.filter = entity => {
         // If the user has entity filters stored in preferences, filter based on that
         if (App.preferences && App.preferences.recentlyViewedEntityFilters) {
-          return filters.some(function (filter) {
-            return entity.entityName === filter.name;
-          });
+          return filters.some(filter => entity.entityName === filter.name);
         }
 
         return true;
@@ -113,7 +111,7 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       return [];
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var iconClass = void 0;
+      let iconClass;
       iconClass = entry.iconClass;
       if (!iconClass) {
         iconClass = 'url';
@@ -121,7 +119,7 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       return iconClass;
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
-      var entry = this.entries && this.entries[key];
+      const entry = this.entries && this.entries[key];
       if (App.onLine) {
         this.navigateToOnlineDetailView(entry, additionalOptions);
       } else {
@@ -129,9 +127,9 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       }
     },
     navigateToOnlineDetailView: function navigateToDetailView(entry, additionalOptions) {
-      var view = this.app.getView(entry.viewId);
+      const view = this.app.getView(entry.viewId);
 
-      var options = {
+      let options = {
         descriptor: entry.description, // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
@@ -147,8 +145,8 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       }
     },
     navigateToOfflineDetailView: function navigateToOfflineDetailView(entry, additionalOptions) {
-      var view = this.getDetailView(entry.entityName);
-      var options = {
+      const view = this.getDetailView(entry.entityName);
+      let options = {
         descriptor: entry.description, // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
@@ -169,8 +167,8 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       }
     },
     getDetailView: function getDetailView(entityName) {
-      var viewId = this.detailView + '_' + entityName;
-      var view = this.app.getView(viewId);
+      const viewId = `${this.detailView}_${entityName}`;
+      let view = this.app.getView(viewId);
 
       if (view) {
         return view;
@@ -183,15 +181,13 @@ define('crm/Views/RecentlyViewed/List', ['module', 'exports', 'dojo/_base/declar
       return view;
     },
     getActiveEntityFilters: function getActiveEntityFilters() {
-      return Object.keys(this.entityMappings).map(function (entityName) {
-        var prefs = App.preferences && App.preferences.recentlyViewedEntityFilters || [];
-        var entityPref = prefs.filter(function (pref) {
+      return Object.keys(this.entityMappings).map(entityName => {
+        const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters || [];
+        const entityPref = prefs.filter(pref => {
           return pref.name === entityName;
         });
         return entityPref[0];
-      }).filter(function (f) {
-        return f && f.enabled;
-      });
+      }).filter(f => f && f.enabled);
     },
 
     // Localization

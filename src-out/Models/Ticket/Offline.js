@@ -36,7 +36,7 @@ define('crm/Models/Ticket/Offline', ['module', 'exports', 'dojo/_base/declare', 
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.Ticket.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.Ticket.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'ticket_offline_model'
   });
 

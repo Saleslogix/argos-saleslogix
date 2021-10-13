@@ -15,22 +15,22 @@ define('crm/Views/TicketActivityItem/List', ['module', 'exports', 'dojo/_base/de
     };
   }
 
-  var resource = (0, _I18n2.default)('ticketActivityItemList'); /* Copyright 2017 Infor
-                                                                 *
-                                                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                 * you may not use this file except in compliance with the License.
-                                                                 * You may obtain a copy of the License at
-                                                                 *
-                                                                 *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                 *
-                                                                 * Unless required by applicable law or agreed to in writing, software
-                                                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                 * See the License for the specific language governing permissions and
-                                                                 * limitations under the License.
-                                                                 */
+  const resource = (0, _I18n2.default)('ticketActivityItemList'); /* Copyright 2017 Infor
+                                                                   *
+                                                                   * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                   * you may not use this file except in compliance with the License.
+                                                                   * You may obtain a copy of the License at
+                                                                   *
+                                                                   *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                   *
+                                                                   * Unless required by applicable law or agreed to in writing, software
+                                                                   * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                   * See the License for the specific language governing permissions and
+                                                                   * limitations under the License.
+                                                                   */
 
-  var __class = (0, _declare2.default)('crm.Views.TicketActivityItem.List', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.TicketActivityItem.List', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</p>', '<p class="micro-text">{%: $.ItemDescription %}</p>']),
 
@@ -50,8 +50,8 @@ define('crm/Views/TicketActivityItem/List', ['module', 'exports', 'dojo/_base/de
       });
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return '(upper(Product.Name) like "' + q + '%" or upper(Product.Family) like "' + q + '%")';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `(upper(Product.Name) like "${q}%" or upper(Product.Family) like "${q}%")`;
     }
   });
 

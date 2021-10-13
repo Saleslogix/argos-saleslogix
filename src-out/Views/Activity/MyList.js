@@ -48,14 +48,32 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityMyList');
-  var hashTagResource = (0, _I18n2.default)('activityMyListHashTags');
+  const resource = (0, _I18n2.default)('activityMyList');
+  const hashTagResource = (0, _I18n2.default)('activityMyListHashTags');
 
-  var __class = (0, _declare2.default)('crm.Views.Activity.MyList', [_List2.default, _ListOfflineMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Activity.MyList', [_List2.default, _ListOfflineMixin3.default], {
     format: _Format2.default,
     // Templates
     // Card View
-    rowTemplate: new Simplate(['<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">\n      <div class="widget">\n        <div class="widget-header">\n          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getTitle($) %}</h2>\n          {% if($$.visibleActions.length > 0 && $$.enableActions) { %}\n            <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">\n              <span class="audible">Actions</span>\n              <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n                <use xlink:href="#icon-more"></use>\n              </svg>\n            </button>\n            {%! $$.listActionTemplate %}\n          {% } %}\n        </div>\n        <div class="card-content">\n          {%! $$.itemRowContentTemplate %}\n        </div>\n      </div>\n    </div>']),
+    rowTemplate: new Simplate([`<div data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">
+      <div class="widget">
+        <div class="widget-header">
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getTitle($) %}</h2>
+          {% if($$.visibleActions.length > 0 && $$.enableActions) { %}
+            <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+              <span class="audible">Actions</span>
+              <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+                <use xlink:href="#icon-more"></use>
+              </svg>
+            </button>
+            {%! $$.listActionTemplate %}
+          {% } %}
+        </div>
+        <div class="card-content">
+          {%! $$.itemRowContentTemplate %}
+        </div>
+      </div>
+    </div>`]),
     activityTimeTemplate: new Simplate(['{% if ($$.isTimelessToday($)) { %}', '{%: $$.allDayText %}', '{% } else { %}', '{%: $$.format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}', // TODO: Avoid global
     '{% } %}']),
     itemTemplate: new Simplate(['<p class="listview-heading">', '<span class="p-description">{%: $$.format.picklist($$.app.picklistService, null, null, $$.getPicklistByActivityType($.Activity.Type, "Description"))($.Activity.Description) %}{% if ($.Status === "asUnconfirmed") { %} ({%: $$.format.userActivityStatus($.Status) %}) {% } %}</span>', '</p>', '<p class="micro-text">', '{%! $$.activityTimeTemplate %}', '</p>', '<p class="micro-text">{%! $$.nameTemplate %}</p>', '<p class="micro-text">', '{% if ($.Activity.PhoneNumber) { %}', '<span class="hyperlink" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>', // TODO: Avoid global
@@ -82,7 +100,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
     historyEditView: 'history_edit',
     existsRE: /^[\w]{12}$/,
     queryWhere: function queryWhere() {
-      return 'User.Id eq "' + App.context.user.$key + '" and Status ne "asDeclned" and Activity.Type ne "atLiterature"';
+      return `User.Id eq "${App.context.user.$key}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"`;
     },
     queryOrderBy: 'Activity.StartDate desc',
     querySelect: ['Alarm', 'AlarmTime', 'Status', 'Activity/Description', 'Activity/StartDate', 'Activity/EndDate', 'Activity/Type', 'Activity/AccountName', 'Activity/AccountId', 'Activity/ContactId', 'Activity/ContactName', 'Activity/Leader', 'Activity/LeadName', 'Activity/LeadId', 'Activity/OpportunityId', 'Activity/TicketId', 'Activity/UserId', 'Activity/Timeless', 'Activity/PhoneNumber', 'Activity/Recurring', 'Activity/Alarm', 'Activity/ModifyDate', 'Activity/Priority'],
@@ -97,27 +115,27 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       recurring: 'Activity.Recurring eq true',
       timeless: 'Activity.Timeless eq true',
       yesterday: function yesterday() {
-        var now = moment();
-        var yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-        var yesterdayEnd = yesterdayStart.clone().endOf('day');
+        const now = moment();
+        const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
+        const yesterdayEnd = yesterdayStart.clone().endOf('day');
 
-        var theQuery = '((Activity.Timeless eq false and Activity.StartDate between @' + _Convert2.default.toIsoStringFromDate(yesterdayStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(yesterdayEnd.toDate()) + '@) or (Activity.Timeless eq true and Activity.StartDate between @' + yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+        const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${_Convert2.default.toIsoStringFromDate(yesterdayStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(yesterdayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
         return theQuery;
       },
       today: function today() {
-        var now = moment();
-        var todayStart = now.clone().startOf('day');
-        var todayEnd = todayStart.clone().endOf('day');
+        const now = moment();
+        const todayStart = now.clone().startOf('day');
+        const todayEnd = todayStart.clone().endOf('day');
 
-        var theQuery = '((Activity.Timeless eq false and Activity.StartDate between @' + _Convert2.default.toIsoStringFromDate(todayStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(todayEnd.toDate()) + '@) or (Activity.Timeless eq true and Activity.StartDate between @' + todayStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + todayEnd.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+        const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${_Convert2.default.toIsoStringFromDate(todayStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(todayEnd.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
         return theQuery;
       },
       'this-week': function thisWeek() {
-        var now = moment();
-        var weekStartDate = now.clone().startOf('week');
-        var weekEndDate = weekStartDate.clone().endOf('week');
+        const now = moment();
+        const weekStartDate = now.clone().startOf('week');
+        const weekEndDate = weekStartDate.clone().endOf('week');
 
-        var theQuery = '((Activity.Timeless eq false and Activity.StartDate between @' + _Convert2.default.toIsoStringFromDate(weekStartDate.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(weekEndDate.toDate()) + '@) or (Activity.Timeless eq true and Activity.StartDate between @' + weekStartDate.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + weekEndDate.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+        const theQuery = `((Activity.Timeless eq false and Activity.StartDate between @${_Convert2.default.toIsoStringFromDate(weekStartDate.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(weekEndDate.toDate())}@) or (Activity.Timeless eq true and Activity.StartDate between @${weekStartDate.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
         return theQuery;
       }
     },
@@ -157,18 +175,18 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
     },
     onRefreshClicked: function onRefreshClicked() {},
     _callPhone: function _callPhone(params) {
-      this.invokeActionItemBy(function (theAction) {
+      this.invokeActionItemBy(theAction => {
         return theAction.id === 'call';
       }, params.key);
     },
     defaultSearchTerm: function defaultSearchTerm() {
       if (App.enableHashTags) {
-        var hashtag = this.hashTagQueriesText['this-week'];
+        const hashtag = this.hashTagQueriesText['this-week'];
         if (typeof hashtag === 'string' && hashtag.startsWith('#')) {
           return hashtag;
         }
 
-        return '#' + hashtag;
+        return `#${hashtag}`;
       }
 
       return '';
@@ -178,7 +196,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         id: 'viewAccount',
         label: this.viewAccountActionText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           if (!entry) {
             return false;
           }
@@ -188,13 +206,13 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
           return false;
         },
         fn: function fn(theAction, selection) {
-          var viewId = 'account_detail';
-          var options = {
+          const viewId = 'account_detail';
+          const options = {
             key: selection.data.Activity.AccountId,
             descriptor: selection.data.Activity.AccountName
           };
 
-          var view = App.getView(viewId);
+          const view = App.getView(viewId);
           if (view && options) {
             view.show(options);
           }
@@ -203,7 +221,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         id: 'viewOpportunity',
         label: this.viewOpportunityActionText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           if (!entry) {
             return false;
           }
@@ -213,12 +231,12 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
           return false;
         },
         fn: function fn(theAction, selection) {
-          var viewId = 'opportunity_detail';
-          var options = {
+          const viewId = 'opportunity_detail';
+          const options = {
             key: selection.data.Activity.OpportunityId,
             descriptor: selection.data.Activity.OpportunityName
           };
-          var view = App.getView(viewId);
+          const view = App.getView(viewId);
           if (view && options) {
             view.show(options);
           }
@@ -233,7 +251,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         cls: 'fa fa-check-square fa-2x',
         label: this.completeActivityText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           if (!entry) {
             return false;
           }
@@ -241,7 +259,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
           return entry.Activity.Leader.$key === App.context.user.$key;
         },
         fn: function fn(theAction, selection) {
-          var entry = selection && selection.data && selection.data.Activity;
+          const entry = selection && selection.data && selection.data.Activity;
 
           entry.CompletedDate = new Date();
           entry.Result = 'Complete';
@@ -254,7 +272,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         cls: 'fa fa-check fa-2x',
         label: this.acceptActivityText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           if (!entry) {
             return false;
           }
@@ -262,7 +280,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
           return entry.Status === 'asUnconfirmed';
         },
         fn: function fn(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           _Environment2.default.refreshActivityLists();
           this.confirmActivityFor(entry.Activity.$key, App.context.user.$key);
         }.bindDelegate(this)
@@ -271,7 +289,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         cls: 'fa fa-ban fa-2x',
         label: this.declineActivityText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           if (!entry) {
             return false;
           }
@@ -279,7 +297,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
           return entry.Status === 'asUnconfirmed';
         },
         fn: function fn(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
 
           _Environment2.default.refreshActivityLists();
           this.declineActivityFor(entry.Activity.$key, App.context.user.$key);
@@ -289,12 +307,12 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         cls: 'phone',
         label: this.callText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           return entry && entry.Activity && entry.Activity.PhoneNumber;
         },
         fn: function fn(theAction, selection) {
-          var entry = selection && selection.data;
-          var phone = entry && entry.Activity && entry.Activity.PhoneNumber;
+          const entry = selection && selection.data;
+          const phone = entry && entry.Activity && entry.Activity.PhoneNumber;
           if (phone) {
             this.recordCallToHistory(function initiateCall() {
               App.initiateCall(phone);
@@ -313,8 +331,8 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
        * Grabbing a different key here, since we use entry.Activity.$key as the main data-key.
        * TODO: Make [data-key] overrideable in the base class.
        */
-      var row = $('[data-key=\'' + params.key + '\']', this.contentNode).first();
-      var key = row ? row.attr('data-my-activity-key') : false;
+      const row = $(`[data-key='${params.key}']`, this.contentNode).first();
+      const key = row ? row.attr('data-my-activity-key') : false;
 
       if (this._selectionModel && key) {
         this._selectionModel.select(key, this.entries[key], row.get(0));
@@ -325,7 +343,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return 'upper(Activity.Description) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
+      return `upper(Activity.Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
     },
     declineActivityFor: function declineActivityFor(activityId, userId) {
       this._getUserNotifications(activityId, userId, false);
@@ -334,15 +352,15 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       this._getUserNotifications(activityId, userId, true);
     },
     _getUserNotifications: function _getUserNotifications(activityId, userId, accept) {
-      var id = activityId;
+      let id = activityId;
       if (activityId) {
         id = activityId.substring(0, 12);
       }
 
-      var req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
+      const req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
       req.setResourceKind('userNotifications');
       req.setContractName('dynamic');
-      req.setQueryArg('where', 'ActivityId eq \'' + id + '\' and ToUser.Id eq \'' + userId + '\'');
+      req.setQueryArg('where', `ActivityId eq '${id}' and ToUser.Id eq '${userId}'`);
       req.setQueryArg('precedence', '0');
       req.read({
         success: function success(userNotifications) {
@@ -372,7 +390,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
        * To get the payload template:
        * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
        */
-      var payload = {
+      const payload = {
         $name: operation,
         request: {
           entity: notification,
@@ -380,7 +398,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         }
       };
 
-      var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setContractName('dynamic').setResourceKind('usernotifications').setOperationName(operation.toLowerCase());
+      const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setContractName('dynamic').setResourceKind('usernotifications').setOperationName(operation.toLowerCase());
       request.execute(payload, {
         success: function success() {
           this.clear();
@@ -402,9 +420,9 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
     },
     hasBeenTouched: function hasBeenTouched(entry) {
       if (entry.Activity.ModifyDate) {
-        var modifiedDate = moment(_Convert2.default.toDateFromString(entry.Activity.ModifyDate));
-        var currentDate = moment().endOf('day');
-        var weekAgo = moment().subtract(1, 'weeks');
+        const modifiedDate = moment(_Convert2.default.toDateFromString(entry.Activity.ModifyDate));
+        const currentDate = moment().endOf('day');
+        const weekAgo = moment().subtract(1, 'weeks');
 
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
@@ -416,10 +434,10 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
     },
     isOverdue: function isOverdue(entry) {
       if (entry.Activity.StartDate) {
-        var startDate = _Convert2.default.toDateFromString(entry.Activity.StartDate);
-        var currentDate = new Date();
-        var seconds = Math.round((currentDate - startDate) / 1000);
-        var mins = seconds / 60;
+        const startDate = _Convert2.default.toDateFromString(entry.Activity.StartDate);
+        const currentDate = new Date();
+        const seconds = Math.round((currentDate - startDate) / 1000);
+        const mins = seconds / 60;
         if (mins >= 1) {
           return true;
         }
@@ -431,7 +449,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         return false;
       }
 
-      var start = moment(entry.Activity.StartDate);
+      const start = moment(entry.Activity.StartDate);
       return this._isTimelessToday(start);
     },
     isRecurring: function isRecurring(entry) {
@@ -442,7 +460,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       return false;
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var type = entry && entry.Activity && entry.Activity.Type;
+      const type = entry && entry.Activity && entry.Activity.Type;
       return this._getItemIconClass(type);
     },
     getItemActionKey: function getItemActionKey(entry) {
@@ -462,10 +480,10 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       return selection.data.Activity.ContactId || selection.data.Activity.LeadId;
     },
     navigateToContactOrLead: function navigateToContactOrLead(theAction, selection) {
-      var entry = selection.data.Activity;
-      var entity = this.resolveContactOrLeadEntity(entry);
-      var viewId = void 0;
-      var options = void 0;
+      const entry = selection.data.Activity;
+      const entity = this.resolveContactOrLeadEntity(entry);
+      let viewId;
+      let options;
 
       switch (entity) {
         case 'Contact':
@@ -485,19 +503,19 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
         default:
       }
 
-      var view = App.getView(viewId);
+      const view = App.getView(viewId);
 
       if (view && options) {
         view.show(options);
       }
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
-      var myListOptions = additionalOptions || {};
+      const myListOptions = additionalOptions || {};
       myListOptions.returnTo = this.id;
       this.inherited(arguments, [key, descriptor, myListOptions]);
     },
     resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
-      var exists = this.existsRE;
+      const exists = this.existsRE;
 
       if (entry) {
         if (exists.test(entry.LeadId)) {
@@ -509,7 +527,7 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     recordCallToHistory: function recordCallToHistory(complete, entry) {
-      var tempEntry = {
+      const tempEntry = {
         $name: 'History',
         Type: 'atPhoneCall',
         ContactName: entry.Activity.ContactName,
@@ -527,21 +545,21 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
     },
 
     navigateToHistoryInsert: function navigateToHistoryInsert(type, entry, complete) {
-      var view = App.getView(this.historyEditView);
+      const view = App.getView(this.historyEditView);
       if (view) {
         _Environment2.default.refreshActivityLists();
         view.show({
           title: _ActivityTypeText2.default[type],
           template: {},
-          entry: entry,
+          entry,
           insert: true
         }, {
-          complete: complete
+          complete
         });
       }
     },
     createBriefcaseEntity: function createBriefcaseEntity(entry) {
-      var entity = {
+      const entity = {
         entityId: entry.Activity.$key,
         entityName: 'Activity',
         options: {
@@ -553,9 +571,9 @@ define('crm/Views/Activity/MyList', ['module', 'exports', 'dojo/_base/declare', 
       return entity;
     },
     activateEntry: function activateEntry(params) {
-      var entry = this.entries[params.myActivityKey];
+      const entry = this.entries[params.myActivityKey];
       if (entry) {
-        var activityParams = params;
+        const activityParams = params;
         activityParams.descriptor = this._model.getEntityDescription(entry.Activity);
         this.inherited(activateEntry, arguments, [activityParams]);
       } else {

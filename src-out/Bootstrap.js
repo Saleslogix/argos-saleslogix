@@ -32,64 +32,63 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
    * limitations under the License.
    */
 
-  function bootstrap(_ref) {
-    var serviceWorkerPath = _ref.serviceWorkerPath,
-        serviceWorkerRegistrationOptions = _ref.serviceWorkerRegistrationOptions,
-        supportedLocales = _ref.supportedLocales,
-        defaultLocale = _ref.defaultLocale,
-        currentLocale = _ref.currentLocale,
-        parentLocale = _ref.parentLocale,
-        defaultRegionLocale = _ref.defaultRegionLocale,
-        currentRegionLocale = _ref.currentRegionLocale,
-        parentRegionLocale = _ref.parentRegionLocale,
-        application = _ref.application,
-        configuration = _ref.configuration,
-        legacyLocalization = _ref.legacyLocalization,
-        legacyLocalizationFallback = _ref.legacyLocalizationFallback,
-        localeFiles = _ref.localeFiles,
-        regionalFiles = _ref.regionalFiles,
-        isRegionMetric = _ref.isRegionMetric,
-        _ref$cacheFiles = _ref.cacheFiles,
-        cacheFiles = _ref$cacheFiles === undefined ? [] : _ref$cacheFiles,
-        rootElement = _ref.rootElement;
-
+  function bootstrap({
+    serviceWorkerPath,
+    serviceWorkerRegistrationOptions,
+    supportedLocales,
+    defaultLocale,
+    currentLocale,
+    parentLocale, // eslint-disable-line
+    defaultRegionLocale,
+    currentRegionLocale,
+    parentRegionLocale,
+    application,
+    configuration,
+    legacyLocalization,
+    legacyLocalizationFallback,
+    localeFiles,
+    regionalFiles,
+    isRegionMetric,
+    cacheFiles = [],
+    rootElement
+  }) {
     function mapFiles(files, ctx, defaultCtx) {
-      return files.map(function (path) {
-        var trimmed = path;
-        supportedLocales.forEach(function (locale) {
-          trimmed = trimmed.replace(new RegExp('/' + locale + '/'), '/');
+      return files.map(path => {
+        let trimmed = path;
+        supportedLocales.forEach(locale => {
+          trimmed = trimmed.replace(new RegExp(`/${locale}/`), '/');
         });
 
-        var index = trimmed.lastIndexOf('/');
-        var basePath = trimmed.substring(0, index);
-        var file = trimmed.substring(index + 1, trimmed.length);
+        const index = trimmed.lastIndexOf('/');
+        const basePath = trimmed.substring(0, index);
+        const file = trimmed.substring(index + 1, trimmed.length);
         return {
           base: basePath,
-          file: file
+          file
         };
-      }).reduce(function (p, c) {
-        if (p.some(function (pathInfo) {
+      }).reduce((p, c) => {
+        if (p.some(pathInfo => {
           return pathInfo.base === c.base && pathInfo.file === c.file;
         })) {
           return p;
         }
 
         return p.concat(c);
-      }, []).forEach(function (pathInfo) {
-        [ctx, defaultCtx].forEach(function (context) {
-          context.linkResource(function (locale) {
+      }, []).forEach(pathInfo => {
+        [ctx, defaultCtx].forEach(context => {
+          context.linkResource(locale => {
             return [pathInfo.base, locale, pathInfo.file].join('/');
           });
         });
       });
     }
-    var languageService = new _LanguageService2.default();
-    var ctx = window.L20n.getContext();
-    var defaultCtx = window.L20n.getContext();
+    const languageService = new _LanguageService2.default();
+    const ctx = window.L20n.getContext();
+    const defaultCtx = window.L20n.getContext();
 
-    var ctxRegional = window.L20n.getContext();
-    var defaultCtxRegional = window.L20n.getContext();
-    var localesLong = {
+    const ctxRegional = window.L20n.getContext();
+    const defaultCtxRegional = window.L20n.getContext();
+    const localesLong = {
       en: 'en-US',
       'en-GB': 'en-GB',
       de: 'de-DE',
@@ -128,34 +127,26 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
     window.defaultregionalContext = defaultCtxRegional;
 
     // Set the window locale for the Soho Library
-    var normalizedLocale = languageService.bestAvailableLocale(supportedLocales, currentLocale) || currentLocale;
-    var normalizedRegionLocale = languageService.bestAvailableLocale(supportedLocales, currentRegionLocale) || currentRegionLocale;
+    const normalizedLocale = languageService.bestAvailableLocale(supportedLocales, currentLocale) || currentLocale;
+    const normalizedRegionLocale = languageService.bestAvailableLocale(supportedLocales, currentRegionLocale) || currentRegionLocale;
     if (localesLong[normalizedLocale]) {
       Soho.Locale.set(localesLong[normalizedLocale]);
     }
     languageService.setLanguage(normalizedLocale || currentLocale || parentLocale || defaultLocale);
     languageService.setRegion(normalizedRegionLocale || currentRegionLocale || parentRegionLocale || defaultRegionLocale);
 
-    Promise.all([new Promise(function (resolve) {
-      ctxRegional.ready(function () {
-        return resolve(true);
-      });
-    }), new Promise(function (resolve) {
-      defaultCtxRegional.ready(function () {
-        return resolve(true);
-      });
-    }), new Promise(function (resolve) {
-      ctx.ready(function () {
-        return resolve(true);
-      });
-    }), new Promise(function (resolve) {
-      defaultCtx.ready(function () {
-        return resolve(true);
-      });
-    })]).then(function () {
-      window.require([application].concat(configuration), function (Application, appConfig) {
-        var completed = false;
-        var mingleAuthResults = void 0;
+    Promise.all([new Promise(resolve => {
+      ctxRegional.ready(() => resolve(true));
+    }), new Promise(resolve => {
+      defaultCtxRegional.ready(() => resolve(true));
+    }), new Promise(resolve => {
+      ctx.ready(() => resolve(true));
+    }), new Promise(resolve => {
+      defaultCtx.ready(() => resolve(true));
+    })]).then(() => {
+      window.require([application].concat(configuration), (Application, appConfig) => {
+        let completed = false;
+        let mingleAuthResults;
 
         if (appConfig.mingleEnabled || appConfig.enableMingle) {
           mingleAuthResults = _MingleUtility2.default.populateAccessToken(appConfig);
@@ -163,23 +154,23 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
             return;
           }
         }
-        var req = function req(requires) {
-          require(requires.concat('dojo/domReady!'), function () {
+        const req = requires => {
+          require(requires.concat('dojo/domReady!'), () => {
             if (completed) {
               return;
             }
 
-            var results = moment.locale(parentRegionLocale);
+            let results = moment.locale(parentRegionLocale);
 
             // moment will return the set culture if successful, otherwise it returns the currently set culture.
             // Check to see if the culture set failed, and attept to use the specific culture instead
             if (results !== parentRegionLocale.toLocaleLowerCase()) {
               results = moment.locale(currentRegionLocale);
               if (results !== currentRegionLocale.toLocaleLowerCase()) {
-                console.error('Failed to set the culture for moment.js, culture set to ' + results); // eslint-disable-line
+                console.error(`Failed to set the culture for moment.js, culture set to ${results}`); // eslint-disable-line
               }
             }
-            var instance = new Application(appConfig);
+            const instance = new Application(appConfig);
             instance.serviceWorkerPath = serviceWorkerPath;
             instance.serviceWorkerRegistrationOptions = serviceWorkerRegistrationOptions;
             instance.context.localization = {
@@ -187,7 +178,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
               defaultLocaleContext: defaultCtx,
               locale: normalizedLocale || currentLocale || defaultLocale,
               region: normalizedRegionLocale || currentRegionLocale || defaultRegionLocale,
-              supportedLocales: supportedLocales
+              supportedLocales
             };
             instance.localeContext = ctx;
             instance.isRegionMetric = isRegionMetric;
@@ -200,7 +191,7 @@ define('crm/Bootstrap', ['module', 'exports', './MingleUtility', 'argos/Language
           });
         };
 
-        require.on('error', function () {
+        require.on('error', () => {
           console.log('Error loading localization, falling back to "en"'); // eslint-disable-line
           req(legacyLocalizationFallback);
         });

@@ -23,22 +23,22 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
     };
   }
 
-  var resource = (0, _I18n2.default)('opportunityProductDetail'); /* Copyright 2017 Infor
-                                                                   *
-                                                                   * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                   * you may not use this file except in compliance with the License.
-                                                                   * You may obtain a copy of the License at
-                                                                   *
-                                                                   *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                   *
-                                                                   * Unless required by applicable law or agreed to in writing, software
-                                                                   * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                   * See the License for the specific language governing permissions and
-                                                                   * limitations under the License.
-                                                                   */
+  const resource = (0, _I18n2.default)('opportunityProductDetail'); /* Copyright 2017 Infor
+                                                                     *
+                                                                     * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                     * you may not use this file except in compliance with the License.
+                                                                     * You may obtain a copy of the License at
+                                                                     *
+                                                                     *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                     *
+                                                                     * Unless required by applicable law or agreed to in writing, software
+                                                                     * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                     * See the License for the specific language governing permissions and
+                                                                     * limitations under the License.
+                                                                     */
 
-  var __class = (0, _declare2.default)('crm.Views.OpportunityProduct.Detail', [_Detail2.default, _LegacySDataDetailMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.OpportunityProduct.Detail', [_Detail2.default, _LegacySDataDetailMixin3.default], {
     // Localization
     detailsText: resource.detailsText,
     opportunityText: resource.opportunityText,
@@ -69,7 +69,7 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
     resourceKind: 'opportunityProducts',
 
     createEntryForDelete: function createEntryForDelete(e) {
-      var entry = {
+      const entry = {
         $key: e.$key,
         $etag: e.$etag,
         $name: e.$name
@@ -77,15 +77,15 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
       return entry;
     },
     removeOpportunityProduct: function removeOpportunityProduct() {
-      var confirmMessage = _string2.default.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+      const confirmMessage = _string2.default.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
 
       if (!confirm(confirmMessage)) {
         // eslint-disable-line
         return;
       }
 
-      var entry = this.createEntryForDelete(this.entry);
-      var request = this.createRequest();
+      const entry = this.createEntryForDelete(this.entry);
+      const request = this.createRequest();
 
       if (request) {
         request.delete(entry, {
@@ -96,9 +96,9 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
       }
     },
     onDeleteSuccess: function onDeleteSuccess() {
-      var views = [App.getView('opportunityproduct_related'), App.getView('opportunity_detail'), App.getView('opportunity_list')];
+      const views = [App.getView('opportunityproduct_related'), App.getView('opportunity_detail'), App.getView('opportunity_list')];
 
-      views.forEach(function (view) {
+      views.forEach(view => {
         if (view) {
           view.refreshRequired = true;
         }
@@ -126,13 +126,13 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
       });
     },
     createLayout: function createLayout() {
-      var layout = this.layout || (this.layout = []);
+      let layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;
       }
 
-      var details = {
+      const details = {
         title: this.detailsText,
         name: 'DetailsSection',
         children: [{
@@ -157,8 +157,8 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
           property: 'Price',
           renderer: function renderPrice(val) {
             if (App.hasMultiCurrency()) {
-              var exhangeRate = App.getBaseExchangeRate();
-              var convertedValue = val * exhangeRate.rate;
+              const exhangeRate = App.getBaseExchangeRate();
+              const convertedValue = val * exhangeRate.rate;
               return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
@@ -191,7 +191,7 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
         });
       }
 
-      var extendedPrice = {
+      const extendedPrice = {
         title: this.extendedPriceSectionText,
         name: 'OpportunityProductExtendedPriceDetail',
         children: [{
@@ -200,8 +200,8 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
           property: 'ExtendedPrice',
           renderer: function renderExtendedPrice(val) {
             if (App.hasMultiCurrency()) {
-              var exchangeRate = App.getBaseExchangeRate();
-              var convertedValue = val * exchangeRate.rate;
+              const exchangeRate = App.getBaseExchangeRate();
+              const convertedValue = val * exchangeRate.rate;
               return _Format2.default.multiCurrency.call(null, convertedValue, exchangeRate.code);
             }
 
@@ -210,7 +210,7 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
         }]
       };
 
-      var adjustedPrice = {
+      const adjustedPrice = {
         title: this.adjustedPriceSectionText,
         name: 'OpportunityProductAdjustedPriceDetail',
         children: [{
@@ -219,8 +219,8 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
           property: 'CalculatedPrice',
           renderer: function renderCalculatedPrice(val) {
             if (App.hasMultiCurrency()) {
-              var exhangeRate = App.getBaseExchangeRate();
-              var convertedValue = val * exhangeRate.rate;
+              const exhangeRate = App.getBaseExchangeRate();
+              const convertedValue = val * exhangeRate.rate;
               return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
             }
 
@@ -231,8 +231,8 @@ define('crm/Views/OpportunityProduct/Detail', ['module', 'exports', 'dojo/_base/
           name: 'CalculatedPriceMine',
           property: 'CalculatedPrice',
           renderer: function renderMyCalculatedPrice(val) {
-            var exhangeRate = App.getMyExchangeRate();
-            var convertedValue = val * exhangeRate.rate;
+            const exhangeRate = App.getMyExchangeRate();
+            const convertedValue = val * exhangeRate.rate;
             return _Format2.default.multiCurrency.call(null, convertedValue, exhangeRate.code);
           }.bindDelegate(this)
         }]

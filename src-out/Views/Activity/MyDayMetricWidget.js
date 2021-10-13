@@ -27,15 +27,15 @@ define('crm/Views/Activity/MyDayMetricWidget', ['module', 'exports', '../MetricW
     navToReportView: function navToReportView() {},
     activityType: '',
     _buildQueryOptions: function _buildQueryOptions() {
-      var self = this;
+      const self = this;
       return {
         returnQueryResults: true,
-        filter: function filter(entity) {
+        filter: entity => {
           if (entity.Type === self.activityType) {
             if (self.parent) {
-              var filter = self.parent.getCurrentFilter();
+              const filter = self.parent.getCurrentFilter();
               if (filter && filter.fn) {
-                var result = filter.fn.apply(self.parent, [entity]);
+                const result = filter.fn.apply(self.parent, [entity]);
                 if (result) {
                   return true;
                 }
@@ -50,18 +50,16 @@ define('crm/Views/Activity/MyDayMetricWidget', ['module', 'exports', '../MetricW
       };
     },
     _getData: function _getData() {
-      var queryOptions = this._buildQueryOptions();
-      var model = App.ModelManager.getModel('Activity', _Types2.default.OFFLINE);
-      var queryResults = model.getEntries(null, queryOptions);
+      const queryOptions = this._buildQueryOptions();
+      const model = App.ModelManager.getModel('Activity', _Types2.default.OFFLINE);
+      const queryResults = model.getEntries(null, queryOptions);
       (0, _when2.default)(queryResults, _lang2.default.hitch(this, this._onQuerySuccessCount, queryResults), _lang2.default.hitch(this, this._onQueryError));
     },
     _onQuerySuccessCount: function _onQuerySuccessCount(results) {
-      var _this = this;
-
-      var def = new _Deferred2.default();
-      (0, _when2.default)(results.total, function (total) {
-        var metricResults = [{
-          name: _this.activityType,
+      const def = new _Deferred2.default();
+      (0, _when2.default)(results.total, total => {
+        const metricResults = [{
+          name: this.activityType,
           value: total
         }];
         def.resolve(metricResults);

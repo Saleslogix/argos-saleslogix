@@ -44,9 +44,9 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('quoteItemEdit');
+  const resource = (0, _I18n2.default)('quoteItemEdit');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Edit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Edit', [_Edit2.default], {
     // View Properties
     id: 'quote_line_edit',
     detailView: 'quote_line_detail',
@@ -83,7 +83,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       this.connect(this.fields.Quantity, 'onChange', this.onQuantityChange);
     },
     _applyLogicValues: function _applyLogicValues(values) {
-      var product = this.fields.Product.getSelection();
+      const product = this.fields.Product.getSelection();
       values.ProductName = product.Name;
       values.Family = product.Family;
       values.ActualId = product.ActualId;
@@ -108,20 +108,18 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       return ['UnitOfMeasure'];
     },
     setProductDependentFields: function setProductDependentFields(product) {
-      var _this = this;
-
-      var dependants = this.getProductDependants();
+      const dependants = this.getProductDependants();
       if (product) {
-        dependants.forEach(function (f) {
-          _this.fields[f].enable();
-          _this.fields[f].dependsOn = 'Product';
-          _this.fields[f].where = 'Product.Id eq "' + product.$key + '"';
+        dependants.forEach(f => {
+          this.fields[f].enable();
+          this.fields[f].dependsOn = 'Product';
+          this.fields[f].where = `Product.Id eq "${product.$key}"`;
         });
       } else {
-        dependants.forEach(function (f) {
-          _this.fields[f].disable();
-          _this.fields[f].dependsOn = null;
-          _this.fields[f].where = null;
+        dependants.forEach(f => {
+          this.fields[f].disable();
+          this.fields[f].dependsOn = null;
+          this.fields[f].where = null;
         });
       }
     },
@@ -138,9 +136,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       return entry;
     },
     requestProductPricing: function requestProductPricing(product, quantity, slxLocation, unitOfMeasure) {
-      var _this2 = this;
-
-      var quote = null;
+      let quote = null;
       if (this.options && this.options.context && this.options.context.Quote) {
         quote = this.options.context.Quote;
       } else {
@@ -151,23 +147,21 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       if (quote && quote.$key && !this.isProcessingPricingRequest) {
         this.isProcessingPricingRequest = true;
         this.enablePricingControls(false);
-        _PricingAvailabilityService2.default.getQuoteItemPricing(this.entry, quote, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
-          _this2.onProductPricingSuccess(results);
-        }, function (error) {
-          _this2.onProductPricingFailed(error);
+        _PricingAvailabilityService2.default.getQuoteItemPricing(this.entry, quote, product, quantity, slxLocation, unitOfMeasure).then(results => {
+          this.onProductPricingSuccess(results);
+        }, error => {
+          this.onProductPricingFailed(error);
         });
       }
     },
     onProductPricingSuccess: function onProductPricingSuccess(result) {
-      var _this3 = this;
-
-      this.processProductPricing(result).then(function () {
-        _this3.reCalculate();
-        _this3.isProcessingPricingRequest = false;
-        _this3.enablePricingControls(true);
-      }, function () {
-        _this3.isProcessingPricingRequest = false;
-        _this3.enablePricingControls(true);
+      this.processProductPricing(result).then(() => {
+        this.reCalculate();
+        this.isProcessingPricingRequest = false;
+        this.enablePricingControls(true);
+      }, () => {
+        this.isProcessingPricingRequest = false;
+        this.enablePricingControls(true);
       });
     },
     onProductPricingFailed: function onProductPricingFailed(result) {
@@ -179,20 +173,18 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       });
     },
     setUomFromCode: function setUomFromCode(uomCode) {
-      var _this4 = this;
-
-      var curremtUom = this.fields.UnitOfMeasure.getValue();
-      var product = this.fields.Product.getValue();
-      var promise = new Promise(function (resolve, reject) {
-        if (!_this4._uomModel) {
-          _this4._uomModel = App.ModelManager.getModel(_Names2.default.UNITOFMEASURE, _Types2.default.SDATA);
+      const curremtUom = this.fields.UnitOfMeasure.getValue();
+      const product = this.fields.Product.getValue();
+      const promise = new Promise((resolve, reject) => {
+        if (!this._uomModel) {
+          this._uomModel = App.ModelManager.getModel(_Names2.default.UNITOFMEASURE, _Types2.default.SDATA);
         }
-        if (_this4._uomModel && product) {
+        if (this._uomModel && product) {
           if (curremtUom && curremtUom.Name !== uomCode || !curremtUom) {
-            _this4._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then(function (uom) {
-              _this4.fields.UnitOfMeasure.setValue(uom);
+            this._uomModel.getUnitOfMeasureFromCode(uomCode, product.$key).then(uom => {
+              this.fields.UnitOfMeasure.setValue(uom);
               resolve(true);
-            }, function (error) {
+            }, error => {
               reject(error);
             });
           } else {
@@ -205,29 +197,27 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       return promise;
     },
     processProductPricing: function processProductPricing(pricingData) {
-      var _this5 = this;
-
-      var promise = new Promise(function (resolve, reject) {
+      const promise = new Promise((resolve, reject) => {
         if (pricingData) {
           if (pricingData.DocCalculatedPrice) {
-            _this5.fields.DocCalculatedPrice.setValue(pricingData.DocCalculatedPrice.value);
+            this.fields.DocCalculatedPrice.setValue(pricingData.DocCalculatedPrice.value);
           }
           if (pricingData.DocExtendedPrice) {
-            _this5.fields.DocExtendedPrice.setValue(pricingData.DocExtendedPrice.value);
+            this.fields.DocExtendedPrice.setValue(pricingData.DocExtendedPrice.value);
           }
           if (pricingData.DocTotalAmount) {
-            _this5.fields.DocTotalAmount.setValue(pricingData.DocTotalAmount.value);
+            this.fields.DocTotalAmount.setValue(pricingData.DocTotalAmount.value);
           }
           if (pricingData.SlxLocationId) {
-            _this5.fields.SlxLocation.setValue({
+            this.fields.SlxLocation.setValue({
               $key: pricingData.SlxLocationId.value,
               Name: pricingData.SlxLocationCode.value
             });
           }
           if (pricingData.UnitOfMeasure) {
-            _this5.setUomFromCode(pricingData.UnitOfMeasure.value).then(function () {
+            this.setUomFromCode(pricingData.UnitOfMeasure.value).then(() => {
               resolve(true);
-            }, function (error) {
+            }, error => {
               reject(error);
             });
           } else {
@@ -287,8 +277,8 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       return false;
     },
     reCalculate: function reCalculate() {
-      var price = this.fields.CalculatedPrice.getValue();
-      var quantity = this.fields.Quantity.getValue();
+      const price = this.fields.CalculatedPrice.getValue();
+      const quantity = this.fields.Quantity.getValue();
       this.fields.ExtendedPrice.setValue(quantity * price);
     },
     onUpdateCompleted: function onUpdateCompleted() {
@@ -300,17 +290,15 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
       this.inherited(onInsertCompleted, arguments);
     },
     _refreshRelatedViews: function _refreshRelatedViews() {
-      var views = [App.getView('quote_line_detail'), App.getView('quote_lines_list')];
+      const views = [App.getView('quote_line_detail'), App.getView('quote_lines_list')];
 
-      views.forEach(function (view) {
+      views.forEach(view => {
         if (view) {
           view.refreshRequired = true;
         }
       }, this);
     },
     createLayout: function createLayout() {
-      var _this6 = this;
-
       return this.layout || (this.layout = [{
         title: this.detailsText,
         name: 'DetailsSection',
@@ -338,13 +326,13 @@ define('crm/Integrations/BOE/Views/QuoteLines/Edit', ['module', 'exports', 'dojo
           autoFocus: true,
           required: true,
           validator: _Validator2.default.exists,
-          where: function where() {
-            var logicalIdFromSelection = _this6.fields.Quote.currentSelection && _this6.fields.Quote.currentSelection.ErpLogicalId;
-            var logicalIdFromOptions = _this6.options && _this6.options.context && _this6.options.context.Quote && _this6.options.context.Quote.ErpLogicalId;
-            var logicalIdFromEntry = _this6.entry && _this6.entry.Quote && _this6.entry.Quote.ErpLogicalId;
-            var logicalId = logicalIdFromSelection || logicalIdFromOptions || logicalIdFromEntry;
+          where: () => {
+            const logicalIdFromSelection = this.fields.Quote.currentSelection && this.fields.Quote.currentSelection.ErpLogicalId;
+            const logicalIdFromOptions = this.options && this.options.context && this.options.context.Quote && this.options.context.Quote.ErpLogicalId;
+            const logicalIdFromEntry = this.entry && this.entry.Quote && this.entry.Quote.ErpLogicalId;
+            const logicalId = logicalIdFromSelection || logicalIdFromOptions || logicalIdFromEntry;
             if (logicalId) {
-              return 'ErpLogicalId eq "' + logicalId + '"';
+              return `ErpLogicalId eq "${logicalId}"`;
             }
             return null;
           }

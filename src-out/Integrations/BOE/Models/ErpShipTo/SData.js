@@ -23,7 +23,7 @@ define('crm/Integrations/BOE/Models/ErpShipTo/SData', ['module', 'exports', 'doj
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipTo.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipTo.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'erpshipto_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

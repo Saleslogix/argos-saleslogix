@@ -28,7 +28,7 @@ define('crm/Views/FooterToolbar', ['module', 'exports', 'dojo/_base/declare', 'a
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Views.FooterToolbar', [_MainToolbar2.default], {
+  const __class = (0, _declare2.default)('crm.Views.FooterToolbar', [_MainToolbar2.default], {
     // Localization
     copyrightText: '',
 
@@ -41,7 +41,7 @@ define('crm/Views/FooterToolbar', ['module', 'exports', 'dojo/_base/declare', 'a
       }
     },
     showTools: function showTools(tools) {
-      var contents = [];
+      const contents = [];
       if (tools && tools.length <= 0 || tools !== false) {
         this.show();
       } else if (tools === false) {
@@ -52,7 +52,7 @@ define('crm/Views/FooterToolbar', ['module', 'exports', 'dojo/_base/declare', 'a
       argos.MainToolbar.superclass.showTools.apply(this, arguments); // TODO: Avoid global
 
       if (tools) {
-        for (var i = 0; i < tools.length; i++) {
+        for (let i = 0; i < tools.length; i++) {
           contents.push(this.toolTemplate.apply(tools[i]));
         }
         this.set('footerContents', contents.join(''));

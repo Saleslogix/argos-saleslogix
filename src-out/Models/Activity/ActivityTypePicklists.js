@@ -18,7 +18,7 @@ define('crm/Models/Activity/ActivityTypePicklists', ['exports'], function (expor
    * limitations under the License.
    */
 
-  var ActivityTypePicklists = exports.ActivityTypePicklists = {
+  const ActivityTypePicklists = exports.ActivityTypePicklists = {
     atAppointment: {
       Category: 'Meeting Category Codes',
       Description: 'Meeting Regarding',

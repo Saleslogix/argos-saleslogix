@@ -44,9 +44,9 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('accountList');
+  const resource = (0, _I18n2.default)('accountList');
 
-  var __class = (0, _declare2.default)('crm.Views.Account.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Account.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">{%: $.Industry %}</p>', '<p class="micro-text">', '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}', '</p>', '<p class="micro-text">{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}', '{% if ($.Owner && $.Owner.OwnerDescription) { %} | {%: $.Owner.OwnerDescription %}{% } %}</p>', '<p class="micro-text">{%: $.WebAddress %}</p>', '{% if ($.MainPhone) { %}', '<p class="micro-text">', '{%: $$.phoneAbbreviationText %} <span class="hyperlink" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>', // TODO: Avoid global
     '</p>', '{% } %}', '{% if ($.Fax) { %}', '<p class="micro-text">', '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}', // TODO: Avoid global
@@ -88,7 +88,7 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
     modelName: _Names2.default.ACCOUNT,
 
     callMain: function callMain(params) {
-      this.invokeActionItemBy(function (a) {
+      this.invokeActionItemBy(a => {
         return a.id === 'callMain';
       }, params.key);
     },
@@ -127,8 +127,8 @@ define('crm/Views/Account/List', ['module', 'exports', 'dojo/_base/declare', '..
       }]);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'AccountNameUpper like "' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `AccountNameUpper like "${q}%"`;
     }
   });
 

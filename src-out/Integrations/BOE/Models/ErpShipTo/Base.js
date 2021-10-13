@@ -19,7 +19,7 @@ define('crm/Integrations/BOE/Models/ErpShipTo/Base', ['module', 'exports', 'dojo
     };
   }
 
-  var resource = (0, _I18n2.default)('erpShipToModel');
+  const resource = (0, _I18n2.default)('erpShipToModel');
   // const accountResource = getResource('accountModel');
   // const billtoResource = getResource('erpBillToModel');
   /* Copyright 2017 Infor
@@ -37,14 +37,14 @@ define('crm/Integrations/BOE/Models/ErpShipTo/Base', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  var quoteResource = (0, _I18n2.default)('quoteModel');
-  var salesorderResource = (0, _I18n2.default)('salesOrderModel');
-  var receivableResource = (0, _I18n2.default)('erpReceivableModel');
-  var invoiceResource = (0, _I18n2.default)('erpInvoiceModel');
-  var returnResource = (0, _I18n2.default)('returnModel');
-  var syncresultResource = (0, _I18n2.default)('syncResultModel');
+  const quoteResource = (0, _I18n2.default)('quoteModel');
+  const salesorderResource = (0, _I18n2.default)('salesOrderModel');
+  const receivableResource = (0, _I18n2.default)('erpReceivableModel');
+  const invoiceResource = (0, _I18n2.default)('erpInvoiceModel');
+  const returnResource = (0, _I18n2.default)('returnModel');
+  const syncresultResource = (0, _I18n2.default)('syncResultModel');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipTo.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipTo.Base', [_ModelBase3.default], {
     contractName: 'dynamic',
     resourceKind: 'erpShipTos',
     entityName: 'ERPShipTo',
@@ -62,7 +62,7 @@ define('crm/Integrations/BOE/Models/ErpShipTo/Base', ['module', 'exports', 'dojo
       }]);
     },
     createRelationships: function createRelationships() {
-      var rel = this.relationships || (this.relationships = [
+      const rel = this.relationships || (this.relationships = [
       // TODO: Update when ManyToMany relationship is supported
       // {
       //   name: 'Account',

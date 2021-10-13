@@ -15,7 +15,7 @@ define('crm/Views/SelectList', ['module', 'exports', 'dojo/_base/declare', 'dojo
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Views.SelectList', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.SelectList', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.$descriptor %}</p>']),
 
@@ -39,9 +39,9 @@ define('crm/Views/SelectList', ['module', 'exports', 'dojo/_base/declare', 'dojo
     },
     createStore: function createStore() {
       // caller is responsible for passing in a well-structured feed object.
-      var data = this.expandExpression(this.options && this.options.data && this.options.data.$resources);
-      var store = new _Memory2.default({
-        data: data
+      const data = this.expandExpression(this.options && this.options.data && this.options.data.$resources);
+      const store = new _Memory2.default({
+        data
       });
       store.idProperty = '$key';
       return store;

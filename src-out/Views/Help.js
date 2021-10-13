@@ -32,9 +32,9 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('help');
+  const resource = (0, _I18n2.default)('help');
 
-  var __class = (0, _declare2.default)('crm.Views.Help', [_DetailBase3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Help', [_DetailBase3.default], {
     // Templates
     errorTemplate: new Simplate(['<div data-dojo-attach-point="errorNode">', '<h2>{%: $.errorText %}</h2>', '<ul>', '<li>{%: $.errorMessageText %}</li>', '</ul>', '</div>']),
 
@@ -56,19 +56,17 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
       return this.tools && (this.tools.tbar = []);
     },
     resolveLocalizedUrl: function resolveLocalizedUrl(baseUrl, fileName) {
-      var cultureName = App.context.localization.locale || 'en';
-      var localizedUrl = baseUrl + '/' + cultureName + '/' + fileName;
+      const cultureName = App.context.localization.locale || 'en';
+      const localizedUrl = `${baseUrl}/${cultureName}/${fileName}`;
       return localizedUrl;
     },
     resolveGenericLocalizedUrl: function resolveGenericLocalizedUrl(baseUrl, fileName) {
-      var languageSpec = App.context.localization.locale || 'en';
-      var languageGen = languageSpec.indexOf('-') !== -1 ? languageSpec.split('-')[0] : languageSpec;
-      var localizedUrl = baseUrl + '/' + languageGen + '/' + fileName;
+      const languageSpec = App.context.localization.locale || 'en';
+      const languageGen = languageSpec.indexOf('-') !== -1 ? languageSpec.split('-')[0] : languageSpec;
+      const localizedUrl = `${baseUrl}/${languageGen}/${fileName}`;
       return localizedUrl;
     },
-    _sanitizeUrl: function _sanitizeUrl() {
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
+    _sanitizeUrl: function _sanitizeUrl(url = '') {
       // Remove trailing slashes
       return url.replace(/[\/|\\]*$/, ''); // eslint-disable-line
     },
@@ -78,12 +76,12 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
     processEntry: function processEntry() {
       this.inherited(processEntry, arguments);
       // Processing the layout should be done now
-      var self = this;
-      Promise.all(this.promises).then(function (results) {
-        results.forEach(function (result) {
+      const self = this;
+      Promise.all(this.promises).then(results => {
+        results.forEach(result => {
           self.processContent(result.response, result.domNode);
         });
-      }, function (e) {
+      }, e => {
         self.processContent({ responseText: self.errorTemplate.apply(self) }, e.domNode);
       });
       this.promises = [];
@@ -91,43 +89,31 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
     processContent: function processContent(xhr, domNode) {
       $(domNode).empty().append(xhr.responseText);
     },
-    getHelp: function getHelp(_ref, domNode) {
-      var _this = this;
-
-      var baseUrl = _ref.baseUrl,
-          fileName = _ref.fileName,
-          defaultUrl = _ref.defaultUrl;
-
-      var req = Sage.SData.Client.Ajax.request;
-      var cleanBaseUrl = this._sanitizeUrl(baseUrl);
-      return new Promise(function (resolve, reject) {
+    getHelp: function getHelp({ baseUrl, fileName, defaultUrl }, domNode) {
+      const req = Sage.SData.Client.Ajax.request;
+      const cleanBaseUrl = this._sanitizeUrl(baseUrl);
+      return new Promise((resolve, reject) => {
         req({
-          url: _this.resolveLocalizedUrl(cleanBaseUrl, fileName),
+          url: this.resolveLocalizedUrl(cleanBaseUrl, fileName),
           cache: true,
-          success: function success(response) {
-            return resolve({ response: response, domNode: domNode });
-          },
-          failure: function failure() {
+          success: response => resolve({ response, domNode }),
+          failure: () => {
             // First failure, try to get the parent locale
             req({
-              url: _this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
+              url: this.resolveGenericLocalizedUrl(cleanBaseUrl, fileName),
               cache: true,
-              success: function success(response) {
-                return resolve({ response: response, domNode: domNode });
-              },
-              failure: function failure() {
+              success: response => resolve({ response, domNode }),
+              failure: () => {
                 // Second failure, use the default url
                 req({
                   url: defaultUrl,
                   cache: true,
-                  success: function success(response) {
-                    return resolve({ response: response, domNode: domNode });
-                  },
-                  failure: function failure(response, o) {
+                  success: response => resolve({ response, domNode }),
+                  failure: (response, o) => {
                     // The default help failed. Log the error, as something is
                     // probably wrong with the layout.
-                    _ErrorManager2.default.addError(response, o, _this.options, 'failure');
-                    reject({ response: response, o: o, domNode: domNode });
+                    _ErrorManager2.default.addError(response, o, this.options, 'failure');
+                    reject({ response, o, domNode });
                   }
                 });
               }
@@ -144,7 +130,7 @@ define('crm/Views/Help', ['module', 'exports', 'dojo/_base/declare', 'argos/_Det
         return this.layout;
       }
 
-      var layout = [];
+      const layout = [];
 
       layout.push({
         title: this.sectionTitleText,

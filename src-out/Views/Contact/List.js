@@ -27,22 +27,22 @@ define('crm/Views/Contact/List', ['module', 'exports', 'dojo/_base/declare', 'cr
     };
   }
 
-  var resource = (0, _I18n2.default)('contactList'); /* Copyright 2017 Infor
-                                                      *
-                                                      * Licensed under the Apache License, Version 2.0 (the "License");
-                                                      * you may not use this file except in compliance with the License.
-                                                      * You may obtain a copy of the License at
-                                                      *
-                                                      *    http://www.apache.org/licenses/LICENSE-2.0
-                                                      *
-                                                      * Unless required by applicable law or agreed to in writing, software
-                                                      * distributed under the License is distributed on an "AS IS" BASIS,
-                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                      * See the License for the specific language governing permissions and
-                                                      * limitations under the License.
-                                                      */
+  const resource = (0, _I18n2.default)('contactList'); /* Copyright 2017 Infor
+                                                        *
+                                                        * Licensed under the Apache License, Version 2.0 (the "License");
+                                                        * you may not use this file except in compliance with the License.
+                                                        * You may obtain a copy of the License at
+                                                        *
+                                                        *    http://www.apache.org/licenses/LICENSE-2.0
+                                                        *
+                                                        * Unless required by applicable law or agreed to in writing, software
+                                                        * distributed under the License is distributed on an "AS IS" BASIS,
+                                                        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                        * See the License for the specific language governing permissions and
+                                                        * limitations under the License.
+                                                        */
 
-  var __class = (0, _declare2.default)('crm.Views.Contact.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Contact.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     format: _Format2.default,
     // Template
     // Card Layout
@@ -82,17 +82,17 @@ define('crm/Views/Contact/List', ['module', 'exports', 'dojo/_base/declare', 'cr
     groupsEnabled: true,
     enableActions: true,
     callWork: function callWork(params) {
-      this.invokeActionItemBy(function (theAction) {
+      this.invokeActionItemBy(theAction => {
         return theAction.id === 'callWork';
       }, params.key);
     },
     callMobile: function callMobile(params) {
-      this.invokeActionItemBy(function (theAction) {
+      this.invokeActionItemBy(theAction => {
         return theAction.id === 'callMobile';
       }, params.key);
     },
     sendEmail: function sendEmail(params) {
-      this.invokeActionItemBy(function (theAction) {
+      this.invokeActionItemBy(theAction => {
         return theAction.id === 'sendEmail';
       }, params.key);
     },
@@ -148,8 +148,8 @@ define('crm/Views/Contact/List', ['module', 'exports', 'dojo/_base/declare', 'cr
       }]);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return '(LastNameUpper like "' + q + '%" or upper(FirstName) like "' + q + '%" or upper(NameLF) like "%' + q + '%") or (AccountName like "%' + q + '%")';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `(LastNameUpper like "${q}%" or upper(FirstName) like "${q}%" or upper(NameLF) like "%${q}%") or (AccountName like "%${q}%")`;
     }
   });
 

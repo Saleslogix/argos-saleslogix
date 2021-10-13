@@ -43,7 +43,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
   /**
    * @module crm/Views/Charts/_ChartMixin
    */
-  var resource = (0, _I18n2.default)('chartMixin');
+  const resource = (0, _I18n2.default)('chartMixin');
 
   _lang2.default.setObject('Chart.defaults.global', {
     // Boolean - Whether to animate the chart
@@ -156,8 +156,8 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     // tooltipTemplate can be a function as well (not in the docs, see Chart.Core.js in their repo)
     tooltipTemplate: function tooltipTemplate(valuesObject) {
       // Use the formatter on the chart view, otherwise default to label: value
-      var view = App.getPrimaryActiveView();
-      var results = void 0;
+      const view = App.getPrimaryActiveView();
+      let results;
       if (view && view.formatter) {
         results = view.formatter(valuesObject.value);
       } else {
@@ -185,7 +185,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
    * @classdesc Base mixin for creating chart views.
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin3.default], /** @lends module:crm/Views/Charts/_ChartMixin.prototype */{
+  const __class = (0, _declare2.default)('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin3.default], /** @lends module:crm/Views/Charts/_ChartMixin.prototype */{
     _feedData: null,
 
     /**
@@ -227,14 +227,12 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       this.initPullToRefresh(this.scrollerNode);
     },
     onTransitionTo: function onTransitionTo() {
-      var _this = this;
-
       // Render fn is debounced to prevent too many calls as a user resizes, or
       // if it fires multiple times (onresize fires on desktop browsers with /app/setOrientation)
       // Some browsers do not fire window onResize for orientation changes.
-      var _renderFn = _Utility2.default.debounce(function () {
-        if (_this._feedData) {
-          _this.createChart(_this._feedData);
+      const _renderFn = _Utility2.default.debounce(() => {
+        if (this._feedData) {
+          this.createChart(this._feedData);
         }
       }, this.RENDER_DELAY);
 
@@ -255,15 +253,15 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
       $(window).off('applicationmenuopen.chart');
     },
     _setCanvasWidth: function _setCanvasWidth() {
-      var box = _domGeometry2.default.getMarginBox(this.domNode);
+      const box = _domGeometry2.default.getMarginBox(this.domNode);
       if (this.contentNode) {
         this.contentNode.width = box.w;
       }
     },
     _drawLoading: function _drawLoading() {
-      var node = this.contentNode;
-      var globalConfig = window.Chart.defaults.global;
-      var context = node && node.getContext && node.getContext('2d');
+      const node = this.contentNode;
+      const globalConfig = window.Chart.defaults.global;
+      const context = node && node.getContext && node.getContext('2d');
 
       if (!context) {
         return;
@@ -271,15 +269,15 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
 
       context.clearRect(0, 0, node.width, node.height);
 
-      var text = resource.loadingText;
+      const text = resource.loadingText;
 
       context.fillStyle = this.loadingFont;
-      context.font = globalConfig.tooltipFontSize + 'px ' + globalConfig.tooltipFontFamily;
+      context.font = `${globalConfig.tooltipFontSize}px ${globalConfig.tooltipFontFamily}`;
 
       // Center the text
-      var offset = Math.floor(context.measureText(text).width / 2);
-      var x = Math.floor(node.width / 2) - offset;
-      var y = 20; // padding
+      const offset = Math.floor(context.measureText(text).width / 2);
+      const x = Math.floor(node.width / 2) - offset;
+      const y = 20; // padding
       context.fillText(text, x, y, node.width);
     },
     createChart: function createChart(feedData) {
@@ -294,7 +292,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
     },
 
     showSearchExpression: function showSearchExpression() {
-      var app = this.app || window.App;
+      const app = this.app || window.App;
       app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
     },
 
@@ -317,8 +315,8 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
         return;
       }
 
-      var src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
-      var segment = parseInt(src.dataset.segment, 10);
+      const src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
+      const segment = parseInt(src.dataset.segment, 10);
       if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
         this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */);
       }
@@ -333,7 +331,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
         return;
       }
 
-      var html = this.chart.generateLegend();
+      const html = this.chart.generateLegend();
       _domAttr2.default.set(this.legendNode, {
         innerHTML: html
       });
@@ -344,7 +342,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
      * Charts in 3.3 no longer use the search expression node.
      */
     getSearchExpressionHeight: function getSearchExpressionHeight() {
-      var box = _domGeometry2.default.getMarginBox(this.searchExpressionNode);
+      const box = _domGeometry2.default.getMarginBox(this.searchExpressionNode);
       return box.h;
     },
 
@@ -362,7 +360,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
      * @since 3.3
      */
     createStore: function createStore() {
-      var store = this.parent && this.parent.store;
+      const store = this.parent && this.parent.store;
       return store;
     },
 
@@ -371,9 +369,7 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
      * @since 3.3
      */
     requestData: function requestData() {
-      var _this2 = this;
-
-      var store = this.get('store');
+      const store = this.get('store');
       if (this.chart && this.chart.destroy) {
         this.chart.destroy();
       }
@@ -385,9 +381,9 @@ define('crm/Views/Charts/_ChartMixin', ['module', 'exports', 'dojo/_base/declare
         store.query(null, {
           start: 0,
           count: this.PAGE_SIZE
-        }).then(function (data) {
-          _this2.createChart(data);
-        }, function (e) {
+        }).then(data => {
+          this.createChart(data);
+        }, e => {
           console.error(e); // eslint-disable-line
         });
       }

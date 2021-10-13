@@ -19,24 +19,24 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
     };
   }
 
-  var resource = (0, _I18n2.default)('eventEdit'); /* Copyright 2017 Infor
-                                                    *
-                                                    * Licensed under the Apache License, Version 2.0 (the "License");
-                                                    * you may not use this file except in compliance with the License.
-                                                    * You may obtain a copy of the License at
-                                                    *
-                                                    *    http://www.apache.org/licenses/LICENSE-2.0
-                                                    *
-                                                    * Unless required by applicable law or agreed to in writing, software
-                                                    * distributed under the License is distributed on an "AS IS" BASIS,
-                                                    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                    * See the License for the specific language governing permissions and
-                                                    * limitations under the License.
-                                                    */
+  const resource = (0, _I18n2.default)('eventEdit'); /* Copyright 2017 Infor
+                                                      *
+                                                      * Licensed under the Apache License, Version 2.0 (the "License");
+                                                      * you may not use this file except in compliance with the License.
+                                                      * You may obtain a copy of the License at
+                                                      *
+                                                      *    http://www.apache.org/licenses/LICENSE-2.0
+                                                      *
+                                                      * Unless required by applicable law or agreed to in writing, software
+                                                      * distributed under the License is distributed on an "AS IS" BASIS,
+                                                      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                      * See the License for the specific language governing permissions and
+                                                      * limitations under the License.
+                                                      */
 
-  var dtFormatResource = (0, _I18n2.default)('eventEditDateTimeFormat');
+  const dtFormatResource = (0, _I18n2.default)('eventEditDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Views.Event.Edit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Views.Event.Edit', [_Edit2.default], {
     // Localization
     titleText: resource.titleText,
     typeText: resource.typeText,
@@ -67,7 +67,7 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
       this.connect(this.fields.StartDate, 'onChange', this.onStartDateChange);
     },
     onStartDateChange: function onStartDateChange(val) {
-      var endDate = this.fields.EndDate.getValue();
+      const endDate = this.fields.EndDate.getValue();
 
       if (endDate < val) {
         this.fields.EndDate.setValue(val);
@@ -77,9 +77,9 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
       return this.eventTypesText[key] || text;
     },
     createTypeData: function createTypeData() {
-      var list = [];
+      const list = [];
 
-      for (var type in this.eventTypesText) {
+      for (const type in this.eventTypesText) {
         if (this.eventTypesText.hasOwnProperty(type)) {
           list.push({
             $key: type,
@@ -93,13 +93,13 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
       };
     },
     applyUserActivityContext: function applyUserActivityContext(context) {
-      var view = App.getView(context.id);
+      const view = App.getView(context.id);
       if (view && view.currentDate) {
-        var currentDate = moment(view.currentDate).clone().startOf('day');
-        var userOptions = App.context.userOptions;
-        var startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
-        var startDate = currentDate.clone();
-        var startTime = startTimeOption && moment(startTimeOption, 'h:mma');
+        const currentDate = moment(view.currentDate).clone().startOf('day');
+        const userOptions = App.context.userOptions;
+        const startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
+        const startDate = currentDate.clone();
+        let startTime = startTimeOption && moment(startTimeOption, 'h:mma');
 
         if (startTime && !moment(currentDate).isSame(moment())) {
           startDate.hours(startTime.hours());
@@ -112,7 +112,7 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
           });
         }
 
-        var endDate = startDate.clone().add({
+        const endDate = startDate.clone().add({
           minutes: 15
         });
 
@@ -123,15 +123,15 @@ define('crm/Views/Event/Edit', ['module', 'exports', 'dojo/_base/declare', '../.
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
 
-      var found = App.queryNavigationContext(function (o) {
-        var context = o.options && o.options.source || o;
+      const found = App.queryNavigationContext(o => {
+        const context = o.options && o.options.source || o;
 
         return (/^(useractivities||activities||events)$/.test(context.resourceKind)
         );
       });
 
-      var context = found && found.options && found.options.source || found;
-      var lookup = {
+      const context = found && found.options && found.options.source || found;
+      const lookup = {
         useractivities: this.applyUserActivityContext,
         activities: this.applyUserActivityContext
       };

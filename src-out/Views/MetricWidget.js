@@ -47,13 +47,13 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
   /**
    * @module crm/Views/MetricWidget
    */
-  var resource = (0, _I18n2.default)('metricWidget');
+  const resource = (0, _I18n2.default)('metricWidget');
 
   /**
    * @class
    * @alias module:crm/Views/MetricWidget
    */
-  var __class = (0, _declare2.default)('crm.Views.MetricWidget', [_Widget3.default, _Templated3.default], /** @lends module:crm/Views/MetricWidget.prototype */{
+  const __class = (0, _declare2.default)('crm.Views.MetricWidget', [_Widget3.default, _Templated3.default], /** @lends module:crm/Views/MetricWidget.prototype */{
     /**
      * @property {Simplate}
      * Simple that defines the HTML Markup
@@ -119,12 +119,8 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
      * @param {Array} data Array of data used for the metric
      * @return {int} Returns a value calculated from data (SUM/AVG/MAX/MIN/Whatever)
      */
-    valueFn: function valueFn() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      return data.reduce(function (p, c) {
-        return p + c.value;
-      }, 0);
+    valueFn: function valueFn(data = []) {
+      return data.reduce((p, c) => p + c.value, 0);
     },
 
     // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
@@ -135,8 +131,6 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
      * Requests the widget's data, value fn, format fn, and renders it's itemTemplate
      */
     requestData: function requestData() {
-      var _this = this;
-
       this.inherited(requestData, arguments);
 
       if (this._data && this._data.length > 0) {
@@ -147,23 +141,23 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
       this.requestDataDeferred = new _Deferred2.default();
       this._getData();
 
-      this.requestDataDeferred.then(function (results) {
-        var data = results;
+      this.requestDataDeferred.then(results => {
+        const data = results;
         if (!data) {
           throw new Error('An error occurred loading the KPI widget data.');
         }
 
-        _this.valueFn = _this.aggregateModule[_this.aggregate];
-        _this.formatter = _this.formatModule[_this.formatter];
+        this.valueFn = this.aggregateModule[this.aggregate];
+        this.formatter = this.formatModule[this.formatter];
 
-        var value = _this.value = _this.valueFn.call(_this, data);
-        $(_this.metricDetailNode).replaceWith(_this.itemTemplate.apply({
-          value: value
-        }, _this));
-      }, function (err) {
+        const value = this.value = this.valueFn.call(this, data);
+        $(this.metricDetailNode).replaceWith(this.itemTemplate.apply({
+          value
+        }, this));
+      }, err => {
         // Error
         console.error(err); // eslint-disable-line
-        $(_this.metricDetailNode).replaceWith(_this.errorTemplate.apply({}, _this));
+        $(this.metricDetailNode).replaceWith(this.errorTemplate.apply({}, this));
       });
     },
     navToReportView: function navToReportView() {
@@ -171,7 +165,7 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
         return;
       }
 
-      var view = App.getView(this.chartTypeMapping[this.chartType]);
+      const view = App.getView(this.chartTypeMapping[this.chartType]);
 
       if (view) {
         view.parent = this;
@@ -193,29 +187,27 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
       return null;
     },
     _getData: function _getData() {
-      var queryOptions = this._buildQueryOptions();
-      var queryExpression = this._buildQueryExpression();
-      var store = this.get('store');
-      var queryResults = store.query(queryExpression, queryOptions);
+      const queryOptions = this._buildQueryOptions();
+      const queryExpression = this._buildQueryExpression();
+      const store = this.get('store');
+      const queryResults = store.query(queryExpression, queryOptions);
       (0, _when2.default)(queryResults, _lang2.default.hitch(this, this._onQuerySuccess, queryResults), _lang2.default.hitch(this, this._onQueryError));
     },
     _onQuerySuccess: function _onQuerySuccess(queryResults) {
-      var _this2 = this;
+      (0, _when2.default)(queryResults.total, total => {
+        queryResults.forEach(_lang2.default.hitch(this, this._processItem));
 
-      (0, _when2.default)(queryResults.total, function (total) {
-        queryResults.forEach(_lang2.default.hitch(_this2, _this2._processItem));
-
-        var left = -1;
+        let left = -1;
         if (total > -1) {
-          left = total - (_this2.position + _this2.pageSize);
+          left = total - (this.position + this.pageSize);
         }
 
         if (left > 0) {
-          _this2.position = _this2.position + _this2.pageSize;
-          _this2._getData();
+          this.position = this.position + this.pageSize;
+          this._getData();
         } else {
           // Signal complete
-          _this2.requestDataDeferred.resolve(_this2._data);
+          this.requestDataDeferred.resolve(this._data);
         }
       });
     },
@@ -226,7 +218,7 @@ define('crm/Views/MetricWidget', ['module', 'exports', 'dojo/_base/declare', 'do
       this.requestDataDeferred.reject(error);
     },
     createStore: function createStore() {
-      var store = new _SData2.default({
+      const store = new _SData2.default({
         request: this.request,
         service: App.services.crm,
         resourceKind: this.resourceKind,

@@ -40,17 +40,15 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('proxAppModule');
+  const resource = (0, _I18n2.default)('proxAppModule');
 
-  var __class = (0, _declare2.default)('crm.Integrations.Contour.ApplicationModule', [_ApplicationModule2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.Contour.ApplicationModule', [_ApplicationModule2.default], {
     // Localization strings
     viewAccountsNearbyText: resource.viewAccountsNearbyText,
     helpTitleText: resource.helpTitleText,
 
     isIntegrationEnabled: function isIntegrationEnabled() {
-      var results = this.application.context.integrations.filter(function (integration) {
-        return integration.Name === 'Contour';
-      })[0];
+      const results = this.application.context.integrations.filter(integration => integration.Name === 'Contour')[0];
       return results && results.Enabled;
     },
     loadViewsDynamic: function loadViews() {
@@ -73,11 +71,11 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
 
       // We want to add these views to the default set of home screen views.
       // Save the original getDefaultviews() function.
-      var originalDefViews = _Application2.default.prototype.getDefaultViews;
+      const originalDefViews = _Application2.default.prototype.getDefaultViews;
       _lang2.default.extend(_Application2.default, {
-        getDefaultViews: function getDefaultViews() {
+        getDefaultViews() {
           // Get view array from original function, or default to empty array
-          var views = originalDefViews.apply(this, arguments) || [];
+          const views = originalDefViews.apply(this, arguments) || [];
           // Add custom view(s)
           views.push('pxSearch_Accounts');
           views.push('pxSearch_locations');
@@ -86,9 +84,9 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
       });
 
       // Add the new help
-      var onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
+      const onHelpRowCreated = crm.Views.Help.prototype.onHelpRowCreated;
       this.registerCustomization('detail', 'help', {
-        at: function at(row) {
+        at: row => {
           return row.name === 'HelpSection';
         },
         type: 'insert',
@@ -109,13 +107,12 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
 
       this.registerAccountMods();
     },
-    registerAccountMods: function registerAccountMods() {
+    registerAccountMods() {
       // add the view nearby button
       this.registerCustomization('detail', 'account_detail', {
-        at: function at(row) {
+        at(row) {
           return row.name === 'AddNoteAction';
         },
-
         type: 'insert',
         value: {
           name: 'ViewNearbyAction',
@@ -130,13 +127,13 @@ define('crm/Integrations/Contour/ApplicationModule', ['module', 'exports', 'dojo
         addressNotGeocodedErrorText: resource.addressNotGeocodedErrorText,
         accountsNearText: resource.accountsNearText,
         querySelect: crm.Views.Account.Detail.prototype.querySelect.concat(['Address/GeocodeFailed', 'Address/GeocodeLatitude', 'Address/GeocodeLongitude', 'Address/GeocodeProvider']),
-        viewNearby: function viewNearby() {
+        viewNearby() {
           if (this.entry.Address.GeocodeFailed !== null && this.entry.Address.GeocodeFailed === true || this.entry.Address.GeocodeProvider === null || this.entry.Address.GeocodeLatitude === null || this.entry.Address.GeocodeLongitude === null) {
             alert(this.addressNotGeocodedErrorText); // eslint-disable-line
             return;
           }
-          var geocode = this.entry.Address;
-          var view = App.getView('pxSearch_Accounts');
+          const geocode = this.entry.Address;
+          const view = App.getView('pxSearch_Accounts');
           view.refreshRequired = true;
           view.lat = geocode.GeocodeLatitude;
           view.lon = geocode.GeocodeLongitude;

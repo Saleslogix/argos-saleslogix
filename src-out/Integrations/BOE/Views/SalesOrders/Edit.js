@@ -48,11 +48,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('salesOrderEdit');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var dtFormatResource = (0, _I18n2.default)('salesOrderEditDateTimeFormat');
+  const resource = (0, _I18n2.default)('salesOrderEdit');
+  const contactResource = (0, _I18n2.default)('contactModel');
+  const dtFormatResource = (0, _I18n2.default)('salesOrderEditDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.Edit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.Edit', [_Edit2.default], {
     // View Properties
     id: 'salesorder_edit',
     detailView: 'salesorder_detail',
@@ -173,29 +173,27 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       return values;
     },
     processEntry: function processEntry(entry) {
-      var _this = this;
-
       if (entry && entry.Account) {
-        ['RequestedBy', 'Opportunity'].forEach(function (f) {
-          _this.fields[f].dependsOn = 'Account';
-          _this.fields[f].where = 'Account.Id eq "' + (entry.Account.AccountId || entry.Account.$key || entry.Account.key) + '"';
+        ['RequestedBy', 'Opportunity'].forEach(f => {
+          this.fields[f].dependsOn = 'Account';
+          this.fields[f].where = `Account.Id eq "${entry.Account.AccountId || entry.Account.$key || entry.Account.key}"`;
           if (f === 'Opportunity') {
-            _this.fields[f].where = _this.fields[f].where + ' and Status eq "' + _this.opportunityOpenCode + '"';
+            this.fields[f].where = `${this.fields[f].where} and Status eq "${this.opportunityOpenCode}"`;
           }
         });
       }
-      var warehouseField = this.fields.Warehouse;
-      var locationField = this.fields.Location;
+      const warehouseField = this.fields.Warehouse;
+      const locationField = this.fields.Location;
       if (entry && entry.ErpLogicalId) {
         warehouseField.enable();
         warehouseField.dependsOn = 'ErpLogicalId';
-        warehouseField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and LocationType eq "' + _this.warehouseCode + '"';
+        warehouseField.where = logicalId => {
+          return `ErpLogicalId eq "${logicalId}" and LocationType eq "${this.warehouseCode}"`;
         };
         locationField.enable();
         locationField.dependsOn = 'ErpLogicalId';
-        locationField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and (LocationType eq "' + _this.officeCode + '" or LocationType eq "' + _this.siteCode + '")';
+        locationField.where = logicalId => {
+          return `ErpLogicalId eq "${logicalId}" and (LocationType eq "${this.officeCode}" or LocationType eq "${this.siteCode}")`;
         };
       } else {
         warehouseField.disable();
@@ -220,7 +218,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       this.inherited(setValues, arguments);
 
       if (!this.fields.CurrencyCode.getValue()) {
-        var account = this.fields.Account.currentSelection;
+        const account = this.fields.Account.currentSelection;
         if (account && account.CurrencyCode) {
           this.fields.CurrencyCode.setValue(account.CurrencyCode);
         } else {
@@ -229,12 +227,10 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       }
     },
     onRefresh: function onRefresh() {
-      var _this2 = this;
-
       this.inherited(onRefresh, arguments);
-      ['RequestedBy', 'Opportunity', 'Warehouse', 'Location'].forEach(function (f) {
-        _this2.fields[f].dependsOn = null;
-        _this2.fields[f].where = null;
+      ['RequestedBy', 'Opportunity', 'Warehouse', 'Location'].forEach(f => {
+        this.fields[f].dependsOn = null;
+        this.fields[f].where = null;
       });
     },
     onRefreshInsert: function onRefreshInsert() {
@@ -242,20 +238,16 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       this.enableBackOfficeData();
     },
     getEntriesFromIds: function getEntriesFromIds() {
-      var _this3 = this;
-
-      var mappedLookups = ['BackOffice', 'BackOfficeAccountingEntity'];
-      var mappedProperties = ['LogicalId', 'AcctEntityExtId'];
-      var fields = ['ErpLogicalId', 'ErpAccountingEntityId'];
-      _Utility4.default.setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(function () {
-        _this3.hideBusy();
+      const mappedLookups = ['BackOffice', 'BackOfficeAccountingEntity'];
+      const mappedProperties = ['LogicalId', 'AcctEntityExtId'];
+      const fields = ['ErpLogicalId', 'ErpAccountingEntityId'];
+      _Utility4.default.setFieldsFromIds(mappedLookups, mappedProperties, fields, this).then(() => {
+        this.hideBusy();
       });
     },
     getPrimaryContact: function getPrimaryContact(entry) {
-      var _this4 = this;
-
-      var accountModel = _Adapter2.default.getModel(_Names4.default.ACCOUNT);
-      var relationship = {
+      const accountModel = _Adapter2.default.getModel(_Names4.default.ACCOUNT);
+      const relationship = {
         name: 'Contacts',
         displayName: contactResource.entityDisplayNamePlural,
         type: 'OneToMany',
@@ -264,9 +256,9 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
         relatedPropertyType: 'object',
         where: 'IsPrimary eq true'
       };
-      accountModel.getRelatedRequest(entry, relationship).then(function (result) {
+      accountModel.getRelatedRequest(entry, relationship).then(result => {
         if (result && result.entities && result.entities.length) {
-          var contactField = _this4.fields.RequestedBy;
+          const contactField = this.fields.RequestedBy;
           if (!contactField.currentSelection || contactField.currentSelection.Account && contactField.currentSelection.Account.$key !== entry.$key) {
             contactField.setSelection(result.entities[0]);
           }
@@ -274,13 +266,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       });
     },
     onAccountChange: function onAccountChange(value, field) {
-      var _this5 = this;
-
-      var entry = field.currentSelection;
-      ['RequestedBy', 'Opportunity'].forEach(function (f) {
+      const entry = field.currentSelection;
+      ['RequestedBy', 'Opportunity'].forEach(f => {
         if (value) {
-          _this5.fields[f].dependsOn = 'Account';
-          _this5.fields[f].where = 'Account.Id eq "' + (value.AccountId || value.$key || value.key) + '"';
+          this.fields[f].dependsOn = 'Account';
+          this.fields[f].where = `Account.Id eq "${value.AccountId || value.$key || value.key}"`;
         }
       });
       if (entry) {
@@ -290,7 +280,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           this.fields.ShipTo.enable();
         }
         if (entry.AccountManager) {
-          var accountManagerField = this.fields.AccountManager;
+          const accountManagerField = this.fields.AccountManager;
           accountManagerField.setSelection({
             $key: entry.AccountManager.$key
           });
@@ -298,48 +288,46 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
         field.setValue(field.currentSelection);
         this.showBusy();
         this.getPrimaryContact(entry);
-        _Utility4.default.setFieldsFromIds(['BackOffice', 'BackOfficeAccountingEntity'], ['LogicalId', 'AcctEntityExtId'], ['ErpLogicalId', 'ErpAccountingEntityId'], this, entry).then(function () {
-          _this5.hideBusy();
+        _Utility4.default.setFieldsFromIds(['BackOffice', 'BackOfficeAccountingEntity'], ['LogicalId', 'AcctEntityExtId'], ['ErpLogicalId', 'ErpAccountingEntityId'], this, entry).then(() => {
+          this.hideBusy();
         });
       }
     },
     onAccountDependentChange: function onAccountDependentChange(value, field) {
       if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
-        var accountField = this.fields.Account;
+        const accountField = this.fields.Account;
         accountField.setSelection(field.currentSelection.Account);
         this.onAccountChange(accountField.getValue(), accountField);
       }
     },
     onBackOfficeChange: function onBackOfficeChange(value, field) {
-      var _this6 = this;
-
       this.fields.BackOffice.setValue(field.currentSelection);
       this.fields.ErpLogicalId.setValue(field.currentSelection.LogicalId);
-      var accountingField = this.fields.BackOfficeAccountingEntity;
-      accountingField.where = 'BackOffice.Id eq "' + field.currentSelection.$key + '"';
+      const accountingField = this.fields.BackOfficeAccountingEntity;
+      accountingField.where = `BackOffice.Id eq "${field.currentSelection.$key}"`;
 
-      var accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
+      const accountingIsToBackOffice = accountingField.currentSelection && accountingField.currentSelection.BackOffice && accountingField.currentSelection.BackOffice.$key === field.currentSelection.$key;
       if (field.currentSelection.BackOfficeAccountingEntities.$resources && !accountingIsToBackOffice) {
-        var entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
+        const entry = field.currentSelection.BackOfficeAccountingEntities.$resources[0];
         if (entry) {
           accountingField.setSelection(entry);
           this.onBackOfficeAccountingEntityChange(accountingField.getValue(), accountingField);
         }
       }
-      var warehouseField = this.fields.Warehouse;
+      const warehouseField = this.fields.Warehouse;
       if (warehouseField.isDisabled) {
         warehouseField.enable();
         warehouseField.dependsOn = 'ErpLogicalId';
-        warehouseField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and LocationType eq "' + _this6.warehouseCode + '"';
+        warehouseField.where = logicalId => {
+          return `ErpLogicalId eq "${logicalId}" and LocationType eq "${this.warehouseCode}"`;
         };
       }
-      var locationField = this.fields.Location;
+      const locationField = this.fields.Location;
       if (locationField.isDisabled) {
         locationField.enable();
         locationField.dependsOn = 'ErpLogicalId';
-        locationField.where = function (logicalId) {
-          return 'ErpLogicalId eq "' + logicalId + '" and (LocationType eq "' + _this6.officeCode + '" or LocationType eq "' + _this6.siteCode + '")';
+        locationField.where = logicalId => {
+          return `ErpLogicalId eq "${logicalId}" and (LocationType eq "${this.officeCode}" or LocationType eq "${this.siteCode}")`;
         };
       }
     },
@@ -371,13 +359,13 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     },
     applyContext: function applyContext() {
       this.inherited(applyContext, arguments);
-      var found = this._getNavContext();
+      const found = this._getNavContext();
 
-      var accountField = this.fields.Account;
+      const accountField = this.fields.Account;
       this.onAccountChange(accountField.getValue(), accountField);
 
-      var context = found && found.options && found.options.source || found;
-      var lookup = {
+      const context = found && found.options && found.options.source || found;
+      const lookup = {
         accounts: this.applyAccountContext,
         contacts: this.applyContactContext,
         opportunities: this.applyOpportunityContext
@@ -397,8 +385,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       }
     },
     _getNavContext: function _getNavContext() {
-      var navContext = App.queryNavigationContext(function (o) {
-        var context = o.options && o.options.source || o;
+      const navContext = App.queryNavigationContext(o => {
+        const context = o.options && o.options.source || o;
 
         if (/^(accounts|contacts|opportunities)$/.test(context.resourceKind) && context.key) {
           return true;
@@ -409,38 +397,38 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
       return navContext;
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id);
-      var entry = context.entry || view && view.entry || context;
+      const view = App.getView(context.id);
+      const entry = context.entry || view && view.entry || context;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      var accountField = this.fields.Account;
+      const accountField = this.fields.Account;
       accountField.setSelection(entry);
       this.onAccountChange(accountField.getValue(), accountField);
     },
     applyContactContext: function applyContactContext(context) {
-      var view = App.getView(context.id);
-      var entry = context.entry || view && view.entry || context;
+      const view = App.getView(context.id);
+      const entry = context.entry || view && view.entry || context;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      var contactField = this.fields.RequestedBy;
+      const contactField = this.fields.RequestedBy;
       contactField.setSelection(entry);
       this.onAccountDependentChange(contactField.getValue(), contactField);
     },
     applyOpportunityContext: function applyOpportunityContext(context) {
-      var view = App.getView(context.id);
-      var entry = context.entry || view && view.entry || context;
+      const view = App.getView(context.id);
+      const entry = context.entry || view && view.entry || context;
 
       if (!entry || !entry.$key) {
         return;
       }
 
-      var opportunityField = this.fields.Opportunity;
+      const opportunityField = this.fields.Opportunity;
       opportunityField.setSelection(entry);
       this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
     },
@@ -453,7 +441,7 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
     },
     showBusy: function showBusy() {
       if (!this._busyIndicator || this._busyIndicator._destroyed) {
-        this._busyIndicator = new _BusyIndicator2.default({ id: this.id + '-busyIndicator' });
+        this._busyIndicator = new _BusyIndicator2.default({ id: `${this.id}-busyIndicator` });
       }
       this._busyIndicator.start();
       App.modal.disableClose = true;
@@ -619,8 +607,8 @@ define('crm/Integrations/BOE/Views/SalesOrders/Edit', ['module', 'exports', 'doj
           emptyText: '',
           valueTextProperty: 'CarrierName',
           view: 'salesorder_carriers',
-          where: function where(value) {
-            return 'ErpLogicalId eq "' + value + '"';
+          where: value => {
+            return `ErpLogicalId eq "${value}"`;
           }
         }, {
           label: this.backOrderedText,

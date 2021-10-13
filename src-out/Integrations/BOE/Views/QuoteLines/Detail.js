@@ -27,47 +27,23 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
     };
   }
 
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
+  const resource = (0, _I18n2.default)('quoteItemsDetail'); /* Copyright 2017 Infor
+                                                             *
+                                                             * Licensed under the Apache License, Version 2.0 (the "License");
+                                                             * you may not use this file except in compliance with the License.
+                                                             * You may obtain a copy of the License at
+                                                             *
+                                                             *    http://www.apache.org/licenses/LICENSE-2.0
+                                                             *
+                                                             * Unless required by applicable law or agreed to in writing, software
+                                                             * distributed under the License is distributed on an "AS IS" BASIS,
+                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                             * See the License for the specific language governing permissions and
+                                                             * limitations under the License.
+                                                             */
 
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
 
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
-
-      return _arr;
-    }
-
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
-
-  var resource = (0, _I18n2.default)('quoteItemsDetail');
-
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.QuoteLines.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     lineText: resource.lineText,
@@ -106,7 +82,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
     enableOffline: true,
 
     createEntryForDelete: function createEntryForDelete(e) {
-      var entry = {
+      const entry = {
         $key: e.$key,
         $etag: e.$etag,
         $name: e.$name
@@ -123,47 +99,39 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
       }
     },
     removeQuoteLine: function removeQuoteLine() {
-      var _this = this;
-
       // TODO: [INFORCRM-7712] Implement this in the model (model needs remove call)
       App.modal.createSimpleDialog({
         title: 'alert',
         content: this.confirmDeleteText,
-        getContent: function getContent() {}
-      }).then(function () {
-        var entry = _this.createEntryForDelete(_this.entry);
-        var request = _this.store._createEntryRequest(_this.entry.$key, {});
+        getContent: () => {}
+      }).then(() => {
+        const entry = this.createEntryForDelete(this.entry);
+        const request = this.store._createEntryRequest(this.entry.$key, {});
 
         if (request) {
           request.delete(entry, {
-            success: _this.onDeleteSuccess,
-            failure: _this.onRequestDataFailure,
-            scope: _this
+            success: this.onDeleteSuccess,
+            failure: this.onRequestDataFailure,
+            scope: this
           });
         }
       });
     },
     onAvailability: function onAvailability() {
-      var _this2 = this;
-
-      _PricingAvailabilityService2.default.getQuoteItemAvailability(this.entry).then(function (result) {
-        var _result = _slicedToArray(result, 1),
-            warehouse = _result[0];
-
-        var ErrorCode = warehouse.ErrorCode,
-            AvailableQuantity = warehouse.AvailableQuantity;
-
+      _PricingAvailabilityService2.default.getQuoteItemAvailability(this.entry).then(result => {
+        const [warehouse] = result;
+        const { ErrorCode, AvailableQuantity } = warehouse;
         if (ErrorCode) {
           App.modal.createSimpleAlert({ title: ErrorCode });
         } else if (AvailableQuantity) {
-          App.modal.createSimpleAlert({ title: _this2.availableQuantityText + AvailableQuantity });
+          App.modal.createSimpleAlert({ title: this.availableQuantityText + AvailableQuantity });
         }
       });
     },
     onDeleteSuccess: function onDeleteSuccess() {
-      var views = [App.getView('quote_lines_related'), App.getView('quote_detail'), App.getView('quote_list')];
+      const views = [App.getView('quote_lines_related'), App.getView('quote_detail'), App.getView('quote_list')];
 
-      views.forEach(function (view) {
+      views.forEach(view => {
         if (view) {
           view.refreshRequired = true;
         }
@@ -185,7 +153,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
       if (this.tools) {
         return this.tools;
       }
-      var tools = this.inherited(createToolLayout, arguments);
+      const tools = this.inherited(createToolLayout, arguments);
       if (tools && tools.tbar) {
         tools.tbar.push({
           id: 'removeQuoteLine',
@@ -198,10 +166,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
       return tools;
     },
     createLayout: function createLayout() {
-      var _this3 = this;
-
-      var _App$getBaseExchangeR = App.getBaseExchangeRate(),
-          baseCurrencyCode = _App$getBaseExchangeR.code;
+      const { code: baseCurrencyCode } = App.getBaseExchangeRate();
 
       return this.layout || (this.layout = [{
         title: this.actionsText,
@@ -214,7 +179,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           label: this.checkWarehouseAvailabilityText,
           iconClass: 'redo', // check for a better icon
           action: 'onAvailability',
-          disabled: function disabled() {
+          disabled: () => {
             return App.warehouseDiscovery === 'auto';
           },
           security: 'Entities/SalesOrder/Add'
@@ -248,33 +213,31 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           name: 'Price',
           property: 'Price',
           label: this.priceText,
-          renderer: function renderer(value) {
-            var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          renderer: value => {
+            const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'Discount',
           property: 'Discount',
           label: this.discountText,
-          renderer: function renderer(value) {
-            var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          renderer: value => {
+            const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'CalculatedPrice',
           property: 'CalculatedPrice',
           label: this.baseAdjustedPriceText,
-          renderer: function renderer(value) {
-            var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          renderer: value => {
+            const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocCalculatedPrice',
           property: 'DocCalculatedPrice',
           label: this.adjustedPriceText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
-          }
+          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.Quote.CurrencyCode)
         }, {
           name: 'Quantity',
           property: 'Quantity',
@@ -296,24 +259,20 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           label: this.baseExtendedAmountText,
           name: 'ExtendedPrice',
           property: 'ExtendedPrice',
-          renderer: function renderer(value) {
-            var code = _this3.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
+          renderer: value => {
+            const code = this.entry.Quote.BaseCurrencyCode || baseCurrencyCode;
             return _Utility2.default.formatMultiCurrency(value, code);
           }
         }, {
           name: 'DocExtendedPrice',
           property: 'DocExtendedPrice',
           label: this.extendedAmountText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
-          }
+          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.Quote.CurrencyCode)
         }, {
           name: 'DocTotalAmount',
           property: 'DocTotalAmount',
           label: this.totalAmountText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
-          }
+          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.Quote.CurrencyCode)
         }, {
           name: 'Status',
           property: 'Status',
@@ -340,9 +299,7 @@ define('crm/Integrations/BOE/Views/QuoteLines/Detail', ['module', 'exports', 'do
           name: 'FixedPrice',
           property: 'FixedPrice',
           label: this.fixedPriceText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this3.entry.Quote.CurrencyCode);
-          }
+          renderer: value => _Utility2.default.formatMultiCurrency(value, this.entry.Quote.CurrencyCode)
         }, {
           name: 'RushRequest',
           property: 'RushRequest',

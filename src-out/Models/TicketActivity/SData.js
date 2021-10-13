@@ -36,7 +36,7 @@ define('crm/Models/TicketActivity/SData', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.TicketActivity.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.TicketActivity.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'ticket_activity_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

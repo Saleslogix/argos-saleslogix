@@ -35,8 +35,8 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
   /**
    * @module crm/Format
    */
-  var f = ICRMCommonSDK.format;
-  var resource = (0, _I18n2.default)('crmFormat');
+  const f = ICRMCommonSDK.format;
+  const resource = (0, _I18n2.default)('crmFormat');
 
   /**
    * @class
@@ -44,7 +44,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
    * @extends module:argos/Format
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Format', _lang2.default.mixin({}, _Format2.default, /** @lends module:crm/Format */{
+  const __class = _lang2.default.setObject('crm.Format', _lang2.default.mixin({}, _Format2.default, /** @lends module:crm/Format */{
     /**
      * Address Culture Formats as defined by crm.Format.address
      * http://msdn.microsoft.com/en-us/library/cc195167.aspx
@@ -94,28 +94,25 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
     phoneFormat: f.phoneFormat,
     phone: f.phone,
-    picklist: function picklist(service, // Picklist service reference
+    picklist: (service, // Picklist service reference
     model, // Reference to the entity's model for call getPicklistNameByProperty
     property, // Property to reference for fetching the picklist off the model
-    picklistName) {
-      var languageCode = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : App.getCurrentLocale();
-      var picklistOptions = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : { // Override for picklistOptions on storage and display modes
-        storage: f.PicklistStorageType.CODE,
-        display: f.PicklistDataDisplayType.TEXT
-      };
-
-      var name = picklistName;
+    picklistName, // Picklist name used (can use this instead of model-property)
+    languageCode = App.getCurrentLocale(), // Override for languageCode to fetch
+    picklistOptions = { // Override for picklistOptions on storage and display modes
+      storage: f.PicklistStorageType.CODE,
+      display: f.PicklistDataDisplayType.TEXT
+    }) => {
+      let name = picklistName;
       if (!name) {
         if (!service || !model || !property) {
-          return function (val) {
-            return val;
-          };
+          return val => val;
         }
         name = model.getPicklistNameByProperty(property);
       }
-      var picklist = service.getPicklistByName(name, languageCode);
+      const picklist = service.getPicklistByName(name, languageCode);
 
-      return function (val) {
+      return val => {
         return f.picklist(val, Object.assign({}, picklistOptions, picklist));
       };
     },
@@ -125,14 +122,14 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       return f.currency(_val, Soho.Locale.currentLocale.data.numbers.decimal, Soho.Locale.currentLocale.data.numbers.group);
     },
     bigNumber: function bigNumber(val) {
-      var numParse = typeof val !== 'number' ? parseFloat(val) : val;
-      var absVal = Math.abs(numParse);
+      let numParse = typeof val !== 'number' ? parseFloat(val) : val;
+      const absVal = Math.abs(numParse);
 
       if (isNaN(numParse)) {
         return val;
       }
 
-      var results = numParse.toString();
+      let results = numParse.toString();
       if (absVal >= 1000000000) {
         // Billion
         numParse = numParse / 1000000000;
@@ -156,7 +153,7 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
       return results;
     },
     relativeDate: function relativeDate(date, timeless) {
-      var val = f.date(date, timeless);
+      const val = f.date(date, timeless);
       return moment(val).fromNow();
     },
     multiCurrency: function multiCurrency(_val, code) {
@@ -198,16 +195,14 @@ define('crm/Format', ['module', 'exports', 'dojo/_base/lang', 'dojo/string', 'ar
     fixedLocale: function fixedLocale(val, d) {
       return f.fixedLocale(val, d, Soho.Locale.currentLocale.data.numbers.group, Soho.Locale.currentLocale.data.numbers.decimal);
     },
-    time: function time(rawValue) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'days';
-
-      var val = rawValue;
+    time: function time(rawValue, type = 'days') {
+      let val = rawValue;
 
       if (typeof rawValue !== 'number') {
         val = parseFloat(rawValue);
       }
 
-      var numParse = crm.Format.fixedLocale(val, 2);
+      const numParse = crm.Format.fixedLocale(val, 2);
       switch (type) {// eslint-disable-line
         case 'days':
           return _string2.default.substitute(resource.daysText, {

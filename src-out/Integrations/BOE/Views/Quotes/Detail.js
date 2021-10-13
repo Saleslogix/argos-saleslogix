@@ -44,9 +44,9 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('quoteDetail');
+  const resource = (0, _I18n2.default)('quoteDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Quotes.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Quotes.Detail', [_Detail2.default], {
     // View Properties
     id: 'quote_detail',
     editView: 'quote_edit',
@@ -121,68 +121,64 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       }
     },
     _canPromote: function _canPromote() {
-      var _this = this;
-
-      var promise = new Promise(function (resolve) {
-        _this.showBusy();
-        var entry = {
+      const promise = new Promise(resolve => {
+        this.showBusy();
+        const entry = {
           $name: 'CanPromoteQuote',
           request: {
-            quoteId: _this.entry.$key
+            quoteId: this.entry.$key
           }
         };
-        var request = new Sage.SData.Client.SDataServiceOperationRequest(_this.getService()).setResourceKind('quotes').setContractName('dynamic').setOperationName('CanPromoteQuote');
+        const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('quotes').setContractName('dynamic').setOperationName('CanPromoteQuote');
 
-        var canPromote = {
+        const canPromote = {
           value: false,
           result: ''
         };
 
         request.execute(entry, {
-          success: function success(result) {
+          success: result => {
             canPromote.value = result.response.Result;
             resolve(canPromote);
           },
-          failure: function failure(err) {
-            var response = JSON.parse(err.response)[0];
+          failure: err => {
+            const response = JSON.parse(err.response)[0];
             canPromote.result = response.message;
             resolve(canPromote);
           },
-          scope: _this
+          scope: this
         });
       });
 
       return promise;
     },
     _convertToSalesOrder: function _convertToSalesOrder() {
-      var _this2 = this;
-
       this.showBusy();
-      var convertQuoteEntry = {
+      const convertQuoteEntry = {
         $name: 'ConvertQuoteToOrder',
         request: {
           QuoteId: this.entry.$key
         }
       };
 
-      var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('quotes').setContractName('dynamic').setOperationName('ConvertQuoteToOrder');
+      const request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService()).setResourceKind('quotes').setContractName('dynamic').setOperationName('ConvertQuoteToOrder');
 
       request.execute(convertQuoteEntry, {
-        success: function success(result) {
-          _this2.hideBusy();
-          _this2.refreshRequired = true;
-          var view = App.getView('salesorder_detail');
-          var options = {
+        success: result => {
+          this.hideBusy();
+          this.refreshRequired = true;
+          const view = App.getView('salesorder_detail');
+          const options = {
             key: result.response.Result,
-            fromContext: _this2
+            fromContext: this
           };
           if (view) {
             view.show(options);
           }
         },
-        failure: function failure(err) {
-          _this2.hideBusy();
-          var options = {
+        failure: err => {
+          this.hideBusy();
+          const options = {
             title: 'alert',
             content: err.statusText,
             getContent: null
@@ -212,30 +208,28 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       }
     },
     addLineItems: function addLineItems() {
-      var _this3 = this;
-
       if (!this.entry.ErpLogicalId) {
         App.modal.createSimpleDialog({
           title: 'alert',
           content: this.accountingEntityRequiredText,
-          getContent: function getContent() {
+          getContent: () => {
             return;
           }
-        }).then(function () {
-          _this3.navigateToEditView();
+        }).then(() => {
+          this.navigateToEditView();
         });
         return;
       }
-      var view = App.getView('quote_line_edit');
+      const view = App.getView('quote_line_edit');
       if (view) {
-        var quoteItemView = App.getView('quote_lines_related');
-        var count = 0;
+        const quoteItemView = App.getView('quote_lines_related');
+        let count = 0;
         if (quoteItemView) {
-          quoteItemView.getListCount({ where: 'Quote.$key eq "' + this.entry.$key + '"' }).then(function (result) {
+          quoteItemView.getListCount({ where: `Quote.$key eq "${this.entry.$key}"` }).then(result => {
             count = result;
           });
         }
-        var options = {
+        const options = {
           insert: true,
           context: {
             Quote: this.entry,
@@ -256,7 +250,7 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         return;
       }
       if (!this.entry.Account.ErpExtId) {
-        var options = {
+        const options = {
           title: 'warning',
           content: resource.needToPromoteAccount,
           getContent: null
@@ -272,8 +266,6 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       return result;
     },
     onGetOrderTotal: function onGetOrderTotal() {
-      var _this4 = this;
-
       if (this.entry) {
         if (!this.options.context) {
           this.options.context = {
@@ -282,17 +274,15 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         } else {
           this.options.context.Quote = this.entry;
         }
-        _PricingAvailabilityService2.default.getQuotePricing(this.entry).then(function (result) {
-          _this4.handlePricingSuccess(result);
+        _PricingAvailabilityService2.default.getQuotePricing(this.entry).then(result => {
+          this.handlePricingSuccess(result);
         });
       }
     },
     onRePrice: function onRePrice() {
-      var _this5 = this;
-
       if (this.entry) {
         if (this.isQuoteClosed()) {
-          var options = {
+          const options = {
             title: 'alert',
             content: this.pricingUnavailableText,
             getContent: null
@@ -307,34 +297,32 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
         } else {
           this.options.context.Quote = this.entry;
         }
-        _PricingAvailabilityService2.default.quoteRePrice(this.entry).then(function (result) {
-          _this5.handlePricingSuccess(result);
+        _PricingAvailabilityService2.default.quoteRePrice(this.entry).then(result => {
+          this.handlePricingSuccess(result);
         });
       }
     },
     onPromoteQuote: function onPromoteQuote() {
-      var _this6 = this;
-
-      var canPromotePromise = this._canPromote();
-      canPromotePromise.then(function (val) {
-        _this6.hideBusy();
+      const canPromotePromise = this._canPromote();
+      canPromotePromise.then(val => {
+        this.hideBusy();
         if (!val.value) {
           App.modal.createSimpleDialog({
             title: 'alert',
             content: val.result,
-            getContent: function getContent() {
+            getContent: () => {
               return;
             }
           });
           return;
         }
-        var promote = new _Promote2.default();
-        promote.promoteToBackOffice(_this6.entry, 'Quote', _this6);
+        const promote = new _Promote2.default();
+        promote.promoteToBackOffice(this.entry, 'Quote', this);
       });
     },
     showBusy: function showBusy() {
       if (!this._busyIndicator || this._busyIndicator._destroyed) {
-        this._busyIndicator = new _BusyIndicator2.default({ id: this.id + '-busyIndicator' });
+        this._busyIndicator = new _BusyIndicator2.default({ id: `${this.id}-busyIndicator` });
       }
       this._busyIndicator.start();
       App.modal.disableClose = true;
@@ -345,8 +333,6 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
-      var _this7 = this;
-
       return this.layout || (this.layout = [{
         title: this.actionsText,
         list: true,
@@ -358,8 +344,8 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           label: this.convertQuoteText,
           iconClass: 'cart',
           action: 'convertQuote',
-          disabled: function disabled() {
-            return _this7.isQuoteClosed();
+          disabled: () => {
+            return this.isQuoteClosed();
           },
           security: 'Entities/Quote/ConvertToSalesOrder'
         }, {
@@ -513,29 +499,29 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           name: 'SubTotal',
           property: 'Total',
           label: this.baseSubTotalText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.BaseCurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
           }
         }, {
           name: 'GrandTotal',
           property: 'GrandTotal',
           label: this.baseGrandTotalText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.BaseCurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
           }
         }, {
           name: 'DocSubTotal',
           property: 'DocTotal',
           label: this.subTotalText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.CurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
           }
         }, {
           name: 'DocGrandTotal',
           property: 'DocGrandTotal',
           label: this.grandTotalText,
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this7.entry.CurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
           }
         }, {
           name: 'Comments',
@@ -659,28 +645,28 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           name: 'QuoteLines',
           label: this.quoteLinesText,
           where: function where(entry) {
-            return 'Quote.$key eq "' + entry.$key + '"';
+            return `Quote.$key eq "${entry.$key}"`;
           },
           view: 'quote_lines_related'
         }, {
           name: 'Attachments',
           label: this.attachmentsText,
           where: function where(entry) {
-            return 'quoteId eq "' + entry.$key + '"';
+            return `quoteId eq "${entry.$key}"`;
           },
           view: 'quote_attachments_related'
         }, {
           name: 'QuotePersons',
           label: this.salesPersonsText,
           where: function where(entry) {
-            return 'Quote.Id eq "' + entry.$key + '"';
+            return `Quote.Id eq "${entry.$key}"`;
           },
           view: 'quotepersons_related'
         }, {
           name: 'SyncHistory',
           label: this.syncHistoryText,
-          where: function where(entry) {
-            return 'EntityType eq "Quote" and EntityId eq "' + entry.$key + '"';
+          where: entry => {
+            return `EntityType eq "Quote" and EntityId eq "${entry.$key}"`;
           },
           view: 'quote_syncresult_related'
         }]

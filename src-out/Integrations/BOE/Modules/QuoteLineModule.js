@@ -40,10 +40,10 @@ define('crm/Integrations/BOE/Modules/QuoteLineModule', ['module', 'exports', 'do
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.QuoteLineModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {
-      var am = this.applicationModule;
+      const am = this.applicationModule;
 
       am.registerView(new _List4.default({
         expose: false,

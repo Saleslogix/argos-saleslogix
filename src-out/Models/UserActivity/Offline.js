@@ -36,7 +36,7 @@ define('crm/Models/UserActivity/Offline', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.UserActivity.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.UserActivity.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'useractivity_offline_model'
   });
 

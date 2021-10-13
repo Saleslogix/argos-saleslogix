@@ -5,7 +5,7 @@ define('crm/reducers/speedsearch', ['exports', '../actions/speedsearch'], functi
   exports.speedsearch = speedsearch;
 
 
-  var initialUserState = {
+  const initialUserState = {
     searchTerm: ''
   }; /* Copyright 2020 Infor
       *
@@ -22,14 +22,8 @@ define('crm/reducers/speedsearch', ['exports', '../actions/speedsearch'], functi
       * limitations under the License.
       */
 
-  function speedsearch() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialUserState;
-    var action = arguments[1];
-    var type = action.type,
-        payload = action.payload,
-        error = action.error,
-        meta = action.meta;
-    // eslint-disable-line
+  function speedsearch(state = initialUserState, action) {
+    const { type, payload, error, meta } = action; // eslint-disable-line
     switch (type) {
       case _speedsearch.SET_SEARCHTERM:
         return Object.assign({}, state, {

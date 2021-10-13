@@ -31,7 +31,7 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
   /**
    * @module crm/Utility
    */
-  var commonutil = ICRMCommonSDK.utility;
+  const commonutil = ICRMCommonSDK.utility;
   /**
    * @class
    * @alias module:crm/Utility
@@ -39,7 +39,7 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
    * @static
    *
    */
-  var __class = _lang2.default.setObject('crm.Utility', _lang2.default.mixin({}, _Utility2.default, /** @lends module:crm/Utility */{
+  const __class = _lang2.default.setObject('crm.Utility', _lang2.default.mixin({}, _Utility2.default, /** @lends module:crm/Utility */{
     base64ArrayBuffer: commonutil.base64ArrayBuffer,
 
     /** Gets the extension for a file.
@@ -77,12 +77,12 @@ define('crm/Utility', ['module', 'exports', 'dojo/_base/lang', 'argos/Utility'],
         return activityId;
       }
 
-      var epochTicks = 621355968e9; // Number of ticks from 0001 to Unix Epoch that JS uses
-      var ticksPerMillisecond = 10000;
-      var ticksPerSecond = 10000000;
-      var ticks = epochTicks + occurrenceStart.getTime() * ticksPerMillisecond;
-      var serverTicks = ticks / ticksPerSecond;
-      return activityId + ';' + serverTicks;
+      const epochTicks = 621355968e9; // Number of ticks from 0001 to Unix Epoch that JS uses
+      const ticksPerMillisecond = 10000;
+      const ticksPerSecond = 10000000;
+      const ticks = epochTicks + occurrenceStart.getTime() * ticksPerMillisecond;
+      const serverTicks = ticks / ticksPerSecond;
+      return `${activityId};${serverTicks}`;
     }
   }));
 

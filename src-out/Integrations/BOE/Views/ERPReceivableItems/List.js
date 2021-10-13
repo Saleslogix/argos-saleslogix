@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPReceivableItems/List', ['module', 'exports
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('erpReceivableItemsList');
+  const resource = (0, _I18n2.default)('erpReceivableItemsList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivableItems.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPReceivableItems.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
     formatter: _Format2.default,
     itemTemplate: new Simplate(['<p class="listview-heading"><label class="group-label">{%: $$.lineNumberText %}</label> {%: $.ErpLineNumber %}</p>', '<p class="micro-text"><label class="group-label">{%: $$.receivablesIdText %}</label> {%: $.ErpReceivable.ErpExtId %}</p>', '{% if ($.ErpInvoice && $.ErpInvoice.ErpExtId) { %}', '<p class="micro-text"><label class="group-label">{%: $$.invoiceIDText %}</label> {%: $.ErpInvoice.ErpExtId %}</p>', '{% } %}', '<p class="micro-text"><label class="group-label">{%: $$.productNameText %}</label> {%: $.ProductName %}</p>', '{% if ($.ErpLineTotalAmount) { %}', '<p class="micro-text"><label class="group-label">{%: $$.lineTotalText %}</label> ', '{% if (App.hasMultiCurrency() && $.ErpReceivable.CurrencyCode) { %}', '{%: $$.formatter.multiCurrency($.ErpLineTotalAmount, $.ErpReceivable.CurrencyCode) %}', '{% } else { %}', '{%: $$.formatter.currency($.ErpLineTotalAmount) %} ', '{% } %}</p>', '{% } %}']),
 
@@ -69,8 +69,8 @@ define('crm/Integrations/BOE/Views/ERPReceivableItems/List', ['module', 'exports
     insertSecurity: 'Entities/Receivable/Add',
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(ErpReceivable.ErpExtId) like "%' + q + '%" or upper(ErpInvoice.ErpExtId) like "%' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(ErpReceivable.ErpExtId) like "%${q}%" or upper(ErpInvoice.ErpExtId) like "%${q}%"`;
     }
   });
 

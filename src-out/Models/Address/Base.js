@@ -32,9 +32,9 @@ define('crm/Models/Address/Base', ['module', 'exports', 'dojo/_base/declare', 'a
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('addressModel');
+  const resource = (0, _I18n2.default)('addressModel');
 
-  var __class = (0, _declare2.default)('crm.Models.Address.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.Address.Base', [_ModelBase3.default], {
     resourceKind: 'addresses',
     entityName: 'Address',
     entityDisplayName: resource.entityDisplayName,

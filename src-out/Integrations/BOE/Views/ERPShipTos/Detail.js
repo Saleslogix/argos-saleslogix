@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/ERPShipTos/Detail', ['module', 'exports', 'do
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('erpShipTosDetail');
+  const resource = (0, _I18n2.default)('erpShipTosDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipTos.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipTos.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     relatedItemsText: resource.relatedItemsText,
@@ -139,56 +139,56 @@ define('crm/Integrations/BOE/Views/ERPShipTos/Detail', ['module', 'exports', 'do
           name: 'Accounts',
           label: this.accountsText,
           where: function where(entry) {
-            return 'ErpShipToAccounts.ErpShipTo.Id eq "' + entry.$key + '"';
+            return `ErpShipToAccounts.ErpShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_accounts_related'
         }, {
           name: 'BillTos',
           label: this.billToText,
-          where: function where(entry) {
-            return 'ErpBillToShipTos.ErpShipTo.Id eq "' + entry.$key + '"';
+          where: entry => {
+            return `ErpBillToShipTos.ErpShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_billtos_related'
         }, {
           name: 'Quotes',
           label: this.quotesText,
-          where: function where(entry) {
-            return 'ShipTo.Id eq "' + entry.$key + '"';
+          where: entry => {
+            return `ShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_quotes_related'
         }, {
           name: 'SalesOrders',
           label: this.salesOrdersText,
-          where: function where(entry) {
-            return 'ErpShipTo.Id eq "' + entry.$key + '"';
+          where: entry => {
+            return `ErpShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_orders_related'
         }, {
           name: 'Receivables',
           label: this.receivablesText,
-          where: function where(entry) {
-            return 'ErpShipTo.Id eq "' + entry.$key + '"';
+          where: entry => {
+            return `ErpShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_receivables_related'
         }, {
           name: 'Invoices',
           label: this.invoicesText,
-          where: function where(entry) {
-            return 'ErpShipTo.Id eq "' + entry.$key + '"';
+          where: entry => {
+            return `ErpShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_invoices_related'
         }, {
           name: 'Returns',
           label: this.returnsText,
-          where: function where(entry) {
-            return 'ErpShipTo.Id eq "' + entry.$key + '"';
+          where: entry => {
+            return `ErpShipTo.Id eq "${entry.$key}"`;
           },
           view: 'shipto_returns_related'
         }, {
           name: 'SyncHistory',
           label: this.syncHistoryText,
-          where: function where(entry) {
-            return 'EntityType eq "ERPShipTo" and EntityId eq "' + entry.$key + '"';
+          where: entry => {
+            return `EntityType eq "ERPShipTo" and EntityId eq "${entry.$key}"`;
           },
           view: 'shipto_synchistory_related'
         }]

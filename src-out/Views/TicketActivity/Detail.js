@@ -36,9 +36,9 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('ticketActivityDetail');
+  const resource = (0, _I18n2.default)('ticketActivityDetail');
 
-  var __class = (0, _declare2.default)('crm.Views.TicketActivity.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Views.TicketActivity.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     accountText: resource.accountText,
@@ -80,10 +80,10 @@ define('crm/Views/TicketActivity/Detail', ['module', 'exports', 'dojo/_base/decl
       });
     },
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-      var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-      var textProperty = options && options.textProperty ? options.textProperty : 'text';
+      const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+      const textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-      for (var i = 0; i < feed.$resources.length; i++) {
+      for (let i = 0; i < feed.$resources.length; i++) {
         if (feed.$resources[i][keyProperty] === currentValue) {
           return feed.$resources[i][textProperty];
         }

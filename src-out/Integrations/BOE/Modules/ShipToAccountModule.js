@@ -43,10 +43,10 @@ define('crm/Integrations/BOE/Modules/ShipToAccountModule', ['module', 'exports',
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Module3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ShipToAccountModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {
-      var am = this.applicationModule;
+      const am = this.applicationModule;
 
       am.registerView(new _Detail2.default());
       am.registerView(new _Edit2.default());
@@ -178,7 +178,7 @@ define('crm/Integrations/BOE/Modules/ShipToAccountModule', ['module', 'exports',
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      var am = this.applicationModule;
+      const am = this.applicationModule;
       am.registerCustomization('detail/tools', 'erpshiptoaccount_detail', {
         at: function at(tool) {
           return tool.id === 'edit';

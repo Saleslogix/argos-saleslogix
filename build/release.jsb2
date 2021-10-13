@@ -422,6 +422,9 @@
           "path": "../src-out/Models/Address/"
         }, {
           "text": "Base.js",
+          "path": "../src-out/Models/AreaCategoryIssue/"
+        }, {
+          "text": "Base.js",
           "path": "../src-out/Models/Contact/"
         }, {
           "text": "Base.js",
@@ -480,6 +483,15 @@
         }, {
           "text": "List.js",
           "path": "../src-out/Views/Address/"
+        }, {
+          "text": "AreaLookup.js",
+          "path": "../src-out/Views/AreaCategoryIssue/"
+        }, {
+          "text": "CategoryLookup.js",
+          "path": "../src-out/Views/AreaCategoryIssue/"
+        }, {
+          "text": "IssueLookup.js",
+          "path": "../src-out/Views/AreaCategoryIssue/"
         }, {
           "text": "Detail.js",
           "path": "../src-out/Views/ErrorLog/"
@@ -852,6 +864,9 @@
         }, {
           "text": "SData.js",
           "path": "../src-out/Models/Address/"
+        }, {
+          "text": "SData.js",
+          "path": "../src-out/Models/AreaCategoryIssue/"
         }, {
           "text": "Offline.js",
           "path": "../src-out/Models/Contact/"

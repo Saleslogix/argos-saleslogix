@@ -19,22 +19,22 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
     };
   }
 
-  var resource = (0, _I18n2.default)('opportunityContactList'); /* Copyright 2017 Infor
-                                                                 *
-                                                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                 * you may not use this file except in compliance with the License.
-                                                                 * You may obtain a copy of the License at
-                                                                 *
-                                                                 *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                 *
-                                                                 * Unless required by applicable law or agreed to in writing, software
-                                                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                 * See the License for the specific language governing permissions and
-                                                                 * limitations under the License.
-                                                                 */
+  const resource = (0, _I18n2.default)('opportunityContactList'); /* Copyright 2017 Infor
+                                                                   *
+                                                                   * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                   * you may not use this file except in compliance with the License.
+                                                                   * You may obtain a copy of the License at
+                                                                   *
+                                                                   *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                   *
+                                                                   * Unless required by applicable law or agreed to in writing, software
+                                                                   * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                   * See the License for the specific language governing permissions and
+                                                                   * limitations under the License.
+                                                                   */
 
-  var __class = (0, _declare2.default)('crm.Views.OpportunityContact.List', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.OpportunityContact.List', [_List2.default], {
     // Template
     itemTemplate: new Simplate(['<p class="micro-text {% if ($.IsPrimary) { %} primary {% } %}">', '{% if ($.SalesRole) { %}', '{%: $$.formatPicklist("SalesRole")($.SalesRole) %} | ', '{% } %}', '{%: $.Contact.Title %}</p>']),
 
@@ -59,9 +59,9 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
     resourceKind: 'opportunityContacts',
 
     complete: function complete() {
-      var view = App.getPrimaryActiveView();
-      var selectionModel = view && view.get('selectionModel');
-      var entry = void 0;
+      const view = App.getPrimaryActiveView();
+      const selectionModel = view && view.get('selectionModel');
+      let entry;
 
       if (!selectionModel) {
         return;
@@ -71,10 +71,10 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
         ReUI.back();
       }
 
-      var context = App.isNavigationFromResourceKind(['opportunities']);
-      var selections = selectionModel.getSelections();
+      const context = App.isNavigationFromResourceKind(['opportunities']);
+      const selections = selectionModel.getSelections();
 
-      for (var selectionKey in selections) {
+      for (const selectionKey in selections) {
         if (selections.hasOwnProperty(selectionKey)) {
           entry = {
             Opportunity: {
@@ -90,7 +90,7 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
       }
     },
     createNavigationOptions: function createNavigationOptions() {
-      var options = {
+      const options = {
         query: this.expandExpression(this.options.prefilter),
         selectionOnly: true,
         singleSelect: true,
@@ -118,9 +118,9 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
       return options;
     },
     navigateToInsertView: function navigateToInsertView(entry) {
-      var view = App.getView(this.insertView);
-      var options = {
-        entry: entry,
+      const view = App.getView(this.insertView);
+      const options = {
+        entry,
         insert: true
       };
       if (view && options) {
@@ -130,8 +130,8 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
       }
     },
     navigateToSelectView: function navigateToSelectView() {
-      var view = App.getView(this.selectView);
-      var options = this.createNavigationOptions();
+      const view = App.getView(this.selectView);
+      const options = this.createNavigationOptions();
       if (view && options) {
         view.show(options);
       }
@@ -151,8 +151,8 @@ define('crm/Views/OpportunityContact/List', ['module', 'exports', 'dojo/_base/de
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return '(upper(Contact.NameLF) like "' + q + '%")';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `(upper(Contact.NameLF) like "${q}%")`;
     }
   });
 

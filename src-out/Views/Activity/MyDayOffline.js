@@ -40,7 +40,7 @@ define('crm/Views/Activity/MyDayOffline', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityMyDayOffline');
+  const resource = (0, _I18n2.default)('activityMyDayOffline');
 
   exports.default = (0, _declare2.default)('crm.Views.Activity.MyDayOffline', [_List2.default, _MyDayMetricListMixin2.default, _MyDayRightDrawerListMixin2.default], {
     id: 'myday_offline_list',
@@ -80,18 +80,18 @@ define('crm/Views/Activity/MyDayOffline', ['module', 'exports', 'dojo/_base/decl
     },
 
     getCurrentFilter: function getCurrentFilter() {
-      var filters = this.getFilters();
+      const filters = this.getFilters();
       return filters[this._currentFilterName];
     },
     setCurrentFilter: function setCurrentFilter(name) {
       this._currentFilterName = name;
     },
     _applyStateToQueryOptions: function _applyStateToQueryOptions(queryOptions) {
-      var self = this;
-      queryOptions.filter = function (entity) {
-        var filter = self.getCurrentFilter();
+      const self = this;
+      queryOptions.filter = entity => {
+        const filter = self.getCurrentFilter();
         if (filter && filter.fn) {
-          var result = filter.fn.apply(self, [entity]);
+          const result = filter.fn.apply(self, [entity]);
           if (result) {
             return true;
           }
@@ -104,8 +104,8 @@ define('crm/Views/Activity/MyDayOffline', ['module', 'exports', 'dojo/_base/decl
     },
     isToday: function isToday(entry) {
       if (entry.StartDate) {
-        var currentDate = moment();
-        var startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
+        const currentDate = moment();
+        let startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
         if (entry.Timeless) {
           startDate = startDate.subtract({
             minutes: startDate.utcOffset()
@@ -119,10 +119,10 @@ define('crm/Views/Activity/MyDayOffline', ['module', 'exports', 'dojo/_base/decl
     },
     isThisWeek: function isThisWeek(entry) {
       if (entry.StartDate) {
-        var now = moment();
-        var weekStartDate = now.clone().startOf('week');
-        var weekEndDate = weekStartDate.clone().endOf('week');
-        var startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
+        const now = moment();
+        const weekStartDate = now.clone().startOf('week');
+        const weekEndDate = weekStartDate.clone().endOf('week');
+        let startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
         if (entry.Timeless) {
           startDate = startDate.subtract({
             minutes: startDate.utcOffset()
@@ -136,9 +136,9 @@ define('crm/Views/Activity/MyDayOffline', ['module', 'exports', 'dojo/_base/decl
     },
     isYesterday: function isYesterDay(entry) {
       if (entry.StartDate) {
-        var now = moment();
-        var yesterday = now.clone().subtract(1, 'days');
-        var startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
+        const now = moment();
+        const yesterday = now.clone().subtract(1, 'days');
+        let startDate = moment(_Convert2.default.toDateFromString(entry.StartDate));
         if (entry.Timeless) {
           startDate = startDate.subtract({
             minutes: startDate.utcOffset()

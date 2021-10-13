@@ -15,7 +15,7 @@ define('crm/Integrations/BOE/Modules/AccountAssociationModule', ['module', 'expo
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.AccountAssociationModule', [_Module3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.AccountAssociationModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {},
     loadCustomizations: function loadCustomizations() {},

@@ -32,9 +32,9 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityMyDayRightDrawerList');
+  const resource = (0, _I18n2.default)('activityMyDayRightDrawerList');
 
-  var __class = (0, _declare2.default)('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Activity.MyDayRightDrawerListMixin', [_RightDrawerBaseMixin3.default], {
     // Localization
     kpiSectionText: resource.kpiSectionText,
     filterSectionText: resource.filterSectionText,
@@ -51,29 +51,27 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
     },
     setDefaultFilterPreferences: function setDefaultFilterPreferences() {
       if (!App.preferences.myDayFilters) {
-        var defaults = this.getDefaultFilterPreferences();
+        const defaults = this.getDefaultFilterPreferences();
         App.preferences.myDayFilters = defaults;
         App.persistPreferences();
       }
     },
     getDefaultFilterPreferences: function getDefaultFilterPreferences() {
-      var _this = this;
-
-      var filters = this.getFilters();
-      var filterPrefs = Object.keys(filters).map(function (name) {
-        var enabled = false;
-        if (_this._currentFilterName === name) {
+      const filters = this.getFilters();
+      const filterPrefs = Object.keys(filters).map(name => {
+        let enabled = false;
+        if (this._currentFilterName === name) {
           enabled = false;
         }
         return {
-          name: name,
-          enabled: enabled
+          name,
+          enabled
         };
       });
       return filterPrefs;
     },
     setupRightDrawer: function setupRightDrawer() {
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         _lang2.default.mixin(drawer, this._createActions());
         drawer.setLayout(this.createRightDrawerLayout());
@@ -85,7 +83,7 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
       }
     },
     refreshRightDrawer: function refreshRightDrawer() {
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.clear();
         drawer.layout = null;
@@ -109,7 +107,7 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
       }
     },
     unloadRightDrawer: function unloadRightDrawer() {
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.setLayout([]);
         drawer.getGroupForEntry = function snapperOff() {};
@@ -122,19 +120,19 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
     },
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
-      var actions = {
+      const actions = {
         filterClicked: function onFilterClicked(params) {
-          var prefs = App.preferences && App.preferences.myDayFilters;
-          var filterPref = [];
+          const prefs = App.preferences && App.preferences.myDayFilters;
+          let filterPref = [];
           if (prefs.length) {
-            filterPref = prefs.filter(function (pref) {
+            filterPref = prefs.filter(pref => {
               return pref.name === params.filtername;
             });
           }
           if (filterPref.length > 0) {
-            var enabled = !!filterPref[0].enabled;
+            const enabled = !!filterPref[0].enabled;
             filterPref[0].enabled = !enabled;
-            prefs.forEach(function (pref) {
+            prefs.forEach(pref => {
               if (pref.name !== filterPref[0].name) {
                 pref.enabled = false;
               }
@@ -153,17 +151,17 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
           }
         }.bind(this),
         kpiClicked: function kpiClicked(params) {
-          var metrics = this.getMetrics();
-          var results = void 0;
+          const metrics = this.getMetrics();
+          let results;
 
           if (metrics.length > 0) {
-            results = metrics.filter(function (metric) {
+            results = metrics.filter(metric => {
               return metric.title === params.title;
             });
           }
 
           if (results.length > 0) {
-            var enabled = !!results[0].enabled;
+            const enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedKPIPrefs = true;
@@ -191,18 +189,19 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
       };
     },
     createRightDrawerLayout: function createRightDrawerLayout() {
-      var layout = [];
-      var metrics = this.getMetrics();
-      var filters = this.getFilters();
-      var filterSection = {
+      const layout = [];
+      const metrics = this.getMetrics();
+      const filters = this.getFilters();
+      const filterSection = {
         id: 'actions',
-        children: Object.keys(filters).map(function (filterName) {
-          var prefs = App.preferences && App.preferences.myDayFilters;
-          var filterPref = prefs.filter(function (pref) {
+        children: Object.keys(filters).map(filterName => {
+          const prefs = App.preferences && App.preferences.myDayFilters;
+          const filterPref = prefs.filter(pref => {
             return pref.name === filterName;
           });
-          var enabled = filterPref[0].enabled;
-
+          const {
+            enabled
+          } = filterPref[0];
           return {
             name: filterName,
             action: 'filterClicked',
@@ -215,13 +214,11 @@ define('crm/Views/Activity/MyDayRightDrawerListMixin', ['module', 'exports', 'do
         })
       };
       layout.push(filterSection);
-      var kpiSection = {
+      const kpiSection = {
         id: 'kpi',
-        children: metrics.filter(function (m) {
-          return m.title;
-        }).map(function (metric, i) {
+        children: metrics.filter(m => m.title).map((metric, i) => {
           return {
-            name: 'KPI' + i,
+            name: `KPI${i}`,
             action: 'kpiClicked',
             title: metric.title,
             dataProps: {

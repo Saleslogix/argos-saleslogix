@@ -23,23 +23,23 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
     };
   }
 
-  var resource = (0, _I18n2.default)('erpInvoicesDetail'); /* Copyright 2017 Infor
-                                                            *
-                                                            * Licensed under the Apache License, Version 2.0 (the "License");
-                                                            * you may not use this file except in compliance with the License.
-                                                            * You may obtain a copy of the License at
-                                                            *
-                                                            *    http://www.apache.org/licenses/LICENSE-2.0
-                                                            *
-                                                            * Unless required by applicable law or agreed to in writing, software
-                                                            * distributed under the License is distributed on an "AS IS" BASIS,
-                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                            * See the License for the specific language governing permissions and
-                                                            * limitations under the License.
-                                                            */
+  const resource = (0, _I18n2.default)('erpInvoicesDetail'); /* Copyright 2017 Infor
+                                                              *
+                                                              * Licensed under the Apache License, Version 2.0 (the "License");
+                                                              * you may not use this file except in compliance with the License.
+                                                              * You may obtain a copy of the License at
+                                                              *
+                                                              *    http://www.apache.org/licenses/LICENSE-2.0
+                                                              *
+                                                              * Unless required by applicable law or agreed to in writing, software
+                                                              * distributed under the License is distributed on an "AS IS" BASIS,
+                                                              * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                              * See the License for the specific language governing permissions and
+                                                              * limitations under the License.
+                                                              */
 
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvoices.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvoices.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     accountText: resource.accountText,
@@ -82,8 +82,6 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
     createLayout: function createLayout() {
-      var _this = this;
-
       return this.layout || (this.layout = [{
         title: this.actionsText,
         list: true,
@@ -112,29 +110,29 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           label: this.extendedBaseAmountText,
           name: 'ErpExtendedBaseAmount',
           property: 'ErpExtendedBaseAmount',
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
           }
         }, {
           label: this.extendedAmountText,
           name: 'ErpExtendedAmount',
           property: 'ErpExtendedAmount',
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
           }
         }, {
           label: this.totalBaseAmountText,
           name: 'ErpTotalBaseAmount',
           property: 'ErpTotalBaseAmount',
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.BaseCurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
           }
         }, {
           label: this.totalAmountText,
           name: 'GrandTotal',
           property: 'GrandTotal',
-          renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this.entry.CurrencyCode);
+          renderer: value => {
+            return _Utility2.default.formatMultiCurrency(value, this.entry.CurrencyCode);
           }
         }, {
           name: 'ErpStatus',
@@ -175,7 +173,7 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           name: 'BillToAddress',
           property: 'ErpBillTo.Address',
           label: this.addressText,
-          renderer: function renderer(val) {
+          renderer: val => {
             if (val) {
               return _Format2.default.address(val);
             }
@@ -198,7 +196,7 @@ define('crm/Integrations/BOE/Views/ERPInvoices/Detail', ['module', 'exports', 'd
           name: 'ShipToAddress',
           property: 'ErpShipTo.Address',
           label: this.addressText,
-          renderer: function renderer(val) {
+          renderer: val => {
             if (val) {
               return _Format2.default.address(val);
             }

@@ -35,7 +35,7 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
   /**
    * @module crm/Views/RecentlyViewed/_RightDrawerListMixin
    */
-  var resource = (0, _I18n2.default)('rightDrawerListMixin');
+  const resource = (0, _I18n2.default)('rightDrawerListMixin');
 
   /**
    * @class
@@ -44,7 +44,7 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
    * @mixes module:crm/Views/_RightDrawerBaseMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/RecentlyViewed/_RightDrawerListMixin.prototype */{
+  const __class = (0, _declare2.default)('crm.Views.RecentlyViewed._RightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/RecentlyViewed/_RightDrawerListMixin.prototype */{
 
     // Dirty flags to refresh the mainview and/or widgets
     _hasChangedEntityPrefs: false,
@@ -58,23 +58,21 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
     },
     setDefaultEntityPreferences: function setDefaultEntityPreferences() {
       if (!App.preferences.recentlyViewedEntityFilters) {
-        var defaults = this.getDefaultEntityPreferences();
+        const defaults = this.getDefaultEntityPreferences();
         App.preferences.recentlyViewedEntityFilters = defaults;
         App.persistPreferences();
       }
     },
     getDefaultEntityPreferences: function getDefaultEntityPreferences() {
-      return Object.keys(this.entityMappings).map(function (name) {
+      return Object.keys(this.entityMappings).map(name => {
         return {
-          name: name,
+          name,
           enabled: true
         };
       });
     },
     setupRightDrawer: function setupRightDrawer() {
-      var _this = this;
-
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         _lang2.default.mixin(drawer, this._createActions());
         drawer.setLayout(this.createRightDrawerLayout());
@@ -82,25 +80,25 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
           return this.getGroupForRightDrawerEntry(entry);
         });
 
-        App.viewSettingsModal.element.on('close', function () {
-          if (_this._hasChangedEntityPrefs) {
-            _this.clear();
-            _this.refreshRequired = true;
-            _this.refresh();
-            _this._hasChangedEntityPrefs = false;
-            _this._hasChangedKPIPrefs = false;
+        App.viewSettingsModal.element.on('close', () => {
+          if (this._hasChangedEntityPrefs) {
+            this.clear();
+            this.refreshRequired = true;
+            this.refresh();
+            this._hasChangedEntityPrefs = false;
+            this._hasChangedKPIPrefs = false;
           }
 
-          if (_this._hasChangedKPIPrefs && _this.rebuildWidgets) {
-            _this.destroyWidgets();
-            _this.rebuildWidgets();
-            _this._hasChangedKPIPrefs = false;
+          if (this._hasChangedKPIPrefs && this.rebuildWidgets) {
+            this.destroyWidgets();
+            this.rebuildWidgets();
+            this._hasChangedKPIPrefs = false;
           }
         });
       }
     },
     unloadRightDrawer: function unloadRightDrawer() {
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.setLayout([]);
         drawer.getGroupForEntry = function noop() {};
@@ -113,16 +111,16 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
     },
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
-      var actions = {
+      const actions = {
         entityFilterClicked: function onentityFilterClicked(params) {
-          var prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
+          const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
 
-          var results = prefs.filter(function (pref) {
+          const results = prefs.filter(pref => {
             return pref.name === params.entityname;
           });
 
           if (results.length > 0) {
-            var enabled = !!results[0].enabled;
+            const enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedEntityPrefs = true;
@@ -130,17 +128,17 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
           }
         }.bind(this),
         kpiClicked: function kpiClicked(params) {
-          var metrics = App.getMetricsByResourceKind(this.resourceKind);
-          var results = void 0;
+          const metrics = App.getMetricsByResourceKind(this.resourceKind);
+          let results;
 
           if (metrics.length > 0) {
-            results = metrics.filter(function (metric) {
+            results = metrics.filter(metric => {
               return metric.title === params.title;
             });
           }
 
           if (results.length > 0) {
-            var enabled = !!results[0].enabled;
+            const enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedKPIPrefs = true;
@@ -166,22 +164,21 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
       };
     },
     createRightDrawerLayout: function createRightDrawerLayout() {
-      var _this2 = this;
-
-      var layout = [];
-      var entitySection = {
+      const layout = [];
+      const entitySection = {
         id: 'actions',
-        children: Object.keys(this.entityMappings).map(function (entityName) {
-          var prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
-          var entityPref = prefs.filter(function (pref) {
+        children: Object.keys(this.entityMappings).map(entityName => {
+          const prefs = App.preferences && App.preferences.recentlyViewedEntityFilters;
+          const entityPref = prefs.filter(pref => {
             return pref.name === entityName;
           });
-          var enabled = entityPref[0].enabled;
-
+          const {
+            enabled
+          } = entityPref[0];
           return {
             name: entityName,
             action: 'entityFilterClicked',
-            title: _this2.entityText[entityName] || entityName,
+            title: this.entityText[entityName] || entityName,
             dataProps: {
               entityname: entityName,
               enabled: !!enabled
@@ -192,15 +189,13 @@ define('crm/Views/RecentlyViewed/_RightDrawerListMixin', ['module', 'exports', '
 
       layout.push(entitySection);
 
-      var metrics = App.getMetricsByResourceKind(this.resourceKind);
+      const metrics = App.getMetricsByResourceKind(this.resourceKind);
 
-      var kpiSection = {
+      const kpiSection = {
         id: 'kpi',
-        children: metrics.filter(function (m) {
-          return m.title;
-        }).map(function (metric, i) {
+        children: metrics.filter(m => m.title).map((metric, i) => {
           return {
-            name: 'KPI' + i,
+            name: `KPI${i}`,
             action: 'kpiClicked',
             title: metric.title,
             dataProps: {

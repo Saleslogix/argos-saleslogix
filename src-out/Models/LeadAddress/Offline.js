@@ -36,7 +36,7 @@ define('crm/Models/LeadAddress/Offline', ['module', 'exports', 'dojo/_base/decla
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.LeadAddress.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.LeadAddress.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'leadaddress_offline_model'
   });
 

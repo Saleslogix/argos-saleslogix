@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('erpShipToAccountsDetail');
+  const resource = (0, _I18n2.default)('erpShipToAccountsDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipToAccounts.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,
@@ -161,14 +161,14 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           name: 'OpenQuotesList',
           label: this.openQuotesText,
           where: function where(entry) {
-            return 'ShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.newCode + '")';
+            return `ShipTo.ErpShipToAccounts.Id eq "${entry.$key}" and (Status eq "${this.openCode}" or Status eq "${this.newCode}")`;
           },
           view: 'erpshiptoaccount_quotes_related'
         }, {
           name: 'SalesOrders',
           label: this.salesOrdersText,
           where: function where(entry) {
-            return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (Status eq "' + this.openCode + '" or Status eq "' + this.approvedCode + '" or Status eq "' + this.workingCode + '" or Status eq "' + this.partialShipCode + '")';
+            return `ErpShipTo.ErpShipToAccounts.Id eq "${entry.$key}" and (Status eq "${this.openCode}" or Status eq "${this.approvedCode}" or Status eq "${this.workingCode}" or Status eq "${this.partialShipCode}")`;
           },
           view: 'erpshiptoaccount_salesorders_related'
         },
@@ -184,7 +184,7 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           name: 'Shipments',
           label: this.shipmentsText,
           where: function where(entry) {
-            return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialShipCode + '" or ErpStatus eq "' + this.releasedCode + '" or ErpStatus eq "' + this.allocatedCode + '" or ErpStatus eq "' + this.stagedCode + '" or ErpStatus eq "' + this.loadedCode + '")';
+            return `ErpShipTo.ErpShipToAccounts.Id eq "${entry.$key}" and (ErpStatus eq "${this.openCode}" or ErpStatus eq "${this.partialShipCode}" or ErpStatus eq "${this.releasedCode}" or ErpStatus eq "${this.allocatedCode}" or ErpStatus eq "${this.stagedCode}" or ErpStatus eq "${this.loadedCode}")`;
           },
           view: 'erpshiptoaccount_shipments_related'
         },
@@ -200,14 +200,14 @@ define('crm/Integrations/BOE/Views/ERPShipToAccounts/Detail', ['module', 'export
           name: 'Returns',
           label: this.returnsText,
           where: function where(entry) {
-            return 'ErpShipTo.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+            return `ErpShipTo.ErpShipToAccounts.Id eq "${entry.$key}"`;
           },
           view: 'erpshiptoaccount_returns_related'
         }, {
           name: 'ContactAssociations',
           label: this.contactAssociationText,
           where: function where(entry) {
-            return 'Account.ErpShipToAccounts.Id eq "' + entry.$key + '"';
+            return `Account.ErpShipToAccounts.Id eq "${entry.$key}"`;
           },
           view: 'erpshiptoaccount_contactassociations_related'
         }]

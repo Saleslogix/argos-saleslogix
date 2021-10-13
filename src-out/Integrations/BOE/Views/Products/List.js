@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/Products/List', ['module', 'exports', 'dojo/_
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('productsList');
+  const resource = (0, _I18n2.default)('productsList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Products.List', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Products.List', [_List2.default], {
     formatter: _Format2.default,
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Name %}</p>', '{% if ($.Description) { %}', '<p class="micro-text">{%: $.Description %}</p>', '{% } %}', '{% if ($.Family) { %}', '<p class="micro-text"><label class="group-label">{%: $$.familyText %}</label> {%: $.Family %}</p>', '{% } %}', '{% if ($.Status) { %}', '<p class="micro-text"><label class="group-label">{%: $$.statusText %}</label> {%: $.Status %}</p>', '{% } %}', '{% if ($.Price) { %}', '<p class="micro-text"><label class="group-label">{%: $$.priceText %} </label>', '{% if (App.hasMultiCurrency() && $.CurrencyCode) { %}', '{%: $$.formatter.multiCurrency($.Price, $.CurrencyCode) %}', '{% } else { %}', '{%: $$.formatter.currency($.Price) %} ', '{% } %}</p>', '{% } %}']),
@@ -69,8 +69,8 @@ define('crm/Integrations/BOE/Views/Products/List', ['module', 'exports', 'dojo/_
       return this.tools || (this.tools = {});
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(Name) like "' + q + '%" or upper(Family) like "' + q + '%" or ActualId like "' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(Name) like "${q}%" or upper(Family) like "${q}%" or ActualId like "${q}%"`;
     }
   });
 

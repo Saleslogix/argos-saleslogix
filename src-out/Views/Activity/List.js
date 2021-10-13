@@ -56,48 +56,25 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
     };
   }
 
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
 
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
+  const resource = (0, _I18n2.default)('activityList');
+  const hashTagResource = (0, _I18n2.default)('activityListHashTags');
 
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
-
-      return _arr;
-    }
-
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
-
-  var resource = (0, _I18n2.default)('activityList');
-  var hashTagResource = (0, _I18n2.default)('activityListHashTags');
-
-  var __class = (0, _declare2.default)('crm.Views.Activity.List', [_List2.default, _RightDrawerListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Activity.List', [_List2.default, _RightDrawerListMixin3.default], {
     // Localization
     allDayText: resource.allDayText,
     completeActivityText: resource.completeActivityText,
@@ -130,7 +107,23 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
 
     // Templates
     // Card View
-    rowTemplate: new Simplate(['<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">\n      <div class="widget">\n        <div class="widget-header">\n          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getTitle($) %}</h2>\n          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">\n            <span class="audible">Actions</span>\n            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n              <use xlink:href="#icon-more"></use>\n            </svg>\n          </button>\n          {%! $$.listActionTemplate %}\n        </div>\n        <div class="card-content">\n          {%! $$.itemRowContentTemplate %}\n        </div>\n      </div>\n    </div>']),
+    rowTemplate: new Simplate([`<div as data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">
+      <div class="widget">
+        <div class="widget-header">
+          {%! $$.itemIconTemplate %}<h2 class="widget-title">{%: $$.getTitle($) %}</h2>
+          <button class="btn-actions" type="button" data-action="selectEntry" data-key="{%= $$.getItemActionKey($) %}">
+            <span class="audible">Actions</span>
+            <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+              <use xlink:href="#icon-more"></use>
+            </svg>
+          </button>
+          {%! $$.listActionTemplate %}
+        </div>
+        <div class="card-content">
+          {%! $$.itemRowContentTemplate %}
+        </div>
+      </div>
+    </div>`]),
     activityTimeTemplate: new Simplate(['{% if ($$.isTimelessToday($)) { %}', '{%: $$.allDayText %}', '{% } else { %}', '{%: $$.format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}', // TODO: Avoid global
     '{% } %}']),
     itemTemplate: new Simplate(['<p class="listview-heading">', '<span class="p-description">{%: $$.format.picklist($$.app.picklistService, null, null, $$.getPicklistByActivityType($.Type, "Description"))($.Description) %}</span>', '</p>', '<p class="micro-text">', '{%! $$.activityTimeTemplate %}', '</p>', '<p class="micro-text">{%! $$.nameTemplate %}</p>']),
@@ -153,44 +146,44 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       recurring: 'Recurring eq true',
       timeless: 'Timeless eq true',
       yesterday: function computeYesterday() {
-        var now = moment();
-        var yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
-        var yesterdayEnd = yesterdayStart.clone().endOf('day');
+        const now = moment();
+        const yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
+        const yesterdayEnd = yesterdayStart.clone().endOf('day');
 
-        var query = '((Timeless eq false and StartDate between @' + _Convert2.default.toIsoStringFromDate(yesterdayStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(yesterdayEnd.toDate()) + '@) or (Timeless eq true and StartDate between @' + yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+        const query = `((Timeless eq false and StartDate between @${_Convert2.default.toIsoStringFromDate(yesterdayStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(yesterdayEnd.toDate())}@) or (Timeless eq true and StartDate between @${yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
         return query;
       },
       today: function computeToday() {
-        var now = moment();
-        var todayStart = now.clone().startOf('day');
-        var todayEnd = todayStart.clone().endOf('day');
+        const now = moment();
+        const todayStart = now.clone().startOf('day');
+        const todayEnd = todayStart.clone().endOf('day');
 
-        var query = '((Timeless eq false and StartDate between @' + _Convert2.default.toIsoStringFromDate(todayStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(todayEnd.toDate()) + '@) or (Timeless eq true and StartDate between @' + todayStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + todayEnd.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+        const query = `((Timeless eq false and StartDate between @${_Convert2.default.toIsoStringFromDate(todayStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(todayEnd.toDate())}@) or (Timeless eq true and StartDate between @${todayStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${todayEnd.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
         return query;
       },
       'this-week': function computeThisWeek() {
-        var now = moment();
-        var weekStartDate = now.clone().startOf('week');
-        var weekEndDate = weekStartDate.clone().endOf('week');
+        const now = moment();
+        const weekStartDate = now.clone().startOf('week');
+        const weekEndDate = weekStartDate.clone().endOf('week');
 
-        var query = '((Timeless eq false and StartDate between @' + _Convert2.default.toIsoStringFromDate(weekStartDate.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(weekEndDate.toDate()) + '@) or (Timeless eq true and StartDate between @' + weekStartDate.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + weekEndDate.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+        const query = `((Timeless eq false and StartDate between @${_Convert2.default.toIsoStringFromDate(weekStartDate.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(weekEndDate.toDate())}@) or (Timeless eq true and StartDate between @${weekStartDate.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
         return query;
       }
     },
     defaultSearchTerm: function defaultSearchTerm() {
       if (App.enableHashTags) {
-        var hashtag = this.hashTagQueriesText['this-week'];
+        const hashtag = this.hashTagQueriesText['this-week'];
         if (typeof hashtag === 'string' && hashtag.startsWith('#')) {
           return hashtag;
         }
 
-        return '#' + hashtag;
+        return `#${hashtag}`;
       }
 
       return '';
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return 'upper(Description) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
+      return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
     },
     formatDateTime: function formatDateTime() {
       return 'StartTime';
@@ -223,7 +216,7 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       return this.tools;
     },
     navigateToNewUnscheduled: function navigateToNewUnscheduled() {
-      var additionalOptions = {
+      const additionalOptions = {
         unscheduled: true
       };
 
@@ -269,9 +262,9 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
     },
     hasBeenTouched: function hasBeenTouched(entry) {
       if (entry.ModifyDate) {
-        var modifiedDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
-        var currentDate = moment().endOf('day');
-        var weekAgo = moment().subtract(1, 'weeks');
+        const modifiedDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
+        const currentDate = moment().endOf('day');
+        const weekAgo = moment().subtract(1, 'weeks');
 
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
@@ -282,10 +275,10 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
     },
     isOverdue: function isOverdue(entry) {
       if (entry.StartDate) {
-        var startDate = _Convert2.default.toDateFromString(entry.StartDate);
-        var currentDate = new Date();
-        var seconds = Math.round((currentDate - startDate) / 1000);
-        var mins = seconds / 60;
+        const startDate = _Convert2.default.toDateFromString(entry.StartDate);
+        const currentDate = new Date();
+        const seconds = Math.round((currentDate - startDate) / 1000);
+        const mins = seconds / 60;
         if (mins >= 1) {
           return true;
         }
@@ -297,7 +290,7 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
         return false;
       }
 
-      var start = moment(entry.StartDate);
+      const start = moment(entry.StartDate);
       return this._isTimelessToday(start);
     },
     _isTimelessToday: function _isTimelessToday(start) {
@@ -322,7 +315,7 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       return false;
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var type = entry && entry.Type;
+      const type = entry && entry.Type;
       return this._getItemIconClass(type);
     },
     _getItemIconClass: function _getItemIconClass(type) {
@@ -334,7 +327,7 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
         cls: 'checkbox',
         label: this.completeActivityText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           if (!entry) {
             return false;
           }
@@ -342,7 +335,7 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
           return entry.Leader.$key === App.context.user.$key;
         },
         fn: function fn(theAction, selection) {
-          var entry = selection && selection.data && selection.data;
+          const entry = selection && selection.data && selection.data;
 
           entry.CompletedDate = new Date();
           entry.Result = 'Complete';
@@ -355,12 +348,12 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
         cls: 'phone',
         label: this.callText,
         enabled: function enabled(theAction, selection) {
-          var entry = selection && selection.data;
+          const entry = selection && selection.data;
           return entry && entry.PhoneNumber;
         },
         fn: function fn(theAction, selection) {
-          var entry = selection && selection.data;
-          var phone = entry && entry.PhoneNumber;
+          const entry = selection && selection.data;
+          const phone = entry && entry.PhoneNumber;
           if (phone) {
             this.recordCallToHistory(function initiateCall() {
               App.initiateCall(phone);
@@ -375,7 +368,7 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       }]);
     },
     recordCallToHistory: function recordCallToHistory(complete, entry) {
-      var tempEntry = {
+      const tempEntry = {
         $name: 'History',
         Type: 'atPhoneCall',
         ContactName: entry.ContactName,
@@ -395,70 +388,65 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       _Action2.default.navigateToHistoryInsert(entry, complete);
     },
     completeActivity: function completeActivity(entry) {
-      var _this = this;
-
-      var activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
+      const activityModel = App.ModelManager.getModel(_Names2.default.ACTIVITY, _Types2.default.SDATA);
       if (!activityModel) {
         return;
       }
 
-      var completeAction = function completeAction() {
-        activityModel.completeActivity(entry).then(function () {
+      const completeAction = () => {
+        activityModel.completeActivity(entry).then(() => {
           _connect2.default.publish('/app/refresh', [{
             resourceKind: 'history'
           }]);
-          _this.clear();
-          _this.refresh();
-        }, function (err) {
-          _ErrorManager2.default.addError(err, _this, {}, 'failure');
+          this.clear();
+          this.refresh();
+        }, err => {
+          _ErrorManager2.default.addError(err, this, {}, 'failure');
         });
       };
 
       if (entry.Recurring || entry.$key.indexOf(';') > -1) {
-        var completeOccurrence = false;
+        let completeOccurrence = false;
 
-        var dialog = {
+        const dialog = {
           title: this.completeActivityText,
           content: this.completeRecurringPrompt
         };
 
-        var toolbar = [{
+        const toolbar = [{
           className: 'button--flat button--flat--split',
           text: this.completeOccurrenceText,
-          action: function action() {
+          action: () => {
             completeOccurrence = true;
             App.modal.resolveDeferred();
           }
         }, {
           className: 'button--flat button--flat--split',
           text: this.completeSeriesText,
-          action: function action() {
+          action: () => {
             completeOccurrence = false;
             App.modal.resolveDeferred();
           }
         }, {
           className: 'button--flat button--flat button--flat--full',
           text: this.cancelText,
-          action: function action() {
+          action: () => {
             App.modal.hide();
           }
         }];
 
-        App.modal.add(dialog, toolbar).then(function () {
+        App.modal.add(dialog, toolbar).then(() => {
           // Completing an occurrence, ensure we have a compose key
           if (completeOccurrence && entry.$key && entry.$key.indexOf(';') === -1) {
-            var startDate = _Convert2.default.toDateFromString(entry.StartDate);
-            var key = _Utility2.default.buildActivityCompositeKey(entry.$key, startDate);
+            const startDate = _Convert2.default.toDateFromString(entry.StartDate);
+            const key = _Utility2.default.buildActivityCompositeKey(entry.$key, startDate);
             entry.$key = key; // mutating the entry, but we will refresh anyways
           }
 
           // Completing the series, but we have a composite key, drop it
           if (!completeOccurrence && entry.$key && entry.$key.indexOf(';') > -1) {
-            var _entry$$key$split = entry.$key.split(';'),
-                _entry$$key$split2 = _slicedToArray(_entry$$key$split, 1),
-                _key = _entry$$key$split2[0];
-
-            entry.$key = _key; // mutating the entry, but we will refresh anyways
+            const [key] = entry.$key.split(';');
+            entry.$key = key; // mutating the entry, but we will refresh anyways
           }
 
           completeAction();
@@ -471,9 +459,9 @@ define('crm/Views/Activity/List', ['module', 'exports', 'dojo/_base/declare', 'd
       _ErrorManager2.default.addError(response, o, {}, 'failure');
     },
     activateEntry: function activateEntry(params) {
-      var entry = this.entries[params.key];
+      const entry = this.entries[params.key];
       if (entry) {
-        var activityParams = params;
+        const activityParams = params;
         activityParams.descriptor = this._model.getEntityDescription(entry);
         this.inherited(activateEntry, arguments, [activityParams]);
       } else {

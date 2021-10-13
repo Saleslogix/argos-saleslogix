@@ -19,25 +19,25 @@ define('crm/Integrations/BOE/Models/ErpShipmentItem/Base', ['module', 'exports',
     };
   }
 
-  var resource = (0, _I18n2.default)('erpShipmentItemModel'); /* Copyright 2017 Infor
-                                                               *
-                                                               * Licensed under the Apache License, Version 2.0 (the "License");
-                                                               * you may not use this file except in compliance with the License.
-                                                               * You may obtain a copy of the License at
-                                                               *
-                                                               *    http://www.apache.org/licenses/LICENSE-2.0
-                                                               *
-                                                               * Unless required by applicable law or agreed to in writing, software
-                                                               * distributed under the License is distributed on an "AS IS" BASIS,
-                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                               * See the License for the specific language governing permissions and
-                                                               * limitations under the License.
-                                                               */
+  const resource = (0, _I18n2.default)('erpShipmentItemModel'); /* Copyright 2017 Infor
+                                                                 *
+                                                                 * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                 * you may not use this file except in compliance with the License.
+                                                                 * You may obtain a copy of the License at
+                                                                 *
+                                                                 *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                 *
+                                                                 * Unless required by applicable law or agreed to in writing, software
+                                                                 * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                 * See the License for the specific language governing permissions and
+                                                                 * limitations under the License.
+                                                                 */
 
-  var shipmentResource = (0, _I18n2.default)('erpShipmentModel');
-  var salesOrderResource = (0, _I18n2.default)('salesOrderModel');
+  const shipmentResource = (0, _I18n2.default)('erpShipmentModel');
+  const salesOrderResource = (0, _I18n2.default)('salesOrderModel');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipmentItem.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpShipmentItem.Base', [_ModelBase3.default], {
     contractName: 'dynamic',
     resourceKind: 'erpShipmentItems',
     entityName: 'ERPShipmentItem',
@@ -49,7 +49,7 @@ define('crm/Integrations/BOE/Models/ErpShipmentItem/Base', ['module', 'exports',
     listViewId: 'erpshipment_items_list',
     editViewId: '',
     createRelationships: function createRelationships() {
-      var rel = this.relationships || (this.relationships = [{
+      const rel = this.relationships || (this.relationships = [{
         name: 'Shipment',
         displayName: shipmentResource.entityDisplayName,
         type: 'ManyToOne',

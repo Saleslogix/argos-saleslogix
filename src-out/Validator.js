@@ -31,7 +31,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
   /**
    * @module crm/Validator
    */
-  var resource = (0, _I18n2.default)('validators');
+  const resource = (0, _I18n2.default)('validators');
 
   /**
    * @class
@@ -58,7 +58,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
    *       }
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Validator', /** @lends module:crm/Validator */{
+  const __class = _lang2.default.setObject('crm.Validator', /** @lends module:crm/Validator */{
     /**
      * @property {Object} exists
      * Validator that ensures the field contains a value.
@@ -182,8 +182,8 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
      */
     isDateInRange: {
       fn: function isDateInRange(value, field) {
-        var minValue = field.minValue;
-        var maxValue = field.maxValue;
+        const minValue = field.minValue;
+        const maxValue = field.maxValue;
 
         // if value is empty or not a date, ignore comparison
         if (!value || !(value instanceof Date)) {
@@ -213,7 +213,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
      */
     isGreaterThan: {
       fn: function isGreaterThan(value, field) {
-        var comp = field.greaterThan;
+        const comp = field.greaterThan;
 
         if (typeof comp !== 'number' || Number.isNaN(comp)) {
           return false;
@@ -236,7 +236,7 @@ define('crm/Validator', ['module', 'exports', 'dojo/_base/lang', 'argos/I18n'], 
      */
     isLessThan: {
       fn: function isLessThan(value, field) {
-        var comp = field.lessThan;
+        const comp = field.lessThan;
 
         if (typeof comp !== 'number' || Number.isNaN(comp)) {
           return false;

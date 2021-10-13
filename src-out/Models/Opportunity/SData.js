@@ -36,7 +36,7 @@ define('crm/Models/Opportunity/SData', ['module', 'exports', 'dojo/_base/declare
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.Opportunity.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.Opportunity.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'opportunity_sdata_model',
     querySelect: ['Account/AccountName', 'Account/WebAddress', 'Account/MainPhone', 'Account/Fax', 'Account/Address/*', 'AccountManager/UserInfo/FirstName', 'AccountManager/UserInfo/LastName', 'CloseProbability', 'Description', 'EstimatedClose', 'ExchangeRate', 'ExchangeRateCode', 'ExchangeRateDate', 'ExchangeRateLocked', 'LeadSource/Description', 'Owner/OwnerDescription', 'Reseller/AccountName', 'SalesPotential', 'Stage', 'Status', 'Type', 'Weighted'],
     createQueryModels: function createQueryModels() {

@@ -36,32 +36,30 @@ define('crm/Models/History/Offline', ['module', 'exports', 'dojo/_base/declare',
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.History.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.History.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'history_offline_model',
     deleteEntry: function deleteEntry(entry) {
-      var _this = this;
-
-      return new Promise(function (resolve, reject) {
-        var store = _this.getStore();
-        store.query(function (doc, emit) {
-          if (doc.entityName === _this.entityName && doc.entity && doc.entity.entityId === null || typeof doc.entity.entityId === 'undefined') {
+      return new Promise((resolve, reject) => {
+        const store = this.getStore();
+        store.query((doc, emit) => {
+          if (doc.entityName === this.entityName && doc.entity && doc.entity.entityId === null || typeof doc.entity.entityId === 'undefined') {
             if (doc.entity.UID === entry.UID) {
               emit(doc);
             }
           }
-        }).then(function (docs) {
+        }).then(docs => {
           if (docs && docs.length === 1) {
-            var doc = docs[0];
-            _this._removeDoc(doc.key).then(function (result) {
-              _this.onEntryDelete(entry);
+            const doc = docs[0];
+            this._removeDoc(doc.key).then(result => {
+              this.onEntryDelete(entry);
               resolve(result);
-            }, function (err) {
+            }, err => {
               reject(err);
             });
           } else {
             reject('No entry to delete.');
           }
-        }, function (err) {
+        }, err => {
           reject(err);
         });
       });

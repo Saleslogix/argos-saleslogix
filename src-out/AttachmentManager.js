@@ -23,7 +23,7 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
    * @class
    * @alias module:crm/AttachmentManager
    */
-  var __class = (0, _declare2.default)('crm.AttachmentManager', null, /** @lends module:crm/AttachmentManager.prototype */{
+  const __class = (0, _declare2.default)('crm.AttachmentManager', null, /** @lends module:crm/AttachmentManager.prototype */{
     _fileManager: null,
     _entityContext: null,
     _uploadUrl: '',
@@ -46,11 +46,11 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       this._files = [];
       this._fileDescriptions = [];
       this._fileManager = new _FileManager2.default();
-      var service = App.getService(this.serviceName);
-      var oldContractName = service.getContractName();
+      const service = App.getService(this.serviceName);
+      const oldContractName = service.getContractName();
       service.setContractName(this.contractName);
       this._baseUrl = _Utility2.default.stripQueryArgs(service.getUri().toString());
-      this._uploadUrl = this._baseUrl + '/attachments/file';
+      this._uploadUrl = `${this._baseUrl}/attachments/file`;
       service.setContractName(oldContractName);
     },
     /**
@@ -82,22 +82,22 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       }, this.onRequestTemplateFailure);
     },
     getAttachmentUrl: function getAttachmentUrl(attachmentId) {
-      var fileUrl = this._baseUrl + '/attachments(\'' + attachmentId + '\')/file';
+      const fileUrl = `${this._baseUrl}/attachments('${attachmentId}')/file`;
       return fileUrl;
     },
     getAttachmenturlByEntity: function getAttachmenturlByEntity(attachment) {
-      var href = void 0;
+      let href;
       if (attachment.url) {
         href = attachment.url || '';
-        href = href.indexOf('http') < 0 ? 'http://' + href : href;
+        href = href.indexOf('http') < 0 ? `http://${href}` : href;
       } else {
-        href = this._baseUrl + '/attachments(\'' + attachment.$key + '\')/file';
+        href = `${this._baseUrl}/attachments('${attachment.$key}')/file`;
       }
       return href;
     },
     _getFileDescription: function _getFileDescription(fileName) {
-      var description = this._getDefaultDescription(fileName);
-      for (var i = 0; i < this._fileDescriptions.length; i++) {
+      let description = this._getDefaultDescription(fileName);
+      for (let i = 0; i < this._fileDescriptions.length; i++) {
         if (fileName === this._fileDescriptions[i].fileName) {
           description = this._fileDescriptions[i].description;
         }
@@ -108,23 +108,23 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       return description;
     },
     _getAttachmentContextMixin: function _getAttachmentContextMixin() {
-      var contextMixin = this._getAttachmentContext();
+      const contextMixin = this._getAttachmentContext();
       return contextMixin;
     },
     _getAttachmentContext: function _getAttachmentContext() {
-      var contextData = {};
-      var found = App.queryNavigationContext(function (o) {
-        var context = o.options && o.options.source || o;
+      let contextData = {};
+      const found = App.queryNavigationContext(o => {
+        const context = o.options && o.options.source || o;
         if (/^(accounts|contacts|opportunities|tickets|leads|activities|history|userActivities)$/.test(context.resourceKind) && context.key) {
           return true;
         }
         return false;
       });
 
-      var contextView = found && found.options && found.options.source || found;
+      const contextView = found && found.options && found.options.source || found;
       if (contextView) {
-        var view = App.getView(contextView.id);
-        var entry = contextView.entry || view && view.entry || contextView;
+        const view = App.getView(contextView.id);
+        const entry = contextView.entry || view && view.entry || contextView;
 
         if (!entry || !entry.$key) {
           return {};
@@ -220,7 +220,7 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       return App.getService(this.serviceName); /* if false is passed, the default service will be returned */
     },
     createTemplateRequest: function createTemplateRequest() {
-      var request = new Sage.SData.Client.SDataTemplateResourceRequest(this.getService());
+      const request = new Sage.SData.Client.SDataTemplateResourceRequest(this.getService());
       request.setResourceKind(this.resourceKind);
       request.setContractName(this.contractName);
       request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.querySelect.join(','));
@@ -228,7 +228,7 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       return request;
     },
     requestTemplate: function requestTemplate(onSucess, onFailure) {
-      var request = this.createTemplateRequest();
+      const request = this.createTemplateRequest();
       if (request) {
         request.read({
           success: onSucess,
@@ -242,10 +242,10 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       this.processTemplateEntry(entry);
     },
     createDataRequest: function createDataRequest(id) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
+      const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
       request.setResourceKind(this.resourceKind);
       request.setContractName(this.contractName);
-      request.setResourceSelector('\'' + id + '\'');
+      request.setResourceSelector(`'${id}'`);
 
       request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.querySelect.join(','));
       request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
@@ -253,7 +253,7 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       return request;
     },
     requestData: function requestData(attachmnetId, onSucess, onFailure) {
-      var request = this.createDataRequest(attachmnetId);
+      const request = this.createDataRequest(attachmnetId);
       if (request) {
         request.read({
           success: onSucess,
@@ -271,27 +271,27 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       this._isUploading = true;
       this._fileCount = this._files.length;
       while (this._files.length > 0) {
-        var file = this._files.pop();
+        const file = this._files.pop();
         this._fileManager.uploadFile(file, this._uploadUrl, this._updateProgress, this.onSuccessUpload, this.onFailedUpload, this);
       }
     },
     onSuccessUpload: function onSuccessUpload(request) {
       // the id of the new attachment is buried in the Location response header...
-      var url = request.getResponseHeader('Location');
-      var re = /'\w+'/g;
-      var matches = url.match(re);
+      const url = request.getResponseHeader('Location');
+      const re = /'\w+'/g;
+      const matches = url.match(re);
 
       if (matches) {
-        var id = matches[0].replace(/'/g, '');
+        const id = matches[0].replace(/'/g, '');
         // now that we have the id, we can fetch it using the SingleEntrySDataStore
         this.requestData(id, function success(attachment) {
-          var mixin = this._getAttachmentContextMixin(attachment.fileName);
+          const mixin = this._getAttachmentContextMixin(attachment.fileName);
           if (mixin) {
             attachment.attachDate = _Convert2.default.toIsoStringFromDate(new Date());
             attachment.dataType = 'R';
             attachment.description = this._getFileDescription(attachment.fileName);
-            var a = _lang2.default.mixin(attachment, mixin);
-            var req = this.createDataRequest(id);
+            const a = _lang2.default.mixin(attachment, mixin);
+            const req = this.createDataRequest(id);
             if (req) {
               req.update(a, {
                 success: this.onSuccessUpdate,
@@ -304,12 +304,12 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       }
     },
     onFailedUpload: function onFailedUpload(resp) {
-      var err = new Error('Failed to upload.');
+      const err = new Error('Failed to upload.');
       err.resp = resp;
       throw err;
     },
     _onFailedAdd: function _onFailedAdd(resp) {
-      var err = new Error('Failed to save.');
+      const err = new Error('Failed to save.');
       err.resp = resp;
       throw err;
     },
@@ -318,7 +318,7 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
      */
     onSuccessUpdate: function onSuccessUpdate() {},
     onFailedUpdate: function onFailedUpdate(resp) {
-      var err = new Error('Failed to update.');
+      const err = new Error('Failed to update.');
       err.resp = resp;
       throw err;
     },
@@ -327,10 +327,10 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
      */
     onUpdateProgress: function onUpdateProgress() {},
     _updateProgress: function _updateProgress(curFileProgress) {
-      var pct = this._totalProgress;
+      let pct = this._totalProgress;
 
       if (curFileProgress && curFileProgress.lengthComputable) {
-        var filePercent = curFileProgress.loaded / curFileProgress.total * 100;
+        const filePercent = curFileProgress.loaded / curFileProgress.total * 100;
         pct = filePercent;
       } else if (curFileProgress) {
         pct = curFileProgress;
@@ -355,7 +355,7 @@ define('crm/AttachmentManager', ['module', 'exports', './FileManager', 'dojo/_ba
       this._totalProgress = 0;
     },
     getAttachmentFile: function getAttachmentFile(attachmentId, responseType, onSuccsess) {
-      var url = this.getAttachmentUrl(attachmentId);
+      const url = this.getAttachmentUrl(attachmentId);
       this._fileManager.getFile(url, responseType, onSuccsess);
     }
   }); /* Copyright 2017 Infor

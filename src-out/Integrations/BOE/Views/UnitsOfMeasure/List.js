@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/UnitsOfMeasure/List', ['module', 'exports', '
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('unitsOfMeasureList');
+  const resource = (0, _I18n2.default)('unitsOfMeasureList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.UnitsOfMeasure.List', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.UnitsOfMeasure.List', [_List2.default], {
     formatter: _Format2.default,
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Name %}</p>']),
@@ -64,8 +64,8 @@ define('crm/Integrations/BOE/Views/UnitsOfMeasure/List', ['module', 'exports', '
       return this.tools || (this.tools = {});
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(Name) like "' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(Name) like "${q}%"`;
     }
   });
 

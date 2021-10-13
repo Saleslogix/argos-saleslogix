@@ -36,10 +36,10 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('opportunityEdit');
-  var dtFormatResource = (0, _I18n2.default)('opportunityEditDateTimeFormat');
+  const resource = (0, _I18n2.default)('opportunityEdit');
+  const dtFormatResource = (0, _I18n2.default)('opportunityEditDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Views.Opportunity.Edit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Views.Opportunity.Edit', [_Edit2.default], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -84,12 +84,12 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       }
     },
     applyContext: function applyContext(templateEntry) {
-      var found = App.queryNavigationContext(function (o) {
+      const found = App.queryNavigationContext(o => {
         return (/^(accounts|contacts)$/.test(o.resourceKind) && o.key
         );
       });
 
-      var lookup = {
+      const lookup = {
         accounts: this.applyAccountContext,
         contacts: this.applyContactContext
       };
@@ -146,10 +146,10 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       this.fields.SalesPotential.setCurrencyCode(App.getBaseExchangeRate().code);
     },
     getValues: function getValues() {
-      var values = this.inherited(getValues, arguments);
+      const values = this.inherited(getValues, arguments);
 
       if (values) {
-        var code = values.ExchangeRateCode;
+        const code = values.ExchangeRateCode;
         values.ExchangeRateCode = code && code.$key;
       }
 
@@ -160,16 +160,16 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       this.fields.Owner.setValue(App.context.defaultOwner);
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id);
-      var entry = view && view.entry;
+      const view = App.getView(context.id);
+      const entry = view && view.entry;
 
       this.fields.Account.setValue(entry);
       this.fields.AccountManager.setValue(_Utility2.default.getValue(entry, 'AccountManager'));
       this.fields.Owner.setValue(_Utility2.default.getValue(entry, 'Owner'));
     },
     applyContactContext: function applyContactContext(context) {
-      var view = App.getView(context.id);
-      var entry = view && view.entry;
+      const view = App.getView(context.id);
+      const entry = view && view.entry;
 
       this.fields.Account.setValue(_Utility2.default.getValue(entry, 'Account'));
       this.fields.AccountManager.setValue(_Utility2.default.getValue(entry, 'AccountManager'));
@@ -177,7 +177,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
     },
     onExchangeRateCodeChange: function onExchangeRateCodeChange(value, field) {
-      var selection = field.getSelection();
+      const selection = field.getSelection();
       if (selection && selection.Rate) {
         this.fields.ExchangeRate.setValue(selection.Rate);
         this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
@@ -198,7 +198,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       this.fields.ExchangeRateDate.setValue(new Date(Date.now()));
     },
     onAccountChange: function onAccountChange(value, field) {
-      var selection = field.getSelection();
+      const selection = field.getSelection();
 
       // todo: match behavior in web client; if the account manager (AM) is explicitly set, it should stay, otherwise
       // it should be set to the AM for the selected account (and change each time).
@@ -207,7 +207,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
       }
     },
     createLayout: function createLayout() {
-      var details = {
+      const details = {
         title: this.detailsText,
         name: 'OpportunityDetailsEdit',
         children: [{
@@ -244,7 +244,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
           textProperty: 'AccountName',
           type: 'lookup',
           view: 'account_related',
-          where: 'upper(SubType) eq "' + this.subTypePickListResellerText + '"',
+          where: `upper(SubType) eq "${this.subTypePickListResellerText}"`,
           viewMixin: {
             hasSettings: false,
             onTransitionTo: function onTransitionTo(self) {
@@ -315,7 +315,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
         }]
       };
 
-      var multiCurrency = {
+      const multiCurrency = {
         title: this.multiCurrencyText,
         name: 'OpportunityMultiCurrencyEdit',
         children: [{
@@ -347,7 +347,7 @@ define('crm/Views/Opportunity/Edit', ['module', 'exports', 'dojo/_base/declare',
         }]
       };
 
-      var layout = this.layout || (this.layout = []);
+      const layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;

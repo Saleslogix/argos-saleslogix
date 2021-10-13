@@ -27,7 +27,7 @@ define('crm/Integrations/BOE/Models/UnitOfMeasure/SData', ['module', 'exports', 
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.UnitOfMeasure.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.UnitOfMeasure.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'unitofmeasure_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -41,24 +41,24 @@ define('crm/Integrations/BOE/Models/UnitOfMeasure/SData', ['module', 'exports', 
       }];
     },
     getUnitOfMeasureFromCode: function getUnitOfMeasureFromCode(uomCode, productId) {
-      var queryResults = void 0;
-      var def = new _Deferred2.default();
-      var queryOptions = {
-        where: 'Product.Id eq "' + productId + '"'
+      let queryResults;
+      const def = new _Deferred2.default();
+      const queryOptions = {
+        where: `Product.Id eq "${productId}"`
       };
       if (uomCode && productId) {
         queryResults = this.getEntries(null, queryOptions);
-        (0, _when2.default)(queryResults, function (entries) {
-          var uof = null;
+        (0, _when2.default)(queryResults, entries => {
+          let uof = null;
           if (entries) {
-            entries.forEach(function (item) {
+            entries.forEach(item => {
               if (item.Name === uomCode) {
                 uof = item;
               }
             });
           }
           def.resolve(uof);
-        }, function (err) {
+        }, err => {
           def.reject(err);
         });
       } else {

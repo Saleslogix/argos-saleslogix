@@ -27,24 +27,24 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
     };
   }
 
-  var resource = (0, _I18n2.default)('attachmentView'); /* Copyright 2017 Infor
-                                                         *
-                                                         * Licensed under the Apache License, Version 2.0 (the "License");
-                                                         * you may not use this file except in compliance with the License.
-                                                         * You may obtain a copy of the License at
-                                                         *
-                                                         *    http://www.apache.org/licenses/LICENSE-2.0
-                                                         *
-                                                         * Unless required by applicable law or agreed to in writing, software
-                                                         * distributed under the License is distributed on an "AS IS" BASIS,
-                                                         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                         * See the License for the specific language governing permissions and
-                                                         * limitations under the License.
-                                                         */
+  const resource = (0, _I18n2.default)('attachmentView'); /* Copyright 2017 Infor
+                                                           *
+                                                           * Licensed under the Apache License, Version 2.0 (the "License");
+                                                           * you may not use this file except in compliance with the License.
+                                                           * You may obtain a copy of the License at
+                                                           *
+                                                           *    http://www.apache.org/licenses/LICENSE-2.0
+                                                           *
+                                                           * Unless required by applicable law or agreed to in writing, software
+                                                           * distributed under the License is distributed on an "AS IS" BASIS,
+                                                           * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                           * See the License for the specific language governing permissions and
+                                                           * limitations under the License.
+                                                           */
 
-  var dtFormatResource = (0, _I18n2.default)('attachmentViewDateTimeFormat');
+  const dtFormatResource = (0, _I18n2.default)('attachmentViewDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Views.Attachment.ViewAttachment', [_Detail2.default, _LegacySDataDetailMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.Attachment.ViewAttachment', [_Detail2.default, _LegacySDataDetailMixin3.default], {
     // Localization
     detailsText: resource.detailsText,
     descriptionText: resource.descriptionText,
@@ -94,11 +94,7 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       }
     },
     onTransitionTo: function onTransitionTo() {
-      var _this = this;
-
-      var _renderFn = _Utility2.default.debounce(function () {
-        return _this.renderPdf();
-      }, this.RENDER_DELAY);
+      const _renderFn = _Utility2.default.debounce(() => this.renderPdf(), this.RENDER_DELAY);
       $(window).on('resize.attachment', _renderFn);
       $(window).on('applicationmenuclose.attachment', _renderFn);
       $(window).on('applicationmenuopen.attachment', _renderFn);
@@ -128,12 +124,12 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       this._loadAttachmentView(entry);
     },
     createRequest: function createRequest() {
-      var request = this.inherited(createRequest, arguments);
+      const request = this.inherited(createRequest, arguments);
       request.setQueryArg('_includeFile', 'false');
       return request;
     },
     createEntryForDelete: function createEntryForDelete(e) {
-      var entry = {
+      const entry = {
         $key: e.$key,
         $etag: e.$etag,
         $name: e.$name
@@ -192,8 +188,6 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       this.renderPdfPage(this.pdfCurrentPage);
     },
     renderPdfPage: function renderPdfPage(pageNumber) {
-      var _this2 = this;
-
       if (pageNumber < 1 || this.pdfDoc === null) {
         return;
       }
@@ -206,32 +200,32 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
         return;
       }
 
-      var box = _domGeometry2.default.getMarginBox(this.domNode);
-      this.pdfDoc.getPage(pageNumber).then(function (page) {
-        var scale = _this2.pdfScale;
-        var viewport = page.getViewport({ scale: scale });
-        var canvas = document.getElementById('pdfViewer');
-        var context = canvas.getContext('2d');
-        var desiredWidth = box.w;
+      const box = _domGeometry2.default.getMarginBox(this.domNode);
+      this.pdfDoc.getPage(pageNumber).then(page => {
+        const scale = this.pdfScale;
+        let viewport = page.getViewport({ scale });
+        const canvas = document.getElementById('pdfViewer');
+        const context = canvas.getContext('2d');
+        const desiredWidth = box.w;
         viewport = page.getViewport({ scale: desiredWidth / viewport.width });
         canvas.height = viewport.height < box.h ? box.h : viewport.height;
         canvas.width = viewport.width;
 
-        var renderContext = {
+        const renderContext = {
           canvasContext: context,
-          viewport: viewport
+          viewport
         };
 
-        _this2.pdfIsLoading = true;
-        var renderTask = page.render(renderContext);
-        renderTask.promise.then(function () {
-          _this2.pdfCurrentPage = pageNumber;
-          _this2.pdfIsLoading = false;
-          _this2.updatePageStats();
-        }, function (reason) {
-          _this2.pdfIsLoading = false;
-          var fileName = _this2.entry && _this2.entry.fileName;
-          var message = 'Failed to render page ' + pageNumber + ' for PDF "' + fileName + '".';
+        this.pdfIsLoading = true;
+        const renderTask = page.render(renderContext);
+        renderTask.promise.then(() => {
+          this.pdfCurrentPage = pageNumber;
+          this.pdfIsLoading = false;
+          this.updatePageStats();
+        }, reason => {
+          this.pdfIsLoading = false;
+          const fileName = this.entry && this.entry.fileName;
+          const message = `Failed to render page ${pageNumber} for PDF "${fileName}".`;
           console.error(message, reason); // eslint-disable-line
           _ErrorManager2.default.addSimpleError(message, reason);
         });
@@ -242,43 +236,39 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
         return;
       }
 
-      var node = $('.page-stats', this.attachmentViewerNode).first();
-      node.text(this.pdfCurrentPage + ' / ' + this.pdfTotalPages);
+      const node = $('.page-stats', this.attachmentViewerNode).first();
+      node.text(`${this.pdfCurrentPage} / ${this.pdfTotalPages}`);
     },
     loadPdfDocument: function loadPdfDocument(responseInfo) {
-      var _this3 = this;
-
       if (this.pdfDoc !== null) {
         this.pdfDoc.destroy();
         this.pdfDoc = null;
       }
 
-      var dataResponse = _Utility2.default.base64ArrayBuffer(responseInfo.response);
-      var task = window.pdfjsLib.getDocument({ data: atob(dataResponse) });
+      const dataResponse = _Utility2.default.base64ArrayBuffer(responseInfo.response);
+      const task = window.pdfjsLib.getDocument({ data: atob(dataResponse) });
       this.pdfIsLoading = true;
-      task.promise.then(function (pdf) {
-        _this3.pdfIsLoading = false;
-        _this3.pdfDoc = pdf;
-        _this3.pdfCurrentPage = 1;
-        _this3.pdfTotalPages = pdf.numPages;
-        _this3.renderPdfPage(1);
-      }, function (reason) {
-        _this3.pdfIsLoading = false;
-        var fileName = _this3.entry && _this3.entry.fileName;
-        var message = 'The PDF "' + fileName + '" failed to load.';
+      task.promise.then(pdf => {
+        this.pdfIsLoading = false;
+        this.pdfDoc = pdf;
+        this.pdfCurrentPage = 1;
+        this.pdfTotalPages = pdf.numPages;
+        this.renderPdfPage(1);
+      }, reason => {
+        this.pdfIsLoading = false;
+        const fileName = this.entry && this.entry.fileName;
+        const message = `The PDF "${fileName}" failed to load.`;
         console.error(message, reason); // eslint-disable-line
         _ErrorManager2.default.addSimpleError(message, reason);
       });
     },
     _loadAttachmentView: function _loadAttachmentView(entry) {
-      var _this4 = this;
-
-      var am = new _AttachmentManager2.default();
-      var CHROME_DATA_URI_LIMIT = 2097152;
-      var description = void 0;
-      var isFile = void 0;
-      var fileType = void 0;
-      var loaded = void 0;
+      const am = new _AttachmentManager2.default();
+      const CHROME_DATA_URI_LIMIT = 2097152;
+      let description;
+      let isFile;
+      let fileType;
+      let loaded;
 
       if (!entry.url) {
         description = entry.description;
@@ -286,16 +276,16 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
         isFile = true;
       } else {
         isFile = false;
-        description = entry.description + ' (' + entry.url + ')';
+        description = `${entry.description} (${entry.url})`;
         fileType = 'url';
       }
 
-      var data = {
+      const data = {
         fileName: entry.fileName,
         fileSize: entry.fileSize,
-        fileType: fileType,
+        fileType,
         url: '',
-        description: description
+        description
       };
 
       if (isFile) {
@@ -303,19 +293,19 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
         if (this._isfileTypeAllowed(fileType)) {
           if (this._isfileTypeImage(fileType)) {
             $(this.attachmentViewerNode).append(this.attachmentViewImageTemplate.apply(data, this));
-            var tpl = $(this.downloadingTemplate.apply(this));
+            const tpl = $(this.downloadingTemplate.apply(this));
             $(this.attachmentViewerNode).prepend(tpl);
             $(this.domNode).addClass('list-loading');
-            var self = this;
-            var attachmentid = entry.$key;
+            const self = this;
+            const attachmentid = entry.$key;
             // dataurl
-            am.getAttachmentFile(attachmentid, 'arraybuffer', function (responseInfo) {
-              var rData = _Utility2.default.base64ArrayBuffer(responseInfo.response);
-              self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
+            am.getAttachmentFile(attachmentid, 'arraybuffer', responseInfo => {
+              const rData = _Utility2.default.base64ArrayBuffer(responseInfo.response);
+              self.dataURL = `data:${responseInfo.contentType};base64,${rData}`;
 
-              var image = new Image();
+              const image = new Image();
 
-              var loadHandler = function loadHandler() {
+              const loadHandler = function loadHandler() {
                 if (loaded) {
                   return;
                 }
@@ -341,7 +331,7 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
             });
           } else {
             // View file type in Iframe
-            var _attachmentid = entry.$key;
+            const attachmentid = entry.$key;
 
             if (fileType === '.pdf') {
               $(this.attachmentViewerNode).append(this.pdfViewTemplate.apply(data, this));
@@ -351,29 +341,29 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
               $('.last-page-button', this.attachmentViewerNode).on('click', this.onLastPageClick.bind(this));
               $('.zoom-in', this.attachmentViewerNode).on('click', this.onZoomInClick.bind(this));
               $('.zoom-out', this.attachmentViewerNode).on('click', this.onZoomOutClick.bind(this));
-              am.getAttachmentFile(_attachmentid, 'arraybuffer', function (responseInfo) {
-                _this4.loadPdfDocument(responseInfo);
+              am.getAttachmentFile(attachmentid, 'arraybuffer', responseInfo => {
+                this.loadPdfDocument(responseInfo);
               });
             } else {
               $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
-              var _tpl = $(this.downloadingTemplate.apply(this));
-              $(this.attachmentViewerNode).prepend(_tpl);
+              const tpl = $(this.downloadingTemplate.apply(this));
+              $(this.attachmentViewerNode).prepend(tpl);
               $(this.domNode).addClass('list-loading');
 
-              am.getAttachmentFile(_attachmentid, 'arraybuffer', function (responseInfo) {
-                var rData = _Utility2.default.base64ArrayBuffer(responseInfo.response);
+              am.getAttachmentFile(attachmentid, 'arraybuffer', responseInfo => {
+                const rData = _Utility2.default.base64ArrayBuffer(responseInfo.response);
                 if (rData.length >= CHROME_DATA_URI_LIMIT) {
                   window.saveAs(new Blob([new Uint8Array(responseInfo.response, 0, responseInfo.response.length)]), responseInfo.fileName);
                   return;
                 }
-                var dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
-                $(_tpl).addClass('display-none');
-                var iframe = document.getElementById('attachment-Iframe');
+                const dataUrl = `data:${responseInfo.contentType};base64,${rData}`;
+                $(tpl).addClass('display-none');
+                const iframe = document.getElementById('attachment-Iframe');
                 iframe.onload = function iframeOnLoad() {
-                  $(_tpl).addClass('display-none');
+                  $(tpl).addClass('display-none');
                 };
-                $(_tpl).addClass('display-none');
-                _this4.setSrc(iframe, dataUrl);
+                $(tpl).addClass('display-none');
+                this.setSrc(iframe, dataUrl);
               });
             }
           }
@@ -384,21 +374,21 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       } else {
         // url Attachment
         $(this.attachmentViewerNode).append(this.attachmentViewTemplate.apply(data, this));
-        var url = am.getAttachmenturlByEntity(entry);
+        const url = am.getAttachmenturlByEntity(entry);
         $(this.domNode).addClass('list-loading');
-        var _tpl2 = $(this.downloadingTemplate.apply(this));
-        $(this.attachmentViewerNode).prepend(_tpl2);
-        var iframe = document.getElementById('attachment-Iframe');
+        const tpl = $(this.downloadingTemplate.apply(this));
+        $(this.attachmentViewerNode).prepend(tpl);
+        const iframe = document.getElementById('attachment-Iframe');
         iframe.onload = function iframeOnLoad() {
-          $(_tpl2).addClass('display-none');
+          $(tpl).addClass('display-none');
         };
         this.setSrc(iframe, url);
-        $(_tpl2).addClass('display-none');
+        $(tpl).addClass('display-none');
       }
     },
     _isfileTypeImage: function _isfileTypeImage(fileType) {
-      var fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
-      var imageTypes = void 0;
+      const fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
+      let imageTypes;
 
       if (App.imageFileTypes) {
         imageTypes = App.imageFileTypes;
@@ -419,8 +409,8 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       return false;
     },
     _isfileTypeAllowed: function _isfileTypeAllowed(fileType) {
-      var fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
-      var fileTypes = void 0;
+      const fType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
+      let fileTypes;
 
       if (App.nonViewableFileTypes) {
         fileTypes = App.nonViewableFileTypes;
@@ -440,12 +430,12 @@ define('crm/Views/Attachment/ViewAttachment', ['module', 'exports', 'dojo/_base/
       return false;
     },
     _sizeImage: function _sizeImage(containerNode, image) {
-      var contentBox = $(containerNode).parent(); // hack to get parent dimensions since child containers occupy 0 height as they are not absolute anymore
-      var iH = image.height;
-      var iW = image.width;
-      var wH = contentBox.height();
-      var wW = contentBox.width();
-      var scale = 1;
+      const contentBox = $(containerNode).parent(); // hack to get parent dimensions since child containers occupy 0 height as they are not absolute anymore
+      const iH = image.height;
+      const iW = image.width;
+      let wH = contentBox.height();
+      let wW = contentBox.width();
+      let scale = 1;
 
       if (wH > 200) {
         wH = wH - 50;

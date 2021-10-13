@@ -32,11 +32,11 @@ define('crm/Models/OpportunityContact/Base', ['module', 'exports', 'dojo/_base/d
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('opportunityContactModel');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var opportunityResource = (0, _I18n2.default)('opportunityModel');
+  const resource = (0, _I18n2.default)('opportunityContactModel');
+  const contactResource = (0, _I18n2.default)('contactModel');
+  const opportunityResource = (0, _I18n2.default)('opportunityModel');
 
-  var __class = (0, _declare2.default)('crm.Models.OpportunityContact.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.OpportunityContact.Base', [_ModelBase3.default], {
     entityName: 'OpportunityContact',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
@@ -55,7 +55,7 @@ define('crm/Models/OpportunityContact/Base', ['module', 'exports', 'dojo/_base/d
       }]);
     },
     createRelationships: function createRelationships() {
-      var rel = this.relationships || (this.relationships = [{
+      const rel = this.relationships || (this.relationships = [{
         name: 'Contact',
         displayName: contactResource.entityDisplayName,
         type: 'OneToOne',

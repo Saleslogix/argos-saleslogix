@@ -17,15 +17,15 @@ define('crm/Aggregate', ['module', 'exports', 'dojo/_base/lang'], function (modu
    * @classdesc Aggregate functions. Currently used in metric widgets.
    * @static
    */
-  var __class = _lang2.default.setObject('crm.Aggregate', /** @lends module:crm/Aggregate */{
+  const __class = _lang2.default.setObject('crm.Aggregate', /** @lends module:crm/Aggregate */{
     /**
      * Average
      * @param {Array} data Array of objects that contain a value property
      * @return {Number}
      */
     avg: function avg(data) {
-      var aggr = window.crm.Aggregate;
-      var average = aggr.sum(data) / aggr.count(data);
+      const aggr = window.crm.Aggregate;
+      const average = aggr.sum(data) / aggr.count(data);
       return isNaN(average) ? 0 : average;
     },
     /**
@@ -60,7 +60,7 @@ define('crm/Aggregate', ['module', 'exports', 'dojo/_base/lang'], function (modu
      * @return {Number}
      */
     max: function max(data) {
-      var flatten = data.map(function (item) {
+      const flatten = data.map(item => {
         return item.value;
       });
 
@@ -72,7 +72,7 @@ define('crm/Aggregate', ['module', 'exports', 'dojo/_base/lang'], function (modu
      * @return {Number}
      */
     min: function min(data) {
-      var flatten = data.map(function (item) {
+      const flatten = data.map(item => {
         return item.value;
       });
 
@@ -84,12 +84,12 @@ define('crm/Aggregate', ['module', 'exports', 'dojo/_base/lang'], function (modu
      * @return {Number}
      */
     sum: function sum(data) {
-      var total = 0;
+      let total = 0;
       if (!Array.isArray(data)) {
         return total;
       }
 
-      total = data.reduce(function (p, c) {
+      total = data.reduce((p, c) => {
         return p + c.value;
       }, 0);
 

@@ -35,9 +35,9 @@ define('crm/Integrations/BOE/Views/ERPInvoiceItems/Detail', ['module', 'exports'
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  var resource = (0, _I18n2.default)('erpInvoiceItemsDetail');
+  const resource = (0, _I18n2.default)('erpInvoiceItemsDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPInvociesItems.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     invoiceNumberText: resource.invoiceNumberText,

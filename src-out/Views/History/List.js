@@ -61,12 +61,12 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('historyList');
-  var activityTypeResource = (0, _I18n2.default)('activityTypeText');
-  var hashTagResource = (0, _I18n2.default)('historyListHashTags');
-  var dtFormatResource = (0, _I18n2.default)('historyListDateTimeFormat');
+  const resource = (0, _I18n2.default)('historyList');
+  const activityTypeResource = (0, _I18n2.default)('activityTypeText');
+  const hashTagResource = (0, _I18n2.default)('historyListHashTags');
+  const dtFormatResource = (0, _I18n2.default)('historyListDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Views.History.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Views.History.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default], {
     format: _Format2.default,
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">', '{% if ($.Type === "atNote") { %}', '{%: $$.formatDate($.ModifyDate) %}', '{% } else { %}', '{%: $$.formatDate($.CompletedDate) %}', '{% } %}', '</p>', '<p class="micro-text">{%= $$.nameTemplate.apply($) %}</p>', '{% if($.Description) { %}', '<p class="micro-text">{%= $$.regardingText + $$.formatPicklist("Description")($.Description) %}</p>', '{% } %}', '<div class="note-text-item">', '<div class="note-text-wrap">', '{%: $.Notes %}', '</div>', '</div>']),
@@ -116,7 +116,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     entityName: 'History',
     hashTagQueries: {
       'my-history': function myHistory() {
-        return 'UserId eq "' + App.context.user.$key + '"';
+        return `UserId eq "${App.context.user.$key}"`;
       },
       note: 'Type eq "atNote"',
       phonecall: 'Type eq "atPhoneCall"',
@@ -164,9 +164,9 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       return selection.data.ContactId || selection.data.LeadId;
     },
     navigateToContactOrLead: function navigateToContactOrLead(theAction, selection) {
-      var entity = this.resolveContactOrLeadEntity(selection.data);
-      var viewId = void 0;
-      var options = void 0;
+      const entity = this.resolveContactOrLeadEntity(selection.data);
+      let viewId;
+      let options;
 
       switch (entity) {
         case 'Contact':
@@ -186,14 +186,14 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
         default:
       }
 
-      var view = App.getView(viewId);
+      const view = App.getView(viewId);
 
       if (view && options) {
         view.show(options);
       }
     },
     resolveContactOrLeadEntity: function resolveContactOrLeadEntity(entry) {
-      var exists = this.existsRE;
+      const exists = this.existsRE;
 
       if (entry) {
         if (exists.test(entry.LeadId)) {
@@ -205,11 +205,11 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       }
     },
     formatDate: function formatDate(date) {
-      var startDate = moment(_Convert2.default.toDateFromString(date));
-      var nextDate = startDate.clone().add({
+      const startDate = moment(_Convert2.default.toDateFromString(date));
+      const nextDate = startDate.clone().add({
         hours: 24
       });
-      var fmt = this.dateFormatText;
+      let fmt = this.dateFormatText;
 
       if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
         fmt = App.is24HourClock() ? this.hourMinuteFormatText24 : this.hourMinuteFormatText;
@@ -221,7 +221,7 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       return _Format2.default.picklist(this.app.picklistService, this._model, property);
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      return 'upper(Description) like "%' + this.escapeSearchQuery(searchQuery.toUpperCase()) + '%"';
+      return `upper(Description) like "%${this.escapeSearchQuery(searchQuery.toUpperCase())}%"`;
     },
     createIndicatorLayout: function createIndicatorLayout() {
       return this.itemIndicators || (this.itemIndicators = [{
@@ -235,24 +235,24 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
     },
     hasBeenTouched: function hasBeenTouched(entry) {
       if (entry.ModifyDate) {
-        var modifiedDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
-        var currentDate = moment().endOf('day');
-        var weekAgo = moment().subtract(1, 'weeks');
+        const modifiedDate = moment(_Convert2.default.toDateFromString(entry.ModifyDate));
+        const currentDate = moment().endOf('day');
+        const weekAgo = moment().subtract(1, 'weeks');
 
         return modifiedDate.isAfter(weekAgo) && modifiedDate.isBefore(currentDate);
       }
       return false;
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var type = entry && entry.Type;
+      const type = entry && entry.Type;
       return this._getItemIconClass(type);
     },
     getTitle: function getTitle(entry) {
-      var type = entry && entry.Type;
+      const type = entry && entry.Type;
       return this.activityTypeText[type] || this.titleText;
     },
     _getItemIconClass: function _getItemIconClass(type) {
-      var cls = this.activityTypeIcon[type];
+      let cls = this.activityTypeIcon[type];
       if (!cls) {
         cls = this.itemIconClass;
       }
@@ -262,9 +262,9 @@ define('crm/Views/History/List', ['module', 'exports', 'dojo/_base/declare', '..
       this.inherited(init, arguments);
     },
     activateEntry: function activateEntry(params) {
-      var entry = this.entries[params.key];
+      const entry = this.entries[params.key];
       if (entry) {
-        var activityParams = params;
+        const activityParams = params;
         activityParams.descriptor = this.getTitle(entry);
         this.inherited(arguments, [activityParams]);
       } else {
