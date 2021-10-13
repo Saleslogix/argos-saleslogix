@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/Models/Quote/Offline', ['module', 'exports', 'dojo/
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Quote.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Quote.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'quote_offline_model'
   });
 

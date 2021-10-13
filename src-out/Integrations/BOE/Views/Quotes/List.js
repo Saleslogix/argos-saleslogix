@@ -48,9 +48,9 @@ define('crm/Integrations/BOE/Views/Quotes/List', ['module', 'exports', 'dojo/_ba
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('quotesList');
+  const resource = (0, _I18n2.default)('quotesList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Quotes.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Quotes.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     formatter: _Format2.default,
     util: _Utility2.default,
     // Templates
@@ -111,28 +111,26 @@ define('crm/Integrations/BOE/Views/Quotes/List', ['module', 'exports', 'dojo/_ba
       }]);
     },
     onAddLineItems: function onAddLineItems(evt, selection) {
-      var _this = this;
-
-      var key = selection && selection.data && selection.data.$key;
+      const key = selection && selection.data && selection.data.$key;
       if (key) {
-        var quoteModel = App.ModelManager.getModel(_Names2.default.QUOTE, _Types2.default.SDATA);
-        var isClosedPromise = quoteModel.isClosed(key);
-        isClosedPromise.then(function (isClosed) {
+        const quoteModel = App.ModelManager.getModel(_Names2.default.QUOTE, _Types2.default.SDATA);
+        const isClosedPromise = quoteModel.isClosed(key);
+        isClosedPromise.then(isClosed => {
           if (isClosed) {
             App.modal.createSimpleAlert({
               title: 'alert',
-              content: _this.quoteClosedText
+              content: this.quoteClosedText
             });
             return;
           }
-          _this.navigateToLineItems(evt, selection);
+          this.navigateToLineItems(evt, selection);
         });
       }
     },
     navigateToLineItems: function navigateToLineItems(evt, selection) {
-      var view = App.getView('quote_line_edit');
+      const view = App.getView('quote_line_edit');
       if (view) {
-        var options = {
+        const options = {
           insert: true,
           context: {
             Quote: selection.data
@@ -142,11 +140,11 @@ define('crm/Integrations/BOE/Views/Quotes/List', ['module', 'exports', 'dojo/_ba
       }
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(QuoteNumber) like "' + q + '%" or Account.AccountName like "' + q + '%" or ErpExtId like "' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(QuoteNumber) like "${q}%" or Account.AccountName like "${q}%" or ErpExtId like "${q}%"`;
     },
     formatErpStatus: function formatErpStatus(value) {
-      var text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);
+      const text = App.picklistService.getPicklistItemTextByCode('ErpQuoteStatus', value);
       if (text) {
         return text;
       }

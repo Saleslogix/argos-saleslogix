@@ -3,7 +3,7 @@ define('crm/reducers/index', ['exports', './config', './user', './speedsearch'],
     value: true
   });
   exports.app = undefined;
-  var app = exports.app = Redux.combineReducers({
+  const app = exports.app = Redux.combineReducers({
     user: _user.user,
     config: _config.config,
     speedsearch: _speedsearch.speedsearch

@@ -23,7 +23,7 @@ define('crm/Integrations/BOE/Models/ErpInvoice/SData', ['module', 'exports', 'do
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpInvoice.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpInvoice.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'erpinvoice_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('erpContactAssociationsList');
+  const resource = (0, _I18n2.default)('erpContactAssociationsList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPContactAssociations.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPContactAssociations.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.Contact.NameLF %}</p>', '<p class="micro-text">{%: $.Account.AccountName %}</p>']),
 
@@ -75,9 +75,9 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
      */
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
       // Ignore ContactAssociation and navigate to contact detail view
-      var contact = this.entries[key].Contact;
-      var view = this.app.getView(this.detailView);
-      var options = {
+      const contact = this.entries[key].Contact;
+      const view = this.app.getView(this.detailView);
+      let options = {
         descriptor: contact.NameLF, // keep for backwards compat
         title: contact.NameLF,
         key: contact.$key,
@@ -93,8 +93,8 @@ define('crm/Integrations/BOE/Views/ERPContactAssociations/List', ['module', 'exp
       }
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(Contact.NameLF) like "%' + q + '%" or upper(Account.AccountName) like "%' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(Contact.NameLF) like "%${q}%" or upper(Account.AccountName) like "%${q}%"`;
     }
   });
 

@@ -26,7 +26,7 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
    *   2. unloadRightDrawer
    * @since 3.0
    */
-  var __class = (0, _declare2.default)('crm.Views._RightDrawerBaseMixin', null, /** @lends module:crm/Views/_RightDrawerBaseMixin.prototype */{
+  const __class = (0, _declare2.default)('crm.Views._RightDrawerBaseMixin', null, /** @lends module:crm/Views/_RightDrawerBaseMixin.prototype */{
     drawerLoaded: false,
     /**
      * @property {Boolean}
@@ -46,7 +46,7 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
       }
 
       this.setupRightDrawer();
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.refresh();
         // this.drawerLoaded = true;
@@ -63,7 +63,7 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
       }
     },
     onToolLayoutCreated: function onToolLayoutCreated(tools) {
-      var theTools = tools || {
+      const theTools = tools || {
         tbar: []
       };
       if (!this.toolsAdded) {
@@ -90,7 +90,7 @@ define('crm/Views/_RightDrawerBaseMixin', ['module', 'exports', 'dojo/_base/decl
         return;
       }
 
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         this.unloadRightDrawer();
         drawer.clear();

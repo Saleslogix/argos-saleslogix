@@ -35,7 +35,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
   /**
    * @module crm/Views/_SpeedSearchRightDrawerListMixin
    */
-  var resource = (0, _I18n2.default)('speedSearchRightDrawerListMixin');
+  const resource = (0, _I18n2.default)('speedSearchRightDrawerListMixin');
 
   /**
    * @class
@@ -44,7 +44,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
    * @mixes module:crm/Views/_RightDrawerBaseMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_SpeedSearchRightDrawerListMixin.prototype */{
+  const __class = (0, _declare2.default)('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin3.default], /** @lends module:crm/Views/_SpeedSearchRightDrawerListMixin.prototype */{
     // Localization
     indexSectionText: resource.indexSectionText,
 
@@ -59,29 +59,25 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
     },
     setDefaultIndexPreferences: function setDefaultIndexPreferences() {
       if (!App.preferences.speedSeacrchIndexes) {
-        var defaults = this.getDefaultIndexPrefences();
+        const defaults = this.getDefaultIndexPrefences();
         App.preferences.speedSearchIndexes = defaults;
         App.persistPreferences();
       }
     },
     getDefaultIndexPrefences: function getDefaultIndexPrefences() {
-      var _this = this;
-
-      var defaults = [];
+      const defaults = [];
       if (this.indexes) {
-        this.indexes.forEach(function (index) {
+        this.indexes.forEach(index => {
           defaults.push({
             indexName: index.indexName,
-            enabled: _this._isIndexActive(index.indexName)
+            enabled: this._isIndexActive(index.indexName)
           });
         });
       }
       return defaults;
     },
     setupRightDrawer: function setupRightDrawer() {
-      var _this2 = this;
-
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         _lang2.default.mixin(drawer, this._createActions());
         drawer.setLayout(this.createRightDrawerLayout());
@@ -90,17 +86,17 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
         });
 
         if (this.rebuildWidgets) {
-          App.viewSettingsModal.element.on('close', function () {
-            if (_this2._hasChangedIndexPrefs) {
-              _this2.rebuildWidgets();
-              _this2._hasChangedIndexPrefs = false;
+          App.viewSettingsModal.element.on('close', () => {
+            if (this._hasChangedIndexPrefs) {
+              this.rebuildWidgets();
+              this._hasChangedIndexPrefs = false;
             }
           });
         }
       }
     },
     unloadRightDrawer: function unloadRightDrawer() {
-      var drawer = App.getView('right_drawer');
+      const drawer = App.getView('right_drawer');
       if (drawer) {
         drawer.setLayout([]);
         drawer.getGroupForEntry = function snapperOff() {};
@@ -113,16 +109,16 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
     },
     _createActions: function _createActions() {
       // These actions will get mixed into the right drawer view.
-      var actions = {
+      const actions = {
         indexClicked: _lang2.default.hitch(this, function onIndexClicked(params) {
-          var prefs = App.preferences && App.preferences.speedSearchIndexes;
+          const prefs = App.preferences && App.preferences.speedSearchIndexes;
 
-          var results = prefs.filter(function (pref) {
+          const results = prefs.filter(pref => {
             return pref.indexName === params.indexname; // the index name is lower cased.
           });
           this.activateIndex(params.indexname);
           if (results.length > 0) {
-            var enabled = !!results[0].enabled;
+            const enabled = !!results[0].enabled;
             results[0].enabled = !enabled;
             App.persistPreferences();
             this._hasChangedIndexPrefs = true;
@@ -142,37 +138,33 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', ['module', 'exports', 'dojo
       }
     },
     createRightDrawerLayout: function createRightDrawerLayout() {
-      var _this3 = this;
+      const layout = [];
 
-      var layout = [];
-
-      var indexSection = {
+      const indexSection = {
         id: 'actions',
         children: []
       };
-      var prefs = App.preferences && App.preferences.speedSearchIndexes;
+      const prefs = App.preferences && App.preferences.speedSearchIndexes;
       if (this.indexes) {
-        for (var i in this.indexes) {
+        for (const i in this.indexes) {
           if (this.indexes.hasOwnProperty(i)) {
-            (function () {
-              var index = _this3.indexes[i];
-              var indexPref = prefs.filter(function (pref) {
-                // eslint-disable-line
-                return pref.indexName === index.indexName;
+            let index = this.indexes[i];
+            const indexPref = prefs.filter(pref => {
+              // eslint-disable-line
+              return pref.indexName === index.indexName;
+            });
+            index = this.indexes[i];
+            if (index.hasOwnProperty('indexName')) {
+              indexSection.children.push({
+                name: index.indexName,
+                action: 'indexClicked',
+                title: this.indexesText[index.indexName] || index.indexName,
+                dataProps: {
+                  indexname: index.indexName,
+                  enabled: !!indexPref[0].enabled
+                }
               });
-              index = _this3.indexes[i];
-              if (index.hasOwnProperty('indexName')) {
-                indexSection.children.push({
-                  name: index.indexName,
-                  action: 'indexClicked',
-                  title: _this3.indexesText[index.indexName] || index.indexName,
-                  dataProps: {
-                    indexname: index.indexName,
-                    enabled: !!indexPref[0].enabled
-                  }
-                });
-              }
-            })();
+            }
           }
         }
       }

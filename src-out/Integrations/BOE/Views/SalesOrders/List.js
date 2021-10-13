@@ -48,9 +48,9 @@ define('crm/Integrations/BOE/Views/SalesOrders/List', ['module', 'exports', 'doj
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('salesOrdersList');
+  const resource = (0, _I18n2.default)('salesOrdersList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.SalesOrders.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     formatter: _Format2.default,
     util: _Utility2.default,
     // Templates
@@ -110,28 +110,26 @@ define('crm/Integrations/BOE/Views/SalesOrders/List', ['module', 'exports', 'doj
       }]);
     },
     onAddLineItems: function onAddLineItems(evt, selection) {
-      var _this = this;
-
-      var key = selection && selection.data && selection.data.$key;
+      const key = selection && selection.data && selection.data.$key;
       if (key) {
-        var salesOrderModel = App.ModelManager.getModel(_Names2.default.SALESORDER, _Types2.default.SDATA);
-        var isClosedPromise = salesOrderModel.isClosed(key);
-        isClosedPromise.then(function (isClosed) {
+        const salesOrderModel = App.ModelManager.getModel(_Names2.default.SALESORDER, _Types2.default.SDATA);
+        const isClosedPromise = salesOrderModel.isClosed(key);
+        isClosedPromise.then(isClosed => {
           if (isClosed) {
             App.modal.createSimpleAlert({
               title: 'alert',
-              content: _this.statusLabelText + ': ' + (selection.data.Status || '')
+              content: `${this.statusLabelText}: ${selection.data.Status || ''}`
             });
             return;
           }
-          _this.navigateToLineItems(evt, selection);
+          this.navigateToLineItems(evt, selection);
         });
       }
     },
     navigateToLineItems: function navigateToLineItems(evt, selection) {
-      var view = App.getView('salesorder_item_edit');
+      const view = App.getView('salesorder_item_edit');
       if (view) {
-        var options = {
+        const options = {
           insert: true,
           context: {
             SalesOrder: selection.data
@@ -141,11 +139,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/List', ['module', 'exports', 'doj
       }
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return '(upper(SalesOrderNumber) like "' + q + '%" ) or (upper(ErpExtId) like "' + 0 + '%" ) or (upper(CustomerPurchaseOrderNumber) like "' + q + '%" ) or (upper(Account.AccountName) like "' + q + '%" ) ';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `(upper(SalesOrderNumber) like "${q}%" ) or (upper(ErpExtId) like "${0}%" ) or (upper(CustomerPurchaseOrderNumber) like "${q}%" ) or (upper(Account.AccountName) like "${q}%" ) `;
     },
     formatErpStatus: function formatErpStatus(value) {
-      var text = App.picklistService.getPicklistItemTextByCode('ErpSalesOrderStatus', value);
+      const text = App.picklistService.getPicklistItemTextByCode('ErpSalesOrderStatus', value);
       if (text) {
         return text;
       }

@@ -44,9 +44,9 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('salesDashboardWidget');
+  const resource = (0, _I18n2.default)('salesDashboardWidget');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [_DashboardWidget2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.SalesDashboardWidget', [_DashboardWidget2.default], {
     // Localization
     recentRevenueText: resource.recentRevenueText,
     recentCostText: resource.recentCostText,
@@ -138,14 +138,14 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
     querySelect: ['AccountName'],
     queryArgs: null,
     getWhere: function getWhere() {
-      return 'Id eq \'' + this.parentEntry.$key + '\'';
+      return `Id eq '${this.parentEntry.$key}'`;
     },
     getBaseQuery: function getBaseQuery(entry) {
-      var query = '(Account.Id eq "' + entry.$key + '" and (ErpStatus eq "' + this.openCode + '" or ErpStatus eq "' + this.partialPaidCode + '" or ErpStatus eq "' + this.pendingCode + '" or ErpStatus eq "' + this.paidCode + '"))';
+      const query = `(Account.Id eq "${entry.$key}" and (ErpStatus eq "${this.openCode}" or ErpStatus eq "${this.partialPaidCode}" or ErpStatus eq "${this.pendingCode}" or ErpStatus eq "${this.paidCode}"))`;
       return query;
     },
     createRangeLayout: function createRangeLayout() {
-      var rangeLayout = [{
+      const rangeLayout = [{
         value: 30
       }, {
         value: 60
@@ -168,7 +168,7 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
          * title: title of the widget,
          * valueNeeded: value that the widget consumes
        */
-      var metricLayout = [{
+      const metricLayout = [{
         formatter: 'bigNumber',
         formatModule: this.formatModule,
         title: this.recentRevenueText,
@@ -212,30 +212,30 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
       // This function builds the query args array in an order that matches the queryIndex values needed by the values array
       this.queryArgs = [];
       this.queryArgs.push(['erpInvoices', {
-        _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.dayValue, null),
+        _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.dayValue, null)}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal'
       }], ['erpInvoices', {
-        _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.dayValue, null),
+        _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.dayValue, null)}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumExtendedCost'
       }]);
 
       if (!this.queriedOnce) {
         this.queryArgs.push(['erpInvoices', {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.yearDays, null),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.yearDays, null)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumGrandTotal'
         }], ['erpInvoices', {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumGrandTotal'
         }], ['erpInvoices', {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', this.yearDays, null),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', this.yearDays, null)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumExtendedCost'
         }], ['erpInvoices', {
-          _activeFilter: this.getBaseQuery(entry) + ' and ' + this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays),
+          _activeFilter: `${this.getBaseQuery(entry)} and ${this.pastDays('ErpDocumentDate', 2 * this.yearDays, this.yearDays)}`,
           _filterName: 'ErpStatus',
           _metricName: 'SumExtendedCost'
         }]);
@@ -243,10 +243,10 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
       this.queriedOnce = true;
     },
     pastDays: function pastDays(property, from, to) {
-      var now = moment();
+      const now = moment();
 
-      var pastWeekStart = now.clone().subtract(from, 'days').startOf('day');
-      var today = void 0;
+      const pastWeekStart = now.clone().subtract(from, 'days').startOf('day');
+      let today;
 
       if (!to) {
         today = now.clone().endOf('day');
@@ -254,11 +254,11 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
         today = now.clone().subtract(to, 'days').endOf('day');
       }
 
-      var query = _string2.default.substitute('((' + property + ' between @${0}@ and @${1}@) or (' + property + ' between @${2}@ and @${3}@))', [_Convert2.default.toIsoStringFromDate(pastWeekStart.toDate()), _Convert2.default.toIsoStringFromDate(today.toDate()), pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'), today.format('YYYY-MM-DDT23:59:59[Z]')]);
+      const query = _string2.default.substitute(`((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`, [_Convert2.default.toIsoStringFromDate(pastWeekStart.toDate()), _Convert2.default.toIsoStringFromDate(today.toDate()), pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'), today.format('YYYY-MM-DDT23:59:59[Z]')]);
       return query;
     }
   });
-  var rvm = new _RelatedViewManager2.default();
+  const rvm = new _RelatedViewManager2.default();
   rvm.registerType('account_sales_dashboard_widget', __class);
   _lang2.default.setObject('icboe.Views.Account.SalesDashboardWidget', __class);
   exports.default = __class;

@@ -40,9 +40,9 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('contactDetail');
+  const resource = (0, _I18n2.default)('contactDetail');
 
-  var __class = (0, _declare2.default)('crm.Views.Contact.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Views.Contact.Detail', [_Detail2.default], {
     // Localization
     accountText: resource.accountText,
     acctMgrText: resource.acctMgrText,
@@ -93,7 +93,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
       _Action2.default.navigateToHistoryInsert(entry);
     },
     recordCallToHistory: function recordCallToHistory(phoneNumber) {
-      var entry = {
+      const entry = {
         $name: 'History',
         Type: 'atPhoneCall',
         ContactName: this.entry.NameLF,
@@ -111,14 +111,14 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
       App.initiateCall(phoneNumber);
     },
     recordEmailToHistory: function recordEmailToHistory(email) {
-      var entry = {
+      const entry = {
         $name: 'History',
         Type: 'atEMail',
         ContactName: this.entry.NameLF,
         ContactId: this.entry.$key,
         AccountName: this.entry.AccountName,
         AccountId: this.entry.Account.$key,
-        Description: 'Emailed ' + this.entry.Name,
+        Description: `Emailed ${this.entry.Name}`,
         UserId: App.context && App.context.user.$key,
         UserName: App.context && App.context.user.$descriptor,
         Duration: 15,
@@ -150,7 +150,7 @@ define('crm/Views/Contact/Detail', ['module', 'exports', 'dojo/_base/declare', '
       App.navigateToActivityInsertView();
     },
     addNote: function addNote() {
-      var view = App.getView(this.noteEditView);
+      const view = App.getView(this.noteEditView);
       if (view) {
         view.show({
           template: {},

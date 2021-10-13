@@ -36,7 +36,7 @@ define('crm/Integrations/ActivityAssociations/Models/ActivityAssociation/Offline
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.ActivityAssociation.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.ActivityAssociations.Models.ActivityAssociation.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'activity_association_offline_model'
   });
 

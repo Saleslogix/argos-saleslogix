@@ -32,9 +32,9 @@ define('crm/Views/HistoryAttendee/Detail', ['module', 'exports', 'dojo/_base/dec
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('historyAttendeeDetail');
+  const resource = (0, _I18n2.default)('historyAttendeeDetail');
 
-  var __class = (0, _declare2.default)('crm.Views.HistoryAttendee.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Views.HistoryAttendee.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     entityText: resource.entityText,

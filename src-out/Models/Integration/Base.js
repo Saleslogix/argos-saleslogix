@@ -15,7 +15,7 @@ define('crm/Models/Integration/Base', ['module', 'exports', 'dojo/_base/declare'
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Models.Integration.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.Integration.Base', [_ModelBase3.default], {
     resourceKind: 'integrations',
     entityName: 'Integration',
     modelName: _Names2.default.INTEGRATION

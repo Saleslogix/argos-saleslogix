@@ -27,45 +27,22 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
     };
   }
 
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
+  /* Copyright 2017 Infor
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *    http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
 
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
-
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
-
-      return _arr;
-    }
-
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
-
-  var __class = (0, _declare2.default)('crm.Models.Activity.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.Activity.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'activity_sdata_model',
 
     createQueryModels: function createQueryModels() {
@@ -85,14 +62,14 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
       }];
     },
     createRequestPromise: function createRequestPromise(key, querySelect, resourceKind, contractName, options) {
-      var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setResourceKind(resourceKind).setResourceSelector('\'' + key + '\'').setContractName(contractName).setQueryArg('select', querySelect.join(','));
-      var def = new _Deferred2.default();
+      const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setResourceKind(resourceKind).setResourceSelector(`'${key}'`).setContractName(contractName).setQueryArg('select', querySelect.join(','));
+      const def = new _Deferred2.default();
 
       request.read({
-        success: function success(data) {
+        success: data => {
           def.resolve(data);
         },
-        failure: function failure(response, o) {
+        failure: (response, o) => {
           _ErrorManager2.default.addError(response, o, options, 'failure');
           def.reject(response);
         }
@@ -100,20 +77,14 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
       return def.promise;
     },
     getEntry: function getEntry(options) {
-      var _this = this;
+      const results$ = this.inherited(getEntry, arguments);
+      return results$.then(entry => {
+        const leader$ = this.createRequestPromise(entry.Leader.$key, ['UserInfo/FirstName', 'UserInfo/LastName'], 'users', 'dynamic', options);
+        const queryModel = this._getQueryModelByName('detail');
+        const recurrence$ = this.createRequestPromise(entry.$key.split(this.recurringActivityIdSeparator).shift(), queryModel.querySelect, this.resourceKind, this.contractName, options);
+        const picklists$ = Promise.all([App.picklistService.requestPicklist((0, _ActivityTypePicklists.getPicklistByActivityType)(entry.Type, 'Category')), App.picklistService.requestPicklist((0, _ActivityTypePicklists.getPicklistByActivityType)(entry.Type, 'Description')), App.picklistService.requestPicklist('Priorities')]);
 
-      var results$ = this.inherited(getEntry, arguments);
-      return results$.then(function (entry) {
-        var leader$ = _this.createRequestPromise(entry.Leader.$key, ['UserInfo/FirstName', 'UserInfo/LastName'], 'users', 'dynamic', options);
-        var queryModel = _this._getQueryModelByName('detail');
-        var recurrence$ = _this.createRequestPromise(entry.$key.split(_this.recurringActivityIdSeparator).shift(), queryModel.querySelect, _this.resourceKind, _this.contractName, options);
-        var picklists$ = Promise.all([App.picklistService.requestPicklist((0, _ActivityTypePicklists.getPicklistByActivityType)(entry.Type, 'Category')), App.picklistService.requestPicklist((0, _ActivityTypePicklists.getPicklistByActivityType)(entry.Type, 'Description')), App.picklistService.requestPicklist('Priorities')]);
-
-        return (0, _all2.default)([leader$, recurrence$, picklists$]).then(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 2),
-              leader = _ref2[0],
-              recurrence = _ref2[1];
-
+        return (0, _all2.default)([leader$, recurrence$, picklists$]).then(([leader, recurrence]) => {
           entry.Leader = leader;
           entry.recurrence = recurrence;
           return entry;
@@ -121,7 +92,7 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
       });
     },
     completeActivity: function completeActivity(entry) {
-      var completeActivityEntry = {
+      const completeActivityEntry = {
         $name: 'ActivityComplete',
         request: {
           entity: {
@@ -136,8 +107,8 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
       if (entry.ResultCode) {
         completeActivityEntry.resultCode = entry.ResultCode;
       }
-      var request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setContractName(this.contractName).setOperationName('Complete');
-      var def = new _Deferred2.default();
+      const request = new Sage.SData.Client.SDataServiceOperationRequest(App.getService()).setResourceKind(this.resourceKind).setContractName(this.contractName).setOperationName('Complete');
+      const def = new _Deferred2.default();
 
       request.execute(completeActivityEntry, {
         success: function success() {
@@ -155,7 +126,7 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
     onActivityCompleted: function onActivityCompleted(entry) {
       if (App.enableOfflineSupport) {
         try {
-          var oModel = App.ModelManager.getModel(this.modelName, _Types2.default.OFFLINE);
+          const oModel = App.ModelManager.getModel(this.modelName, _Types2.default.OFFLINE);
           oModel.onActivityCompleted(entry);
         } catch (error) {// eslint-disable-line
           // Log error
@@ -165,7 +136,7 @@ define('crm/Models/Activity/SData', ['module', 'exports', 'dojo/_base/declare', 
     onEntryUpdated: function onEntryUpdated(entry, orginalEntry) {
       if (App.enableOfflineSupport) {
         try {
-          var oModel = App.ModelManager.getModel(this.modelName, _Types2.default.OFFLINE);
+          const oModel = App.ModelManager.getModel(this.modelName, _Types2.default.OFFLINE);
           oModel.onEntryUpdated(entry, orginalEntry);
         } catch (error) {// eslint-disable-line
           // Log error

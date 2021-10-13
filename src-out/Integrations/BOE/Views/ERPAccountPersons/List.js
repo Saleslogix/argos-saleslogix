@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/ERPAccountPersons/List', ['module', 'exports'
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('erpAccountPersonsList');
+  const resource = (0, _I18n2.default)('erpAccountPersonsList');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPAccountPersons.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPAccountPersons.List', [_List2.default, _RightDrawerListMixin3.default, _MetricListMixin3.default, _GroupListMixin3.default], {
     // Templates
     // TODO: Need template from PM
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.ErpPerson.Name %}</p>', '<p class="micro-text address">{%: $.ErpPerson.Address.FullAddress %}</p>']),
@@ -67,8 +67,8 @@ define('crm/Integrations/BOE/Views/ERPAccountPersons/List', ['module', 'exports'
     groupsEnabled: true,
 
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(ErpPerson.Name) like "%' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(ErpPerson.Name) like "%${q}%"`;
     }
   });
 

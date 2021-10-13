@@ -27,22 +27,22 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
     };
   }
 
-  var resource = (0, _I18n2.default)('addAccountContact'); /* Copyright 2017 Infor
-                                                            *
-                                                            * Licensed under the Apache License, Version 2.0 (the "License");
-                                                            * you may not use this file except in compliance with the License.
-                                                            * You may obtain a copy of the License at
-                                                            *
-                                                            *    http://www.apache.org/licenses/LICENSE-2.0
-                                                            *
-                                                            * Unless required by applicable law or agreed to in writing, software
-                                                            * distributed under the License is distributed on an "AS IS" BASIS,
-                                                            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                            * See the License for the specific language governing permissions and
-                                                            * limitations under the License.
-                                                            */
+  const resource = (0, _I18n2.default)('addAccountContact'); /* Copyright 2017 Infor
+                                                              *
+                                                              * Licensed under the Apache License, Version 2.0 (the "License");
+                                                              * you may not use this file except in compliance with the License.
+                                                              * You may obtain a copy of the License at
+                                                              *
+                                                              *    http://www.apache.org/licenses/LICENSE-2.0
+                                                              *
+                                                              * Unless required by applicable law or agreed to in writing, software
+                                                              * distributed under the License is distributed on an "AS IS" BASIS,
+                                                              * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                              * See the License for the specific language governing permissions and
+                                                              * limitations under the License.
+                                                              */
 
-  var __class = (0, _declare2.default)('crm.Views.AddAccountContact', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Views.AddAccountContact', [_Edit2.default], {
     // Localization
     accountNameText: resource.accountNameText,
     accountStatusTitleText: resource.accountStatusTitleText,
@@ -86,7 +86,7 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
       this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
     },
     getValues: function getValues() {
-      var values = this.inherited(getValues, arguments);
+      const values = this.inherited(getValues, arguments);
 
       _Utility2.default.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
       _Utility2.default.setValue(values, 'Contacts.$resources[0].AccountName', values.AccountName);
@@ -94,14 +94,14 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
       return values;
     },
     formatDependentPicklist: function formatDependentPicklist(dependentValue, fmt) {
-      var dependValue = dependentValue;
+      let dependValue = dependentValue;
       if (!_lang2.default.isArray(dependValue)) {
         dependValue = [dependValue];
       }
       return _string2.default.substitute(fmt, [dependValue]);
     },
     onInsertCompleted: function onInsertCompleted(entry) {
-      var view = App.getView('account_detail');
+      const view = App.getView('account_detail');
       if (view) {
         view.show({
           descriptor: entry.$descriptor,
@@ -114,8 +114,8 @@ define('crm/Views/AddAccountContact', ['module', 'exports', 'dojo/_base/declare'
       }
     },
     onContactAddressChange: function onContactAddressChange(value) {
-      var address = void 0;
-      var address1 = void 0;
+      let address;
+      let address1;
       // Copy contact address down into the account address if the account address is not set
       if (this.fields.Address) {
         address = this.fields.Address.getValue();

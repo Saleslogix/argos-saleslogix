@@ -36,16 +36,16 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityModel');
-  var attendeeResource = (0, _I18n2.default)('activityAttendeeModel');
-  var accountResource = (0, _I18n2.default)('accountModel');
-  var contactResource = (0, _I18n2.default)('contactModel');
-  var oppResource = (0, _I18n2.default)('opportunityModel');
-  var ticketResource = (0, _I18n2.default)('ticketModel');
-  var leadResource = (0, _I18n2.default)('leadModel');
-  var activityTypeResource = (0, _I18n2.default)('activityTypeText');
+  const resource = (0, _I18n2.default)('activityModel');
+  const attendeeResource = (0, _I18n2.default)('activityAttendeeModel');
+  const accountResource = (0, _I18n2.default)('accountModel');
+  const contactResource = (0, _I18n2.default)('contactModel');
+  const oppResource = (0, _I18n2.default)('opportunityModel');
+  const ticketResource = (0, _I18n2.default)('ticketModel');
+  const leadResource = (0, _I18n2.default)('leadModel');
+  const activityTypeResource = (0, _I18n2.default)('activityTypeText');
 
-  var __class = (0, _declare2.default)('crm.Models.Activity.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.Activity.Base', [_ModelBase3.default], {
     modelName: _Names2.default.ACTIVITY,
     entityName: 'Activity',
     entityDisplayName: resource.entityDisplayName,
@@ -73,7 +73,7 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
       }]);
     },
     createRelationships: function createRelationships() {
-      var rel = this.relationships || (this.relationships = [{
+      const rel = this.relationships || (this.relationships = [{
         name: 'Account',
         displayName: accountResource.entityDisplayName,
         type: 'ManyToOne',
@@ -113,25 +113,25 @@ define('crm/Models/Activity/Base', ['module', 'exports', 'dojo/_base/declare', '
       return rel;
     },
     getIconClass: function getIconClass(entry) {
-      var cls = this.iconClass;
+      let cls = this.iconClass;
       if (entry && entry.Type) {
         cls = _ActivityTypeIcon2.default[entry.Type];
         if (cls) {
-          cls = '' + cls;
+          cls = `${cls}`;
         }
       }
       return cls;
     },
     getEntityDescription: function getEntityDescription(entry) {
       if (entry) {
-        var type = entry.Type || '';
-        var titleText = this.activityTypeText[type] ? this.activityTypeText[type] + ' - ' + entry.Description : entry.$descriptor;
+        const type = entry.Type || '';
+        const titleText = this.activityTypeText[type] ? `${this.activityTypeText[type]} - ${entry.Description}` : entry.$descriptor;
         return titleText;
       }
       return '';
     },
     getTypeText: function getTypeText(entry) {
-      var name = '';
+      let name = '';
       if (entry && entry.Type) {
         name = _ActivityTypeText2.default[entry.Type];
       }

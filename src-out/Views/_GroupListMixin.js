@@ -51,7 +51,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
   /**
    * @module crm/Views/_GroupListMixin
    */
-  var resource = (0, _I18n2.default)('groupListMixin');
+  const resource = (0, _I18n2.default)('groupListMixin');
 
   /**
    * @class
@@ -60,7 +60,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
    * @classdesc Mixin for slx group list layouts.
    * @since 3.1
    */
-  var __class = (0, _declare2.default)('crm.Views._GroupListMixin', null, /** @lends module:crm/Views/_GroupListMixin.prototype */{
+  const __class = (0, _declare2.default)('crm.Views._GroupListMixin', null, /** @lends module:crm/Views/_GroupListMixin.prototype */{
     noDefaultGroupText: resource.noDefaultGroupText,
     currentGroupNotFoundText: resource.currentGroupNotFoundText,
     groupTemplateSummaryText: resource.groupTemplateSummaryText,
@@ -115,7 +115,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
     },
     getTitle: function getTitle(entry, labelProperty) {
       // labelproperty will default to the group's family, which doesn't work with all groups...
-      var value = _Utility2.default.getValue(entry, labelProperty);
+      let value = _Utility2.default.getValue(entry, labelProperty);
       if (value) {
         return value;
       }
@@ -127,13 +127,13 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
 
       // Fallback to the first layout item
-      var firstLayoutItem = this.layout && this.layout[0];
+      const firstLayoutItem = this.layout && this.layout[0];
       if (firstLayoutItem && firstLayoutItem.alias) {
         return _Utility2.default.getValue(entry, firstLayoutItem.alias);
       }
 
       // Should never land here
-      console.warn('No descriptor found for ' + labelProperty); // eslint-disable-line
+      console.warn(`No descriptor found for ${labelProperty}`); // eslint-disable-line
       return '';
     },
     requestData: function requestData() {
@@ -169,8 +169,8 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     getDefaultGroup: function getDefaultGroup() {
-      var defaultGroup = null;
-      var defaultGroupName = null;
+      let defaultGroup = null;
+      let defaultGroupName = null;
 
       defaultGroup = _GroupUtility2.default.getDefaultGroup(this.entityName);
 
@@ -190,12 +190,10 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return null;
     },
     initOverrideGroupLayout: function initOverrideGroupLayout() {
-      var _this = this;
-
-      this._requestOverrideGroupLayout().then(function (result) {
-        _this._overrideLayoutInitalized = true;
-        _this._overrideGroupLayout = result && result.length > 0 ? result[0].layout : null;
-        _this.initGroup();
+      this._requestOverrideGroupLayout().then(result => {
+        this._overrideLayoutInitalized = true;
+        this._overrideGroupLayout = result && result.length > 0 ? result[0].layout : null;
+        this.initGroup();
       });
     },
     initGroup: function initGroup() {
@@ -203,7 +201,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
         this.initOverrideGroupLayout();
         return;
       }
-      var group = this.getCurrentGroup();
+      let group = this.getCurrentGroup();
 
       if (!group) {
         group = this.getDefaultGroup();
@@ -227,7 +225,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       this._clearResolvedEntryCache();
 
       // Set the toolbar title to the current group displayName
-      var title = this.getGroupTitle(group);
+      const title = this.getGroupTitle(group);
       App.setPrimaryTitle(title);
       this.set('title', title);
 
@@ -246,10 +244,10 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       });
 
       // Try to select the entity id as well
-      this.selectColumns.push(group.family + 'ID');
+      this.selectColumns.push(`${group.family}ID`);
       this.querySelect = this.selectColumns;
       this.queryOrderBy = '';
-      this.idProperty = group.family.toUpperCase() + 'ID';
+      this.idProperty = `${group.family.toUpperCase()}ID`;
       this.labelProperty = group.family.toUpperCase();
       this.store = null;
       this.clear(true);
@@ -258,13 +256,13 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       this.requestData();
     },
     _requestOverrideGroupLayout: function _requestOverrideGroupLayout() {
-      var def = new _Deferred2.default();
-      var groupName = this.overrideGroupLayoutName;
-      var store = new _SData2.default({
+      const def = new _Deferred2.default();
+      const groupName = this.overrideGroupLayoutName;
+      const store = new _SData2.default({
         service: App.services.crm,
         resourceKind: 'groups',
         contractName: 'system',
-        where: '((upper(family) eq \'' + this.entityName.toUpperCase() + '\') and (upper(Name) eq \'' + groupName.toUpperCase() + '\'))',
+        where: `((upper(family) eq '${this.entityName.toUpperCase()}') and (upper(Name) eq '${groupName.toUpperCase()}'))`,
         include: ['layout', 'tableAliases'],
         idProperty: '$key',
         applicationName: 'slx',
@@ -272,23 +270,23 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       });
 
       if (store) {
-        var queryResults = store.query();
-        (0, _when2.default)(queryResults, function (relatedFeed) {
+        const queryResults = store.query();
+        (0, _when2.default)(queryResults, relatedFeed => {
           def.resolve(relatedFeed);
-        }, function () {
+        }, () => {
           def.resolve(null);
         });
       }
       return def.promise;
     },
     _requestGroup: function _requestGroup(groupName, groupId, onSuccess) {
-      var store = void 0;
+      let store;
       if (typeof groupName === 'string' && groupName !== '') {
         store = new _SData2.default({
           service: App.services.crm,
           resourceKind: 'groups',
           contractName: 'system',
-          where: '((upper(family) eq \'' + this.entityName.toUpperCase() + '\') and (upper(Name) eq \'' + groupName.toUpperCase() + '\') or PluginId eq \'' + groupId + '\')',
+          where: `((upper(family) eq '${this.entityName.toUpperCase()}') and (upper(Name) eq '${groupName.toUpperCase()}') or PluginId eq '${groupId}')`,
           include: ['layout', 'tableAliases'],
           idProperty: '$key',
           applicationName: 'slx',
@@ -297,7 +295,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
 
       if (store) {
-        var queryResults = store.query();
+        const queryResults = store.query();
 
         (function queryWhen(context, queryResult) {
           try {
@@ -318,10 +316,10 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
      * Sets the titlebar to the current group's displayName.
      */
     setPrimaryTitle: function setPrimaryTitle() {
-      var group = this._currentGroup;
+      const group = this._currentGroup;
 
       if (group) {
-        var title = this.getGroupTitle(group);
+        const title = this.getGroupTitle(group);
         this.set('title', title);
       }
 
@@ -329,12 +327,12 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
     },
     _onGroupRequestSuccess: function _onGroupRequestSuccess(result) {
       if (result.length > 0) {
-        var group = result[0];
+        const group = result[0];
         this.setCurrentGroup(group);
         _GroupUtility2.default.addToGroupPreferences([group], this.entityName);
         this._onApplyGroup(group);
       } else {
-        var title = this.getGroupTitle();
+        const title = this.getGroupTitle();
         App.setPrimaryTitle(title);
         this.set('title', title);
         this._selectGroups();
@@ -359,9 +357,9 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
      *
      */
     getItemTemplate: function getItemTemplate() {
-      var layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
+      const layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
       if (this.enableDynamicGroupLayout) {
-        var layoutTemplate = this.getSelectedGroupLayoutTemplate();
+        const layoutTemplate = this.getSelectedGroupLayoutTemplate();
         if (layoutTemplate) {
           if (layoutTemplate.type === 'Dynamic') {
             return this.getDynamicLayoutItemTemplate(layout, layoutTemplate.options);
@@ -372,12 +370,12 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
         }
         return this.defaultGroupLayoutItemTemplate;
       }
-      var template = layout.map(this.getItemLayoutTemplate);
+      const template = layout.map(this.getItemLayoutTemplate);
       return new Simplate(template);
     },
     getItemLayoutTemplate: function getItemLayoutTemplate(item) {
-      var jsonString = _json2.default.stringify(item);
-      var template = ['<p class="micro-text"><span class="group-label">', item.caption, '</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(' + jsonString + ')],' + jsonString + ',$$.getFormatterByLayout(' + jsonString + ')) %}</span>', '</p>'].join('');
+      const jsonString = _json2.default.stringify(item);
+      const template = ['<p class="micro-text"><span class="group-label">', item.caption, `</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(${jsonString})],${jsonString},$$.getFormatterByLayout(${jsonString})) %}</span>`, '</p>'].join('');
 
       return template;
     },
@@ -414,10 +412,10 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return this.groupTemplateLayouts;
     },
     getSelectedGroupLayoutTemplate: function getSelectedGroupLayoutTemplate() {
-      var name = _GroupUtility2.default.getSelectedGroupLayoutTemplate(this.entityName);
+      let name = _GroupUtility2.default.getSelectedGroupLayoutTemplate(this.entityName);
       name = name ? name : '';
-      var layoutTemplate = null;
-      this.groupTemplateLayouts.forEach(function (item) {
+      let layoutTemplate = null;
+      this.groupTemplateLayouts.forEach(item => {
         if (item.name === name) {
           layoutTemplate = item;
         }
@@ -431,45 +429,45 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       this.groupTemplateLayouts = this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
     },
     getDynamicLayoutItemTemplate: function getDynamicLayoutItemTemplate(layout, options) {
-      var layoutOptions = this.applyDynamicLayoutOptions(options);
-      var rows = 0;
-      var columns = 1;
-      var column = 1;
-      var row = 1;
+      const layoutOptions = this.applyDynamicLayoutOptions(options);
+      let rows = 0;
+      let columns = 1;
+      let column = 1;
+      let row = 1;
       columns = layoutOptions.columns.length;
-      layoutOptions.columns.forEach(function (item) {
+      layoutOptions.columns.forEach(item => {
         rows = rows + item.rows;
       });
 
-      var template = [];
+      const template = [];
       template.push('<div class="group-item">');
       template.push('<p>');
-      template.push('{%= $$.getGroupFieldValueByName($,"' + layout[0].propertyPath + '", true) %}');
+      template.push(`{%= $$.getGroupFieldValueByName($,"${layout[0].propertyPath}", true) %}`);
       template.push('</p">');
-      for (var i = 0; i < layout.length; i++) {
-        var columnItem = layoutOptions.columns[column - 1];
+      for (let i = 0; i < layout.length; i++) {
+        const columnItem = layoutOptions.columns[column - 1];
         if (columnItem && column <= columns && i !== 0) {
           if (row === 1) {
-            var columnClass = columnItem.clss || '';
-            template.push('<div class="micro-text group-column ' + columnClass + '">');
+            const columnClass = columnItem.clss || '';
+            template.push(`<div class="micro-text group-column ${columnClass}">`);
           }
-          var item = layout[i];
+          const item = layout[i];
           if (item && columnItem.rows > 0) {
             if (i !== 0) {
               template.push('<div>');
               if (!columnItem.hideLabels) {
-                template.push('<span class="group-label">' + this.getGroupFieldLabelByName(item.propertyPath) + ' </span>');
+                template.push(`<span class="group-label">${this.getGroupFieldLabelByName(item.propertyPath)} </span>`);
               }
 
-              var formatOptions = this.getGroupFieldFormatOptions(item);
-              var formatClss = formatOptions.clss || '';
-              var jsonString = _json2.default.stringify(formatOptions);
+              const formatOptions = this.getGroupFieldFormatOptions(item);
+              const formatClss = formatOptions.clss || '';
+              const jsonString = _json2.default.stringify(formatOptions);
               if (item.format === 'Phone') {
-                template.push('<span class="hyperlink" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                template.push(`<span class="hyperlink" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
               } else if (item.propertyPath === 'Email') {
-                template.push('<span class="hyperlink" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                template.push(`<span class="hyperlink" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="${item.propertyPath}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
               } else {
-                template.push('<span class="group-entry ' + formatClss + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                template.push(`<span class="group-entry ${formatClss}">{%= $$.getGroupFieldValueByName($,"${item.propertyPath}", true,${jsonString}) %}</span>`);
               }
               template.push('</div>');
             }
@@ -489,7 +487,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return new Simplate(template);
     },
     applyDynamicLayoutOptions: function applyDynamicLayoutOptions(options) {
-      var layoutOptions = {
+      const layoutOptions = {
         columns: [{
           rows: 3
         }]
@@ -501,8 +499,8 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return groupEntry[this.idProperty];
     },
     getGroupFieldFormatOptions: function getGroupFieldFormatOptions(layoutItem) {
-      var formatter = this.getFormatterByLayout(layoutItem);
-      var options = {
+      const formatter = this.getFormatterByLayout(layoutItem);
+      const options = {
         formatString: formatter && formatter.formatString ? formatter.formatString : null
       };
 
@@ -512,9 +510,9 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return options;
     },
     getGroupFieldLabelByName: function getGroupFieldLabelByName(name) {
-      var layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
-      var layoutItem = null;
-      layout.forEach(function (item) {
+      const layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
+      let layoutItem = null;
+      layout.forEach(item => {
         if (item.propertyPath === name) {
           layoutItem = item;
         }
@@ -525,9 +523,9 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return '';
     },
     getGroupFieldValueByName: function getGroupFieldValueByName(entry, name, applyFormat, formatOptions) {
-      var layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
-      var layoutItem = null;
-      layout.forEach(function (item) {
+      const layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
+      let layoutItem = null;
+      layout.forEach(item => {
         if (item.propertyPath === name) {
           layoutItem = item;
         }
@@ -535,23 +533,23 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return this.getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions);
     },
     getGroupFieldLabelByIndex: function getGroupFieldLabelByIndex(layoutIndex) {
-      var layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
+      const layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
       if (layout[layoutIndex]) {
         return layout[layoutIndex].caption;
       }
       return '';
     },
     getGroupFieldValueByIndex: function getGroupFieldValueByIndex(entry, layoutIndex, applyFormat, formatOptions) {
-      var layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
-      var layoutItem = layout[layoutIndex];
+      const layout = this.enableOverrideLayout && this._overrideGroupLayout ? this._overrideGroupLayout : this.layout;
+      const layoutItem = layout[layoutIndex];
       return this.getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions);
     },
     getGroupFieldValue: function getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions) {
-      var value = null;
-      var formatter = null;
+      let value = null;
+      let formatter = null;
 
       if (layoutItem && applyFormat) {
-        var fieldName = this.getFieldNameByLayout(layoutItem);
+        const fieldName = this.getFieldNameByLayout(layoutItem);
         if (applyFormat) {
           formatter = this.getFormatterByLayout(layoutItem);
         }
@@ -561,8 +559,8 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
           value = entry[fieldName];
         }
       } else if (layoutItem) {
-        var _fieldName = this.getFieldNameByLayout(layoutItem);
-        value = entry[_fieldName];
+        const fieldName = this.getFieldNameByLayout(layoutItem);
+        value = entry[fieldName];
       } else {
         value = null;
       }
@@ -573,8 +571,8 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       if (!this._fieldFormatters) {
         this._fieldFormatters = {};
       }
-      var path = layoutItem.propertyPath + '_' + layoutItem.index;
-      var formatter = this._fieldFormatters[path];
+      const path = `${layoutItem.propertyPath}_${layoutItem.index}`;
+      let formatter = this._fieldFormatters[path];
       if (!formatter) {
         formatter = this.getGroupFieldFormatter(layoutItem);
         this._fieldFormatters[path] = formatter;
@@ -582,7 +580,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return formatter;
     },
     getGroupFieldFormatter: function getGroupFieldFormatter(layoutItem) {
-      var formatter = void 0;
+      let formatter;
       if (this.groupFieldFormatter) {
         formatter = this.groupFieldFormatter[layoutItem.propertyPath];
       }
@@ -608,7 +606,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
 
       this._originalProps = {};
 
-      var original = this._originalProps;
+      const original = this._originalProps;
 
       original.request = this.request ? this.request.clone() : null;
       original.querySelect = this.querySelect;
@@ -629,7 +627,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       this.groupsMode = true;
     },
     _clearGroupMode: function _clearGroupMode() {
-      var original = this._originalProps;
+      const original = this._originalProps;
 
       this.groupsMode = false;
 
@@ -687,12 +685,12 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     _groupActivateEntry: function _groupActivateEntry(params) {
-      var self = this;
+      const self = this;
 
       if (params.key) {
-        var resolvedEntry = this._getResolvedEntry(params.key);
+        const resolvedEntry = this._getResolvedEntry(params.key);
         if (!resolvedEntry) {
-          this._fetchResolvedEntry(params.key).then(function (resolvedEnt) {
+          this._fetchResolvedEntry(params.key).then(resolvedEnt => {
             params.descriptor = resolvedEnt.$descriptor;
             params.resolved = true;
             self.activateEntry(params);
@@ -704,9 +702,7 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
         }
       }
     },
-    _invokeAction: function _invokeAction(theAction) {
-      var selection = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
+    _invokeAction: function _invokeAction(theAction, selection = {}) {
       if (this.groupsEnabled && this.groupsMode && !selection.resolved) {
         this._groupInvokeAction(theAction, selection);
       } else {
@@ -714,10 +710,10 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     _groupInvokeAction: function _groupInvokeAction(theAction, selection) {
-      var self = this;
-      var resolvedEntry = this._getResolvedEntry(selection.data.$key);
+      const self = this;
+      const resolvedEntry = this._getResolvedEntry(selection.data.$key);
       if (!resolvedEntry) {
-        this._fetchResolvedEntry(selection.data.$key).then(function (resolvedEnt) {
+        this._fetchResolvedEntry(selection.data.$key).then(resolvedEnt => {
           self._invokeAction(theAction, {
             data: resolvedEnt,
             resolved: true
@@ -738,11 +734,11 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     _groupShowActionPanel: function _groupShowActionPanel(rowNode) {
-      var selection = this._getCurrentSelection();
-      var self = this;
-      var resolvedEntry = this._getResolvedEntry(selection.data.$key);
+      const selection = this._getCurrentSelection();
+      const self = this;
+      const resolvedEntry = this._getResolvedEntry(selection.data.$key);
       if (!resolvedEntry) {
-        this._fetchResolvedEntry(selection.data.$key).then(function (resolvedEnt) {
+        this._fetchResolvedEntry(selection.data.$key).then(resolvedEnt => {
           self._groupCheckActionState(resolvedEnt, rowNode);
         });
       } else {
@@ -753,9 +749,9 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       _ListBase3.default.prototype.showActionPanel.call(this, rowNode);
     },
     _getCurrentSelection: function _getCurrentSelection() {
-      var selectedItems = this.get('selectionModel').getSelections();
-      var selection = void 0;
-      for (var key in selectedItems) {
+      const selectedItems = this.get('selectionModel').getSelections();
+      let selection;
+      for (const key in selectedItems) {
         if (selectedItems.hasOwnProperty(key)) {
           selection = selectedItems[key];
           selection.data.$key = key;
@@ -765,39 +761,39 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       return selection;
     },
     _fetchResolvedEntry: function _fetchResolvedEntry(entryKey) {
-      var def = new _Deferred2.default();
-      var self = this;
-      var store = new _SData2.default({
+      const def = new _Deferred2.default();
+      const self = this;
+      const store = new _SData2.default({
         service: App.services.crm,
         resourceKind: this.resourceKind,
         contractName: this.contractName,
         scope: this
       });
 
-      var select = this._originalProps.querySelect;
+      let select = this._originalProps.querySelect;
 
       // Use querySelect from the model if available
       // TODO: Expose _getQueryModelByName better somehow
       if (this._originalProps._model) {
-        var queryModel = this._originalProps._model._getQueryModelByName('list');
+        const queryModel = this._originalProps._model._getQueryModelByName('list');
         if (queryModel && queryModel.querySelect) {
           select = queryModel.querySelect;
         }
       }
 
-      var queryOptions = {
-        select: select,
-        where: 'Id eq \'' + entryKey + '\''
+      const queryOptions = {
+        select,
+        where: `Id eq '${entryKey}'`
       };
 
-      var queryResults = store.query(null, queryOptions);
+      const queryResults = store.query(null, queryOptions);
 
-      (0, _when2.default)(queryResults, function (feed) {
-        var entry = feed[0];
+      (0, _when2.default)(queryResults, feed => {
+        const entry = feed[0];
         entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
         self._addResolvedEntry(entry);
         def.resolve(entry);
-      }, function (err) {
+      }, err => {
         def.reject(err);
       });
 
@@ -816,16 +812,16 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       this._resolvedEntryCache[entry.$key] = entry;
     },
     _groupCheckActionState: function _groupCheckActionState(resolvedEntry, rowNode) {
-      var resolvedSelection = {
+      const resolvedSelection = {
         data: resolvedEntry
       };
       this._applyStateToActions(resolvedSelection, rowNode);
     },
     _refreshList: function _refreshList() {
-      var self = this;
+      const self = this;
       if (this.groupsEnabled && this.groupList && this._currentGroup) {
         this._requestGroup(this._currentGroup.name, this._currentGroup.$key, function checkGroup(results) {
-          var group = results[0];
+          const group = results[0];
           if (group) {
             _GroupUtility2.default.addToGroupPreferences([group], this.entityName);
             self.setCurrentGroup(group);
@@ -840,34 +836,32 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     groupInvokeListAction: function groupInvokeListAction(params) {
-      var _this2 = this;
-
-      var key = params.key;
-      var propertyName = params.propertyname;
-      var actionName = params.name;
-      var resolvedEntry = this._getResolvedEntry(key);
+      const key = params.key;
+      const propertyName = params.propertyname;
+      const actionName = params.name;
+      const resolvedEntry = this._getResolvedEntry(key);
       if (!resolvedEntry) {
-        this._fetchResolvedEntry(key).then(function (resolvedEnt) {
-          var options = {
+        this._fetchResolvedEntry(key).then(resolvedEnt => {
+          const options = {
             selection: {
               data: resolvedEnt
             },
-            propertyName: propertyName
+            propertyName
           };
-          _this2.groupInvokeActionByName(actionName, options);
+          this.groupInvokeActionByName(actionName, options);
         });
       } else {
-        var options = {
+        const options = {
           selection: {
             data: resolvedEntry
           },
-          propertyName: propertyName
+          propertyName
         };
         this.groupInvokeActionByName(actionName, options);
       }
     },
     groupInvokeActionByName: function groupInvokeActionByName(actionName, options) {
-      var opt = options;
+      let opt = options;
       if (!opt) {
         opt = {};
       }
@@ -883,10 +877,10 @@ define('crm/Views/_GroupListMixin', ['module', 'exports', 'dojo/_base/declare', 
       }
     },
     getContextSnapShot: function getContextSnapShot(options) {
-      var snapShot = void 0;
+      let snapShot;
       if (this._groupInitialized && this.groupsMode) {
-        var entry = this.entries[options.key];
-        var template = this.rowTemplate;
+        const entry = this.entries[options.key];
+        const template = this.rowTemplate;
         snapShot = template.apply(entry, this);
         return snapShot;
       }

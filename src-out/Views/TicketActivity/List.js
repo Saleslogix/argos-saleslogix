@@ -19,24 +19,24 @@ define('crm/Views/TicketActivity/List', ['module', 'exports', 'dojo/_base/declar
     };
   }
 
-  var resource = (0, _I18n2.default)('ticketActivityList'); /* Copyright 2017 Infor
-                                                             *
-                                                             * Licensed under the Apache License, Version 2.0 (the "License");
-                                                             * you may not use this file except in compliance with the License.
-                                                             * You may obtain a copy of the License at
-                                                             *
-                                                             *    http://www.apache.org/licenses/LICENSE-2.0
-                                                             *
-                                                             * Unless required by applicable law or agreed to in writing, software
-                                                             * distributed under the License is distributed on an "AS IS" BASIS,
-                                                             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                             * See the License for the specific language governing permissions and
-                                                             * limitations under the License.
-                                                             */
+  const resource = (0, _I18n2.default)('ticketActivityList'); /* Copyright 2017 Infor
+                                                               *
+                                                               * Licensed under the Apache License, Version 2.0 (the "License");
+                                                               * you may not use this file except in compliance with the License.
+                                                               * You may obtain a copy of the License at
+                                                               *
+                                                               *    http://www.apache.org/licenses/LICENSE-2.0
+                                                               *
+                                                               * Unless required by applicable law or agreed to in writing, software
+                                                               * distributed under the License is distributed on an "AS IS" BASIS,
+                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                               * See the License for the specific language governing permissions and
+                                                               * limitations under the License.
+                                                               */
 
-  var dtFormatResource = (0, _I18n2.default)('ticketActivityListDateTimeFormat');
+  const dtFormatResource = (0, _I18n2.default)('ticketActivityListDateTimeFormat');
 
-  var __class = (0, _declare2.default)('crm.Views.TicketActivity.List', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.TicketActivity.List', [_List2.default], {
     format: _Format2.default,
     // Templates
     itemTemplate: new Simplate(['<p class="micro-text">{%: $$.format.date($.AssignedDate, (App.is24HourClock()) ? $$.startDateFormatText24 : $$.startDateFormatText) %}</p>', '<div class="note-text-item">', '<div class="note-text-wrap">', '{%: $.ActivityDescription %}', '</div>', '<div class="note-text-more"></div>', '</div>']),
@@ -59,9 +59,9 @@ define('crm/Views/TicketActivity/List', ['module', 'exports', 'dojo/_base/declar
     resourceKind: 'ticketActivities',
 
     _onResize: function _onResize() {
-      $('.note-text-item', this.contentNode).each(function (i, node) {
-        var wrapNode = $('.note-text-wrap', node)[0];
-        var moreNode = $('.note-text-more', node)[0];
+      $('.note-text-item', this.contentNode).each((i, node) => {
+        const wrapNode = $('.note-text-wrap', node)[0];
+        const moreNode = $('.note-text-more', node)[0];
         if ($(node).height() < $(wrapNode).height()) {
           $(moreNode).show();
         } else {
@@ -78,8 +78,8 @@ define('crm/Views/TicketActivity/List', ['module', 'exports', 'dojo/_base/declar
       $(window).on('resize', this._onResize.bind(this));
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'ActivityDescription like "' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `ActivityDescription like "${q}%"`;
     }
   });
 

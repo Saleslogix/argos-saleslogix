@@ -19,22 +19,22 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
     };
   }
 
-  var resource = (0, _I18n2.default)('opportunityQuickEdit'); /* Copyright 2017 Infor
-                                                               *
-                                                               * Licensed under the Apache License, Version 2.0 (the "License");
-                                                               * you may not use this file except in compliance with the License.
-                                                               * You may obtain a copy of the License at
-                                                               *
-                                                               *    http://www.apache.org/licenses/LICENSE-2.0
-                                                               *
-                                                               * Unless required by applicable law or agreed to in writing, software
-                                                               * distributed under the License is distributed on an "AS IS" BASIS,
-                                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                               * See the License for the specific language governing permissions and
-                                                               * limitations under the License.
-                                                               */
+  const resource = (0, _I18n2.default)('opportunityQuickEdit'); /* Copyright 2017 Infor
+                                                                 *
+                                                                 * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                 * you may not use this file except in compliance with the License.
+                                                                 * You may obtain a copy of the License at
+                                                                 *
+                                                                 *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                 *
+                                                                 * Unless required by applicable law or agreed to in writing, software
+                                                                 * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                 * See the License for the specific language governing permissions and
+                                                                 * limitations under the License.
+                                                                 */
 
-  var __class = (0, _declare2.default)('crm.Views.Opportunity.QuickEdit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Views.Opportunity.QuickEdit', [_Edit2.default], {
     // Localization
     estCloseText: resource.estCloseText,
     detailsText: resource.detailsText,
@@ -64,7 +64,7 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
       this.fields.EstimatedClose.setValue(templateEntry.EstimatedClose);
     },
     createLayout: function createLayout() {
-      var details = {
+      const details = {
         title: this.detailsText,
         name: 'OpportunityDetailsEdit',
         children: [{
@@ -107,7 +107,7 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
         }]
       };
 
-      var layout = this.layout || (this.layout = []);
+      const layout = this.layout || (this.layout = []);
 
       if (layout.length > 0) {
         return layout;
@@ -123,21 +123,19 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
       this.fields.SalesPotential.setCurrencyCode(App.getBaseExchangeRate().code);
     },
     enableStage: function enableStage(opportunityId) {
-      var _this = this;
-
-      var field = this.fields.Stage;
-      var label = this.stageText;
+      const field = this.fields.Stage;
+      let label = this.stageText;
 
       if (!field) {
         return;
       }
 
       field.disable();
-      _SalesProcessUtility2.default.getSalesProcessByEntityId(opportunityId).then(function (salesProcess) {
+      _SalesProcessUtility2.default.getSalesProcessByEntityId(opportunityId).then(salesProcess => {
         if (salesProcess) {
           field.disable();
-          label = _this.salesProcessText + salesProcess.$descriptor;
-          _this.setStageLabel(label);
+          label = this.salesProcessText + salesProcess.$descriptor;
+          this.setStageLabel(label);
         } else {
           field.enable();
         }
@@ -145,16 +143,16 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
       this.setStageLabel(label);
     },
     setStageLabel: function setStageLabel(label) {
-      var field = this.fields.Stage;
+      const field = this.fields.Stage;
       if (field && field.domNode) {
-        var node = $('[for="Stage"]', field.domNode);
+        const node = $('[for="Stage"]', field.domNode);
         if (node && node.length > 0) {
           $(node[0]).attr('innerHTML', label); // TODO: SDK's _Field should provide a label setter
         }
       }
     },
     enableProbability: function enableProbability(entry) {
-      var field = this.fields.CloseProbability;
+      const field = this.fields.CloseProbability;
       if (!field) {
         return;
       }
@@ -164,7 +162,7 @@ define('crm/Views/Opportunity/QuickEdit', ['module', 'exports', 'dojo/_base/decl
       }
     },
     isClosed: function isClosed(entry) {
-      var status = entry.Status;
+      const status = entry.Status;
       if (status === this.statusClosedWonText || status === this.statusClosedLostText) {
         return true;
       }

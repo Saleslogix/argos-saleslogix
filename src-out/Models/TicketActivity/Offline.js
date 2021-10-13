@@ -36,7 +36,7 @@ define('crm/Models/TicketActivity/Offline', ['module', 'exports', 'dojo/_base/de
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.TicketActivity.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.TicketActivity.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'ticket_activity_offline_model'
   });
 

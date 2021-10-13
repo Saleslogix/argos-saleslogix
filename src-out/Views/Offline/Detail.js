@@ -39,7 +39,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  var resource = (0, _I18n2.default)('offlineDetail');
+  const resource = (0, _I18n2.default)('offlineDetail');
   exports.default = (0, _declare2.default)('crm.Views.Offline.Detail', [_DetailBase3.default, _RelatedViewWidgetDetailMixin2.default], {
     id: 'offline_detail',
     titleText: resource.titleText,
@@ -66,7 +66,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       this._model = App.ModelManager.getModel(this.offlineContext.entityName, _Types2.default.OFFLINE);
 
       if (!this.offlineContext.viewId) {
-        this.offlineContext.viewId = this._model.detailViewId ? this._model.detailViewId : this._model.entityName.toLowerCase() + '_detail';
+        this.offlineContext.viewId = this._model.detailViewId ? this._model.detailViewId : `${this._model.entityName.toLowerCase()}_detail`;
       }
 
       this._entityView = this.getEntityView();
@@ -76,8 +76,8 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       App.setToolBarMode(false);
     },
     getEntityView: function getEntityView() {
-      var newViewId = this.id + '_' + this.offlineContext.viewId;
-      var view = App.getView(this.offlineContext.viewId);
+      const newViewId = `${this.id}_${this.offlineContext.viewId}`;
+      const view = App.getView(this.offlineContext.viewId);
 
       if (this._entityView) {
         this._entityView.destroy();
@@ -85,34 +85,34 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
 
       if (view) {
-        var ViewCtor = view.constructor;
+        const ViewCtor = view.constructor;
         this._entityView = new ViewCtor({ id: newViewId });
       }
       return this._entityView;
     },
     _applyStateToGetOptions: function _applyStateToGetOptions() {},
     _buildGetExpression: function _buildGetExpression() {
-      var options = this.options;
+      const options = this.options;
       return options && (options.id || options.key);
     },
     placeDetailHeader: function placeDetailHeader() {
-      var value = void 0;
-      var offlineDate = '';
+      let value;
+      let offlineDate = '';
       if (this._model && this._model.entityDisplayName) {
         value = _string2.default.substitute(this.informationText, [this._model.entityDisplayName]);
       } else {
         value = _string2.default.substitute(this.informationText, [this.entityText]);
       }
-      value = value + ' - ' + this.offlineText;
+      value = `${value} - ${this.offlineText}`;
       if (this.entry.$offlineDate) {
         offlineDate = _Format2.default.relativeDate(this.entry.$offlineDate);
       }
-      $(this.tabContainer).before(this.detailHeaderTemplate.apply({ value: value, offlineDate: offlineDate }, this));
+      $(this.tabContainer).before(this.detailHeaderTemplate.apply({ value, offlineDate }, this));
     },
     createLayout: function createLayout() {
-      var view = this._entityView;
-      var original = App.getView(this.offlineContext.viewId);
-      var layout = [];
+      const view = this._entityView;
+      const original = App.getView(this.offlineContext.viewId);
+      let layout = [];
       if (view && original) {
         view.entry = this.entry;
         original.entry = this.entry;
@@ -121,9 +121,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
         original.refreshRequired = true;
       }
 
-      layout = layout.filter(function (_ref) {
-        var enableOffline = _ref.enableOffline;
-
+      layout = layout.filter(({ enableOffline }) => {
         if (typeof enableOffline === 'undefined' || enableOffline === null) {
           return true;
         }
@@ -135,22 +133,14 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       this.applyRelatedSections(layout);
       return layout;
     },
-    disableSections: function disableSections() {
-      var _this = this;
-
-      var sections = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      sections.forEach(function (section) {
-        _this.disableSection(section);
+    disableSections: function disableSections(sections = []) {
+      sections.forEach(section => {
+        this.disableSection(section);
       });
     },
-    disableSection: function disableSection() {
-      var _this2 = this;
-
-      var section = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      section.children.forEach(function (property) {
-        _this2.disableProperty(section, property);
+    disableSection: function disableSection(section = []) {
+      section.children.forEach(property => {
+        this.disableProperty(section, property);
       });
     },
     disableProperty: function disableProperty(section, property) {
@@ -159,36 +149,30 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
       property.disabled = true;
     },
-    applyRelatedSections: function applyRelatedSections() {
-      var _this3 = this;
-
-      var sections = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
+    applyRelatedSections: function applyRelatedSections(sections = []) {
       this._relatedItems = {};
-      sections.forEach(function (section) {
+      sections.forEach(section => {
         if (section.name === 'RelatedItemsSection') {
           section.children = [];
-          _this3.addRelatedLayout(section);
+          this.addRelatedLayout(section);
         }
       });
     },
     addRelatedLayout: function addRelatedLayout(section) {
-      var _this4 = this;
-
-      var rels = this._model.relationships || [];
-      rels.forEach(function (rel) {
+      const rels = this._model.relationships || [];
+      rels.forEach(rel => {
         if (rel && rel.relatedEntity) {
-          var relatedModel = App.ModelManager.getModel(rel.relatedEntity, _Types2.default.OFFLINE);
-          var viewId = void 0;
+          const relatedModel = App.ModelManager.getModel(rel.relatedEntity, _Types2.default.OFFLINE);
+          let viewId;
           if (rel.viewId) {
             viewId = rel.viewId;
           } else if (relatedModel && relatedModel.listViewId) {
             viewId = relatedModel.listViewId;
           } else {
-            viewId = rel.relatedEntity.toLowerCase() + '_related';
+            viewId = `${rel.relatedEntity.toLowerCase()}_related`;
           }
 
-          var item = {
+          const item = {
             name: rel.name,
             entityName: rel.relatedEntity,
             label: rel.displayName,
@@ -196,21 +180,20 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
             relationship: rel
           };
 
-          _this4._relatedItems[item.name] = item;
+          this._relatedItems[item.name] = item;
           section.children.push(item);
         }
       });
     },
     _processRelatedItem: function _processRelatedItem(data, context, rowNode) {
-      var labelNode = $('.related-item-label', rowNode).first();
-      var relationship = data.relationship;
-
+      const labelNode = $('.related-item-label', rowNode).first();
+      const { relationship } = data;
       if (labelNode && relationship) {
-        this._model.getRelatedCount(relationship, this.entry).then(function (count) {
+        this._model.getRelatedCount(relationship, this.entry).then(count => {
           $('.busy-xs', labelNode).remove();
-          var html = '<span class="info badge">' + count + '</span>';
+          const html = `<span class="info badge">${count}</span>`;
           $(labelNode).before(html);
-        }, function (err) {
+        }, err => {
           console.warn('Error getting related item count: ' + err); //eslint-disable-line
         });
       } else {
@@ -229,10 +212,10 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     navigateToRelatedListView: function navigateToRelatedListView(params) {
-      var rel = this._relatedItems[params.name];
-      var view = App.getView('offline_list');
-      var queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
-      var options = {
+      const rel = this._relatedItems[params.name];
+      const view = App.getView('offline_list');
+      const queryExpression = this._model.buildRelatedQueryExpression(rel.relationship, this.entry);
+      const options = {
         title: rel.label,
         offlineContext: {
           parentEntry: this.entry,
@@ -241,7 +224,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
           viewId: rel.view,
           related: rel,
           source: this,
-          queryExpression: queryExpression
+          queryExpression
         } };
       options.fromContext = this;
       options.selectedEntry = this.entry;
@@ -250,15 +233,15 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     navigateToRelatedDetailView: function navigateToRelatedDetailView(params) {
-      var slot = parseInt(params.context, 10);
-      var rel = this._navigationOptions[slot];
-      var relViewId = params.view;
-      var relView = App.getView(relViewId);
+      const slot = parseInt(params.context, 10);
+      const rel = this._navigationOptions[slot];
+      const relViewId = params.view;
+      const relView = App.getView(relViewId);
 
       if (relView) {
-        var model = relView.getModel();
+        const model = relView.getModel();
         if (model) {
-          var options = {
+          const options = {
             descriptor: params.descriptor,
             title: params.descriptor,
             key: rel.key,
@@ -269,7 +252,7 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
               viewId: relViewId
             }
           };
-          var view = this.getRelatedDetailView(model.entityName);
+          const view = this.getRelatedDetailView(model.entityName);
 
           if (view) {
             view.show(options);
@@ -278,8 +261,8 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     getRelatedDetailView: function getRelatedDetailView(entityName) {
-      var viewId = 'offline_detail_' + entityName;
-      var view = this.app.getView(viewId);
+      const viewId = `offline_detail_${entityName}`;
+      let view = this.app.getView(viewId);
 
       if (view) {
         return view;
@@ -291,13 +274,13 @@ define('crm/Views/Offline/Detail', ['module', 'exports', 'dojo/_base/declare', '
     },
 
     hasAction: function hasAction(actionName) {
-      var currentHasAction = this.inherited(hasAction, arguments);
+      const currentHasAction = this.inherited(hasAction, arguments);
       return currentHasAction || typeof this._entityView[actionName] === 'function';
     },
     invokeAction: function invokeAction(actionName, parameters, evt, el) {
       // A list of data-actions for the offline detail view (not the _entityView)
       // Note: If any data-actions are added in the templates above, add them here as well!
-      var currentActions = ['activateRelatedList'];
+      const currentActions = ['activateRelatedList'];
 
       // Apply the current view actions in our current context
       if (currentActions.includes(actionName)) {

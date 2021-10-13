@@ -23,22 +23,22 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
     };
   }
 
-  var resource = (0, _I18n2.default)('ticketEdit'); /* Copyright 2017 Infor
-                                                     *
-                                                     * Licensed under the Apache License, Version 2.0 (the "License");
-                                                     * you may not use this file except in compliance with the License.
-                                                     * You may obtain a copy of the License at
-                                                     *
-                                                     *    http://www.apache.org/licenses/LICENSE-2.0
-                                                     *
-                                                     * Unless required by applicable law or agreed to in writing, software
-                                                     * distributed under the License is distributed on an "AS IS" BASIS,
-                                                     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                     * See the License for the specific language governing permissions and
-                                                     * limitations under the License.
-                                                     */
+  const resource = (0, _I18n2.default)('ticketEdit'); /* Copyright 2017 Infor
+                                                       *
+                                                       * Licensed under the Apache License, Version 2.0 (the "License");
+                                                       * you may not use this file except in compliance with the License.
+                                                       * You may obtain a copy of the License at
+                                                       *
+                                                       *    http://www.apache.org/licenses/LICENSE-2.0
+                                                       *
+                                                       * Unless required by applicable law or agreed to in writing, software
+                                                       * distributed under the License is distributed on an "AS IS" BASIS,
+                                                       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                       * See the License for the specific language governing permissions and
+                                                       * limitations under the License.
+                                                       */
 
-  var __class = (0, _declare2.default)('crm.Views.Ticket.Edit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Views.Ticket.Edit', [_Edit2.default], {
     // Localization
     accountText: resource.accountText,
     areaText: resource.areaText,
@@ -90,7 +90,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.connect(this.fields.Category, 'onChange', this.onCategoryChange);
     },
     convertEntry: function convertEntry() {
-      var entry = this.inherited(convertEntry, arguments);
+      const entry = this.inherited(convertEntry, arguments);
 
       if (!this.options.entry) {
         if (entry.StatusCode) {
@@ -112,9 +112,9 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       }
     },
     createPicklistRequest: function createPicklistRequest(name) {
-      var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
+      const request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService()).setResourceKind('picklists').setContractName('system');
 
-      var uri = request.getUri();
+      const uri = request.getUri();
       uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
       uri.setCollectionPredicate(name);
 
@@ -122,7 +122,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       return request;
     },
     requestCodeData: function requestCodeData(picklistName, code, field, entry, name) {
-      var request = this.createPicklistRequest(picklistName);
+      const request = this.createPicklistRequest(picklistName);
       request.read({
         success: _lang2.default.hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
         failure: this.onRequestCodeDataFailure,
@@ -130,7 +130,7 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       });
     },
     onRequestCodeDataSuccess: function onRequestCodeDataSuccess(code, field, entry, name, feed) {
-      var value = this.processCodeDataFeed(feed, code);
+      const value = this.processCodeDataFeed(feed, code);
       entry[name] = value;
       field.setValue(code);
       field.setText(value);
@@ -139,10 +139,10 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       _ErrorManager2.default.addError(response, o, this.options, 'failure');
     },
     processCodeDataFeed: function processCodeDataFeed(feed, currentValue, options) {
-      var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-      var textProperty = options && options.textProperty ? options.textProperty : 'text';
+      const keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+      const textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-      for (var i = 0; i < feed.$resources.length; i++) {
+      for (let i = 0; i < feed.$resources.length; i++) {
         if (feed.$resources[i][keyProperty] === currentValue) {
           return feed.$resources[i][textProperty];
         }
@@ -163,14 +163,14 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       }
     },
     onUrgencyChange: function onUrgencyChange(value, field) {
-      var selection = field.getSelection();
+      const selection = field.getSelection();
       if (selection) {
         this.fields.UrgencyCode.setValue(selection.UrgencyCode);
       }
     },
     onContactChange: function onContactChange(value, field) {
-      var selection = field.getSelection();
-      var accountField = this.fields.Account;
+      const selection = field.getSelection();
+      const accountField = this.fields.Account;
 
       if (selection && selection.Account && !accountField.getValue()) {
         accountField.setValue({
@@ -180,10 +180,10 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       }
     },
     onAccountChange: function onAccountChange(value, field) {
-      var selection = field.getSelection();
+      const selection = field.getSelection();
 
       if (selection && selection.$key) {
-        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector('\'' + selection.$key + '\'').setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
+        const request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setResourceKind('accounts').setResourceSelector(`'${selection.$key}'`).setResourceProperty('Contacts').setQueryArg('count', 1).setQueryArg('select', 'NameLF').setQueryArg('where', 'IsPrimary eq true');
 
         request.readFeed({
           success: function success(feed) {
@@ -204,18 +204,18 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       this.fields.Issue.clearValue();
     },
     formatAccountQuery: function formatAccountQuery() {
-      var value = this.fields.Account.getValue();
-      var key = value && value.$key;
+      const value = this.fields.Account.getValue();
+      const key = value && value.$key;
 
-      return key ? 'Account.id eq "' + key + '"' : false;
+      return key ? `Account.id eq "${key}"` : false;
     },
     applyContext: function applyContext() {
-      var found = App.queryNavigationContext(function (o) {
+      const found = App.queryNavigationContext(o => {
         return (/^(accounts|contacts)$/.test(o.resourceKind) && o.key
         );
       });
 
-      var lookup = {
+      const lookup = {
         accounts: this.applyAccountContext,
         contacts: this.applyContactContext
       };
@@ -225,18 +225,18 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       }
     },
     applyAccountContext: function applyAccountContext(context) {
-      var view = App.getView(context.id);
-      var entry = view && view.entry;
+      const view = App.getView(context.id);
+      const entry = view && view.entry;
 
-      var accountField = this.fields.Account;
+      const accountField = this.fields.Account;
       accountField.setValue(entry);
       this.onAccountChange(entry, accountField);
     },
     applyContactContext: function applyContactContext(context) {
-      var view = App.getView(context.id);
-      var entry = view && view.entry;
+      const view = App.getView(context.id);
+      const entry = view && view.entry;
 
-      var accountField = this.fields.Account;
+      const accountField = this.fields.Account;
       accountField.setValue(entry.Account);
       this.onAccountChange(entry.Account, accountField);
 
@@ -270,11 +270,11 @@ define('crm/Views/Ticket/Edit', ['module', 'exports', 'dojo/_base/declare', 'doj
       return value;
     },
     createLayout: function createLayout() {
-      var distinctServices = ['GetDistinctAreas', 'GetDistinctAreaCategories', 'GetDistinctAreaCategoryIssues'];
-      var hasDistinctServices = false;
+      const distinctServices = ['GetDistinctAreas', 'GetDistinctAreaCategories', 'GetDistinctAreaCategoryIssues'];
+      let hasDistinctServices = false;
       if (Array.isArray(App.context.areaCategoryIssueServices)) {
         // We must have every distinct service availble to use new lookups
-        hasDistinctServices = distinctServices.every(function (s) {
+        hasDistinctServices = distinctServices.every(s => {
           return App.context.areaCategoryIssueServices.indexOf(s) >= 0;
         });
       }

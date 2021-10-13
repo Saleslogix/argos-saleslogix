@@ -32,11 +32,16 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('settings');
+  const resource = (0, _I18n2.default)('settings');
 
-  var __class = (0, _declare2.default)('crm.Views.Settings', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.Settings', [_List2.default], {
     // Templates
-    itemIconTemplate: new Simplate(['<button type="button" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="btn-actions list-item-selector button visible">\n      <span class="audible">{%: $$.actionsText %}</span>\n      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">\n        <use xlink:href="#icon-{%= $$.getItemIconClass($) %}"></use>\n      </svg>\n    </button>']),
+    itemIconTemplate: new Simplate([`<button type="button" data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="btn-actions list-item-selector button visible">
+      <span class="audible">{%: $$.actionsText %}</span>
+      <svg class="icon" focusable="false" aria-hidden="true" role="presentation">
+        <use xlink:href="#icon-{%= $$.getItemIconClass($) %}"></use>
+      </svg>
+    </button>`]),
     itemTemplate: new Simplate(['<h4 data-action="{%= $.action %}" class="list-item-content ', '{% if ($.icon) { %}', 'list-item-content', '{% } %} ">', '{%: $.title %}</h4>']),
     liRowTemplate: new Simplate(['<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>', '{%! $$.itemIconTemplate %}', '{%! $$.itemTemplate %}', '</li>']),
     isCardView: false,
@@ -100,26 +105,24 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
       return this.itemIndicators || (this.itemIndicators = []);
     },
     viewErrorLogs: function viewErrorLogs() {
-      var view = App.getView('errorlog_list');
+      const view = App.getView('errorlog_list');
       if (view) {
         view.show();
       }
     },
     clearLocalStorage: function clearLocalStorage() {
-      var _this = this;
-
       if (confirm(this.confirmClearLocalStorageMessage)) {
         // eslint-disable-line
         if (window.localStorage) {
           window.localStorage.clear();
         }
 
-        App.clearServiceWorkerCaches().then(function () {
+        App.clearServiceWorkerCaches().then(() => {
           _connect2.default.publish('/app/refresh', [{
             resourceKind: 'localStorage'
           }]);
 
-          alert(_this.localStorageClearedText); // eslint-disable-line
+          alert(this.localStorageClearedText); // eslint-disable-line
           window.location.reload(); // reloaded because of the clock setting
         });
       }
@@ -132,19 +135,19 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
       alert(this.credentialsClearedText); // eslint-disable-line
     },
     viewOfflineOptions: function viewOfflineOptions() {
-      var view = App.getView('offline_options_edit');
+      const view = App.getView('offline_options_edit');
       if (view) {
         view.show();
       }
     },
     viewLanguageOptions: function viewLanguageOptions() {
-      var view = App.getView('language_options_edit');
+      const view = App.getView('language_options_edit');
       if (view) {
         view.show();
       }
     },
     use24HourClock: function use24HourClock() {
-      var message = App.is24HourClock() ? this.confirm12HourClockMessage : this.confirm24HourClockMessage;
+      const message = App.is24HourClock() ? this.confirm12HourClockMessage : this.confirm24HourClockMessage;
       if (confirm(message)) {
         // eslint-disable-line
         if (App.is24HourClock()) {
@@ -159,10 +162,10 @@ define('crm/Views/Settings', ['module', 'exports', 'dojo/_base/declare', 'dojo/_
       return false;
     },
     requestData: function requestData() {
-      var list = [];
+      const list = [];
 
-      for (var i = 0; i < this.actionOrder.length; i++) {
-        var action = this.actionItems[this.actionOrder[i]];
+      for (let i = 0; i < this.actionOrder.length; i++) {
+        const action = this.actionItems[this.actionOrder[i]];
         if (action) {
           list.push({
             action: this.actionOrder[i],

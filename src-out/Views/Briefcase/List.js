@@ -27,20 +27,20 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
     };
   }
 
-  var resource = (0, _I18n2.default)('briefcaseList'); /* Copyright 2017 Infor
-                                                        *
-                                                        * Licensed under the Apache License, Version 2.0 (the "License");
-                                                        * you may not use this file except in compliance with the License.
-                                                        * You may obtain a copy of the License at
-                                                        *
-                                                        *    http://www.apache.org/licenses/LICENSE-2.0
-                                                        *
-                                                        * Unless required by applicable law or agreed to in writing, software
-                                                        * distributed under the License is distributed on an "AS IS" BASIS,
-                                                        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                        * See the License for the specific language governing permissions and
-                                                        * limitations under the License.
-                                                        */
+  const resource = (0, _I18n2.default)('briefcaseList'); /* Copyright 2017 Infor
+                                                          *
+                                                          * Licensed under the Apache License, Version 2.0 (the "License");
+                                                          * you may not use this file except in compliance with the License.
+                                                          * You may obtain a copy of the License at
+                                                          *
+                                                          *    http://www.apache.org/licenses/LICENSE-2.0
+                                                          *
+                                                          * Unless required by applicable law or agreed to in writing, software
+                                                          * distributed under the License is distributed on an "AS IS" BASIS,
+                                                          * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                          * See the License for the specific language governing permissions and
+                                                          * limitations under the License.
+                                                          */
 
   exports.default = (0, _declare2.default)('crm.Views.Briefcase', [_ListBase3.default, _ListOfflineMixin3.default], {
     id: 'briefcase_list',
@@ -60,7 +60,7 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return true;
     },
     getModel: function getModel() {
-      var model = App.ModelManager.getModel('Briefcase', _Types2.default.OFFLINE);
+      const model = App.ModelManager.getModel('Briefcase', _Types2.default.OFFLINE);
       return model;
     },
     getTitle: function getTitle(entry) {
@@ -76,7 +76,7 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return options;
     },
     createToolLayout: function createToolLayout() {
-      var tools = {
+      const tools = {
         tbar: [{
           id: 'resync',
           svg: 'roles',
@@ -91,7 +91,7 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return [];
     },
     getItemIconClass: function getItemIconClass(entry) {
-      var iconClass = void 0;
+      let iconClass;
       iconClass = entry.iconClass;
       if (!iconClass) {
         iconClass = 'url';
@@ -99,13 +99,13 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       return iconClass;
     },
     navigateToDetailView: function navigateToDetailView(key, descriptor, additionalOptions) {
-      var entry = this.entries && this.entries[key];
+      const entry = this.entries && this.entries[key];
       this.navigateToOfflineDetailView(entry, additionalOptions);
     },
     navigateToOnlineDetailView: function navigateToDetailView(entry, additionalOptions) {
-      var view = this.app.getView(entry.viewId);
+      const view = this.app.getView(entry.viewId);
 
-      var options = {
+      let options = {
         descriptor: entry.description, // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
@@ -121,8 +121,8 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     navigateToOfflineDetailView: function navigateToOfflineDetailView(entry, additionalOptions) {
-      var view = this.getDetailView(entry.entityName);
-      var options = {
+      const view = this.getDetailView(entry.entityName);
+      let options = {
         descriptor: entry.description, // keep for backwards compat
         title: entry.description,
         key: entry.entityId,
@@ -143,8 +143,8 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       }
     },
     getDetailView: function getDetailView(entityName) {
-      var viewId = this.detailView + '_' + entityName;
-      var view = this.app.getView(viewId);
+      const viewId = `${this.detailView}_${entityName}`;
+      let view = this.app.getView(viewId);
 
       if (view) {
         return view;
@@ -178,32 +178,30 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       }]);
     },
     navToOnlineView: function navToOnlineVie(action, selection) {
-      var briefcaseId = selection.tag.attributes['data-key'].value;
-      var briefcase = this.entries[briefcaseId];
+      const briefcaseId = selection.tag.attributes['data-key'].value;
+      const briefcase = this.entries[briefcaseId];
       this.navigateToOnlineDetailView(briefcase);
     },
     navToOfflineView: function navToOfflineView(action, selection) {
-      var briefcaseId = selection.tag.attributes['data-key'].value;
-      var briefcase = this.entries[briefcaseId];
+      const briefcaseId = selection.tag.attributes['data-key'].value;
+      const briefcase = this.entries[briefcaseId];
       this.navigateToOfflineDetailView(briefcase);
     },
     removeItemAction: function removeItemAction(action, selection) {
-      var _this = this;
-
       // eslint-disable-line
-      var briefcaseId = selection.tag.attributes['data-key'].value;
-      _Manager2.default.removeBriefcase(briefcaseId).then(function () {
-        _this.clear();
-        _this.refreshRequired = true;
-        _this.refresh();
-      }, function (error) {
+      const briefcaseId = selection.tag.attributes['data-key'].value;
+      _Manager2.default.removeBriefcase(briefcaseId).then(() => {
+        this.clear();
+        this.refreshRequired = true;
+        this.refresh();
+      }, error => {
         console.error(error); // eslint-disable-line
       });
     },
     reBriefcaseItemAction: function reBriefcase(action, selection) {
       // eslint-disable-line
-      var briefcaseId = selection.tag.attributes['data-key'].value;
-      var briefcase = this.entries[briefcaseId];
+      const briefcaseId = selection.tag.attributes['data-key'].value;
+      const briefcase = this.entries[briefcaseId];
       if (briefcase) {
         this.briefCaseItem(briefcase);
       }
@@ -214,7 +212,7 @@ define('crm/Views/Briefcase/List', ['module', 'exports', 'dojo/_base/declare', '
       this.refresh();
     },
     createBriefcaseEntity: function createBriefcaseEntity(entry) {
-      var entity = {
+      const entity = {
         entityId: entry.entityId,
         entityName: entry.entityName,
         options: {

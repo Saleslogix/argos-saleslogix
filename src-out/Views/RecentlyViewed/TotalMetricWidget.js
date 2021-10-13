@@ -26,15 +26,13 @@ define('crm/Views/RecentlyViewed/TotalMetricWidget', ['module', 'exports', '../M
   exports.default = (0, _declare2.default)('crm.Views.RecentlyViewed.TotalMetricWidget', [_MetricWidget2.default], {
     navToReportView: function navToReportView() {},
     _buildQueryOptions: function _buildQueryOptions() {
-      var filters = App.preferences && App.preferences.recentlyViewedEntityFilters ? App.preferences.recentlyViewedEntityFilters : [];
+      const filters = App.preferences && App.preferences.recentlyViewedEntityFilters ? App.preferences.recentlyViewedEntityFilters : [];
       return {
         returnQueryResults: true,
-        filter: function filter(entity) {
+        filter: entity => {
           // If the user has entity filters stored in preferences, filter based on that
           if (filters) {
-            return filters.some(function (filter) {
-              return entity.entityName === filter.name && filter.enabled;
-            });
+            return filters.some(filter => entity.entityName === filter.name && filter.enabled);
           }
 
           // User has no entity filter preferences (from right drawer)
@@ -43,15 +41,15 @@ define('crm/Views/RecentlyViewed/TotalMetricWidget', ['module', 'exports', '../M
       };
     },
     _getData: function _getData() {
-      var queryOptions = this._buildQueryOptions();
-      var model = App.ModelManager.getModel('RecentlyViewed', _Types2.default.OFFLINE);
-      var queryResults = model.getEntries(null, queryOptions);
+      const queryOptions = this._buildQueryOptions();
+      const model = App.ModelManager.getModel('RecentlyViewed', _Types2.default.OFFLINE);
+      const queryResults = model.getEntries(null, queryOptions);
       (0, _when2.default)(queryResults, _lang2.default.hitch(this, this._onQuerySuccessCount, queryResults), _lang2.default.hitch(this, this._onQueryError));
     },
     _onQuerySuccessCount: function _onQuerySuccessCount(results) {
-      var def = new _Deferred2.default();
-      (0, _when2.default)(results.total, function (total) {
-        var metricResults = [{
+      const def = new _Deferred2.default();
+      (0, _when2.default)(results.total, total => {
+        const metricResults = [{
           name: 'count',
           value: total
         }];

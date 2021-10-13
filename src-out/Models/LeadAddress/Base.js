@@ -32,9 +32,9 @@ define('crm/Models/LeadAddress/Base', ['module', 'exports', 'dojo/_base/declare'
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('leadAddressModel');
+  const resource = (0, _I18n2.default)('leadAddressModel');
 
-  var __class = (0, _declare2.default)('crm.Models.LeadAddress.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.LeadAddress.Base', [_ModelBase3.default], {
     resourceKind: 'leadAddresses',
     entityName: 'LeadAddress',
     listViewId: 'address_related',

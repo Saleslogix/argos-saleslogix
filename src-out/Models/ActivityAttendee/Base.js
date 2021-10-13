@@ -32,9 +32,9 @@ define('crm/Models/ActivityAttendee/Base', ['module', 'exports', 'dojo/_base/dec
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityAttendeeModel');
+  const resource = (0, _I18n2.default)('activityAttendeeModel');
 
-  var __class = (0, _declare2.default)('crm.Models.ActivityAttendee.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.ActivityAttendee.Base', [_ModelBase3.default], {
     resourceKind: 'activityAttendees',
     entityName: 'ActivityAttendee',
     entityDisplayName: resource.entityDisplayName,

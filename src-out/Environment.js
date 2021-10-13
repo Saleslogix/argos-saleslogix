@@ -34,7 +34,7 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
   /**
   * @module crm/Environment
   */
-  var __class = _lang2.default.setObject('crm.Environment', /** @lends module:crm/Environment */{
+  const __class = _lang2.default.setObject('crm.Environment', /** @lends module:crm/Environment */{
     /**
      * @param {string} number
      */
@@ -42,19 +42,19 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
       // todo: open a new browser window for these when on a mobile device?
       // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
       // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
-      setTimeout(function () {
-        window.location.href = 'tel:' + number;
+      setTimeout(() => {
+        window.location.href = `tel:${number}`;
       }, 500);
     },
     initiateEmail: function initiateEmail(email, subject, body) {
-      setTimeout(function () {
-        var mailtoUri = subject ? 'mailto:' + email + '?subject=' + subject + '&body=' + (body || '') : 'mailto:' + email;
+      setTimeout(() => {
+        const mailtoUri = subject ? `mailto:${email}?subject=${subject}&body=${body || ''}` : `mailto:${email}`;
         window.location.href = mailtoUri;
       }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
     },
     showMapForAddress: function showMapForAddress(address) {
-      var href = window.location.protocol + '//maps.google.com/maps?output=embed&q=' + address;
-      var view = App.getView('link_view');
+      const href = `${window.location.protocol}//maps.google.com/maps?output=embed&q=${address}`;
+      const view = App.getView('link_view');
       if (view) {
         view.show({
           link: href,
@@ -68,21 +68,21 @@ define('crm/Environment', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/s
     refreshStaleDetailViews: function refreshStaleDetailViews() {
       // List of detail views that will need refreshed when a note is added or an activity is completed (possibly others??).
       // Otherwise the etag will change and the server will give a 412: Preconditioned failed when we attempt to edit/save.
-      var views = crm.Environment.detailViewsToRefreshOnUpdate || [];
+      const views = crm.Environment.detailViewsToRefreshOnUpdate || [];
       crm.Environment.refreshViews(views);
     },
     refreshActivityLists: function refreshActivityLists() {
-      var views = crm.Environment.activityViewsToRefresh || [];
+      const views = crm.Environment.activityViewsToRefresh || [];
       crm.Environment.refreshViews(views);
     },
     refreshAttachmentViews: function refreshAttachmentViews() {
-      var views = crm.Environment.attachmentViewsToRefresh || [];
+      const views = crm.Environment.attachmentViewsToRefresh || [];
       crm.Environment.refreshViews(views);
     },
     refreshViews: function refreshViews(views) {
       if (views && views.length > 0) {
-        views.forEach(function (viewId) {
-          var view = App.getView(viewId);
+        views.forEach(viewId => {
+          const view = App.getView(viewId);
           if (view) {
             view.refreshRequired = true;
           }

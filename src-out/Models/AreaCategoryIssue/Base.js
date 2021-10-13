@@ -15,7 +15,7 @@ define('crm/Models/AreaCategoryIssue/Base', ['module', 'exports', 'dojo/_base/de
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Models.AreaCategoryIssue.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.AreaCategoryIssue.Base', [_ModelBase3.default], {
     resourceKind: 'areaCategoryIssues',
     entityName: 'AreaCategoryIssue',
     modelName: _Names2.default.AREACATEGORYISSUE

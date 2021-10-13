@@ -32,10 +32,10 @@ define('crm/Integrations/BOE/Modules/ReceivableLineModule', ['module', 'exports'
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReceivableLineModule', [_Module3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.ReceivableLineModule', [_Module3.default], {
     init: function init() {},
     loadViews: function loadViews() {
-      var am = this.applicationModule;
+      const am = this.applicationModule;
       am.registerView(new _Detail2.default());
     },
     loadCustomizations: function loadCustomizations() {},

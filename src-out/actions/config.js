@@ -20,8 +20,8 @@ define('crm/actions/config', ['exports'], function (exports) {
    */
 
   // action Types
-  var SET_CONFIG = exports.SET_CONFIG = 'SET_CONFIG';
-  var SET_ENDPOINT = exports.SET_ENDPOINT = 'SET_ENDPOINT';
+  const SET_CONFIG = exports.SET_CONFIG = 'SET_CONFIG';
+  const SET_ENDPOINT = exports.SET_ENDPOINT = 'SET_ENDPOINT';
 
   /*
   
@@ -45,7 +45,7 @@ define('crm/actions/config', ['exports'], function (exports) {
     return {
       type: SET_CONFIG,
       payload: {
-        config: config
+        config
       }
     };
   }
@@ -54,7 +54,7 @@ define('crm/actions/config', ['exports'], function (exports) {
     return {
       type: SET_ENDPOINT,
       payload: {
-        url: url
+        url
       }
     };
   }

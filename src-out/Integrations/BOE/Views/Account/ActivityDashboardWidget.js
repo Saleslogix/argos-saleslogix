@@ -23,22 +23,22 @@ define('crm/Integrations/BOE/Views/Account/ActivityDashboardWidget', ['module', 
     };
   }
 
-  var resource = (0, _I18n2.default)('activityDashboardWidget'); /* Copyright 2017 Infor
-                                                                  *
-                                                                  * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                  * you may not use this file except in compliance with the License.
-                                                                  * You may obtain a copy of the License at
-                                                                  *
-                                                                  *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                  *
-                                                                  * Unless required by applicable law or agreed to in writing, software
-                                                                  * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                  * See the License for the specific language governing permissions and
-                                                                  * limitations under the License.
-                                                                  */
+  const resource = (0, _I18n2.default)('activityDashboardWidget'); /* Copyright 2017 Infor
+                                                                    *
+                                                                    * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                    * you may not use this file except in compliance with the License.
+                                                                    * You may obtain a copy of the License at
+                                                                    *
+                                                                    *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                    *
+                                                                    * Unless required by applicable law or agreed to in writing, software
+                                                                    * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                    * See the License for the specific language governing permissions and
+                                                                    * limitations under the License.
+                                                                    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.ActivityDashboardWidget', [_DashboardWidget2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.ActivityDashboardWidget', [_DashboardWidget2.default], {
     // Localization
     recentText: resource.recentText,
     myPendingText: resource.myPendingText,
@@ -59,11 +59,11 @@ define('crm/Integrations/BOE/Views/Account/ActivityDashboardWidget', ['module', 
     resourceKind: 'accounts',
     querySelect: ['AccountName'],
     getWhere: function getWhere() {
-      return 'Id eq \'' + this.parentEntry.$key + '\'';
+      return `Id eq '${this.parentEntry.$key}'`;
     },
 
     createRangeLayout: function createRangeLayout() {
-      var rangeLayout = [{
+      const rangeLayout = [{
         value: 7
       }, {
         value: 14
@@ -75,12 +75,12 @@ define('crm/Integrations/BOE/Views/Account/ActivityDashboardWidget', ['module', 
       return rangeLayout;
     },
     createMetricLayout: function createMetricLayout(entry) {
-      var metricLayout = [{
+      const metricLayout = [{
         navTo: 'account_newquotes_related',
         formatter: 'bigNumber',
         title: this.recentText,
         queryArgs: {
-          _activeFilter: 'AccountId eq "' + entry.$key + '" and ' + this.pastDays('CreateDate'),
+          _activeFilter: `AccountId eq "${entry.$key}" and ${this.pastDays('CreateDate')}`,
           _filterName: 'ActivityType',
           _metricName: 'CountActivities'
         },
@@ -93,16 +93,16 @@ define('crm/Integrations/BOE/Views/Account/ActivityDashboardWidget', ['module', 
       return metricLayout;
     },
     pastDays: function pastDays(property) {
-      var now = moment();
+      const now = moment();
 
-      var pastWeekStart = now.clone().subtract(this.dayValue, 'days').startOf('day');
-      var today = now.clone().endOf('day');
+      const pastWeekStart = now.clone().subtract(this.dayValue, 'days').startOf('day');
+      const today = now.clone().endOf('day');
 
-      var queries = _string2.default.substitute('((' + property + ' between @${0}@ and @${1}@) or (' + property + ' between @${2}@ and @${3}@))', [_Convert2.default.toIsoStringFromDate(pastWeekStart.toDate()), _Convert2.default.toIsoStringFromDate(today.toDate()), pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'), today.format('YYYY-MM-DDT23:59:59[Z]')]);
+      const queries = _string2.default.substitute(`((${property} between @\${0}@ and @\${1}@) or (${property} between @\${2}@ and @\${3}@))`, [_Convert2.default.toIsoStringFromDate(pastWeekStart.toDate()), _Convert2.default.toIsoStringFromDate(today.toDate()), pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]'), today.format('YYYY-MM-DDT23:59:59[Z]')]);
       return queries;
     }
   });
-  var rvm = new _RelatedViewManager2.default();
+  const rvm = new _RelatedViewManager2.default();
   rvm.registerType('account_activity_dashboard_widget', __class);
   _lang2.default.setObject('icboe.Views.Account.ActivityDashboardWidget', __class);
   exports.default = __class;

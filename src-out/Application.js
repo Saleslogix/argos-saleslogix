@@ -33,44 +33,6 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     };
   }
 
-  var _slicedToArray = function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
-
-      try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);
-
-          if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;
-        _e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }
-
-      return _arr;
-    }
-
-    return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  }();
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -144,36 +106,34 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
-  var resource = (0, _I18n2.default)('application');
+  const resource = (0, _I18n2.default)('application');
 
   /**
    * @alias module:crm/Application
    * @extends module:argos/Application
    */
 
-  var Application = function (_SDKApplication) {
+  let Application = function (_SDKApplication) {
     _inherits(Application, _SDKApplication);
 
-    function Application() {
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-        connections: null,
-        defaultLocale: 'en',
-        enableMultiCurrency: false,
-        multiCurrency: false, // Backwards compatibility
-        enableGroups: true,
-        enableHashTags: true,
-        maxUploadFileSize: 40000000,
-        enableConcurrencyCheck: false,
-        enableOfflineSupport: false,
-        enableServiceWorker: false,
-        enableRememberMe: true,
-        warehouseDiscovery: 'auto',
-        enableMingle: false,
-        mingleEnabled: false, // Backwards compatibility
-        mingleSettings: null,
-        mingleRedirectUrl: ''
-      };
-
+    function Application(options = {
+      connections: null,
+      defaultLocale: 'en',
+      enableMultiCurrency: false,
+      multiCurrency: false, // Backwards compatibility
+      enableGroups: true,
+      enableHashTags: true,
+      maxUploadFileSize: 40000000,
+      enableConcurrencyCheck: false,
+      enableOfflineSupport: false,
+      enableServiceWorker: false,
+      enableRememberMe: true,
+      warehouseDiscovery: 'auto',
+      enableMingle: false,
+      mingleEnabled: false, // Backwards compatibility
+      mingleSettings: null,
+      mingleRedirectUrl: ''
+    }) {
       _classCallCheck(this, Application);
 
       var _this = _possibleConstructorReturn(this, (Application.__proto__ || Object.getPrototypeOf(Application)).call(this));
@@ -243,24 +203,24 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         this._config = null;
         this._loadNavigationState();
 
-        var accessToken = null;
+        let accessToken = null;
         if (this.isMingleEnabled()) {
           accessToken = this.mingleAuthResults.access_token;
         }
 
         this.UID = new Date().getTime();
-        var original = Sage.SData.Client.SDataService.prototype.executeRequest;
-        var self = this;
+        const original = Sage.SData.Client.SDataService.prototype.executeRequest;
+        const self = this;
         Sage.SData.Client.SDataService.prototype.executeRequest = function executeRequest(request) {
           if (accessToken) {
-            request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-            request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
+            request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+            request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
           }
 
           request.setRequestHeader('X-Application-Name', self.appName);
-          var version = self.mobileVersion;
-          var id = self.UID;
-          request.setRequestHeader('X-Application-Version', version.major + '.' + version.minor + '.' + version.revision + ';' + id);
+          const version = self.mobileVersion;
+          const id = self.UID;
+          request.setRequestHeader('X-Application-Version', `${version.major}.${version.minor}.${version.revision};${id}`);
           return original.apply(this, arguments);
         };
       }
@@ -285,7 +245,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       key: 'registerCacheUrl',
       value: function registerCacheUrl(url) {
         if (this.isServiceWorkerEnabled()) {
-          return this.sendServiceWorkerMessage({ command: 'add', url: url });
+          return this.sendServiceWorkerMessage({ command: 'add', url });
         }
 
         return Promise.resolve(true);
@@ -293,12 +253,10 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'registerCacheUrls',
       value: function registerCacheUrls(urls) {
-        var _this2 = this;
-
         if (this.isServiceWorkerEnabled()) {
-          return this.sendServiceWorkerMessage({ command: 'addall', urls: urls }).then(function (data) {
+          return this.sendServiceWorkerMessage({ command: 'addall', urls }).then(data => {
             if (data.results === 'added' || data.results === 'skipped') {
-              _this2.toast.add({ message: _this2.fileCacheText, title: _this2.fileCacheTitle, toastTime: 20000 });
+              this.toast.add({ message: this.fileCacheText, title: this.fileCacheTitle, toastTime: 20000 });
             }
 
             return data;
@@ -311,10 +269,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       key: 'clearServiceWorkerCaches',
       value: function clearServiceWorkerCaches() {
         if (this.isServiceWorkerEnabled()) {
-          return caches.keys().then(function (keys) {
-            return Promise.all(keys.map(function (key) {
-              return caches.delete(key);
-            }));
+          return caches.keys().then(keys => {
+            return Promise.all(keys.map(key => caches.delete(key)));
           });
         }
 
@@ -334,9 +290,9 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getReducer',
       value: function getReducer() {
-        var sdk = _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'getReducer', this).apply(this, arguments);
+        const sdk = _get(Application.prototype.__proto__ || Object.getPrototypeOf(Application.prototype), 'getReducer', this).apply(this, arguments);
         return Redux.combineReducers({
-          sdk: sdk,
+          sdk,
           app: _index.app
         });
       }
@@ -358,11 +314,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'isOnFirstView',
       value: function isOnFirstView() {
-        var history = this.context.history;
-        var length = history.length;
-        var current = history[length - 1];
-        var previous = history[length - 2];
-        var isFirstView = false;
+        const history = this.context.history;
+        const length = history.length;
+        const current = history[length - 1];
+        const previous = history[length - 2];
+        let isFirstView = false;
 
         if (current && current.page === this.loginViewId || current && current.page === this.logOffViewId) {
           isFirstView = true;
@@ -443,14 +399,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getMyExchangeRate',
       value: function getMyExchangeRate() {
-        var results = {
+        const results = {
           code: '',
           rate: 1
         };
 
         if (this.hasMultiCurrency() && this.context && this.context.exchangeRates && this.context.userOptions && this.context.userOptions['General:Currency']) {
-          var myCode = this.context.userOptions['General:Currency'];
-          var myRate = this.context.exchangeRates[myCode];
+          const myCode = this.context.userOptions['General:Currency'];
+          const myRate = this.context.exchangeRates[myCode];
           Object.assign(results, {
             code: myCode,
             rate: myRate
@@ -462,14 +418,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getBaseExchangeRate',
       value: function getBaseExchangeRate() {
-        var results = {
+        const results = {
           code: '',
           rate: 1
         };
 
         if (this.hasMultiCurrency() && this.context && this.context.exchangeRates && this.context.systemOptions && this.context.systemOptions.BaseCurrency) {
-          var baseCode = this.context.systemOptions.BaseCurrency;
-          var baseRate = this.context.exchangeRates[baseCode];
+          const baseCode = this.context.systemOptions.BaseCurrency;
+          const baseRate = this.context.exchangeRates[baseCode];
           Object.assign(results, {
             code: baseCode,
             rate: baseRate
@@ -481,12 +437,12 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getCurrentOpportunityExchangeRate',
       value: function getCurrentOpportunityExchangeRate() {
-        var results = {
+        const results = {
           code: '',
           rate: 1
         };
 
-        var found = this.queryNavigationContext(function (o) {
+        let found = this.queryNavigationContext(o => {
           return (/^(opportunities)$/.test(o.resourceKind) && o.key
           );
         });
@@ -494,11 +450,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         found = found && found.options;
 
         if (found) {
-          var rate = found.ExchangeRate;
-          var code = found.ExchangeRateCode;
+          const rate = found.ExchangeRate;
+          const code = found.ExchangeRateCode;
           Object.assign(results, {
-            code: code,
-            rate: rate
+            code,
+            rate
           });
         }
 
@@ -528,9 +484,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onAuthenticateUserSuccess',
       value: function onAuthenticateUserSuccess(credentials, callback, scope, result) {
-        var _this3 = this;
-
-        var user = {
+        const user = {
           $key: result.response.userId.trim(),
           $descriptor: result.response.prettyName,
           UserName: result.response.userName
@@ -542,8 +496,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
 
         if (this.context.securedActions) {
           this.context.userSecurity = {};
-          this.context.securedActions.forEach(function (item) {
-            _this3.context.userSecurity[item] = true;
+          this.context.securedActions.forEach(item => {
+            this.context.userSecurity[item] = true;
           });
         } else {
           // downgrade server version as only 8.0 has `securedActions` as part of the
@@ -568,33 +522,33 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
 
         if (callback) {
           callback.call(scope || this, {
-            user: user
+            user
           });
         }
       }
     }, {
       key: 'onAuthenticateUserFailure',
       value: function onAuthenticateUserFailure(callback, scope, response) {
-        var service = this.getService();
+        const service = this.getService();
         if (service) {
           service.setUserName(false).setPassword(false);
         }
 
         if (callback) {
           callback.call(scope || this, {
-            response: response
+            response
           });
         }
       }
     }, {
       key: 'authenticateUser',
       value: function authenticateUser(credentials, options) {
-        var service = this.getService();
+        const service = this.getService();
         if (credentials) {
           service.setUserName(credentials.username).setPassword(credentials.password || '');
         }
 
-        var request = new Sage.SData.Client.SDataServiceOperationRequest(service).setContractName('system').setOperationName('getCurrentUser');
+        const request = new Sage.SData.Client.SDataServiceOperationRequest(service).setContractName('system').setOperationName('getCurrentUser');
 
         request.execute({}, {
           success: this.onAuthenticateUserSuccess.bind(this, credentials, options.success, options.scope),
@@ -609,9 +563,9 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           return true;
         }
 
-        var user = this.context.user;
-        var userId = user && user.$key;
-        var userSecurity = this.context.userSecurity;
+        const user = this.context.user;
+        const userId = user && user.$key;
+        const userSecurity = this.context.userSecurity;
 
         if (/^ADMIN\s*/i.test(userId)) {
           return true;
@@ -633,7 +587,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       key: 'resetModuleAppStatePromises',
       value: function resetModuleAppStatePromises() {
         this.clearAppStatePromises();
-        for (var i = 0; i < this.modules.length; i++) {
+        for (let i = 0; i < this.modules.length; i++) {
           this.modules[i].loadAppStatePromises(this);
         }
       }
@@ -643,7 +597,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         this.removeCredentials();
         this._clearNavigationState();
 
-        var service = this.getService();
+        const service = this.getService();
         this.isAuthenticated = false;
         this.context = {
           history: []
@@ -655,7 +609,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           service.setUserName(false).setPassword(false);
         }
 
-        var view = this.getView(this.logOffViewId);
+        const view = this.getView(this.logOffViewId);
 
         if (view) {
           view.show();
@@ -664,11 +618,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getCredentials',
       value: function getCredentials() {
-        var credentials = null;
+        let credentials = null;
         try {
           if (window.localStorage) {
-            var stored = window.localStorage.getItem('credentials');
-            var encoded = stored && Base64.decode(stored);
+            const stored = window.localStorage.getItem('credentials');
+            const encoded = stored && Base64.decode(stored);
             credentials = encoded && JSON.parse(encoded);
           }
         } catch (e) {} //eslint-disable-line
@@ -687,7 +641,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'handleAuthentication',
       value: function handleAuthentication() {
-        var credentials = this.getCredentials();
+        const credentials = this.getCredentials();
 
         if (credentials) {
           this.setPrimaryTitle(this.authText);
@@ -719,28 +673,26 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onHandleAuthenticationSuccess',
       value: function onHandleAuthenticationSuccess() {
-        var _this4 = this;
-
         this.isAuthenticated = true;
         this.setPrimaryTitle(this.loadingText);
         this.showHeader();
-        this.initAppState().then(function () {
-          _this4.onInitAppStateSuccess();
-        }, function (err) {
-          _this4.hideHeader();
-          _this4.onInitAppStateFailed(err);
+        this.initAppState().then(() => {
+          this.onInitAppStateSuccess();
+        }, err => {
+          this.hideHeader();
+          this.onInitAppStateFailed(err);
         });
       }
     }, {
       key: 'showHeader',
       value: function showHeader() {
-        var header = $('.header', this.getContainerNode());
+        const header = $('.header', this.getContainerNode());
         header.show();
       }
     }, {
       key: 'hideHeader',
       value: function hideHeader() {
-        var header = $('.header', this.getContainerNode());
+        const header = $('.header', this.getContainerNode());
         header.hide();
       }
     }, {
@@ -763,21 +715,19 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onInitAppStateSuccess',
       value: function onInitAppStateSuccess() {
-        var _this5 = this;
-
         this.setDefaultMetricPreferences();
         this.showApplicationMenuOnLarge();
         if (this.enableOfflineSupport) {
-          this.initOfflineData().then(function () {
-            _this5.hasState = true;
-            _this5.navigateToInitialView();
-          }, function (error) {
-            _this5.hasState = true;
-            _this5.enableOfflineSupport = false;
-            var message = resource.offlineInitErrorText;
+          this.initOfflineData().then(() => {
+            this.hasState = true;
+            this.navigateToInitialView();
+          }, error => {
+            this.hasState = true;
+            this.enableOfflineSupport = false;
+            const message = resource.offlineInitErrorText;
             _ErrorManager2.default.addSimpleError(message, error);
-            _ErrorManager2.default.showErrorDialog(null, message, function () {
-              _this5.navigateToInitialView();
+            _ErrorManager2.default.showErrorDialog(null, message, () => {
+              this.navigateToInitialView();
             });
           });
         } else {
@@ -788,16 +738,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onInitAppStateFailed',
       value: function onInitAppStateFailed(error) {
-        var _this6 = this;
-
         console.error(error); // eslint-disable-line
-        var message = resource.appStateInitErrorText;
+        const message = resource.appStateInitErrorText;
         this.hideApplicationMenu();
         _ErrorManager2.default.addSimpleError(message, error);
-        _ErrorManager2.default.showErrorDialog(null, message, function () {
-          _this6._clearNavigationState();
-          _this6.removeCredentials();
-          _this6.navigateToLoginView();
+        _ErrorManager2.default.showErrorDialog(null, message, () => {
+          this._clearNavigationState();
+          this.removeCredentials();
+          this.navigateToLoginView();
         });
       }
     }, {
@@ -835,7 +783,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           return;
         }
 
-        var views = this.getDefaultViews();
+        const views = this.getDefaultViews();
 
         this.preferences = {
           home: {
@@ -849,11 +797,11 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getMetricsByResourceKind',
       value: function getMetricsByResourceKind(resourceKind) {
-        var results = [];
-        var prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
+        let results = [];
+        let prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
 
         if (prefs) {
-          prefs = prefs.filter(function (item) {
+          prefs = prefs.filter(item => {
             return item.resourceKind === resourceKind;
           });
 
@@ -868,7 +816,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       key: 'setDefaultMetricPreferences',
       value: function setDefaultMetricPreferences() {
         if (!this.preferences.metrics) {
-          var defaults = new _DefaultMetrics2.default();
+          const defaults = new _DefaultMetrics2.default();
           this.preferences.metrics = defaults.getDefinitions();
           this.persistPreferences();
         }
@@ -888,40 +836,34 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'requestAreaCategoryIssueServices',
       value: function requestAreaCategoryIssueServices() {
-        var _this7 = this;
-
         // In 8.5.0.1 three new business rules were added to AreaCategoryIssue to return distinct
         // values. Call a get on the $services endpoint for this entity to determine if they are there
         // or not so we can fall back to older views.
         this.context.areaCategoryIssueServices = [];
-        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setContractName('dynamic').setResourceKind('areaCategoryIssues').setResourceProperty('$service');
+        const request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService()).setContractName('dynamic').setResourceKind('areaCategoryIssues').setResourceProperty('$service');
 
-        return new Promise(function (resolve) {
+        return new Promise(resolve => {
           request.readFeed({
             success: function success(data) {
               if (data && Array.isArray(data.$resources)) {
-                this.context.areaCategoryIssueServices = data.$resources.map(function (s) {
-                  return s.$descriptor;
-                });
+                this.context.areaCategoryIssueServices = data.$resources.map(s => s.$descriptor);
               }
               resolve(true);
             },
             failure: function failure() {
               resolve(false);
             },
-            scope: _this7
+            scope: this
           });
         });
       }
     }, {
       key: 'requestUserDetails',
       value: function requestUserDetails() {
-        var _this8 = this;
+        const key = this.context.user.$key;
+        const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector(`"${key}"`).setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
-        var key = this.context.user.$key;
-        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector('"' + key + '"').setQueryArg('select', this.userDetailsQuerySelect.join(','));
-
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           request.read({
             success: function success(entry) {
               this.store.dispatch((0, _user.setUser)(entry));
@@ -932,32 +874,29 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             failure: function failure(e) {
               reject(e);
             },
-            scope: _this8
+            scope: this
           });
         });
       }
     }, {
       key: 'requestUserOptions',
       value: function requestUserOptions() {
-        var _this9 = this;
-
-        var batch = new Sage.SData.Client.SDataBatchRequest(this.getService()).setContractName('system').setResourceKind('useroptions').setQueryArg('select', 'name,value,defaultValue').using(function using() {
-          var service = this.getService();
-          this.userOptionsToRequest.forEach(function (item) {
+        const batch = new Sage.SData.Client.SDataBatchRequest(this.getService()).setContractName('system').setResourceKind('useroptions').setQueryArg('select', 'name,value,defaultValue').using(function using() {
+          const service = this.getService();
+          this.userOptionsToRequest.forEach(item => {
             new Sage.SData.Client.SDataSingleResourceRequest(service).setContractName('system').setResourceKind('useroptions').setResourceKey(item).read();
           });
         }, this);
 
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           batch.commit({
             success: function success(feed) {
-              var userOptions = this.context.userOptions = this.context.userOptions || {};
+              const userOptions = this.context.userOptions = this.context.userOptions || {};
 
-              feed.$resources.forEach(function (item) {
-                var key = item && item.$descriptor;
-                var value = item.value;
-                var defaultValue = item.defaultValue;
-
+              feed.$resources.forEach(item => {
+                const key = item && item.$descriptor;
+                let { value } = item;
+                const { defaultValue } = item;
 
                 if (typeof value === 'undefined' || value === null) {
                   value = defaultValue;
@@ -968,8 +907,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                 }
               });
 
-              var insertSecCode = userOptions['General:InsertSecCodeID'];
-              var currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
+              const insertSecCode = userOptions['General:InsertSecCodeID'];
+              const currentDefaultOwner = this.context.defaultOwner && this.context.defaultOwner.$key;
 
               if (insertSecCode && (!currentDefaultOwner || currentDefaultOwner !== insertSecCode)) {
                 this.requestOwnerDescription(insertSecCode);
@@ -982,15 +921,15 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               reject();
               _ErrorManager2.default.addError(response, o, {}, 'failure');
             },
-            scope: _this9
+            scope: this
           });
         });
       }
     }, {
       key: 'loadCustomizedMoment',
       value: function loadCustomizedMoment() {
-        var custom = this.buildCustomizedMoment();
-        var currentLang = moment.locale();
+        const custom = this.buildCustomizedMoment();
+        const currentLang = moment.locale();
 
         moment.updateLocale(currentLang, custom);
         this.moment = moment().locale(currentLang, custom);
@@ -1002,8 +941,8 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
           return null;
         }
 
-        var userWeekStartDay = parseInt(this.context.userOptions['Calendar:WeekStart'], 10);
-        var results = {}; // 0-6, Sun-Sat
+        const userWeekStartDay = parseInt(this.context.userOptions['Calendar:WeekStart'], 10);
+        let results = {}; // 0-6, Sun-Sat
 
         if (!isNaN(userWeekStartDay)) {
           results = {
@@ -1019,32 +958,26 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'requestSystemOptions',
       value: function requestSystemOptions() {
-        var _this11 = this;
+        const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('system').setResourceKind('systemoptions').setQueryArg('select', 'name,value');
 
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('system').setResourceKind('systemoptions').setQueryArg('select', 'name,value');
-
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           request.read({
             success: function succes(feed) {
-              var _this10 = this;
+              const systemOptions = this.context.systemOptions = this.context.systemOptions || {};
 
-              var systemOptions = this.context.systemOptions = this.context.systemOptions || {};
-
-              feed.$resources.forEach(function (item) {
-                var name = item.name,
-                    value = item.value;
-
-                if (value && name && _this10.systemOptionsToRequest.indexOf(name) > -1) {
+              feed.$resources.forEach(item => {
+                const { name, value } = item;
+                if (value && name && this.systemOptionsToRequest.indexOf(name) > -1) {
                   systemOptions[name] = value;
                 }
               }, this);
 
-              var multiCurrency = systemOptions.MultiCurrency;
+              const multiCurrency = systemOptions.MultiCurrency;
 
               if (multiCurrency && multiCurrency === 'True') {
-                this.requestExchangeRates().then(function () {
+                this.requestExchangeRates().then(() => {
                   resolve(feed);
-                }, function () {
+                }, () => {
                   reject();
                 });
               } else {
@@ -1055,25 +988,23 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               _ErrorManager2.default.addError(response, o, {}, 'failure');
               reject();
             },
-            scope: _this11
+            scope: this
           });
         });
       }
     }, {
       key: 'requestExchangeRates',
       value: function requestExchangeRates() {
-        var _this12 = this;
+        const request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('dynamic').setResourceKind('exchangeRates').setQueryArg('select', 'Rate');
 
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService()).setContractName('dynamic').setResourceKind('exchangeRates').setQueryArg('select', 'Rate');
-
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           request.read({
             success: function success(feed) {
-              var exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
+              const exchangeRates = this.context.exchangeRates = this.context.exchangeRates || {};
 
-              feed.$resources.forEach(function (item) {
-                var key = item && item.$descriptor;
-                var value = item && item.Rate;
+              feed.$resources.forEach(item => {
+                const key = item && item.$descriptor;
+                const value = item && item.Rate;
 
                 if (value && key) {
                   exchangeRates[key] = value;
@@ -1086,14 +1017,14 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
               reject();
               _ErrorManager2.default.addError(response, o, {}, 'failure');
             },
-            scope: _this12
+            scope: this
           });
         });
       }
     }, {
       key: 'requestOwnerDescription',
       value: function requestOwnerDescription(key) {
-        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('owners').setResourceSelector('"' + key + '"').setQueryArg('select', 'OwnerDescription');
+        const request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService()).setContractName('dynamic').setResourceKind('owners').setResourceSelector(`"${key}"`).setQueryArg('select', 'OwnerDescription');
 
         request.read({
           success: this.onRequestOwnerDescriptionSuccess,
@@ -1121,20 +1052,18 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getExposedViews',
       value: function getExposedViews() {
-        var _this13 = this;
-
-        return Object.keys(this.views).filter(function (id) {
-          var view = _this13.getViewDetailOnly(id);
+        return Object.keys(this.views).filter(id => {
+          const view = this.getViewDetailOnly(id);
           return view && view.id !== 'home' && view.expose;
         });
       }
     }, {
       key: 'cleanRestoredHistory',
       value: function cleanRestoredHistory(restoredHistory) {
-        var result = [];
-        var hasRoot = false;
+        let result = [];
+        let hasRoot = false;
 
-        for (var i = restoredHistory.length - 1; i >= 0 && !hasRoot; i--) {
+        for (let i = restoredHistory.length - 1; i >= 0 && !hasRoot; i--) {
           if (restoredHistory[i].data.options && restoredHistory[i].data.options.negateHistory) {
             result = [];
             continue;
@@ -1152,39 +1081,37 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'requestIntegrationSettings',
       value: function requestIntegrationSettings(integration) {
-        var _this14 = this;
-
         if (!this.context.integrationSettings) {
           this.context.integrationSettings = {};
         }
-        var request = new Sage.SData.Client.SDataBaseRequest(App.getService());
-        var pageSize = this.pageSize;
-        var startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
+        const request = new Sage.SData.Client.SDataBaseRequest(App.getService());
+        const pageSize = this.pageSize;
+        const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
         request.uri.setPathSegment(0, 'slx');
         request.uri.setPathSegment(1, 'dynamic');
         request.uri.setPathSegment(2, '-');
         request.uri.setPathSegment(3, 'customsettings');
         request.uri.setQueryArg('format', 'JSON');
         request.uri.setQueryArg('select', 'Description,DataValue,DataType');
-        request.uri.setQueryArg('where', 'Category eq "' + integration + '"');
+        request.uri.setQueryArg('where', `Category eq "${integration}"`);
         request.uri.setStartIndex(startIndex);
         request.uri.setCount(pageSize);
         request.service.readFeed(request, {
-          success: function success(feed) {
-            var integrationSettings = {};
-            feed.$resources.forEach(function (item) {
-              var key = item && item.$descriptor;
-              var value = item && item.DataValue;
+          success: feed => {
+            const integrationSettings = {};
+            feed.$resources.forEach(item => {
+              const key = item && item.$descriptor;
+              let value = item && item.DataValue;
               if (typeof value === 'undefined' || value === null) {
                 value = '';
               }
               if (key) {
-                integrationSettings['' + key] = value;
+                integrationSettings[`${key}`] = value;
               }
-              _this14.context.integrationSettings['' + integration] = integrationSettings;
+              this.context.integrationSettings[`${integration}`] = integrationSettings;
             });
           },
-          failure: function failure(response, o) {
+          failure: (response, o) => {
             _ErrorManager2.default.addError(response, o, '', 'failure');
           }
         });
@@ -1195,9 +1122,9 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         this.showLeftDrawer();
         this.showHeader();
         try {
-          var restoredState = this.navigationState;
-          var restoredHistory = restoredState && JSON.parse(restoredState);
-          var cleanedHistory = this.cleanRestoredHistory(restoredHistory);
+          const restoredState = this.navigationState;
+          const restoredHistory = restoredState && JSON.parse(restoredState);
+          const cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
           this._clearNavigationState();
 
@@ -1205,15 +1132,15 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             ReUI.context.transitioning = true;
             ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
 
-            for (var i = 0; i < cleanedHistory.length - 1; i++) {
+            for (let i = 0; i < cleanedHistory.length - 1; i++) {
               window.location.hash = cleanedHistory[i].hash;
             }
 
             ReUI.context.transitioning = false;
 
-            var last = cleanedHistory[cleanedHistory.length - 1];
-            var view = this.getView(last.page);
-            var options = last.data && last.data.options;
+            const last = cleanedHistory[cleanedHistory.length - 1];
+            const view = this.getView(last.page);
+            const options = last.data && last.data.options;
 
             view.show(options);
           } else {
@@ -1227,12 +1154,12 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'setupRedirectHash',
       value: function setupRedirectHash() {
-        var isMingleRefresh = false;
+        let isMingleRefresh = false;
         if (this._hasValidRedirect()) {
           if (this.isMingleEnabled()) {
-            var vars = this.redirectHash.split('&');
-            for (var i = 0; i < vars.length; i++) {
-              var pair = vars[i].split('=');
+            const vars = this.redirectHash.split('&');
+            for (let i = 0; i < vars.length; i++) {
+              const pair = vars[i].split('=');
               if (pair[0] === 'state') {
                 if (pair[1] === 'mingleRefresh') {
                   // show default view
@@ -1245,13 +1172,13 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
             }
           }
           if (isMingleRefresh) {
-            var view = this.getView(App.getDefaultViews()[0]);
+            const view = this.getView(App.getDefaultViews()[0]);
             if (view) {
               view.show();
             }
           } else {
             // Split by "/redirectTo/"
-            var split = this.redirectHash.split(/\/redirectTo\//gi);
+            const split = this.redirectHash.split(/\/redirectTo\//gi);
             if (split.length === 2) {
               this.redirectHash = split[1];
             }
@@ -1261,7 +1188,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'onConnectionChange',
       value: function onConnectionChange(online) {
-        var view = this.getView('left_drawer');
+        const view = this.getView('left_drawer');
         if (!this.enableOfflineSupport) {
           return;
         }
@@ -1294,7 +1221,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       value: function navigateToLoginView() {
         this.setupRedirectHash();
 
-        var view = this.getView(this.loginViewId);
+        const view = this.getView(this.loginViewId);
         if (view) {
           view.show();
         }
@@ -1302,13 +1229,13 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: '_hasValidRedirect',
       value: function _hasValidRedirect() {
-        var hashValue = decodeURIComponent(this.redirectHash);
+        const hashValue = decodeURIComponent(this.redirectHash);
         return hashValue !== '' && hashValue.indexOf('/redirectTo/') > 0;
       }
     }, {
       key: 'showLeftDrawer',
       value: function showLeftDrawer() {
-        var view = this.getView('left_drawer');
+        const view = this.getView('left_drawer');
         if (view) {
           view.show();
         }
@@ -1326,26 +1253,22 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
         this.setupRedirectHash();
         this.showLeftDrawer();
 
-        var visible = this.preferences && this.preferences.home && this.preferences.home.visible;
+        const visible = this.preferences && this.preferences.home && this.preferences.home.visible;
         if (visible && visible.length > 0) {
           this.homeViewId = visible[0];
         }
 
         // Default view will be the home view, overwritten below if a redirect hash is supplied
-        var view = this.getView(this.homeViewId);
+        let view = this.getView(this.homeViewId);
 
         if (this.redirectHash) {
-          var split = this.redirectHash.split(';');
+          let split = this.redirectHash.split(';');
           if (split.length === 1) {
             split = this.redirectHash.split(':');
           }
           if (split.length > 0) {
-            var _split = split,
-                _split2 = _slicedToArray(_split, 2),
-                viewId = _split2[0],
-                key = _split2[1];
-
-            var redirectView = this.getView(viewId);
+            const [viewId, key] = split;
+            const redirectView = this.getView(viewId);
             if (redirectView) {
               if (!redirectView.canRedirectTo) {
                 // The user will go to the default view instead
@@ -1354,7 +1277,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
                 view = redirectView;
                 if (key) {
                   redirectView.show({
-                    key: key
+                    key
                   });
                 }
               }
@@ -1374,7 +1297,7 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'navigateToActivityInsertView',
       value: function navigateToActivityInsertView() {
-        var view = this.getView('activity_types_list');
+        const view = this.getView('activity_types_list');
         if (view) {
           view.show();
         }
@@ -1400,49 +1323,47 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
     }, {
       key: 'getVersionInfo',
       value: function getVersionInfo() {
-        var info = _string2.default.substitute(this.versionInfoText, [this.mobileVersion.major, this.mobileVersion.minor, this.mobileVersion.revision, this.serverVersion.major]);
+        const info = _string2.default.substitute(this.versionInfoText, [this.mobileVersion.major, this.mobileVersion.minor, this.mobileVersion.revision, this.serverVersion.major]);
         return info;
       }
     }, {
       key: 'initOfflineData',
       value: function initOfflineData() {
-        var _this15 = this;
-
-        return new Promise(function (resolve, reject) {
-          var model = _this15.ModelManager.getModel(_Names2.default.AUTHENTICATION, _Types2.default.OFFLINE);
+        return new Promise((resolve, reject) => {
+          const model = this.ModelManager.getModel(_Names2.default.AUTHENTICATION, _Types2.default.OFFLINE);
           if (model) {
-            var indicator = new _BusyIndicator2.default({
+            const indicator = new _BusyIndicator2.default({
               id: 'busyIndicator__offlineData',
               label: resource.offlineInitDataText
             });
-            _this15.modal.disableClose = true;
-            _this15.modal.showToolbar = false;
-            _this15.modal.add(indicator);
+            this.modal.disableClose = true;
+            this.modal.showToolbar = false;
+            this.modal.add(indicator);
             indicator.start();
 
-            model.initAuthentication(_this15.context.user.$key).then(function (result) {
+            model.initAuthentication(this.context.user.$key).then(result => {
               if (result.hasUserChanged || !result.hasAuthenticatedToday) {
-                _Manager2.default.clearAllData().then(function () {
+                _Manager2.default.clearAllData().then(() => {
                   model.updateEntry(result.entry);
                   indicator.complete(true);
-                  _this15.modal.disableClose = false;
-                  _this15.modal.hide();
+                  this.modal.disableClose = false;
+                  this.modal.hide();
                   resolve();
-                }, function (err) {
+                }, err => {
                   indicator.complete(true);
-                  _this15.modal.disableClose = false;
-                  _this15.modal.hide();
+                  this.modal.disableClose = false;
+                  this.modal.hide();
                   reject(err);
                 });
               } else {
                 result.entry.ModifyDate = moment().toDate();
                 model.updateEntry(result.entry);
                 indicator.complete(true);
-                _this15.modal.disableClose = false;
-                _this15.modal.hide();
+                this.modal.disableClose = false;
+                this.modal.hide();
                 resolve(); // Do nothing since this not the first time athuenticating.
               }
-            }, function (err) {
+            }, err => {
               reject(err);
             });
           } else {

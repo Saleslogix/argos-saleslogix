@@ -40,7 +40,7 @@ define('crm/Models/History/SData', ['module', 'exports', 'dojo/_base/declare', '
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.History.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.History.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'history_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{
@@ -55,19 +55,19 @@ define('crm/Models/History/SData', ['module', 'exports', 'dojo/_base/declare', '
       }];
     },
     requestCompletedUser: function requestCompletedUser(entry) {
-      var def = new _Deferred2.default();
-      var completedUser = entry.CompletedUser;
+      const def = new _Deferred2.default();
+      const completedUser = entry.CompletedUser;
 
       if (completedUser) {
-        var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector('\'' + completedUser + '\'').setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
+        const request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService()).setContractName('dynamic').setResourceKind('users').setResourceSelector(`'${completedUser}'`).setQueryArg('select', ['UserInfo/FirstName', 'UserInfo/LastName'].join(','));
 
         request.allowCacheUse = true;
 
         request.read({
-          success: function success(data) {
+          success: data => {
             def.resolve(data);
           },
-          failure: function failure(response, o) {
+          failure: (response, o) => {
             _ErrorManager2.default.addError(response, o, {}, 'failure');
             def.reject(response);
           }
@@ -79,11 +79,9 @@ define('crm/Models/History/SData', ['module', 'exports', 'dojo/_base/declare', '
       return def.promise;
     },
     getEntry: function getEntry() {
-      var _this = this;
-
-      var results$ = this.inherited(getEntry, arguments);
-      return results$.then(function (entry) {
-        return _this.requestCompletedUser(entry).then(function (user) {
+      const results$ = this.inherited(getEntry, arguments);
+      return results$.then(entry => {
+        return this.requestCompletedUser(entry).then(user => {
           if (user) {
             entry.CompletedUser = user;
           }

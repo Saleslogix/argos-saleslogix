@@ -36,7 +36,7 @@ define('crm/Integrations/BOE/Models/Location/Offline', ['module', 'exports', 'do
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Location.Offline', [_Base2.default, _OfflineModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.Location.Offline', [_Base2.default, _OfflineModelBase3.default], {
     id: 'slxlocation_offline_model'
   });
 

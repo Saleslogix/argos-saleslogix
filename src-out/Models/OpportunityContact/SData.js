@@ -36,7 +36,7 @@ define('crm/Models/OpportunityContact/SData', ['module', 'exports', 'dojo/_base/
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Models.OpportunityContact.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.OpportunityContact.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'opportunity_contact_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

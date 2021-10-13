@@ -32,9 +32,9 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('activityAttendeeEdit');
+  const resource = (0, _I18n2.default)('activityAttendeeEdit');
 
-  var __class = (0, _declare2.default)('crm.Views.ActivityAttendee.Edit', [_Edit2.default], {
+  const __class = (0, _declare2.default)('crm.Views.ActivityAttendee.Edit', [_Edit2.default], {
     // Localization
     nameText: resource.nameText,
     accountText: resource.accountText,
@@ -57,11 +57,7 @@ define('crm/Views/ActivityAttendee/Edit', ['module', 'exports', 'dojo/_base/decl
         this.refreshRequired = false; // Indicate to _EditBase we don't want to refresh or set any loading flags
         this.inherited(beforeTransitionTo, arguments);
         this.inserting = true;
-        var _options = this.options,
-            activityEntity = _options.activityEntity,
-            entity = _options.entity,
-            entityType = _options.entityType;
-
+        const { activityEntity, entity, entityType } = this.options;
 
         this.fields.Name.setValue(entity.$descriptor);
         this.fields.AccountName.setValue(entity.Company || entity.AccountName);

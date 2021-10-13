@@ -15,7 +15,7 @@ define('crm/Views/RightDrawer', ['module', 'exports', 'dojo/_base/declare', 'doj
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Views.RightDrawer', [_GroupedList2.default], {
+  const __class = (0, _declare2.default)('crm.Views.RightDrawer', [_GroupedList2.default], {
     // Templates
     cls: ' contextualContent',
     rowTemplate: new Simplate(['<div class="accordion-header list-content" role="presentation">', '<a data-action="{%= $.action %}"', '{% if($.dataProps) { %}', '{% for(var prop in $.dataProps) { %}', ' data-{%= prop %}="{%= $.dataProps[prop] %}"', '{% } %}', '{% } %}', '>', '<span>{%: $.title %}</span></a>', '</div>']),
@@ -47,14 +47,14 @@ define('crm/Views/RightDrawer', ['module', 'exports', 'dojo/_base/declare', 'doj
       return this.layout || [];
     },
     createStore: function createStore() {
-      var layout = this._createCustomizedLayout(this.createLayout());
-      var list = [];
+      const layout = this._createCustomizedLayout(this.createLayout());
+      const list = [];
 
-      for (var i = 0; i < layout.length; i++) {
-        var section = layout[i].children;
+      for (let i = 0; i < layout.length; i++) {
+        const section = layout[i].children;
 
-        for (var j = 0; j < section.length; j++) {
-          var row = section[j];
+        for (let j = 0; j < section.length; j++) {
+          const row = section[j];
 
           if (row.security && !App.hasAccessTo(row.security)) {
             continue;
@@ -65,7 +65,7 @@ define('crm/Views/RightDrawer', ['module', 'exports', 'dojo/_base/declare', 'doj
         }
       }
 
-      var store = new _Memory2.default({
+      const store = new _Memory2.default({
         data: list
       });
       return store;

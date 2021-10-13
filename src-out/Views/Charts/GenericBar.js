@@ -26,7 +26,7 @@ define('crm/Views/Charts/GenericBar', ['module', 'exports', 'dojo/_base/declare'
    * @mixes module:crm/Views/Charts/_ChartMixin
    *
    */
-  var __class = (0, _declare2.default)('crm.Views.Charts.GenericBar', [_View2.default, _ChartMixin3.default], /** @lends module:crm/Views/Charts/GenericBar.prototype */{
+  const __class = (0, _declare2.default)('crm.Views.Charts.GenericBar', [_View2.default, _ChartMixin3.default], /** @lends module:crm/Views/Charts/GenericBar.prototype */{
     id: 'chart_generic_bar',
     titleText: '',
     expose: false,
@@ -57,14 +57,14 @@ define('crm/Views/Charts/GenericBar', ['module', 'exports', 'dojo/_base/declare'
 
       this.showSearchExpression();
 
-      var labels = [];
-      var seriesData = _array2.default.map(rawData, function (item) {
+      const labels = [];
+      const seriesData = _array2.default.map(rawData, item => {
         labels.push(item.$descriptor);
         return Math.round(item.value);
       });
 
-      var data = {
-        labels: labels,
+      const data = {
+        labels,
         datasets: [{
           label: 'Default',
           fillColor: this.barColor,
@@ -76,11 +76,11 @@ define('crm/Views/Charts/GenericBar', ['module', 'exports', 'dojo/_base/declare'
         this.chart.destroy();
       }
 
-      var box = _domGeometry2.default.getMarginBox(this.domNode);
+      const box = _domGeometry2.default.getMarginBox(this.domNode);
       this.contentNode.width = box.w;
       this.contentNode.height = box.h;
 
-      var ctx = this.contentNode.getContext('2d');
+      const ctx = this.contentNode.getContext('2d');
 
       this.chart = new window.Chart(ctx).Bar(data, this.chartOptions); // eslint-disable-line
     }

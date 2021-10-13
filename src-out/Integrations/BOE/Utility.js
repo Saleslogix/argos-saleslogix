@@ -42,24 +42,24 @@ define('crm/Integrations/BOE/Utility', ['module', 'exports', 'dojo/_base/lang', 
   /**
    * @module crm/Integrations/BOE/Utility
    */
-  var __class = _lang2.default.setObject('crm.Integrations.BOE.Utility', /** @lends module:crm/Integrations/BOE/Utility */{
+  const __class = _lang2.default.setObject('crm.Integrations.BOE.Utility', /** @lends module:crm/Integrations/BOE/Utility */{
     // Lookup table for the aggregate functions used by DashboardWidget
     aggregateLookup: {
       calcProfit: function calcProfit(fn, widget, data) {
-        var revenue = data[0];
-        var cost = data[1];
+        const revenue = data[0];
+        const cost = data[1];
 
         return fn.call(widget, revenue, cost);
       },
       calcMargin: function calcMargin(fn, widget, data) {
-        var revenue = data[0];
-        var cost = data[1];
+        const revenue = data[0];
+        const cost = data[1];
 
         return fn.call(widget, revenue, cost);
       },
       calcYoYRevenue: function calcYoYRevenue(fn, widget, data) {
-        var pastYear = data[0];
-        var between = data[1];
+        const pastYear = data[0];
+        const between = data[1];
 
         return fn.call(widget, pastYear, between);
       },
@@ -82,35 +82,29 @@ define('crm/Integrations/BOE/Utility', ['module', 'exports', 'dojo/_base/lang', 
      * @return
      * Returns a promise that is resolved once all entries are returned
      */
-    setFieldsFromIds: function setFieldsFromIds() {
-      var mappedLookups = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      var mappedProperties = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      var fields = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-      var scope = arguments[3];
-      var entry = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
-
-      var promises = [];
-      fields.forEach(function (f, index) {
-        var temp = scope.options.entry ? scope.options.entry[f] : null;
-        var value = entry[f] || scope.entry[f] || temp;
+    setFieldsFromIds: function setFieldsFromIds(mappedLookups = [], mappedProperties = [], fields = [], scope, entry = {}) {
+      const promises = [];
+      fields.forEach((f, index) => {
+        const temp = scope.options.entry ? scope.options.entry[f] : null;
+        const value = entry[f] || scope.entry[f] || temp;
         if (!value) {
           return;
         }
-        var model = _Adapter2.default.getModel(_Names2.default[mappedLookups[index].toUpperCase()]);
+        const model = _Adapter2.default.getModel(_Names2.default[mappedLookups[index].toUpperCase()]);
         if (!model) {
           console.warn('Unable to locate model for ' + f); // eslint-disable-line
           return;
         }
         model.init();
-        var options = {
+        const options = {
           async: false,
           queryModelName: 'detail',
-          query: mappedProperties[index] + ' eq "' + value + '"'
+          query: `${mappedProperties[index]} eq "${value}"`
         };
-        var promise = model.getEntries(null, options);
+        const promise = model.getEntries(null, options);
         promises.push(promise);
-        promise.then(function (entries) {
-          var returned = entries[0];
+        promise.then(entries => {
+          const returned = entries[0];
           if (returned) {
             scope.fields[mappedLookups[index]].setSelection(returned);
             scope.fields[mappedLookups[index]].onChange(scope.fields[mappedLookups[index]].currentSelection, scope.fields[mappedLookups[index]]);
@@ -120,8 +114,8 @@ define('crm/Integrations/BOE/Utility', ['module', 'exports', 'dojo/_base/lang', 
       return Promise.all(promises);
     },
     formatMultiCurrency: function formatMultiCurrency(val, currencyCode) {
-      var result = null;
-      var tempVal = val || 0;
+      let result = null;
+      const tempVal = val || 0;
       if (App.hasMultiCurrency() && currencyCode) {
         result = _Format2.default.multiCurrency.call(null, tempVal, currencyCode);
       } else {
@@ -131,7 +125,7 @@ define('crm/Integrations/BOE/Utility', ['module', 'exports', 'dojo/_base/lang', 
     },
     getBaseCurrencyCode: function getBaseCurrencyCode() {
       if (App.context && App.context.systemOptions && App.context.systemOptions.BaseCurrency) {
-        var results = App.context.systemOptions.BaseCurrency;
+        const results = App.context.systemOptions.BaseCurrency;
         return results;
       }
 

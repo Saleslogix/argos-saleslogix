@@ -19,7 +19,7 @@ define('crm/actions/speedsearch', ['exports'], function (exports) {
    */
 
   // action Types
-  var SET_SEARCHTERM = exports.SET_SEARCHTERM = 'SET_SEARCHTERM';
+  const SET_SEARCHTERM = exports.SET_SEARCHTERM = 'SET_SEARCHTERM';
 
   /*
   
@@ -43,7 +43,7 @@ define('crm/actions/speedsearch', ['exports'], function (exports) {
     return {
       type: SET_SEARCHTERM,
       payload: {
-        searchTerm: searchTerm
+        searchTerm
       }
     };
   }

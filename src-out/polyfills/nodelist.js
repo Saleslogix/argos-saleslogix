@@ -25,7 +25,7 @@ define("crm/polyfills/nodelist", ["exports"], function (exports) {
       NodeList.prototype.forEach = function (callback, argument) {
         // eslint-disable-line
         argument = argument || window;
-        for (var i = 0; i < this.length; i++) {
+        for (let i = 0; i < this.length; i++) {
           callback.call(argument, this[i], i, this);
         }
       };

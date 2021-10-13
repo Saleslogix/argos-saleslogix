@@ -23,7 +23,7 @@ define('crm/Integrations/BOE/Models/ErpReceivableItem/SData', ['module', 'export
     };
   }
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpReceivableItem.SData', [_Base2.default, _SDataModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpReceivableItem.SData', [_Base2.default, _SDataModelBase3.default], {
     id: 'erpreceivableitem_sdata_model',
     createQueryModels: function createQueryModels() {
       return [{

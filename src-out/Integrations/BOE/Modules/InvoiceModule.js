@@ -40,13 +40,13 @@ define('crm/Integrations/BOE/Modules/InvoiceModule', ['module', 'exports', 'dojo
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.InvoiceModule', [_Module3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Modules.InvoiceModule', [_Module3.default], {
     defaultViews: ['invoice_list'],
     init: function init() {
       App.picklistService.registerPicklistToView('ErpInvoiceStatus');
     },
     loadViews: function loadViews() {
-      var am = this.applicationModule;
+      const am = this.applicationModule;
       am.registerView(new _List2.default());
       am.registerView(new _Detail2.default());
       am.registerView(new _Detail4.default());
@@ -63,7 +63,7 @@ define('crm/Integrations/BOE/Modules/InvoiceModule', ['module', 'exports', 'dojo
       }));
     },
     loadCustomizations: function loadCustomizations() {
-      var am = this.applicationModule;
+      const am = this.applicationModule;
       am.registerCustomization('detail/tools', 'invoice_detail', {
         at: function at(tool) {
           return tool.id === 'edit';

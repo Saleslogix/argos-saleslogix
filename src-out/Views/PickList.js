@@ -28,7 +28,7 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
    * limitations under the License.
    */
 
-  var __class = (0, _declare2.default)('crm.Views.PickList', [_List2.default], {
+  const __class = (0, _declare2.default)('crm.Views.PickList', [_List2.default], {
     // Templates
     itemTemplate: new Simplate(['<p class="listview-heading">{%: $.text %}</p>']),
 
@@ -44,13 +44,9 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
     isCardView: false,
 
     _onQueryComplete: function _onQueryComplete(queryResults, entries) {
-      var _this = this;
-
       // eslint-disable-line
       if (this.options && this.options.picklistOptions && this.options.picklistOptions.filterByLanguage && this.query) {
-        entries = entries.filter(function (entry) {
-          return entry.languageCode === _this.getLanguageCode() || typeof entry.languageCode === 'undefined' || entry.languageCode === null;
-        });
+        entries = entries.filter(entry => entry.languageCode === this.getLanguageCode() || typeof entry.languageCode === 'undefined' || entry.languageCode === null);
         queryResults.total = entries.length;
       }
       this.inherited(_onQueryComplete, arguments);
@@ -95,9 +91,7 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
       this.inherited(show, arguments);
     },
     requestData: function requestData() {
-      var _this2 = this;
-
-      var picklistOptions = this.getPicklistOptions();
+      const picklistOptions = this.getPicklistOptions();
       picklistOptions.language = picklistOptions.language || this.getLanguageCode();
       this.languageCode = picklistOptions.language && picklistOptions.language.trim() || this.languageCode;
 
@@ -106,15 +100,11 @@ define('crm/Views/PickList', ['module', 'exports', 'dojo/_base/declare', 'argos/
         return this.inherited(requestData, arguments);
       }
 
-      return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions).then(function (result) {
-        return _this2._onQueryComplete({ total: result && result.items.length }, result && result.items);
-      }, function (err) {
-        return _this2._onQueryError(null, err);
-      });
+      return this.app.picklistService.requestPicklist(this.picklistName, picklistOptions).then(result => this._onQueryComplete({ total: result && result.items.length }, result && result.items), err => this._onQueryError(null, err));
     },
     formatSearchQuery: function formatSearchQuery(searchQuery) {
-      var q = this.escapeSearchQuery(searchQuery.toUpperCase());
-      return 'upper(text) like "' + q + '%"';
+      const q = this.escapeSearchQuery(searchQuery.toUpperCase());
+      return `upper(text) like "${q}%"`;
     }
   });
 

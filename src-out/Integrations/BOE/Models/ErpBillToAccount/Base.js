@@ -19,24 +19,24 @@ define('crm/Integrations/BOE/Models/ErpBillToAccount/Base', ['module', 'exports'
     };
   }
 
-  var resource = (0, _I18n2.default)('erpBillToAccountModel'); /* Copyright 2017 Infor
-                                                                *
-                                                                * Licensed under the Apache License, Version 2.0 (the "License");
-                                                                * you may not use this file except in compliance with the License.
-                                                                * You may obtain a copy of the License at
-                                                                *
-                                                                *    http://www.apache.org/licenses/LICENSE-2.0
-                                                                *
-                                                                * Unless required by applicable law or agreed to in writing, software
-                                                                * distributed under the License is distributed on an "AS IS" BASIS,
-                                                                * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                                                * See the License for the specific language governing permissions and
-                                                                * limitations under the License.
-                                                                */
+  const resource = (0, _I18n2.default)('erpBillToAccountModel'); /* Copyright 2017 Infor
+                                                                  *
+                                                                  * Licensed under the Apache License, Version 2.0 (the "License");
+                                                                  * you may not use this file except in compliance with the License.
+                                                                  * You may obtain a copy of the License at
+                                                                  *
+                                                                  *    http://www.apache.org/licenses/LICENSE-2.0
+                                                                  *
+                                                                  * Unless required by applicable law or agreed to in writing, software
+                                                                  * distributed under the License is distributed on an "AS IS" BASIS,
+                                                                  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                  * See the License for the specific language governing permissions and
+                                                                  * limitations under the License.
+                                                                  */
 
-  var accountResource = (0, _I18n2.default)('accountModel');
+  const accountResource = (0, _I18n2.default)('accountModel');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpBillToAccount.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Models.ErpBillToAccount.Base', [_ModelBase3.default], {
     contractName: 'dynamic',
     resourceKind: 'erpBillToAccounts',
     entityName: 'ERPBillToAccount',
@@ -48,7 +48,7 @@ define('crm/Integrations/BOE/Models/ErpBillToAccount/Base', ['module', 'exports'
     listViewId: 'erpbilltoaccounts_list',
     editViewId: '',
     createRelationships: function createRelationships() {
-      var rel = this.relationships || (this.relationships = [{
+      const rel = this.relationships || (this.relationships = [{
         name: 'Account',
         displayName: accountResource.entityDisplayName,
         type: 'ManyToOne',

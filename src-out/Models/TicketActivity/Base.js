@@ -32,9 +32,9 @@ define('crm/Models/TicketActivity/Base', ['module', 'exports', 'dojo/_base/decla
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('ticketActivityModel');
+  const resource = (0, _I18n2.default)('ticketActivityModel');
 
-  var __class = (0, _declare2.default)('crm.Models.TicketActivity.Base', [_ModelBase3.default], {
+  const __class = (0, _declare2.default)('crm.Models.TicketActivity.Base', [_ModelBase3.default], {
     entityName: 'TicketActivity',
     entityDisplayName: resource.entityDisplayName,
     entityDisplayNamePlural: resource.entityDisplayNamePlural,
@@ -53,7 +53,7 @@ define('crm/Models/TicketActivity/Base', ['module', 'exports', 'dojo/_base/decla
       }]);
     },
     createRelationships: function createRelationships() {
-      var rel = this.relationships || (this.relationships = []);
+      const rel = this.relationships || (this.relationships = []);
       return rel;
     }
 

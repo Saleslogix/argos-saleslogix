@@ -19,20 +19,20 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
     };
   }
 
-  var resource = (0, _I18n2.default)('home'); /* Copyright 2017 Infor
-                                               *
-                                               * Licensed under the Apache License, Version 2.0 (the "License");
-                                               * you may not use this file except in compliance with the License.
-                                               * You may obtain a copy of the License at
-                                               *
-                                               *    http://www.apache.org/licenses/LICENSE-2.0
-                                               *
-                                               * Unless required by applicable law or agreed to in writing, software
-                                               * distributed under the License is distributed on an "AS IS" BASIS,
-                                               * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                               * See the License for the specific language governing permissions and
-                                               * limitations under the License.
-                                               */
+  const resource = (0, _I18n2.default)('home'); /* Copyright 2017 Infor
+                                                 *
+                                                 * Licensed under the Apache License, Version 2.0 (the "License");
+                                                 * you may not use this file except in compliance with the License.
+                                                 * You may obtain a copy of the License at
+                                                 *
+                                                 *    http://www.apache.org/licenses/LICENSE-2.0
+                                                 *
+                                                 * Unless required by applicable law or agreed to in writing, software
+                                                 * distributed under the License is distributed on an "AS IS" BASIS,
+                                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                 * See the License for the specific language governing permissions and
+                                                 * limitations under the License.
+                                                 */
 
   /*eslint-disable*/
 
@@ -59,13 +59,13 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
     addAccountContactView: 'add_account_contact',
     searchView: 'speedsearch_list',
 
-    navigateToView: function navigateToView(params) {
+    navigateToView: function (params) {
       var view = App.getView(params && params.view);
       if (view) {
         view.show();
       }
     },
-    addAccountContact: function addAccountContact() {
+    addAccountContact: function () {
       var view = App.getView(this.addAccountContactView);
       if (view) {
         view.show({
@@ -73,17 +73,17 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
         });
       }
     },
-    formatSearchQuery: function formatSearchQuery(searchQuery) {
+    formatSearchQuery: function (searchQuery) {
       var expression = new RegExp(searchQuery, 'i');
 
       return function (entry) {
         return expression.test(entry.title);
       };
     },
-    hasMoreData: function hasMoreData() {
+    hasMoreData: function () {
       return false;
     },
-    getGroupForEntry: function getGroupForEntry(entry) {
+    getGroupForEntry: function (entry) {
       if (entry.view) {
         return {
           tag: 'view',
@@ -101,7 +101,7 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
 
       this.connect(App, 'onRegistered', this._onRegistered);
     },
-    createToolLayout: function createToolLayout() {
+    createToolLayout: function () {
       return this.tools || (this.tools = {
         tbar: [{
           id: 'configure',
@@ -109,7 +109,7 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
         }]
       });
     },
-    createLayout: function createLayout() {
+    createLayout: function () {
       // don't need to cache as it is only re-rendered when there is a change
       var configured, layout, visible, i, view;
 
@@ -145,7 +145,7 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
 
       return layout;
     },
-    requestData: function requestData() {
+    requestData: function () {
       var layout = this._createCustomizedLayout(this.createLayout()),
           i,
           j,
@@ -171,7 +171,7 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
       this.processData(list);
     },
 
-    _onSearchExpression: function _onSearchExpression(expression) {
+    _onSearchExpression: function (expression) {
       var view = App.getView(this.searchView);
 
       if (view) {
@@ -181,26 +181,16 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
       }
     },
 
-    navigateToConfigurationView: function navigateToConfigurationView() {
+    navigateToConfigurationView: function () {
       var view = App.getView(this.configurationView);
       if (view) {
         view.show();
       }
     },
-    _onRegistered: function _onRegistered() {
+    _onRegistered: function () {
       this.refreshRequired = true;
     },
-    refreshRequiredFor: function (_refreshRequiredFor) {
-      function refreshRequiredFor() {
-        return _refreshRequiredFor.apply(this, arguments);
-      }
-
-      refreshRequiredFor.toString = function () {
-        return _refreshRequiredFor.toString();
-      };
-
-      return refreshRequiredFor;
-    }(function () {
+    refreshRequiredFor: function () {
       var visible = _lang2.default.getObject('preferences.home.visible', false, App) || [],
           i,
           shown = this.feed && this.feed['$resources'];
@@ -216,7 +206,7 @@ define('crm/Views/Home', ['module', 'exports', 'dojo/_base/declare', 'dojo/_base
       }
 
       return this.inherited(refreshRequiredFor, arguments);
-    })
+    }
   });
 
   exports.default = __class;

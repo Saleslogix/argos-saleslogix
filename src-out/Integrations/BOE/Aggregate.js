@@ -37,19 +37,16 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
   /**
   * @module crm/Integrations/BOE/Aggregate
   */
-  var __class = _lang2.default.setObject('crm.Integrations.BOE.Aggregate', /** @lends module:crm/Integrations/BOE/Aggregate */{
+  const __class = _lang2.default.setObject('crm.Integrations.BOE.Aggregate', /** @lends module:crm/Integrations/BOE/Aggregate */{
     /**
      * Calculate Profit
      * @param {Array} data arrays of revenue and cost
      * @return {Number}
      */
-    calcProfit: function calcProfit() {
-      var revenue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var cost = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-      var totalRevenue = _Aggregate2.default.sum(revenue);
-      var totalCost = _Aggregate2.default.sum(cost);
-      var profit = totalRevenue - totalCost;
+    calcProfit: function calcProfit(revenue = 0, cost = 0) {
+      const totalRevenue = _Aggregate2.default.sum(revenue);
+      const totalCost = _Aggregate2.default.sum(cost);
+      const profit = totalRevenue - totalCost;
 
       return profit;
     },
@@ -58,13 +55,10 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
      * @param {Array} data arrays of revenue and cost
      * @return {Number}
      */
-    calcMargin: function calcMargin() {
-      var revenue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var cost = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-      var profitTotal = icboe.Aggregate.calcProfit(revenue, cost);
-      var revenueTotal = _Aggregate2.default.sum(revenue);
-      var margin = void 0;
+    calcMargin: function calcMargin(revenue = 0, cost = 0) {
+      const profitTotal = icboe.Aggregate.calcProfit(revenue, cost);
+      const revenueTotal = _Aggregate2.default.sum(revenue);
+      let margin;
       if (revenueTotal !== 0) {
         margin = profitTotal / revenueTotal;
       } else {
@@ -79,9 +73,9 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
      * @return {Number}
      */
     calcYoYRevenue: function calcYoYRevenue(pastYear, between) {
-      var revenuePastYear = _Aggregate2.default.sum(pastYear);
-      var revenueBetween = _Aggregate2.default.sum(between);
-      var revenueYoY = void 0;
+      const revenuePastYear = _Aggregate2.default.sum(pastYear);
+      const revenueBetween = _Aggregate2.default.sum(between);
+      let revenueYoY;
 
       if (revenueBetween !== 0) {
         revenueYoY = (revenuePastYear - revenueBetween) / revenueBetween;
@@ -97,9 +91,9 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
      * @return {Number}
      */
     calcYoYProfit: function calcYoYProfit(revenuePastYear, costPastYear, revenueBetween, costBetween) {
-      var profitPastYear = icboe.Aggregate.calcProfit(revenuePastYear, costPastYear);
-      var profitBetween = icboe.Aggregate.calcProfit(revenueBetween, costBetween);
-      var profitYoY = void 0;
+      const profitPastYear = icboe.Aggregate.calcProfit(revenuePastYear, costPastYear);
+      const profitBetween = icboe.Aggregate.calcProfit(revenueBetween, costBetween);
+      let profitYoY;
 
       if (profitBetween !== 0) {
         profitYoY = (profitPastYear - profitBetween) / profitBetween;
@@ -115,9 +109,9 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
      * @return {Number}
      */
     calcYoYMargin: function calcYoYMargin(revenuePastYear, costPastYear, revenueBetween, costBetween) {
-      var marginPastYear = icboe.Aggregate.calcMargin(revenuePastYear, costPastYear);
-      var marginBetween = icboe.Aggregate.calcMargin(revenueBetween, costBetween);
-      var marginYoY = void 0;
+      const marginPastYear = icboe.Aggregate.calcMargin(revenuePastYear, costPastYear);
+      const marginBetween = icboe.Aggregate.calcMargin(revenueBetween, costBetween);
+      let marginYoY;
 
       if (marginBetween !== 0) {
         marginYoY = (marginPastYear - marginBetween) / marginBetween;
@@ -131,7 +125,7 @@ define('crm/Integrations/BOE/Aggregate', ['module', 'exports', 'dojo/_base/lang'
       * @deprecated
       */
     changeColor: function changeColor(widget, value) {
-      var temp = value;
+      let temp = value;
       temp = temp * 100;
 
       if (temp > 0.01) {

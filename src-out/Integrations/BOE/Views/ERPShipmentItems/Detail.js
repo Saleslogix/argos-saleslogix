@@ -36,9 +36,9 @@ define('crm/Integrations/BOE/Views/ERPShipmentItems/Detail', ['module', 'exports
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('erpShipmentItemsDetail');
+  const resource = (0, _I18n2.default)('erpShipmentItemsDetail');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipmentItems.Detail', [_Detail2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.ERPShipmentItems.Detail', [_Detail2.default], {
     // Localization
     titleText: resource.titleText,
     actionsText: resource.actionsText,

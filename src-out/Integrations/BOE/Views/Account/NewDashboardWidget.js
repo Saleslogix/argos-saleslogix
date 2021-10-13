@@ -40,9 +40,9 @@ define('crm/Integrations/BOE/Views/Account/NewDashboardWidget', ['module', 'expo
    * limitations under the License.
    */
 
-  var resource = (0, _I18n2.default)('newDashboardWidget');
+  const resource = (0, _I18n2.default)('newDashboardWidget');
 
-  var __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.NewDashboardWidget', [_DashboardWidget2.default], {
+  const __class = (0, _declare2.default)('crm.Integrations.BOE.Views.Account.NewDashboardWidget', [_DashboardWidget2.default], {
     // Localization
     newQuotesText: resource.newQuotesText,
     newOrdersText: resource.newOrdersText,
@@ -129,11 +129,11 @@ define('crm/Integrations/BOE/Views/Account/NewDashboardWidget', ['module', 'expo
     querySelect: ['AccountName'],
     queryArgs: null,
     getWhere: function getWhere() {
-      return 'Id eq \'' + this.parentEntry.$key + '\'';
+      return `Id eq '${this.parentEntry.$key}'`;
     },
     // Creates the range widgets, timespan is based on three categories: d - day, m - month, y - year
     createRangeLayout: function createRangeLayout() {
-      var rangeLayout = [{
+      const rangeLayout = [{
         value: 7
       }, {
         value: 14
@@ -147,7 +147,7 @@ define('crm/Integrations/BOE/Views/Account/NewDashboardWidget', ['module', 'expo
     createMetricLayout: function createMetricLayout(entry) {
       this.setQueryArgs(entry);
 
-      var metricLayout = [{
+      const metricLayout = [{
         navTo: 'account_newquotes_related',
         formatter: 'bigNumber',
         formatterModule: _Format2.default,
@@ -190,23 +190,23 @@ define('crm/Integrations/BOE/Views/Account/NewDashboardWidget', ['module', 'expo
       this.queryArgs = [];
 
       this.queryArgs.push(['quotes', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and' + '(' + '((ErpExtId ne null) and ' + ('(ErpStatus ne "' + this.replacedCode + '") and ') + ('(ErpStatus ne "' + this.cancledCode + '") and ') + ('(ErpStatus ne "' + this.deletedCode + '") and ') + ('(' + this.pastDays('DocumentDate') + ')') + ')' + ' or ' + '((ErpExtId eq null) and ' + '(' + ('(Status ne "' + this.closedText + '") and ') + ('(Status ne "' + this.cancledText + '") and ') + ('(Status ne "' + this.replacedText + '") and ') + ('(Status ne "' + this.deletedText + '") and ') + ('(Status ne "' + this.unapprovedText + '") and ') + ('(' + this.pastDays('StartDate') + ')') + ')' + ')' + ')',
+        _activeFilter: `Account.Id eq "${entry.$key}" and` + '(' + '((ErpExtId ne null) and ' + `(ErpStatus ne "${this.replacedCode}") and ` + `(ErpStatus ne "${this.cancledCode}") and ` + `(ErpStatus ne "${this.deletedCode}") and ` + `(${this.pastDays('DocumentDate')})` + ')' + ' or ' + '((ErpExtId eq null) and ' + '(' + `(Status ne "${this.closedText}") and ` + `(Status ne "${this.cancledText}") and ` + `(Status ne "${this.replacedText}") and ` + `(Status ne "${this.deletedText}") and ` + `(Status ne "${this.unapprovedText}") and ` + `(${this.pastDays('StartDate')})` + ')' + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }], ['salesOrders', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and IsQuote eq false and ' + '(' + '((ErpExtId ne null) and ' + ('(ERPSalesOrder.ERPStatus ne "' + this.cancledCode + '") and ') + ('(ERPSalesOrder.ERPStatus ne "' + this.deletedCode + '") and ') + ('(ERPSalesOrder.ERPStatus ne "' + this.unapprovedCode + '") and ') + ('(' + this.pastDays('ErpDocumentDate') + ')') + ')' + ' or ' + '((ErpExtId eq null) and ' + ('(Status ne "' + this.closedText + '") and ') + ('(Status ne "' + this.cancledText + '") and ') + ('(Status ne "' + this.deletedText + '") and ') + ('(Status ne "' + this.replacedText + '") and ') + ('(Status ne "' + this.unapprovedText + '") and ') + ('(' + this.pastDays('OrderDate') + ')') + ')' + ')',
+        _activeFilter: `Account.Id eq "${entry.$key}" and IsQuote eq false and ` + '(' + '((ErpExtId ne null) and ' + `(ERPSalesOrder.ERPStatus ne "${this.cancledCode}") and ` + `(ERPSalesOrder.ERPStatus ne "${this.deletedCode}") and ` + `(ERPSalesOrder.ERPStatus ne "${this.unapprovedCode}") and ` + `(${this.pastDays('ErpDocumentDate')})` + ')' + ' or ' + '((ErpExtId eq null) and ' + `(Status ne "${this.closedText}") and ` + `(Status ne "${this.cancledText}") and ` + `(Status ne "${this.deletedText}") and ` + `(Status ne "${this.replacedText}") and ` + `(Status ne "${this.unapprovedText}") and ` + `(${this.pastDays('OrderDate')})` + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }], ['erpShipments', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + ('ErpStatus ne "' + this.cancledCode + '" and ') + ('ErpStatus ne "' + this.deletedCode + '" and ') + ('ErpStatus ne "' + this.holdCode + '" and ' + this.pastDays('ErpDocumentDate')),
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` + `ErpStatus ne "${this.cancledCode}" and ` + `ErpStatus ne "${this.deletedCode}" and ` + `ErpStatus ne "${this.holdCode}" and ${this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ERPStatus',
         _metricName: 'SumTotalAmount'
       }], ['erpInvoices', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + ('ErpStatus ne "' + this.proformaCode + '" and ') + ('ErpStatus ne "' + this.voidCode + '" and ') + ('ErpStatus ne "' + this.disputeCode + '" and ') + ('ErpStatus ne "' + this.writeOffCode + '" and ' + this.pastDays('ErpDocumentDate')),
+        _activeFilter: `Account.Id eq "${entry.$key}" and ` + `ErpStatus ne "${this.proformaCode}" and ` + `ErpStatus ne "${this.voidCode}" and ` + `ErpStatus ne "${this.disputeCode}" and ` + `ErpStatus ne "${this.writeOffCode}" and ${this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal'
       }], ['erpReceivables', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ErpStatus ne "' + this.voidCode + '" and ' + this.pastDays('ErpDocumentDate'),
+        _activeFilter: `Account.Id eq "${entry.$key}" and ErpStatus ne "${this.voidCode}" and ${this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ErpStatus',
         _metricName: 'SumGrandTotal'
       }]);
@@ -215,16 +215,16 @@ define('crm/Integrations/BOE/Views/Account/NewDashboardWidget', ['module', 'expo
     },
     setCountTitles: function setCountTitles() {},
     pastDays: function pastDays(property) {
-      var now = moment();
+      const now = moment();
 
-      var pastWeekStart = now.clone().subtract(this.dayValue, 'days').startOf('day');
-      var today = now.clone().endOf('day');
+      const pastWeekStart = now.clone().subtract(this.dayValue, 'days').startOf('day');
+      const today = now.clone().endOf('day');
 
-      var query = '((' + property + ' between @' + _Convert2.default.toIsoStringFromDate(pastWeekStart.toDate()) + '@ and @' + _Convert2.default.toIsoStringFromDate(today.toDate()) + '@) or (' + property + ' between @' + pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]') + '@ and @' + today.format('YYYY-MM-DDT23:59:59[Z]') + '@))';
+      const query = `((${property} between @${_Convert2.default.toIsoStringFromDate(pastWeekStart.toDate())}@ and @${_Convert2.default.toIsoStringFromDate(today.toDate())}@) or (${property} between @${pastWeekStart.format('YYYY-MM-DDT00:00:00[Z]')}@ and @${today.format('YYYY-MM-DDT23:59:59[Z]')}@))`;
       return query;
     }
   });
-  var rvm = new _RelatedViewManager2.default();
+  const rvm = new _RelatedViewManager2.default();
   rvm.registerType('account_new_dashboard_widget', __class);
   _lang2.default.setObject('icboe.Views.Account.NewDashboardWidget', __class);
   exports.default = __class;
