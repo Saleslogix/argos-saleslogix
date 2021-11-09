@@ -77,6 +77,14 @@ define('crm/Views/LeftDrawer', ['module', 'exports', 'dojo/_base/declare', 'dojo
 
     initSoho: function initSoho() {
       this.inherited(initSoho, arguments);
+
+      // The SDK registers the application menu DOM node as part of the startup process
+      // Internally the soho applicationmenu will attempt to look for an accordion menu, which it will not find
+      // and set its accordion API property to undefined. Since we are adding the accordion content dynamically
+      // after this setup process, we will fix these internal structures here.
+      var appmenu = $('.application-menu').data('applicationmenu');
+      appmenu.accordion = appmenu.menu.find('.accordion').last();
+      appmenu.accordionAPI = appmenu.accordion.data('accordion');
     },
     shouldCloseAppMenuOnAction: function shouldCloseAppMenu() {
       var menu = App.applicationmenu;
