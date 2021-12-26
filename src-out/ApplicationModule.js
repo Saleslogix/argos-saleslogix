@@ -723,6 +723,12 @@ define('crm/ApplicationModule', ['module', 'exports', 'dojo/_base/declare', 'doj
             return App.requestSystemOptions();
           }
         }, {
+          name: 'mobile_custom_settings',
+          description: resource.customSettingsText,
+          fn: function fn() {
+            return App.requestIntegrationSettings('Mobile');
+          }
+        }, {
           name: 'integrations',
           description: resource.integrationsText,
           fn: function fn() {

@@ -627,6 +627,7 @@ class Application extends SDKApplication {
     this.navigateToLoginView();
   }
   onInitAppStateSuccess() {
+    this.setMobileCustomSettings();
     this.setDefaultMetricPreferences();
     this.showApplicationMenuOnLarge();
     if (this.enableOfflineSupport) {
@@ -712,6 +713,18 @@ class Application extends SDKApplication {
 
     return results;
   }
+
+  setMobileCustomSettings() {
+    if (!this.context || !this.context.integrationSettings || !this.context.integrationSettings.Mobile) {
+      // No custom settings loaded from server
+      return;
+    }
+
+    const { EnableGroups } = this.context.integrationSettings.Mobile;
+
+    this.enableGroups = typeof EnableGroups === 'string' && EnableGroups.toLowerCase() === 'true';
+  }
+
   setDefaultMetricPreferences() {
     if (!this.preferences.metrics) {
       const defaults = new DefaultMetrics();
@@ -985,7 +998,7 @@ class Application extends SDKApplication {
       this.context.integrationSettings = {};
     }
     const request = new Sage.SData.Client.SDataBaseRequest(App.getService());
-    const pageSize = this.pageSize;
+    const pageSize = 500;
     const startIndex = this.feed && this.feed.$startIndex > 0 && this.feed.$itemsPerPage > 0 ? this.feed.$startIndex + this.feed.$itemsPerPage : 1;
     request.uri.setPathSegment(0, 'slx');
     request.uri.setPathSegment(1, 'dynamic');

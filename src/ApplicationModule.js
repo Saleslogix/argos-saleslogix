@@ -641,6 +641,10 @@ const __class = declare('crm.ApplicationModule', [ApplicationModule], /** @lends
         description: resource.systemOptionsText,
         fn: () => App.requestSystemOptions(),
       }, {
+        name: 'mobile_custom_settings',
+        description: resource.customSettingsText,
+        fn: () => App.requestIntegrationSettings('Mobile'),
+      }, {
         name: 'integrations',
         description: resource.integrationsText,
         fn: () => {
