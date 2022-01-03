@@ -208,6 +208,10 @@ define('crm/Integrations/BOE/Views/Account/SalesDashboardWidget', ['module', 'ex
 
       return metricLayout;
     },
+    rebuildWidgets: function rebuildWidgets() {
+      this.queriedOnce = false;
+      this.inherited(rebuildWidgets, arguments);
+    },
     setQueryArgs: function setQueryArgs(entry) {
       // This function builds the query args array in an order that matches the queryIndex values needed by the values array
       this.queryArgs = [];
