@@ -42,7 +42,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SalesOrdersList({
@@ -50,7 +50,7 @@ const __class = declare('crm.Integrations.BOE.Modules.OpportunityModule', [_Modu
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
   },
   loadCustomizations: function loadCustomizations() {

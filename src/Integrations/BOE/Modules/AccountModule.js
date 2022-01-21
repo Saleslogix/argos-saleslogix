@@ -113,7 +113,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       hasSettings: false,
       expose: false,
       queryWhere: '',
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
       createToolLayout: function createToolLayout() {
         return this.tools;
       },
@@ -125,7 +125,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       hasSettings: false,
       expose: false,
       queryWhere: '',
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
       createToolLayout: function createToolLayout() {
         return this.tools;
       },
@@ -137,7 +137,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       hasSettings: false,
       expose: false,
       queryWhere: '',
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
       createToolLayout: function createToolLayout() {
         return this.tools;
       },
@@ -149,7 +149,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       hasSettings: false,
       expose: false,
       queryWhere: '',
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
       createToolLayout: function createToolLayout() {
         return this.tools;
       },
@@ -171,7 +171,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       hasSettings: false,
       expose: false,
       queryWhere: '',
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
       createToolLayout: function createToolLayout() {
         return this.tools;
       },
@@ -203,7 +203,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       hasSettings: false,
       expose: false,
       queryWhere: '',
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
       createToolLayout: function createToolLayout() {
         return this.tools;
       },
@@ -215,7 +215,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new QuotesList({
@@ -224,7 +224,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new QuotesList({
@@ -233,7 +233,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SalesOrdersList({
@@ -242,7 +242,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SalesOrdersList({
@@ -251,7 +251,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SalesOrdersList({
@@ -260,7 +260,7 @@ const __class = declare('crm.Integrations.BOE.Modules.AccountModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SalesOrdersList({

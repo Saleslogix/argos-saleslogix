@@ -56,7 +56,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List4.default({
@@ -64,7 +64,7 @@ define('crm/Integrations/BOE/Modules/OpportunityModule', ['module', 'exports', '
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
     },
     loadCustomizations: function loadCustomizations() {

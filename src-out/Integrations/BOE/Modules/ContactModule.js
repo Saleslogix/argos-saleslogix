@@ -74,7 +74,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List6.default({
@@ -82,7 +82,7 @@ define('crm/Integrations/BOE/Modules/ContactModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List8.default({
