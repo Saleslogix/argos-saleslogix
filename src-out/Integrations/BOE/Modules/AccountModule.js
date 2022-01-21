@@ -136,7 +136,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hasSettings: false,
         expose: false,
         queryWhere: '',
-        queryOrderBy: 'CreateDate asc',
+        queryOrderBy: 'CreateDate desc',
         createToolLayout: function createToolLayout() {
           return this.tools;
         }
@@ -148,7 +148,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hasSettings: false,
         expose: false,
         queryWhere: '',
-        queryOrderBy: 'CreateDate asc',
+        queryOrderBy: 'CreateDate desc',
         createToolLayout: function createToolLayout() {
           return this.tools;
         }
@@ -160,7 +160,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hasSettings: false,
         expose: false,
         queryWhere: '',
-        queryOrderBy: 'CreateDate asc',
+        queryOrderBy: 'CreateDate desc',
         createToolLayout: function createToolLayout() {
           return this.tools;
         }
@@ -172,7 +172,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hasSettings: false,
         expose: false,
         queryWhere: '',
-        queryOrderBy: 'CreateDate asc',
+        queryOrderBy: 'CreateDate desc',
         createToolLayout: function createToolLayout() {
           return this.tools;
         }
@@ -194,7 +194,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hasSettings: false,
         expose: false,
         queryWhere: '',
-        queryOrderBy: 'CreateDate asc',
+        queryOrderBy: 'CreateDate desc',
         createToolLayout: function createToolLayout() {
           return this.tools;
         }
@@ -226,7 +226,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         hasSettings: false,
         expose: false,
         queryWhere: '',
-        queryOrderBy: 'CreateDate asc',
+        queryOrderBy: 'CreateDate desc',
         createToolLayout: function createToolLayout() {
           return this.tools;
         }
@@ -238,7 +238,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List14.default({
@@ -247,7 +247,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List14.default({
@@ -256,7 +256,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List18.default({
@@ -265,7 +265,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List18.default({
@@ -274,7 +274,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List18.default({
@@ -283,7 +283,7 @@ define('crm/Integrations/BOE/Modules/AccountModule', ['module', 'exports', 'dojo
         groupsEnabled: false,
         hasSettings: false,
         expose: false,
-        queryOrderBy: 'CreateDate asc'
+        queryOrderBy: 'CreateDate desc'
       }));
 
       am.registerView(new _List18.default({

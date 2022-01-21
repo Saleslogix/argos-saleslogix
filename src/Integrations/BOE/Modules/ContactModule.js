@@ -57,7 +57,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SalesOrdersList({
@@ -65,7 +65,7 @@ const __class = declare('crm.Integrations.BOE.Modules.ContactModule', [_Module],
       groupsEnabled: false,
       hasSettings: false,
       expose: false,
-      queryOrderBy: 'CreateDate asc',
+      queryOrderBy: 'CreateDate desc',
     }));
 
     am.registerView(new SyncResultsList({
