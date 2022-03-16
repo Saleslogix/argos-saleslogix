@@ -63,9 +63,11 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
     statusText: resource.statusText,
     currencyCodeText: resource.currencyCodeText,
     subTotalText: resource.subTotalText,
+    mySubTotalText: resource.mySubTotalText,
     grandTotalText: resource.grandTotalText,
     baseSubTotalText: resource.baseSubTotalText,
     baseGrandTotalText: resource.baseGrandTotalText,
+    myGrandTotalText: resource.myGrandTotalText,
     billToText: resource.billToText,
     billToAddressText: resource.billToAddressText,
     shipToText: resource.shipToText,
@@ -427,14 +429,18 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           property: 'OrderTotal',
           label: this.baseSubTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this6.entry.BaseCurrencyCode);
+            var exhangeRate = App.getBaseExchangeRate();
+            var convertedValue = value * exhangeRate.rate;
+            return _Utility2.default.formatMultiCurrency(convertedValue, exhangeRate.code);
           }
         }, {
-          name: 'GrandTotal',
-          property: 'GrandTotal',
-          label: this.baseGrandTotalText,
+          name: 'SubTotal',
+          property: 'OrderTotal',
+          label: this.mySubTotalText,
           renderer: function renderer(value) {
-            return _Utility2.default.formatMultiCurrency(value, _this6.entry.BaseCurrencyCode);
+            var exhangeRate = App.getMyExchangeRate();
+            var convertedValue = value * exhangeRate.rate;
+            return _Utility2.default.formatMultiCurrency(convertedValue, exhangeRate.code);
           }
         }, {
           name: 'DocSubTotal',
@@ -442,6 +448,24 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           label: this.subTotalText,
           renderer: function renderer(value) {
             return _Utility2.default.formatMultiCurrency(value, _this6.entry.CurrencyCode);
+          }
+        }, {
+          name: 'GrandTotal',
+          property: 'GrandTotal',
+          label: this.baseGrandTotalText,
+          renderer: function renderer(value) {
+            var exhangeRate = App.getBaseExchangeRate();
+            var convertedValue = value * exhangeRate.rate;
+            return _Utility2.default.formatMultiCurrency(convertedValue, exhangeRate.code);
+          }
+        }, {
+          name: 'GrandTotalMine',
+          property: 'GrandTotal',
+          label: this.myGrandTotalText,
+          renderer: function renderer(val) {
+            var exhangeRate = App.getMyExchangeRate();
+            var convertedValue = val * exhangeRate.rate;
+            return _Utility2.default.formatMultiCurrency(convertedValue, exhangeRate.code);
           }
         }, {
           name: 'DocGrandTotal',
