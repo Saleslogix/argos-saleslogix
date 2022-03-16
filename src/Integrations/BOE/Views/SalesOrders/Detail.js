@@ -43,9 +43,11 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
   statusText: resource.statusText,
   currencyCodeText: resource.currencyCodeText,
   subTotalText: resource.subTotalText,
+  mySubTotalText: resource.mySubTotalText,
   grandTotalText: resource.grandTotalText,
   baseSubTotalText: resource.baseSubTotalText,
   baseGrandTotalText: resource.baseGrandTotalText,
+  myGrandTotalText: resource.myGrandTotalText,
   billToText: resource.billToText,
   billToAddressText: resource.billToAddressText,
   shipToText: resource.shipToText,
@@ -403,14 +405,18 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         property: 'OrderTotal',
         label: this.baseSubTotalText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+          const exhangeRate = App.getBaseExchangeRate();
+          const convertedValue = value * exhangeRate.rate;
+          return utility.formatMultiCurrency(convertedValue, exhangeRate.code);
         },
       }, {
-        name: 'GrandTotal',
-        property: 'GrandTotal',
-        label: this.baseGrandTotalText,
+        name: 'SubTotal',
+        property: 'OrderTotal',
+        label: this.mySubTotalText,
         renderer: (value) => {
-          return utility.formatMultiCurrency(value, this.entry.BaseCurrencyCode);
+          const exhangeRate = App.getMyExchangeRate();
+          const convertedValue = value * exhangeRate.rate;
+          return utility.formatMultiCurrency(convertedValue, exhangeRate.code);
         },
       }, {
         name: 'DocSubTotal',
@@ -418,6 +424,24 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
         label: this.subTotalText,
         renderer: (value) => {
           return utility.formatMultiCurrency(value, this.entry.CurrencyCode);
+        },
+      }, {
+        name: 'GrandTotal',
+        property: 'GrandTotal',
+        label: this.baseGrandTotalText,
+        renderer: (value) => {
+          const exhangeRate = App.getBaseExchangeRate();
+          const convertedValue = value * exhangeRate.rate;
+          return utility.formatMultiCurrency(convertedValue, exhangeRate.code);
+        },
+      }, {
+        name: 'GrandTotalMine',
+        property: 'GrandTotal',
+        label: this.myGrandTotalText,
+        renderer: (val) => {
+          const exhangeRate = App.getMyExchangeRate();
+          const convertedValue = val * exhangeRate.rate;
+          return utility.formatMultiCurrency(convertedValue, exhangeRate.code);
         },
       }, {
         name: 'DocGrandTotal',
