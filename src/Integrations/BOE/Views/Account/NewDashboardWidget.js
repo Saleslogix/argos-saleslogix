@@ -189,7 +189,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
              '((ErpExtId eq null) and ' +
                '(' +
                  `(Status ne "${this.closedText}") and ` +
-                 `(Status ne "${this.cancledText}") and ` +
+                 `(Status ne "${this.canceledText}") and ` +
                  `(Status ne "${this.replacedText}") and ` +
                  `(Status ne "${this.deletedText}") and ` +
                  `(Status ne "${this.unapprovedText}") and ` +
@@ -214,7 +214,7 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
                   ' or ' +
                   '((ErpExtId eq null) and ' +
                     `(Status ne "${this.closedText}") and ` +
-                    `(Status ne "${this.cancledText}") and ` +
+                    `(Status ne "${this.canceledText}") and ` +
                     `(Status ne "${this.deletedText}") and ` +
                     `(Status ne "${this.replacedText}") and ` +
                     `(Status ne "${this.unapprovedText}") and ` +
@@ -229,7 +229,6 @@ const __class = declare('crm.Integrations.BOE.Views.Account.NewDashboardWidget',
       {
         _activeFilter: `Account.Id eq "${entry.$key}" and ` +
              `ErpStatus ne "${this.cancledCode}" and ` +
-             `ErpStatus ne "${this.deletedCode}" and ` +
              `ErpStatus ne "${this.holdCode}" and ${
                this.pastDays('ErpDocumentDate')}`,
         _filterName: 'ERPStatus',

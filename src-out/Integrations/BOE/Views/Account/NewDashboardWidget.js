@@ -190,15 +190,15 @@ define('crm/Integrations/BOE/Views/Account/NewDashboardWidget', ['module', 'expo
       this.queryArgs = [];
 
       this.queryArgs.push(['quotes', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and' + '(' + '((ErpExtId ne null) and ' + ('(ErpStatus ne "' + this.replacedCode + '") and ') + ('(ErpStatus ne "' + this.cancledCode + '") and ') + ('(ErpStatus ne "' + this.deletedCode + '") and ') + ('(' + this.pastDays('DocumentDate') + ')') + ')' + ' or ' + '((ErpExtId eq null) and ' + '(' + ('(Status ne "' + this.closedText + '") and ') + ('(Status ne "' + this.cancledText + '") and ') + ('(Status ne "' + this.replacedText + '") and ') + ('(Status ne "' + this.deletedText + '") and ') + ('(Status ne "' + this.unapprovedText + '") and ') + ('(' + this.pastDays('StartDate') + ')') + ')' + ')' + ')',
+        _activeFilter: 'Account.Id eq "' + entry.$key + '" and' + '(' + '((ErpExtId ne null) and ' + ('(ErpStatus ne "' + this.replacedCode + '") and ') + ('(ErpStatus ne "' + this.cancledCode + '") and ') + ('(ErpStatus ne "' + this.deletedCode + '") and ') + ('(' + this.pastDays('DocumentDate') + ')') + ')' + ' or ' + '((ErpExtId eq null) and ' + '(' + ('(Status ne "' + this.closedText + '") and ') + ('(Status ne "' + this.canceledText + '") and ') + ('(Status ne "' + this.replacedText + '") and ') + ('(Status ne "' + this.deletedText + '") and ') + ('(Status ne "' + this.unapprovedText + '") and ') + ('(' + this.pastDays('StartDate') + ')') + ')' + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }], ['salesOrders', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and IsQuote eq false and ' + '(' + '((ErpExtId ne null) and ' + ('(ERPSalesOrder.ERPStatus ne "' + this.cancledCode + '") and ') + ('(ERPSalesOrder.ERPStatus ne "' + this.deletedCode + '") and ') + ('(ERPSalesOrder.ERPStatus ne "' + this.unapprovedCode + '") and ') + ('(' + this.pastDays('ErpDocumentDate') + ')') + ')' + ' or ' + '((ErpExtId eq null) and ' + ('(Status ne "' + this.closedText + '") and ') + ('(Status ne "' + this.cancledText + '") and ') + ('(Status ne "' + this.deletedText + '") and ') + ('(Status ne "' + this.replacedText + '") and ') + ('(Status ne "' + this.unapprovedText + '") and ') + ('(' + this.pastDays('OrderDate') + ')') + ')' + ')',
+        _activeFilter: 'Account.Id eq "' + entry.$key + '" and IsQuote eq false and ' + '(' + '((ErpExtId ne null) and ' + ('(ERPSalesOrder.ERPStatus ne "' + this.cancledCode + '") and ') + ('(ERPSalesOrder.ERPStatus ne "' + this.deletedCode + '") and ') + ('(ERPSalesOrder.ERPStatus ne "' + this.unapprovedCode + '") and ') + ('(' + this.pastDays('ErpDocumentDate') + ')') + ')' + ' or ' + '((ErpExtId eq null) and ' + ('(Status ne "' + this.closedText + '") and ') + ('(Status ne "' + this.canceledText + '") and ') + ('(Status ne "' + this.deletedText + '") and ') + ('(Status ne "' + this.replacedText + '") and ') + ('(Status ne "' + this.unapprovedText + '") and ') + ('(' + this.pastDays('OrderDate') + ')') + ')' + ')',
         _filterName: 'AccountManager',
         _metricName: 'SumGrandTotal'
       }], ['erpShipments', {
-        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + ('ErpStatus ne "' + this.cancledCode + '" and ') + ('ErpStatus ne "' + this.deletedCode + '" and ') + ('ErpStatus ne "' + this.holdCode + '" and ' + this.pastDays('ErpDocumentDate')),
+        _activeFilter: 'Account.Id eq "' + entry.$key + '" and ' + ('ErpStatus ne "' + this.cancledCode + '" and ') + ('ErpStatus ne "' + this.holdCode + '" and ' + this.pastDays('ErpDocumentDate')),
         _filterName: 'ERPStatus',
         _metricName: 'SumTotalAmount'
       }], ['erpInvoices', {
