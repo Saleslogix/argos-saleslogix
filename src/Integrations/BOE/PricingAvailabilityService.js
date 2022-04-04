@@ -345,6 +345,20 @@ const __class = lang.setObject('crm.Integrations.BOE.PricingAvailabilityService'
     });
     return promise;
   },
+  getErrorText: function getErrorText(result) {
+    let errorMessage = '';
+    if (Array.isArray(result.Children)) {
+      const messages = result.Children.filter((c) => {
+        return c.Properties && c.Properties.messageText;
+      }).map((c) => {
+        return c.Properties.messageText;
+      });
+
+      errorMessage = messages.length > 0 ? messages[0] : '';
+    }
+
+    return errorMessage;
+  },
   transformAvailability: function transformAvailability(result) {
     const promise = new Promise((resolve, reject) => {
       try {
