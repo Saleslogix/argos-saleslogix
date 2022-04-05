@@ -156,7 +156,11 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
         this.isProcessingPricingRequest = true;
         this.enablePricingControls(false);
         _PricingAvailabilityService2.default.getOrderItemPricing(this.entry, salesOrder, product, quantity, slxLocation, unitOfMeasure).then(function (results) {
-          _this2.onProductPricingSuccess(results);
+          if (results.messageText && results.messageText.value && typeof results.messageText.value === 'string') {
+            _this2.onProductPricingFailed({ Results: results.messageText.value });
+          } else {
+            _this2.onProductPricingSuccess(results);
+          }
         }, function (error) {
           _this2.onProductPricingFailed(error);
         });
@@ -177,7 +181,7 @@ define('crm/Integrations/BOE/Views/SalesOrderItems/Edit', ['module', 'exports', 
     onProductPricingFailed: function onProductPricingFailed(result) {
       this.isProcessingPricingRequest = false;
       this.enablePricingControls(true);
-      this.App.modal.createSimpleDialog({
+      App.modal.createSimpleDialog({
         title: 'alert',
         content: result.Results
       });

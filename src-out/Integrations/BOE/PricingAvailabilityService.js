@@ -362,6 +362,20 @@ define('crm/Integrations/BOE/PricingAvailabilityService', ['module', 'exports', 
       });
       return promise;
     },
+    getErrorText: function getErrorText(result) {
+      var errorMessage = '';
+      if (Array.isArray(result.Children)) {
+        var messages = result.Children.filter(function (c) {
+          return c.Properties && c.Properties.messageText;
+        }).map(function (c) {
+          return c.Properties.messageText;
+        });
+
+        errorMessage = messages.length > 0 ? messages[0] : '';
+      }
+
+      return errorMessage;
+    },
     transformAvailability: function transformAvailability(result) {
       var promise = new Promise(function (resolve, reject) {
         try {

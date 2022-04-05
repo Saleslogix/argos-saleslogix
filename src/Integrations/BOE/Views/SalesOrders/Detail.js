@@ -167,6 +167,12 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
     this._refreshClicked();
     return result;
   },
+  handlePricingError: function handlePricingError(message) {
+    App.modal.createSimpleDialog({
+      title: 'alert',
+      content: message,
+    });
+  },
   onGetOrderTotal: function onGetOrderTotal() {
     if (this.entry) {
       if (!this.options.context) {
@@ -202,7 +208,13 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
       }
       PricingAvailabilityService.salesOrderRePrice(this.entry)
         .then((result) => {
-          this.handlePricingSuccess(result);
+          const errorMessage = PricingAvailabilityService.getErrorText(result);
+
+          if (errorMessage) {
+            this.handlePricingError(errorMessage);
+          } else {
+            this.handlePricingSuccess(result);
+          }
         });
     }
   },

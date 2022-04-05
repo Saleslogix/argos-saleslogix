@@ -271,6 +271,12 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
       this._refreshClicked();
       return result;
     },
+    handlePricingError: function handlePricingError(message) {
+      App.modal.createSimpleDialog({
+        title: 'alert',
+        content: message
+      });
+    },
     onGetOrderTotal: function onGetOrderTotal() {
       var _this4 = this;
 
@@ -308,7 +314,13 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           this.options.context.Quote = this.entry;
         }
         _PricingAvailabilityService2.default.quoteRePrice(this.entry).then(function (result) {
-          _this5.handlePricingSuccess(result);
+          var errorMessage = _PricingAvailabilityService2.default.getErrorText(result);
+
+          if (errorMessage) {
+            _this5.handlePricingError(errorMessage);
+          } else {
+            _this5.handlePricingSuccess(result);
+          }
         });
       }
     },

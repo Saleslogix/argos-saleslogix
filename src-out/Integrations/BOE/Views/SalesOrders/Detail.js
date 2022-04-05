@@ -185,6 +185,12 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
       this._refreshClicked();
       return result;
     },
+    handlePricingError: function handlePricingError(message) {
+      App.modal.createSimpleDialog({
+        title: 'alert',
+        content: message
+      });
+    },
     onGetOrderTotal: function onGetOrderTotal() {
       var _this3 = this;
 
@@ -222,7 +228,13 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           this.options.context.SalesOrder = this.entry;
         }
         _PricingAvailabilityService2.default.salesOrderRePrice(this.entry).then(function (result) {
-          _this4.handlePricingSuccess(result);
+          var errorMessage = _PricingAvailabilityService2.default.getErrorText(result);
+
+          if (errorMessage) {
+            _this4.handlePricingError(errorMessage);
+          } else {
+            _this4.handlePricingSuccess(result);
+          }
         });
       }
     },

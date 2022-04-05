@@ -129,7 +129,11 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
       this.enablePricingControls(false);
       PricingAvailabilityService.getQuoteItemPricing(this.entry, quote, product, quantity, slxLocation, unitOfMeasure).then(
         (results) => {
-          this.onProductPricingSuccess(results);
+          if (results.messageText && results.messageText.value && typeof results.messageText.value === 'string') {
+            this.onProductPricingFailed({ Results: results.messageText.value });
+          } else {
+            this.onProductPricingSuccess(results);
+          }
         }, (error) => {
           this.onProductPricingFailed(error);
         });
@@ -148,7 +152,7 @@ const __class = declare('crm.Integrations.BOE.Views.QuoteLines.Edit', [Edit], {
   onProductPricingFailed: function onProductPricingFailed(result) {
     this.isProcessingPricingRequest = false;
     this.enablePricingControls(true);
-    this.App.modal.createSimpleDialog({
+    App.modal.createSimpleDialog({
       title: 'alert',
       content: result.Results,
     });
