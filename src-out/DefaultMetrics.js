@@ -61,6 +61,7 @@ define('crm/DefaultMetrics', ['module', 'exports', 'dojo/_base/declare', 'argos/
     },
     customizationSet: 'metrics',
     id: 'default_metrics',
+    enableCustomizations: true,
     getDefinitions: function getDefinitions() {
       return this._createCustomizedLayout(this.createLayout(), 'definitions');
     },

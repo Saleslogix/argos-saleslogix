@@ -50,6 +50,7 @@ const __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
   },
   customizationSet: 'metrics',
   id: 'default_metrics',
+  enableCustomizations: true,
   getDefinitions: function getDefinitions() {
     return this._createCustomizedLayout(this.createLayout(), 'definitions');
   },
