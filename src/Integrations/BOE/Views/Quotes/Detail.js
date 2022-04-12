@@ -269,7 +269,13 @@ const __class = declare('crm.Integrations.BOE.Views.Quotes.Detail', [Detail], {
         this.options.context.Quote = this.entry;
       }
       PricingAvailabilityService.getQuotePricing(this.entry).then((result) => {
-        this.handlePricingSuccess(result);
+        const errorMessage = result && result.messageText && result.messageText.value;
+
+        if (errorMessage) {
+          this.handlePricingError(errorMessage);
+        } else {
+          this.handlePricingSuccess(result);
+        }
       });
     }
   },

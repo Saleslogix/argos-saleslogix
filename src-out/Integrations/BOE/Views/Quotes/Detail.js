@@ -289,7 +289,13 @@ define('crm/Integrations/BOE/Views/Quotes/Detail', ['module', 'exports', 'dojo/_
           this.options.context.Quote = this.entry;
         }
         _PricingAvailabilityService2.default.getQuotePricing(this.entry).then(function (result) {
-          _this4.handlePricingSuccess(result);
+          var errorMessage = result && result.messageText && result.messageText.value;
+
+          if (errorMessage) {
+            _this4.handlePricingError(errorMessage);
+          } else {
+            _this4.handlePricingSuccess(result);
+          }
         });
       }
     },
