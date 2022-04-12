@@ -203,7 +203,13 @@ define('crm/Integrations/BOE/Views/SalesOrders/Detail', ['module', 'exports', 'd
           this.options.context.SalesOrder = this.entry;
         }
         _PricingAvailabilityService2.default.getOrderPricing(this.entry).then(function (result) {
-          _this3.handlePricingSuccess(result);
+          var errorMessage = result && result.messageText && result.messageText.value;
+
+          if (errorMessage) {
+            _this3.handlePricingError(errorMessage);
+          } else {
+            _this3.handlePricingSuccess(result);
+          }
         });
       }
     },

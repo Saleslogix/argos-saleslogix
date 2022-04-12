@@ -184,7 +184,13 @@ const __class = declare('crm.Integrations.BOE.Views.SalesOrders.Detail', [Detail
       }
       PricingAvailabilityService.getOrderPricing(this.entry)
         .then((result) => {
-          this.handlePricingSuccess(result);
+          const errorMessage = result && result.messageText && result.messageText.value;
+
+          if (errorMessage) {
+            this.handlePricingError(errorMessage);
+          } else {
+            this.handlePricingSuccess(result);
+          }
         });
     }
   },
