@@ -153,7 +153,7 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
       });
       return promise;
     },
-    onPicklistSuccess: function onPicklistSuccess(resolve, languageCode) {
+    onPicklistSuccess: function onPicklistSuccess(resolve, languageCode, name) {
       var _this2 = this;
 
       return function (result) {
@@ -169,7 +169,7 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
             _this2._picklists[picklist.name] = picklist;
           }
         }
-        _this2.removeRequest(picklist.name);
+        _this2.removeRequest(name);
         resolve(picklist);
       };
     },
@@ -202,7 +202,7 @@ define('crm/PicklistService', ['module', 'exports', 'dojo/_base/lang', 'argos/Er
 
       return new Promise(function (resolve, reject) {
         _this4.addRequest(name);
-        var first = _this4.service.getFirstByName(name, _this4.onPicklistSuccess(resolve, language), _this4.onPicklistError(reject, name), { pickListServiceOptions: pickListServiceOptions, language: language, useCache: useCache });
+        var first = _this4.service.getFirstByName(name, _this4.onPicklistSuccess(resolve, language, name), _this4.onPicklistError(reject, name), { pickListServiceOptions: pickListServiceOptions, language: language, useCache: useCache });
 
         if (first && first.options) {
           var request = _this4.service.setUpRequest(new Sage.SData.Client.SDataResourceCollectionRequest(App.getService(false)).setContractName(_this4.contractName), first.options);
