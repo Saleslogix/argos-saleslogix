@@ -141,7 +141,7 @@ const __class = lang.setObject('crm.PicklistService', /** @lends module:crm/Pick
     });
     return promise;
   },
-  onPicklistSuccess(resolve, languageCode) {
+  onPicklistSuccess(resolve, languageCode, name) {
     return (result) => {
       let picklist = null;
       if (result && result.items) {
@@ -153,7 +153,7 @@ const __class = lang.setObject('crm.PicklistService', /** @lends module:crm/Pick
           this._picklists[picklist.name] = picklist;
         }
       }
-      this.removeRequest(picklist.name);
+      this.removeRequest(name);
       resolve(picklist);
     };
   },
@@ -180,7 +180,7 @@ const __class = lang.setObject('crm.PicklistService', /** @lends module:crm/Pick
       this.addRequest(name);
       const first = this.service.getFirstByName(
         name,
-        this.onPicklistSuccess(resolve, language),
+        this.onPicklistSuccess(resolve, language, name),
         this.onPicklistError(reject, name),
         { pickListServiceOptions, language, useCache }
       );
