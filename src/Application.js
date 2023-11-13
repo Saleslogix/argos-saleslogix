@@ -596,11 +596,41 @@ class Application extends SDKApplication {
       });
     }
   }
+  initAppState() {
+    const request = new Sage.SData.Client.SDataNamedQueryRequest(this.getService())
+      .setContractName('crm')
+      .setResourceKind('plugins')
+      .setQueryName('list')
+      .setQueryArg('pluginType', 'WebJavaScript');
+
+    const scriptPromise = new Promise((resolve, reject) => {
+      request.read({
+        success: function success(results) {
+          const scriptText = results.$resources[0][0] && results.$resources[0][0].blob;
+          const script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.innerHTML = scriptText;
+          document.body.appendChild(script);
+          resolve(true);
+        },
+        failure: function failure(response, o) {
+          reject();
+          ErrorManager.addError(response, o, {}, 'failure');
+        },
+        scope: this,
+      });
+    });
+
+    return scriptPromise.then(() => {
+      return super.initAppState();
+    });
+  }
   onHandleAuthenticationSuccess() {
     this.isAuthenticated = true;
     this.setPrimaryTitle(this.loadingText);
     this.showHeader();
     this.initAppState().then(() => {
+      console.log('init app state success');
       this.onInitAppStateSuccess();
     }, (err) => {
       this.hideHeader();
