@@ -115,14 +115,15 @@ const __class = declare('crm.FileManager', null, /** @lends module:crm/FileManag
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     if (service) {
-      request.setRequestHeader('Authorization', service.createBasicAuthToken());
-      request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
       request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
       if (App.isMingleEnabled()) {
         const accessToken = App.mingleAuthResults.access_token;
         request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
         request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+      } else {
+        request.setRequestHeader('Authorization', service.createBasicAuthToken());
+        request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
       }
     }
 
@@ -253,14 +254,15 @@ const __class = declare('crm.FileManager', null, /** @lends module:crm/FileManag
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     if (service) {
-      request.setRequestHeader('Authorization', service.createBasicAuthToken());
-      request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
       request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
       if (App.isMingleEnabled()) {
         const accessToken = App.mingleAuthResults.access_token;
         request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
         request.setRequestHeader('X-Authorization', `Bearer ${accessToken}`);
+      } else {
+        request.setRequestHeader('Authorization', service.createBasicAuthToken());
+        request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
       }
     }
 

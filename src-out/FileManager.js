@@ -126,14 +126,15 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
       if (service) {
-        request.setRequestHeader('Authorization', service.createBasicAuthToken());
-        request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
         request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
         if (App.isMingleEnabled()) {
           var accessToken = App.mingleAuthResults.access_token;
           request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
           request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
+        } else {
+          request.setRequestHeader('Authorization', service.createBasicAuthToken());
+          request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
         }
       }
 
@@ -264,14 +265,15 @@ define('crm/FileManager', ['module', 'exports', 'dojo/_base/lang', 'dojo/_base/d
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
       if (service) {
-        request.setRequestHeader('Authorization', service.createBasicAuthToken());
-        request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
         request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
 
         if (App.isMingleEnabled()) {
           var accessToken = App.mingleAuthResults.access_token;
           request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
           request.setRequestHeader('X-Authorization', 'Bearer ' + accessToken);
+        } else {
+          request.setRequestHeader('Authorization', service.createBasicAuthToken());
+          request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
         }
       }
 
