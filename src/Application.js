@@ -103,13 +103,13 @@ class Application extends SDKApplication {
     ];
     this.appName = 'argos-saleslogix';
     this.serverVersion = {
-      major: 8,
-      minor: 0,
+      major: 9,
+      minor: 1,
       revision: 0,
     };
     this.mobileVersion = {
       major: 4,
-      minor: 3,
+      minor: 4,
       revision: 0,
     };
     this.versionInfoText = resource.versionInfoText;
