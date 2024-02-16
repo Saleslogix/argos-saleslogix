@@ -193,13 +193,13 @@ define('crm/Application', ['module', 'exports', 'dojo/string', './DefaultMetrics
       _this.systemOptionsToRequest = ['BaseCurrency', 'MultiCurrency', 'ChangeOpportunityRate', 'LockOpportunityRate'];
       _this.appName = 'argos-saleslogix';
       _this.serverVersion = {
-        major: 8,
-        minor: 0,
+        major: 9,
+        minor: 1,
         revision: 0
       };
       _this.mobileVersion = {
         major: 4,
-        minor: 3,
+        minor: 4,
         revision: 0
       };
       _this.versionInfoText = resource.versionInfoText;

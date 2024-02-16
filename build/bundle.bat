@@ -1,7 +1,7 @@
 SET SDK=%CD%\..\..\argos-sdk
 SET VERSION=%~1
 REM :: Mobile supports the current platform + one prior
-SET BUNDLE_NAME=ICRM SLX Mobile v%VERSION% for 8.4 and later VFS.zip
+SET BUNDLE_NAME=ICRM SLX Mobile v%VERSION% for 9.1 and later VFS.zip
 
 call grunt clean:css clean:js less
 call yarn run build

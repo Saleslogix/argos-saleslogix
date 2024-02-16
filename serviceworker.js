@@ -1,4 +1,4 @@
-const CACHE_VERSION = '4.3.0';
+const CACHE_VERSION = '4.4.0';
 const CURRENT_CACHE = 'argos-saleslogix-cache-v' + CACHE_VERSION; // eslint-disable-line
 
 self.addEventListener('install', (event) => { // eslint-disable-line
