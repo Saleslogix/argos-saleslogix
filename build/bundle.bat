@@ -31,4 +31,4 @@ xcopy *.* %SDK%\deploy\temp\ /E /Y /exclude:build\bundleExcludes.txt
 xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix\ /E /Y
 rmdir %SDK%\deploy\temp /S /Q
 
-%SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\%BUNDLE_NAME%" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
+%SDK%\tools\bundler\Bundler.exe /BundlerAction:b /IsCRMBundle:true /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\%BUNDLE_NAME%" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
