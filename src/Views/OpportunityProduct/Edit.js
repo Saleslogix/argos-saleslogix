@@ -137,6 +137,11 @@ const __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
     // transform the discount back into a decimal
     o.Discount = o.Discount / 100;
 
+    // INFORCRM-34458
+    // The business rule "CalculateSalesPotential" changed and now
+    // sums the products PretaxTotalAmount instead of ExtendedPrice.
+    o.PretaxTotalAmount = o.ExtendedPrice;
+
     return o;
   },
   applyContext: function applyContext() {
