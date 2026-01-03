@@ -309,7 +309,7 @@ define('crm/Views/_RightDrawerListMixin', ['module', 'exports', 'dojo/_base/decl
 
       var layout = [];
 
-      if (this.groupsEnabled) {
+      if (this.groupsEnabled && App.enableGroups) {
         var groupsSection = {
           id: 'actions',
           children: []

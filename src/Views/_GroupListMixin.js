@@ -96,6 +96,12 @@ const __class = declare('crm.Views._GroupListMixin', null, /** @lends module:crm
     }
     this.inherited(postMixInProperties, arguments);
   },
+  onBeforeTransitionTo: function onBeforeTransitionTo() {
+    this.inherited(onBeforeTransitionTo, arguments);
+    if (!App.enableGroups) {
+      this._clearGroupMode();
+    }
+  },
   startup: function startup() {
     this.createGroupTemplates();
     this.inherited(startup, arguments);

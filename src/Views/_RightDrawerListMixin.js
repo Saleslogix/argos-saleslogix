@@ -288,7 +288,7 @@ const __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixi
   createRightDrawerLayout: function createRightDrawerLayout() {
     const layout = [];
 
-    if (this.groupsEnabled) {
+    if (this.groupsEnabled && App.enableGroups) {
       const groupsSection = {
         id: 'actions',
         children: [],
