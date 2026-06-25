@@ -77,26 +77,6 @@ node('windows && nodejs') {
   }
 }
 
-stage('Copying to IIS') {
-  node('slx82') {
-    iiscopy(env.BRANCH_NAME, env.BUILD_NUMBER)
-  }
-}
-
-stage('Sending Teams notification') {
-  node {
-    teams_success('Mobile built successfully')
-  }
-}
-
-void iiscopy(branch, build) {
-  dir("C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build") {
-    unstash 'slx'
-    unstash 'sdk'
-  }
-  bat """%windir%\\System32\\WindowsPowerShell\\v1.0\\PowerShell.exe -NoProfile -NoLogo -ExecutionPolicy unrestricted -Command "C:\\inetpub\\wwwroot\\mobile-builds\\$branch\\$build\\scripts\\iis.ps1 -branch $branch -build $build" """
-}
-
 void clonesdk(branch, fallback='develop') {
   try {
     git branch: "$branch", url: 'https://github.com/Saleslogix/argos-sdk.git'
@@ -107,29 +87,5 @@ void clonesdk(branch, fallback='develop') {
       teams_failure('Failed getting argos-sdk')
       throw er
     }
-  }
-}
-
-void teams_success(message) {
-  withCredentials([string(credentialsId: 'teams-notification-url', variable: 'TEAMS_URL')]) {
-    def url = env.TEAMS_URL
-    office365ConnectorSend(
-        webhookUrl: "${url}",
-        color: '#93d374',
-        message: message,
-        status: 'SUCCESS'
-    )
-  }
-}
-
-void teams_failure(message) {
-  withCredentials([string(credentialsId: 'teams-notification-url', variable: 'TEAMS_URL')]) {
-    def url = env.TEAMS_URL
-    office365ConnectorSend(
-        webhookUrl: "${url}",
-        color: '#e57260',
-        message: message,
-        status: 'FAILURE'
-    )
   }
 }
