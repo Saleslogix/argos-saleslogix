@@ -526,10 +526,42 @@ class Application extends SDKApplication {
     }
   }
   logOut() {
+    const service = this.getService();
+
+    // Ask the SData portal to tear down the session. Send the same auth
+    // header the SData client would: a Bearer token when Mingle is enabled
+    // (see the executeRequest override in init), Basic auth otherwise. This
+    // runs before credentials are cleared below. Fire-and-forget GET; logout
+    // must proceed regardless of whether this request succeeds.
+    try {
+      if (service) {
+        // SData portal root, e.g. http://localhost:8000/sdata — Shutdown.axd
+        // lives here, not under the /slx/dynamic/- contract path.
+        const port = service.getPort();
+        const portSegment = (port && port > 0) ? `:${port}` : '';
+        const portalUrl = `${service.getProtocol()}://${service.getServerName()}${portSegment}/${service.getVirtualDirectory()}`;
+        const headers = {
+          'X-Authorization-Mode': 'no-challenge',
+          'X-Application-Name': this.appName,
+        };
+
+        if (this.isMingleEnabled() && this.mingleAuthResults) {
+          const token = `Bearer ${this.mingleAuthResults.access_token}`;
+          headers.Authorization = token;
+          headers['X-Authorization'] = token;
+        } else if (service.getUserName()) {
+          const token = service.createBasicAuthToken();
+          headers.Authorization = token;
+          headers['X-Authorization'] = token;
+        }
+
+        fetch(`${portalUrl}/Shutdown.axd`, { method: 'GET', headers }).catch(() => {});
+      }
+    } catch (e) {} // eslint-disable-line
+
     this.removeCredentials();
     this._clearNavigationState();
 
-    const service = this.getService();
     this.isAuthenticated = false;
     this.context = {
       history: [],
