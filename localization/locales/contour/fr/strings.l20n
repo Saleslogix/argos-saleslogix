@@ -1,5 +1,5 @@
 <proxAppModule ""
-  viewAccountsNearbyText: "Voir comptes à proximité"
+  viewAccountsNearbyText: "Comptes à proximité"
   addressNotGeocodedErrorText: "Adresse non géocodée. Impossible de rechercher des comptes à proximité."
   accountsNearText: "Comptes à proximité de ${0}"
   helpTitleText: "Aide Contour"

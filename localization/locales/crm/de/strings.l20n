@@ -56,6 +56,10 @@
   moreDetailsText: "Weitere Details"
   calledText: "Anruf bei ${0}"
   entityText: "Firma"
+  addTicketText: "Ticket hinzufügen"
+  customerJourney360Text: "Kundenreise 360°"
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Firmen-Workflowinstanzen"
 >
 
 <accountEdit ""
@@ -66,7 +70,7 @@
   acctMgrText: "Account-Manager"
   businessDescriptionText: "Unt.-Beschr."
   businessDescriptionTitleText: "Untern.-Beschreibung"
-  descriptionText: "Beschreibung"
+  descriptionText: "Beschr."
   faxText: "Fax"
   fullAddressText: "Adresse"
   importSourceText: "Lead-Quelle"
@@ -117,6 +121,10 @@
   followUpText: "Folgeaktivität"
   followUpTitleText: "Typ der Folgeaktivität"
   leaderText: "Organisator"
+  isLeadText: "Für Lead"
+  yesText: "JA"
+  noText: "NEIN"
+  phoneText: "Telefon"
   longNotesText: "Notizen"
   longNotesTitleText: "Notizen"
   otherInfoText: "Sonstige Informationen"
@@ -129,11 +137,14 @@
   startingText: "Startdatum"
   timelessText: "Ohne Uhrzeit"
   noneText: "k. A."
+  fiveMinutesText: "5 Minuten"
+  tenMinutesText: "10 Minuten"
   quarterHourText: "15 Minuten"
   halfHourText: "30 Minuten"
   hourText: "1 Stunde"
   hourAndHalfText: "1,5 Stunden"
   twoHoursText: "2 Stunden"
+  fourHoursText: "4 Stunden"
   nonePropText: "k. A."
   phoneCallText: "Anruf"
   meetingText: "Meeting"
@@ -171,6 +182,8 @@
   confirmEditRecurrenceText: "Alle Wiederholungen bearbeiten? Wählen Sie \"Abbrechen\", um nur eine einzelne Wiederholung zu bearbeiten."
   relatedAttachmentText: "Anlagen"
   relatedAttachmentTitleText: "Anlagen zur Aktivität"
+  relatedAttendeeText: "Teilnehmer"
+  relatedAttendeeTitleText: "Aktivitätsteilnehmer"
   relatedItemsText: "Verknüpfte Elemente"
   phoneText: "Telefon"
   moreDetailsText: "Weitere Details"
@@ -221,27 +234,105 @@
   phoneText: "Telefon"
   noneText: "k. A."
   fiveMinText: "5 Minuten"
+  tenMinutesText: "10 Minuten"
   quarterHourText: "15 Minuten"
   halfHourText: "30 Minuten"
   hourText: "1 Stunde"
   hourAndHalfText: "1,5 Stunden"
   twoHoursText: "2 Stunden"
+  fourHoursText: "4 Stunden"
   dayText: "1 Tag"
   updateUserActErrorText: "Bei der Aktualisierung der Benutzeraktivitäten ist ein Fehler aufgetreten."
+>
+
+<activityAttendeeList ""
+  titleText: "Aktivitätsteilnehmer"
+  callPhoneActionText: "Telefonnr. anrufen"
+  deleteText: "Löschen"
+  confirmDeleteText: "Möchten Sie diesen Teilnehmer wirklich entfernen?"
+>
+
+<activityAssociationList ""
+  titleText: "Aktivitätsverknüpfungen"
+  primaryText: "Primär?"
+  deleteText: "Löschen"
+  confirmDeleteText: "Möchten Sie diese Verknüpfung wirklich entfernen?"
+>
+
+<historyAssociationList ""
+  titleText: "Historienverknüpfungen"
+  primaryText: "Primär?"
+>
+
+<historyAttendeeList ""
+  titleText: "Teilnehmerhistorie"
+  callPhoneActionText: "Telefonnr. anrufen"
+>
+
+<activityAttendeeDetail ""
+  titleText: "Aktivitätsteilnehmer"
+  entityText: "Aktivitätsteilnehmer"
+  nameText: "Name"
+  accountText: "Firma"
+  typeText: "Typ"
+  primaryText: "Primär"
+  roleText: "Rolle"
+  phoneText: "Telefon"
+  emailText: "E-Mail"
+  timeZoneText: "Zeitzone"
+>
+
+<historyAttendeeDetail ""
+  titleText: "Teilnehmerhistorie"
+  entityText: "Teilnehmerhistorie"
+  nameText: "Name"
+  accountText: "Firma"
+  typeText: "Typ"
+  primaryText: "Primär"
+  roleText: "Rolle"
+  phoneText: "Telefon"
+  emailText: "E-Mail"
+  timeZoneText: "Zeitzone"
+>
+
+<activityAttendeeEdit ""
+  titleText: "Aktivitätsteilnehmer"
+  nameText: "Name"
+  accountText: "Firma"
+  typeText: "Typ"
+  primaryText: "Primär"
+  roleText: "Rolle"
+  phoneText: "Telefon"
+  emailText: "E-Mail"
+  timeZoneText: "Zeitzone"
+  attendeeText: "Teilnehmer"
+>
+
+<activityAttendeeTypesList ""
+  titleText: "Teilnehmer hinzufügen"
+  contactText: "Kontakt"
+  leadText: "Lead"
+  cancelText: "Abbrechen"
+  addText: "Hinzufügen"
 >
 
 <activityList ""
   titleText: "Aktivitäten"
   allDayText: "Ohne Uhrzeit"
   completeActivityText: "Abschließen"
+  completeRecurringPrompt: "Diese Wiederholung oder die gesamte Serie abschließen?"
+  completeOccurrenceText: "Wiederholung abschließen"
+  completeSeriesText: "Serie abschließen"
+  cancelText: "Abbrechen"
   callText: "Anruf"
   calledText: "Anruf bei ${0}"
   addAttachmentActionText: "Anlage hinzufügen"
-  overdueText: "überfällig"
+  overdueText: "Überfällig"
   alarmText: "Alarm"
   touchedText: "Bearbeitet"
-  importantText: "wichtig"
+  importantText: "Wichtig"
   recurringText: "Wiederkehrend"
+  addUnscheduledText: "Neue ungeplante Aktivität"
 >
 
 <activityMyList ""
@@ -365,6 +456,7 @@
   attachmentNotSupportedText: "Der Anlagentyp kann nicht angezeigt werden."
   downloadingText: "Anlage wird heruntergeladen ..."
   notSupportedText: "Das Öffnen von Anhängen wird von Ihrem Gerät nicht unterstützt."
+  openInNewTabText: "In neuer Registerkarte öffnen"
 >
 
 <calendarView ""
@@ -374,12 +466,12 @@
   eventHeaderText: "Ereignisse"
   countMoreText: "Mehr anzeigen"
   toggleCollapseText: "ein-/ausblenden"
-  withFromText: "Teilnehmer: ${contactName} von der Firma ${accountName}"
   withText: "Teilnehmer: ${object}"
-  unspecifiedText: "nicht definiert"
+  unspecifiedText: "k. A."
   forText: "für ${reason}"
   dayText: "Tag"
   weekText: "Woche"
+  addUnscheduledText: "Neue ungeplante Aktivität"
 >
 
 <calendarDayView ""
@@ -468,6 +560,8 @@
   viewAddressText: "Adresse anzeigen"
   moreDetailsText: "Weitere Details"
   entityText: "Kontakt"
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Kontakt-Workflowinstanzen"
 >
 
 <contactEdit ""
@@ -521,8 +615,9 @@
   entityText: "Fehlerprotokoll"
   moreDetailsText: "Weitere Details"
   errorText: "Fehler"
-  emailSubjectText: "Fehler in Infor CRM Mobile Client"
+  emailSubjectText: "In Infor CRM SLX-Mobile Client ist ein Fehler aufgetreten"
   copiedSuccessText: "In die Zwischenablage kopiert"
+  emailText: "E-Mail"
 >
 
 <errorLogList ""
@@ -583,6 +678,7 @@
   ticketNumberText: "Ticket"
   moreDetailsText: "Weitere Details"
   relatedItemsText: "Verknüpfte Elemente"
+  relatedAttendeeText: "Teilnehmer"
   relatedAttachmentText: "Anlagen"
   relatedAttachmentTitleText: "Anlagen zur Historie"
   modifiedText: "geändert"
@@ -644,7 +740,7 @@
 <historyListOffline ""
   titleText: "Offline-Notizen"
   widgetTitle: "Offline-Notiz"
-  saveToCRMText: "In Infor CRM speichern"
+  saveToCRMText: "In Infor CRM SLX speichern"
   deleteNoteText: "Löschen"
 >
 
@@ -690,6 +786,58 @@
   calledText: "Anruf bei ${0}"
   emailedText: "E-Mail an ${0}"
   entityText: "Lead"
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Lead-Workflowinstanzen"
+  ocrScanText: "Karte scannen"
+  ocrUnavailableText: "Das Scannen von Karten ist auf dieser Plattform nicht verfügbar."
+  ocrOpenFailedText: "Der Kartenscanner konnte nicht geöffnet werden. Versuchen Sie es erneut."
+>
+
+<ocrCapture ""
+  titleText: "Karte scannen"
+  instructionsText: "Nehmen Sie ein Foto auf oder wählen Sie ein Bild der Karte aus, die Sie scannen möchten."
+  browseText: "Bild hinzufügen"
+  chooserTitleText: "Bild hinzufügen"
+  chooserPromptText: "Nehmen Sie ein Foto aufoder wählen Sie ein vorhandens Bild auf."
+  takePhotoText: "Foto aufnehmen"
+  chooseFileText: "Datei auswählen"
+  capturePhotoText: "Aufnehmen"
+  cameraErrorText: "Auf die Kamera konnte nicht zugegriffen werden. Überprüfen Sie die Berechtigungen oder wählen Sie stattdessen eine Datei aus."
+  cancelText: "Abbrechen"
+  submitText: "Verarbeiten"
+  progressText: "Text wird erkannt..."
+  previewAltText: "Vorschau für ausgewähltes Bild"
+  unsupportedFormatText: "Nicht unterstütztes Bildformat. Unterstützte Formate sind PNG, JPEG, TIFF und BMP."
+  oversizeText: "Das ausgewählte Bild ist zu groß. Bilder dürfen maximal 10 MB groß sein."
+  emptyImageText: "Das Bild ist leer oder konnte nicht erfasst werden. Wählen Sie ein anderes Bild aus."
+  invalidImageText: "Vor dem Scannen ist ein gültiges Bild erforderlich."
+  timeoutText: "Die Texterkennung wurde wegen Zeitüberschreitung abgebrochen. Versuchen Sie es erneut."
+  recognitionErrorText: "Die Texterkennung ist fehlgeschlagen. Versuchen Sie es erneut."
+  unavailableText: "Die Texterkennung ist auf dieser Plattform nicht verfügbar."
+  noTextText: "Es wurde kein Text erkannt. Nehmen Sie ein anderes Bild auf oder laden Sie es hoch."
+>
+
+<ocrMapping ""
+  titleText: "Kartentext zuordnen"
+  linesTitleText: "Erkannter Text"
+  fieldsTitleText: "Felder"
+  confidenceText: "Konfidenz"
+  assignText: "Zuweisen"
+  clearText: "Löschen"
+  splitText: "Aufteilen"
+  lineInputLabelText: "Erkannte Textzeile"
+  splitHintText: "Setzen Sie den Cursor an die Stelle, an der Sie die Zeile aufteilen möchten, und wählen Sie dann \"Aufteilen\" (oder drücken Sie die Eingabetaste)."
+  undoText: "Rückgängig"
+  confirmText: "Bestätigen"
+  recaptureText: "Bild erneut aufnehmen"
+  noTextText: "Es wurde kein Text erkannt. Nehmen Sie ein anderes Bild auf oder laden Sie es hoch."
+  noLineSelectedText: "Wählen Sie eine erkannte Zeile aus, bevor Sie sie einem Feld zuweisen."
+  maxLengthText: "Der Text ist zu lang für dieses Feld und wurde nicht zugewiesen."
+  nothingToUndoText: "Es ist keine Zuordnungsaktion vorhanden, die rückgängig gemacht werden könnte."
+  undoFailedText: "Vorgang konnte nicht rückgängig gemacht werden."
+  truncatedText: "Ein oder mehrere Werte wurden gekürzt, um sie an die Feldlänge anzupassen."
+  configErrorText: "Im Fenster zur Kartentextzuordnung fehlen erforderliche Konfigurationsdaten: "
+  openFailedText: "Das Bearbeitungsfenster konnte nicht geöffnet werden. Ihre zugeordneten Werte wurden beibehalten."
 >
 
 <leadEdit ""
@@ -779,6 +927,8 @@
   multiCurrencyDateText: "Kursdatum"
   multiCurrencyLockedText: "Kurs gesperrt"
   entityText: "Verkaufschance"
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Verkaufschancen-Workflowinstanzen"
 >
 
 <opportunityEdit ""
@@ -878,6 +1028,7 @@
   activitiesText: "Aktivitäten"
   notesText: "Notizen"
   scheduleText: "Zeitplan"
+  cancelText: "Abbrechen"
 >
 
 <opportunityProductDetail ""
@@ -887,7 +1038,7 @@
   productFamilyText: "Produktfamilie"
   priceLevelText: "Preisstufe"
   priceText: "Preis"
-  basePriceText: "Preis in Basiswährung"
+  basePriceText: "Basispreis"
   discountText: "Rabatt"
   quantityText: "Menge"
   baseExtendedPriceText: "Basis"
@@ -910,7 +1061,7 @@
   productFamilyText: "Produktfamilie"
   priceLevelText: "Preisstufe"
   priceText: "Preis"
-  basePriceText: "Preis in Basiswährung"
+  basePriceText: "Basispreis"
   discountText: "Rabatt %"
   adjustedPriceText: "angepasster Preis"
   myAdjustedPriceText: "Benutzer"
@@ -947,7 +1098,7 @@
   categoryText: "Kategorie"
   contactText: "Kontakt"
   contractText: "Vertrag"
-  descriptionText: "Beschreibung"
+  descriptionText: "Beschr."
   issueText: "Problem"
   needByText: "Fälligkeitsdatum"
   notesText: "Kommentare"
@@ -969,6 +1120,8 @@
   relatedTicketActivitiesText: "Ticketaktivitäten"
   loadingText: "Ladevorgang läuft"
   entityText: "Ticket"
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Ticket-Workflowinstanzen"
 >
 
 <ticketEdit ""
@@ -979,7 +1132,7 @@
   categoryText: "Kategorie"
   contactText: "Kontakt"
   contractText: "Vertrag"
-  descriptionText: "Beschreibung"
+  descriptionText: "Beschr."
   descriptionTitleText: "Beschreibung"
   issueText: "Problem"
   needByText: "Fälligkeitsdatum"
@@ -1039,9 +1192,9 @@
   elapsedUnitsText: "Verstrichene Stunden"
   rateTypeDescriptionText: "Berechnungsart"
   rateText: "Satz"
-  totalLaborText: "Arbeitskosten gesamt"
-  totalPartsText: "Teile gesamt"
-  totalFeeText: "Gebühr gesamt"
+  totalLaborText: "Arbeitskosten insgesamt"
+  totalPartsText: "Teile insgesamt"
+  totalFeeText: "Gesamtgebühr"
   activityDescriptionText: "Kommentare"
   ticketNumberText: "Ticketnummer"
   userText: "Benutzer"
@@ -1154,6 +1307,18 @@
   titleText: "Firmen"
 >
 
+<areaCategoryIssue_AreaLookup ""
+  titleText: "Bereich"
+>
+
+<areaCategoryIssue_CategoryLookup ""
+  titleText: "Kategorie"
+>
+
+<areaCategoryIssue_IssueLookup ""
+  titleText: "Probleme"
+>
+
 <configure ""
   titleText: "Konfigurieren"
 >
@@ -1166,7 +1331,7 @@
   titleText: "Hilfe"
   errorText: "Fehler"
   errorMessageText: "Das Hilfedokument konnte nicht geladen werden."
-  sectionTitleText: "InforCRM-Hilfe"
+  sectionTitleText: "Infor CRM SLX-Hilfe"
 >
 
 <home ""
@@ -1191,19 +1356,21 @@
   onlineText: "Online"
   offlineText: "Offline"
   connectionText: "Verbindung: ${connectionStatus}"
+  aboutText: "Info"
+  currentUserText: "Aktueller Benutzer:"
 >
 
 <login ""
   logOnText: "Anmelden"
   passText: "Passwort"
-  urlText: "SData-Endpunkt"
   rememberText: "Speichern"
   titleText: "Anmelden"
   userText: "Benutzer-ID"
+  passwordExpiredText: "Das Passwort ist abgelaufen. Ändern Sie Ihr Passwort über den Web Client."
   invalidUserText: "Der Benutzername oder das Passwort ist ungültig."
   missingUserText: "Der Benutzerdatensatz konnte nicht gefunden werden."
   requestAbortedText: "Die Anfrage wurde abgebrochen."
-  logoText: "Infor CRM"
+  logoText: "Infor CRM SLX"
   logOnError: "Entweder der Server ist nicht verfügbar oder die eingegebenen Informationen zur Verbindung mit dem Endpunkt sind nicht korrekt. Versuchen Sie, die Endpunktinformationen erneut einzugeben, oder wenden Sie sich an den Systemadministrator."
 >
 
@@ -1237,12 +1404,26 @@
   credentialsClearedText: "Gespeicherte Anmeldeinformationen erfolgreich gelöscht."
   titleText: "Einstellungen"
   offlineOptionsText: "Offline-Optionen"
+  speedSearchOptionsText: "SpeedSearch-Optionen"
   use24HourClockText: "24-h-Uhrzeitformat"
   use12HourClockText: "12-h-Uhrzeitformat"
   confirm24HourClockMessage: "Wenn Sie die Uhrzeit auf das 24-Stunden-Format umstellen, muss die Anwendung neu gestartet werden. Möchten Sie fortfahren?"
   confirm12HourClockMessage: "Wenn Sie die Uhrzeit auf das 12-Stunden-Format umstellen, muss die Anwendung neu gestartet werden. Möchten Sie fortfahren?"
   confirmClearLocalStorageMessage: "Wenn Sie den Speicher leeren, muss die Anwendung neu gestartet werden. Fortfahren?"
   languageSettingText: "Spracheinstellungen"
+>
+
+<speedSearchOptions ""
+  titleText: "SpeedSearch-Optionen"
+  searchMethodText: "Suchmethode"
+  searchTypeAndText: "Mit allen Wörtern abgleichen (AND)"
+  searchTypeOrText: "Mit einem Wort abgleichen (OR)"
+  searchTypeExactPhraseText: "Mit exaktem Ausdruck abgleichen"
+  searchTypeBooleanText: "Boolesches AND, OR, NOT"
+  searchTypeNaturalText: "Natürliche Sprache"
+  rootText: "Stamm"
+  thesaurusText: "Thesaurus"
+  soundsLikeText: "Ähnliche Schreibweise"
 >
 
 <speedSearchList ""
@@ -1280,6 +1461,8 @@
   pleaseWaitText: "Bitte warten."
   offlineText: "Ihre Internetverbindung funktioniert nicht mehr."
   onlineText: "Ihre Verbindung funktioniert."
+  fileCacheText: "Die Anwendung ist nun für die Nutzung im Offline-Modus bereit."
+  fileCacheTitle: "Offline-Caching"
   connectionToastTitleText: "Verbindungsstatus"
   offlineOptionsText: "Offline-Optionen"
   offlineInitDataText: "Offline-Daten werden initialisiert"
@@ -1299,6 +1482,12 @@
   integrationsText: "Integrationen"
   picklistsText: "Auswahllisten"
   retrievingPicklistsText: "Auswahllisten werden abgerufen"
+>
+
+<activityAssociationModule ""
+  relatedAssociationText: "Verknüpfungen"
+  relatedAssociationTitleText: "Aktivitätsverknüpfungen"
+  relatedHistoryAssociationTitleText: "Historienverknüpfungen"
 >
 
 <defaultMetrics ""
@@ -1403,6 +1592,26 @@
   entityDisplayNamePlural : "Leads"
 >
 
+<activityAttendeeModel ""
+  entityDisplayName: "Aktivitätsteilnehmer"
+  entityDisplayNamePlural : "Aktivitätsteilnehmer"
+>
+
+<activityAssociationModel ""
+  entityDisplayName: "Aktivitätsverknüpfung"
+  entityDisplayNamePlural : "Aktivitätsverknüpfungen"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "Historienverknüpfung"
+  entityDisplayNamePlural : "Historienverknüpfungen"
+>
+
+<historyAttendeeModel ""
+  entityDisplayName: "Teilnehmerhistorie"
+  entityDisplayNamePlural : "Teilnehmerhistorie"
+>
+
 <activityModel ""
   entityDisplayName: "Aktivität"
   entityDisplayNamePlural : "Aktivitäten"
@@ -1439,6 +1648,11 @@
   entityDisplayNamePlural : "Historie"
 >
 
+<historyAssociationModel ""
+  entityDisplayName: "Historienverknüpfung"
+  entityDisplayNamePlural : "Historienverknüpfungen"
+>
+
 <offlineDetail ""
   titleText: "Offline-Details"
   offlineText: "Offline"
@@ -1458,14 +1672,14 @@
   titleText: "Eigener Zeitplan offline"
   todayFilterLabel: "heute"
   thisWeekFilterLabel: "diese Woche"
-  yesterdayFilterLabel: "gestern"
+  yesterdayFilterLabel: "Gestern"
 >
 <briefcaseList ""
   titleText: "Eigene Aktentasche"
-  removeText: "entfernen"
+  removeText: "Entfernen"
   reBriefcaseText: "Datensatz an Aktentasche zurückgeben"
-  goToOnlineText: "zur Online-Ansicht wechseln"
-  goToOfflineText: "zur Offline-Ansicht wechseln"
+  goToOnlineText: "Zur Online-Ansicht wechseln"
+  goToOfflineText: "Zur Offline-Ansicht wechseln"
   resyncTooltipText: "Neu synchr."
 >
 
@@ -1530,17 +1744,17 @@
   int32Text: "Der Wert im Feld '${2}' überschreitet den zulässigen numerischen Bereich."
   maxLengthText: "Der Wert im Feld '${2}' überschreitet die zulässige Länge."
   dateRangeText: "Der Wert im Feld '${2}' liegt nicht im zulässigen Datumsbereich."
-  isLessThanText: "Der Wert von Feld '${2}' ist größer als zulässig."
-  isGreaterThanText: "Der Wert von Feld '${2}' ist kleiner als zulässig."
+  isLessThanText: "Der Wert von Feld \"${2}\" ist größer als zulässig."
+  isGreaterThanText: "Der Wert von Feld \"${2}\" ist kleiner als zulässig."
 >
 
 <activityListHashTags ""
   alarmText: "#Alarm"
-  recurringText: "#wiederkehrend"
-  timelessText: "#ohneUhrzeit"
-  todayText: "#heute"
-  thisWeekText: "#dieseWoche"
-  yesterdayText: "#gestern"
+  recurringText: "#Wiederkehrend"
+  timelessText: "#OhneUhrzeit"
+  todayText: "#Heute"
+  thisWeekText: "#DieseWoche"
+  yesterdayText: "#Gestern"
 >
 
 <activityMyListHashTags ""
@@ -1548,16 +1762,53 @@
   hashTagUnconfirmedText: "#StatusUnbestätigt"
   hashTagAcceptedText: "#StatusAkzeptiert"
   hashTagDeclinedText: "#StatusAbgelehnt"
-  hashTagRecurringText: "#wiederkehrend"
-  hashTagTimelessText: "#ohneUhrzeit"
-  hashTagTodayText: "#heute"
-  hashTagThisWeekText: "#dieseWoche"
-  hashTagYesterdayText: "#gestern"
+  hashTagRecurringText: "#Wiederkehrend"
+  hashTagTimelessText: "#OhneUhrzeit"
+  hashTagTodayText: "#Heute"
+  hashTagThisWeekText: "#DieseWoche"
+  hashTagYesterdayText: "#Gestern"
 >
 
 <attachmentListHashTags ""
   hashTagUrlText: "#URL"
-  hashTagBinaryText: "#binär"
+  hashTagBinaryText: "#Binär"
+>
+
+<accountListHashTags ""
+  activeHash: "#Aktiv"
+  inactiveHash: "#Inaktiv"
+  myAccountsHash: "#EigeneFirmen"
+  newThisWeekHash: "#NeuInDieserWoche"
+>
+
+<contactListHashTags ""
+  myContactsHash: "#EigeneKontakte"
+  withEmailHash: "#MitEMail"
+  withPhoneHash: "#MitTelefon"
+  newThisWeekHash: "#NeuInDieserWoche"
+>
+
+<opportunityListHashTags ""
+  openHash: "#Offen"
+  closedWonHash: "#Abgeschlossen-Gewonnen"
+  closedLostHash: "#Abgeschlossen-Verloren"
+  myOpportunitiesHash: "#EigeneVerkaufschancen"
+  closingSoonHash: "#AbschlussInKürze"
+>
+
+<leadListHashTags ""
+  myLeadsHash: "#EigeneLeads"
+  newThisWeekHash: "#NeuInDieserWoche"
+  withEmailHash: "#MitEMail"
+  withPhoneHash: "#MitTelefon"
+>
+
+<ticketListHashTags ""
+  openHash: "#Offen"
+  urgentHash: "#Dringend"
+  myTicketsHash: "#EigeneTickets"
+  newThisWeekHash: "#NeuInDieserWoche"
+  neededSoonHash: "#DringendErforderlich"
 >
 
 <historyListHashTags ""
@@ -1565,7 +1816,7 @@
   noteHash: "#Notiz"
   phoneCallHash: "#Telefonanruf"
   meetingHash: "#Meeting"
-  personalHash: "#privat"
+  personalHash: "#Privat"
   emailHash: "#E-Mail"
 >
 
@@ -1581,4 +1832,176 @@
 
 <chartMixin ""
   loadingText: "Ladevorgang läuft"
+>
+
+<customerJourney360Widget ""
+  actualText: "Tatsächlich"
+  expectedText: "Erwartet"
+  startText: "Starten"
+  completedText: "Abgeschlossen"
+  showStepsText: "Schritte anzeigen"
+  hideStepsText: "Schritte ausblenden"
+  errorText: "Laden der Kundenreise nicht möglich."
+  unsupportedText: "Kundenreisen werden für Ihre Version von Infor CRM SLX nicht unterstützt."
+>
+
+<mfaQRCodeDisplay ""
+  titleText: "Authentifikator einrichten"
+  instructionsText: "Scannen Sie den QR-Code mit der Authentifizierungs-App:"
+  qrCodeAltText: "QR-Code für MFA-Einrichtung"
+  showManualEntryText: "Manuellen Eingabecode anzeigen"
+  hideManualEntryText: "Manuellen Eingabecode ausblenden"
+  manualEntryInstructionsText: "Falls Sie den QR-Code nicht scannen können, geben Sie diesen Code manuell in Ihre Authentifizierungs-App ein:"
+  copySecretText: "Kopieren"
+  copiedText: "Kopiert!"
+>
+<mfaDeviceSetup ""
+  titleText: "Multi-Faktor-Authentifizierung einrichten"
+  introText: "MFA sorgt für eine zusätzliche Sicherheitsebene für Ihr Konto."
+  chooseMethodText: "Wählen Sie die Authentifizierungsmethode aus:"
+  deviceTypeAuthAppText: "Authentifizierungsanwendung"
+  deviceTypeAuthAppDescText: "Anwendung wie Google Authenticator oder Microsoft Authenticator verwenden"
+  deviceTypeEmailText: "E-Mail"
+  deviceTypeEmailDescText: "Bestätigungscodes per E-Mail erhalten"
+  deviceNameText: "Gerätename"
+  deviceNamePlaceholderText: "Beispiel: Mein iPhone"
+  continueText: "Fortfahren"
+  cancelText: "Abbrechen"
+  proceedToVerificationText: "Weiter zur Verifizierung"
+  recommendedText: "(Empfohlen)"
+>
+
+<mfaDeviceList ""
+  titleText: "Authentifizierungsmethode auswählen"
+  selectDeviceText: "Wählen Sie ein Gerät aus, um Ihre Identität zu bestätigen:"
+  deviceTypeAuthAppText: "Authentifizierungs-App"
+  deviceTypeEmailText: "E-Mail"
+  defaultBadgeText: "Standard"
+  cancelText: "Abbrechen"
+  noDevicesText: "Keine Geräte konfiguriert"
+  noDevicesMessageText: "Sie müssen zunächst ein Authentifizierungsgerät einrichten."
+  setupDeviceText: "Gerät einrichten"
+>
+
+<mfaVerification ""
+  titleText: "Identität bestätigen"
+  authAppInstructionsText: "Geben Sie den TOTP-Code aus dem Gerät ein, um die mehrstufige Authentifizierung abzuschließen."
+  emailInstructionsText: "Überprüfen Sie Ihr E-Mail-Postfach auf einen Bestätigungscode."
+  deviceLabelText: "Name:"
+  codeInputPlaceholderText: "TOTP-Code"
+  verifyButtonText: "Bestätigen"
+  sendEmailButtonText: "E-Mail-Code senden"
+  resendEmailButtonText: "Code erneut senden"
+  cancelText: "Abbrechen"
+  emailSentText: "Bestätigungscode an E-Mail-Adresse gesendet"
+  emailSentConfirmationText: "Ein Bestätigungscode wurde an Ihre E-Mail-Adresse gesendet."
+  waitingForCodeText: "Auf Code warten..."
+  rateLimitMessageText: "Bitte warten Sie ${0} Sekunden, bevor Sie eine weitere E-Mail anfordern."
+  rateLimitCountdownText: "${0} s warten"
+  codeFormatErrorText: "Der Code muss aus mindestens 6 Ziffern bestehen."
+  verifyingText: "Bestätigung wird ausgeführt..."
+>
+
+<mfaErrors ""
+  invalidCodeText: "Der Code ist ungültig oder abgelaufen. Versuchen Sie es erneut."
+  invalidCodeTitleText: "Ungültiger Code"
+  invalidDeviceText: "Das Gerät wurde nicht gefunden. Wählen Sie ein anderes Gerät aus."
+  invalidDeviceTitleText: "Ungültiges Gerät"
+  rateLimitExceededText: "Bitte warten Sie 30 Sekunden, bevor Sie eine weitere E-Mail anfordern."
+  rateLimitExceededTitleText: "Zu viele Anforderungen"
+  smtpErrorText: "Das Versenden der E-Mail ist fehlgeschlagen. Wählen Sie eine andere Authentifizierungsmethode aus."
+  smtpErrorTitleText: "Senden der E-Mail fehlgeschlagen"
+  setupNotAllowedText: "Sie haben bereits Geräte konfiguriert. Nutzen Sie den Bestätigungsablauf."
+  setupNotAllowedTitleText: "Einrichtung nicht zulässig"
+  invalidDeviceTypeText: "Es wurde ein ungültiger Gerätetyp ausgewählt. Versuchen Sie es erneut."
+  invalidDeviceTypeTitleText: "Ungültiger Gerätetyp"
+  emailMfaDisabledText: "Die Authentifizierung über E-Mail ist nicht verfügbar."
+  emailMfaDisabledTitleText: "MFA per E-Mail deaktiviert"
+  networkErrorText: "Netzwerkfehler. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+  networkErrorTitleText: "Netzwerkfehler"
+  sessionExpiredText: "Ihre Sitzung ist abgelaufen. Versuchen Sie es erneut."
+  sessionExpiredTitleText: "Sitzung abgelaufen"
+  mfaRequiredText: "Zum Fortfahren ist eine Multi-Faktor-Authentifizierung erforderlich."
+  mfaRequiredTitleText: "MFA erforderlich"
+  repeatedMfaErrorText: "Die Authentifizierung konnte nicht abgeschlossen werden. Melden Sie sich erneut an."
+  repeatedMfaErrorTitleText: "Authentifizierung fehlgeschlagen"
+  unexpectedErrorText: "Es ist ein unerwarteter Fehler aufgetreten. Versuchen Sie es erneut."
+  unexpectedErrorTitleText: "Fehler"
+  tooManyTimeoutsText: "Zu viele Zeitüberschreitungen bei der Sitzung. Melden Sie sich erneut an."
+  tooManyTimeoutsTitleText: "Zeitüberschreitung für Sitzung"
+>
+
+<mfaCommon ""
+  mfaText: "Multi-Faktor-Authentifizierung"
+  securityText: "Sicherheit"
+  authenticationText: "Authentifizierung"
+  verificationText: "Überprüfung"
+  setupText: "Einrichtung"
+  deviceText: "Gerät"
+  devicesText: "Geräte"
+  codeText: "Code"
+  continueText: "Fortfahren"
+  cancelText: "Abbrechen"
+  backText: "Zurück"
+  nextText: "Weiter"
+  doneText: "Fertig"
+  retryText: "Erneut versuchen"
+  closeText: "Schließen"
+  okText: "OK"
+>
+
+<mfaInstructions ""
+  setupIntroText: "Multi-Faktor-Authentifizierung sorgt für eine zusätzliche Sicherheitsebene für Ihr Konto, da neben Ihrem Passwort eine zweite Form der Bestätigung erforderlich ist."
+  authAppSetupStepsText: "So richten Sie eine Authentifizierungs-App ein:"
+  authAppStep1Text: "1. Laden Sie eine Authentifizierungs-App herunter, falls Sie noch nicht über eine solche verfügen."
+  authAppStep2Text: "2. Scannen Sie den QR-Code mit der App."
+  authAppStep3Text: "3. Geben Sie zur Bestätgigung den sechsstelligen Code aus der App ein."
+  emailSetupStepsText: "So richten Sie Authentifizierung über E-Mail ein:"
+  emailStep1Text: "1. Geben Sie einen Namen für dieses Gerät ein."
+  emailStep2Text: "2. Klicken Sie auf \"Weiter\", um mit der Bestätigung fortzufahren."
+  emailStep3Text: "3. Fordern Sie einen per E-Mail gesendeten Code an und geben Sie ihn zur Bestätigung ein."
+  verificationAuthAppText: "Öffnen Sie Ihre Authentifizierungs-App und suchen Sie den sechsstelligen Code für dieses Konto. Der Code wird alle 30 Sekunden aktualisiert."
+  verificationEmailText: "Klicken Sie auf \"E-Mail-Code senden\", um einen Bestätigungscode an Ihre registrierte E-Mail-Adresse zu erhalten. Geben Sie anschließend den sechsstelligen Code ein, den Sie erhalten haben."
+  qrCodeScanText: "Scannen Sie den QR-Code mit der Authentifizierungs-App, um dieses Konto hinzufügen:"
+  manualEntryText: "Falls Sie den QR-Code nicht scannen können, können Sie den unten angegebenen geheimen Schlüssel in Ihre Authentifizierungs-App eingeben:"
+  deviceSelectionText: "Wählen Sie das Gerät aus, das Sie zur Bestätigung verwenden möchten. Ihr Standardgerät ist mit einem Symbol gekennzeichnet."
+>
+
+<mfaMessages ""
+  verificationSuccessText: "Bestätigung erfolgreich"
+  verificationSuccessMessageText: "Ihre Identität wurde erfolgreich bestätigt."
+  setupCompleteText: "Einrichtung abgeschlossen"
+  setupCompleteMessageText: "Ihr Authentifizierungsgerät wurde erfolgreich eingerichtet."
+  deviceSetupInProgressText: "Gerät wird eingerichtet..."
+  verificationInProgressText: "Code wird überprüft..."
+  loadingDevicesText: "Geräte werden geladen..."
+  sendingEmailText: "E-Mail wird gesendet..."
+  processingText: "Wird verarbeitet..."
+>
+
+<mfaValidation ""
+  deviceNameRequiredText: "Gerätename ist erforderlich."
+  deviceTypeRequiredText: "Wählen Sie einen Gerätetyp aus"
+  codeRequiredText: "Bestätigungscode ist erforderlich"
+  codeFormatText: "Der Code muss aus genau 6 Ziffern bestehen."
+  codeNumericOnlyText: "Der Code darf nur Zahlen enthalten"
+>
+
+<mfaDeviceTypes ""
+  authAppText: "Authentifizierungs-App"
+  authAppDescriptionText: "Verwenden Sie eine mobile App, um zeitabhängige Codes zu generieren"
+  emailText: "E-Mail"
+  emailDescriptionText: "Bestätigungscodes per E-Mail erhalten"
+  unknownText: "Unbekannt"
+>
+
+<mfaAccessibility ""
+  qrCodeAriaLabelText: "QR-Code für Einrichtung der Multi-Faktor-Authentifizierung"
+  codeInputAriaLabelText: "Sechsstelligen Bestätigungscode eingeben"
+  deviceListAriaLabelText: "Liste der verfügbaren Authentifizierungsgeräte"
+  deviceItemAriaLabelText: "${deviceName}, ${deviceType}${isDefault}"
+  defaultDeviceAriaText: ", default device"
+  sendEmailAriaLabelText: "Bestätigungscode per E-Mail senden"
+  verifyButtonAriaLabelText: "Eingegebenen Code überprüfen"
+  cancelButtonAriaLabelText: "Authentifizierung abbrechen"
 >
